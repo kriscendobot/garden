@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T22:06:29Z_
+_As of 2026-08-18T22:06:52Z_
 
 ## Latest
 
@@ -1227,13 +1227,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (23)
+### doin (22)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr475-495be080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-495be080.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-54294cd3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-54294cd3.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-59c1c020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-59c1c020.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-6bff44d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-6bff44d0.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-9885f3d8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-9885f3d8.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-design-tothawed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-design-tothawed.md) — design the shared toThawed byte-thawing helper + benchmark decision (endojs/e...
 - [`endojs-endo-but-for-bots-pr475-review-07347c0d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-07347c0d.md) — Review directive on endojs/endo-but-for-bots PR #475
@@ -1252,13 +1251,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 - [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### tada (5113)
+### tada (5114)
+- [`endojs-endo-but-for-bots-pr475-6bff44d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-6bff44d0.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475 (...
 - [`endojs-endo-but-for-bots-pr475-review-f55c1aef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-f55c1aef.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-e3925eb5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-e3925eb5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-237b89d7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-237b89d7.md) — Completion report
 - [`endojs-endo-but-for-bots-pr972-review-2e698a5b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-2e698a5b.md) — What the directive asked
-- [`endojs-endo-but-for-bots-pr972-review-2f41d5f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-2f41d5f1.md) — Review directive on endojs/endo-but-for-bots PR #972 — resolved
-- … and 5108 more
+- … and 5109 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
