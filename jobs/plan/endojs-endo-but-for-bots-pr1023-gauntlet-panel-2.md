@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+handler-budget-role: panel
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-18T02:53:03Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-18T02:53:03Z
+---
+
+---
 role: gardener
 handler-budget-role: panel
 handler-timeout: 7200
@@ -39,16 +59,3 @@ posting host's garden root.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-18T02:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-18T01:13:08Z
