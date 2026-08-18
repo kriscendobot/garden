@@ -180,6 +180,25 @@ if [ -r "$_prjm_lib" ]; then
   fi
 fi
 
+# --- backtick-strip comment-body guard (endojs/endo-but-for-bots #475) ---------
+# Refuse a comment whose inline-code spans were eaten by shell backtick command
+# substitution before this wrapper ever saw them (the #475 corruption: every
+# `identifier` ran as a command and collapsed to an empty gap). The guard is
+# fail-CLOSED only on a positive, high-precision match (zero false positives across
+# the fleet's full comment history) and fail-OPEN on any parse doubt; it blocks the
+# post and names the remedy (write the body to a file, post via --body-file) so the
+# calling role reposts correctly instead of landing garbage. Runs BEFORE the
+# provenance footer so a corrupt body is caught before we bother footering it.
+_cbg_lib="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/comment-body-guard.sh"
+if [ -r "$_cbg_lib" ]; then
+  # shellcheck source=../comment-body-guard.sh
+  . "$_cbg_lib" 2>/dev/null || true
+  if declare -f comment_body_guard_argv >/dev/null 2>&1 \
+     && comment_body_guard_argv "$@"; then
+    exit 1
+  fi
+fi
+
 # --- GitHub-comment provenance footer (maintainer directive 2026-07-28) --------
 # Every PR/issue comment the fleet posts carries a small-text footer naming the
 # model, harness, and DEPLOYED garden sha (hyperlinked). Enforcing it HERE — the

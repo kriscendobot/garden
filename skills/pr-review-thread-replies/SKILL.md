@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-08-18
 author: gardener
 ---
 
@@ -54,7 +54,21 @@ Each inline thread carries a SHA-citing reply (or a deferral note); one top-leve
 ## Pitfalls
 
 - **Wrong endpoint.** Replying via the *parent* endpoint creates a new top-level comment, not a threaded reply. The `/replies` suffix is required.
-- **Quoting.** Bash heredocs and `-f body=` interact poorly with backticks. Escape with `\`...\`` or use `--field` with a here-string.
+- **Backticks (the #475 corruption — read this).** NEVER put a comment body that
+  contains `` `inlineCode` `` on a shell command line — not in a double-quoted
+  `--body "…"`, not in a `-f body="…"`, not in an unquoted heredoc. Bash performs
+  **command substitution** on every backtick span: `` `compareBytes` `` runs
+  `compareBytes` as a command (not found → empty), so the span AND its backticks
+  **vanish**, leaving a one-space hole. On 2026-06-22/06-23 this silently posted two
+  garbage replies (endojs/endo-but-for-bots #475, #486): "…no longer provides  / .
+  A new  package … with , , and …" — every package/function name gone. The reader
+  cannot tell what was meant. **Always** write the body to a file with the Write
+  tool (never `echo`/heredoc, which re-expose it to the shell) and post via
+  `--body-file <file>` or `--field body=@<file>`. The fleet gh wrapper now
+  **refuses** to post a body bearing this signature
+  ([`../../scripts/jobs/comment-body-guard.sh`](../../scripts/jobs/comment-body-guard.sh));
+  if you hit that refusal, you quoted a backtick body through the shell — repost
+  from a file.
 - **Type-annotation review comments.** Fetch the `diff_hunk` (included in the comments payload); reviewers asking about a type are almost always pointing at what was lost in the refactor. Fix structurally rather than reverting.
 - **Inline comments visible in the browser but not in REST.** When `GET /pulls/<N>/comments` returns `[]` and the `/replies` endpoint 404s for a comment whose body and position are visible on the PR page, the comment is real but not yet propagated. The maintainer likely left them as pending/draft review state. Fall back to a single top-level `POST /issues/<N>/comments` that maps each comment id to its outcome (applied + SHA, stalled + reason, replied-only). Cite the maintenance state in the top-level body.
 
