@@ -23,6 +23,7 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/minion.town/pull/41#pullrequestreview-4957178005
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
