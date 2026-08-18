@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 1
+doomed_at: 2026-08-18T08:33:05Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-18T08:33:05Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -40,19 +57,3 @@ directive:
   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
     and do the work.
 Never state in your report that a peer did work you did not verify.
-
-
-<!-- garden-elapsed-constancy: 1 -->
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-18T08:23:17Z
