@@ -6,8 +6,9 @@ gauntlet: build-minion-town-git-content-substrate-gauntlet
 gauntlet_stage: fix
 gauntlet_iteration: 2
 pr: https://github.com/kriscendobot/minion.town/pull/48
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -39,13 +40,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-18T04:41:13Z
+<!-- garden-reaped: 0 -->
