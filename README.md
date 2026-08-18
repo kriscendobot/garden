@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-18T00:29:33Z_
+_As of 2026-08-18T00:30:15Z_
 
 ## Latest
 
-The byteArray freeze-to-Uint8Array work is complete and green across [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503); both have all CI passing and review threads resolved, waiting only on maintainer re-review to clear the gates. [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry immutable-bytes finish-line) is also green and ready for un-draft and review. OCapN transport proofs landed—both WebSocket (via Caddy) and raw TCP cross-host peer round-trips are now verified, with artifacts on [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/pull/693). The git-integration arc is complete with [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/pull/691) merged. Several active gauntlet loops are running on minion.town and endo-but-for-bots PRs; a fleet-wide Node-24.x CI flake (runner losing its own binary mid-test, non-deterministic) is blocking conductors on multiple PRs ([endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), [endojs/endo-but-for-bots#910](https://github.com/endojs/endo-but-for-bots/pull/910)) despite code being merge-ready. minion.town git-content substrate build started; weblet-gateway design was reconciled with shipped code and deliberately held draft pending a content-id ownership decision; ocap.site DNS/DNSSEC and local PSL PR are ready for upstream ferry once you confirm DNSSEC.
+The byteArray program is complete and green across two complementary PRs—[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)—but blocked on maintainer re-review to clear CHANGES_REQUESTED; the finish-line [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is green and awaiting un-draft/review. Several high-value PRs are stalled on stale approvals after rebases ([endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388), [endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389))—each needs a fresh approval to unlock conductor merges. A fleet-wide Node-24.x CI flake (unrelated to code changes) is blocking [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and others; three gauntlets halted mid-loop ([endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997), [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), [endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019)) and an orchestration halted for the gateway phase restack chain after the first child stalled. On the minion.town side, [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/pull/20) rebased successfully, and the weblet-gateway design remains draft pending your identity-model call (content-only id with security rules, or composite id). A yarn cache hardlink ceiling on endolin-garden-ece02cb4 will break installs fleet-wide until cleared.
 
 ## Parked for maintainer feedback
 
@@ -905,14 +905,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.3M | $1319.84 _(notional, rate-card)_ | no quota set |
+| Claude | 98.3M | $1317.55 _(notional, rate-card)_ | no quota set |
 | Codex | 23.5M _(+679.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`build-minion-town-git-content-substrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate.md) — build: the git content substrate (serving-side) into minion.town
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
 - [`endojs-endo-but-for-bots-pr475-e4629ae8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-e4629ae8.md) — attention directive on endojs/endo-but-for-bots PR #475
@@ -920,17 +920,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr910-pinbase-20260817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-pinbase-20260817.md) — Pin the merge base of PR #910 onto a fresh llm snapshot (picks up the Node-24...
 - [`endojs-endo-but-for-bots-pr989-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr989-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #989
 - [`kriscendobot-minion.town-pr17-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #17
-- [`kriscendobot-minion.town-pr20-weave-20260817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-weave-20260817.md) — weave (rebase to clear conflicts) on kriscendobot/minion.town PR #20
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr47-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr47-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #47
 
-### tada (5044)
+### tada (5045)
+- [`kriscendobot-minion.town-pr20-weave-20260817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr20-weave-20260817.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-6c19a076`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-6c19a076.md) — Completion report
 - [`kriscendobot-minion.town-pr21-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr21-gauntlet.md) — gauntlet kriscendobot-minion.town-pr21-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-fix-1.md) — Completion report
 - [`kriscendobot-minion.town-pr39-ea6a23f9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-ea6a23f9.md) — Completion report — kriscendobot-minion.town-pr39-ea6a23f9 (attention → route)
-- [`endojs-endo-but-for-bots-pr989-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet-panel-1.md) — Completion report
-- … and 5039 more
+- … and 5040 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
