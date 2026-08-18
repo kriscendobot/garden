@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: gardener
-claimed_at: 2026-08-18T04:38:47Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-minion.town-pr41-vitals-weblet-reconciliation
-pr_number: 49
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/49
-pr_head: design/vitals-weblet-reconciliation
