@@ -1,0 +1,2 @@
+base: build-minion-town-git-content-substrate
+identity: build:git-content-substrate:from-pr39
