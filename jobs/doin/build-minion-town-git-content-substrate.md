@@ -77,3 +77,13 @@ rather than guessing.
 - The draft PR auto-runs the gauntlet per the builder flow.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-18T00:24:29Z
