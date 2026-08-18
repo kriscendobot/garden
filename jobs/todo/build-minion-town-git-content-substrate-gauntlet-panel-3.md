@@ -6,8 +6,9 @@ gauntlet: build-minion-town-git-content-substrate-gauntlet
 gauntlet_stage: panel
 gauntlet_iteration: 3
 pr: https://github.com/kriscendobot/minion.town/pull/48
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -39,15 +40,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-18T05:13:24Z
+<!-- garden-reaped: 0 -->
