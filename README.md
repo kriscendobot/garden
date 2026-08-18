@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T23:52:05Z_
+_As of 2026-08-18T23:52:35Z_
 
 ## Latest
 
@@ -1227,7 +1227,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (23)
+### doin (22)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr475-495be080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-495be080.md) — attention directive on endojs/endo-but-for-bots PR #475
@@ -1246,19 +1246,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr998-review-4bd2ba34`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-4bd2ba34.md) — Review directive on endojs/endo-but-for-bots PR #998
 - [`endojs-endo-but-for-bots-pr998-review-684b93c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-684b93c1.md) — Review directive on endojs/endo-but-for-bots PR #998
 - [`endojs-endo-but-for-bots-pr998-review-e7a43b46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-e7a43b46.md) — Review directive on endojs/endo-but-for-bots PR #998
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260818-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260818-235001.md) — ---
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 - [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### tada (5116)
+### tada (5117)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260818-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260818-235001.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260818-2...
 - [`endojs-endo-but-for-bots-pr1031-01eac673`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1031-01eac673.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-9885f3d8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-9885f3d8.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-6bff44d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-6bff44d0.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475 (...
 - [`endojs-endo-but-for-bots-pr475-review-f55c1aef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-f55c1aef.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-e3925eb5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-e3925eb5.md) — Completion report
-- … and 5111 more
+- … and 5112 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
