@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T05:00:24Z_
+_As of 2026-08-18T05:01:14Z_
 
 ## Latest
 
@@ -1128,26 +1128,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.6M | $1475.74 _(notional, rate-card)_ | no quota set |
+| Claude | 110.8M | $1479.00 _(notional, rate-card)_ | no quota set |
 | Codex | 23.4M _(+678.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #48
 - [`endojs-endo-but-for-bots-pr989-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr989-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #989
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #37
-- [`kriscendobot-minion.town-pr49-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #49
 
-### tada (5082)
+### tada (5083)
+- [`kriscendobot-minion.town-pr49-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr17-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet.md) — gauntlet kriscendobot-minion.town-pr17-gauntlet — complete
 - [`kriscendobot-minion.town-pr17-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet-undraft.md) — Completion report
 - [`build-minion-town-git-content-substrate-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet-fix-2.md) — Completion report
 - [`kriscendobot-minion.town-pr17-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet-panel-5.md) — Completion report
-- [`kriscendobot-minion.town-pr49-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-clean.md) — Completion report
-- … and 5077 more
+- … and 5078 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
