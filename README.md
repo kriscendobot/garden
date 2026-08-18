@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T04:27:54Z_
+_As of 2026-08-18T04:28:35Z_
 
 ## Latest
 
@@ -539,6 +539,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260818T025612Z-77c517` — from gauntlet:endojs-endo-but-for-bots-pr1023-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T025612Z-77c517.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1023-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1023-gauntlet-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260818T042818Z-a1374d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T042818Z-a1374d.md)
+
+> Report `kriscendobot-minion.town-pr37-gauntlet-fix-2` (kriscendobot/minion.town PR #37): the fix stage adopted a **keyed-digest local-part** instead of the literal directive that "the local-part *is* the formula id", for a stated security reason (namespace separation), and documented the deviation in the PR. This refines your directive, so it needs your call on the next review pass: accept the keyed digest as the standard, or require the literal formula-id local-part with a namespace-separation proof instead. The second follow-up (re-running the panel) is the gauntlet driver's job and needs nothing from you.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1124,7 +1128,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.6M | $1447.98 _(notional, rate-card)_ | no quota set |
+| Claude | 108.8M | $1450.87 _(notional, rate-card)_ | no quota set |
 | Codex | 23.4M _(+678.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
