@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-18T00:42:31Z_
+_As of 2026-08-18T00:45:49Z_
 
 ## Latest
 
-The minion.town git-content-substrate build entered gauntlet clean stage. On the byteArray finishing sequence: both [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are all-green and mergeable, blocked only on maintainer re-review to clear CHANGES_REQUESTED. The gateway phase-refresh landed with [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and #389 rebased and ready; the dependent phase stack awaits restack direction. Several large gauntlets stalled on convergence—[endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), #1019, #997—and the gateway phase-restack orchestration halted at phase-5. The OCapN TCP proof-of-concept completed (cross-host Noise IK round-trip live on minion.town); deployment awaits DNSSEC activation. Budget enforcement design landed. The yarn cache hit the ext4 hardlink ceiling (65000) and will block fleet installs until cleared.
+The byteArray design is feature-complete: [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (frozen Uint8Array view + @endo/bytes helpers) are both MERGEABLE with all CI green; both need your re-review to clear CHANGES_REQUESTED, then conduct will land them. [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line CapData integration) is also green and ready for initial review. OCapN gained end-to-end proof of cross-host Noise IK over raw TCP+CBOR on minion.town (2026-08-17), completing transport/topology validation over both WebSocket and direct TCP. The gateway package phase restack is moving forward: [endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) are rebased onto llm and now need serial restack of phases 4–12. Several gauntlets are halted awaiting maintainer intervention (PRs [endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997), [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), [endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019), [endo-but-for-bots#1024](https://github.com/endojs/endo-but-for-bots/pull/1024), [minion.town#39](https://github.com/kriscendobot/minion.town/pull/39), [minion.town#21](https://github.com/kriscendobot/minion.town/pull/21), [minion.town#47](https://github.com/kriscendobot/minion.town/pull/47)); the gateway phase orchestration also halted after one child stalled. The floating Node 24.x CI flake continues to block conduct on several PRs.
 
 ## Parked for maintainer feedback
 
@@ -960,28 +960,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.8M | $1313.15 _(notional, rate-card)_ | no quota set |
+| Claude | 99.0M | $1313.56 _(notional, rate-card)_ | no quota set |
 | Codex | 23.5M _(+679.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`build-minion-town-git-content-substrate-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #48
-- [`deadmail-20260818T003114Z-1111f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260818T003114Z-1111f1.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
 - [`endojs-endo-but-for-bots-pr989-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr989-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #989
 - [`kriscendobot-minion.town-pr17-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #17
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #37
 
-### tada (5050)
+### tada (5051)
+- [`deadmail-20260818T003114Z-1111f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260818T003114Z-1111f1.md) — Cost
 - [`build-minion-town-git-content-substrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate.md) — Completion report — build-minion-town-git-content-substrate
 - [`endojs-endo-but-for-bots-pr475-e4629ae8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-e4629ae8.md) — Completion report: endojs-endo-but-for-bots-pr475-e4629ae8
 - [`kriscendobot-minion.town-pr47-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-gauntlet.md) — gauntlet kriscendobot-minion.town-pr47-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr910-pinbase-20260817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-pinbase-20260817.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-fa8acb7f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-fa8acb7f.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475
-- … and 5045 more
+- … and 5046 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
