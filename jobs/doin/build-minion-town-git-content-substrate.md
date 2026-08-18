@@ -75,3 +75,13 @@ rather than guessing.
 - DEPLOYMENT.md / docs updated for the new content-source path (coexists with
   `weblet_publish` and the fixture seeder — §7, do not replace them).
 - The draft PR auto-runs the gauntlet per the builder flow.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-18T00:20:06Z
