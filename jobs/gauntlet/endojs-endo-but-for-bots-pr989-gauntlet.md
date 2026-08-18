@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 989
 build_job: endojs-endo-but-for-bots-pr989-review-984f73e9
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr989-gauntlet-panel-2
+current_child: endojs-endo-but-for-bots-pr989-gauntlet-fix-2
 state: running
 created_by: producer
 created_at: 2026-08-17T22:24:51Z
