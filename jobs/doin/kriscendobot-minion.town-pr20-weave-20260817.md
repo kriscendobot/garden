@@ -26,6 +26,7 @@ the event watcher / reconcile tick. Never link to upstream agoric/agoric-sdk.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
