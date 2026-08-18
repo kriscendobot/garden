@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T15:05:38Z_
+_As of 2026-08-18T15:34:21Z_
 
 ## Latest
 
@@ -1191,19 +1191,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (7)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
+- [`endojs-endo-but-for-bots-pr998-review-4bd2ba34`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-4bd2ba34.md) — Review directive on endojs/endo-but-for-bots PR #998
+- [`endojs-endo-but-for-bots-pr998-review-65e24259`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-65e24259.md) — Review directive on endojs/endo-but-for-bots PR #998
+- [`endojs-endo-but-for-bots-pr998-review-e7a43b46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-e7a43b46.md) — Review directive on endojs/endo-but-for-bots PR #998
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
-### tada (5104)
+### tada (5106)
+- [`endojs-endo-but-for-bots-pr998-review-833f01c8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-833f01c8.md) — Completion report — review directive on endojs/endo-but-for-bots PR #998
+- [`endojs-endo-but-for-bots-pr998-review-619b094b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-619b094b.md) — Completion report
 - [`kriscendobot-minion.town-pr37-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet-fix-4.md) — Completion report
 - [`kriscendobot-minion.town-pr49-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-fix-4.md) — Completion report
 - [`build-minion-town-git-content-substrate-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet-fix-4.md) — Completion report
-- [`kriscendobot-minion.town-pr37-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet-panel-4.md) — Completion report
-- [`kriscendobot-minion.town-pr49-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-panel-4.md) — Completion report
-- … and 5099 more
+- … and 5101 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1324,6 +1327,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-6c19a076-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-6c19a076-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-fa8acb7f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-fa8acb7f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr37-1d4d0715-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-1d4d0715-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
+- [`endojs-endo-but-for-bots-pr998-review-619b094b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr998-review-619b094b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #998 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr998-review-833f01c8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr998-review-833f01c8-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #998 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr998-review-65e24259-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr998-review-65e24259-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #998 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr998-review-4bd2ba34-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr998-review-4bd2ba34-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #998 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr998-review-e7a43b46-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr998-review-e7a43b46-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #998 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
