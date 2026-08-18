@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-18T02:54:50Z_
+_As of 2026-08-18T02:55:18Z_
 
 ## Latest
 
-Several design PRs cleared rebases and reviews this cycle—[endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (monitor petnames), [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), and [endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) (gateway phases 2–3)—though all stalled awaiting maintainer re-approvals post-rebase. The byteArray work is complete and mergeable ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), pending your re-review; erights deferred a silent-merge-drop audit finding to you on three byte-consumer sites. Multiple gauntlets hit the 6-round convergence ceiling ([endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019), [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), [endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) and stalled, and a known floating-Node-24.x CI flake is blocking [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and other dependabot merges. minion.town has multiple design questions open: weblet-gateway [minion.town#21](https://github.com/kriscendobot/minion.town/pull/21) (content-only id or composite id?), git-content substrate pending direction on which of three build paths, B5 deployment pending your SSM/token gate, and ocap.site PSL registry PR ready to ferry upstream. The budget enforcement design landed on main2.
+The byteArray refinement stack is complete and green—[#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable with all review threads resolved, and the finish-line [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is auto-promoted and ready for un-draft—all blocked on maintainer re-review to clear CHANGES_REQUESTED. The design-layer work ([#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#288](https://github.com/endojs/endo-but-for-bots/pull/288)) has been rebased onto current llm and is mergeable, each awaiting re-approval on its new head. The gateway package phase restack started ([#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [#389](https://github.com/endojs/endo-but-for-bots/pull/389) done) but stalled on phase 5—the remaining 11 phases (4, 6–12 plus deps) need sequential weaver jobs once phase 5 is unblocked. Infrastructure headwinds: the endolin yarn cache hit ext4's 65k-hardlink ceiling, the Node 24.x CI flake recurred blocking several PRs, and multiple gauntlets halted mid-loop (non-convergent at 6 iterations)—a handful of worker handlers also failed into requeue exhaustion and are parked awaiting diagnosis. Several PRs await maintainer routing: [#324](https://github.com/endojs/endo-but-for-bots/pull/324) needs a lint shepherd, [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) is mergeable past a non-required flaky cell, and [#39](https://github.com/kriscendobot/minion.town/pull/39) (minion.town git substrate) needs a builder direction call.
 
 ## Parked for maintainer feedback
 
@@ -1011,27 +1011,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.0M | $1347.95 _(notional, rate-card)_ | no quota set |
+| Claude | 101.9M | $1347.08 _(notional, rate-card)_ | no quota set |
 | Codex | 23.5M _(+678.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #48
 - [`endojs-endo-but-for-bots-pr1026-d59ca42b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1026-d59ca42b.md) — attention directive on endojs/endo-but-for-bots PR #1026
 - [`endojs-endo-but-for-bots-pr989-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr989-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #989
-- [`kriscendobot-minion.town-pr17-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #17
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #37
 
-### tada (5054)
+### tada (5055)
+- [`kriscendobot-minion.town-pr17-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr989-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet-fix-1.md) — Completion report
 - [`build-minion-town-git-content-substrate-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet-clean.md) — Completion report
 - [`kriscendobot-minion.town-pr17-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet-fix-2.md) — Completion report — FIX round 2, kriscendobot/minion.town PR #17
 - [`deadmail-20260818T003114Z-1111f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260818T003114Z-1111f1.md) — Cost
-- [`build-minion-town-git-content-substrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate.md) — Completion report — build-minion-town-git-content-substrate
-- … and 5049 more
+- … and 5050 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
