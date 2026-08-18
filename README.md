@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-08-18T00:19:14Z_
+_As of 2026-08-18T00:21:51Z_
 
 ## Latest
 
-Four gauntlet runs halted mid-convergence unable to converge in six rounds ([#997](https://github.com/endojs/endo-but-for-bots/pull/997), [#286](https://github.com/endojs/endo-but-for-bots/pull/286), [#1019](https://github.com/endojs/endo-but-for-bots/pull/1019), [#1024](https://github.com/endojs/endo-but-for-bots/pull/1024)), plus the gateway phase restack orchestration stalled on phase 5; these are holding pending investigation or explicit directives. The byteArray narrowing stack—[#475](https://github.com/endojs/endo-but-for-bots/pull/475) (frozen Uint8Array view) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim)—is complete and all-green, blocked only on your re-review to clear CHANGES_REQUESTED. OCapN's cross-host TCP transport is now proven live on minion.town (Noise IK handshake over raw TCP+CBOR), completing the dual-transport proof alongside WSS. A recurring Node-24.x environmental flake (lost runner executable mid-test) is blocking [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and others despite being unrelated to the diffs; [#910](https://github.com/endojs/endo-but-for-bots/pull/910) is pinning its base to capture a Node-24 matrix fix. Multiple minion.town increments are in active gauntlet and review cycles (#17, #20, #21, #37, #39, #47).
+Two fresh jobs claimed this morning: the git content substrate build for minion.town and gauntlet round 1 fix for [endo-but-for-bots#989](https://github.com/endojs/endo-but-for-bots/pull/989). The minion.town job awaits your decision on which design to build — the serving-side substrate (option a) or the capability-addressed git remote first (option b); the gardener holds pending your answer.
+
+Escalations: three gauntlet chains halted mid-loop (non-convergence on [#997](https://github.com/endojs/endo-but-for-bots/pull/997), [#286](https://github.com/endojs/endo-but-for-bots/pull/286), [#1019](https://github.com/endojs/endo-but-for-bots/pull/1019)), an orchestration restack chain stalled on child [pr#392](https://github.com/endojs/endo-but-for-bots/pull/392), and a handful of doomed jobs parked. A fleet-wide Node-24.x environmental flake blocks several conductor merges (non-required CI cells, known and blocking [#877](https://github.com/endojs/endo-but-for-bots/pull/877) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) too). The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is green and complete, awaiting your re-review to clear CHANGES_REQUESTED. Cross-host OCapN Noise over raw TCP is now proven (live on minion.town); the Pet-Daemon pairing over TCP is ready if you want it. One host exhausted its yarn cache hardlink ceiling (65000 limit); workaround applied for current jobs, but the global cache needs pruning to restore full capacity.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 7m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 19d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 29d)
@@ -710,35 +712,36 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.6M | $1314.10 _(notional, rate-card)_ | no quota set |
+| Claude | 97.7M | $1313.43 _(notional, rate-card)_ | no quota set |
 | Codex | 23.5M _(+679.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (14)
+- [`build-minion-town-git-content-substrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate.md) — build: the git content substrate (serving-side) into minion.town
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1023
 - [`endojs-endo-but-for-bots-pr475-6c19a076`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-6c19a076.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-e4629ae8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-e4629ae8.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-fa8acb7f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fa8acb7f.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr910-pinbase-20260817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-pinbase-20260817.md) — Pin the merge base of PR #910 onto a fresh llm snapshot (picks up the Node-24...
+- [`endojs-endo-but-for-bots-pr989-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr989-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #989
 - [`kriscendobot-minion.town-pr17-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #17
 - [`kriscendobot-minion.town-pr20-review-c7ac7b26`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-review-c7ac7b26.md) — Review directive on kriscendobot/minion.town PR #20
 - [`kriscendobot-minion.town-pr20-weave-20260817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-weave-20260817.md) — weave (rebase to clear conflicts) on kriscendobot/minion.town PR #20
 - [`kriscendobot-minion.town-pr21-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr21-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #21
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #37
-- [`kriscendobot-minion.town-pr39-ea6a23f9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-ea6a23f9.md) — attention directive on kriscendobot/minion.town PR #39
 - [`kriscendobot-minion.town-pr47-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr47-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #47
 - [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr47-review-237136a0.md) — Review directive on kriscendobot/minion.town PR #47
 
-### tada (5040)
+### tada (5041)
+- [`kriscendobot-minion.town-pr39-ea6a23f9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-ea6a23f9.md) — Completion report — kriscendobot-minion.town-pr39-ea6a23f9 (attention → route)
 - [`endojs-endo-but-for-bots-pr989-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-41c12eb0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-41c12eb0.md) — Completion report
 - [`kriscendobot-minion.town-pr17-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-d8271c49`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-d8271c49.md) — Completion report
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260817-233512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260817-233512.md) — Cost
-- … and 5035 more
+- … and 5036 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
