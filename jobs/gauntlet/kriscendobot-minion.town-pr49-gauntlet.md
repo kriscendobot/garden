@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 49
 build_job: kriscendobot-minion.town-pr41-vitals-weblet-reconciliation
 kind: feature
-stage: fix
-iteration: 3
+stage: panel
+iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion.town-pr49-gauntlet-fix-3
+current_child: kriscendobot-minion.town-pr49-gauntlet-panel-4
 state: running
 created_by: producer
 created_at: 2026-08-18T04:49:51Z
