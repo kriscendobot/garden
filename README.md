@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T18:33:12Z_
+_As of 2026-08-18T18:33:59Z_
 
 ## Latest
 
@@ -547,6 +547,34 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260818T080810Z-1457be` — from gauntlet:endojs-endo-but-for-bots-pr989-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T080810Z-1457be.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr989-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `20260818T183339Z-132d19` — from gardener:endojs-endo-but-for-bots-pr475-review-237b89d7, reply_to `endojs-endo-but-for-bots-pr475-review-237b89d7` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T183339Z-132d19.md)
+
+> Re: endojs/endo-but-for-bots PR [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) — kriskowal review 4963804507 (2026-08-18T18:26Z)
+>
+> This review's auto-extracted primary action was "retcon", but the review body
+> actually **defers** the retcon and **parks** the response:
+>
+>   "Please park your response job until follow-up from @erights. Then, please
+>    dispatch a fixer to address the collective feedback and follow-up with a
+>    gauntlet. We will retcon *after* reviewing individual commits from the
+>    follow-up."
+>
+> So I did NOT retcon and did NOT dispatch a fixer. Instead I:
+>   - Parked a deferred plan job `endojs-endo-but-for-bots-pr475-review-237b89d7-followup`
+>     capturing the full collective feedback (toStringTag-fix commit, README
+>     canonical isView doc + comment cross-refs, test262/hardened262 adaptation,
+>     byteArray naming/style, cleaner on compare.js, thawedBytes audit, redundancy
+>     report, XS/xst validation). Promote it once @erights posts the follow-up.
+>
+> CONFLICT TO ARBITRATE: An earlier kriskowal comment (17:06Z, one hour before this
+> review) asked to "adjust the merge base to a pin on current upstream master and
+> rebase, **retcon**, and shepherd" — that is job
+> `endojs-endo-but-for-bots-pr475-495be080`, currently IN-FLIGHT (doin/, endolin-garden2).
+> This newer review defers the retcon until after the @erights follow-up is
+> reviewed commit-by-commit. Should the in-flight 495 job let its retcon proceed,
+> or hold the retcon (pin+rebase+shepherd only) until the follow-up review? Please
+> advise.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
