@@ -91,3 +91,13 @@ autonomous role originates that authorization for itself.
   citations, not copies.
 - Report which files changed and quote the final wording of both rules in
   the completion report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-18T20:06:21Z
