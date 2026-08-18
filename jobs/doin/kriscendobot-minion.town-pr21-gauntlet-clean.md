@@ -47,6 +47,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
