@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T08:07:13Z_
+_As of 2026-08-18T08:08:33Z_
 
 ## Latest
 
@@ -543,6 +543,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260818T042818Z-a1374d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T042818Z-a1374d.md)
 
 > Report `kriscendobot-minion.town-pr37-gauntlet-fix-2` (kriscendobot/minion.town PR #37): the fix stage adopted a **keyed-digest local-part** instead of the literal directive that "the local-part *is* the formula id", for a stated security reason (namespace separation), and documented the deviation in the PR. This refines your directive, so it needs your call on the next review pass: accept the keyed digest as the standard, or require the literal formula-id local-part with a namespace-separation proof instead. The second follow-up (re-running the panel) is the gauntlet driver's job and needs nothing from you.
+
+- `20260818T080810Z-1457be` — from gauntlet:endojs-endo-but-for-bots-pr989-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T080810Z-1457be.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr989-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1135,19 +1139,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
-- [`build-minion-town-git-content-substrate-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #48
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1026-4e268706`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1026-4e268706.md) — attention directive on endojs/endo-but-for-bots PR #1026
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr49-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #49
 
-### tada (5096)
+### tada (5098)
+- [`endojs-endo-but-for-bots-pr989-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr989-gauntlet — HALTED
+- [`build-minion-town-git-content-substrate-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr989-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet-fix-6.md) — Completion report
 - [`daily-progress-summary-20260818-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260818-070501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1026-4eef9c40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1026-4eef9c40.md) — Completion report — attention directive on endojs/endo-but-for-bots #1026
-- [`build-minion-town-git-content-substrate-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet-fix-3.md) — What I did
-- [`kriscendobot-minion.town-pr49-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-panel-3.md) — Completion report
-- … and 5091 more
+- … and 5093 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
