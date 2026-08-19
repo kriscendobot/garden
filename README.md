@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:41:48Z_
+_As of 2026-08-19T04:43:04Z_
 
 ## Latest
 
@@ -2290,12 +2290,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.1M | $973.02 _(notional, rate-card)_ | no quota set |
+| Claude | 98.2M | $973.78 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-minion.town-pr29-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr29-weave.md) — weave directive on kriscendobot/minion.town PR #29
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr475-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd-20260819.md) — shepherd directive on endojs/endo-but-for-bots PR #475
