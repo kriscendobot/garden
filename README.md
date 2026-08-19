@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T03:26:41Z_
+_As of 2026-08-19T03:37:48Z_
 
 ## Latest
 
@@ -2235,24 +2235,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.5M | $966.17 _(notional, rate-card)_ | no quota set |
-| Codex | 18.5M _(+668.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 97.4M | $961.66 _(notional, rate-card)_ | no quota set |
+| Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819.md) — consolidate byte utilities onto @endo/immutable-arraybuffer — PR #475
+- [`endojs-endo-but-for-bots-pr475-retcon-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-retcon-20260819.md) — retcon PR #475 — reset & restage per-package with a separate yarn.lock commit
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 
-### tada (5150)
+### tada (5151)
+- [`endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819.md) — Completion report
 - [`build-minion-town-git-content-substrate-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet.md) — gauntlet build-minion-town-git-content-substrate-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr475-advance-base-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-advance-base-20260819.md) — Weaver job complete: advance the llm base + rebase reconstruction — endojs/en...
 - [`improve-hermit-claims-gardener-role-jobs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-hermit-claims-gardener-role-jobs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — What I did
-- [`kriscendobot-minion.town-pr37-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet-fix-5.md) — Completion report
-- … and 5145 more
+- … and 5146 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
