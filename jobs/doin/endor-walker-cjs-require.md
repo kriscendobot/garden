@@ -34,6 +34,7 @@ lands) Exclude->Exercise with committed goldens. Node oracle runs default option
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
