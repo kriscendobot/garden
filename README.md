@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T18:03:39Z_
+_As of 2026-08-19T18:43:33Z_
 
 ## Latest
 
@@ -2564,15 +2564,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.6M | $1107.84 _(notional, rate-card)_ | no quota set |
+| Claude | 112.7M | $1110.82 _(notional, rate-card)_ | no quota set |
 | Codex | 17.5M _(+638.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`pr910-review-4941452327-conductor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-conductor.md) — Finalize approved PR 910 after review 4941452327
 
 ### tada (5195)
 - [`endojs-endo-but-for-bots-pr1040-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1040-gauntlet — HALTED
