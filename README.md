@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T19:24:06Z_
+_As of 2026-08-19T19:30:09Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The byteArray refinement stack is complete and green—[#475](https://github.com
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/pull/876) — feat(endor): endor run --conditions flag and webcrypto endowment for browser-build packages (waiting 7m)
+- [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/pull/876) — feat(endor): endor run --conditions flag and webcrypto endowment for browser-build packages (waiting 13m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 21d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 31d)
@@ -792,6 +792,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > - The gating orchestration `pr910-review-4941452327-resolution` is HALTED at child 1/6 (the fixer stalled at 2483s / handler-timeout 2400s); this info-cleanup is child 4/6 and was left parked, but appears to have been promoted regardless.
 >
 > The review ask ([endojs/endo-but-for-bots#910](https://github.com/endojs/endo-but-for-bots/issues/910) discussion r3787401300: replace the temporary diagnostic form with plain `info` when it lands) is still valid but must run AFTER 910 merges. I am not editing anything. Recommend: re-run/repair the `pr910-review-4941452327-resolution` orchestration (get the fixer/shepherd/conductor chain to actually merge 910), and let this info-cleanup fire as its downstream child post-merge. I am marking this attempt orchestration-failed to avoid a hot re-claim loop against an open PR; please re-post it after 910 lands if the orchestration doesn't own it by then.
+
+- `20260819T192948Z-69d902` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T192948Z-69d902.md)
+
+> PR #910 (endojs/endo-but-for-bots) is still open and unmerged — the `pr910-review-4941452327-conductor` held the merge because (1) there's no exact-head `APPROVED` review on current head `4fa0a45f3` (the 08-19 "Conduct." comment doesn't count, and kriskowal's prior approval was on a pre-rebase commit) and (2) the required repanel job `pr910-mustfix-round2-06-repanel` never ran (parked in plan/). The fuzzer's follow-up #2 — "re-run the disposable fuzzer (seeds 2654435761 / 305419896) against merged `llm` once #910 lands to reconfirm" — can't be scheduled until you either approve the PR at its current head or promote/run the repanel job. Once #910 actually merges I can post the reconfirmation job myself; until then there's nothing for a gardener to act on.
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2574,7 +2578,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.8M | $1114.02 _(notional, rate-card)_ | no quota set |
+| Claude | 112.9M | $1114.58 _(notional, rate-card)_ | no quota set |
 | Codex | 17.5M _(+638.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
