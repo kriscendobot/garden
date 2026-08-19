@@ -106,6 +106,7 @@ maintainer rather than guessing — this is exactly the kind of prompt where
 premature certainty costs more than an honest question. Do not proceed to
 a build job from this one; that follows once the design is reviewed.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
