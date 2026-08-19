@@ -77,6 +77,7 @@ questions**, not "is this a design doc."
   today.
 - Report cites `design-muse-worker-kind` / PR #74 as the grounding example.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
