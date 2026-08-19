@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T11:31:19Z_
+_As of 2026-08-19T11:32:57Z_
 
 ## Latest
 
@@ -2548,8 +2548,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1040
 
 ### tada (5188)
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-3.md) — Completion report
