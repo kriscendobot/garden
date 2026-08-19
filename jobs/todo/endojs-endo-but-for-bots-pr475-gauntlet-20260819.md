@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr475-campaign-20260819
-priority: normal
-posted_by: producer
-posted_at: 2026-08-19T02:58:43Z
+role: gardener
+tier: mentor
+token-budget: 500000
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-19T04:10:03Z cleared=none -->
 
 ---
 role: gardener
