@@ -11,6 +11,7 @@ Garden repo (main2): SUBTEST 7 of `elapsed-constancy-classifier-test.sh` fails o
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
