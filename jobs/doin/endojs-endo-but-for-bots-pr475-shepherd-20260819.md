@@ -26,3 +26,13 @@ report it rather than masking it with further re-runs. Leave the PR non-draft
 in the maintainer/@erights review queue.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/475
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T04:32:00Z
