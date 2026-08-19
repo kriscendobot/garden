@@ -75,7 +75,7 @@ note is posted to PR #475. If implementation is warranted, name the follow-up
 explicitly (posted job base or a hand-off to 9885f3d8) rather than leaving a
 loose "someone should build this."
 
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-22T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-19T00:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64

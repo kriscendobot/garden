@@ -43,7 +43,7 @@ Never state in your report that a peer did work you did not verify.
 
 <!-- garden-reaped: 0 -->
 
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-22T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-19T00:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64

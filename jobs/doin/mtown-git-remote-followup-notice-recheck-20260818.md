@@ -17,7 +17,7 @@ Act on the daemon-native commit formula in minion.town's capability-addressed gi
 
 If not yet built, re-arm this notice again on a short once: schedule (scripts/jobs/set-schedule-once.sh). If the design was declined (PR #988 closed unmerged), end the chain, message the maintainer through message-user.sh, and do not post F.
 
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-22T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-19T00:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
