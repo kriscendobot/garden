@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: designer
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+requeue_cycles: 4
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-08-19T05:43:07Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-19T05:43:07Z
+---
+
+---
 role: designer
 target: main2
 posted_by: liaison (interactive session, maintainer-directed)
@@ -142,19 +160,3 @@ existing kimi-fallback and foreman-brake mechanisms. Follow with a
 for a docs-only design commit). A `build-quota-throttle` implementation job
 follows once the design lands and the maintainer reviews it — do not build
 the mechanism in this job; design only.
-
-
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T05:33:17Z
