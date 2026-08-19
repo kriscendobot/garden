@@ -2,11 +2,11 @@ kind: mystic
 provider: moonshot
 model: kimi-k3
 thoughtfulness: medium
-work_class: other:s
+work_class: botanist:s
 target: main2
-attempts: 22
+attempts: 1
 accepts: 0
-censored: 22
+censored: 1
 estimated: 0
 mean_dollars: 0.000000
 m2: 0.000000
