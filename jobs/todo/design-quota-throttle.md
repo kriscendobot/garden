@@ -143,15 +143,4 @@ for a docs-only design commit). A `build-quota-throttle` implementation job
 follows once the design lands and the maintainer reviews it — do not build
 the mechanism in this job; design only.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T05:15:43Z
+<!-- garden-reaped: 2 -->
