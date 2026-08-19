@@ -31,3 +31,13 @@ Teach the walker to follow `require()` edges. Graduate cjs-compat, cycle-cjs,
 digest, esm-imports-cjs-define (and fixtures-0 once Increment 2's exports edge also
 lands) Exclude->Exercise with committed goldens. Node oracle runs default options
 (no harness). Bump the exercised floor to 11. Depends on Increment 0.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T06:31:08Z
