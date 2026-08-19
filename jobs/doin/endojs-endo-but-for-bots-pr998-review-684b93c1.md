@@ -56,3 +56,13 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T01:54:18Z
