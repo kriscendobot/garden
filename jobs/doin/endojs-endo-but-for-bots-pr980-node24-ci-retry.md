@@ -13,6 +13,7 @@ Resume CI shepherding for https://github.com/endojs/endo-but-for-bots/pull/980 o
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
