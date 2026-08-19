@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T21:48:33Z_
+_As of 2026-08-19T21:51:20Z_
 
 ## Latest
 
@@ -2610,27 +2610,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.6M | $1147.61 _(notional, rate-card)_ | no quota set |
+| Claude | 115.5M | $1145.52 _(notional, rate-card)_ | no quota set |
 | Codex | 16.6M _(+621.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`carve-out-design-pr-for-open-questions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/carve-out-design-pr-for-open-questions.md) — Carve out: a garden-infra design that needs feedback gets a review PR, not a ...
 - [`endojs-endo-but-for-bots-pr475-e8792d98`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-e8792d98.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-5aae699b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-5aae699b.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-60fc33cf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-60fc33cf.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr807-review-ae1e614a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-review-ae1e614a.md) — Review directive on endojs/endo-but-for-bots PR #807
 
-### tada (5211)
+### tada (5212)
+- [`endojs-endo-but-for-bots-pr475-review-60fc33cf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-60fc33cf.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-2c700561`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-2c700561.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-605988a6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-605988a6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — Cost
 - [`endojs-endo-but-for-bots-pr910-repanel-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-repanel-20260819.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-review-69a8dffc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-69a8dffc.md) — Completion report
-- … and 5206 more
+- … and 5207 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
