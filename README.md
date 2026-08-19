@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T20:54:06Z_
+_As of 2026-08-19T20:56:37Z_
 
 ## Latest
 
@@ -2610,16 +2610,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.0M | $1123.61 _(notional, rate-card)_ | no quota set |
-| Codex | 17.2M _(+631.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 113.4M | $1128.56 _(notional, rate-card)_ | no quota set |
+| Codex | 17.1M _(+630.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-review-69a8dffc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-69a8dffc.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr910-repanel-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-repanel-20260819.md) — PR #910 — fresh full panel re-run on the current (rebased) head
+- [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — ---
 
 ### tada (5206)
 - [`improve-worker-ensure-worktree-swallowed-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-worker-ensure-worktree-swallowed-stderr.md) — Completion report
@@ -2812,7 +2813,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
-- [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/980` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`kriscendobot-minion.town-port-whoami-tool-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-port-whoami-tool-20260819.md) — awaiting `kriscendobot-minion.town-pr20-merge-20260819` · ---
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
