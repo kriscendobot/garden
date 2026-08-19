@@ -78,15 +78,4 @@ questions**, not "is this a design doc."
   today.
 - Report cites `design-muse-worker-kind` / PR #74 as the grounding example.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T21:45:06Z
+<!-- garden-reaped: 1 -->
