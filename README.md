@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T03:01:35Z_
+_As of 2026-08-19T03:04:24Z_
 
 ## Latest
 
@@ -1957,6 +1957,35 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
 
+- `doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/mtown-git-remote-followup-notice-recheck-20260818; it stays HELD until a human promotes it
+> (promote-plan.sh mtown-git-remote-followup-notice-recheck-20260818) or removes it, so nothing is lost.
+> Original job base: mtown-git-remote-followup-notice-recheck-20260818
+>
+> --- original job body ---
+> ---
+> role: gardener
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> # Notice: recheck the minion.town git-remote follow-up on the daemon commit-formula design
+>
+> This is the notice (sentinel) job of the D->N->F chained follow-up in skills/chained-followup/SKILL.md, re-armed on a short once: schedule because the design had not yet advanced to a build at the last check.
+>
+> D is ebfb-daemon-commit-formula-design. Its design PR is [https://github.com/endojs/endo-but-for-bots/pull/988](https://github.com/endojs/endo-but-for-bots/pull/988).
+>
+> Use gh read-only metadata, not comment prose, to determine whether PR #988 has advanced to a build: a build PR referencing or implementing the design has opened, or the design merged and a build is underway. Cross-reference timeline metadata is the preferred mechanical link check (gh api repos/endojs/endo-but-for-bots/issues/988/timeline).
+>
+> If advanced to build, post F with post-job.sh using base mtown-git-remote-commit-formula-act and this exact body:
+> Act on the daemon-native commit formula in minion.town's capability-addressed git remote (design/git-remote-capability). Name the endo-but-for-bots build PR/commit that landed. Update designs/git-remote-capability.md §4 (Strategy B) to reflect git commit/tree/tag identity through the new daemon commit formula — synthetic refs tree rooted at a formula identifier, name-hub lookup paths ending in a readable-tree, synthetic orphan commits enveloping the readable-tree — and carry the design to the implementation increment. Origin review: [https://github.com/kriscendobot/minion.town/pull/41](https://github.com/kriscendobot/minion.town/pull/41)#pullrequestreview-4939454650
+>
+> If not yet built, re-arm this notice again on a short once: schedule (scripts/jobs/set-schedule-once.sh). If the design was declined (PR #988 closed unmerged), end the chain, message the maintainer through message-user.sh, and do not post F.
+
 - `doomed-revise-standing-instructions-defer-to-submitter-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-revise-standing-instructions-defer-to-submitter-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -2151,27 +2180,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $955.10 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+681.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 96.3M | $954.17 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+679.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`endojs-endo-but-for-bots-pr475-advance-base-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-advance-base-20260819.md) — advance the llm base + rebase reconstruction — endojs/endo-but-for-bots PR #475
-- [`improve-hermit-claims-gardener-role-jobs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-hermit-claims-gardener-role-jobs.md) — ---
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
-- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
-### tada (5147)
+### tada (5148)
+- [`improve-hermit-claims-gardener-role-jobs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-hermit-claims-gardener-role-jobs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — What I did
 - [`kriscendobot-minion.town-pr37-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet-fix-5.md) — Completion report
 - [`kriscendobot-minion.town-pr49-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet.md) — gauntlet kriscendobot-minion.town-pr49-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr49-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-fix-6.md) — Completion report — kriscendobot/minion.town PR #49, gauntlet FIX round 6
-- [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Completion report
-- … and 5142 more
+- … and 5143 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2255,6 +2282,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-endo-b3-daemon-deploy-verify.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
+- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mtown-git-remote-followup-notice-recheck-20260818.md) — _normal_ · Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
 - [`pr910-mustfix-round2-06-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-mustfix-round2-06-repanel.md) — _normal_ · PR #910 fix round 2 — child 06: panel re-run and conditional un-draft
