@@ -8,6 +8,7 @@ endojs/endo-but-for-bots: `this.self` inside an exo's object literal was found s
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
