@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-19T02:03:06Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-19T02:03:06Z
+---
+
+---
 role: gardener
 tier: minion
 model-burned: mentor
@@ -92,16 +110,3 @@ autonomous role originates that authorization for itself.
   citations, not copies.
 - Report which files changed and quote the final wording of both rules in
   the completion report.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-19T01:59:03Z
