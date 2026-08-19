@@ -8,6 +8,7 @@ endojs/endo-but-for-bots PR #600 (Ironhorse/xs2rust debugger): fix the three `Br
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
