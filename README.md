@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T01:54:14Z_
+_As of 2026-08-19T02:00:37Z_
 
 ## Latest
 
@@ -1754,36 +1754,36 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.8M | $919.29 _(notional, rate-card)_ | no quota set |
-| Codex | 19.3M _(+712.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 91.9M | $924.34 _(notional, rate-card)_ | no quota set |
+| Codex | 19.2M _(+709.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (11)
-- [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
-- [`endojs-endo-but-for-bots-pr475-review-1c83e1bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-1c83e1bb.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr998-review-684b93c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr998-review-684b93c1.md) — Review directive on endojs/endo-but-for-bots PR #998
-- [`fu-requeue-ps23-stranded-claims-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-requeue-ps23-stranded-claims-4.md) — ---
-- [`fu-wallclock-cost-proxy-for-censored-arms-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-wallclock-cost-proxy-for-censored-arms-2.md) — ---
-- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-xs2rust-endor-debugger-caught-vs-uncaught-1.md) — ---
-- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-xs2rust-endor-debugger-caught-vs-uncaught-4.md) — ---
-- [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
-- [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
-- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
-- [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
+### todo (0)
+(none)
 
-### doin (4)
+### doin (14)
+- [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
+- [`endojs-endo-but-for-bots-pr475-review-1c83e1bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-1c83e1bb.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-f1df1c4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-f1df1c4f.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr998-review-684b93c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-684b93c1.md) — Review directive on endojs/endo-but-for-bots PR #998
 - [`fu-ironhorse-js-26-map-methods-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-ironhorse-js-26-map-methods-1.md) — ---
+- [`fu-requeue-ps23-stranded-claims-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-requeue-ps23-stranded-claims-4.md) — ---
+- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-xs2rust-endor-debugger-caught-vs-uncaught-1.md) — ---
 - [`fu-xs2rust-endor-debugger-caught-vs-uncaught-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-xs2rust-endor-debugger-caught-vs-uncaught-3.md) — ---
+- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-xs2rust-endor-debugger-caught-vs-uncaught-4.md) — ---
+- [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
+- [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
+- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
+- [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### tada (5136)
+### tada (5137)
+- [`fu-wallclock-cost-proxy-for-censored-arms-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-wallclock-cost-proxy-for-censored-arms-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-util-bytearray-view-type`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-util-bytearray-view-type.md) — Completion report
 - [`fu-xs2rust-endor-debugger-caught-vs-uncaught-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-xs2rust-endor-debugger-caught-vs-uncaught-2.md) — Completion report
 - [`fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3.md) — What I found
 - [`fu-endojs-endo-but-for-bots-pr898-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr898-shepherd-1.md) — Completion report
-- [`fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3.md) — Completion report — investigate this.self inference-masking across daemon exo...
-- … and 5131 more
+- … and 5132 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
