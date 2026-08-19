@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T10:05:40Z_
+_As of 2026-08-19T10:34:26Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ The byteArray refinement stack is complete and green—[#475](https://github.com
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21d)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 20d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 21d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 31d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 30d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 32d)
@@ -2548,16 +2548,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1040
+### doin (0)
+(none)
 
-### tada (5185)
+### tada (5186)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1040
 - [`endor-walker-cjs-require`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-cjs-require.md) — Completion report — endor-walker-cjs-require (fixture-parity ratchet, Increme...
 - [`daily-progress-summary-20260819-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260819-070501.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-1.md) — Completion report
-- … and 5180 more
+- … and 5181 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
