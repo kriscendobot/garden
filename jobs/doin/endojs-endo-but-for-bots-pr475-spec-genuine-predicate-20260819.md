@@ -39,6 +39,7 @@ If a design doc fits better than a comment, write it and link it in the reply.
 
 Do NOT resolve any conversation (erights policy on this PR, comment 5333026938).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
