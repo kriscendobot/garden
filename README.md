@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T19:16:10Z_
+_As of 2026-08-19T19:18:52Z_
 
 ## Latest
 
@@ -2574,24 +2574,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.9M | $1117.54 _(notional, rate-card)_ | no quota set |
+| Claude | 112.7M | $1113.38 _(notional, rate-card)_ | no quota set |
 | Codex | 17.5M _(+638.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`pr910-review-4941452327-fuzz-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fuzz-build.md) — Address errors discovered by the disposable PR 910 fuzzer
-- [`pr910-review-4941452327-fuzzer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fuzzer.md) — Produce and exercise a disposable fuzzer for the landed ReadableBlob range sy...
 
-### tada (5198)
+### tada (5199)
+- [`pr910-review-4941452327-fuzzer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-fuzzer.md) — Completion report — disposable fuzzer for the ReadableBlob range/textRange sy...
 - [`endojs-endo-but-for-bots-pr876-resolve-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-resolve-20260819.md) — Completion report
 - [`pr910-review-4941452327-info-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-info-cleanup.md) — Completion report
 - [`pr910-review-4941452327-conductor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-conductor.md) — Completion report — conductor pr910-review-4941452327-conductor
 - [`endojs-endo-but-for-bots-pr1040-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1040-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-6.md) — Completion report
-- … and 5193 more
+- … and 5194 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
