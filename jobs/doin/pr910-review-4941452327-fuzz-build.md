@@ -23,3 +23,13 @@ If the exercised fuzzer found no errors, do not invent a code change or empty PR
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T19:23:11Z
