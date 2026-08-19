@@ -1,1 +1,2 @@
 {"ts":"2026-08-19T18:43:54Z","base":"pr910-review-4941452327-conductor","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":7}
+{"source":"result","model":"claude-opus-4-8","num_turns":19,"elapsed_s":259,"input_tokens":34,"output_tokens":17180,"cache_creation_tokens":61258,"cache_read_tokens":1040496,"total_cost_usd":1.564996,"ts":"2026-08-19T18:57:53Z","base":"pr910-review-4941452327-conductor","host":"endolin-garden-ece02cb4","outcome":"tada","role":"conductor"}
