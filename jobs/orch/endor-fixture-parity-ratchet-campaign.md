@@ -2,7 +2,7 @@
 order: serial
 children: endor-parity-oracle-scaffold endor-walker-cjs-require endor-walker-exports-resolution endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
 on-child-failure: halt
-state: pending
+state: running
 created_by: designer
 created_at: 2026-08-19T05:40:25Z
 ---
