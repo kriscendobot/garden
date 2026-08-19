@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T03:40:40Z_
+_As of 2026-08-19T03:44:17Z_
 
 ## Latest
 
@@ -2242,7 +2242,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr475-feedback-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-feedback-20260819.md) — respond to pending review feedback — endojs/endo-but-for-bots PR #475
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 
 ### tada (5152)
