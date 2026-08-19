@@ -11,6 +11,7 @@ green, MERGEABLE/CLEAN, non-draft. Maintainer said "go ahead" on merging this
 during a muster session. Standard conduct: verify state is unchanged, merge,
 report the merge commit.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
