@@ -24,3 +24,13 @@ for merge.
 
 CI is green on head 43dc5bae3 (or whatever the current head is), or any failure is
 diagnosed and handed off.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T05:19:38Z
