@@ -34,3 +34,13 @@ Task, against the CURRENT #475 head:
 5. Reply to erights on the thread with the findings.
 
 Do NOT resolve any conversation (erights policy on this PR, comment 5333026938).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T22:59:29Z
