@@ -105,3 +105,13 @@ question), lean toward naming things as explicit open questions for the
 maintainer rather than guessing — this is exactly the kind of prompt where
 premature certainty costs more than an honest question. Do not proceed to
 a build job from this one; that follows once the design is reviewed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T00:23:16Z
