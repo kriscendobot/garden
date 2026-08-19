@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: pr910-review-4941452327-resolution
-priority: high
 role: conductor
-posted_by: gardener
-posted_at: 2026-08-14T22:03:41Z
+tier: mentor
+handler-budget-role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-08-19T18:43:11Z cleared=none -->
 
 ---
 handler-budget-role: conductor
