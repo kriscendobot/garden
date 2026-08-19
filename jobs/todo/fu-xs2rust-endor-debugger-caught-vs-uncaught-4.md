@@ -9,15 +9,4 @@ endojs/endo-but-for-bots PR #600 (Ironhorse/xs2rust debugger): fix the three `Br
 
 <!-- garden-elapsed-constancy: 1 -->
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-19T02:13:22Z
+<!-- garden-reaped: 4 -->
