@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T02:14:48Z_
+_As of 2026-08-19T02:16:56Z_
 
 ## Latest
 
@@ -697,6 +697,24 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > What [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/issues/1038) does (zero wire/behavior change): removes only the *silent* property of the footgun — on C-XS, selecting 'uncaught' clears the real exceptions breakpoint and arms a never-hit phantom, i.e. it silently DISABLES exception breaking. It documents that at every client API site (debug-session.js, debugger.js, types.d.ts) and relabels the Chat panel option to "Exceptions: uncaught (engine support pending)" with an honest tooltip. 16 daemon debugger tests + chat panel tests pass unmodified; eslint/prettier clean.
 >
 > If you'd rather have a HARD runtime gate (e.g. the client throws for 'uncaught' until an Ironhorse session is attached), that needs capability detection the design currently rules out — say the word and I'll take it up with a design amendment. Otherwise the real fix stays owned by fu-...-1 + fu-...-3 (both still todo) under the paused campaign.
+
+- `20260819T021547Z-7f9907` — from gardener:dependabotany-recheck-endo-but-for-bots-20260818-170501, reply_to `dependabotany-recheck-endo-but-for-bots-20260818-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T021547Z-7f9907.md)
+
+> # Dependabotany (endo-but-for-bots): two MERGE-NOW dependabot PRs blocked on the fleet node24-runner CI flake — decision needed
+>
+> From the 2026-08-18 daily dependabotany backstop sweep. Two `dependabot[bot]` PRs on `endojs/endo-but-for-bots` have passed full botanist diligence with verdict **MERGE-NOW**, but their autonomous conduct is blocked by the **recurring fleet-wide node24-runner infra flake** (`.../actions-runner/.../externals/node24/bin/node: No such file or directory`) plus a heavy CI-queue backlog. Neither is a PR-diligence problem; both are one green CI run from merge.
+>
+> **[endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/issues/1006)** `eslint-plugin-unicorn` 72.0.0 → 73.0.0 (dev-only lint plugin; imported by no runtime/test code). MERGE-NOW: mature (73.0.0 published 2026-08-04, 14d), OSV-clean both sides, no transitive movement, no install script, same publisher `sindresorhus`. I rebased it clean onto live `llm` (head `86b6b4f9913`, ahead 1 / behind ~1). A prior full CI run was 24/25 green with the sole red being the node24 flake on `test (24.18.0, macos-15)` (green on base). Since unicorn runs only at lint time, a `test` cell failure cannot be a regression.
+>
+> **[endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009)** `npm-packlist` 10.0.4 → 11.3.0 (root devDependency). MERGE-NOW on merits (established 2026-08-16; ledger + PR comments). Sole red is the identical node24 flake on `test (24.x, ubuntu-latest)`. Head is ~65 behind and needs a rebase, which triggers a fresh full CI run that re-rolls the flake.
+>
+> **Why the conductor spine cannot converge here:** `ci-wait-merge.sh` refuses to merge past ANY failing cell and binds the merge to a rebased (behind=0) head. With CI presently ~30+ min (queue backlog) and base `llm` drifting faster than that, every rebase-to-green cycle re-rolls the node24 flake across ~25 cells and is invalidated by fresh base movement before it can land. This is the same fleet flake escalated on 2026-08-16 (still unanswered), now blocking a second PR.
+>
+> **Decision needed (either unblocks both):**
+> 1. **Merge [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/issues/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009) directly** — `llm` has no branch protection, so the node24 flake is a non-required check; both are green but for it and one-click mergeable; or
+> 2. **Fix the fleet node24-runner issue** (runner loses its cached node24 binary) so the spine can auto-conduct — this also unblocks [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) / [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) which the 2026-08-16 note tied to the same flake.
+>
+> The daily backstop (`dependabotany-recheck-endo-but-for-bots`) will keep re-sweeping both rows until they reach a terminal state, so nothing rots; this message is to move the decision off the backstop and onto you.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -2005,21 +2023,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.7M | $923.29 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+696.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 93.0M | $927.48 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+696.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (3)
-- [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
-- [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
-- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
+### todo (0)
+(none)
 
-### doin (5)
+### doin (8)
+- [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr475-review-f1df1c4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-f1df1c4f.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`fu-xs2rust-endor-debugger-caught-vs-uncaught-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-xs2rust-endor-debugger-caught-vs-uncaught-1.md) — ---
 - [`fu-xs2rust-endor-debugger-caught-vs-uncaught-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-xs2rust-endor-debugger-caught-vs-uncaught-4.md) — ---
+- [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
+- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
 ### tada (5139)
 - [`fu-ironhorse-js-26-map-methods-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-ironhorse-js-26-map-methods-1.md) — Completion report
