@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Verify the obsolete "all tests exercise the shimmed path" claim on endojs/endo-but-for-bots PR #475
@@ -35,13 +36,4 @@ Task, against the CURRENT #475 head:
 
 Do NOT resolve any conversation (erights policy on this PR, comment 5333026938).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T22:59:29Z
+<!-- garden-reaped: 0 -->
