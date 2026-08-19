@@ -57,3 +57,13 @@ base via `scripts/jobs/ensure-project-worktree.sh`.
 Carried forward from the prior round -- these stand unless fresh evidence
 shows otherwise; a panel seat re-raising one verbatim inherits the recorded
 disposition: PLAT-05, PLAT-25, PLAT-19, PLAT-33, GD-07, GD-08, GD-11.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T20:53:42Z
