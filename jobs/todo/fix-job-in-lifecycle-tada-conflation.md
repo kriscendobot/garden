@@ -82,15 +82,4 @@ assume:
   vs. the stale `endojs-endo-but-for-bots-pr475-e3925eb5` owner) as the
   grounding example.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T04:46:59Z
+<!-- garden-reaped: 1 -->
