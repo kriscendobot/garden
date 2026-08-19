@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T02:56:33Z_
+_As of 2026-08-19T02:59:43Z_
 
 ## Latest
 
@@ -719,6 +719,31 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T025305Z-548e01` — from gauntlet:kriscendobot-minion.town-pr49-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T025305Z-548e01.md)
 
 > Gauntlet kriscendobot-minion.town-pr49-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `20260819T025928Z-4672e5` — from gardener:endojs-endo-but-for-bots-pr475-rebase, reply_to `endojs-endo-but-for-bots-pr475-rebase` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T025928Z-4672e5.md)
+
+> [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) "rebase" comment ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) comment 5336908307) is a full campaign, not a mechanical rebase
+> — I set up the orchestration you called for.
+>
+> Key finding: advancing the llm base is a CURATED RECONSTRUCTION. Old base
+> llm-a54c3ad is 183 commits behind current llm (c6b70e8f). A local rebase of the
+> 37-commit head conflicts at commit "fix: reconcile byte arrays with canonical
+> ascii" — the ocapn CBOR codec was rewritten on llm (new CborReaderState reader
+> model replacing the old BufferReader), so the byte-array narrowing must be
+> re-applied onto the new architecture, not merged textually. I did NOT push
+> anything (aborted the local rebase).
+>
+> Created serial orchestration endojs-endo-but-for-bots-pr475-campaign-20260819
+> (halt-on-failure), children in order: advance-base (the reconstruction rebase +
+> fresh llm-<sha> frozen base) → consolidate-bytes (thawedBytes/frozenBytes onto a
+> shared @endo/immutable-arraybuffer export, shim stays separate, no back-compat)
+> → retcon → feedback → gauntlet → wait for review. The later "rebuild the stack on
+> master" follow-up is noted in the orch body but deliberately NOT in this campaign.
+>
+> Note: I set the heavy children to tier: mentor with generous token budgets, but
+> the automatic path currently ceilings anthropic at opus-4-8 / routes mentor to
+> other providers. If you want the reconstruction on Opus 5, it needs a manual
+> dispatch. Handing this job off to the orchestration.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -2126,8 +2151,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $954.78 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+683.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 96.4M | $956.18 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+682.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
