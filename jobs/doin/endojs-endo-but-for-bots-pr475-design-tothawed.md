@@ -76,3 +76,13 @@ explicitly (posted job base or a hand-off to 9885f3d8) rather than leaving a
 loose "someone should build this."
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T00:43:04Z
