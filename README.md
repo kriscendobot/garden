@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T12:08:33Z_
+_As of 2026-08-19T12:58:49Z_
 
 ## Latest
 
@@ -2548,16 +2548,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1040
+### doin (0)
+(none)
 
-### tada (5189)
+### tada (5190)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-2.md) — Completion report
-- … and 5184 more
+- … and 5185 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
