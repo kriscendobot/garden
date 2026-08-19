@@ -23,6 +23,7 @@ journal/projects/minion-town/README.md if it's unclear).
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
