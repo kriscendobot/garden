@@ -94,3 +94,13 @@ autonomous role originates that authorization for itself.
   the completion report.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-19T01:21:29Z
