@@ -19,16 +19,7 @@ Read the durable completion report for predecessor `pr910-review-4941452327-fuzz
 
 If the exercised fuzzer found no errors, do not invent a code change or empty PR. Record that no build change was necessary, citing the predecessor's exact execution evidence. This job itself is the requested follow-up build disposition either way.
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T19:13:17Z
+
+<!-- garden-reaped: 3 -->
