@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:43:04Z_
+_As of 2026-08-19T04:45:09Z_
 
 ## Latest
 
@@ -2290,27 +2290,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.2M | $973.78 _(notional, rate-card)_ | no quota set |
+| Claude | 98.2M | $975.65 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`kriscendobot-minion.town-pr29-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr29-weave.md) — weave directive on kriscendobot/minion.town PR #29
+### todo (3)
+- [`fix-job-in-lifecycle-tada-conflation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-job-in-lifecycle-tada-conflation.md) — Fix: job_in_lifecycle() conflates "completed" with "still live," blocking leg...
+- [`kriscendobot-minion.town-pr36-close-superseded-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr36-close-superseded-20260819.md) — ---
+- [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr47-review-237136a0.md) — Review directive on kriscendobot/minion.town PR #47
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr475-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd-20260819.md) — shepherd directive on endojs/endo-but-for-bots PR #475
-- [`fix-job-in-lifecycle-tada-conflation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-job-in-lifecycle-tada-conflation.md) — Fix: job_in_lifecycle() conflates "completed" with "still live," blocking leg...
+- [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
 - [`kriscendobot-minion.town-pr20-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #20
-- [`kriscendobot-minion.town-pr29-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr29-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #29
+- [`kriscendobot-minion.town-pr29-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr29-weave.md) — weave directive on kriscendobot/minion.town PR #29
 - [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### tada (5157)
+### tada (5158)
+- [`kriscendobot-minion.town-pr29-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr29-shepherd.md) — Shepherd report — kriscendobot/minion.town PR #29
 - [`endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-campaign-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-campaign-20260819.md) — orchestration endojs-endo-but-for-bots-pr475-campaign-20260819 — complete
 - [`endojs-endo-but-for-bots-pr475-gauntlet-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-gauntlet-20260819.md) — Completion report — run the gauntlet, endojs/endo-but-for-bots PR #475
 - [`kriscendobot-minion.town-pr37-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet.md) — gauntlet kriscendobot-minion.town-pr37-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr475-feedback-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-feedback-20260819.md) — Completion report
-- … and 5152 more
+- … and 5153 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2389,7 +2391,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
 - [`kriscendobot-minion.town-pr47-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr47-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #47
-- [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr47-review-237136a0.md) — _normal_ · Review directive on kriscendobot/minion.town PR #47
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
