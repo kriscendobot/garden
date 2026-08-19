@@ -173,6 +173,17 @@ if printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\\n")' | grep -qi '
   exit 0
 fi
 
+# Open-questions carve-out (CLAUDE.md § Conventions; roles/designer/AGENT.md). A
+# garden-own-repo design PR marked as a maintainer OPEN-QUESTIONS review surface is
+# NOT a pending merge blocked on panel convergence — its content is already on main2
+# and the PR exists so the maintainer can answer the open questions inline. Do NOT
+# stage the design panel for it. The marker is designer-applied only for the garden's
+# own repo, so an ordinary fork-repo design PR (no marker) still stages normally.
+if is_open_questions_design_pr "$pr_json"; then
+  log "auto-gauntlet: job '$base' PR $pr_url is a garden open-questions design review surface (carve-out); leaving it draft with no design panel staged"
+  exit 0
+fi
+
 mapfile -t _pr_files < <(printf '%s' "$pr_json" | jq -r '(.files // [])[].path // empty')
 if [ "${#_pr_files[@]}" -eq 0 ] || ! design_only_paths "${_pr_files[@]}"; then
   log "auto-gauntlet: job '$base' (role ${role:-none}) PR $pr_url is not a design-only diff — the design-PR coverage path does not apply; a code PR that owes a gauntlet is the builder completion edge's job"

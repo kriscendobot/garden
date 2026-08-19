@@ -153,6 +153,34 @@ if ! "$SENSOR" probe-the-design "$TR/probe.job.md" "$TR/probe.report.md"; then
   fail 'sensor wrongly blocked a probe'
 fi
 
+echo '== carve-out: a garden open-questions design PR (marked) stages NO panel and is never sensed as a miss =='
+# CLAUDE.md § Conventions / roles/designer/AGENT.md: a design landed on the garden's
+# OWN repo whose content carries a non-empty `## Open questions` section is presented
+# as a maintainer review surface (base-snapshot + design commit, frozen-base mechanics)
+# rather than landed bare. It is NOT a pending merge awaiting design-panel convergence
+# — the content is already on main2 — so the `<!-- garden-design-open-questions -->`
+# body marker exempts it from BOTH the stager and the sensor. This is the grounding
+# shape: design-muse-worker-kind / kriscendobot/garden#74 (six undecided open questions,
+# no review surface, retroactive PR hand-made after the fact).
+pr='https://github.com/kriscendobot/garden/pull/74'
+printf -- '---\nrole: designer\n---\nDesign the muse worker kind.\n' >"$TR/oq.job.md"
+printf 'Opened the open-questions review PR: %s\n' "$pr" >"$TR/oq.report.md"
+export FAKE_PR_JSON="{\"url\":\"$pr\",\"isDraft\":true,\"state\":\"OPEN\",\"title\":\"design: muse worker kind (open questions)\",\"body\":\"Review surface for the six open questions.\n<!-- garden-design-open-questions -->\n\",\"author\":{\"login\":\"kriscendobot\"},\"files\":[{\"path\":\"designs/muse-worker-kind.md\"}]}"
+"$STAGER" design-muse-worker-kind "$TR/oq.job.md" "$TR/oq.report.md"
+if recorded kriscendobot-garden-pr74-gauntlet; then
+  fail 'a marked garden open-questions design PR wrongly received a design gauntlet record'
+fi
+if ! "$SENSOR" design-muse-worker-kind "$TR/oq.job.md" "$TR/oq.report.md"; then
+  fail 'sensor wrongly blocked a marked garden open-questions design PR'
+fi
+# Guard the marker is load-bearing: the SAME PR without the marker DOES stage + gate,
+# so the carve-out is opt-in and an ordinary garden design PR still panels.
+export FAKE_PR_JSON="{\"url\":\"$pr\",\"isDraft\":true,\"state\":\"OPEN\",\"title\":\"design: muse worker kind\",\"body\":\"an ordinary design\",\"author\":{\"login\":\"kriscendobot\"},\"files\":[{\"path\":\"designs/muse-worker-kind.md\"}]}"
+"$STAGER" design-muse-worker-kind "$TR/oq.job.md" "$TR/oq.report.md"
+recorded kriscendobot-garden-pr74-gauntlet \
+  || fail 'an UNMARKED garden design PR should still stage a design gauntlet (marker must be load-bearing)'
+echo '   the open-questions marker exempts the panel; without it the same PR still panels'
+
 echo '== regression: an ordinary design PR whose gauntlet is already staged is an idempotent no-op =='
 # Re-run the minion.town #41 stager: the PR-keyed idempotence must NOT add a second
 # record, whatever base a peer producer might choose.

@@ -81,6 +81,17 @@ if printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\\n")' 2>/dev/null 
   exit 0
 fi
 
+# Open-questions carve-out — the mirror of the stager's exemption (common.sh
+# is_open_questions_design_pr): a garden-own-repo design PR marked as a maintainer
+# OPEN-QUESTIONS review surface intentionally stays draft with no design gauntlet, so
+# it must never be sensed as a miss. Its content is already on main2; the PR is a
+# place to answer the open questions inline, not a pending merge awaiting panel
+# convergence (CLAUDE.md § Conventions; roles/designer/AGENT.md).
+if is_open_questions_design_pr "$pr_json"; then
+  log "sensor: $pr_url is a garden open-questions design review surface (carve-out); no design panel is owed"
+  exit 0
+fi
+
 mapfile -t _pr_files < <(printf '%s' "$pr_json" | jq -r '(.files // [])[].path // empty' 2>/dev/null || true)
 # Not a design-only diff → the design-PR invariant does not apply here.
 if [ "${#_pr_files[@]}" -eq 0 ] || ! design_only_paths "${_pr_files[@]}"; then

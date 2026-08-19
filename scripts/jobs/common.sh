@@ -6020,6 +6020,26 @@ design_only_paths() {
   return 0
 }
 
+# is_open_questions_design_pr <pr-json>  — rc 0 iff the PR carries the canonical
+# open-questions carve-out marker in its title or body. This is the ONE place the
+# marker string is defined; the stager (auto-gauntlet-handoff.sh) and the sensor
+# (assert-design-pr-gauntlet.sh) both call this so the carve-out cannot drift into
+# two spellings. The marker is the durable HTML-comment `<!-- garden-design-open-questions -->`
+# a designer writes into a garden-own-repo design PR whose `## Open questions`
+# section is a live, maintainer-facing review surface (roles/designer/AGENT.md §
+# Operating norms; CLAUDE.md § Conventions). Such a PR must NOT auto-stage the design
+# panel: its content is already landed on main2 (base-snapshot + head-carrying-the-
+# design-commit, per frozen-base-branch), and the PR exists so the maintainer can
+# answer the open questions inline, not so a panel can converge a pending merge. The
+# marker is trusted the same way the probe's `gap-revealing prototype` marker is: the
+# designer applies it ONLY for the garden's own repo, so a fork-repo design PR (which
+# never carries it) still stages its panel normally. Deterministic, NO LLM — a fixed
+# string match on metadata, never a model read.
+is_open_questions_design_pr() {  # is_open_questions_design_pr <pr-json>
+  printf '%s\n' "$1" | jq -r '[.title, .body] | join("\n")' 2>/dev/null \
+    | grep -qi 'garden-design-open-questions'
+}
+
 # gauntlet_record_for_pr <clone-dir> <repo> <pr-number>
 # Echo the basename of every staged-gauntlet RECORD (jobs/gauntlet/<g>.md) in the
 # given synced journal clone that covers <repo>#<pr-number> — matched on the
