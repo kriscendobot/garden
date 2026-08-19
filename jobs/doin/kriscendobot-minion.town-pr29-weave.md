@@ -22,3 +22,13 @@ The only blocker to merge is the merge conflict. Rebase the head onto current
 secret checklist), and confirm CI re-greens so the approved PR can merge.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T04:53:17Z
