@@ -42,6 +42,7 @@ Do NOT resolve any conversation (erights policy on this PR, comment 5333026938).
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
