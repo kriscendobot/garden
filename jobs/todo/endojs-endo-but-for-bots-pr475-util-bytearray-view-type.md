@@ -70,15 +70,4 @@ immutable ArrayBuffer without an expensive cast; kriscendobot did so, making
 Skills: review-feedback-followup-commits, pr-review-thread-replies,
 rebase-before-followup, local-verify, pre-push-gates.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-19T01:16:49Z
+<!-- garden-reaped: 2 -->
