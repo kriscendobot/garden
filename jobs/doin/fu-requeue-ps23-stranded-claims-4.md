@@ -10,3 +10,13 @@ Garden repo (main2): SUBTEST 7 of `elapsed-constancy-classifier-test.sh` fails o
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T02:03:24Z
