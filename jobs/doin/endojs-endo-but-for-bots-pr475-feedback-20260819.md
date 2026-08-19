@@ -32,6 +32,7 @@ instructions) — roles/COMMON.md. Definition of done: every pending review thre
 either resolved with a follow-up commit or answered with a substantive reply;
 tests green locally.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
