@@ -7,3 +7,4 @@
 {"source":"none","ts":"2026-08-19T01:34:34Z","base":"dependabotany-recheck-endo-but-for-bots-20260818-170501","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":47,"role":"botanist"}
 {"source":"none","ts":"2026-08-19T01:51:36Z","base":"dependabotany-recheck-endo-but-for-bots-20260818-170501","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":50,"role":"botanist"}
 {"source":"none","ts":"2026-08-19T01:53:21Z","base":"dependabotany-recheck-endo-but-for-bots-20260818-170501","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":5,"role":"botanist"}
+{"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":339,"input_tokens":26,"output_tokens":16617,"cache_creation_tokens":176151,"cache_read_tokens":2392964,"total_cost_usd":3.373547,"ts":"2026-08-19T02:09:01Z","base":"dependabotany-recheck-endo-but-for-bots-20260818-170501","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"botanist"}
