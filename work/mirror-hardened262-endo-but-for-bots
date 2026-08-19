@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: gardener
 claimed_at: 2026-08-19T05:30:36Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-mirror-hardened262-endo-but-for-bots
+pr_number: 1040
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1040
+pr_head: kriskowal-hardened262
