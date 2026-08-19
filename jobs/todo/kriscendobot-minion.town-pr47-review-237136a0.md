@@ -1,20 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
 tier: minion
 handler-budget-role: review
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-requeue_cycles: 5
-deadline_overruns: 0
-elapsed_constancy_confirmations: 1
-doomed_at: 2026-08-18T00:23:05Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-18T00:23:05Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-19T04:44:25Z cleared=none -->
 
 ---
 handler-budget-role: review
