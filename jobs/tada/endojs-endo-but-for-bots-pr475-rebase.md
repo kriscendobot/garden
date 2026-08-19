@@ -1,24 +1,35 @@
-No-op is the correct and final action. PR is healthy (OPEN, MERGEABLE, head `658ddda4c` — the bot's already-pushed merge), inbox empty, no maintainer directive to rebase. Nothing to commit or push.
-
 ---
+handed-off: endojs-endo-but-for-bots-pr475-campaign-20260819
+deliverable-complete: false
+---
+The rebase directive on endojs/endo-but-for-bots#475 turned out to be the first verb of a large maintainer campaign, and the rebase itself is a curated reconstruction rather than a mechanical operation. I set up the orchestration the maintainer explicitly called for and handed this job off to it.
 
-## Completion report — `endojs-endo-but-for-bots-pr475-rebase`
+## What I did
 
-**Action taken: none (deliberate no-op). I did not rebase PR #475.**
+1. **Re-fetched the source comment** (endojs/endo-but-for-bots#475, comment 5336908307) as untrusted data. The maintainer pivoted the plan: *don't* master-pin — advance the **llm** base instead, then rebase, retcon, respond to feedback, run a gauntlet, and wait for review — explicitly stating "this ... requires an orchestration. The budget for this orchestration is not limited." Plus a code direction to consolidate `thawedBytes`/`frozenBytes` onto a shared `@endo/immutable-arraybuffer` export.
 
-### Why
-This "rebase" job is **spurious — derived from the bot's own self-authored comment**, not a maintainer directive:
+2. **Probed the rebase in an isolated project worktree** (no upstream mutation). Findings:
+   - Old base `llm-a54c3ad` (@1ab0a3cd) is **183 commits behind** current `llm` (@c6b70e8f).
+   - The 37-commit head conflicts at commit `046d02fbe "fix: reconcile byte arrays with canonical ascii"`: the **ocapn CBOR codec was rewritten on llm** (new `CborReaderState` reader model replacing the old `BufferReader`), so the byte-array narrowing must be *re-applied onto the new architecture*, not merged textually — a curated reconstruction, matching the known #475-infeasibility caveat. I **aborted the local rebase; nothing was pushed.**
 
-- **erights's actual ask** (comment `4839980005`, 04:52): "fix the lint errors / **update and resolve conflicts** / add the tests kriskowal requested." "Update" = merge master in.
-- **kriscendobot's own reply** (comment `4840130636`, 05:15 — the job's source) addressed all three. For conflicts it **merged master** (satisfying "update") and *offered* a choice: *"If you would rather this land as a clean rebase/retcon than a merge commit, **say the word and I will redo it**."*
-- The comment-watcher parsed the **bot's own** comment, matched "rebase/retcon", and minted this job one minute later (05:16).
+3. **Set up the campaign orchestration** `endojs-endo-but-for-bots-pr475-campaign-20260819` (serial, halt-on-failure) with five parked children in run order: `advance-base` (reconstruction rebase + fresh `llm-<sha>` frozen base) → `consolidate-bytes` → `retcon` → `feedback` → `gauntlet`, then wait for review. The maintainer's later "rebuild the stack on master" step is noted in the orch body but deliberately excluded from this campaign. Verified all six board artifacts exist under `jobs/orch/` and `jobs/plan/`.
 
-No maintainer has "said the word." The bot explicitly deferred the merge-vs-rebase choice to erights/kriskowal **on the PR thread**, and the ball is in their court there. Rewriting the 36-commit stack now would: (a) re-resolve the same semantic conflicts the bot deliberately avoided re-resolving, (b) force-push/rewrite history on an active, reviewed, MERGEABLE PR, and (c) pre-empt a maintainer choice that is genuinely theirs to make — an irreversible/scope action I should not take autonomously on a bare self-derived offer. PR is currently OPEN, MERGEABLE, CI running (UNSTABLE), head `658ddda4c` — healthy and pending review.
+4. **Messaged the maintainer** (via liaison inbox) with the reconstruction finding, the campaign layout, and the tier caveat.
 
-### Root cause of the leak (garden infra)
-The deployed root checkout (`/home/kris`, HEAD `1fc9b3cd9`) **does not contain `a27a6da74` "comment-source drops the bot's own self-authored comments"**, which is already on `origin/main2`. Verified: `git merge-base --is-ancestor a27a6da74 /home/kris/HEAD` → not an ancestor, and `comment-source-gh.sh` in the deployed root captures the `bot` login (`$3`) but never filters on it. The fix exists; it just hasn't been deployed forward to the root yet.
+## Follow-ups / caveats
+- I flagged that the heavy children are `tier: mentor` with generous token budgets, but the automatic path currently ceilings anthropic at opus-4-8 and routes mentor to other providers; if the maintainer wants the reconstruction on Opus 5 it needs a **manual dispatch**.
+- Two pre-existing #475 retrospective/attention plan jobs remain on the board (comments 5331513453, 5333434953); the `feedback` child's preflight will dedupe against already-resolved threads.
 
-### Follow-ups
-1. **Deploy the root to `origin/main2` (≥ `a27a6da74`)** via `scripts/jobs/deploy-garden.sh`. Once deployed, the comment-watcher will drop the bot's own comments and this class of spurious self-offer job stops recurring. (The upgrade-monitor/deploy-on-upgrade Monitor should already be signaling this.)
-2. **Note for the liaison:** the deployed root carries a local commit `1fc9b3cd9` that is **not on `origin/main2`** (divergent deployed tree). Worth a look during the next deploy/wedge sweep — I did not touch it (out of scope and risky).
-3. **No maintainer ping needed:** the rebase-vs-merge question is already posed to erights/kriskowal on the PR thread (comment `4840130636`); duplicating it via the inbox would violate issue/PR comms discipline.
+The core deliverable (the rebase) is unfinished by design — it is owned by the orchestration's first child — so this is a declared handoff to the durably-posted successor.
+
+<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr475-rebase.jsonl; not agent-authored — do not edit -->
+
+## Cost
+- Engagements: 1 on 1 host(s)
+- Input: 50 tokens (1715695 cached reads)
+- Output: 27594 tokens
+- Cost: $2.3176065
+- Wall-clock: 457s
+- Model(s): claude-opus-4-8 ×1
+
+<!-- garden-usage-end -->
