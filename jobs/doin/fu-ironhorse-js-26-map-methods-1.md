@@ -8,6 +8,7 @@ endojs/endo-but-for-bots (Ironhorse/XS engine): add `WeakMap.prototype.getOrInse
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
