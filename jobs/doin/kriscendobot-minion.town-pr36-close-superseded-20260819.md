@@ -22,3 +22,13 @@ covered by its standing authorization (check
 journal/projects/minion-town/README.md if it's unclear).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T05:03:15Z
