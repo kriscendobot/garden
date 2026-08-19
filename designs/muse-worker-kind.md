@@ -148,6 +148,17 @@ become an unmetered worker class that bypasses admission:
 - Because there is no automatic routing (Decision 3) and no flat-rate pool, a
   `muse` worker cannot silently accrue background spend the way a foreman
   `claude -p` can — every `muse` job is an explicit, budgeted act.
+- **Muse's published, transparent per-token rate card is a genuine advantage
+  for budget attribution, not just a risk to guard against.** The fleet's
+  dominant cost source — flat-rate Claude Max accounts — has no real per-job
+  price at all: the `journal/usage/*.jsonl` `total_cost_usd` field is notional
+  list-price accounting that overstates true spend by roughly 8.7x (the
+  garden actually runs on two flat $200/mo subscriptions), so most job costs
+  in the ledger are an estimate, not a fact. Muse's published Contributor/
+  Standard per-Mtok rates give every `muse` job an **actual, auditable dollar
+  cost**, the same real-metering property `fireworker`/`mystic` already have.
+  This makes `muse` jobs useful data points for calibrating the notional
+  ledger against reality, not just another cost center to bound.
 - **The Contributor-vs-Standard pricing tier is a data-governance decision, not a
   cost optimization** (see Open questions): the Contributor tier is ~12× cheaper
   *because Meta uses the submitted data to improve its products*. Sending a
