@@ -79,3 +79,13 @@ questions**, not "is this a design doc."
 - Report cites `design-muse-worker-kind` / PR #74 as the grounding example.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T21:53:41Z
