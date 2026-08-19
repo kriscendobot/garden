@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T07:14:28Z_
+_As of 2026-08-19T07:18:49Z_
 
 ## Latest
 
@@ -2530,26 +2530,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.7M | $1012.35 _(notional, rate-card)_ | no quota set |
+| Claude | 101.7M | $1013.55 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`daily-progress-summary-20260819-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260819-070501.md) — Daily midnight Pacific progress summary
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1040
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endor-walker-cjs-require`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-cjs-require.md) — Build Increment 1 — CommonJS require() graph-following (Group A)
 
-### tada (5181)
+### tada (5182)
+- [`daily-progress-summary-20260819-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260819-070501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-1.md) — Completion report
 - [`endor-fixture-parity-ratchet-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign.md) — orchestration endor-fixture-parity-ratchet-campaign — HALTED
 - [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-quota-throttle.md) — Completion report — design-quota-throttle
 - [`endojs-endo-but-for-bots-pr1040-091aec5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-091aec5d.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-clean.md) — Completion report
-- … and 5176 more
+- … and 5177 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
