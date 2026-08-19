@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Fix: job_in_lifecycle() conflates "completed" with "still live," blocking legitimate re-directives
@@ -81,13 +82,4 @@ assume:
   vs. the stale `endojs-endo-but-for-bots-pr475-e3925eb5` owner) as the
   grounding example.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T04:33:42Z
+<!-- garden-reaped: 0 -->
