@@ -144,10 +144,10 @@ follows once the design lands and the maintainer reviews it — do not build
 the mechanism in this job; design only.
 
 
-<!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 ---
 claim:
