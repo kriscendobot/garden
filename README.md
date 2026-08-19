@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:05:38Z_
+_As of 2026-08-19T05:06:38Z_
 
 ## Latest
 
@@ -2304,8 +2304,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.3M | $978.26 _(notional, rate-card)_ | no quota set |
-| Codex | 18.2M _(+663.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 98.4M | $978.89 _(notional, rate-card)_ | no quota set |
+| Codex | 18.2M _(+662.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -2497,6 +2497,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/980` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
+- [`kriscendobot-minion.town-port-whoami-tool-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-port-whoami-tool-20260819.md) — awaiting `kriscendobot-minion.town-pr20-merge-20260819` · ---
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
