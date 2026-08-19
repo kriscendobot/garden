@@ -143,6 +143,7 @@ for a docs-only design commit). A `build-quota-throttle` implementation job
 follows once the design lands and the maintainer reviews it — do not build
 the mechanism in this job; design only.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
