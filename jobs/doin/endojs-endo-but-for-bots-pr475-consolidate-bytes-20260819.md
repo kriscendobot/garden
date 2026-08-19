@@ -35,3 +35,13 @@ green. Push to the PR head branch (the shared endojs/endo-but-for-bots repo;
 --force-with-lease only if rebasing). Definition of done: single shared impl
 exported from @endo/immutable-arraybuffer, shim export preserved, all importers
 updated, tests green.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T03:16:27Z
