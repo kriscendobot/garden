@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endor-fixture-parity-ratchet-campaign
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-08-19T05:39:43Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-19T06:31:03Z cleared=none -->
 
 ---
 tier: mentor
