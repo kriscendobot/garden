@@ -2,3 +2,4 @@
 {"ts":"2026-08-19T01:31:02Z","base":"fu-ironhorse-js-26-map-methods-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":35}
 {"ts":"2026-08-19T01:38:24Z","base":"fu-ironhorse-js-26-map-methods-1","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
 {"ts":"2026-08-19T01:46:50Z","base":"fu-ironhorse-js-26-map-methods-1","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":4}
+{"source":"result","model":"claude-opus-4-8","num_turns":56,"elapsed_s":659,"input_tokens":105,"output_tokens":31304,"cache_creation_tokens":96215,"cache_read_tokens":4366069,"total_cost_usd":3.9305165000000004,"ts":"2026-08-19T02:04:51Z","base":"fu-ironhorse-js-26-map-methods-1","host":"endolin-garden-ece02cb4","outcome":"tada"}
