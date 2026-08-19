@@ -32,16 +32,7 @@ digest, esm-imports-cjs-define (and fixtures-0 once Increment 2's exports edge a
 lands) Exclude->Exercise with committed goldens. Node oracle runs default options
 (no harness). Bump the exercised floor to 11. Depends on Increment 0.
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T06:43:34Z
+
+<!-- garden-reaped: 3 -->
