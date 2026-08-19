@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T02:14:15Z_
+_As of 2026-08-19T02:14:48Z_
 
 ## Latest
 
@@ -2005,18 +2005,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.4M | $921.37 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+697.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 92.7M | $923.29 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+696.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (4)
+### todo (3)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
-- [`endojs-endo-but-for-bots-pr475-review-f1df1c4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f1df1c4f.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
-### doin (4)
+### doin (5)
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
+- [`endojs-endo-but-for-bots-pr475-review-f1df1c4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-f1df1c4f.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`fu-xs2rust-endor-debugger-caught-vs-uncaught-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-xs2rust-endor-debugger-caught-vs-uncaught-1.md) — ---
 - [`fu-xs2rust-endor-debugger-caught-vs-uncaught-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-xs2rust-endor-debugger-caught-vs-uncaught-4.md) — ---
 - [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
