@@ -1,29 +1,33 @@
----
-handed-off: kriscendobot-minion.town-pr20-weave-20260817
-deliverable-complete: false
----
-The successor weave job is durably on the board. Handing off.
+Escalation delivered to the maintainer. My shepherd work is complete: CI is green and I've surfaced the deployment/conduct decision that requires human authorization plus evidence I can't gather non-interactively.
 
 ---
 
-**Shepherd report — kriscendobot/minion.town PR #20**
+## Completion report — `kriscendobot-minion.town-pr20-shepherd`
 
-**Live state re-fetched:** PR #20 (`feat: retire toy MCP tools for daemon guests`, head `aa716d6f`) is `mergeable: false` / `mergeable_state: dirty`, `merge_commit_sha: null` — it conflicts with `main`. The only entry in `statusCheckRollup` is a stale `test` SUCCESS from 2026-08-09; no run has dispatched since.
+**Job:** shepherd (drive CI to green) on kriscendobot/minion.town PR #20 (B5 — retire toy MCP tools). Trigger comment (re-fetched, treated as untrusted data): *"Please supervise deployment. How did deployment go? If copacetic, please conduct."*
 
-**Diagnosis:** This is not a shepherd-fixable CI red. Per `roles/shepherd/AGENT.md` § *Conflicting PRs block CI dispatch*: a conflicting PR has no synthetic merge ref, so `pull_request` workflows never dispatch on new pushes — pushing nudge commits would be futile and out of scope. The shepherd's job is to drive CI green, but CI cannot even run until the conflict is resolved.
+**What I did**
+- **CI / merge-readiness (green):** `test (typecheck + vitest)` SUCCESS on head `749a02d`; re-ran `npm run typecheck` + `npm run build` locally — both clean. `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+- **Code vs. design verified:** no `minion_status`/`summon_minion`/`list_minions`/`minions:*` residue in `src/` or `config/`; `src/config.ts` advertises `mcp/tools mcp/guest` only. B5 retirement is correctly complete in source.
+- **Deployed-state supervision (via SSM, garden-fleet admin on i-0380cd68b90020fad):** `minion-mcp.service` active 24h, `endo-daemon` active. The box runs **pre-B5** code (main `b23b09`, CD-deployed 08-18 04:36) — startup banner still advertises `mcp/tools mcp/minions:read mcp/minions:write mcp/guest` and the deployed `dist` still carries toy-tool references; the full `guest_*` (B4) surface is live and healthy.
+- **Deploy mechanism established:** `deploy.yml` CD deploys on push to `main` (last 6 runs all success). Deploying B5 = merging PR #20; `workflow_dispatch` only deploys `main`, so hand-deploying this branch would create drift a later unrelated merge silently reverts.
+- **Escalated to the maintainer** (message-bus → `inbox/maintainer`, `20260819T044942Z-fe62bc`) with a decision-ready report and recommendation.
 
-**Classification:** `next: weaver` — `mergeable_state == dirty` (confirmed via `gh api .../pulls/20 --jq '{mergeable, mergeable_state, merge_commit_sha}'`). No shepherd push made; no test skipped or check bypassed.
+**What changed:** nothing in the repo or on the box — no commits, no deploy, no merge (deliberately). One maintainer message posted; one reactji/reply already existed on the PR from the liaison.
 
-**Handoff:** Posted a durable successor weave job `kriscendobot-minion.town-pr20-weave-20260817` (verified in `jobs/todo/`), which owns rebasing the head onto `main`, resolving conflicts, and pushing so CI re-dispatches. Once mergeable again, the shepherd/conductor chain resumes via the event watcher / reconcile tick. Inbox drained (empty); no maintainer/peer messages pending.
+**Why not auto-conduct:** B5's design gate is *"tools/list shows only `guest_*`; the full E1–E4 sweep re-run green,"* and the Cognito scope-cleanup must run only after fresh green E1–E4 evidence. E1–E4 requires an **authenticated** MCP session (Cognito PKCE hosted-UI OAuth), which this non-interactive session cannot perform (minion-town MCP flagged auth-unavailable). So "copacetic" can't be established to the documented bar, and merge→CD-deploy→Cognito-cleanup is a consequential live-prod + broad-Cognito-surface chain. Held the merge pending the maintainer's call.
 
+**Escalation classification:** `next: liaison` — needs a human decision (authorize the conduct + live deploy, or provide a token path for E1–E4). CI-green definition-of-done is met; this is a clean hand-off, not a stall.
+
+**Follow-ups for whoever conducts:** (1) merge #20 → watch CD deploy → confirm banner drops to `mcp/tools mcp/guest` and toy residue gone; (2) run the authenticated E1–E4 sweep; (3) only then run `deploy/aws/scripts/deploy-cognito-guest-scope.sh`.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr20-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 12 tokens (266607 cached reads)
-- Output: 3584 tokens
-- Cost: $0.6110145
-- Wall-clock: 62s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 3 on 1 host(s) (1 unmetered)
+- Input: 54 tokens (1705879 cached reads)
+- Output: 25402 tokens
+- Cost: $2.6076195 (1 engagement(s) unpriced)
+- Wall-clock: 459s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
