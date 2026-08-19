@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:45:41Z_
+_As of 2026-08-19T05:57:58Z_
 
 ## Latest
 
@@ -11,7 +11,7 @@ The byteArray refinement stack is complete and green—[#475](https://github.com
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 20d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 20d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 30d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 30d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 31d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 32d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 33d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 36d)
@@ -2491,26 +2491,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.5M | $985.82 _(notional, rate-card)_ | no quota set |
+| Claude | 98.6M | $989.03 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
-- [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #876
 - [`endor-parity-oracle-scaffold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-parity-oracle-scaffold.md) — Build Increment 0 — parity oracle & scoreboard scaffold
 - [`mirror-hardened262-endo-but-for-bots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mirror-hardened262-endo-but-for-bots.md) — Mirror hardened262 from upstream endo into endo-but-for-bots
 
-### tada (5173)
+### tada (5174)
+- [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-rebase.md) — Completion report: endojs-endo-but-for-bots-pr876-rebase
 - [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-shepherd.md) — Completion report
 - [`design-endor-fixture-parity-ratchet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endor-fixture-parity-ratchet.md) — Completion report: design the endor↔node fixture-parity ratchet campaign
 - [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Completion report
 - [`kriscendobot-minion.town-pr48-review-b8fd1e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr48-review-b8fd1e6b.md) — Completion report
-- [`endojs-endo-but-for-bots-pr987-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-shepherd-20260819.md) — Completion report
-- … and 5168 more
+- … and 5169 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
