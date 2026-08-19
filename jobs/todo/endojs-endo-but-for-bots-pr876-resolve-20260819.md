@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Resolve pending review feedback on endojs/endo-but-for-bots PR #876
@@ -42,13 +43,4 @@ non-stale-approval rule will correctly refuse otherwise, as it did on
 `endojs-endo-but-for-bots-pr876-conduct` tada report already exists from a
 prior, now-superseded attempt) as a follow-up.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T19:02:34Z
+<!-- garden-reaped: 0 -->
