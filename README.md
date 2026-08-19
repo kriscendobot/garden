@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T06:55:40Z_
+_As of 2026-08-19T07:03:26Z_
 
 ## Latest
 
@@ -2530,25 +2530,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.2M | $995.87 _(notional, rate-card)_ | no quota set |
+| Claude | 101.2M | $1005.78 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1040
+### doin (2)
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endor-walker-cjs-require`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-cjs-require.md) — Build Increment 1 — CommonJS require() graph-following (Group A)
 
-### tada (5180)
+### tada (5181)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-1.md) — Completion report
 - [`endor-fixture-parity-ratchet-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign.md) — orchestration endor-fixture-parity-ratchet-campaign — HALTED
 - [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-quota-throttle.md) — Completion report — design-quota-throttle
 - [`endojs-endo-but-for-bots-pr1040-091aec5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-091aec5d.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-clean.md) — Completion report
-- [`endor-parity-oracle-scaffold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-parity-oracle-scaffold.md) — Completion report — endor-parity-oracle-scaffold (Increment 0)
-- … and 5175 more
+- … and 5176 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
