@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T19:57:20Z_
+_As of 2026-08-19T19:58:04Z_
 
 ## Latest
 
@@ -2610,14 +2610,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.0M | $1116.52 _(notional, rate-card)_ | no quota set |
+| Claude | 113.0M | $1116.93 _(notional, rate-card)_ | no quota set |
 | Codex | 17.5M _(+637.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (1)
-- [`assert-followup-posted-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/assert-followup-posted-gate.md) — Gate job completion on posted follow-ups, not described ones
+- [`design-endo475-istypedarray-isview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endo475-istypedarray-isview.md) — Designer: answer erights's isTypedArray / ArrayBuffer.isView review on endojs...
 
-### doin (1)
+### doin (2)
+- [`assert-followup-posted-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/assert-followup-posted-gate.md) — Gate job completion on posted follow-ups, not described ones
 - [`endojs-endo-but-for-bots-pr475-review-538450f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-538450f1.md) — Review directive on endojs/endo-but-for-bots PR #475
 
 ### tada (5200)
