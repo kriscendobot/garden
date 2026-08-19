@@ -19,3 +19,13 @@ close #36 with a comment pointing at #20 as the superseding PR and explain why
 in one or two sentences. Standard authorization: commenting on this repo is
 covered by its standing authorization (check
 journal/projects/minion-town/README.md if it's unclear).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T04:46:03Z
