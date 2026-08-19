@@ -41,3 +41,13 @@ non-stale-approval rule will correctly refuse otherwise, as it did on
 `endojs-endo-but-for-bots-pr876-conduct-20260819` (date-suffixed -- an older
 `endojs-endo-but-for-bots-pr876-conduct` tada report already exists from a
 prior, now-superseded attempt) as a follow-up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T19:02:34Z
