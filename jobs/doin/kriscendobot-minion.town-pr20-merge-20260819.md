@@ -13,3 +13,13 @@ during a muster session. Standard conduct: verify state is unchanged, merge,
 report the merge commit.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T05:35:32Z
