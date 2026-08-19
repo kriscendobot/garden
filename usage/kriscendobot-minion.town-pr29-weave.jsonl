@@ -1,1 +1,2 @@
 {"ts":"2026-08-19T04:44:00Z","base":"kriscendobot-minion.town-pr29-weave","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":19,"elapsed_s":158,"input_tokens":36,"output_tokens":6107,"cache_creation_tokens":37737,"cache_read_tokens":895604,"total_cost_usd":0.9804870000000001,"ts":"2026-08-19T04:56:02Z","base":"kriscendobot-minion.town-pr29-weave","host":"endolin-garden-ece02cb4","outcome":"tada"}
