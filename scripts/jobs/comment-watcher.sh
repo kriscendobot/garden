@@ -1797,31 +1797,37 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # is preserved). Only classes that carry substantive feedback on a WORK PRODUCT
   # mint a retro; the subjective "should the review have caught this?" judgment runs
   # INSIDE the claimed prosecutor job, never here. Computed while $bf is still
-  # present (it is removed at post time). Reviews always qualify (one review folds to
-  # one primary and therefore one retro, however many inline comments it carries);
-  # an `attention` job qualifies only when its body READS as a directive (trusted
+  # present (it is removed at post time). Reviews qualify (one review folds to one
+  # primary and therefore one retro, however many inline comments it carries); an
+  # `attention` job qualifies only when its body READS as a directive (trusted
   # chatter and bare @-mentions mint an attention reply but no retro). Branch ops,
   # finalize, and everything else are maintenance/praise the review never had to
-  # anticipate — no retro (see the design Q1/Q6 class filter).
+  # anticipate — no retro (see the design Q1/Q6 class filter). Both qualifying
+  # classes then pass through the same no-work-product gate-out below.
   retro_eligible=""
   case "$VERB" in
-    review)
-      retro_eligible=y
-      # Narrow the review→retro path (maintainer decision 2026-08-15): a review
-      # that indicts no work product mints NO retrospective. Two deterministic,
-      # body-only shapes, and ONLY these two — everything else keeps minting as
-      # before (no judgment-based widening; the LLM stays out of the watcher):
-      #   1. the only actionable content is a pipeline-op verb (conduct/rebase/
-      #      shepherd/retcon/weave/merge/close) — a merge-pipeline directive; or
-      #   2. an empty/whitespace approval with zero inline comments — a bare sign-off.
-      # The primary `review` job is UNAFFECTED — the attention/finalization work
-      # still mints exactly as before; only the paired retrospective is suppressed.
-      if review_is_pipeline_op_only "$body" || review_is_empty_approval "$body"; then
-        retro_eligible=""
-        log "retro-gate: review on #$pr ($author) indicts no work product (pipeline-op-only directive or empty approval) — minting the primary but no retrospective [url=$url]"
-      fi ;;
-    attention) reads_as_directive "$(cat "$bf")" && retro_eligible=y ;;
+    review)    retro_eligible=y ;;
+    attention) reads_as_directive "$body" && retro_eligible=y ;;
   esac
+  # Narrow the retro path (maintainer decision 2026-08-15, extended to `attention`
+  # 2026-08-19): a review OR attention that indicts no work product mints NO
+  # retrospective. Two deterministic, body-only shapes, and ONLY these two —
+  # everything else keeps minting as before (no judgment-based widening; the LLM
+  # stays out of the watcher):
+  #   1. the only actionable content is a pipeline-op verb (conduct/rebase/
+  #      shepherd/retcon/weave/merge/close) — a merge-pipeline directive; or
+  #   2. an empty/whitespace approval with zero inline comments — a bare sign-off.
+  # These are the ~85% dismissal flood: a bare "please conduct" / "rebase and
+  # merge" mints a retro asking "should review have caught this?" against a merge
+  # directive that reviews nothing. The PRIMARY job (the review/attention work) is
+  # UNAFFECTED — it still mints exactly as before; only the paired retrospective is
+  # suppressed. Both gate-out predicates read ONLY the body text already in hand
+  # (the same `$body` the review path used), so they apply uniformly to either verb.
+  if [ -n "$retro_eligible" ] \
+     && { review_is_pipeline_op_only "$body" || review_is_empty_approval "$body"; }; then
+    retro_eligible=""
+    log "retro-gate: $VERB on #$pr ($author) indicts no work product (pipeline-op-only directive or empty approval) — minting the primary but no retrospective [url=$url]"
+  fi
 
   # --- APPROVAL → finalization gating -----------------------------------------
   # A clean trusted approval classified as `finalize`. Before minting the
