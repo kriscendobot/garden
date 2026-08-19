@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:14:24Z_
+_As of 2026-08-19T04:32:32Z_
 
 ## Latest
 
@@ -2290,15 +2290,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.6M | $964.55 _(notional, rate-card)_ | no quota set |
+| Claude | 98.3M | $978.37 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-gauntlet-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-gauntlet-20260819.md) — run the gauntlet — endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd-20260819.md) — shepherd directive on endojs/endo-but-for-bots PR #475
+- [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
 ### tada (5154)
 - [`kriscendobot-minion.town-pr37-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet.md) — gauntlet kriscendobot-minion.town-pr37-gauntlet — HALTED
@@ -2400,7 +2402,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-xs-source-phase-design.md) — _normal_ · ---
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
-- [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/revise-standing-instructions-defer-to-submitter.md) — _normal_ · Standing instructions: generalize "never close, defer to the submitter" fleet...
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-base-update-and-pin-alias.md) — _normal_ · ---
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
