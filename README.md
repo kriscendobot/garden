@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T21:44:37Z_
+_As of 2026-08-19T21:46:08Z_
 
 ## Latest
 
@@ -2610,14 +2610,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.7M | $1148.61 _(notional, rate-card)_ | no quota set |
+| Claude | 115.7M | $1149.87 _(notional, rate-card)_ | no quota set |
 | Codex | 16.6M _(+621.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`carve-out-design-pr-for-open-questions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/carve-out-design-pr-for-open-questions.md) — Carve out: a garden-infra design that needs feedback gets a review PR, not a ...
+### todo (0)
+(none)
 
-### doin (5)
+### doin (6)
+- [`carve-out-design-pr-for-open-questions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/carve-out-design-pr-for-open-questions.md) — Carve out: a garden-infra design that needs feedback gets a review PR, not a ...
 - [`endojs-endo-but-for-bots-pr475-e8792d98`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-e8792d98.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-2c700561`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-2c700561.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-5aae699b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-5aae699b.md) — Review directive on endojs/endo-but-for-bots PR #475
