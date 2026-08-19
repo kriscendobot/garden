@@ -54,6 +54,7 @@ Never state in your report that a peer did work you did not verify.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
