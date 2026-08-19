@@ -1,1 +1,2 @@
 {"ts":"2026-08-19T05:27:48Z","base":"design-endor-fixture-parity-ratchet","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":357,"input_tokens":28,"output_tokens":22708,"cache_creation_tokens":61563,"cache_read_tokens":865577,"total_cost_usd":1.6196685,"ts":"2026-08-19T05:41:00Z","base":"design-endor-fixture-parity-ratchet","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer"}
