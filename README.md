@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T02:47:36Z_
+_As of 2026-08-19T02:52:38Z_
 
 ## Latest
 
@@ -2122,8 +2122,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.2M | $953.69 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 96.3M | $954.91 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+685.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -2131,17 +2131,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (4)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
+- [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #475
 - [`kriscendobot-minion.town-pr37-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #37
-- [`kriscendobot-minion.town-pr49-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #49
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
-### tada (5144)
+### tada (5145)
+- [`kriscendobot-minion.town-pr49-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-fix-6.md) — Completion report — kriscendobot/minion.town PR #49, gauntlet FIX round 6
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Completion report
 - [`kriscendobot-minion.town-pr49-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-panel-6.md) — Completion report
 - [`kriscendobot-minion.town-pr49-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-fix-5.md) — Completion report
 - [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Completion report: 2026-08-18 dependabotany backstop sweep (endojs/endo-but-f...
-- … and 5139 more
+- … and 5140 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
