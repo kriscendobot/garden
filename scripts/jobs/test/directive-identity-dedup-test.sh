@@ -206,6 +206,34 @@ printf '%s' "$werr" | grep -qi 'WARN.*collides with a COMPLETED job' \
   && ok "8f2 tada collision surfaces a loud WARN (not a routine no-op)" \
   || bad "8f2 tada collision did not emit the expected WARN (got: $werr)"
 
+# --- 9: a COMPLETED owner (in tada/, index still points at it) never blocks a ----
+# fresh directive of the SAME identity under a DIFFERENT base. This is the pr475
+# incident: `...-pr475-reply-humans-resolve-policy` was refused because the identity
+# index for comment 5333026938 still pointed at an EARLIER, already-COMPLETED job
+# `...-pr475-e3925eb5` sitting in tada/. The old dedup used job_in_lifecycle, which
+# counts tada as "in lifecycle", so the completed owner wrongly swallowed the new
+# directive and the re-point path below never ran. Distinct from test 6 (which
+# DELETED the owner from the board entirely) and from test 8 (a fresh directive with
+# a DIFFERENT identity): here the owner survives IN tada and the identity is IDENTICAL,
+# so only a plan|todo|doin-scoped active-owner check (job_is_active) lets it re-mint.
+IDR="endojs/endo-but-for-bots#475:comment:5333026938"
+OLDBASE=endojs-endo-but-for-bots-pr475-e3925eb5
+NEWBASE=endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy
+idrkey="$(job_id_hash "$IDR")"
+CC6="$TR/tada-owner-blocks"; git clone -q -b journal2 "$BARE" "$CC6" 2>/dev/null
+printf 'done\n' > "$CC6/jobs/tada/$OLDBASE.md"
+mkdir -p "$CC6/jobs/index"
+printf 'base: %s\nidentity: %s\n' "$OLDBASE" "$IDR" > "$CC6/jobs/index/$idrkey"
+git -C "$CC6" add -A
+git -C "$CC6" -c user.name=t -c user.email=t@l commit -q -m 'seed completed owner + live index entry'
+git -C "$CC6" push -q origin journal2
+post --identity "$IDR" "$NEWBASE" "$(bodyfile 'maintainer reply directive on pr475, prior job already done')"
+has "$NEWBASE" && ok "9a a fresh directive re-mints past a COMPLETED (tada) same-identity owner" \
+              || bad "9a completed same-identity owner wrongly blocked the fresh directive (pr475 refusal)"
+owner_r="$(git -C "$BARE" cat-file -p "journal2:jobs/index/$idrkey" | sed -n 's/^base:[[:space:]]*//p')"
+[ "$owner_r" = "$NEWBASE" ] && ok "9b the identity index re-pointed to the new base" \
+                            || bad "9b index owner is '$owner_r', expected $NEWBASE"
+
 echo "----------------------------------------------------------------"
 echo "directive-identity-dedup-test: PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]

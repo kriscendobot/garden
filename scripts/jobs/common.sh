@@ -4782,6 +4782,25 @@ job_in_lifecycle() {
   return 1
 }
 
+# Narrower sibling of job_in_lifecycle: is <base> still ACTIONABLE — parked,
+# queued, or running (plan|todo|doin), tada EXCLUDED. A base that has drained
+# into tada/ is DONE, not active, so this returns false for it. Use this, not
+# job_in_lifecycle, wherever "completed" must NOT count as "still owns the
+# slot" — specifically post-job.sh's directive-identity dedup, where a finished
+# owner must let a genuinely new directive on the same identity mint its own
+# job and re-point the index (the pr475 "reply-humans-resolve-policy" refusal
+# against a tada-complete `...-pr475-e3925eb5` owner). job_in_lifecycle keeps
+# its tada-inclusive meaning for callers that legitimately need it (a handoff
+# successor already in tada is still durable evidence; an orchestration child
+# already in tada is a restart-safe re-post).
+job_is_active() {
+  local dir="$1" base="$2" sub
+  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
+    [ -e "$dir/$sub/$base.md" ] && return 0
+  done
+  return 1
+}
+
 # Print the base that owns <identity> on <ref> in clone <dir> IFF that base is
 # still live (plan|todo|doin|tada — the same set job_in_lifecycle checks, or the
 # watchers would misread a dedup against a plan-parked owner as a lost push);

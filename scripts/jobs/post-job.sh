@@ -193,7 +193,8 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # also how two producers sharing a base convention — the CI-status auto-shepherd and a
   # manual "shepherd" — coordinate). A COMPLETED job (tada) only blocks when the caller
   # gave NO directive identity: with an identity, the jobs/index map (checked just below,
-  # and it counts tada via job_in_lifecycle) is the authoritative re-see guard, so a
+  # against the ACTIVE set only — plan|todo|doin via job_is_active, tada excluded) is the
+  # authoritative re-see guard, so a
   # FRESH directive that merely derives the same (PR,verb) base as a finished job is NOT
   # swallowed by that stale tada entry — the endo-but-for-bots #671 "Shepherd." drop,
   # where a 2026-07-10 auto-shepherd in tada/ silently deduped a fresh 2026-07-15
@@ -233,7 +234,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       # the entry; the base-level dedup still applies.
       log "WARN: identity-hash collision on '$idhash' ('$owner_id' != '$identity'); posting '$base' unindexed"
       idhash=""
-    elif [ -n "$owner" ] && job_in_lifecycle "$DIR" "$owner"; then
+    elif [ -n "$owner" ] && job_is_active "$DIR" "$owner"; then
       log "directive '$identity' already owns live job '$owner'; not minting '$base' (dedup)"
       exit 0
     fi
