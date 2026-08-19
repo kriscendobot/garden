@@ -20,6 +20,7 @@ If not yet built, re-arm this notice again on a short once: schedule (scripts/jo
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
