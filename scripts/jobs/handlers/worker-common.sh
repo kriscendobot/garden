@@ -45,13 +45,38 @@ worker_ensure_worktree() {
   # requeue whose transcript was pruned) is removed and recreated so the job starts
   # from a clean current-tip checkout, never a stale base.
   [ -e "$worktree" ] && scratch_cleanup "$worktree"
+  # Capture the worktree-add's stderr rather than swallowing it: a bare `2>&1
+  # >/dev/null` turned every failure — most plausibly `index.lock`/"already
+  # registered" contention from the gardener pool's concurrent same-host adds —
+  # into an unclassifiable rc=1 that surfaced to gardener.sh as an empty
+  # "transient handler outage" with no diagnostic text (the 08-15..08-19 retry
+  # storm). We keep only stdout on /dev/null (mirroring ensure-project-worktree.sh),
+  # retry with backoff when the captured stderr matches a lock-contention
+  # signature so a same-host race self-heals, and re-emit the real stderr on a
+  # terminal failure so the error is actionable instead of a bare rc=1.
+  local attempt max_attempts=4 err last_err=""
   for ref in "origin/$main_branch" "$main_branch" HEAD; do
     if git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$ref" >/dev/null 2>&1; then
       mkdir -p "$GARDEN_SCRATCH"
-      git -C "$GARDEN_ROOT" worktree add --detach "$worktree" "$ref" >/dev/null 2>&1 && return 0
+      for (( attempt = 1; attempt <= max_attempts; attempt++ )); do
+        if err="$(git -C "$GARDEN_ROOT" worktree add --detach "$worktree" "$ref" 2>&1 >/dev/null)"; then
+          return 0
+        fi
+        last_err="$err"
+        # Retry only a lock-contention race (a peer's concurrent worktree add
+        # holds index.lock, or a half-registered entry has not settled). Any
+        # other error is terminal — fall through to the next ref / die.
+        if [ "$attempt" -lt "$max_attempts" ] && \
+           printf '%s' "$err" | grep -Eqi 'index\.lock|already (registered|exists|locked)|is already checked out|cannot lock ref'; then
+          sleep "$(awk "BEGIN{print $attempt * 0.5}")"
+          [ -e "$worktree" ] && scratch_cleanup "$worktree"
+          continue
+        fi
+        break
+      done
     fi
   done
-  die "could not create per-job worktree $worktree off any of origin/$main_branch, $main_branch, HEAD"
+  die "could not create per-job worktree $worktree off any of origin/$main_branch, $main_branch, HEAD${last_err:+: $last_err}"
 }
 
 # worker_worktree_note <base> <worktree> <main-branch> — the worktree-discipline
