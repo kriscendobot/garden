@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T19:39:04Z_
+_As of 2026-08-19T19:49:40Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The byteArray refinement stack is complete and green—[#475](https://github.com
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/pull/876) — feat(endor): endor run --conditions flag and webcrypto endowment for browser-build packages (waiting 22m)
+- [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/pull/876) — feat(endor): endor run --conditions flag and webcrypto endowment for browser-build packages (waiting 34m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 21d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 31d)
@@ -2610,23 +2610,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.9M | $1114.78 _(notional, rate-card)_ | no quota set |
-| Codex | 17.5M _(+638.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 112.9M | $1114.58 _(notional, rate-card)_ | no quota set |
+| Codex | 17.5M _(+637.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr475-review-79645bf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-79645bf9.md) — Review directive on endojs/endo-but-for-bots PR #475
+### doin (0)
+(none)
 
-### tada (5199)
+### tada (5200)
+- [`endojs-endo-but-for-bots-pr475-review-79645bf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-79645bf9.md) — Completion report
 - [`pr910-review-4941452327-fuzzer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-fuzzer.md) — Completion report — disposable fuzzer for the ReadableBlob range/textRange sy...
 - [`endojs-endo-but-for-bots-pr876-resolve-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-resolve-20260819.md) — Completion report
 - [`pr910-review-4941452327-info-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-info-cleanup.md) — Completion report
 - [`pr910-review-4941452327-conductor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-conductor.md) — Completion report — conductor pr910-review-4941452327-conductor
-- [`endojs-endo-but-for-bots-pr1040-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1040-gauntlet — HALTED
-- … and 5194 more
+- … and 5195 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
