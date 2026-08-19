@@ -1,4 +1,5 @@
 ---
+child-endor-walker-cjs-require-reap-count: 0
 child-endor-parity-oracle-scaffold-host: endolin-garden-ece02cb4
 child-endor-parity-oracle-scaffold-reap-count: 0
 order: serial
