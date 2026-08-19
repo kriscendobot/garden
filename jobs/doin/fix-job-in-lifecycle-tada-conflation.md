@@ -80,3 +80,13 @@ assume:
 - Report cites this incident (`endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy`
   vs. the stale `endojs-endo-but-for-bots-pr475-e3925eb5` owner) as the
   grounding example.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T04:33:42Z
