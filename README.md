@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:57:58Z_
+_As of 2026-08-19T05:58:56Z_
 
 ## Latest
 
@@ -2491,25 +2491,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.6M | $989.03 _(notional, rate-card)_ | no quota set |
+| Claude | 98.4M | $980.73 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endor-parity-oracle-scaffold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-parity-oracle-scaffold.md) — Build Increment 0 — parity oracle & scoreboard scaffold
-- [`mirror-hardened262-endo-but-for-bots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mirror-hardened262-endo-but-for-bots.md) — Mirror hardened262 from upstream endo into endo-but-for-bots
 
-### tada (5174)
+### tada (5175)
+- [`mirror-hardened262-endo-but-for-bots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mirror-hardened262-endo-but-for-bots.md) — Completion report: Mirror hardened262 into endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-rebase.md) — Completion report: endojs-endo-but-for-bots-pr876-rebase
 - [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-shepherd.md) — Completion report
 - [`design-endor-fixture-parity-ratchet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endor-fixture-parity-ratchet.md) — Completion report: design the endor↔node fixture-parity ratchet campaign
 - [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Completion report
-- [`kriscendobot-minion.town-pr48-review-b8fd1e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr48-review-b8fd1e6b.md) — Completion report
-- … and 5169 more
+- … and 5170 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
