@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: pr910-review-4941452327-resolution
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-08-14T22:04:09Z
+tier: mentor
+handler-budget-role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-19T19:00:28Z cleared=none -->
 
 ---
 handler-budget-role: builder
