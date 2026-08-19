@@ -19,3 +19,13 @@ State at handoff (from shepherd job kriscendobot-minion.town-pr29-shepherd):
 The only blocker to merge is the merge conflict. Rebase the head onto current
 `main`, resolve conflicts (docs-only PR: `docs(deploy)` first-run credential &
 secret checklist), and confirm CI re-greens so the approved PR can merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T04:43:24Z
