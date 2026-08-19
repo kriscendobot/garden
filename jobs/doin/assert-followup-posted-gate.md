@@ -96,3 +96,13 @@ call rather than mechanical extension of the existing gauntlet-gate pattern,
 say so explicitly and hand off to a design job naming exactly the fork,
 rather than force a decision — but the existing `--handed-off` verification
 and the gauntlet-gate precedent cover most of the hard part already.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T19:57:29Z
