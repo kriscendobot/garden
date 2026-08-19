@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:24:32Z_
+_As of 2026-08-19T05:28:13Z_
 
 ## Latest
 
@@ -2312,30 +2312,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.4M | $978.98 _(notional, rate-card)_ | no quota set |
-| Codex | 18.0M _(+659.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 98.3M | $979.21 _(notional, rate-card)_ | no quota set |
+| Codex | 18.0M _(+656.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (5)
-- [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-quota-throttle.md) — Design: auto-throttle gardeners on quota exhaustion, auto-restore on quota reset
-- [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr980-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #980
-- [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
-- [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Review directive on kriscendobot/minion.town PR #21
-- [`kriscendobot-minion.town-pr48-review-b8fd1e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr48-review-b8fd1e6b.md) — Review directive on kriscendobot/minion.town PR #48
+### todo (0)
+(none)
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr282-review-d4cb53a7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-review-d4cb53a7.md) — Review directive on endojs/endo-but-for-bots PR #282
+### doin (7)
+- [`design-endor-fixture-parity-ratchet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endor-fixture-parity-ratchet.md) — Design the endor↔node fixture-parity ratchet campaign
+- [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-quota-throttle.md) — Design: auto-throttle gardeners on quota exhaustion, auto-restore on quota reset
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #876
-- [`endojs-endo-but-for-bots-pr987-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-shepherd-20260819.md) — shepherd directive on endojs/endo-but-for-bots PR #987
+- [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #980
+- [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
+- [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Review directive on kriscendobot/minion.town PR #21
 
-### tada (5168)
+### tada (5171)
+- [`kriscendobot-minion.town-pr48-review-b8fd1e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr48-review-b8fd1e6b.md) — Completion report
+- [`endojs-endo-but-for-bots-pr987-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-shepherd-20260819.md) — Completion report
+- [`endojs-endo-but-for-bots-pr282-review-d4cb53a7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-review-d4cb53a7.md) — Completion report
 - [`endojs-endo-but-for-bots-pr987-weave-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-weave-20260819.md) — Completion report
 - [`endojs-endo-but-for-bots-pr987-2cc814f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-2cc814f3.md) — Completion report
-- [`endojs-endo-but-for-bots-pr719-cc0b4130`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-cc0b4130.md) — Completion report
-- [`endojs-endo-but-for-bots-pr987-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #987
-- [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-shepherd.md) — Completion report
-- … and 5163 more
+- … and 5166 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
