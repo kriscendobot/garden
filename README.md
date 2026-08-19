@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T17:47:36Z_
+_As of 2026-08-19T18:03:39Z_
 
 ## Latest
 
@@ -833,6 +833,25 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
+
+- `doomed-dependabotany-recheck-endo-but-for-bots-20260819-170501-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-dependabotany-recheck-endo-but-for-bots-20260819-170501-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/dependabotany-recheck-endo-but-for-bots-20260819-170501; it stays HELD until a human promotes it
+> (promote-plan.sh dependabotany-recheck-endo-but-for-bots-20260819-170501) or removes it, so nothing is lost.
+> Original job base: dependabotany-recheck-endo-but-for-bots-20260819-170501
+>
+> --- original job body ---
+> ---
+> role: botanist
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Daily dependabotany backstop for endo-but-for-bots
+>
+> Wear roles/botanist/AGENT.md. Recover the cumulative Dependabot ledger from journal message entries whose body contains both "# Dependabotany" and "project: endo-but-for-bots". Re-evaluate every due open row, including [https://github.com/endojs/endo-but-for-bots/pull/923](https://github.com/endojs/endo-but-for-bots/pull/923), against live base state, advisories, source maturity, and CI; execute terminal dispositions through the conductor spine.
 
 - `doomed-design-quota-throttle-elapsed-constancy` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-design-quota-throttle-elapsed-constancy.md)
 
@@ -2545,15 +2564,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.5M | $1106.67 _(notional, rate-card)_ | no quota set |
-| Codex | 17.6M _(+642.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 112.6M | $1107.84 _(notional, rate-card)_ | no quota set |
+| Codex | 17.5M _(+638.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260819-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260819-170501.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (0)
+(none)
 
 ### tada (5195)
 - [`endojs-endo-but-for-bots-pr1040-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1040-gauntlet — HALTED
@@ -2572,6 +2591,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — _normal_ · Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`dependabotany-recheck-endo-but-for-bots-20260817-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-20260817-170501.md) — _normal_ · Daily dependabotany backstop for endo-but-for-bots
+- [`dependabotany-recheck-endo-but-for-bots-20260819-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-20260819-170501.md) — _normal_ · Daily dependabotany backstop for endo-but-for-bots
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
