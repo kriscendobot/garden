@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T03:23:51Z_
+_As of 2026-08-19T03:26:41Z_
 
 ## Latest
 
@@ -744,6 +744,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > the automatic path currently ceilings anthropic at opus-4-8 / routes mentor to
 > other providers. If you want the reconstruction on Opus 5, it needs a manual
 > dispatch. Handing this job off to the orchestration.
+
+- `20260819T032608Z-ce16c2` — from gauntlet:build-minion-town-git-content-substrate-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T032608Z-ce16c2.md)
+
+> Gauntlet build-minion-town-git-content-substrate-gauntlet HALTED: stage 'build-minion-town-git-content-substrate-gauntlet-panel-5' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2231,8 +2235,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.5M | $963.60 _(notional, rate-card)_ | no quota set |
-| Codex | 18.5M _(+671.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 97.5M | $966.17 _(notional, rate-card)_ | no quota set |
+| Codex | 18.5M _(+668.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -2242,13 +2246,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819.md) — consolidate byte utilities onto @endo/immutable-arraybuffer — PR #475
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 
-### tada (5149)
+### tada (5150)
+- [`build-minion-town-git-content-substrate-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet.md) — gauntlet build-minion-town-git-content-substrate-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr475-advance-base-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-advance-base-20260819.md) — Weaver job complete: advance the llm base + rebase reconstruction — endojs/en...
 - [`improve-hermit-claims-gardener-role-jobs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-hermit-claims-gardener-role-jobs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — What I did
 - [`kriscendobot-minion.town-pr37-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet-fix-5.md) — Completion report
-- [`kriscendobot-minion.town-pr49-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet.md) — gauntlet kriscendobot-minion.town-pr49-gauntlet — HALTED
-- … and 5144 more
+- … and 5145 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
