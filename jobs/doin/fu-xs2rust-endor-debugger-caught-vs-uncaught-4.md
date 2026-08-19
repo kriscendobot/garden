@@ -8,6 +8,7 @@ endojs/endo-but-for-bots PR #600 (Ironhorse/xs2rust debugger): fix the three `Br
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
