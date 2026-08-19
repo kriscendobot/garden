@@ -5,6 +5,7 @@ dispatch: automatic
 ---
 endojs/endo-but-for-bots PR #600 (Ironhorse/xs2rust debugger): recover the debugger row — this blocks the rest of the debugger work.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
