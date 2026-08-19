@@ -5297,6 +5297,39 @@ role_default_model() {
   esac
 }
 
+# role_requires_anthropic_posture <role> -> rc 0 iff a job carrying this `role:`
+# demands the full Claude-agent posture and so may be claimed ONLY by an anthropic
+# worker kind (KIND=monk/gardener, provider anthropic). This is the ROLE analogue of
+# the tier/provider backend-fit filter in claim-job.sh (§1.3) and of the
+# claim/handler-agreement invariant the tier-serving test asserts
+# (gardener-claude-tier-serving-test.sh): a worker must never WIN a claim its handler
+# cannot then HONOR.
+#
+# The `gardener` role is the self-directed agentic loop — the gauntlet's per-stage
+# worker (gauntlet.sh stamps `role: gardener`) and the garden self-improvement jobs —
+# which the codex/local handlers (handlers/cleric-codex.sh) and their role_default_model
+# cases (cleric/hermit above) were never built to run: a hermit that wins such a job
+# dies at a near-constant few-seconds elapsed and burns the doom-threshold requeue
+# budget (mtown-git-remote-followup-notice-recheck-20260818, claimed by worker_kind
+# hermit on two hosts, 2026-08-19) before the elapsed-constancy detector escalates it.
+# The same basename ran fine under an anthropic gardener the days prior — the claim
+# eligibility gap, not the job, is the defect.
+#
+# This is a CURATED deny-list, NOT the pure complement of the codex role_default_model
+# vocabulary. Many roles that vocabulary omits (fixer, shepherd, botanist, prosecutor)
+# are ordinary PR-mechanical work a codex handler runs fine on the fleet default model;
+# fencing those to anthropic-only would strand the automatic fleet during the
+# codex-primary quota posture. Only a role that genuinely requires the Claude agentic
+# posture belongs here. The other self-directed meta roles (foreman, watchman, liaison,
+# orchestrator, triager) run as daemon/singleton postures, never posted as claimable
+# board jobs, so they need no entry. An empty role is a directive/verb job any kind honors.
+role_requires_anthropic_posture() {
+  case "${1:-}" in
+    gardener) return 0 ;;
+    *)        return 1 ;;
+  esac
+}
+
 # role_default_tier is the producer-facing counterpart of role_default_model.
 # Automatic producers currently always request minion. The compatibility model pin
 # above is never authoritative over this durable tier intent.

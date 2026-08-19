@@ -333,6 +333,19 @@ elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
 elig_case hermit   gptoss_herm  "model: gpt-oss:20b"  claimed
 
+# ROLE backend-fit — a `role: gardener` job demands the full Claude-agent posture the
+# codex/local handlers cannot honor, so ONLY an anthropic kind may claim it, even when
+# the job is unpinned and tier-less (the automatic-dispatch default that let a hermit
+# win it and die in a claim/requeue hot loop, 2026-08-19). Anthropic kinds still claim
+# it; a codex-servable mechanical role (fixer) is untouched by the fence.
+elig_case hermit     gardener_role_h  "role: gardener"                 left
+elig_case cleric     gardener_role_c  "role: gardener"                 left
+elig_case mystic     gardener_role_y  $'model: kimi-k3\nrole: gardener' left
+elig_case fireworker gardener_role_f  $'provider: fireworks\ntier: mentor\nrole: gardener' left
+elig_case monk       gardener_role_m  "role: gardener"                 claimed
+elig_case gardener   gardener_role_g  "role: gardener"                 claimed
+elig_case cleric     fixer_role_c     "role: fixer"                    claimed
+
 # ============================================================================
 hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale arms each"; hr
 [ -e "$SRC/garden-worker@.service.in" ] && ok "single worker template garden-worker@.service.in exists" || bad "worker template missing"

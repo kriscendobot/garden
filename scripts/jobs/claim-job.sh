@@ -63,6 +63,18 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
   local jf="$1" tier pin constrained_provider role
+  # ROLE backend-fit: a job whose `role:` demands the full Claude-agent posture (the
+  # self-directed `gardener` loop the codex/local handlers cannot honor) is claimable
+  # only by an anthropic kind — the role analogue of the provider filter below, fencing
+  # hermit/cleric/fireworker/mystic off exactly as the mystic carve-out fences builder/
+  # designer. Checked FIRST, before tier resolution, so it also catches an unpinned,
+  # tier-less `role: gardener` job (the automatic-dispatch default that would otherwise
+  # fall through the unclassified-tier early-return below). Closes the
+  # hermit-claims-gardener claim/die/requeue hot loop (2026-08-19).
+  if [ "$KIND_PROVIDER" != anthropic ] \
+     && role_requires_anthropic_posture "$(plan_field "$jf" role)"; then
+    return 1
+  fi
   tier="$(job_tier "$jf")" || {
     # An absent or unclassified historical model pin is unpinned work for the
     # established pools. Keep hosted pools opt-in: they require their explicit
