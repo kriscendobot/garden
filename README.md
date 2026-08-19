@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:13:36Z_
+_As of 2026-08-19T04:14:24Z_
 
 ## Latest
 
@@ -748,6 +748,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T032608Z-ce16c2` — from gauntlet:build-minion-town-git-content-substrate-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T032608Z-ce16c2.md)
 
 > Gauntlet build-minion-town-git-content-substrate-gauntlet HALTED: stage 'build-minion-town-git-content-substrate-gauntlet-panel-5' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260819T041409Z-b84f3a` — from gauntlet:kriscendobot-minion.town-pr37-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T041409Z-b84f3a.md)
+
+> Gauntlet kriscendobot-minion.town-pr37-gauntlet HALTED: stage 'kriscendobot-minion.town-pr37-gauntlet-panel-6' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2286,7 +2290,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.6M | $964.27 _(notional, rate-card)_ | no quota set |
+| Claude | 97.6M | $964.55 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -2296,13 +2300,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr475-gauntlet-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-gauntlet-20260819.md) — run the gauntlet — endojs/endo-but-for-bots PR #475
 
-### tada (5153)
+### tada (5154)
+- [`kriscendobot-minion.town-pr37-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet.md) — gauntlet kriscendobot-minion.town-pr37-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr475-feedback-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-feedback-20260819.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-retcon-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-retcon-20260819.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819.md) — Completion report
 - [`build-minion-town-git-content-substrate-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet.md) — gauntlet build-minion-town-git-content-substrate-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr475-advance-base-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-advance-base-20260819.md) — Weaver job complete: advance the llm base + rebase reconstruction — endojs/en...
-- … and 5148 more
+- … and 5149 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
