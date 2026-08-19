@@ -8,6 +8,7 @@ endojs/endo-but-for-bots: `this.self` inside an exo's object literal was found s
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
