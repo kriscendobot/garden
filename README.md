@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:10:57Z_
+_As of 2026-08-19T04:13:36Z_
 
 ## Latest
 
@@ -1898,6 +1898,57 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
 >   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
+- `doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/kriscendobot-minion.town-pr37-gauntlet-panel-6; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-minion.town-pr37-gauntlet-panel-6) or removes it, so nothing is lost.
+> Original job base: kriscendobot-minion.town-pr37-gauntlet-panel-6
+>
+> --- original job body ---
+> ---
+> role: gardener
+> handler-budget-role: panel
+> handler-timeout: 7200
+> gauntlet: kriscendobot-minion.town-pr37-gauntlet
+> gauntlet_stage: panel
+> gauntlet_iteration: 6
+> pr: [https://github.com/kriscendobot/minion.town/pull/37](https://github.com/kriscendobot/minion.town/pull/37)
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
+>
+> You are ONE stage of a staged gauntlet (kriscendobot-minion.town-pr37-gauntlet). Run EXACTLY ONE panel round, post the
+> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion.town-pr37-gauntlet-panel-6 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/37 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. Run the panel in SINGLE-ROUND mode against that worktree:
+>    `GARDEN_PANEL_SINGLE_ROUND=1 \
+>      scripts/jobs/gardening/panel.sh <worktree> 37 <base-ref>`
+>    It fans the seats, aggregates, and prints its disposition as the terminal line's
+>    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
+> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/kriscendobot/minion.town/pull/37](https://github.com/kriscendobot/minion.town/pull/37) — the
+>    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
+>    review on must-fix, a comment/approve on pass).
+> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
+>    report with `orchestration-failed: true` and do NOT emit a panel marker.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: panel=pass -->
+>   <!-- gauntlet-stage-result: panel=must-fix -->
+
 - `doomed-kriscendobot-minion.town-pr47-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr47-gauntlet-panel-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -2235,16 +2286,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.5M | $963.25 _(notional, rate-card)_ | no quota set |
+| Claude | 97.6M | $964.27 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr475-gauntlet-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-gauntlet-20260819.md) — run the gauntlet — endojs/endo-but-for-bots PR #475
-- [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 
 ### tada (5153)
 - [`endojs-endo-but-for-bots-pr475-feedback-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-feedback-20260819.md) — Completion report
@@ -2328,6 +2378,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-list-pr1-1238bca7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-1238bca7.md) — _normal_ · attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr20-review-c7ac7b26`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr20-review-c7ac7b26.md) — _normal_ · Review directive on kriscendobot/minion.town PR #20
 - [`kriscendobot-minion.town-pr21-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr21-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — kriscendobot/minion.town PR #21
+- [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
 - [`kriscendobot-minion.town-pr47-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr47-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #47
 - [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr47-review-237136a0.md) — _normal_ · Review directive on kriscendobot/minion.town PR #47
