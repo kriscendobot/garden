@@ -8,6 +8,7 @@ endojs/endo-but-for-bots PR #881: the gauntlet's panel stage has never run on th
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
