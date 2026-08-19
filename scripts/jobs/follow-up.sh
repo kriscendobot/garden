@@ -135,36 +135,17 @@ fi
 # nothing new → stay silent
 [ "${#new[@]}" -eq 0 ] && exit 0
 
-# Extract a report's follow-up section: the lines under a `## Follow-ups…`
-# heading, up to the next `## ` heading or EOF. Sub-headings (`### …`) do not
-# terminate it.
-extract_followups() {
-  awk '
-    /^##[[:space:]]+[Ff]ollow-?[Uu]ps/ { grab=1; next }
-    grab && /^##[[:space:]]/           { grab=0 }
-    grab                               { print }
-  ' "$1"
-}
-
-# Actionable iff the section's first content word is not "None". Looks at only
-# the first whitespace-delimited token (after any leading list marker) so that
-# "None.", "None — …", and "None. No embargo… (note)" are all treated as no-op,
-# while "Reopen …" or "- weaver rebase #197" are actionable.
-is_actionable() {
-  local first word
-  first="$(printf '%s' "$1" | grep -m1 '[^[:space:]]' || true)"
-  [ -n "$first" ] || return 1
-  word="$(printf '%s' "$first" | sed -E 's/^[[:space:]]*[-*•]?[[:space:]]*//' | awk '{print tolower($1)}')"
-  case "$word" in none|none.|none,|none:|none\;) return 1;; esac
-  return 0
-}
+# The follow-up section scan and its null-signal test are shared with the
+# completion-time gate (assert-followup-posted.sh) via common.sh, so the async
+# sweep and the gate can never disagree on what counts as an actionable
+# follow-up: report_followups_section / followups_actionable.
 
 digest="$(mktemp "${TMPDIR:-/tmp}/garden-follow-up.XXXXXX")"
 actionable=0
 for f in "${new[@]}"; do
   base="$(basename "$f" .md)"
-  section="$(extract_followups "$f")"
-  if is_actionable "$section"; then
+  section="$(report_followups_section "$f")"
+  if followups_actionable "$section"; then
     actionable=$((actionable+1))
     {
       printf '===== REPORT %s =====\n' "$base"

@@ -647,6 +647,25 @@ while :; do
     fi
   fi
 
+  # GATE the completion on POSTED follow-ups, not described ones. INDEPENDENTLY of
+  # everything above: if the report carries a substantive `## Follow-ups` section
+  # with no checkable disposition (a verified handoff, a maintainer-inbox message,
+  # or an explicit override), refuse to record the job complete — the exact miss
+  # shape of endojs-endo-but-for-bots-pr910-shepherd and -pr876-rebase, each of
+  # which described a needed follow-up and settled without posting it. A block is
+  # treated exactly like a failed handoff: leave the job in doin, reaper retries.
+  # See scripts/jobs/assert-followup-posted.sh (deterministic, no LLM).
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    set +e
+    "$HERE/assert-followup-posted.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
+    followup_rc=$?
+    set -e
+    if [ "$followup_rc" -ne 0 ]; then
+      hrc=$followup_rc
+      log "posted-follow-up GATE blocked completion of '$base' (rc=$hrc): a substantive follow-up was described but not posted; leaving in doin for retry"
+    fi
+  fi
+
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     # DETERMINISTIC COMPLETION GATE: the handler both exited 0 AND wrote the
     # completion sentinel (the worker reached its final act and emitted

@@ -3579,6 +3579,13 @@ reap_process_group() {
 GARDEN_COMPLETION_MARKER='<<<GARDEN-JOB-COMPLETE>>>'
 GARDEN_ORCHESTRATION_FAILURE_MARKER='<<<GARDEN-ORCHESTRATION-FAILED>>>'
 GARDEN_HANDOFF_MARKER_PREFIX='<<<GARDEN-JOB-HANDED-OFF:'
+# The safety-valve signal for the posted-follow-up completion gate
+# (assert-followup-posted.sh). A worker whose report mentions a follow-up in
+# passing — not as an unfinished-work handoff — declares that explicitly with a
+# one-line reason, so a false-positive detection can never wedge a job forever.
+# Deliberately a distinct, named signal (like the orchestration-failed and
+# handoff markers) rather than free prose, so the gate reads intent mechanically.
+GARDEN_FOLLOWUP_OVERRIDE_MARKER_PREFIX='<<<GARDEN-FOLLOWUP-GATE-OVERRIDE:'
 
 # report_has_completion_marker <report-file> — 0 iff the report's LAST non-blank
 # line is exactly the completion marker (the worker's final deterministic act).
@@ -3645,6 +3652,99 @@ report_handoff_successor() {
   successor="${successor%>>>}"
   case "$successor" in -*|*/*|.*|*' '*|'') return 1 ;; esac
   printf '%s\n' "$successor"
+}
+
+# report_followup_override_reason <report-file>: print the one-line reason iff the
+# report carries a standalone follow-up-gate override marker, else return 1. The
+# safety valve for assert-followup-posted.sh: a report that mentions "follow-up"
+# in passing (not as unfinished chained work) sets this explicit signal so a
+# false-positive detection cannot wedge the job. Unlike the handoff/orchestration
+# markers this is NOT constrained to the last line — the worker may place it in or
+# beside the `## Follow-ups` note it is annotating — but it must be a standalone
+# line with a non-empty reason so quoted prose cannot trip it.
+report_followup_override_reason() {
+  local f="${1:-}" line reason
+  [ -f "$f" ] || return 1
+  # First standalone override line wins. Match by literal prefix (the marker has
+  # no regex metacharacters) after stripping any trailing whitespace, so a quoted
+  # mid-sentence mention is not a standalone line and does not trip it.
+  while IFS= read -r line; do
+    line="${line%"${line##*[![:space:]]}"}"   # rtrim
+    case "$line" in
+      "$GARDEN_FOLLOWUP_OVERRIDE_MARKER_PREFIX "*'>>>')
+        reason="${line#"$GARDEN_FOLLOWUP_OVERRIDE_MARKER_PREFIX "}"
+        reason="${reason%>>>}"
+        reason="${reason%"${reason##*[![:space:]]}"}"   # rtrim reason
+        [ -n "$reason" ] || continue
+        printf '%s\n' "$reason"; return 0 ;;
+    esac
+  done < "$f"
+  return 1
+}
+
+# report_followups_section <report-file> — the lines under a `## Follow-ups` /
+# `## Follow-up` heading, up to the next `## ` heading or EOF (sub-headings do not
+# terminate it). The single spelling of the canonical follow-up heading scan, used
+# by BOTH the async follow-up sweep (follow-up.sh) and the completion-time gate
+# (assert-followup-posted.sh) so the two can never disagree on what counts as a
+# follow-up section. The heading convention is house style (roles/COMMON.md
+# § House style): a report describing further necessary action uses this literal
+# heading, never a bold-prose variant a scan cannot anchor to.
+report_followups_section() {
+  awk '
+    /^##[[:space:]]+[Ff]ollow-?[Uu]ps?([[:space:]]|$)/ { grab=1; next }
+    grab && /^##[[:space:]]/                            { grab=0 }
+    grab                                               { print }
+  ' "$1"
+}
+
+# followups_actionable <section-text> — 0 iff the section's first content word is
+# not a null signal ("none"/"nothing"). Mirrors the async sweep's is_actionable
+# (skills/self-improvement/SKILL.md null-signal convention) so a trivially-empty
+# `## Follow-ups\nNone.` is a no-op on both surfaces. Looks only at the first
+# whitespace-delimited token after any leading list marker.
+followups_actionable() {
+  local first word
+  first="$(printf '%s' "$1" | grep -m1 '[^[:space:]]' || true)"
+  [ -n "$first" ] || return 1
+  word="$(printf '%s' "$first" | sed -E 's/^[[:space:]]*[-*•]?[[:space:]]*//' | awk '{print tolower($1)}')"
+  case "$word" in
+    none|none.|none,|none:|none\;|nothing|nothing.|nothing,) return 1 ;;
+  esac
+  return 0
+}
+
+# handoff_successor_posted <clone-dir> <successor-base> — 0 iff <successor-base> is
+# durably posted on the board in <clone-dir>: alive in the plan|todo|doin|tada
+# lifecycle, or an orchestration record. This is the SINGLE existence check a
+# declared `--handed-off` disposition must satisfy. complete-job.sh gates its
+# doin->tada stamp on it and assert-followup-posted.sh reuses the SAME predicate,
+# so a report's handoff and the completion gate can never disagree on what
+# "posted" means. The caller sync_clone's <clone-dir> first.
+handoff_successor_posted() {
+  local dir="$1" successor="$2"
+  job_in_lifecycle "$dir" "$successor" && return 0
+  [ -e "$dir/$JOBS_ORCH/$successor.md" ] && return 0
+  return 1
+}
+
+# maintainer_message_from <clone-dir> <reply-to-base> — 0 iff the standing
+# maintainer inbox in <clone-dir> holds a message tagged `reply_to: <base>`
+# (unread or already drained to read/). This is the CHECKABLE evidence that a
+# worker actually routed a non-board-postable follow-up to the maintainer via
+# message-user.sh (which sets reply_to to the sending job's base), rather than
+# merely claiming it in prose. The reply_to tag lives in the message frontmatter,
+# the lines before the first `---` terminator. Caller sync_clone's <clone-dir>.
+maintainer_message_from() {
+  local dir="$1" base="$2" sub f
+  for sub in unread read; do
+    [ -d "$dir/inbox/maintainer/$sub" ] || continue
+    for f in "$dir/inbox/maintainer/$sub"/*.md; do
+      [ -e "$f" ] || continue
+      awk '$0=="---"{exit} {print}' "$f" | grep -qx "reply_to: $base" && return 0
+    done
+  done
+  return 1
 }
 
 # Marker the reaper stamps into a requeued job body to count requeue cycles. It

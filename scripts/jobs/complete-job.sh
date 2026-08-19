@@ -153,8 +153,7 @@ for attempt in $(seq 1 100); do
     # A declared handoff is completion of the TRANSFER, not of the original
     # deliverable. Require durable evidence that the named successor was posted
     # before allowing doin -> tada, then stamp the disposition mechanically.
-    if ! job_in_lifecycle "$DIR" "$handed_off" \
-       && [ ! -e "$DIR/$JOBS_ORCH/$handed_off.md" ]; then
+    if ! handoff_successor_posted "$DIR" "$handed_off"; then
       die "handoff successor '$handed_off' is not durably posted on the board"
     fi
     handoff_marker="$GARDEN_HANDOFF_MARKER_PREFIX $handed_off>>>"
