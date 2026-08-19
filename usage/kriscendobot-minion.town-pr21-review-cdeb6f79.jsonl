@@ -1,3 +1,4 @@
 {"ts":"2026-08-19T05:05:52Z","base":"kriscendobot-minion.town-pr21-review-cdeb6f79","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2}
 {"ts":"2026-08-19T05:13:44Z","base":"kriscendobot-minion.town-pr21-review-cdeb6f79","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":6}
 {"ts":"2026-08-19T05:25:44Z","base":"kriscendobot-minion.town-pr21-review-cdeb6f79","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":8}
+{"source":"result","model":"claude-opus-4-8","num_turns":11,"elapsed_s":62,"input_tokens":15,"output_tokens":3540,"cache_creation_tokens":34343,"cache_read_tokens":344568,"total_cost_usd":0.607177,"ts":"2026-08-19T05:34:48Z","base":"kriscendobot-minion.town-pr21-review-cdeb6f79","host":"endolin-garden-ece02cb4","outcome":"tada"}
