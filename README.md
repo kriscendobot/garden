@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T21:20:20Z_
+_As of 2026-08-19T21:24:21Z_
 
 ## Latest
 
@@ -2610,25 +2610,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.3M | $1140.04 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+628.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 115.5M | $1141.56 _(notional, rate-card)_ | no quota set |
+| Codex | 16.9M _(+627.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr475-e8792d98`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-e8792d98.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-605988a6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-605988a6.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — ---
 
-### tada (5208)
+### tada (5209)
+- [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — Cost
 - [`endojs-endo-but-for-bots-pr910-repanel-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-repanel-20260819.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-69a8dffc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-69a8dffc.md) — Completion report
 - [`improve-worker-ensure-worktree-swallowed-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-worker-ensure-worktree-swallowed-stderr.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-65999de6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-65999de6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-9fe4e7c7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-9fe4e7c7.md) — Completion report
-- … and 5203 more
+- … and 5204 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
