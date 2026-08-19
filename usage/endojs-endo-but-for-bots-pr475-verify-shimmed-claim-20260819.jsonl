@@ -1,1 +1,2 @@
 {"ts":"2026-08-19T23:00:00Z","base":"endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":82,"elapsed_s":1013,"input_tokens":150,"output_tokens":70336,"cache_creation_tokens":151644,"cache_read_tokens":8969421,"total_cost_usd":8.722208999999996,"ts":"2026-08-19T23:20:25Z","base":"endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819","host":"endolin-garden-ece02cb4","outcome":"tada"}
