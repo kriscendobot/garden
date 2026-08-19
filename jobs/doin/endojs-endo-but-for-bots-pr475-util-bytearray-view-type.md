@@ -71,3 +71,13 @@ Skills: review-feedback-followup-commits, pr-review-thread-replies,
 rebase-before-followup, local-verify, pre-push-gates.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T01:44:54Z
