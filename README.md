@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:59:15Z_
+_As of 2026-08-19T05:04:32Z_
 
 ## Latest
 
@@ -2304,14 +2304,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.2M | $975.00 _(notional, rate-card)_ | no quota set |
-| Codex | 18.3M _(+666.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 98.3M | $976.81 _(notional, rate-card)_ | no quota set |
+| Codex | 18.3M _(+664.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-quota-throttle.md) — Design: auto-throttle gardeners on quota exhaustion, auto-restore on quota reset
 - [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
 - [`kriscendobot-minion.town-pr36-close-superseded-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr36-close-superseded-20260819.md) — ---
 - [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr47-review-237136a0.md) — Review directive on kriscendobot/minion.town PR #47
