@@ -93,15 +93,4 @@ autonomous role originates that authorization for itself.
 - Report which files changed and quote the final wording of both rules in
   the completion report.
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-19T01:41:30Z
+<!-- garden-reaped: 3 -->
