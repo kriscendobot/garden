@@ -145,6 +145,7 @@ the mechanism in this job; design only.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
