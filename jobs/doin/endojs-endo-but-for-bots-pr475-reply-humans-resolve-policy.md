@@ -36,3 +36,13 @@ If the standing-instructions job has already landed on `main2` by the time you
 claim this, you may cite the landed commit; if not, say the change is in
 flight rather than waiting on it — the policy decision itself is already made
 and doesn't need to wait on the doc edit landing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T04:33:27Z
