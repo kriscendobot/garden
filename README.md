@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T07:32:57Z_
+_As of 2026-08-19T07:43:42Z_
 
 ## Latest
 
@@ -1247,6 +1247,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-endojs-endo-but-for-bots-pr398-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr398-conduct-requeue-exhausted.md)
 
+> DOOM notice — occurrence #2 (first seen 2026-08-19T06:13:10Z, latest 2026-08-19T07:43:08Z).
+> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
 > Its handler appears to fail every time; the reaper stopped requeueing it.
 > The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr398-conduct; it stays HELD until a human promotes it
@@ -1254,6 +1258,13 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: endojs-endo-but-for-bots-pr398-conduct
 >
 > --- original job body ---
+> ---
+> role: conductor
+> tier: minion
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-19T06:36:23Z cleared=none -->
+>
 > ---
 > role: conductor
 > tier: minion
@@ -2537,9 +2548,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1040
-- [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 
 ### tada (5183)
 - [`endor-walker-cjs-require`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-cjs-require.md) — Completion report — endor-walker-cjs-require (fixture-parity ratchet, Increme...
@@ -2582,6 +2592,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr282-pin-rebase-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr286-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr286-refresh.md) — _normal_ · refresh directive on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr398-conduct.md) — _normal_ · Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-e97aa392.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr475-54294cd3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-54294cd3.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-07347c0d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-07347c0d.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #475
