@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T14:28:58Z_
+_As of 2026-08-19T14:29:42Z_
 
 ## Latest
 
@@ -2542,14 +2542,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 112.1M | $1102.48 _(notional, rate-card)_ | no quota set |
-| Codex | 17.9M _(+652.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 17.9M _(+652.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1040
 
 ### tada (5193)
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-6.md) — Completion report
