@@ -8,6 +8,7 @@ Garden repo (main2): track Codex's measured-but-zero (`$0.00`) ledger dollars as
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
