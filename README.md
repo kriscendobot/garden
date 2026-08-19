@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:36:19Z_
+_As of 2026-08-19T04:41:48Z_
 
 ## Latest
 
@@ -2290,16 +2290,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.0M | $971.91 _(notional, rate-card)_ | no quota set |
+| Claude | 98.1M | $973.02 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr475-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd-20260819.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`fix-job-in-lifecycle-tada-conflation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-job-in-lifecycle-tada-conflation.md) — Fix: job_in_lifecycle() conflates "completed" with "still live," blocking leg...
+- [`kriscendobot-minion.town-pr20-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #20
+- [`kriscendobot-minion.town-pr29-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr29-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #29
 - [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
 ### tada (5157)
