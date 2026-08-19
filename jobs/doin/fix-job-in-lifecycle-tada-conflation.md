@@ -84,6 +84,7 @@ assume:
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
