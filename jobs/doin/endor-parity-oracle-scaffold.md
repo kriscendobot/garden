@@ -44,6 +44,7 @@ Deliver the ratchet substrate every later increment consumes (§4 of the design)
 No fixtures graduate in this increment. Gate: suite green; golden regeneration
 deterministic.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
