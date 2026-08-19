@@ -34,6 +34,7 @@ lands) Exclude->Exercise with committed goldens. Node oracle runs default option
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
