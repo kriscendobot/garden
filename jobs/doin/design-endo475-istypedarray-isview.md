@@ -78,3 +78,13 @@ Key semantic distinction to reason about in the answer:
 
 Do NOT close/resolve the review thread yourself (roles/COMMON.md
 never-resolve-review-thread). Reply only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T19:58:22Z
