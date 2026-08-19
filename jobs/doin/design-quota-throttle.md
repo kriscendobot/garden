@@ -144,3 +144,13 @@ follows once the design lands and the maintainer reviews it — do not build
 the mechanism in this job; design only.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T05:26:08Z
