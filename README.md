@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:58:56Z_
+_As of 2026-08-19T06:13:27Z_
 
 ## Latest
 
@@ -1240,6 +1240,41 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
 >     and do the work.
 > Never state in your report that a peer did work you did not verify.
+
+- `doomed-endojs-endo-but-for-bots-pr398-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr398-conduct-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr398-conduct; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr398-conduct) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr398-conduct
+>
+> --- original job body ---
+> ---
+> role: conductor
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # Finalize (curate → merge) endojs/endo-but-for-bots PR #398
+>
+> A trusted maintainer APPROVED this PR and the watcher confirmed it is
+> OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
+> **conductor** to un-draft (if the PR is still draft) and merge. Do NOT name
+> a merge method — the conductor owns that choice (roles/conductor/AGENT.md).
+>
+> Guards (the watcher already enforced these; re-verify before merging):
+>   - Bot repo only (endojs/endo-but-for-bots). NEVER merge agoric-sdk or the endojs/endo
+>     upstream — those are the maintainers / boatmans call.
+>   - The PR must still be OPEN, mergeable, and checks green. If it has
+>     regressed (conflicts, red CI), dispatch the shepherd/fixer instead of
+>     forcing the merge.
+>   - Idempotent: if the PR is already merging/merged/closed, do nothing.
+>
+> Source: pr-review-body by kriskowal
+> Approval: [https://github.com/endojs/endo-but-for-bots/pull/398](https://github.com/endojs/endo-but-for-bots/pull/398)#pullrequestreview-4968635368
 
 - `doomed-endojs-endo-but-for-bots-pr475-54294cd3-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr475-54294cd3-requeue-exhausted.md)
 
@@ -2491,15 +2526,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.4M | $980.73 _(notional, rate-card)_ | no quota set |
+| Claude | 98.5M | $983.91 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
+### doin (1)
 - [`endor-parity-oracle-scaffold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-parity-oracle-scaffold.md) — Build Increment 0 — parity oracle & scoreboard scaffold
 
 ### tada (5175)
@@ -2544,6 +2578,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr282-pin-rebase-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr286-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr286-refresh.md) — _normal_ · refresh directive on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr398-conduct.md) — _normal_ · Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-e97aa392.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr475-54294cd3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-54294cd3.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-07347c0d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-07347c0d.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #475
