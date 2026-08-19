@@ -40,15 +40,4 @@ If a design doc fits better than a comment, write it and link it in the reply.
 
 Do NOT resolve any conversation (erights policy on this PR, comment 5333026938).
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T23:03:27Z
+<!-- garden-reaped: 1 -->
