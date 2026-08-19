@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T20:33:56Z_
+_As of 2026-08-19T20:40:09Z_
 
 ## Latest
 
@@ -2610,25 +2610,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.7M | $1115.53 _(notional, rate-card)_ | no quota set |
+| Claude | 112.8M | $1116.43 _(notional, rate-card)_ | no quota set |
 | Codex | 17.3M _(+634.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr475-65999de6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-65999de6.md) — attention directive on endojs/endo-but-for-bots PR #475
+### doin (2)
 - [`endojs-endo-but-for-bots-pr475-review-69a8dffc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-69a8dffc.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`improve-worker-ensure-worktree-swallowed-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-worker-ensure-worktree-swallowed-stderr.md) — ---
 
-### tada (5204)
+### tada (5205)
+- [`endojs-endo-but-for-bots-pr475-65999de6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-65999de6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-9fe4e7c7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-9fe4e7c7.md) — Completion report
 - [`assert-followup-posted-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/assert-followup-posted-gate.md) — Completion report
 - [`design-endo475-istypedarray-isview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo475-istypedarray-isview.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-538450f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-538450f1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-79645bf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-79645bf9.md) — Completion report
-- … and 5199 more
+- … and 5200 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
