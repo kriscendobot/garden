@@ -37,3 +37,13 @@ Task, against the CURRENT #475 head:
 Do NOT resolve any conversation (erights policy on this PR, comment 5333026938).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T23:03:24Z
