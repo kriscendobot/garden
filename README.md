@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T02:55:12Z_
+_As of 2026-08-19T02:56:33Z_
 
 ## Latest
 
@@ -2126,17 +2126,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $954.04 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+684.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 96.3M | $954.78 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+683.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #475
 - [`improve-hermit-claims-gardener-role-jobs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-hermit-claims-gardener-role-jobs.md) — ---
+- [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
 ### tada (5147)
