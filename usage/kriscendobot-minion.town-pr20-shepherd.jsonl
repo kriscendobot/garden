@@ -1,1 +1,2 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":62,"input_tokens":12,"output_tokens":3584,"cache_creation_tokens":38556,"cache_read_tokens":266607,"total_cost_usd":0.6110145,"ts":"2026-08-17T23:46:23Z","base":"kriscendobot-minion.town-pr20-shepherd","host":"endolin-garden-ece02cb4","outcome":"tada","role":"shepherd"}
+{"ts":"2026-08-19T04:41:08Z","base":"kriscendobot-minion.town-pr20-shepherd","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2}
