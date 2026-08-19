@@ -8,6 +8,7 @@ Garden repo (main2): `run-test.sh` currently has ~30 pre-existing failures (envi
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
