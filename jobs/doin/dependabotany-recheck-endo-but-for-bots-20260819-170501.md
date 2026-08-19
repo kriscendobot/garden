@@ -10,6 +10,7 @@ Wear roles/botanist/AGENT.md. Recover the cumulative Dependabot ledger from jour
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
