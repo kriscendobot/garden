@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T10:35:42Z_
+_As of 2026-08-19T11:03:07Z_
 
 ## Latest
 
@@ -2541,23 +2541,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.7M | $1037.93 _(notional, rate-card)_ | no quota set |
+| Claude | 106.4M | $1052.03 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1040
+### doin (0)
+(none)
 
-### tada (5186)
+### tada (5187)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1040
 - [`endor-walker-cjs-require`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-cjs-require.md) — Completion report — endor-walker-cjs-require (fixture-parity ratchet, Increme...
-- [`daily-progress-summary-20260819-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260819-070501.md) — Completion report
-- … and 5181 more
+- … and 5182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
