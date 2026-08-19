@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T22:22:14Z_
+_As of 2026-08-19T22:24:24Z_
 
 ## Latest
 
@@ -2669,16 +2669,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr807-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #807
+### doin (0)
+(none)
 
-### tada (5216)
+### tada (5217)
+- [`endojs-endo-but-for-bots-pr807-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet-clean.md) — Completion report
 - [`kriscendobot-garden-pr74-review-f1f9adaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr74-review-f1f9adaa.md) — Completion report
 - [`endojs-endo-but-for-bots-pr807-review-ae1e614a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-review-ae1e614a.md) — Completion report — endojs/endo-but-for-bots #807 review
 - [`endojs-endo-but-for-bots-pr475-review-5aae699b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5aae699b.md) — Completion report
 - [`carve-out-design-pr-for-open-questions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/carve-out-design-pr-for-open-questions.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-60fc33cf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-60fc33cf.md) — Completion report
-- … and 5211 more
+- … and 5212 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
