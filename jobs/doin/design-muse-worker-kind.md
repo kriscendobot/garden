@@ -107,3 +107,13 @@ premature certainty costs more than an honest question. Do not proceed to
 a build job from this one; that follows once the design is reviewed.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T00:31:50Z
