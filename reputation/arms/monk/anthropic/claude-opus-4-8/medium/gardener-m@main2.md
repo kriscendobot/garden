@@ -4,10 +4,10 @@ model: claude-opus-4-8
 thoughtfulness: medium
 work_class: gardener:m
 target: main2
-attempts: 80
-accepts: 80
-censored: 80
-estimated: 80
-mean_dollars: 0.196353
-m2: 1.372225
+attempts: 81
+accepts: 81
+censored: 81
+estimated: 81
+mean_dollars: 0.195760
+m2: 1.374507
 acceptance_rate: 1.0000
