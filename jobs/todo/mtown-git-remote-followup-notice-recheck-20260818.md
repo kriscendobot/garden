@@ -21,15 +21,4 @@ If not yet built, re-arm this notice again on a short once: schedule (scripts/jo
 
 <!-- garden-elapsed-constancy: 1 -->
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-19T02:43:21Z
+<!-- garden-reaped: 4 -->
