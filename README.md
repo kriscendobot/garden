@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T23:43:37Z_
+_As of 2026-08-19T23:50:43Z_
 
 ## Latest
 
@@ -2725,15 +2725,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.3M | $1150.34 _(notional, rate-card)_ | no quota set |
+| Claude | 116.3M | $1150.54 _(notional, rate-card)_ | no quota set |
 | Codex | 15.3M _(+589.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr807-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #807
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260819-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260819-235001.md) — ---
 
 ### tada (5223)
 - [`endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819.md) — Completion report
