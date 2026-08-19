@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T11:32:57Z_
+_As of 2026-08-19T12:05:52Z_
 
 ## Latest
 
@@ -2541,23 +2541,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.4M | $1052.28 _(notional, rate-card)_ | no quota set |
+| Claude | 108.3M | $1068.26 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1040
+### doin (0)
+(none)
 
-### tada (5188)
+### tada (5189)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1040
-- … and 5183 more
+- … and 5184 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
