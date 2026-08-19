@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-08-19T06:13:10Z
+sent_at: 2026-08-19T07:43:08Z
 doom_base: endojs-endo-but-for-bots-pr398-conduct
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-08-19T06:13:10Z
-last_seen: 2026-08-19T06:13:10Z
+last_seen: 2026-08-19T07:43:08Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-08-19T06:13:10Z, latest 2026-08-19T07:43:08Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
 Its handler appears to fail every time; the reaper stopped requeueing it.
 The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr398-conduct; it stays HELD until a human promotes it
@@ -14,6 +18,13 @@ The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr398-conduct; it st
 Original job base: endojs-endo-but-for-bots-pr398-conduct
 
 --- original job body ---
+---
+role: conductor
+tier: minion
+token-budget: 250000
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-19T06:36:23Z cleared=none -->
+
 ---
 role: conductor
 tier: minion
