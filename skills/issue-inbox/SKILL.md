@@ -40,9 +40,11 @@ prompt-injection discipline).
    the issue thread; the issue is the entire conversation surface with the
    submitter. Post a substantive reply (what you did, the SHA/PR if any,
    verification) — mirror [`pr-completion-summary-comment`] discipline.
-3. **Never close the issue.** You **defer to the submitter** to close it when they
-   are satisfied. Leave it OPEN after replying. The watcher treats a
-   submitter-close as the terminal signal and will stop dispatching for it.
+3. **Never close the issue** — [`roles/COMMON.md`](../../roles/COMMON.md) §
+   External-repo etiquette is canonical: an issue close is the submitter's to make,
+   not the bot's. Leave it OPEN after replying. Issue-inbox-specific procedure: the
+   watcher treats a submitter-close as the terminal signal and will stop dispatching
+   for it.
 4. **Carry the issue note forward.** If you decompose the work into a **follow-on
    job** (e.g. you post a `build`/`fix`/`weave` job for the next stage), copy the
    **entire ISSUE NOTE block VERBATIM** into the follow-on job's body. This is the

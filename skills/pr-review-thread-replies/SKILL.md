@@ -47,6 +47,8 @@ by re-fetching the comment when in doubt.
 
 Then post a top-level summary via `gh pr comment <N>` listing each item, the commit that addressed it, and any deferrals.
 
+**Reply, don't resolve.** Leave each thread **open** for the reviewer to resolve — never click "Resolve conversation" or call `resolveReviewThread`. Resolving a review thread is the call of the reviewer who opened it, not the agent replying; see [`roles/COMMON.md`](../../roles/COMMON.md) § External-repo etiquette for the rule and reasoning.
+
 ## Output
 
 Each inline thread carries a SHA-citing reply (or a deferral note); one top-level summary maps every item to its outcome. The job's completion report records the same mapping.

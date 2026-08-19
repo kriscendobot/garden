@@ -70,6 +70,13 @@ A subagent dispatched into a fork worktree must not initiate, on issues or pull 
 
 Exception: the job that dispatched you explicitly authorizes the action. Such authorizations originate with the maintainer. They reach a job either through the **liaison** (the human-facing relay) after user confirmation, or through a journal `message` / inbox entry; in both cases the authorization is carried into the job's body or the doer's inbox at claim time. No autonomous role originates a cross-repo authorization on its own.
 
+**Two closes are not the bot's to make at all — they belong to the submitter, not merely to an authorization gate.** The "Issue or PR opens, edits, or closes" bullet above lists closes among the actions a job must carry authorization to perform; these two are sharper than that — the presumptive default is that the bot **never** performs them, because they are the submitter's signal of satisfaction, not a step in the work:
+
+- **Never close a GitHub issue.** The issuer — the person who filed it — closes it when they are satisfied. A role handling an issue on any repo (through the issue inbox or otherwise) does the work, replies on the issue thread, and leaves the issue **open**; a submitter-close is the terminal signal, and it is theirs to give.
+- **Never resolve a conversation thread on a pull request review.** Resolving a review thread (GitHub's "Resolve conversation" button / the `resolveReviewThread` mutation) is the call of the reviewer who **opened** that thread, not the agent replying to it. Reply substantively and cite the addressing commit SHA, but leave the thread **open** for the reviewer to resolve.
+
+**Override — a maintainer's explicit per-action directive is the authorization.** This is the same shape used for issue/PR closes generally above and for the erights maintainer-authority passage below: a maintainer's explicit direction to close *this* issue or resolve *this specific thread* **is** the authorization, carried the same way — through the liaison after user confirmation, or a journal `message` / inbox entry at claim time. No autonomous role originates that authorization for itself.
+
 The boatman is the documented exception by role: opening the upstream PR and cross-linking it with the source garden PR is inherent to its job, and the boatman's dispatch is itself gated on `identity_switch_authorized: true` from a maintainer. That single authorization implicitly covers the cross-link. Other roles need a per-action authorization in their dispatch prompt.
 
 Per-role notes for the active library, expressed as the *kind* of per-action authorization a job must carry (and which the doer never originates on its own):
