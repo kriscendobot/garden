@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T14:50:54Z_
+_As of 2026-08-19T14:53:22Z_
 
 ## Latest
 
@@ -778,6 +778,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T065506Z-e0dd69` — from orchestrator:endor-fixture-parity-ratchet-campaign-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T065506Z-e0dd69.md)
 
 > Orchestration endor-fixture-parity-ratchet-campaign HALTED: child endor-walker-cjs-require stalled after 3 requeues on host endolin-garden-ece02cb4 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 1/8 done before halt; parked remainder: endor-walker-exports-resolution endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
+
+- `20260819T145306Z-29a154` — from gauntlet:endojs-endo-but-for-bots-pr1040-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T145306Z-29a154.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1040-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2542,7 +2546,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 112.1M | $1102.48 _(notional, rate-card)_ | no quota set |
-| Codex | 17.8M _(+646.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 17.8M _(+645.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -2551,13 +2555,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (5194)
+### tada (5195)
+- [`endojs-endo-but-for-bots-pr1040-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1040-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-5.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-4.md) — Completion report
-- … and 5189 more
+- … and 5190 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
