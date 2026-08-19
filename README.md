@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T00:18:43Z_
+_As of 2026-08-19T00:20:46Z_
 
 ## Latest
 
@@ -1214,6 +1214,30 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr1026-d59ca42b' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-08-19T00:20:03Z, cleared 2026-08-19T00:20:03Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git is SUCCEEDING again; kriscendobot-agoric-3-proposals is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-cosgov` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-cosgov.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-cosgov` has CLEARED (first seen 2026-08-19T00:19:32Z, cleared 2026-08-19T00:19:32Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git is SUCCEEDING again; kriscendobot-cosgov is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo` has CLEARED (first seen 2026-08-19T00:19:43Z, cleared 2026-08-19T00:19:43Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git is SUCCEEDING again; kriscendobot-endo is being triaged normally.
+
 - `watchdog-triager-fetch-failed-kriscendobot-finbot` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-finbot.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-finbot` has CLEARED (first seen 2026-08-19T00:18:25Z, cleared 2026-08-19T00:18:25Z).
@@ -1222,13 +1246,61 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >
 > triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git is SUCCEEDING again; kriscendobot-finbot is being triaged normally.
 
+- `watchdog-triager-fetch-failed-kriscendobot-minion.town` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-minion.town.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-minion.town` has CLEARED (first seen 2026-08-19T00:19:43Z, cleared 2026-08-19T00:19:43Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-minion.town at /home/kris/garden/worktrees/kriscendobot-minion.town.git is SUCCEEDING again; kriscendobot-minion.town is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-moddable` — from watchdog:triager/kriscendobot-moddable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-moddable.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-moddable` has CLEARED (first seen 2026-08-19T00:20:03Z, cleared 2026-08-19T00:20:03Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-moddable at /home/kris/garden/worktrees/kriscendobot-moddable.git is SUCCEEDING again; kriscendobot-moddable is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-ocapn` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-ocapn.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-ocapn` has CLEARED (first seen 2026-08-19T00:20:16Z, cleared 2026-08-19T00:20:16Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-ocapn at /home/kris/garden/worktrees/kriscendobot-ocapn.git is SUCCEEDING again; kriscendobot-ocapn is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-proposal-compartments` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-proposal-compartments.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-proposal-compartments` has CLEARED (first seen 2026-08-19T00:19:02Z, cleared 2026-08-19T00:19:02Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden/worktrees/kriscendobot-proposal-compartments.git is SUCCEEDING again; kriscendobot-proposal-compartments is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-test262` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-test262.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-test262` has CLEARED (first seen 2026-08-19T00:19:09Z, cleared 2026-08-19T00:19:09Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-test262 at /home/kris/garden/worktrees/kriscendobot-test262.git is SUCCEEDING again; kriscendobot-test262 is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-vattr97` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-vattr97.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-vattr97` has CLEARED (first seen 2026-08-19T00:20:16Z, cleared 2026-08-19T00:20:16Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-vattr97 at /home/kris/garden/worktrees/kriscendobot-vattr97.git is SUCCEEDING again; kriscendobot-vattr97 is being triaged normally.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.5M | $898.46 _(notional, rate-card)_ | no quota set |
+| Claude | 90.6M | $900.77 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+719.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
