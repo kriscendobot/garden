@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:15:35Z_
+_As of 2026-08-19T05:16:34Z_
 
 ## Latest
 
@@ -2304,30 +2304,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.3M | $978.78 _(notional, rate-card)_ | no quota set |
+| Claude | 98.3M | $978.19 _(notional, rate-card)_ | no quota set |
 | Codex | 18.2M _(+661.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (2)
-- [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-quota-throttle.md) — Design: auto-throttle gardeners on quota exhaustion, auto-restore on quota reset
-- [`endojs-endo-but-for-bots-pr987-weave-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr987-weave-20260819.md) — weave directive on endojs/endo-but-for-bots PR #987
+### todo (0)
+(none)
 
-### doin (7)
-- [`endojs-endo-but-for-bots-pr719-cc0b4130`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-cc0b4130.md) — attention directive on endojs/endo-but-for-bots PR #719
+### doin (8)
+- [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-quota-throttle.md) — Design: auto-throttle gardeners on quota exhaustion, auto-restore on quota reset
 - [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #876
 - [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr987-2cc814f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-2cc814f3.md) — attention directive on endojs/endo-but-for-bots PR #987
+- [`endojs-endo-but-for-bots-pr987-weave-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-weave-20260819.md) — weave directive on endojs/endo-but-for-bots PR #987
 - [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
 - [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Review directive on kriscendobot/minion.town PR #21
 - [`kriscendobot-minion.town-pr48-review-b8fd1e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr48-review-b8fd1e6b.md) — Review directive on kriscendobot/minion.town PR #48
 
-### tada (5165)
+### tada (5166)
+- [`endojs-endo-but-for-bots-pr719-cc0b4130`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-cc0b4130.md) — Completion report
 - [`endojs-endo-but-for-bots-pr987-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #987
 - [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-shepherd.md) — Completion report
 - [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-review-237136a0.md) — Completion report
 - [`kriscendobot-minion.town-pr36-close-superseded-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr36-close-superseded-20260819.md) — Completion report
-- [`fix-job-in-lifecycle-tada-conflation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-job-in-lifecycle-tada-conflation.md) — What I did
-- … and 5160 more
+- … and 5161 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
