@@ -2,3 +2,4 @@
 {"ts":"2026-08-19T04:55:40Z","base":"kriscendobot-minion.town-pr48-review-b8fd1e6b","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
 {"ts":"2026-08-19T05:05:42Z","base":"kriscendobot-minion.town-pr48-review-b8fd1e6b","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":94}
 {"ts":"2026-08-19T05:15:00Z","base":"kriscendobot-minion.town-pr48-review-b8fd1e6b","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":13}
+{"source":"result","model":"claude-opus-4-8","num_turns":6,"elapsed_s":39,"input_tokens":8,"output_tokens":1949,"cache_creation_tokens":29438,"cache_read_tokens":149225,"total_cost_usd":0.4205935,"ts":"2026-08-19T05:27:42Z","base":"kriscendobot-minion.town-pr48-review-b8fd1e6b","host":"endolin-garden-ece02cb4","outcome":"tada"}
