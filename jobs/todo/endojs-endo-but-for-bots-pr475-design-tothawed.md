@@ -75,15 +75,4 @@ note is posted to PR #475. If implementation is warranted, name the follow-up
 explicitly (posted job base or a hand-off to 9885f3d8) rather than leaving a
 loose "someone should build this."
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T00:56:01Z
+<!-- garden-reaped: 3 -->
