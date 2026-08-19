@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:16:34Z_
+_As of 2026-08-19T05:17:57Z_
 
 ## Latest
 
@@ -766,6 +766,14 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > **The gap I can't close autonomously.** B5's design gate (`designs/mcp-daemon-guest-tools.md` §7) is *"tools/list shows only `guest_*`; the full E1–E4 sweep re-run green,"* and the Cognito scope-cleanup (`deploy-cognito-guest-scope.sh`) must run *only after* fresh green E1–E4 evidence. E1–E4 requires an **authenticated** MCP session (real Cognito token via the PKCE hosted-UI OAuth flow). This session is non-interactive and can't run OAuth, so I cannot produce that evidence — meaning I can't verify "copacetic" to the design's bar, and the merge→CD-deploy→Cognito-cleanup chain touches live prod + a deliberate broad-surface Cognito mutation.
 >
 > **Recommendation.** Everything short of the authenticated E1–E4 sweep is green and ready. Options: (a) authorize me to **conduct** (merge [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20)) now — CD deploys B5, I verify the deployed edge by banner + deployed-dist inspection, and you/an interactive client run the E1–E4 sweep + then the Cognito cleanup; or (b) point me at a token path for E1–E4. I'm holding the merge pending your call rather than auto-conducting a live-prod deploy on an unmet design gate.
+
+- `20260819T051638Z-5be177` — from gardener:endojs-endo-but-for-bots-pr987-2cc814f3, reply_to `endojs-endo-but-for-bots-pr987-2cc814f3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T051638Z-5be177.md)
+
+> Re your directive on [endojs/endo-but-for-bots#987](https://github.com/endojs/endo-but-for-bots/issues/987) ("post a builder to attempt this next week, after the Friday 9pm quota reset"):
+>
+> Done — parked a budget-hold builder plan `endojs-endo-but-for-bots-build-endor-git-bindings` (role: builder, priority: high). The `garden-budget-refresh` watcher auto-promotes it to todo/ once `budget_resets_at` passes: 2026-08-22T04:00:00Z = Fri 2026-08-21 21:00 America/Los_Angeles (the reset that opens next week's quota). Body targets the revised libgit2/Zig design (new `rust/endor-git` crate, vendored static libgit2, Zig cross-build matrix + release lanes), with the design's own least-proven Windows-GNU lane flagged as attempt-and-report-gaps.
+>
+> One decision for you: the automatic router stamps `tier: mentor` on every parked body (Claude has been off automatic since 07-29), so as-parked this build will attempt on **mentor tier, not Opus** — even after the reset. If you deferred to fresh quota precisely so an Opus builder could take this on (likely, given the task's difficulty), you'll want to promote/re-post it as a manual Opus job at that time, or have the automatic Claude routing re-enabled. Left it as a go-ahead budget-hold so you retain full control (promote early, defer, or bump the tier). Which do you prefer?
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2304,8 +2312,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.3M | $978.19 _(notional, rate-card)_ | no quota set |
-| Codex | 18.2M _(+661.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 98.2M | $977.20 _(notional, rate-card)_ | no quota set |
+| Codex | 18.1M _(+661.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -2313,21 +2321,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (8)
 - [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-quota-throttle.md) — Design: auto-throttle gardeners on quota exhaustion, auto-restore on quota reset
+- [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #876
 - [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #980
-- [`endojs-endo-but-for-bots-pr987-2cc814f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-2cc814f3.md) — attention directive on endojs/endo-but-for-bots PR #987
 - [`endojs-endo-but-for-bots-pr987-weave-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-weave-20260819.md) — weave directive on endojs/endo-but-for-bots PR #987
 - [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
 - [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Review directive on kriscendobot/minion.town PR #21
 - [`kriscendobot-minion.town-pr48-review-b8fd1e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr48-review-b8fd1e6b.md) — Review directive on kriscendobot/minion.town PR #48
 
-### tada (5166)
+### tada (5167)
+- [`endojs-endo-but-for-bots-pr987-2cc814f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-2cc814f3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr719-cc0b4130`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-cc0b4130.md) — Completion report
 - [`endojs-endo-but-for-bots-pr987-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #987
 - [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-shepherd.md) — Completion report
 - [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-review-237136a0.md) — Completion report
-- [`kriscendobot-minion.town-pr36-close-superseded-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr36-close-superseded-20260819.md) — Completion report
-- … and 5161 more
+- … and 5162 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
