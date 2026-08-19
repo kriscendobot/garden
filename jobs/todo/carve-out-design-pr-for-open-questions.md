@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Carve out: a garden-infra design that needs feedback gets a review PR, not a blind land
@@ -77,13 +78,4 @@ questions**, not "is this a design doc."
   today.
 - Report cites `design-muse-worker-kind` / PR #74 as the grounding example.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T21:37:30Z
+<!-- garden-reaped: 0 -->
