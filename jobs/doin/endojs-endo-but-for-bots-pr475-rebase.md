@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Let’s update the llm base instead. With @erights, we will get this into a merge worthy state and then rebuild the affected stack of changes on `master`. We will want to follow-up with a plan to project the relevant packages that are not on master after landing the immutable byt
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T02:51:56Z
