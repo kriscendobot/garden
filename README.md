@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T20:16:37Z_
+_As of 2026-08-19T20:23:55Z_
 
 ## Latest
 
@@ -2610,16 +2610,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.9M | $1116.05 _(notional, rate-card)_ | no quota set |
-| Codex | 17.5M _(+637.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 112.7M | $1116.65 _(notional, rate-card)_ | no quota set |
+| Codex | 17.4M _(+637.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-9fe4e7c7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-9fe4e7c7.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-69a8dffc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-69a8dffc.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`improve-worker-ensure-worktree-swallowed-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-worker-ensure-worktree-swallowed-stderr.md) — ---
 
 ### tada (5203)
 - [`assert-followup-posted-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/assert-followup-posted-gate.md) — Completion report
