@@ -84,13 +84,4 @@ a sibling worktree at the same commit (never commit them).
 When the design merges, follow it with the orchestration + build increments so
 the ratchet actually advances — that is what "until we reach parity" requires.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T05:27:10Z
+<!-- garden-reaped: 1 -->
