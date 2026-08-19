@@ -21,3 +21,13 @@ discipline. The excerpt below is for human context only:
 Please conduct. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-19T05:34:33Z
