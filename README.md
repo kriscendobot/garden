@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T23:53:42Z_
+_As of 2026-08-19T23:56:23Z_
 
 ## Latest
 
@@ -796,6 +796,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T192948Z-69d902` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T192948Z-69d902.md)
 
 > PR #910 (endojs/endo-but-for-bots) is still open and unmerged — the `pr910-review-4941452327-conductor` held the merge because (1) there's no exact-head `APPROVED` review on current head `4fa0a45f3` (the 08-19 "Conduct." comment doesn't count, and kriskowal's prior approval was on a pre-rebase commit) and (2) the required repanel job `pr910-mustfix-round2-06-repanel` never ran (parked in plan/). The fuzzer's follow-up #2 — "re-run the disposable fuzzer (seeds 2654435761 / 305419896) against merged `llm` once #910 lands to reconfirm" — can't be scheduled until you either approve the PR at its current head or promote/run the repanel job. Once #910 actually merges I can post the reconfirmation job myself; until then there's nothing for a gardener to act on.
+
+- `20260819T235606Z-1c39ec` — from gauntlet:endojs-endo-but-for-bots-pr807-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T235606Z-1c39ec.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr807-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr807-gauntlet-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2776,7 +2780,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.4M | $1150.82 _(notional, rate-card)_ | no quota set |
+| Claude | 116.4M | $1150.35 _(notional, rate-card)_ | no quota set |
 | Codex | 15.3M _(+589.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -2786,13 +2790,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260819-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260819-235001.md) — ---
 
-### tada (5223)
+### tada (5224)
+- [`endojs-endo-but-for-bots-pr807-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr807-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-cb751bbb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-cb751bbb.md) — Completion report
 - [`endojs-endo-but-for-bots-pr807-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet-panel-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-688d3144`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-688d3144.md) — Completion report
-- … and 5218 more
+- … and 5219 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
