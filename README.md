@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T19:02:54Z_
+_As of 2026-08-19T19:04:39Z_
 
 ## Latest
 
@@ -782,6 +782,16 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T145306Z-29a154` — from gauntlet:endojs-endo-but-for-bots-pr1040-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T145306Z-29a154.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1040-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `20260819T190340Z-7b867f` — from gardener:pr910-review-4941452327-info-cleanup, reply_to `pr910-review-4941452327-info-cleanup` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T190340Z-7b867f.md)
+
+> Job `pr910-review-4941452327-info-cleanup` cannot run yet: its precondition is unmet.
+>
+> - PR [endojs/endo-but-for-bots#910](https://github.com/endojs/endo-but-for-bots/issues/910) is still OPEN (mergedAt=null, mergeCommit=null).
+> - The `llm` trunk still carries the pre-910 `BlobRefInterface` (getInfo + fetch); the range-attenuation code (range/textRange, RichReadableBlobInterface) that this cleanup edits does not exist on trunk yet.
+> - The gating orchestration `pr910-review-4941452327-resolution` is HALTED at child 1/6 (the fixer stalled at 2483s / handler-timeout 2400s); this info-cleanup is child 4/6 and was left parked, but appears to have been promoted regardless.
+>
+> The review ask ([endojs/endo-but-for-bots#910](https://github.com/endojs/endo-but-for-bots/issues/910) discussion r3787401300: replace the temporary diagnostic form with plain `info` when it lands) is still valid but must run AFTER 910 merges. I am not editing anything. Recommend: re-run/repair the `pr910-review-4941452327-resolution` orchestration (get the fixer/shepherd/conductor chain to actually merge 910), and let this info-cleanup fire as its downstream child post-merge. I am marking this attempt orchestration-failed to avoid a hot re-claim loop against an open PR; please re-post it after 910 lands if the orchestration doesn't own it by then.
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2564,26 +2574,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.8M | $1114.25 _(notional, rate-card)_ | no quota set |
+| Claude | 112.8M | $1114.42 _(notional, rate-card)_ | no quota set |
 | Codex | 17.5M _(+638.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr876-resolve-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-resolve-20260819.md) — Resolve pending review feedback on endojs/endo-but-for-bots PR #876
 - [`pr910-review-4941452327-fuzz-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fuzz-build.md) — Address errors discovered by the disposable PR 910 fuzzer
 - [`pr910-review-4941452327-fuzzer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fuzzer.md) — Produce and exercise a disposable fuzzer for the landed ReadableBlob range sy...
-- [`pr910-review-4941452327-info-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-info-cleanup.md) — Replace the temporary diagnostic wrapper with info after PR 910 lands
 
-### tada (5196)
+### tada (5197)
+- [`pr910-review-4941452327-info-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-info-cleanup.md) — Completion report
 - [`pr910-review-4941452327-conductor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-conductor.md) — Completion report — conductor pr910-review-4941452327-conductor
 - [`endojs-endo-but-for-bots-pr1040-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1040-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-panel-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1040-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-fix-5.md) — Completion report
-- … and 5191 more
+- … and 5192 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
