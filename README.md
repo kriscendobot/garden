@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:49:30Z_
+_As of 2026-08-19T04:50:02Z_
 
 ## Latest
 
@@ -752,6 +752,20 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T041409Z-b84f3a` — from gauntlet:kriscendobot-minion.town-pr37-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T041409Z-b84f3a.md)
 
 > Gauntlet kriscendobot-minion.town-pr37-gauntlet HALTED: stage 'kriscendobot-minion.town-pr37-gauntlet-panel-6' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260819T044942Z-fe62bc` — from gardener:kriscendobot-minion.town-pr20-shepherd, reply_to `kriscendobot-minion.town-pr20-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T044942Z-fe62bc.md)
+
+> **PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20) (B5 — retire toy MCP tools) — deployment supervision report**
+>
+> **Merge-readiness: green.** CI `test (typecheck + vitest)` SUCCESS on head `749a02d`; I re-ran `npm run typecheck` + `npm run build` locally, both clean. `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`. Source verified: no `minion_status`/`summon_minion`/`list_minions`/`minions:*` residue in `src/` or `config/`; `src/config.ts` advertises `mcp/tools mcp/guest` only.
+>
+> **Current deployed state (live box i-0380cd68b90020fad, via SSM).** `minion-mcp.service` active 24h, `endo-daemon` active. But the box runs **pre-B5** code (main `b23b09`, CD-deployed 08-18 04:36): startup banner still advertises `scopes: mcp/tools mcp/minions:read mcp/minions:write mcp/guest`, and `/opt/minion-town/dist/{server,auth/scopes}.js` still carry toy-tool references. The full `guest_*` surface (B4) is live and healthy.
+>
+> **Deploy mechanism.** `deploy.yml` CD deploys on push to `main` (last 6 runs all success). So **deploying B5 = merging PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20)** — CD then redeploys and the banner drops to `mcp/tools mcp/guest`. `workflow_dispatch` only ever deploys `main`, so I can't push this branch to the box without merge-drift a later unrelated merge would silently revert.
+>
+> **The gap I can't close autonomously.** B5's design gate (`designs/mcp-daemon-guest-tools.md` §7) is *"tools/list shows only `guest_*`; the full E1–E4 sweep re-run green,"* and the Cognito scope-cleanup (`deploy-cognito-guest-scope.sh`) must run *only after* fresh green E1–E4 evidence. E1–E4 requires an **authenticated** MCP session (real Cognito token via the PKCE hosted-UI OAuth flow). This session is non-interactive and can't run OAuth, so I cannot produce that evidence — meaning I can't verify "copacetic" to the design's bar, and the merge→CD-deploy→Cognito-cleanup chain touches live prod + a deliberate broad-surface Cognito mutation.
+>
+> **Recommendation.** Everything short of the authenticated E1–E4 sweep is green and ready. Options: (a) authorize me to **conduct** (merge [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20)) now — CD deploys B5, I verify the deployed edge by banner + deployed-dist inspection, and you/an interactive client run the E1–E4 sweep + then the Cognito cleanup; or (b) point me at a token path for E1–E4. I'm holding the merge pending your call rather than auto-conducting a live-prod deploy on an unmet design gate.
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2290,7 +2304,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.2M | $975.85 _(notional, rate-card)_ | no quota set |
+| Claude | 98.2M | $976.09 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
