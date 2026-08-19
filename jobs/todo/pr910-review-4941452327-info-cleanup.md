@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: pr910-review-4941452327-resolution
-priority: normal
 role: fixer
-posted_by: gardener
-posted_at: 2026-08-14T22:03:51Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-19T19:00:17Z cleared=none -->
 
 ---
 tier: mentor
