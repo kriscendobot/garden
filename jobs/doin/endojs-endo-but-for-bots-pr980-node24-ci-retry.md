@@ -15,3 +15,13 @@ Resume CI shepherding for https://github.com/endojs/endo-but-for-bots/pull/980 o
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T21:23:24Z
