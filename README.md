@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T06:51:51Z_
+_As of 2026-08-19T06:55:40Z_
 
 ## Latest
 
@@ -774,6 +774,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Done — parked a budget-hold builder plan `endojs-endo-but-for-bots-build-endor-git-bindings` (role: builder, priority: high). The `garden-budget-refresh` watcher auto-promotes it to todo/ once `budget_resets_at` passes: 2026-08-22T04:00:00Z = Fri 2026-08-21 21:00 America/Los_Angeles (the reset that opens next week's quota). Body targets the revised libgit2/Zig design (new `rust/endor-git` crate, vendored static libgit2, Zig cross-build matrix + release lanes), with the design's own least-proven Windows-GNU lane flagged as attempt-and-report-gaps.
 >
 > One decision for you: the automatic router stamps `tier: mentor` on every parked body (Claude has been off automatic since 07-29), so as-parked this build will attempt on **mentor tier, not Opus** — even after the reset. If you deferred to fresh quota precisely so an Opus builder could take this on (likely, given the task's difficulty), you'll want to promote/re-post it as a manual Opus job at that time, or have the automatic Claude routing re-enabled. Left it as a go-ahead budget-hold so you retain full control (promote early, defer, or bump the tier). Which do you prefer?
+
+- `20260819T065506Z-e0dd69` — from orchestrator:endor-fixture-parity-ratchet-campaign-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T065506Z-e0dd69.md)
+
+> Orchestration endor-fixture-parity-ratchet-campaign HALTED: child endor-walker-cjs-require stalled after 3 requeues on host endolin-garden-ece02cb4 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 1/8 done before halt; parked remainder: endor-walker-exports-resolution endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2526,7 +2530,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.5M | $989.10 _(notional, rate-card)_ | no quota set |
+| Claude | 100.2M | $995.87 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -2538,13 +2542,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endor-walker-cjs-require`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-cjs-require.md) — Build Increment 1 — CommonJS require() graph-following (Group A)
 
-### tada (5179)
+### tada (5180)
+- [`endor-fixture-parity-ratchet-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign.md) — orchestration endor-fixture-parity-ratchet-campaign — HALTED
 - [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-quota-throttle.md) — Completion report — design-quota-throttle
 - [`endojs-endo-but-for-bots-pr1040-091aec5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-091aec5d.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1040-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-gauntlet-clean.md) — Completion report
 - [`endor-parity-oracle-scaffold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-parity-oracle-scaffold.md) — Completion report — endor-parity-oracle-scaffold (Increment 0)
-- [`mirror-hardened262-endo-but-for-bots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mirror-hardened262-endo-but-for-bots.md) — Completion report: Mirror hardened262 into endo-but-for-bots
-- … and 5174 more
+- … and 5175 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
