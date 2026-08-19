@@ -1,0 +1,2 @@
+base: improve-worker-ensure-worktree-swallowed-stderr
+identity: mentor:scripts/jobs/handlers/worker-common.sh
