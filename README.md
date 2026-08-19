@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:46:35Z_
+_As of 2026-08-19T04:49:30Z_
 
 ## Latest
 
@@ -2290,29 +2290,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.2M | $975.97 _(notional, rate-card)_ | no quota set |
+| Claude | 98.2M | $975.85 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`fix-job-in-lifecycle-tada-conflation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-job-in-lifecycle-tada-conflation.md) — Fix: job_in_lifecycle() conflates "completed" with "still live," blocking leg...
+### todo (0)
+(none)
 
-### doin (7)
-- [`endojs-endo-but-for-bots-pr475-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd-20260819.md) — shepherd directive on endojs/endo-but-for-bots PR #475
+### doin (8)
+- [`fix-job-in-lifecycle-tada-conflation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-job-in-lifecycle-tada-conflation.md) — Fix: job_in_lifecycle() conflates "completed" with "still live," blocking leg...
 - [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
 - [`kriscendobot-minion.town-pr20-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #20
 - [`kriscendobot-minion.town-pr29-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr29-weave.md) — weave directive on kriscendobot/minion.town PR #29
 - [`kriscendobot-minion.town-pr36-close-superseded-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr36-close-superseded-20260819.md) — ---
 - [`kriscendobot-minion.town-pr47-review-237136a0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr47-review-237136a0.md) — Review directive on kriscendobot/minion.town PR #47
+- [`kriscendobot-minion.town-pr48-review-b8fd1e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr48-review-b8fd1e6b.md) — Review directive on kriscendobot/minion.town PR #48
 - [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### tada (5158)
+### tada (5159)
+- [`endojs-endo-but-for-bots-pr475-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd-20260819.md) — Completion report
 - [`kriscendobot-minion.town-pr29-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr29-shepherd.md) — Shepherd report — kriscendobot/minion.town PR #29
 - [`endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-campaign-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-campaign-20260819.md) — orchestration endojs-endo-but-for-bots-pr475-campaign-20260819 — complete
 - [`endojs-endo-but-for-bots-pr475-gauntlet-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-gauntlet-20260819.md) — Completion report — run the gauntlet, endojs/endo-but-for-bots PR #475
-- [`kriscendobot-minion.town-pr37-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet.md) — gauntlet kriscendobot-minion.town-pr37-gauntlet — HALTED
-- … and 5153 more
+- … and 5154 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2475,6 +2476,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr39-review-fb0be7ca-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr39-review-fb0be7ca-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #39 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr47-review-237136a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr47-review-237136a0-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #47 (primary: kriscendobot-minio...
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
+- [`kriscendobot-minion.town-pr48-review-b8fd1e6b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr48-review-b8fd1e6b-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #48 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
