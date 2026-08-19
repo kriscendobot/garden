@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 [APPROVED]  
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T05:10:24Z
