@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T00:23:44Z_
+_As of 2026-08-19T00:43:33Z_
 
 ## Latest
 
@@ -583,6 +583,110 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Directive: [https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475)#issuecomment-5333026938
 >
 > Flagging for a policy decision: our review-feedback automation currently resolves threads. If kriskowal wants humans-only-resolve as a fleet-wide norm, that's a garden behavior change (review-feedback-followup / panel skills).
+
+- `20260819T003433Z-b29f49` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003433Z-b29f49.md)
+
+> From report `build-exo-google-sheets-facets` on endojs/endo-but-for-bots: `SheetsService` and `SpreadsheetStructure` (the design's thin follow-on layers) remain unbuilt — a natural next job once PR #874 and the current PR land. Want me to queue that build once both merge, or hold?
+
+- `20260819T003451Z-370a6d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003451Z-370a6d.md)
+
+> From report `deadmail-20260728T074423Z-6bee53`: the new dead-letter anti-pattern documents that a botanist rendering MERGE-NOW and exiting while the approval gate blocks leaves no living addressee for a later correction, but doesn't fix the delivery gap itself. Worth deciding whether/how to close it (e.g. a standing re-addressee) — flagging for your call rather than guessing at the mechanism.
+
+- `20260819T003456Z-bdaa62` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003456Z-bdaa62.md)
+
+> From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
+
+- `20260819T003502Z-f9e8ee` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003502Z-f9e8ee.md)
+
+> From report `dedupe-watchdog-notices-and-fix-triager-fetch` (echoed by `fu-endojs-endo-but-for-bots-pr124-feedback-triage-4` and `endojs-endo-but-for-bots-pr869-dependabot`): the shared garden root repo's automatic gc is wedged — object `9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6` is referenced but genuinely unreadable, so every `repack` aborts and `gc.log` permanently disables automatic cleanup. This needs a deliberate hand with the fleet drained (reserved class per CLAUDE.md), not a gardener job. Please confirm whether `garden-root-repo-guard` has already repaired it or whether it needs manual attention.
+
+- `20260819T003511Z-93753f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003511Z-93753f.md)
+
+> From report `dependabotany-recheck-endo-but-for-bots-20260729-012002`: four endojs/endo-but-for-bots dependabot PRs are blocked solely on your approval — #556, #558, #869, #870. #869 has real teeth: it closes GHSA-37j7-fg3j-429f (CRITICAL, VM escape to RCE) in the in-tree happy-dom. Requesting review/approval on these.
+
+- `20260819T003516Z-2663ae` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003516Z-2663ae.md)
+
+> From report `dependabotany-recheck-endo-but-for-bots-20260729-012002`: endojs/endo-but-for-bots PR #867 (`@noble/curves` 1.9.0 → 2.2.0) has no dependabot verdict at all — its job sits parked in `jobs/plan/`. Promote when quota allows.
+
+- `20260819T003530Z-ea27bd` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003530Z-ea27bd.md)
+
+> From report `endojs-endo-but-for-bots-pr124-feedback-triage`: need a decision on which sense of "sqlite bindings ready" gates PR #124's resume trigger — nothing else blocks it. Same report also asks to promote the parked `garden-style-url-not-path` go-ahead gate (maintainer-only).
+
+- `20260819T003537Z-a45b4e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003537Z-a45b4e.md)
+
+> From report `endojs-endo-but-for-bots-pr241-review-b15e4ef6`: PR #241 has no outstanding source/design edits — it just needs your APPROVED review on head `ac71c0424b`, and the next conductor tick will merge it.
+
+- `20260819T003541Z-a71579` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003541Z-a71579.md)
+
+> From report `endojs-endo-but-for-bots-pr331-refresh`: PR #331 needs your word before I post a reconciliation-fix job repositioning it as the credentials/attenuation layer over `@registry`. Separately, the #403/#563/#671 trio needs a disposition decision.
+
+- `20260819T003547Z-6e2d02` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003547Z-6e2d02.md)
+
+> From report `endojs-endo-but-for-bots-pr556-dependabot`: PR #556 (actions/cache) needs only your approval — the next conductor tick merges it. Worth prioritizing: actions/cache v6.1.0 bundles undici 6.27.0 and fast-xml-parser 5.9.2, clearing both residual advisories, but Dependabot only opens one PR per dependency, so #556 sitting open is suppressing the v6 proposal.
+
+- `20260819T003552Z-504928` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003552Z-504928.md)
+
+> From report `endojs-endo-but-for-bots-pr713-review-2b03f8c3`: PR #713's requested change is addressed and CI is green — ready for your re-review and the approval you pre-committed to.
+
+- `20260819T003621Z-e1b4ef` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003621Z-e1b4ef.md)
+
+> From report `endojs-endo-but-for-bots-pr867-dependabot`: PR #867 needs your approval; once approved the conductor spine merges with no further botany.
+
+- `20260819T003631Z-75722c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003631Z-75722c.md)
+
+> From report `endojs-endo-but-for-bots-pr869-dependabot`: PR #869 needs one approval and nothing else — it closes a CRITICAL VM-escape-to-RCE advisory (see the dependabotany-recheck note above).
+
+- `20260819T003642Z-4149a6` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003642Z-4149a6.md)
+
+> From report `endojs-endo-but-for-bots-pr870-dependabot`: the only open item on PR #870 is one approving review.
+
+- `20260819T003707Z-78a98f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003707Z-78a98f.md)
+
+> From report `fix-pr-feedback-preflight-argv-e2big-gauntlet`: please confirm that restoring PR #671 to ready-for-review (rather than leaving it drafted) was the right call.
+
+- `20260819T003713Z-4604e8` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003713Z-4604e8.md)
+
+> From report `fu-endojs-endo-but-for-bots-pr556-dependabot-3`: items 1, 3, 4, 5 of the botanist-role proposal in `inbox/liaison/unread/20260728T073516Z-b2ee8f.md` remain your call (item 3 especially — making the step-5 advisory rule directional). Note items 1 and 4 have partly landed since the proposal was written, so a re-read before directing is worth it.
+
+- `20260819T003718Z-8431ee` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003718Z-8431ee.md)
+
+> From report `fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2`: the ollama container image needs a rebuild to actually land commit `d4a40ed9ba`'s invariant — a consequential host op I'm not spawning autonomously.
+
+- `20260819T003747Z-62301d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003747Z-62301d.md)
+
+> From report `fu-qwen-model-watch-20260728-180502-1-20260728-223502`: re-enabling the local-model hermit lane (or any systemd change) is a consequential host op — left to you, with the models-dir option laid out in the report.
+
+- `20260819T003803Z-7d3388` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003803Z-7d3388.md)
+
+> From report `improve-promote-plan-poison-reset`: `endo-sturdyref-agent-surface-build-gauntlet` is still parked in `plan/` behind its `go-ahead`, held back by the deadline-overrun marker fixed in this change. Promoting it once the fix deploys is a maintainer-authorization act — flagging it's ready whenever you want to promote.
+
+- `20260819T003813Z-b83dfb` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003813Z-b83dfb.md)
+
+> From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
+
+- `20260819T003825Z-b548b6` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003825Z-b548b6.md)
+
+> From report `issue-kriskowal-garden-67`: next steps are (1) turning "phase 0" (structural shapes + explicit membership checks, no registry/new authority) into an actual PR on the fork, and (2) drilling into the two-phase attestation mechanism against the resolver's existing invitation-based reporting path. This touches the `kriscendobot/agoric-sdk` fork, which per standing scope needs your call rather than an autonomous job.
+
+- `20260819T003831Z-d7763d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003831Z-d7763d.md)
+
+> From report `kriscendobot-minion.town-pr37-gauntlet-fix-2`: the keyed-digest local-part refines your literal directive ("the local-part *is* the formula id") for a stated security reason — worth your eye on the next review pass before it's taken as final.
+
+- `20260819T003838Z-76d819` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003838Z-76d819.md)
+
+> From report `minion-town-containment-gateway-endo-sock`: the permanent fix (`minion-town-weblet-powers-host-escape-fix`) is not yet deployed. A CD gateway redeploy won't re-arm the hole, but the two un-removed records could reappear and would need the de-registration re-run. Flagging for your awareness given the security-sensitive nature rather than spawning autonomous follow-up.
+
+- `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
+
+> From report `qwen-model-watch-20260728-180502` (echoed by `fu-qwen-model-watch-20260728-180502-1-20260728-223502`): decide the local qwen lane's fate — promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop it (`qwen3:0.6b` is small enough it isn't obviously useful).
+
+- `20260819T003855Z-0ad8da` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003855Z-0ad8da.md)
+
+> From report `requeue-ps23-stranded-claims`: `GARDEN_REAP_OVERRUN_THRESHOLD=1` has no safety margin on the elapsed-constancy path — one bad stamp parks a job with no second opinion. Worth considering raising it to 2 for that path specifically (the rc=124 wall-hit path is genuinely conclusive at 1).
+
+- `20260819T003940Z-06bfa7` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003940Z-06bfa7.md)
+
+> From report `self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`: need a decision on `worktrees/kriskowal-garden.git` — remove it or re-point its origin.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1300,46 +1404,58 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.8M | $903.36 _(notional, rate-card)_ | no quota set |
+| Claude | 91.2M | $915.47 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+719.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (33)
+- [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
+- [`endojs-endo-but-for-bots-pr475-495be080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-495be080.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-54294cd3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-54294cd3.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-59c1c020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-59c1c020.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-07347c0d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-07347c0d.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-1c83e1bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-1c83e1bb.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-662af34e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-662af34e.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-92a260ae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-92a260ae.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-b4dd5851`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-b4dd5851.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-c85b88c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-c85b88c9.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-f1df1c4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f1df1c4f.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr993-1ffe8014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr993-1ffe8014.md) — attention directive on endojs/endo-but-for-bots PR #993
+- [`endojs-endo-but-for-bots-pr998-review-322c54b7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr998-review-322c54b7.md) — Review directive on endojs/endo-but-for-bots PR #998
+- [`endojs-endo-but-for-bots-pr998-review-4bd2ba34`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr998-review-4bd2ba34.md) — Review directive on endojs/endo-but-for-bots PR #998
+- [`endojs-endo-but-for-bots-pr998-review-684b93c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr998-review-684b93c1.md) — Review directive on endojs/endo-but-for-bots PR #998
+- [`endojs-endo-but-for-bots-pr998-review-e7a43b46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr998-review-e7a43b46.md) — Review directive on endojs/endo-but-for-bots PR #998
+- [`fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3.md) — ---
+- [`fu-endojs-endo-but-for-bots-pr870-dependabot-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr870-dependabot-3.md) — ---
+- [`fu-endojs-endo-but-for-bots-pr898-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr898-shepherd-1.md) — ---
+- [`fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3.md) — ---
+- [`fu-guard-worker-self-disqualify-missing-agent-bin-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-guard-worker-self-disqualify-missing-agent-bin-1.md) — ---
+- [`fu-ironhorse-js-26-map-methods-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-ironhorse-js-26-map-methods-1.md) — ---
+- [`fu-requeue-ps23-stranded-claims-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-requeue-ps23-stranded-claims-4.md) — ---
+- [`fu-review-retrospective-consolidated-20260804-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-review-retrospective-consolidated-20260804-1.md) — ---
+- [`fu-wallclock-cost-proxy-for-censored-arms-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-wallclock-cost-proxy-for-censored-arms-2.md) — ---
+- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-xs2rust-endor-debugger-caught-vs-uncaught-1.md) — ---
+- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-xs2rust-endor-debugger-caught-vs-uncaught-2.md) — ---
+- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-xs2rust-endor-debugger-caught-vs-uncaught-3.md) — ---
+- [`fu-xs2rust-endor-debugger-caught-vs-uncaught-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-xs2rust-endor-debugger-caught-vs-uncaught-4.md) — ---
+- [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
+- [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
+- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
+- [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### doin (24)
-- [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
+### doin (4)
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
-- [`design-muse-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-muse-worker-kind.md) — Design a new worker kind: "muse" (Meta Muse Code)
 - [`endojs-endo-but-for-bots-pr1037-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1037-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1037
-- [`endojs-endo-but-for-bots-pr475-495be080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-495be080.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-54294cd3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-54294cd3.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-59c1c020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-59c1c020.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-design-tothawed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-design-tothawed.md) — design the shared toThawed byte-thawing helper + benchmark decision (endojs/e...
-- [`endojs-endo-but-for-bots-pr475-review-07347c0d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-07347c0d.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-1c83e1bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-1c83e1bb.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-662af34e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-662af34e.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-92a260ae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-92a260ae.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-b4dd5851`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-b4dd5851.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-c85b88c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-c85b88c9.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-f1df1c4f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-f1df1c4f.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr993-1ffe8014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr993-1ffe8014.md) — attention directive on endojs/endo-but-for-bots PR #993
-- [`endojs-endo-but-for-bots-pr998-review-322c54b7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-322c54b7.md) — Review directive on endojs/endo-but-for-bots PR #998
-- [`endojs-endo-but-for-bots-pr998-review-4bd2ba34`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-4bd2ba34.md) — Review directive on endojs/endo-but-for-bots PR #998
-- [`endojs-endo-but-for-bots-pr998-review-684b93c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-684b93c1.md) — Review directive on endojs/endo-but-for-bots PR #998
-- [`endojs-endo-but-for-bots-pr998-review-e7a43b46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-e7a43b46.md) — Review directive on endojs/endo-but-for-bots PR #998
-- [`kriscendobot-minion.town-pr37-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #37
-- [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
-- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
-- [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
+- [`fu-build-exo-google-sheets-facets-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-build-exo-google-sheets-facets-5.md) — ---
 
-### tada (5117)
+### tada (5119)
+- [`fu-endo-npm-cas-registry-press-20260730-203502-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260730-203502-1.md) — Completion report
+- [`design-muse-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-muse-worker-kind.md) — Completion report
 - [`xs2rust-endor-watchdog-20260729-005004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-watchdog-20260729-005004.md) — Cost
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-s1-daemon-integration.md) — Completion report — xs2rust-endor-s1-daemon-integration (bin 1/3)
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260727-182001.md) — Cost
-- [`xs2rust-endor-finish-line`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-finish-line.md) — orchestration xs2rust-endor-finish-line — HALTED
-- [`xs2rust-endor-debugger-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-debugger-design.md) — Completion report
-- … and 5112 more
+- … and 5114 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
