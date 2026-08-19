@@ -23,13 +23,4 @@ Verify the live PR state after the operation and post the authorized completion 
 
 Hard precondition from the maintainer's 2026-08-14 sequencing update: do not un-draft or merge unless the existing job `pr910-mustfix-round2-06-repanel` has a durable clean full-panel result for the exact current head, after the review fixer and shepherd work. Re-fetch that report and the live head before any conductor mutation. If the panel did not pass on the exact head, emit the orchestration failure signal and do not merge.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-19T18:43:15Z
+<!-- garden-reaped: 1 -->
