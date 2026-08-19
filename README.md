@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T06:19:05Z_
+_As of 2026-08-19T06:28:58Z_
 
 ## Latest
 
@@ -2526,24 +2526,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.5M | $984.91 _(notional, rate-card)_ | no quota set |
+| Claude | 98.6M | $984.48 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1040-091aec5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-091aec5d.md) — attention directive on endojs/endo-but-for-bots PR #1040
-- [`endor-parity-oracle-scaffold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-parity-oracle-scaffold.md) — Build Increment 0 — parity oracle & scoreboard scaffold
 
-### tada (5175)
+### tada (5176)
+- [`endor-parity-oracle-scaffold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-parity-oracle-scaffold.md) — Completion report — endor-parity-oracle-scaffold (Increment 0)
 - [`mirror-hardened262-endo-but-for-bots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mirror-hardened262-endo-but-for-bots.md) — Completion report: Mirror hardened262 into endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-rebase.md) — Completion report: endojs-endo-but-for-bots-pr876-rebase
 - [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-shepherd.md) — Completion report
 - [`design-endor-fixture-parity-ratchet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endor-fixture-parity-ratchet.md) — Completion report: design the endor↔node fixture-parity ratchet campaign
-- [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Completion report
-- … and 5170 more
+- … and 5171 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
