@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T05:31:08Z_
+_As of 2026-08-19T05:34:24Z_
 
 ## Latest
 
@@ -2312,20 +2312,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.3M | $979.90 _(notional, rate-card)_ | no quota set |
+| Claude | 98.4M | $981.09 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+655.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (3)
+- [`design-endor-fixture-parity-ratchet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endor-fixture-parity-ratchet.md) — Design the endor↔node fixture-parity ratchet campaign
+- [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr980-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #980
+- [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
 
-### doin (8)
-- [`design-endor-fixture-parity-ratchet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endor-fixture-parity-ratchet.md) — Design the endor↔node fixture-parity ratchet campaign
+### doin (5)
 - [`design-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-quota-throttle.md) — Design: auto-throttle gardeners on quota exhaustion, auto-restore on quota reset
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
 - [`endojs-endo-but-for-bots-pr876-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #876
-- [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #980
-- [`kriscendobot-minion.town-pr20-merge-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-merge-20260819.md) — ---
 - [`kriscendobot-minion.town-pr21-review-cdeb6f79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr21-review-cdeb6f79.md) — Review directive on kriscendobot/minion.town PR #21
 - [`mirror-hardened262-endo-but-for-bots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mirror-hardened262-endo-but-for-bots.md) — Mirror hardened262 from upstream endo into endo-but-for-bots
 
