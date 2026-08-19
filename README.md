@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T22:18:53Z_
+_As of 2026-08-19T22:22:14Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ The byteArray refinement stack is complete and green—[#475](https://github.com
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 21d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 21d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 31d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 30d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 33d)
@@ -2662,24 +2662,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.6M | $1146.12 _(notional, rate-card)_ | no quota set |
+| Claude | 115.6M | $1146.60 _(notional, rate-card)_ | no quota set |
 | Codex | 16.6M _(+621.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr807-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #807
-- [`kriscendobot-garden-pr74-review-f1f9adaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr74-review-f1f9adaa.md) — Review directive on kriscendobot/garden PR #74
 
-### tada (5215)
+### tada (5216)
+- [`kriscendobot-garden-pr74-review-f1f9adaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr74-review-f1f9adaa.md) — Completion report
 - [`endojs-endo-but-for-bots-pr807-review-ae1e614a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-review-ae1e614a.md) — Completion report — endojs/endo-but-for-bots #807 review
 - [`endojs-endo-but-for-bots-pr475-review-5aae699b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5aae699b.md) — Completion report
 - [`carve-out-design-pr-for-open-questions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/carve-out-design-pr-for-open-questions.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-60fc33cf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-60fc33cf.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-2c700561`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-2c700561.md) — Cost
-- … and 5210 more
+- … and 5211 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
