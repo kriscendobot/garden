@@ -9,6 +9,7 @@ worker_ensure_worktree() swallows BOTH stdout and stderr on `git -C "$GARDEN_ROO
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
