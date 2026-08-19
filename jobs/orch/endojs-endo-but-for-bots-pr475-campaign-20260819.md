@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr475-advance-base-20260819 endojs-endo-but-for-bots-pr475-consolidate-bytes-20260819 endojs-endo-but-for-bots-pr475-retcon-20260819 endojs-endo-but-for-bots-pr475-feedback-20260819 endojs-endo-but-for-bots-pr475-gauntlet-20260819
 on-child-failure: halt
-state: pending
+state: running
 created_by: weaver
 created_at: 2026-08-19T02:59:01Z
 ---
