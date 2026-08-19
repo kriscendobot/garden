@@ -20,10 +20,10 @@ Read the durable completion report for predecessor `pr910-review-4941452327-fuzz
 If the exercised fuzzer found no errors, do not invent a code change or empty PR. Record that no build change was necessary, citing the predecessor's exact execution evidence. This job itself is the requested follow-up build disposition either way.
 
 
-<!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 ---
 claim:
