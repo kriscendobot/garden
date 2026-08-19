@@ -60,6 +60,7 @@ disposition: PLAT-05, PLAT-25, PLAT-19, PLAT-33, GD-07, GD-08, GD-11.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
