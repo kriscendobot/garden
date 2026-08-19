@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T04:35:01Z_
+_As of 2026-08-19T04:36:19Z_
 
 ## Latest
 
@@ -2290,26 +2290,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.1M | $972.36 _(notional, rate-card)_ | no quota set |
+| Claude | 98.0M | $971.91 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+668.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy.md) — Reply to erights on endojs/endo-but-for-bots PR #475: humans-only-resolve is ...
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-shepherd-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd-20260819.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`fix-job-in-lifecycle-tada-conflation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-job-in-lifecycle-tada-conflation.md) — Fix: job_in_lifecycle() conflates "completed" with "still live," blocking leg...
 - [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### tada (5156)
+### tada (5157)
+- [`endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-campaign-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-campaign-20260819.md) — orchestration endojs-endo-but-for-bots-pr475-campaign-20260819 — complete
 - [`endojs-endo-but-for-bots-pr475-gauntlet-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-gauntlet-20260819.md) — Completion report — run the gauntlet, endojs/endo-but-for-bots PR #475
 - [`kriscendobot-minion.town-pr37-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-gauntlet.md) — gauntlet kriscendobot-minion.town-pr37-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr475-feedback-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-feedback-20260819.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-retcon-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-retcon-20260819.md) — Completion report
-- … and 5151 more
+- … and 5152 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
