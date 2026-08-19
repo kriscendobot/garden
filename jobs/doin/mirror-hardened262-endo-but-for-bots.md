@@ -87,3 +87,13 @@ not just that the code compiles.
 
 `handler-timeout: 10800` — this is a large, interleaved commit stack across
 two upstream repos' worth of history to reconcile; budget accordingly.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T05:30:36Z
