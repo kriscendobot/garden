@@ -21,6 +21,7 @@ If the exercised fuzzer found no errors, do not invent a code change or empty PR
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
