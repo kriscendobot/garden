@@ -32,3 +32,13 @@ on the rebased head. After the weave clears the conflict, CI should be re-verifi
 
 Source: shepherd handoff from endojs-endo-but-for-bots-pr987-shepherd
 (review https://github.com/endojs/endo-but-for-bots/pull/987#pullrequestreview-4968601303, [APPROVED]).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-19T05:15:47Z
