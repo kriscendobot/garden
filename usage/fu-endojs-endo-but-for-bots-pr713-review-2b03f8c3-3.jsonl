@@ -2,3 +2,4 @@
 {"ts":"2026-08-19T00:46:46Z","base":"fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":44}
 {"ts":"2026-08-19T01:12:02Z","base":"fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":8}
 {"ts":"2026-08-19T01:19:45Z","base":"fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":6}
+{"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":145,"input_tokens":26,"output_tokens":8538,"cache_creation_tokens":42972,"cache_read_tokens":678760,"total_cost_usd":0.984943,"ts":"2026-08-19T01:31:50Z","base":"fu-endojs-endo-but-for-bots-pr713-review-2b03f8c3-3","host":"endolin-garden-ece02cb4","outcome":"tada"}
