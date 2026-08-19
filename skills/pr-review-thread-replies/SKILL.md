@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-18
+updated: 2026-06-24
 author: gardener
 ---
 
@@ -37,17 +37,27 @@ For a deferral instead of an addressed item:
 -f body="Following up in a separate PR. <one-line reason>."
 ```
 
-**Never pass a file path as the body value.** `gh api -f body="@/tmp/reply.md"`
-posts the literal string `@/tmp/reply.md` — no `@`-file dereference happens on a
-`-f` field, so a maintainer sees a garbled one-token comment (the endo-but-for-bots
-#592 "Weird response."). When the reply is long or comes from a file, read it into
-the value with `-f body="$(cat /tmp/reply.md)"`, or use `--field body=@/tmp/reply.md`
-(the `--field`/`-F` form is the one that reads from a file). Verify the posted body
-by re-fetching the comment when in doubt.
+**Pass the body as a file — never on the command line, and never as a `-f` value.**
+Two distinct hazards meet here:
+
+- `gh api -f body="@/tmp/reply.md"` posts the literal string `@/tmp/reply.md` — no
+  `@`-file dereference happens on a `-f`/`--raw-field` field, so a maintainer sees a
+  garbled one-token comment (the endo-but-for-bots #592 "Weird response.").
+- Placing the body **text** on the command line (`-f body="…backticked words…"`,
+  `--body "…"`, a here-string) lets Bash run command substitution on every
+  `` `word` `` and `$(…)` **before `gh` runs**, deleting or executing them. That
+  silently stripped every `` `inline-code` `` span from a reply on this very PR
+  (#475), and is a command-injection sink if untrusted text ever flows through it.
+  See `roles/COMMON.md` § "Never put a comment/PR/issue body on a shell command line".
+
+The safe form for both is to hand the **file** to `gh` so the shell never evaluates
+the content: `--field body=@/tmp/reply.md` (the `--field`/`-F` form reads from a
+file). Prefer that over `-f body="$(cat /tmp/reply.md)"` — the substitution result
+is not re-scanned so file content is safe there, but the form is one edit away from
+the unsafe literal that caused the bug. Verify the posted body by re-fetching the
+comment when in doubt.
 
 Then post a top-level summary via `gh pr comment <N>` listing each item, the commit that addressed it, and any deferrals.
-
-**Reply, don't resolve.** Leave each thread **open** for the reviewer to resolve — never click "Resolve conversation" or call `resolveReviewThread`. Resolving a review thread is the call of the reviewer who opened it, not the agent replying; see [`roles/COMMON.md`](../../roles/COMMON.md) § External-repo etiquette for the rule and reasoning.
 
 ## Output
 
@@ -56,21 +66,7 @@ Each inline thread carries a SHA-citing reply (or a deferral note); one top-leve
 ## Pitfalls
 
 - **Wrong endpoint.** Replying via the *parent* endpoint creates a new top-level comment, not a threaded reply. The `/replies` suffix is required.
-- **Backticks (the #475 corruption — read this).** NEVER put a comment body that
-  contains `` `inlineCode` `` on a shell command line — not in a double-quoted
-  `--body "…"`, not in a `-f body="…"`, not in an unquoted heredoc. Bash performs
-  **command substitution** on every backtick span: `` `compareBytes` `` runs
-  `compareBytes` as a command (not found → empty), so the span AND its backticks
-  **vanish**, leaving a one-space hole. On 2026-06-22/06-23 this silently posted two
-  garbage replies (endojs/endo-but-for-bots #475, #486): "…no longer provides  / .
-  A new  package … with , , and …" — every package/function name gone. The reader
-  cannot tell what was meant. **Always** write the body to a file with the Write
-  tool (never `echo`/heredoc, which re-expose it to the shell) and post via
-  `--body-file <file>` or `--field body=@<file>`. The fleet gh wrapper now
-  **refuses** to post a body bearing this signature
-  ([`../../scripts/jobs/comment-body-guard.sh`](../../scripts/jobs/comment-body-guard.sh));
-  if you hit that refusal, you quoted a backtick body through the shell — repost
-  from a file.
+- **Quoting is a command-injection sink, not just a rendering nuisance.** A body containing backticks or `$(…)` placed on a shell command line (heredoc, `-f body=`, `--body`, here-string) is command-substituted by Bash before `gh` runs. Do not try to escape your way out (`\`…\``); write the body to a file and pass `--field body=@file` / `--body-file file`. Full rationale and the injection framing: `roles/COMMON.md` § "Never put a comment/PR/issue body on a shell command line".
 - **Type-annotation review comments.** Fetch the `diff_hunk` (included in the comments payload); reviewers asking about a type are almost always pointing at what was lost in the refactor. Fix structurally rather than reverting.
 - **Inline comments visible in the browser but not in REST.** When `GET /pulls/<N>/comments` returns `[]` and the `/replies` endpoint 404s for a comment whose body and position are visible on the PR page, the comment is real but not yet propagated. The maintainer likely left them as pending/draft review state. Fall back to a single top-level `POST /issues/<N>/comments` that maps each comment id to its outcome (applied + SHA, stalled + reason, replied-only). Cite the maintenance state in the top-level body.
 
