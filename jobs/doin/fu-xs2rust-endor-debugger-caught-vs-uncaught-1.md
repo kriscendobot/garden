@@ -11,6 +11,7 @@ endojs/endo-but-for-bots PR #600 (Ironhorse/xs2rust debugger): recover the debug
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
