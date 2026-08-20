@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T21:39:19Z_
+_As of 2026-08-20T21:41:24Z_
 
 ## Latest
 
@@ -2781,7 +2781,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 112.2M | $1113.72 _(notional, rate-card)_ | no quota set |
-| Codex | 15.2M _(+603.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 15.1M _(+600.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -3000,6 +3000,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ironhorse-coverage-matrix.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1040` · ---
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`kriscendobot-minion.town-port-whoami-tool-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-port-whoami-tool-20260819.md) — awaiting `kriscendobot-minion.town-pr20-merge-20260819` · ---
