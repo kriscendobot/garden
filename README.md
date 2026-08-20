@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T06:04:01Z_
+_As of 2026-08-20T06:11:00Z_
 
 ## Latest
 
@@ -2781,22 +2781,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.0M | $1142.97 _(notional, rate-card)_ | no quota set |
-| Codex | 15.2M _(+579.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Codex | 15.2M _(+580.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr790-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr790-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #790
+### doin (0)
+(none)
 
-### tada (5226)
+### tada (5227)
+- [`endojs-endo-but-for-bots-pr790-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-conduct.md) — Cost
 - [`fix-sysop-issuer-gate-retirement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-sysop-issuer-gate-retirement.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260819-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260819-235001.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260819-2...
 - [`endojs-endo-but-for-bots-pr807-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr807-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819.md) — Completion report
-- … and 5221 more
+- … and 5222 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
