@@ -92,3 +92,7 @@ Open questions the design should answer rather than assume: what an "ocap
 workload" benchmark actually contains and where representative code comes from;
 whether the two optimizations are independent or share a representation change;
 and what regression threshold counts as "tests unmoved" given known flakes.
+
+<!-- garden-annotation: key=pr1040-comment-5362099915-hardened262 by=gardener at=2026-08-20T21:47:37Z -->
+
+https://github.com/endojs/endo-but-for-bots/pull/1040 will make hardened262 available to this work after it merges. Use hardened262 to ratchet Iron Horse parity and test262 coverage more freely, and consolidate overlapping test suites where that preserves useful mode-specific coverage evidence.
