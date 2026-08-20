@@ -36,23 +36,18 @@ scripts/jobs/send-host-op.sh <GARDEN> op=restore
 `restore` here runs only the deterministic recovery one-shots. Doom triage and
 redispatch still require the liaison's judgment (`skills/restore/SKILL.md`).
 
-## Preserve the issuer set
+## Authorization boundary
 
-The target sysop reads one issuer identity per line from journal
-`config/sysop-issuers`. If that file is absent or has no non-comment entries,
-the current leader is the default issuer. A non-empty file **replaces** that
-default; it is not an extension to it.
-
-When changing the file, write the complete intended set, including the leader if
-the leader should retain the ability to send operations. Listing only a follower
-silently leaves only that follower authorized. After changing it, wait for the
-target sysop's next tick and inspect its acknowledgment or `sysop-log/<target>/`
-rather than assuming the operation arrived.
+Journal-push access is the authorization boundary. Any garden host may send an
+operation to any other garden host; `from_host` is self-asserted, so there is no
+additional issuer allowlist. After sending, wait for the target sysop's next tick
+and inspect its acknowledgment or `sysop-log/<target>/` rather than assuming the
+operation arrived.
 
 ## Operations that require maintainer attestation
 
-The reversible tier above needs an allowed issuer, but no maintainer attestation.
-These less reversible operations need **both** gates:
+The reversible tier above needs no maintainer attestation. These less reversible
+operations require it:
 
 ```sh
 scripts/jobs/send-host-op.sh <GARDEN> op=unit action=restart \
@@ -69,4 +64,3 @@ field. An agent saying “please redeploy host X,” or sending an unattested ho
 is only a request; the maintainer must supply the attestation by explicitly
 sending or authorizing the exact structured operation. The sysop refuses a
 missing or non-allowlisted `authorized_by` before execution.
-

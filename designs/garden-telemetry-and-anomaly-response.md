@@ -300,15 +300,15 @@ discipline). Before posting, the producer consults the **open-incidents registry
 **Rung 3 — Host-directed corrective via the `sysop` channel.** For conditions whose
 remediation is in the **closed `sysop` vocabulary** on the garden's own workers, the
 evaluator sends a `host/<GARDEN>` op via `send-host-op.sh`. It may originate **only
-the non-destructive ops** — `set-workers`, `drain`, `reset-failed`, `restore` — and
-only when the evaluator's host is on `config/sysop-issuers` (default: the leader).
+the non-destructive ops** — `set-workers`, `drain`, `reset-failed`, `restore`.
 The **destructive ops** (`unit`, `deploy`, `local-model`, `maintain`) require
 `authorized_by` on `maintainers/allowlist` and are **never** originated by the
 responder — they stay a human act. Example: V6's `ghost-workers` on a live-but-idle
 host can drive a `set-workers` correction; a *dead* host gets a notice, not an op
 (you cannot host-op a host whose sysop is not ticking). This rung reuses the existing
-issuer-gate + attestation trust model unchanged; it widens *who calls* `send-host-op`
-(the evaluator, from the closed non-destructive set), not *what the vocabulary is*.
+journal-push + attestation trust model unchanged; it widens *who calls*
+`send-host-op` (the evaluator, from the closed non-destructive set), not *what the
+vocabulary is*.
 
 **Rung 4 — Page the maintainer.** Reserved for the **ceiling conditions**: V1
 collapse (#1), V5 deploy-stalled (#4), V6 host-dead (#6), V7 backend-down (#8), V10
@@ -451,8 +451,8 @@ autonomous responder would have done *damage*, not repair.
 vocabulary on the garden's own workers — scale, drain, reset, restart — plus coalesced
 notices and pages; everything that touches code, an external surface, the deployed
 tree, or identity is detect-and-page only.* That line is defensible precisely because
-the sysop vocabulary is already closed, already issuer-gated, already host-scoped, and
-already refuses the destructive ops without maintainer attestation.
+the sysop vocabulary is already closed, already journal-push-gated, already host-
+scoped, and already refuses the destructive ops without maintainer attestation.
 
 ---
 

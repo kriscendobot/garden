@@ -1,6 +1,6 @@
 ---
 created: 2026-08-01
-updated: 2026-08-01
+updated: 2026-08-20
 author: gardener
 ---
 
@@ -115,8 +115,8 @@ is genuinely wedged (and, if so, kill it by hand and re-issue).
 ## Trust tier — destructive (attestation required)
 
 `maintain` **joins the destructive tier** with `deploy`, `unit`, and `local-model`:
-the issuer gate (`config/sysop-issuers`) confines which hosts may originate it, and it
-**additionally** requires `authorized_by: <login>` naming a login on
+the journal-push boundary permits any garden host to originate it, and it requires
+`authorized_by: <login>` naming a login on
 `maintainers/allowlist`.
 
 Argued from consequence: `maintain` force-removes a lock file and repacks the **shared
@@ -271,9 +271,9 @@ systemd) demonstrates:
   lock and a lock held by a wedged-but-live gc are indistinguishable without a
   deliberate human authorization for the ambiguous case. `maintain` is that
   authorization.
-- **A new benign-tier op with only the issuer gate.** Rejected: force-unlocking and
-  repacking the host's shared root repo is not transiently-reversible like the benign
-  ops; consequence puts it in the destructive tier.
+- **A new benign-tier op with only journal-push authorization.** Rejected: force-
+  unlocking and repacking the host's shared root repo is not transiently-reversible
+  like the benign ops; consequence puts it in the destructive tier.
 - **Carry `path=`/`ref=`/`force=` in the message.** Rejected: it would hand journal
   issuers an arbitrary repo-surgery selector. The op targets exactly `$GARDEN_ROOT` and
   performs exactly the closed escalation.

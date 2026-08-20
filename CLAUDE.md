@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-08-06
+updated: 2026-08-20
 author: gardener, liaison, builder
 ---
 
@@ -200,9 +200,10 @@ by construction: each host's sysop reads only `msgs/host/<its-own-GARDEN>` and o
 ever mutates its **own** host, so it preserves — never bypasses — `set-workers.sh`'s
 cross-host refusal (it satisfies the guard by running ON the target). It is **not a
 `roles/` posture** (runs no `claude`, claims no jobs; the `roles/sysop/AGENT.md` stub
-just redirects here). Trust is a deterministic gate before execution: an **issuer
-gate** confines *which* hosts may originate ops (journal `config/sysop-issuers`;
-default the leader), and the **destructive** ops (`unit`, `deploy`, `local-model`
+just redirects here). Journal-push access is the authorization boundary, so **any
+garden host may originate an op for any other garden host**; `from_host` is
+self-asserted and there is no additional issuer gate. The **destructive** ops
+(`unit`, `deploy`, `local-model`
 — a model pull is tens of GiB and can exhaust a follower's disk — and `maintain`, which
 breaks a confirmed-stale git gc lock and repacks the host's shared root repo) additionally
 require maintainer **attestation** (`authorized_by:` on `maintainers/allowlist`).

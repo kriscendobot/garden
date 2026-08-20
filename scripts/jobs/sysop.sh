@@ -6,11 +6,11 @@
 # A DETERMINISTIC, no-LLM consumer of host-directed system operations off the bus.
 # It reads this host's `host/<GARDEN>` topic, parses each message against a CLOSED
 # operation vocabulary (set-workers, drain, reset-failed, restore, unit, deploy,
-# local-model, maintain), applies a trust gate BEFORE execution, and delegates each op to the
+# local-model, maintain), validates it BEFORE execution, and delegates each op to the
 # EXISTING hardened same-host tool (set-workers.sh, drain-fleet.sh, …) — it adds
-# addressing + a gate, never new privileged mechanics. It runs on EVERY host (leader
-# and follower alike): the whole point is to drive an UNATTENDED FOLLOWER by a
-# message instead of a human sitting at it.
+# addressing + destructive-tier attestation, never new privileged mechanics. It
+# runs on EVERY host (leader and follower alike): the whole point is to drive an
+# UNATTENDED FOLLOWER by a message instead of a human sitting at it.
 #
 # Most ops are single-tick: the sysop applies them and records one terminal outcome.
 # `local-model` is the sole ASYNC op (designs/sysop-local-model.md): it makes the
@@ -33,10 +33,9 @@
 #   and polls its host-local result on later ticks. It never runs git in $GARDEN_ROOT —
 #   the guard (the sanctioned root mover) does, via that unit — and never drops history.
 #
-#   2. NEVER run claude/an LLM on message content. All parsing + dispatch is plain
-#      bash — the gate is deterministic code, before execution, in the shape of the
-#      mention-watcher / issue-inbox sender gates. There is not even a downstream
-#      LLM step to gate.
+#   2. NEVER run claude/an LLM on message content. All parsing, destructive-tier
+#      attestation, and dispatch are deterministic plain bash before execution.
+#      There is not even a downstream LLM step to gate.
 #   3. NEVER touch credentials; no op reads/writes/moves any token or gh state.
 #   4. NEVER ferry or originate identity_switch_authorized (maintainer-only). No
 #      ferry op exists; every journal write here is under the ordinary bot identity
@@ -50,17 +49,17 @@
 #      refusal passes by construction, never bypassed).
 #
 # ── Trust model (designs/sysop.md §6) ─────────────────────────────────────────
-# The real boundary is journal-push access (the whole fleet); `from_host` is
-# self-asserted. On top of that boundary the sysop adds defense-in-depth:
-#   * ISSUER GATE (all ops): from_host must be on config/sysop-issuers (default:
-#     the leader identity). A stray op from an unexpected host is inert AND visible.
+# Journal-push access (the whole fleet) IS the authorization boundary; `from_host`
+# is self-asserted, so there is no additional per-host issuer check. Any garden host
+# may send an op to any other garden host. Destructive operations retain one
+# deliberate-intent check on top of that boundary:
 #   * MAINTAINER ATTESTATION (destructive tier only — deploy, unit, local-model, maintain): the
 #     message must carry authorized_by: <login> with <login> on maintainers/allowlist.
 #     Attestation, not authentication — its value is that the irreversible tier
 #     cannot be triggered by ACCIDENT, only by a message that names a maintainer.
 #     local-model joins this tier because a tens-of-GiB pull can exhaust a follower's
-#     disk and stop its journal consumers, so the issuer gate alone is not
-#     proportionate to the consequence (designs/sysop-local-model.md § Decision).
+#     disk and stop its journal consumers, so attestation is required regardless of
+#     which garden host issues it (designs/sysop-local-model.md § Decision).
 #
 # Idempotency (designs/sysop.md §6): every op converges to a target state, so a
 # replay is harmless; the out-of-journal seen-marker surfaces each msgid once, and
@@ -91,7 +90,6 @@ GARDEN_TAG="sysop"
 : "${GARDEN_SYSOP_DEADMAIL:=$HERE/deadmail.sh}"
 : "${GARDEN_SYSOP_ACK_SEND:=$HERE/send-msg.sh}"              # ack to host/<from_host>
 : "${GARDEN_SYSOP_ACK_INBOX:=$HERE/inbox-send.sh}"          # ack to a live job doer (reply_to: job/<base>)
-: "${GARDEN_SYSOP_ISSUERS:=}"                               # override issuer set (file path OR inline ws-separated)
 : "${GARDEN_MAINTAINERS_ALLOWLIST:=}"                      # override maintainer allowlist file (else journal)
 : "${GARDEN_SYSOP_INSTALLED_UNIT_DIR:=${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user}"
 : "${GARDEN_SYSOP_MAIN_HEAD_CMD:=}"                        # test seam: echoes origin main2 HEAD for the deploy to_sha guard
@@ -114,39 +112,6 @@ GARDEN_TAG="sysop"
 : "${GARDEN_SYSOP_MAINT_ACTIVE_CMD:=}"                                 # test seam: echoes active|inactive for the maint unit
 
 CLONE="$GARDEN_SYSOP_CLONE"
-
-# --- read config: the issuer set (config/sysop-issuers; default = the leader) ---
-declare -a ISSUERS=()
-load_issuers() {
-  ISSUERS=()
-  local line src
-  if [ -n "$GARDEN_SYSOP_ISSUERS" ]; then
-    if [ -f "$GARDEN_SYSOP_ISSUERS" ]; then
-      src="file:$GARDEN_SYSOP_ISSUERS"
-      while IFS= read -r line; do line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]')"; [ -n "$line" ] && ISSUERS+=("$line"); done < "$GARDEN_SYSOP_ISSUERS"
-    else
-      src="inline"
-      for line in $GARDEN_SYSOP_ISSUERS; do line="${line%%#*}"; [ -n "$line" ] && ISSUERS+=("$line"); done
-    fi
-  else
-    src="journal:config/sysop-issuers"
-    while IFS= read -r line; do line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]')"; [ -n "$line" ] && ISSUERS+=("$line"); done \
-      < <(git -C "$CLONE" show "origin/$JOURNAL_BRANCH:config/sysop-issuers" 2>/dev/null || true)
-  fi
-  # Default: the leader identity (the liaison, the human-facing relay, runs there).
-  if [ "${#ISSUERS[@]}" -eq 0 ]; then
-    local leader; leader="$(leader_host 2>/dev/null || true)"
-    [ -n "$leader" ] && ISSUERS+=("$leader")
-    src="$src (empty → defaulted to leader '${leader:-<none>}')"
-  fi
-  log "loaded ${#ISSUERS[@]} issuer(s) from $src"
-}
-is_issuer() {  # is_issuer <from_host>
-  local h="$1" a
-  [ -n "$h" ] || return 1
-  for a in "${ISSUERS[@]}"; do [ "$a" = "$h" ] && return 0; done
-  return 1
-}
 
 # --- read config: the maintainer allowlist (destructive-tier attestation) ------
 # Same source as the issue inbox: maintainers/allowlist on origin/journal2, one
@@ -721,7 +686,6 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
 ensure_clone "$CLONE"
 sync_clone "$CLONE"          # exits EX_TEMPFAIL on a transient outage (self-heal normalizes)
 
-load_issuers
 load_maintainers
 
 mkdir -p "$(dirname "$GARDEN_SYSOP_SEEN")" 2>/dev/null || true
@@ -742,7 +706,9 @@ if [ ! -d "$d" ]; then
 fi
 
 acted=0; refused=0
-for f in $(ls -1 "$d" 2>/dev/null | grep -v -x '.gitkeep' | sort); do
+for path in "$d"/*.md; do
+  [ -e "$path" ] || continue
+  f="${path##*/}"
   msgid="${f%.md}"
   idline="host/$GARDEN/$f"
   # Exactly-once: skip if the out-of-journal cursor already surfaced it, OR the
@@ -761,15 +727,6 @@ for f in $(ls -1 "$d" 2>/dev/null | grep -v -x '.gitkeep' | sort); do
   from_host="$(field from_host)"
   op="$(field op)"
   reply_to="$(field reply_to)"
-
-  # ISSUER GATE — deterministic, first, before any op is carried out.
-  if ! is_issuer "$from_host"; then
-    OUTCOME="refused"; DETAIL="from_host '${from_host:-<none>}' not in sysop-issuers"
-    log "REFUSED op '${op:-<none>}' msgid=$msgid: $DETAIL"
-    write_sysop_log "$msgid" "${op:-<none>}" "${from_host:-<none>}" "$OUTCOME" "$DETAIL" || true
-    send_ack "$from_host" "$reply_to" "$msgid" "${op:-<none>}" "$OUTCOME" "$DETAIL"
-    mark_seen "$idline"; refused=$((refused+1)); continue
-  fi
 
   OUTCOME=""; DETAIL=""
   dispatch_op "$op" "$from_host" "$msgid"

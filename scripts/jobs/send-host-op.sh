@@ -24,9 +24,8 @@
 #
 # The destructive ops (deploy, unit, local-model, maintain) additionally require
 # authorized_by=<login> with <login> on the journal maintainers/allowlist
-# (attestation, not auth — see designs/sysop.md §6). The sysop's issuer gate
-# additionally confines WHICH hosts may originate ops (config/sysop-issuers; default:
-# the leader).
+# (attestation, not auth — see designs/sysop.md §6). Journal-push access is the
+# authorization boundary, so any garden host may originate an op for any other.
 #
 # `local-model` provisions the ADDRESSED host's `local` routing default into its
 # garden Ollama store (designs/sysop-local-model.md). It takes NO model/tag/url field

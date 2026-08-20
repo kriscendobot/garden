@@ -219,10 +219,10 @@ The sysop **must never**, stated as invariants the build encodes and tests pin:
    same path every producer uses. The one op that advances the root checkout,
    `deploy`, delegates to `deploy-garden.sh` — the *sanctioned* mover — and never
    itself runs a git command with `$GARDEN_ROOT` as the enclosing repo.
-6. **Parsing is deterministic, in plain code, before anything executes.** The gate
-   (§6) and the grammar validation (§4) both complete before a single op is carried
-   out. A malformed or unauthorized message produces a logged refusal and an ack,
-   and nothing runs.
+6. **Parsing is deterministic, in plain code, before anything executes.** Grammar
+   validation (§4) and destructive-tier attestation (§6) both complete before a
+   single op is carried out. A malformed or unattested destructive message produces
+   a logged refusal and an ack, and nothing runs.
 
 ---
 
@@ -240,8 +240,9 @@ a cryptographic auth gate against a party that already has push access.
 In this garden that boundary is acceptable as the *foundation*, because journal push
 access is held entirely by **the maintainer's own bot instances** (`kriscendobot` et
 al.) — the same trust basis every other bus consumer already relies on. The sysop
-does not lower that bar; it adds defense-in-depth *on top* of it and bounds the blast
-radius of the one threat the boundary admits (a buggy or captured fleet member).
+does not lower that bar. There is no additional issuer allowlist: any garden host may
+command any other garden host, because `from_host` is self-asserted and cannot add an
+authorization boundary for a sender that can already push to the journal.
 
 ### A conscious departure from the issue-inbox / fork-watch precedent
 
@@ -250,29 +251,22 @@ an external, untrusted text author** — their threat is *prompt injection from 
 stranger who can write a comment*. The sysop has **no external author**: every op
 sender already has journal push access, and the sysop feeds message content to *no
 LLM* (§5.2), so an author-login injection gate is the wrong tool here. The sysop
-**consciously departs** from that shape. Its gate is not "is this stranger trusted to
-be heard" but two different questions:
+**consciously departs** from that shape. All fleet hosts inside the journal-push
+boundary may be heard. The remaining check asks a different question.
 
-1. **Confine the issuance path** (defends against an *accidental* or *stray* op from
-   a confused agent). The sysop reads a journal `config/sysop-issuers` — a list of
-   `GARDEN` identities permitted to originate ops (default: the **leader** identity,
-   since the liaison, the human-facing relay, runs on the leader). An op whose
-   `from_host` is not on that list is **dropped, logged, and acked as refused**,
-   before any execution. This makes a mis-addressed op from an unexpected host both
-   inert and *visible*, rather than silently obeyed.
-2. **Attest destructive intent** (raises the bar for the irreversible tier). The
-   destructive ops (`deploy`, `unit`, `local-model`, `maintain`) additionally require the message
-   to carry `authorized_by: <login>` with `<login>` on the journal `maintainers/allowlist`
-   (the same driver-tier list the issue inbox uses). This is **attestation, not
-   authentication** — a compromised issuer could forge it — and the doc says so
-   plainly; its value is that the destructive tier cannot be triggered by an
-   *accident* (a benign-tier op message reused, a truncated body), only by a message
-   that *deliberately names a maintainer as authorizer*, which is auditable in the
-   journal trail (§8).
+**Attest destructive intent** (raises the bar for the irreversible tier). The
+destructive ops (`deploy`, `unit`, `local-model`, `maintain`) additionally require
+the message to carry `authorized_by: <login>` with `<login>` on the journal
+`maintainers/allowlist` (the same driver-tier list the issue inbox uses). This is
+**attestation, not authentication** — a compromised issuer could forge it — and the
+doc says so plainly; its value is that the destructive tier cannot be triggered by
+an *accident* (a benign-tier op message reused, a truncated body), only by a message
+that *deliberately names a maintainer as authorizer*, which is auditable in the
+journal trail (§8).
 
-Benign-tier ops (`set-workers`, `drain`, `reset-failed`, `restore`) need only the
-issuer gate. Their blast radius justifies the lighter bar: each is **reversible and
-self-healing** — a forged `set-workers 0`… is refused by the floor-of-1; a forged
+Benign-tier ops (`set-workers`, `drain`, `reset-failed`, `restore`) need only journal-
+push access. Their blast radius justifies the lighter bar: each is **reversible and
+self-healing** — a `set-workers 0`… is refused by the floor-of-1; a
 `drain on` is lifted by a later `drain off`; a forged `reset-failed` is a no-op on a
 healthy host. The worst a forger with push access achieves is transient, host-local,
 and self-correcting.
@@ -381,8 +375,8 @@ arrived":**
 2. **Bus ack back to the sender.** The sysop replies with a message the sender can
    read, distinguishing the outcomes above, so the failure mode is closed:
    - **applied** — "op `set-workers gardener=2` applied on `<GARDEN>` at `<ts>`";
-   - **refused** — "op refused: `from_host` not in `sysop-issuers`" / "unknown op
-     `frobnicate`" / "destructive op missing `authorized_by`";
+   - **refused** — "unknown op `frobnicate`" / "destructive op missing
+     `authorized_by`";
    - **parse-error** — "op `set-workers` missing/invalid `count`";
    - **failed** — the delegated tool exited non-zero; the ack carries its rc/tail.
 
@@ -412,8 +406,8 @@ Explicitly deferred, to keep the first cut small and its blast radius legible:
   cross-host action §1 forbids.
 - **No scheduled / deferred / conditional ops.** The sysop executes on receipt; "do
   X at time T" or "do X when condition C" belongs to the scheduler, not here.
-- **No cryptographic sender authentication.** The trust model (§6) is issuer-
-  confinement + maintainer-attestation over the journal-push boundary; a real signed-
+- **No cryptographic sender authentication.** The trust model (§6) is journal-push
+  access + destructive-tier maintainer attestation; a real signed-
   token scheme (a per-host key the sysop verifies) is a possible future hardening,
   noted and not built.
 - **The liaison-judgement half of `restore`.** The `restore` op runs only the
@@ -426,7 +420,8 @@ Explicitly deferred, to keep the first cut small and its blast radius legible:
   extension, the `read-msgs.sh`-based consume loop, and the test coverage (a
   deterministic-stub harness in `scripts/jobs/test/` asserting: benign op applied;
   destructive op refused without `authorized_by`; unknown op refused; parse-error
-  acked; issuer-gate drop; exactly-once replay; ack + audit record on each outcome;
+  acked; arbitrary-host benign op applied; exactly-once replay; ack + audit record
+  on each outcome;
   runs under drain; accepts `drain off` while drained; never invokes `claude`).
 
 ---
@@ -452,7 +447,8 @@ Explicitly deferred, to keep the first cut small and its blast radius legible:
   unauthenticated `from:`, not an external author, so a login gate defends against
   the wrong threat (§6). The maintainer allowlist is retained only as the *destructive-
   tier attestation*, where "a maintainer deliberately authorized this" is the point.
-- **No gate at all, trusting the journal-push boundary alone.** Rejected: the boundary
-  admits a confused or compromised agent (§6), and an *accidental* host-op from a
-  buggy sender should be inert and visible, not silently obeyed. The issuer-confinement
-  gate is cheap defense-in-depth that makes strays refusable and auditable.
+- **An issuer allowlist on top of the journal-push boundary.** Retired by maintainer
+  directive (2026-08-20): `from_host` is self-asserted, so the allowlist added
+  enrollment friction without security. Journal-push access is the authorization
+  boundary; destructive-tier maintainer attestation remains as the deliberate-intent
+  check.

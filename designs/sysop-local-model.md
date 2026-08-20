@@ -1,6 +1,6 @@
 ---
 created: 2026-08-01
-updated: 2026-08-01
+updated: 2026-08-20
 author: designer
 ---
 
@@ -19,11 +19,10 @@ change [`requires:` capability gating](host-requirements-gating.md), which canno
 reserve a job for a named host, or the model classification described in the
 [provider catalog](provider-model-catalog.md).
 
-`local-model` joins the sysop's destructive trust tier. It requires both an issuer
-host allowed by `config/sysop-issuers` and `authorized_by:` naming a login on
-`maintainers/allowlist`. A model pull can consume tens of gigabytes of disk and
-egress. Exhausting a follower's disk can stop its journal consumers and workers, so
-the issuer gate alone is not proportionate to the consequence.
+`local-model` joins the sysop's destructive trust tier. It requires `authorized_by:`
+naming a login on `maintainers/allowlist`. A model pull can consume tens of gigabytes
+of disk and egress. Exhausting a follower's disk can stop its journal consumers and
+workers, so attestation is required regardless of which garden host issues the op.
 
 This inherits the sysop's existing trust boundary: journal push access is the real
 authentication boundary, while `from_host` and `authorized_by` are self-asserted.
@@ -260,9 +259,10 @@ A deterministic stub harness should demonstrate:
 - **Use `requires: local` or add job-board host affinity.** Rejected because
   capability gating does not reserve a job for a named host, and an LLM job handler
   is the wrong execution path for host provisioning.
-- **Use only the issuer gate.** Rejected because a tens-of-gigabytes pull can exhaust
-  disk and remove an unattended follower from the fleet. Maintainer attestation is
-  required for the same consequence-based reason as other destructive sysop ops.
+- **Use only the journal-push authorization boundary.** Rejected because a tens-of-
+  gigabytes pull can exhaust disk and remove an unattended follower from the fleet.
+  Maintainer attestation is required for the same consequence-based reason as other
+  destructive sysop ops.
 - **Have `local-model` enable or start `garden-ollama`.** Rejected because it would
   race the scaler's `hermits: 0` policy and duplicate the existing `unit` and worker
   scaling controls. Provisioning fails visibly until the endpoint's desired state

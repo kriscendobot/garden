@@ -1,6 +1,6 @@
 ---
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-08-20
 author: designer (job budgeted-campaign-phase2-weekly-bucket-design)
 ---
 
@@ -100,8 +100,8 @@ matching how `cost.sh` reports "N unmetered."
 The notional-to-real calibration ratio needs each account's real monthly subscription
 cost. That is genuine fleet configuration (accounts can be added, removed, or repriced),
 so it lives in the journal, not in a `$200 x 2` constant baked into a script. Following
-the `config/fork-owners` and `config/sysop-issuers` precedent (one commented file, CAS
-push discipline), add `config/claude-subscriptions` as a small TSV, one row per account:
+the `config/fork-owners` precedent (one commented file, CAS push discipline), add
+`config/claude-subscriptions` as a small TSV, one row per account:
 
 ```
 # config/claude-subscriptions — real monthly cost of each Claude subscription, keyed

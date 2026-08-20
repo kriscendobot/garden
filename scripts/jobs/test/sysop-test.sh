@@ -7,7 +7,7 @@
 #   - each benign vocabulary op applied correctly (set-workers, drain, reset-failed,
 #     restore, unit) and a destructive op (deploy) applied only with attestation
 #   - an unknown op is refused; a parse-error is acked as such
-#   - the issuer gate drops an untrusted from_host
+#   - an arbitrary garden host can issue a benign op to another garden host
 #   - a replayed message is NOT double-applied (exactly-once)
 #   - a DRAINED host still ticks the sysop and honors `drain off`
 #   - the destructive tier is refused without authorized_by, and the sysop refuses
@@ -57,7 +57,6 @@ git -C "$SEED" checkout -q -b "$BRANCH"
            inbox/maintainer/unread inbox/maintainer/read
   for d in jobs/todo jobs/doin jobs/tada msgs hosts config sysop-log maintainers \
            inbox/maintainer/unread inbox/maintainer/read; do touch "$d/.gitkeep"; done
-  printf '%s\n' "$ISSUER" > config/sysop-issuers
   printf '%s\n' "$MAINTAINER" > maintainers/allowlist )
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: sysop fixtures"
@@ -111,7 +110,7 @@ run_sysop() {  # run_sysop <state-dir> [EXTRA_ENV=VAL ...]
   env -i PATH="$PATH" HOME="$HOME" \
     GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN="$TARGET" GARDEN_STATE="$state" GARDEN_LEADER="$ISSUER" \
-    GARDEN_SYSOP_ISSUERS="$ISSUER" GARDEN_MAINTAINERS_ALLOWLIST="$MAINT_FILE" \
+    GARDEN_MAINTAINERS_ALLOWLIST="$MAINT_FILE" \
     GARDEN_SYSOP_INSTALLED_UNIT_DIR="$UNIT_DIR" \
     GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$TR/mock-state" GARDEN_MOCK_LOG="$TR/mock-log" \
     GARDEN_SYSOP_ACK_SEND="$TR/rec-ack.sh" GARDEN_SYSOP_ACK_INBOX="$TR/rec-ack.sh" ACK_LOG="$ACK_LOG" REC_LOG="$REC_LOG" \
@@ -161,13 +160,15 @@ env -i PATH="$PATH" HOME="$HOME" GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOT
 [ "$?" -ne 0 ] && ok "read-msgs.sh rejects host/../../x (guard on the read side too)" || bad "read-msgs.sh ACCEPTED a path-escape address"
 
 # ============================================================================
-hr; echo "ISSUER GATE — an untrusted from_host is dropped (refused, acked, not run)"; hr
+hr; echo "HOST AUTHORITY — an arbitrary garden host's benign op is accepted"; hr
 : > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"; : > "$TR/mock-state"
 seed_op "$EVIL" "$TARGET" op=set-workers kind=gardener count=5
 run_sysop "$TR/s-evil"
-grep -q '^set-workers' "$REC_LOG" \
-  && bad "an untrusted-issuer op was EXECUTED" || ok "untrusted-issuer op not executed"
-grep -q 'sysop_ack: refused' "$ACK_LOG" && ok "untrusted-issuer op acked refused" || bad "no refused ack for untrusted issuer"
+grep -q 'set-workers gardener 5' "$REC_LOG" \
+  && ok "arbitrary from_host delegated set-workers to the addressed host" \
+  || bad "arbitrary from_host was not dispatched (rec: $(cat "$REC_LOG"))"
+grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
+  && ok "arbitrary from_host op acked applied" || bad "arbitrary from_host op not acked applied"
 
 # ============================================================================
 hr; echo "APPLY — set-workers (benign) delegates to set-workers.sh on this host"; hr

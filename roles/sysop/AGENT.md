@@ -1,5 +1,6 @@
 ---
 created: 2026-07-28
+updated: 2026-08-20
 author: gardener
 ---
 
@@ -25,7 +26,7 @@ job could run on the wrong host.
 
 | artifact | what it is |
 | --- | --- |
-| [`scripts/jobs/sysop.sh`](../../scripts/jobs/sysop.sh) | the daemon: reads `host/<GARDEN>`, gates, dispatches the closed op set, acks. No LLM anywhere in the path. |
+| [`scripts/jobs/sysop.sh`](../../scripts/jobs/sysop.sh) | the daemon: reads `host/<GARDEN>`, validates, dispatches the closed op set, acks. No LLM anywhere in the path. |
 | [`scripts/jobs/send-host-op.sh`](../../scripts/jobs/send-host-op.sh) | the operator/liaison sender: `send-host-op.sh <GARDEN> op=… key=…`. |
 | `scripts/systemd/garden-sysop.{service,timer}` | the per-host unit — enabled on **every** host by `install-units.sh` (NOT leader-gated). |
 | [`designs/sysop.md`](../../designs/sysop.md) | the design of record: the gap, the invariants, the closed vocabulary, the trust model. |
@@ -33,29 +34,26 @@ job could run on the wrong host.
 ## The closed operation vocabulary (the whole of what the sysop can do)
 
 Each op delegates to an **existing, hardened, same-host tool** — the sysop adds
-*addressing and a trust gate*, not new privileged mechanics. Two tiers:
+*addressing and destructive-tier attestation*, not new privileged mechanics. Two tiers:
 
-- **Benign** (issuer gate only): `set-workers` (→ `set-workers.sh`), `drain`
+- **Benign** (journal-push access): `set-workers` (→ `set-workers.sh`), `drain`
   (→ `drain-fleet.sh`), `reset-failed` (→ `systemctl --user reset-failed 'garden-*'`),
   `restore` (reset-failed + `reaper.sh` + `deadmail.sh`).
-- **Destructive** (issuer gate + maintainer attestation): `unit`
+- **Destructive** (journal-push access + maintainer attestation): `unit`
   (start/stop/restart an installed `garden-*` unit, never `garden-sysop.*` itself),
-  `deploy` (→ `deploy-garden.sh`).
+  `deploy` (→ `deploy-garden.sh`), `local-model`, and `maintain`.
 
 An unrecognized `op:` is **refused and logged, never guessed at**. There is no
 `op: shell`/`op: run`/passthrough. Widening the set is a deliberate design act (a
 new op row + grammar + tier), never an open-ended `exec`.
 
-## Trust gate (deterministic, before execution — no LLM)
+## Trust model (deterministic, before execution — no LLM)
 
 The honest boundary is journal-push access (the whole fleet); `from_host` is
-self-asserted. On top of it the sysop adds defense-in-depth, in the shape of the
-mention-watcher / issue-inbox gates:
+self-asserted. Any garden host may originate an op for any other garden host; there
+is no additional issuer allowlist.
 
-1. **Issuer confinement** (all ops): `from_host` must be on the journal
-   `config/sysop-issuers` (default: the **leader** identity). A stray op from an
-   unexpected host is inert **and visible** (logged + acked refused).
-2. **Maintainer attestation** (destructive tier): the message must carry
+1. **Maintainer attestation** (destructive tier): the message must carry
    `authorized_by: <login>` with `<login>` on `maintainers/allowlist`. Attestation,
    not authentication — its value is that the irreversible tier cannot be triggered
    by *accident*, only by a message that deliberately names a maintainer.
