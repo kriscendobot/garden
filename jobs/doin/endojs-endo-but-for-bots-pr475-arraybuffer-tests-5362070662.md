@@ -51,3 +51,13 @@ only after CI is green.
 If the requested matrix and environment execution cannot genuinely be completed,
 end the report with the orchestration-failure signal immediately before the
 completion signal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-20T22:10:18Z
