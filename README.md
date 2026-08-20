@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T05:44:28Z_
+_As of 2026-08-20T05:49:33Z_
 
 ## Latest
 
@@ -2780,15 +2780,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.9M | $1140.37 _(notional, rate-card)_ | no quota set |
+| Claude | 115.9M | $1142.30 _(notional, rate-card)_ | no quota set |
 | Codex | 14.9M _(+574.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-sysop-issuer-gate-retirement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-sysop-issuer-gate-retirement.md) — Retire the sysop issuer gate — garden hosts may command all garden hosts
 
 ### tada (5225)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260819-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260819-235001.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260819-2...
