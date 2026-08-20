@@ -8,6 +8,7 @@ Containment drift check for kriscendobot/minion.town: verify the two de-register
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
