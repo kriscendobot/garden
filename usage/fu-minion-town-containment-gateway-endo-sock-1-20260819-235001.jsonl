@@ -1,3 +1,4 @@
 {"ts":"2026-08-19T23:50:50Z","base":"fu-minion-town-containment-gateway-endo-sock-1-20260819-235001","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":4}
 {"ts":"2026-08-19T23:55:08Z","base":"fu-minion-town-containment-gateway-endo-sock-1-20260819-235001","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":69}
 {"ts":"2026-08-20T00:03:20Z","base":"fu-minion-town-containment-gateway-endo-sock-1-20260819-235001","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
+{"source":"result","model":"claude-opus-4-8","num_turns":6,"elapsed_s":102,"input_tokens":11,"output_tokens":5633,"cache_creation_tokens":40774,"cache_read_tokens":264491,"total_cost_usd":0.6831514999999999,"ts":"2026-08-20T00:14:55Z","base":"fu-minion-town-containment-gateway-endo-sock-1-20260819-235001","host":"endolin-garden-ece02cb4","outcome":"tada"}
