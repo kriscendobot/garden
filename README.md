@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T20:20:33Z_
+_As of 2026-08-20T21:36:17Z_
 
 ## Latest
 
@@ -2780,15 +2780,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.3M | $1123.06 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+624.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 112.2M | $1113.72 _(notional, rate-card)_ | no quota set |
+| Codex | 15.2M _(+607.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1040
 
 ### tada (5233)
 - [`endojs-endo-but-for-bots-pr1040-review-4b910966`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-review-4b910966.md) — Cost
