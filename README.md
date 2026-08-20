@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T05:49:33Z_
+_As of 2026-08-20T05:52:54Z_
 
 ## Latest
 
@@ -2780,14 +2780,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.9M | $1142.30 _(notional, rate-card)_ | no quota set |
-| Codex | 14.9M _(+574.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 115.9M | $1142.37 _(notional, rate-card)_ | no quota set |
+| Codex | 15.0M _(+575.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr790-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr790-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #790
 - [`fix-sysop-issuer-gate-retirement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-sysop-issuer-gate-retirement.md) — Retire the sysop issuer gate — garden hosts may command all garden hosts
 
 ### tada (5225)
