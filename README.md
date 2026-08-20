@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-19T23:56:23Z_
+_As of 2026-08-20T00:15:14Z_
 
 ## Latest
 
@@ -2780,23 +2780,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.4M | $1150.35 _(notional, rate-card)_ | no quota set |
+| Claude | 116.4M | $1149.90 _(notional, rate-card)_ | no quota set |
 | Codex | 15.3M _(+589.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260819-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260819-235001.md) — ---
+### doin (0)
+(none)
 
-### tada (5224)
+### tada (5225)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260819-235001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260819-235001.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260819-2...
 - [`endojs-endo-but-for-bots-pr807-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr807-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-spec-genuine-predicate-20260819.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-verify-shimmed-claim-20260819.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-cb751bbb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-cb751bbb.md) — Completion report
-- [`endojs-endo-but-for-bots-pr807-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet-panel-1.md) — Completion report
-- … and 5219 more
+- … and 5220 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
