@@ -36,3 +36,13 @@ merge, end the report with the orchestration-failure signal immediately before
 the completion signal. That must halt the chain rather than allowing work on PR
 https://github.com/endojs/endo-but-for-bots/pull/475 to start before the
 maintainer's requested conduct finishes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-20T21:46:49Z
