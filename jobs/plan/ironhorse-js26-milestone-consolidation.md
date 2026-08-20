@@ -29,3 +29,7 @@ Also out of scope here: the multi-day clusters that need a different vehicle tha
 Do not touch `ironhorse-branch-regression-fixer`, which runs separately and repairs the branch back to baseline.
 
 handler-timeout: 7200
+
+<!-- garden-annotation: key=pr1040-comment-5362099915-hardened262 by=gardener at=2026-08-20T21:47:31Z -->
+
+https://github.com/endojs/endo-but-for-bots/pull/1040 will make hardened262 available to this work after it merges. Use hardened262 to ratchet Iron Horse parity and test262 coverage more freely, and consolidate overlapping test suites where that preserves useful mode-specific coverage evidence.
