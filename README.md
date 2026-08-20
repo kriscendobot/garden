@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T21:57:04Z_
+_As of 2026-08-20T22:07:55Z_
 
 ## Latest
 
@@ -2780,24 +2780,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.2M | $1113.31 _(notional, rate-card)_ | no quota set |
-| Codex | 14.9M _(+574.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 112.2M | $1112.71 _(notional, rate-card)_ | no quota set |
+| Codex | 14.9M _(+577.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix.md) — ---
-- [`endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662.md) — Advance the llm base pin and rebase endojs/endo-but-for-bots pull 475
 
-### tada (5238)
+### tada (5239)
+- [`endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662.md) — Cost
 - [`deadmail-20260820T215426Z-2a381d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260820T215426Z-2a381d.md) — Cost
 - [`endojs-endo-but-for-bots-pr1040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1040-conduct-gate-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-conduct-gate-5362070662.md) — Cost
 - [`endojs-endo-but-for-bots-pr1040-6d1df97f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-6d1df97f.md) — Cost
-- [`endojs-endo-but-for-bots-pr1040-a5932e30`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-a5932e30.md) — Cost
-- … and 5233 more
+- … and 5234 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
