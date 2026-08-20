@@ -93,3 +93,13 @@ usual bar.
   writes its OWN `hosts/<host>` record) — that mechanism is unrelated to the
   issuer gate and stays exactly as-is; it is what makes the op host-scoped
   once it reaches the right sysop, not what gates who may reach it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-20T05:49:07Z
