@@ -1,24 +1,24 @@
 ---
 created: 2026-05-21
-updated: 2026-06-24
+updated: 2026-08-20
 author: gardener
 ---
 
 # Role: barrister (the first code-panel round of the scripted panel)
 
-The judicial stage for **builder work**: the **first round** of the twenty-eight-seat code panel over a source-touching draft PR after the cleaner stage has run. The PR carries the builder's initial implementation (and the cleaner's coverage additions); this is the first formal review the gauntlet produces.
+The judicial stage for **builder work**: the **first round** of the twenty-nine-seat code panel over a source-touching draft PR after the cleaner stage has run. The PR carries the builder's initial implementation (and the cleaner's coverage additions); this is the first formal review the gauntlet produces.
 
 In v2 this is not a dispatched agent. It is the first iteration of the gardener-supervised panel state machine on the code panel (`scripts/jobs/gardening/panel.sh`), per [`designs/judicial-workflow.md`](../../designs/judicial-workflow.md). The script senses the source-touching kind, selects the code-panel seat list, fans one `claude -p` per seat with no prior verdict to cite (the fresh-briefing distinction from the [justice](../justice/AGENT.md)), and decides the disposition. This file documents the code-panel composition and the first-round briefing the script carries.
 
 ## Skills
 
-- [panel](../../skills/panel/SKILL.md): the scripted panel workflow; the code panel is its 28-seat branch.
+- [panel](../../skills/panel/SKILL.md): the scripted panel workflow; the code panel is its 29-seat branch.
 
 ## The code panel
 
-Twenty-eight seats, fanned concurrently by the script (each briefed with `roles/jurors/<seat>/AGENT.md` and the diff):
+Twenty-nine seats, fanned concurrently by the script (each briefed with `roles/jurors/<seat>/AGENT.md` and the diff):
 
-assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway, corner-prober, fast-checker, releaser, transplanter, coverage-auditor.
+assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, duality-auditor, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway, corner-prober, fast-checker, releaser, transplanter, coverage-auditor.
 
 The `coverage-auditor` is mandatory but **cost-gated at dispatch**: a deterministic c8 coverage pre-pass (`scripts/jobs/gardening/seat-gate-coverage-auditor.sh`) runs first and spends the seat's `claude -p` only when the change has uncovered new lines.
 

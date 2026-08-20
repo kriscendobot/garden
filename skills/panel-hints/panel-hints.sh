@@ -195,4 +195,4 @@ fi
 # Compute the recommended total: always-on (9) + always-fire (3) + path + content + cross.
 total=$((9 + 3 + ${#path_seats[@]} + ${#content_seats[@]} + ${#cross_seats[@]}))
 echo ""
-echo "Recommended total: $total of 28 code-panel seats (+ ${#cross_seats[@]} cross-panel)."
+echo "Recommended total: $total of 29 code-panel seats (+ ${#cross_seats[@]} cross-panel)."

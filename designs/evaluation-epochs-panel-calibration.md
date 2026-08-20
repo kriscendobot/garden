@@ -93,7 +93,7 @@ calibration:                          # scored at promotion time against anchor_
   recall: 0.84
   false_accept: 0.04
   false_reject: 0.07
-  cost_seats: 28
+  cost_seats: 29
   inter_rater_spread: 0.19
   adversarial_resistance: 0.88
 replacement_rationale: >

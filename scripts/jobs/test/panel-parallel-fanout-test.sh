@@ -4,7 +4,7 @@
 #
 # THE PROBLEM: the seat fan-out was a strictly sequential `for seat in $seats`
 # loop. Measured on this fleet, one seat reviewing a ~1500-line diff takes over
-# three minutes, so the 28-seat code panel ran ~1.5–2.5 HOURS against a default
+# three minutes, so the 29-seat code panel ran ~1.5-2.5 HOURS against a default
 # GARDEN_HANDLER_TIMEOUT of 2400s — structurally outside a gardener's budget.
 # Every build's auto-gauntlet and every `run the gauntlet` job was therefore
 # unrunnable in one claim unless whoever posted it REMEMBERED to stamp

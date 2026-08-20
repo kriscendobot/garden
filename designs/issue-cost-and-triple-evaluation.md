@@ -182,7 +182,7 @@ human review." Do not upgrade it past what the sample supports.
 
 ### Machine review that buys no verdict is real cost, too
 
-The `panel` harness (the gauntlet's review segment) spends ~28 juror-seat LLM calls
+The `panel` harness (the gauntlet's review segment) spends ~29 juror-seat LLM calls
 per run. Of 54 recorded panel runs, **31 terminated in an error state and only 5
 passed** — panel machine cost that returned no usable verdict is a real charge against
 the same budget, and it is *harness* cost, not model cost. It is folded into the

@@ -52,7 +52,7 @@ The stages:
 | Stage base | Work | Bounded because |
 | --- | --- | --- |
 | `<g>-clean` | coverage pass, dead-code removal, watch CI converge | one coverage pass on the touched packages; CI-wait is its own bounded poll (below) |
-| `<g>-panel-<k>` | run **one** panel round: fan the seats, aggregate, decide `pass`/`must-fix`, post the verdict as a `gh pr review` | one round of `panel.sh` in single-round mode: 28 seats at concurrency 8 ≈ 4 waves ≈ 15 min |
+| `<g>-panel-<k>` | run **one** panel round: fan the seats, aggregate, decide `pass`/`must-fix`, post the verdict as a `gh pr review` | one round of `panel.sh` in single-round mode: 29 seats at concurrency 8, about 4 waves and 15 min |
 | `<g>-fix-<k>` | apply the must-fix items from the latest panel verdict, push follow-ups, watch CI green | one fixer pass on a known finding list |
 | `<g>-undraft` | appellate pass (advisory), then `gh pr ready` | a single API call plus one advisory `claude -p` |
 

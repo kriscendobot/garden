@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-08-20
 author: gardener
 ---
 
@@ -19,7 +19,7 @@ The control flow that runs the panel is the scripted panel run a gardener superv
 
 ## Panel composition
 
-- **Default for source-touching PRs (code panel): twenty-eight seats** (assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway, corner-prober, fast-checker, releaser, transplanter, coverage-auditor). The `coverage-auditor` is a mandatory seat but **cost-gated at dispatch**: its deterministic c8 coverage pre-pass runs first and spends a `claude -p` only when the change has uncovered new lines (`scripts/jobs/gardening/seat-gate-coverage-auditor.sh`).
+- **Default for source-touching PRs (code panel): twenty-nine seats** (assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, duality-auditor, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway, corner-prober, fast-checker, releaser, transplanter, coverage-auditor). The `coverage-auditor` is a mandatory seat but **cost-gated at dispatch**: its deterministic c8 coverage pre-pass runs first and spends a `claude -p` only when the change has uncovered new lines (`scripts/jobs/gardening/seat-gate-coverage-auditor.sh`).
 - **Default for design-only PRs (design panel): seven seats** (critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice).
 - **Smaller panels** (3 to 6 seats from either default) are valid when the supervisor names a reduced composition (`GARDEN_CODE_SEATS` / `GARDEN_DESIGN_SEATS`) for a tiny PR. The aggregation discipline below applies unchanged.
 - **Custom and cross-panel compositions** are valid when a maintainer's directive names them (e.g., add the novice to a code-panel round when a JSDoc revision warrants a new-reader's eye).
@@ -224,6 +224,7 @@ The short-circuit costs one `gh` call rather than a full seat fan-out plus run s
 - _2026-06-24_: migrated to v2. The judge-as-foreperson `Agent`-dispatch orchestration collapses into the scripted panel run a gardener supervises ([panel](../panel/SKILL.md) / `scripts/jobs/gardening/panel.sh`); the three v1 judge roles (solicitor / barrister / justice) plus appellate are now stages of that one script. This skill retains the per-seat review procedure and the disposition rubric — the content the `seat_review` and `decide_disposition` hooks carry. The `summary-fix` job-board posting, the follow-up merge-watch, and the proposed-rule routing all rewire onto the v2 job board and message bus; "gamut" is renamed "gauntlet" throughout.
 - _2026-05-21_: three narrow code-panel seats land (corner-prober, fast-checker, releaser); code panel reaches 26.
 - _2026-07-12_: the `coverage-auditor` seat lands (test coverage of new lines, driven by a deterministic c8 pre-pass and cost-gated at dispatch); with the earlier `transplanter` the code panel reaches 28.
+- _2026-08-20_: the `duality-auditor` seat lands to check that dual and inverse functions expose their relationship through paired names; the code panel reaches 29.
 - _2026-05-20_: cite-or-propose discipline added; six narrow code-panel seats land (benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway). PR #75's 71 inline + 14 top-level comments across 16 reviews were the empirical catalog.
 - _2026-05-19_: disposition layer added — the panel "is not responding to all of the aggregate feedback of the jury". Pre-change, the run un-drafted as soon as must-fix was empty, leaving should-fix and out-of-scope items ignored. Post-change, every non-must-fix finding gets one of four explicit dispositions.
 - _2026-05-14/15_: the two-panel split (code panel for source PRs, design panel for design-only PRs) landed; the design panel grew from five seats to seven (decomplector, ergonomist added).

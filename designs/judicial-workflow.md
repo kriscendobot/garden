@@ -56,11 +56,11 @@ interactively, the same pattern `garden-pr.sh` uses with `GARDEN_DECIDE`.
 
 Two panel kinds, carried over verbatim from v1's jury composition:
 
-- **Code panel — 26 seats** for source-touching PRs: assessor, typist, stylist,
+- **Code panel: 29 seats** for source-touching PRs: assessor, typist, stylist,
   packager, archivist, prover, curator, migrator, locksmith, warden, saboteur,
   breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator,
-  benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway,
-  corner-prober, fast-checker, releaser.
+  duality-auditor, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway,
+  corner-prober, fast-checker, releaser, transplanter, coverage-auditor.
 - **Design panel — 7 seats** for design-only PRs (every changed path under a
   design directory or matching `DESIGN*.md`): critic, skeptic, decomplector,
   ergonomist, copyeditor, pedant, novice.

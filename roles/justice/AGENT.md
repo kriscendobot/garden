@@ -1,12 +1,12 @@
 ---
 created: 2026-05-21
-updated: 2026-06-24
+updated: 2026-08-20
 author: gardener
 ---
 
 # Role: justice (the code-panel re-run rounds of the scripted panel)
 
-The judicial stage for **fixer work**: the **re-run rounds** of the twenty-eight-seat code panel over a source-touching draft PR after a fixer has pushed in response to a prior panel verdict. Each seat is briefed with the prior verdict and the fixer's response so it verifies the prior `must-fix` items are addressed and surfaces any *new* in-scope findings the fix introduced.
+The judicial stage for **fixer work**: the **re-run rounds** of the twenty-nine-seat code panel over a source-touching draft PR after a fixer has pushed in response to a prior panel verdict. Each seat is briefed with the prior verdict and the fixer's response so it verifies the prior `must-fix` items are addressed and surfaces any *new* in-scope findings the fix introduced.
 
 In v2 this is not a dispatched agent. It is the loop's subsequent iterations in the gardener-supervised panel state machine (`scripts/jobs/gardening/panel.sh`), per [`designs/judicial-workflow.md`](../../designs/judicial-workflow.md). The distinction from the [barrister](../barrister/AGENT.md)'s first round is the **briefing**: the script briefs each seat with the prior verdict and diffs against the prior head (the fixer's delta), not the whole PR. That difference is carried by the seat prompt and the diff base, which is why the three v1 judge roles collapse into one loop.
 
@@ -16,7 +16,7 @@ In v2 this is not a dispatched agent. It is the loop's subsequent iterations in 
 
 ## The code panel
 
-Same twenty-eight seats as the [barrister](../barrister/AGENT.md) § The code panel; same idempotent Copilot reviewer re-add on the re-run rounds. See that file for the seat list.
+Same twenty-nine seats as the [barrister](../barrister/AGENT.md) section "The code panel"; same idempotent Copilot reviewer re-add on the re-run rounds. See that file for the seat list.
 
 ## Stage discipline
 

@@ -8,6 +8,7 @@ ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
 PREFER="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/prefer-endo-primitives.sh"
 SPELL="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/spell-out-identifiers.sh"
 PURIST="$ROOT/skills/panel-hints/probes/C-purist.sh"
+DUALITY_AUDITOR="$ROOT/skills/panel-hints/probes/C-duality-auditor.sh"
 TEMPORARY_ROOT=$(mktemp -d)
 trap 'rm -rf "$TEMPORARY_ROOT"' EXIT
 
@@ -157,6 +158,21 @@ panel_output=$(cd "$REPOSITORY" && BASE="$base" bash "$PURIST")
 printf '%s\n' "$panel_output" | grep -q '^fire purist matched: path.dirname(' \
   && ok 'path.dirname deterministically routes to purist' \
   || bad "purist probe missed path.dirname: $panel_output"
+
+# Directional identifiers route to the duality-auditor, which judges whether
+# the named functions are actual counterparts.
+git -C "$REPOSITORY" reset -q --hard HEAD
+base=$(git -C "$REPOSITORY" rev-parse HEAD)
+printf '%s\n' \
+  'export const encodeSwissnum = value => value;' \
+  'export const decodeSwissnum = value => value;' \
+  > "$REPOSITORY/swissnum.js"
+git -C "$REPOSITORY" add swissnum.js
+git -C "$REPOSITORY" commit -qm candidate
+panel_output=$(cd "$REPOSITORY" && BASE="$base" bash "$DUALITY_AUDITOR")
+printf '%s\n' "$panel_output" | grep -q '^fire duality-auditor matched directional identifier: encodeSwissnum' \
+  && ok 'directional identifiers deterministically route to duality-auditor' \
+  || bad "duality-auditor probe missed encode/decode pair: $panel_output"
 
 echo "$passes passing, $failures failing"
 [ "$failures" -eq 0 ]
