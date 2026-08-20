@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T19:28:23Z_
+_As of 2026-08-20T19:58:29Z_
 
 ## Latest
 
@@ -2787,8 +2787,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1040-review-4b910966`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-review-4b910966.md) — Review directive on endojs/endo-but-for-bots PR #1040
 
 ### tada (5232)
 - [`endojs-endo-but-for-bots-pr1040-review-4ed39ee7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-review-4ed39ee7.md) — Cost
@@ -2991,6 +2991,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-review-1c227402-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-1c227402-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-cb751bbb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-cb751bbb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1040-review-4ed39ee7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1040-review-4ed39ee7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1040 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1040-review-4b910966-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1040-review-4b910966-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1040 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
