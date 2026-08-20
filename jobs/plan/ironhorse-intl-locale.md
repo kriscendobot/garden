@@ -47,3 +47,7 @@ issue_spine: issue-kriscendobot-garden-51
 <!-- garden-annotation: key=67344d1d5edd by=producer at=2026-08-16T06:49:42Z -->
 
 DEFERRED INDEFINITELY by maintainer decision 2026-08-16 (liaison session): the re-scope proposal recommended promoting the 9 rebudgeted Intl/ECMA-402 formatter families as the best-scoped landable work, and the maintainer instead deferred the Intl feature families indefinitely to conserve campaign budget (spend was 3,307,979 against 2,080,000 approved). Do NOT promote this without a fresh maintainer go-ahead. The host-only-exclusion pattern proven by child-20 and js-25 still applies whenever it is revived.
+
+<!-- garden-annotation: key=pr1040-comment-5362099915-hardened262 by=gardener at=2026-08-20T21:42:20Z -->
+
+https://github.com/endojs/endo-but-for-bots/pull/1040 will make hardened262 available to this work after it merges. Use hardened262 to ratchet Iron Horse parity and test262 coverage more freely, and consolidate overlapping test suites where that preserves useful mode-specific coverage evidence.
