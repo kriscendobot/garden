@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T18:55:10Z_
+_As of 2026-08-20T19:03:03Z_
 
 ## Latest
 
@@ -2781,23 +2781,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 113.3M | $1123.06 _(notional, rate-card)_ | no quota set |
-| Codex | 15.4M _(+585.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Codex | 15.7M _(+593.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1040-review-4ed39ee7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-review-4ed39ee7.md) — Review directive on endojs/endo-but-for-bots PR #1040
-- [`endojs-endo-but-for-bots-pr475-67703d8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-67703d8c.md) — attention directive on endojs/endo-but-for-bots PR #475
 
-### tada (5230)
+### tada (5231)
+- [`endojs-endo-but-for-bots-pr475-67703d8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-67703d8c.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260820-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260820-170501.md) — Cost
 - [`endojs-endo-but-for-bots-pr807-6bc7f55a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-6bc7f55a.md) — Cost
 - [`daily-progress-summary-20260820-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260820-070502.md) — Cost
 - [`endojs-endo-but-for-bots-pr790-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-conduct.md) — Cost
-- [`fix-sysop-issuer-gate-retirement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-sysop-issuer-gate-retirement.md) — Cost
-- … and 5225 more
+- … and 5226 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
