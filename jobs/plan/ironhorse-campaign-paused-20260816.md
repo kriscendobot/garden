@@ -25,3 +25,7 @@ Budget context that drove the pause: honest campaign spend was 3,307,979 against
 State of the effort at pause: accumulated branch is https://github.com/endojs/endo-but-for-bots/pull/970 (DRAFT). Pins: test262 be13516fb, XS oracle 23b4d6b0. 23,427 actionable cases remain, 41% of them generic `ironhorse-aborted` cascading off a few missing engine prerequisites. Multi-day clusters still needing decomposition into a non-handler vehicle: RegExp u/v/unicode (u/v flag alone 2,870, cross-cutting), TypedArray/ArrayBuffer, language expr/stmt/eval, Object/Array/Reflect/Proxy MOP, eval/Function/dynamic-import.
 
 To resume: promote `ironhorse-js26-milestone-consolidation` first, then the milestones it parks.
+
+<!-- garden-annotation: key=pr1040-comment-5362099915-hardened262 by=gardener at=2026-08-20T21:41:42Z -->
+
+https://github.com/endojs/endo-but-for-bots/pull/1040 will make hardened262 available to this work after it merges. Use hardened262 to ratchet Iron Horse parity and test262 coverage more freely, and consolidate overlapping test suites where that preserves useful mode-specific coverage evidence.
