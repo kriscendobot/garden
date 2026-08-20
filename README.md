@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T19:58:29Z_
+_As of 2026-08-20T20:20:33Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ The byteArray refinement stack is complete and green—[#475](https://github.com
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 37d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 49d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 66d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 99d)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 100d)
 
 _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -2781,22 +2781,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 113.3M | $1123.06 _(notional, rate-card)_ | no quota set |
-| Codex | 15.9M _(+613.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Codex | 16.1M _(+624.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1040-review-4b910966`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1040-review-4b910966.md) — Review directive on endojs/endo-but-for-bots PR #1040
+### doin (0)
+(none)
 
-### tada (5232)
+### tada (5233)
+- [`endojs-endo-but-for-bots-pr1040-review-4b910966`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-review-4b910966.md) — Cost
 - [`endojs-endo-but-for-bots-pr1040-review-4ed39ee7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-review-4ed39ee7.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-67703d8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-67703d8c.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260820-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260820-170501.md) — Cost
 - [`endojs-endo-but-for-bots-pr807-6bc7f55a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-6bc7f55a.md) — Cost
-- [`daily-progress-summary-20260820-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260820-070502.md) — Cost
-- … and 5227 more
+- … and 5228 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
