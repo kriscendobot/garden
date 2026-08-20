@@ -42,3 +42,13 @@ and checks actually run.
 If the rebase and base-pin advance cannot genuinely be completed, end the report
 with the orchestration-failure signal immediately before the completion signal so
 the serial orchestration halts and does not promote the fixer child.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-20T21:55:31Z
