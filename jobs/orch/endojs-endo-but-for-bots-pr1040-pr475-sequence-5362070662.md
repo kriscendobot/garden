@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1040-conduct-gate-5362070662 endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662 endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-20T21:43:47Z
 ---
