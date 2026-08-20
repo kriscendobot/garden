@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662
-priority: normal
 role: weaver
-posted_by: gardener
-posted_at: 2026-08-20T21:43:19Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-20T21:55:03Z cleared=none -->
 
 ---
 tier: mentor
