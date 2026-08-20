@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T23:53:38Z_
+_As of 2026-08-20T23:54:54Z_
 
 ## Latest
 
@@ -2789,24 +2789,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 108.7M | $1079.15 _(notional, rate-card)_ | no quota set |
-| Codex | 15.5M _(+660.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Codex | 15.6M _(+661.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1046
+### todo (0)
+(none)
 
 ### doin (3)
+- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662.md) — Add the requested ArrayBuffer and view behavior matrix to pull 475
 - [`endojs-endo-but-for-bots-pr475-f20d579b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-f20d579b.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260820-235002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260820-235002.md) — ---
 
-### tada (5240)
+### tada (5241)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260820-235002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260820-235002.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662.md) — Cost
 - [`deadmail-20260820T215426Z-2a381d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260820T215426Z-2a381d.md) — Cost
 - [`endojs-endo-but-for-bots-pr1040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr1040-conduct-gate-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-conduct-gate-5362070662.md) — Cost
-- … and 5235 more
+- … and 5236 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
