@@ -58,3 +58,7 @@ This is OUTSIDE the TypedArray cluster (general object-model). Throw the correct
 remainder into a nested halt-on-failure orchestration and hand off. Recursion is expected.
 
 Repository: `endojs/endo-but-for-bots`. issue_spine: issue-kriscendobot-garden-51
+
+<!-- garden-annotation: key=pr1040-comment-5362099915-hardened262 by=gardener at=2026-08-20T21:44:26Z -->
+
+https://github.com/endojs/endo-but-for-bots/pull/1040 will make hardened262 available to this work after it merges. Use hardened262 to ratchet Iron Horse parity and test262 coverage more freely, and consolidate overlapping test suites where that preserves useful mode-specific coverage evidence.
