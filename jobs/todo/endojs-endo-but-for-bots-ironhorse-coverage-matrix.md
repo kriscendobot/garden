@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/1040
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-08-20T21:41:06Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-20T21:56:05Z cleared=none -->
 
 ---
 tier: mentor
