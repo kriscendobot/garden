@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-20T22:07:55Z_
+_As of 2026-08-20T22:10:37Z_
 
 ## Latest
 
@@ -2780,15 +2780,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.2M | $1112.71 _(notional, rate-card)_ | no quota set |
-| Codex | 14.9M _(+577.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 112.1M | $1112.41 _(notional, rate-card)_ | no quota set |
+| Codex | 14.9M _(+578.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix.md) — ---
+- [`endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662.md) — Add the requested ArrayBuffer and view behavior matrix to pull 475
 
 ### tada (5239)
 - [`endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-advance-llm-base-5362070662.md) — Cost
