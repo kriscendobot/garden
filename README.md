@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-21T22:47:53Z_
+_As of 2026-08-21T22:51:39Z_
 
 ## Latest
 
-Deploy is stalled 18 commits behind on both hosts (~3d idle). Three gauntlets halted mid-panel this cycle (minion.town port-whoami, ironhorse coverage matrix, git-content substrate) and one orchestration (endor fixture parity) halted due to child requeue exhaustion. On the positive side, the byteArray press is complete and all-green—[#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable and awaiting your re-review to clear CHANGES_REQUESTED, with [#888](https://github.com/endojs/endo-but-for-bots/pull/888) ready to un-draft. The inbox contains several maintainer decisions: a recurring node24-runner CI flake blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), the test262 consolidation design choice between keeping or collapsing metering/byte-identity corpora, DNSSEC setup for ocap.site, and a missing pre-push-gates driver reference that builders need repaired.
+The garden root deploy is stalled across both hosts (~3d, 18 commits behind main2); roots remain at commit 745fa90891. The byteArray finish line ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and CI-green across all engines; all three are ready but await human re-review to clear CHANGES_REQUESTED and un-draft. Three gauntlets halted mid-stage (minion.town whoami, ironhorse coverage matrix, git content substrate) and one orchestration stalled (endor-fixture-parity-ratchet); the board holds 35 maintainer-inbox messages with critical decisions parked on your calls — DNSSEC config for ocap.site, fleet node24-runner CI flake blocking two dependabot PRs, test262 fixture metering-corpus scope, and several design/deployment gates. Two jobs doomed to plan (missing test runner, elapsed-constancy classifier regression).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 11m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -377,14 +377,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.7M | $960.25 _(notional, rate-card)_ | no quota set |
-| Codex | 8.4M _(+425.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 98.8M | $960.40 _(notional, rate-card)_ | no quota set |
+| Codex | 8.4M _(+423.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-deterministic-design-build-sentinel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deterministic-design-build-sentinel.md) — ---
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
 ### tada (5262)
