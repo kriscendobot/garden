@@ -1,13 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-21T22:41:51Z_
+_As of 2026-08-21T22:44:47Z_
 
 ## Latest
 
-The byteArray press reached its finish line: both component layers (immutable-arraybuffer shim + frozen Uint8Array redesign) and the finish-line registry integration are complete and CI-green, gated on maintainer re-review of [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) plus un-draft of [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888). Dependabotany escalated two MERGE-NOW verdicts — [endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) — blocked by a recurring node24-runner infra flake; both are one clean CI run from merge. Three gauntlets halted mid-flight (minion.town PR #48 git-content substrate, endor-fixture-parity-ratchet, ironhorse-coverage-matrix). Garden deploy is stalled across hosts (18 commits behind origin/main2 for ~3d). Active: panel round 1 on [kriscendobot/minion.town#50](https://github.com/kriscendobot/minion.town/pull/50) (whoami tool port) and recheck on the minion.town git-remote follow-up.
+The garden's deployment is stalled: two hosts have fallen 18 commits behind `origin/main2` over ~3 days with no deliberate deploy advancing them — investigate the deploy pipeline. The maintainer inbox holds 25 messages, including several requiring decisions: the test262 fixture consolidation needs a call on whether to keep metering corpus separate or fold it into the parity tree, the budget enforcement design is ready to arm but needs the per-account weekly token cap, and two MERGE-NOW dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely on a recurring fleet-level node24-runner CI flake that also affects [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). The byteArray program is complete and green (both [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) awaiting re-review to clear CHANGES_REQUESTED; [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaiting un-draft and review); the debugger gating work landed as [endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) (DRAFT, documents the limitation and removes the silent footgun on C-XS); and several gauntlet stages halted mid-process awaiting promotion or error resolution. Three orchestration/gauntlet jobs hold stalled children or doomed parked work pending your call on re-promotion. Triager fetch issues have recovered across all repos.
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -17,9 +18,8 @@ The byteArray press reached its finish line: both component layers (immutable-ar
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 38d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 50d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 67d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 101d)
 
-_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
@@ -373,8 +373,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.2M | $958.36 _(notional, rate-card)_ | no quota set |
-| Codex | 8.4M _(+429.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 98.5M | $960.02 _(notional, rate-card)_ | no quota set |
+| Codex | 8.4M _(+428.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
