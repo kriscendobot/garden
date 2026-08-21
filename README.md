@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T01:13:39Z_
+_As of 2026-08-21T01:14:19Z_
 
 ## Latest
 
@@ -2861,15 +2861,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.2M | $1097.47 _(notional, rate-card)_ | no quota set |
-| Codex | 17.2M _(+777.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 111.3M | $1098.55 _(notional, rate-card)_ | no quota set |
+| Codex | 17.2M _(+778.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1046
+- [`kriscendobot-minion-town-pr37-stale-approval-fix-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr37-stale-approval-fix-20260821.md) — Reconcile stale approval on kriscendobot/minion.town PR #37
 - [`kriscendobot-minion.town-pr37-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #37
 
 ### tada (5249)
