@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T13:56:44Z_
+_As of 2026-08-21T13:57:44Z_
 
 ## Latest
 
@@ -2853,12 +2853,11 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-triager-fetch-failed-kriscendobot-test262` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-test262.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-19T00:19:09Z, latest 2026-08-21T13:55:22Z).
-> The SAME condition (`triager-fetch-failed-kriscendobot-test262`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-test262` has CLEARED (first seen 2026-08-19T00:19:09Z, cleared 2026-08-21T13:57:26Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> triager: fetch for kriscendobot-test262 at /home/kris/garden/worktrees/kriscendobot-test262.git failed (rc=128). git said: Connection to github.com closed by remote host. fatal: expected flush after ref listing
-> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-test262 cannot be triaged until it is restored.
+> triager: fetch for kriscendobot-test262 at /home/kris/garden/worktrees/kriscendobot-test262.git is SUCCEEDING again; kriscendobot-test262 is being triaged normally.
 
 - `watchdog-triager-fetch-failed-kriscendobot-vattr97` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-vattr97.md)
 
