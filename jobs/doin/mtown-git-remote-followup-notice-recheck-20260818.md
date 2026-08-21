@@ -27,6 +27,7 @@ If not yet built, re-arm this notice again on a short once: schedule (scripts/jo
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
