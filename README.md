@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T00:50:20Z_
+_As of 2026-08-21T00:51:25Z_
 
 ## Latest
 
@@ -2789,12 +2789,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 109.6M | $1083.81 _(notional, rate-card)_ | no quota set |
-| Codex | 16.6M _(+743.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 16.6M _(+745.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (3)
 - [`kriscendobot-list-pr1-67917e4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-list-pr1-67917e4b.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr37-review-41d400bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-review-41d400bb.md) — Review directive on kriscendobot/minion.town PR #37
+- [`kriscendobot-minion.town-pr37-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-shepherd.md) — shepherd (auto: approved but CI needs work) on kriscendobot/minion.town PR #37
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1046
