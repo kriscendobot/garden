@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T14:12:18Z_
+_As of 2026-08-21T17:05:51Z_
 
 ## Latest
 
-The fleet is idle: the board holds no active work (0 todo/doin, 5256 complete), and 127+ parked jobs await maintainer go-ahead or promotion. The inbox carries 30+ messages flagging decisions needed on security (GHSA-37j7-fg3j-429f VM-escape closure pending approval), deployments (ocap.site DNSSEC, minion.town B5 live validation), infrastructure (two root-repo deploys stalled 3d, missing worker-bin guard), and design questions (unum omega-notation clarification, byteArray press restacking on llm). Two gauntlets halted mid-panel (ironhorse-coverage-matrix, git-content-substrate), one orchestration halted after child requeue (endor-fixture-parity). High-priority review gates include [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (byteArray finish line, CI-green, awaiting re-review), [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (dependabot PRs blocked solely on fleet node24-runner infra flake), and four node24-blocked dependabots ([endojs/endo-but-for-bots#556](https://github.com/endojs/endo-but-for-bots/pull/556), #558, [#869](https://github.com/endojs/endo-but-for-bots/pull/869) with critical VM-escape fix, #870). Weekly spend holding at $978.69 (notional rate-card) + Codex at 31% of plan quota.
+Deploy has stalled on both garden hosts for ~3 days (18 commits behind origin/main2); two mid-gauntlet PRs halted as a result ([kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) and [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) ironhorse-coverage-matrix), and an orchestration child task ([endor-fixture-parity-ratchet campaign](https://github.com/kriscendobot/garden)) stalled at requeue cap. The byteArray implementation is complete and all-green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) but awaiting maintainer re-review to clear CHANGES_REQUESTED; finish-line piece [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is draft-ready. A recurring node24-runner CI flake is blocking autonomous conduct on two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)). Inbox holds 24 messages awaiting maintainer decisions across deploy, disclosure, attestation, infrastructure, and prioritization fronts.
 
 ## Parked for maintainer feedback
 
@@ -12,10 +12,10 @@ The fleet is idle: the board holds no active work (0 todo/doin, 5256 complete), 
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 32d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 35d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 38d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 49d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 50d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 66d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 100d)
 
@@ -373,15 +373,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.9M | $978.69 _(notional, rate-card)_ | no quota set |
-| Codex | 10.7M _(+512.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 98.7M | $973.72 _(notional, rate-card)_ | no quota set |
+| Codex | 9.7M _(+478.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-20260821-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260821-170501.md) — Daily dependabotany backstop for endo-but-for-bots
 
 ### tada (5256)
 - [`dependabotany-recheck-endo-but-for-bots-pr1005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1005.md) — Cost
