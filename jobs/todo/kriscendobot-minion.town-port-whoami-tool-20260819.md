@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr20-merge-20260819
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-08-19T05:06:22Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-21T22:18:52Z cleared=none -->
 
 ---
 tier: mentor
