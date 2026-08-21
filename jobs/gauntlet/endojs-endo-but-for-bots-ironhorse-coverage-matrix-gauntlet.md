@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1046
 build_job: endojs-endo-but-for-bots-ironhorse-coverage-matrix
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean
+current_child: endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-20T23:50:45Z
