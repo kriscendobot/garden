@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T22:12:41Z_
+_As of 2026-08-21T22:22:26Z_
 
 ## Latest
 
-One shepherd job on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) entered active work; otherwise the fleet is idle, held on 30+ maintainer decisions spanning design go-aheads (minion.town ocap.site DNSSEC, Endo daemon AWS storage, feature builds), infrastructure fixes (3-day root-repo deploy stall, node24-runner CI flake blocking dependabot), and review clearance for code-complete byteArray work ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)). Two PR gauntlets halted mid-run ([kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) git-content-substrate and an Ironhorse coverage matrix), and several repair jobs are doomed pending underlying fixes.
+Bytearray work reached finish line: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are both CI-green and mergeable, awaiting your re-review to clear the CHANGES_REQUESTED state; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is drafted and green on the registry side. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on a recurring fleet node24-runner infra flake. Root deploys on both hosts have stalled 18 commits behind `origin/main2` for ~3 days and need investigation. Several gauntlet PRs ([kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) and endojs/endo-but-for-bots ironhorse coverage) halted mid-panel due to failures. 20+ action items in the maintainer inbox covering decision gates: deploy stalled, DNSSEC for ocap.site, node24 CI fix, local model lanes, disclosure timing, and others flagged in the messages section.
 
 ## Parked for maintainer feedback
 
@@ -373,15 +373,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.7M | $947.00 _(notional, rate-card)_ | no quota set |
-| Codex | 8.0M _(+426.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 96.7M | $950.87 _(notional, rate-card)_ | no quota set |
+| Codex | 8.1M _(+427.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
+- [`kriscendobot-minion.town-port-whoami-tool-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-port-whoami-tool-20260819.md) — ---
+- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
 ### tada (5258)
 - [`kriscendobot-minion.town-pr49-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-conduct.md) — Cost
@@ -482,7 +484,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-endo-b3-daemon-deploy-verify.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
-- [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mtown-git-remote-followup-notice-recheck-20260818.md) — _normal_ · Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
 - [`pr910-mustfix-round2-06-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-mustfix-round2-06-repanel.md) — _normal_ · PR #910 fix round 2 — child 06: panel re-run and conditional un-draft
@@ -598,7 +599,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
-- [`kriscendobot-minion.town-port-whoami-tool-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-port-whoami-tool-20260819.md) — awaiting `kriscendobot-minion.town-pr20-merge-20260819` · ---
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
