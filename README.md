@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T11:20:46Z_
+_As of 2026-08-21T11:25:39Z_
 
 ## Latest
 
@@ -2866,22 +2866,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.1M | $1002.01 _(notional, rate-card)_ | no quota set |
-| Codex | 13.1M _(+617.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Codex | 13.2M _(+619.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-pr1005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr1005.md) — botanist recheck (embargo matured): endojs/endo-but-for-bots PR #1005
+### doin (0)
+(none)
 
-### tada (5255)
+### tada (5256)
+- [`dependabotany-recheck-endo-but-for-bots-pr1005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1005.md) — Cost
 - [`daily-progress-summary-20260821-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260821-070503.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1007.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion-town-pr37-stale-approval-fix-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr37-stale-approval-fix-20260821.md) — Cost
-- … and 5250 more
+- … and 5251 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
