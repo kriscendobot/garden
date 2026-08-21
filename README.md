@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:52:24Z_
+_As of 2026-08-21T23:54:39Z_
 
 ## Latest
 
-Board shows minimal new activity (one attention directive on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)); the byteArray press is complete and CI-green across [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) awaiting your re-review, but root-repo deploys have stalled ~3d and a recurring node24-runner flake is blocking two dependabot PRs from merging.
+Three gauntlets halted mid-stage (minion.town git-content-substrate and ironhorse coverage matrix PRs; kriscendobot/minion.town whoami tool), and the endor-fixture-parity campaign stalled after its first child hit requeue limits. The byteArray program is complete and green—[endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) have all CI passing, with review threads addressed, and now wait only for maintainer re-review to land. The garden's root repo deploy has stalled ~3 days behind origin on both hosts; watchdog triagers recovered from transient fetch failures. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on the recurring node24-runner CI flake; maintainer decisions needed on several parked/halted jobs and on infrastructure issues (root deploy, ocap.site DNSSEC, requeue safety margins).
 
 ## Parked for maintainer feedback
 
@@ -413,12 +413,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.2M | $938.80 _(notional, rate-card)_ | no quota set |
-| Codex | 10.1M _(+482.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 99.0M | $942.47 _(notional, rate-card)_ | no quota set |
+| Codex | 10.1M _(+485.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr719-d5f6af54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr719-d5f6af54.md) — attention directive on endojs/endo-but-for-bots PR #719
+- [`refresh-pr-review-sequence-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/refresh-pr-review-sequence-20260821.md) — Refresh pr-review-sequence.md (endojs/endo-but-for-bots) — 3 weeks stale
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1046-review-f8cbbd32`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-f8cbbd32.md) — Review directive on endojs/endo-but-for-bots PR #1046
