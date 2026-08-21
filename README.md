@@ -1,13 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:48:54Z_
+_As of 2026-08-21T23:52:24Z_
 
 ## Latest
 
-Review claimed on [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046); [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) advanced through a cost step and parked a gauntlet-resume job pending a crc32 package fix. Two gauntlet halts stalled on panel failure: [kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) and endojs/endo-but-for-bots ironhorse-coverage-matrix. Deploy pipeline stalled ~3 days behind on both hosts (18 commits back on main2). The byteArray press is complete and green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) but awaiting your re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line, DRAFT) awaits un-draft and review once the base layers land. The fleet node24-runner CI flake is blocking two MERGE-NOW dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)); a decision is needed on whether to merge both directly or fix the infrastructure flake first. Several design decisions and infrastructure operations are pending your call: test262 consolidation (metering-case scope), ocap.site DNSSEC signing, minion.town edge-tool validation timing, and others logged in the maintainer inbox.
+Board shows minimal new activity (one attention directive on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)); the byteArray press is complete and CI-green across [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) awaiting your re-review, but root-repo deploys have stalled ~3d and a recurring node24-runner flake is blocking two dependabot PRs from merging.
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 6m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -17,9 +18,8 @@ Review claimed on [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 39d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 50d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 67d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 101d)
 
-_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
@@ -413,12 +413,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.1M | $938.64 _(notional, rate-card)_ | no quota set |
-| Codex | 9.8M _(+476.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 98.2M | $938.80 _(notional, rate-card)_ | no quota set |
+| Codex | 10.1M _(+482.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr719-d5f6af54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr719-d5f6af54.md) — attention directive on endojs/endo-but-for-bots PR #719
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1046-review-f8cbbd32`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-f8cbbd32.md) — Review directive on endojs/endo-but-for-bots PR #1046
@@ -636,6 +636,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-review-f8cbbd32-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-review-f8cbbd32-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1046 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr796-95d66baa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr796-95d66baa-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #796 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr796-review-d2f129fc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr796-review-d2f129fc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #796 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr719-d5f6af54-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-d5f6af54-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
