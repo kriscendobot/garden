@@ -17,3 +17,13 @@ Use the fixer workflow in an isolated project worktree keyed to this successor j
 4. Replace the existing tests and prose that describe DataView construction on emulated immutable buffers as an unsupported limitation. Add focused provider tests plus the relevant hardened-test262 matrix coverage, distinguishing assertions that depend on emulation from assertions that remain valid when native immutable ArrayBuffer support arrives.
 
 Inspect the current PR head before editing because this branch has been changing rapidly. Keep the rollback and DataView implementation separately reviewable if feasible. Run the affected package lint, type checks, and tests plus the hardened-test262/XS checks available locally. Push with a rebase compare-and-swap loop. Reply on the original PR and post the required top-level completion summary naming the head SHA, addressing commits, and exact verification evidence. Re-request maintainer review after CI is green if the fixer workflow authorizes it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-21T00:09:04Z
