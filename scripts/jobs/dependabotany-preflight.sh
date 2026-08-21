@@ -109,10 +109,43 @@ mapfile -t LEDGER < <(
 today="${GARDEN_DEPB_TODAY:-$(date -u +%F)}"
 DRAIN_RE='(embargo|embargoed)[^.]*set[^.]*(empty|drained)|zero[^.]*embargoed|no[^.]*embargoed[^.]*rows|schedule[^.]*(deleted|retired)|embargoed set is now empty'
 
+# ledger_declares_drained <entry>
+#
+# Most sweeps state the drain in prose matched by DRAIN_RE. Some use a compact
+# structured form instead:
+#
+#   ## Active rows
+#
+#   None.
+#
+# That declaration is split across lines, so grep cannot recognize it as one
+# expression. Treat the first nonblank line after an "Active rows" heading as
+# authoritative only when it is exactly "None" or "Empty". This remains
+# conservative: a populated list or any unfamiliar prose falls through to the
+# fail-open due-row scan.
+ledger_declares_drained() {
+  local entry="$1"
+  grep -qiE "$DRAIN_RE" "$entry" 2>/dev/null && return 0
+  awk '
+    BEGIN { after_heading = 0; found = 0 }
+    {
+      line = tolower($0)
+      if (line ~ /^#+[[:space:]]+active[[:space:]]+rows[[:space:]]*$/) {
+        after_heading = 1
+        next
+      }
+      if (!after_heading || line ~ /^[[:space:]]*$/) next
+      if (line ~ /^[[:space:]]*(none|empty)[[:space:]]*\.?[[:space:]]*$/) found = 1
+      exit
+    }
+    END { exit(found ? 0 : 1) }
+  ' "$entry" 2>/dev/null
+}
+
 ledger_due=0
 if [ "${#LEDGER[@]}" -gt 0 ]; then
   latest="${LEDGER[-1]}"
-  if grep -qiE "$DRAIN_RE" "$latest" 2>/dev/null; then
+  if ledger_declares_drained "$latest"; then
     log "ledger: latest entry ($(basename "$latest")) declares the embargo set drained/retired — no active rows"
   else
     # Presumed-live set: due iff any recorded maturity date is at or before today.

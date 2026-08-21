@@ -113,6 +113,11 @@ drained_body() {
   printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s — embargo set drained, recheck schedule retired\n\nThe embargo set is now empty, leaving **zero** embargoed %s rows; the daily recheck schedule is deleted.\n' \
     "$PROJECT" "$REPO" "$REPO" "$REPO"
 }
+# The compact structured drain shape emitted by the 2026-08-21 sweep.
+active_rows_none_body() {
+  printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s — terminal sweep\n\n## Active rows\n\nNone.\n' \
+    "$PROJECT" "$REPO" "$REPO"
+}
 
 # ============================================================================
 hr; echo "STATIC — dependabotany-preflight.sh parses (bash -n)"; hr
@@ -125,6 +130,14 @@ add_entry 2026/08/01/000001Z-a "$(embargo_body 900 2026-08-05)"
 add_entry 2026/08/06/000002Z-b "$(drained_body)"     # latest entry declares drain
 run_pre ""    # no open PRs
 [ "$RC" -eq 2 ] && ok "drained ledger + no PRs → exit 2" || bad "exit $RC (want 2); OUT=$OUT"
+
+# ============================================================================
+hr; echo "NO WORK — structured Active rows/None drain: exit 2"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 900 2026-08-05)"
+add_entry 2026/08/06/000002Z-b "$(active_rows_none_body)"
+run_pre ""
+[ "$RC" -eq 2 ] && ok "Active rows/None + no PRs → exit 2" || bad "exit $RC (want 2); OUT=$OUT"
 
 # ============================================================================
 hr; echo "NO WORK — no open dependabot PRs + live embargo NOT yet due: exit 2"; hr
