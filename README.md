@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T01:21:34Z_
+_As of 2026-08-21T01:23:34Z_
 
 ## Latest
 
@@ -804,6 +804,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260821T011317Z-771bc3` — from orchestrator:endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260821T011317Z-771bc3.md)
 
 > Orchestration endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662 HALTED: child endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662 stalled in flight for 10966s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1) (serial, on-child-failure=halt). 2/3 done before halt; parked remainder: none
+
+- `20260821T012318Z-92308e` — from gauntlet:endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260821T012318Z-92308e.md)
+
+> Gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet HALTED: stage 'endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-git-content-substrate-gauntlet-panel-5-requeue-exhausted.md)
 
@@ -2871,13 +2875,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (5252)
+### tada (5253)
+- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr37-stale-approval-fix-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr37-stale-approval-fix-20260821.md) — Cost
 - [`kriscendobot-minion.town-pr37-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662.md) — orchestration endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662 — HALTED
-- [`kriscendobot-minion.town-pr37-review-41d400bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-review-41d400bb.md) — Cost
-- … and 5247 more
+- … and 5248 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
