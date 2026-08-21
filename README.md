@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T01:23:34Z_
+_As of 2026-08-21T02:20:37Z_
 
 ## Latest
 
@@ -2872,8 +2872,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-pr1007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr1007.md) — botanist recheck (embargo matured): endojs/endo-but-for-bots PR #1007
 
 ### tada (5253)
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet — HALTED
