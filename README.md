@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:28:39Z_
+_As of 2026-08-21T23:40:31Z_
 
 ## Latest
 
-Root deploy stalled ~3 days on both garden hosts (18 commits behind origin/main2). Gauntlets halted on three PRs — [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046), [#796](https://github.com/endojs/endo-but-for-bots/pull/796), and [kriscendobot/minion.town#port-whoami-tool-20260819](https://github.com/kriscendobot/minion.town/pull/port-whoami-tool-20260819) — after panel failures, plus a stalled orchestration child on the Ironhorse fixture-parity campaign. The fleet node24-runner infra flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) past green code; both are MERGE-NOW on merits. On progress: budget enforcement design landed (live-budget-admission.md), test262 fixture consolidation opened DRAFT ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)), debugger uncaught-exception gating documented ([#1038](https://github.com/endojs/endo-but-for-bots/pull/1038)). The bytearray press finish-line components ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) are code-complete and CI-green, awaiting maintainer re-review.
+Two key issues need attention: the fleet **node24-runner CI flake** is blocking [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), both MERGE-NOW dependabotany PRs that are one green run away from merge; the botanist spine cannot converge past any red cell, and the base is drifting faster than CI completes. The **byteArray program** is finish-line complete and awaiting your re-review: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are CI-green with all code fixes pushed; a companion finish-line PR [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft once you clear the first two. Additionally, the garden's **root-repo deploy has stalled for ~3 days** on both leader and follower hosts with no advancement; the deployed checkout is 18 commits behind `main2`. The inbox holds 30+ follow-ups across budget enforcement, test262 fixture strategy, minion.town deployments, and deterministic probe fixes—several gated on your authorization or decision.
 
 ## Parked for maintainer feedback
 
@@ -413,26 +413,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.8M | $942.10 _(notional, rate-card)_ | no quota set |
-| Codex | 9.3M _(+450.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Claude | 97.8M | $939.40 _(notional, rate-card)_ | no quota set |
+| Codex | 9.5M _(+468.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr1046-review-f8cbbd32`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-review-f8cbbd32.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr796-95d66baa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-95d66baa.md) — attention directive on endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr796-review-d2f129fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-review-d2f129fc.md) — Review directive on endojs/endo-but-for-bots PR #796
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr475-review-1011c1c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-1011c1c5.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`minion-town-pr47-7973ac3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr47-7973ac3.md) — ---
+- [`endojs-endo-but-for-bots-pr796-review-d2f129fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-review-d2f129fc.md) — Review directive on endojs/endo-but-for-bots PR #796
 
-### tada (5265)
+### tada (5266)
+- [`minion-town-pr47-7973ac3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr47-7973ac3.md) — Cost
 - [`kriscendobot-minion.town-pr47-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-161c4e1d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-161c4e1d.md) — Cost
 - [`improve-deterministic-design-build-sentinel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deterministic-design-build-sentinel.md) — Cost
 - [`kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet.md) — gauntlet kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet — HALTED
-- [`kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1.md) — Cost
-- … and 5260 more
+- … and 5261 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
