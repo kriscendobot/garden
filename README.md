@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T13:55:43Z_
+_As of 2026-08-21T13:56:44Z_
 
 ## Latest
 
@@ -2797,8 +2797,11 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-triager-fetch-failed-kriscendobot-endo-but-for-bots` — from watchdog:triager/kriscendobot-endo-but-for-bots, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo-but-for-bots.md)
 
-> triager: fetch for kriscendobot-endo-but-for-bots at /home/kris/garden/worktrees/kriscendobot-endo-but-for-bots.git failed (rc=141). git said: Connection to github.com closed by remote host.
-> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo-but-for-bots cannot be triaged until it is restored.
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo-but-for-bots` has CLEARED (first seen 2026-08-21T13:54:23Z, cleared 2026-08-21T13:56:26Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-endo-but-for-bots at /home/kris/garden/worktrees/kriscendobot-endo-but-for-bots.git is SUCCEEDING again; kriscendobot-endo-but-for-bots is being triaged normally.
 
 - `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
 
