@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T11:25:39Z_
+_As of 2026-08-21T13:54:44Z_
 
 ## Latest
 
@@ -2795,6 +2795,11 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git is SUCCEEDING again; kriscendobot-cosgov is being triaged normally.
 
+- `watchdog-triager-fetch-failed-kriscendobot-endo-but-for-bots` — from watchdog:triager/kriscendobot-endo-but-for-bots, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo-but-for-bots.md)
+
+> triager: fetch for kriscendobot-endo-but-for-bots at /home/kris/garden/worktrees/kriscendobot-endo-but-for-bots.git failed (rc=141). git said: Connection to github.com closed by remote host.
+> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo-but-for-bots cannot be triaged until it is restored.
+
 - `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo` has CLEARED (first seen 2026-08-19T00:19:43Z, cleared 2026-08-19T00:19:43Z).
@@ -2865,8 +2870,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.1M | $1002.01 _(notional, rate-card)_ | no quota set |
-| Codex | 13.2M _(+619.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 98.9M | $978.69 _(notional, rate-card)_ | no quota set |
+| Codex | 10.7M _(+513.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
