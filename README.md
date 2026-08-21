@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:17:19Z_
+_As of 2026-08-21T23:19:12Z_
 
 ## Latest
 
-[kriscendobot/minion.town#47](https://github.com/kriscendobot/minion.town/pull/47) entered conduct. The maintainer inbox holds 50+ items: byteArray PRs [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are code-green awaiting re-review, the root deploy stalled 3+ days behind origin/main2, a node24-runner CI flake blocks two MERGE-NOW dependabot updates ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), and [#946](https://github.com/endojs/endo-but-for-bots/pull/946) needs a metering-coverage decision.
+minion.town [PR #47](https://github.com/kriscendobot/minion.town/pull/47) merged. Three gauntlets halted on panel-stage failures; the endor-fixture-parity-ratchet orchestration stalled after 3 requeue cycles. Root checkout deploy has stalled for 3 days across both leader hosts—investigate why no deliberate advances have landed. The byteArray finish line ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is code-complete, all-green, awaiting human re-review. Budget enforcement design landed on main2. A recurring fleet node24-runner CI flake blocks two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)). Maintainer inbox holds multiple infrastructure and approval decisions pending (DNSSEC, ollama rebuild, qwen lane, dependabot gates).
 
 ## Parked for maintainer feedback
 
@@ -413,24 +413,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.7M | $955.54 _(notional, rate-card)_ | no quota set |
-| Codex | 9.1M _(+438.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Claude | 98.8M | $955.64 _(notional, rate-card)_ | no quota set |
+| Codex | 9.1M _(+440.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr475-review-1011c1c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-1011c1c5.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`kriscendobot-minion.town-pr47-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr47-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #47
 
-### tada (5264)
+### tada (5265)
+- [`kriscendobot-minion.town-pr47-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-161c4e1d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-161c4e1d.md) — Cost
 - [`improve-deterministic-design-build-sentinel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deterministic-design-build-sentinel.md) — Cost
 - [`kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet.md) — gauntlet kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet — HALTED
 - [`kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Cost
-- … and 5259 more
+- … and 5260 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
