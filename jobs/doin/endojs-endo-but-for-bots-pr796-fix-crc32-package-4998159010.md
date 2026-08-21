@@ -56,3 +56,13 @@ If the intended public CRC32 API cannot be derived from the existing
 `packages/zip/src/crc32.js` behavior and the `@endo/sha256` package precedent,
 route that API decision to a designer. Keep the whole review together: the new
 package and migration of all known consumers are one deliverable.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-21T23:45:09Z
