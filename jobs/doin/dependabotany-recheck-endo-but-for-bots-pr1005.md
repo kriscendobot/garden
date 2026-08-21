@@ -28,3 +28,13 @@ assume unchanged):
   decision left unlanded. If the live head still carries the skew and CI is red,
   either land the consolidation as the step-6 route to MERGE-NOW or escalate
   `next: fixer`; do not leave the PR without a terminal verdict.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-21T11:20:27Z
