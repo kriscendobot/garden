@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T01:09:25Z_
+_As of 2026-08-21T01:12:01Z_
 
 ## Latest
 
@@ -2694,6 +2694,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr1026-d59ca42b' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=10801s ≈ handler-budget=10800s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 745fa90891f8692c12b6b14a06b4a5dbdcbbf503 is 18 commit(s) behind origin/main2 (231ef0576752a29e0f54a3c9316ac812a6790da3) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
@@ -2788,25 +2792,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.1M | $1087.76 _(notional, rate-card)_ | no quota set |
-| Codex | 17.1M _(+774.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 110.7M | $1093.70 _(notional, rate-card)_ | no quota set |
+| Codex | 17.1M _(+776.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`kriscendobot-minion.town-pr37-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #37
+### todo (0)
+(none)
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662.md) — Add the requested ArrayBuffer and view behavior matrix to pull 475
-- [`kriscendobot-minion.town-pr37-review-41d400bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-review-41d400bb.md) — Review directive on kriscendobot/minion.town PR #37
+- [`kriscendobot-minion.town-pr37-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #37
 
-### tada (5247)
+### tada (5248)
+- [`kriscendobot-minion.town-pr37-review-41d400bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-review-41d400bb.md) — Cost
 - [`kriscendobot-list-pr1-67917e4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-67917e4b.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-fix-dataview-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-fix-dataview-20260821.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr37-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`endojs-endo-but-for-bots-pr475-2cf2d662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2cf2d662.md) — Cost
-- … and 5242 more
+- … and 5243 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
