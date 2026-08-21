@@ -12,6 +12,9 @@
 #   JOB <base>                       … ENDJOB         → post-job.sh <base>
 #   SCHEDULE <name> <cadence> [pref]  … ENDSCHEDULE    → set-schedule.sh
 #   SCHEDULE-ONCE <name> <ISO>        … ENDSCHEDULE    → set-schedule-once.sh
+#   DESIGN-BUILD-RECHECK <sentinel> <design-PR-URL> <delay-seconds> <followup-base>
+#                                      … END-DESIGN-BUILD-RECHECK
+#                                                   → deterministic metadata probe
 #   MAINTAINER                        … ENDMAINTAINER  → deliver to maintainer inbox
 #
 # Idempotency: the inner agent derives every <base>/<name> deterministically
@@ -42,6 +45,32 @@ digest="${1:?usage: follow-up-claude.sh <digest-file>}"
 role_brief="$GARDEN_ROOT/roles/liaison/AGENT.md"
 common_brief="$GARDEN_ROOT/roles/COMMON.md"
 
+# Declarative design/build sentinels bypass the classifier entirely. A scheduled
+# sentinel report can carry the block verbatim, and this pre-pass extracts it
+# before any report text reaches `claude -p`. Mixed digests remain supported: the
+# blocks go straight to the deterministic parser while the residue is classified
+# normally. This is the key property of the directive — its three outcomes do not
+# depend on an agent deciding to preserve or interpret it.
+direct_out="$(awk '
+  /^DESIGN-BUILD-RECHECK / { in_directive=1 }
+  in_directive { print }
+  /^END-DESIGN-BUILD-RECHECK$/ && in_directive { in_directive=0 }
+' "$digest")"
+model_digest="$(mktemp "${TMPDIR:-/tmp}/garden-follow-up-model.XXXXXX")"
+awk '
+  /^DESIGN-BUILD-RECHECK / { in_directive=1 }
+  !in_directive { print }
+  /^END-DESIGN-BUILD-RECHECK$/ && in_directive { in_directive=0; next }
+' "$digest" > "$model_digest"
+# REPORT wrappers and the follow-up heading alone carry no action for the model.
+model_needed=0
+if sed -E \
+    -e '/^===== (END )?REPORT .* =====$/d' \
+    -e '/^## Follow-ups([[:space:]]*\([^)]*\))?[[:space:]]*$/d' \
+    -e '/^[[:space:]]*$/d' "$model_digest" | grep -q .; then
+  model_needed=1
+fi
+
 prompt="$(cat <<EOF
 You are the garden liaison (role briefs: $common_brief then $role_brief),
 running as the autonomous garden-follow-up service. Below is a digest of
@@ -65,6 +94,10 @@ SCHEDULE-ONCE fu-<report-base>-<n> <ISO-8601-datetime>
 <the deferred one-time task body>
 ENDSCHEDULE
 
+DESIGN-BUILD-RECHECK <stable-sentinel-name> <full-design-PR-URL> <delay-seconds> <followup-base>
+<the exact, fixed body of the follow-up job to post when a cross-referenced build PR appears>
+END-DESIGN-BUILD-RECHECK
+
 MAINTAINER
 <a message for the maintainer: the decision you need, with the PR/report named>
 ENDMAINTAINER
@@ -82,11 +115,16 @@ Rules:
 - Use JOB for work a gardener can pick up now (rebase, shepherd, fix, re-run a
   workflow on a bot repo). Use SCHEDULE for genuinely recurring work, and
   SCHEDULE-ONCE for work deferred to a specific future time.
+- Use DESIGN-BUILD-RECHECK for a chained-followup notice whose only decision is
+  whether a named design PR has acquired a cross-referenced build PR. Preserve
+  its stable sentinel name, design URL, delay, follow-up base, and fixed body
+  exactly. The handler reads only typed GitHub PR/timeline metadata and owns all
+  three outcomes; do not turn this into a JOB for an agent to investigate.
 - Emit NOTHING for a follow-up that is already done, says "None", or is out of
   bounds.
 
 ----- FOLLOW-UP DIGEST -----
-$(cat "$digest")
+$(cat "$model_digest")
 ----- END DIGEST -----
 EOF
 )"
@@ -98,12 +136,14 @@ EOF
 # the shared resolver, which probes PATH then the known install locations with a
 # bounded retry and classifies a genuine absence as ENVIRONMENTAL rather than as
 # a defect in this tick (common.sh § agent-CLI resolution).
-if [ -n "${GARDEN_FOLLOWUP_CLAUDE:-}" ]; then
-  command -v "$GARDEN_FOLLOWUP_CLAUDE" >/dev/null 2>&1 \
-    || die "$GARDEN_FOLLOWUP_CLAUDE not on PATH; cannot run follow-up"
-else
-  GARDEN_FOLLOWUP_CLAUDE="$(claude_bin)" \
-    || die_environmental "claude CLI not found on PATH nor in any known install location; cannot run follow-up"
+if [ "$model_needed" -eq 1 ]; then
+  if [ -n "${GARDEN_FOLLOWUP_CLAUDE:-}" ]; then
+    command -v "$GARDEN_FOLLOWUP_CLAUDE" >/dev/null 2>&1 \
+      || die "$GARDEN_FOLLOWUP_CLAUDE not on PATH; cannot run follow-up"
+  else
+    GARDEN_FOLLOWUP_CLAUDE="$(claude_bin)" \
+      || die_environmental "claude CLI not found on PATH nor in any known install location; cannot run follow-up"
+  fi
 fi
 
 # Route a rejected/dropped block to the maintainer inbox so a deterministic
@@ -132,8 +172,12 @@ route_rejected() {
 # and on failure die with the real signature from both streams — making a
 # transient back-off self-classifying versus an actual code bug.
 claude_err="$(mktemp "${TMPDIR:-/tmp}/follow-up-claude.XXXXXX.err")"
-rc=0
-out="$("$GARDEN_FOLLOWUP_CLAUDE" -p --dangerously-skip-permissions "$prompt" 2>"$claude_err")" || rc=$?
+rc=0; classified_out=""
+if [ "$model_needed" -eq 1 ]; then
+  classified_out="$("$GARDEN_FOLLOWUP_CLAUDE" -p --dangerously-skip-permissions "$prompt" 2>"$claude_err")" || rc=$?
+fi
+out="$direct_out"
+[ -z "$classified_out" ] || out+="${out:+$'\n'}$classified_out"
 if [ "$rc" -ne 0 ]; then
   err_full="$(cat "$claude_err" 2>/dev/null || true)"
   err_tail="$(printf '%s' "$err_full" | tail -c 500)"
@@ -165,11 +209,106 @@ if [ "$rc" -ne 0 ]; then
     "$(printf 'rc=%s\nstderr:\n%s\n\nstdout:\n%s\n' "$rc" "${err_full:-<empty>}" "$out")"
   exit 0
 fi
-rm -f "$claude_err"
+rm -f "$claude_err" "$model_digest"
 
 # Refuse to act on a body that names agoric-sdk (defense-in-depth; MAINTAINER
 # messages are exempt — the maintainer may be told anything).
 scope_ok() { ! printf '%s' "$1" | grep -qi 'agoric-sdk'; }
+
+# Producer seams keep the deterministic directive independently testable. The
+# defaults are the real journal producers; tests substitute capture scripts.
+POST_JOB="${GARDEN_FOLLOWUP_POST_JOB:-$HERE/../post-job.sh}"
+SET_SCHEDULE="${GARDEN_FOLLOWUP_SET_SCHEDULE:-$HERE/../set-schedule.sh}"
+SET_SCHEDULE_ONCE="${GARDEN_FOLLOWUP_SET_SCHEDULE_ONCE:-$HERE/../set-schedule-once.sh}"
+INBOX_SEND="${GARDEN_FOLLOWUP_INBOX_SEND:-$HERE/../inbox-send.sh}"
+
+# Read the design PR and its cross-reference timeline through a typed GraphQL
+# projection. No title, body, comment, review, or commit-message text is fetched.
+# Output: <OPEN|CLOSED|MERGED><TAB><build-PR-URL-or-dash>. The first same-repo
+# cross-referenced PR (excluding the design itself) is the mechanical "build has
+# appeared" signal. Tests may replace the whole probe with a two-column stub.
+design_build_state() {  # design_build_state <full-design-pr-url>
+  local url="$1" owner repo num out
+  if [ -n "${GARDEN_FOLLOWUP_DESIGN_BUILD_SOURCE:-}" ]; then
+    "$GARDEN_FOLLOWUP_DESIGN_BUILD_SOURCE" "$url"
+    return
+  fi
+  if [[ "$url" =~ ^https://github\.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)/pull/([0-9]+)$ ]]; then
+    owner="${BASH_REMATCH[1]}"; repo="${BASH_REMATCH[2]}"; num="${BASH_REMATCH[3]}"
+  else
+    return 2
+  fi
+  out="$(gh_api_retry graphql \
+    -f query='query($owner:String!,$name:String!,$number:Int!){repository(owner:$owner,name:$name){pullRequest(number:$number){number state repository{nameWithOwner} timelineItems(first:100,itemTypes:[CROSS_REFERENCED_EVENT]){nodes{... on CrossReferencedEvent{source{... on PullRequest{number url repository{nameWithOwner}}}}}}}}}' \
+    -F owner="$owner" -F name="$repo" -F number="$num" \
+    --jq '.data.repository.pullRequest as $d | if ($d.state|IN("OPEN","CLOSED","MERGED")|not) then empty else ([ $d.timelineItems.nodes[]?.source | select(.url != null and .number != $d.number and .repository.nameWithOwner == $d.repository.nameWithOwner) | .url ][0] // "-") as $b | "\($d.state)\t\($b)" end')" \
+    || return 1
+  [ -n "$out" ] || return 1
+  printf '%s\n' "$out"
+}
+
+recheck_schedule_body() {  # sentinel design-url delay followup-base fixed-body
+  local sentinel="$1" design_url="$2" delay="$3" followup="$4" fixed="$5"
+  cat <<EOF
+# Deterministic design-to-build sentinel: $sentinel
+
+This is a mechanical chained-followup recheck. Do not inspect GitHub or decide
+an outcome. Complete immediately and preserve this exact declarative follow-up
+block so the garden-follow-up service performs the metadata-only check:
+
+## Follow-ups (escalated to liaison)
+
+DESIGN-BUILD-RECHECK $sentinel $design_url $delay $followup
+$fixed
+END-DESIGN-BUILD-RECHECK
+EOF
+}
+
+run_design_build_recheck() {  # sentinel design-url delay followup-base fixed-body
+  local sentinel="$1" design_url="$2" delay="$3" followup="$4" fixed="$5"
+  local observed pr_state build_url now due schedule_name scheduled_body message
+  case "$sentinel" in -*|*/*|.*|'') route_rejected "DESIGN-BUILD-RECHECK" "illegal sentinel name '$sentinel'"; return;; esac
+  case "$followup" in -*|*/*|.*|'') route_rejected "DESIGN-BUILD-RECHECK $sentinel" "illegal follow-up basename '$followup'"; return;; esac
+  [[ "$design_url" =~ ^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+$ ]] \
+    || { route_rejected "DESIGN-BUILD-RECHECK $sentinel" "invalid full design PR URL '$design_url'"; return; }
+  [[ "$delay" =~ ^[1-9][0-9]*$ ]] || { route_rejected "DESIGN-BUILD-RECHECK $sentinel" "invalid delay-seconds '$delay'"; return; }
+  if ! scope_ok "$design_url" || ! scope_ok "$fixed"; then
+    log "refused DESIGN-BUILD-RECHECK '$sentinel': design or body names agoric-sdk (out of bounds)"
+    return
+  fi
+
+  observed="$(design_build_state "$design_url")" || {
+    log "TRANSIENT metadata failure for DESIGN-BUILD-RECHECK $sentinel; will retry tick"
+    tick_failed=1
+    return
+  }
+  IFS=$'\t' read -r pr_state build_url <<<"$observed"
+  case "$pr_state" in
+    CLOSED)
+      message="Design-to-build sentinel '$sentinel' ended: $design_url was closed without merging. No follow-up job was posted."
+      body="$message" run_producer "DESIGN-BUILD-RECHECK $sentinel closed-unmerged" \
+        env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$INBOX_SEND" maintainer
+      ;;
+    OPEN|MERGED)
+      if [ -n "$build_url" ] && [ "$build_url" != "-" ]; then
+        log "DESIGN-BUILD-RECHECK $sentinel found build PR $build_url in typed cross-reference metadata"
+        body="$fixed"
+        run_producer "DESIGN-BUILD-RECHECK $sentinel -> JOB $followup" "$POST_JOB" "$followup"
+      else
+        now="${GARDEN_FOLLOWUP_NOW:-$(date -u +%s)}"
+        [[ "$now" =~ ^[0-9]+$ ]] || { route_rejected "DESIGN-BUILD-RECHECK $sentinel" "invalid GARDEN_FOLLOWUP_NOW '$now'"; return; }
+        due="$(date -u -d "@$((now + delay))" +%FT%TZ)"
+        schedule_name="$sentinel-$(date -u -d "@$((now + delay))" +%Y%m%d-%H%M%S)"
+        scheduled_body="$(recheck_schedule_body "$sentinel" "$design_url" "$delay" "$followup" "$fixed")"
+        body="$scheduled_body" run_producer "DESIGN-BUILD-RECHECK $sentinel re-arm" \
+          "$SET_SCHEDULE_ONCE" "$sentinel" "$due" "$schedule_name"
+      fi
+      ;;
+    *)
+      route_rejected "DESIGN-BUILD-RECHECK $sentinel" "unrecognized metadata state '$observed'"
+      ;;
+  esac
+}
 
 # Classify a failed producer's combined output. A DETERMINISTIC rejection is one
 # that re-running the SAME digest cannot fix: an illegal derived name or an
@@ -219,6 +358,7 @@ run_producer() {
 }
 
 state=""; name=""; cadence=""; prefix=""; iso=""; body=""
+design_url=""; delay=""; followup=""
 parts=()
 while IFS= read -r line; do
   case "$line" in
@@ -232,27 +372,35 @@ while IFS= read -r line; do
       name="${parts[0]:-}"; iso="${parts[1]:-}"; body="";;
     "MAINTAINER")
       state=MAINT; body="";;
+    "DESIGN-BUILD-RECHECK "*)
+      state=DESIGN_BUILD; read -r -a parts <<< "${line#DESIGN-BUILD-RECHECK }"
+      name="${parts[0]:-}"; design_url="${parts[1]:-}"; delay="${parts[2]:-}"; followup="${parts[3]:-}"; body="";;
     "ENDJOB")
       if [ "$state" = JOB ] && [ -n "$name" ]; then
         if scope_ok "$body"; then
-          run_producer "JOB $name" "$HERE/../post-job.sh" "$name"
+          run_producer "JOB $name" "$POST_JOB" "$name"
         else log "refused JOB '$name': body names agoric-sdk (out of bounds)"; fi
       fi
       state="";;
     "ENDSCHEDULE")
       if [ "$state" = SCHEDULE ] && [ -n "$name" ] && [ -n "$cadence" ]; then
         if scope_ok "$body"; then
-          run_producer "SCHEDULE $name" "$HERE/../set-schedule.sh" "$name" "$cadence" "${prefix:-$name}"
+          run_producer "SCHEDULE $name" "$SET_SCHEDULE" "$name" "$cadence" "${prefix:-$name}"
         else log "refused SCHEDULE '$name': body names agoric-sdk (out of bounds)"; fi
       elif [ "$state" = ONCE ] && [ -n "$name" ] && [ -n "$iso" ]; then
         if scope_ok "$body"; then
-          run_producer "SCHEDULE-ONCE $name" "$HERE/../set-schedule-once.sh" "$name" "$iso"
+          run_producer "SCHEDULE-ONCE $name" "$SET_SCHEDULE_ONCE" "$name" "$iso"
         else log "refused SCHEDULE-ONCE '$name': body names agoric-sdk (out of bounds)"; fi
       fi
       state="";;
     "ENDMAINTAINER")
       if [ "$state" = MAINT ]; then
-        run_producer "MAINTAINER" env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer
+        run_producer "MAINTAINER" env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$INBOX_SEND" maintainer
+      fi
+      state="";;
+    "END-DESIGN-BUILD-RECHECK")
+      if [ "$state" = DESIGN_BUILD ]; then
+        run_design_build_recheck "$name" "$design_url" "$delay" "$followup" "$body"
       fi
       state="";;
     *)
