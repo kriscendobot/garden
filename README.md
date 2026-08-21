@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T00:05:04Z_
+_As of 2026-08-21T00:08:04Z_
 
 ## Latest
 
@@ -2789,11 +2789,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 109.6M | $1083.81 _(notional, rate-card)_ | no quota set |
-| Codex | 15.7M _(+671.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Codex | 15.8M _(+674.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr475-fix-dataview-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-fix-dataview-20260821.md) — Fix endojs/endo-but-for-bots PR #475: retire isEmulatedView and complete Data...
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1046
