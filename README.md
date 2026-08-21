@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T00:55:25Z_
+_As of 2026-08-21T00:56:35Z_
 
 ## Latest
 
@@ -2789,10 +2789,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 109.6M | $1083.97 _(notional, rate-card)_ | no quota set |
-| Codex | 16.7M _(+751.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 16.7M _(+753.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
+- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1046
 - [`kriscendobot-list-pr1-67917e4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-list-pr1-67917e4b.md) — attention directive on kriscendobot/list PR #1
 
 ### doin (3)
