@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:46:51Z_
+_As of 2026-08-21T23:48:54Z_
 
 ## Latest
 
-Reviews on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) completed; work claimed on #796 (attention + fix rounds now in progress). Three gauntlets halted mid-panel over the past two days (minion.town git-content-substrate, endor-fixture-parity-ratchet, ironhorse-coverage-matrix). Root repo deploy has stalled for ~3d on both hosts (18 commits behind origin/main2). The byteArray finish-line stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is code-complete and CI-green across all engines; it awaits your re-review to clear CHANGES_REQUESTED. Three critical decisions are pending: (1) merge [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) directly to work around the node24-runner CI flake, or fix the flake infrastructure; (2) authorize DNSSEC for ocap.site at the registrar; (3) clarify the disclosure timing for a pushed branch before a fork PR opens.
+Review claimed on [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046); [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) advanced through a cost step and parked a gauntlet-resume job pending a crc32 package fix. Two gauntlet halts stalled on panel failure: [kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) and endojs/endo-but-for-bots ironhorse-coverage-matrix. Deploy pipeline stalled ~3 days behind on both hosts (18 commits back on main2). The byteArray press is complete and green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) but awaiting your re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line, DRAFT) awaits un-draft and review once the base layers land. The fleet node24-runner CI flake is blocking two MERGE-NOW dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)); a decision is needed on whether to merge both directly or fix the infrastructure flake first. Several design decisions and infrastructure operations are pending your call: test262 consolidation (metering-case scope), ocap.site DNSSEC signing, minion.town edge-tool validation timing, and others logged in the maintainer inbox.
 
 ## Parked for maintainer feedback
 
@@ -413,24 +413,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.0M | $938.49 _(notional, rate-card)_ | no quota set |
-| Codex | 9.7M _(+475.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 98.1M | $938.64 _(notional, rate-card)_ | no quota set |
+| Codex | 9.8M _(+476.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1046-review-f8cbbd32`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-review-f8cbbd32.md) — Review directive on endojs/endo-but-for-bots PR #1046
+### todo (0)
+(none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr796-95d66baa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-95d66baa.md) — attention directive on endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr1046-review-f8cbbd32`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-f8cbbd32.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr796-fix-crc32-package-4998159010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-fix-crc32-package-4998159010.md) — Address the complete maintainer review on endojs/endo-but-for-bots PR #796
 
-### tada (5268)
+### tada (5269)
+- [`endojs-endo-but-for-bots-pr796-95d66baa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-95d66baa.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-1011c1c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-1011c1c5.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-review-d2f129fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-review-d2f129fc.md) — Cost
 - [`minion-town-pr47-7973ac3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr47-7973ac3.md) — Cost
 - [`kriscendobot-minion.town-pr47-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-161c4e1d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-161c4e1d.md) — Cost
-- … and 5263 more
+- … and 5264 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -642,6 +642,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
+- [`endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821.md) — awaiting `endojs-endo-but-for-bots-pr796-fix-crc32-package-4998159010` · Resume the halted gauntlet on endojs/endo-but-for-bots PR #796
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
