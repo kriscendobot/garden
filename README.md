@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:40:31Z_
+_As of 2026-08-21T23:42:48Z_
 
 ## Latest
 
-Two key issues need attention: the fleet **node24-runner CI flake** is blocking [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), both MERGE-NOW dependabotany PRs that are one green run away from merge; the botanist spine cannot converge past any red cell, and the base is drifting faster than CI completes. The **byteArray program** is finish-line complete and awaiting your re-review: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are CI-green with all code fixes pushed; a companion finish-line PR [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft once you clear the first two. Additionally, the garden's **root-repo deploy has stalled for ~3 days** on both leader and follower hosts with no advancement; the deployed checkout is 18 commits behind `main2`. The inbox holds 30+ follow-ups across budget enforcement, test262 fixture strategy, minion.town deployments, and deterministic probe fixes—several gated on your authorization or decision.
+Budget enforcement design landed on main2 (live-budget-admission.md); three complementary PRs in the byteArray program ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) are complete and green, awaiting re-review to clear CHANGES_REQUESTED; and the fleet's node24-runner CI flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous merge. Garden root deploys are stalled ~3d behind origin/main2 on both hosts. Maintainer inbox carries 18 pending decisions spanning disclosure timing, budget caps, foreman priorities, and several infrastructure gaps (missing pre-push-gates driver, node24 flake, requeue safety margins); three jobs have been doomed for recurring handler failures.
 
 ## Parked for maintainer feedback
 
@@ -413,13 +413,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.8M | $939.40 _(notional, rate-card)_ | no quota set |
-| Codex | 9.5M _(+468.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 97.8M | $938.25 _(notional, rate-card)_ | no quota set |
+| Codex | 9.6M _(+470.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (3)
 - [`endojs-endo-but-for-bots-pr1046-review-f8cbbd32`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-review-f8cbbd32.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr796-95d66baa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-95d66baa.md) — attention directive on endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr796-fix-crc32-package-4998159010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-fix-crc32-package-4998159010.md) — Address the complete maintainer review on endojs/endo-but-for-bots PR #796
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr475-review-1011c1c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-1011c1c5.md) — Review directive on endojs/endo-but-for-bots PR #475
