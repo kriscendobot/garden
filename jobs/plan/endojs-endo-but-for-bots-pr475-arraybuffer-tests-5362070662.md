@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+handler-timeout: 10800
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-21T01:13:05Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-21T01:13:05Z
+---
+
+---
 role: fixer
 tier: mentor
 handler-timeout: 10800
@@ -51,15 +70,3 @@ only after CI is green.
 If the requested matrix and environment execution cannot genuinely be completed,
 end the report with the orchestration-failure signal immediately before the
 completion signal.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-20T22:10:18Z
