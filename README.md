@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T22:07:04Z_
+_As of 2026-08-21T22:09:08Z_
 
 ## Latest
 
-Conduct job claimed on [kriscendobot/minion.town#49](https://github.com/kriscendobot/minion.town/pull/49). Deploy stalled on both garden hosts for ~3 days (18 commits behind origin/main2, last deployed 745fa908). Multiple gauntlets halted mid-pipeline: [endojs/endo-but-for-bots#1024](https://github.com/endojs/endo-but-for-bots/issues/1024) and minion.town git-content-substrate both blocked on panel failures, plus an orchestration halt on endor-walker-cjs-require after requeue exhaustion. Maintainer inbox has 25+ messages flagging decision points: [byteArray work](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T092701Z-6b0b1f.md) ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and green, awaiting your re-review to clear CHANGES_REQUESTED; two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) have MERGE-NOW verdicts but are blocked on a recurring fleet node24-runner infra flake; and security-sensitive decisions needed on peer identity in gateway, disclosure timing, and the minion.town host-escape permanent fix. 24 PRs parked awaiting feedback with top priorities [#241](https://github.com/endojs/endo-but-for-bots/pull/241) and [#730](https://github.com/endojs/endo-but-for-bots/pull/730) at 23 days.
+[kriscendobot/minion.town#49](https://github.com/kriscendobot/minion.town/pull/49) cleared the conduct stage.
 
 ## Parked for maintainer feedback
 
@@ -373,23 +373,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.5M | $946.51 _(notional, rate-card)_ | no quota set |
-| Codex | 8.1M _(+428.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 95.5M | $946.58 _(notional, rate-card)_ | no quota set |
+| Codex | 8.0M _(+428.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr49-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #49
+### doin (0)
+(none)
 
-### tada (5257)
+### tada (5258)
+- [`kriscendobot-minion.town-pr49-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-conduct.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260821-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260821-170501.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1005.md) — Cost
 - [`daily-progress-summary-20260821-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260821-070503.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1007.md) — Cost
-- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet — HALTED
-- … and 5252 more
+- … and 5253 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
