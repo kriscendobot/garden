@@ -28,3 +28,13 @@ change, not an incremental patch on the prior draft. Confirm with the design's
 acceptance criteria before marking done, and flag back to the maintainer if the
 PR's existing diff conflicts enough with the new direction that a fresh branch
 reads cleaner than amending in place.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-21T23:20:49Z
