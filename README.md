@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T22:09:08Z_
+_As of 2026-08-21T22:12:41Z_
 
 ## Latest
 
-[kriscendobot/minion.town#49](https://github.com/kriscendobot/minion.town/pull/49) cleared the conduct stage.
+One shepherd job on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) entered active work; otherwise the fleet is idle, held on 30+ maintainer decisions spanning design go-aheads (minion.town ocap.site DNSSEC, Endo daemon AWS storage, feature builds), infrastructure fixes (3-day root-repo deploy stall, node24-runner CI flake blocking dependabot), and review clearance for code-complete byteArray work ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)). Two PR gauntlets halted mid-run ([kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) git-content-substrate and an Ironhorse coverage matrix), and several repair jobs are doomed pending underlying fixes.
 
 ## Parked for maintainer feedback
 
@@ -373,15 +373,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.5M | $946.58 _(notional, rate-card)_ | no quota set |
-| Codex | 8.0M _(+428.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 95.7M | $947.00 _(notional, rate-card)_ | no quota set |
+| Codex | 8.0M _(+426.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 
 ### tada (5258)
 - [`kriscendobot-minion.town-pr49-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-conduct.md) — Cost
