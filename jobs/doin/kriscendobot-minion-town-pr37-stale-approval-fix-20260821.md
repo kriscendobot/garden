@@ -23,3 +23,13 @@ exact head.
 
 Source job: `kriscendobot-minion.town-pr37-conduct`
 PR: https://github.com/kriscendobot/minion.town/pull/37
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-21T01:13:52Z
