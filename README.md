@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:09:03Z_
+_As of 2026-08-21T23:17:19Z_
 
 ## Latest
 
-The byteArray program is complete and green across all layers — [#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [#888](https://github.com/endojs/endo-but-for-bots/pull/888) all CI-passing and awaiting maintainer re-review to clear CHANGES_REQUESTED, with a restack onto current llm needed as part of landing. Two merge-ready dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) + [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely on the fleet's recurring node24-runner flake (lost binary cache). Three gauntlet stages halted on panel failures mid-run; the root repo deploy has stalled ~3 days behind origin/main2 on both hosts; and transient triager fetch failures resolved across most watched forks except the garden repo itself (one stalled for 2.3d). The inbox carries multiple decisions waiting — dependabot approval on critical security closes, design activations parked for go-ahead, orchestration halts needing either child promotions or re-parking, and infra ops (Temporal host exclusion, ocap.site DNSSEC enablement, budget admission gates) deferred to your call.
+[kriscendobot/minion.town#47](https://github.com/kriscendobot/minion.town/pull/47) entered conduct. The maintainer inbox holds 50+ items: byteArray PRs [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are code-green awaiting re-review, the root deploy stalled 3+ days behind origin/main2, a node24-runner CI flake blocks two MERGE-NOW dependabot updates ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), and [#946](https://github.com/endojs/endo-but-for-bots/pull/946) needs a metering-coverage decision.
 
 ## Parked for maintainer feedback
 
@@ -13,7 +13,7 @@ The byteArray program is complete and green across all layers — [#475](https:/
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 32d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 35d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 36d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 38d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 50d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 67d)
@@ -413,15 +413,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.6M | $955.64 _(notional, rate-card)_ | no quota set |
-| Codex | 9.0M _(+429.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 98.7M | $955.54 _(notional, rate-card)_ | no quota set |
+| Codex | 9.1M _(+438.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr475-review-1011c1c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-1011c1c5.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`kriscendobot-minion.town-pr47-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr47-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #47
 
 ### tada (5264)
 - [`endojs-endo-but-for-bots-pr475-161c4e1d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-161c4e1d.md) — Cost
