@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T17:05:51Z_
+_As of 2026-08-21T17:11:09Z_
 
 ## Latest
 
-Deploy has stalled on both garden hosts for ~3 days (18 commits behind origin/main2); two mid-gauntlet PRs halted as a result ([kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) and [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) ironhorse-coverage-matrix), and an orchestration child task ([endor-fixture-parity-ratchet campaign](https://github.com/kriscendobot/garden)) stalled at requeue cap. The byteArray implementation is complete and all-green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) but awaiting maintainer re-review to clear CHANGES_REQUESTED; finish-line piece [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is draft-ready. A recurring node24-runner CI flake is blocking autonomous conduct on two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)). Inbox holds 24 messages awaiting maintainer decisions across deploy, disclosure, attestation, infrastructure, and prioritization fronts.
+The root repo deploy has stalled on both hosts for ~3 days (18 commits behind); this is blocking all work advancement. Two gauntlets halted mid-run ([minion-town-git-content-substrate](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet.md) and [ironhorse-coverage-matrix](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md)); one orchestration halted ([endor-fixture-parity-ratchet-campaign](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md)); and two DOOM jobs parked after persistent failures. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) eslint-plugin-unicorn, [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) npm-packlist) are MERGE-NOW-ready but blocked by the recurring fleet node24-runner CI flake; they're one green run from merge. The maintainer inbox holds ~25 items awaiting decision, including critical decisions on dependabot approvals (notably [#869](https://github.com/endojs/endo-but-for-bots/pull/869) which closes a CRITICAL VM-escape CVE), the ocap.site DNSSEC arming, and several gauntlet/build re-promotion holds.
 
 ## Parked for maintainer feedback
 
@@ -373,23 +373,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.7M | $973.72 _(notional, rate-card)_ | no quota set |
-| Codex | 9.7M _(+478.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 98.8M | $973.79 _(notional, rate-card)_ | no quota set |
+| Codex | 9.7M _(+477.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260821-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260821-170501.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (5256)
+### tada (5257)
+- [`dependabotany-recheck-endo-but-for-bots-20260821-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260821-170501.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1005.md) — Cost
 - [`daily-progress-summary-20260821-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260821-070503.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1007.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1.md) — Cost
-- … and 5251 more
+- … and 5252 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
