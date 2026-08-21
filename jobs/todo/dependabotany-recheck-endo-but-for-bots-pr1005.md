@@ -1,5 +1,7 @@
-once: 2026-08-21T11:15:00Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots-pr1005
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # botanist recheck (embargo matured): endojs/endo-but-for-bots PR #1005
 
