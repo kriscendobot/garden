@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T02:20:37Z_
+_As of 2026-08-21T02:57:02Z_
 
 ## Latest
 
@@ -2866,22 +2866,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 111.4M | $1100.49 _(notional, rate-card)_ | no quota set |
-| Codex | 17.4M _(+781.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Codex | 17.7M _(+804.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-pr1007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr1007.md) — botanist recheck (embargo matured): endojs/endo-but-for-bots PR #1007
+### doin (0)
+(none)
 
-### tada (5253)
+### tada (5254)
+- [`dependabotany-recheck-endo-but-for-bots-pr1007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1007.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr37-stale-approval-fix-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr37-stale-approval-fix-20260821.md) — Cost
 - [`kriscendobot-minion.town-pr37-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662.md) — orchestration endojs-endo-but-for-bots-pr1040-pr475-sequence-5362070662 — HALTED
-- … and 5248 more
+- … and 5249 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
