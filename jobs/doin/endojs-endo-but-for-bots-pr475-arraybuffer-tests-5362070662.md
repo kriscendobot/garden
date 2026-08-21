@@ -52,6 +52,8 @@ If the requested matrix and environment execution cannot genuinely be completed,
 end the report with the orchestration-failure signal immediately before the
 completion signal.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
