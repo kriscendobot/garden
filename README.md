@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-21T22:44:47Z_
+_As of 2026-08-21T22:46:03Z_
 
 ## Latest
 
-The garden's deployment is stalled: two hosts have fallen 18 commits behind `origin/main2` over ~3 days with no deliberate deploy advancing them — investigate the deploy pipeline. The maintainer inbox holds 25 messages, including several requiring decisions: the test262 fixture consolidation needs a call on whether to keep metering corpus separate or fold it into the parity tree, the budget enforcement design is ready to arm but needs the per-account weekly token cap, and two MERGE-NOW dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely on a recurring fleet-level node24-runner CI flake that also affects [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). The byteArray program is complete and green (both [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) awaiting re-review to clear CHANGES_REQUESTED; [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaiting un-draft and review); the debugger gating work landed as [endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) (DRAFT, documents the limitation and removes the silent footgun on C-XS); and several gauntlet stages halted mid-process awaiting promotion or error resolution. Three orchestration/gauntlet jobs hold stalled children or doomed parked work pending your call on re-promotion. Triager fetch issues have recovered across all repos.
+Whoami tool gauntlet panel completed; minion.town git-remote recheck running. Two urgent items from maintainer messages: the byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and all-green, awaiting your re-review before the finish-line restack, and two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) carry MERGE-NOW verdicts but are blocked by a fleet-wide node24-runner flake. Root deploys stalled ~3d behind main2 on both hosts; several gauntlets halted mid-flow.
 
 ## Parked for maintainer feedback
 
@@ -373,24 +373,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.5M | $960.02 _(notional, rate-card)_ | no quota set |
-| Codex | 8.4M _(+428.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 98.5M | $960.10 _(notional, rate-card)_ | no quota set |
+| Codex | 8.4M _(+427.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #50
+### doin (1)
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
-### tada (5260)
+### tada (5261)
+- [`kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Cost
 - [`kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-port-whoami-tool-20260819`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-port-whoami-tool-20260819.md) — Cost
 - [`kriscendobot-minion.town-pr49-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-conduct.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20260821-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260821-170501.md) — Cost
-- … and 5255 more
+- … and 5256 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
