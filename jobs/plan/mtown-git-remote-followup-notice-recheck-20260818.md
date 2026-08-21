@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-21T23:03:04Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-21T23:03:04Z
+---
+
+---
 role: gardener
 tier: minion
 token-budget: 100000
@@ -24,16 +42,3 @@ If advanced to build, post F with post-job.sh using base mtown-git-remote-commit
 Act on the daemon-native commit formula in minion.town's capability-addressed git remote (design/git-remote-capability). Name the endo-but-for-bots build PR/commit that landed. Update designs/git-remote-capability.md §4 (Strategy B) to reflect git commit/tree/tag identity through the new daemon commit formula — synthetic refs tree rooted at a formula identifier, name-hub lookup paths ending in a readable-tree, synthetic orphan commits enveloping the readable-tree — and carry the design to the implementation increment. Origin review: https://github.com/kriscendobot/minion.town/pull/41#pullrequestreview-4939454650
 
 If not yet built, re-arm this notice again on a short once: schedule (scripts/jobs/set-schedule-once.sh). If the design was declined (PR #988 closed unmerged), end the chain, message the maintainer through message-user.sh, and do not post F.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-21T22:53:19Z
