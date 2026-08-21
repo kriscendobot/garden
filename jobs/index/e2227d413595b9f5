@@ -1,0 +1,2 @@
+base: improve-deterministic-design-build-sentinel
+identity: mentor:scripts/jobs/handlers/follow-up-claude.sh
