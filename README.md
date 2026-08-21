@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-21T00:53:01Z_
+_As of 2026-08-21T00:55:25Z_
 
 ## Latest
 
@@ -2789,25 +2789,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 109.6M | $1083.97 _(notional, rate-card)_ | no quota set |
-| Codex | 16.6M _(+747.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 16.7M _(+751.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (1)
 - [`kriscendobot-list-pr1-67917e4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-list-pr1-67917e4b.md) — attention directive on kriscendobot/list PR #1
-- [`kriscendobot-minion.town-pr37-review-41d400bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-review-41d400bb.md) — Review directive on kriscendobot/minion.town PR #37
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662.md) — Add the requested ArrayBuffer and view behavior matrix to pull 475
 - [`endojs-endo-but-for-bots-pr475-fix-dataview-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-dataview-20260821.md) — Fix endojs/endo-but-for-bots PR #475: retire isEmulatedView and complete Data...
+- [`kriscendobot-minion.town-pr37-review-41d400bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-review-41d400bb.md) — Review directive on kriscendobot/minion.town PR #37
 
-### tada (5244)
+### tada (5245)
+- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr37-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endojs-endo-but-for-bots-pr475-2cf2d662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2cf2d662.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-f20d579b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-f20d579b.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260820-235002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260820-235002.md) — Cost
-- [`endojs-endo-but-for-bots-ironhorse-coverage-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ironhorse-coverage-matrix.md) — Cost
-- … and 5239 more
+- … and 5240 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
