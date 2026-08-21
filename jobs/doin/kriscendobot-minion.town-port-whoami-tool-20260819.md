@@ -47,3 +47,13 @@ Do NOT re-remove anything #20 already removed; this is a pure additive port of t
 `whoami` tool only. Land it as a PR against `main` (the fork is watched, so it
 draws review), typecheck + `npm test` green before opening. This job is blocked on
 the #20 merge so it runs against the merged base.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-21T22:19:28Z
