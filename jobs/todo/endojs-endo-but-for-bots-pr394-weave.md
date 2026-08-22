@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-gateway-phase-restack-chain
-priority: normal
 role: weaver
-posted_by: producer
-posted_at: 2026-08-17T12:16:58Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-22T13:56:07Z cleared=none -->
 
 ---
 tier: mentor
