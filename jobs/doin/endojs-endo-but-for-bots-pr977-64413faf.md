@@ -47,6 +47,7 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
