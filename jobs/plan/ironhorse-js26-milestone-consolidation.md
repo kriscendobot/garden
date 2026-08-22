@@ -33,3 +33,19 @@ handler-timeout: 7200
 <!-- garden-annotation: key=pr1040-comment-5362099915-hardened262 by=gardener at=2026-08-20T21:47:31Z -->
 
 https://github.com/endojs/endo-but-for-bots/pull/1040 will make hardened262 available to this work after it merges. Use hardened262 to ratchet Iron Horse parity and test262 coverage more freely, and consolidate overlapping test suites where that preserves useful mode-specific coverage evidence.
+
+<!-- garden-annotation: key=0635c5ed9b51 by=producer at=2026-08-22T06:19:33Z -->
+
+Maintainer note (2026-08-22): endojs/endo-but-for-bots#1046
+("test(hardened262): add Ironhorse coverage agents") is in flight --
+draft, CHANGES_REQUESTED, MERGEABLE/CLEAN as of this note -- and adds the
+`ironhorse`/`ironhorse+ses` agents to the `@endo/hardened262` coverage
+matrix. The maintainer expects to merge it shortly.
+
+**Exclude #1046's territory from the FIRST milestone job this consolidation
+mints.** Do not have the first milestone depend on, duplicate, or build its
+own version of the ironhorse/ironhorse+ses hardened262 agent wiring --
+that's #1046's job, already in progress on a separate track. Treat #1046 as
+an expected-soon sibling landing, not something to fold into or race
+against. Later milestones may use hardened262's Ironhorse coverage once
+#1046 actually merges, but the first one should not assume or require it.
