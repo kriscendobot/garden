@@ -19,3 +19,13 @@ prescribe one.
 Once this lands, the parked builder job `build-minion-town-ocap-mailboxes`
 (currently `gate: blocked` on this PR) becomes unblocked -- no action
 needed here, it's a separate job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T15:25:08Z
