@@ -22,3 +22,13 @@ Scope by tier:
 Keep the policy module provider-portable (plain viem, no AWS SDK). Note design § 8 Q4: this code may later migrate to the endo/MCP side; keep it in `src/auth/` with no minion.town-specific coupling beyond the policy document path.
 
 PRECONDITION: maintainer answers to design § 6 decisions 1 and 3, and (for anything past Tier 1) the deployed thunk issuer URL from job deploy-siwe-thunk-minion-town.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T05:49:47Z
