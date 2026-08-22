@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-22T05:17:03Z_
+_As of 2026-08-22T05:38:33Z_
 
 ## Latest
 
-Three infrastructure issues need attention: root repo deploys are stalled on both garden hosts (18 commits behind for ~3d), four gauntlets are halted mid-run with PRs stranded in pipeline stages, and an endor-fixture-parity orchestration halted after a child job stalled. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely on a recurring fleet node24-runner CI flake—[#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) is particularly urgent as it closes GHSA-37j7-fg3j-429f (CRITICAL VM escape to RCE in happy-dom). The byteArray press ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green with all CI passing—both are mergeable/clean and blocked only on maintainer re-review to clear CHANGES_REQUESTED. The finish-line registry work ([#888](https://github.com/endojs/endo-but-for-bots/pull/888), currently draft) is also green. Test262 fixture consolidation is in progress with a design decision needed on whether to fold bespoke metering micro-cases into the upstream tree or keep them separate. Triager fetch failures across most watched repos have recovered.
+A shepherd job started for [kriscendobot/endo-but-for-bots#4](https://github.com/kriscendobot/endo-but-for-bots/pull/4), joining a build gauntlet clean stage and upstream-merge job in progress. The board holds extensive parked work: 25 maintainer-awaiting PRs (led by [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) at the byteArray finish line, [#241](https://github.com/endojs/endo-but-for-bots/pull/241) and [#730](https://github.com/endojs/endo-but-for-bots/pull/730) awaiting design approvals), plus over 100 maintainer-addressed messages covering design decisions (omega task ranking, budget enforcement, test262 consolidation), deployment gates (minion.town MCP B5, ocap.site DNSSEC), security flags (containment gateway fix, peer-identity gaps), and blocker resolutions (node24 runner flake blocking [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)). Three gauntlets and an orchestration halted after panel failures with children parked. Deploy is stalled 18 commits behind main2 across both hosts.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -413,15 +413,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.3M | $944.39 _(notional, rate-card)_ | no quota set |
-| Codex | 15.5M _(+746.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
+| Claude | 104.0M | $935.57 _(notional, rate-card)_ | no quota set |
+| Codex | 15.6M _(+754.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-build-endor-git-bindings-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-bindings-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/endo-but-for-bots PR #4
+- [`kriscendobot-endo-but-for-bots-pr4-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-endo-but-for-bots-pr4-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo-but-for-bots PR #4
 - [`merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-upstream-master-into-llm-20260822.md) — Merge current upstream master into the endo-but-for-bots llm branch
 
 ### tada (5296)
