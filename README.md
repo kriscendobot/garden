@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T14:49:07Z_
+_As of 2026-08-22T14:50:26Z_
 
 ## Latest
 
@@ -619,9 +619,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 19.9M _(+892.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 ## Board
-### todo (6)
+### todo (5)
 - [`ebfb-pr977-surface-drift-fix-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr977-surface-drift-fix-20260822.md) — Diagnosis (verify before editing)
-- [`endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662.md) — Add the requested ArrayBuffer and view behavior matrix to pull 475
 - [`endojs-endo-but-for-bots-pr897-657aab6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-657aab6a.md) — attention directive on endojs/endo-but-for-bots PR #897
 - [`endojs-endo-but-for-bots-pr909-5e6ae075`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr909-5e6ae075.md) — attention directive on endojs/endo-but-for-bots PR #909
 - [`kriscendobot-minion.town-pr37-conduct-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-conduct-20260822.md) — Merge kriscendobot/minion.town#37 ("design(mail): ocap mailboxes and attenuat...
@@ -629,10 +628,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (17)
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
-- [`endojs-endo-but-for-bots-pr1024-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1024-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1024
 - [`endojs-endo-but-for-bots-pr1046-review-7edcda98-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-7edcda98-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1046 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr394-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-weave.md) — Restack endojs/endo-but-for-bots PR #394 (phase-6) onto its rewritten parent
 - [`endojs-endo-but-for-bots-pr398-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #398
+- [`endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-arraybuffer-tests-5362070662.md) — Add the requested ArrayBuffer and view behavior matrix to pull 475
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #796
@@ -646,13 +645,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 
-### tada (5425)
+### tada (5426)
+- [`endojs-endo-but-for-bots-pr1024-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1024-gauntlet-fix-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-review-c7415fc9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-review-c7415fc9-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-resume-on-immutable-byte-arrays`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-resume-on-immutable-byte-arrays.md) — Cost
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr763-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1046-review-dbe54524-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-review-dbe54524-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1046-review-0fd48356-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-review-0fd48356-retro.md) — Completion report
-- … and 5420 more
+- … and 5421 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
