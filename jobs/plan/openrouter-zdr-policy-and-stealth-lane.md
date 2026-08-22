@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-22T08:13:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-22T08:13:03Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -116,15 +133,3 @@ job to do it.
 - `skills/schedule/SKILL.md` for the re-review cadence mechanism.
 - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
   maintainer-attested, auditable, idempotent operator action.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-22T07:24:59Z
