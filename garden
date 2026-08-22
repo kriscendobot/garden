@@ -115,8 +115,9 @@ EOF
 }
 
 # The image's build CONTRACT is the set of local inputs `docker build` consumes:
-# the Dockerfile and every file it COPYs (the entrypoint and the api-key-handoff
-# seed). Its digest is stamped into the built image as a label at build time
+# the Dockerfile and every file it COPYs (the entrypoint, the api-key-handoff
+# seed, and the Node-LTS provisioner). Its digest is stamped into the built image
+# as a label at build time
 # (cmd_build) and compared on every bring-up (ensure_container) and by `./garden
 # check`. So a change to any of them — notably the Dockerfile's browser-runtime
 # dependency layer (the apt libraries a headless browser needs to launch, which a
@@ -132,7 +133,8 @@ build_contract_inputs() {
     printf '%s\n' \
         "$SCRIPT_DIR/Dockerfile" \
         "$SCRIPT_DIR/entrypoint.sh" \
-        "$SCRIPT_DIR/scripts/systemd/seed-api-key-handoff.sh"
+        "$SCRIPT_DIR/scripts/systemd/seed-api-key-handoff.sh" \
+        "$SCRIPT_DIR/scripts/jobs/provision-node-lts.sh"
 }
 
 # sha256 of the concatenated build inputs. Missing inputs (a partial checkout)

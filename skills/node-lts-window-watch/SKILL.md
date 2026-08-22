@@ -180,6 +180,34 @@ The PR stays **draft** until either CI is green or a maintainer acknowledges the
 - **Do not assume one project, one pin.** The app bundle's `download-node.mjs` and the CI matrices must advance together in a *single* PR so reviewers see the policy applied consistently. The plan stage produces one plan per project, not per file.
 - **Auto-fix loops with pre-push-gates.** The gate's `yarn format` may rewrite a YAML matrix the skill just edited; the gate runs after the apply in the gardener's flow, so the apply stage emits YAML the gate accepts (conservative whitespace, sorted versions ascending, no inserted inline comments).
 
+## Fleet-host runtime surface (the guard adopts what this provisions)
+
+Distinct from a project's *pins* (above), the **fleet hosts themselves** must carry
+a runtime that matches those pins, or `local-verify`'s Node-runtime-parity guard
+(`scripts/jobs/gardening/local-verify.sh`, grounding endojs/endo-but-for-bots#1048)
+REFUSES to verify a project whose `.node-version`/`.nvmrc` pins a major the host's
+`node` is not (`NODE RUNTIME PARITY`, exit 3). The guard ADOPTS a matching runtime
+it can discover under an `n`-shaped root (`find_node_bin_for_major`, common.sh), so
+the pinned current-newest LTS is provisioned ALONGSIDE the image's primary Node
+(NODE_MAJOR=22) into `/usr/local/n/versions/node/<version>/`:
+
+- **Image (reproducible, fleet-wide):** the Dockerfile's *Node LTS for local-verify
+  parity* layer runs `scripts/jobs/provision-node-lts.sh "$NODE_LTS_MAJOR"`. A
+  rebuilt-and-deployed host carries it with no live step.
+- **Live host (before a redeploy):** run `scripts/jobs/provision-node-lts.sh` on the
+  host (idempotent; installs via sudo into the same root).
+
+**When the newest LTS advances past 24**, bump the major in **three** lockstep
+places so pins and host runtime move together:
+
+1. `GARDEN_NODE_LTS_LATEST` default in `scripts/jobs/common.sh` (resolves `lts/*`).
+2. `ARG NODE_LTS_MAJOR` in the `Dockerfile`.
+3. the default in `scripts/jobs/provision-node-lts.sh`.
+
+then rebuild+deploy the image (or run the provisioner on each live host). This is the
+runtime-side companion to the project-pin advance this skill already plans — schedule
+them together so a host is never left refusing the very pin the upgrade PR just moved.
+
 ## Future probes
 
 The v1 inventory does not cover: Docker base images (`FROM node:<MAJOR>`); `engines.node` semver-range advancement; per-package `engines.node` consistency; Renovate/Dependabot config for `nodejs` itself; hand-rolled binary download caches with a different shape than `process.argv[2] || 'vX.Y.Z'`. Each lands as a new probe with a row in the inventory table and a branch in `apply.sh`.

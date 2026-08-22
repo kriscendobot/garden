@@ -21,6 +21,13 @@
 FROM ubuntu:24.04
 
 ARG NODE_MAJOR=22
+# The pinned current-newest LTS major, provisioned ALONGSIDE the primary Node
+# (NODE_MAJOR) so local-verify's Node-runtime-parity guard can ADOPT it for a
+# project pinning `.node-version=lts/*` instead of REFUSING to verify. Keep this in
+# lockstep with GARDEN_NODE_LTS_LATEST (scripts/jobs/common.sh, default 24) — when
+# the newest LTS advances, bump both. See skills/node-lts-window-watch and
+# scripts/jobs/provision-node-lts.sh.
+ARG NODE_LTS_MAJOR=24
 ARG GO_VERSION=1.23.6
 ARG DOTFILES_REPO=https://github.com/kriskowal/dotfiles.git
 ARG VUNDLE_REPO=https://github.com/VundleVim/Vundle.vim.git
@@ -95,6 +102,18 @@ RUN ARCH="$(dpkg --print-architecture)" \
     && test -n "$NODE_TARBALL" \
     && curl -fsSL "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/${NODE_TARBALL}" \
         | tar -C /usr/local --strip-components=1 -xz
+
+# Node LTS for local-verify parity. Provision the pinned current-newest LTS
+# (NODE_LTS_MAJOR) into the `n`-shaped root /usr/local/n/versions/node/<version>/
+# that local-verify's Node-runtime-parity guard already searches
+# (find_node_bin_for_major in scripts/jobs/common.sh), WITHOUT displacing the
+# primary /usr/local/bin/node (NODE_MAJOR). Runs the very script the live-host path
+# uses, so image and host provision identically (one source of truth). Grounding:
+# endojs/endo-but-for-bots#1048 — the fleet shipped only Node 22 while the project
+# pins `.node-version=lts/*` → Node 24, so the guard refused every Node-24 project.
+COPY scripts/jobs/provision-node-lts.sh /usr/local/lib/garden/provision-node-lts.sh
+RUN chmod +x /usr/local/lib/garden/provision-node-lts.sh \
+    && /usr/local/lib/garden/provision-node-lts.sh "$NODE_LTS_MAJOR"
 
 # Go toolchain
 RUN curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-$(dpkg --print-architecture).tar.gz \
