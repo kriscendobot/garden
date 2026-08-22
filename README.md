@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-08-22T09:20:16Z_
+_As of 2026-08-22T13:49:02Z_
 
 ## Latest
 
-OpenRouter's stealth-lane and ZDR policy orchestration completed. SIWE on-chain authz wiring is live at minion.town and awaiting maintainer tier/address decisions. The bytearray press reached its finish line: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) are green and mergeable (CHANGES_REQUESTED cleared needed), while [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is draft-ready. Node 24 runtime parity guard deployed fleet-wide. Deploy is stalled ~3 days on two hosts. Maintainer inbox holds 28 messages with escalations on a CI node24-runner flake blocking [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), test262 fixture consolidation (metering corpus decision), and two halted orchestrations.
+Local-verify Node parity restored after a version-skew gap that caused silent local-pass/CI-fail: [endojs/endo-but-for-bots#1048](https://github.com/endojs/endo-but-for-bots/pull/1048) exposed the issue, and the fix now guards every run, refusing to proceed until the host adopts the project's pinned Node major (main2 57d851dfaf). Node 24 provisioned to the Dockerfile and deployed to fleet hosts (main2 c1583f733f). OpenRouter stealth/ZDR implementation landed: deny-logging enforced as a request constraint on every call, stealth models gated to a separate pool with a mandatory re-review cadence, and reputation-arm unmask migration implemented (all 5 completed jobs on 2026-08-22). SIWE on-chain authz fully deployed to minion.town's policy layer at https://siwe-idp.minion.town; awaiting the tier-1 allowlist (which wallet addresses + scopes) to proceed. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete, green, and gated only on human re-review to clear CHANGES_REQUESTED. [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) addressed the debugger uncaught-exceptions footgun by documenting the C-XS limitation and deferring the native fix to phase 5 of the design (currently paused). Deploy stalled for ~3 days (watchdog alert on both hosts); investigation needed. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by the recurring fleet node24-runner flake—decision needed to merge directly or fix the infra.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2h)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 7h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 24d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 34d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 36d)
@@ -615,15 +615,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.0M | $958.64 _(notional, rate-card)_ | no quota set |
-| Codex | 19.5M _(+869.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Claude | 109.8M | $932.40 _(notional, rate-card)_ | no quota set |
+| Codex | 19.5M _(+869.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-live-budget-admission-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-live-budget-admission-enforcement.md) — Build the live-budget-admission enforcement (design landed, nothing built)
 
 ### tada (5418)
 - [`openrouter-zdr-and-stealth-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-zdr-and-stealth-orchestration.md) — orchestration openrouter-zdr-and-stealth-orchestration — complete
