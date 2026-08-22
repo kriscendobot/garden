@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":66,"elapsed_s":1013,"input_tokens":122,"output_tokens":69623,"cache_creation_tokens":168411,"cache_read_tokens":8715190,"total_cost_usd":7.785806999999999,"ts":"2026-08-22T07:51:32Z","base":"review-improve-stale-related-design-direction","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}
