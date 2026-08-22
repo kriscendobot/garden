@@ -31,9 +31,33 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="inbox-send"
 
+usage() {
+  cat <<'EOF'
+inbox-send.sh — CAS-post a message into a job doer's inbox.
+
+Usage: inbox-send.sh <doer> [<body-file>]
+  <doer>       the job basename whose doer you want to reach (must not start
+               with '-'). The inbox exists only while that doer is alive.
+  <body-file>  optional; the message body. If omitted, read from stdin (or a
+               '(empty message)' placeholder).
+
+A message to a parked-but-unclaimed doer is staged into its inbox; a message to
+a doer whose inbox is gone is dead-lettered for garden-deadmail to promote.
+EOF
+}
+
+# Intercept help BEFORE consuming the positional, so a '--help'/'-h' typo cannot
+# be treated as a doer name and dead-lettered into a spurious job (the misfire
+# that manufactured deadmail job deadmail-20260822T072116Z-cf8821). Mirrors the
+# same guard in post-job.sh and journal-entry.sh.
+case "${1:-}" in -h|--help) usage; exit 0;; esac
+
 doer="${1:?usage: inbox-send.sh <doer> [body-file]}"
 body_src="${2:-}"
-case "$doer" in */*|.*|'') die "illegal doer '$doer'";; esac
+case "$doer" in
+  -*)        die "illegal doer '$doer' (names must not start with '-'; run --help for usage)";;
+  */*|.*|'') die "illegal doer '$doer'";;
+esac
 
 # Body source guard: a non-empty $2 that is not a readable file is almost always
 # a mistake (an inline body STRING passed where a body-FILE path is expected —
