@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-22T05:49:47Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-wire-siwe-onchain-authz-minion-town
