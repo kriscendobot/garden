@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-22T06:44:34Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-endojs-endo-but-for-bots-pr475-review-b4dd5851-retro
