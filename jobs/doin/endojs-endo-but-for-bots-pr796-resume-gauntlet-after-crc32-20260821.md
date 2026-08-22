@@ -25,3 +25,13 @@ with the unique base
 `scripts/jobs/post-gauntlet.sh`, then report the durable gauntlet record. Do not
 reuse the completed halted gauntlet base, and do not edit the PR branch in this
 routing job. If the PR is no longer open/draft, report its terminal state instead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T03:41:54Z
