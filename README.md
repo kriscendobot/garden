@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T15:30:09Z_
+_As of 2026-08-22T15:59:20Z_
 
 ## Latest
 
@@ -412,6 +412,40 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > The parked builder job `build-minion-town-ocap-mailboxes` stays blocked until
 > [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) lands.
 
+- `20260822T155858Z-8f4df3` — from gardener:weave-endo-but-for-bots-pr626-stack-surgery-eval, reply_to `weave-endo-but-for-bots-pr626-stack-surgery-eval` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T155858Z-8f4df3.md)
+
+> Weave [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (stack-surgery eval) — status + a stack-health flag.
+>
+> DONE: My original weave (07-17) landed, then a peer gardener superseded it —
+> restacked [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) onto the [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627)
+> condition-matrix branch, pinned rerere off in the eval fixtures, and scripted the
+> stack-surgery pass-path. The one remaining red check was a real tsc failure (6
+> errors): the stack-surgery repo fixture returned its workspace/git powers typed
+> `unknown`, but the [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627) base tightened
+> RunGitScenarioOptions/makePowersOver to `CodeModePower`. I fixed that (type the
+> fixture return as CodeModePower, matching the sibling stage-and-commit fixture),
+> verified locally: tsc clean, eslint 0 errors, prettier clean, 35 eval tests pass
+> (incl. the pass-path). Pushed to the head branch. PR is still DRAFT.
+>
+> BLOCKED (needs a decision): [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) now targets
+> `feat/agentry-eval-conditions-matrix` ([endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627)), NOT llm —
+> and it genuinely DEPENDS on that PR now (its eval-live matrix imports
+> runEvalMatrix/makeDefaultGitScenarioSpecs from that code), so it can't go back
+> onto llm without it. But [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627) is STALE and CONFLICTING
+> against llm (untouched since 2026-08-06). Consequence: GitHub won't build the
+> merge ref for [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (mergeable stuck UNKNOWN for 25+ min
+> through close/reopen + a fresh force-push), so pull_request CI won't dispatch — I
+> can't confirm green remotely even though it's green locally. My head merges
+> cleanly into the base tip (0 conflicts), so this is a GitHub glitch downstream of
+> the stale stack.
+>
+> RECOMMEND: weave/refresh [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627) onto current llm
+> (un-conflict it), which unblocks the whole Phase-5 stack; then the CI for
+> [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) should flow and it can be re-evaluated. Want me to
+> post a weave job for [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627), or is the restack plan itself
+> under review? The [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) fix is complete and locally
+> verified regardless.
+
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -700,7 +734,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.0M | $929.10 _(notional, rate-card)_ | no quota set |
+| Claude | 106.4M | $914.22 _(notional, rate-card)_ | no quota set |
 | Codex | 19.9M _(+892.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 ## Board
