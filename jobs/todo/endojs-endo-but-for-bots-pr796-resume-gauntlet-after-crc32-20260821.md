@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr796-fix-crc32-package-4998159010
-priority: high
 role: gardener
-posted_by: gardener
-posted_at: 2026-08-21T23:47:57Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-08-22T00:36:04Z cleared=none -->
 
 ---
 role: gardener
