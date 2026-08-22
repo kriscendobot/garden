@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr398-conduct-20260822-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr398-conduct-20260822-reap-count: 0
 child-endojs-endo-but-for-bots-pr398-shepherd-20260822-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr398-shepherd-20260822-reap-count: 0
