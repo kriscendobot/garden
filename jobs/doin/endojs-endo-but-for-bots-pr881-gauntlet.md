@@ -30,6 +30,7 @@ Run the complete PR-creation gauntlet for the current draft. It is stacked on ht
 
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
