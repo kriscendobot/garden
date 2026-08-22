@@ -1,9 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: producer
-posted_at: 2026-08-16T06:50:55Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T06:19:44Z cleared=none -->
 
 ---
 tier: mentor
