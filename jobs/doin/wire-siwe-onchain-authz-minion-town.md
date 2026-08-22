@@ -24,3 +24,13 @@ Keep the policy module provider-portable (plain viem, no AWS SDK). Note design ย
 PRECONDITION: maintainer answers to design ยง 6 decisions 1 and 3, and (for anything past Tier 1) the deployed thunk issuer URL from job deploy-siwe-thunk-minion-town.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T07:43:10Z
