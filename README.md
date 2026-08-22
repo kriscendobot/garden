@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T07:39:14Z_
+_As of 2026-08-22T07:42:15Z_
 
 ## Latest
 
-Local-verify Node runtime parity guard landed (main2 57d851dfaf), fixing silent local-pass/CI-fail discrepancies by enforcing matching Node versions; the follow-up [provision-node24-fleet-hosts-20260822](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/provision-node24-fleet-hosts-20260822.md) is underway to unblock Node 24-pinned projects. Multiple gauntlets halted after panel stage failures across endo-but-for-bots and minion.town work, and a recurring CI node24-runner flake is blocking two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous merge despite both being MERGE-NOW and green on all cells except that infrastructure issue. The SIWE on-chain authorization tier and allowlist are awaiting your decision to proceed with minion.town's policy layer. Budget enforcement design is landed; live enforcement awaits your per-account weekly token-cap input.
+Node 24 provisioning landed on endolin-garden2; the parity guard now adopts Node 24 for projects pinned to lts/*, but other hosts remain on Node 22 until redeployed — garden deploy has stalled 3 days and is 18 commits behind. A recurring node24-runner CI flake is blocking two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from auto-merge; both are otherwise MERGE-NOW. The byteArray program is complete and CI-green across all engines ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)), held only on maintainer re-review. SIWE on-chain authz is deployed to minion.town and awaiting your tier choice and allowlist. Four gauntlets halted mid-run (git-content substrate, endor fixture parity, ironhorse coverage, endor git-bindings) — investigate whether they're transient or signal deeper issues. Budget enforcement design landed; live admission and per-pool worker leveling are now ready to gate dispatch pending your weekly token cap.
 
 ## Parked for maintainer feedback
 
@@ -306,6 +306,27 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No project repos touched; garden-only change.
 
+- `20260822T074128Z-b18104` — from gardener:provision-node24-fleet-hosts-20260822, reply_to `provision-node24-fleet-hosts-20260822` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T074128Z-b18104.md)
+
+> Provisioned pinned LTS Node 24 for local-verify parity (main2 c1583f733f).
+>
+> What landed: Dockerfile now bakes Node 24 alongside primary Node 22 into
+> /usr/local/n/versions/node/<v>/ (the `n` root local-verify's parity guard
+> searches), via a reusable idempotent scripts/jobs/provision-node-lts.sh; garden's
+> build_contract_inputs registers it; skills/node-lts-window-watch documents the
+> 3-place lockstep bump for the next LTS advance.
+>
+> Verified on THIS host (endolin-garden2-5bcdff64): in an endo-but-for-bots
+> (.node-version=lts/*) worktree local-verify's parity gate now ADOPTS Node 24 and
+> exits 0 — no NODE RUNTIME PARITY. A genuinely-missing major still refuses (exit 3).
+>
+> Propagation heads-up: this is a Dockerfile change. The image bake reaches ALL
+> hosts reproducibly, but only on the next rebuild+deploy (deploy-garden.sh) — the
+> other running containers (endolin-garden-ece02cb4, ps23, ps23-garden-f65473ae)
+> keep refusing Node-24 projects until they are redeployed. For immediate relief
+> before a redeploy, run `scripts/jobs/provision-node-lts.sh` inside each running
+> container (I can only reach this one from a per-job worker).
+
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -464,27 +485,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.7M | $947.99 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+829.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 111.9M | $952.35 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+831.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finalize-merge-upstream-master-into-llm-20260822.md) — Finish CI and merge endo-but-for-bots PR #1048 into llm
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-zdr-policy-and-stealth-lane.md) — Decision 1 — reject logging/training-use by default (answers Open question 1)
-- [`provision-node24-fleet-hosts-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/provision-node24-fleet-hosts-20260822.md) — Provision the pinned Node (LTS/24) onto fleet hosts so local-verify adopts ra...
 - [`review-improve-stale-related-design-direction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-stale-related-design-direction.md) — review-improve: stale related-design direction
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wire-siwe-onchain-authz-minion-town.md) — Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
-### tada (5410)
+### tada (5411)
+- [`provision-node24-fleet-hosts-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/provision-node24-fleet-hosts-20260822.md) — Completion report
 - [`deadmail-20260822T073348Z-2bd99c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073348Z-2bd99c.md) — Cost
 - [`deadmail-20260822T072116Z-cf8821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T072116Z-cf8821.md) — Completion report
 - [`deadmail-20260822T073340Z-0229ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073340Z-0229ab.md) — Cost
 - [`kriscendobot-minion.town-pr47-review-237136a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-review-237136a0-retro.md) — Completion report
-- [`fix-local-verify-node24-eslint-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-local-verify-node24-eslint-parity.md) — Completion report: fix-local-verify-node24-eslint-parity
-- … and 5405 more
+- … and 5406 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
