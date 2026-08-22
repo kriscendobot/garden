@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: kriscendobot/agoric-sdk#15 CI fully green (65 pass/12 skip/0 fail); nothing to shepherd
+withdrawn_by: gardener:groom-parked-job-queue-20260822
+withdrawn_at: 2026-08-22T07:28:02Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 doomed: true
