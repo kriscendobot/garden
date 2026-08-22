@@ -25,6 +25,7 @@ PRECONDITION: maintainer answers to design § 6 decisions 1 and 3, and (for anyt
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
