@@ -117,6 +117,8 @@ job to do it.
 - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
   maintainer-attested, auditable, idempotent operator action.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
