@@ -41,3 +41,13 @@ into the `llm` line — the byte-arrays arc tracked by the `endo-byte-array-pres
 schedule and `endojs-ebfb-*` / `registry-immutable-byte-array-*` jobs. On resume:
 rebase #796 onto the byte-arrays-bearing `llm`, revisit the crc32 range API to use
 `.at` over ArrayBuffer views, then re-run the feature gauntlet.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T14:31:03Z
