@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":51,"elapsed_s":837,"input_tokens":95,"output_tokens":38429,"cache_creation_tokens":124981,"cache_read_tokens":4500664,"total_cost_usd":4.465268000000002,"ts":"2026-08-22T06:29:12Z","base":"endojs-endo-but-for-bots-pr1046-ironhorse-assert-pass","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer"}
