@@ -3,7 +3,7 @@ gate: go-ahead
 priority: normal
 role: fixer
 tier: mentor
-handler-timeout: 10800
+handler-timeout: 14000
 token-budget: 100000
 doomed: true
 doom_signature: deadline-overrun
@@ -20,16 +20,19 @@ posted_at: 2026-08-21T01:13:05Z
 ---
 role: fixer
 tier: mentor
-handler-timeout: 10800
+handler-timeout: 14000
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-20T22:10:03Z cleared=none -->
+<!-- liaison note 2026-08-22: prior attempt ran 10966s against a 10800s budget --
+     stalled only 166s over, not fundamentally oversized. Raised to 14000s
+     (matching the Ironhorse milestone range) rather than redesigning/splitting. -->
 
 ---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
-handler-timeout: 10800
+handler-timeout: 14000
 
 # Add the requested ArrayBuffer and view behavior matrix to pull 475
 
