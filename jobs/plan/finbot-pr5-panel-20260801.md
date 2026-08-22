@@ -1,6 +1,6 @@
 ---
 gate: go-ahead
-priority: normal
+priority: low
 doomed: true
 doom_signature: requeue-exhausted
 doom_count: 1
@@ -69,3 +69,7 @@ an incomplete/uncalled/unreconciled dispatch. Scope of the trust claim: the loop
 
 Per merge governance (2026-07-22, as amended 2026-08-01), this increment lands only
 after BOTH a passing panel and an orchestrator sign-off. Never self-merge.
+
+<!-- garden-annotation: key=f37f1176c596 by=producer at=2026-08-22T06:24:00Z fields=priority=low -->
+
+Shelved 2026-08-22 (maintainer directive, during the parked-job roadmap session): not resuming now, may return to finbot someday but not soon. Left parked go-ahead, not pruned -- this is deliberate deprioritization, not moot/superseded work.
