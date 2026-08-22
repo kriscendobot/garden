@@ -1,15 +1,9 @@
 ---
-gate: go-ahead
-budget_hold: true
-park_reason: over-token-budget
-parked_for_budget_at: 2026-08-19T05:14:49Z
-budget_window_seconds: 604800
-budget_resets_at: 2026-08-22T04:00:00Z
-priority: high
 role: builder
-posted_by: endojs-endo-but-for-bots-pr987-2cc814f3
-posted_at: 2026-08-19T05:14:49Z
+tier: mentor
+token-budget-epoch: 2026-08-22T04:02:06Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=high at=2026-08-22T04:02:06Z cleared=none -->
 
 ---
 tier: mentor
