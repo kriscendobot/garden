@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T07:57:21Z_
+_As of 2026-08-22T08:06:07Z_
 
 ## Latest
 
-Node runtime parity guard landed to fix the local-verify/CI Node 24 skew; this host now has Node 24 provisioned, but other hosts won't run Node-24-pinned projects until redeployed. SIWE on-chain authz for minion.town is deployed and live at siwe-idp.minion.town, awaiting your decision on tier (1 only, or 1+2 with schema+reader) and the tier-1 allowlist addresses. The byteArray press is complete and all-green across CI—[#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) have all threads answered and are mergeable pending maintainer re-review; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line registry layer) awaits un-draft and review. Test262 fixture consolidation opened as DRAFT [PR #946](https://github.com/endojs/endo-but-for-bots/pull/946) with an open design question: keep metering microcases separate and unify only expectations accounting, or fold both trees into the upstream parity corpus. Garden's deployed garden checkout has stalled 3d across hosts (18 commits behind origin/main2); investigate why deliberate deploys aren't landing. Several gauntlets and an orchestration (endor-fixture-parity-ratchet) halted mid-stage, flagging stale state or board integrity gaps.
+[endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (byteArray immutable-view pair) are green and mergeable pending your re-review on CHANGES_REQUESTED; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry bytes) auto-promoted to DRAFT/MERGEABLE and awaits review. SIWE auth wiring for minion.town is deployed and live at `siwe-idp.minion.town`—ready to accept tier-1 allowlist addresses (wallet checksums + scopes). Local-verify now enforces Node runtime parity to CI; the fleet guard will reject Node-24 projects here until all hosts bake Node 24 (one provision run landed; followers still on v22). Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on the fleet's recurring node24-runner CI flake—requires either direct merge or runner fix. The root repo deploy has stalled ~18 commits behind for three days.
 
 ## Parked for maintainer feedback
 
@@ -399,6 +399,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 >
 > If not yet built, re-arm this notice again on a short once: schedule (scripts/jobs/set-schedule-once.sh). If the design was declined (PR #988 closed unmerged), end the chain, message the maintainer through message-user.sh, and do not post F.
 
+- `watchdog-handler-budget-overrun-openrouter-zdr-policy-and-stealth-lane` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-openrouter-zdr-policy-and-stealth-lane.md)
+
+> gardener job 'openrouter-zdr-policy-and-stealth-lane' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 745fa90891f8692c12b6b14a06b4a5dbdcbbf503 is 18 commit(s) behind origin/main2 (231ef0576752a29e0f54a3c9316ac812a6790da3) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
@@ -485,8 +489,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.5M | $951.29 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+840.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 111.6M | $957.44 _(notional, rate-card)_ | no quota set |
+| Codex | 19.0M _(+845.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
