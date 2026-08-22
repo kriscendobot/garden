@@ -68,3 +68,13 @@ Codex has fresh quota, so this build is directed to a Cleric specifically
 existing `tier: mentor` resolves to `gpt-5.6-sol` for openai via
 `model-tier-inventory.tsv`, unchanged from the original stamp — only the
 provider is now pinned, not the capability tier).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T04:02:14Z
