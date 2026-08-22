@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":42,"elapsed_s":461,"input_tokens":76,"output_tokens":27174,"cache_creation_tokens":82364,"cache_read_tokens":3061732,"total_cost_usd":3.036927999999999,"ts":"2026-08-22T07:41:54Z","base":"provision-node24-fleet-hosts-20260822","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"sysop"}
