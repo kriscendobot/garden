@@ -66,3 +66,13 @@ time.
 The refreshed `pr-review-sequence.md` landed on `journal2`, plus a
 completion report summarizing the headline changes since 08-01, per the
 precedent reports' shape.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T03:46:59Z
