@@ -1,5 +1,7 @@
-once: 2026-08-22T04:00:00Z
-job_basename_prefix: restore-claude-gardeners-ece02cb4
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 Restore Claude (gardener) capacity on endolin-garden-ece02cb4, throttled to 0 on
 2026-08-20 during a Claude quota pressure window (manual mitigation, liaison
