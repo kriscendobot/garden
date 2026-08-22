@@ -34,3 +34,13 @@ guardrail -- the fleet-wide weekly-quota admission gate does not exist yet
 (see `fix-live-budget-admission-enforcement`), so this per-job budget is
 the only real backstop today. If a tick hits either ceiling repeatedly,
 that's a signal to revisit the numbers, not to silently raise them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T13:50:13Z
