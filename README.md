@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T07:42:15Z_
+_As of 2026-08-22T07:51:50Z_
 
 ## Latest
 
-Node 24 provisioning landed on endolin-garden2; the parity guard now adopts Node 24 for projects pinned to lts/*, but other hosts remain on Node 22 until redeployed — garden deploy has stalled 3 days and is 18 commits behind. A recurring node24-runner CI flake is blocking two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from auto-merge; both are otherwise MERGE-NOW. The byteArray program is complete and CI-green across all engines ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)), held only on maintainer re-review. SIWE on-chain authz is deployed to minion.town and awaiting your tier choice and allowlist. Four gauntlets halted mid-run (git-content substrate, endor fixture parity, ironhorse coverage, endor git-bindings) — investigate whether they're transient or signal deeper issues. Budget enforcement design landed; live admission and per-pool worker leveling are now ready to gate dispatch pending your weekly token cap.
+Deploy stalled for 3 days (18 commits behind both hosts). Five gauntlets halted mid-workflow. Dependabot PRs [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) are merge-ready but blocked by the recurring node24-runner CI flake. byteArray press complete and green ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) awaiting your re-review to clear CHANGES_REQUESTED. Node 24 provisioning landed locally but fleet hosts need redeploy before they can run Node-24 projects. SIWE thunk deployed for minion.town awaiting your address allowlist and tier decision. Inbox has ~30 open messages with decisions pending.
 
 ## Parked for maintainer feedback
 
@@ -485,26 +485,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.9M | $952.35 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+831.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 111.4M | $951.04 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+837.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finalize-merge-upstream-master-into-llm-20260822.md) — Finish CI and merge endo-but-for-bots PR #1048 into llm
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-zdr-policy-and-stealth-lane.md) — Decision 1 — reject logging/training-use by default (answers Open question 1)
-- [`review-improve-stale-related-design-direction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-stale-related-design-direction.md) — review-improve: stale related-design direction
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wire-siwe-onchain-authz-minion-town.md) — Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
-### tada (5411)
+### tada (5412)
+- [`review-improve-stale-related-design-direction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-stale-related-design-direction.md) — Completion report
 - [`provision-node24-fleet-hosts-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/provision-node24-fleet-hosts-20260822.md) — Completion report
 - [`deadmail-20260822T073348Z-2bd99c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073348Z-2bd99c.md) — Cost
 - [`deadmail-20260822T072116Z-cf8821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T072116Z-cf8821.md) — Completion report
 - [`deadmail-20260822T073340Z-0229ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073340Z-0229ab.md) — Cost
-- [`kriscendobot-minion.town-pr47-review-237136a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-review-237136a0-retro.md) — Completion report
-- … and 5406 more
+- … and 5407 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
