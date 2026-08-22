@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T15:27:31Z_
+_As of 2026-08-22T15:28:05Z_
 
 ## Latest
 
@@ -361,6 +361,34 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 >
 > SHEPHERD: 25/26 checks green. The lone red is `test (24.x, ubuntu-latest)` → @endo/cli demo tests (counter-example, doubler-agent) failing with "Daemon failed to spawn … manager-node.js … exited null". This is the known Node-24.x/better-sqlite3 native-crash flake (the same one blocking [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)), NOT this PR's diff: the identical demo tests PASS on test(22.x,ubuntu) and test(24.x,macos); only the 24.x-linux cell crashes. Re-ran the failed job 3x — fails consistently right now. Not fixable from a feature branch; it needs the repo-wide Node-24.x/sqlite fix. Flagging for your awareness.
 
+- `20260822T152745Z-ae7725` — from gardener:endojs-endo-but-for-bots-pr909-5e6ae075, reply_to `endojs-endo-but-for-bots-pr909-5e6ae075` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T152745Z-ae7725.md)
+
+> gauntlet [endojs/endo-but-for-bots#909](https://github.com/endojs/endo-but-for-bots/issues/909) — root-caused; needs your scope call, cannot un-draft.
+>
+> The gauntlet's fix stage kept failing (and the record HALTED) because of a REAL defect the
+> panel-1 must-fix item 1 predicted: `endo make` / `endo archive` with TypeScript sources are
+> broken. In CI on the rebased head (625294058b):
+>   - JS `endo make counter.js` + E(counter).incr()  → PASS
+>   - TS `endo run typescript-runlet.ts`             → PASS
+>   - TS `endo make typescript-counter.ts` + incr    → FAIL: Alleged Counter has NO methods
+>     (`target has no method "incr", has []`).
+> The archive is provably correct (in-process parseArchive+import+make() → incr()===1); the
+> bug is only in the DAEMON confined-worker instantiation path. It cannot be reproduced in
+> the gardener sandbox (no linked endo daemon); CI is the daemon env.
+>
+> Decision needed (dckc's PR, changeset claims make+archive): either (1) FIX the daemon
+> make/archive TS path, or (2) NARROW the changeset to `endo run` only and drop the
+> make/archive assertions (the corner-prober's stated alternative). Full diagnosis is parked
+> as go-ahead job `endojs-endo-but-for-bots-pr909-fix-ts-make-daemon` — promote it once you
+> pick a direction.
+>
+> Also flagged in that job: the TypeDoc `test` check is red on TS type errors in
+> test/typescript-archive.test.js (checkJs:false hides them from local lint:types).
+>
+> Board cleanup you may want: the HALTED tada record `endojs-endo-but-for-bots-pr909-gauntlet`
+> and the orphaned `-gauntlet-fix-1` (a stalled local hermit, messaged to stand down) can be
+> cleared — they can't advance while the record is halted.
+
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -649,7 +677,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.7M | $935.81 _(notional, rate-card)_ | no quota set |
+| Claude | 108.6M | $934.67 _(notional, rate-card)_ | no quota set |
 | Codex | 19.9M _(+892.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 ## Board
