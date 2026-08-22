@@ -1,12 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: designer
-posted_at: 2026-07-07T22:57:47Z
+role: builder
 tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T05:49:24Z cleared=none -->
 
 ---
 role: builder
