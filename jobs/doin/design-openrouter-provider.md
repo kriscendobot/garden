@@ -92,3 +92,13 @@ categories) of gardener able to draw on these.
   per-role tier floors.
 - `git show 2c21ea3f2c0359833494f39f4150578a5031de70` — the mechanical
   "add a provider" diff to use as a checklist.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T04:04:13Z
