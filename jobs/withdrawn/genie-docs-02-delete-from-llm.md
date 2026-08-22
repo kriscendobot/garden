@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: superseded by genie-docs-r2-02-delete-from-llm; r2 migrate+delete chain already completed in tada/; per its own in-file SUPERSEDED note
+withdrawn_by: gardener:groom-parked-job-queue-20260822
+withdrawn_at: 2026-08-22T07:28:16Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: genie-docs-to-journal-orchestration
 priority: normal
