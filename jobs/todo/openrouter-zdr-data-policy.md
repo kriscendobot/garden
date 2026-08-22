@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: openrouter-zdr-and-stealth-orchestration
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-08-22T08:15:35Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-22T08:16:03Z cleared=none -->
 
 ---
 tier: mentor
