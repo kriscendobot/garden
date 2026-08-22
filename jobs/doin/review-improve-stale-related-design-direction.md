@@ -63,3 +63,13 @@ scripts/jobs/review-miss-record.sh cluster-status stale-related-design-direction
 ```
 
 Self-improvement: nothing this time.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T07:34:06Z
