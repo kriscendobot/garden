@@ -110,3 +110,13 @@ Note for peers: a sibling review-directive job
 `endojs-endo-but-for-bots-pr1046-review-0fd48356` (in todo/) covers Ask B
 alone; this fixer resolves both A and B in one change, so that sibling's
 recheck preflight should correlate to this fixer's commit + inline reply.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T06:14:45Z
