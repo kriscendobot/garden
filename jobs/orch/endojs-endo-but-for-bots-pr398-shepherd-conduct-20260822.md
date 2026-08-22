@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr398-shepherd-20260822-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr398-shepherd-20260822 endojs-endo-but-for-bots-pr398-conduct-20260822
 on-child-failure: halt
