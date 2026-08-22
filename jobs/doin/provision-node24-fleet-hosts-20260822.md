@@ -28,3 +28,13 @@ tie this to skills/node-lts-window-watch.
 
 Verify by running `scripts/jobs/gardening/local-verify.sh` in an endo-but-for-bots
 worktree and confirming it does NOT emit `NODE RUNTIME PARITY` (it adopts Node 24).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T07:33:49Z
