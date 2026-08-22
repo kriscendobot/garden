@@ -1,6 +1,6 @@
 ---
 gate: go-ahead
-priority: normal
+priority: low
 parked_at: 2026-08-02T21:03:45Z
 parked_by: liaison:endolin-garden-ece02cb4
 parked_reason: maintainer directive — board cleared so the fleet runs
@@ -29,3 +29,7 @@ Observed live failure on both kimi-k3-canary-20260723-c and -d: scripts/jobs/gar
 Also audit and harden secret-safe Moonshot propagation against the established Anthropic path: garden passes ANTHROPIC_API_KEY via Docker -e at container creation; PID 1 -> systemd --user -> worker unit inheritance supplies it without embedding secrets in unit files. MOONSHOT_API_KEY should follow the same path, with deterministic presence-only diagnostics and documentation that existing containers require secret-safe recreation. Do not print, inspect, persist, or commit credential values.
 
 After landing and deliberate deployment coordination, requeue exactly one reversible kimi-k3 canary, validate completion plus mystic/moonshot/kimi-k3 reputation scope, and return mystics to 0. Keep monks at 0 throughout. Preserve the failed canary evidence and use normal board/reaper contracts.
+
+<!-- garden-annotation: key=886d585eb724 by=producer at=2026-08-22T13:53:47Z fields=priority=low -->
+
+Verified stale 2026-08-22 (maintainer directive): confirmed superseded. The canary validation this trio was chasing (kimi-k3-canary-20260723-c) got superseded by later attempts under different basenames (-d, -e, -f); the final one (kimi-k3-canary-20260725-f) passed cleanly with no follow-ups. The runtime bug garden-fix-mystic-canary-runtime-20260724 was chasing landed too, via separately-named fix-mystic-* jobs (fix-mystic-prompt-yolo-20260725, fix-mystic-completion-marker-rendering-20260725, fix-mystic-kimi-k3-model-selection-20260725). Archived, not pruned -- left parked go-ahead in case the umbrella rollout is revisited. Note: a SEPARATE, still-halted orchestration (garden-mentor-tier-kimi-rollout, distinct from this trio) covers the bigger mentor-tier-to-Kimi routing question and was not touched here.
