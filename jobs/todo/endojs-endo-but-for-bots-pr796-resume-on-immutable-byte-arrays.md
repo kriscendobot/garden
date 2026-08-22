@@ -1,11 +1,8 @@
 ---
-gate: deferred
-priority: normal
-roadmap: hashline/byte-arrays parity
 role: fixer
-posted_by: producer
-posted_at: 2026-08-22T07:02:04Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-22T13:57:34Z cleared=none -->
 
 ---
 tier: mentor
