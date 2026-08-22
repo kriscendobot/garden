@@ -116,3 +116,13 @@ job to do it.
 - `skills/schedule/SKILL.md` for the re-review cadence mechanism.
 - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
   maintainer-attested, auditable, idempotent operator action.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T07:24:59Z
