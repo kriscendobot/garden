@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr398-shepherd-conduct-20260822
-priority: urgent
 role: shepherd
-posted_by: gardener
-posted_at: 2026-08-22T01:05:04Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-08-22T01:07:02Z cleared=none -->
 
 ---
 role: shepherd
