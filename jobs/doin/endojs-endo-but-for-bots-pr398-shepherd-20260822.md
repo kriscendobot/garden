@@ -23,3 +23,13 @@ Determine whether that cancelled check is required or indicates work to do. Purs
 green or surface a genuine impasse with the required `next: <role>` classification.
 
 The next orchestration child is the conductor, so do not merge in this job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T01:42:04Z
