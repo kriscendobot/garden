@@ -1,19 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-doomed_at: 2026-07-17T01:53:17Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-17T01:53:17Z
 tier: mentor
-fallback-tier: minion
-dispatch: automatic
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:57:16Z cleared=deadline-overrun=1 -->
 
 # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
 
@@ -31,4 +20,3 @@ If the failure is out of a shepherds scope, escalate to a fixer per the
 shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
 
-<!-- garden-deadline-overrun: 1 -->
