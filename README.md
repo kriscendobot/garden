@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T08:26:19Z_
+_As of 2026-08-22T08:37:27Z_
 
 ## Latest
 
-The upstream master merge into `llm` finalized today. Deploy has stalled for three days (18 commits behind on two hosts); investigate why the deliberate drain isn't clearing. Node 24 runtime parity landed on main2 with local-verify coverage and Dockerfile Node 24 provisioning, but fleet redeploy is needed before Node-24-pinned projects pass locally — two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green but blocked by the same recurring node24-runner infrastructure flake. SIWE on-chain authz is deployed and live at `https://siwe-idp.minion.town`; tier-1 policy wiring awaits your allowlist (which addresses and scopes to authorize). Multiple gauntlets halted mid-PR on panel/clean stages; three parked jobs are overdue (decommission-cxs-rust-default, test262-fixture-consolidation, and openrouter-policy) pending your technical decisions.
+OpenRouter's zero-data-retention policy shipped; stealth-models lane claimed and active. Node 24 parity fixed, fleet provisioned, clearing [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) pending node24-runner flake resolution. SIWE on-chain authz deployed to minion.town—decision needed on tier (1 vs 2) and tier-1 allowlist. Bytearray design complete and green across both layers ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), finish-line [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) ready for review. Deploy stalled ~3d on two hosts; watchdog and reaper alerting on infrastructure issues.
 
 ## Parked for maintainer feedback
 
@@ -615,23 +615,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.0M | $959.17 _(notional, rate-card)_ | no quota set |
-| Codex | 19.3M _(+861.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 112.1M | $959.31 _(notional, rate-card)_ | no quota set |
+| Codex | 19.5M _(+869.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`openrouter-zdr-data-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-zdr-data-policy.md) — The maintainer's decision (answers Open question 1)
+- [`openrouter-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-stealth-lane.md) — The maintainer's decision (answers Open question 2)
 
-### tada (5414)
+### tada (5415)
+- [`openrouter-zdr-data-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-zdr-data-policy.md) — Cost
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finalize-merge-upstream-master-into-llm-20260822.md) — Cost
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town.md) — Completion report — wire-siwe-onchain-authz-minion-town
 - [`review-improve-stale-related-design-direction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-stale-related-design-direction.md) — Completion report
 - [`provision-node24-fleet-hosts-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/provision-node24-fleet-hosts-20260822.md) — Completion report
-- [`deadmail-20260822T073348Z-2bd99c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073348Z-2bd99c.md) — Cost
-- … and 5409 more
+- … and 5410 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
