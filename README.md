@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-22T07:16:15Z_
+_As of 2026-08-22T07:20:21Z_
 
 ## Latest
 
-The byteArray program's finish-line work is complete and CI-green across all three components — [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) together with their support PR — but both sit blocked on re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft and first review. In parallel, four major gauntlets (minion.town builds, endor fixture parity, ironhorse coverage matrix, and endor git bindings) have halted mid-flow, each awaiting specific maintainer decisions or approval gates. The deployment pipeline has stalled for three days — both garden hosts remain 18 commits behind origin/main2 — and a node24-runner CI flake is blocking two dependabot PRs including one with a critical security fix ([endojs/endo-but-for-bots#869](https://github.com/endojs/endo-but-for-bots/pull/869), GHSA-37j7-fg3j-429f). Additionally, [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) is ready to merge but blocked by a shared frozen base with [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475).
+Four recent completions wrap minion.town retrospectives. The byteArray press reaches its finish line—[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable and green, blocked only on your re-review to clear CHANGES_REQUESTED—while [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft and review. The SIWE on-chain authorization tier for minion.town is deployed and ready to wire ([endo-but-for-bots#42](https://github.com/kriscendobot/minion.town/pull/42)), pending your decision on tier 1 vs. tier 2 and allowlist addresses. Four gauntlets halted this week due to panel stage failures—stranded PRs on minion.town and endo-but-for-bots. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but trapped by the recurring node24-runner flake; the conduct spine cannot converge while base drifts faster than CI can green. Garden deploys on both hosts have stalled for ~3 days—deployed commit 745fa90891 is 18 commits behind main2 and requires investigation.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 47m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 52m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 34d)
@@ -280,22 +280,6 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 > awaiting maintainer — beyond proxy authority: gardener wire-siwe-onchain-authz-minion-town, msgid 20260822T055203Z-ae527d.md — The TIER 1 ALLOWLIST asks who gets authenticated access (specific wallet addresses + mcp/tools/mcp/guest/evaluator scopes) to minion.town — that's an authority grant only the maintainer can make (the proxy cannot invent real addresses or decide who is trusted), and it gates the whole question since the tier-1-vs-tier-2 choice is moot without it.
 
-- `20260822T071534Z-b3ee79` — from gardener:endojs-endo-but-for-bots-pr1046-review-7edcda98, reply_to `endojs-endo-but-for-bots-pr1046-review-7edcda98` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T071534Z-b3ee79.md)
-
-> Re: your review on [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) ("shepherd, promote to ready, then conduct").
->
-> Done:
-> - Shepherd: CI is fully GREEN (26/26 checks pass) on head 0759a1fd58; mergeStateStatus=CLEAN. Nothing needed a fix — all legs passed on their own.
-> - Promote: PR is now marked "ready for review" (draft cleared).
->
-> Conduct is BLOCKED — the conductor spine (ci-wait-merge.sh) refused to merge, for two independent reasons, both needing your call:
->
-> 1. Shared frozen base. [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046)'s base is the frozen snapshot `llm-e22e67a`, and open PR [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (feat(pass-style): narrow byteArray to plain frozen Uint8Array) sits on the SAME frozen base. Unfreezing [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) to live `llm` alone would fork [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) off the shared base, so the spine stalls (shared-frozen-base guard) rather than silently stranding or force-forking.
->
-> 2. No maintainer approval. reviewDecision=CHANGES_REQUESTED (your two earlier CHANGES_REQUESTED reviews stand; your latest directive was a COMMENTED review). The spine requires an APPROVED review from a maintainer on the head it merges — and a rebase/unfreeze would stale any approval anyway.
->
-> How would you like to proceed? Options I see: (a) approve [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) and tell me how to handle the shared base with [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (e.g. rebase both onto a fresh snapshot, or land [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) first); or (b) if [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) no longer needs `llm-e22e67a`, retarget it so [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) can unfreeze cleanly, then approve the rebased head. I'll conduct as soon as the base is unshared and there's an approval.
-
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -376,10 +360,6 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 > root repo /home/kris/garden2 deploy has been STALLED for ~3d: deployed sha 745fa90891f8692c12b6b14a06b4a5dbdcbbf503 is 18 commit(s) behind origin/main2 (231ef0576752a29e0f54a3c9316ac812a6790da3) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
 
-- `watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a.md)
-
-> conductor unfreeze BLOCKED for [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046): frozen base 'llm-e22e67a' is shared by open PRs (#1046, #475). Forwarding #1046 to live 'llm' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#1046 left on the snapshot: not stranded silently, not force-forked.)
-
 - `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-08-19T00:20:03Z, cleared 2026-08-19T00:20:03Z).
@@ -458,15 +438,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.2M | $941.82 _(notional, rate-card)_ | no quota set |
-| Codex | 18.2M _(+811.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 110.4M | $940.20 _(notional, rate-card)_ | no quota set |
+| Codex | 18.3M _(+814.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
-### todo (10)
+### todo (7)
 - [`daily-progress-summary-20260822-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260822-070502.md) — Daily midnight Pacific progress summary
-- [`kriscendobot-list-pr1-67917e4b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-list-pr1-67917e4b-retro.md) — Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-6791...
-- [`kriscendobot-minion.town-pr21-review-cdeb6f79-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr21-review-cdeb6f79-retro.md) — Retrospective on kriscendobot/minion.town PR #21 (primary: kriscendobot-minio...
-- [`kriscendobot-minion.town-pr37-1d4d0715-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-1d4d0715-retro.md) — Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr37-review-41d400bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-review-41d400bb-retro.md) — Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr39-review-fb0be7ca-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr39-review-fb0be7ca-retro.md) — Retrospective on kriscendobot/minion.town PR #39 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr47-review-237136a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr47-review-237136a0-retro.md) — Retrospective on kriscendobot/minion.town PR #47 (primary: kriscendobot-minio...
@@ -475,20 +452,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/wire-siwe-onchain-authz-minion-town.md) — Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
 ### doin (6)
-- [`endojs-endo-but-for-bots-pr1046-review-7edcda98`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-7edcda98.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finalize-merge-upstream-master-into-llm-20260822.md) — Finish CI and merge endo-but-for-bots PR #1048 into llm
 - [`groom-parked-job-queue-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-parked-job-queue-20260822.md) — Groom the job board's parked-job queue: prune confirmed-moot entries
 - [`ironhorse-js26-milestone-consolidation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-consolidation.md) — ---
-- [`kriscendobot-list-pr1-1238bca7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-1238bca7-retro.md) — Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-1238...
 - [`kriscendobot-minion.town-pr20-review-c7ac7b26-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-review-c7ac7b26-retro.md) — Retrospective on kriscendobot/minion.town PR #20 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr21-review-cdeb6f79-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr21-review-cdeb6f79-retro.md) — Retrospective on kriscendobot/minion.town PR #21 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr37-1d4d0715-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-1d4d0715-retro.md) — Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
 
-### tada (5393)
+### tada (5396)
+- [`kriscendobot-list-pr1-67917e4b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-67917e4b-retro.md) — Completion report
+- [`kriscendobot-list-pr1-1238bca7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-1238bca7-retro.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1046-review-7edcda98`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-review-7edcda98.md) — Completion report — review directive on endojs/endo-but-for-bots#1046
 - [`kriscendobot-garden-pr74-review-f1f9adaa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr74-review-f1f9adaa-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr998-review-e7a43b46-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-e7a43b46-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr998-review-833f01c8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-833f01c8-retro.md) — Completion report — retrospective on endojs/endo-but-for-bots PR #998 (review...
-- [`endojs-endo-but-for-bots-pr998-review-65e24259-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-65e24259-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr998-review-4bd2ba34-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-4bd2ba34-retro.md) — Completion report
-- … and 5388 more
+- … and 5391 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
