@@ -47,6 +47,8 @@ the current daemon guest surface on `llm` before changing anything.
   this failure came in with a later panel-1 fix commit (head `dc39fef1`). The
   earlier weave/shepherd attention-directive (`...pr977-64413faf`) was doomed.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
