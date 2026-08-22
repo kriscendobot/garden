@@ -15,7 +15,7 @@
 #   <provider>  <patterns>  <fleet-default-model>
 # provider  — the worker kind's provider (worker_kind_field <kind> provider):
 #             anthropic (gardener), openai (cleric), local (hermit), moonshot (mystic),
-#             fireworks (fireworker).
+#             fireworks (fireworker), openrouter (openrouter).
 # patterns  — space-separated shell globs matched against a job's resolved `model:`
 #             value to decide which provider it PINS to. A leading `!` marks an
 #             EXCLUDE glob (matched → this provider does NOT own the id), so openai
@@ -41,3 +41,8 @@ moonshot	kimi-k3
 # Fireworks has no fleet default. A reviewed exact selector is required; a new
 # Fireworks model stays unclassified until it is added to the closed inventory.
 fireworks	fireworks/accounts/fireworks/models/glm-5p2 fireworks/accounts/fireworks/models/kimi-k3 fireworks/accounts/fireworks/models/deepseek-v4-pro fireworks/accounts/fireworks/models/gpt-oss-120b
+# OpenRouter has no fleet default. Only reviewed, exact, NAMED selectors are listed
+# (never a wildcard, never a cloaked/stealth id): a new OpenRouter model — and every
+# rotating stealth id — stays unclassified and fails closed until it earns a reviewed
+# row in the closed inventory (designs/openrouter-provider.md § stealth policy).
+openrouter	openrouter/deepseek/deepseek-chat-v3-0324:free openrouter/meta-llama/llama-3.3-70b-instruct:free

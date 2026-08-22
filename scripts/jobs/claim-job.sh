@@ -79,7 +79,7 @@ job_eligible_for_kind() {
     # An absent or unclassified historical model pin is unpinned work for the
     # established pools. Keep hosted pools opt-in: they require their explicit
     # supported pin and never absorb this compatibility traffic.
-    [ "$KIND" != mystic ] && [ "$KIND" != fireworker ] \
+    [ "$KIND" != mystic ] && [ "$KIND" != fireworker ] && [ "$KIND" != openrouter ] \
       && ! job_provider_is_constrained "$jf" && return 0
     return 1
   }
@@ -106,6 +106,16 @@ job_eligible_for_kind() {
     [ "$pin" = kimi-k3 ] || return 1
     role="$(plan_field "$jf" role)"
     case "$role" in builder|designer) return 1;; esac
+  fi
+  # OpenRouter is an explicit-model-only lane (like mystic/fireworker): it claims ONLY
+  # a job that names `provider: openrouter` OR pins an `openrouter/<wire-id>` model. A
+  # bare tier-only or unpinned board job — including a reaper reroute to a tier that
+  # OpenRouter happens to serve a model at (minion/myrmidon) — must NOT reach this
+  # disabled-by-default provider (designs/openrouter-provider.md § disabled by default).
+  # If the job is provider-constrained, the foreign-provider check above already
+  # guaranteed the constraint is `openrouter`.
+  if [ "$KIND" = openrouter ]; then
+    job_provider_is_constrained "$jf" || [[ "$pin" == openrouter/* ]] || return 1
   fi
   if [ -n "$pin" ]; then
     [ -n "$(resolve_model_tier "$KIND_PROVIDER" "$pin")" ]

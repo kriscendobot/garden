@@ -40,10 +40,12 @@ worktree="$(worker_worktree_path "$base")"
 
 # --- worker kind + provider (this handler serves BOTH codex-backed kinds) ------
 #
-# The SAME Codex handler drives two worker kinds, distinguished by their registry
+# The SAME Codex handler drives several worker kinds, distinguished by their registry
 # `provider` field (common.sh worker-kind registry): the paid-OpenAI `cleric`
-# (provider=openai), LOCAL `hermit` (provider=local), and explicit Fireworks
-# `fireworker` (provider=fireworks). Kimi intentionally has its own official CLI
+# (provider=openai), LOCAL `hermit` (provider=local), explicit Fireworks `fireworker`
+# (provider=fireworks), and explicit OpenRouter `openrouter` (provider=openrouter).
+# Fireworks and OpenRouter share ONE custom OpenAI-compatible code path (the
+# $custom_openai_compat flag below). Kimi intentionally has its own official CLI
 # handler. Everything below that differs between the Codex kinds: the tier map,
 # fleet-default model, auth/reachability preflight, and provider route key off
 # $provider. The spine exports
@@ -52,6 +54,22 @@ KIND="${GARDEN_WORKER_KIND:-cleric}"
 provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo openai)"
 state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
 [ "$provider" != fireworks ] || [ "$KIND" = fireworker ] || die "Fireworks provider requires the fireworker kind"
+[ "$provider" != openrouter ] || [ "$KIND" = openrouter ] || die "OpenRouter provider requires the openrouter kind"
+
+# Custom OpenAI-compatible bearer-key providers (Fireworks, OpenRouter) share ONE
+# Codex custom-provider path: a namespaced routing id (`<provider>/<wire-id>`), a
+# per-provider base URL + API key, retryable capacity/availability failures, and
+# response text that may echo request metadata (kept out of the report).  Everything
+# below that is common to them keys off this flag rather than repeating the provider
+# name, so a third such provider is a registry row plus an adapter case, no new
+# handler branches here.  Per-provider retry knobs are resolved by indirection.
+custom_openai_compat=false
+case "$provider" in fireworks|openrouter) custom_openai_compat=true ;; esac
+provider_uc="$(printf '%s' "$provider" | tr '[:lower:]' '[:upper:]')"
+_retry_attempts_var="GARDEN_${provider_uc}_RETRY_ATTEMPTS"
+_retry_delay_var="GARDEN_${provider_uc}_RETRY_DELAY"
+custom_retry_attempts="${!_retry_attempts_var:-3}"
+custom_retry_delay="${!_retry_delay_var:-1}"
 # --- session resume across a reaper requeue ----------------------------------
 #
 # codex assigns its OWN session UUID (no deterministic-session-id analogue of the
@@ -122,7 +140,7 @@ fleet_default_model="$(model_routing_default "$provider" 2>/dev/null)"
 if [ -z "$fleet_default_model" ]; then
   case "$provider" in
     local) fleet_default_model="qwen3.6" ;;
-    fireworks) fleet_default_model="" ;; # explicit model only
+    fireworks|openrouter) fleet_default_model="" ;; # explicit model only
     *)     fleet_default_model="gpt-5.6-terra" ;;
   esac
 fi
@@ -151,11 +169,12 @@ fi
 [ -n "$model" ] || model="$fleet_default_model"
 [ -n "$model" ] || die "no model resolved for $KIND job '$base'"
 # The namespace is garden-only routing metadata.  The provider receives the exact
-# wire identifier after `fireworks/`, which can be a Serverless, Fast-router, or
-# dedicated deployment id without a code/catalog release.
-if [ "$provider" = fireworks ]; then
-  [[ "$model" == fireworks/* ]] && [ -n "${model#fireworks/}" ] || die "invalid Fireworks model selector for tier '$requested_tier'"
-  model="${model#fireworks/}"
+# wire identifier after `<provider>/`, which can be a Serverless/Fast-router/deployment
+# id (Fireworks) or an aggregator model id incl. a `:free` suffix (OpenRouter) without
+# a code/catalog release.  Both share the `${model#<provider>/}` strip.
+if $custom_openai_compat; then
+  [[ "$model" == "$provider/"* ]] && [ -n "${model#"$provider"/}" ] || die "invalid $provider model selector for tier '$requested_tier'"
+  model="${model#"$provider"/}"
 fi
 
 # Publish the resolved model so the fleet's gh wrapper can stamp it into the
@@ -226,13 +245,13 @@ codex_args=(
 # worktree. Re-verify the exact `-c` key names and string-quoting on the live CLI
 # before the first real hermit job (guide §6 flags the end-to-end GPU run as the one
 # check confirmable only on a real rebuild).
-if [ "$provider" = local ] || [ "$provider" = fireworks ]; then
+if [ "$provider" = local ] || $custom_openai_compat; then
   codex_provider_extra_args "$provider"
   codex_args+=("${CODEX_PROVIDER_EXTRA_ARGS[@]}")
   if [ "$provider" = local ]; then
     log "job '$base' running on LOCAL provider ($model via $GARDEN_LOCAL_OLLAMA_URL)"
   else
-    log "job '$base' running on Fireworks provider (explicit model selected; endpoint configured)"
+    log "job '$base' running on $provider provider (explicit model selected; endpoint configured)"
   fi
 fi
 
@@ -252,10 +271,10 @@ else
   while :; do
     ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
     rc=$?
-    [ "$provider" = fireworks ] && [ "$rc" -ne 0 ] && fireworks_retryable_failure "$json_capture" \
-      && [ "$attempt" -lt "$GARDEN_FIREWORKS_RETRY_ATTEMPTS" ] || break
-    delay=$(( GARDEN_FIREWORKS_RETRY_DELAY * (2 ** (attempt - 1)) ))
-    log "Fireworks transient capacity/availability failure for '$base'; retrying attempt $((attempt + 1))/$GARDEN_FIREWORKS_RETRY_ATTEMPTS after ${delay}s"
+    [ "$custom_openai_compat" = true ] && [ "$rc" -ne 0 ] && openai_compat_retryable_failure "$json_capture" \
+      && [ "$attempt" -lt "$custom_retry_attempts" ] || break
+    delay=$(( custom_retry_delay * (2 ** (attempt - 1)) ))
+    log "$provider transient capacity/availability failure for '$base'; retrying attempt $((attempt + 1))/$custom_retry_attempts after ${delay}s"
     sleep "$delay"; attempt=$((attempt + 1))
   done
 fi
@@ -289,12 +308,12 @@ fi
 # failure hashing) so a codex failure is not silent. Keep it off the report body,
 # which must stay the clean agent message for tada.
 if [ "$rc" -ne 0 ]; then
-  if [ "$provider" = fireworks ]; then
-    # Fireworks errors may echo request metadata.  Preserve only a safe class.
-    if fireworks_retryable_failure "$json_capture"; then
-      printf 'Fireworks request ended after retryable capacity/availability failures; retained state for resume.\n' >&2
+  if $custom_openai_compat; then
+    # A custom-provider error may echo request metadata.  Preserve only a safe class.
+    if openai_compat_retryable_failure "$json_capture"; then
+      printf '%s request ended after retryable capacity/availability failures; retained state for resume.\n' "$provider" >&2
     else
-      printf 'Fireworks request failed (non-retryable provider/configuration class); retained state for resume.\n' >&2
+      printf '%s request failed (non-retryable provider/configuration class); retained state for resume.\n' "$provider" >&2
     fi
   else
     tail -n 40 "$json_capture" >&2 2>/dev/null || true

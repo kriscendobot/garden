@@ -81,6 +81,12 @@ schedule). The conversational first-run tour is the sibling tree,
   tmpfs-only credential forwarding, status-only probe, configurable endpoint and
   model/deployment route, capacity classification, and a bounded canary.
 
+- **[openrouter.md](openrouter.md)** — *"activate OpenRouter" / "run the
+  OpenRouter canary."* An explicit-model-only OpenRouter worker (same custom
+  OpenAI-compatible Codex path as the fireworker): tmpfs-only credential
+  forwarding, status-only probe, NAMED-free-models-only closed inventory (stealth
+  ids excluded), the terms/data-retention decision, and a bounded canary.
+
 ## Convention
 
 Within-tree cross-references are relative; cross-tree references (skills,

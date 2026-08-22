@@ -90,7 +90,14 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field fireworker provider)" = "fireworks" ] && ok "fireworker provider fireworks" || bad "fireworker provider"
 [ "$(worker_kind_field fireworker unit)" = "garden-fireworker@" ] && ok "fireworker unit prefix" || bad "fireworker unit"
 [ "$(worker_kind_field fireworker count_key)" = "fireworkers" ] && ok "fireworker count key" || bad "fireworker count key"
-[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+# openrouter = the explicit OpenRouter kind — reuses the SAME custom OpenAI-compatible
+# Codex handler as the fireworker, distinct provider/unit/namespace.
+[ "$(worker_kind_field openrouter handler)" = "handlers/cleric-codex.sh" ] && ok "openrouter reuses OpenAI-compatible Codex handler" || bad "openrouter handler"
+[ "$(worker_kind_field openrouter provider)" = "openrouter" ] && ok "openrouter provider openrouter" || bad "openrouter provider"
+[ "$(worker_kind_field openrouter unit)" = "garden-openrouter@" ] && ok "openrouter unit prefix" || bad "openrouter unit"
+[ "$(worker_kind_field openrouter count_key)" = "openrouters" ] && ok "openrouter count key" || bad "openrouter count key"
+[ "$(worker_kind_field openrouter state_ns)" = "openrouters" ] && ok "openrouter state_ns" || bad "openrouter state_ns"
+[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
 # canonical_worker_kind: the SOLE decoder. v1 gardener -> monk; known v2 unchanged;
 # unknown / contradictory rejected with no silent fallback.
 [ "$(canonical_worker_kind gardener)" = monk ] && ok "canonical: v1 gardener -> monk" || bad "canonical v1 gardener"
@@ -152,6 +159,25 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 # and the namespaced Fireworks K3 id never resolves under moonshot.
 [ -z "$(resolve_model_tier fireworks kimi-k3)" ] && ok "bare kimi-k3 does NOT bind under fireworks (mystic lane intact)" || bad "fireworks captured the bare mystic K3 pin"
 [ -z "$(resolve_model_tier moonshot fireworks/accounts/fireworks/models/kimi-k3)" ] && ok "namespaced Fireworks K3 does NOT bind under moonshot" || bad "moonshot captured the Fireworks K3 route"
+# --- OpenRouter: reviewed NAMED free selectors bind; stealth/wildcard fail closed ---
+# The namespace `openrouter/` is required and the closed inventory decides eligibility.
+# Named free models get ordinary reviewed rows; cloaked/stealth ids earn no row and
+# fail closed exactly like any unreviewed selector (designs/openrouter-provider.md).
+[ "$(resolve_model_tier openrouter openrouter/deepseek/deepseek-chat-v3-0324:free)" = "openrouter/deepseek/deepseek-chat-v3-0324:free" ] && ok "reviewed OpenRouter DeepSeek-free selector binds" || bad "OpenRouter DeepSeek selector"
+[ "$(resolve_model_tier openrouter openrouter/meta-llama/llama-3.3-70b-instruct:free)" = "openrouter/meta-llama/llama-3.3-70b-instruct:free" ] && ok "reviewed OpenRouter Llama-free selector binds" || bad "OpenRouter Llama selector"
+[ "$(model_dispatch_tier openrouter openrouter/deepseek/deepseek-chat-v3-0324:free)" = minion ] && ok "OpenRouter DeepSeek-free is minion tier" || bad "OpenRouter DeepSeek tier"
+[ "$(model_dispatch_tier openrouter openrouter/meta-llama/llama-3.3-70b-instruct:free)" = myrmidon ] && ok "OpenRouter Llama-free is myrmidon tier (one-per-tier: independently selectable)" || bad "OpenRouter Llama tier"
+[ "$(tier_model_for_provider minion openrouter)" = "openrouter/deepseek/deepseek-chat-v3-0324:free" ] && ok "minion openrouter resolves to DeepSeek-free" || bad "minion openrouter resolution"
+[ "$(tier_model_for_provider myrmidon openrouter)" = "openrouter/meta-llama/llama-3.3-70b-instruct:free" ] && ok "myrmidon openrouter resolves to Llama-free" || bad "myrmidon openrouter resolution"
+[ -z "$(resolve_model_tier openrouter openrouter/stealth/ox-alpha:free)" ] && ok "cloaked/stealth OpenRouter id fails closed (no reviewed row)" || bad "stealth OpenRouter id accepted"
+[ -z "$(resolve_model_tier openrouter deepseek/deepseek-chat-v3-0324:free)" ] && ok "OpenRouter requires the namespaced selector" || bad "OpenRouter selector was implicit"
+[ -z "$(tier_model_for_provider mentor openrouter)" ] && ok "no OpenRouter model at mentor (automatic mentor jobs can't reach it)" || bad "OpenRouter has a mentor model"
+# No cross-provider leak: an OpenRouter id binds under NO other provider, and a
+# foreign id never binds under openrouter.
+{ [ -z "$(resolve_model_tier fireworks openrouter/deepseek/deepseek-chat-v3-0324:free)" ] \
+  && [ -z "$(resolve_model_tier openai openrouter/deepseek/deepseek-chat-v3-0324:free)" ] \
+  && [ -z "$(resolve_model_tier openrouter fireworks/accounts/fireworks/models/glm-5p2)" ]; } \
+  && ok "OpenRouter ids stay on the openrouter provider (no cross-provider leak)" || bad "OpenRouter cross-provider leak"
 [ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
 [ "$(role_default_model cleric builder)" = "gpt-5.6-terra" ] && ok "cleric builder → gpt-5.6-terra" || bad "cleric builder default"
 [ "$(role_default_model gardener cleaner)" = "claude-haiku-4-5-20251001" ] && ok "gardener cleaner → Haiku" || bad "gardener cleaner default"
@@ -169,6 +195,8 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ -z "$(role_default_model hermit fixer)" ] && ok "hermit fixer unpinned (rides hermit fleet default)" || bad "hermit fixer default"
 [ -z "$(role_default_model mystic builder)" ] && ok "mystic builder has no high-stakes default" || bad "mystic builder default"
 [ -z "$(role_default_model fireworker fixer)" ] && ok "fireworker has no implicit model default" || bad "fireworker default"
+[ -z "$(role_default_model openrouter fixer)" ] && ok "openrouter has no implicit model default" || bad "openrouter default"
+[ -z "$(role_default_model openrouter builder)" ] && ok "openrouter has no high-stakes default" || bad "openrouter builder default"
 ARM_JOB="$(mktemp "${TMPDIR:-/tmp}/garden-mystic-arm.XXXXXX")"
 printf '%s\n' '---' 'model: kimi-k3' 'role: fixer' '---' > "$ARM_JOB"
 # shellcheck source=../reputation.sh
@@ -187,6 +215,13 @@ rm -f "$FW_ARM_JOB"
 FW_ARM_PATH="$(rep_arm_relpath fireworker "${fw_arm[0]}" "${fw_arm[1]}" "${fw_arm[2]}" gardener:s main2 2>/dev/null || true)"
 MY_ARM_PATH="$(rep_arm_relpath mystic "${mystic_arm[0]}" "${mystic_arm[1]}" "${mystic_arm[2]}" gardener:s main2 2>/dev/null || true)"
 { [ -n "$FW_ARM_PATH" ] && [ "$FW_ARM_PATH" != "$MY_ARM_PATH" ]; } && ok "Fireworks and Moonshot arms project to distinct journal paths (no pooling)" || bad "Fireworks/Moonshot arm paths collided ($FW_ARM_PATH / $MY_ARM_PATH)"
+# An OpenRouter job earns its own arm (openrouter/openrouter/<wire id>), keyed on the
+# namespaced routing id, distinct from every other provider's arm.
+OR_ARM_JOB="$(mktemp "${TMPDIR:-/tmp}/garden-or-arm.XXXXXX")"
+printf '%s\n' '---' 'model: openrouter/deepseek/deepseek-chat-v3-0324:free' 'role: fixer' '---' > "$OR_ARM_JOB"
+mapfile -t or_arm < <(rep_resolve_arm openrouter "$OR_ARM_JOB")
+rm -f "$OR_ARM_JOB"
+[ "${or_arm[*]}" = "openrouter openrouter/deepseek/deepseek-chat-v3-0324:free medium" ] && ok "openrouter reputation arm is openrouter/<wire id>" || bad "openrouter reputation arm (${or_arm[*]})"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
 [ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
@@ -200,7 +235,7 @@ hr; echo "POLICY INVARIANTS — no IMPLICIT Fable; K3 is an explicit-only trial 
 FABLE_ID="$(resolve_model_tier anthropic fable)"
 [ "$FABLE_ID" = "claude-fable-5" ] && ok "fable tier still BINDS (explicit model: fable honored)" || bad "fable tier binding ($FABLE_ID)"
 fable_default_leak=0
-for k in gardener cleric hermit mystic fireworker; do
+for k in gardener cleric hermit mystic fireworker openrouter; do
   for r in designer builder fixer weaver conductor shepherd researcher scholar triager cleaner journalist orchestrator; do
     if [ "$(role_default_model "$k" "$r")" = "$FABLE_ID" ]; then
       bad "IMPLICIT Fable default leaked: kind=$k role=$r resolves to $FABLE_ID"
@@ -268,6 +303,7 @@ run_kind cleric   cspine chost "model: terra"
 run_kind hermit   hspine hhost "model: qwen3.6"
 run_kind mystic   mspine mihost "model: kimi-k3"
 run_kind fireworker fwspine fwhost $'provider: fireworks\ntier: mentor'
+run_kind openrouter orspine orhost "model: openrouter/deepseek/deepseek-chat-v3-0324:free"
 
 # ============================================================================
 hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pinned job"; hr
@@ -328,6 +364,19 @@ elig_case fireworker foreignprovider $'provider: moonshot\ntier: mentor' left
 elig_case cleric foreignfireworks $'provider: fireworks\ntier: mentor' left
 elig_case gardener foreignfireworks2 $'provider: fireworks\ntier: mentor' left
 elig_case fireworker unknownprovider $'provider: imaginary\ntier: mentor' left
+# OpenRouter is an explicit-model-only lane: a reviewed `openrouter/<id>` pin OR a
+# `provider: openrouter` canary is claimable; every unpinned/tier-only/foreign/stealth
+# job is left. This proves "no automatic/unpinned job may reach it."
+elig_case openrouter pinnedopenrouter "model: openrouter/deepseek/deepseek-chat-v3-0324:free" claimed
+elig_case openrouter constrainedopenrouter $'provider: openrouter\ntier: minion' claimed
+elig_case openrouter unpinnedopenrouter "" left
+elig_case openrouter tieronlyopenrouter "tier: minion" left
+elig_case openrouter stealthopenrouter "model: openrouter/stealth/ox-alpha:free" left
+elig_case openrouter foreignopenrouter $'provider: moonshot\ntier: mentor' left
+elig_case openrouter mentortieropenrouter $'provider: openrouter\ntier: mentor' left
+elig_case cleric foreignor $'provider: openrouter\ntier: minion' left
+elig_case fireworker foreignor2 "model: openrouter/deepseek/deepseek-chat-v3-0324:free" left
+elig_case gardener foreignor3 "model: openrouter/deepseek/deepseek-chat-v3-0324:free" left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -342,6 +391,7 @@ elig_case hermit     gardener_role_h  "role: gardener"                 left
 elig_case cleric     gardener_role_c  "role: gardener"                 left
 elig_case mystic     gardener_role_y  $'model: kimi-k3\nrole: gardener' left
 elig_case fireworker gardener_role_f  $'provider: fireworks\ntier: mentor\nrole: gardener' left
+elig_case openrouter gardener_role_o  $'model: openrouter/deepseek/deepseek-chat-v3-0324:free\nrole: gardener' left
 elig_case monk       gardener_role_m  "role: gardener"                 claimed
 elig_case gardener   gardener_role_g  "role: gardener"                 claimed
 elig_case cleric     fixer_role_c     "role: fixer"                    claimed
@@ -355,7 +405,7 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in monk gardener cleric hermit mystic fireworker; do
+for kind in monk gardener cleric hermit mystic fireworker openrouter; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=monk' "$RT/garden-monk@.service" && ok "monk unit sets GARDEN_WORKER_KIND=monk" || bad "monk kind env"
@@ -369,6 +419,8 @@ grep -q 'self-heal-run.sh garden-cleric ' "$RT/garden-cleric@.service" && ok "cl
 grep -q 'self-heal-run.sh garden-hermit ' "$RT/garden-hermit@.service" && ok "hermit ExecStart labels self-heal garden-hermit" || bad "hermit self-heal label"
 grep -q 'self-heal-run.sh garden-mystic ' "$RT/garden-mystic@.service" && ok "mystic ExecStart labels self-heal garden-mystic" || bad "mystic self-heal label"
 grep -q 'self-heal-run.sh garden-fireworker ' "$RT/garden-fireworker@.service" && ok "fireworker ExecStart labels self-heal garden-fireworker" || bad "fireworker self-heal label"
+grep -q 'GARDEN_WORKER_KIND=openrouter' "$RT/garden-openrouter@.service" && ok "openrouter unit sets GARDEN_WORKER_KIND=openrouter" || bad "openrouter kind env"
+grep -q 'self-heal-run.sh garden-openrouter ' "$RT/garden-openrouter@.service" && ok "openrouter ExecStart labels self-heal garden-openrouter" || bad "openrouter self-heal label"
 rm -rf "$RT"
 
 # The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
@@ -382,18 +434,21 @@ export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale hermit 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale mystic 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale fireworker 1 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale openrouter 1 >/dev/null 2>&1
 gm=$(grep -c '^garden-monk@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
 gh=$(grep -c '^garden-hermit@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 gf=$(grep -c '^garden-fireworker@1\.service$' "$GARDEN_MOCK_STATE" || true)
+go=$(grep -c '^garden-openrouter@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gm" -eq 2 ] && ok "scale monk 2 -> garden-monk@{1,2} armed (canonical Anthropic pool renders + scales)" || bad "monk scale (@1-2=$gm)"
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
 [ "$gh" -eq 2 ] && ok "scale hermit 2 → garden-hermit@{1,2} armed (new kind scalable, no arg-parse edit)" || bad "hermit scale (@1-2=$gh)"
 [ "$gk" -eq 1 ] && ok "scale mystic 1 -> garden-mystic@1 armed (hosted pool independently scalable)" || bad "mystic scale (@1=$gk)"
 [ "$gf" -eq 1 ] && ok "scale fireworker 1 -> garden-fireworker@1 armed (Fireworks pool independently scalable)" || bad "fireworker scale (@1=$gf)"
+[ "$go" -eq 1 ] && ok "scale openrouter 1 -> garden-openrouter@1 armed (OpenRouter pool independently scalable)" || bad "openrouter scale (@1=$go)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1

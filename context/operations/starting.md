@@ -78,14 +78,15 @@ proceed on a cross-host hostname collision.
 
    ```sh
    # only after: codex installed + `codex login` (cleric), MOONSHOT_API_KEY exported
-   # (mystic), FIREWORKS_API_KEY exported (fireworker), ollama + a pulled model (hermit)
+   # (mystic), FIREWORKS_API_KEY exported (fireworker), OPENROUTER_API_KEY exported
+   # (openrouter), ollama + a pulled model (hermit)
    scripts/jobs/set-workers.sh cleric 4 "$(hostname -s)"
    ```
 
    `set-workers.sh` **refuses** a non-gardener kind's count > 0 until that kind's
    backend probe passes on this host (credentials *and* software), naming the missing
    piece — so a Claude-only gnome (e.g. **ps23**) simply cannot declare
-   `clerics`/`hermits`/`mystics`/`fireworkers` and stand up pools that fail every
+   `clerics`/`hermits`/`mystics`/`fireworkers`/`openrouters` and stand up pools that fail every
    claim. Stage a declaration ahead of a credential with `GARDEN_FORCE_DECLARE=1`
    (the runtime effective cap still holds it at 0 until the probe passes, so the
    override is safe). `set-workers.sh <kind> 0` (withdraw a kind) is always allowed.

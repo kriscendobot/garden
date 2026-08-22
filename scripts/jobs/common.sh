@@ -201,6 +201,13 @@ export GARDEN
 : "${GARDEN_FIREWORKS_RETRY_ATTEMPTS:=3}"
 : "${GARDEN_FIREWORKS_RETRY_DELAY:=1}"
 
+# OpenRouter is an OpenAI-chat-compatible model aggregator; same custom-provider
+# harness as Fireworks (namespaced `openrouter/<wire-id>` routing id, bearer key,
+# per-provider base URL).  The endpoint is a knob for the same reason.
+: "${GARDEN_OPENROUTER_BASE_URL:=https://openrouter.ai/api/v1}"
+: "${GARDEN_OPENROUTER_RETRY_ATTEMPTS:=3}"
+: "${GARDEN_OPENROUTER_RETRY_DELAY:=1}"
+
 # The dev / next-version branch. Subagents land development here from their own
 # worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
 # checkout, and the upgrade monitor compares its tip to the deployed sha. Named
@@ -600,6 +607,23 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-fireworker" ;;
         *) return 1 ;;
       esac ;;
+    openrouter)
+      # OpenRouter (an OpenAI-compatible model aggregator) reuses the Codex custom
+      # OpenAI-compatible provider harness, exactly like the fireworker.  Its routing
+      # id is namespaced (`openrouter/<wire-model>`), so the volatile aggregator model
+      # id (including a `:free` suffix) stays explicit in each job.  Kind name ==
+      # provider name is intentional and harmless: the two live in separate namespaces
+      # (worker_kinds vs. worker_kind_field <kind> provider).
+      case "$field" in
+        handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        agent_bin) printf '%s\n' "codex" ;;
+        provider)  printf '%s\n' "openrouter" ;;
+        unit)      printf '%s\n' "garden-openrouter@" ;;
+        count_key) printf '%s\n' "openrouters" ;;
+        state_ns)  printf '%s\n' "openrouters" ;;
+        label)     printf '%s\n' "garden-openrouter" ;;
+        *) return 1 ;;
+      esac ;;
     *) return 1 ;;
   esac
 }
@@ -615,12 +639,12 @@ worker_kind_field() {
 # whichever count line a host already declares. The two Anthropic pools are NEVER
 # both armed for one capacity slot: the scaler picks the host-active spelling with
 # anthropic_active_kind (monks: wins, else the legacy gardeners:) and skips the other.
-worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker; }
+worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter; }
 
 # canonical_worker_kind <raw> [schema] [provider] — the ONLY worker-kind decoder
 # (design anthropic-worker-kind-monk.md § Journal contract). It resolves a raw
 # worker_kind token from a claim, event, or bid to its CANONICAL kind:
-#   * a known v2 kind (monk|cleric|hermit|mystic|fireworker) → itself, unchanged;
+#   * a known v2 kind (monk|cleric|hermit|mystic|fireworker|openrouter) → itself, unchanged;
 #   * v1 `gardener` (no schema, or schema 1) → `monk`, the Anthropic alias mapping;
 #   * anything else → non-zero, with NO silent fallback (an unknown v2 kind, or a
 #     `gardener` carrying an explicit v2 schema, is rejected so a contradictory
@@ -631,7 +655,7 @@ worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker; }
 canonical_worker_kind() {
   local raw="${1:-}" schema="${2:-}" provider="${3:-}" ck="" want=""
   case "$raw" in
-    monk|cleric|hermit|mystic|fireworker) ck="$raw" ;;
+    monk|cleric|hermit|mystic|fireworker|openrouter) ck="$raw" ;;
     gardener)
       case "$schema" in
         ''|1) ck="monk" ;;                 # v1 record: gardener IS the Anthropic monk
@@ -5159,7 +5183,7 @@ job_provider_constraint() {
   local provider
   provider="$(plan_field "$1" provider)"
   [ -n "$provider" ] || return 1
-  case "$provider" in anthropic|openai|local|moonshot|fireworks) printf '%s\n' "$provider";; *) return 1;; esac
+  case "$provider" in anthropic|openai|local|moonshot|fireworks|openrouter) printf '%s\n' "$provider";; *) return 1;; esac
 }
 
 job_provider_is_constrained() { [ -n "$(plan_field "$1" provider)" ]; }
@@ -5229,7 +5253,8 @@ _model_routing_table() {
     'openai	gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra' \
     'local	qwen3.6	qwen3.6' \
     'moonshot	kimi-k3' \
-    'fireworks	fireworks/accounts/fireworks/models/glm-5p2	'
+    'fireworks	fireworks/accounts/fireworks/models/glm-5p2	' \
+    'openrouter	openrouter/deepseek/deepseek-chat-v3-0324:free openrouter/meta-llama/llama-3.3-70b-instruct:free	'
 }
 
 # _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>
@@ -5299,7 +5324,7 @@ model_routing_default() {
 resolve_model_tier() {
   local provider tier
   case "${1:-}" in
-    anthropic|openai|local|moonshot|fireworks) provider="$1"; tier="${2:-}" ;;
+    anthropic|openai|local|moonshot|fireworks|openrouter) provider="$1"; tier="${2:-}" ;;
     *)                      provider="anthropic"; tier="${1:-}" ;;
   esac
   case "$provider" in
@@ -5340,6 +5365,13 @@ resolve_model_tier() {
       # The namespace is required, but the closed inventory still decides whether
       # this exact Fireworks selector is eligible.
       if [[ "$tier" == fireworks/* ]] && [ -n "${tier#fireworks/}" ] && _model_classify fireworks "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
+    openrouter)
+      # Same discipline as fireworks: the `openrouter/` namespace is required, and the
+      # closed inventory (a reviewed row per selectable model) decides eligibility.  A
+      # cloaked/stealth id is deliberately NOT admitted here — it earns no reviewed
+      # inventory row (designs/openrouter-provider.md § stealth policy), so it fails
+      # closed exactly like any unreviewed selector.
+      if [[ "$tier" == openrouter/* ]] && [ -n "${tier#openrouter/}" ] && _model_classify openrouter "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     *) printf '%s\n' "" ;;
   esac
 }
@@ -5361,7 +5393,7 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker) kind="$1"; role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
@@ -5411,6 +5443,11 @@ role_default_model() {
     fireworker)
       # Explicit model only.  There is no safe catalog default for a hosted,
       # changing Fireworks fleet.
+      printf '%s\n' "" ;;
+    openrouter)
+      # Explicit model only.  OpenRouter's catalog rotates (free/promotional models
+      # come and go), so there is deliberately no role default that could bind an
+      # unpinned or role-only job to it.
       printf '%s\n' "" ;;
     *) printf '%s\n' "" ;;
   esac
@@ -5503,7 +5540,7 @@ tier_rank() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker) role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

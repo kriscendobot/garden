@@ -164,6 +164,11 @@ codex_provider_preflight() {
     return
   fi
 
+  if [ "$provider" = openrouter ]; then
+    openrouter_provider_preflight "$kind" "$base"
+    return
+  fi
+
   # GARDEN_PROBE_LIVE=1 (the scaler's backend probe) needs the OPPOSITE of the hot
   # job path: a LIVE re-check every tick so it can ramp DOWN on a mid-boot logout.
   # It skips both reading and writing the per-boot auth-ok marker (the marker stays
@@ -186,41 +191,59 @@ codex_provider_preflight() {
   fi
 }
 
-# Fireworks is a separately credentialed OpenAI-compatible service.  Probe only
-# `/models`, discard its body, and print status-free diagnostics so neither the
-# bearer key nor provider response text can reach a journal/report/log.  A 429 is
-# an adaptive-capacity/quota result (retryable); a 503 is load shedding
-# (retryable); auth/configuration statuses are not retried.
-fireworks_provider_preflight() { # <kind> <base>
-  local kind="${1:?kind}" base="${2:?base}" status rc
+# openai_compat_provider_preflight <provider-label> <key-var> <base-url> <kind> <base>
+# The provider-generic reachability + auth check shared by every separately
+# credentialed OpenAI-compatible custom provider (Fireworks, OpenRouter).  Probe only
+# `/models`, discard its body, and print status-free diagnostics so neither the bearer
+# key nor provider response text can reach a journal/report/log.  A 429 is an
+# adaptive-capacity/quota result (retryable); a 503 is load shedding (retryable);
+# auth/configuration statuses are not retried.  The `<key-var>: absent` wording is
+# preserved exactly (tests assert it), with the variable name substituted per provider.
+openai_compat_provider_preflight() { # <label> <key-var> <base-url> <kind> <base>
+  local label="${1:?label}" key_var="${2:?key var}" base_url="${3:?base url}" kind="${4:?kind}" base="${5:?base}" status rc key
   command -v codex >/dev/null 2>&1 || { printf 'codex not on PATH; cannot run %s handler for %q\n' "$kind" "$base" >&2; return 1; }
-  [ -n "${FIREWORKS_API_KEY:-}" ] || { printf 'FIREWORKS_API_KEY: absent; %s cannot run %q. Recreate the container with the key in its creation environment.\n' "$kind" "$base" >&2; return 1; }
+  key="${!key_var:-}"
+  [ -n "$key" ] || { printf '%s: absent; %s cannot run %q. Recreate the container with the key in its creation environment.\n' "$key_var" "$kind" "$base" >&2; return 1; }
   set +e
   status="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 15 \
-    -H "Authorization: Bearer $FIREWORKS_API_KEY" "$GARDEN_FIREWORKS_BASE_URL/models" 2>/dev/null)"
+    -H "Authorization: Bearer $key" "$base_url/models" 2>/dev/null)"
   rc=$?
   set -e
   if [ "$rc" -ne 0 ]; then
-    printf 'Fireworks availability check failed for %s %q (network/endpoint unavailable); retry later.\n' "$kind" "$base" >&2
+    printf '%s availability check failed for %s %q (network/endpoint unavailable); retry later.\n' "$label" "$kind" "$base" >&2
     return 1
   fi
   case "$status" in
     2*) return 0 ;;
-    401|403) printf 'Fireworks authentication/authorization rejected %s %q; check credential access without printing it.\n' "$kind" "$base" >&2 ;;
-    429) printf 'Fireworks adaptive capacity/quota limited %s %q (HTTP 429); retry with exponential backoff.\n' "$kind" "$base" >&2 ;;
-    503) printf 'Fireworks load shed %s %q (HTTP 503); retry with exponential backoff.\n' "$kind" "$base" >&2 ;;
-    *) printf 'Fireworks availability check returned HTTP %s for %s %q; retry only after endpoint/configuration diagnosis.\n' "${status:-000}" "$kind" "$base" >&2 ;;
+    401|403) printf '%s authentication/authorization rejected %s %q; check credential access without printing it.\n' "$label" "$kind" "$base" >&2 ;;
+    429) printf '%s adaptive capacity/quota limited %s %q (HTTP 429); retry with exponential backoff.\n' "$label" "$kind" "$base" >&2 ;;
+    503) printf '%s load shed %s %q (HTTP 503); retry with exponential backoff.\n' "$label" "$kind" "$base" >&2 ;;
+    *) printf '%s availability check returned HTTP %s for %s %q; retry only after endpoint/configuration diagnosis.\n' "$label" "${status:-000}" "$kind" "$base" >&2 ;;
   esac
   return 1
 }
 
-# fireworks_retryable_failure <capture> -- diagnostics-only classifier.  Codex
-# hides the upstream status in some releases, so retain both status and familiar
-# provider wording.  It never prints the capture; callers log only this class.
-fireworks_retryable_failure() {
+# Fireworks is a separately credentialed OpenAI-compatible service.
+fireworks_provider_preflight() { # <kind> <base>
+  openai_compat_provider_preflight Fireworks FIREWORKS_API_KEY "$GARDEN_FIREWORKS_BASE_URL" "${1:?kind}" "${2:?base}"
+}
+
+# OpenRouter is an OpenAI-compatible model-aggregator, credentialed independently of
+# Fireworks; it rides the identical reachability/auth shape.
+openrouter_provider_preflight() { # <kind> <base>
+  openai_compat_provider_preflight OpenRouter OPENROUTER_API_KEY "$GARDEN_OPENROUTER_BASE_URL" "${1:?kind}" "${2:?base}"
+}
+
+# openai_compat_retryable_failure <capture> -- diagnostics-only classifier for the
+# custom OpenAI-compatible providers.  Codex hides the upstream status in some
+# releases, so retain both status and familiar provider wording.  It never prints the
+# capture; callers log only this class.
+openai_compat_retryable_failure() {
   local capture="${1:?capture}"
   grep -Eqi '(^|[^0-9])(429|503)([^0-9]|$)|rate.?limit|too many requests|load.?shed|service unavailable|temporar(il)?y unavailable' "$capture" 2>/dev/null
 }
+# Backward-compatible name kept for the fireworker path and its harness test.
+fireworks_retryable_failure() { openai_compat_retryable_failure "$@"; }
 
 # codex_effort_for_model <model> <unified effort>
 # Normalize Garden's common effort scale to Codex's model-specific ladder.
@@ -273,6 +296,20 @@ codex_provider_extra_args() {
         -c "model_providers.fireworks.name=\"fireworks\""
         -c "model_providers.fireworks.base_url=\"$GARDEN_FIREWORKS_BASE_URL\""
         -c "model_providers.fireworks.env_key=\"FIREWORKS_API_KEY\""
+      ) ;;
+    openrouter)
+      # OpenRouter's OpenAI-compatible custom-provider configuration.  The exact
+      # aggregator model id (including any `:free` suffix) comes from the explicit
+      # job header, never from this adapter.  The optional OpenRouter attribution
+      # headers (HTTP-Referer / X-Title, used only for its public leaderboard) are
+      # deliberately omitted: they are not required for serving and Codex exposes no
+      # verified per-request header-injection surface.
+      # shellcheck disable=SC2034 # caller appends this shared array after invoking us
+      CODEX_PROVIDER_EXTRA_ARGS=(
+        -c "model_provider=openrouter"
+        -c "model_providers.openrouter.name=\"openrouter\""
+        -c "model_providers.openrouter.base_url=\"$GARDEN_OPENROUTER_BASE_URL\""
+        -c "model_providers.openrouter.env_key=\"OPENROUTER_API_KEY\""
       ) ;;
   esac
 }

@@ -21,7 +21,7 @@
 #             (exported by the handler from resolve_model_tier/role_default_model),
 #             not the role's nominal default. Empty ⇒ field omitted.
 #   harness — the worker kind's harness CLI (GARDEN_WORKER_KIND: gardener→claude,
-#             cleric/hermit/fireworker→codex, mystic→kimi). Empty ⇒ field omitted.
+#             cleric/hermit/fireworker/openrouter→codex, mystic→kimi). Empty ⇒ field omitted.
 #   garden  — the DEPLOYED sha from .garden-state/deploy/deployed-sha (the code that
 #             actually produced the behavior — NOT origin/main2 tip, which the
 #             deployed root routinely lags), hyperlinked to the commit on the repo
@@ -69,7 +69,7 @@ _prov_esc() {
 _prov_harness() {
   case "${1-}" in
     gardener)               printf 'claude' ;;
-    cleric|hermit|fireworker) printf 'codex' ;;
+    cleric|hermit|fireworker|openrouter) printf 'codex' ;;
     mystic)                 printf 'kimi' ;;
     '')                     : ;;
     *)                      printf '%s' "$1" ;;  # forward an unrecognized kind verbatim

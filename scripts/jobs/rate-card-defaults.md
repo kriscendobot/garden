@@ -38,6 +38,7 @@ cold prior. It never means `$0.00`.
 | local | * | * | 0.000081 | amortized | ~$0.29 per busy hour of the local box (hardware + power; see Derivations) | 2026-07-29 |
 | openai | * | * | 0.005154 | provisional | fleet default — no published gpt-5.x API price is recorded and the ChatGPT plan meters no per-token dollars (see Derivations) | 2026-07-29 |
 | fireworks | * | * | 0.005154 | provisional | fleet default — no Fireworks price recorded; one event of history | 2026-07-29 |
+| openrouter | * | * | 0.005154 | provisional | fleet default — the codex lane reports no per-request dollars, and OpenRouter free models are $0-list but rate-limited/logged; a conservative provisional keeps a never-measured arm from winning on false cheapness. Revisit if a paid OpenRouter route is enabled | 2026-08-22 |
 | * | * | * | 0.005154 | provisional | conservative fleet-default ceiling for an unknown arm (~Anthropic Opus API list price), deliberately high so a never-measured arm cannot win on false cheapness | 2026-08-02 |
 
 ## Derivations

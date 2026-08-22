@@ -24,9 +24,11 @@ uniformly on `(provider, model, thoughtfulness)` regardless of backend.
 The executable closed inventory is `scripts/jobs/model-tier-inventory.tsv`.
 Its tiers are: mentat = Fable (manual-only), mentor = Anthropic Opus 5, OpenAI
 Sol, Moonshot Kimi K3, and Fireworks Kimi K3 / GLM 5.2 (the multi-provider automatic
-ceiling), minion = Opus 4.x, the OpenAI/Codex models below Sol, and Fireworks Deepseek
-V4 Pro (the automatic fallback), and myrmidon = the expedient Sonnet/Haiku/local models
-plus Fireworks gpt-oss-120b. Unknown ids are unclassified, not wildcarded. All
+ceiling), minion = Opus 4.x, the OpenAI/Codex models below Sol, Fireworks Deepseek
+V4 Pro, and OpenRouter DeepSeek V3 free (the automatic fallback), and myrmidon = the
+expedient Sonnet/Haiku/local models plus Fireworks gpt-oss-120b and OpenRouter Llama
+3.3 70B free. The OpenRouter minion/myrmidon rows are explicit-model-only (no
+automatic job reaches them). Unknown ids are unclassified, not wildcarded. All
 automatic producer output has durable `tier: mentor` intent with no concrete model pin,
 so a mentor job is claimable by whichever provider's worker is live (monk on Opus 5,
 cleric on Sol, mystic on Kimi, fireworker on Fireworks Kimi/GLM); only
@@ -221,6 +223,26 @@ The Fireworks lane is deliberately bounded: it starts at zero workers, needs a
 secret-safe authenticated availability probe, and is returned to zero after the
 canary. Its Codex-compatible harness currently has no reliable token accounting, so
 the reputation arm is censored rather than assigned a guessed cost.
+
+### 2.8 OpenRouter free models, through the Codex-compatible `openrouter`
+
+OpenRouter is an OpenAI-compatible model aggregator (`https://openrouter.ai/api/v1`),
+so it rides the **same** custom-provider Codex path as the fireworker (they share the
+`$custom_openai_compat` code). Its garden routing ids are namespaced
+`openrouter/<wire-id>`; the handler strips `openrouter/` before sending. The closed
+inventory admits only **stable, NAMED** free selectors — seeded with
+`openrouter/deepseek/deepseek-chat-v3-0324:free` (`minion`) and
+`openrouter/meta-llama/llama-3.3-70b-instruct:free` (`myrmidon`), one per tier so each
+is independently selectable. **Cloaked/stealth ids are deliberately excluded** and
+fail closed like any unreviewed selector: a reviewed row must mean a reviewed model,
+and a stealth id (anonymous, rotating identity) cannot honor that. None is a fleet
+default; the lane is explicit-model-only and reached only by an `openrouter/<id>` pin
+or a `--provider-canary openrouter <tier>` canary. Unknown ids, unknown providers, and
+provider/tier pairs with no inventory row fail closed. Like Fireworks, the lane starts
+at zero, needs a secret-safe status probe, returns to zero after the canary, and has
+no token accounting (censored arm). Two maintainer decisions are held open — the
+free-tier logging/training terms and whether to ever admit a stealth promotional lane
+— in [designs/openrouter-provider.md](openrouter-provider.md) § Open questions.
 
 ## 3. Cross-provider thoughtfulness axis (the load-bearing mapping)
 
