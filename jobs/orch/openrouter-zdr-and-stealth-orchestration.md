@@ -1,4 +1,5 @@
 ---
+child-openrouter-zdr-data-policy-reap-count: 0
 order: serial
 children: openrouter-zdr-data-policy openrouter-stealth-lane openrouter-reputation-unmask-migration
 on-child-failure: halt
