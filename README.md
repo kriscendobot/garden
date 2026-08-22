@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T01:46:45Z_
+_As of 2026-08-22T01:49:37Z_
 
 ## Latest
 
@@ -413,13 +413,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.1M | $908.80 _(notional, rate-card)_ | no quota set |
-| Codex | 11.9M _(+567.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Claude | 99.0M | $908.75 _(notional, rate-card)_ | no quota set |
+| Codex | 12.0M _(+569.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
-### todo (11)
+### todo (10)
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
-- [`endojs-endo-but-for-bots-pr475-c55fb1c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-c55fb1c4.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-13c49ed1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-13c49ed1.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-90ef14d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-90ef14d6.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-e560d700`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-e560d700.md) — Review directive on endojs/endo-but-for-bots PR #475
@@ -431,16 +430,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`refresh-pr-review-sequence-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/refresh-pr-review-sequence-20260821.md) — Refresh pr-review-sequence.md (endojs/endo-but-for-bots) — 3 weeks stale
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr398-shepherd-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-shepherd-20260822.md) — Shepherd endojs/endo-but-for-bots PR #398
+- [`endojs-endo-but-for-bots-pr475-c55fb1c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-c55fb1c4.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-489e73fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-489e73fc.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (5276)
+### tada (5277)
+- [`endojs-endo-but-for-bots-pr398-shepherd-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-shepherd-20260822.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-5b54f00b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5b54f00b.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-559e6ef8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-559e6ef8.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-5453eefb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5453eefb.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-2f4785d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-2f4785d0.md) — Cost
-- [`endojs-endo-but-for-bots-pr398-4bfee361`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-4bfee361.md) — Cost
-- … and 5271 more
+- … and 5272 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
