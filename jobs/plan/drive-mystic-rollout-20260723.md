@@ -1,6 +1,6 @@
 ---
 gate: go-ahead
-priority: normal
+priority: low
 parked_at: 2026-08-02T21:03:45Z
 parked_by: liaison:endolin-garden-ece02cb4
 parked_reason: maintainer directive — board cleared so the fleet runs
@@ -34,3 +34,7 @@ Completion means all of the following: (1) land a dedicated worker kind named my
 Do not make Kimi a default, do not enable high-stakes design/build routing, do not delete failed diagnostic evidence, and do not bypass the journal claim/completion contracts. Monitor every stage instead of merely posting follow-ups. Send concise progress only for a real blocker and send the final evidence-backed result to the maintainer inbox.
 
 <!-- garden-reaped: 0 -->
+
+<!-- garden-annotation: key=886d585eb724 by=producer at=2026-08-22T13:53:43Z fields=priority=low -->
+
+Verified stale 2026-08-22 (maintainer directive): confirmed superseded. The canary validation this trio was chasing (kimi-k3-canary-20260723-c) got superseded by later attempts under different basenames (-d, -e, -f); the final one (kimi-k3-canary-20260725-f) passed cleanly with no follow-ups. The runtime bug garden-fix-mystic-canary-runtime-20260724 was chasing landed too, via separately-named fix-mystic-* jobs (fix-mystic-prompt-yolo-20260725, fix-mystic-completion-marker-rendering-20260725, fix-mystic-kimi-k3-model-selection-20260725). Archived, not pruned -- left parked go-ahead in case the umbrella rollout is revisited. Note: a SEPARATE, still-halted orchestration (garden-mentor-tier-kimi-rollout, distinct from this trio) covers the bigger mentor-tier-to-Kimi routing question and was not touched here.
