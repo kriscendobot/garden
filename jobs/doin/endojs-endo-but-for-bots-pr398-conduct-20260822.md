@@ -27,3 +27,13 @@ Re-fetch all state. Merge only if the live head has terminal green CI, is mergea
 still has a current maintainer approval satisfying the conductor's exact-head guard. If the
 spine rewrites the head and invalidates approval, report the genuine approval blocker rather
 than bypassing it. Verify the final PR state before reporting.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T02:30:02Z
