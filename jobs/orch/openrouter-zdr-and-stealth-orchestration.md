@@ -1,4 +1,5 @@
 ---
+child-openrouter-stealth-lane-reap-count: 0
 child-openrouter-zdr-data-policy-host: endolin-garden-ece02cb4
 child-openrouter-zdr-data-policy-reap-count: 0
 order: serial
