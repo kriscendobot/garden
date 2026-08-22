@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":166,"input_tokens":24,"output_tokens":9882,"cache_creation_tokens":55541,"cache_read_tokens":747938,"total_cost_usd":1.1795719999999998,"ts":"2026-08-22T14:48:39Z","base":"endojs-endo-but-for-bots-pr796-review-c7415fc9-retro","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"prosecutor"}
