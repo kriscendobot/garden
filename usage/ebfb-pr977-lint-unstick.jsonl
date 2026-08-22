@@ -1,1 +1,2 @@
 {"ts":"2026-08-13T04:26:51Z","base":"ebfb-pr977-lint-unstick","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2401}
+{"source":"result","model":"claude-opus-4-8","num_turns":10,"elapsed_s":259,"input_tokens":19,"output_tokens":15848,"cache_creation_tokens":52670,"cache_read_tokens":542018,"total_cost_usd":1.1969679999999998,"ts":"2026-08-22T14:01:32Z","base":"ebfb-pr977-lint-unstick","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer"}
