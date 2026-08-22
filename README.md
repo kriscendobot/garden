@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-21T23:59:10Z_
+_As of 2026-08-22T00:05:21Z_
 
 ## Latest
 
-Two gauntlets halted mid-panel this week — [kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) and [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) on coverage — plus an orchestration stall on endor-walker work. Most escalations are decision gates: byteArray PRs ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) / [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are green and await maintainer re-review; [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) are MERGE-NOW but blocked by a recurring fleet node24-runner infra flake; debugger gating ([#1038](https://github.com/endojs/endo-but-for-bots/pull/1038)) and test262 consolidation design need your call on scope; minion.town ocap.site needs DNSSEC confirmation; three design PRs ([#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#730](https://github.com/endojs/endo-but-for-bots/pull/730), [#3137](https://github.com/endojs/endo/pull/3137)) await review. 25 PRs are parked pending your approval or follow-up. Root deploy is stalled 18 commits behind on both hosts — investigate why the deliberate drain/deploy cycle hasn't landed.
+The byteArray press reached finish-line green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) with all CI passing and review threads resolved; both are parked awaiting your re-review to clear CHANGES_REQUESTED. [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) opened (DRAFT) for test262 fixture consolidation with a design decision pending on whether to unify only expectation accounting or fold the bespoke metering corpus into the upstream test tree. Deploy has stalled 3 days behind main2 (18 commits, both garden instances); the drain marker and deliberate-deploy mechanics need investigation. A recurring fleet node24-runner binary-cache flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from merging despite being otherwise green. Three gauntlet runs halted mid-panel; one orchestration (endor-walker) stalled after requeues. A new security containment job landed for minion.town; several garden-infra doom jobs parked awaiting fixes (test suite environmental failures, elapsed-constancy classifier, git-remote chained follow-up).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 11m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -413,14 +413,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.3M | $942.82 _(notional, rate-card)_ | no quota set |
-| Codex | 10.2M _(+492.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 99.2M | $941.11 _(notional, rate-card)_ | no quota set |
+| Codex | 10.3M _(+502.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr398-4bfee361`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr398-4bfee361.md) — attention directive on endojs/endo-but-for-bots PR #398
 - [`endojs-endo-but-for-bots-pr719-d5f6af54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr719-d5f6af54.md) — attention directive on endojs/endo-but-for-bots PR #719
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260822-000501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-minion-town-containment-gateway-endo-sock-1-20260822-000501.md) — ---
 - [`refresh-pr-review-sequence-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/refresh-pr-review-sequence-20260821.md) — Refresh pr-review-sequence.md (endojs/endo-but-for-bots) — 3 weeks stale
 
 ### doin (2)
