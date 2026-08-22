@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-22T07:20:21Z_
+_As of 2026-08-22T07:23:20Z_
 
 ## Latest
 
-Four recent completions wrap minion.town retrospectives. The byteArray press reaches its finish line—[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable and green, blocked only on your re-review to clear CHANGES_REQUESTED—while [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft and review. The SIWE on-chain authorization tier for minion.town is deployed and ready to wire ([endo-but-for-bots#42](https://github.com/kriscendobot/minion.town/pull/42)), pending your decision on tier 1 vs. tier 2 and allowlist addresses. Four gauntlets halted this week due to panel stage failures—stranded PRs on minion.town and endo-but-for-bots. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but trapped by the recurring node24-runner flake; the conduct spine cannot converge while base drifts faster than CI can green. Garden deploys on both hosts have stalled for ~3 days—deployed commit 745fa90891 is 18 commits behind main2 and requires investigation.
+Deploy is stalled on both garden hosts—18 commits behind main2 for ~3 days with no advancement. Four gauntlets halted mid-stage over the past day (build-minion-town-git-content, endor-fixture-parity-ratchet, ironhorse-coverage-matrix, build-endor-git-bindings), each losing a stage to either a panel failure or clean abort. The byteArray press shipped complete and green: [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) are all CI-passing and mergeable (the first two need maintainer re-review to clear CHANGES_REQUESTED; the third awaits un-draft). A recurring node24-runner infrastructure flake (missing binary cache) is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) that are otherwise MERGE-NOW. Several maintainer decisions are queued: the SIWE on-chain authz tier (allowlist vs. schema+reader), test262 fixture consolidation strategy (keep separate metering corpus or collapse), ocap.site DNSSEC signing, and whether to authorize fleet access to minion.town production for E1–E4 validation. Js-26 planning was consolidated from 45 granular jobs into 6 milestone lanes.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 52m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 57m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 34d)
@@ -438,14 +438,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.4M | $940.20 _(notional, rate-card)_ | no quota set |
-| Codex | 18.3M _(+814.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 110.6M | $940.50 _(notional, rate-card)_ | no quota set |
+| Codex | 18.4M _(+816.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
-### todo (7)
+### todo (5)
 - [`daily-progress-summary-20260822-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260822-070502.md) — Daily midnight Pacific progress summary
-- [`kriscendobot-minion.town-pr37-review-41d400bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-review-41d400bb-retro.md) — Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
-- [`kriscendobot-minion.town-pr39-review-fb0be7ca-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr39-review-fb0be7ca-retro.md) — Retrospective on kriscendobot/minion.town PR #39 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr47-review-237136a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr47-review-237136a0-retro.md) — Retrospective on kriscendobot/minion.town PR #47 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr48-review-b8fd1e6b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr48-review-b8fd1e6b-retro.md) — Retrospective on kriscendobot/minion.town PR #48 (primary: kriscendobot-minio...
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/openrouter-zdr-policy-and-stealth-lane.md) — Decision 1 — reject logging/training-use by default (answers Open question 1)
@@ -453,19 +451,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (6)
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finalize-merge-upstream-master-into-llm-20260822.md) — Finish CI and merge endo-but-for-bots PR #1048 into llm
+- [`fix-local-verify-node24-eslint-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-local-verify-node24-eslint-parity.md) — Restore local verification parity with Node 24 lint CI
 - [`groom-parked-job-queue-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-parked-job-queue-20260822.md) — Groom the job board's parked-job queue: prune confirmed-moot entries
 - [`ironhorse-js26-milestone-consolidation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-consolidation.md) — ---
-- [`kriscendobot-minion.town-pr20-review-c7ac7b26-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-review-c7ac7b26-retro.md) — Retrospective on kriscendobot/minion.town PR #20 (primary: kriscendobot-minio...
-- [`kriscendobot-minion.town-pr21-review-cdeb6f79-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr21-review-cdeb6f79-retro.md) — Retrospective on kriscendobot/minion.town PR #21 (primary: kriscendobot-minio...
-- [`kriscendobot-minion.town-pr37-1d4d0715-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-1d4d0715-retro.md) — Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr37-review-41d400bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-review-41d400bb-retro.md) — Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr39-review-fb0be7ca-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-review-fb0be7ca-retro.md) — Retrospective on kriscendobot/minion.town PR #39 (primary: kriscendobot-minio...
 
-### tada (5396)
+### tada (5399)
+- [`kriscendobot-minion.town-pr21-review-cdeb6f79-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr21-review-cdeb6f79-retro.md) — Completion report
+- [`kriscendobot-minion.town-pr20-review-c7ac7b26-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr20-review-c7ac7b26-retro.md) — Cost
+- [`kriscendobot-minion.town-pr37-1d4d0715-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-1d4d0715-retro.md) — Completion report
 - [`kriscendobot-list-pr1-67917e4b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-67917e4b-retro.md) — Completion report
 - [`kriscendobot-list-pr1-1238bca7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-1238bca7-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1046-review-7edcda98`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-review-7edcda98.md) — Completion report — review directive on endojs/endo-but-for-bots#1046
-- [`kriscendobot-garden-pr74-review-f1f9adaa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr74-review-f1f9adaa-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr998-review-e7a43b46-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-e7a43b46-retro.md) — Completion report
-- … and 5391 more
+- … and 5394 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -539,6 +537,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-xs2rust-endor-debugger-caught-vs-uncaught-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-xs2rust-endor-debugger-caught-vs-uncaught-4.md) — _normal_ · ---
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
 - [`ironhorse-campaign-paused-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-campaign-paused-20260816.md) — _normal_ · ---
+- [`ironhorse-js26-milestone-async`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js26-milestone-async.md) — _normal_ · js-26 MILESTONE — async residue (fromAsync + async-generator/for-await + Prom...
+- [`ironhorse-js26-milestone-core-builtins`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js26-milestone-core-builtins.md) — _normal_ · js-26 MILESTONE — self-contained core builtins residue (Date + String/Number/...
+- [`ironhorse-js26-milestone-iterator-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js26-milestone-iterator-collections.md) — _normal_ · js-26 MILESTONE — Iterator global + Iterator Helpers + Map/Set iterator proto...
+- [`ironhorse-js26-milestone-native-callables`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js26-milestone-native-callables.md) — _normal_ · js-26 MILESTONE — invoking native/bound callables (apply/call/bind + Array-me...
+- [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js26-milestone-parser-annexb.md) — _normal_ · js-26 MILESTONE — parser/compiler-unimplemented constructs + Annex-B parse (p...
+- [`ironhorse-js26-milestone-with-opcode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js26-milestone-with-opcode.md) — _normal_ · js-26 MILESTONE — the with opcode family (VM prerequisite + Annex-B/language/...
 - [`ironhorse-ocap-workload-optimization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ocap-workload-optimization.md) — _normal_ · The thesis
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
