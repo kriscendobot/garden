@@ -48,3 +48,13 @@ that's #1046's job, already in progress on a separate track. Treat #1046 as
 an expected-soon sibling landing, not something to fold into or race
 against. Later milestones may use hardened262's Ironhorse coverage once
 #1046 actually merges, but the first one should not assume or require it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T07:13:25Z
