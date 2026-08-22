@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: superseded; finbot-pr5-panel-20260801 explicitly says do-NOT-revive the earlier parked panel
+withdrawn_by: gardener:groom-parked-job-queue-20260822
+withdrawn_at: 2026-08-22T07:28:11Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 doomed: true
