@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T08:13:47Z_
+_As of 2026-08-22T08:17:03Z_
 
 ## Latest
 
-Node 24 provisioned and local-verify parity restored across the fleet (main2 c1583f733f); SIWE on-chain authz deployed and live at siwe-idp.minion.town, awaiting maintainer address allowlist to ship Tier 1. Deploy stalled ~3 days despite drained landing — investigate why. The openrouter-zdr-policy job hit wall-clock budget (2400s insufficient; needs resizing). Multiple gauntlet strands mid-pipeline and an orchestration campaign halted on endor-walker-cjs-require requeue exhaustion; parked pending your decision. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are one green CI run from merge but blocked by the fleet node24-runner infra flake recurring across [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#877](https://github.com/endojs/endo-but-for-bots/pull/877) — either merge them directly or fix the runner. The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and CI-green; finish-line ready for human re-review and un-draft.
+Restored Node 24 runtime parity for local verification — the CI/local skew that silently passed locally but failed on Node 24 CI is now closed, but the fix requires fleet hosts to upgrade from Node 22 to Node 24 before deployment (guard will refuse Node-24-pinned projects until then). Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green except for a recurring node24-runner flake and ready to merge with your approval. The byteArray press finished code-side and is green across all engines — [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) await human re-review to clear CHANGES_REQUESTED. SIWE on-chain auth wiring deployed and live; needs your tier-1 allowlist (specific wallet addresses + scopes) to proceed. Deploy has stalled 3d on both leader hosts (18 commits behind origin/main2); investigating. Several orchestrations halted mid-gauntlet and parked jobs awaiting your go-ahead or decisions (OpenRouter ZDR policy now in doin, `wire-siwe-onchain-authz-minion-town` complete pending your tier choices).
 
 ## Parked for maintainer feedback
 
@@ -615,15 +615,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.8M | $958.00 _(notional, rate-card)_ | no quota set |
-| Codex | 19.0M _(+849.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
+| Claude | 111.9M | $959.05 _(notional, rate-card)_ | no quota set |
+| Codex | 19.0M _(+851.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finalize-merge-upstream-master-into-llm-20260822.md) — Finish CI and merge endo-but-for-bots PR #1048 into llm
+- [`openrouter-zdr-data-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-zdr-data-policy.md) — The maintainer's decision (answers Open question 1)
 
 ### tada (5413)
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town.md) — Completion report — wire-siwe-onchain-authz-minion-town
