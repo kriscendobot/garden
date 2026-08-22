@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T03:00:33Z_
+_As of 2026-08-22T03:02:18Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#398](https://github.com/endojs/endo-but-for-bots/pull/398) conduct completed; [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) review jobs active. Three gauntlets halted ([minion.town#48 panel](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-git-content-substrate-gauntlet-panel-5.md), [endor-fixture-parity](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-fixture-parity-ratchet-campaign-halted.md), [ironhorse-coverage-matrix](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-halted.md)); garden deploys on both hosts stalled ~3d (18 commits behind `origin/main2`). Maintainer inbox carries 30+ decisions pending — flagged: [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) blocked only by node24 CI flake (rebase-green cycle re-rolls the failure), and [#869](https://github.com/endojs/endo-but-for-bots/pull/869) closes CRITICAL VM-escape security fix (GHSA-37j7-fg3j-429f) awaiting approval.
+The byteArray press is **complete and green**: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (view refinement + @endo/bytes) are both mergeable with all CI passing and review threads answered; the complementary registry layer [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is also ready, pending human re-review and un-draft. Three gauntlets halted this cycle on panel failures ([endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) git-content-substrate, [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) ironhorse-coverage-matrix, [kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) whoami-tool), and an orchestration ([endor-fixture-parity-ratchet-campaign](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T065506Z-e0dd69.md)) stalled after its first child ([endor-walker-cjs-require](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-xs2rust-endor-debugger-caught-vs-uncaught-2.md)) exceeded requeue limits. Root-repo deploy has been stalled for ~3 days on both hosts (18 commits behind origin/main2). Watch triagers recovered from earlier fetch failures, and two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) eslint-plugin-unicorn, [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) npm-packlist) are MERGE-NOW–ready but blocked by a recurring fleet node24-runner CI flake; the maintainer inbox holds ~30 follow-up messages flagging decisions on deployments, security gates, budget enforcement, and test262 parity unification.
 
 ## Parked for maintainer feedback
 
@@ -413,8 +413,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.0M | $907.67 _(notional, rate-card)_ | no quota set |
-| Codex | 13.1M _(+625.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Claude | 99.1M | $907.84 _(notional, rate-card)_ | no quota set |
+| Codex | 13.2M _(+627.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (8)
@@ -431,13 +431,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-review-90ef14d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-90ef14d6.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-b865f40a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-b865f40a.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (5280)
+### tada (5281)
+- [`endojs-endo-but-for-bots-pr398-shepherd-conduct-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-shepherd-conduct-20260822.md) — orchestration endojs-endo-but-for-bots-pr398-shepherd-conduct-20260822 — HALTED
 - [`endojs-endo-but-for-bots-pr398-conduct-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-conduct-20260822.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-13c49ed1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-13c49ed1.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-489e73fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-489e73fc.md) — Cost
 - [`endojs-endo-but-for-bots-pr398-shepherd-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-shepherd-20260822.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-review-5b54f00b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5b54f00b.md) — Cost
-- … and 5275 more
+- … and 5276 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
