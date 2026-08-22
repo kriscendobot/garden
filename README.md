@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T07:51:50Z_
+_As of 2026-08-22T07:57:21Z_
 
 ## Latest
 
-Deploy stalled for 3 days (18 commits behind both hosts). Five gauntlets halted mid-workflow. Dependabot PRs [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) are merge-ready but blocked by the recurring node24-runner CI flake. byteArray press complete and green ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) awaiting your re-review to clear CHANGES_REQUESTED. Node 24 provisioning landed locally but fleet hosts need redeploy before they can run Node-24 projects. SIWE thunk deployed for minion.town awaiting your address allowlist and tier decision. Inbox has ~30 open messages with decisions pending.
+Node runtime parity guard landed to fix the local-verify/CI Node 24 skew; this host now has Node 24 provisioned, but other hosts won't run Node-24-pinned projects until redeployed. SIWE on-chain authz for minion.town is deployed and live at siwe-idp.minion.town, awaiting your decision on tier (1 only, or 1+2 with schema+reader) and the tier-1 allowlist addresses. The byteArray press is complete and all-green across CI—[#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) have all threads answered and are mergeable pending maintainer re-review; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line registry layer) awaits un-draft and review. Test262 fixture consolidation opened as DRAFT [PR #946](https://github.com/endojs/endo-but-for-bots/pull/946) with an open design question: keep metering microcases separate and unify only expectations accounting, or fold both trees into the upstream parity corpus. Garden's deployed garden checkout has stalled 3d across hosts (18 commits behind origin/main2); investigate why deliberate deploys aren't landing. Several gauntlets and an orchestration (endor-fixture-parity-ratchet) halted mid-stage, flagging stale state or board integrity gaps.
 
 ## Parked for maintainer feedback
 
@@ -485,25 +485,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.4M | $951.04 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+837.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 111.5M | $951.29 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+840.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finalize-merge-upstream-master-into-llm-20260822.md) — Finish CI and merge endo-but-for-bots PR #1048 into llm
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-zdr-policy-and-stealth-lane.md) — Decision 1 — reject logging/training-use by default (answers Open question 1)
-- [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wire-siwe-onchain-authz-minion-town.md) — Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
-### tada (5412)
+### tada (5413)
+- [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town.md) — Completion report — wire-siwe-onchain-authz-minion-town
 - [`review-improve-stale-related-design-direction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-stale-related-design-direction.md) — Completion report
 - [`provision-node24-fleet-hosts-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/provision-node24-fleet-hosts-20260822.md) — Completion report
 - [`deadmail-20260822T073348Z-2bd99c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073348Z-2bd99c.md) — Cost
 - [`deadmail-20260822T072116Z-cf8821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T072116Z-cf8821.md) — Completion report
-- [`deadmail-20260822T073340Z-0229ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073340Z-0229ab.md) — Cost
-- … and 5407 more
+- … and 5408 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -596,6 +595,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pass-style-src-naming.md) — _normal_ · regularize pass-style src file naming convention — endojs/endo-but-for-bots
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-gauntlet-reexport-policy-check.md) — _normal_ · propose a gauntlet check that prevents plain re-export policy violations
 - [`endojs-endo-but-for-bots-pr796-resume-on-immutable-byte-arrays`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr796-resume-on-immutable-byte-arrays.md) — _normal_ · Park PR #796 (hashline core + @endo/crc32) until immutable byte arrays land
+- [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town-followup.md) — _normal_ · Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`explore-ironhorse-promise-chain-shortening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/explore-ironhorse-promise-chain-shortening.md) — _low_ · Explore: promise resolution chain shortening in Ironhorse
 - [`explore-ironhorse-ptc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/explore-ironhorse-ptc.md) — _low_ · Explore: Proper Tail Calls (PTC) in Ironhorse
