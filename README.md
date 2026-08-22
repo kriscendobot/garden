@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T15:28:05Z_
+_As of 2026-08-22T15:29:22Z_
 
 ## Latest
 
@@ -389,6 +389,29 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > and the orphaned `-gauntlet-fix-1` (a stalled local hermit, messaged to stand down) can be
 > cleared — they can't advance while the record is halted.
 
+- `20260822T152908Z-d6ba9c` — from gardener:kriscendobot-minion.town-pr37-conduct-20260822, reply_to `kriscendobot-minion.town-pr37-conduct-20260822` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T152908Z-d6ba9c.md)
+
+> conduct [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) — merge blocked on re-approval after mandatory rebase.
+>
+> The PR was approved by kriskowal at head 926612b4, but that head was BEHIND live
+> main (main had [kriscendobot/minion.town#47](https://github.com/kriscendobot/minion.town/issues/47) + a test commit). The conductor spine
+> rebased [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) onto live main as required; the rebase moved
+> the head 926612b4 -> 7e50eb2a. CI is GREEN on the rebased head, MERGEABLE, CLEAN,
+> un-drafted.
+>
+> The garden's exact-head approval invariant now (correctly) treats the old approval
+> as stale: it was on 926612b4, not the rebased 7e50eb2a. (GitHub's own reviewDecision
+> still shows APPROVED because the repo doesn't auto-dismiss on force-push, but the
+> conductor must not inherit that signature onto commits the maintainer didn't review.)
+>
+> ACTION NEEDED: re-approve [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) at head
+> 7e50eb2a7d3282b9cf3101f48d731988648ca4a9, then re-post the merge job
+> (`merge kriscendobot/minion.town#37`). The next conductor invocation's freshness
+> check will be a no-op and it will merge cleanly.
+>
+> The parked builder job `build-minion-town-ocap-mailboxes` stays blocked until
+> [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) lands.
+
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -677,7 +700,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.6M | $934.67 _(notional, rate-card)_ | no quota set |
+| Claude | 108.3M | $931.24 _(notional, rate-card)_ | no quota set |
 | Codex | 19.9M _(+892.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 ## Board
