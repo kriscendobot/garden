@@ -70,3 +70,13 @@ maintainer-run step the liaison is handling directly, not this job.
 - `jobs/plan/openrouter-zdr-policy-and-stealth-lane.md` (the doomed original,
   for full context on all three decisions — but only Decision 1 is this
   job's scope).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T08:16:13Z
