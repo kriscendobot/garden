@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-22T03:02:18Z_
+_As of 2026-08-22T03:38:13Z_
 
 ## Latest
 
-The byteArray press is **complete and green**: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (view refinement + @endo/bytes) are both mergeable with all CI passing and review threads answered; the complementary registry layer [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is also ready, pending human re-review and un-draft. Three gauntlets halted this cycle on panel failures ([endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) git-content-substrate, [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) ironhorse-coverage-matrix, [kriscendobot/minion.town#48](https://github.com/kriscendobot/minion.town/pull/48) whoami-tool), and an orchestration ([endor-fixture-parity-ratchet-campaign](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T065506Z-e0dd69.md)) stalled after its first child ([endor-walker-cjs-require](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-xs2rust-endor-debugger-caught-vs-uncaught-2.md)) exceeded requeue limits. Root-repo deploy has been stalled for ~3 days on both hosts (18 commits behind origin/main2). Watch triagers recovered from earlier fetch failures, and two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) eslint-plugin-unicorn, [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) npm-packlist) are MERGE-NOW–ready but blocked by a recurring fleet node24-runner CI flake; the maintainer inbox holds ~30 follow-up messages flagging decisions on deployments, security gates, budget enforcement, and test262 parity unification.
+Review work on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed. The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is green across CI, awaiting maintainer re-review to land. Two infrastructure blockers: root-repo deploy stalled 3 days on both hosts; node24-runner CI flake blocks two dependabot PRs—decision needed. Inbox holds 30+ messages with pending decisions.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 25m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 26s)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -413,14 +413,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.1M | $907.84 _(notional, rate-card)_ | no quota set |
-| Codex | 13.2M _(+627.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
+| Claude | 99.2M | $908.01 _(notional, rate-card)_ | no quota set |
+| Codex | 13.4M _(+672.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
-### todo (8)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
-- [`endojs-endo-but-for-bots-pr475-review-e560d700`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-e560d700.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-f1438d1b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f1438d1b.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-f66ed689`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f66ed689.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr719-d5f6af54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr719-d5f6af54.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821.md) — Resume the halted gauntlet on endojs/endo-but-for-bots PR #796
@@ -428,16 +426,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`refresh-pr-review-sequence-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/refresh-pr-review-sequence-20260821.md) — Refresh pr-review-sequence.md (endojs/endo-but-for-bots) — 3 weeks stale
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr475-review-90ef14d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-90ef14d6.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-b865f40a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-b865f40a.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-e560d700`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-e560d700.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-f1438d1b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-f1438d1b.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (5281)
+### tada (5283)
+- [`endojs-endo-but-for-bots-pr475-review-b865f40a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-b865f40a.md) — Cost
+- [`endojs-endo-but-for-bots-pr475-review-90ef14d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-90ef14d6.md) — Cost
 - [`endojs-endo-but-for-bots-pr398-shepherd-conduct-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-shepherd-conduct-20260822.md) — orchestration endojs-endo-but-for-bots-pr398-shepherd-conduct-20260822 — HALTED
 - [`endojs-endo-but-for-bots-pr398-conduct-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-conduct-20260822.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-13c49ed1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-13c49ed1.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-review-489e73fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-489e73fc.md) — Cost
-- [`endojs-endo-but-for-bots-pr398-shepherd-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-shepherd-20260822.md) — Cost
-- … and 5276 more
+- … and 5278 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
