@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-22T04:30:26Z_
+_As of 2026-08-22T05:05:41Z_
 
 ## Latest
 
-`design-openrouter-provider` completed. Three gauntlets halted mid-flight (minion-town-git-content-substrate, endor-fixture-parity-ratchet, ironhorse-coverage-matrix) with PRs stranded in review stages. Two jobs requeued to exhaustion and parked in plan (guard-worker-self-disqualify, ps23-stranded-claims). Root repo deploy stalled ~3d on both hosts, 18 commits behind origin/main2 — investigate why drained deploys aren't landing. Fleet node24-runner CI flake blocks [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) dependabot PRs (both MERGE-NOW on diligence; the same flake also blocks [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#877](https://github.com/endojs/endo-but-for-bots/pull/877)). High-priority byteArray work — [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) — is code-complete and green, awaiting maintainer re-review to clear CHANGES_REQUESTED. Maintainer inbox has 30+ messages with design gates, deployment decisions, disclosure timing, DNSSEC enablement, and quarterly review follow-ups.
+The byteArray program is complete and CI-green across all engines: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (narrow view + @endo/bytes helpers) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim) both have all review threads addressed and await maintainer re-review to clear CHANGES_REQUESTED; the finish-line [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry bytes CapData) is also green and ready for un-draft and review. In parallel, endor-git-bindings has entered the gauntlet CLEAN stage and [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) is in its second FIX round. Two critical blockers demand attention: the garden's root repo deploy has stalled for 3 days (~18 commits behind origin/main2 on both hosts), and a recurring node24-runner CI flake is blocking two mature dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous merge despite MERGE-NOW verdicts.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 53m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -413,25 +413,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.7M | $942.16 _(notional, rate-card)_ | no quota set |
-| Codex | 15.0M _(+713.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Claude | 104.2M | $945.25 _(notional, rate-card)_ | no quota set |
+| Codex | 15.3M _(+742.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-build-endor-git-bindings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-bindings.md) — build: Endor Git bindings — libgit2 via Zig cross-builds (design PR #987)
+- [`endojs-endo-but-for-bots-build-endor-git-bindings-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-bindings-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/endo-but-for-bots PR #4
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #796
 - [`merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-upstream-master-into-llm-20260822.md) — Merge current upstream master into the endo-but-for-bots llm branch
 
-### tada (5294)
+### tada (5295)
+- [`endojs-endo-but-for-bots-build-endor-git-bindings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-build-endor-git-bindings.md) — Cost
 - [`design-openrouter-provider`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-openrouter-provider.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-panel-1.md) — Completion report
 - [`restore-claude-gardeners-ece02cb4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/restore-claude-gardeners-ece02cb4.md) — Cost
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-shepherd.md) — Completion report
-- [`refresh-pr-review-sequence-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/refresh-pr-review-sequence-20260821.md) — Cost
-- … and 5289 more
+- … and 5290 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
