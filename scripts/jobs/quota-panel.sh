@@ -223,15 +223,26 @@ qp_pct() {
 # table plus a basis note). No `claude`/`codex` in the render path. Every cell
 # degrades to "unavailable" / "no quota set" / "n/a" rather than a fake number.
 render_quota_panel() {
-  local win now cutoff
+  local win now cutoff window_label pool_row _pool _provider _account _kind pool_cap anchored_cutoff meter_arg
   win="$GARDEN_QUOTA_PANEL_WINDOW_SECS"
   now="$(qp_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
   cutoff=$(( now - win ))
   local wdays; wdays=$(( win / 86400 )); [ "$wdays" -ge 1 ] || wdays=1
+  window_label="Trailing ${wdays}d"
+  pool_row="$(budget_pool_row "anthropic:$GARDEN" 2>/dev/null || true)"
+  if [ -n "$pool_row" ]; then
+    IFS=$'\t' read -r _pool _provider _account _kind pool_cap <<<"$pool_row"
+    anchored_cutoff="$(meter_window_cutoff anchor 2>/dev/null || true)"
+    if [[ "$anchored_cutoff" =~ ^[0-9]+$ ]]; then
+      cutoff="$anchored_cutoff"
+      window_label="Since Friday 21:00 Pacific reset"
+    fi
+  fi
 
   # ---- Claude row ----
   local c_tok c_tok_disp c_dollars c_dollars_disp c_pct c_quota c_status
-  if c_tok="$(meter_window_total "$win" 2>/dev/null)"; then
+  if [ -n "$pool_row" ]; then meter_arg=anchor; else meter_arg="$win"; fi
+  if c_tok="$(meter_window_total "$meter_arg" 2>/dev/null)"; then
     c_tok_disp="$(qp_human_tokens "$c_tok")"
   else
     c_tok=""; c_tok_disp="unavailable"
@@ -241,7 +252,7 @@ render_quota_panel() {
   else
     c_dollars_disp="unavailable"
   fi
-  c_quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
+  c_quota="${pool_cap:-${GARDEN_TOKEN_WEEKLY_QUOTA:-0}}"
   c_status="$(meter_quota_status 2>/dev/null || echo unknown)"
   case "$c_quota" in
     ''|0|*[!0-9]*) c_pct="no quota set" ;;
@@ -307,7 +318,7 @@ render_quota_panel() {
   fi
 
   # ---- render ----
-  printf '_Trailing %sd window; billable tokens (cache reads excluded). Leader-host local spend._\n\n' "$wdays"
+  printf '_%s; billable tokens (cache reads excluded). Leader-host local spend._\n\n' "$window_label"
   printf '| Provider | Token spend | Dollar spend | %% of quota |\n'
   printf '| --- | --- | --- | --- |\n'
   printf '| Claude | %s | %s | %s |\n' "$c_tok_disp" "$c_dollars_disp" "$c_pct"

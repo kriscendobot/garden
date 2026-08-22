@@ -139,6 +139,20 @@ DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
+# The claim is the universal admission surface: it knows the actual worker host
+# and provider that will pay for the job. Decline the whole claim tick only on a
+# confirmed high-water reading for that pool. Missing config or an unreadable
+# meter is off/unknown and therefore proceeds (fail-open); the handler retains its
+# own final backstop for deploy races and usage accrued after this check.
+CLAIM_POOL="$(budget_pool_for_provider_host "$KIND_PROVIDER" "$GARDEN" "$DIR")"
+if claim_budget_status="$(pool_admits "$CLAIM_POOL" "$DIR")"; then
+  [ "$claim_budget_status" != unknown ] \
+    || log "WARN: budget pool '$CLAIM_POOL' unreadable; claims remain open (fail-open)"
+else
+  log "budget pool '$CLAIM_POOL' is at its high-water mark; declining this claim tick"
+  exit 3
+fi
+
 # Candidate ordering: start at an id-derived offset so N gardeners don't all
 # grab the lexically-first job and collide on every claim.
 mapfile -t cand < <(list_jobs "$DIR" "$JOBS_TODO")

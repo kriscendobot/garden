@@ -1,0 +1,7 @@
+# Seed for journal config/budget-pools. PLACEHOLDER CAPS — NOT CALIBRATED.
+# Replace each weekly-token ceiling with the maintainer's account-specific
+# Claude Code /usage-derived figure (or the recurring calibration output).
+# Columns, tab-separated:
+# pool_id	provider	account/host	ceiling_kind	ceiling
+anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	5000000
+anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	5000000

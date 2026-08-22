@@ -59,10 +59,13 @@ campaign_for_child() {
 }
 
 quota_facts() {
-  local total status quota remaining
+  local total status quota remaining row _pool _provider _account _kind
   quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
-  status="$(meter_quota_status)"
-  total="$(meter_window_total 2>/dev/null || true)"
+  if row="$(budget_pool_row "anthropic:$GARDEN" "$DIR" 2>/dev/null)"; then
+    IFS=$'\t' read -r _pool _provider _account _kind quota <<<"$row"
+  fi
+  status="$(meter_quota_status "anthropic:$GARDEN" "$DIR")"
+  total="$(meter_window_total anchor 2>/dev/null || true)"
   case "$quota" in ''|*[!0-9]*) quota=0 ;; esac
   case "$total" in ''|*[!0-9]*) total=unknown ;; esac
   remaining=unknown
@@ -95,12 +98,17 @@ stage_due_messages() {
   local checkpoint_id checkpoint_path primary_missing checkpoint_missing
   local attempt_billable job_billable job_output token_budget token_remaining budget_source budget_epoch
   local campaign campaign_budget campaign_spend campaign_remaining campaign_json
-  local quota_status quota_spend quota_budget quota_remaining quota_refresh_at
+  local quota_status quota_spend quota_budget quota_remaining quota_refresh_at quota_reset_epoch
   local provider_quota provider_quota_type provider_quota_reset
   local job_quota_status job_quota_refresh
 
   IFS=$'\t' read -r quota_status quota_spend quota_budget quota_remaining < <(quota_facts)
-  quota_refresh_at="$(date -u -d "@$((now + GARDEN_TOKEN_WINDOW_SECS))" +%FT%TZ)"
+  quota_reset_epoch="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
+  if [[ "$quota_reset_epoch" =~ ^[0-9]+$ ]]; then
+    quota_refresh_at="$(date -u -d "@$quota_reset_epoch" +%FT%TZ)"
+  else
+    quota_refresh_at="$(date -u -d "@$((now + GARDEN_TOKEN_WINDOW_SECS))" +%FT%TZ)"
+  fi
 
   while IFS= read -r file_name; do
     [ -n "$file_name" ] || continue

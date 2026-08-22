@@ -11,7 +11,7 @@
 # foreman must check, in PLAIN CODE with NO LLM, whether the garden is at risk of
 # hitting its weekly token quota, and back off if so.
 #
-# THE BILLING MODEL: the WHOLE fleet runs `claude -p` on a SINGLE Claude Max x20
+# THE BILLING MODEL: each Anthropic host maps one-to-one to its own Claude Max x20
 # subscription — NOT an API key. The Admin Usage & Cost API
 # (/v1/organizations/usage_report) is API-key / Console-billing only and does NOT
 # apply to a subscription, so it is deliberately NOT wired here.
@@ -44,22 +44,18 @@
 #   or unreadable. It is no longer the primary source. Ledger format (TSV,
 #   append-only, host-local): <epoch-seconds>\t<billable-tokens>.
 #
-# MULTI-HOST: ~/.claude is PER-HOST, but the Max x20 weekly quota is GLOBAL to the
-# subscription. The current design is a documented SINGLE-HOST assumption
-# (endolinbot is the only `claude -p` spender). If the fleet ever spends on more
-# than one host sharing the one subscription, this per-host sum UNDERCOUNTS.
-#   TODO(multi-host): aggregate across hosts via the journal — each host publishes
-#   its trailing-window total to a journal path and the meter sums them. Until then
-#   a single host is assumed; widening to N hosts without aggregation silently
-#   undercounts and would back off too late.
+# MULTI-HOST: ~/.claude is PER-HOST and each current subscription belongs to one
+# host, so the local sum is exactly the corresponding account's spend. Each host's
+# scaler publishes a cadence-bucketed exact reading under budget/live/<host> for
+# the leader's fleet-wide checks. If one subscription is ever shared by multiple
+# hosts, its pool must aggregate those hosts before this one-host/account topology
+# is changed.
 #
-# THE WEEK BOUNDARY: a rolling trailing window (default 7 days), NOT a fixed
-# calendar reset, because the subscription's actual weekly-reset cadence is not
-# machine-readable to the fleet (OPEN QUESTION — Claude Code `/usage` shows the
-# reset; if it becomes known, set GARDEN_TOKEN_WINDOW_SECS and/or teach
-# meter_window_total a calendar cutoff). A trailing window is the safe default: it
-# can only OVER-count relative to a fixed reset (an event 6 days before a reset
-# still counts for one more day), so it errs toward backing off slightly early.
+# THE WEEK BOUNDARY: the subscription reset is known: Friday 21:00
+# America/Los_Angeles. The default meter window begins at the most recent such
+# anchor (DST-aware). The admission predicate requests that anchored view;
+# meter_window_total itself retains its historical rolling-window interface for
+# reports and compatibility callers.
 #
 # FAIL-OPEN: a missing or unreadable meter must NEVER wedge the pump. When the
 # quota is unset the meter is simply OFF (gating disabled). When the quota is set
@@ -80,8 +76,12 @@
 : "${GARDEN_TOKEN_WEEKLY_QUOTA:=0}"
 # High-water mark as a fraction of the quota; at/over this the foreman backs off.
 : "${GARDEN_TOKEN_BACKOFF_FRACTION:=0.85}"
-# The rolling window, in seconds (default 7 days). See "THE WEEK BOUNDARY" above.
+# The rolling-window compatibility/reporting default. The quota gate itself uses
+# the anchor explicitly.
 : "${GARDEN_TOKEN_WINDOW_SECS:=604800}"
+: "${GARDEN_TOKEN_RESET_TZ:=America/Los_Angeles}"
+: "${GARDEN_TOKEN_RESET_DOW:=5}"       # ISO weekday: Friday
+: "${GARDEN_TOKEN_RESET_HHMM:=21:00}"
 # PRIMARY SOURCE: Claude Code's session-log directory (per-host). Overridable for
 # tests and for a non-default ~/.claude location.
 : "${GARDEN_CCUSAGE_LOGDIR:=${HOME:-/home/$(id -un 2>/dev/null || echo kris)}/.claude/projects}"
@@ -91,9 +91,49 @@
 : "${GARDEN_USAGE_LEDGER:=$GARDEN_STATE/usage/ledger}"
 # Soft cap on ledger lines before an opportunistic prune of out-of-window rows.
 : "${GARDEN_USAGE_LEDGER_MAXLINES:=20000}"
+: "${GARDEN_BUDGET_SNAPSHOT_SECS:=900}"
+: "${GARDEN_BUDGET_SNAPSHOT_MAX_AGE:=1800}"
 
 # Wall clock in epoch seconds, overridable for deterministic tests.
 meter_now() { printf '%s\n' "${GARDEN_USAGE_NOW:-$(date +%s)}"; }
+
+# meter_week_anchor_epoch [now] — most recent Friday 21:00 Pacific at-or-before
+# now. Local-date arithmetic, rather than subtracting 604800 seconds, preserves
+# the wall-clock reset across DST changes. Parse/tooling failure is unknown
+# upstream and therefore fail-open.
+meter_week_anchor_epoch() {
+  local now="${1:-$(meter_now)}" tz="$GARDEN_TOKEN_RESET_TZ"
+  local dow="$GARDEN_TOKEN_RESET_DOW" hhmm="$GARDEN_TOKEN_RESET_HHMM"
+  local cur today back day anchor
+  [[ "$now" =~ ^[0-9]+$ ]] || return 1
+  cur="$(TZ="$tz" date -d "@$now" +%u 2>/dev/null)" || return 1
+  today="$(TZ="$tz" date -d "@$now" +%Y-%m-%d 2>/dev/null)" || return 1
+  back=$(( (cur - dow + 7) % 7 ))
+  day="$(TZ="$tz" date -d "$today $back days ago" +%Y-%m-%d 2>/dev/null)" || return 1
+  anchor="$(TZ="$tz" date -d "$day $hhmm" +%s 2>/dev/null)" || return 1
+  if [ "$anchor" -gt "$now" ]; then
+    anchor="$(TZ="$tz" date -d "$day $hhmm 7 days ago" +%s 2>/dev/null)" || return 1
+  fi
+  printf '%s\n' "$anchor"
+}
+
+meter_next_reset_epoch() {
+  local now="${1:-$(meter_now)}" anchor day
+  anchor="$(meter_week_anchor_epoch "$now")" || return 1
+  day="$(TZ="$GARDEN_TOKEN_RESET_TZ" date -d "@$anchor" +%Y-%m-%d 2>/dev/null)" || return 1
+  TZ="$GARDEN_TOKEN_RESET_TZ" date -d "$day $GARDEN_TOKEN_RESET_HHMM 7 days" +%s 2>/dev/null
+}
+
+meter_window_cutoff() {
+  local now window="${1:-$GARDEN_TOKEN_WINDOW_SECS}"
+  now="$(meter_now)"; [[ "$now" =~ ^[0-9]+$ ]] || return 1
+  if [ "$window" = anchor ]; then
+    meter_week_anchor_epoch "$now"
+  else
+    [[ "$window" =~ ^[1-9][0-9]*$ ]] || return 1
+    printf '%s\n' "$((now - window))"
+  fi
+}
 
 # meter_record <billable-tokens> — append one usage event to the FALLBACK ledger.
 # Ignores empty/non-integer/zero input. Atomic append; never fails the caller.
@@ -183,9 +223,8 @@ _meter_session_total() {
 #   0 with <sum> when a source was read OK (sum may be 0),
 #   1            when no source could be read (→ `unknown` upstream → fail open).
 meter_window_total() {
-  local window="${1:-$GARDEN_TOKEN_WINDOW_SECS}" now cutoff ledger
-  now="$(meter_now)"; case "$now" in ''|*[!0-9]*) return 1 ;; esac
-  cutoff=$(( now - window ))
+  local window="${1:-$GARDEN_TOKEN_WINDOW_SECS}" cutoff ledger
+  cutoff="$(meter_window_cutoff "$window")" || return 1
 
   # PRIMARY: Claude Code session logs.
   if [ -d "$GARDEN_CCUSAGE_LOGDIR" ] && [ -r "$GARDEN_CCUSAGE_LOGDIR" ] && [ -x "$GARDEN_CCUSAGE_LOGDIR" ]; then
@@ -204,21 +243,231 @@ meter_window_total() {
   return 1
 }
 
-# meter_quota_status — the one deterministic verdict the foreman gates on. Prints
+# budget_pool_file [journal-dir] — resolve journal config without performing a
+# fetch. Admission callers pass their freshly-synced clone; handler backstops can
+# discover one of the normal service clones. Missing config means meter-off.
+budget_pool_file() {
+  local dir="${1:-}" f
+  if [ -n "${GARDEN_BUDGET_POOLS_FILE:-}" ]; then
+    [ -r "$GARDEN_BUDGET_POOLS_FILE" ] && printf '%s\n' "$GARDEN_BUDGET_POOLS_FILE"
+    return
+  fi
+  if [ -n "$dir" ]; then
+    [ -r "$dir/config/budget-pools" ] && printf '%s\n' "$dir/config/budget-pools"
+    return
+  fi
+  for f in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_GARDENER_CLONE:-}" \
+           "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
+    [ -n "$f" ] && [ -r "$f/config/budget-pools" ] || continue
+    printf '%s\n' "$f/config/budget-pools"; return
+  done
+  return 1
+}
+
+# budget_pool_row <pool> [journal-dir] — print the normalized five-column row.
+budget_pool_row() {
+  local pool="$1" file
+  file="$(budget_pool_file "${2:-}")" || return 1
+  awk -v want="$pool" '
+    /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+    $1 == want { print $1 "\t" $2 "\t" $3 "\t" $4 "\t" $5; found=1; exit }
+    END { if (!found) exit 1 }
+  ' "$file" 2>/dev/null
+}
+
+budget_pool_for_provider_host() {
+  local provider="$1" host="${2:-$GARDEN}" dir="${3:-}" candidate
+  candidate="$provider:$host"
+  if budget_pool_row "$candidate" "$dir" >/dev/null 2>&1; then printf '%s\n' "$candidate"; else printf '%s\n' "$provider"; fi
+}
+
+meter_verdict() {
+  local total="$1" quota="$2" frac="${3:-$GARDEN_TOKEN_BACKOFF_FRACTION}"
+  if awk -v t="$total" -v q="$quota" -v f="$frac" 'BEGIN { exit !(t >= q*f) }'; then
+    printf 'backoff\n'
+  else
+    printf 'ok\n'
+  fi
+}
+
+# Journal fallback for a remote Anthropic account. The local account always uses
+# session logs; a leader cannot read another host's ~/.claude, so the immutable
+# per-job ledger supplies the best available remote reading. Unmetered/malformed
+# rows make the remote status unknown (fail-open), never an invented zero.
+meter_journal_host_tokens() {
+  local dir="$1" host="$2" cutoff files
+  [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 1
+  files=("$dir"/usage/*.jsonl)
+  [ -e "${files[0]}" ] || { printf '0\n'; return 0; }
+  jq -sre --arg host "$host" --argjson cutoff "$cutoff" '
+    [ .[] | select(.host == $host)
+      | select((.ts | fromdateiso8601? // -1) >= $cutoff) ] as $rows
+    | if any($rows[];
+        (.source? == "none") or
+        ([.input_tokens?,.output_tokens?,.cache_creation_tokens?] | any(. == null or type != "number" or . < 0)))
+      then error("unmetered")
+      else reduce $rows[] as $r (0; . + $r.input_tokens + $r.output_tokens + $r.cache_creation_tokens)
+      end
+  ' "${files[@]}" 2>/dev/null
+}
+
+# meter_remote_snapshot_total <journal-dir> <pool> <cap> <cutoff> — consume the
+# exact session-log reading published by that pool's owning host. Stale/mismatched
+# snapshots are unknown, never trusted as a lower bound.
+meter_remote_snapshot_total() {
+  local dir="$1" pool="$2" cap="$3" cutoff="$4" host file p c w s at now max_age
+  max_age="$GARDEN_BUDGET_SNAPSHOT_MAX_AGE"; [[ "$max_age" =~ ^[1-9][0-9]*$ ]] || max_age=1800
+  host="${pool#*:}"; file="$dir/budget/live/$host"
+  [ -r "$file" ] || return 1
+  p="$(sed -n 's/^pool:[[:space:]]*//p' "$file" | head -1)"
+  c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
+  w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"
+  s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
+  at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
+  now="$(meter_now)"
+  [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] \
+    && [[ "$s" =~ ^[0-9]+$ ]] && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] \
+    && [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] \
+    || return 1
+  printf '%s\n' "$s"
+}
+
+# budget_publish_local_pool <synced-journal-clone> — every host's existing scaler
+# timer publishes a cadence-bucketed exact session-log reading. This is the small
+# cross-host bridge the leader needs for fleet admission/leveling; at most one
+# journal commit per host per snapshot bucket, and any failure merely leaves the
+# remote verdict unknown (fail-open).
+budget_publish_local_pool() {
+  local dir="$1" pool="anthropic:$GARDEN" row _provider _account kind cap
+  local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs
+  row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || return 0
+  IFS=$'\t' read -r _ _provider _account kind cap <<<"$row"
+  [ "$kind" = weekly-tokens ] && [[ "$cap" =~ ^[1-9][0-9]*$ ]] || return 0
+  cutoff="$(meter_window_cutoff anchor)" || return 0
+  spend="$(meter_window_total anchor)" || return 0
+  now="$(meter_now)"; [[ "$now" =~ ^[0-9]+$ ]] || return 0
+  snapshot_secs="$GARDEN_BUDGET_SNAPSHOT_SECS"; [[ "$snapshot_secs" =~ ^[1-9][0-9]*$ ]] || snapshot_secs=900
+  bucket=$((now / snapshot_secs))
+  file="$dir/budget/live/$GARDEN"
+  old_bucket="$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+  [ "$old_bucket" != "$bucket" ] || return 0
+  old_status="$(sed -n 's/^status:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+  status="$(meter_verdict "$spend" "$cap")"
+  mkdir -p "$(dirname "$file")"
+  {
+    printf 'pool: %s\n' "$pool"
+    printf 'host: %s\n' "$GARDEN"
+    printf 'window_start_epoch: %s\n' "$cutoff"
+    printf 'spend: %s\n' "$spend"
+    printf 'cap: %s\n' "$cap"
+    printf 'status: %s\n' "$status"
+    printf 'sampled_at_epoch: %s\n' "$now"
+    printf 'sampled_at: %s\n' "$(date -u -d "@$now" +%FT%TZ)"
+    printf 'sample_bucket: %s\n' "$bucket"
+  } > "$file"
+  git -C "$dir" add "budget/live/$GARDEN"
+  rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status spend=$spend/$cap" || rc=$?
+  if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then
+    if [ "$old_status" != "$status" ] && { [ -n "$old_status" ] || [ "$status" = backoff ]; }; then
+      alert_maintainer "budget-zone-$GARDEN-$status" \
+        "budget pool $pool changed zone ${old_status:-unpublished} -> $status at spend=$spend of cap=$cap (high-water $GARDEN_TOKEN_BACKOFF_FRACTION; Friday 21:00 Pacific window)."
+    fi
+    return 0
+  fi
+  return 1
+}
+
+meter_journal_provider_usd() {
+  local dir="$1" provider="$2" cutoff files
+  [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 1
+  files=("$dir"/usage/*.jsonl)
+  [ -e "${files[0]}" ] || { printf '0\n'; return 0; }
+  jq -sre --arg provider "$provider" --argjson cutoff "$cutoff" '
+    [ .[] | select(.provider? == $provider)
+      | select((.ts | fromdateiso8601? // -1) >= $cutoff) ] as $rows
+    | if any($rows[]; (.total_cost_usd? | type) != "number" or .total_cost_usd < 0)
+      then error("unpriced")
+      else reduce $rows[] as $r (0; . + $r.total_cost_usd)
+      end
+  ' "${files[@]}" 2>/dev/null
+}
+
+# meter_quota_status [pool [journal-dir]] — the deterministic admission verdict.
+# With no pool it preserves the historical current-host interface, deriving that
+# host's quota from config/budget-pools when the environment did not set one.
 # exactly one word and always returns 0:
 #   off      — no quota configured; gating disabled (proceed silently).
 #   unknown  — quota set but the meter could not be read (proceed, but WARN).
 #   ok       — under the high-water mark (proceed).
 #   backoff  — at/over the high-water mark (pause the pump).
 meter_quota_status() {
-  local quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}" frac="${GARDEN_TOKEN_BACKOFF_FRACTION:-0.85}" total
-  case "$quota" in ''|0|*[!0-9]*) printf 'off\n'; return 0 ;; esac
-  total="$(meter_window_total)" || { printf 'unknown\n'; return 0; }
-  if awk -v t="$total" -v q="$quota" -v f="$frac" 'BEGIN { exit !(t >= q*f) }'; then
-    printf 'backoff\n'
+  local pool="${1:-}" dir="${2:-}" quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
+  local row provider account kind total cutoff
+  if [ -z "$pool" ]; then
+    pool="anthropic:$GARDEN"
+    if row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)"; then
+      IFS=$'\t' read -r _ provider account kind quota <<<"$row"
+      export GARDEN_TOKEN_WEEKLY_QUOTA="$quota"
+    else
+      case "$quota" in ''|0|*[!0-9]*) printf 'off\n'; return 0 ;; esac
+      # The environment-only compatibility path retains its historical explicit
+      # rolling window. Journal-configured pools below use the fixed reset anchor.
+      total="$(meter_window_total "$GARDEN_TOKEN_WINDOW_SECS")" || { printf 'unknown\n'; return 0; }
+      meter_verdict "$total" "$quota"; return 0
+    fi
   else
-    printf 'ok\n'
+    row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || { printf 'off\n'; return 0; }
+    IFS=$'\t' read -r _ provider account kind quota <<<"$row"
   fi
+
+  case "$kind" in
+    unmetered) printf 'ok\n'; return 0 ;;
+    weekly-tokens)
+      case "$quota" in ''|0|*[!0-9]*) printf 'off\n'; return 0 ;; esac
+      if [ "$provider" != anthropic ]; then printf 'unknown\n'; return 0; fi
+      if [ "$account" = "$GARDEN" ]; then
+        export GARDEN_TOKEN_WEEKLY_QUOTA="$quota"
+        total="$(meter_window_total anchor)" || { printf 'unknown\n'; return 0; }
+      else
+        cutoff="$(meter_window_cutoff anchor)" || { printf 'unknown\n'; return 0; }
+        total="$(meter_remote_snapshot_total "$dir" "$pool" "$quota" "$cutoff" 2>/dev/null || true)"
+        if ! [[ "$total" =~ ^[0-9]+$ ]]; then
+          total="$(meter_journal_host_tokens "$dir" "$account" "$cutoff")" || { printf 'unknown\n'; return 0; }
+        fi
+      fi
+      ;;
+    weekly-usd)
+      [[ "$quota" =~ ^[0-9]+([.][0-9]+)?$ ]] || { printf 'off\n'; return 0; }
+      cutoff="$(meter_window_cutoff anchor)" || { printf 'unknown\n'; return 0; }
+      total="$(meter_journal_provider_usd "$dir" "$provider" "$cutoff")" || { printf 'unknown\n'; return 0; }
+      ;;
+    *) printf 'unknown\n'; return 0 ;;
+  esac
+  meter_verdict "$total" "$quota"
+}
+
+# pool_admits <pool> [journal-dir] — print the verdict and return false only for
+# confirmed backoff. Unknown/off are deliberately true: every caller fails open.
+pool_admits() {
+  local status
+  status="$(meter_quota_status "$1" "${2:-}")"
+  printf '%s\n' "$status"
+  [ "$status" != backoff ]
+}
+
+# budget_fleet_status [journal-dir] — backoff only when every configured bounded
+# pool is confirmed backoff. A missing/unreadable/off pool keeps admission open.
+budget_fleet_status() {
+  local dir="${1:-}" file pool _provider _account kind _cap status seen=0
+  file="$(budget_pool_file "$dir")" || { printf 'off\n'; return 0; }
+  while IFS=$'\t ' read -r pool _provider _account kind _cap _rest; do
+    case "$pool" in ''|'#'*) continue ;; esac
+    [ "$kind" != unmetered ] || continue
+    seen=1
+    status="$(meter_quota_status "$pool" "$dir")"
+    [ "$status" = backoff ] || { printf '%s\n' "$status"; return 0; }
+  done < "$file"
+  [ "$seen" -eq 1 ] && printf 'backoff\n' || printf 'off\n'
 }
 
 # meter_claude [<claude-args>...] — run `claude` in print mode, RECORD the call's
@@ -351,7 +600,7 @@ usage_capture_rusage() {
 # Stage one append-only CostRecord.  This is stage-only so a completion can carry
 # its row on the existing completion push while failures use usage-append.sh.
 usage_ledger_stage_row() {
-  local dir="$1" base="$2" elapsed="$3" outcome="$4" measurement="${5:-}" jf tada_path role row
+  local dir="$1" base="$2" elapsed="$3" outcome="$4" measurement="${5:-}" jf tada_path role provider row
   mkdir -p "$dir/usage" || return 1
   jf="$dir/$JOBS_DOIN/$base.md"
   if [ ! -f "$jf" ]; then
@@ -359,14 +608,16 @@ usage_ledger_stage_row() {
     [ -z "$tada_path" ] || jf="$dir/$tada_path"
   fi
   role="$(plan_role "$jf" 2>/dev/null || true)"
+  provider="$(sed -n 's/^[[:space:]]*provider:[[:space:]]*//p' "$jf" 2>/dev/null | tail -1)"
   case "$elapsed" in ''|*[!0-9]*) elapsed=0 ;; esac
   if command -v jq >/dev/null 2>&1 && [ -n "$measurement" ] && jq -e . >/dev/null 2>&1 <<<"$measurement"; then
-    row="$(jq -cn --arg ts "$(date -u +%FT%TZ)" --arg base "$base" --arg host "$GARDEN" \
+    row="$(jq -cn --arg ts "$(date -u +%FT%TZ)" --arg base "$base" --arg host "$GARDEN" --arg provider "$provider" \
       --arg gardener "${GARDEN_GARDENER_ID:-}" --arg role "$role" --arg outcome "$outcome" --argjson elapsed "$elapsed" \
       --argjson measurement "$measurement" '
         $measurement + {ts:$ts,base:$base,host:$host,outcome:$outcome,elapsed_s:$elapsed}
         + (if $gardener!="" then {gardener:($gardener|tonumber)} else {} end)
-        + (if $role!="" then {role:$role} else {} end)' 2>/dev/null)" || return 1
+        + (if $role!="" then {role:$role} else {} end)
+        + (if $provider!="" then {provider:$provider} else {} end)' 2>/dev/null)" || return 1
   else
     row="{\"ts\":\"$(date -u +%FT%TZ)\",\"base\":\"$base\",\"host\":\"$GARDEN\",\"outcome\":\"$outcome\",\"source\":\"none\",\"elapsed_s\":$elapsed}"
   fi

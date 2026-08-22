@@ -190,6 +190,11 @@ fi
 if [ -n "$budget_resets_at" ] && ! date -u -d "$budget_resets_at" +%s >/dev/null 2>&1; then
   die "--budget-resets-at must be a parseable timestamp"
 fi
+if $budget_hold && [ -z "$budget_resets_at" ]; then
+  budget_reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
+  [[ "$budget_reset_epoch" =~ ^[0-9]+$ ]] \
+    && budget_resets_at="$(date -u -d "@$budget_reset_epoch" +%FT%TZ)"
+fi
 
 # Body source guard: a non-empty body arg that is not a readable file is almost
 # always a mistake (an inline body STRING passed where a body-FILE path is

@@ -186,6 +186,37 @@ if [ -z "$identity" ]; then
 fi
 [ -n "$identity" ] && idhash="$(job_id_hash "$identity")" || idhash=""
 
+# A direct producer normally targets todo/. When every configured bounded pool
+# is *confirmed* at high water, preserve the work in plan/ as a machine-refreshable
+# budget hold instead. Unknown/off configuration remains transparent. Keep this
+# native to post-job so directive-identity indexing and all body normalization stay
+# atomic with the routed post.
+sync_clone "$DIR"
+fleet_budget_status="$(budget_fleet_status "$DIR")"
+route_budget_hold=false
+POST_BODY="$BODY"
+if [ "$fleet_budget_status" = backoff ]; then
+  route_budget_hold=true
+  reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
+  reset_iso=""
+  [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ)"
+  POST_BODY="$(
+    printf -- '---\n'
+    printf 'gate: go-ahead\n'
+    printf 'budget_hold: true\n'
+    printf 'park_reason: over-token-budget\n'
+    printf 'parked_for_budget_at: %s\n' "$(date -u +%FT%TZ)"
+    printf 'budget_window_seconds: %s\n' "$GARDEN_TOKEN_WINDOW_SECS"
+    [ -n "$reset_iso" ] && printf 'budget_resets_at: %s\n' "$reset_iso"
+    printf 'posted_by: %s\n' "${GARDEN_SENDER:-producer}"
+    printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '---\n\n%s\n' "$BODY"
+  )"
+  log "all configured budget pools are at high water; routing '$base' to plan/ --budget-hold"
+elif [ "$fleet_budget_status" = unknown ]; then
+  log "WARN: fleet budget state unreadable; posting '$base' to todo/ (fail-open)"
+fi
+
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
   # Basename dedup. A same-named LIVE job (plan/todo/doin) is always a no-op — the base
@@ -240,16 +271,22 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     fi
   fi
 
-  mkdir -p "$DIR/$JOBS_TODO"
-  printf '%s\n' "$BODY" > "$DIR/$JOBS_TODO/$base.md"
-  git -C "$DIR" add "$JOBS_TODO/$base.md"
+  if $route_budget_hold; then target_dir="$JOBS_PLAN"; else target_dir="$JOBS_TODO"; fi
+  mkdir -p "$DIR/$target_dir"
+  printf '%s\n' "$POST_BODY" > "$DIR/$target_dir/$base.md"
+  git -C "$DIR" add "$target_dir/$base.md"
   if [ -n "$idhash" ]; then
     mkdir -p "$DIR/$JOBS_INDEX"
     printf 'base: %s\nidentity: %s\n' "$base" "$identity" > "$idx"
     git -C "$DIR" add "$JOBS_INDEX/$idhash"
   fi
-  if commit_and_push "$DIR" "todo($base) posted by $GARDEN${identity:+ [id:$identity]}"; then
-    log "posted '$base'${identity:+ (identity '$identity')}"
+  if $route_budget_hold; then action="plan($base) budget-held"; else action="todo($base) posted"; fi
+  if commit_and_push "$DIR" "$action by $GARDEN${identity:+ [id:$identity]}"; then
+    if $route_budget_hold; then
+      log "parked '$base' in plan/ (budget-hold)${identity:+ (identity '$identity')}"
+    else
+      log "posted '$base'${identity:+ (identity '$identity')}"
+    fi
     exit 0
   fi
   log "post of '$base' lost a push race (attempt $attempt); re-syncing"

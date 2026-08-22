@@ -15,7 +15,7 @@ sync_clone "$DIR"
 
 now="${GARDEN_BUDGET_REFRESH_NOW:-$(date -u +%s)}"
 [[ "$now" =~ ^[0-9]+$ ]] || { clone_unlock "$DIR"; die "invalid refresh clock '$now'"; }
-quota_status="$(meter_quota_status)"
+quota_status="$(meter_quota_status "anthropic:$GARDEN" "$DIR")"
 due=()
 for name in $(list_jobs "$DIR" "$JOBS_PLAN"); do
   plan="$DIR/$JOBS_PLAN/$name"
@@ -32,10 +32,11 @@ for name in $(list_jobs "$DIR" "$JOBS_PLAN"); do
   fi
   parked="$(plan_field "$plan" parked_for_budget_at)"
   parked_epoch="$(date -u -d "$parked" +%s 2>/dev/null || true)"
-  window="$(plan_field "$plan" budget_window_seconds)"
-  [[ "$window" =~ ^[1-9][0-9]*$ ]] || window="$GARDEN_TOKEN_WINDOW_SECS"
-  if [[ "$parked_epoch" =~ ^[0-9]+$ ]] \
-     && [ "$now" -ge $((parked_epoch + window)) ] \
+  reset_epoch=""
+  [[ "$parked_epoch" =~ ^[0-9]+$ ]] \
+    && reset_epoch="$(meter_next_reset_epoch "$parked_epoch" 2>/dev/null || true)"
+  if [[ "$reset_epoch" =~ ^[0-9]+$ ]] \
+     && [ "$now" -ge "$reset_epoch" ] \
      && [ "$quota_status" != backoff ]; then
     due+=("$base")
   fi

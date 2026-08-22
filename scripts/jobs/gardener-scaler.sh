@@ -27,6 +27,14 @@ sync_clone "$DIR"
 
 host="$GARDEN"
 
+# Publish this host/account's exact anchored session-log reading on the scaler's
+# existing every-host minute substrate. The publisher cadence-buckets writes (15m
+# default), so the leader can evaluate remote pools without a new timer or access
+# to another host's ~/.claude. Failure is only a visibility gap and must not block
+# worker reconciliation.
+budget_publish_local_pool "$DIR" \
+  || log "WARN: could not publish live budget snapshot; remote admission remains fail-open"
+
 # Host-identity DRIFT guard — a deterministic preflight that runs EVERY tick,
 # host-level, independent of the desired-count read below. It catches the drift
 # class the reconcile step CANNOT: when the gitignored .garden file (or an

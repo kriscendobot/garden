@@ -81,12 +81,13 @@ GARDEN_TAG="foreman"
 # Token-quota back-off knobs (defaults declared in usage-meter.sh; restated here so
 # the foreman's tunables read together). The foreman pumps spend autonomously, so
 # it is the right place to gate on the garden's weekly token budget. The meter is
-# sourced from Claude Code's OWN session logs (~/.claude/projects/**/*.jsonl) — the
-# whole fleet runs `claude -p` on a single Max x20 SUBSCRIPTION, so the Admin Usage
-# & Cost API (API-key/Console only) does NOT apply and is deliberately not wired.
-#   GARDEN_TOKEN_WEEKLY_QUOTA     weekly token ceiling; 0/unset = meter OFF (no gating).
+# sourced from Claude Code's OWN session logs (~/.claude/projects/**/*.jsonl), one
+# independent account per host. The Admin Usage & Cost API (API-key/Console only)
+# does NOT apply and is deliberately not wired.
+#   config/budget-pools          per-host weekly ceiling (journal source of truth).
+#   GARDEN_TOKEN_WEEKLY_QUOTA    fallback when no current-host pool row exists.
 #   GARDEN_TOKEN_BACKOFF_FRACTION high-water mark as a fraction of quota (default 0.85).
-#   GARDEN_TOKEN_WINDOW_SECS      rolling window in seconds (default 604800 = 7 days).
+#   GARDEN_TOKEN_RESET_*          Friday 21:00 America/Los_Angeles by default.
 #   GARDEN_CCUSAGE_LOGDIR         Claude Code session-log dir (primary source).
 #   GARDEN_USAGE_LEDGER           legacy ledger path (fallback only).
 # At/over the high-water mark the foreman pumps NOTHING this tick and emits at most
@@ -212,7 +213,7 @@ if [ "$GARDEN_FOREMAN_HANDLER" = "$HERE/handlers/foreman-claude.sh" ]; then
 fi
 if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" in
   backoff)
-    note_once "token-backoff" "foreman: garden weekly token usage is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark of the ${GARDEN_TOKEN_WEEKLY_QUOTA}-token quota (rolling ${GARDEN_TOKEN_WINDOW_SECS}s window). Pausing the autonomous pump until usage falls back under the mark."
+    note_once "token-backoff" "foreman: this host's Anthropic pool is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark of its configured weekly quota (Friday 21:00 Pacific window). Pausing the autonomous pump until usage falls back under the mark."
     log "token quota high-water reached; backing off (no pump this tick)"
     exit 0
     ;;
@@ -223,6 +224,21 @@ if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" i
     ;;
   off|ok) : ;;   # no quota configured, or under the mark — pump as normal
 esac; fi
+
+# Promotion has no claimant yet, so its admission check is deliberately coarse:
+# stop the batch only when *all* configured bounded pools are confirmed in
+# backoff. A single ok/off/unknown pool keeps promotion live; the later claim gate
+# makes the precise host/account decision.
+case "$(budget_fleet_status "$DIR")" in
+  backoff)
+    note_once "fleet-budget-backoff" "foreman: every configured budget pool is at its high-water mark; deferred-plan promotion and new pumping are paused until the Friday 21:00 Pacific quota refresh."
+    log "all configured budget pools at high water; stopping promotion/pump this tick"
+    exit 0
+    ;;
+  unknown)
+    log "WARN: fleet budget state unreadable; promotion remains open (fail-open)"
+    ;;
+esac
 
 # --- sustained below-target: fill the open slots from deferred plan jobs ------
 # Before generating a NEW step (a `claude -p` call), fill the open slots with

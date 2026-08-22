@@ -31,16 +31,14 @@ Environment=GARDEN_FOREMAN_ACTIVE_TARGET=0
 # (~/.claude/projects/**/*.jsonl) — NOT the Admin Usage/Cost API, which does not
 # apply to a subscription. See scripts/jobs/usage-meter.sh for the full design.
 #
-# ARMING THE GATE: set GARDEN_TOKEN_WEEKLY_QUOTA to the Max x20 WEEKLY token
-# allowance to turn the gate ON. It is UNSET here on purpose: the subscription's
-# weekly token ceiling is not machine-readable (Claude Code `/usage` shows usage,
-# not a token cap), so the number is a MAINTAINER CONFIG VALUE — fill it in below
-# (or via a drop-in like pause.conf) rather than guessing. Until it is set the
-# meter is OFF (no gating) and the foreman pumps unthrottled.
-#   Environment=GARDEN_TOKEN_WEEKLY_QUOTA=<weekly token allowance>
+# The per-account cap is loaded from journal config/budget-pools by this host's
+# GARDEN identity. The seeded values are conservative placeholders until the
+# maintainer supplies `/usage`-derived caps; missing/unreadable config fails open.
+# GARDEN_TOKEN_WEEKLY_QUOTA remains a test/emergency fallback when no pool row is
+# available.
 # Optional tunables (defaults shown; uncomment to override):
 #   Environment=GARDEN_TOKEN_BACKOFF_FRACTION=0.85   # back off at 85% of quota
-#   Environment=GARDEN_TOKEN_WINDOW_SECS=604800      # rolling 7-day window
+# The quota cutoff is fixed at Friday 21:00 America/Los_Angeles (DST-aware).
 #   Environment=GARDEN_TOKEN_COUNT_CACHE_READ=0      # 1 = also count cache_read
 #   Environment=GARDEN_CCUSAGE_LOGDIR=%h/.claude/projects  # session-log location
 # Leader-only singleton: run only on the host whose GARDEN identity matches the

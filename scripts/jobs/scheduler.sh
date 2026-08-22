@@ -340,6 +340,17 @@ DIR="${GARDEN_SCHEDULER_CLONE:-$GARDEN_STATE/scheduler/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
+# The live-budget leveler is a deterministic controller, not a job. Run it on
+# this existing 15-minute leader-only scheduler substrate so it follows leader
+# handoff and never dispatches an LLM merely to adjust worker counts. Failures are
+# loud but fail-open for scheduling: an admission-accounting bug must not starve
+# unrelated recurring jobs.
+if [ "${GARDEN_BUDGET_LEVEL_ENABLED:-1}" = 1 ]; then
+  if ! "$HERE/budget-level.sh"; then
+    log "WARN: budget-level controller tick failed; scheduled dispatch continues (fail-open)"
+  fi
+fi
+
 now="$(scheduler_now)"
 dispatched=0
 for name in $(list_jobs "$DIR" schedules); do
