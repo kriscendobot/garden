@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: endojs/endo-but-for-bots#910 MERGED 2026-08-20; orchestration pr910-review-4941452327-resolution already completed in tada/
+withdrawn_by: gardener:groom-parked-job-queue-20260822
+withdrawn_at: 2026-08-22T07:27:19Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: pr910-review-4941452327-resolution
 priority: high
