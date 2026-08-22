@@ -138,3 +138,13 @@ A completion report naming exactly what was pruned (and via what mechanism
 -- the new/found script, or a justified `git rm` with a clear commit
 message either way), what was left alone and why (uncertain cases), and
 the plan-queue file count before/after.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T07:15:14Z
