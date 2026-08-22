@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T15:12:10Z_
+_As of 2026-08-22T15:24:13Z_
 
 ## Latest
 
@@ -8,7 +8,6 @@ Board remains quiet—one job entered work, 2 active. Deploy stalled 3d on both 
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 9m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 24d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 34d)
@@ -18,8 +17,9 @@ Board remains quiet—one job entered work, 2 active. Deploy stalled 3d on both 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 51d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 67d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 101d)
+- [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) — feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting 101d)
 
-_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
@@ -352,6 +352,14 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > Cleanup you may want: the stale HALTED tada record and the orphaned fix-1 doin job can
 > be removed once this settles (I'm avoiding journal-record surgery from a gardener
 > handler). Will report the panel disposition and un-draft outcome.
+
+- `20260822T152358Z-a7f0fa` — from gardener:endojs-endo-but-for-bots-pr897-657aab6a, reply_to `endojs-endo-but-for-bots-pr897-657aab6a` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T152358Z-a7f0fa.md)
+
+> [endojs/endo-but-for-bots#897](https://github.com/endojs/endo-but-for-bots/issues/897) ("fix(daemon): [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) panel must-fix + summary-fix bundle") — Weave + shepherd done.
+>
+> WEAVE: rebased the 4-commit branch onto current upstream/llm (was 274 behind, CONFLICTING → now MERGEABLE). One real conflict, in the header of packages/platform/src/fs/search-types.ts (upstream renamed it from search.types.d.ts): the branch's "drop dangling design citations" change is now obsolete because designs/platform-search-pushdown.md HAS since landed on llm. Resolved by keeping the (now-valid) citations, restored the same citations in search.js / interfaces.js / search.test.js that auto-merge had silently dropped, and reworded that commit's message accordingly. New head dc6834e47, force-pushed with lease. Local platform (319) + daemon mount glob/grep/glorp (28) tests pass.
+>
+> SHEPHERD: 25/26 checks green. The lone red is `test (24.x, ubuntu-latest)` → @endo/cli demo tests (counter-example, doubler-agent) failing with "Daemon failed to spawn … manager-node.js … exited null". This is the known Node-24.x/better-sqlite3 native-crash flake (the same one blocking [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)), NOT this PR's diff: the identical demo tests PASS on test(22.x,ubuntu) and test(24.x,macos); only the 24.x-linux cell crashes. Re-ran the failed job 3x — fails consistently right now. Not fixable from a feature branch; it needs the repo-wide Node-24.x/sqlite fix. Flagging for your awareness.
 
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
