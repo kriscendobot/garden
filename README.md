@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T13:49:02Z_
+_As of 2026-08-22T13:51:24Z_
 
 ## Latest
 
-Local-verify Node parity restored after a version-skew gap that caused silent local-pass/CI-fail: [endojs/endo-but-for-bots#1048](https://github.com/endojs/endo-but-for-bots/pull/1048) exposed the issue, and the fix now guards every run, refusing to proceed until the host adopts the project's pinned Node major (main2 57d851dfaf). Node 24 provisioned to the Dockerfile and deployed to fleet hosts (main2 c1583f733f). OpenRouter stealth/ZDR implementation landed: deny-logging enforced as a request constraint on every call, stealth models gated to a separate pool with a mandatory re-review cadence, and reputation-arm unmask migration implemented (all 5 completed jobs on 2026-08-22). SIWE on-chain authz fully deployed to minion.town's policy layer at https://siwe-idp.minion.town; awaiting the tier-1 allowlist (which wallet addresses + scopes) to proceed. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete, green, and gated only on human re-review to clear CHANGES_REQUESTED. [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) addressed the debugger uncaught-exceptions footgun by documenting the C-XS limitation and deferring the native fix to phase 5 of the design (currently paused). Deploy stalled for ~3 days (watchdog alert on both hosts); investigation needed. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by the recurring fleet node24-runner flake—decision needed to merge directly or fix the infra.
+Board remains quiet—one job entered work, 2 active. Deploy stalled 3d on both hosts (18 commits behind main2). From maintainer inbox: bytearray press ready for [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) re-review; SIWE tier-1 allowlist needed for minion.town; node24 parity landed but will fail old hosts until rebuild; three gauntlet PRs halted on panel failures.
 
 ## Parked for maintainer feedback
 
@@ -615,15 +615,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.8M | $932.40 _(notional, rate-card)_ | no quota set |
-| Codex | 19.5M _(+869.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Claude | 110.0M | $932.95 _(notional, rate-card)_ | no quota set |
+| Codex | 19.6M _(+869.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`fix-live-budget-admission-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-live-budget-admission-enforcement.md) — Build the live-budget-admission enforcement (design landed, nothing built)
+- [`minion-town-agenda-review-20260822-135002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260822-135002.md) — Minion Town daily agenda review
 
 ### tada (5418)
 - [`openrouter-zdr-and-stealth-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-zdr-and-stealth-orchestration.md) — orchestration openrouter-zdr-and-stealth-orchestration — complete
