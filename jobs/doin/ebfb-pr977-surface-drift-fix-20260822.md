@@ -46,3 +46,13 @@ the current daemon guest surface on `llm` before changing anything.
 - Context: the prior `lint-unstick` job's lint fix is already landed and green;
   this failure came in with a later panel-1 fix commit (head `dc39fef1`). The
   earlier weave/shepherd attention-directive (`...pr977-64413faf`) was doomed.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T15:29:34Z
