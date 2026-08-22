@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T03:59:13Z_
+_As of 2026-08-22T04:03:19Z_
 
 ## Latest
 
-The byteArray work ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is functionally complete and CI-green across all engines; both feature PRs have shipped fixes for all review threads and are gated on human re-review to clear CHANGES_REQUESTED, while the finish-line registry PR is ready for un-draft and first review. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) passed full botanist vetting with MERGE-NOW verdict but are blocked by the recurring fleet node24-runner infra flake; both are one green CI run from merge, and the 30+ minute queue plus base drift prevent the conductor spine from converging—a direct merge decision or fleet fix is needed to unblock. Deploy is stalled ~3 days behind (committed 745fa90, origin 231ef05); investigate why the deliberate drain hasn't advanced. Three gauntlets halted mid-stage (PRs [#796](https://github.com/endojs/endo-but-for-bots/pull/796) panel resume, [#948](https://github.com/kriscendobot/minion.town/pull/48) build panel, orchestration child [endor-walker-cjs-require](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-fixture-parity-ratchet-campaign-halted.md)), and test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) opened DRAFT with a scope decision deferred to you (keep bespoke metering/determinism corpus separate vs collapse to upstream tree). Inbox holds 30+ open decisions, including DNSSEC for ocap.site, node24 flake remediation, qwen lane fate, and clarification on Josh Corbin's unum omega task-rank scheme.
+Endor git bindings build claimed; upstream master merge ongoing; [#796](https://github.com/endojs/endo-but-for-bots/pull/796) gauntlet in panel round 1. The byteArray program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is code-complete and all CI green, blocked only on maintainer re-review to clear CHANGES_REQUESTED. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but stuck on the recurring node24-runner CI flake. Root deployment stalled 18 commits behind main2 for ~3 days on both hosts.
 
 ## Parked for maintainer feedback
 
@@ -413,24 +413,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.0M | $923.77 _(notional, rate-card)_ | no quota set |
-| Codex | 14.2M _(+683.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 103.3M | $936.08 _(notional, rate-card)_ | no quota set |
+| Codex | 14.2M _(+685.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
+- [`endojs-endo-but-for-bots-build-endor-git-bindings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-bindings.md) — build: Endor Git bindings — libgit2 via Zig cross-builds (design PR #987)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-upstream-master-into-llm-20260822.md) — Merge current upstream master into the endo-but-for-bots llm branch
 
 ### tada (5291)
+- [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-shepherd.md) — Completion report
 - [`refresh-pr-review-sequence-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/refresh-pr-review-sequence-20260821.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-clean.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260822-000501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260822-000501.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821.md) — Cost
-- [`endojs-endo-but-for-bots-pr719-d5f6af54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-d5f6af54.md) — Cost
 - … and 5286 more
 
 ## Plan queue (parked — not claimable until promoted)
@@ -455,7 +455,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
 - [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-build-gauntlet.md) — _normal_ · ---
 - [`endo-sturdyref-enliven-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-enliven-design.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-build-endor-git-bindings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-build-endor-git-bindings.md) — _high_ · build: Endor Git bindings — libgit2 via Zig cross-builds (design PR #987)
 - [`endojs-endo-but-for-bots-pr1006-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1006-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1006
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
 - [`endojs-endo-but-for-bots-pr1024-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1024-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1024
