@@ -1,18 +1,29 @@
-Inbox empty. The work is complete: I diagnosed the failure, determined it's out of shepherd scope, escalated via a parked plan job, and documented the finding on the PR.
+My inbox is empty and CI is fully green. The shepherd's work is complete — there is nothing red to drive to green.
 
-## Completion report — shepherd on endojs/endo-but-for-bots #132
+## Completion report
 
-**Diagnosis (real evidence).** Fetched live check state (`gh pr checks 132`): 4 failing checks — `cover (20.x)`, `cover (24.x)`, `lint`, `zizmor`; everything else green. Read each failing log:
-- `cover (20.x/24.x)`: `packages/ocapn/test/netlayer-tcp-syrup.test.js exited with a non-zero exit code: 1` (`SyrupAnyCodec: read failed`).
-- `lint`: `packages/ocapn/test/netlayer-tcp-syrup.test.js:7 makeClient not found in '../src/client/index.js'` (import/named), exit 1.
-- `zizmor`: findings in `familiar-release.yml` / `ci.yml` / `release.yml`, exit 14.
+**Job:** shepherd on endojs/endo-but-for-bots PR #132 ("feat(chat): per-message render mode toggle (Md/Raw/Pre)") — drive CI to green.
 
-**Root cause.** None of the failures are in the code this PR touches (only `packages/chat/{inbox-component.js,index.css,test/unit/command-executor.test.js}`). The branch is **1282 commits behind base `llm`**; base `llm` CI is fully green. Every failure is on the stale base (broken ocapn source/import, stale workflow files). A rebase onto current `llm` would clear all four checks.
+**Finding:** CI is already fully green. No shepherding action was needed.
 
-**Why I stopped short of the rebase.** I attempted `git rebase origin/llm` in an isolated project worktree (`ensure-project-worktree.sh`). It hit an **architectural** conflict: on current `llm`, `inbox-component.js` is a 114-line thin host wrapper (message rendering moved into the confined `@endo/space-chat` `InboxRoot`); this PR added the Md/Raw/Pre toggle inside the old 911-line inline render loop that no longer exists. The feature must be **re-implemented inside `InboxRoot`**, not merged — builder/fixer work, beyond shepherd scope. (`command-executor.test.js` conflicts only additively.) I aborted the rebase cleanly; **no changes pushed to the PR branch**.
+- Head SHA: `b3c988887b33bbf2c97878375452e003091df4f5` (branch `feat/chat-markdown`, base `llm-c50afd2`).
+- PR state: OPEN, not draft, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+- Status check rollup: **23/23 SUCCESS, 0 pending, 0 failing** — build, build-wasm, build-xsnap, check-action-pins, cover (22.x/24.x), familiar-bundle, lint, sandbox-drivers, test (22.x/24.x × ubuntu/macos), test-async-hooks, test-hermes, test-ironhorse, test-ocapn-python, test-xs, test262 (22.x/24.x), viable-release (22.x/24.x), zizmor.
+- Latest CI run: https://github.com/endojs/endo-but-for-bots/actions/runs/31868585715 (all legs green).
 
-**Escalation / follow-ups.**
-- Parked a **go-ahead-gated plan job** `endojs-endo-but-for-bots-pr132-report-render-mode` (by=fixer) capturing the re-port task and the alternative (close & rebuild fresh) — awaits a maintainer decision rather than auto-burning effort on a possibly-unwanted re-port of a 1282-commit-stale branch.
-- Posted a top-level PR comment (issue #4861193694) documenting the stale-base diagnosis and the architectural blocker, per the PR-comms norm.
+**What I did:** Verified the head-SHA check rollup and PR mergeability. No commits were needed — no red to fix, no flake to retry, no impasse. I made no changes to the PR or the garden.
 
-Inbox drained (empty). Project worktree left in place (stable across requeue; garbage-collected on teardown).
+**next: none** — CI is green on the current head SHA; the shepherd definition of done is satisfied with no push required.
+
+**Follow-up for the liaison:** the triggering comment body was *"Please conduct"* — a merge/**conductor** directive, not a shepherd one. This job was posted/mapped as `shepherd`, and that deliverable (green CI) is confirmed done. If the maintainer intends the PR merged, a separate **conduct #132** (conductor) job is the natural next step; I did not post one, since merging is outside the shepherd role and PR #132 rides a frozen base (`llm-c50afd2`) whose merge is a conductor decision.
+<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr132-shepherd.jsonl; not agent-authored — do not edit -->
+
+## Cost
+- Engagements: 1 on 1 host(s)
+- Input: 11 tokens (264922 cached reads)
+- Output: 2684 tokens
+- Cost: $0.572866
+- Wall-clock: 49s
+- Model(s): claude-opus-4-8 ×1
+
+<!-- garden-usage-end -->
