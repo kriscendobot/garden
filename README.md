@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-22T04:03:19Z_
+_As of 2026-08-22T04:06:33Z_
 
 ## Latest
 
-Endor git bindings build claimed; upstream master merge ongoing; [#796](https://github.com/endojs/endo-but-for-bots/pull/796) gauntlet in panel round 1. The byteArray program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is code-complete and all CI green, blocked only on maintainer re-review to clear CHANGES_REQUESTED. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but stuck on the recurring node24-runner CI flake. Root deployment stalled 18 commits behind main2 for ~3 days on both hosts.
+OpenRouter provider design in progress; Claude gardeners restored on one host. ByteArray work ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is code-complete and CI-green; #475/#503 await maintainer re-review to clear CHANGES_REQUESTED, #888 awaits initial review. Two infrastructure blockers: deploys stalled on both hosts for ~3 days; node24-runner CI flake blocking two mature dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) eslint-plugin-unicorn, [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) npm-packlist) from merging despite full diligence. 34 unread maintainer messages await decisions.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 22m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 27m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 33d)
@@ -413,25 +413,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.3M | $936.08 _(notional, rate-card)_ | no quota set |
-| Codex | 14.2M _(+685.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Claude | 103.5M | $937.96 _(notional, rate-card)_ | no quota set |
+| Codex | 14.4M _(+689.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`design-openrouter-provider`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-openrouter-provider.md) — What to produce
 - [`endojs-endo-but-for-bots-build-endor-git-bindings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-bindings.md) — build: Endor Git bindings — libgit2 via Zig cross-builds (design PR #987)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-upstream-master-into-llm-20260822.md) — Merge current upstream master into the endo-but-for-bots llm branch
 
-### tada (5291)
+### tada (5292)
+- [`restore-claude-gardeners-ece02cb4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/restore-claude-gardeners-ece02cb4.md) — Cost
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-shepherd.md) — Completion report
 - [`refresh-pr-review-sequence-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/refresh-pr-review-sequence-20260821.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-clean.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260822-000501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260822-000501.md) — Cost
-- [`endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-resume-gauntlet-after-crc32-20260821.md) — Cost
-- … and 5286 more
+- … and 5287 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
