@@ -1,16 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-doomed_at: 2026-08-13T04:33:11Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-13T04:33:11Z
+role: fixer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:56:12Z cleared=deadline-overrun=1 -->
 
 ---
 tier: mentor
@@ -54,7 +46,6 @@ draft despite the substantive work being done.
   security incident. Keep exploit specifics out of commit messages and the PR
   description; the substantive fix for the deployed defect lives elsewhere.
 
-<!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-annotation: key=e75c9d514225 by=producer at=2026-08-13T04:34:28Z -->
 
