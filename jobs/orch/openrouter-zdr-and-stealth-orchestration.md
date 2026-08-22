@@ -2,7 +2,7 @@
 order: serial
 children: openrouter-zdr-data-policy openrouter-stealth-lane openrouter-reputation-unmask-migration
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-22T08:15:51Z
 ---
