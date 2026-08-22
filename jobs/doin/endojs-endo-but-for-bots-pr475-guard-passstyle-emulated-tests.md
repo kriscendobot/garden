@@ -58,3 +58,13 @@ Note: @endo/base64 was audited and is clean (only descriptive comments). The
 obsolete prose claim does NOT survive anywhere in the tree — design docs,
 READMEs, and changesets are already correctly hedged; the dependency lives only
 in test code.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T06:17:51Z
