@@ -1,16 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 5
-deadline_overruns: 1
-doomed_at: 2026-08-01T11:53:04Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-01T11:53:04Z
+role: fixer
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:57:12Z cleared=deadline-overrun=1 -->
+
 handler-timeout: 7200
 <!-- liaison 2026-08-06: this job was DOOMED by the reaper after a
      deterministic deadline overrun at the 2400s default. It carried no
@@ -85,4 +78,3 @@ branch; then post inline replies to BOTH review comments (ids 3560627735 and
 3560633818) citing the resolving commit (skills/pr-review-thread-replies).
 
 
-<!-- garden-deadline-overrun: 1 -->
