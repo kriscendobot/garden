@@ -163,19 +163,17 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 # The namespace `openrouter/` is required and the closed inventory decides eligibility.
 # Named free models get ordinary reviewed rows; cloaked/stealth ids earn no row and
 # fail closed exactly like any unreviewed selector (designs/openrouter-provider.md).
-[ "$(resolve_model_tier openrouter openrouter/deepseek/deepseek-chat-v3-0324:free)" = "openrouter/deepseek/deepseek-chat-v3-0324:free" ] && ok "reviewed OpenRouter DeepSeek-free selector binds" || bad "OpenRouter DeepSeek selector"
-[ "$(resolve_model_tier openrouter openrouter/meta-llama/llama-3.3-70b-instruct:free)" = "openrouter/meta-llama/llama-3.3-70b-instruct:free" ] && ok "reviewed OpenRouter Llama-free selector binds" || bad "OpenRouter Llama selector"
-[ "$(model_dispatch_tier openrouter openrouter/deepseek/deepseek-chat-v3-0324:free)" = minion ] && ok "OpenRouter DeepSeek-free is minion tier" || bad "OpenRouter DeepSeek tier"
-[ "$(model_dispatch_tier openrouter openrouter/meta-llama/llama-3.3-70b-instruct:free)" = myrmidon ] && ok "OpenRouter Llama-free is myrmidon tier (one-per-tier: independently selectable)" || bad "OpenRouter Llama tier"
-[ "$(tier_model_for_provider minion openrouter)" = "openrouter/deepseek/deepseek-chat-v3-0324:free" ] && ok "minion openrouter resolves to DeepSeek-free" || bad "minion openrouter resolution"
-[ "$(tier_model_for_provider myrmidon openrouter)" = "openrouter/meta-llama/llama-3.3-70b-instruct:free" ] && ok "myrmidon openrouter resolves to Llama-free" || bad "myrmidon openrouter resolution"
+[ "$(resolve_model_tier openrouter openrouter/z-ai/glm-5.2:free)" = "openrouter/z-ai/glm-5.2:free" ] && ok "reviewed OpenRouter GLM-5.2-free selector binds" || bad "OpenRouter GLM-5.2 selector"
+[ "$(model_dispatch_tier openrouter openrouter/z-ai/glm-5.2:free)" = minion ] && ok "OpenRouter GLM-5.2-free is minion tier" || bad "OpenRouter GLM-5.2 tier"
+[ "$(tier_model_for_provider minion openrouter)" = "openrouter/z-ai/glm-5.2:free" ] && ok "minion openrouter resolves to GLM-5.2-free" || bad "minion openrouter resolution"
+[ -z "$(tier_model_for_provider myrmidon openrouter)" ] && ok "no unreviewed OpenRouter myrmidon route remains" || bad "OpenRouter has an unreviewed myrmidon route"
 [ -z "$(resolve_model_tier openrouter openrouter/stealth/ox-alpha:free)" ] && ok "cloaked/stealth OpenRouter id fails closed (no reviewed row)" || bad "stealth OpenRouter id accepted"
-[ -z "$(resolve_model_tier openrouter deepseek/deepseek-chat-v3-0324:free)" ] && ok "OpenRouter requires the namespaced selector" || bad "OpenRouter selector was implicit"
+[ -z "$(resolve_model_tier openrouter z-ai/glm-5.2:free)" ] && ok "OpenRouter requires the namespaced selector" || bad "OpenRouter selector was implicit"
 [ -z "$(tier_model_for_provider mentor openrouter)" ] && ok "no OpenRouter model at mentor (automatic mentor jobs can't reach it)" || bad "OpenRouter has a mentor model"
 # No cross-provider leak: an OpenRouter id binds under NO other provider, and a
 # foreign id never binds under openrouter.
-{ [ -z "$(resolve_model_tier fireworks openrouter/deepseek/deepseek-chat-v3-0324:free)" ] \
-  && [ -z "$(resolve_model_tier openai openrouter/deepseek/deepseek-chat-v3-0324:free)" ] \
+{ [ -z "$(resolve_model_tier fireworks openrouter/z-ai/glm-5.2:free)" ] \
+  && [ -z "$(resolve_model_tier openai openrouter/z-ai/glm-5.2:free)" ] \
   && [ -z "$(resolve_model_tier openrouter fireworks/accounts/fireworks/models/glm-5p2)" ]; } \
   && ok "OpenRouter ids stay on the openrouter provider (no cross-provider leak)" || bad "OpenRouter cross-provider leak"
 [ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
@@ -218,10 +216,10 @@ MY_ARM_PATH="$(rep_arm_relpath mystic "${mystic_arm[0]}" "${mystic_arm[1]}" "${m
 # An OpenRouter job earns its own arm (openrouter/openrouter/<wire id>), keyed on the
 # namespaced routing id, distinct from every other provider's arm.
 OR_ARM_JOB="$(mktemp "${TMPDIR:-/tmp}/garden-or-arm.XXXXXX")"
-printf '%s\n' '---' 'model: openrouter/deepseek/deepseek-chat-v3-0324:free' 'role: fixer' '---' > "$OR_ARM_JOB"
+printf '%s\n' '---' 'model: openrouter/z-ai/glm-5.2:free' 'role: fixer' '---' > "$OR_ARM_JOB"
 mapfile -t or_arm < <(rep_resolve_arm openrouter "$OR_ARM_JOB")
 rm -f "$OR_ARM_JOB"
-[ "${or_arm[*]}" = "openrouter openrouter/deepseek/deepseek-chat-v3-0324:free medium" ] && ok "openrouter reputation arm is openrouter/<wire id>" || bad "openrouter reputation arm (${or_arm[*]})"
+[ "${or_arm[*]}" = "openrouter openrouter/z-ai/glm-5.2:free medium" ] && ok "openrouter reputation arm is openrouter/<wire id>" || bad "openrouter reputation arm (${or_arm[*]})"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
 [ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
@@ -303,7 +301,7 @@ run_kind cleric   cspine chost "model: terra"
 run_kind hermit   hspine hhost "model: qwen3.6"
 run_kind mystic   mspine mihost "model: kimi-k3"
 run_kind fireworker fwspine fwhost $'provider: fireworks\ntier: mentor'
-run_kind openrouter orspine orhost "model: openrouter/deepseek/deepseek-chat-v3-0324:free"
+run_kind openrouter orspine orhost "model: openrouter/z-ai/glm-5.2:free"
 
 # ============================================================================
 hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pinned job"; hr
@@ -367,7 +365,7 @@ elig_case fireworker unknownprovider $'provider: imaginary\ntier: mentor' left
 # OpenRouter is an explicit-model-only lane: a reviewed `openrouter/<id>` pin OR a
 # `provider: openrouter` canary is claimable; every unpinned/tier-only/foreign/stealth
 # job is left. This proves "no automatic/unpinned job may reach it."
-elig_case openrouter pinnedopenrouter "model: openrouter/deepseek/deepseek-chat-v3-0324:free" claimed
+elig_case openrouter pinnedopenrouter "model: openrouter/z-ai/glm-5.2:free" claimed
 elig_case openrouter constrainedopenrouter $'provider: openrouter\ntier: minion' claimed
 elig_case openrouter unpinnedopenrouter "" left
 elig_case openrouter tieronlyopenrouter "tier: minion" left
@@ -375,8 +373,8 @@ elig_case openrouter stealthopenrouter "model: openrouter/stealth/ox-alpha:free"
 elig_case openrouter foreignopenrouter $'provider: moonshot\ntier: mentor' left
 elig_case openrouter mentortieropenrouter $'provider: openrouter\ntier: mentor' left
 elig_case cleric foreignor $'provider: openrouter\ntier: minion' left
-elig_case fireworker foreignor2 "model: openrouter/deepseek/deepseek-chat-v3-0324:free" left
-elig_case gardener foreignor3 "model: openrouter/deepseek/deepseek-chat-v3-0324:free" left
+elig_case fireworker foreignor2 "model: openrouter/z-ai/glm-5.2:free" left
+elig_case gardener foreignor3 "model: openrouter/z-ai/glm-5.2:free" left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -391,7 +389,7 @@ elig_case hermit     gardener_role_h  "role: gardener"                 left
 elig_case cleric     gardener_role_c  "role: gardener"                 left
 elig_case mystic     gardener_role_y  $'model: kimi-k3\nrole: gardener' left
 elig_case fireworker gardener_role_f  $'provider: fireworks\ntier: mentor\nrole: gardener' left
-elig_case openrouter gardener_role_o  $'model: openrouter/deepseek/deepseek-chat-v3-0324:free\nrole: gardener' left
+elig_case openrouter gardener_role_o  $'model: openrouter/z-ai/glm-5.2:free\nrole: gardener' left
 elig_case monk       gardener_role_m  "role: gardener"                 claimed
 elig_case gardener   gardener_role_g  "role: gardener"                 claimed
 elig_case cleric     fixer_role_c     "role: fixer"                    claimed

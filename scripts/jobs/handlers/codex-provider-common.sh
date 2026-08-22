@@ -234,6 +234,56 @@ openrouter_provider_preflight() { # <kind> <base>
   openai_compat_provider_preflight OpenRouter OPENROUTER_API_KEY "$GARDEN_OPENROUTER_BASE_URL" "${1:?kind}" "${2:?base}"
 }
 
+# openrouter_privacy_proxy_start <upstream-base-url>
+# Codex's custom-provider schema has no request-body injection field. OpenRouter's
+# privacy controls are body fields, so a per-handler loopback proxy is the auditable
+# enforcement point: it overwrites every body with `provider.data_collection=deny`
+# AND `provider.zdr=true` before forwarding. The caller points Codex at the returned
+# OPENROUTER_PRIVACY_PROXY_BASE_URL and must call openrouter_privacy_proxy_stop (an
+# EXIT trap is recommended). The proxy never supplies a credential; Codex's bearer
+# header merely passes through it to the fixed HTTPS upstream.
+openrouter_privacy_proxy_start() {
+  local upstream="${1:?upstream base url}" ready_file waited=0 script
+  command -v node >/dev/null 2>&1 || {
+    printf 'node not on PATH; cannot enforce OpenRouter per-request privacy policy\n' >&2
+    return 1
+  }
+  script="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/openrouter-privacy-proxy.mjs"
+  [ -f "$script" ] || {
+    printf 'OpenRouter privacy proxy is missing; refusing an unenforced request path\n' >&2
+    return 1
+  }
+  ready_file="$(mktemp "${TMPDIR:-/tmp}/garden-openrouter-privacy.XXXXXX")"
+  : > "$ready_file"
+  node "$script" "$upstream" "$ready_file" >/dev/null 2>&1 &
+  OPENROUTER_PRIVACY_PROXY_PID=$!
+  OPENROUTER_PRIVACY_PROXY_READY_FILE="$ready_file"
+  OPENROUTER_PRIVACY_PROXY_BASE_URL=""
+  while [ "$waited" -lt 50 ]; do
+    if [ -s "$ready_file" ]; then
+      OPENROUTER_PRIVACY_PROXY_BASE_URL="$(head -n 1 "$ready_file")"
+      [ -n "$OPENROUTER_PRIVACY_PROXY_BASE_URL" ] && return 0
+    fi
+    kill -0 "$OPENROUTER_PRIVACY_PROXY_PID" 2>/dev/null || break
+    sleep 0.1
+    waited=$((waited + 1))
+  done
+  openrouter_privacy_proxy_stop
+  printf 'OpenRouter privacy proxy did not become ready; refusing an unenforced request path\n' >&2
+  return 1
+}
+
+openrouter_privacy_proxy_stop() {
+  if [ -n "${OPENROUTER_PRIVACY_PROXY_PID:-}" ]; then
+    kill "$OPENROUTER_PRIVACY_PROXY_PID" 2>/dev/null || true
+    wait "$OPENROUTER_PRIVACY_PROXY_PID" 2>/dev/null || true
+  fi
+  [ -z "${OPENROUTER_PRIVACY_PROXY_READY_FILE:-}" ] || rm -f "$OPENROUTER_PRIVACY_PROXY_READY_FILE"
+  OPENROUTER_PRIVACY_PROXY_PID=""
+  OPENROUTER_PRIVACY_PROXY_READY_FILE=""
+  OPENROUTER_PRIVACY_PROXY_BASE_URL=""
+}
+
 # openai_compat_retryable_failure <capture> -- diagnostics-only classifier for the
 # custom OpenAI-compatible providers.  Codex hides the upstream status in some
 # releases, so retain both status and familiar provider wording.  It never prints the
@@ -300,10 +350,10 @@ codex_provider_extra_args() {
     openrouter)
       # OpenRouter's OpenAI-compatible custom-provider configuration.  The exact
       # aggregator model id (including any `:free` suffix) comes from the explicit
-      # job header, never from this adapter.  The optional OpenRouter attribution
-      # headers (HTTP-Referer / X-Title, used only for its public leaderboard) are
-      # deliberately omitted: they are not required for serving and Codex exposes no
-      # verified per-request header-injection surface.
+      # job header, never from this adapter. The base URL MUST already name the
+      # loopback privacy proxy started by the caller; that proxy injects the request
+      # body controls Codex's provider schema cannot express. Optional OpenRouter
+      # attribution headers are deliberately omitted: they are not required.
       # shellcheck disable=SC2034 # caller appends this shared array after invoking us
       CODEX_PROVIDER_EXTRA_ARGS=(
         -c "model_provider=openrouter"

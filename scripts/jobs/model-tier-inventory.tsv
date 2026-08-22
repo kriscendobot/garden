@@ -35,12 +35,11 @@ fireworks	fireworks/accounts/fireworks/models/glm-5p2	mentor
 fireworks	fireworks/accounts/fireworks/models/kimi-k3	mentor
 fireworks	fireworks/accounts/fireworks/models/deepseek-v4-pro	minion
 fireworks	fireworks/accounts/fireworks/models/gpt-oss-120b	myrmidon
-# Reviewed, NAMED OpenRouter free selectors (real vendor/model ids, `:free` variant).
+# Reviewed, NAMED OpenRouter free selector (real vendor/model id, `:free` variant).
 # This namespace is garden routing metadata; the handler removes `openrouter/` before
 # sending the wire id.  Wildcard and cloaked/stealth ids are deliberately forbidden
-# (designs/openrouter-provider.md § stealth policy).  Placed one-per-tier so each is
-# independently tier-selectable (no first-match collision).  The pool ships at zero;
-# each wire id is confirmed live by the status-only probe in
-# context/operations/openrouter.md before any worker is enabled.
-openrouter	openrouter/deepseek/deepseek-chat-v3-0324:free	minion
-openrouter	openrouter/meta-llama/llama-3.3-70b-instruct:free	myrmidon
+# (designs/openrouter-provider.md § stealth policy). The pool ships at zero. This is
+# the only text/tool-capable zero-price `:free` endpoint returned by OpenRouter's
+# public `/endpoints/zdr` inventory during the 2026-08-22 policy review; activation
+# still requires the authenticated status-only canary in context/operations/openrouter.md.
+openrouter	openrouter/z-ai/glm-5.2:free	minion

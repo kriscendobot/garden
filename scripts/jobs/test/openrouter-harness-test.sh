@@ -2,7 +2,8 @@
 # Hermetic checks for OpenRouter status classification and Codex provider isolation.
 # Mirror of fireworker-harness-test.sh: OpenRouter rides the SAME custom
 # OpenAI-compatible Codex path, so this asserts the shared preflight/adapter behave
-# for the openrouter provider and that the reviewed NAMED-free selectors reach the
+# for the openrouter provider, that every request body is forced through the fleet
+# privacy policy, and that the reviewed ZDR-capable NAMED-free selector reaches the
 # wire unchanged while cloaked/unreviewed ids fail closed.
 set -euo pipefail
 # Explicit positive test-context sentinel: protects this standalone suite even when
@@ -11,12 +12,22 @@ export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 ROOT="$(cd "$JOBS/../.." && pwd)"
+# Route assertions exercise this checkout's reviewed seed, not a potentially stale
+# per-instance journal override on the host running the test.
+export GARDEN_MODEL_ROUTING_FILE="$JOBS/model-routing-defaults.tsv"
+export GARDEN_MODEL_TIER_INVENTORY_FILE="$JOBS/model-tier-inventory.tsv"
 PASS=0; FAIL=0
 ok() { echo "  PASS: $*"; PASS=$((PASS + 1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL + 1)); }
 mkdir -p "$ROOT/scratch"
 TR="$(mktemp -d "$ROOT/scratch/garden-openrouter.XXXXXX")"
-trap 'rm -rf "$TR"' EXIT
+UPSTREAM_PID=""
+cleanup() {
+  declare -F openrouter_privacy_proxy_stop >/dev/null && openrouter_privacy_proxy_stop
+  [ -z "$UPSTREAM_PID" ] || { kill "$UPSTREAM_PID" 2>/dev/null || true; wait "$UPSTREAM_PID" 2>/dev/null || true; }
+  rm -rf "$TR"
+}
+trap cleanup EXIT
 BIN="$TR/bin"; mkdir -p "$BIN"
 
 cat > "$BIN/codex" <<'EOF'
@@ -69,17 +80,60 @@ openai_compat_retryable_failure "$TR/429" && ok "429 diagnostic retries" || bad 
 openai_compat_retryable_failure "$TR/503" && ok "503 diagnostic retries" || bad "503 retry classifier"
 openai_compat_retryable_failure "$TR/400" && bad "400 diagnostic retried" || ok "400 diagnostic not retried"
 
-echo 'ROUTES — reviewed named-free selectors reach the wire unchanged; stealth fails closed'
+echo 'PRIVACY — loopback adapter overwrites both controls on every JSON request'
+cat > "$TR/upstream.mjs" <<'EOF'
+import fs from 'node:fs';
+import http from 'node:http';
+const [ready, record] = process.argv.slice(2);
+const server = http.createServer((request, response) => {
+  const chunks = [];
+  request.on('data', chunk => chunks.push(chunk));
+  request.on('end', () => {
+    const body = Buffer.concat(chunks).toString('utf8');
+    fs.writeFileSync(record, JSON.stringify({ method: request.method, url: request.url, body: JSON.parse(body) }));
+    response.writeHead(200, { 'content-type': 'application/json' });
+    response.end('{"ok":true}');
+  });
+});
+server.listen(0, '127.0.0.1', () => {
+  const address = server.address();
+  fs.writeFileSync(ready, `http://127.0.0.1:${address.port}/api/v1\n`);
+});
+EOF
+node "$TR/upstream.mjs" "$TR/upstream-ready" "$TR/upstream-record" >/dev/null 2>&1 &
+UPSTREAM_PID=$!
+for _ in $(seq 1 50); do [ -s "$TR/upstream-ready" ] && break; sleep 0.1; done
+UPSTREAM_BASE="$(head -n 1 "$TR/upstream-ready" 2>/dev/null || true)"
+[ -n "$UPSTREAM_BASE" ] || bad "fixture upstream did not start"
+export GARDEN_TEST=1
+openrouter_privacy_proxy_start "$UPSTREAM_BASE" && ok "privacy proxy starts on loopback" || bad "privacy proxy failed to start"
+unset GARDEN_TEST
+curl -fsS "$OPENROUTER_PRIVACY_PROXY_BASE_URL/responses" \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"z-ai/glm-5.2:free","provider":{"order":["decart"],"data_collection":"allow","zdr":false}}' >/dev/null
+jq -e '.method == "POST" and .url == "/api/v1/responses" and
+  .body.provider.order == ["decart"] and
+  .body.provider.data_collection == "deny" and .body.provider.zdr == true' \
+  "$TR/upstream-record" >/dev/null \
+  && ok "request preserves routing preferences but forces data_collection=deny and zdr=true" \
+  || bad "request privacy fields were not forced"
+GARDEN_OPENROUTER_BASE_URL="$OPENROUTER_PRIVACY_PROXY_BASE_URL"
+codex_provider_extra_args openrouter
+[[ "${CODEX_PROVIDER_EXTRA_ARGS[*]}" == *"base_url=\"$OPENROUTER_PRIVACY_PROXY_BASE_URL\""* ]] \
+  && ok "Codex adapter targets only the enforcing loopback endpoint" \
+  || bad "Codex adapter bypasses privacy proxy"
+openrouter_privacy_proxy_stop
+
+echo 'ROUTES — reviewed ZDR-capable named-free selector reaches the wire; stealth fails closed'
 # The handler strips the garden-only `openrouter/` namespace before sending the wire
 # id (handlers/cleric-codex.sh, `model="${model#"$provider"/}"`). These assert the
 # exact wire id each reviewed route sends and that a cloaked/unreviewed id produces
 # no wire id (context/operations/openrouter.md § Registered routes).
 source "$JOBS/common.sh"
 wire_of() { local resolved; resolved="$(resolve_model_tier openrouter "$1")"; [ -n "$resolved" ] || return 1; printf '%s\n' "${resolved#openrouter/}"; }
-[ "$(wire_of openrouter/deepseek/deepseek-chat-v3-0324:free)" = "deepseek/deepseek-chat-v3-0324:free" ] && ok "DeepSeek-free wire id = deepseek/deepseek-chat-v3-0324:free" || bad "DeepSeek-free wire id"
-[ "$(wire_of openrouter/meta-llama/llama-3.3-70b-instruct:free)" = "meta-llama/llama-3.3-70b-instruct:free" ] && ok "Llama-free wire id = meta-llama/llama-3.3-70b-instruct:free" || bad "Llama-free wire id"
+[ "$(wire_of openrouter/z-ai/glm-5.2:free)" = "z-ai/glm-5.2:free" ] && ok "GLM-5.2-free wire id = z-ai/glm-5.2:free" || bad "GLM-5.2-free wire id"
 wire_of openrouter/stealth/ox-alpha:free >/dev/null 2>&1 && bad "a cloaked/stealth selector produced a wire id" || ok "cloaked/stealth selector fails closed (no wire id)"
-wire_of openrouter/deepseek/deepseek-chat-v3-0324 >/dev/null 2>&1 && bad "an unreviewed non-free id produced a wire id" || ok "unreviewed non-:free id fails closed (no wire id)"
+wire_of openrouter/z-ai/glm-5.2 >/dev/null 2>&1 && bad "an unreviewed non-free id produced a wire id" || ok "unreviewed non-:free id fails closed (no wire id)"
 
 echo "openrouter-harness-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

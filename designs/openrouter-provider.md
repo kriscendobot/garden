@@ -1,16 +1,16 @@
 ---
 created: 2026-08-22
 updated: 2026-08-22
-author: designer
+author: gardener, designer
 ---
 
 # Design: OpenRouter as a garden provider
 
 | Field | Value |
 | --- | --- |
-| Status | **Implemented, disabled by default.** The wiring for stable NAMED free models landed with this design; the stealth/promotional lane is deferred as an open question. |
+| Status | **Implemented, disabled by default.** The wiring and per-request no-collection/ZDR enforcement are present; one currently compliant NAMED free model is inventoried. The stealth/promotional lane is deferred as an open question. |
 | Directive | kriskowal, 2026-08-22: *"harness and configure OpenRouter as a new garden provider so the fleet can reach more models through it,"* motivated in part by OpenRouter's rotating free/promotional (cloaked "stealth") models whose terms are *"at least allegedly fine"* but not rigorously vetted. |
-| Decision | Add a single `openrouter` worker kind reusing the existing Codex custom OpenAI-compatible handler (one kind per provider — [opencode-alternate-harness](opencode-alternate-harness.md) option C). Admit only **stable, named** `:free` models via ordinary reviewed inventory rows; **exclude cloaked/stealth ids** from the closed inventory. Ship at pool zero, explicit-model-only, no automatic/unpinned route. Terms/data-retention is a maintainer decision surfaced below, not a settled premise. |
+| Decision | Add a single `openrouter` worker kind reusing the existing Codex custom OpenAI-compatible handler (one kind per provider — [opencode-alternate-harness](opencode-alternate-harness.md) option C). Admit only **stable, named** `:free` models via ordinary reviewed inventory rows; **exclude cloaked/stealth ids** from the closed inventory. Ship at pool zero, explicit-model-only, no automatic/unpinned route. Every inference request is forced to `provider: { data_collection: "deny", zdr: true }`; an endpoint that cannot satisfy both is unavailable rather than a policy fallback. |
 
 ## Mechanism — pure reuse of the Codex custom-provider path (no new harness)
 
@@ -39,9 +39,9 @@ registry row plus an adapter case, with no new handler branches.
 Garden routing ids are namespaced `openrouter/<wire-id>`, and the handler strips
 `openrouter/` before the request goes out — identical to `fireworks/<wire-id>`. This
 matters more for OpenRouter than for Fireworks because OpenRouter's wire ids already
-contain slashes and a `:free` suffix (`deepseek/deepseek-chat-v3-0324:free`), so the
-garden id reads `openrouter/deepseek/deepseek-chat-v3-0324:free` and the wire id is
-the exact `deepseek/deepseek-chat-v3-0324:free`. The namespace keeps OpenRouter ids
+contain slashes and a `:free` suffix (`z-ai/glm-5.2:free`), so the garden id reads
+`openrouter/z-ai/glm-5.2:free` and the wire id is the exact
+`z-ai/glm-5.2:free`. The namespace keeps OpenRouter ids
 in a disjoint space from every other provider's, so a pin classifies to exactly one
 provider and no cross-provider leak is possible.
 
@@ -72,10 +72,17 @@ name, harmless — the two live in separate namespaces):
   the tmpfs handoff (its `sk-or-v1-…` shape passes the base64url validator).
 - **systemd** — the `garden-openrouter@` unit renders automatically from the single
   `garden-worker@.service.in` template (no per-kind unit file).
+- **Privacy enforcement** — Codex's custom-provider schema has no arbitrary JSON-body
+  injection field. The handler therefore starts a per-job loopback adapter and points
+  Codex only at it. The adapter overwrites every request body's provider preferences
+  with `data_collection: "deny"` and `zdr: true`, then forwards to the fixed HTTPS
+  OpenRouter origin. If Node or the adapter is unavailable, the path fails closed.
 - **Tests** — `openrouter-harness-test.sh` (new, mirrors the fireworker one) plus
   openrouter cases across `worker-spine-kinds-test.sh` and `api-key-handoff-test.sh`.
+  The harness exercises a real local HTTP hop and asserts that attempted permissive
+  values are overwritten before the mock upstream receives the body.
 - **Docs** — [`context/operations/openrouter.md`](../context/operations/openrouter.md)
-  (bounded-probe activation, kimi-k3 shape) and a `model-selection` note.
+  (bounded-probe activation and enforced privacy posture) and a `model-selection` note.
 
 ## The crux: closed inventory vs. rotating "stealth" models
 
@@ -105,15 +112,14 @@ Two admissible policies, and the recommendation:
   undisclosed **by definition**, so "allegedly fine" cannot be discharged.
 
 **Recommendation: ship (a), design-and-defer (b).** This design implements (a): stable
-**named** free models (`:free` ids with a real vendor/model name, e.g.
-`deepseek/deepseek-chat-v3-0324:free`, `meta-llama/llama-3.3-70b-instruct:free`) get
-ordinary reviewed rows now; cloaked/stealth ids fail closed exactly like any
-unreviewed selector (asserted in tests). This already delivers "more models through
-OpenRouter" — the whole named-free catalog is now reachable one reviewed row at a
-time — without weakening the invariant. The promotional lane (b) is left as an **open
-question** because it both weakens a load-bearing invariant and is inseparable from
-the unresolved terms/provenance question below; it is the maintainer's call, not a
-guess a design should bake in. If authorized, (b) would most cleanly be a *second*
+**named** free models get ordinary reviewed rows only after the same ZDR/data-policy
+review as any paid route; cloaked/stealth ids fail closed exactly like any unreviewed
+selector (asserted in tests). The 2026-08-22 review found only one text/tool-capable,
+zero-price `:free` endpoint in OpenRouter's public ZDR inventory, so the closed
+inventory contains only `z-ai/glm-5.2:free`. The promotional lane (b) is left as an
+**open question** because it weakens a load-bearing invariant and carries undisclosed
+provenance; it is the maintainer's call, not a guess a design should bake in. If
+authorized, (b) would most cleanly be a *second*
 kind (`openrouter-promo`) — one kind per lane, the same option-C shape — so its
 distinct, short-lived, re-reviewed arms never pool with the stable lane's.
 
@@ -124,18 +130,19 @@ anywhere), explicit-model-only, and — verified in `claim-job.sh` and the spine
 **no automatic or unpinned job can reach it**. The eligibility fence proves it: an
 unpinned job, a tier-only job, a foreign-provider job, and a cloaked-id pin are all
 **left**; only a reviewed `openrouter/<id>` pin or a `provider: openrouter` canary is
-claimable. The two seed models sit at **minion** and **myrmidon** — deliberately
-below mentor, so even the tier resolver has no OpenRouter model for an automatic
-`tier: mentor` job to bind. Key provisioning and the first canary stay a separate,
-maintainer-directed step (this change supplies and spends nothing).
+claimable. The sole reviewed seed sits at **minion**, below mentor, so even the tier
+resolver has no OpenRouter model for an automatic `tier: mentor` job to bind. There
+is no OpenRouter myrmidon row merely to preserve the former two-row shape. Key
+provisioning and the first canary stay a separate, maintainer-directed step (this
+change supplies and spends nothing).
 
 ## Cost
 
 The Codex lane reports tokens but **no provider-computed dollars** (the fireworker
 established this fleet-wide). So an OpenRouter reputation event stays
 `agentic_dollars: censored` and its arm is priced from a provisional rate-card row.
-Free models are $0-list but rate-limited and often logged (below); a paid OpenRouter
-route, if later enabled, would want its own reviewed row and a revisited rate.
+The reviewed free endpoint is $0-list but rate-limited; a paid OpenRouter route, if
+later enabled, would want its own reviewed row and a revisited rate.
 
 ## Relationship to prior designs
 
@@ -146,23 +153,32 @@ route, if later enabled, would want its own reviewed row and a revisited rate.
 - [`context/operations/fireworks.md`](../context/operations/fireworks.md) — the
   bounded-probe onboarding playbook this lane follows verbatim.
 
-## Open questions (maintainer decisions — not settled here)
+## Open questions (maintainer decisions)
 
-1. **Terms / data-retention.** OpenRouter's **free** model variants commonly require,
-   at the account level, that prompt/response **logging and provider training be
-   enabled** — otherwise the free endpoint is unavailable; zero-data-retention (ZDR)
-   routing excludes non-ZDR providers and is generally a paid posture. Garden job
-   prompts frame the job body as data but still carry repo context. **Is
-   logging/training-on-inputs acceptable for garden work on the free lane, or should
-   only a paid/ZDR route be enabled?** The directive named the free models as
-   "allegedly fine"; the maintainer decides what is fine — this design only surfaces
-   the tradeoff. Until decided, keep the pool at zero.
+1. **Resolved — terms / data-retention.** Logging, retention, and training on garden
+   inputs are not acceptable. Current OpenRouter documentation distinguishes two
+   request controls: `provider.data_collection: "deny"` excludes endpoints that may
+   collect/train, while `provider.zdr: true` restricts routing to endpoints with a
+   zero-data-retention policy. The garden forces **both** on every OpenRouter inference
+   request; account/guardrail ZDR settings OR with the request and cannot relax it.
+   OpenRouter itself says it does not store prompt/response content unless an account
+   owner explicitly opts into content logging; it still retains non-content request
+   metadata. OpenRouter documents no per-request override for that owner-controlled
+   opt-in, so key provisioning must leave its two content-logging settings off. Cost:
+   many free endpoints become ineligible and a request with no
+   compliant endpoint fails instead of falling back to a logging/training route.
+   Sources: [provider routing](https://openrouter.ai/docs/guides/routing/provider-selection),
+   [ZDR](https://openrouter.ai/docs/guides/features/zdr), and
+   [data collection](https://openrouter.ai/docs/guides/privacy/data-collection).
 2. **The stealth/promotional lane (policy option b).** Should the garden ever admit
    cloaked/stealth ids at all — and if so, via the deferred `openrouter-promo` second
    kind with a re-review cadence and rip-cord, accepting a weakened inventory
    invariant and undisclosed provenance? Recommended answer for now: **no** (option a
-   only). Reopen only with an explicit terms answer from (1).
-3. **Named seed-model verification.** The two seed inventory ids were transcribed,
-   not live-verified (the authoring worktree had no key). Confirm each with the
-   status-only probe (a 200 vs a 404) before enabling; a rotated-away `:free` id is
-   removed from the inventory, not dispatched.
+   only). Any future promo lane inherits the same forced request fields from (1).
+3. **Resolved — named seed-model review.** On 2026-08-22 the public
+   `GET /api/v1/endpoints/zdr` inventory returned `z-ai/glm-5.2:free` as the sole
+   text/tool-capable endpoint whose prompt and completion prices were both zero. It
+   advertised `tools`, `tool_choice`, and `reasoning_effort`; this is now the sole
+   seed row. The former DeepSeek V3 0324 and Llama 3.3 70B `:free` ids returned empty
+   endpoint lists and were removed. This proves catalog/ZDR eligibility, not an
+   authenticated completion; the status-only canary remains required before enablement.

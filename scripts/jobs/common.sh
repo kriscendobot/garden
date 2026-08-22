@@ -5380,7 +5380,7 @@ _model_routing_table() {
     'local	qwen3.6	qwen3.6' \
     'moonshot	kimi-k3' \
     'fireworks	fireworks/accounts/fireworks/models/glm-5p2	' \
-    'openrouter	openrouter/deepseek/deepseek-chat-v3-0324:free openrouter/meta-llama/llama-3.3-70b-instruct:free	'
+    'openrouter	openrouter/z-ai/glm-5.2:free	'
 }
 
 # _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>

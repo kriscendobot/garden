@@ -45,4 +45,4 @@ fireworks	fireworks/accounts/fireworks/models/glm-5p2 fireworks/accounts/firewor
 # (never a wildcard, never a cloaked/stealth id): a new OpenRouter model — and every
 # rotating stealth id — stays unclassified and fails closed until it earns a reviewed
 # row in the closed inventory (designs/openrouter-provider.md § stealth policy).
-openrouter	openrouter/deepseek/deepseek-chat-v3-0324:free openrouter/meta-llama/llama-3.3-70b-instruct:free
+openrouter	openrouter/z-ai/glm-5.2:free

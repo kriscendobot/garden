@@ -195,6 +195,19 @@ export GARDEN_JOB_BASE="$base"
 # an actionable operator fix.
 codex_provider_preflight "$provider" "$KIND" "$base" "$state_ns" 1 "$model" || exit 1
 
+# OpenRouter's current per-request privacy mechanism lives in the JSON `provider`
+# object, while Codex custom-provider config can set only a base URL, auth and
+# headers. Put a fail-closed loopback adapter between Codex and OpenRouter so EVERY
+# Responses request is overwritten with both independent controls:
+# data_collection=deny (no training/collection) and zdr=true (no retention).
+# Preflight intentionally ran against the real upstream above; Codex sees only this
+# local enforcement endpoint. A missing Node runtime or adapter stops the job.
+if [ "$provider" = openrouter ]; then
+  openrouter_privacy_proxy_start "$GARDEN_OPENROUTER_BASE_URL" || exit 1
+  GARDEN_OPENROUTER_BASE_URL="$OPENROUTER_PRIVACY_PROXY_BASE_URL"
+  trap openrouter_privacy_proxy_stop EXIT
+fi
+
 # codex_effort_for_model <model> <level> — normalize a unified-axis thoughtfulness
 # level DOWN to the model's nearest supported codex reasoning-effort (catalog §2):
 # terra supports low·medium·high·xhigh·max·ultra; luna low·…·max; gpt-5.5 and
@@ -318,6 +331,11 @@ if [ "$rc" -ne 0 ]; then
   else
     tail -n 40 "$json_capture" >&2 2>/dev/null || true
   fi
+fi
+
+if [ "$provider" = openrouter ]; then
+  openrouter_privacy_proxy_stop
+  trap - EXIT
 fi
 
 # --- deterministic completion signal -----------------------------------------

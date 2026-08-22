@@ -1,7 +1,7 @@
 # Reference: cross-provider model catalog (Claude + Codex)
 
 | Created | 2026-07-13 |
-| Updated | 2026-07-29 |
+| Updated | 2026-08-22 |
 | Author  | gardener, gardener (scholar) |
 | Status  | Reference |
 
@@ -231,18 +231,20 @@ so it rides the **same** custom-provider Codex path as the fireworker (they shar
 `$custom_openai_compat` code). Its garden routing ids are namespaced
 `openrouter/<wire-id>`; the handler strips `openrouter/` before sending. The closed
 inventory admits only **stable, NAMED** free selectors — seeded with
-`openrouter/deepseek/deepseek-chat-v3-0324:free` (`minion`) and
-`openrouter/meta-llama/llama-3.3-70b-instruct:free` (`myrmidon`), one per tier so each
-is independently selectable. **Cloaked/stealth ids are deliberately excluded** and
+`openrouter/z-ai/glm-5.2:free` (`minion`), the sole zero-price text/tool endpoint in
+OpenRouter's public ZDR inventory during the 2026-08-22 review. The former DeepSeek
+V3 0324 and Llama 3.3 70B free rows had empty endpoint lists and were removed rather
+than silently retained. **Cloaked/stealth ids are deliberately excluded** and
 fail closed like any unreviewed selector: a reviewed row must mean a reviewed model,
 and a stealth id (anonymous, rotating identity) cannot honor that. None is a fleet
 default; the lane is explicit-model-only and reached only by an `openrouter/<id>` pin
 or a `--provider-canary openrouter <tier>` canary. Unknown ids, unknown providers, and
 provider/tier pairs with no inventory row fail closed. Like Fireworks, the lane starts
 at zero, needs a secret-safe status probe, returns to zero after the canary, and has
-no token accounting (censored arm). Two maintainer decisions are held open — the
-free-tier logging/training terms and whether to ever admit a stealth promotional lane
-— in [designs/openrouter-provider.md](openrouter-provider.md) § Open questions.
+no token accounting (censored arm). Its handler forces both no-data-collection and
+ZDR provider preferences on every request. Whether to ever admit a stealth
+promotional lane remains open in
+[designs/openrouter-provider.md](openrouter-provider.md) § Open questions.
 
 ## 3. Cross-provider thoughtfulness axis (the load-bearing mapping)
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-08-14
+updated: 2026-08-22
 author: gardener
 ---
 
@@ -16,8 +16,8 @@ unclassified and cannot acquire an automatic route.
 | --- | --- | --- |
 | mentat | Claude Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. |
 | mentor | Anthropic Opus 5 (`claude-opus-5`), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Highest tier automatic producers may emit. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
-| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen, Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter DeepSeek V3 free (`openrouter/deepseek/deepseek-chat-v3-0324:free`) | The tier below mentor; the automatic fallback tier. |
-| myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`), OpenRouter Llama 3.3 70B free (`openrouter/meta-llama/llama-3.3-70b-instruct:free`) | Expedient tier; not an automatic escalation path. |
+| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen, Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`) | The tier below mentor; the automatic fallback tier. |
+| myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
 
 **Fireworks mentor collision (GLM 5.2 vs Kimi K3).** Both Fireworks mentor models
 are registered with wire ids verified against the provider's model pages, but the
@@ -35,9 +35,10 @@ ids are namespaced `openrouter/<wire-id>` and only **stable, NAMED** free models
 reviewed inventory rows; **cloaked/stealth ids are deliberately excluded** and fail
 closed like any unreviewed selector (the closed inventory's whole point). No
 automatic/unpinned job reaches it — it claims only a `provider: openrouter` canary or
-an `openrouter/<wire-id>` pin. The two seed models sit at different tiers (DeepSeek V3
-free → minion, Llama 3.3 70B free → myrmidon), so each is independently selectable.
-Policy, terms/data-retention, and the deferred stealth-lane question:
+an `openrouter/<wire-id>` pin. Its sole current row is GLM 5.2 free at minion: the
+2026-08-22 review found it in OpenRouter's public ZDR endpoint inventory and removed
+the former DeepSeek/Llama free rows, which had empty endpoint lists. Every request is
+forced through the no-collection/ZDR adapter. Policy and the deferred stealth lane:
 [`designs/openrouter-provider.md`](../../designs/openrouter-provider.md); activation:
 [`context/operations/openrouter.md`](../../context/operations/openrouter.md).
 

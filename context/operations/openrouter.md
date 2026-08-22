@@ -13,8 +13,9 @@ The key is never put in a unit, journal, worktree, report, or diagnostic. The po
 starts at zero and refuses unconstrained work: no automatic or unpinned board job
 can reach it (`claim-job.sh` fences it to a `provider: openrouter` canary or an
 explicit `openrouter/<wire-id>` pin). It shares one handler with the fireworker
-(`handlers/cleric-codex.sh`, the `$custom_openai_compat` path). Design and the
-stealth-model policy: [`designs/openrouter-provider.md`](../../designs/openrouter-provider.md).
+(`handlers/cleric-codex.sh`, the `$custom_openai_compat` path), but adds a mandatory
+per-job privacy adapter described below. Design and the stealth-model policy:
+[`designs/openrouter-provider.md`](../../designs/openrouter-provider.md).
 
 ## Registered routes
 
@@ -29,37 +30,60 @@ not use a wildcard route.
 
 | Garden id (inventory) | Wire id sent to OpenRouter | Tier | Provenance |
 | --- | --- | --- | --- |
-| `openrouter/deepseek/deepseek-chat-v3-0324:free` | `deepseek/deepseek-chat-v3-0324:free` | `minion` | Named free variant; **verify live on the model page + the status probe below before enabling** |
-| `openrouter/meta-llama/llama-3.3-70b-instruct:free` | `meta-llama/llama-3.3-70b-instruct:free` | `myrmidon` | Named free variant; **verify live before enabling** |
+| `openrouter/z-ai/glm-5.2:free` | `z-ai/glm-5.2:free` | `minion` | Named free variant; returned by OpenRouter's public ZDR endpoint inventory on 2026-08-22 with zero prompt/completion price and tool support; authenticated completion still requires the canary below |
 
-Both wire ids are asserted by `scripts/jobs/test/openrouter-harness-test.sh`
-§ ROUTES and `scripts/jobs/test/worker-spine-kinds-test.sh`, so a change to either
-fails a test rather than silently sending a bogus model name. The two sit at
-**different** tiers, so each is independently tier-selectable (no first-match
-collision like the Fireworks GLM/K3 pair).
+The wire id is asserted by `scripts/jobs/test/openrouter-harness-test.sh` § ROUTES
+and `scripts/jobs/test/worker-spine-kinds-test.sh`, so a change fails a test rather
+than silently sending a bogus model name. There is deliberately no OpenRouter
+myrmidon row.
 
-**These ids are transcribed, not live-verified.** The authoring worktree had no key
-and made no network call. Confirm each wire id with the status-only probe below
-(a **200** vs a **404**) before enabling any worker; a `:free` id that has rotated
-away 404s and must be removed from the inventory rather than dispatched.
+**The two original seed rows were removed by the privacy review.** On 2026-08-22,
+`GET /api/v1/models/deepseek/deepseek-chat-v3-0324:free/endpoints` and the equivalent
+Llama 3.3 70B URL both returned an empty endpoint list, while neither appeared in
+the active model list. The public `GET /api/v1/endpoints/zdr` inventory returned only
+`z-ai/glm-5.2:free` among zero-price text/tool endpoints. This is live public-catalog
+evidence, not an authenticated inference: confirm the replacement with the
+status-only policy probe below before enabling any worker. A `:free` id that rotates
+away must be removed from inventory rather than dispatched.
 
 To use a nonstandard compatible endpoint, set `GARDEN_OPENROUTER_BASE_URL` when the
 container is created. The endpoint and retry knobs (`GARDEN_OPENROUTER_RETRY_ATTEMPTS`
 and `GARDEN_OPENROUTER_RETRY_DELAY`) are operational configuration, not journal data.
 
-## Terms and data-retention — decide before enabling
+## Enforced terms and data-retention policy
 
-This is a maintainer decision, not a settled premise (design § Open questions):
+Garden prompts and responses may not be retained or used for training. OpenRouter's
+current API exposes two distinct provider preferences, so the handler forces both on
+every inference request:
 
-- OpenRouter's **free** model variants commonly require, at the account level, that
-  prompt/response **logging and provider training be enabled** — otherwise the free
-  endpoint is unavailable. A zero-data-retention (ZDR) route excludes providers that
-  don't support it and is generally a **paid** posture. Decide whether garden job
-  prompts (which frame a job body as data but still carry repo context) may be
-  logged/trained on before enabling a free lane.
-- The design ships only **named** free models precisely because a cloaked/stealth
-  model's operator and data policy are **undisclosed by definition**. Do not enable
-  a stealth lane on "allegedly fine" terms.
+```json
+{"provider":{"data_collection":"deny","zdr":true}}
+```
+
+`data_collection: "deny"` excludes endpoints that may collect/train on user data;
+`zdr: true` further restricts routing to endpoints with a zero-data-retention policy.
+The fields are unconditional and not sourced from a job body. Codex's custom-provider
+configuration cannot add arbitrary body fields, so `cleric-codex.sh` starts
+`openrouter-privacy-proxy.mjs` on loopback, points Codex only at that adapter, and the
+adapter overwrites even attempted permissive values before forwarding to the fixed
+HTTPS OpenRouter origin. Missing Node, a missing adapter, invalid JSON, or startup
+failure stops the request path rather than bypassing policy. The harness test sends
+`allow`/`false` and observes `deny`/`true` at a mock upstream.
+
+OpenRouter documents that it does not itself store prompt/response content unless an
+account owner explicitly opts into one of its content-logging features, and that it
+retains request metadata such as token counts and latency. It documents no per-request
+switch that can override an account owner's explicit content-logging opt-in, so key
+provisioning must leave both OpenRouter content-logging settings off. That is separate
+from the downstream-provider policy enforced here: `zdr: true` ORs with account and
+guardrail ZDR settings and therefore cannot be relaxed by them. Sources:
+[provider routing](https://openrouter.ai/docs/guides/routing/provider-selection),
+[ZDR](https://openrouter.ai/docs/guides/features/zdr), and
+[data collection](https://openrouter.ai/docs/guides/privacy/data-collection).
+
+The design still ships only **named** models because a cloaked/stealth model's
+operator and provenance are undisclosed. A future stealth lane must inherit this
+same adapter; it cannot relax these fields.
 
 ## Create and canary
 
@@ -82,11 +106,11 @@ curl -sS -o /dev/null -w '%{http_code}\n' \
   -H "Authorization: Bearer $OPENROUTER_API_KEY" \
   "$GARDEN_OPENROUTER_BASE_URL/models"
 
-# Per-model recognition (max_tokens:1, status only) — the discriminating probe:
+# Per-model policy probe (status only) — mirrors the two enforced request fields:
 curl -sS -o /dev/null -w '%{http_code}\n' \
   -H "Authorization: Bearer $OPENROUTER_API_KEY" -H 'Content-Type: application/json' \
-  -X POST "$GARDEN_OPENROUTER_BASE_URL/chat/completions" \
-  -d '{"model":"deepseek/deepseek-chat-v3-0324:free","max_tokens":1,"messages":[{"role":"user","content":"ping"}]}'
+  -X POST "$GARDEN_OPENROUTER_BASE_URL/responses" \
+  -d '{"model":"z-ai/glm-5.2:free","max_output_tokens":1,"input":"ping","provider":{"data_collection":"deny","zdr":true}}'
 ```
 
 Read the status, not a body: **200** serves; **404** means the wire selector is
@@ -109,13 +133,13 @@ external action, using a **reviewed named** pin. Put the harmless task in
 `canary.md` (a file create → readback → remove), then post it with:
 
 ```sh
-scripts/jobs/post-job.sh --provider-canary openrouter minion openrouter-deepseek-canary canary.md
+scripts/jobs/post-job.sh --provider-canary openrouter minion openrouter-glm-canary canary.md
 ```
 
-`--provider-canary openrouter minion` resolves to the DeepSeek-free route; use
-`myrmidon` for the Llama-free route. Confirm the `jobs/tada/` report contains
+`--provider-canary openrouter minion` resolves to the GLM-5.2-free route. There is no
+reviewed OpenRouter myrmidon route. Confirm the `jobs/tada/` report contains
 `worker_kind: openrouter`, provider `openrouter`, the resolved model
-`openrouter/deepseek/deepseek-chat-v3-0324:free`, and **tool-verified** evidence the
+`openrouter/z-ai/glm-5.2:free`, and **tool-verified** evidence the
 model did the work (a file create → readback → remove, reported with its tool
 output) rather than plausible text alone. Output with no tool result behind it is a
 failed canary. Then return the pool to zero unless the maintainer authorizes a
@@ -130,8 +154,8 @@ scripts/jobs/set-openrouters.sh 0
 Like the fireworker, the codex handler emits **no per-request dollars** for
 OpenRouter, so a reputation event stays `agentic_dollars: censored` and the arm is
 priced from the provisional rate-card row (`rate-card-defaults.md`,
-`openrouter | * | *`). Free models are $0-list but rate-limited and (see above)
-often logged; weigh that before authorizing a trial larger than a canary. A paid
+`openrouter | * | *`). The reviewed model is $0-list but rate-limited and its route
+may disappear; weigh that before authorizing a trial larger than a canary. A paid
 OpenRouter route would want its own reviewed inventory row and a revisited rate.
 
 ## Declaring zero is not the same as declaring nothing
