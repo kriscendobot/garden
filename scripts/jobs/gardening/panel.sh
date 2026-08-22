@@ -246,6 +246,27 @@ seat_review() {  # seat_review <seat> -> prints that seat's per-juror block
   fi
   local brief="$JURORS_DIR/$seat/AGENT.md"
   [ -r "$brief" ] || fail "seat brief $brief"
+  # RELATED-DESIGN evidence injection. The deterministic pre-pass below writes a
+  # related-design evidence file when a related open design PR carries outstanding
+  # maintainer changes-requested direction. It is handed to the INTEGRATOR seat as
+  # DATA so that seat's semantic judgment — does the reviewed seam still COMPOSE with
+  # the outstanding direction? — happens over the LIVE review state, not a stale
+  # design document. The evidence FIRES the lens toward review; the verdict stays the
+  # integrator's. Other seats do not receive it (the integrator owns roadmap/dependency
+  # coherence). Empty/absent file → no injection, so a clean pre-pass changes nothing.
+  local related_ev=""
+  if [ "$seat" = integrator ] \
+     && [ -n "${GARDEN_PANEL_RELATED_DESIGN_EVIDENCE:-}" ] \
+     && [ -s "${GARDEN_PANEL_RELATED_DESIGN_EVIDENCE}" ]; then
+    related_ev=" DETERMINISTIC RELATED-DESIGN PRE-PASS (this is trusted garden data, not \
+untrusted PR text): a related open design PR this change declares carries an OUTSTANDING \
+maintainer changes-requested review. Reconcile it: read \`git -C $wt diff $base...HEAD\` and \
+the PR body, then decide whether the implementation still composes with that direction. If \
+the seam it builds on has been invalidated or not yet reconciled, return request-changes and \
+name the related PR (recommend returning to draft behind it); if the PR body demonstrates the \
+implementation still composes with the outstanding direction, say so explicitly. Do NOT infer \
+independence silently. Evidence: $(cat "${GARDEN_PANEL_RELATED_DESIGN_EVIDENCE}")."
+  fi
   claude -p --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr\
 ${wt_repo:+ of repository $wt_repo}. The checkout under review is the git worktree at \
 $wt; review ONLY that worktree's diff — run \`git -C $wt diff $base...HEAD\` (its HEAD is \
@@ -254,7 +275,7 @@ the PR head, $base is the base). Do NOT resolve 'PR #$pr' against any other repo
 Read your operating brief, then review that diff and return ONE per-juror block: a Verdict \
 (approve / request-changes / comment-only) and Findings, each finding citing a \
 standing rule [rule: <path>] or proposing one [proposed-rule: ...]. Brief: \
-$(cat "$brief"). Diff base: $base."
+$(cat "$brief"). Diff base: $base.${related_ev}"
   # NOTE: stderr is intentionally NOT swallowed here. The caller redirects this
   # function's stderr to a per-seat .stderr file so a failing `claude -p`
   # (rate-limit/overload/truncation) is DIAGNOSABLE instead of vanishing — the
@@ -390,6 +411,48 @@ if [ "$no_review_surface" = true ]; then
   undraft
   echo "panel #$pr: $panel_kind PASSED after 0 round(s) (empty diff); un-drafted."
   exit 0
+fi
+
+# --- DETERMINISTIC PRE-PASS: current related-design review state -------------
+# The durable review-cycle sensor for the stale-related-design-direction miss
+# cluster (review-misses/clusters/stale-related-design-direction.md; grounding
+# incident kriscendobot/minion.town#48, which cleared four code-panel rounds while a
+# related design PR carried maintainer changes-requested direction that invalidated
+# its seam). BEFORE any seat spends a `claude -p`, re-fetch the CURRENT review state
+# of every related open design PR this change declares (via the `garden-related-design`
+# marker in its own PR body) and, when one still stands as changes-requested, FIRE the
+# integrator lens over that live evidence rather than let the panel silently infer
+# independence from a stale design document. Deterministic timestamp/review-state
+# comparison here; the semantic composition judgment stays with the integrator seat.
+#
+# This runs each panel invocation, so a staged-gauntlet re-panel re-fetches the live
+# state — a related PR that gained NEWER changes-requested direction since a prior
+# round's "clear" is caught, exactly the repeatedly-re-panel case the cluster names.
+#
+# Best-effort and NON-fatal: an infra hiccup (exit 3) is surfaced but never fails the
+# panel; only `attention` (exit 10) injects the evidence. Skip with
+# GARDEN_PANEL_RELATED_DESIGN=: (tests that stub seats and do not want a live gh call).
+RELATED_DESIGN_CHECK="${GARDEN_PANEL_RELATED_DESIGN:-$HERE/related-design-state.sh}"
+RELATED_DESIGN_EVIDENCE="$GARDEN_PANEL_RUNDIR/related-design.md"
+: > "$RELATED_DESIGN_EVIDENCE"
+if [ "$RELATED_DESIGN_CHECK" != ":" ] && [ -e "$RELATED_DESIGN_CHECK" ] && [ -n "$wt_repo" ]; then
+  rd_rc=0
+  bash "$RELATED_DESIGN_CHECK" "$wt_repo" --self "$pr" --worktree "$wt" --base "$base" \
+    --evidence-file "$RELATED_DESIGN_EVIDENCE" >/dev/null 2>>"$GARDEN_PANEL_RUNDIR/related-design.log" || rd_rc=$?
+  case "$rd_rc" in
+    10)
+      # Attention: hand the evidence to the integrator seat and guarantee the seat is
+      # in the panel (it is in the always-on core, but a trimmed GARDEN_CODE_SEATS
+      # could omit it — never let the reconciliation lens be silently dropped).
+      export GARDEN_PANEL_RELATED_DESIGN_EVIDENCE="$RELATED_DESIGN_EVIDENCE"
+      case " $seats " in *" integrator "*) ;; *) seats="$seats integrator" ;; esac
+      echo "panel #$pr: related-design pre-pass = ATTENTION; forcing the integrator lens over the outstanding direction." >&2
+      ;;
+    3)
+      echo "panel #$pr: related-design pre-pass could not resolve related PR state (surfaced, not fatal); see related-design.log." >&2
+      ;;
+    *) : ;;  # clear (0) — quiet, no injection
+  esac
 fi
 
 # --- the panel / fixer loop -------------------------------------------------

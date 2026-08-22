@@ -21,6 +21,16 @@ set's eligibility). This skill is the **chain-walker**: given one candidate that
 has passed the prior two filters, follow its declared dependencies until a verdict
 lands.
 
+The walk classifies the seed design's **vertical** dependency chain (the designs it
+is built *on top of*). It also carries one **horizontal** gate — the current review
+state of *related* open design PRs the seed composes *beside* — because a design
+document is a snapshot, but a related design PR's live review is the current maintainer
+direction, and a build that declares its slice independent based only on a stale
+document repeats the `stale-related-design-direction` miss (§ Related-design review-state
+gate). Both are hard build-preparation inputs: the walk does not return a buildable
+verdict while either the chain is unmet or a related design carries outstanding,
+unreconciled maintainer direction.
+
 ## When to use
 
 - A poller is refilling the design-PR-drafting cap and has picked one design from
@@ -48,8 +58,18 @@ list, and the job board.
 
 ## Verdict shape
 
-The walk returns one of four verdicts:
+The walk returns one of five verdicts:
 
+- **reconcile-or-redirect**: a *related* open design PR (a sibling the seed composes
+  beside, not a vertical dependency) carries an **outstanding maintainer
+  changes-requested review** — live direction that may invalidate the seam the seed
+  would build on. The build MUST NOT proceed on an assertion of independence drawn
+  from the design document alone; it either shows (as a semantic judgment recorded in
+  the eventual PR body) that the proposed implementation still composes with every
+  outstanding direction, or it stops and redirects behind the related design. The
+  verdict names the related PR number(s) and their changes-requested timestamps. This
+  gate is produced deterministically by `related-design-state.sh` (§ Related-design
+  review-state gate); the compose-or-redirect call is the agent's.
 - **start-here**: the seed design (or, after walking, some ancestor design the
   walk redirected to) is actionable. All of its declared dependencies are either
   merged (a closed PR with the implementation) or have no implementation surface (a
@@ -86,7 +106,52 @@ note: <one-line summary>              # human-readable verdict explanation
 
 The walk is a recursive DFS over the design's declared `## Dependencies` (or
 `## Depends On`) sections, with explicit cycle detection and a per-node
-classification step.
+classification step. Step 0 is the horizontal related-design gate; steps 1–5 are the
+vertical dependency chain.
+
+### 0. Related-design review-state gate (a hard build-preparation input)
+
+Before classifying the vertical chain, reconcile the **current review state** of the
+seed's *related* open design PRs — the siblings it composes beside. This is the
+prevention for the `stale-related-design-direction` review-miss: on
+`kriscendobot/minion.town#48`, a build asserted its serving slice was "independent" of
+the adjacent design PR 47 based only on a design document, while PR 47 already carried a
+maintainer changes-requested review that replaced the seam PR 48 built on. The build and
+four panel rounds proceeded; the maintainer closed PR 48 for reconstruction. A build may
+not declare a slice independent from a design document or a stale report — it must
+re-fetch the live review state.
+
+Assemble the related-design set (the seed's declared siblings): the design PRs the seed
+design's own `## Related` / `## See also` / roadmap grouping names, plus any the build
+job body declares. Then run the deterministic producer:
+
+```sh
+scripts/jobs/gardening/related-design-state.sh <owner/repo> \
+  --related <pr,pr,...> [--impl-ref <iso> | --worktree <dir> --base <base>]
+```
+
+It re-fetches each related PR's live `reviewDecision`, latest-review timestamps, and head
+state and emits one `related-design pr=<n> …` line per PR plus a
+`related-design-verdict=<attention|clear>` line (exit 10 on `attention`, 0 on `clear`,
+3 on an infra error it surfaces rather than silently clearing). Relatedness is
+**declared, never invented** — an unrelated design PR is never in the set, and a related
+PR whose changes-requested review was later approved/dismissed reads `satisfied` and does
+not block, so the gate does not false-positive on the wider open-design set.
+
+- `clear` (exit 0): proceed to the vertical chain (step 1).
+- `attention` (exit 10): the walk's verdict is **reconcile-or-redirect**. The build
+  either demonstrates — as a semantic judgment recorded in the eventual PR body — that
+  the proposed implementation still composes with every outstanding maintainer direction,
+  or stops and redirects behind the related design. The deterministic helper surfaces the
+  discoverable facts (which related PRs, what direction, when); the compose-or-redirect
+  call is the agent's, and it must be explicit, never a silent inference of independence.
+
+**Carry the declaration forward.** When the build does proceed, it embeds a
+`<!-- garden-related-design: <pr,pr,...> -->` marker in the draft PR body so the panel
+boundary rediscovers the same related set and re-checks it at review time (the durable,
+cross-incarnation handoff — the same marker discipline `ensure-pr.sh` uses for job
+identity). Without the marker the build's reconciliation is invisible to the panel, and
+the review-cycle sensor cannot re-fire on newer direction.
 
 ### 1. Parse the seed design's dependencies
 
@@ -199,6 +264,13 @@ c. **Recurse.** Run the walk on `dep` with `walked_chain += [dep]`. The
 
 The caller reads the verdict and proceeds:
 
+- `reconcile-or-redirect`: a related design PR carries outstanding maintainer
+  changes-requested direction (step 0). The build does not proceed on a bare
+  independence assertion — it either records in the PR body how the implementation still
+  composes with each outstanding direction (and embeds the `garden-related-design`
+  marker) or redirects behind the related design and the seed re-enters the queue. This
+  verdict overrides `start-here` / `stack-on-PRs`: the vertical chain being clear does
+  not clear the horizontal gate.
 - `start-here`: post/claim a `build` job against `design_path` with
   `impl_base_branch` as the base.
 - `stack-on-PRs`: post/claim a `build` job with the stacked base per
