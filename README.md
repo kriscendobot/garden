@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-22T06:46:28Z_
+_As of 2026-08-22T06:51:08Z_
 
 ## Latest
 
-Root deployment is stalled on both hosts (3 days behind `main2`); investigate why deploys aren't landing. [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (byteArray narrowing) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer) completed their design and CI work — both green, mergeable, awaiting your re-review to clear CHANGES_REQUESTED. Four gauntlet PRs halted mid-panel due to panel failures (these are typically transient; see [#1024](https://github.com/endojs/endo-but-for-bots/pull/1024), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [minion.town#48](https://github.com/kriscendobot/minion.town/pull/48), [#1038](https://github.com/endojs/endo-but-for-bots/pull/1038)). Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW per review but blocked by the recurring fleet node24-runner flake — either fix the runner or merge them directly. [Test262 consolidation](https://github.com/endojs/endo-but-for-bots/pull/946) DRAFT PR is up with a design decision needed on fixture tree layout; [minion.town SIWE authz](https://github.com/kriscendobot/minion.town/pull/48) deploy is complete and awaiting tier selection + allowlist addresses. Dozens of PRs are queued in jobs/plan/ awaiting go-ahead or precedent completion.
+The byteArray foundation is feature-complete and green across all engines ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)), with the finish-line registry work merged and ready for your re-review to clear CHANGES_REQUESTED. Test262 fixture consolidation opened as a DRAFT ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) with the mechanism in place and a design choice on case-tree scope pending your call. Multiple active blockers need decisions: both garden instances report the root repo deploy stalled for ~3d; the dependabot spine is stuck on a recurring fleet node24-runner CI flake with two MERGE-NOW PRs ready if you approve pushing past it; and minion.town's SIWE tier deployment is live and awaiting your Tier 1 allowlist (wallet addresses + scopes) to proceed. Several gauntlets halted on panel failures, and a handful of follow-ups spanning disclosure timing, authenticator identity, and Ironhorse campaign priorities are flagged in the inbox awaiting your direction.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 26m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 34d)
@@ -438,19 +438,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.8M | $940.25 _(notional, rate-card)_ | no quota set |
-| Codex | 16.9M _(+792.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 108.8M | $939.89 _(notional, rate-card)_ | no quota set |
+| Codex | 17.1M _(+795.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
-### todo (49)
+### todo (43)
 - [`endojs-endo-but-for-bots-pr1040-091aec5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1040-091aec5d-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1040 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr132-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr132-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #132
-- [`endojs-endo-but-for-bots-pr475-review-c85b88c9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-c85b88c9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-cb751bbb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-cb751bbb-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-e560d700-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-e560d700-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-f1438d1b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f1438d1b-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-f1df1c4f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f1df1c4f-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-f55c1aef-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f55c1aef-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-f66ed689-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-f66ed689-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr503-09c8b3c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr503-09c8b3c5.md) — attention directive on endojs/endo-but-for-bots PR #503
 - [`endojs-endo-but-for-bots-pr719-cc0b4130-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr719-cc0b4130-retro.md) — Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
@@ -493,21 +487,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/openrouter-zdr-policy-and-stealth-lane.md) — Decision 1 — reject logging/training-use by default (answers Open question 1)
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/wire-siwe-onchain-authz-minion-town.md) — Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1046-review-7edcda98`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-7edcda98.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr475-review-69a8dffc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-69a8dffc-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-92a260ae-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-92a260ae-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-b3132dc6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-b3132dc6-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-b4dd5851-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-b4dd5851-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr475-review-b865f40a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-b865f40a-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-review-c85b88c9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-c85b88c9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-review-cb751bbb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-cb751bbb-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-review-e560d700-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-e560d700-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-review-f1438d1b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-f1438d1b-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-review-f55c1aef-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-f55c1aef-retro.md) — Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 
-### tada (5354)
-- [`endojs-endo-but-for-bots-pr475-review-79645bf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-79645bf9-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-90ef14d6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-90ef14d6-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-662af34e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-662af34e-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-6c57250a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-6c57250a-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-review-605988a6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-605988a6-retro.md) — Completion report
-- … and 5349 more
+### tada (5358)
+- [`endojs-endo-but-for-bots-pr475-review-b865f40a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-b865f40a-retro.md) — Completion report
+- [`endojs-endo-but-for-bots-pr475-review-92a260ae-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-92a260ae-retro.md) — Cost
+- [`endojs-endo-but-for-bots-pr132-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr132-shepherd.md) — Completion report
+- [`endojs-endo-but-for-bots-pr475-review-b4dd5851-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-b4dd5851-retro.md) — Completion report
+- [`endojs-endo-but-for-bots-pr475-review-b3132dc6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-b3132dc6-retro.md) — Completion report
+- … and 5353 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
