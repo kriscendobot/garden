@@ -1,20 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
 tier: mentor
 handler-timeout: 7200
 token-budget: 100000
-doomed: true
-doom_signature: elapsed-constancy
-doom_count: 1
-requeue_cycles: 4
-deadline_overruns: 0
-elapsed_constancy_confirmations: 2
-doomed_at: 2026-08-16T07:13:06Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-16T07:13:06Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T05:48:40Z cleared=none -->
 
 ---
 tier: mentor
