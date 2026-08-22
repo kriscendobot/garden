@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T07:36:59Z_
+_As of 2026-08-22T07:39:14Z_
 
 ## Latest
 
-Local-verify now enforces Node runtime parity with CI — a fix for the silent local-pass/CI-fail gap where projects pin Node 24 but fleet hosts only have Node 22. The guard will hard-fail until Node 24 is provisioned (job posted: `provision-node24-fleet-hosts-20260822`). Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green and ready to merge but blocked by the recurring fleet-wide node24-runner binary-cache infra flake; both need either direct merge or the runner issue fixed. The byteArray program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete, green, and gated on maintainer re-review and finish-line un-draft. Root repo deploy has stalled ~3 days on both hosts — investigate why the deliberate drain/deploy cycle hasn't landed the 18 commits behind. SIWE on-chain authz for minion.town is deployed (thunk live) and awaiting tier-1 allowlist addresses and a tier choice (Tier 1 only or Tier 1+2 with schema). Several gauntlets halted mid-pipeline; a few parked jobs doomed by repeated handler failures await your go-ahead or removal.
+Local-verify Node runtime parity guard landed (main2 57d851dfaf), fixing silent local-pass/CI-fail discrepancies by enforcing matching Node versions; the follow-up [provision-node24-fleet-hosts-20260822](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/provision-node24-fleet-hosts-20260822.md) is underway to unblock Node 24-pinned projects. Multiple gauntlets halted after panel stage failures across endo-but-for-bots and minion.town work, and a recurring CI node24-runner flake is blocking two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous merge despite both being MERGE-NOW and green on all cells except that infrastructure issue. The SIWE on-chain authorization tier and allowlist are awaiting your decision to proceed with minion.town's policy layer. Budget enforcement design is landed; live enforcement awaits your per-account weekly token-cap input.
 
 ## Parked for maintainer feedback
 
@@ -294,6 +294,18 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 > (empty message)
 
+- `20260822T073747Z-651a0a` — from gardener:deadmail-20260822T072116Z-cf8821, reply_to `deadmail-20260822T072116Z-cf8821` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T073747Z-651a0a.md)
+
+> Heads-up from deadmail job deadmail-20260822T072116Z-cf8821 (self-disclosure of noise I created).
+>
+> Root cause of this deadmail job: `inbox-send.sh --help` treated `--help` as the <doer> positional, found no live inbox, and dead-lettered an empty message — which garden-deadmail promoted into this job. Fixed on main2 (commit 33dde773be): inbox-send.sh and message-user.sh now intercept `-h|--help` and print usage before consuming the positional, matching the existing guard in post-job.sh/journal-entry.sh; a `-*` doer is also rejected fast.
+>
+> While verifying, I accidentally ran the still-unpatched DEPLOYED scripts with --help, which reproduced the misfire and created disposable noise — all safe to discard during muster:
+> - 2 duplicate deadmail jobs, msgids 073340Z-0229ab (to `--help`) and 073348Z-2bd99c (to `-h`); both are empty misfires, no action needed (fix already landed).
+> - 1 empty message in the maintainer inbox, msgid 20260822T073358Z-5ec034 (reply_to=--help); discard.
+>
+> No project repos touched; garden-only change.
+
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -452,29 +464,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.6M | $946.10 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+828.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 111.7M | $947.99 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+829.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
-- [`deadmail-20260822T072116Z-cf8821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260822T072116Z-cf8821.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260822T073348Z-2bd99c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260822T073348Z-2bd99c.md) — Dead-lettered message — pick up its intent
+### doin (5)
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finalize-merge-upstream-master-into-llm-20260822.md) — Finish CI and merge endo-but-for-bots PR #1048 into llm
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-zdr-policy-and-stealth-lane.md) — Decision 1 — reject logging/training-use by default (answers Open question 1)
 - [`provision-node24-fleet-hosts-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/provision-node24-fleet-hosts-20260822.md) — Provision the pinned Node (LTS/24) onto fleet hosts so local-verify adopts ra...
 - [`review-improve-stale-related-design-direction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-stale-related-design-direction.md) — review-improve: stale related-design direction
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wire-siwe-onchain-authz-minion-town.md) — Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
-### tada (5408)
+### tada (5410)
+- [`deadmail-20260822T073348Z-2bd99c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073348Z-2bd99c.md) — Cost
+- [`deadmail-20260822T072116Z-cf8821`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T072116Z-cf8821.md) — Completion report
 - [`deadmail-20260822T073340Z-0229ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260822T073340Z-0229ab.md) — Cost
 - [`kriscendobot-minion.town-pr47-review-237136a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr47-review-237136a0-retro.md) — Completion report
 - [`fix-local-verify-node24-eslint-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-local-verify-node24-eslint-parity.md) — Completion report: fix-local-verify-node24-eslint-parity
-- [`daily-progress-summary-20260822-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260822-070502.md) — Completion report
-- [`kriscendobot-minion.town-pr48-review-b8fd1e6b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr48-review-b8fd1e6b-retro.md) — Cost
-- … and 5403 more
+- … and 5405 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
