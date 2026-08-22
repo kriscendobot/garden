@@ -215,6 +215,53 @@ scripts/jobs/set-openrouter-promos.sh 0                 # zero the pool: no work
 scripts/jobs/openrouter-promo-drop.sh openrouter/horizon-beta   # drop the id's row: unclaimable even at pool>0
 ```
 
+### When a stealth id is unmasked — carry its reputation forward
+
+A cloaked id runs under its own `openrouter-promo` kind/provider/namespace precisely so
+its short-lived, separately-re-reviewed reputation **never pools** with a named model's.
+When OpenRouter later **publishes what a stealth id actually was** (or you otherwise
+learn it) — an **external fact only a human confirms, never automatic** — you can carry
+the accumulated history forward onto the now-named model's arm rather than restarting it
+at zero:
+
+```sh
+# 1. (recommended) preview which events would move — no writes:
+scripts/jobs/rerecord-reputation-arm.sh \
+  openrouter-promo/openrouter-promo/openrouter-promo/openrouter/horizon-beta \
+  openrouter/openrouter/openrouter/z-ai/glm-5.2:free \
+  --authorized-by <your-login> --dry-run
+
+# 2. do it (maintainer-attested; <your-login> must be on the journal maintainers/allowlist):
+scripts/jobs/rerecord-reputation-arm.sh \
+  openrouter-promo/openrouter-promo/openrouter-promo/openrouter/horizon-beta \
+  openrouter/openrouter/openrouter/z-ai/glm-5.2:free \
+  --authorized-by <your-login>
+```
+
+An **arm key** is `<kind>/<provider>/<model>` using the **raw** identity values as they
+appear in an event's frontmatter (a promo model is namespaced `openrouter-promo/<wire-id>`;
+a named model is `openrouter/<wire-id>`). `kind` and `provider` are single slash-free
+tokens, so the first two slashes split the key and everything after is the model.
+
+The migration **goes through the reducer's single source of truth**: it relabels the
+`kind`/`provider`/`model` fields of every event (and not-yet-finalized pending event)
+belonging to the old arm to the new arm's values — preserving thoughtfulness / work_class
+/ target / acceptance / dollars — and the next `reputation-reduce.sh` tick re-projects
+that full history onto the named model's arm(s). Because the reducer recomputes each arm
+from **all** its events, relabeling onto a target arm that **already** has history simply
+**folds the two together** (a clean rename and a merge-on-collision are the same
+operation here). The old arm's now-orphaned projection subtree is removed in the same
+commit so no stale reputation lingers. It is **idempotent** (a re-run matches no old-arm
+events and no-ops) and **auditable** (an append-only `reputation/migrations/` record and a
+`rerecorded_from`/`_to`/`_by`/`_at` stamp on every moved event). Attestation follows the
+sysop's destructive-op precedent: `--authorized-by <login>` with `<login>` on the journal
+`maintainers/allowlist`.
+
+This handles **only** the reputation carry-forward. Retiring the cloak itself is separate
+and existing: `openrouter-promo-drop.sh <wire-id>` removes the promo ledger row, and the
+now-named model earns an ordinary reviewed `model-tier-inventory.tsv` row if you want to
+keep serving it on the **stable** lane.
+
 ## Cost is unmeasured on this lane
 
 Like the fireworker, the codex handler emits **no per-request dollars** for

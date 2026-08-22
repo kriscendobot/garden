@@ -178,6 +178,32 @@ those fields — the authorization is for undisclosed *provenance*, never for lo
 lane does nothing until a maintainer attests an id and sets the pool > 0 — a separate,
 host-side, maintainer-directed step (like the stable lane's first canary).
 
+**Unmask → reputation carry-forward.** A cloaked id's distinct kind/provider/namespace
+is what keeps its reputation from pooling with a named model's while it is cloaked — but
+when OpenRouter later **publishes** what a stealth id was (an external fact only a human
+confirms, never automatic), that same separation would otherwise **discard** the history
+the id earned. `rerecord-reputation-arm.sh <old-arm-key> <new-arm-key> --authorized-by
+<login>` (maintainer decision, 2026-08-22) carries it forward. An arm key is
+`<kind>/<provider>/<model>` in **raw** event-frontmatter values (kind/provider are
+slash-free, so the first two slashes split the key). The migration is defined **entirely
+through the reducer's single source of truth**: it relabels the `kind`/`provider`/`model`
+fields of every matching event *and* pending event to the new arm — preserving
+thoughtfulness/work_class/target/acceptance/dollars — so the next reducer tick
+re-projects the full history onto the named model's arm(s). Since the reducer recomputes
+each arm from **all** its events (Welford over the set), a **merge** onto a target arm
+that already has history is the *same* operation as a clean **rename** — no approximate
+posterior combination, and the open question of merge semantics never arises. The old
+arm's now-orphaned projection subtree is GC'd in the same commit (the reducer never
+deletes a zero-event arm on its own, so a stale projection would otherwise linger). It is
+**idempotent** (a re-run matches no old-arm events → no-op, no record, no commit) and
+**auditable** (an append-only `reputation/migrations/<ts>-<hash>.md` record plus a
+`rerecorded_from`/`_to`/`_by`/`_at` stamp on every moved event). Attestation follows the
+**sysop destructive-op precedent** (§6 of [sysop](sysop.md)): `--authorized-by <login>`
+with `<login>` on the journal `maintainers/allowlist` — journal-push access is the outer
+boundary; the attestation records *who* confirmed the unmask, in git. Retiring the cloak
+itself (dropping the promo ledger row, adding an ordinary reviewed inventory row for the
+now-named model on the stable lane) is separate and reuses the existing tools.
+
 ## Disabled by default
 
 Same posture as `fireworker`/`mystic`: pool at zero (no `openrouters:` line declared
