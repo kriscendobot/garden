@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: endojs/endo-but-for-bots#403 MERGED 2026-08-17
+withdrawn_by: gardener:groom-parked-job-queue-20260822
+withdrawn_at: 2026-08-22T07:25:55Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 doomed: true
