@@ -4,3 +4,4 @@
 {"ts":"2026-08-17T13:05:16Z","base":"kriscendobot-list-pr1-1238bca7","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":94}
 {"ts":"2026-08-17T13:14:01Z","base":"kriscendobot-list-pr1-1238bca7","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
 {"ts":"2026-08-17T13:24:11Z","base":"kriscendobot-list-pr1-1238bca7","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":52}
+{"source":"result","model":"claude-opus-4-8","num_turns":5,"elapsed_s":47,"input_tokens":10,"output_tokens":2687,"cache_creation_tokens":27733,"cache_read_tokens":185789,"total_cost_usd":0.44023049999999997,"ts":"2026-08-22T05:50:30Z","base":"kriscendobot-list-pr1-1238bca7","host":"endolin-garden2-5bcdff64","outcome":"tada"}
