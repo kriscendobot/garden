@@ -66,3 +66,13 @@ separate, host-side, maintainer-run step the liaison is handling directly.
 - `jobs/plan/openrouter-zdr-policy-and-stealth-lane.md` (the doomed original,
   for full context on all three decisions — but only Decision 2 is this
   job's scope).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T08:37:09Z
