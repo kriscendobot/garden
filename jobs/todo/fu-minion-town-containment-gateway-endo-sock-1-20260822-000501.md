@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-08-22T00:05:01Z
-job_basename_prefix: fu-minion-town-containment-gateway-endo-sock-1
----
 ---
 tier: mentor
 fallback-tier: minion
