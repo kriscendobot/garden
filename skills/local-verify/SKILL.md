@@ -80,6 +80,43 @@ where that second part is enforced during a live CI drive: whenever a red CI che
 was one this gate should have caught, the loop emits the parity follow-up, not
 just the green.
 
+### Runtime parity (the Node version)
+
+The sharpest environment divergence is the **runtime itself**. A project pins the
+Node version its CI runs (`.node-version`, `.nvmrc`); GitHub's `actions/setup-node`
+resolves that file — including the nvm-style `lts/*` alias — and runs every check
+under the resolved major. A host whose `node` is a **different major** verifies
+under the wrong runtime, and type-aware lint (`@endo/restrict-comparison-operands`,
+`import/order`), module-resolution edge cases, and syntax support all move between
+majors — so the gate can go **green here while the pinned-major CI goes red**.
+This is exactly the class 2 divergence above, and it silently defeats the whole
+contract: a green that does not imply a green on CI.
+
+So the harness runs a **Node runtime-parity guard** before any step
+(`scripts/jobs/gardening/local-verify.sh`, backed by `required_node_major` /
+`active_node_major` / `find_node_bin_for_major` in `scripts/jobs/common.sh`):
+
+1. Resolve the pinned major from `.node-version` (then `.nvmrc`). Explicit
+   versions (`24`, `v24.18.0`, `24.x`) map directly; `lts/*`, `lts/-N`, and
+   `lts/<codename>` resolve from a small static table plus a documented
+   "current newest LTS" constant (`GARDEN_NODE_LTS_LATEST`, default `24`) — **no
+   network**, so the gate stays deterministic and fails safe offline. Bump the
+   constant when a new even major enters LTS (see
+   [node-lts-window-watch](../node-lts-window-watch/SKILL.md)).
+2. If the active `node` already matches, proceed silently.
+3. Else look for a matching runtime under the common version-manager roots (nvm,
+   fnm, n, volta) or an explicit `GARDEN_NODE`; if found, **adopt** it by
+   prepending its `bin` to `PATH` for the run.
+4. Else **refuse to run**, emitting a single `NODE RUNTIME PARITY:` line naming
+   the pinned major, its source, and the active major, and exit non-zero (3).
+   Failing loud is the point: a silent green under the wrong Node is the defect.
+
+Escape hatches (all auditable): `GARDEN_SKIP_NODE_PARITY=1` bypasses the guard;
+`GARDEN_NODE=<dir|binary>` points at a matching runtime; `GARDEN_REQUIRED_NODE_MAJOR`
+overrides the resolved requirement (`-`/`none` clears it). Grounding:
+endojs/endo-but-for-bots#1048 — a host on Node 22.23.2 reported `yarn lint:eslint`
+green while the `.node-version=lts/*` → Node 24.18.0 CI leg failed type-aware lint.
+
 ## The steps (in order)
 
 `format -> build -> lint -> codegen -> test -> docgen`, then a **codegen-then-clean gate**.
@@ -164,6 +201,12 @@ workspace output is accumulated into the single SHA-captured `STEP test FAILED`
 report; every workspace test runs even after an earlier one fails. A project
 that is not a discoverable Yarn workspace tree retains the ordinary root test
 script behavior.
+
+Runtime-parity knobs (see [Runtime parity](#runtime-parity-the-node-version)):
+`GARDEN_SKIP_NODE_PARITY=1` bypasses the Node guard; `GARDEN_NODE=<dir|binary>`
+names a matching runtime to adopt; `GARDEN_REQUIRED_NODE_MAJOR` overrides the
+resolved requirement (`-`/`none` clears it); `GARDEN_NODE_LTS_LATEST` sets the
+major `lts/*` resolves to (default `24`).
 
 The package runner defaults to `yarn` when present, else `npx corepack yarn`
 (plain `yarn` is often absent in a fresh worktree; see
@@ -298,7 +341,13 @@ and one script matched by two steps — is not flagged; an end-to-end case drive
 real `ensure-project-worktree.sh` through a cold build then a warm cache HIT
 (stubbed yarn-4 runner that refuses `run` without link state) and asserts the gate
 runs silently in the HIT worktree, with a `GARDEN_SKIP_DEP_RECONCILE=1` negative
-control that must diagnose an environment fault. `bash -n` and `shellcheck` clean.
+control that must diagnose an environment fault. A final group covers the Node
+runtime-parity guard, driven relative to the host's actual node major so it holds
+on any runner: a mismatched pin fails loud (`NODE RUNTIME PARITY`, non-zero) with
+the steps proven **not** to run; a matching pin passes; `GARDEN_SKIP_NODE_PARITY`,
+`GARDEN_REQUIRED_NODE_MAJOR`, `GARDEN_NODE_LTS_LATEST`, `.nvmrc` fallback, and the
+adopt-a-discovered-runtime path (a fake nvm node on an exec-capable base) are each
+asserted. `bash -n` and `shellcheck` clean.
 
 ## Pitfalls
 

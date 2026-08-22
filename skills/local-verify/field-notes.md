@@ -193,3 +193,33 @@ like one of these recurring classes.
   the shim. General lesson for the table: a shim that hard-codes an absolute path
   into ephemeral per-job state is not a parity fix, it is a deferred parity bug,
   and its quiet failure mode is worse than its loud one.
+- _2026-08-22_: closed a **runtime-parity** divergence (job
+  `fix-local-verify-node24-eslint-parity`), the class 2 environment divergence in
+  its sharpest form — the wrong Node major. Follow-up to
+  endojs/endo-but-for-bots#1048: host-local verification ran under Node 22.23.2
+  while the project's `.node-version` is `lts/*`, which `actions/setup-node`
+  resolved to Node 24.18.0. `yarn lint:eslint` was reported green locally while
+  the Node 24 CI leg found type-aware `@endo/restrict-comparison-operands` and
+  `import/order` errors — a silent local-pass/CI-fail, the exact thing the gate
+  exists to prevent, because nothing in the harness knew CI ran a different
+  runtime. Tell: a lint (especially a *type-aware* rule) or a resolver/syntax
+  behavior that only reproduces on CI, with `node --version` differing from the
+  major `actions/setup-node` resolves the repo's `.node-version` to. Fix: a
+  **Node runtime-parity guard** that runs before any step. It resolves the pinned
+  major from `.node-version`/`.nvmrc` (explicit versions map directly; `lts/*`,
+  `lts/-N`, `lts/<codename>` resolve from a static table + a documented
+  `GARDEN_NODE_LTS_LATEST` constant — no network, deterministic, fail-safe
+  offline), then: matches → proceed; a discoverable version-manager runtime
+  (nvm/fnm/n/volta) or `GARDEN_NODE` → adopt it by PATH-prepend; otherwise
+  **refuse to run** with one `NODE RUNTIME PARITY:` line and exit 3. Failing loud
+  is deliberate: a silent green under the wrong Node is the defect, so the gate
+  must not emit one. Helpers `required_node_major` / `active_node_major` /
+  `find_node_bin_for_major` live in `common.sh`; escape hatches
+  `GARDEN_SKIP_NODE_PARITY=1`, `GARDEN_NODE`, `GARDEN_REQUIRED_NODE_MAJOR`. General
+  lesson for the table: parity is not just *which checks* run but *what runtime*
+  runs them; a version-manager pin file (`.node-version`, `.nvmrc`) that CI honors
+  and the local gate ignores is a parity bug even when every check is present.
+  Operational note: on a host without a matching Node the guard now hard-fails
+  every pinned-major project — the honest state — so the standing follow-up is to
+  provision the pinned Node (or the current LTS) onto fleet hosts / bake it into
+  the image so the guard *adopts* rather than *refuses*.

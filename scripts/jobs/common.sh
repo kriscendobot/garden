@@ -2035,6 +2035,132 @@ hermetic_gitconfig() {
   export GIT_CONFIG_GLOBAL GIT_CONFIG_SYSTEM GIT_CONFIG_NOSYSTEM
 }
 
+# ── Node runtime parity ──────────────────────────────────────────────────────
+# A project pins the Node version its CI runs (`.node-version`, `.nvmrc`).
+# GitHub's actions/setup-node resolves that file — including the nvm-style
+# `lts/*` alias — and runs every check under the resolved runtime. A host whose
+# `node` is a DIFFERENT major then verifies under the wrong runtime: type-aware
+# lint (`@endo/restrict-comparison-operands`), module-resolution edge cases, and
+# syntax support all move between majors, so a local gate can go green while the
+# pinned-major CI goes red. That is the environment-divergence class
+# skills/local-verify § Parity is the contract requires CLOSING, not a check
+# failure. These helpers let a verification harness resolve the pin and refuse to
+# run under a mismatched runtime (or adopt a matching one) rather than emit a
+# misleading green. Grounding: endojs/endo-but-for-bots#1048, where a host on
+# Node 22 reported `yarn lint:eslint` green while the `.node-version=lts/*` → Node
+# 24 CI leg failed type-aware lint.
+#
+# NO NETWORK: `lts/*` resolves from a small static table (below) plus a
+# documented "current newest LTS major" constant, both overridable, so the gate
+# stays deterministic and fails safe offline. The constant is a maintenance
+# surface — bump it when a new even major enters LTS (see
+# skills/node-lts-window-watch). Overridable with GARDEN_NODE_LTS_LATEST.
+
+# _node_lts_major_for_alias <spec> — map an nvm LTS alias to a major, else "".
+#   lts/*, lts/latest -> newest LTS major
+#   lts/-N            -> N LTS lines back (lines are even majors spaced by 2)
+#   lts/<codename>    -> that line's major
+_node_lts_major_for_alias() {
+  local spec="$1" latest back
+  latest="${GARDEN_NODE_LTS_LATEST:-24}"
+  case "$spec" in
+    lts/\*|lts/latest) printf '%s\n' "$latest" ;;
+    lts/-[0-9]*)       back="${spec#lts/-}"; printf '%s\n' "$(( latest - 2 * back ))" ;;
+    lts/[Aa]rgon)      echo 4  ;;
+    lts/[Bb]oron)      echo 6  ;;
+    lts/[Cc]arbon)     echo 8  ;;
+    lts/[Dd]ubnium)    echo 10 ;;
+    lts/[Ee]rbium)     echo 12 ;;
+    lts/[Ff]ermium)    echo 14 ;;
+    lts/[Gg]allium)    echo 16 ;;
+    lts/[Hh]ydrogen)   echo 18 ;;
+    lts/[Ii]ron)       echo 20 ;;
+    lts/[Jj]od)        echo 22 ;;
+    lts/[Kk]rypton)    echo 24 ;;
+    *)                 printf '' ;;
+  esac
+}
+
+# node_version_spec <worktree> — echo "<raw-spec>\t<source-file>" from the first
+# of .node-version / .nvmrc that carries a token, else nothing.
+node_version_spec() {
+  local wt="$1" f raw
+  for f in .node-version .nvmrc; do
+    [ -f "$wt/$f" ] || continue
+    IFS= read -r raw < "$wt/$f" 2>/dev/null || raw=""
+    raw="$(printf '%s' "$raw" | tr -d '[:space:]' | head -c 64)"
+    [ -n "$raw" ] && { printf '%s\t%s\n' "$raw" "$f"; return 0; }
+  done
+  return 0
+}
+
+# required_node_major <worktree> — echo the Node MAJOR the project pins, else "".
+# GARDEN_REQUIRED_NODE_MAJOR overrides the file resolution entirely (set to "-"
+# or "none" to declare no requirement).
+required_node_major() {
+  local raw spec_line
+  if [ -n "${GARDEN_REQUIRED_NODE_MAJOR:-}" ]; then
+    case "$GARDEN_REQUIRED_NODE_MAJOR" in
+      -|none) return 0 ;;
+      *) printf '%s\n' "$(printf '%s' "${GARDEN_REQUIRED_NODE_MAJOR#v}" | tr -cd '0-9' )" ; return 0 ;;
+    esac
+  fi
+  spec_line="$(node_version_spec "$1")"
+  raw="${spec_line%%$'\t'*}"
+  [ -n "$raw" ] || return 0
+  case "$raw" in
+    lts/*)          _node_lts_major_for_alias "$raw" ;;
+    v[0-9]*|[0-9]*) raw="${raw#v}"; raw="${raw%%.*}"; printf '%s\n' "$(printf '%s' "$raw" | tr -cd '0-9')" ;;
+    *)              printf '' ;;   # 'node'/'current'/'stable' aliases are not an LTS pin
+  esac
+}
+
+# active_node_major — echo the major of the `node` currently on PATH, else "".
+active_node_major() {
+  local v
+  command -v node >/dev/null 2>&1 || return 0
+  v="$(node --version 2>/dev/null)" || return 0    # e.g. v24.18.0
+  v="${v#v}"; printf '%s\n' "${v%%.*}"
+}
+
+# _node_bin_major <bin-dir> — echo the major of <bin-dir>/node, else "".
+_node_bin_major() {
+  local dir="$1" v
+  [ -x "$dir/node" ] || return 0
+  v="$("$dir/node" --version 2>/dev/null)" || return 0
+  v="${v#v}"; printf '%s\n' "${v%%.*}"
+}
+
+# find_node_bin_for_major <major> — echo a bin DIR whose `node` is that major,
+# searching an explicit GARDEN_NODE override then common version-manager roots
+# (nvm, fnm, n, volta). Echoes nothing when none is found.
+find_node_bin_for_major() {
+  local major="$1" root cand dir roots
+  [ -n "$major" ] || return 0
+  if [ -n "${GARDEN_NODE:-}" ]; then
+    if [ -x "$GARDEN_NODE" ]; then dir="$(dirname "$GARDEN_NODE")"; else dir="$GARDEN_NODE"; fi
+    [ "$(_node_bin_major "$dir")" = "$major" ] && { printf '%s\n' "$dir"; return 0; }
+  fi
+  roots=(
+    "${NVM_DIR:-$HOME/.nvm}/versions/node"
+    "$HOME/.local/share/fnm/node-versions"
+    "${FNM_DIR:-}/node-versions"
+    "${N_PREFIX:-/usr/local}/n/versions/node"
+    "/usr/local/n/versions/node"
+    "$HOME/.volta/tools/image/node"
+  )
+  for root in "${roots[@]}"; do
+    [ -n "$root" ] && [ -d "$root" ] || continue
+    for cand in "$root"/v"$major".* "$root"/"$major".* "$root"/v"$major" "$root"/"$major"; do
+      [ -d "$cand" ] || continue
+      for dir in "$cand/bin" "$cand/installation/bin"; do   # fnm nests under installation/
+        [ "$(_node_bin_major "$dir")" = "$major" ] && { printf '%s\n' "$dir"; return 0; }
+      done
+    done
+  done
+  return 0
+}
+
 # scratch_cleanup <dir> — remove a scratch dir created by scratch_dir. If <dir>
 # is a registered git worktree (of any repo whose admin dir can be located), it
 # is torn down with `git worktree remove --force` first so no stale worktree

@@ -24,6 +24,11 @@
 #      path exercises its steps (silent, exit 0), and the pre-fix shape (deps
 #      linked in, no package-manager link state) is diagnosed as an environment
 #      fault. This is the regression for job `fix-warm-cache-yarn-install-state`.
+#  11. Node runtime parity: a project pinning a Node major different from the
+#      host's `node` fails loud (`NODE RUNTIME PARITY`, exit 3) with the steps
+#      proven NOT to run; a matching pin passes; the bypass/override/lts-alias/
+#      .nvmrc/adopt-a-discovered-runtime paths each behave. Regression for job
+#      `fix-local-verify-node24-eslint-parity` (endojs/endo-but-for-bots#1048).
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
 # with a stubbed package runner (GARDEN_YARN), and — for 10 — a throwaway garden
@@ -408,6 +413,119 @@ PKG
   printf '%s' "$o15b" | grep -q 'ENVIRONMENT FAULT' \
     && ok "the pre-fix worktree is reported as an ENVIRONMENT FAULT, not N failed checks" \
     || bad "six identical refusals not diagnosed as an environment fault (out=[$o15b])"
+fi
+
+# --- 16: Node runtime parity guard ------------------------------------------
+# A project pins the Node major its CI runs (.node-version / .nvmrc; GitHub's
+# actions/setup-node resolves that file, including the `lts/*` alias). A host on
+# a DIFFERENT major verifies under the wrong runtime — type-aware lint, resolver
+# edges, syntax support all move between majors — so the gate can go green here
+# while the pinned-major CI goes red (endojs/endo-but-for-bots#1048: host on Node
+# 22, `.node-version=lts/*` → Node 24 CI, `yarn lint:eslint` green locally / red
+# on CI). The guard resolves the pin and REFUSES to run under a mismatched
+# runtime (or adopts a matching one) rather than emit a misleading green.
+#
+# Driven relative to the ACTUAL active node major so the assertions hold on any
+# host (CI runs this on whatever node it pins).
+if command -v node >/dev/null 2>&1; then
+  NODEMAJ="$(node --version 2>/dev/null | sed 's/^v//; s/\..*//')"
+  OTHER=$((NODEMAJ + 2))     # a major the host definitely is NOT, and no VM has
+
+  # A repo whose lint step FAILS, so we can prove the guard runs BEFORE the steps:
+  # when the guard fires, the STEP lint FAILED line must NOT appear.
+  RNP="$TR/nodeparity"
+  make_repo "$RNP" '#!/bin/bash
+case "$2" in
+  lint) echo "eslint: 1 problem"; exit 1 ;;
+  *)    exit 0 ;;
+esac'
+
+  # (a) pin a mismatched major -> fail loud, non-zero, and the steps do NOT run.
+  printf '%s\n' "$OTHER" > "$RNP/.node-version"
+  oa="$(GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"; rca=$?
+  [ "$rca" -ne 0 ] && ok "mismatched Node pin fails loud (exit $rca)" || bad "mismatched Node pin should fail loud"
+  printf '%s' "$oa" | grep -q 'NODE RUNTIME PARITY' \
+    && ok "emits the NODE RUNTIME PARITY diagnosis" || bad "missing NODE RUNTIME PARITY line (out=[$oa])"
+  printf '%s' "$oa" | grep -q 'STEP lint FAILED' \
+    && bad "steps ran under the mismatched runtime (guard did not gate)" \
+    || ok "the guard runs BEFORE any step (no STEP lint FAILED under a mismatch)"
+
+  # (b) pin the ACTIVE major -> guard passes, steps run (lint fails on its own).
+  printf '%s\n' "$NODEMAJ" > "$RNP/.node-version"
+  ob="$(GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$ob" | grep -q 'NODE RUNTIME PARITY' \
+    && bad "matching Node pin false-tripped the parity guard" || ok "matching Node pin passes the guard"
+  printf '%s' "$ob" | grep -q 'STEP lint FAILED' \
+    && ok "with parity satisfied the real steps run" || bad "steps did not run under a matching runtime (out=[$ob])"
+
+  # (c) GARDEN_SKIP_NODE_PARITY=1 bypasses the guard even on a mismatch.
+  printf '%s\n' "$OTHER" > "$RNP/.node-version"
+  oc="$(GARDEN_SKIP_NODE_PARITY=1 GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$oc" | grep -q 'NODE RUNTIME PARITY' \
+    && bad "GARDEN_SKIP_NODE_PARITY=1 did not bypass the guard" || ok "GARDEN_SKIP_NODE_PARITY=1 bypasses the guard"
+  printf '%s' "$oc" | grep -q 'STEP lint FAILED' \
+    && ok "bypass lets the steps run" || bad "bypass did not run the steps (out=[$oc])"
+
+  # (d) GARDEN_REQUIRED_NODE_MAJOR overrides the file resolution (mismatch -> loud).
+  printf '%s\n' "$NODEMAJ" > "$RNP/.node-version"   # file says match...
+  od="$(GARDEN_REQUIRED_NODE_MAJOR="$OTHER" GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"; rcd=$?
+  [ "$rcd" -ne 0 ] && printf '%s' "$od" | grep -q 'NODE RUNTIME PARITY' \
+    && ok "GARDEN_REQUIRED_NODE_MAJOR overrides the file resolution" \
+    || bad "override requirement not honored (rc=$rcd out=[$od])"
+
+  # (e) the `lts/*` alias resolves via GARDEN_NODE_LTS_LATEST (deterministic, no net).
+  printf 'lts/*\n' > "$RNP/.node-version"
+  oe="$(GARDEN_NODE_LTS_LATEST="$NODEMAJ" GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$oe" | grep -q 'NODE RUNTIME PARITY' \
+    && bad "lts/* resolving to the active major false-tripped the guard" \
+    || ok "lts/* resolves via GARDEN_NODE_LTS_LATEST (match -> pass)"
+  oe2="$(GARDEN_NODE_LTS_LATEST="$OTHER" GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$oe2" | grep -q 'NODE RUNTIME PARITY' \
+    && ok "lts/* resolving to a foreign major fails loud" || bad "lts/* mismatch not caught (out=[$oe2])"
+
+  # (f) .nvmrc is the fallback pin surface when .node-version is absent.
+  rm -f "$RNP/.node-version"; printf '%s\n' "$NODEMAJ" > "$RNP/.nvmrc"
+  of="$(GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$of" | grep -q 'NODE RUNTIME PARITY' \
+    && bad ".nvmrc matching the active major false-tripped the guard" || ok ".nvmrc is honored as a pin surface"
+  rm -f "$RNP/.nvmrc"
+
+  # (g) the guard ADOPTS a matching runtime discovered under a version-manager
+  # root: a fake nvm node reporting v<OTHER> lets a mismatched pin pass by PATH
+  # swap. Proves find_node_bin_for_major -> PATH prepend, not just the refusal.
+  # The adopt path invokes the discovered node DIRECTLY, so the fake must live on
+  # an exec-capable filesystem — /tmp (hence $TR) is noexec in the container,
+  # while a real nvm/fnm node lives under exec-capable $HOME. Find such a base
+  # (as production does) or skip this one sub-case.
+  EXECBASE=""
+  for base in "$TR" "${HOME:-}/.cache" "${HOME:-}"; do
+    [ -n "$base" ] || continue
+    mkdir -p "$base" 2>/dev/null || continue
+    probe="$base/.lvtest-execprobe.$$"
+    if printf '#!/bin/sh\nexit 0\n' > "$probe" 2>/dev/null && chmod +x "$probe" 2>/dev/null && "$probe" 2>/dev/null; then
+      rm -f "$probe"; EXECBASE="$base"; break
+    fi
+    rm -f "$probe" 2>/dev/null
+  done
+  if [ -z "$EXECBASE" ]; then
+    echo "  SKIP: adopt-runtime case needs an exec-capable filesystem for the fake node"
+  else
+    FAKEROOT="$EXECBASE/lvtest-fakenvm.$$"
+    FAKENVM="$FAKEROOT/versions/node/v$OTHER.0.0/bin"
+    mkdir -p "$FAKENVM"
+    printf '#!/bin/bash\necho "v%s.0.0"\n' "$OTHER" > "$FAKENVM/node"
+    chmod +x "$FAKENVM/node"
+    printf '%s\n' "$OTHER" > "$RNP/.node-version"
+    og="$(NVM_DIR="$FAKEROOT" GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+    printf '%s' "$og" | grep -q 'NODE RUNTIME PARITY' \
+      && bad "guard refused despite a discoverable matching runtime (out=[$og])" \
+      || ok "guard adopts a version-manager runtime matching the pin"
+    printf '%s' "$og" | grep -q 'STEP lint FAILED' \
+      && ok "after adopting the matching runtime the steps run" || bad "adopted runtime did not run the steps (out=[$og])"
+    rm -rf "$FAKEROOT"
+  fi
+else
+  echo "  SKIP: node parity guard needs a node on PATH"
 fi
 
 echo "----------------------------------------------------------------"

@@ -91,6 +91,46 @@ export TMPDIR
 # skills/local-verify § Parity is the contract.
 hermetic_gitconfig
 
+# ── Node runtime parity ──────────────────────────────────────────────────────
+# A project pins the Node version CI runs (`.node-version` / `.nvmrc`). GitHub's
+# actions/setup-node resolves that file — including the `lts/*` alias — and runs
+# every check under it. A host whose `node` is a DIFFERENT major then verifies
+# under the wrong runtime: type-aware lint (`@endo/restrict-comparison-operands`,
+# `import/order`), module-resolution edge cases, and syntax support all move
+# between majors, so this gate can go green while the pinned-major CI goes red.
+# That is the environment-divergence class § Parity is the contract requires
+# closing, not a check failure — so the gate ADOPTS a matching runtime when it
+# can find one, else REFUSES to run rather than emit a misleading green.
+# Grounding: endojs/endo-but-for-bots#1048 (host on Node 22, `.node-version=lts/*`
+# → Node 24 CI, `yarn lint:eslint` green locally / red on CI).
+#
+# Escape hatches: GARDEN_SKIP_NODE_PARITY=1 bypasses the guard (an explicit,
+# auditable choice); GARDEN_NODE=<dir|binary> points at a matching runtime;
+# GARDEN_REQUIRED_NODE_MAJOR overrides the resolved requirement (or "-" clears it).
+if [ "${GARDEN_SKIP_NODE_PARITY:-}" != 1 ]; then
+  req_major="$(required_node_major "$wt")"
+  if [ -n "$req_major" ]; then
+    spec_line="$(node_version_spec "$wt")"
+    raw_spec="${spec_line%%$'\t'*}"; src_file="${spec_line#*$'\t'}"
+    if [ -n "${GARDEN_REQUIRED_NODE_MAJOR:-}" ]; then
+      raw_spec="$GARDEN_REQUIRED_NODE_MAJOR"; src_file="GARDEN_REQUIRED_NODE_MAJOR"
+    fi
+    act_major="$(active_node_major)"
+    if [ "$act_major" != "$req_major" ]; then
+      swap_bin="$(find_node_bin_for_major "$req_major")"
+      if [ -n "$swap_bin" ]; then
+        PATH="$swap_bin:$PATH"; export PATH        # adopt the matching runtime
+        act_major="$(active_node_major)"
+      fi
+    fi
+    if [ "$act_major" != "$req_major" ]; then
+      printf 'NODE RUNTIME PARITY: project pins Node %s (%s = %s) but the active node is %s — refusing to verify under a mismatched runtime, because a green here would NOT imply a green on Node %s CI. Install Node %s (nvm/fnm/n), point GARDEN_NODE at a matching runtime, or set GARDEN_SKIP_NODE_PARITY=1 to bypass deliberately.\n' \
+        "$req_major" "${src_file:-.node-version}" "${raw_spec:-?}" "${act_major:-none}" "$req_major" "$req_major"
+      exit 3
+    fi
+  fi
+fi
+
 # The package runner: plain `yarn` is often absent in a fresh worktree, so fall
 # back to `npx corepack yarn` (see skills/pre-pr-checklist § Pitfalls). Override
 # with GARDEN_YARN for tests or a project that uses a different runner.
