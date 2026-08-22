@@ -14,3 +14,13 @@ Work in the isolated project checkout keyed by this job. Fetch both current upst
 Push the integration branch, open a PR against `llm` through the job-scoped `ensure-pr.sh` helper, and drive the PR to green and mergeable. Run proportionate local verification and report the exact commands and results. When CI is green and the PR is mergeable, merge it into `llm` with merge history preserved, then confirm the resulting `llm` head contains the upstream merge and report its post-merge check state. If the integration cannot safely converge, leave the PR open and report the specific blockers instead of forcing a bad merge.
 
 Source context: https://github.com/endojs/endo-but-for-bots/pull/719
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-22T03:42:38Z
