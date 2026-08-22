@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-22T09:07:29Z_
+_As of 2026-08-22T09:20:16Z_
 
 ## Latest
 
-OpenRouter's zero-data-retention policy and stealth-model lane shipped (reputation unmask-migration in hand); SIWE on-chain authz infrastructure for minion.town is deployed and awaiting tier/allowlist decisions; upstream master merged into `llm`. Node 24 local-verify parity is restored with provisioning landed. Deploy is stalled 3d behind on two hosts; four gauntlets halted mid-panel; dependabot PRs [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) await node24-runner CI flake decision; byteArray review PRs [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) are green and blocked on maintainer re-review; and 20+ parked jobs await go-ahead decisions.
+OpenRouter's stealth-lane and ZDR policy orchestration completed. SIWE on-chain authz wiring is live at minion.town and awaiting maintainer tier/address decisions. The bytearray press reached its finish line: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) are green and mergeable (CHANGES_REQUESTED cleared needed), while [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is draft-ready. Node 24 runtime parity guard deployed fleet-wide. Deploy is stalled ~3 days on two hosts. Maintainer inbox holds 28 messages with escalations on a CI node24-runner flake blocking [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), test262 fixture consolidation (metering corpus decision), and two halted orchestrations.
 
 ## Parked for maintainer feedback
 
@@ -615,23 +615,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.0M | $958.99 _(notional, rate-card)_ | no quota set |
+| Claude | 112.0M | $958.64 _(notional, rate-card)_ | no quota set |
 | Codex | 19.5M _(+869.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`openrouter-reputation-unmask-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/openrouter-reputation-unmask-migration.md) — The maintainer's decision (net-new — not in the original design)
+### doin (0)
+(none)
 
-### tada (5416)
+### tada (5418)
+- [`openrouter-zdr-and-stealth-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-zdr-and-stealth-orchestration.md) — orchestration openrouter-zdr-and-stealth-orchestration — complete
+- [`openrouter-reputation-unmask-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-reputation-unmask-migration.md) — Completion report
 - [`openrouter-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-stealth-lane.md) — Completion report
 - [`openrouter-zdr-data-policy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-zdr-data-policy.md) — Cost
 - [`finalize-merge-upstream-master-into-llm-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finalize-merge-upstream-master-into-llm-20260822.md) — Cost
-- [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town.md) — Completion report — wire-siwe-onchain-authz-minion-town
-- [`review-improve-stale-related-design-direction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-stale-related-design-direction.md) — Completion report
-- … and 5411 more
+- … and 5413 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
