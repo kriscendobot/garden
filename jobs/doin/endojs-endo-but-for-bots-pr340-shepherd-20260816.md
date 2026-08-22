@@ -15,3 +15,13 @@ Shepherd https://github.com/endojs/endo-but-for-bots/pull/340 (feat(daemon): OCa
 State verified 2026-08-16: OPEN, non-draft, mergeStateStatus UNSTABLE, head f081208e1 (updated 08-15). Exactly one check fails: test (24.x, ubuntu-latest). Everything else passes 27/28.
 
 This is the transport root of the OCapN stack (340 -> 684 -> 688 -> 693), so getting it green unblocks the restack. Diagnose and fix the single failing job; do not rewrite unrelated history.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T05:49:07Z
