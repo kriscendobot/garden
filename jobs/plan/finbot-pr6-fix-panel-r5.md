@@ -1,6 +1,6 @@
 ---
 gate: go-ahead
-priority: normal
+priority: low
 doomed: true
 doom_signature: deadline-overrun
 doom_count: 1
@@ -205,3 +205,7 @@ reuse the empty-bodied `fix(pipeline): address panel must-fix items on PR #6` su
 
 
 <!-- garden-deadline-overrun: 1 -->
+
+<!-- garden-annotation: key=f37f1176c596 by=producer at=2026-08-22T06:24:04Z fields=priority=low -->
+
+Shelved 2026-08-22 (maintainer directive, during the parked-job roadmap session): not resuming now, may return to finbot someday but not soon. Left parked go-ahead, not pruned -- this is deliberate deprioritization, not moot/superseded work.
