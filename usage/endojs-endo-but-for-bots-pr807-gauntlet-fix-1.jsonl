@@ -4,3 +4,4 @@
 {"ts":"2026-08-19T23:23:25Z","base":"endojs-endo-but-for-bots-pr807-gauntlet-fix-1","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
 {"ts":"2026-08-19T23:33:45Z","base":"endojs-endo-but-for-bots-pr807-gauntlet-fix-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":26}
 {"ts":"2026-08-19T23:44:05Z","base":"endojs-endo-but-for-bots-pr807-gauntlet-fix-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":37}
+{"ts":"2026-08-22T14:03:35Z","base":"endojs-endo-but-for-bots-pr807-gauntlet-fix-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":85}
