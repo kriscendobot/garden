@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-07-29
+updated: 2026-08-22
 author: gardener
 ---
 
@@ -300,6 +300,13 @@ SHA) is invisible because the bot's fork only sees its own.
 
 (Append; terse and dated.)
 
+- _2026-08-22_: after rebasing onto a base with dependency changes, refresh the
+  project install before local verification. `ensure-project-worktree.sh`
+  populated the warm cache for the old PR head, so the rebased tree's Yarn pnpm
+  map lacked a newly pinned package and every JavaScript gate failed with the
+  same `Couldn't find ... in the currently installed pnpm map` usage error.
+  `corepack yarn install --immutable` reconciled the link state without changing
+  tracked files. The Rust-only tests did not expose the stale JavaScript install.
 - _2026-07-29_: on `endojs/endo-but-for-bots` the *Rebase* step 5 hits an
   **autostash conflict** that is not yours. `ensure-project-worktree.sh`'s warm
   dep-cache install runs `yarn install`, which reformats
