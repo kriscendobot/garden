@@ -164,7 +164,8 @@ codex_provider_preflight() {
     return
   fi
 
-  if [ "$provider" = openrouter ]; then
+  if [ "$provider" = openrouter ] || [ "$provider" = openrouter-promo ]; then
+    # Both OpenRouter lanes share one endpoint/key, so both probe the same check.
     openrouter_provider_preflight "$kind" "$base"
     return
   fi
@@ -347,13 +348,16 @@ codex_provider_extra_args() {
         -c "model_providers.fireworks.base_url=\"$GARDEN_FIREWORKS_BASE_URL\""
         -c "model_providers.fireworks.env_key=\"FIREWORKS_API_KEY\""
       ) ;;
-    openrouter)
+    openrouter|openrouter-promo)
       # OpenRouter's OpenAI-compatible custom-provider configuration.  The exact
       # aggregator model id (including any `:free` suffix) comes from the explicit
       # job header, never from this adapter. The base URL MUST already name the
       # loopback privacy proxy started by the caller; that proxy injects the request
       # body controls Codex's provider schema cannot express. Optional OpenRouter
-      # attribution headers are deliberately omitted: they are not required.
+      # attribution headers are deliberately omitted: they are not required.  BOTH
+      # OpenRouter lanes (stable `openrouter` and cloaked `openrouter-promo`) use the
+      # SAME endpoint, key, and Codex provider block — they diverge only in kind,
+      # garden routing namespace, and reputation arm, never in the wire configuration.
       # shellcheck disable=SC2034 # caller appends this shared array after invoking us
       CODEX_PROVIDER_EXTRA_ARGS=(
         -c "model_provider=openrouter"

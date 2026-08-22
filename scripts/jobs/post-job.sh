@@ -126,7 +126,7 @@ BODY="$(read_body)"
 # This is the automatic producer choke point.  No watcher, scheduler, follow-up,
 # auction, or role-generated job can retain a Claude pin during the quota route.
 if [ -n "$canary_provider" ]; then
-  case "$canary_provider" in anthropic|openai|local|moonshot|fireworks) ;; *) die "unknown canary provider '$canary_provider'";; esac
+  case "$canary_provider" in anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo) ;; *) die "unknown canary provider '$canary_provider'";; esac
   case "$canary_tier" in mentat|mentor|minion|myrmidon) ;; *) die "unknown canary tier '$canary_tier'";; esac
   [ -n "$(tier_model_for_provider "$canary_tier" "$canary_provider")" ] \
     || die "provider '$canary_provider' has no reviewed model in tier '$canary_tier'"

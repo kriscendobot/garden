@@ -69,7 +69,7 @@ _prov_esc() {
 _prov_harness() {
   case "${1-}" in
     gardener)               printf 'claude' ;;
-    cleric|hermit|fireworker|openrouter) printf 'codex' ;;
+    cleric|hermit|fireworker|openrouter|openrouter-promo) printf 'codex' ;;
     mystic)                 printf 'kimi' ;;
     '')                     : ;;
     *)                      printf '%s' "$1" ;;  # forward an unrecognized kind verbatim

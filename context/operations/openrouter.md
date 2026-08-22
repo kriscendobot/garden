@@ -149,6 +149,72 @@ larger trial:
 scripts/jobs/set-openrouters.sh 0
 ```
 
+## The promo (stealth) lane — `openrouter-promo`
+
+`openrouter-promo` is the **second** OpenRouter kind: the deliberately-admitted rotating
+cloaked ("stealth") lane (maintainer decision, 2026-08-22;
+[`designs/openrouter-provider.md`](../../designs/openrouter-provider.md) § the
+stealth/promotional lane). It shares the stable lane's handler, endpoint, key
+(`OPENROUTER_API_KEY`), and the **same fail-closed ZDR/deny-collection privacy proxy** —
+using a cloaked model accepts only *not knowing which model it is*, never logging. It has
+its **own** kind/provider/unit/namespace and a **separate reputation arm**, so a cloaked
+model's short-lived, re-reviewed history never pools with a named model's.
+
+Unlike the stable lane, its selectable ids are **journal-backed and cadence-gated**, not
+a tracked inventory: they live in the ledger `config/openrouter-promos`
+(`<wire-id>  <tier>  <attested_at>  <attested_by>`), and a row **fails closed the moment
+its attestation is older than 24h** (`GARDEN_OPENROUTER_PROMO_CADENCE_SECS`) — the
+re-review cadence enforces itself with no daemon. Ships **inert**: empty ledger, pool
+zero.
+
+### Attest → canary → enable (maintainer-directed, host-side)
+
+```sh
+# 1. Re-review + enable one cloaked id (running this IS the periodic re-review). The
+#    <wire-id> is the EXACT id OpenRouter serves, e.g. openrouter/horizon-beta.
+scripts/jobs/openrouter-promo-attest.sh openrouter/horizon-beta minion "<your-login>"
+
+# 2. Status-only policy probe (never prints a body/header/key) — 200 serves, 404 means
+#    the cloaked id has rotated away (do NOT attest it):
+curl -sS -o /dev/null -w '%{http_code}\n' \
+  -H "Authorization: Bearer $OPENROUTER_API_KEY" -H 'Content-Type: application/json' \
+  -X POST "$GARDEN_OPENROUTER_BASE_URL/responses" \
+  -d '{"model":"openrouter/horizon-beta","max_output_tokens":1,"input":"ping","provider":{"data_collection":"deny","zdr":true}}'
+
+# 3. Enable ONE worker and post a tool-using canary on the namespaced promo pin:
+scripts/jobs/set-openrouter-promos.sh 1
+scripts/jobs/post-job.sh --provider-canary openrouter-promo minion openrouter-promo-canary canary.md
+# Confirm the tada report carries worker_kind: openrouter-promo, provider openrouter-promo,
+# the resolved model openrouter-promo/openrouter/horizon-beta, and TOOL-verified evidence.
+scripts/jobs/set-openrouter-promos.sh 0   # back to zero unless a larger trial is authorized
+```
+
+### The re-review cadence (auto-disable)
+
+Register the deterministic recheck as a **daily schedule preflight** (leader-only; it
+runs in plain code and dispatches **no** agent, exiting 2 = "no work" after enforcing):
+
+```sh
+printf 'openrouter-promo re-review cadence (deterministic; see the preflight)\n' > /tmp/promo-recheck.md
+GARDEN_SCHEDULE_PREFLIGHT=openrouter-promo-recheck.sh \
+  scripts/jobs/set-schedule.sh openrouter-promo-recheck daily openrouter-promo-recheck /tmp/promo-recheck.md
+```
+
+Each day it prunes any ledger row whose attestation has gone stale (>24h) and — when the
+key is present — 404-probes each surviving id and **drops any that has rotated away**,
+alerting the maintainer per disable. Even without the schedule armed, the read-side
+staleness filter already fails a stale id closed; the schedule is the janitor + liveness
+probe on top. Run it by hand for an immediate sweep: `scripts/jobs/openrouter-promo-recheck.sh`.
+
+### Rip-cord
+
+Two independent levers — use either or both to kill a cloaked id immediately:
+
+```sh
+scripts/jobs/set-openrouter-promos.sh 0                 # zero the pool: no worker runs a cloaked model
+scripts/jobs/openrouter-promo-drop.sh openrouter/horizon-beta   # drop the id's row: unclaimable even at pool>0
+```
+
 ## Cost is unmeasured on this lane
 
 Like the fireworker, the codex handler emits **no per-request dollars** for

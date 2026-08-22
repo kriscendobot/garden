@@ -74,6 +74,13 @@ echo 'ADAPTER — configured endpoint and retry classes'
 adapter="$(env GARDEN_OPENROUTER_BASE_URL=https://example.invalid/v1 OPENROUTER_API_KEY='offline-fixture-not-a-credential' bash -c 'source "$1"; codex_provider_extra_args openrouter; printf "%s\n" "${CODEX_PROVIDER_EXTRA_ARGS[@]}"' _ "$JOBS/handlers/codex-provider-common.sh")"
 [[ "$adapter" == *'model_provider=openrouter'* && "$adapter" == *'env_key="OPENROUTER_API_KEY"'* ]] && ok "custom provider uses key name" || bad "adapter missing provider settings"
 [[ "$adapter" != *offline-fixture-not-a-credential* ]] && ok "adapter does not embed key value" || bad "adapter leaked key"
+# The promo lane reuses the SAME OpenRouter endpoint, key, and Codex provider block —
+# it inherits the ZDR/deny-collection privacy proxy unconditionally; it must NOT grow
+# a divergent wire config.
+promo_adapter="$(env GARDEN_OPENROUTER_BASE_URL=https://example.invalid/v1 OPENROUTER_API_KEY='offline-fixture-not-a-credential' bash -c 'source "$1"; codex_provider_extra_args openrouter-promo; printf "%s\n" "${CODEX_PROVIDER_EXTRA_ARGS[@]}"' _ "$JOBS/handlers/codex-provider-common.sh")"
+[ "$promo_adapter" = "$adapter" ] && ok "openrouter-promo shares the stable lane's Codex provider block (same endpoint/key)" || bad "openrouter-promo adapter diverged from openrouter"
+promo_probe="$(env GARDEN_TEST_BIN="$BIN" GARDEN_STATE="$TR/state" OPENROUTER_API_KEY='offline-fixture-not-a-credential' GARDEN_OPENROUTER_BASE_URL=https://example.invalid/v1 FAKE_CURL_RECORD="$TR/curl-promo" FAKE_OPENROUTER_STATUS=200 bash -c 'source "$1"; PATH="$GARDEN_TEST_BIN:$PATH"; hash -r; source "$2"; openrouter_provider_preflight openrouter-promo canary' _ "$JOBS/common.sh" "$JOBS/handlers/codex-provider-common.sh" 2>&1)"; promo_probe_rc=$?
+{ [ "$promo_probe_rc" -eq 0 ] && [[ "$promo_probe" != *offline-fixture-not-a-credential* ]]; } && ok "openrouter-promo preflight probes OpenRouter and never prints the key" || bad "openrouter-promo preflight"
 printf 'HTTP 429 rate limit\n' > "$TR/429"; printf 'HTTP 503 service unavailable\n' > "$TR/503"; printf 'HTTP 400 invalid request\n' > "$TR/400"
 source "$JOBS/handlers/codex-provider-common.sh"
 openai_compat_retryable_failure "$TR/429" && ok "429 diagnostic retries" || bad "429 retry classifier"
@@ -134,6 +141,23 @@ wire_of() { local resolved; resolved="$(resolve_model_tier openrouter "$1")"; [ 
 [ "$(wire_of openrouter/z-ai/glm-5.2:free)" = "z-ai/glm-5.2:free" ] && ok "GLM-5.2-free wire id = z-ai/glm-5.2:free" || bad "GLM-5.2-free wire id"
 wire_of openrouter/stealth/ox-alpha:free >/dev/null 2>&1 && bad "a cloaked/stealth selector produced a wire id" || ok "cloaked/stealth selector fails closed (no wire id)"
 wire_of openrouter/z-ai/glm-5.2 >/dev/null 2>&1 && bad "an unreviewed non-free id produced a wire id" || ok "unreviewed non-:free id fails closed (no wire id)"
+
+echo 'PROMO ROUTES — a freshly-attested cloaked id reaches the wire; stale/absent fails closed'
+# The promo lane admits a cloaked id ONLY while its journal-ledger attestation is fresh.
+PROMO_LEDGER="$TR/promos"
+{
+  printf 'openrouter/horizon-beta\tminion\t%s\ttester\n' "$(date -u +%FT%TZ)"
+  printf 'openrouter/old-ghost\tminion\t%s\ttester\n' "$(date -u -d '3 days ago' +%FT%TZ)"
+} > "$PROMO_LEDGER"
+export GARDEN_OPENROUTER_PROMOS_FILE="$PROMO_LEDGER"
+promo_wire_of() { local r; r="$(resolve_model_tier openrouter-promo "$1")"; [ -n "$r" ] || return 1; printf '%s\n' "${r#openrouter-promo/}"; }
+[ "$(promo_wire_of openrouter-promo/openrouter/horizon-beta)" = "openrouter/horizon-beta" ] && ok "fresh cloaked id wire = openrouter/horizon-beta (namespace stripped)" || bad "fresh cloaked wire id"
+promo_wire_of openrouter-promo/openrouter/old-ghost >/dev/null 2>&1 && bad "a STALE cloaked id produced a wire id" || ok "stale cloaked id fails closed (cadence auto-disable)"
+promo_wire_of openrouter-promo/openrouter/never >/dev/null 2>&1 && bad "an un-attested cloaked id produced a wire id" || ok "un-attested cloaked id fails closed"
+# The two OpenRouter lanes never cross-bind, so a cloaked arm never pools with the named one.
+resolve_model_tier openrouter openrouter-promo/openrouter/horizon-beta | grep -q . && bad "stable lane bound a promo selector" || ok "stable openrouter lane cannot bind a promo selector"
+resolve_model_tier openrouter-promo openrouter/z-ai/glm-5.2:free | grep -q . && bad "promo lane bound a stable selector" || ok "promo lane cannot bind a stable selector"
+unset GARDEN_OPENROUTER_PROMOS_FILE
 
 echo "openrouter-harness-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

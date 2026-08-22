@@ -38,9 +38,22 @@ automatic/unpinned job reaches it — it claims only a `provider: openrouter` ca
 an `openrouter/<wire-id>` pin. Its sole current row is GLM 5.2 free at minion: the
 2026-08-22 review found it in OpenRouter's public ZDR endpoint inventory and removed
 the former DeepSeek/Llama free rows, which had empty endpoint lists. Every request is
-forced through the no-collection/ZDR adapter. Policy and the deferred stealth lane:
+forced through the no-collection/ZDR adapter. Policy:
 [`designs/openrouter-provider.md`](../../designs/openrouter-provider.md); activation:
 [`context/operations/openrouter.md`](../../context/operations/openrouter.md).
+
+**OpenRouter-promo (the cloaked/stealth lane, disabled + inert by default).** A
+**second** OpenRouter kind, `openrouter-promo`, deliberately admits the rotating cloaked
+"stealth" ids *while cloaked* (maintainer decision, 2026-08-22). Same handler, endpoint,
+key, and fail-closed ZDR/deny-collection adapter as `openrouter`, but its **own**
+provider/unit/namespace (`openrouter-promo/<wire-id>`) and reputation arm, so a cloaked
+model's separately-re-reviewed risk never pools with a named model's. Unlike the closed
+inventory, its enabled ids live in a **journal ledger** (`config/openrouter-promos`) and
+are **cadence-gated**: a row not re-attested within 24h **fails closed automatically**
+(no daemon), and a deterministic recheck auto-disables an id that 404s or goes stale.
+Explicit-model-only like the stable lane. Attest/rip-cord tooling and the recheck
+schedule: [`context/operations/openrouter.md`](../../context/operations/openrouter.md)
+§ The promo (stealth) lane.
 
 ## Current route
 

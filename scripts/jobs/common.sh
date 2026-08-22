@@ -208,6 +208,15 @@ export GARDEN
 : "${GARDEN_OPENROUTER_RETRY_ATTEMPTS:=3}"
 : "${GARDEN_OPENROUTER_RETRY_DELAY:=1}"
 
+# openrouter-promo — the SECOND OpenRouter kind: the deliberately-admitted rotating
+# cloaked ("stealth") lane (designs/openrouter-provider.md § the stealth/promotional
+# lane). It reuses OpenRouter's endpoint, key (OPENROUTER_API_KEY), and the SAME
+# fail-closed ZDR/deny-collection privacy proxy, so its retry knobs default to
+# OpenRouter's; only its KIND, PROVIDER, and routing NAMESPACE are distinct, so its
+# short-lived, separately-re-reviewed arms never pool with the stable named lane's.
+: "${GARDEN_OPENROUTER_PROMO_RETRY_ATTEMPTS:=$GARDEN_OPENROUTER_RETRY_ATTEMPTS}"
+: "${GARDEN_OPENROUTER_PROMO_RETRY_DELAY:=$GARDEN_OPENROUTER_RETRY_DELAY}"
+
 # The dev / next-version branch. Subagents land development here from their own
 # worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
 # checkout, and the upgrade monitor compares its tip to the deployed sha. Named
@@ -624,6 +633,24 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-openrouter" ;;
         *) return 1 ;;
       esac ;;
+    openrouter-promo)
+      # The rotating cloaked ("stealth") OpenRouter lane.  SAME handler and SAME
+      # OpenRouter endpoint/key/privacy-proxy as the `openrouter` kind, but a DISTINCT
+      # provider, unit, count/state namespace, and routing namespace
+      # (`openrouter-promo/<wire-id>`), so a stealth arm's separately-scored, short-
+      # lived, re-reviewed risk profile never pools with the stable named lane's
+      # (designs/openrouter-provider.md § the stealth/promotional lane).  Its eligible
+      # id set is journal-backed and cadence-gated, not a tracked closed inventory.
+      case "$field" in
+        handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        agent_bin) printf '%s\n' "codex" ;;
+        provider)  printf '%s\n' "openrouter-promo" ;;
+        unit)      printf '%s\n' "garden-openrouter-promo@" ;;
+        count_key) printf '%s\n' "openrouter_promos" ;;
+        state_ns)  printf '%s\n' "openrouter_promos" ;;
+        label)     printf '%s\n' "garden-openrouter-promo" ;;
+        *) return 1 ;;
+      esac ;;
     *) return 1 ;;
   esac
 }
@@ -639,12 +666,12 @@ worker_kind_field() {
 # whichever count line a host already declares. The two Anthropic pools are NEVER
 # both armed for one capacity slot: the scaler picks the host-active spelling with
 # anthropic_active_kind (monks: wins, else the legacy gardeners:) and skips the other.
-worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter; }
+worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter openrouter-promo; }
 
 # canonical_worker_kind <raw> [schema] [provider] — the ONLY worker-kind decoder
 # (design anthropic-worker-kind-monk.md § Journal contract). It resolves a raw
 # worker_kind token from a claim, event, or bid to its CANONICAL kind:
-#   * a known v2 kind (monk|cleric|hermit|mystic|fireworker|openrouter) → itself, unchanged;
+#   * a known v2 kind (monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) → itself, unchanged;
 #   * v1 `gardener` (no schema, or schema 1) → `monk`, the Anthropic alias mapping;
 #   * anything else → non-zero, with NO silent fallback (an unknown v2 kind, or a
 #     `gardener` carrying an explicit v2 schema, is rejected so a contradictory
@@ -655,7 +682,7 @@ worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker ope
 canonical_worker_kind() {
   local raw="${1:-}" schema="${2:-}" provider="${3:-}" ck="" want=""
   case "$raw" in
-    monk|cleric|hermit|mystic|fireworker|openrouter) ck="$raw" ;;
+    monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) ck="$raw" ;;
     gardener)
       case "$schema" in
         ''|1) ck="monk" ;;                 # v1 record: gardener IS the Anthropic monk
@@ -1281,6 +1308,11 @@ _worker_backend_probe_dispatch() {
     fireworks)
       declare -F fireworks_provider_preflight >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
       fireworks_provider_preflight "$kind" scaler-probe ;;
+    openrouter|openrouter-promo)
+      # Both OpenRouter kinds share ONE endpoint/key, so both probe the SAME
+      # reachability/auth check (the promo lane merely reuses OPENROUTER_API_KEY).
+      declare -F openrouter_provider_preflight >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
+      openrouter_provider_preflight "$kind" scaler-probe ;;
     *)
       echo "worker_backend_probe: unhandled provider '$provider' for kind '$kind'" >&2; return 1 ;;
   esac
@@ -5241,6 +5273,76 @@ _model_tier_inventory_file() {
   printf '%s\n' "$f"
 }
 
+# --- openrouter-promo: the journal-backed, cadence-gated stealth ledger --------
+#
+# The stable `openrouter` lane's inventory is the TRACKED closed inventory (a row ==
+# a specific reviewed model, changed only by a deploy).  A cloaked/stealth id is a
+# DIFFERENT kind of thing: it is anonymous by design and can vanish or silently
+# become a different model at any moment, so its enabled set must be JOURNAL-MUTABLE
+# (no deploy) AND carry an attestation that EXPIRES — the design's "short mandatory
+# re-review cadence."  So the promo lane's inventory lives in a journal ledger, one
+# row per enabled wire id:  <wire-id> TAB <tier> TAB <attested_at ISO8601> TAB <by>.
+#
+# The freshness filter here is the PRIMARY, daemon-free enforcement of the cadence:
+# a row whose attestation is older than GARDEN_OPENROUTER_PROMO_CADENCE_SECS (24h)
+# STOPS classifying, so an un-re-attested stealth id fails closed — auto-disabled by
+# construction, even if the recheck timer never fires.  The scheduled recheck
+# (openrouter-promo-recheck.sh) is the janitor + liveness probe on top: it prunes the
+# expired rows and drops any id that 404s from OpenRouter's live listing.
+: "${GARDEN_OPENROUTER_PROMOS_PATH:=config/openrouter-promos}"
+: "${GARDEN_OPENROUTER_PROMO_CADENCE_SECS:=86400}"   # 24h re-attestation window
+
+# _openrouter_promos_file — the resolved ledger path: an explicit test/CLI override,
+# else the first already-synced clone working tree that carries one (NO new clone or
+# fetch — whichever the current caller kept fresh, exactly like _model_routing_table),
+# else non-zero (no ledger anywhere ⇒ the lane is inert and every id fails closed).
+_openrouter_promos_file() {
+  if [ -n "${GARDEN_OPENROUTER_PROMOS_FILE:-}" ]; then printf '%s\n' "$GARDEN_OPENROUTER_PROMOS_FILE"; return 0; fi
+  local d f
+  for d in "${GARDEN_GARDENER_CLONE:-}" "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
+           "${GARDEN_LEADER_CLONE:-}" "$GARDEN_ROOT/journal"; do
+    [ -n "$d" ] || continue
+    f="$d/$GARDEN_OPENROUTER_PROMOS_PATH"
+    [ -s "$f" ] && { printf '%s\n' "$f"; return 0; }
+  done
+  return 1
+}
+
+# _openrouter_promo_wire_tier <wire-id> — echo the dispatch tier of a stealth wire id
+# that has a CURRENT (non-stale) attestation in the ledger; non-zero when the id is
+# absent, its tier is not one of the four dispatch tiers, or its attestation is older
+# than the cadence window (stale ⇒ fail closed).  <wire-id> is the value AFTER the
+# `openrouter-promo/` namespace has been stripped.
+_openrouter_promo_wire_tier() {
+  local want="${1:-}" f now cutoff wire tier at ts
+  [ -n "$want" ] || return 1
+  f="$(_openrouter_promos_file)" || return 1
+  now="$(date -u +%s 2>/dev/null)" || return 1
+  cutoff=$(( now - GARDEN_OPENROUTER_PROMO_CADENCE_SECS ))
+  while IFS=$'\t' read -r wire tier at _; do
+    case "$wire" in ''|\#*) continue;; esac
+    [ "$wire" = "$want" ] || continue
+    ts="$(date -u -d "$at" +%s 2>/dev/null)" || return 1   # unparsable ⇒ fail closed
+    [ -n "$ts" ] || return 1
+    [ "$ts" -ge "$cutoff" ] || return 1                     # stale ⇒ fail closed
+    case "$tier" in mentat|mentor|minion|myrmidon) printf '%s\n' "$tier"; return 0;; esac
+    return 1
+  done < "$f"
+  return 1
+}
+
+# _openrouter_promo_dispatch_tier <garden-id> — the promo analogue of
+# model_dispatch_tier: resolve a full `openrouter-promo/<wire-id>` selector to its
+# ledger tier (fresh attestation required), or non-zero.
+_openrouter_promo_dispatch_tier() {
+  local id="${1:-}"
+  [ -n "$id" ] || return 1
+  [[ "$id" == openrouter-promo/* ]] || return 1
+  local wire="${id#openrouter-promo/}"
+  [ -n "$wire" ] || return 1
+  _openrouter_promo_wire_tier "$wire"
+}
+
 # model_dispatch_tier <provider> <concrete-id> -> mentat|mentor|minion|myrmidon.
 # This is deliberately an exact, closed inventory: new provider models are
 # unclassified until an explicit reviewed row is added, never silently eligible.
@@ -5252,6 +5354,9 @@ _model_tier_inventory_file() {
 # (designs/sysop-local-model.md § Message and target resolution).
 model_dispatch_tier() {
   local provider="$1" model="$2" p m tier _pb
+  # The promo lane's inventory is the journal-backed, cadence-gated stealth ledger,
+  # not this tracked closed inventory (see _openrouter_promo_wire_tier).
+  [ "$provider" = openrouter-promo ] && { _openrouter_promo_dispatch_tier "$model"; return $?; }
   while IFS=$'\t' read -r p m tier _pb; do
     case "$p" in ''|\#*) continue;; esac
     [ "$p" = "$provider" ] && [ "$m" = "$model" ] && { printf '%s\n' "$tier"; return 0; }
@@ -5294,6 +5399,11 @@ job_tier() {
     opus|terra|luna|frontier|mini) printf '%s\n' minion; return 0;;
     sonnet|haiku) printf '%s\n' myrmidon; return 0;;
   esac
+  # A promo (stealth) pin resolves its tier from the journal ledger, not this tracked
+  # inventory; a stale/absent attestation fails closed here exactly like an unknown id.
+  case "$model" in
+    openrouter-promo/*) _openrouter_promo_dispatch_tier "$model" && return 0 || return 1;;
+  esac
   while IFS=$'\t' read -r p m t _pb; do
     case "$p" in ''|\#*) continue;; esac
     [ "$m" = "$model" ] && { printf '%s\n' "$t"; return 0; }
@@ -5309,7 +5419,7 @@ job_provider_constraint() {
   local provider
   provider="$(plan_field "$1" provider)"
   [ -n "$provider" ] || return 1
-  case "$provider" in anthropic|openai|local|moonshot|fireworks|openrouter) printf '%s\n' "$provider";; *) return 1;; esac
+  case "$provider" in anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo) printf '%s\n' "$provider";; *) return 1;; esac
 }
 
 job_provider_is_constrained() { [ -n "$(plan_field "$1" provider)" ]; }
@@ -5317,7 +5427,19 @@ job_provider_is_constrained() { [ -n "$(plan_field "$1" provider)" ]; }
 # tier_model_for_provider resolves a capability tier at claim/run time.  The
 # durable job intent remains the tier when this inventory assignment changes.
 tier_model_for_provider() {
-  local wanted="$1" provider="$2" p m t _pb
+  local wanted="$1" provider="$2" p m t _pb f wire tier at
+  # The promo lane resolves a tier from the journal ledger (fresh attestation only),
+  # returning the FIRST currently-eligible stealth selector at that tier.
+  if [ "$provider" = openrouter-promo ]; then
+    f="$(_openrouter_promos_file)" || return 1
+    while IFS=$'\t' read -r wire tier at _; do
+      case "$wire" in ''|\#*) continue;; esac
+      [ "$tier" = "$wanted" ] || continue
+      _openrouter_promo_wire_tier "$wire" >/dev/null 2>&1 || continue   # enforce freshness
+      printf '%s\n' "openrouter-promo/$wire"; return 0
+    done < "$f"
+    return 1
+  fi
   while IFS=$'\t' read -r p m t _pb; do
     case "$p" in ''|\#*) continue;; esac
     [ "$p" = "$provider" ] && [ "$t" = "$wanted" ] && _model_classify "$p" "$m" && { printf '%s\n' "$m"; return 0; }
@@ -5389,6 +5511,13 @@ _model_routing_table() {
 _model_classify() {
   local provider="$1" id="$2" p pats def tok included=0 excluded=0
   [ -n "$id" ] || return 1
+  # The promo lane has NO routing-table patterns (its inventory is the journal ledger,
+  # not the tracked TSVs); an id belongs to it iff the ledger classifies it (namespace
+  # + a fresh attestation), so short-circuit before the pattern loop below.
+  if [ "$provider" = openrouter-promo ]; then
+    model_dispatch_tier openrouter-promo "$id" >/dev/null 2>&1
+    return $?
+  fi
   # Routing configuration may select among reviewed entries, but it cannot make a
   # new id eligible. This closes the former wildcard/journal-override escape hatch.
   model_dispatch_tier "$provider" "$id" >/dev/null 2>&1 || return 1
@@ -5450,7 +5579,7 @@ model_routing_default() {
 resolve_model_tier() {
   local provider tier
   case "${1:-}" in
-    anthropic|openai|local|moonshot|fireworks|openrouter) provider="$1"; tier="${2:-}" ;;
+    anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo) provider="$1"; tier="${2:-}" ;;
     *)                      provider="anthropic"; tier="${1:-}" ;;
   esac
   case "$provider" in
@@ -5498,6 +5627,14 @@ resolve_model_tier() {
       # inventory row (designs/openrouter-provider.md § stealth policy), so it fails
       # closed exactly like any unreviewed selector.
       if [[ "$tier" == openrouter/* ]] && [ -n "${tier#openrouter/}" ] && _model_classify openrouter "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
+    openrouter-promo)
+      # The rotating cloaked lane.  The `openrouter-promo/` namespace is required, and
+      # the JOURNAL ledger (a fresh attestation per selectable stealth id) decides
+      # eligibility — an un-re-attested or vanished id fails closed exactly like an
+      # unreviewed selector (designs/openrouter-provider.md § the stealth lane).  Note
+      # `openrouter/*` does NOT match `openrouter-promo/*`, so the two lanes' selectors
+      # never cross-bind.
+      if [[ "$tier" == openrouter-promo/* ]] && [ -n "${tier#openrouter-promo/}" ] && _model_classify openrouter-promo "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     *) printf '%s\n' "" ;;
   esac
 }
@@ -5519,7 +5656,7 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker|openrouter) kind="$1"; role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
@@ -5574,6 +5711,10 @@ role_default_model() {
       # Explicit model only.  OpenRouter's catalog rotates (free/promotional models
       # come and go), so there is deliberately no role default that could bind an
       # unpinned or role-only job to it.
+      printf '%s\n' "" ;;
+    openrouter-promo)
+      # Explicit model only, even more so than the stable lane: a cloaked id is
+      # anonymous and rotating, so no role may ever implicitly bind to it.
       printf '%s\n' "" ;;
     *) printf '%s\n' "" ;;
   esac
@@ -5666,7 +5807,7 @@ tier_rank() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker|openrouter) role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

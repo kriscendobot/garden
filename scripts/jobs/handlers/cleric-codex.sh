@@ -55,6 +55,7 @@ provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo openai)"
 state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
 [ "$provider" != fireworks ] || [ "$KIND" = fireworker ] || die "Fireworks provider requires the fireworker kind"
 [ "$provider" != openrouter ] || [ "$KIND" = openrouter ] || die "OpenRouter provider requires the openrouter kind"
+[ "$provider" != openrouter-promo ] || [ "$KIND" = openrouter-promo ] || die "OpenRouter-promo provider requires the openrouter-promo kind"
 
 # Custom OpenAI-compatible bearer-key providers (Fireworks, OpenRouter) share ONE
 # Codex custom-provider path: a namespaced routing id (`<provider>/<wire-id>`), a
@@ -64,8 +65,11 @@ state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
 # name, so a third such provider is a registry row plus an adapter case, no new
 # handler branches here.  Per-provider retry knobs are resolved by indirection.
 custom_openai_compat=false
-case "$provider" in fireworks|openrouter) custom_openai_compat=true ;; esac
-provider_uc="$(printf '%s' "$provider" | tr '[:lower:]' '[:upper:]')"
+case "$provider" in fireworks|openrouter|openrouter-promo) custom_openai_compat=true ;; esac
+# A provider token may contain a hyphen (openrouter-promo); map it to `_` so the
+# per-provider retry-knob env var name is a valid shell identifier
+# (GARDEN_OPENROUTER_PROMO_RETRY_*, which common.sh defaults to the openrouter knobs).
+provider_uc="$(printf '%s' "$provider" | tr '[:lower:]-' '[:upper:]_')"
 _retry_attempts_var="GARDEN_${provider_uc}_RETRY_ATTEMPTS"
 _retry_delay_var="GARDEN_${provider_uc}_RETRY_DELAY"
 custom_retry_attempts="${!_retry_attempts_var:-3}"
@@ -140,7 +144,7 @@ fleet_default_model="$(model_routing_default "$provider" 2>/dev/null)"
 if [ -z "$fleet_default_model" ]; then
   case "$provider" in
     local) fleet_default_model="qwen3.6" ;;
-    fireworks|openrouter) fleet_default_model="" ;; # explicit model only
+    fireworks|openrouter|openrouter-promo) fleet_default_model="" ;; # explicit model only
     *)     fleet_default_model="gpt-5.6-terra" ;;
   esac
 fi
@@ -202,11 +206,15 @@ codex_provider_preflight "$provider" "$KIND" "$base" "$state_ns" 1 "$model" || e
 # data_collection=deny (no training/collection) and zdr=true (no retention).
 # Preflight intentionally ran against the real upstream above; Codex sees only this
 # local enforcement endpoint. A missing Node runtime or adapter stops the job.
-if [ "$provider" = openrouter ]; then
+case "$provider" in openrouter|openrouter-promo)
+  # BOTH OpenRouter lanes hit the same origin and MUST carry the same fail-closed
+  # ZDR/deny-collection controls; the promo lane inherits this proxy unconditionally
+  # ("we accept not knowing WHICH model this is" is a different risk than "we accept
+  # our prompts being logged", and only the former is authorized).
   openrouter_privacy_proxy_start "$GARDEN_OPENROUTER_BASE_URL" || exit 1
   GARDEN_OPENROUTER_BASE_URL="$OPENROUTER_PRIVACY_PROXY_BASE_URL"
   trap openrouter_privacy_proxy_stop EXIT
-fi
+;; esac
 
 # codex_effort_for_model <model> <level> — normalize a unified-axis thoughtfulness
 # level DOWN to the model's nearest supported codex reasoning-effort (catalog §2):
@@ -333,10 +341,10 @@ if [ "$rc" -ne 0 ]; then
   fi
 fi
 
-if [ "$provider" = openrouter ]; then
+case "$provider" in openrouter|openrouter-promo)
   openrouter_privacy_proxy_stop
   trap - EXIT
-fi
+;; esac
 
 # --- deterministic completion signal -----------------------------------------
 #

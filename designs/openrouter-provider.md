@@ -8,7 +8,7 @@ author: gardener, designer
 
 | Field | Value |
 | --- | --- |
-| Status | **Implemented, disabled by default.** The wiring and per-request no-collection/ZDR enforcement are present; one currently compliant NAMED free model is inventoried. The stealth/promotional lane is deferred as an open question. |
+| Status | **Implemented, disabled by default.** The wiring and per-request no-collection/ZDR enforcement are present; one currently compliant NAMED free model is inventoried. The stealth/promotional lane (option b) is now **also built** as a second kind, `openrouter-promo` — a journal-backed, cadence-gated cloaked lane, shipped inert (pool zero, empty ledger). See § The stealth/promotional lane. |
 | Directive | kriskowal, 2026-08-22: *"harness and configure OpenRouter as a new garden provider so the fleet can reach more models through it,"* motivated in part by OpenRouter's rotating free/promotional (cloaked "stealth") models whose terms are *"at least allegedly fine"* but not rigorously vetted. |
 | Decision | Add a single `openrouter` worker kind reusing the existing Codex custom OpenAI-compatible handler (one kind per provider — [opencode-alternate-harness](opencode-alternate-harness.md) option C). Admit only **stable, named** `:free` models via ordinary reviewed inventory rows; **exclude cloaked/stealth ids** from the closed inventory. Ship at pool zero, explicit-model-only, no automatic/unpinned route. Every inference request is forced to `provider: { data_collection: "deny", zdr: true }`; an endpoint that cannot satisfy both is unavailable rather than a policy fallback. |
 
@@ -111,17 +111,72 @@ Two admissible policies, and the recommendation:
   the terms/provenance risk is worst — a cloaked model's operator and data policy are
   undisclosed **by definition**, so "allegedly fine" cannot be discharged.
 
-**Recommendation: ship (a), design-and-defer (b).** This design implements (a): stable
-**named** free models get ordinary reviewed rows only after the same ZDR/data-policy
-review as any paid route; cloaked/stealth ids fail closed exactly like any unreviewed
-selector (asserted in tests). The 2026-08-22 review found only one text/tool-capable,
-zero-price `:free` endpoint in OpenRouter's public ZDR inventory, so the closed
-inventory contains only `z-ai/glm-5.2:free`. The promotional lane (b) is left as an
-**open question** because it weakens a load-bearing invariant and carries undisclosed
-provenance; it is the maintainer's call, not a guess a design should bake in. If
-authorized, (b) would most cleanly be a *second*
-kind (`openrouter-promo`) — one kind per lane, the same option-C shape — so its
-distinct, short-lived, re-reviewed arms never pool with the stable lane's.
+**Original recommendation: ship (a), design-and-defer (b).** The initial cut implemented
+(a): stable **named** free models get ordinary reviewed rows only after the same
+ZDR/data-policy review as any paid route; cloaked/stealth ids fail closed exactly like
+any unreviewed selector (asserted in tests). The 2026-08-22 review found only one
+text/tool-capable, zero-price `:free` endpoint in OpenRouter's public ZDR inventory, so
+the closed inventory contains only `z-ai/glm-5.2:free`.
+
+**Maintainer decision (kriskowal, 2026-08-22): ALSO build (b).** The maintainer wants to
+use the rotating cloaked "stealth" models *while cloaked*, accepting the stated risk
+(undisclosed provenance, no reviewed stable id) but **only** that risk — the ZDR /
+deny-collection constraint is inherited unconditionally, because "we accept not knowing
+which model this is" is a different risk than "we accept our prompts being logged." (b)
+is now built as the second kind `openrouter-promo`; see the next section.
+
+## The stealth/promotional lane (option b, `openrouter-promo`)
+
+Built per the maintainer decision above. It is a **second kind**, `openrouter-promo`,
+reusing the same handler, the same OpenRouter endpoint/key, and the same fail-closed
+ZDR/deny-collection privacy proxy as `openrouter` — diverging only in **kind**,
+**provider**, and **routing namespace** (`openrouter-promo/<wire-id>`). That divergence
+is the whole point: the arm is keyed on `(kind, provider, model, thoughtfulness)`, so a
+distinct kind + provider + namespace means a cloaked model's short-lived,
+separately-re-reviewed reputation **never pools** with a stable named model's
+([opencode-alternate-harness](opencode-alternate-harness.md) option-C reasoning: a
+distinct kind keeps distinct risk profiles distinctly scored). `openrouter/*` does not
+glob-match `openrouter-promo/*`, so the two lanes' selectors can never cross-bind, and
+each lane's worker leaves the other's pins in `todo/` (asserted in the spine test).
+
+**Journal-backed, cadence-gated inventory (not the tracked closed inventory).** A
+cloaked id is anonymous by design and can vanish or silently become a different model at
+any moment, so — unlike the stable lane's tracked `model-tier-inventory.tsv` (a row ==
+a specific reviewed model, changed only by a deploy) — the promo lane's enabled set
+lives in a **journal ledger** (`config/openrouter-promos`, one TSV row per id:
+`<wire-id>  <tier>  <attested_at ISO8601>  <attested_by>`). Journal-backed so it is
+mutable with **no deploy** (a daily-rotating id cannot wait for one) and so a timer on
+any host can prune it.
+
+**The re-review cadence is enforced in two layers, and the primary one needs no daemon:**
+
+- **Read-side (primary).** `common.sh` admits a ledger row **only while its
+  `attested_at` is within `GARDEN_OPENROUTER_PROMO_CADENCE_SECS` (default 24h) of now.**
+  A row that is not re-attested inside the window simply **stops classifying** — the id
+  fails closed at claim time, auto-disabled *by construction*, even if no timer ever
+  fires. This is the load-bearing guarantee.
+- **Janitor (on top).** `openrouter-promo-recheck.sh` is a deterministic, LLM-free sweep
+  (wired as a daily **schedule preflight**, so it runs in plain code and dispatches no
+  agent): it prunes the expired rows for real, and — when the key is present — 404-probes
+  each surviving id against OpenRouter's live listing and **drops any that has rotated
+  away**, raising one deduped maintainer alert per disable. It never auto-drops on a
+  transient (429/503/network); only a definitive 404 or a stale attestation disables.
+
+**Re-attestation and the rip-cord.** `openrouter-promo-attest.sh <wire-id> <tier> [by]`
+adds/refreshes a row (stamping `attested_at=now`) — running it *is* the periodic
+re-review. The **rip-cord** is two independent levers: `set-openrouter-promos.sh 0`
+zeroes the pool (no worker runs a cloaked model), and `openrouter-promo-drop.sh
+<wire-id>` removes a specific id's row so it can never be re-dispatched even at pool > 0.
+The janitor calls the same drop path automatically.
+
+**Inherited privacy.** Every `openrouter-promo` request goes through the identical
+`openrouter-privacy-proxy.mjs` loopback adapter that forces `data_collection: "deny"`
+and `zdr: true`; a missing Node/adapter fails the request closed. This lane cannot relax
+those fields — the authorization is for undisclosed *provenance*, never for logging.
+
+**Shipped inert.** No ledger file exists at ship, so every promo id fails closed and the
+lane does nothing until a maintainer attests an id and sets the pool > 0 — a separate,
+host-side, maintainer-directed step (like the stable lane's first canary).
 
 ## Disabled by default
 
@@ -170,11 +225,14 @@ later enabled, would want its own reviewed row and a revisited rate.
    Sources: [provider routing](https://openrouter.ai/docs/guides/routing/provider-selection),
    [ZDR](https://openrouter.ai/docs/guides/features/zdr), and
    [data collection](https://openrouter.ai/docs/guides/privacy/data-collection).
-2. **The stealth/promotional lane (policy option b).** Should the garden ever admit
-   cloaked/stealth ids at all — and if so, via the deferred `openrouter-promo` second
-   kind with a re-review cadence and rip-cord, accepting a weakened inventory
-   invariant and undisclosed provenance? Recommended answer for now: **no** (option a
-   only). Any future promo lane inherits the same forced request fields from (1).
+2. **Resolved — the stealth/promotional lane (policy option b).** kriskowal, 2026-08-22:
+   **yes**, admit cloaked/stealth ids *while cloaked*, accepting undisclosed provenance
+   but **only** that risk. Built as the second kind `openrouter-promo` (§ The
+   stealth/promotional lane): a journal-backed, cadence-gated ledger (a row that is not
+   re-attested within a 24h window fails closed with no daemon), a deterministic
+   auto-disable recheck (stale attestation OR a 404 → the row is dropped), and a
+   two-lever rip-cord. It inherits the forced ZDR/deny-collection request fields from (1)
+   unconditionally — that is not relaxable. Shipped inert (pool zero, empty ledger).
 3. **Resolved — named seed-model review.** On 2026-08-22 the public
    `GET /api/v1/endpoints/zdr` inventory returned `z-ai/glm-5.2:free` as the sole
    text/tool-capable endpoint whose prompt and completion prices were both zero. It

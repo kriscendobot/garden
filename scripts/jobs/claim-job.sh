@@ -80,6 +80,7 @@ job_eligible_for_kind() {
     # established pools. Keep hosted pools opt-in: they require their explicit
     # supported pin and never absorb this compatibility traffic.
     [ "$KIND" != mystic ] && [ "$KIND" != fireworker ] && [ "$KIND" != openrouter ] \
+      && [ "$KIND" != openrouter-promo ] \
       && ! job_provider_is_constrained "$jf" && return 0
     return 1
   }
@@ -116,6 +117,14 @@ job_eligible_for_kind() {
   # guaranteed the constraint is `openrouter`.
   if [ "$KIND" = openrouter ]; then
     job_provider_is_constrained "$jf" || [[ "$pin" == openrouter/* ]] || return 1
+  fi
+  # The promo (stealth) lane is likewise explicit-model-only: it claims ONLY a
+  # `provider: openrouter-promo` canary OR an `openrouter-promo/<wire-id>` pin whose
+  # id currently has a fresh attestation in the journal ledger (the pin's tier
+  # resolution above already fails closed on a stale/absent attestation).  A stable
+  # `openrouter/<id>` pin is a FOREIGN provider to this kind and was already left.
+  if [ "$KIND" = openrouter-promo ]; then
+    job_provider_is_constrained "$jf" || [[ "$pin" == openrouter-promo/* ]] || return 1
   fi
   if [ -n "$pin" ]; then
     [ -n "$(resolve_model_tier "$KIND_PROVIDER" "$pin")" ]

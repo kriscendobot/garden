@@ -97,7 +97,16 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field openrouter unit)" = "garden-openrouter@" ] && ok "openrouter unit prefix" || bad "openrouter unit"
 [ "$(worker_kind_field openrouter count_key)" = "openrouters" ] && ok "openrouter count key" || bad "openrouter count key"
 [ "$(worker_kind_field openrouter state_ns)" = "openrouters" ] && ok "openrouter state_ns" || bad "openrouter state_ns"
-[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+# openrouter-promo = the rotating cloaked (stealth) OpenRouter lane — SAME handler and
+# OpenRouter endpoint/key as `openrouter`, but a DISTINCT provider/unit/namespace so its
+# short-lived, separately-re-reviewed arms never pool with the stable named lane's.
+[ "$(worker_kind_field openrouter-promo handler)" = "handlers/cleric-codex.sh" ] && ok "openrouter-promo reuses the Codex handler" || bad "openrouter-promo handler"
+[ "$(worker_kind_field openrouter-promo provider)" = "openrouter-promo" ] && ok "openrouter-promo has its own provider" || bad "openrouter-promo provider"
+[ "$(worker_kind_field openrouter-promo unit)" = "garden-openrouter-promo@" ] && ok "openrouter-promo unit prefix" || bad "openrouter-promo unit"
+[ "$(worker_kind_field openrouter-promo count_key)" = "openrouter_promos" ] && ok "openrouter-promo count key" || bad "openrouter-promo count key"
+[ "$(worker_kind_field openrouter-promo state_ns)" = "openrouter_promos" ] && ok "openrouter-promo state_ns" || bad "openrouter-promo state_ns"
+[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter,openrouter-promo" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+[ "$(canonical_worker_kind openrouter-promo)" = "openrouter-promo" ] && ok "canonical_worker_kind passes openrouter-promo through" || bad "canonical_worker_kind openrouter-promo"
 # canonical_worker_kind: the SOLE decoder. v1 gardener -> monk; known v2 unchanged;
 # unknown / contradictory rejected with no silent fallback.
 [ "$(canonical_worker_kind gardener)" = monk ] && ok "canonical: v1 gardener -> monk" || bad "canonical v1 gardener"
@@ -220,6 +229,42 @@ printf '%s\n' '---' 'model: openrouter/z-ai/glm-5.2:free' 'role: fixer' '---' > 
 mapfile -t or_arm < <(rep_resolve_arm openrouter "$OR_ARM_JOB")
 rm -f "$OR_ARM_JOB"
 [ "${or_arm[*]}" = "openrouter openrouter/z-ai/glm-5.2:free medium" ] && ok "openrouter reputation arm is openrouter/<wire id>" || bad "openrouter reputation arm (${or_arm[*]})"
+# --- openrouter-promo: journal-backed, cadence-gated cloaked (stealth) lane ---------
+# The promo lane's eligible ids live in a JOURNAL ledger, not the tracked inventory,
+# and each row's attestation EXPIRES: a FRESH row classifies, a STALE one fails closed
+# (the daemon-free half of the re-review cadence). Fixture: one fresh minion id, one
+# id attested 3 days ago (stale under the 24h default window).
+PROMO_LEDGER="$(mktemp "${TMPDIR:-/tmp}/garden-promos.XXXXXX")"
+{
+  printf '# fixture ledger\n'
+  printf 'openrouter/horizon-beta\tminion\t%s\ttester\n' "$(date -u +%FT%TZ)"
+  printf 'openrouter/old-ghost\tminion\t%s\ttester\n' "$(date -u -d '3 days ago' +%FT%TZ)"
+} > "$PROMO_LEDGER"
+export GARDEN_OPENROUTER_PROMOS_FILE="$PROMO_LEDGER"
+[ "$(resolve_model_tier openrouter-promo openrouter-promo/openrouter/horizon-beta)" = "openrouter-promo/openrouter/horizon-beta" ] && ok "fresh cloaked id binds under openrouter-promo" || bad "fresh cloaked id ($(resolve_model_tier openrouter-promo openrouter-promo/openrouter/horizon-beta))"
+[ "$(model_dispatch_tier openrouter-promo openrouter-promo/openrouter/horizon-beta)" = minion ] && ok "fresh cloaked id is minion tier from the ledger" || bad "cloaked id tier"
+[ "$(tier_model_for_provider minion openrouter-promo)" = "openrouter-promo/openrouter/horizon-beta" ] && ok "minion openrouter-promo resolves to the fresh cloaked selector" || bad "minion openrouter-promo resolution"
+[ -z "$(resolve_model_tier openrouter-promo openrouter-promo/openrouter/old-ghost)" ] && ok "STALE cloaked id fails closed (cadence auto-disable, no daemon)" || bad "stale cloaked id still bound"
+[ -z "$(resolve_model_tier openrouter-promo openrouter-promo/openrouter/never-attested)" ] && ok "un-attested cloaked id fails closed" || bad "un-attested cloaked id bound"
+[ -z "$(resolve_model_tier openrouter-promo openrouter/horizon-beta)" ] && ok "openrouter-promo requires its own namespace (a bare/stable id does not bind)" || bad "openrouter-promo bound a non-namespaced id"
+# Cross-lane isolation: the stable `openrouter` lane cannot bind a promo selector and
+# vice versa, so a cloaked arm can NEVER pool with the stable named lane's.
+{ [ -z "$(resolve_model_tier openrouter openrouter-promo/openrouter/horizon-beta)" ] \
+  && [ -z "$(resolve_model_tier openrouter-promo openrouter/z-ai/glm-5.2:free)" ]; } \
+  && ok "openrouter and openrouter-promo selectors never cross-bind (arms stay separate)" || bad "openrouter/openrouter-promo cross-bind"
+[ -z "$(role_default_model openrouter-promo fixer)" ] && ok "openrouter-promo has no implicit model default" || bad "openrouter-promo default"
+[ -z "$(role_default_model openrouter-promo builder)" ] && ok "openrouter-promo has no high-stakes default" || bad "openrouter-promo builder default"
+# A promo job earns its OWN arm (kind+provider+model all openrouter-promo-namespaced),
+# distinct from the stable openrouter arm.
+OP_ARM_JOB="$(mktemp "${TMPDIR:-/tmp}/garden-op-arm.XXXXXX")"
+printf '%s\n' '---' 'model: openrouter-promo/openrouter/horizon-beta' 'role: fixer' '---' > "$OP_ARM_JOB"
+mapfile -t op_arm < <(rep_resolve_arm openrouter-promo "$OP_ARM_JOB")
+rm -f "$OP_ARM_JOB"
+[ "${op_arm[*]}" = "openrouter-promo openrouter-promo/openrouter/horizon-beta medium" ] && ok "openrouter-promo reputation arm is openrouter-promo/<wire id>" || bad "openrouter-promo reputation arm (${op_arm[*]})"
+OP_ARM_PATH="$(rep_arm_relpath openrouter-promo "${op_arm[0]}" "${op_arm[1]}" "${op_arm[2]}" gardener:s main2 2>/dev/null || true)"
+{ [ -n "$OP_ARM_PATH" ] && [ "$OP_ARM_PATH" != "$(rep_arm_relpath openrouter "${or_arm[0]}" "${or_arm[1]}" "${or_arm[2]}" gardener:s main2 2>/dev/null || true)" ]; } && ok "promo and stable OpenRouter arms project to distinct journal paths (no pooling)" || bad "promo/stable OpenRouter arm paths collided"
+unset GARDEN_OPENROUTER_PROMOS_FILE
+rm -f "$PROMO_LEDGER"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
 [ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
@@ -233,7 +278,7 @@ hr; echo "POLICY INVARIANTS — no IMPLICIT Fable; K3 is an explicit-only trial 
 FABLE_ID="$(resolve_model_tier anthropic fable)"
 [ "$FABLE_ID" = "claude-fable-5" ] && ok "fable tier still BINDS (explicit model: fable honored)" || bad "fable tier binding ($FABLE_ID)"
 fable_default_leak=0
-for k in gardener cleric hermit mystic fireworker openrouter; do
+for k in gardener cleric hermit mystic fireworker openrouter openrouter-promo; do
   for r in designer builder fixer weaver conductor shepherd researcher scholar triager cleaner journalist orchestrator; do
     if [ "$(role_default_model "$k" "$r")" = "$FABLE_ID" ]; then
       bad "IMPLICIT Fable default leaked: kind=$k role=$r resolves to $FABLE_ID"
@@ -262,13 +307,14 @@ ok "mystic zero-default across roles (K3 never an implicit choice)"
 
 # ============================================================================
 hr; echo "ONE SPINE — the SAME gardener.sh completes a job as gardener AND as cleric"; hr
-run_kind() {  # run_kind <kind> <base> <host> [frontmatter]
-  local kind="$1" base="$2" host="$3" front="${4:-}" tr bare
+run_kind() {  # run_kind <kind> <base> <host> [frontmatter] [promos-ledger-file]
+  local kind="$1" base="$2" host="$3" front="${4:-}" ledger="${5:-}" tr bare
   tr="$(mktemp -d "${TMPDIR:-/tmp}/garden-spine-$kind.XXXXXX")"
   bare="$(seed_board "$tr" "$base" "$front")"
   env GARDEN="$host" GARDEN_STATE="$tr/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
       GARDEN_WORKER_KIND="$kind" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
       GARDEN_JOB_HANDLER="$STUB" \
+      ${ledger:+GARDEN_OPENROUTER_PROMOS_FILE="$ledger"} \
       "$JOBS/gardener.sh" 1 > "$tr/worker.log" 2>&1 || true
   local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
   # completed doin→tada
@@ -302,18 +348,28 @@ run_kind hermit   hspine hhost "model: qwen3.6"
 run_kind mystic   mspine mihost "model: kimi-k3"
 run_kind fireworker fwspine fwhost $'provider: fireworks\ntier: mentor'
 run_kind openrouter orspine orhost "model: openrouter/z-ai/glm-5.2:free"
+# The cloaked lane completes through the SAME spine on a freshly-attested stealth pin,
+# stamping worker_kind: openrouter-promo under its own state namespace.
+PROMO_SPINE_LEDGER="$(mktemp "${TMPDIR:-/tmp}/garden-spine-promos.XXXXXX")"
+printf 'openrouter/horizon-beta\tminion\t%s\ttester\n' "$(date -u +%FT%TZ)" > "$PROMO_SPINE_LEDGER"
+run_kind openrouter-promo opspine ophost "model: openrouter-promo/openrouter/horizon-beta" "$PROMO_SPINE_LEDGER"
+rm -f "$PROMO_SPINE_LEDGER"
 
 # ============================================================================
 hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pinned job"; hr
 # A cleric must NOT claim a job pinned to a Claude model; it stays in todo for a
 # gardener. An unpinned job a cleric CAN claim.
-elig_case() {  # elig_case <kind> <base> <front> <expect: claimed|left>
-  local kind="$1" base="$2" front="$3" expect="$4" tr bare
+elig_case() {  # elig_case <kind> <base> <front> <expect: claimed|left> [promos-ledger-file]
+  local kind="$1" base="$2" front="$3" expect="$4" ledger="${5:-}" tr bare
   tr="$(mktemp -d "${TMPDIR:-/tmp}/garden-elig.XXXXXX")"
   bare="$(seed_board "$tr" "$base" "$front")"
+  # An optional promos ledger fixture (5th arg) lets a promo-lane case exercise a
+  # fresh/stale cloaked id without a live journal; GARDEN_OPENROUTER_PROMOS_FILE wins
+  # over any clone lookup in _openrouter_promos_file.
   env GARDEN="ehost" GARDEN_STATE="$tr/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
       GARDEN_WORKER_KIND="$kind" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
       GARDEN_JOB_HANDLER="$STUB" \
+      ${ledger:+GARDEN_OPENROUTER_PROMOS_FILE="$ledger"} \
       "$JOBS/gardener.sh" 1 > "$tr/worker.log" 2>&1 || true
   local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
   local claimed=no; { [ -f "$v/jobs/tada/$base.md" ] || [ -e "$v/jobs/doin/$base.md" ]; } && claimed=yes
@@ -375,6 +431,24 @@ elig_case openrouter mentortieropenrouter $'provider: openrouter\ntier: mentor' 
 elig_case cleric foreignor $'provider: openrouter\ntier: minion' left
 elig_case fireworker foreignor2 "model: openrouter/z-ai/glm-5.2:free" left
 elig_case gardener foreignor3 "model: openrouter/z-ai/glm-5.2:free" left
+# openrouter-promo (the cloaked/stealth lane): explicit-model-only AND cadence-gated.
+# A FRESH ledger row makes the pin/canary claimable; a STALE row, an un-attested id,
+# an unpinned/tier-only job, a foreign provider, and the STABLE openrouter lane's pin
+# are all left. Isolation runs both ways — neither lane can claim the other's pin.
+PROMO_ELIG_FRESH="$(mktemp "${TMPDIR:-/tmp}/garden-elig-promos.XXXXXX")"
+printf 'openrouter/horizon-beta\tminion\t%s\ttester\n' "$(date -u +%FT%TZ)" > "$PROMO_ELIG_FRESH"
+printf 'openrouter/old-ghost\tminion\t%s\ttester\n' "$(date -u -d '3 days ago' +%FT%TZ)" >> "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo pinnedpromo "model: openrouter-promo/openrouter/horizon-beta" claimed "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo constrainedpromo $'provider: openrouter-promo\ntier: minion' claimed "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo stalepromo "model: openrouter-promo/openrouter/old-ghost" left "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo unattestedpromo "model: openrouter-promo/openrouter/ghost" left "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo unpinnedpromo "" left "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo tieronlypromo "tier: minion" left "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo foreignpromo $'provider: openrouter\ntier: minion' left "$PROMO_ELIG_FRESH"
+elig_case openrouter-promo stablepin "model: openrouter/z-ai/glm-5.2:free" left "$PROMO_ELIG_FRESH"
+elig_case openrouter promopin "model: openrouter-promo/openrouter/horizon-beta" left "$PROMO_ELIG_FRESH"
+elig_case cleric foreignpromo2 $'provider: openrouter-promo\ntier: minion' left "$PROMO_ELIG_FRESH"
+rm -f "$PROMO_ELIG_FRESH"
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -403,7 +477,7 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in monk gardener cleric hermit mystic fireworker openrouter; do
+for kind in monk gardener cleric hermit mystic fireworker openrouter openrouter-promo; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=monk' "$RT/garden-monk@.service" && ok "monk unit sets GARDEN_WORKER_KIND=monk" || bad "monk kind env"
@@ -419,6 +493,10 @@ grep -q 'self-heal-run.sh garden-mystic ' "$RT/garden-mystic@.service" && ok "my
 grep -q 'self-heal-run.sh garden-fireworker ' "$RT/garden-fireworker@.service" && ok "fireworker ExecStart labels self-heal garden-fireworker" || bad "fireworker self-heal label"
 grep -q 'GARDEN_WORKER_KIND=openrouter' "$RT/garden-openrouter@.service" && ok "openrouter unit sets GARDEN_WORKER_KIND=openrouter" || bad "openrouter kind env"
 grep -q 'self-heal-run.sh garden-openrouter ' "$RT/garden-openrouter@.service" && ok "openrouter ExecStart labels self-heal garden-openrouter" || bad "openrouter self-heal label"
+# The promo lane renders from the SAME single template (no per-kind source), keyed on
+# its own @WORKER_KIND@; the hyphen in the kind name survives the substitution.
+grep -q 'GARDEN_WORKER_KIND=openrouter-promo' "$RT/garden-openrouter-promo@.service" && ok "openrouter-promo unit sets GARDEN_WORKER_KIND=openrouter-promo" || bad "openrouter-promo kind env"
+grep -q 'self-heal-run.sh garden-openrouter-promo ' "$RT/garden-openrouter-promo@.service" && ok "openrouter-promo ExecStart labels self-heal garden-openrouter-promo" || bad "openrouter-promo self-heal label"
 rm -rf "$RT"
 
 # The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
@@ -433,6 +511,7 @@ export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale mystic 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale fireworker 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale openrouter 1 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale openrouter-promo 1 >/dev/null 2>&1
 gm=$(grep -c '^garden-monk@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
@@ -440,6 +519,7 @@ gh=$(grep -c '^garden-hermit@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 gf=$(grep -c '^garden-fireworker@1\.service$' "$GARDEN_MOCK_STATE" || true)
 go=$(grep -c '^garden-openrouter@1\.service$' "$GARDEN_MOCK_STATE" || true)
+gp=$(grep -c '^garden-openrouter-promo@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gm" -eq 2 ] && ok "scale monk 2 -> garden-monk@{1,2} armed (canonical Anthropic pool renders + scales)" || bad "monk scale (@1-2=$gm)"
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
@@ -447,6 +527,7 @@ go=$(grep -c '^garden-openrouter@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gk" -eq 1 ] && ok "scale mystic 1 -> garden-mystic@1 armed (hosted pool independently scalable)" || bad "mystic scale (@1=$gk)"
 [ "$gf" -eq 1 ] && ok "scale fireworker 1 -> garden-fireworker@1 armed (Fireworks pool independently scalable)" || bad "fireworker scale (@1=$gf)"
 [ "$go" -eq 1 ] && ok "scale openrouter 1 -> garden-openrouter@1 armed (OpenRouter pool independently scalable)" || bad "openrouter scale (@1=$go)"
+[ "$gp" -eq 1 ] && ok "scale openrouter-promo 1 -> garden-openrouter-promo@1 armed (stealth pool independently scalable)" || bad "openrouter-promo scale (@1=$gp)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1
