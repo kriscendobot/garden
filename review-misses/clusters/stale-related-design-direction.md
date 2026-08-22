@@ -1,13 +1,15 @@
 ---
 slug: stale-related-design-direction
 category: process
-status: improvement-dispatched
+status: closed
 count: 1
 members:
   - kriscendobot-minion.town-pr48-review-b8fd1e6b
 prs: [48]
 improvement_job: review-improve-stale-related-design-direction
+improved_by: 6e982cd422 scripts/jobs/gardening/related-design-state.sh, panel.sh related-design pre-pass, skills/design-dependency-walk/SKILL.md §0, roles/builder/AGENT.md, roles/jurors/integrator/AGENT.md, skills/panel-hints/SKILL.md, scripts/jobs/test/related-design-sensing-test.sh
 ---
+
 
 
 A build and its code panels continue toward merge after a related design PR already carries maintainer direction that invalidates the implementation seam, so the maintainer must stop and reconstruct the work.
