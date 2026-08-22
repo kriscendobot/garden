@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: endojs/endo-but-for-bots#286 CLOSED
+withdrawn_by: gardener:groom-parked-job-queue-20260822
+withdrawn_at: 2026-08-22T07:26:00Z
+withdrawn_from_gate: blocked-failed
+---
+
+---
 gate: blocked-failed
 blocked_failed_reason: blocker 'endojs-endo-but-for-bots-pr286-weave' completed but declined its gated outcome; held for a human decision
 blocked_on: endojs-endo-but-for-bots-pr286-weave
