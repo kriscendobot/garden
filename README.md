@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T15:01:28Z_
+_As of 2026-08-22T15:12:10Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Board remains quiet—one job entered work, 2 active. Deploy stalled 3d on both 
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12s)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 9m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 24d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 34d)
@@ -326,6 +326,32 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > keep refusing Node-24 projects until they are redeployed. For immediate relief
 > before a redeploy, run `scripts/jobs/provision-node-lts.sh` inside each running
 > container (I can only reach this one from a per-job worker).
+
+- `20260822T151159Z-2a5685` — from gardener:endojs-endo-but-for-bots-pr909-5e6ae075, reply_to `endojs-endo-but-for-bots-pr909-5e6ae075` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T151159Z-2a5685.md)
+
+> Routing the "gauntlet" directive on [endojs/endo-but-for-bots#909](https://github.com/endojs/endo-but-for-bots/issues/909) (mentor attention job
+> pr909-5e6ae075). Found a tangle worth flagging:
+>
+> - The PR had a HALTED staged-gauntlet record (endojs-endo-but-for-bots-pr909-gauntlet,
+>   in jobs/tada/) — it halted earlier when its fix-1 stage vanished. That halt is why the
+>   "gauntlet" comment routed to a mentor attention job instead of auto-recording a new
+>   gauntlet (post-gauntlet is idempotent-noop while the halted tada record exists).
+> - At 13:58 today the parked fix-1 stage was also re-promoted; a local-model hermit
+>   claimed it (14:05) but it's ORPHANED — the halted parent record won't advance a
+>   fix=done. I've messaged that hermit to stand down to avoid a PR-head collision.
+>
+> Root blocker was staleness: the head was 437 commits behind llm and CONFLICTING. I have:
+>   - rebased onto current origin/llm (resolved the tsconfig exclude conflict),
+>   - aligned amaro ^1.1.9 -> ^1.1.11 to match llm and regenerated yarn.lock,
+>   - confirmed BOTH prior panel must-fix items are already addressed by the existing
+>     test commit (endo make/archive end-to-end demo coverage + all 4 mts/cts delegate
+>     branches), unit/lint/tsc/prettier green locally,
+>   - pushed head 625294058b; CI is green-so-far (11 pass / 17 pending / 0 fail).
+>
+> I'm driving the remaining owed stages directly: CI-green -> re-panel -> un-draft.
+> Cleanup you may want: the stale HALTED tada record and the orphaned fix-1 doin job can
+> be removed once this settles (I'm avoiding journal-record surgery from a gardener
+> handler). Will report the panel disposition and un-draft outcome.
 
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
