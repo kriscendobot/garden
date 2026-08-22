@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-22T15:24:13Z_
+_As of 2026-08-22T15:25:21Z_
 
 ## Latest
 
@@ -653,9 +653,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 19.9M _(+892.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`ebfb-pr977-surface-drift-fix-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr977-surface-drift-fix-20260822.md) — Diagnosis (verify before editing)
-- [`kriscendobot-minion.town-pr37-conduct-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr37-conduct-20260822.md) — Merge kriscendobot/minion.town#37 ("design(mail): ocap mailboxes and attenuat...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 
 ### doin (19)
@@ -669,23 +668,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr807-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #807
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
-- [`endojs-endo-but-for-bots-pr897-657aab6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-657aab6a.md) — attention directive on endojs/endo-but-for-bots PR #897
 - [`endojs-endo-but-for-bots-pr897-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-weave.md) — weave directive on endojs/endo-but-for-bots PR #897
 - [`endojs-endo-but-for-bots-pr909-5e6ae075`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-5e6ae075.md) — attention directive on endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr977-64413faf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-64413faf.md) — attention directive on endojs/endo-but-for-bots PR #977
 - [`fix-live-budget-admission-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-live-budget-admission-enforcement.md) — Build the live-budget-admission enforcement (design landed, nothing built)
+- [`kriscendobot-minion.town-pr37-conduct-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-conduct-20260822.md) — Merge kriscendobot/minion.town#37 ("design(mail): ocap mailboxes and attenuat...
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 
-### tada (5426)
+### tada (5427)
+- [`endojs-endo-but-for-bots-pr897-657aab6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr897-657aab6a.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1024-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1024-gauntlet-fix-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-review-c7415fc9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-review-c7415fc9-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-resume-on-immutable-byte-arrays`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-resume-on-immutable-byte-arrays.md) — Cost
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr763-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1046-review-dbe54524-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-review-dbe54524-retro.md) — Completion report
-- … and 5421 more
+- … and 5422 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
