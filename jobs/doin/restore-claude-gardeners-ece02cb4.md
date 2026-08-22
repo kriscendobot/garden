@@ -16,3 +16,13 @@ should read `gardeners: 2`. Leave `clerics` as-is (no instruction to throttle
 Codex back down was given). If gardeners is already >0 on that host by the time
 this fires (someone restored it by hand already), this is a no-op — do not
 lower it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-22T04:05:22Z
