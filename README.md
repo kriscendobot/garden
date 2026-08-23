@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T04:18:50Z_
+_As of 2026-08-23T04:23:27Z_
 
 ## Latest
 
-Four completions moved to finished this cycle — [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) (cost report), [endojs/endo-but-for-bots#977](https://github.com/endojs/endo-but-for-bots/pull/977) (cost report), and two self-heals — while five jobs remain active: the byteArray phase reviewing [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), gauntlet rounds on [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796), [endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), and [endojs/endo-but-for-bots#909](https://github.com/endojs/endo-but-for-bots/pull/909), and the registry finish-line on [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888). The byteArray program is complete and green — components [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) carry green CI and all review threads resolved, awaiting your re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (the registry layer) is draft and mergeable once unblocked. Node 24 runtime parity for local-verify landed and provisioned into the Dockerfile; the fleet's current hosts will adopt it on the next redeploy. Three critical blockers await your decision: deploy has stalled 3d on two hosts (investigate or re-arm); SIWE on-chain authz needs tier choice + allowlist addresses before the thunk configuration lands; and two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green but for a recurring fleet node24-runner flake and can merge directly or wait for the infra fix.
+The byteArray implementation ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) and registry immutable-bytes integration ([#888](https://github.com/endojs/endo-but-for-bots/pull/888)) are complete and all-green, gated on kriskowal's re-review to clear CHANGES_REQUESTED. Test262 fixture consolidation opened as DRAFT ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) with a design decision needed (keep separate metering corpus or fold into upstream tree). The fleet is live-addressing 23 maintainer inbox messages, including SIWE on-chain authz integration for minion.town (awaiting wallet allowlist + tier choice), OpenRouter ZDR/stealth-lane policy build (2400s wall budget exceeded; parked for re-scoping), and a recurring CI flake on Node 24 runners blocking two dependabot PRs. Garden deploy has stalled for ~3 days across both instances; investigate why no deliberate-drain-and-deploy has landed. Local-verify now enforces Node runtime parity ([#1048](https://github.com/endojs/endo-but-for-bots/pull/1048) follow-up landed), but fleet hosts lack Node 24; provisioning queued. Five gauntlet stages halted on panel/fix failures and three doom jobs parked from requeue exhaustion — inspect handler logs on endolin-garden-ece02cb4.
 
 ## Parked for maintainer feedback
 
@@ -841,18 +841,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.3M | $943.52 _(notional, rate-card)_ | no quota set |
-| Codex | 22.5M _(+1033.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Claude | 114.5M | $944.08 _(notional, rate-card)_ | no quota set |
+| Codex | 22.6M _(+1034.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr475-fix-review-5001589064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5001589064.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
+- [`improve-budget-level-fail-open-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-fail-open-diagnostics.md) — ---
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 
 ### tada (5451)
