@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T20:02:16Z_
+_As of 2026-08-23T20:08:54Z_
 
 ## Latest
 
-The byteArray press completes green—immutable-arraybuffer shim ([#503](https://github.com/endojs/endo-but-for-bots/pull/503)) and view redesign ([#475](https://github.com/endojs/endo-but-for-bots/pull/475)) are mergeable and awaiting maintainer re-review (both need restacking onto current llm before landing). Fleet is otherwise held: gauntlets halted awaiting decisions ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946)), the node24-runner CI flake blocked two dependabot conducts ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), and garden deploy stalled 18 commits behind on both hosts. Landed: Node 24 local-verify parity, SIWE OIDC thunk live at minion.town, inbox helper fix.
+Multiple PR gauntlets halted with failing panel stages ([endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)); work preserved in parked doomed jobs. [endo-but-for-bots#1051](https://github.com/endojs/endo-but-for-bots/pull/1051) (changesets v2 migration) completed fixer with orchestrated v2-compat chain queued. Root-repo deploys stalled ~3d behind on two hosts; [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) frozen on shared base pending stack resolution. Node24 local-verify parity deployed and provisioned fleet-wide.
 
 ## Parked for maintainer feedback
 
@@ -330,6 +330,23 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260823T173407Z-4e0254` — from orchestrator:endor-fixture-parity-ratchet-campaign-20260823-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T173407Z-4e0254.md)
 
 > Orchestration endor-fixture-parity-ratchet-campaign-20260823 HALTED: child endor-walker-exports-resolution stalled after 3 requeues on host endolin-garden-ece02cb4 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 0/6 done before halt; parked remainder: endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
+
+- `20260823T200515Z-b6439c` — from gardener:endojs-endo-but-for-bots-pr1051-dependabot, reply_to `endojs-endo-but-for-bots-pr1051-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T200515Z-b6439c.md)
+
+> Botanist heads-up — endojs/endo-but-for-bots Dependabot PR
+> [endojs/endo-but-for-bots#1051](https://github.com/endojs/endo-but-for-bots/issues/1051) (`changesets/action` 1.9.0 → 2.1.0). Diligence is
+> clean (pins verified both sides, no advisories, past maturity), BUT this v2 major
+> renamed/removed the config `release.yml` uses: `publish`→`publish-script`, token
+> no longer read from the `GITHUB_TOKEN` env (v2 would push releases as
+> `github.token`, not `RELEASE_TOKEN`), and push default flipped
+> git-CLI→GitHub-API. I did NOT auto-merge. I escalated a fixer→conduct
+> orchestration (`endojs-endo-but-for-bots-pr1051-v2migrate`) to land a
+> **preserve-v1** migration (move RELEASE_TOKEN to the `github-token:` input,
+> `push-with-git-cli: true`) and then conduct. One decision is yours if you want to
+> weigh in: keep git-CLI push (preserve v1, what I directed) vs adopt v2's new
+> GitHub-API push default. Note `release.yml` runs on `push: master` only, so no CI
+> exercises this on the PR. PR + full verdict:
+> [https://github.com/endojs/endo-but-for-bots/pull/1051](https://github.com/endojs/endo-but-for-bots/pull/1051)
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1028,26 +1045,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.3M | $1057.74 _(notional, rate-card)_ | no quota set |
+| Claude | 131.8M | $1058.38 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1050-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1050-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1050
-- [`endojs-endo-but-for-bots-pr1051-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1051-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1051
+- [`endojs-endo-but-for-bots-pr1051-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1051-fixer.md) — fixer: migrate release.yml config for changesets/action v2 (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr1052-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1052-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1052
 - [`endojs-endo-but-for-bots-pr1053-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1053-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1053
+- [`endojs-endo-but-for-bots-pr1054-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1054-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1054
+- [`endojs-endo-but-for-bots-pr1055-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1055-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1055
+- [`endojs-endo-but-for-bots-pr1056-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1056-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1056
 
-### tada (5477)
+### tada (5478)
+- [`endojs-endo-but-for-bots-pr1051-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1051-dependabot.md) — Completion report
 - [`endor-fixture-parity-ratchet-campaign-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260823.md) — orchestration endor-fixture-parity-ratchet-campaign-20260823 — HALTED
 - [`press-minion-town-e2e-prod-test-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/press-minion-town-e2e-prod-test-20260823.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822.md) — gauntlet endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822 — HALTED
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6.md) — Completion report — Gauntlet FIX round 6, endojs/endo-but-for-bots PR #796
-- [`endor-fixture-parity-ratchet-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign.md) — orchestration endor-fixture-parity-ratchet-campaign — HALTED
-- … and 5472 more
+- … and 5473 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
