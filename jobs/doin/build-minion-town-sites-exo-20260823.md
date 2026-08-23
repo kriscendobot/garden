@@ -72,3 +72,13 @@ Originating directive: the standing minion.town press on kriscendobot/garden#58
 (issue_spine: issue-kriscendobot-garden-58), 2026-08-23 e2e prod test next-action #1.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T23:03:12Z
