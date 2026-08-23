@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T14:45:44Z_
+_As of 2026-08-23T15:19:47Z_
 
 ## Latest
 
-The root garden deploy has stalled for ~3 days across two hosts, holding 18 commits behind origin/main2 — investigate why `deploy-garden.sh` has not run. Multiple gauntlet stages (panel/fix rounds on #796, #807, #909, #1023, and minion.town#37) are doomed after hitting requeue limits; the scheduler and handler budgets need inspection. A fleet-wide Node24 CI runner flake is blocking two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/issues/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009)) from conducting — both are MERGE-NOW on diligence but cannot converge because rebases re-roll the flake faster than CI completes. On the infrastructure side, local-verify now guards against Node version skew with live Node 24 adoption, and Node 24 provisioning landed in the Dockerfile. Three maintainer decisions are queued: SIWE tier selection + allowlist addresses for minion.town (blocking [wire-siwe-onchain-authz-minion.town](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T055203Z-ae527d.md)), approval on four dependabot PRs including the CRITICAL happy-dom escape fix, and closure on the node24-runner flake itself (either merge the two PRs directly or fix the infra).
+Node 24 parity fix deployed on one host but rollout awaits redeploy elsewhere. Root repo deploy stalled ~3d (18 commits behind). SIWE authz live on minion.town, gated on maintainer config. Shepherd driving [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475); three gauntlets halted at review ([endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807), [endo-but-for-bots#909](https://github.com/endojs/endo-but-for-bots/pull/909)). Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) ready to merge pending node24-runner flake resolution.
 
 ## Parked for maintainer feedback
 
@@ -903,14 +903,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.1M | $1050.19 _(notional, rate-card)_ | no quota set |
+| Claude | 128.2M | $1050.42 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #796
 
 ### tada (5469)
