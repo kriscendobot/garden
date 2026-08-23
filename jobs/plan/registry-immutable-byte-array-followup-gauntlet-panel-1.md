@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+handler-timeout: 7200
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-23T04:43:06Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T04:43:06Z
+---
+
+---
 role: gardener
 tier: minion
 handler-timeout: 7200
@@ -52,16 +71,3 @@ verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-23T04:15:45Z

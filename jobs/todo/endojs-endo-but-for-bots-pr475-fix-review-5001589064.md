@@ -107,13 +107,4 @@ for this job.
 - Top-level summary comment (head SHA, item->SHA map, anything declined + why,
   verification status), then re-request review from @kriskowal.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-23T04:05:40Z
+<!-- garden-reaped: 1 -->
