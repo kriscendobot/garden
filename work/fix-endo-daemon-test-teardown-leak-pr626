@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: gardener
 claimed_at: 2026-08-23T16:23:12Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-fix-endo-daemon-test-teardown-leak-pr626
+pr_number: 1049
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1049
+pr_head: fix-daemon-test-orphan-watchdog
