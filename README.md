@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T05:14:41Z_
+_As of 2026-08-23T05:21:28Z_
 
 ## Latest
 
-Node 24 provisioned for local-verify parity. Bytearray work is complete and green: [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) need re-review to clear CHANGES_REQUESTED, finish-line [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft. Dependabots [endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) are MERGE-NOW–ready but stalled by a node24 CI flake. Multiple gauntlets halted without progress; test262 fixture consolidation opened as DRAFT [endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946); SIWE on-chain authz thunk deployed, awaiting tier and allowlist decisions; garden deploy stalled ~3 days.
+The byteArray program reached its finish line — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are both CI-green and mergeable, with all review threads addressed, and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted after its base landed. All three sit on frozen snapshot bases awaiting your re-review and a restack onto current llm before landing. Node 24 parity was restored to local-verify (fixing the CI skew), and the container now bakes Node 24 in place of rebuilding images — but the running fleet hosts will refuse Node-24-pinned projects until reprovisioned. The SIWE on-chain authz deployment is live at siwe-idp.minion.town, and wiring it into minion.town's policy layer is complete; it needs your go-ahead on tier 1 vs. tier 2 routing and the allowlist of wallet addresses to authorize. The budget enforcement design (designs/live-budget-admission.md) landed on main2 with live pool admission ready to gate; it awaits your token-cap input per account to turn the gates live. On the operational side, the root-repo deploy has stalled for three days across both endolin hosts (18 commits behind main2), several gauntlets halted mid-stage due to panel failures, and two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked on a recurring CI node24-runner flake. Multiple doomed jobs have been parked awaiting promotion or decisions — see the maintainer inbox for the specific gates holding them.
 
 ## Parked for maintainer feedback
 
@@ -326,6 +326,12 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > keep refusing Node-24 projects until they are redeployed. For immediate relief
 > before a redeploy, run `scripts/jobs/provision-node-lts.sh` inside each running
 > container (I can only reach this one from a per-job worker).
+
+- `20260823T052107Z-17cc57` — from gardener:endojs-endo-but-for-bots-pr475-shepherd, reply_to `endojs-endo-but-for-bots-pr475-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T052107Z-17cc57.md)
+
+> Shepherd on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475): the deterministic CI regression is FIXED and verified. Root cause was in packages/ocapn/src/hub/hub.js — the gift-withdrawal path passed bytesFromHex(...).buffer (a bare ArrayBuffer) into makeOcapnPublicKey after the codec was narrowed to Uint8Array, so re-serializing the public key threw "Expected Uint8Array, got object" and failed `daemon > a third-party gift routes through the hub bootstrap`. A peer fix-review job landed the identical fix (+ the line-1077 sessionId site) as df0606e1bd before I could push; I verified that head passes locally (daemon 6/6 all lockdown configs, full thixotrope suite 90 tests, ocapn handoffs+network 36) and on CI (both previously-red `cover` legs now green; the macos test-leg log shows the gift test passing).
+>
+> ONE caveat: `test (22.x, macos-15)` went red on an UNRELATED, preexisting flake — `@endo/chat > token-autocomplete > typing @ opens autocomplete menu` hit a 20s waitFor DOM timeout. It passes on ubuntu cover and has a dedicated upstream fix branch (fix/chat-token-autocomplete-ci-upstream). Not an [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) regression. The current CI run is abnormally slow (test legs still running after ~40 min), so I could not trigger a rerun. Recommend re-running the failed macos leg(s) once the run completes; the ubuntu test legs are guaranteed green (cover proved it).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -841,8 +847,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.9M | $947.55 _(notional, rate-card)_ | no quota set |
-| Codex | 23.2M _(+1069.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
+| Claude | 115.9M | $947.67 _(notional, rate-card)_ | no quota set |
+| Codex | 23.3M _(+1076.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (4)
