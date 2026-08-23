@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T19:00:25Z_
+_As of 2026-08-23T19:57:30Z_
 
 ## Latest
 
-The byteArray press reached finish line and full green across all three components — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (plain frozen Uint8Array view), [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry transport) — all mergeable, waiting only on your re-review to clear CHANGES_REQUESTED. Local-verify Node parity was restored (fixed the version-skew bug where Node 22 locally but Node 24 in CI drew type-aware lint errors), and Node 24 was provisioned fleet-wide; one host already adopted it, others pick it up on redeploy. minion.town's SIWE on-chain authz thunk is live at https://siwe-idp.minion.town, deployment done, awaiting your TIER 1 allowlist (which addresses and scopes to authorize). The root repo deploy stalled 3 days ago across both hosts (18 commits behind), and multiple gauntlets halted due to handler infrastructure issues (not content regressions). A recurring node24-runner CI flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous conduct; both are otherwise mergeable.
+The byteArray stack is complete and all-green: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable but awaiting your re-review to clear CHANGES_REQUESTED, and finish-line component [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft. Infrastructure improvements landed: Node 24 local-verify parity is now enforced fleet-wide, and the budget-admission design is on main2. Multiple orchestrations are stalled at handler exhaustion or panel failures, and root-repo deploy has stalled 3+ days on two hosts. SIWE gateway deployment awaits allowlist-config decisions, and two dependabot PRs are in progress.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.0M | $1057.22 _(notional, rate-card)_ | no quota set |
+| Claude | 131.1M | $1057.47 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1050-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1050-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1050
+- [`endojs-endo-but-for-bots-pr1051-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1051-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1051
 
 ### tada (5477)
 - [`endor-fixture-parity-ratchet-campaign-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260823.md) — orchestration endor-fixture-parity-ratchet-campaign-20260823 — HALTED
