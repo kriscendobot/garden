@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T03:18:49Z_
+_As of 2026-08-23T03:20:51Z_
 
 ## Latest
 
-Budget enforcement design landed on main2 (designs/live-budget-admission.md); live deployment awaits the weekly token-cap decision. Node 24 provisioned for local-verify parity, though deployed hosts need redeployment to adopt it; the local-verify Node-parity guard now refuses mismatched major versions on Node-pinned projects. The byteArray press finish-line is complete and green — two foundation PRs ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are mergeable pending human re-review, and the RegistryInterface leg ([endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is green and DRAFT awaiting un-draft once the foundations land. Three gauntlets halted mid-flight; two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) blocked on the recurring fleet node24-runner infra flake. The root deploy has stalled ~3 days on both running hosts; garden-root-repo-guard is reporting the condition but needs investigation to restart. Maintainer inbox is active with ~24 messages covering the byteArray re-review, SIWE tier+allowlist decisions, test262-fixture consolidation path, several design questions awaiting grounding (omega ranks, disclosure timing), and multiple follow-ups ready to dispatch once authorized.
+The byteArray program has crossed the finish line and sits ready: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are CI-green and mergeable (5 review threads all addressed), while [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) stands ready for review. Budget enforcement landed on main2 (live-budget-admission.md), and the Node24 provisioning that restores local-verify parity deployed to the fleet. Test262 fixture consolidation work opened as [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) with an open design decision on case-tree unification. Three major items await maintainer decisions: the byteArray re-review gate, SIWE tier-1 allowlist addresses for minion.town, and test262 fixture strategy. The node24-runner CI flake has blocked two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from automated merge; both are otherwise complete. Garden deploys have stalled 3 days behind main2 on both hosts.
 
 ## Parked for maintainer feedback
 
@@ -649,14 +649,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.2M | $937.81 _(notional, rate-card)_ | no quota set |
-| Codex | 21.2M _(+949.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Claude | 111.3M | $938.22 _(notional, rate-card)_ | no quota set |
+| Codex | 21.3M _(+953.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1038-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1038-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1038
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`self-heal-fix-garden-proxy-bare-issue-ref-reply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-bare-issue-ref-reply.md) — ---
+- [`self-heal-fix-garden-proxy-unqualified-issue-ref`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-unqualified-issue-ref.md) — ---
 
 ### doin (14)
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
