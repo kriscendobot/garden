@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Small bug found live while posting an ordinary job (`post-job.sh`), 2026-08-23:
@@ -42,13 +43,4 @@ a real number given a live `cutoff`, not just checking it exits without error.
 
 No other usage-meter/budget-level behavior changes.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T16:37:55Z
+<!-- garden-reaped: 0 -->

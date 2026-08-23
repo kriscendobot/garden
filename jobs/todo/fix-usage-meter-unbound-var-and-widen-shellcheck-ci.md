@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 ## Grounding incident
@@ -61,13 +62,4 @@ widening plus the specific bug.
 3. Confirm the retargeted workflow (now triggering on `main2`) actually
    runs green on your PR-equivalent push and report the run URL.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T16:36:59Z
+<!-- garden-reaped: 0 -->

@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Refresh `pr-review-sequence.md` on `journal2` — the maintainer-facing PR-review
@@ -50,13 +51,4 @@ lower-frequency refresh tooling — the prior refresh flagged that as a
 worthwhile follow-up, but the maintainer asked for a plain content refresh
 this time, not that follow-up.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T16:36:25Z
+<!-- garden-reaped: 0 -->
