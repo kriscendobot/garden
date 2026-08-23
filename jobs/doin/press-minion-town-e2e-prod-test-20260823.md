@@ -67,3 +67,13 @@ actual tool call, an actual publish), not for unrelated deployments or
 merges. Report substantively on https://github.com/kriskowal/garden/issues/58
 per the standing campaign's reporting convention: concrete evidence per
 step, blockers, and the next smallest action. Do not close the issue.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T17:16:20Z
