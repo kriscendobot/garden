@@ -50,23 +50,50 @@ while IFS=$'\t ' read -r pool provider account kind cap _rest; do
 done < "$file"
 clone_unlock "$DIR"
 
-cutoff="$(meter_window_cutoff anchor 2>/dev/null || true)"
+if cutoff="$(meter_window_cutoff anchor 2>/dev/null)"; then
+  cutoff_rc=0
+else
+  cutoff_rc=$?
+  cutoff=""
+fi
+[[ "$cutoff" =~ ^[0-9]+$ ]] || [ "$cutoff_rc" -ne 0 ] || cutoff_rc=1
+pool_failure() { # pool host operation status
+  log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4; failure isolated (fail-open)"
+}
+
 for row in "${rows[@]}"; do
   IFS=$'\t' read -r pool provider host cap <<<"$row"
   [[ "$cap" =~ ^[1-9][0-9]*$ ]] || { log "WARN: $pool has invalid cap '$cap'; leaving workers unchanged (fail-open)"; continue; }
 
   if [ "$host" = "$GARDEN" ]; then
-    spend="$(meter_window_total anchor 2>/dev/null || true)"
+    if spend="$(meter_window_total anchor 2>/dev/null)"; then
+      :
+    else
+      rc=$?
+      pool_failure "$pool" "$host" read-local-spend "$rc"
+      continue
+    fi
   elif [[ "$cutoff" =~ ^[0-9]+$ ]]; then
-    spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>/dev/null || true)"
-    [[ "$spend" =~ ^[0-9]+$ ]] \
-      || spend="$(meter_journal_host_tokens "$DIR" "$host" "$cutoff" 2>/dev/null || true)"
+    if spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>/dev/null)"; then
+      :
+    else
+      rc=$?
+      pool_failure "$pool" "$host" read-remote-snapshot "$rc"
+      if spend="$(meter_journal_host_tokens "$DIR" "$host" "$cutoff" 2>/dev/null)"; then
+        :
+      else
+        rc=$?
+        pool_failure "$pool" "$host" read-journal-spend "$rc"
+        continue
+      fi
+    fi
   else
-    spend=""
+    pool_failure "$pool" "$host" read-window-cutoff "$cutoff_rc"
+    continue
   fi
-  [[ "$spend" =~ ^[0-9]+$ ]] || { log "WARN: $pool spend unreadable; leaving workers unchanged (fail-open)"; continue; }
+  [[ "$spend" =~ ^[0-9]+$ ]] || { pool_failure "$pool" "$host" validate-spend 1; continue; }
 
-  target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" \
+  if target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" \
                     -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$GARDEN_BUDGET_LEVEL_MAX" '
     BEGIN {
       mark=q*f
@@ -76,17 +103,41 @@ for row in "${rows[@]}"; do
         n=lo+int(headroom*(hi-lo)+0.5)
       }
       if (n<lo) n=lo; if (n>hi) n=hi; printf "%d\n", n
-    }')"
+    }')"; then
+    :
+  else
+    rc=$?
+    pool_failure "$pool" "$host" compute-target "$rc"
+    continue
+  fi
   host_file="$DIR/hosts/$host"
-  current="$(sed -n 's/^gardeners:[[:space:]]*//p' "$host_file" 2>/dev/null | head -1)"
-  [[ "$current" =~ ^[0-9]+$ ]] || { log "WARN: hosts/$host has no gardeners count; leveling skips undeclared capacity"; continue; }
+  if current="$(awk '/^gardeners:[[:space:]]*/ { sub(/^gardeners:[[:space:]]*/, ""); print; exit }' "$host_file" 2>/dev/null)"; then
+    :
+  else
+    rc=$?
+    pool_failure "$pool" "$host" read-host-workers "$rc"
+    continue
+  fi
+  [[ "$current" =~ ^[0-9]+$ ]] || { pool_failure "$pool" "$host" validate-host-workers 1; continue; }
   [ "$current" -ne "$target" ] || continue
 
   reason="budget pool $pool spend=$spend cap=$cap high-water=$GARDEN_TOKEN_BACKOFF_FRACTION target=$target"
   if [ "$host" = "$GARDEN" ]; then
-    /bin/bash "$GARDEN_BUDGET_LEVEL_SET_WORKERS" "$GARDEN_BUDGET_LEVEL_KIND" "$target"
+    if /bin/bash "$GARDEN_BUDGET_LEVEL_SET_WORKERS" "$GARDEN_BUDGET_LEVEL_KIND" "$target"; then
+      :
+    else
+      rc=$?
+      pool_failure "$pool" "$host" set-local-workers "$rc"
+      continue
+    fi
   else
-    /bin/bash "$GARDEN_BUDGET_LEVEL_SEND_HOST_OP" "$host" op=set-workers kind="$GARDEN_BUDGET_LEVEL_KIND" count="$target" reason="$reason"
+    if /bin/bash "$GARDEN_BUDGET_LEVEL_SEND_HOST_OP" "$host" op=set-workers kind="$GARDEN_BUDGET_LEVEL_KIND" count="$target" reason="$reason"; then
+      :
+    else
+      rc=$?
+      pool_failure "$pool" "$host" send-host-set-workers "$rc"
+      continue
+    fi
   fi
   log "leveled $host $current->$target ($reason)"
   alert_maintainer "budget-level-$host-$target" \

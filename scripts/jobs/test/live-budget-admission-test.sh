@@ -99,20 +99,43 @@ LBARE="$TR/level.git"; seed_board "$LBARE"
 LSEED="$LBARE-seed"
 printf '%s\n' \
   'anthropic:testhost anthropic testhost weekly-tokens 1000' \
+  'anthropic:missinghost anthropic missinghost weekly-tokens 1000' \
+  'anthropic:failhost anthropic failhost weekly-tokens 1000' \
   'anthropic:otherhost anthropic otherhost weekly-tokens 1000' > "$LSEED/config/budget-pools"
+printf 'gardeners: 2\n' > "$LSEED/hosts/failhost"
 printf 'gardeners: 2\n' > "$LSEED/hosts/otherhost"
-git -C "$LSEED" add config/budget-pools hosts/otherhost; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
+git -C "$LSEED" add config/budget-pools hosts/failhost hosts/otherhost; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
 ACT="$TR/act.log"; : > "$ACT"
-printf '#!/bin/bash\nprintf "local %%s %%s\\n" "$1" "$2" >> "$ACT"\n' > "$TR/set"
-printf '#!/bin/bash\nprintf "remote %%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "$ACT"\n' > "$TR/send"
+printf '#!/bin/bash\nprintf "local %%s %%s\\n" "$1" "$2" >> "$ACT"\nexit 17\n' > "$TR/set"
+printf '#!/bin/bash\nprintf "remote %%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "$ACT"\n[ "$1" != failhost ] || exit 23\n' > "$TR/send"
 chmod +x "$TR/set" "$TR/send"
+LOUT="$TR/level.out"
 env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/level-state" JOURNAL_REMOTE="$LBARE" \
   GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT" \
   GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" \
-  "$JOBS/budget-level.sh" >/dev/null
+  "$JOBS/budget-level.sh" >"$LOUT" 2>&1
 grep -q '^local gardener 1$' "$ACT" && grep -q '^remote otherhost op=set-workers kind=gardener count=4$' "$ACT" \
-  && ok "leveler lowers over-spent host and raises under-spent host with floor 1" \
+  && ok "failed local actuation does not prevent later pool actuation" \
   || bad "leveling actions: $(tr '\n' ';' < "$ACT")"
+grep -q 'pool=anthropic:testhost host=testhost operation=set-local-workers failed exit_status=17' "$LOUT" \
+  && ok "actuation diagnostic identifies pool, host, operation, and exit status" \
+  || bad "missing actuation diagnostic: $(tr '\n' ';' < "$LOUT")"
+grep -q 'pool=anthropic:missinghost host=missinghost operation=read-host-workers failed exit_status=2' "$LOUT" \
+  && ok "read diagnostic identifies pool, host, operation, and exit status" \
+  || bad "missing read diagnostic: $(tr '\n' ';' < "$LOUT")"
+grep -q 'pool=anthropic:failhost host=failhost operation=send-host-set-workers failed exit_status=23' "$LOUT" \
+  && ok "failed remote actuation is isolated and fully diagnosed" \
+  || bad "missing remote actuation diagnostic: $(tr '\n' ';' < "$LOUT")"
+
+set +e
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/level-state-scheduled" JOURNAL_REMOTE="$LBARE" \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT" \
+  GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" \
+  "$JOBS/budget-level.sh" scheduled >/dev/null 2>&1
+lrc=$?
+set -e
+[ "$lrc" -eq 2 ] && ok "per-pool failures preserve scheduled-dispatch exit contract" \
+  || bad "scheduled leveler returned $lrc instead of 2"
 
 echo "RESULT: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]
