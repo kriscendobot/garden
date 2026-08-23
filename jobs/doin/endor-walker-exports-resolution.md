@@ -34,3 +34,13 @@ export-patterns, package-imports-exports, nested-pkg, and fixtures-0. Bump floor
 16. Depends on Increment 0.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T17:13:21Z
