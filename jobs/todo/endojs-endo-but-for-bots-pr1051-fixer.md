@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1051-v2migrate
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-08-23T20:04:14Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-23T20:07:03Z cleared=none -->
 
 ---
 tier: mentor
