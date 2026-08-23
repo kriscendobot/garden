@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-08-23T17:43:58Z_
+_As of 2026-08-23T19:00:25Z_
 
 ## Latest
 
-Six gauntlets halted since last bulletin ([endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), endor-fixture campaign, [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)); two handler failures (endor-walker-exports, shellcheck-ci) are held in plan; root repo deploy stalled 3d. Positive progress: Node 24 provisioned on endolin-garden2 (local-verify parity gates pass), byteArray press ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) complete and green, awaiting review. Maintainer inbox carries gates: SIWE tier-1 allowlist, test262 fixture decision, OpenRouter ZDR policy, three doomed gauntlet/builder stages. Fleet node24-runner infra flake blocks dependabots [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009).
+The byteArray press reached finish line and full green across all three components — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (plain frozen Uint8Array view), [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry transport) — all mergeable, waiting only on your re-review to clear CHANGES_REQUESTED. Local-verify Node parity was restored (fixed the version-skew bug where Node 22 locally but Node 24 in CI drew type-aware lint errors), and Node 24 was provisioned fleet-wide; one host already adopted it, others pick it up on redeploy. minion.town's SIWE on-chain authz thunk is live at https://siwe-idp.minion.town, deployment done, awaiting your TIER 1 allowlist (which addresses and scopes to authorize). The root repo deploy stalled 3 days ago across both hosts (18 commits behind), and multiple gauntlets halted due to handler infrastructure issues (not content regressions). A recurring node24-runner CI flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous conduct; both are otherwise mergeable.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 25d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 25d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 35d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 37d)
@@ -1028,7 +1028,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.9M | $1057.13 _(notional, rate-card)_ | no quota set |
+| Claude | 131.0M | $1057.22 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
