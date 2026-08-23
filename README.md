@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T22:05:52Z_
+_As of 2026-08-23T22:41:26Z_
 
 ## Latest
 
-byteArray stack landed green across [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and finish-line [#888](https://github.com/endojs/endo-but-for-bots/pull/888), holding on maintainer re-review; test262 consolidation draft ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) needs corpus-scope decision. Two dependabot MERGE-NOWs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) blocked on the node24-runner CI flake; node parity guard deployed. SIWE auth infrastructure live at siwe-idp.minion.town awaiting allowlist configuration. Root repo deploy stalled 3 days on two hosts; several gauntlets doomed on handler budget overruns.
+Deploy stalled on two hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64) for ~3 days, 18 commits behind origin/main2—investigate why no deliberate deploy has landed. Multiple gauntlet stages and orchestration jobs halted after requeue exhaustion or elapsed-constancy detection, with several PRs stranded mid-gauntlet ([endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)). Infrastructure gaps surfaced: pre-push-gates advertised driver is absent; shellcheck scope is too narrow to catch usage-meter.sh's unbound-variable bug and needs broadening in CI. Node24 parity guard landed and fleet Node24 provisioned, but other running containers will refuse Node-24-pinned projects until redeployed. The byteArray program ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is complete, green across all CI legs, and unblocked in code—awaiting only maintainer re-review to clear CHANGES_REQUESTED. Maintenance decisions awaiting your call: SIWE tier-1 allowlist addresses for [minion.town](https://github.com/kriscendobot/minion.town), OpenRouter deny-logging enforcement + stealth-lane policy, byteArray re-review triage, three gauntlets to un-park, and frozen-base unfreeze on [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046).
 
 ## Parked for maintainer feedback
 
@@ -17,7 +17,7 @@ byteArray stack landed green across [#475](https://github.com/endojs/endo-but-fo
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 52d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 69d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 103d)
-- [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) — feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting 102d)
+- [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) — feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting 103d)
 
 _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.1M | $1055.54 _(notional, rate-card)_ | no quota set |
+| Claude | 133.2M | $1055.78 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-5388846009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5388846009.md) — Dead-lettered message — pick up its intent
 
 ### tada (5483)
 - [`endojs-endo-but-for-bots-pr1054-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1054-dependabot.md) — Completion report: botanist on endojs/endo-but-for-bots PR #1054
