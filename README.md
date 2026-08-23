@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T22:55:56Z_
+_As of 2026-08-23T22:58:17Z_
 
 ## Latest
 
-Garden deploy is stalled (~3d behind on two hosts); Node 24 has been provisioned in the Dockerfile but requires container redeployment to reach existing runners. SIWE on-chain authz infrastructure for minion.town is live and awaiting tier-selection and allowlist decisions ([wire-siwe-onchain-authz-minion-town](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T055203Z-ae527d.md)). Multiple gauntlets are halted pending panel resolution or maintainer input ([endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)). Most significant: 23 parked PRs await review (top 10 idle 25–103 days), and 60+ jobs in plan await maintainer go-ahead or design decisions—many carry security-sensitive or deployment-consequence choices flagged from completion reports (DNSSEC gating, access-control decisions, hosted daemon changes).
+Deployment stalled for ~3 days on both garden hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64); investigate why deliberate deploys haven't landed. Node 24 parity guard is live and provisioned on this host, but image propagation to other running containers awaits rebuild+redeploy. [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (immutable byte array, waiting 103d) is now under review. Multiple gauntlet stages are halting mid-run (panel handoffs failing/vanishing); four PRs stranded with DOOM jobs parked: [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [#946](https://github.com/endojs/endo-but-for-bots/pull/946). A recurring fleet-wide CI flake (node24-runner missing binary) is blocking two dependabot merges ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)). Awaiting maintainer decisions on SIWE tier-1 allowlist for minion.town, DNSSEC configuration for ocap.site, and node24 CI infrastructure repair to unblock the spine.
 
 ## Parked for maintainer feedback
 
@@ -1028,16 +1028,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.6M | $1056.14 _(notional, rate-card)_ | no quota set |
+| Claude | 133.8M | $1056.37 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-minion-town-sites-exo-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-sites-exo-20260823.md) — Build the daemon-hosted @sites exo so weblet publish serves a live <hash>.oca...
 - [`deadmail-issue-comment-5388921796`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5388921796.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr475-review-d7b66ffe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-d7b66ffe.md) — Review directive on endojs/endo-but-for-bots PR #475
 
 ### tada (5485)
 - [`minion-town-agenda-review-20260823-225008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260823-225008.md) — Cost
@@ -1150,6 +1151,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-9fa4b1fe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-9fa4b1fe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1046 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr475-ironhorse-ses-hostrow`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-ironhorse-ses-hostrow.md) — _low_ · Add an Ironhorse+SES host row to the ImmutableArrayBuffer view-behavior matrix
 - [`endojs-endo-but-for-bots-pr475-review-4b9e411c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-4b9e411c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-review-d7b66ffe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-d7b66ffe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
