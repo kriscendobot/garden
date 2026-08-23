@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1051-fixer-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1051-fixer endojs-endo-but-for-bots-pr1051-conduct
 on-child-failure: halt
