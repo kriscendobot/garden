@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T19:57:30Z_
+_As of 2026-08-23T20:02:16Z_
 
 ## Latest
 
-The byteArray stack is complete and all-green: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable but awaiting your re-review to clear CHANGES_REQUESTED, and finish-line component [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft. Infrastructure improvements landed: Node 24 local-verify parity is now enforced fleet-wide, and the budget-admission design is on main2. Multiple orchestrations are stalled at handler exhaustion or panel failures, and root-repo deploy has stalled 3+ days on two hosts. SIWE gateway deployment awaits allowlist-config decisions, and two dependabot PRs are in progress.
+The byteArray press completes green—immutable-arraybuffer shim ([#503](https://github.com/endojs/endo-but-for-bots/pull/503)) and view redesign ([#475](https://github.com/endojs/endo-but-for-bots/pull/475)) are mergeable and awaiting maintainer re-review (both need restacking onto current llm before landing). Fleet is otherwise held: gauntlets halted awaiting decisions ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946)), the node24-runner CI flake blocked two dependabot conducts ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), and garden deploy stalled 18 commits behind on both hosts. Landed: Node 24 local-verify parity, SIWE OIDC thunk live at minion.town, inbox helper fix.
 
 ## Parked for maintainer feedback
 
@@ -1028,16 +1028,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.1M | $1057.47 _(notional, rate-card)_ | no quota set |
+| Claude | 131.3M | $1057.74 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1050-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1050-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1050
 - [`endojs-endo-but-for-bots-pr1051-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1051-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1051
+- [`endojs-endo-but-for-bots-pr1052-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1052-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1052
+- [`endojs-endo-but-for-bots-pr1053-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1053-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1053
 
 ### tada (5477)
 - [`endor-fixture-parity-ratchet-campaign-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260823.md) — orchestration endor-fixture-parity-ratchet-campaign-20260823 — HALTED
