@@ -63,6 +63,7 @@ midnight) once the anchored scheduler landed on the leader host; do not revert i
 to `daily` while any leader host still runs a pre-anchor scheduler, or that
 scheduler would treat the token as its weekly default.
 
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-23T07:40:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
