@@ -100,16 +100,7 @@ before pushing.
 - Report names what you landed and the surfaced push-mode decision. The paired
   `endojs-endo-but-for-bots-pr1051-conduct` job then re-reviews and conducts.
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T20:33:27Z
+
+<!-- garden-reaped: 4 -->
