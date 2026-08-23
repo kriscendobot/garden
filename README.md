@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T05:27:46Z_
+_As of 2026-08-23T05:29:30Z_
 
 ## Latest
 
-Deploy stalled ~3 days (18 behind main2); multiple gauntlets halted mid-panel. Local-verify Node parity fixed to match CI (main2 57d851dfaf, c1583f733f); one shepherd completed ([endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/pull/970)). Maintainer decisions pending: dependabots [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (node24 flake), byteArray [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (re-review), test262 [#946](https://github.com/endojs/endo-but-for-bots/pull/946) (metering scope), minion.town SIWE (tier + allowlist).
+Multiple gauntlets halted on [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) and [kriscendobot/minion.town](https://github.com/kriscendobot/minion.town) PRs after panel stages failed; five doom jobs parked at requeue exhaustion after handler failures (notably [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#946](https://github.com/endojs/endo-but-for-bots/pull/946)). The garden's deploy is stalled ~3 days across two hosts (18 commits behind main2). A node24 CI runner flake (cached binary loss) is blocking merges on [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)—both are MERGE-NOW verdicts pending only CI green. [ByteArray program](https://github.com/endojs/endo-but-for-bots/issues/503) ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and gated on human re-review + finish-line un-draft. Local-verify parity and Node 24 provisioning landed on main2, but the deploy is needed for fleet-wide adoption. Several decisions awaiting maintainer: OpenRouter ZDR policy tier, SIWE allowlist scope, minion.town daemon-native commit formula promotion, and unfreezing [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046)'s shared frozen base (blocked without weaving the stack).
 
 ## Parked for maintainer feedback
 
@@ -751,10 +751,6 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-fix-review-5001589064` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-fix-review-5001589064.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr475-fix-review-5001589064' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 745fa90891f8692c12b6b14a06b4a5dbdcbbf503 is 18 commit(s) behind origin/main2 (231ef0576752a29e0f54a3c9316ac812a6790da3) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
@@ -845,8 +841,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.2M | $948.11 _(notional, rate-card)_ | no quota set |
-| Codex | 23.6M _(+1080.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Claude | 116.3M | $948.25 _(notional, rate-card)_ | no quota set |
+| Codex | 23.6M _(+1080.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
