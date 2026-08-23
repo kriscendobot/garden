@@ -29,6 +29,7 @@ helper, this will recur on every gardener host that runs this suite until fixed.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
