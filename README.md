@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-23T16:00:18Z_
+_As of 2026-08-23T16:12:27Z_
 
 ## Latest
 
@@ -903,24 +903,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.0M | $1051.07 _(notional, rate-card)_ | no quota set |
+| Claude | 129.0M | $1049.90 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
+### doin (2)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #796
 - [`fix-endo-daemon-test-teardown-leak-pr626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-daemon-test-teardown-leak-pr626.md) — ---
 
 ### tada (5471)
+- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4.md) — Cost
-- [`minion-town-agenda-review-20260823-135004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260823-135004.md) — Completion report
 - … and 5466 more
 
 ## Plan queue (parked — not claimable until promoted)
