@@ -41,3 +41,13 @@ a real number given a live `cutoff`, not just checking it exits without error.
 ## Out of scope
 
 No other usage-meter/budget-level behavior changes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T16:37:55Z
