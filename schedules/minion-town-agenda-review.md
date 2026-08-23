@@ -1,6 +1,7 @@
 cadence: 2h
 last_dispatched: 2026-08-23T22:50:08Z
 job_basename_prefix: minion-town-agenda-review
+preflight: minion-town-press-preflight.sh
 handler-timeout: 7200
 ---
 ---
@@ -53,3 +54,26 @@ Per-engagement guardrails (handler-timeout 7200s, token-budget 100000) are carri
 forward from the daily review; at 12x the frequency they now bound cost far more
 tightly, so a tick that repeatedly hits either ceiling is a signal to revisit the
 cadence or add a preflight idle-gate, not to silently raise the numbers.
+
+## Machine-readable status (REQUIRED — the park gate reads this)
+
+End every engagement's completion report with EXACTLY ONE line, at column 0, one of:
+
+    press-status: advanced       # you drove a concrete next step forward this tick
+    press-status: no-next-step   # there was genuinely no available next step
+                                 # (blocked on a maintainer decision, an outage, or
+                                 # work already in flight)
+
+Emit it verbatim. The deterministic `minion-town-press-preflight.sh` gate reads the
+two most-recent press reports and, per kriskowal's directive on
+kriscendobot/garden#58 (comment 5388921796 — "if we see there are no next steps
+twice, or we have spent half our weekly token budget on the press, just park the
+scheduled press"), PARKS this press (dispatches nothing) when:
+  - the two most-recent ticks BOTH report `no-next-step` (no next steps twice), or
+  - press-attributed billable tokens over the trailing weekly window reach half of
+    the fleet weekly token quota.
+The `no-next-step` marker is the ONLY signal that lets the gate stop a press that
+has nothing left to do, so an honest `no-next-step` (rather than manufactured
+motion) is exactly what the maintainer asked for. A budget park self-recovers as
+spend ages out of the window; an idle park is sticky — a maintainer resumes it with
+`scripts/jobs/resume-minion-town-press.sh` once the blockers clear.
