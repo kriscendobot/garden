@@ -1,2 +1,3 @@
 {"ts":"2026-08-23T19:56:47Z","base":"endojs-endo-but-for-bots-pr1050-dependabot","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
 {"ts":"2026-08-23T20:03:41Z","base":"endojs-endo-but-for-bots-pr1050-dependabot","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":4}
+{"source":"result","model":"claude-opus-4-8","num_turns":25,"elapsed_s":321,"input_tokens":45,"output_tokens":14754,"cache_creation_tokens":63091,"cache_read_tokens":1605141,"total_cost_usd":1.8053024999999998,"ts":"2026-08-23T20:19:30Z","base":"endojs-endo-but-for-bots-pr1050-dependabot","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"botanist"}
