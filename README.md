@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T17:36:07Z_
+_As of 2026-08-23T17:43:58Z_
 
 ## Latest
 
-Root repo deploy stalled for ~3 days at 18 commits behind main2 on both instances — investigate what's blocking the deliberate-deploy step. Meanwhile, the [byteArray](https://github.com/endojs/endo-but-for-bots/pull/475) finish-line components ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are complete and CI-green across all engines, gated only on your re-review to clear CHANGES_REQUESTED; the fleet reported them merge-ready on 2026-08-01. Node 24 parity guard landed to prevent local-verify/CI skew, but provisioning on other fleet hosts won't complete until the next deploy, so projects pinned to Node 24 still hard-fail locally for now. A recurring node24-runner flake blocks two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from auto-merge; [test262 fixture consolidation](https://github.com/endojs/endo-but-for-bots/pull/946) opened DRAFT with a design decision on case-tree scope awaiting your call. Several orchestration jobs halted after hitting requeue limits — each reports specific blockers (frozen base sharing on [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046), SIWE tier 1 allowlist input for minion.town, test framework pre-existing failures) in the maintainer inbox.
+Six gauntlets halted since last bulletin ([endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), endor-fixture campaign, [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)); two handler failures (endor-walker-exports, shellcheck-ci) are held in plan; root repo deploy stalled 3d. Positive progress: Node 24 provisioned on endolin-garden2 (local-verify parity gates pass), byteArray press ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) complete and green, awaiting review. Maintainer inbox carries gates: SIWE tier-1 allowlist, test262 fixture decision, OpenRouter ZDR policy, three doomed gauntlet/builder stages. Fleet node24-runner infra flake blocks dependabots [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009).
 
 ## Parked for maintainer feedback
 
@@ -551,6 +551,127 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > Source: pr-review-body by kriskowal
 > Approval: [https://github.com/endojs/endo-but-for-bots/pull/946](https://github.com/endojs/endo-but-for-bots/pull/946)#pullrequestreview-4941598685
 
+- `doomed-endor-walker-exports-resolution-elapsed-constancy` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endor-walker-exports-resolution-elapsed-constancy.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden-ece02cb4.
+> The handler repeatedly failed at a near-constant elapsed below its wall-clock budget.
+> The first confirmation was requeued; the reaper parked only after the 2-confirmation threshold.
+> Read the handler log for the fast failure cause. Raising the handler budget will not help.
+> The work is preserved at jobs/plan/endor-walker-exports-resolution; it stays HELD until a human promotes it
+> (promote-plan.sh endor-walker-exports-resolution) or removes it.
+> Original job base: endor-walker-exports-resolution
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-23T17:05:31Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Build Increment 2 — conditional & subpath exports/imports (Group C)
+>
+> Design: `designs/endor-fixture-parity-ratchet.md` (garden main2) — read it first;
+> it defines the ratchet mechanism, the emulate-vs-refactor decisions, and the
+> per-increment acceptance gates this child must satisfy.
+>
+> Repo: endojs/endo-but-for-bots. Work against the PR head branch
+> `feat/endor-run-entry-point-deps` (or `llm` if it has landed). Manifest:
+> `rust/endo/tests/compartment_mapper_fixture_parity.rs`.
+>
+> Local-build gotcha: endor needs the gitignored Moddable `xs/` sources and empty
+> `xsnap/src/*_bootstrap.js` / `ses_boot.js` stubs copied from a sibling worktree at
+> the same commit — never commit them. Fixtures stay under
+> `packages/compartment-mapper/test`; the top-level `test/fixtures` hoist is OUT OF
+> SCOPE. Graduation is atomic: land the capability + commit the node-reference golden
+> + flip the fixtures Exclude->Exercise + bump the exercised floor in ONE change, and
+> keep the drift guard green.
+>
+> Implement conditional/subpath `exports` and `#imports` resolution. Graduate
+> conditional-host-exports (EMULATE the `endo:lib` condition — supply the same
+> condition set to both the node oracle and the walker; do not refactor it away),
+> export-patterns, package-imports-exports, nested-pkg, and fixtures-0. Bump floor to
+> 16. Depends on Increment 0.
+
+- `doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/fix-usage-meter-unbound-var-and-widen-shellcheck-ci; it stays HELD until a human promotes it
+> (promote-plan.sh fix-usage-meter-unbound-var-and-widen-shellcheck-ci) or removes it.
+> Original job base: fix-usage-meter-unbound-var-and-widen-shellcheck-ci
+>
+> --- original job body ---
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> ## Grounding incident
+> While filing a fix job on 2026-08-23, `scripts/jobs/post-job.sh` printed:
+>
+>     scripts/jobs/usage-meter.sh: line 302: cutoff: unbound variable
+>
+> a live `set -u` failure in the fleet budget-state read path (the WARN text
+> confirms it fell back fail-open: "fleet budget state unreadable; posting ...
+> to todo/"). This is exactly the class of bug `shellcheck` catches
+> (`SC2154`/unset-variable-under-`set -u` patterns) — but `usage-meter.sh` is
+> not in `.github/workflows/checks.yml`'s shellcheck file list, which is a
+> curated allowlist (daemons, watcher stub, checks gates, per-test scripts),
+> not the full `scripts/jobs/` tree. The workflow's own comment already
+> concedes the gap: "Pre-existing scripts outside this scope have known
+> issues; widening the lint surface is a separate effort."
+>
+> Separately (already fixed directly, not part of this job): `checks.yml`'s
+> `on: push/pull_request: branches: [main]` pointed at the abandoned `main`
+> branch (last touched 2026-07-05, since diverged from `main2`) instead of
+> `main2`, the actual development branch — so shellcheck/bash-n/gate-tests
+> have not run on a real commit in weeks; only `pages-build-deployment` was
+> firing. That trigger fix landed separately; this job is the file-scope
+> widening plus the specific bug.
+>
+> ## Ask
+>
+> 1. **Fix the specific bug**: `scripts/jobs/usage-meter.sh:302` references
+>    `$cutoff` unset under some code path. Trace the call graph, fix the
+>    unbound reference (declare/default it, or guard the read), and add or
+>    extend a regression test if the file has one (check
+>    `scripts/jobs/test/` for a usage-meter test harness first).
+>
+> 2. **Widen `checks.yml`'s shellcheck step to mandatory, broad coverage.**
+>    The maintainer wants shellcheck genuinely in the mandatory pre-commit/CI
+>    testing, not a narrow allowlist that happens to exclude the very file
+>    that broke. Concretely:
+>    - Add `scripts/jobs/*.sh` (at minimum) to the shellcheck file list,
+>      ideally the same broad `find scripts skills -name '*.sh'` sweep the
+>      `bash -n` step already uses, so newly added scripts are covered by
+>      construction rather than requiring a per-file allowlist edit forever.
+>    - `shellcheck -S warning` across the full `scripts/jobs/` tree will
+>      likely surface real pre-existing warnings beyond the one bug above
+>      (the workflow comment already anticipates this) — triage and fix each
+>      one rather than silently loosening the severity or excluding files
+>      wholesale. Where a finding is a deliberate/false-positive pattern
+>      (e.g. an intentionally-unbound variable a caller is expected to set),
+>      use a scoped `# shellcheck disable=SCxxxx` with a one-line reason,
+>      not a file-level exclusion.
+>    - If the full sweep is too large for one pass, land it in the widest
+>      scope you can clear in this job and note remaining excluded paths
+>      explicitly in the workflow comment (mirroring the existing "known
+>      issues" note) rather than leaving the gap implicit.
+>    - Keep the check genuinely mandatory: it should fail the workflow (not
+>      just warn) on any finding at `-S warning` or above, matching the
+>      existing step's behavior.
+>
+> 3. Confirm the retargeted workflow (now triggering on `main2`) actually
+>    runs green on your PR-equivalent push and report the run URL.
+
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -907,16 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.8M | $1056.97 _(notional, rate-card)_ | no quota set |
+| Claude | 130.9M | $1057.13 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endor-walker-exports-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-exports-resolution.md) — Build Increment 2 — conditional & subpath exports/imports (Group C)
-- [`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md) — Grounding incident
+### doin (0)
+(none)
 
 ### tada (5477)
 - [`endor-fixture-parity-ratchet-campaign-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260823.md) — orchestration endor-fixture-parity-ratchet-campaign-20260823 — HALTED
@@ -959,9 +1079,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr946-conduct.md) — _normal_ · Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
+- [`endor-walker-exports-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-walker-exports-resolution.md) — _normal_ · Build Increment 2 — conditional & subpath exports/imports (Group C)
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260801.md) — _low_ · Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-fix-panel-r5.md) — _low_ · Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260730-020502-gauntlet-panel-1.md) — _low_ · Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
+- [`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md) — _normal_ · Grounding incident
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`fu-build-exo-google-sheets-facets-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-build-exo-google-sheets-facets-5.md) — _normal_ · ---
 - [`fu-guard-worker-self-disqualify-missing-agent-bin-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-guard-worker-self-disqualify-missing-agent-bin-1.md) — _normal_ · ---
