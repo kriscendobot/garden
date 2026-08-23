@@ -1,38 +1,32 @@
-Verified. CI is already fully green against the current head commit — no shepherding work is needed.
-
-**Confirmation:**
-- Head commit: `ee359efb57f259bdb99b88f756e1024a138a6b97` (== last commit, not stale)
-- All 5 required checks pass against that exact SHA: `test`, `lint`, `build`, `zizmor`, `browser-tests` → all `success`
-- The `cancelled` entries are the docs-only concurrency group superseded by the full CI run — a normal duplicate-workflow cancellation, not a failure
-- `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, PR is OPEN (non-draft) and `[APPROVED]`
-
-Inbox empty, container guard clean. Nothing to commit or push.
-
----
+CI verified green, mismatch surfaced to the maintainer. Shepherd's definition of done is met (CI green on head SHA, nothing to repair). Completing.
 
 ## Completion report
 
-**Job:** shepherd endojs/endo-but-for-bots PR #621 → drive CI to green.
+**Job:** shepherd endojs/endo-but-for-bots#621 → drive CI to green.
 
-**Finding:** CI was already green on arrival, and I confirmed it against the *current* head rather than trusting stale rollup data.
+**Finding:** CI was already fully green on arrival and remains so. No shepherding work was required.
 
-**What I did (verification only, no changes needed):**
-- Ran the container guard (clean, exit 0) and drained my inbox (empty).
-- Pulled `gh pr checks 621`: all 5 checks report `pass` (browser-tests, build, lint, test, zizmor).
-- Resolved the PR head SHA (`ee359efb57f259bdb99b88f756e1024a138a6b97`, equal to the last commit) and queried `check-runs` for that exact SHA: every required check is `conclusion: success` against the current head. The `cancelled` check-runs are the docs-only workflow's concurrency-group cancellations superseded by the full run — expected, not failures.
-- Confirmed `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, PR OPEN and non-draft, review `[APPROVED]` by kriskowal.
+**Verification (no changes made):**
+- Container guard clean, inbox empty.
+- Head SHA `ee359efb57f259bdb99b88f756e1024a138a6b97` (== last commit, not stale; unchanged since 2026-07-24).
+- All 5 checks pass against that exact head via `gh pr checks`: `browser-tests`, `build`, `lint`, `test`, `zizmor` → all `pass`. The `CANCELLED` rollup entries are the docs-only/full-CI concurrency-group cancellations (this is a design-only PR), not failures.
+- `mergeable: true`, `mergeable_state: clean`, PR OPEN, non-draft, APPROVED by kriskowal.
 
-**What changed:** Nothing. No commits, no pushes, no PR comments — CI required no intervention.
+**What changed:** Nothing. No commits, pushes, or PR comments — CI required no intervention.
 
-**Follow-ups:** PR #621 is approved and CI-green with a clean merge state. The natural next step is a **merge (conductor)** job, if/when the maintainer wants it landed — that is outside the shepherd scope and I did not initiate it. No CI flakiness or reruns were observed, so no shepherding re-trigger is warranted.
+**Routing note (surfaced to maintainer):** The trigger comment was "**Conduct.**" (2026-08-22) — an explicit *merge/conductor* directive — but it was posted as a *shepherd* job. Shepherd only gates CI-green (done); it does not merge. This is the second time the merge intent has surfaced without a conductor job being posted (the prior `pr621-shepherd` tada report also flagged "next step is a merge job"). I sent a message to the maintainer via the liaison recommending a **conductor** job (`merge endojs/endo-but-for-bots#621`) to actually land the PR per "Conduct." I did not merge it myself — merging is outside shepherd scope and is a permissioned conductor action, and the base is a frozen `llm-28dffa9` branch warranting a conductor's judgment.
+
+**Classification:** `next: none` for CI (already green, no flakes, no reruns). The outstanding work is a **conductor merge**, not a shepherd re-trigger — handed to the maintainer/liaison via the bus message above.
+
+**Follow-ups:** Post a conductor job for endojs/endo-but-for-bots#621 to fulfill "Conduct."
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr621-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 8 tokens (137187 cached reads)
-- Output: 3308 tokens
-- Cost: $0.44311449999999997
-- Wall-clock: 53s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 21 tokens (466310 cached reads)
+- Output: 12354 tokens
+- Cost: $1.2797669999999999
+- Wall-clock: 193s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
