@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T17:04:14Z_
+_As of 2026-08-23T17:07:17Z_
 
 ## Latest
 
-Garden has accumulated 23 parked PRs awaiting maintainer review (spanning 25–102 days) and 70+ plan-queue jobs holding on decisions or deferred work. Recent infrastructure fixes landed: root-repo guard now defends against mid-job git corruption; local-verify gained Node 24 parity to match CI; budget-admission design completed the live-pool-draw mechanics (awaiting weekly token ceiling config to activate). Several gauntlets halted on panel/fix/conduct stages and are parked pending promotion; three infrastructure watchdogs are active — root repo deployed 3d stale (deliberate drain suspected), node24-runner CI flake blocking two dependabot merges, and frozen-base gate blocking #1046 stack forward. Maintainer decisions needed on five fronts: SIWE tier-1 allowlist (which addresses authenticate), test262 fixture consolidation (metering corpus vs upstream tree fold), ocap.site DNSSEC signing, OpenRouter stealth-lane policy, and whether to fix the node24 flake or merge past it. One new press job posted (minion.town E2E) and refresh-pr-review queued for prioritization.
+The byteArray delivery line closed—all CI green, both design and implementation PRs ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) and the finish-line layer ([endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) sit ready for re-review. Node parity guard deployed (local Node 24 adoption), but the guard will refuse Node-24-pinned projects until hosts are reprovisioned. Four gauntlets halted mid-stage (minion.town git-content, endor-fixture-parity, ironhorse-coverage, endor-git-bindings), and garden's root deploy stalled for 3 days across two hosts. Key maintainer calls waiting: test262 fixture consolidation (keep separate metering corpus vs. collapse), SIWE on-chain authz tier selection and address allowlist, and two dependabot PRs blocked solely by a recurring node24 CI flake.
 
 ## Parked for maintainer feedback
 
@@ -903,24 +903,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.9M | $1055.03 _(notional, rate-card)_ | no quota set |
+| Claude | 130.1M | $1056.03 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (1)
 - [`press-minion-town-e2e-prod-test-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/press-minion-town-e2e-prod-test-20260823.md) — Press: minion.town primary-phase end-to-end production test
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #796
+- [`endor-walker-exports-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-exports-resolution.md) — Build Increment 2 — conditional & subpath exports/imports (Group C)
 - [`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md) — Grounding incident
 - [`refresh-pr-review-sequence-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/refresh-pr-review-sequence-20260823.md) — What to do
 
 ### tada (5473)
+- [`endor-fixture-parity-ratchet-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign.md) — orchestration endor-fixture-parity-ratchet-campaign — HALTED
 - [`fix-usage-meter-cutoff-unbound-var`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-usage-meter-cutoff-unbound-var.md) — Completion report
 - [`fix-endo-daemon-test-teardown-leak-pr626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-endo-daemon-test-teardown-leak-pr626.md) — Completion report — fix-endo-daemon-test-teardown-leak-pr626
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5.md) — Cost
 - … and 5468 more
 
 ## Plan queue (parked — not claimable until promoted)
