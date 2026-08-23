@@ -46,6 +46,7 @@ rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
