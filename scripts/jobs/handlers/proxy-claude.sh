@@ -145,7 +145,10 @@ answer_question() {  # answer_question <msgid> <doer> <reply-text>
   # The reply was already validated by validate_reply above, so skip the redundant
   # ref-check in maintainer-reply.sh (it would re-run the same gate); this also
   # guarantees delivery cannot die on a reply the handler already cleared.
-  GARDEN_SKIP_REF_CHECK=1 "$HERE/../maintainer-reply.sh" "$msgid" "$rf"
+  if ! GARDEN_SKIP_REF_CHECK=1 "$HERE/../maintainer-reply.sh" "$msgid" "$rf"; then
+    rm -f "$rf"
+    return 1
+  fi
   # report the proxied decision back to the maintainer
   repf="$(mktemp)"
   {
@@ -154,8 +157,43 @@ answer_question() {  # answer_question <msgid> <doer> <reply-text>
     printf -- '- question (msgid %s)\n' "$msgid"
     printf -- '- tentative answer: %s\n' "$reply"
   } > "$repf"
-  GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="proxy" "$HERE/../inbox-send.sh" maintainer "$repf"
+  if ! GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="proxy" \
+      "$HERE/../inbox-send.sh" maintainer "$repf"; then
+    rm -f "$rf" "$repf"
+    return 1
+  fi
   rm -f "$rf" "$repf"
+}
+
+# A delivery primitive can still fail after the generated reply passes validation
+# (for example, the source message disappeared or a later gate rejected it). Keep
+# that failure local to this QUESTION: request maintainer review, log the degraded
+# outcome, and let flush return success so the remaining digest blocks run.
+defer_delivery_failure() {  # defer_delivery_failure <msgid> <doer>
+  local msgid="$1" doer="$2" nf
+  nf="$(mktemp)"
+  printf 'awaiting maintainer: proxy answer delivery failed for gardener %s, msgid %s; the tentative reply was not fully delivered, so please review the original question.\n' \
+    "$doer" "$msgid" > "$nf"
+  if ! GARDEN_MSG_ID="proxy-delivery-failed-$msgid" GARDEN_SKIP_REF_CHECK=1 \
+      GARDEN_SENDER="proxy" "$HERE/../inbox-send.sh" maintainer "$nf"; then
+    rm -f "$nf"
+    return 1
+  fi
+  rm -f "$nf"
+}
+
+deliver_or_defer_answer() {  # deliver_or_defer_answer <msgid> <doer> <reply-text>
+  local msgid="$1" doer="$2" reply="$3" rc
+  if answer_question "$msgid" "$doer" "$reply"; then
+    return 0
+  else
+    rc=$?
+  fi
+  log "WARN: answer delivery failed for gardener '$doer', msgid '$msgid' (status $rc); deferring this question and continuing"
+  if ! defer_delivery_failure "$msgid" "$doer"; then
+    log "WARN: could not post delivery-failure deferral for gardener '$doer', msgid '$msgid'; continuing with the digest"
+  fi
+  return 0
 }
 
 defer_question() {  # defer_question <msgid> <doer> <reason>
@@ -193,6 +231,12 @@ If you may proxy it, favor progress: give a tentative, explicitly provisional
 answer; tolerate throw-away work; when the question is open, enumerate the
 credible options and pick a direction to try first and say why. Emit EXACTLY:
 
+Any issue/PR reference in the tentative reply must be fully-qualified as
+\`owner/repo#N\` or a full \`https://github.com/owner/repo/issues/N\` or
+\`https://github.com/owner/repo/pull/N\` URL, never a bare \`#N\`, because the
+reply is delivered through the message bus's \`check-issue-refs.sh\` gate, which
+rejects partial references.
+
 ANSWER
 <the tentative reply to the gardener — mark it proxy/tentative, the maintainer may revise>
 ENDANSWER
@@ -224,11 +268,11 @@ EOF
     # deduplicated maintainer note instead of dying.
     local diag repaired
     if diag="$(validate_reply "$reply")"; then
-      answer_question "$msgid" "$doer" "$reply"
+      deliver_or_defer_answer "$msgid" "$doer" "$reply"
     else
       repaired="$(repair_reply "$reply" "$diag" "$block")"
       if [ -n "$repaired" ] && validate_reply "$repaired" >/dev/null; then
-        answer_question "$msgid" "$doer" "$repaired"
+        deliver_or_defer_answer "$msgid" "$doer" "$repaired"
       else
         defer_unqualified_reply "$msgid" "$doer" "$reply" "$diag"
       fi

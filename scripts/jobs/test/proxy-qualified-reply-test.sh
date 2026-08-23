@@ -32,6 +32,8 @@
 #             second identical run adds NO further note.
 # SUBTEST 3 — a clean drafted reply (no partial refs) is delivered unchanged with no
 #             repair pass invoked.
+# SUBTEST 4 — one delivery primitive fails: that QUESTION is deferred and logged,
+#             the handler keeps processing, and the next QUESTION is delivered.
 #
 # Usage: proxy-qualified-reply-test.sh
 set -euo pipefail
@@ -119,6 +121,10 @@ cat > "$FAKE" <<'FAKE_EOF'
 set -euo pipefail
 prompt="${!#}"   # last arg is the prompt
 emit() { printf 'ANSWER\n%s\nENDANSWER\n' "$1"; }
+if ! printf '%s' "$prompt" | grep -q 'ORIGINAL ANSWER'; then
+  printf '%s' "$prompt" | grep -q 'Any issue/PR reference in the tentative reply must be fully-qualified' \
+    || { echo 'initial ANSWER prompt omitted the fully-qualified-reference instruction' >&2; exit 3; }
+fi
 case "${QREF_MODE:-}" in
   repair-fixes)
     if printf '%s' "$prompt" | grep -q 'ORIGINAL ANSWER'; then
@@ -224,6 +230,47 @@ has_msg inbox/gardener-c/unread 'endojs/endo-but-for-bots#340' \
 { ! has_file inbox/maintainer/unread/q3.md && has_file inbox/maintainer/read/q3.md; } \
   && ok "the maintainer gating message was archived (answered)" \
   || bad "the answered maintainer message was not archived"
+
+# ============================================================================
+hr; echo "SUBTEST 4 — one delivery failure is deferred; the remaining digest continues"; hr
+# q4.md is deliberately absent from the maintainer inbox, forcing
+# maintainer-reply.sh to fail. q5.md is valid and must still be processed.
+place "inbox/gardener-d/unread/.gitkeep" < /dev/null
+place "inbox/gardener-e/unread/.gitkeep" < /dev/null
+place "inbox/maintainer/unread/q5.md" <<EOF
+from_host: $GARDEN
+from: gardener:gardener-e
+reply_to: gardener-e
+sent_at: 2026-08-23T00:00:00Z
+---
+Which parser refactor should I try first?
+EOF
+DIGEST="$(mktemp "$TR/digest.XXXXXX")"
+for pair in 'q4.md gardener-d' 'q5.md gardener-e'; do
+  read -r qid qdoer <<< "$pair"
+  {
+    printf '===== QUESTION %s =====\n' "$qid"
+    printf 'doer: %s\n' "$qdoer"
+    printf 'reply_to: %s\n' "$qdoer"
+    printf 'Which parser refactor should I try first?\n'
+    printf '===== END QUESTION %s =====\n\n' "$qid"
+  } >> "$DIGEST"
+done
+run_handler clean "$DIGEST"
+[ "$RC" -eq 0 ] && ok "handler exits 0 after isolating the first delivery failure" \
+  || { bad "handler exited $RC after a per-question delivery failure"; sed 's/^/    /' "$TR/handler.log"; }
+has_msg inbox/maintainer/unread 'proxy answer delivery failed for gardener gardener-d' \
+  && ok "failed q4 delivery produced an awaiting-maintainer note" \
+  || bad "q4 delivery failure produced no maintainer deferral note"
+grep -q "WARN: answer delivery failed for gardener 'gardener-d', msgid 'q4.md'" "$TR/handler.log" \
+  && ok "failed q4 delivery was logged" \
+  || bad "q4 delivery failure was not logged"
+has_msg inbox/gardener-e/unread 'endojs/endo-but-for-bots#340' \
+  && ok "q5 was delivered after q4 failed" \
+  || bad "handler stopped before delivering q5"
+{ ! has_file inbox/maintainer/unread/q5.md && has_file inbox/maintainer/read/q5.md; } \
+  && ok "q5 maintainer message was archived" \
+  || bad "q5 was not completed after q4 failed"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
