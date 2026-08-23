@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T22:47:20Z_
+_As of 2026-08-23T22:51:00Z_
 
 ## Latest
 
-The garden has fallen quiet with most work either completed or parked awaiting maintainer authorization — 5484 jobs in `tada`, zero active claims. The root repo deploy is stalled 18 commits behind for ~3 days; investigate why `deploy-garden.sh` has not run. Several gauntlets are halted mid-stage after multiple requeue cycles, each parked in `plan/go-ahead` awaiting re-promotion: [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) panel, [endojs/endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807) fix, [endojs/endo-but-for-bots#909](https://github.com/endojs/endo-but-for-bots/pull/909) fix, [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) conduct, and [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) panel-6. A recurring fleet-wide node24-runner CI infra flake is now blocking two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) that are otherwise merge-ready; fixing the runner would also unblock [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). The byteArray program is complete and CI-green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) but blocked on your re-review and un-draft. Over 80 parked jobs in `plan/go-ahead` await authorization. Node 24 provisioning and local-verify parity are landed; four other hosts still need the image redeploy to avoid refusing Node-24-pinned projects.
+ByteArray program complete and green—[#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are MERGEABLE/CLEAN awaiting your re-review; finish-line PR [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready. Local-verify Node24/eslint parity restored ([#1048](https://github.com/endojs/endo-but-for-bots/pull/1048)), though fleet Node24 provisioning is pending. A fleet node24-runner CI flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous conduct—either merge them directly or fix the runner infra. Separately, deploy is stalled ~3d on two hosts, multiple gauntlets halted on timeout/handler-budget overflow, and SIWE on-chain auth for minion.town awaits your wallet allowlist decision.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.3M | $1055.64 _(notional, rate-card)_ | no quota set |
+| Claude | 133.4M | $1055.80 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-agenda-review-20260823-225008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260823-225008.md) — Minion Town press (every two hours)
 
 ### tada (5484)
 - [`deadmail-issue-comment-5388846009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5388846009.md) — Completion report
