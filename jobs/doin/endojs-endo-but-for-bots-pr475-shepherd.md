@@ -22,6 +22,7 @@ Shepherd. It is probably a flake.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
