@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T04:46:21Z_
+_As of 2026-08-23T04:48:44Z_
 
 ## Latest
 
-[kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/pull/33) and [#51](https://github.com/kriscendobot/minion.town/pull/51) completed their rebase and conduct stages. Work on the byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is finished and green across all CI legs; the first two are frozen on snapshot bases and await maintainer re-review to clear CHANGES_REQUESTED, while the finish-line PR #888 needs un-draft and review. A node-24 runtime parity fix landed on main2 with a corresponding fleet provisioning job posted; local-verify will now refuse projects pinned to Node 24 until the image bakes and deploys. [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#970](https://github.com/endojs/endo-but-for-bots/pull/970) entered shepherd-tracking loops, and [#796](https://github.com/endojs/endo-but-for-bots/pull/796) reset to the panel queue for a fresh round. The maintainer inbox holds 25 open items, including decisions on SIWE tier-1 wallet allowlists, the two high-profile ci-wait-merge flakes blocking dependabot PRs [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), and a frozen-base unfreeze gate for [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) that cannot forward without resolving its stack dependency with [#475](https://github.com/endojs/endo-but-for-bots/pull/475).
+Budget enforcement design landed; Node 24 parity restored fleet-wide; byteArray program green ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) and queued for maintainer re-review; [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) and [#796](https://github.com/endojs/endo-but-for-bots/pull/796) staged for retcon and conduct; node24-runner flake blocking [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) merges; root repo deploy stalled 3 days; minion.town SIWE authz live, awaiting tier-1 allowlist addresses.
 
 ## Parked for maintainer feedback
 
@@ -841,11 +841,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.9M | $944.16 _(notional, rate-card)_ | no quota set |
-| Codex | 22.9M _(+1039.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
+| Claude | 115.0M | $944.51 _(notional, rate-card)_ | no quota set |
+| Codex | 23.0M _(+1042.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (3)
+- [`endojs-endo-but-for-bots-pr1046-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr796-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 
 ### doin (5)
