@@ -13,3 +13,4 @@
 {"source":"none","ts":"2026-08-23T03:13:29Z","base":"registry-immutable-byte-array-followup-gauntlet-panel-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":6,"role":"gardener"}
 {"source":"none","ts":"2026-08-23T03:45:13Z","base":"registry-immutable-byte-array-followup-gauntlet-panel-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":123,"role":"gardener"}
 {"source":"none","ts":"2026-08-23T03:56:28Z","base":"registry-immutable-byte-array-followup-gauntlet-panel-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":19,"role":"gardener"}
+{"source":"none","ts":"2026-08-23T04:17:18Z","base":"registry-immutable-byte-array-followup-gauntlet-panel-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":83,"role":"gardener"}
