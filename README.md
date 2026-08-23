@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T20:08:54Z_
+_As of 2026-08-23T20:10:40Z_
 
 ## Latest
 
-Multiple PR gauntlets halted with failing panel stages ([endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)); work preserved in parked doomed jobs. [endo-but-for-bots#1051](https://github.com/endojs/endo-but-for-bots/pull/1051) (changesets v2 migration) completed fixer with orchestrated v2-compat chain queued. Root-repo deploys stalled ~3d behind on two hosts; [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) frozen on shared base pending stack resolution. Node24 local-verify parity deployed and provisioned fleet-wide.
+Multiple gauntlet stages for [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [endojs/endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807), and [endojs/endo-but-for-bots#909](https://github.com/endojs/endo-but-for-bots/pull/909) have halted after repeated panel handler failures, and the endor fixture-parity ratchet orchestration stalled on worker timeouts after two requeues. Local-verify parity with CI Node versions was restored (Node 24 now provisioned fleet-wide), closing a silent local-pass/CI-fail gap. SIWE on-chain authz is deployed to minion.town and awaiting maintainer tier and allowlist decisions before policy config lands. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW on diligence but blocked by a recurring node24-runner infra flake. Garden deploys on both hosts have stalled ~3 days behind origin/main2; investigate why the deliberate drain-and-deploy cycle is not advancing. The maintainer inbox holds 23 open messages, most awaiting authorization or decisions.
 
 ## Parked for maintainer feedback
 
@@ -330,23 +330,6 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260823T173407Z-4e0254` — from orchestrator:endor-fixture-parity-ratchet-campaign-20260823-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T173407Z-4e0254.md)
 
 > Orchestration endor-fixture-parity-ratchet-campaign-20260823 HALTED: child endor-walker-exports-resolution stalled after 3 requeues on host endolin-garden-ece02cb4 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 0/6 done before halt; parked remainder: endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
-
-- `20260823T200515Z-b6439c` — from gardener:endojs-endo-but-for-bots-pr1051-dependabot, reply_to `endojs-endo-but-for-bots-pr1051-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T200515Z-b6439c.md)
-
-> Botanist heads-up — endojs/endo-but-for-bots Dependabot PR
-> [endojs/endo-but-for-bots#1051](https://github.com/endojs/endo-but-for-bots/issues/1051) (`changesets/action` 1.9.0 → 2.1.0). Diligence is
-> clean (pins verified both sides, no advisories, past maturity), BUT this v2 major
-> renamed/removed the config `release.yml` uses: `publish`→`publish-script`, token
-> no longer read from the `GITHUB_TOKEN` env (v2 would push releases as
-> `github.token`, not `RELEASE_TOKEN`), and push default flipped
-> git-CLI→GitHub-API. I did NOT auto-merge. I escalated a fixer→conduct
-> orchestration (`endojs-endo-but-for-bots-pr1051-v2migrate`) to land a
-> **preserve-v1** migration (move RELEASE_TOKEN to the `github-token:` input,
-> `push-with-git-cli: true`) and then conduct. One decision is yours if you want to
-> weigh in: keep git-CLI push (preserve v1, what I directed) vs adopt v2's new
-> GitHub-API push default. Note `release.yml` runs on `push: master` only, so no CI
-> exercises this on the PR. PR + full verdict:
-> [https://github.com/endojs/endo-but-for-bots/pull/1051](https://github.com/endojs/endo-but-for-bots/pull/1051)
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1045,7 +1028,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.8M | $1058.38 _(notional, rate-card)_ | no quota set |
+| Claude | 131.9M | $1058.47 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
