@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-08-23T20:53:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T20:53:03Z
+---
+
+---
 role: fixer
 tier: mentor
 ---
@@ -99,19 +117,3 @@ before pushing.
   unchanged, so it should stay green).
 - Report names what you landed and the surfaced push-mode decision. The paired
   `endojs-endo-but-for-bots-pr1051-conduct` job then re-reviews and conducts.
-
-
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T20:43:53Z
