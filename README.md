@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T17:17:34Z_
+_As of 2026-08-23T17:20:11Z_
 
 ## Latest
 
-Gauntlets are halting across multiple PRs (pr796-resume, pr881, minion.town-pr37, git-content-substrate, and endor-fixture-parity-ratchet) after a limited panel/fix loop cycle — panel round 6 on minion.town-pr37 and a fix round 6 on pr796 both exhausted retries, and endor-fixture-parity stalled after 3 requeues on its first child. The byteArray press ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and CI-green across all nodes, but merge is gated on clearing two CHANGES_REQUESTED reviews — no code work remains. The root garden deploy has stalled for ~3 days at 18 commits behind `origin/main2`; deliberate deploys require your action. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) eslint-plugin-unicorn, [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) npm-packlist) are MERGE-NOW but blocked by a recurring node24-runner CI flake affecting ~25 cells each run, which also blocks [endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475). Node-24 parity for local-verify landed (profiles Node 24 into the Dockerfile; fleet hosts will adopt on next redeploy), and the SIWE on-chain authz wiring for minion.town is deployed but awaiting your tier and allowlist decisions. Design landings: [designs/live-budget-admission.md](https://github.com/kriscendobot/garden/blob/main2/designs/live-budget-admission.md) (live budget draw as a standing dispatch property) and [designs/omega-task-rank-and-foreman-retirement.md](https://github.com/kriscendobot/garden/blob/main2/designs/omega-task-rank-and-foreman-retirement.md) (Status: Proposed). A test262 fixture consolidation DRAFT PR ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is open awaiting your call on whether to keep the metering microcases separate or fold them into the parity tree.
+The fleet is mid-gauntlet on multiple PRs with several stages halted after repeated requeues; the root repo deploy has stalled for ~3 days across two hosts; and the maintainer inbox has accumulated 30+ follow-ups, most awaiting design decisions. The byteArray press ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and all CI green—just needs maintainer re-review to clear CHANGES_REQUESTED and proceed to finish-line un-draft. A node24-runner CI flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) that are otherwise MERGE-NOW-ready; the conductor can't converge either while flakes re-roll every rebase cycle. Several infrastructure gaps are flagged: the pre-push-gates driver is missing from live scripts, OpenRouter ZDR policy build is deadline-overrun, and the garden test suite has ~30 pre-existing environmental failures blocking gate validation.
 
 ## Parked for maintainer feedback
 
@@ -326,10 +326,6 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > keep refusing Node-24 projects until they are redeployed. For immediate relief
 > before a redeploy, run `scripts/jobs/provision-node-lts.sh` inside each running
 > container (I can only reach this one from a per-job worker).
-
-- `20260823T171707Z-8f9cc4` — from gauntlet:endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T171707Z-8f9cc4.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822 HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -907,7 +903,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.4M | $1056.34 _(notional, rate-card)_ | no quota set |
+| Claude | 130.4M | $1056.42 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
