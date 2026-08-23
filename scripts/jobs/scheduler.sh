@@ -21,6 +21,7 @@ GARDEN_TAG="scheduler"
 # its clamp as the final defense for non-scheduled jobs and deploy skew).
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
 : "${GARDEN_CLAIM_TTL:=14400}"
+: "${GARDEN_BUDGET_LEVEL_CONTROLLER:=$HERE/budget-level.sh}"
 
 # GARDEN_SCHEDULER_NOW overrides the clock (epoch seconds) for deterministic
 # cadence tests — mirrors GARDEN_FOREMAN_NOW / GARDEN_USAGE_NOW. When set, the
@@ -346,9 +347,30 @@ sync_clone "$DIR"
 # loud but fail-open for scheduling: an admission-accounting bug must not starve
 # unrelated recurring jobs.
 if [ "${GARDEN_BUDGET_LEVEL_ENABLED:-1}" = 1 ]; then
-  if ! "$HERE/budget-level.sh"; then
-    log "WARN: budget-level controller tick failed; scheduled dispatch continues (fail-open)"
+  budget_err="$(mktemp "${TMPDIR:-/tmp}/garden-budget-level.XXXXXX")"
+  trap 'rm -f "${budget_err:-}"' EXIT
+  if /bin/bash "$GARDEN_BUDGET_LEVEL_CONTROLLER" 2>"$budget_err"; then
+    cat "$budget_err" >&2
+    alert_maintainer_clear "scheduler-budget-level-failed" \
+      "budget-level controller is succeeding again on $GARDEN."
+  else
+    budget_rc=$?
+    cat "$budget_err" >&2
+    budget_detail="$(tail -c 12000 "$budget_err" | tr '\000' '?')"
+    [ -n "$budget_detail" ] || budget_detail="(controller produced no stderr)"
+    log "WARN: budget-level controller tick failed exit_status=$budget_rc; scheduled dispatch continues (fail-open)"
+    alert_maintainer "scheduler-budget-level-failed" \
+      "Budget-level controller failed on leader host $GARDEN (exit_status=$budget_rc); recurring-job dispatch remains fail-open.
+
+Controller: $GARDEN_BUDGET_LEVEL_CONTROLLER
+Captured stderr (last 12000 bytes):
+$budget_detail
+
+Action: run the controller directly on $GARDEN, then repair the reported configuration, journal-sync, or actuation failure. The alert is coalesced under one key while failures repeat."
   fi
+  rm -f "$budget_err"
+  budget_err=""
+  trap - EXIT
 fi
 
 now="$(scheduler_now)"

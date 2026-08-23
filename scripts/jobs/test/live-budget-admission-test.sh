@@ -137,5 +137,49 @@ set -e
 [ "$lrc" -eq 2 ] && ok "per-pool failures preserve scheduled-dispatch exit contract" \
   || bad "scheduled leveler returned $lrc instead of 2"
 
+# The scheduler wrapper preserves the controller's concrete failure evidence and
+# pages once under a stable key instead of emitting only a generic warning every
+# 15 minutes. alert_maintainer's throttle coalesces the repeated tick; a later
+# success closes the episode and re-arms a subsequent failure immediately.
+printf '#!/bin/bash\necho "fixture controller exploded: bad pool row" >&2\nexit 37\n' > "$TR/level-controller"
+chmod +x "$TR/level-controller"
+ALERT_SINK="$HERE/budget-alert-record-stub.sh"
+ALERT_LOG="$TR/alerts.log"; : > "$ALERT_LOG"
+SCHED_LOG="$TR/scheduler-budget.log"
+for tick in 1 2; do
+  env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/scheduler-budget-state" JOURNAL_REMOTE="$LBARE" \
+    GARDEN_SCHEDULER_CLONE="$TR/scheduler-budget-state/journal" GARDEN_SCHEDULER_NOW=$(( NOW + tick )) \
+    GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
+    "$JOBS/scheduler.sh" >>"$SCHED_LOG" 2>&1
+done
+if [ "$(grep -c '^KEY=' "$ALERT_LOG")" -eq 1 ] \
+   && grep -q '^KEY=scheduler-budget-level-failed$' "$ALERT_LOG" \
+   && grep -q 'exit_status=37' "$ALERT_LOG" \
+   && grep -q 'fixture.*controller.*exploded:.*bad.*pool.*row' "$ALERT_LOG"; then
+  ok "scheduler sends one deduplicated budget-level alert with exit status and stderr"
+else
+  bad "budget-level alert did not preserve/deduplicate diagnostics: $(tr '\n' ';' < "$ALERT_LOG")"
+fi
+[ "$(grep -c 'fixture controller exploded: bad pool row' "$SCHED_LOG")" -eq 2 ] \
+  && ok "scheduler log retains controller stderr on every failed tick" \
+  || bad "scheduler log lost controller stderr: $(tr '\n' ';' < "$SCHED_LOG")"
+printf '#!/bin/bash\nexit 0\n' > "$TR/level-controller"
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/scheduler-budget-state" JOURNAL_REMOTE="$LBARE" \
+  GARDEN_SCHEDULER_CLONE="$TR/scheduler-budget-state/journal" GARDEN_SCHEDULER_NOW=$(( NOW + 3 )) \
+  GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
+  "$JOBS/scheduler.sh" >/dev/null 2>&1
+printf '#!/bin/bash\necho "fixture controller exploded: bad pool row" >&2\nexit 37\n' > "$TR/level-controller"
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/scheduler-budget-state" JOURNAL_REMOTE="$LBARE" \
+  GARDEN_SCHEDULER_CLONE="$TR/scheduler-budget-state/journal" GARDEN_SCHEDULER_NOW=$(( NOW + 4 )) \
+  GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
+  "$JOBS/scheduler.sh" >/dev/null 2>&1
+if [ "$(grep -c '^KEY=' "$ALERT_LOG")" -eq 3 ] \
+   && grep -q '^MSG=RECOVERED:' "$ALERT_LOG" \
+   && [ "$(grep -c 'exit_status=37' "$ALERT_LOG")" -eq 2 ]; then
+  ok "controller recovery closes and re-arms the deduplicated failure episode"
+else
+  bad "budget-level alert did not recover/re-arm: $(tr '\n' ';' < "$ALERT_LOG")"
+fi
+
 echo "RESULT: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]
