@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T08:58:01Z_
+_As of 2026-08-23T09:36:11Z_
 
 ## Latest
 
-byteArray program completed and runs CI-green ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)), awaiting maintainer re-review and un-draft. Node 24 local-verify parity fixed; budget enforcement design landed, awaiting weekly token cap. Deploy stalled ~3d on both active hosts — investigate and re-run. Multiple gauntlet stages halted, parking doom jobs in plan/.
+The garden completed a substantial gauntlet round on [endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) overnight; otherwise the board is quiet (1 active job, 0 queued). The system is gate-locked: the byteArray work ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is all CI-green and mergeable but sits on `CHANGES_REQUESTED` awaiting your re-review; several gauntlets halted (PRs #1023, #807, #909, minion.town #37); fleet hosts need Node 24 provisioning to unlock Node-24-pinned projects; and roughly two dozen parked jobs await your go-ahead or decision (byteArray re-review, test262 metering-corpus scope, dependabot #1006/#1009 merge vs node24-runner flake fix, SIWE tier-1 allowlist addresses, Endo daemon follow-ups, and more). Two root-repo deploys have stalled for three days (deployed sha 18 commits behind main2) — investigate when ready. Maintainer inbox is loaded but nothing is at fire-stage yet.
 
 ## Parked for maintainer feedback
 
@@ -899,24 +899,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.6M | $960.80 _(notional, rate-card)_ | no quota set |
-| Codex | 24.8M _(+1147.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Claude | 120.7M | $972.64 _(notional, rate-card)_ | no quota set |
+| Codex | 25.0M _(+1158.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 97% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #796
+### doin (1)
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 
-### tada (5463)
+### tada (5464)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2.md) — Cost
 - [`daily-progress-summary-20260823-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260823-070504.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr796-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-conduct.md) — Cost
-- … and 5458 more
+- … and 5459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
