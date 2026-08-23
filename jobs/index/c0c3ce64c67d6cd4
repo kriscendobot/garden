@@ -1,0 +1,2 @@
+base: improve-proxy-malformed-reference-retry
+identity: mentor:scripts/jobs/proxy.sh
