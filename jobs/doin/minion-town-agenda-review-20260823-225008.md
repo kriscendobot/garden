@@ -52,3 +52,13 @@ Per-engagement guardrails (handler-timeout 7200s, token-budget 100000) are carri
 forward from the daily review; at 12x the frequency they now bound cost far more
 tightly, so a tick that repeatedly hits either ceiling is a signal to revisit the
 cadence or add a preflight idle-gate, not to silently raise the numbers.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T22:50:37Z
