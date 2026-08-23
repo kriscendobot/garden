@@ -51,15 +51,4 @@ lower-frequency refresh tooling — the prior refresh flagged that as a
 worthwhile follow-up, but the maintainer asked for a plain content refresh
 this time, not that follow-up.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-23T16:43:22Z
+<!-- garden-reaped: 1 -->

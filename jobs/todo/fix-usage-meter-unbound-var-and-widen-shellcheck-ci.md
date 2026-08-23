@@ -62,15 +62,4 @@ widening plus the specific bug.
 3. Confirm the retargeted workflow (now triggering on `main2`) actually
    runs green on your PR-equivalent push and report the run URL.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T16:43:17Z
+<!-- garden-reaped: 1 -->
