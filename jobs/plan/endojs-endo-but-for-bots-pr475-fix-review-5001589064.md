@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-23T05:33:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T05:33:03Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -106,17 +123,3 @@ for this job.
 - CI green on the new head (or report why it is intentionally red).
 - Top-level summary comment (head SHA, item->SHA map, anything declined + why,
   verification status), then re-request review from @kriskowal.
-
-<!-- garden-reaped: 1 -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T04:43:50Z
