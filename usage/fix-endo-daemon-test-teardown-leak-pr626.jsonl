@@ -1,3 +1,4 @@
 {"ts":"2026-08-23T15:45:16Z","base":"fix-endo-daemon-test-teardown-leak-pr626","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":6}
 {"ts":"2026-08-23T15:53:30Z","base":"fix-endo-daemon-test-teardown-leak-pr626","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
 {"ts":"2026-08-23T16:03:23Z","base":"fix-endo-daemon-test-teardown-leak-pr626","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":6}
+{"source":"result","model":"claude-opus-4-8","num_turns":72,"elapsed_s":860,"input_tokens":130,"output_tokens":53484,"cache_creation_tokens":117393,"cache_read_tokens":6242433,"total_cost_usd":5.635484500000001,"ts":"2026-08-23T16:38:01Z","base":"fix-endo-daemon-test-teardown-leak-pr626","host":"endolin-garden2-5bcdff64","outcome":"tada"}
