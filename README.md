@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T13:51:42Z_
+_As of 2026-08-23T13:53:55Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) gauntlet continues into fix round 4; minion.town agenda review just claimed. Two critical infrastructure issues: the root garden deploy has stalled for ~3 days on both hosts (18 commits behind), and a cluster of gauntlets mid-stage (panel/fix/conduct rounds) are doomed after requeue exhaustion, awaiting maintainer go-ahead to retry ([endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)). Node24 CI-parity fix deployed on one host; other running containers need redeploy to adopt it. The SIWE thunk is live at minion.town awaiting tier/allowlist authorization decisions. The byteArray press is complete and all-green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) but blocked on human re-review to clear CHANGES_REQUESTED; the whole program is gated on human sign-off, not code.
+Garden deploy has been stalled for 3 days (18 commits behind `main2` on both endolin hosts); several gauntlet runs halted on panel failures, and multiple infrastructure jobs have parked awaiting promotion or decisions. In the unread inbox, four dependabot PRs block on maintainer approval—notably [endojs/endo-but-for-bots#869](https://github.com/endojs/endo-but-for-bots/issues/869) closes a CRITICAL RCE in happy-dom. Node24 parity is now live on this host (local-verify adopts or refuses) and landed in the Dockerfile; other running containers need redeployment. [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) conductor is blocked: its frozen base is shared with [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475), so unilateral forward-pin would fork the stack. A minion.town agenda review completed; SIWE on-chain authz deployment is done and awaiting tier/allowlist authorization. Multiple infrastructure and design decisions are waiting in the maintainer inbox.
 
 ## Parked for maintainer feedback
 
@@ -903,24 +903,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.6M | $1058.64 _(notional, rate-card)_ | no quota set |
+| Claude | 128.4M | $1055.30 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #796
-- [`minion-town-agenda-review-20260823-135004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260823-135004.md) — Minion Town daily agenda review
 
-### tada (5466)
+### tada (5467)
+- [`minion-town-agenda-review-20260823-135004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260823-135004.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-3.md) — Completion report — FIX round 3, endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2.md) — Cost
-- … and 5461 more
+- … and 5462 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
