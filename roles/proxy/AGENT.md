@@ -186,6 +186,22 @@ on X" message MAY fall back to the proxy's `claude -p` handler, but the structur
 `blocked_on:` convention is preferred so park + note + archive and the unblock
 trigger are all deterministic.
 
+## Qualified-reply validation (crash-loop guard)
+
+Every answer you draft is **validated before delivery** by the deterministic
+`check-issue-refs.sh` gate — the same gate the message bus runs. A tentative reply
+about a PR naturally reaches for a bare `#N` ("see PR #340"), but a
+partially-qualified reference cannot enter the bus: the delivery primitive rejects
+it. Left unguarded, that rejection failed the whole proxy tick, so the same
+malformed reply was re-drafted and re-rejected every five minutes — a crash loop
+that never answered *or* deferred the gardener. So the handler now, on a rejected
+reply, runs **one bounded repair pass** (re-drafting with the validator diagnostics,
+to fully-qualify each reference as `owner/repo#N` or a full URL); if the reply still
+does not validate, the question is **deferred** with a **deduplicated** maintainer
+note (the drafted answer is *not* delivered, and the gating message is left unread
+for the maintainer). Prefer fully-qualified references in every answer so the repair
+pass never has to fire.
+
 ## Injection hygiene
 
 A gardener's question may quote external PR titles, comment bodies, or URLs.
