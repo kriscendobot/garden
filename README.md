@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T05:02:05Z_
+_As of 2026-08-23T05:04:33Z_
 
 ## Latest
 
-Node 24 runtime parity landed (22d); local-verify now enforces the pinned LTS major and rejects mismatches—parity guard provisioned into the Dockerfile for rollout. Multiple gauntlet stages hit handler failures and are parked for re-promotion: PRs [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), and minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37) all stalled mid-panel or mid-fix; [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) conductor unfreeze is blocked (shared frozen base with [#475](https://github.com/endojs/endo-but-for-bots/pull/475), stack needs weave before either unfreezes). Root garden deploy stalled ~3 days across both endolin hosts; investigate why deploy-garden.sh hasn't landed. SIWE on-chain authz for minion.town deployed—awaiting tier-1 allowlist and tier choice (1 or 1+2). Recurring node24-runner infra flake on CI blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous merge; both green on all non-flake cells, one-click mergeable but conducter spine refuses past any red. Multiple maintainer inbox decisions surfaced (deadmail readdressing, evaluator gaming, OCapN peer auth, test262 metering corpus scope) — your call on each.
+The byteArray program is complete and CI-green across Node 22/24, XS, test262, Hermes, and Guile — [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) are mergeable and awaiting your re-review to clear CHANGES_REQUESTED. Local-verify now enforces Node runtime parity with CI (fixes the local-pass/CI-fail gap); Node 24 provisioning landed to support this on all hosts. Draft [#946](https://github.com/endojs/endo-but-for-bots/pull/946) opened the test262 fixture consolidation with parameterized expectation lists and a ratchet, pending your call on whether to keep the proprietary byte-identity metering corpus separate or fold into upstream. Budget enforcement design landed — live pool admission is ready once you supply per-account weekly token caps. On the infrastructure side, root repo deploy has been stalled for ~3 days on two hosts (18 commits behind `main2`), and several gauntlets are parked after handler failures ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#946](https://github.com/endojs/endo-but-for-bots/pull/946)); the SIWE on-chain authz thunk is live at https://siwe-idp.minion.town awaiting your tier-1 allowlist addresses. Twenty-three PRs are parked pending your feedback across design, build, and infrastructure work.
 
 ## Parked for maintainer feedback
 
@@ -841,22 +841,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.3M | $946.19 _(notional, rate-card)_ | no quota set |
-| Codex | 23.1M _(+1055.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
+| Claude | 115.5M | $946.68 _(notional, rate-card)_ | no quota set |
+| Codex | 23.1M _(+1057.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1046-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr796-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr970-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr970-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #970
 - [`improve-budget-level-failure-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-level-failure-diagnostics.md) — ---
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr475-fix-review-5001589064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5001589064.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
-- [`endojs-endo-but-for-bots-pr970-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr970-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #970
 
 ### tada (5455)
 - [`kriscendobot-minion.town-pr51-776f7ed7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr51-776f7ed7.md) — Completion report
