@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T14:19:48Z_
+_As of 2026-08-23T14:21:01Z_
 
 ## Latest
 
-The minion.town agenda review completed today; several outstanding decisions in the inbox now require your attention before blocked work can move forward. Multiple gauntlets mid-flow halted ([endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946)) after panel or clean-stage failures and are now parked awaiting promotion. The [byteArray program](https://github.com/endojs/endo-but-for-bots/issues/475) is complete and green across all engines but gated solely on re-review of [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) to clear `CHANGES_REQUESTED` status. Node24 runtime parity work is now live (fixed local-verify and provisioned the fleet); garden deploy has stalled for 3 days on both active hosts and needs investigation. Four dependabot PRs ([#556](https://github.com/endojs/endo-but-for-bots/pull/556), [#558](https://github.com/endojs/endo-but-for-bots/pull/558), [#869](https://github.com/endojs/endo-but-for-bots/pull/869) closing a VM-escape RCE, [#870](https://github.com/endojs/endo-but-for-bots/pull/870)) are blocked on your approval, and minion.town's SIWE on-chain authz tier needs the allowlist addresses to proceed.
+The byteArray finish-line program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is code-complete and fully CI green, awaiting re-review to clear CHANGES_REQUESTED. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely by a fleet-wide node24 runner infra flake, not code issues. Deploy has stalled ~3 days across both hosts (18 commits behind main2); investigate why deliberate deploys have not landed. Local-verify Node runtime parity was restored; fleet-wide Node 24 provisioning is pending rollout. Awaiting maintainer decisions on SIWE onchain authz tier/allowlist selection, test262 consolidation strategy, and OpenRouter stealth-lane policy arming.
 
 ## Parked for maintainer feedback
 
@@ -903,15 +903,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 127.6M | $1049.16 _(notional, rate-card)_ | no quota set |
+| Claude | 127.7M | $1049.31 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #796
 
 ### tada (5468)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4.md) — Cost
