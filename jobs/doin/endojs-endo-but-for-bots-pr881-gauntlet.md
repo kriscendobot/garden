@@ -29,6 +29,7 @@ Run the complete PR-creation gauntlet for the current draft. It is stacked on ht
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-23T12:40:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
