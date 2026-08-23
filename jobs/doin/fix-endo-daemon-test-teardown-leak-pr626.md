@@ -25,3 +25,13 @@ not just on the happy path. Grep for the relevant `endo daemon`/`manager-node.js
 call sites and their corresponding teardown, and check whether this is specific to the
 stack-surgery changes on #626 or a pre-existing gap in the shared test helper. If a shared
 helper, this will recur on every gardener host that runs this suite until fixed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T15:44:46Z
