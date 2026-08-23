@@ -1,2 +1,2 @@
-base: improve-deploy-gate-on-script-test-suites
+base: improve-deploy-cross-file-release-atomicity
 identity: mentor:scripts/jobs/deploy-garden.sh
