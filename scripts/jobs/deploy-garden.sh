@@ -80,6 +80,8 @@ source "$HERE/common.sh"
 source "$HERE/deploy-restart.sh"
 # shellcheck source=deploy-tree-swap.sh
 source "$HERE/deploy-tree-swap.sh"
+# shellcheck source=deploy-release-boundary.sh
+source "$HERE/deploy-release-boundary.sh"
 GARDEN_TAG="deploy-garden"
 
 : "${GARDEN_DEPLOY_DRAIN_TIMEOUT:=600}"   # seconds to wait for the fleet to quiesce
@@ -102,6 +104,13 @@ GARDEN_TAG="deploy-garden"
 # enough that ordinary jobs drain normally, short enough that the doomed-attempt
 # fleet-pause is never engaged. Keep it < GARDEN_DEPLOY_DRAIN_TIMEOUT.
 : "${GARDEN_DEPLOY_LONG_JOB_THRESHOLD:=300}"
+# When the coherent-release boundary cannot be established (a wedged user-manager
+# makes a timer stop time out), the default recovery is to FALL BACK to the plain
+# per-file atomic swap (inode-safe, exactly the pre-boundary behavior) with a loud
+# WARN + a maintainer alert, so a deploy is never wedged undeployable. Set this to 1
+# for the strict posture: abort the deploy rather than advance the tree with the
+# timers still live. See deploy-release-boundary.sh § RECOVERY.
+: "${GARDEN_DEPLOY_REQUIRE_BOUNDARY:=0}"
 
 # Exit status for a deliberate deferral (a long mid-job gardener; the fleet was
 # never paused). Distinct from the abort path (exit 1) and from a real deploy:
@@ -122,6 +131,19 @@ lift_drain_if_we_engaged() {
   "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || true
   log "drain lifted (deploy aborted; restored pre-deploy run state)"
 }
+
+# Belt for an abort AFTER the timers were frozen (the coherent-release boundary was
+# engaged) but before the deploy thawed them on its success path — an rc-2 half-swap,
+# a signal, any unguarded death. Restart whatever freeze_timers stopped so a crashed
+# deploy never strands the garden timers off. On the success path thaw_timers already
+# ran (FROZEN_TIMERS is empty), so this no-ops.
+thaw_timers_if_frozen() {
+  [ "${#FROZEN_TIMERS[@]}" -gt 0 ] || return 0
+  thaw_timers >/dev/null 2>&1 || true
+  log "timers thawed (deploy aborted after the release boundary was engaged)"
+}
+
+deploy_exit_cleanup() { thaw_timers_if_frozen; lift_drain_if_we_engaged; }
 
 report_candidate_gate_failure() { # <candidate-sha> <failed-suite>...
   local candidate="$1"; shift
@@ -147,6 +169,34 @@ for a deliberate emergency deploy after assessing this failure."
     log "emitted candidate gate kind:error journal entry"
   else
     log "WARN: could not emit candidate gate kind:error journal entry"
+  fi
+}
+
+report_boundary_not_established() { # <candidate-sha> <mode: fallback|abort>
+  local candidate="$1" mode="$2" body
+  body="kind: error
+
+# Deploy could not establish the coherent-release boundary
+
+candidate: \`$candidate\`
+outcome: $mode
+
+The garden timers could not all be stopped for the swap window (a wedged
+user-manager?), so the deploy could not guarantee a cross-file coherent release.
+In \`fallback\` mode the tree was still advanced with the inode-safe per-file swap
+(pre-boundary behavior); in \`abort\` mode nothing was advanced. Investigate the
+user manager, then re-run the deploy."
+  # Best-effort, like the candidate-gate reporter: an unreachable journal must never
+  # change the deploy outcome.
+  if printf '%s\n' "$body" | timeout "$GARDEN_DEPLOY_REPORT_TIMEOUT" env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=deploy-garden "$HERE/inbox-send.sh" maintainer >/dev/null 2>&1; then
+    log "reported boundary-not-established kind:error to maintainer inbox"
+  else
+    log "WARN: could not report boundary-not-established to maintainer inbox"
+  fi
+  if printf '%s\n' "$body" | timeout "$GARDEN_DEPLOY_REPORT_TIMEOUT" env GARDEN_ROLE=deploy-garden "$HERE/journal-entry.sh" error >/dev/null 2>&1; then
+    log "emitted boundary-not-established kind:error journal entry"
+  else
+    log "WARN: could not emit boundary-not-established kind:error journal entry"
   fi
 }
 
@@ -209,7 +259,7 @@ run_candidate_gate() { # <candidate-sha>
 # the lift unconditional on ANY exit: on success the drain is already lifted
 # and we_drained reset, so it no-ops; an operator-engaged drain (we_drained=0)
 # is never touched. TERM/INT exit through the EXIT trap via the explicit exit.
-trap 'lift_drain_if_we_engaged' EXIT
+trap 'deploy_exit_cleanup' EXIT
 trap 'exit 143' TERM
 trap 'exit 130' INT
 
@@ -399,6 +449,31 @@ if [ -n "$dirty_tracked" ]; then
   exit 1
 fi
 
+# Establish the COHERENT-RELEASE BOUNDARY for the swap window. The per-file rename
+# below protects each script INODE, but a release is many files: a unit that execs
+# mid-swap can run a NEW entrypoint over an OLD common.sh (or the reverse) and die
+# rc=127 on a helper that only one release defines — the storm sourced ACROSS files
+# rather than within one. Freezing every active garden timer means no timer-driven
+# oneshot (reaper, foreman, scheduler, watchman, the gardener-scaler, …) STARTS
+# while the tree is half-swapped, so every unit execs a whole old-or-new release,
+# never a mix. The drain already quiesced the gardener fleet; this extends the
+# boundary to the NON-gardener timers/services the drain does not touch. See
+# deploy-release-boundary.sh. If the boundary cannot be established (a wedged
+# manager), recover: fall back to the inode-safe per-file swap (default), or abort
+# under GARDEN_DEPLOY_REQUIRE_BOUNDARY=1.
+if freeze_timers; then
+  log "coherent-release boundary engaged for the swap"
+else
+  if [ "$GARDEN_DEPLOY_REQUIRE_BOUNDARY" = "1" ]; then
+    log "FATAL: coherent-release boundary could not be established and GARDEN_DEPLOY_REQUIRE_BOUNDARY=1; aborting before touching the tree."
+    report_boundary_not_established "$up_sha" abort
+    # thaw_timers_if_frozen (EXIT trap) restarts whatever WAS stopped; drain lifts too.
+    exit 1
+  fi
+  log "WARN: coherent-release boundary NOT established; recovering by the inode-safe per-file swap (the cross-file window remains, exactly the pre-boundary behavior)."
+  report_boundary_not_established "$up_sha" fallback
+fi
+
 # Advance the working tree ATOMICALLY per file (rename each staged blob into
 # place) so a unit exec'ing a script mid-swap never sees a half-written or absent
 # file. rc 1 = aborted before touching any live path (tree untouched, safe to lift
@@ -443,6 +518,13 @@ else
   log "WARN: enable-services reconcile failed; check for stale/retired units by hand"
 fi
 
+# THAW the frozen timers onto the now-coherent new tree, closing the boundary. Done
+# after the tree advanced + units reconciled, so a timer's next firing reads the new
+# release. (enable-services above re-`start`s the standalone intended timers; thaw
+# also covers the @-instance timers that enable-services leaves to their arming
+# path.) On the success path this clears FROZEN_TIMERS so the EXIT-trap belt no-ops.
+thaw_timers || log "WARN: not every frozen timer thawed cleanly; a later reconcile tick retries the stragglers"
+
 # Lift the drain BEFORE restarting so the restarted units come up live (the
 # drained gardeners have already exited; nothing runs on the old code).
 "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || log "WARN: could not lift the draining marker"
@@ -451,6 +533,14 @@ log "drain lifted; fleet may resume"
 
 # Restart the long-running fleet onto the new code (busy-gate off: we quiesced).
 restart_long_running_fleet "$old_sha" "$new_sha" 0
+
+# VERIFY the fleet runs from ONE release: the recorded deployed sha is the new sha,
+# every restarted long-running service is active, and every thawed timer is active.
+# A straggler is an ALERT (a later scaler/reconcile tick restarts it), not a clobber
+# — the tree is already advanced — so a verify miss is surfaced, never rolled back.
+if ! verify_coherent_release "$new_sha" "$(cat "$GARDEN_DEPLOYED_SHA_MARKER" 2>/dev/null || true)"; then
+  log "WARN: coherent-release verification found stragglers (see above); the deploy advanced the tree but a unit did not come back — a later reconcile tick retries it."
+fi
 
 # Best-effort post-deploy reread broadcast (the watchman also broadcasts on the
 # tree change; this makes the deploy itself announce). Guardable for tests.

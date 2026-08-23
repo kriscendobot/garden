@@ -367,6 +367,78 @@ grep -q "WARN: restart of garden-gardener@2.service failed" <<<"$OUT" && ok "the
 grep -q "restart complete: restarted=2 deferred(mid-job)=0 failed=1 " <<<"$OUT" && ok "accounting: restarted=2 failed=1" || bad "accounting wrong: $(grep 'restart complete' <<<"$OUT")"
 
 # ============================================================================
+hr; echo "COHERENT-RELEASE BOUNDARY — active timers are frozen BEFORE the swap, thawed AFTER"; hr
+# The residual after the per-file rename: a unit that execs mid-swap can run a NEW
+# entrypoint over an OLD common.sh (rc=127 on a helper only one release defines).
+# The deploy freezes every active garden-*.timer (stop) before the swap so no
+# timer-driven oneshot starts while the tree is half-swapped, then thaws them (start)
+# onto the coherent new tree. The mock's armed set stands in for active units.
+setup_fixture
+printf '%s\n' garden-gardener@1.service garden-bulletin.service \
+             garden-reaper.timer garden-scheduler.timer > "$TR/armed"
+origin_commit scripts/jobs/worker-lib.sh "echo newboundary" "fix: worker-lib boundary"
+target="$(origin_head)"
+run_deploy
+[ "$RC" -eq 0 ] && ok "exit 0 with active timers to freeze" || bad "exit $RC: $OUT"
+[ "$(root_head)" = "$target" ] && ok "root advanced with the boundary engaged" || bad "root not advanced"
+grep -q "coherent-release boundary established" <<<"$OUT" && ok "boundary reported established" || bad "boundary establish not logged: $OUT"
+grep -q "coherent-release boundary engaged for the swap" <<<"$OUT" && ok "boundary engaged before the swap" || bad "boundary engage not logged"
+log_has "stop garden-reaper.timer" && ok "reaper timer frozen (stopped)" || bad "reaper timer not stopped"
+log_has "stop garden-scheduler.timer" && ok "scheduler timer frozen (stopped)" || bad "scheduler timer not stopped"
+log_has "start garden-reaper.timer" && ok "reaper timer thawed (started)" || bad "reaper timer not started"
+log_has "start garden-scheduler.timer" && ok "scheduler timer thawed (started)" || bad "scheduler timer not started"
+# Freeze precedes thaw AND precedes the gardener restart: the stop of a timer must be
+# logged before its start, and before the fleet re-execs onto the new code.
+stop_ln="$(grep -n 'stop garden-reaper.timer' "$TR/log" | head -1 | cut -d: -f1)"
+start_ln="$(grep -n 'start garden-reaper.timer' "$TR/log" | head -1 | cut -d: -f1)"
+restart_ln="$(grep -n 'restart garden-gardener@1.service' "$TR/log" | head -1 | cut -d: -f1)"
+{ [ -n "$stop_ln" ] && [ -n "$start_ln" ] && [ "$stop_ln" -lt "$start_ln" ]; } \
+  && ok "the timer freeze (stop) precedes its thaw (start)" || bad "freeze did not precede thaw ($stop_ln vs $start_ln)"
+{ [ -n "$stop_ln" ] && [ -n "$restart_ln" ] && [ "$stop_ln" -lt "$restart_ln" ]; } \
+  && ok "the freeze precedes the fleet restart (swap happens inside the boundary)" || bad "freeze did not precede restart ($stop_ln vs $restart_ln)"
+grep -q "verified coherent release" <<<"$OUT" && ok "coherent release verified after restart+thaw" || bad "coherent-release verify not logged: $OUT"
+
+# A deploy with NO active timers establishes the boundary trivially and still deploys.
+setup_fixture
+printf '%s\n' garden-gardener@1.service garden-bulletin.service > "$TR/armed"
+origin_commit scripts/jobs/worker-lib.sh "echo notimers" "fix: worker-lib no timers"
+target="$(origin_head)"
+run_deploy
+[ "$RC" -eq 0 ] && ok "exit 0 with no timers to freeze" || bad "exit $RC: $OUT"
+[ "$(root_head)" = "$target" ] && ok "root advanced (no-timer boundary)" || bad "root not advanced (no-timer)"
+grep -q "no active garden timers to freeze" <<<"$OUT" && ok "trivial boundary logged when no timers are active" || bad "trivial boundary not logged: $OUT"
+
+# ============================================================================
+hr; echo "BOUNDARY RECOVERY — an unstoppable timer falls back to the inode-safe swap (default)"; hr
+# If a timer stop times out (a wedged user-manager), the boundary cannot be
+# established. The default recovery is to still deploy via the inode-safe per-file
+# swap (never wedge undeployable), with a loud WARN + a maintainer alert.
+setup_fixture
+printf '%s\n' garden-gardener@1.service garden-reaper.timer > "$TR/armed"
+origin_commit scripts/jobs/worker-lib.sh "echo newfallback" "fix: worker-lib fallback"
+target="$(origin_head)"
+run_deploy GARDEN_MOCK_HANG_UNIT=garden-reaper.timer GARDEN_UNIT_CTL_TIMEOUT=2
+[ "$RC" -eq 0 ] && ok "exit 0 on the fallback recovery (deploy not wedged)" || bad "exit $RC: $OUT"
+[ "$(root_head)" = "$target" ] && ok "root STILL advanced via the inode-safe per-file swap" || bad "root not advanced on fallback: $OUT"
+grep -q "boundary NOT established" <<<"$OUT" && ok "boundary-not-established logged" || bad "boundary-not-established not logged: $OUT"
+grep -q "recovering by the inode-safe per-file swap" <<<"$OUT" && ok "fallback recovery logged" || bad "fallback recovery not logged: $OUT"
+
+# ============================================================================
+hr; echo "BOUNDARY STRICT — GARDEN_DEPLOY_REQUIRE_BOUNDARY=1 aborts before touching the tree"; hr
+# The strict posture: never advance the tree with the timers live. An
+# un-establishable boundary aborts, the tree is untouched, and the drain is lifted.
+setup_fixture
+printf '%s\n' garden-gardener@1.service garden-reaper.timer > "$TR/armed"
+origin_commit scripts/jobs/worker-lib.sh "echo newstrict" "fix: worker-lib strict"
+before="$(root_head)"
+run_deploy GARDEN_MOCK_HANG_UNIT=garden-reaper.timer GARDEN_UNIT_CTL_TIMEOUT=2 GARDEN_DEPLOY_REQUIRE_BOUNDARY=1
+[ "$RC" -ne 0 ] && ok "non-zero exit under strict boundary + unstoppable timer" || bad "exit 0 despite strict boundary failure"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced under strict boundary abort" || bad "root advanced despite strict abort"
+grep -q "aborting before touching the tree" <<<"$OUT" && ok "strict abort logged before the swap" || bad "strict abort not logged: $OUT"
+draining && bad "drain left engaged after a strict boundary abort" || ok "drain lifted on the strict boundary abort"
+grep -q restart "$TR/log" && bad "restarted despite a strict abort" || ok "no fleet restart on a strict abort"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]

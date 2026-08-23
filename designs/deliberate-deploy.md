@@ -1,6 +1,6 @@
 ---
 created: 2026-06-27
-updated: 2026-06-27
+updated: 2026-08-23
 author: gardener
 ---
 
@@ -125,6 +125,57 @@ The restart half is shared with the retired `deploy-sync.sh` via
 `deploy-restart.sh` (`restart_long_running_fleet`), so the "which units hold
 stale code in a live process" knowledge lives in one place.
 
+## The coherent-release boundary (cross-file atomicity)
+
+The per-file rename in step 2 makes each changed blob swap atomically, so an
+opener never sees a half-written or absent **file**. But a release is **many**
+files, and the per-file rename gives per-**inode** coherence, not **release-level**
+coherence. A unit that execs mid-swap opens its entrypoint and then, microseconds
+later, `source`s `common.sh` (and further helpers) as **separate** `open()` calls.
+If the multi-file swap straddles those opens, the process runs a **new** entrypoint
+over an **old** `common.sh` (or the reverse) — a mismatched, incoherent release. A
+new entrypoint that calls a helper only the new `common.sh` defines dies
+`command not found`, **rc=127**: the same storm the per-file rename was meant to
+kill, now sourced **across** files instead of **within** one.
+
+`deploy-garden.sh` closes this by establishing a **coherent-release boundary**
+around the swap (`deploy-release-boundary.sh`):
+
+1. **Freeze** (`freeze_timers`) — before touching any file, stop every active
+   `garden-*.timer`. The drain already quiesced the **gardener** fleet, but it does
+   not touch the **non-gardener** timers/services: the ~40 timer-driven oneshots
+   (reaper, foreman, scheduler, watchman, issue-inbox, repo-watcher, the
+   gardener-scaler that re-`enable --now`s an exited gardener, …) keep firing on
+   their own cadence and are exactly the documented rc=127 vectors. With them
+   stopped, no timer-driven oneshot **starts** while the tree is half-swapped, so
+   every unit execs a whole old-or-new release, never a mix. A timer stop is
+   instant (a timer only triggers execs; it holds no long idle sleep like a
+   worker), so this costs no idle-poll window.
+2. **Swap** — the atomic per-file advance runs inside the frozen window.
+3. **Thaw** (`thaw_timers`) — after the tree advanced and the unit set reconciled,
+   restart the frozen timers onto the coherent new tree. The price is that a
+   stopped-then-started timer's next elapse is pushed out by at most one interval —
+   negligible for a deliberate, infrequent deploy.
+4. **Verify** (`verify_coherent_release`) — confirm the fleet runs from **one**
+   release: the recorded deployed sha equals the new sha, every restarted
+   long-running service is active, and every thawed timer is active. A straggler is
+   an **alert** (a later scaler/reconcile tick restarts it), never a clobber — the
+   tree is already advanced.
+
+**Recovery.** If the boundary cannot be established (a wedged user-manager makes a
+timer stop time out), the deploy does **not** wedge undeployable. By default it
+**falls back** to the plain per-file atomic swap (inode-safe, exactly the
+pre-boundary behavior) with a loud WARN + a maintainer `kind:error` alert, so the
+deploy still proceeds. `GARDEN_DEPLOY_REQUIRE_BOUNDARY=1` selects the strict
+posture: an un-establishable boundary **aborts** before touching the tree (thawing
+whatever was stopped and lifting the drain).
+
+**Residuals** (both narrow, left to the per-file atomicity): a long-running service
+that *crash*-restarts inside the swap window (the fleet is drained + idle, so this
+is vanishingly unlikely), and a triggered oneshot that *started just before* the
+freeze and `source`s `common.sh` during the sub-second swap. Freezing the timers
+removes the dominant vector — a **new** oneshot starting mid-swap.
+
 ## Retiring the continuous fast-forward
 
 - `garden-deploy-sync` (continuous fast-forward + restart) is **retired**: its
@@ -201,7 +252,15 @@ up_sha exactly across adds/modifies/deletes/mode-flips/symlinks with a clean tre
 and no temp litter; a concurrent hammer that exec's a script thousands of times
 *while the swap runs* observes zero rc=127 and zero partial reads (the atomicity
 guarantee); and an unstageable incoming blob aborts before any live file is
-touched.
+touched. `deploy-release-boundary-test.sh` covers the coherent-release helpers in
+isolation (freeze records + stops the timers; a failed stop reports the boundary
+un-established while still recording the set for thaw; thaw restarts and clears the
+frozen set; verify catches a sha mismatch and an inactive thawed timer), and
+`deploy-garden-test.sh` exercises the boundary end-to-end: active timers are frozen
+before the swap and thawed after (freeze precedes both thaw and the fleet restart),
+a no-timer deploy establishes the boundary trivially, an unstoppable timer falls
+back to the inode-safe swap by default, and `GARDEN_DEPLOY_REQUIRE_BOUNDARY=1`
+aborts before touching the tree.
 
 ## Follow-on work
 
