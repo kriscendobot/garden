@@ -42,6 +42,7 @@ a real number given a live `cutoff`, not just checking it exits without error.
 
 No other usage-meter/budget-level behavior changes.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
