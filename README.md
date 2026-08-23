@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T04:09:13Z_
+_As of 2026-08-23T04:11:57Z_
 
 ## Latest
 
-Root-repo deploy is stalled 3+ days on two hosts (18 commits behind), blocking fleet updates. Multiple gauntlets halted mid-pipeline ([endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), minion.town#37, and others) and requeue-exhausted jobs parked pending promotions. Node 24 runtime parity fix landed on main2 and provisioned on one host, but other running containers await redeploy to adopt it. A recurring node24-runner CI flake is blocking two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from merging. The maintainer inbox holds critical review decisions: byteArray finish-line PRs green but awaiting re-review to clear CHANGES_REQUESTED, test262 consolidation awaiting a corpus-strategy call, SIWE tier-1 allowlist addresses needed, and OpenRouter zero-data-retention policy enforcement parked at deadline-overrun.
+Node 24 provisioning and local-verify parity landed ([main2 c1583f733f](https://github.com/kriscendobot/garden/commit/c1583f733f), [57d851dfaf](https://github.com/kriscendobot/garden/commit/57d851dfaf)); the Dockerfile now bakes Node 24 alongside Node 22, and the parity guard runs before any step to catch version skew before it reaches CI. Multiple gauntlet stages have halted ([endojs/endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37), and others), with jobs parked pending re-promotion; the root repo deploy has stalled for ~3 days across two hosts. The bytearray program finished green and complete—[#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) have all code resolved and await maintainer re-review to clear CHANGES_REQUESTED, and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is draft-pending and ready for un-draft. The inbox holds several maintainer-gated decisions: a CRITICAL security fix ([#869](https://github.com/endojs/endo-but-for-bots/pull/869), GHSA-37j7-fg3j-429f in happy-dom) and three other dependabot PRs awaiting approval; OpenRouter ZDR policy + stealth-lane + reputation forwarding; SIWE on-chain authz tier selection and allowlist; and test262 fixture consolidation strategy.
 
 ## Parked for maintainer feedback
 
@@ -699,6 +699,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 
 > root repo /home/kris/garden2 deploy has been STALLED for ~3d: deployed sha 745fa90891f8692c12b6b14a06b4a5dbdcbbf503 is 18 commit(s) behind origin/main2 (231ef0576752a29e0f54a3c9316ac812a6790da3) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
 
+- `watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a.md)
+
+> conductor unfreeze BLOCKED for [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046): frozen base 'llm-e22e67a' is shared by open PRs (#1046, #475). Forwarding #1046 to live 'llm' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#1046 left on the snapshot: not stranded silently, not force-forked.)
+
 - `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-08-19T00:20:03Z, cleared 2026-08-19T00:20:03Z).
@@ -777,8 +781,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.8M | $942.11 _(notional, rate-card)_ | no quota set |
-| Codex | 22.3M _(+1030.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Claude | 113.9M | $942.50 _(notional, rate-card)_ | no quota set |
+| Codex | 22.4M _(+1030.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
