@@ -12,3 +12,4 @@
 {"source":"none","ts":"2026-08-19T07:23:31Z","base":"endojs-endo-but-for-bots-pr398-conduct","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"role":"conductor"}
 {"ts":"2026-08-19T07:34:58Z","base":"endojs-endo-but-for-bots-pr398-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":95}
 {"source":"result","model":"claude-opus-4-8","num_turns":19,"elapsed_s":205,"input_tokens":32,"output_tokens":10567,"cache_creation_tokens":73768,"cache_read_tokens":1127251,"total_cost_usd":1.5683415,"ts":"2026-08-22T14:01:04Z","base":"endojs-endo-but-for-bots-pr398-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"conductor"}
+{"source":"none","ts":"2026-08-23T02:45:26Z","base":"endojs-endo-but-for-bots-pr398-conduct","host":"endolin-garden-ece02cb4","outcome":"tada","elapsed_s":75,"role":"conductor","provider":"openai"}
