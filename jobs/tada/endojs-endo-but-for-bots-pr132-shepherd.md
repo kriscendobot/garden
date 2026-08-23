@@ -1,29 +1,24 @@
-My inbox is empty and CI is fully green. The shepherd's work is complete — there is nothing red to drive to green.
+Status comment posted: https://github.com/endojs/endo-but-for-bots/pull/132#issuecomment-5384110604
 
 ## Completion report
 
-**Job:** shepherd on endojs/endo-but-for-bots PR #132 ("feat(chat): per-message render mode toggle (Md/Raw/Pre)") — drive CI to green.
+**Job:** shepherd PR #132 on endojs/endo-but-for-bots — drive CI to green.
 
-**Finding:** CI is already fully green. No shepherding action was needed.
+**Finding:** CI was already fully green on the current head `b3c988887b33bbf2c97878375452e003091df4f5`. All 23 check-runs succeeded (verified via `check-runs` API: 23/23 `success`, 0 non-success), `mergeStateStatus: CLEAN`, `mergeable: MERGEABLE`. Checks span lint, build, zizmor, the full `test`/`cover`/`test262` matrix (22.x/24.x × ubuntu/macos), test-xs, test-hermes, build-wasm, sandbox-drivers, test-ocapn-python, viable-release, check-action-pins, and more. The `status` (legacy combined-status) API returning `pending/total:0` is just the empty default — this repo reports exclusively through GitHub Actions check-runs.
 
-- Head SHA: `b3c988887b33bbf2c97878375452e003091df4f5` (branch `feat/chat-markdown`, base `llm-c50afd2`).
-- PR state: OPEN, not draft, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
-- Status check rollup: **23/23 SUCCESS, 0 pending, 0 failing** — build, build-wasm, build-xsnap, check-action-pins, cover (22.x/24.x), familiar-bundle, lint, sandbox-drivers, test (22.x/24.x × ubuntu/macos), test-async-hooks, test-hermes, test-ironhorse, test-ocapn-python, test-xs, test262 (22.x/24.x), viable-release (22.x/24.x), zizmor.
-- Latest CI run: https://github.com/endojs/endo-but-for-bots/actions/runs/31868585715 (all legs green).
+**Action taken:** No fix push was needed — nothing to drive. The triggering event was a "Poke." from kriskowal (comment 5384096010) asking for follow-up after the liaison committed to reporting back on the PR. I posted a concise green-CI status reply confirming the state and citing the green run URL (`.../actions/runs/31868585715`), covered by this repo's standing authorization to comment freely.
 
-**What I did:** Verified the head-SHA check rollup and PR mergeability. No commits were needed — no red to fix, no flake to retry, no impasse. I made no changes to the PR or the garden.
+**Result:** https://github.com/endojs/endo-but-for-bots/pull/132#issuecomment-5384110604
 
-**next: none** — CI is green on the current head SHA; the shepherd definition of done is satisfied with no push required.
-
-**Follow-up for the liaison:** the triggering comment body was *"Please conduct"* — a merge/**conductor** directive, not a shepherd one. This job was posted/mapped as `shepherd`, and that deliverable (green CI) is confirmed done. If the maintainer intends the PR merged, a separate **conduct #132** (conductor) job is the natural next step; I did not post one, since merging is outside the shepherd role and PR #132 rides a frozen base (`llm-c50afd2`) whose merge is a conductor decision.
+**Classification:** `next: none` — CI is green; no fix, no escalation, no follow-up job needed. PR #132 is mergeable and clean.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr132-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 11 tokens (264922 cached reads)
-- Output: 2684 tokens
-- Cost: $0.572866
-- Wall-clock: 49s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 2 host(s)
+- Input: 24 tokens (595743 cached reads)
+- Output: 7008 tokens
+- Cost: $1.2919334999999998
+- Wall-clock: 123s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
