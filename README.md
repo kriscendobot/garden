@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T16:39:14Z_
+_As of 2026-08-23T16:47:06Z_
 
 ## Latest
 
-Multiple gauntlet stages have exhausted retries and parked pending promotion: panel/fix rounds across [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37), and a conduct job for [#946](https://github.com/endojs/endo-but-for-bots/pull/946). The root garden repo deploy has stalled for ~3 days across two hosts (18 commits behind). Critical maintainer-facing decisions are now open: SIWE tier-1 allowlist addresses for minion.town, pending approvals on dependabot PRs including [#869](https://github.com/endojs/endo-but-for-bots/pull/869) (closes CRITICAL VM-escape GHSA), and byteArray PRs [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) ready for maintainer re-review. Recent fixes landed: Node 24 local-verify parity restored, budget enforcement design deployed on `main2`, and CLI help handling corrected.
+Garden deploy has stalled for ~3 days across two hosts (18 commits behind `origin/main2`), blocking rollout of recent fixes including Node24 parity enforcement and usage-meter corrections. Multiple gauntlets halted mid-pipeline (endo-but-for-bots #1023, #807, #909, #946 and minion.town #37), with handler budgets and requeue exhaustion the primary failure modes; jobs are parked awaiting promotion. The byteArray press ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is code-complete and CI-green but blocked solely on maintainer re-review of the design's frozen snapshot bases. Node24 runtime parity landed and was provisioned on this host, but three other instances still lack Node24 and will refuse to run Node-24-pinned projects; a conditional deploy-hold is advised until those redeploy. One usage-meter fix merged; a frozen-base conductor unfreeze for PR #1046 is blocked by shared base with PR #475, awaiting stack weave. Pre-push-gates skill references a missing driver — `scripts/jobs/gardening/pre-push-gates.sh` does not exist, only probe fixtures; that gap needs repair before builders can run the advertised gate.
 
 ## Parked for maintainer feedback
 
@@ -903,26 +903,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.6M | $1052.78 _(notional, rate-card)_ | no quota set |
+| Claude | 129.7M | $1052.92 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #796
-- [`fix-usage-meter-cutoff-unbound-var`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-usage-meter-cutoff-unbound-var.md) — Fix
 - [`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md) — Grounding incident
 - [`refresh-pr-review-sequence-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/refresh-pr-review-sequence-20260823.md) — What to do
 
-### tada (5472)
+### tada (5473)
+- [`fix-usage-meter-cutoff-unbound-var`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-usage-meter-cutoff-unbound-var.md) — Completion report
 - [`fix-endo-daemon-test-teardown-leak-pr626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-endo-daemon-test-teardown-leak-pr626.md) — Completion report — fix-endo-daemon-test-teardown-leak-pr626
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5.md) — Cost
-- … and 5467 more
+- … and 5468 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
