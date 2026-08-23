@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T13:18:01Z_
+_As of 2026-08-23T13:51:42Z_
 
 ## Latest
 
-Deploy stalled on two hosts for ~3 days. Multiple gauntlets halted; [#796](https://github.com/endojs/endo-but-for-bots/pull/796) is the sole active gauntlet job, currently in fix round 4. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by the recurring node24-runner CI flake; [#869](https://github.com/endojs/endo-but-for-bots/pull/869) closes GHSA-37j7-fg3j-429f (CRITICAL: VM escape to RCE in happy-dom) and awaits approval. Inbox holds 40+ messages, mostly maintainer-decision gates: SIWE tier authorization for minion.town, budget enforcement policies, OpenRouter stealth-model configuration, and 23 parked PRs awaiting review.
+[endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) gauntlet continues into fix round 4; minion.town agenda review just claimed. Two critical infrastructure issues: the root garden deploy has stalled for ~3 days on both hosts (18 commits behind), and a cluster of gauntlets mid-stage (panel/fix/conduct rounds) are doomed after requeue exhaustion, awaiting maintainer go-ahead to retry ([endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)). Node24 CI-parity fix deployed on one host; other running containers need redeploy to adopt it. The SIWE thunk is live at minion.town awaiting tier/allowlist authorization decisions. The byteArray press is complete and all-green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) but blocked on human re-review to clear CHANGES_REQUESTED; the whole program is gated on human sign-off, not code.
 
 ## Parked for maintainer feedback
 
@@ -903,15 +903,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.6M | $1087.68 _(notional, rate-card)_ | no quota set |
+| Claude | 128.6M | $1058.64 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #796
+- [`minion-town-agenda-review-20260823-135004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260823-135004.md) — Minion Town daily agenda review
 
 ### tada (5466)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-4.md) — Cost
