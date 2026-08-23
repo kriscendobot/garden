@@ -50,6 +50,7 @@ lower-frequency refresh tooling — the prior refresh flagged that as a
 worthwhile follow-up, but the maintainer asked for a plain content refresh
 this time, not that follow-up.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
