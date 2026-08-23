@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T03:15:30Z_
+_As of 2026-08-23T03:18:49Z_
 
 ## Latest
 
-The budget designs landed on main2 (omega ranking and live-pool admission) — both are proposed/ready for implementation. The byteArray program is feature-complete and all-green across endojs/endo-but-for-bots#475, #503, and the finish-line #888, awaiting human re-review to clear the CHANGES_REQUESTED gates. Local-verify Node version parity was restored (local now enforces .node-version resolution) and Node 24 provisioned fleet-wide. minion.town's SIWE on-chain authz deploy is live at siwe-idp.minion.town, awaiting tier choice and wallet-address allowlist. Multiple gauntlets halted mid-panel on failed dependencies; the node24-runner CI infra flake continues to block [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (both MERGE-NOW on merits). test262 fixture consolidation ([endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is draft-ready with one open decision: keep the metering corpus separate from upstream test262, or collapse into one tree. Numerous maintainer-decision messages await response in the inbox (SIWE tier/addresses, node24 flake fix authorization, byteArray re-review promotion, OpenRouter stealth-lane policy, and several deferred follow-ups).
+Budget enforcement design landed on main2 (designs/live-budget-admission.md); live deployment awaits the weekly token-cap decision. Node 24 provisioned for local-verify parity, though deployed hosts need redeployment to adopt it; the local-verify Node-parity guard now refuses mismatched major versions on Node-pinned projects. The byteArray press finish-line is complete and green — two foundation PRs ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are mergeable pending human re-review, and the RegistryInterface leg ([endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is green and DRAFT awaiting un-draft once the foundations land. Three gauntlets halted mid-flight; two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) blocked on the recurring fleet node24-runner infra flake. The root deploy has stalled ~3 days on both running hosts; garden-root-repo-guard is reporting the condition but needs investigation to restart. Maintainer inbox is active with ~24 messages covering the byteArray re-review, SIWE tier+allowlist decisions, test262-fixture consolidation path, several design questions awaiting grounding (omega ranks, disclosure timing), and multiple follow-ups ready to dispatch once authorized.
 
 ## Parked for maintainer feedback
 
@@ -649,14 +649,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.1M | $937.67 _(notional, rate-card)_ | no quota set |
-| Codex | 21.1M _(+941.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 111.2M | $937.81 _(notional, rate-card)_ | no quota set |
+| Codex | 21.2M _(+949.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
+### todo (3)
 - [`endojs-endo-but-for-bots-pr1038-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1038-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1038
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
-- [`improve-deploy-cross-file-release-atomicity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deploy-cross-file-release-atomicity.md) — ---
 - [`self-heal-fix-garden-proxy-bare-issue-ref-reply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-bare-issue-ref-reply.md) — ---
 
 ### doin (14)
@@ -670,18 +669,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr977-64413faf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-64413faf.md) — attention directive on endojs/endo-but-for-bots PR #977
-- [`fix-live-budget-admission-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-live-budget-admission-enforcement.md) — Build the live-budget-admission enforcement (design landed, nothing built)
+- [`improve-deploy-cross-file-release-atomicity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-cross-file-release-atomicity.md) — ---
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 
-### tada (5437)
+### tada (5438)
+- [`fix-live-budget-admission-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-live-budget-admission-enforcement.md) — Completion report: fix-live-budget-admission-enforcement
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260823-024849`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260823-024849.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260823-0...
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260821-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Completion report
-- … and 5432 more
+- … and 5433 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
