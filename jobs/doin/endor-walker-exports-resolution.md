@@ -37,3 +37,13 @@ export-patterns, package-imports-exports, nested-pkg, and fixtures-0. Bump floor
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T17:33:25Z
