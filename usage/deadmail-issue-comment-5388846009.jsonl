@@ -1,1 +1,2 @@
 {"ts":"2026-08-23T22:40:56Z","base":"deadmail-issue-comment-5388846009","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":195,"input_tokens":27,"output_tokens":12140,"cache_creation_tokens":47881,"cache_read_tokens":724529,"total_cost_usd":1.1473915000000001,"ts":"2026-08-23T22:46:57Z","base":"deadmail-issue-comment-5388846009","host":"endolin-garden2-5bcdff64","outcome":"tada"}
