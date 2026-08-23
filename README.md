@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T10:33:37Z_
+_As of 2026-08-23T11:14:01Z_
 
 ## Latest
 
-PR [#796](https://github.com/endojs/endo-but-for-bots/pull/796) is in its fourth gauntlet panel round. The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete, green, and awaits your re-review to clear CHANGES_REQUESTED. Dependabot PRs [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) have MERGE-NOW verdicts but are blocked by a recurring node24-runner CI flake. Three maintainer decisions are pending: minion.town's SIWE allowlist tier choice, test262 fixture consolidation strategy, and OpenRouter stealth-lane policy. The root repo deploy has stalled for 3 days on two hosts.
+The byteArray program is code-complete and green across the board: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable but held on maintainer re-review (CHANGES_REQUESTED), and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft. Node 24 local-verify parity has been restored and deployed, but two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are stalled on a recurring node24-runner CI flake and need either a direct merge or infrastructure fix. The garden deploy is stalled (18 commits behind on two hosts, no progress in 3 days); root-repo guard is reporting it but no deploy has landed. Five PRs mid-gauntlet have hit requeue exhaustion and are parked awaiting promotion, and SIWE on-chain authz wiring for minion.town is waiting on a maintainer-only tier and allowlist decision. The board carries 85 parked jobs—many high-value (byteArray, test262 consolidation, budget admission, multiple designs)—nearly all awaiting go-ahead or blocked on upstream decisions or code dependencies.
 
 ## Parked for maintainer feedback
 
@@ -809,6 +809,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 745fa90891f8692c12b6b14a06b4a5dbdcbbf503 is 18 commit(s) behind origin/main2 (231ef0576752a29e0f54a3c9316ac812a6790da3) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
@@ -899,8 +903,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 126.9M | $1040.48 _(notional, rate-card)_ | no quota set |
-| Codex | 25.4M _(+1200.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
+| Claude | 131.0M | $1086.79 _(notional, rate-card)_ | no quota set |
+| Codex | 25.6M _(+1220.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
