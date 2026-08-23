@@ -52,3 +52,13 @@ worthwhile follow-up, but the maintainer asked for a plain content refresh
 this time, not that follow-up.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-23T17:23:11Z
