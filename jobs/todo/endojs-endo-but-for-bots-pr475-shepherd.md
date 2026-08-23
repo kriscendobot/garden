@@ -20,15 +20,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Shepherd. It is probably a flake. 
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-23T15:33:15Z
+<!-- garden-reaped: 2 -->
