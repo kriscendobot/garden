@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":56,"elapsed_s":1036,"input_tokens":105,"output_tokens":67367,"cache_creation_tokens":156547,"cache_read_tokens":7221281,"total_cost_usd":6.8631185000000015,"ts":"2026-08-23T03:36:26Z","base":"improve-deploy-cross-file-release-atomicity","host":"endolin-garden2-5bcdff64","outcome":"tada"}
