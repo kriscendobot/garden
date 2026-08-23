@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-08-23T15:36:38Z_
+_As of 2026-08-23T15:46:03Z_
 
 ## Latest
 
-The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and green across all CI, gated solely on maintainer re-review of the first two; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft and review. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW eligible except for the fleet's recurring node24-runner CI flake—notably [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) closes a critical security issue (GHSA-37j7-fg3j-429f). Multiple gauntlets are halted or stalled mid-pipeline: [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) are parked after handler failures or panel judge crashes. The garden's root deployment has stalled ~3 days behind on two hosts; no drained deploys are landing.
+Byte-array press is complete and fully green across [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (narrows frozen Uint8Array view + helpers) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim); both mergeable with all review threads resolved, awaiting re-review to clear CHANGES_REQUESTED. The finish-line integration, [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888), is also green and unreviewed. In parallel, [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) opened as a DRAFT design for test262 fixture consolidation with parameterized expectations and a ratchet mechanism; it carries an open decision on whether the bespoke ironhorse-meter corpus folds into the parity tree or stays separate. Local-verify parity for Node 24 is fixed and deployed (the guard now adopts or refuses loudly); Node 24 provisioning on fleet hosts is in flight. Deploy is stalled 3 days behind on both garden hosts; multiple gauntlets halted mid-stage due to handler failures (endojs-endo-but-for-bots#1023-panel-2, #807-fix-1, #909-fix-1, minion.town#37-panel-6); one conductor job ([endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is parked awaiting promotion. The maintainer inbox carries 20+ decisions awaiting response, including SIWE tier selection and wallet allowlist for minion.town, frozen-base unfreeze coordination for [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046), and several security-gated follow-ups.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 25d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 35d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 36d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 37d)
@@ -903,16 +903,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.5M | $1050.44 _(notional, rate-card)_ | no quota set |
+| Claude | 128.8M | $1051.01 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #796
+- [`fix-endo-daemon-test-teardown-leak-pr626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-daemon-test-teardown-leak-pr626.md) — ---
 
 ### tada (5470)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5.md) — Cost
