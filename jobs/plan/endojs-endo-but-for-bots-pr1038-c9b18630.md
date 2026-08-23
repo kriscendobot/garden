@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-23T03:33:04Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T03:33:04Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -39,15 +56,3 @@ directive:
   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
     and do the work.
 Never state in your report that a peer did work you did not verify.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T02:47:27Z
