@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T22:58:17Z_
+_As of 2026-08-23T23:08:13Z_
 
 ## Latest
 
-Deployment stalled for ~3 days on both garden hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64); investigate why deliberate deploys haven't landed. Node 24 parity guard is live and provisioned on this host, but image propagation to other running containers awaits rebuild+redeploy. [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (immutable byte array, waiting 103d) is now under review. Multiple gauntlet stages are halting mid-run (panel handoffs failing/vanishing); four PRs stranded with DOOM jobs parked: [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [#946](https://github.com/endojs/endo-but-for-bots/pull/946). A recurring fleet-wide CI flake (node24-runner missing binary) is blocking two dependabot merges ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)). Awaiting maintainer decisions on SIWE tier-1 allowlist for minion.town, DNSSEC configuration for ocap.site, and node24 CI infrastructure repair to unblock the spine.
+The byteArray program is complete and green: [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are all CI-passing and awaiting your re-review to clear CHANGES_REQUESTED, with the finish-line [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) drafted and ready for un-draft and review once the two base PRs land. Local-verify node24 parity landed (main2 57d851dfaf) and provisioning for the fleet is queued (main2 c1583f733f), though running containers will need Node 24 manually provisioned until the next redeploy. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but stalled on a recurring node24-runner CI flake — both are one green run from merge and need either direct merging or the fleet infra issue resolved. The SIWE on-chain authz tier is live at https://siwe-idp.minion.town with a Tier 1 allowlist awaiting your wallet addresses and scope assignments. Garden deployments are stalled (~18 commits behind main2 for three days) and several orchestration chains have halted waiting for maintainer decisions on parked follow-ups.
 
 ## Parked for maintainer feedback
 
@@ -1028,25 +1028,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.8M | $1056.37 _(notional, rate-card)_ | no quota set |
+| Claude | 133.9M | $1056.53 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-minion-town-sites-exo-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-sites-exo-20260823.md) — Build the daemon-hosted @sites exo so weblet publish serves a live <hash>.oca...
 - [`deadmail-issue-comment-5388921796`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5388921796.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr475-review-d7b66ffe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-d7b66ffe.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (5485)
+### tada (5486)
+- [`endojs-endo-but-for-bots-pr475-review-d7b66ffe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-d7b66ffe.md) — Completion report
 - [`minion-town-agenda-review-20260823-225008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260823-225008.md) — Cost
 - [`deadmail-issue-comment-5388846009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5388846009.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1054-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1054-dependabot.md) — Completion report: botanist on endojs/endo-but-for-bots PR #1054
 - [`endojs-endo-but-for-bots-pr1053-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1053-dependabot.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1051-v2migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1051-v2migrate.md) — orchestration endojs-endo-but-for-bots-pr1051-v2migrate — HALTED
-- … and 5480 more
+- … and 5481 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
