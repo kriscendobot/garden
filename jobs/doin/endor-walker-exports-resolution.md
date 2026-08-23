@@ -34,10 +34,10 @@ export-patterns, package-imports-exports, nested-pkg, and fixtures-0. Bump floor
 16. Depends on Increment 0.
 
 
-<!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 ---
 claim:
