@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T06:20:20Z_
+_As of 2026-08-23T06:23:55Z_
 
 ## Latest
 
-Gauntlets halted with requeue exhaustion on one host; deploys stalled 3+ days behind on both. The byteArray press is complete and green: [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) await maintainer re-review, [#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft. Test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946) DRAFT) ready for an open decision. Node 24 local-verify parity deployed (main2 c1583f733f) but other containers need rebuild. [#881](https://github.com/endojs/endo-but-for-bots/pull/881) running the gauntlet.
+byteArray program is code-complete and all CI green across [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503), awaiting maintainer re-review; finish-line PR [#888](https://github.com/endojs/endo-but-for-bots/pull/888) will follow. node24-runner CI flake is blocking merges on dependabot PRs [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009); node runtime parity has been restored (fix deployed, Node 24 provisioned on leader host, rollout to other hosts pending). test262 consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) awaits an open corpus decision; garden deploy is stalled ~3 days (18 commits behind main2).
 
 ## Parked for maintainer feedback
 
@@ -899,14 +899,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.7M | $945.47 _(notional, rate-card)_ | no quota set |
-| Codex | 23.8M _(+1084.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Claude | 116.9M | $945.62 _(notional, rate-card)_ | no quota set |
+| Codex | 23.8M _(+1084.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 
 ### tada (5460)
