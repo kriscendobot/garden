@@ -107,6 +107,7 @@ for this job.
 - Top-level summary comment (head SHA, item->SHA map, anything declined + why,
   verification status), then re-request review from @kriskowal.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
