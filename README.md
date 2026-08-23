@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T20:30:07Z_
+_As of 2026-08-23T20:36:40Z_
 
 ## Latest
 
-Dependabot botanist work continues (5 in flight); Node 24 provisioning and local-verify parity deployed. The byteArray program reached completion with CI green across [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888), awaiting re-review. A fleet node24-runner infra flake blocks [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) from merge despite approval; deploy is stalled ~3 days on two hosts; and architectural decisions are parked on test262 consolidation scope, SIWE authz tier for minion.town, and OpenRouter ZDR policies.
+Node 24 local-verify parity restored (commit 57d851dfaf) — fixed a version skew where projects pinned `.node-version=lts/*` resolved to Node 24 in CI but used Node 22 locally, causing silent lint-pass-locally/CI-fail mismatches; a runtime-parity guard now enforces matching and blocks on mismatch. SIWE on-chain authz deployed to siwe-idp.minion.town (awaiting maintainer decision on tier/allowlist). Four gauntlets halted (pr1051-v2migrate orchestration, endor-fixture-parity-ratchet, minion.town pr37/pr#1023 panels) due to handler failures; multiple doomed jobs parked. Two critical dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) ready to merge but blocked by recurring fleet node24-runner CI flake; [#869](https://github.com/endojs/endo-but-for-bots/pull/869) closes GHSA-37j7-fg3j-429f (CRITICAL VM escape in in-tree happy-dom). Garden deploy stalled 3+ days across both production hosts (18 commits behind main2).
 
 ## Parked for maintainer feedback
 
@@ -1028,7 +1028,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.1M | $1055.90 _(notional, rate-card)_ | no quota set |
+| Claude | 132.3M | $1056.22 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1042,13 +1042,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1054-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1054-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1054
 - [`endojs-endo-but-for-bots-pr1056-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1056-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1056
 
-### tada (5480)
+### tada (5481)
+- [`endojs-endo-but-for-bots-pr1051-v2migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1051-v2migrate.md) — orchestration endojs-endo-but-for-bots-pr1051-v2migrate — HALTED
 - [`endojs-endo-but-for-bots-pr1055-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1055-dependabot.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1050-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1050-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots PR #1050
 - [`endojs-endo-but-for-bots-pr1051-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1051-dependabot.md) — Completion report
 - [`endor-fixture-parity-ratchet-campaign-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260823.md) — orchestration endor-fixture-parity-ratchet-campaign-20260823 — HALTED
-- [`press-minion-town-e2e-prod-test-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/press-minion-town-e2e-prod-test-20260823.md) — Completion report
-- … and 5475 more
+- … and 5476 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
