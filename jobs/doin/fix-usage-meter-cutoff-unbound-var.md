@@ -44,3 +44,13 @@ a real number given a live `cutoff`, not just checking it exits without error.
 No other usage-meter/budget-level behavior changes.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T16:43:27Z
