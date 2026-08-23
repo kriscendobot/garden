@@ -28,3 +28,13 @@ stack-surgery changes on #626 or a pre-existing gap in the shared test helper. I
 helper, this will recur on every gardener host that runs this suite until fixed.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T16:23:12Z
