@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T04:03:55Z_
+_As of 2026-08-23T04:04:52Z_
 
 ## Latest
 
-The garden added one deferred job (ironhorse-ses-hostrow) this window. More pressingly, the root garden deploy has stalled for ~3 days on both hosts (18 commits behind main2), blocking all propagation—deploying the node24 parity fix requires advancing it. Three gauntlets halted mid-flow with stranded PRs ([endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)) that need attention. The byteArray program—[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)—is complete and CI-green, gated only on maintainer re-review. The SIWE on-chain authz deployment ([minion.town](https://github.com/kriscendobot/minion.town)) is live and awaiting tier/allowlist decisions. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked on a recurring node24-runner CI flake; both merit direct merge or the fleet flake needs fixing. The test262 fixture consolidation ([endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is DRAFT and awaiting a decision on metering-corpus scope.
+Fleet's root deployment has stalled for ~3 days across both hosts (18 commits behind origin/main2); investigate why no deliberate deploys have landed. Separately, multiple gauntlets halted mid-stage (build-minion-town-git-content-substrate, endor-fixture-parity-ratchet, ironhorse-coverage-matrix, minion.town-port-whoami-tool, build-endor-git-bindings), and a recurring fleet-wide node24-runner CI flake is now blocking two dependabot PRs from auto-merge despite passing all other checks. On the positive side, the byteArray program (immutable-arraybuffer shim + registry-native bytes) is complete and CI-green across both PRs—it's blocked only on maintainer re-review to clear CHANGES_REQUESTED. Test262 fixture consolidation (DRAFT [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is done, with an open decision on whether to keep metering micro-cases separate from upstream parity. Local-verify Node parity guard landed and is now enforcing the right runtime version, but until Node 24 provisioning completes the guard will refuse Node-24-pinned projects on hosts that only have Node 22. SIWE on-chain authz wiring for minion.town awaits your tier choice (Tier 1 allowlist vs. Tier 1+2) and the list of wallet addresses to authorize.
 
 ## Parked for maintainer feedback
 
@@ -777,12 +777,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.4M | $941.59 _(notional, rate-card)_ | no quota set |
-| Codex | 22.2M _(+1028.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Claude | 113.4M | $941.65 _(notional, rate-card)_ | no quota set |
+| Codex | 22.2M _(+1028.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1046-9fa4b1fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-9fa4b1fe.md) — attention directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr475-fix-review-5001589064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-fix-review-5001589064.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`self-heal-fix-garden-proxy-unqualified-issue-ref`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-unqualified-issue-ref.md) — ---
 
