@@ -101,3 +101,13 @@ before pushing.
   `endojs-endo-but-for-bots-pr1051-conduct` job then re-reviews and conducts.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T20:23:56Z
