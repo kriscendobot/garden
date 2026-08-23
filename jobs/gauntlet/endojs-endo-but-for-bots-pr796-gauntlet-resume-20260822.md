@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 796
 build_job: 
 kind: feature
-stage: fix
-iteration: 4
+stage: panel
+iteration: 5
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4
+current_child: endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5
 state: running
 created_by: fixer
 created_at: 2026-08-22T14:43:29Z
