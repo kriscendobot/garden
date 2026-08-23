@@ -21,3 +21,13 @@ discipline. The excerpt below is for human context only:
 Shepherd. It is probably a flake. 
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T15:43:15Z
