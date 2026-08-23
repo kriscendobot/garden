@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T07:49:54Z_
+_As of 2026-08-23T08:03:57Z_
 
 ## Latest
 
-Node parity infrastructure landed on main2 (local-verify + fleet provisioning for Node 24), with the parity guard now refusing mismatched runtimes before they cause CI drift. The byteArray program completed and sits green awaiting maintainer re-review on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503); [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line CapData transport) is draft-ready for un-draft and review. Test262 fixture consolidation opened DRAFT [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) with an open decision on corpus strategy (preserve metering cases separately or fold into upstream). Four gauntlets halted mid-stage; root deploy stalled 3 days on two hosts (investigate deliberate-deploy or journal sync blockage). Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) blocked on the recurring node24-runner CI flake; SIWE on-chain authz wiring needs maintainer Tier-1 allowlist and tier choice.
+Node 24 parity (local-verify ↔ CI consistency) restored and provisioned across the fleet (main2 57d851dfaf, c1583f733f); [endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) gauntlet panel-2 completed 08-22. Root repo deploys stalled for ~3d on both active hosts — 18 commits behind `main2` with no deliberate deploy advancing them. Several gauntlets halted mid-stage on requeue exhaustion ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) panel-2, [#807](https://github.com/endojs/endo-but-for-bots/pull/807) fix-1, [#909](https://github.com/endojs/endo-but-for-bots/pull/909) fix-1, minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37) panel-6, conductor on [#946](https://github.com/endojs/endo-but-for-bots/pull/946)), plus a conductor unfreeze blocked by a shared frozen base between [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475). Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW green but await a node24-runner infra fix. SIWE on-chain authz deployed to minion.town; awaiting your Tier-1 allowlist (wallet addresses + scopes) and tier choice before policy lands. Inbox backlog from maintainer decisions: byteArray (review gate on [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)); budget enforcement design live, needs per-account weekly token cap; test262 consolidation DRAFT ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) awaiting option choice on corpus split; and several open questions on xs→Rust decommission timing, debugger fix scope, and cross-platform tooling.
 
 ## Parked for maintainer feedback
 
@@ -899,24 +899,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.2M | $931.52 _(notional, rate-card)_ | no quota set |
-| Codex | 24.5M _(+1119.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 94% _(plan; codex-reported)_ |
+| Claude | 116.3M | $931.59 _(notional, rate-card)_ | no quota set |
+| Codex | 24.5M _(+1132.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
+### doin (1)
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 
-### tada (5461)
+### tada (5462)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-2.md) — Cost
 - [`daily-progress-summary-20260823-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260823-070504.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-retcon.md) — Cost
-- [`improve-budget-level-failure-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-level-failure-diagnostics.md) — Cost
-- … and 5456 more
+- … and 5457 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
