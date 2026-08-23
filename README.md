@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-08-23T16:47:06Z_
+_As of 2026-08-23T17:04:14Z_
 
 ## Latest
 
-Garden deploy has stalled for ~3 days across two hosts (18 commits behind `origin/main2`), blocking rollout of recent fixes including Node24 parity enforcement and usage-meter corrections. Multiple gauntlets halted mid-pipeline (endo-but-for-bots #1023, #807, #909, #946 and minion.town #37), with handler budgets and requeue exhaustion the primary failure modes; jobs are parked awaiting promotion. The byteArray press ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is code-complete and CI-green but blocked solely on maintainer re-review of the design's frozen snapshot bases. Node24 runtime parity landed and was provisioned on this host, but three other instances still lack Node24 and will refuse to run Node-24-pinned projects; a conditional deploy-hold is advised until those redeploy. One usage-meter fix merged; a frozen-base conductor unfreeze for PR #1046 is blocked by shared base with PR #475, awaiting stack weave. Pre-push-gates skill references a missing driver — `scripts/jobs/gardening/pre-push-gates.sh` does not exist, only probe fixtures; that gap needs repair before builders can run the advertised gate.
+Garden has accumulated 23 parked PRs awaiting maintainer review (spanning 25–102 days) and 70+ plan-queue jobs holding on decisions or deferred work. Recent infrastructure fixes landed: root-repo guard now defends against mid-job git corruption; local-verify gained Node 24 parity to match CI; budget-admission design completed the live-pool-draw mechanics (awaiting weekly token ceiling config to activate). Several gauntlets halted on panel/fix/conduct stages and are parked pending promotion; three infrastructure watchdogs are active — root repo deployed 3d stale (deliberate drain suspected), node24-runner CI flake blocking two dependabot merges, and frozen-base gate blocking #1046 stack forward. Maintainer decisions needed on five fronts: SIWE tier-1 allowlist (which addresses authenticate), test262 fixture consolidation (metering corpus vs upstream tree fold), ocap.site DNSSEC signing, OpenRouter stealth-lane policy, and whether to fix the node24 flake or merge past it. One new press job posted (minion.town E2E) and refresh-pr-review queued for prioritization.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 25d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 35d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 36d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 37d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 40d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 52d)
@@ -903,12 +903,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.7M | $1052.92 _(notional, rate-card)_ | no quota set |
+| Claude | 129.9M | $1055.03 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`press-minion-town-e2e-prod-test-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/press-minion-town-e2e-prod-test-20260823.md) — Press: minion.town primary-phase end-to-end production test
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #796
