@@ -63,3 +63,13 @@ widening plus the specific bug.
    runs green on your PR-equivalent push and report the run URL.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T16:43:17Z
