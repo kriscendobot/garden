@@ -99,3 +99,13 @@ before pushing.
   unchanged, so it should stay green).
 - Report names what you landed and the surfaced push-mode decision. The paired
   `endojs-endo-but-for-bots-pr1051-conduct` job then re-reviews and conducts.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T20:07:24Z
