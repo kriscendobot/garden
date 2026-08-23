@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-23T02:43:38Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T02:43:38Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -46,15 +64,3 @@ the current daemon guest surface on `llm` before changing anything.
 - Context: the prior `lint-unstick` job's lint fix is already landed and green;
   this failure came in with a later panel-1 fix commit (head `dc39fef1`). The
   earlier weave/shepherd attention-directive (`...pr977-64413faf`) was doomed.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-22T15:29:34Z

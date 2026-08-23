@@ -3,14 +3,7 @@ role: conductor
 tier: minion
 token-budget: 250000
 ---
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:57:07Z cleared=none -->
-
----
-role: conductor
-tier: minion
-token-budget: 250000
----
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-19T06:36:23Z cleared=none -->
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:58:28Z cleared=none -->
 
 ---
 role: conductor
@@ -20,7 +13,7 @@ fallback-tier:
 dispatch: automatic
 ---
 
-# Finalize (curate → merge) endojs/endo-but-for-bots PR #398
+# Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 
 A trusted maintainer APPROVED this PR and the watcher confirmed it is
 OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
@@ -36,16 +29,6 @@ Guards (the watcher already enforced these; re-verify before merging):
   - Idempotent: if the PR is already merging/merged/closed, do nothing.
 
 Source: pr-review-body by kriskowal
-Approval: https://github.com/endojs/endo-but-for-bots/pull/398#pullrequestreview-4968635368
+Approval: https://github.com/endojs/endo-but-for-bots/pull/946#pullrequestreview-4941598685
 
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-22T13:57:24Z
+<!-- garden-reaped: 1 -->

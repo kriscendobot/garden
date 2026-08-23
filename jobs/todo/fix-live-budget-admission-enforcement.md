@@ -78,12 +78,4 @@ with an explicitly-flagged placeholder cap, and a report naming what
 changed, what (if anything) was already covered by other recently-landed
 budget work, and the placeholder-cap caveat.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-22T13:48:30Z
+<!-- garden-reaped: 1 -->

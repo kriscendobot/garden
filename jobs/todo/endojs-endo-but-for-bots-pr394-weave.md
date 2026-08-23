@@ -44,12 +44,4 @@ don't assume the stale one.
 Do not restack any PR beyond #394 — the next step in the chain is a separate
 orchestrated job.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-22T13:56:21Z
+<!-- garden-reaped: 1 -->
