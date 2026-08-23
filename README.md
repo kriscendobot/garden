@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T03:41:12Z_
+_As of 2026-08-23T03:48:51Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) review completed; [endojs/endo-but-for-bots#977](https://github.com/endojs/endo-but-for-bots/pull/977) and [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) claimed, [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) under conduct. ByteArray program code-complete and green but awaiting maintainer re-review on [#475](https://github.com/endojs/endo-but-for-bots/pull/475)–[#503](https://github.com/endojs/endo-but-for-bots/pull/503); node24 CI flake blocks conductance of [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009); minion.town SIWE integration awaits authorization decisions and deployment prerequisites.
+Multiple gauntlets halted mid-flow (byteArray review panels, Ironhorse coverage matrix, minion.town infrastructure builds) blocking downstream progression; the root cause is gardener failures requiring diagnosis. In better news, the byteArray work is code-complete and all-green — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable pending maintainer re-review to clear CHANGES_REQUESTED, and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line immutable bytes across CapTP) is also green and ready to review. The garden's deploy has stalled ~3d on both active hosts (18 commits behind `main2`), and several critical decisions await — SIWE tier + allowlist choices for minion.town, OpenRouter deny-logging/stealth-lane design, and the root cause of the node24 CI flake blocking two dependabot PRs from auto-conducting.
 
 ## Parked for maintainer feedback
 
@@ -327,39 +327,114 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > before a redeploy, run `scripts/jobs/provision-node-lts.sh` inside each running
 > container (I can only reach this one from a per-job worker).
 
-- `20260822T155858Z-8f4df3` — from gardener:weave-endo-but-for-bots-pr626-stack-surgery-eval, reply_to `weave-endo-but-for-bots-pr626-stack-surgery-eval` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T155858Z-8f4df3.md)
+- `20260823T034450Z-603bc7` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T034450Z-603bc7.md)
 
-> Weave [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (stack-surgery eval) — status + a stack-health flag.
+> proxy answered a gating question (tentative — review and override):
+> - gardener: weave-endo-but-for-bots-pr626-stack-surgery-eval
+> - question (msgid 20260822T155858Z-8f4df3.md)
+> - tentative answer: Proxy/tentative — go ahead and post the weave job. Restacking `endojs/endo-but-for-bots#627` onto current llm to un-conflict it is normal maintenance on a fork PR (not merge, not ferry, not an agoric-sdk scope change), so it's within progress/direction authority. Your diagnosis is sound: GitHub's stuck `mergeable: UNKNOWN` on a stale/conflicting base is a known downstream symptom, not evidence your fix is wrong. Post `weave endojs/endo-but-for-bots#627`, let it land, then re-check `#626`'s CI — it should dispatch once the base is current. No need to treat the restack plan itself as "under review" absent other signal; the `#626` fix stands regardless and stays DRAFT until this resolves. Maintainer may revise if they see it differently.
+
+- `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr807-gauntlet-fix-1; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr807-gauntlet-fix-1) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr807-gauntlet-fix-1
 >
-> DONE: My original weave (07-17) landed, then a peer gardener superseded it —
-> restacked [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) onto the [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627)
-> condition-matrix branch, pinned rerere off in the eval fixtures, and scripted the
-> stack-surgery pass-path. The one remaining red check was a real tsc failure (6
-> errors): the stack-surgery repo fixture returned its workspace/git powers typed
-> `unknown`, but the [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627) base tightened
-> RunGitScenarioOptions/makePowersOver to `CodeModePower`. I fixed that (type the
-> fixture return as CodeModePower, matching the sibling stage-and-commit fixture),
-> verified locally: tsc clean, eslint 0 errors, prettier clean, 35 eval tests pass
-> (incl. the pass-path). Pushed to the head branch. PR is still DRAFT.
+> --- original job body ---
+> ---
+> role: gardener
+> tier: minion
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:57:49Z cleared=none -->
 >
-> BLOCKED (needs a decision): [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) now targets
-> `feat/agentry-eval-conditions-matrix` ([endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627)), NOT llm —
-> and it genuinely DEPENDS on that PR now (its eval-live matrix imports
-> runEvalMatrix/makeDefaultGitScenarioSpecs from that code), so it can't go back
-> onto llm without it. But [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627) is STALE and CONFLICTING
-> against llm (untouched since 2026-08-06). Consequence: GitHub won't build the
-> merge ref for [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (mergeable stuck UNKNOWN for 25+ min
-> through close/reopen + a fresh force-push), so pull_request CI won't dispatch — I
-> can't confirm green remotely even though it's green locally. My head merges
-> cleanly into the base tip (0 conflicts), so this is a GitHub glitch downstream of
-> the stale stack.
+> ---
+> role: gardener
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> gauntlet: endojs-endo-but-for-bots-pr807-gauntlet
+> gauntlet_stage: fix
+> gauntlet_iteration: 1
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/807](https://github.com/endojs/endo-but-for-bots/pull/807)
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
 >
-> RECOMMEND: weave/refresh [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627) onto current llm
-> (un-conflict it), which unblocks the whole Phase-5 stack; then the CI for
-> [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) should flow and it can be re-evaluated. Want me to
-> post a weave job for [endojs/endo-but-for-bots#627](https://github.com/endojs/endo-but-for-bots/issues/627), or is the restack plan itself
-> under review? The [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) fix is complete and locally
-> verified regardless.
+> # Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #807
+>
+> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr807-gauntlet). Apply the panel's must-fix items ONCE,
+> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr807-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/807 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. Read the LATEST panel verdict on [https://github.com/endojs/endo-but-for-bots/pull/807](https://github.com/endojs/endo-but-for-bots/pull/807) (the request-changes `gh pr review` the
+>    panel-1 stage just posted) for its must-fix items. Apply them.
+> 3. Push the fix as review-feedback follow-up commits to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 807 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
+>    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
+>   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
+
+- `doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr946-conduct; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr946-conduct) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr946-conduct
+>
+> --- original job body ---
+> ---
+> role: conductor
+> tier: minion
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:58:28Z cleared=none -->
+>
+> ---
+> role: conductor
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # Finalize (curate → merge) endojs/endo-but-for-bots PR #946
+>
+> A trusted maintainer APPROVED this PR and the watcher confirmed it is
+> OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
+> **conductor** to un-draft (if the PR is still draft) and merge. Do NOT name
+> a merge method — the conductor owns that choice (roles/conductor/AGENT.md).
+>
+> Guards (the watcher already enforced these; re-verify before merging):
+>   - Bot repo only (endojs/endo-but-for-bots). NEVER merge agoric-sdk or the endojs/endo
+>     upstream — those are the maintainers / boatmans call.
+>   - The PR must still be OPEN, mergeable, and checks green. If it has
+>     regressed (conflicts, red CI), dispatch the shepherd/fixer instead of
+>     forcing the merge.
+>   - Idempotent: if the PR is already merging/merged/closed, do nothing.
+>
+> Source: pr-review-body by kriskowal
+> Approval: [https://github.com/endojs/endo-but-for-bots/pull/946](https://github.com/endojs/endo-but-for-bots/pull/946)#pullrequestreview-4941598685
 
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
@@ -649,38 +724,34 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.3M | $939.86 _(notional, rate-card)_ | no quota set |
-| Codex | 21.6M _(+994.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Claude | 112.7M | $940.54 _(notional, rate-card)_ | no quota set |
+| Codex | 21.7M _(+1008.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
-### todo (6)
-- [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
-- [`endojs-endo-but-for-bots-pr475-review-cd8864aa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-review-cd8864aa.md) — Review directive on endojs/endo-but-for-bots PR #475
+### todo (4)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`improve-proxy-qualified-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-proxy-qualified-replies.md) — ---
-- [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`self-heal-fix-garden-proxy-bare-issue-ref-reply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-bare-issue-ref-reply.md) — ---
 - [`self-heal-fix-garden-proxy-unqualified-issue-ref`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-unqualified-issue-ref.md) — ---
 
-### doin (11)
-- [`endojs-endo-but-for-bots-pr1038-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1038-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1038
+### doin (9)
+- [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
+- [`endojs-endo-but-for-bots-pr475-review-cd8864aa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-cd8864aa.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr807-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #807
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
-- [`endojs-endo-but-for-bots-pr897-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-weave.md) — weave directive on endojs/endo-but-for-bots PR #897
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
-- [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr977-64413faf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-64413faf.md) — attention directive on endojs/endo-but-for-bots PR #977
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
+- [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 
-### tada (5440)
+### tada (5441)
+- [`endojs-endo-but-for-bots-pr1038-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1038-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr340-review-310af9d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-310af9d3.md) — Completion report
 - [`improve-deploy-cross-file-release-atomicity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-cross-file-release-atomicity.md) — Completion report
 - [`fix-live-budget-admission-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-live-budget-admission-enforcement.md) — Completion report: fix-live-budget-admission-enforcement
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260823-024849`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260823-024849.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260823-0...
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-clean.md) — Completion report
-- … and 5435 more
+- … and 5436 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -705,7 +776,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1038-c9b18630`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1038-c9b18630.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1038
 - [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
+- [`endojs-endo-but-for-bots-pr807-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #807
+- [`endojs-endo-but-for-bots-pr897-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr897-weave.md) — _normal_ · weave directive on endojs/endo-but-for-bots PR #897
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
+- [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr946-conduct.md) — _normal_ · Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260801.md) — _low_ · Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-fix-panel-r5.md) — _low_ · Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
