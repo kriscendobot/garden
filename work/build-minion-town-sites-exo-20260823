@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: gardener
 claimed_at: 2026-08-23T23:33:09Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-sites-exo-20260823
+pr_number: 52
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/52
+pr_head: feat/daemon-sites-exo
