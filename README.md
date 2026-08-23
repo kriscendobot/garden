@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T15:46:03Z_
+_As of 2026-08-23T15:56:35Z_
 
 ## Latest
 
-Byte-array press is complete and fully green across [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (narrows frozen Uint8Array view + helpers) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim); both mergeable with all review threads resolved, awaiting re-review to clear CHANGES_REQUESTED. The finish-line integration, [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888), is also green and unreviewed. In parallel, [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) opened as a DRAFT design for test262 fixture consolidation with parameterized expectations and a ratchet mechanism; it carries an open decision on whether the bespoke ironhorse-meter corpus folds into the parity tree or stays separate. Local-verify parity for Node 24 is fixed and deployed (the guard now adopts or refuses loudly); Node 24 provisioning on fleet hosts is in flight. Deploy is stalled 3 days behind on both garden hosts; multiple gauntlets halted mid-stage due to handler failures (endojs-endo-but-for-bots#1023-panel-2, #807-fix-1, #909-fix-1, minion.town#37-panel-6); one conductor job ([endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is parked awaiting promotion. The maintainer inbox carries 20+ decisions awaiting response, including SIWE tier selection and wallet allowlist for minion.town, frozen-base unfreeze coordination for [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046), and several security-gated follow-ups.
+**Bytearray finish-line green:** both layers ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are CI-green and mergeable; all review threads have answers pushed. Pending only re-review to clear CHANGES_REQUESTED. [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line Registry integration, auto-promoted after #671 merged) is also green, awaiting un-draft and review. **Test262 fixture consolidation** ([endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) opened in DRAFT with mechanism verified; awaits your decision on keeping metering micro-cases separate or collapsing into the parity tree. **SIWE on-chain auth for minion.town** is deployed; needs your answers on tier strategy (tier 1 allowlist + addresses, or proceed with tier 2 schema now) to progress. Multiple gauntlets ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)) halted after requeue exhaustion on one host; these are parked awaiting promotion. **Garden deploy stalled 3 days** on two hosts (18 commits behind); watchers flag for investigation. Node 24 local-verify parity is restored, and a fleet-wide provision landed, though hosts need redeploy to pick it up. Two CRITICAL dependabot PRs on endo-but-for-bots ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green except for a recurring node24-runner CI flake — one merge-direct decision or runner fix would unblock both and other PRs tied to the same infra issue.
 
 ## Parked for maintainer feedback
 
@@ -903,25 +903,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.8M | $1051.01 _(notional, rate-card)_ | no quota set |
+| Claude | 128.9M | $1050.91 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #796
 - [`fix-endo-daemon-test-teardown-leak-pr626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-daemon-test-teardown-leak-pr626.md) — ---
 
-### tada (5470)
+### tada (5471)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-4.md) — Cost
 - [`minion-town-agenda-review-20260823-135004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260823-135004.md) — Completion report
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-4.md) — Cost
-- … and 5465 more
+- … and 5466 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
