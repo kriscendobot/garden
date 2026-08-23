@@ -33,13 +33,4 @@ condition set to both the node oracle and the walker; do not refactor it away),
 export-patterns, package-imports-exports, nested-pkg, and fixtures-0. Bump floor to
 16. Depends on Increment 0.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T17:05:47Z
+<!-- garden-reaped: 1 -->
