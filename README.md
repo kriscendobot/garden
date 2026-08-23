@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T04:25:38Z_
+_As of 2026-08-23T04:33:53Z_
 
 ## Latest
 
-Deploy stalled 3 days. Gauntlet handler cascades parked three jobs (panel/fix/conduct failures); five gauntlets active. Critical path: dependabot [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) blocked on fleet node24-runner CI flake; byteArray [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) await re-review. Budget-admission and Node 24 provisioning landed.
+[kriscendobot/minion.town#51](https://github.com/kriscendobot/minion.town/pull/51) entered finalization — the attention directive and conduct jobs are now claimed. Node.js runtime parity between local-verify and CI was restored (main2 57d851dfaf); fleet hosts are now provisioned with Node 24 to match. The byteArray program ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is complete and green on all engines, blocked only on maintainer re-review to clear `CHANGES_REQUESTED`. The SIWE on-chain authz thunk is deployed to minion.town but awaiting your tier decision and allowlist before config lands. Two hosts report deploy stalled for ~3 days; the root checkout is 18 commits behind `origin/main2`.
 
 ## Parked for maintainer feedback
 
@@ -841,18 +841,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.7M | $944.56 _(notional, rate-card)_ | no quota set |
-| Codex | 22.6M _(+1035.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
+| Claude | 114.6M | $943.96 _(notional, rate-card)_ | no quota set |
+| Codex | 22.7M _(+1035.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr475-fix-review-5001589064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5001589064.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
+- [`kriscendobot-minion.town-pr51-776f7ed7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr51-776f7ed7.md) — attention directive on kriscendobot/minion.town PR #51
+- [`kriscendobot-minion.town-pr51-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr51-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #51
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 
 ### tada (5452)
