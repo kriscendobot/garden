@@ -8,3 +8,13 @@ dispatch: automatic
 Fix in `scripts/jobs/handlers/proxy-claude.sh`:
 1. Add an explicit line to the ANSWER instructions in the prompt heredoc: any issue/PR reference in the tentative reply must be fully-qualified as `owner/repo#N` or a full `https://github.com/owner/repo/issues|pull/N` URL — never a bare `#N` — because the reply is delivered via the message bus's `check-issue-refs.sh` gate, which rejects partial references.
 2. Isolate per-question delivery failure so one bad `answer_question` (e.g. a repeat `check-issue-refs.sh` rejection) doesn't `set -e`-crash the whole digest: catch the failure, fall back to `defer_question` (or an equivalent "awaiting maintainer" note) for that one message, log it, and continue processing the remaining QUESTION blocks — so a single malformed answer degrades gracefully instead of taking the service down and looping.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T04:01:45Z
