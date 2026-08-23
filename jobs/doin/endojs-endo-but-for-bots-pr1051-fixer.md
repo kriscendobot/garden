@@ -100,6 +100,7 @@ before pushing.
 - Report names what you landed and the surfaced push-mode decision. The paired
   `endojs-endo-but-for-bots-pr1051-conduct` job then re-reviews and conducts.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
