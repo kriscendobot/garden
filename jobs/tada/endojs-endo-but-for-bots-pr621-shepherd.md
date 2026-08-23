@@ -1,32 +1,40 @@
-CI verified green, mismatch surfaced to the maintainer. Shepherd's definition of done is met (CI green on head SHA, nothing to repair). Completing.
+Confirmed durable — the weave job is in the lifecycle (`plan/`, budget-held) on `origin/journal2`.
 
-## Completion report
+My shepherd work is complete. Writing the report.
 
-**Job:** shepherd endojs/endo-but-for-bots#621 → drive CI to green.
+---
 
-**Finding:** CI was already fully green on arrival and remains so. No shepherding work was required.
+## Completion report: `endojs-endo-but-for-bots-pr621-shepherd`
 
-**Verification (no changes made):**
-- Container guard clean, inbox empty.
-- Head SHA `ee359efb57f259bdb99b88f756e1024a138a6b97` (== last commit, not stale; unchanged since 2026-07-24).
-- All 5 checks pass against that exact head via `gh pr checks`: `browser-tests`, `build`, `lint`, `test`, `zizmor` → all `pass`. The `CANCELLED` rollup entries are the docs-only/full-CI concurrency-group cancellations (this is a design-only PR), not failures.
-- `mergeable: true`, `mergeable_state: clean`, PR OPEN, non-draft, APPROVED by kriskowal.
+**Directive:** shepherd (drive CI to green) on endojs/endo-but-for-bots PR #621, posted from kriskowal's "Conduct." (2026-08-22) + "Poke." (2026-08-23).
 
-**What changed:** Nothing. No commits, pushes, or PR comments — CI required no intervention.
+### What I found
+- **CI is already green** on the head SHA `ee359ef` (commit dated 2026-07-24; head has not moved since). `gh pr checks 621` exits **0** with all 5 checks passing: `browser-tests`, `build`, `lint`, `test`, `zizmor`. The `CANCELLED` entries in the raw `statusCheckRollup` are superseded duplicate workflow dispatches from a concurrency race at push time; `gh pr checks` correctly dedupes to all-pass.
+- `mergeable_state: CLEAN`, `mergeStateStatus: CLEAN`, `reviewDecision: APPROVED` (kriskowal approved 2026-08-01).
+- **The shepherd deliverable (CI green on head) is satisfied.** There was nothing to fix and no push to make.
 
-**Routing note (surfaced to maintainer):** The trigger comment was "**Conduct.**" (2026-08-22) — an explicit *merge/conductor* directive — but it was posted as a *shepherd* job. Shepherd only gates CI-green (done); it does not merge. This is the second time the merge intent has surfaced without a conductor job being posted (the prior `pr621-shepherd` tada report also flagged "next step is a merge job"). I sent a message to the maintainer via the liaison recommending a **conductor** job (`merge endojs/endo-but-for-bots#621`) to actually land the PR per "Conduct." I did not merge it myself — merging is outside shepherd scope and is a permissioned conductor action, and the base is a frozen `llm-28dffa9` branch warranting a conductor's judgment.
+### The real blocker to "Conduct."
+The PR sits on a **frozen-base snapshot** `llm-28dffa9` (`28dffa9…`) that is now **747 commits behind live `llm`** (live tip `1ceed589…`; head is 6 ahead / 747 behind, diverged). To merge onto live `llm`, the conductor would unfreeze the base and rebase — which, given the divergence and prior `designs/README.md` conflicts on every past rebase (07-20, 07-24), would fail closed `needs weave`. And any rebase invalidates kriskowal's 2026-08-01 approval (commit IDs change), so a **fresh maintainer approval on the rebased head** is required before a merge.
 
-**Classification:** `next: none` for CI (already green, no flakes, no reruns). The outstanding work is a **conductor merge**, not a shepherd re-trigger — handed to the maintainer/liaison via the bus message above.
+### What I did
+- Posted a durable weave job **`endojs-endo-but-for-bots-pr621-weave-20260823`** (currently parked in `plan/` under a budget-hold; will promote to `todo/` when budget frees). It refreshes #621 onto current live `llm` following this PR's established rebase pattern, resolves the `designs/README.md` conflict by the established convention, and confirms CI green on the rebased head. Its body carries the hand-off note that re-approval is needed afterward.
 
-**Follow-ups:** Post a conductor job for endojs/endo-but-for-bots#621 to fulfill "Conduct."
+### Next steps (for the liaison/maintainer)
+- **`next: weaver`** — the posted weave lands the PR on live `llm`.
+- Then **maintainer re-approval** of the rebased head is required (hard human gate — the rebase invalidates the current approval).
+- Then a **`conduct #621`** job merges (base unfreezes to live `llm`).
+
+**Suggested reply to kriskowal on the PR (for the liaison to relay):** CI is green on `ee359ef` and the PR is approved, but it's on a frozen base 747 commits behind live `llm`; a rebase onto live `llm` is queued (weave), after which the PR will need a fresh approval on the rebased head before it can be conducted.
+
+No PR comment was posted from this shepherd job (no shepherd push occurred, so a green-run-URL comment doesn't apply).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr621-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 1 host(s)
-- Input: 21 tokens (466310 cached reads)
-- Output: 12354 tokens
-- Cost: $1.2797669999999999
-- Wall-clock: 193s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 3 on 1 host(s)
+- Input: 47 tokens (1382698 cached reads)
+- Output: 38042 tokens
+- Cost: $3.119948
+- Wall-clock: 582s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
