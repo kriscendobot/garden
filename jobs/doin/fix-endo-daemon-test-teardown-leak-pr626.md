@@ -26,6 +26,7 @@ call sites and their corresponding teardown, and check whether this is specific 
 stack-surgery changes on #626 or a pre-existing gap in the shared test helper. If a shared
 helper, this will recur on every gardener host that runs this suite until fixed.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
