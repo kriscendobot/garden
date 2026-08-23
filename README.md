@@ -1,13 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-23T03:48:51Z_
+_As of 2026-08-23T03:51:57Z_
 
 ## Latest
 
-Multiple gauntlets halted mid-flow (byteArray review panels, Ironhorse coverage matrix, minion.town infrastructure builds) blocking downstream progression; the root cause is gardener failures requiring diagnosis. In better news, the byteArray work is code-complete and all-green — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable pending maintainer re-review to clear CHANGES_REQUESTED, and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line immutable bytes across CapTP) is also green and ready to review. The garden's deploy has stalled ~3d on both active hosts (18 commits behind `main2`), and several critical decisions await — SIWE tier + allowlist choices for minion.town, OpenRouter deny-logging/stealth-lane design, and the root cause of the node24 CI flake blocking two dependabot PRs from auto-conducting.
+Review of [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed; the byteArray redesign program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503) + #475) is green and awaits maintainer re-review to clear CHANGES_REQUESTED before landing. Deploy stalled on two hosts (18 commits behind); several gauntlets halted (endor-fixture-parity, ironhorse-coverage, minion.town git-substrate); budget enforcement designed (main2 87ccd70ab6) awaiting per-account weekly token cap; five parked jobs await maintainer decisions (SIWE allowlist, OpenRouter stealth-lane cadence, test262 fixture scope, node24 provisioning, ocap.site DNSSEC).
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 38s)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 24d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 34d)
@@ -17,9 +18,8 @@ Multiple gauntlets halted mid-flow (byteArray review panels, Ironhorse coverage 
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 51d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 68d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 102d)
-- [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) — feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting 102d)
 
-_Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
@@ -326,13 +326,6 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > keep refusing Node-24 projects until they are redeployed. For immediate relief
 > before a redeploy, run `scripts/jobs/provision-node-lts.sh` inside each running
 > container (I can only reach this one from a per-job worker).
-
-- `20260823T034450Z-603bc7` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T034450Z-603bc7.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: weave-endo-but-for-bots-pr626-stack-surgery-eval
-> - question (msgid 20260822T155858Z-8f4df3.md)
-> - tentative answer: Proxy/tentative — go ahead and post the weave job. Restacking `endojs/endo-but-for-bots#627` onto current llm to un-conflict it is normal maintenance on a fork PR (not merge, not ferry, not an agoric-sdk scope change), so it's within progress/direction authority. Your diagnosis is sound: GitHub's stuck `mergeable: UNKNOWN` on a stale/conflicting base is a known downstream symptom, not evidence your fix is wrong. Post `weave endojs/endo-but-for-bots#627`, let it land, then re-check `#626`'s CI — it should dispatch once the base is current. No need to treat the restack plan itself as "under review" absent other signal; the `#626` fix stands regardless and stays DRAFT until this resolves. Maintainer may revise if they see it differently.
 
 - `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
 
@@ -724,34 +717,34 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.7M | $940.54 _(notional, rate-card)_ | no quota set |
-| Codex | 21.7M _(+1008.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 112.9M | $940.79 _(notional, rate-card)_ | no quota set |
+| Codex | 21.8M _(+1014.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (4)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
-- [`improve-proxy-qualified-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-proxy-qualified-replies.md) — ---
+- [`improve-proxy-malformed-reference-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-proxy-malformed-reference-retry.md) — ---
 - [`self-heal-fix-garden-proxy-bare-issue-ref-reply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-bare-issue-ref-reply.md) — ---
 - [`self-heal-fix-garden-proxy-unqualified-issue-ref`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-proxy-unqualified-issue-ref.md) — ---
 
 ### doin (9)
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
-- [`endojs-endo-but-for-bots-pr475-review-cd8864aa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-cd8864aa.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr977-64413faf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-64413faf.md) — attention directive on endojs/endo-but-for-bots PR #977
+- [`improve-proxy-qualified-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-proxy-qualified-replies.md) — ---
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 
-### tada (5441)
+### tada (5442)
+- [`endojs-endo-but-for-bots-pr475-review-cd8864aa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-cd8864aa.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1038-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1038-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr340-review-310af9d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-310af9d3.md) — Completion report
 - [`improve-deploy-cross-file-release-atomicity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-cross-file-release-atomicity.md) — Completion report
 - [`fix-live-budget-admission-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-live-budget-admission-enforcement.md) — Completion report: fix-live-budget-admission-enforcement
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260823-024849`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260823-024849.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260823-0...
-- … and 5436 more
+- … and 5437 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
