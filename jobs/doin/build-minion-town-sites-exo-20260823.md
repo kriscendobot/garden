@@ -73,6 +73,7 @@ Originating directive: the standing minion.town press on kriscendobot/garden#58
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
