@@ -1969,6 +1969,58 @@ pc_repost=$(grep -rl 'from: proxy' "$PC/inbox/maintainer/unread" 2>/dev/null | x
 rm -rf "$PC"; rm -f "$qpr"
 
 # ============================================================================
+hr; echo "SUBTEST 15c — PROXY MALFORMED REFERENCE: quarantine one question, continue the tick"; hr
+# A generated tentative answer with a bare GitHub reference is deterministically
+# rejected by maintainer-reply.sh. That individual question is terminal: keep its
+# original maintainer message unread, post ONE actionable quarantine notice, mark
+# it seen, and continue processing the other eligible question in the same tick.
+push_change "inbox/px-malformed/unread/.gitkeep" "" "live doer px-malformed"
+push_change "inbox/px-valid-after/unread/.gitkeep" "" "live doer px-valid-after"
+qm="$(mktemp)"; printf 'Choose a parser direction. MALFORMED_REF_REPLY\n' > "$qm"
+qv="$(mktemp)"; printf 'Choose a reversible parser experiment.\n' > "$qv"
+"$JOBS/message-user.sh" px-malformed "$qm" >/dev/null
+"$JOBS/message-user.sh" px-valid-after "$qv" >/dev/null
+
+MRCALLS="$TR/proxy-malformed-reference-calls"; : > "$MRCALLS"
+mrrc=0
+env GARDEN_PROXY_GRACE=0 \
+    GARDEN_PROXY_HANDLER="$HERE/proxy-malformed-reference-stub.sh" \
+    GARDEN_PROXY_STUB_CALLS="$MRCALLS" \
+    "$JOBS/proxy.sh" >/dev/null 2>"$TR/proxy-malformed-reference.log" || mrrc=$?
+
+MR="$TR/pxmr"; rm -rf "$MR"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$MR"
+malformed_id="$(grep -rl '^reply_to: px-malformed$' "$MR/inbox/maintainer/unread" 2>/dev/null | xargs -r -n1 basename | head -1)"
+valid_unread="$(grep -rl '^reply_to: px-valid-after$' "$MR/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)"
+valid_delivered="$(grep -rl 'reversible experiment' "$MR/inbox/px-valid-after/unread" 2>/dev/null | grep -c . || true)"
+notice_count="$(grep -rl 'proxy quarantined a gating question after deterministic reply validation failed' "$MR/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)"
+seen_malformed=0; [ -n "$malformed_id" ] && grep -qxF "$malformed_id" "$GARDEN_STATE/proxy/seen" && seen_malformed=1
+valid_id="$(grep '^20.*\.md$' "$MRCALLS" | while IFS= read -r id; do [ "$id" != "$malformed_id" ] && { printf '%s\n' "$id"; break; }; done)"
+seen_valid=0; [ -n "$valid_id" ] && grep -qxF "$valid_id" "$GARDEN_STATE/proxy/seen" && seen_valid=1
+{ [ "$mrrc" -eq 0 ] && [ "$seen_malformed" -eq 1 ] && [ "$seen_valid" -eq 1 ]; } \
+  && ok "reference rejection is terminal for its question: tick succeeds and both markers advance" \
+  || bad "reference quarantine disposition wrong (rc=$mrrc malformed_seen=$seen_malformed valid_seen=$seen_valid)"
+{ [ -n "$malformed_id" ] && [ "$valid_unread" -eq 0 ] && [ "$valid_delivered" -eq 1 ]; } \
+  && ok "malformed original stays unread while the other question is answered in the same tick" \
+  || bad "per-question isolation wrong (malformed=$malformed_id valid_unread=$valid_unread valid_delivered=$valid_delivered)"
+[ "$notice_count" -eq 1 ] \
+  && ok "one actionable malformed-reference quarantine notice posted" \
+  || bad "malformed-reference notice count=$notice_count (want 1)"
+
+# Re-poll: both markers suppress handler work, and the deterministic notice id
+# prevents duplication even if a prior crash had landed only the notice.
+prev_mr_calls="$(wc -l < "$MRCALLS")"
+env GARDEN_PROXY_GRACE=0 \
+    GARDEN_PROXY_HANDLER="$HERE/proxy-malformed-reference-stub.sh" \
+    GARDEN_PROXY_STUB_CALLS="$MRCALLS" \
+    "$JOBS/proxy.sh" >/dev/null 2>&1
+rm -rf "$MR"; MR="$TR/pxmr2"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$MR"
+notice_count2="$(grep -rl 'proxy quarantined a gating question after deterministic reply validation failed' "$MR/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)"
+{ [ "$(wc -l < "$MRCALLS")" -eq "$prev_mr_calls" ] && [ "$notice_count2" -eq 1 ]; } \
+  && ok "next tick is quiet: quarantined question is not retried and notice is not duplicated" \
+  || bad "quarantined question retried or notice duplicated (calls=$(wc -l < "$MRCALLS") notice=$notice_count2)"
+rm -rf "$MR"; rm -f "$qm" "$qv"
+
+# ============================================================================
 hr; echo "SUBTEST 16 — DEADMAIL: dead-letter undeliverable mail, promote to a job"; hr
 # Dedicated bare so the dead-mail count is fully controllable (other subtests
 # dead-letter into $BARE).

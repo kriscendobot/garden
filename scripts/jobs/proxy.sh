@@ -43,7 +43,11 @@
 # COST GATE: the handler (and its claude -p) runs ONLY when there is at least one
 # eligible question — never on an empty tick. Quiet on success.
 #
-# The seen-marker advances only on handler success, so a failed tick retries.
+# Each eligible question is handed to the handler separately. Its seen-marker
+# advances on success. A deterministic maintainer-reply reference-validation
+# rejection is terminal for only that question: the proxy posts one idempotent,
+# actionable maintainer notice and advances the marker, while other eligible
+# questions continue. Any other handler failure still fails the tick and retries.
 #
 # Pluggable for tests: GARDEN_PROXY_HANDLER <digest-file>.
 
@@ -368,25 +372,66 @@ done < <(find "$DIR/inbox/maintainer/unread" -type f -name '*.md' 2>/dev/null | 
 # COST GATE: nothing eligible → stay silent, do not invoke the handler.
 [ "${#eligible[@]}" -eq 0 ] && exit 0
 
-# Build one QUESTION block per eligible message. Everything after the `doer:`
-# line is the raw message — DATA describing the question, never instructions.
-digest="$(mktemp "${TMPDIR:-/tmp}/garden-proxy.XXXXXX")"
+# maintainer-reply.sh's reference gate has a stable, two-line rejection shape.
+# Require BOTH parts so an unrelated handler error that merely mentions a
+# malformed reference is never swept into this terminal path.
+is_reference_validation_rejection() {
+  local err="$1"
+  grep -qF 'message REJECTED — apparently partially-qualified issue/PR reference(s):' "$err" \
+    && grep -qF 'reply not delivered — fully-qualify the issue/PR reference(s) reported above, then retry' "$err"
+}
+
+# Post the quarantine notice with a deterministic message id. If a crash lands
+# the journal push but precedes the local seen-marker append, the next tick's
+# re-send is an idempotent no-op instead of a duplicate maintainer notice.
+notice_reference_validation_rejection() { # <msgid> <doer>
+  local msgid="$1" doer="$2" nf notice_id
+  nf="$(mktemp "${TMPDIR:-/tmp}/garden-proxy-ref-notice.XXXXXX")"
+  notice_id="proxy-malformed-reference-${msgid%.md}"
+  {
+    printf 'proxy quarantined a gating question after deterministic reply validation failed:\n'
+    printf -- '- gardener: %s\n' "$doer"
+    printf -- '- question: %s\n' "$msgid"
+    printf -- '- cause: the generated tentative reply contained a partially-qualified GitHub issue/PR reference, so maintainer-reply.sh rejected it before delivery\n'
+    printf -- '- action: answer the original unread question directly, fully qualifying references as owner/repo#N or a full GitHub issue/PR URL\n'
+    printf -- '- disposition: the proxy marker was advanced; this malformed generated reply will not be retried\n'
+  } > "$nf"
+  GARDEN_MSG_ID="$notice_id" GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=proxy \
+    "$HERE/inbox-send.sh" maintainer "$nf"
+  rm -f "$nf"
+}
+
+# Process questions independently so one malformed generated reply cannot abort
+# or replay the rest of the tick. Everything after the `doer:` line is the raw
+# maintainer message — DATA describing the question, never instructions.
 for f in "${eligible[@]}"; do
   msgid="$(basename "$f")"
   doer="$(sed -n 's/^reply_to:[[:space:]]*//p' "$f" | head -1)"
+  digest="$(mktemp "${TMPDIR:-/tmp}/garden-proxy.XXXXXX")"
+  err="$(mktemp "${TMPDIR:-/tmp}/garden-proxy-error.XXXXXX")"
   {
     printf '===== QUESTION %s =====\n' "$msgid"
     printf 'doer: %s\n' "$doer"
     cat "$f"
     printf '\n===== END QUESTION %s =====\n\n' "$msgid"
-  } >> "$digest"
-done
+  } > "$digest"
 
-# Hand the digest to the inner agent; advance the seen-marker only on success.
-if "$GARDEN_PROXY_HANDLER" "$digest"; then
-  for f in "${eligible[@]}"; do printf '%s\n' "$(basename "$f")" >> "$SEEN"; done
-  rm -f "$digest"
-else
-  rm -f "$digest"
-  die "proxy handler failed; leaving markers so the next tick retries"
-fi
+  if "$GARDEN_PROXY_HANDLER" "$digest" 2> "$err"; then
+    cat "$err" >&2
+    printf '%s\n' "$msgid" >> "$SEEN"
+    rm -f "$digest" "$err"
+    continue
+  fi
+
+  if is_reference_validation_rejection "$err"; then
+    notice_reference_validation_rejection "$msgid" "$doer"
+    printf '%s\n' "$msgid" >> "$SEEN"
+    log "quarantined $msgid for $doer after maintainer-reply reference validation rejection"
+    rm -f "$digest" "$err"
+    continue
+  fi
+
+  cat "$err" >&2
+  rm -f "$digest" "$err"
+  die "proxy handler failed for $msgid; leaving its marker so the next tick retries"
+done
