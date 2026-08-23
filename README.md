@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T20:36:40Z_
+_As of 2026-08-23T20:46:39Z_
 
 ## Latest
 
-Node 24 local-verify parity restored (commit 57d851dfaf) — fixed a version skew where projects pinned `.node-version=lts/*` resolved to Node 24 in CI but used Node 22 locally, causing silent lint-pass-locally/CI-fail mismatches; a runtime-parity guard now enforces matching and blocks on mismatch. SIWE on-chain authz deployed to siwe-idp.minion.town (awaiting maintainer decision on tier/allowlist). Four gauntlets halted (pr1051-v2migrate orchestration, endor-fixture-parity-ratchet, minion.town pr37/pr#1023 panels) due to handler failures; multiple doomed jobs parked. Two critical dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) ready to merge but blocked by recurring fleet node24-runner CI flake; [#869](https://github.com/endojs/endo-but-for-bots/pull/869) closes GHSA-37j7-fg3j-429f (CRITICAL VM escape in in-tree happy-dom). Garden deploy stalled 3+ days across both production hosts (18 commits behind main2).
+The byteArray program reached completion and full CI green: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) await your approval to clear CHANGES_REQUESTED, while [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry integration, draft) is ready for un-draft and review. Node 24 parity enforcement is now live in local-verify and baked into the Dockerfile, though not yet propagated to running hosts. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are mergeable but blocked by a recurring node24-runner CI flake. Root repo deploy is stalled 18 commits behind main2 for three days. Pending: bytearray approval, node24 flake fix or merge authority, SIWE tier and allowlist, ocap.site DNSSEC signing.
 
 ## Parked for maintainer feedback
 
@@ -1028,27 +1028,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.3M | $1056.22 _(notional, rate-card)_ | no quota set |
+| Claude | 132.4M | $1056.48 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1051-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1051-fixer.md) — fixer: migrate release.yml config for changesets/action v2 (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr1052-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1052-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1052
-- [`endojs-endo-but-for-bots-pr1053-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1053-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1053
 - [`endojs-endo-but-for-bots-pr1054-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1054-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1054
 - [`endojs-endo-but-for-bots-pr1056-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1056-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1056
 
-### tada (5481)
+### tada (5482)
+- [`endojs-endo-but-for-bots-pr1053-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1053-dependabot.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1051-v2migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1051-v2migrate.md) — orchestration endojs-endo-but-for-bots-pr1051-v2migrate — HALTED
 - [`endojs-endo-but-for-bots-pr1055-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1055-dependabot.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1050-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1050-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots PR #1050
 - [`endojs-endo-but-for-bots-pr1051-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1051-dependabot.md) — Completion report
-- [`endor-fixture-parity-ratchet-campaign-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260823.md) — orchestration endor-fixture-parity-ratchet-campaign-20260823 — HALTED
-- … and 5476 more
+- … and 5477 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
