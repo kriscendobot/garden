@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+handler-budget-role: review
+token-budget: 250000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+requeue_cycles: 4
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-08-23T22:03:04Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T22:03:04Z
+---
+
+---
 handler-budget-role: review
 tier: minion
 model-burned: mentor
@@ -51,19 +69,3 @@ directive:
   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
     and do the work.
 Never state in your report that a peer did work you did not verify.
-
-
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T21:53:08Z
