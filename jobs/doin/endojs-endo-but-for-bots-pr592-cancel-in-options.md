@@ -78,3 +78,13 @@ branch; then post inline replies to BOTH review comments (ids 3560627735 and
 3560633818) citing the resolving commit (skills/pr-review-thread-replies).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-23T02:44:04Z
