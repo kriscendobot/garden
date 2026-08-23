@@ -1,8 +1,7 @@
-cadence: 2h
-last_dispatched: 2026-08-23T22:50:08Z
-job_basename_prefix: minion-town-agenda-review
+---
 handler-timeout: 7200
 ---
+
 ---
 tier: mentor
 fallback-tier: minion
