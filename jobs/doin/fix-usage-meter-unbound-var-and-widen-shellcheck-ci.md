@@ -61,6 +61,7 @@ widening plus the specific bug.
 3. Confirm the retargeted workflow (now triggering on `main2`) actually
    runs green on your PR-equivalent push and report the run URL.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
