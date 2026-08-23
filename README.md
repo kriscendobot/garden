@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T04:02:56Z_
+_As of 2026-08-23T04:03:55Z_
 
 ## Latest
 
-Review of [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed; the byteArray redesign program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503) + #475) is green and awaits maintainer re-review to clear CHANGES_REQUESTED before landing. Deploy stalled on two hosts (18 commits behind); several gauntlets halted (endor-fixture-parity, ironhorse-coverage, minion.town git-substrate); budget enforcement designed (main2 87ccd70ab6) awaiting per-account weekly token cap; five parked jobs await maintainer decisions (SIWE allowlist, OpenRouter stealth-lane cadence, test262 fixture scope, node24 provisioning, ocap.site DNSSEC).
+The garden added one deferred job (ironhorse-ses-hostrow) this window. More pressingly, the root garden deploy has stalled for ~3 days on both hosts (18 commits behind main2), blocking all propagation—deploying the node24 parity fix requires advancing it. Three gauntlets halted mid-flow with stranded PRs ([endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)) that need attention. The byteArray program—[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)—is complete and CI-green, gated only on maintainer re-review. The SIWE on-chain authz deployment ([minion.town](https://github.com/kriscendobot/minion.town)) is live and awaiting tier/allowlist decisions. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked on a recurring node24-runner CI flake; both merit direct merge or the fleet flake needs fixing. The test262 fixture consolidation ([endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is DRAFT and awaiting a decision on metering-corpus scope.
 
 ## Parked for maintainer feedback
 
@@ -778,7 +778,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 113.4M | $941.59 _(notional, rate-card)_ | no quota set |
-| Codex | 22.2M _(+1027.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Codex | 22.2M _(+1028.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
@@ -893,6 +893,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr340-review-310af9d3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr340-review-310af9d3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #340 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-1f118200-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-1f118200-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1046-9fa4b1fe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-9fa4b1fe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1046 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr475-ironhorse-ses-hostrow`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-ironhorse-ses-hostrow.md) — _low_ · Add an Ironhorse+SES host row to the ImmutableArrayBuffer view-behavior matrix
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
