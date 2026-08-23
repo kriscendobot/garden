@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: gardener
-claimed_at: 2026-08-23T17:16:20Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-press-minion-town-e2e-prod-test-20260823

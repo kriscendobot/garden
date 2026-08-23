@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":45,"elapsed_s":589,"input_tokens":85,"output_tokens":41054,"cache_creation_tokens":102446,"cache_read_tokens":3661852,"total_cost_usd":3.885353,"ts":"2026-08-23T17:26:43Z","base":"press-minion-town-e2e-prod-test-20260823","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
