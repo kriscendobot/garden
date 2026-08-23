@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":16,"elapsed_s":100,"input_tokens":28,"output_tokens":6510,"cache_creation_tokens":41535,"cache_read_tokens":721313,"total_cost_usd":0.9420235,"ts":"2026-08-23T03:17:25Z","base":"fix-live-budget-admission-enforcement","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder"}
