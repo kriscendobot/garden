@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T14:41:53Z_
+_As of 2026-08-23T14:45:44Z_
 
 ## Latest
 
-Node24 local-verify parity shipped (main2 c1583f733f) with fleet provisioning; the same node24 CI flake is now blocking deploy progression and preventing two green dependabot merges ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)). ByteArray (three-layer design across [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is code-complete and CI-green, waiting on maintainer re-review to clear CHANGES_REQUESTED. The board is idle with multiple gauntlets halted and ~25 inbox messages pending on maintainer decisions: byteArray re-review, SIWE tier/allowlist, OpenRouter policy, minion.town DNSSEC, and others.
+The root garden deploy has stalled for ~3 days across two hosts, holding 18 commits behind origin/main2 — investigate why `deploy-garden.sh` has not run. Multiple gauntlet stages (panel/fix rounds on #796, #807, #909, #1023, and minion.town#37) are doomed after hitting requeue limits; the scheduler and handler budgets need inspection. A fleet-wide Node24 CI runner flake is blocking two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/issues/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009)) from conducting — both are MERGE-NOW on diligence but cannot converge because rebases re-roll the flake faster than CI completes. On the infrastructure side, local-verify now guards against Node version skew with live Node 24 adoption, and Node 24 provisioning landed in the Dockerfile. Three maintainer decisions are queued: SIWE tier selection + allowlist addresses for minion.town (blocking [wire-siwe-onchain-authz-minion.town](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T055203Z-ae527d.md)), approval on four dependabot PRs including the CRITICAL happy-dom escape fix, and closure on the node24-runner flake itself (either merge the two PRs directly or fix the infra).
 
 ## Parked for maintainer feedback
 
@@ -903,15 +903,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 127.9M | $1049.94 _(notional, rate-card)_ | no quota set |
+| Claude | 128.1M | $1050.19 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #796
 
 ### tada (5469)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-5.md) — Cost
