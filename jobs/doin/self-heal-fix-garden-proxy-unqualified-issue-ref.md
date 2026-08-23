@@ -26,3 +26,13 @@ Failure signature to match in tests: check-issue-refs.sh stderr containing
 "message REJECTED — apparently partially-qualified issue/PR reference(s)"
 followed by maintainer-reply.sh's "reply not delivered" die and proxy.sh's
 "proxy handler failed; leaving markers so the next tick retries".
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T04:06:30Z
