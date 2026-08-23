@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T04:23:27Z_
+_As of 2026-08-23T04:25:38Z_
 
 ## Latest
 
-The byteArray implementation ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) and registry immutable-bytes integration ([#888](https://github.com/endojs/endo-but-for-bots/pull/888)) are complete and all-green, gated on kriskowal's re-review to clear CHANGES_REQUESTED. Test262 fixture consolidation opened as DRAFT ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) with a design decision needed (keep separate metering corpus or fold into upstream tree). The fleet is live-addressing 23 maintainer inbox messages, including SIWE on-chain authz integration for minion.town (awaiting wallet allowlist + tier choice), OpenRouter ZDR/stealth-lane policy build (2400s wall budget exceeded; parked for re-scoping), and a recurring CI flake on Node 24 runners blocking two dependabot PRs. Garden deploy has stalled for ~3 days across both instances; investigate why no deliberate-drain-and-deploy has landed. Local-verify now enforces Node runtime parity ([#1048](https://github.com/endojs/endo-but-for-bots/pull/1048) follow-up landed), but fleet hosts lack Node 24; provisioning queued. Five gauntlet stages halted on panel/fix failures and three doom jobs parked from requeue exhaustion — inspect handler logs on endolin-garden-ece02cb4.
+Deploy stalled 3 days. Gauntlet handler cascades parked three jobs (panel/fix/conduct failures); five gauntlets active. Critical path: dependabot [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) blocked on fleet node24-runner CI flake; byteArray [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) await re-review. Budget-admission and Node 24 provisioning landed.
 
 ## Parked for maintainer feedback
 
@@ -841,28 +841,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.5M | $944.08 _(notional, rate-card)_ | no quota set |
-| Codex | 22.6M _(+1034.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
+| Claude | 114.7M | $944.56 _(notional, rate-card)_ | no quota set |
+| Codex | 22.6M _(+1035.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr475-fix-review-5001589064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5001589064.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
-- [`improve-budget-level-fail-open-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-fail-open-diagnostics.md) — ---
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 
-### tada (5451)
+### tada (5452)
+- [`improve-budget-level-fail-open-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-level-fail-open-diagnostics.md) — Cost
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — Cost
 - [`self-heal-fix-garden-proxy-unqualified-issue-ref`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-unqualified-issue-ref.md) — Completion report
 - [`endojs-endo-but-for-bots-pr977-64413faf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr977-64413faf.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-9fa4b1fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-9fa4b1fe.md) — Cost
-- [`self-heal-fix-garden-proxy-bare-issue-ref-reply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-bare-issue-ref-reply.md) — Cost
-- … and 5446 more
+- … and 5447 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
