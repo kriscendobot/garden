@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-23T23:08:13Z_
+_As of 2026-08-23T23:12:55Z_
 
 ## Latest
 
@@ -1028,24 +1028,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.9M | $1056.53 _(notional, rate-card)_ | no quota set |
+| Claude | 134.0M | $1056.61 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`build-minion-town-sites-exo-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-sites-exo-20260823.md) — Build the daemon-hosted @sites exo so weblet publish serves a live <hash>.oca...
-- [`deadmail-issue-comment-5388921796`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5388921796.md) — Dead-lettered message — pick up its intent
 
-### tada (5486)
+### tada (5487)
+- [`deadmail-issue-comment-5388921796`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5388921796.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-d7b66ffe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-d7b66ffe.md) — Completion report
 - [`minion-town-agenda-review-20260823-225008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260823-225008.md) — Cost
 - [`deadmail-issue-comment-5388846009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5388846009.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1054-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1054-dependabot.md) — Completion report: botanist on endojs/endo-but-for-bots PR #1054
-- [`endojs-endo-but-for-bots-pr1053-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1053-dependabot.md) — Completion report
-- … and 5481 more
+- … and 5482 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
