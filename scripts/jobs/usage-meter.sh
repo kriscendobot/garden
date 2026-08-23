@@ -295,7 +295,7 @@ meter_verdict() {
 # per-job ledger supplies the best available remote reading. Unmetered/malformed
 # rows make the remote status unknown (fail-open), never an invented zero.
 meter_journal_host_tokens() {
-  local dir="$1" host="$2" cutoff files
+  local dir="$1" host="$2" cutoff="$3" files
   [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 1
   files=("$dir"/usage/*.jsonl)
   [ -e "${files[0]}" ] || { printf '0\n'; return 0; }
@@ -378,7 +378,7 @@ budget_publish_local_pool() {
 }
 
 meter_journal_provider_usd() {
-  local dir="$1" provider="$2" cutoff files
+  local dir="$1" provider="$2" cutoff="$3" files
   [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 1
   files=("$dir"/usage/*.jsonl)
   [ -e "${files[0]}" ] || { printf '0\n'; return 0; }
