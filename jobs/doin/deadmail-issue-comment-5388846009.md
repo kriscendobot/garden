@@ -46,3 +46,13 @@ Please schedule a press every two hours
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T22:43:12Z
