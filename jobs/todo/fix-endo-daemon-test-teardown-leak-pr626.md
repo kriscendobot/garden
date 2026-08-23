@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 The `weave-endo-but-for-bots-pr626-stack-surgery-eval` job (completed 2026-08-23T04:17:13Z)
@@ -26,13 +27,4 @@ call sites and their corresponding teardown, and check whether this is specific 
 stack-surgery changes on #626 or a pre-existing gap in the shared test helper. If a shared
 helper, this will recur on every gardener host that runs this suite until fixed.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T15:44:46Z
+<!-- garden-reaped: 0 -->
