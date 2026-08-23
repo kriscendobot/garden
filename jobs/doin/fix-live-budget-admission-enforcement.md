@@ -79,3 +79,13 @@ changed, what (if anything) was already covered by other recently-landed
 budget work, and the placeholder-cap caveat.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-23T03:15:17Z
