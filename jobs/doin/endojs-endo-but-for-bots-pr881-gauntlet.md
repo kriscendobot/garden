@@ -29,6 +29,7 @@ Run the complete PR-creation gauntlet for the current draft. It is stacked on ht
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
