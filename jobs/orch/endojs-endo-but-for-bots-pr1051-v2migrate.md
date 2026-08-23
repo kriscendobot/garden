@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1051-fixer endojs-endo-but-for-bots-pr1051-conduct
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-23T20:04:24Z
 ---
