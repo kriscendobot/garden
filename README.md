@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T05:54:47Z_
+_As of 2026-08-23T06:20:20Z_
 
 ## Latest
 
-[endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/pull/796) completed its gauntlet and merged. Four other gauntlets halted mid-stage ([endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)) on the endolin-garden-ece02cb4 host, where handlers are failing repeatedly. The root garden deploy has stalled for ~3 days across both hosts, 18 commits behind main2. Node 24 provisioning landed on the primary host but other instances still need the update. Blocking the next phase: maintainer decisions on merging two dependabot PRs past a CI flake, SIWE tier/address authorization for minion.town, OpenRouter zero-data-retention policy enforcement, test262 fixture consolidation strategy (metering corpus handling), and budget-enforcement enablement (weekly token cap input). Several long-parked designs remain under review ([byteArray/immutable-bytes PRs](https://github.com/endojs/endo-but-for-bots/issues/475), [familiar/host-run apps](https://github.com/endojs/endo-but-for-bots/pull/241), [Endor TUI](https://github.com/endojs/endo-but-for-bots/pull/166)), with the most time-sensitive being the two byteArray finish-line layers, which are green and gate only on maintainer re-review.
+Gauntlets halted with requeue exhaustion on one host; deploys stalled 3+ days behind on both. The byteArray press is complete and green: [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) await maintainer re-review, [#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft. Test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946) DRAFT) ready for an open decision. Node 24 local-verify parity deployed (main2 c1583f733f) but other containers need rebuild. [#881](https://github.com/endojs/endo-but-for-bots/pull/881) running the gauntlet.
 
 ## Parked for maintainer feedback
 
@@ -899,24 +899,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.6M | $944.40 _(notional, rate-card)_ | no quota set |
+| Claude | 116.7M | $945.47 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+1084.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #796
+### doin (1)
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-gauntlet.md) — Run the gauntlet: attenuated Google Sheets facets
 
-### tada (5459)
+### tada (5460)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-retcon.md) — Cost
 - [`improve-budget-level-failure-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-level-failure-diagnostics.md) — Cost
 - [`endojs-endo-but-for-bots-pr970-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr970-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Shepherd report: endojs/endo-but-for-bots#475
-- … and 5454 more
+- … and 5455 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
