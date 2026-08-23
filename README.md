@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T17:27:29Z_
+_As of 2026-08-23T17:36:07Z_
 
 ## Latest
 
-Press minion.town e2e test completed. SIWE on-chain authz deployed to production (thunk live at https://siwe-idp.minion.town) and awaiting Tier 1 allowlist configuration. Local-verify Node 24 parity guard deployed; Node 24 provisioning to fleet hosts in progress. The byteArray program is complete and mergeable ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)), awaiting re-review to clear CHANGES_REQUESTED. Garden deploy is stalled (~3d behind origin/main2 on two hosts). Multiple gauntlets halted with requeue exhaustion (endojs-endo-but-for-bots PRs [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909); minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)); diagnoses in the inbox. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on a fleet node24-runner infra flake. Substantial maintainer inbox (35+ messages) with decisions needed on byteArray re-review, SIWE allowlist, test262 corpus unification, and several stalled/halted campaigns.
+Root repo deploy stalled for ~3 days at 18 commits behind main2 on both instances — investigate what's blocking the deliberate-deploy step. Meanwhile, the [byteArray](https://github.com/endojs/endo-but-for-bots/pull/475) finish-line components ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are complete and CI-green across all engines, gated only on your re-review to clear CHANGES_REQUESTED; the fleet reported them merge-ready on 2026-08-01. Node 24 parity guard landed to prevent local-verify/CI skew, but provisioning on other fleet hosts won't complete until the next deploy, so projects pinned to Node 24 still hard-fail locally for now. A recurring node24-runner flake blocks two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from auto-merge; [test262 fixture consolidation](https://github.com/endojs/endo-but-for-bots/pull/946) opened DRAFT with a design decision on case-tree scope awaiting your call. Several orchestration jobs halted after hitting requeue limits — each reports specific blockers (frozen base sharing on [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046), SIWE tier 1 allowlist input for minion.town, test framework pre-existing failures) in the maintainer inbox.
 
 ## Parked for maintainer feedback
 
@@ -15,7 +15,7 @@ Press minion.town e2e test completed. SIWE on-chain authz deployed to production
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 37d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 40d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 52d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 68d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 69d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 102d)
 - [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) — feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting 102d)
 
@@ -326,6 +326,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > keep refusing Node-24 projects until they are redeployed. For immediate relief
 > before a redeploy, run `scripts/jobs/provision-node-lts.sh` inside each running
 > container (I can only reach this one from a per-job worker).
+
+- `20260823T173407Z-4e0254` — from orchestrator:endor-fixture-parity-ratchet-campaign-20260823-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T173407Z-4e0254.md)
+
+> Orchestration endor-fixture-parity-ratchet-campaign-20260823 HALTED: child endor-walker-exports-resolution stalled after 3 requeues on host endolin-garden-ece02cb4 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 0/6 done before halt; parked remainder: endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -903,25 +907,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.6M | $1056.64 _(notional, rate-card)_ | no quota set |
+| Claude | 130.8M | $1056.97 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endor-walker-exports-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-exports-resolution.md) — Build Increment 2 — conditional & subpath exports/imports (Group C)
 - [`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md) — Grounding incident
-- [`refresh-pr-review-sequence-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/refresh-pr-review-sequence-20260823.md) — What to do
 
-### tada (5476)
+### tada (5477)
+- [`endor-fixture-parity-ratchet-campaign-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260823.md) — orchestration endor-fixture-parity-ratchet-campaign-20260823 — HALTED
 - [`press-minion-town-e2e-prod-test-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/press-minion-town-e2e-prod-test-20260823.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822.md) — gauntlet endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822 — HALTED
 - [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6.md) — Completion report — Gauntlet FIX round 6, endojs/endo-but-for-bots PR #796
 - [`endor-fixture-parity-ratchet-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign.md) — orchestration endor-fixture-parity-ratchet-campaign — HALTED
-- [`fix-usage-meter-cutoff-unbound-var`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-usage-meter-cutoff-unbound-var.md) — Completion report
-- … and 5471 more
+- … and 5472 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -988,6 +991,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
 - [`proposal-compartments-xs-parser-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-xs-parser-design.md) — _normal_ · ---
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
+- [`refresh-pr-review-sequence-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/refresh-pr-review-sequence-20260823.md) — _normal_ · What to do
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-base-update-and-pin-alias.md) — _normal_ · ---
