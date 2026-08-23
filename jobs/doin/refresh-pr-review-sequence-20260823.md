@@ -52,3 +52,13 @@ worthwhile follow-up, but the maintainer asked for a plain content refresh
 this time, not that follow-up.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-23T16:53:14Z
