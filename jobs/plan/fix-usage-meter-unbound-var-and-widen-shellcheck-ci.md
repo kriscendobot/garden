@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-23T17:43:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T17:43:03Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -61,17 +78,3 @@ widening plus the specific bug.
 
 3. Confirm the retargeted workflow (now triggering on `main2`) actually
    runs green on your PR-equivalent push and report the run URL.
-
-<!-- garden-reaped: 1 -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-23T16:53:23Z

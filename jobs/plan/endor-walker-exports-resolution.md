@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+requeue_cycles: 4
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-08-23T17:43:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T17:43:03Z
+---
+
+---
 role: builder
 tier: mentor
 ---
@@ -32,19 +50,3 @@ conditional-host-exports (EMULATE the `endo:lib` condition — supply the same
 condition set to both the node oracle and the walker; do not refactor it away),
 export-patterns, package-imports-exports, nested-pkg, and fixtures-0. Bump floor to
 16. Depends on Increment 0.
-
-
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-23T17:33:25Z
