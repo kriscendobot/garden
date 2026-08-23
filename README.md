@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-23T15:56:35Z_
+_As of 2026-08-23T16:00:18Z_
 
 ## Latest
 
-**Bytearray finish-line green:** both layers ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are CI-green and mergeable; all review threads have answers pushed. Pending only re-review to clear CHANGES_REQUESTED. [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line Registry integration, auto-promoted after #671 merged) is also green, awaiting un-draft and review. **Test262 fixture consolidation** ([endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) opened in DRAFT with mechanism verified; awaits your decision on keeping metering micro-cases separate or collapsing into the parity tree. **SIWE on-chain auth for minion.town** is deployed; needs your answers on tier strategy (tier 1 allowlist + addresses, or proceed with tier 2 schema now) to progress. Multiple gauntlets ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)) halted after requeue exhaustion on one host; these are parked awaiting promotion. **Garden deploy stalled 3 days** on two hosts (18 commits behind); watchers flag for investigation. Node 24 local-verify parity is restored, and a fleet-wide provision landed, though hosts need redeploy to pick it up. Two CRITICAL dependabot PRs on endo-but-for-bots ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green except for a recurring node24-runner CI flake — one merge-direct decision or runner fix would unblock both and other PRs tied to the same infra issue.
+Node 24 runtime parity was restored with a guard in local-verify and provisioning into the Dockerfile (commits 57d851dfaf, c1583f733f); the fleet's running hosts will adopt Node 24 once they redeploy. [PR #796](https://github.com/endojs/endo-but-for-bots/pull/796) is actively working through gauntlet fix rounds (currently round 6), while several other gauntlets halted mid-stage — [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [minion.town #37](https://github.com/kriscendobot/minion.town/pull/37) — due to handler failures or budget overruns; those panels and fixes are parked awaiting promotion. Garden's root repo deploy has stalled for three days (18 commits behind origin/main2); investigate why no deliberate deploy has landed. Multiple maintainer decisions are queued: SIWE tier/allowlist authorization for minion.town ([#20](https://github.com/kriscendobot/minion.town/issues/20)), dependabotany approvals for critical GHSA-37j7-fg3j-429f fix ([#869](https://github.com/endojs/endo-but-for-bots/pull/869)) and eslint upgrade, and orchestration child promotion gates ([#881](https://github.com/endojs/endo-but-for-bots/pull/881) follow-up, xs2rust endor debugger phases, test262 consolidation).
 
 ## Parked for maintainer feedback
 
@@ -903,15 +903,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.9M | $1050.91 _(notional, rate-card)_ | no quota set |
+| Claude | 129.0M | $1051.07 _(notional, rate-card)_ | no quota set |
 | Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-resume-20260822-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #796
 - [`fix-endo-daemon-test-teardown-leak-pr626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-daemon-test-teardown-leak-pr626.md) — ---
 
 ### tada (5471)
