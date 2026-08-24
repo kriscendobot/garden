@@ -61,6 +61,7 @@ The authoritative roadmap is `designs/README.md` on the `endojs/endo-but-for-bot
 Topic files the [scholar](../../../roles/scholar/AGENT.md) grows from project-tagged material; per the [context-library](../../../skills/context-library/SKILL.md) skill each topic is its own sibling file rather than an expansion of this README.
 
 - [ai-sdk-research.md](ai-sdk-research.md): Vercel AI SDK architecture research (v7 Core / UI / Harnesses surfaces, the language-model provider spec, `ToolLoopAgent`, `HarnessAgent`, streaming, structured output, operational and integration constraints), curated as input for a subsequent design comparing the AI SDK with pi. Disambiguates the two senses of "pi": `@mariozechner/pi-ai` (the provider registry endopi builds on) and `@earendil-works/pi-coding-agent` (the coding-agent harness the `@ai-sdk/harness-pi` adapter wraps). Scholar job `scholar-ai-sdk-research` (2026-07-14).
+- [generative-agent-memory.md](generative-agent-memory.md): maps Chinta's Generative Agents memory/retrieval/reflection/planning architecture onto Endo's existing durable formula/petname and transcript substrate. The concrete gap is policy above persistence: bounded context selection, evidence-linked reflection, and forward-only replanning should remain agent-layer capabilities rather than daemon-global behavior. Scholar job `scholar-ingest-generative-agents-talk` (2026-08-24).
 
 Source entries to consult when growing this directory:
 
