@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T03:17:56Z_
+_As of 2026-08-24T03:20:57Z_
 
 ## Latest
 
-Gauntlet traffic has stalled: multiple endojs/endo-but-for-bots and kriscendobot/minion.town PR gauntlets halted mid-stage over the past ~48 hours, with five doom jobs parked from requeue exhaustion (PRs #1023 panel-2, #807 fix-1, #909 fix-1, #946 conduct, and minion.town #37 panel-6). Two endor-fixture-parity-ratchet orchestration runs also halted on the same hosts (endolin-garden-ece02cb4), with the child endor-walker-exports-resolution stalled on an elapsed-constancy fast failure. Concurrently, garden deploy has stalled for ~3d on both endolin-garden-ece02cb4 and endolin-garden2-5bcdff64 (18 commits behind origin/main2). On the operational side: Node 24 provisioning deployed to garden2; local-verify parity guard landed and is now refusing Node-24-pinned projects on hosts without Node 24; and [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) remain MERGE-NOW verdicts waiting on the fleet node24-runner infra flake. Upstream, the byteArray press finished all components green ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) and gated on maintainer re-review + un-draft, budget enforcement design landed, and SIWE on-chain authz deployed—awaiting maintainer authorization for tier 1 allowlist configuration.
+Root deployment is stalled 18 commits behind on two hosts for the past three days — investigate why no drained deploy has landed. Multiple gauntlets are halted mid-stage (PRs #1023, #807, #909, #946 on endo-but-for-bots; minion.town #37 panel-6); byteArray press hit finish-line with both PRs ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) green and complete, awaiting maintainer re-review to clear CHANGES_REQUESTED. Local-verify now enforces Node.js runtime parity (resolves skew between local Node 22 and CI Node 24); minion.town SIWE on-chain authz is wired and deployed—the thunk runs live at https://siwe-idp.minion.town but awaits your TIER 1 ALLOWLIST (addresses + scopes). Two dependabotany PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW on merits but blocked only by a recurring CI node24 runner flake; decision needed on whether to merge despite the non-required-check red or fix the fleet issue first. Maintainer inbox holds 39 flagged decisions spanning DNSSEC for ocap.site, OpenRouter deny-logging enforcement, budget token caps, disclosure timing on a fork PR, and a dozen others—muster will triage and prioritize.
 
 ## Parked for maintainer feedback
 
@@ -1028,16 +1028,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.3M | $1059.98 _(notional, rate-card)_ | no quota set |
-| Codex | 26.5M _(+1260.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 136.5M | $1060.14 _(notional, rate-card)_ | no quota set |
+| Codex | 26.5M _(+1263.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`kriscendobot-minion-town-pr52-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #52
+- [`minion-town-agenda-review-20260824-032005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260824-032005.md) — Minion Town press (every two hours)
 
 ### tada (5499)
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-panel-3.md) — Completion report
