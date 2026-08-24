@@ -76,6 +76,7 @@ motion) is exactly what the maintainer asked for. A budget park self-recovers as
 spend ages out of the window; an idle park is sticky — a maintainer resumes it with
 `scripts/jobs/resume-minion-town-press.sh` once the blockers clear.
 
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-24T05:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
