@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T01:18:20Z_
+_As of 2026-08-24T01:20:58Z_
 
 ## Latest
 
-[minion.town#52](https://github.com/kriscendobot/minion.town/pull/52) cleared its clean stage, but the garden is otherwise quiet with heavy infrastructure friction: root-repo deploy stalled for ~3d (18 commits behind origin/main2 on both hosts), multiple gauntlets halted due to handler timeouts and orchestration stalls, and a cluster of waiting-on-maintainer items blocking progress. The byteArray finisher is complete and green ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) awaiting re-review; [minion.town#20](https://github.com/kriscendobot/minion.town/pull/20) SIWE authz needs tier/allowlist decisions; and two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are mergeable but stalled by the recurring CI node24-runner flake.
+Garden work since last bulletin: deploy stalled for 3 days on two hosts ([endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4), [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64)) — investigate why `deploy-garden.sh` has not landed. Node 24 provisioning deployed to Dockerfile; hosts running Node 22 only will hard-fail Node-24-pinned projects' local verification until they redeploy or run the provisioning script manually. Several gauntlet runs halted mid-pipeline (PRs [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37), and orchestration campaign [endor-fixture-parity-ratchet](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-fixture-parity-ratchet-campaign-20260823.md)) due to requeue exhaustion or handler timeouts — work preserved in plan/ pending promotion. ByteArray finish-line components ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) are all green and gated on re-review; test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) opened as DRAFT with a design decision needed on whether to fold the 1712 bespoke metering cases into the upstream tree or keep them separate. Shared frozen base ([llm-e22e67a](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a.md)) blocks [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) unfreeze — weave the stack forward or merge in dependency order. Budget admission design ([live-budget-admission.md](https://github.com/kriscendobot/garden/blob/journal2/main2/designs/live-budget-admission.md)) landed on main2; live implementation awaits per-account weekly token cap (read from Claude Code `/usage` panel or measure empirically). Multiple maintainer decisions held in inbox: SIWE tier-1 allowlist addresses for minion.town, OpenRouter zero-data-retention policy enforcement and stealth-lane mechanics, shell-linting scope widening, and several follow-ups flagged for your review rather than autonomous action. 5491 jobs completed since last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.7M | $1057.58 _(notional, rate-card)_ | no quota set |
-| Codex | 25.7M _(+1220.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 134.8M | $1057.73 _(notional, rate-card)_ | no quota set |
+| Codex | 25.7M _(+1220.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion-town-pr52-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 
 ### tada (5491)
 - [`kriscendobot-minion-town-pr52-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #52
