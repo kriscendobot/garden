@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T18:47:47Z_
+_As of 2026-08-24T18:59:00Z_
 
 ## Latest
 
-Cloudflare OS ingestion wrapped over two cycles (both complete) with 38 sections and 11 new topics covering Workers hosting, Gatekeepers, capability graphs, and sharing models; the library index backlog shifted to follow-on runs. Node 24 provisioning landed in the Dockerfile and verified locally, unblocking Node-pinned projects — re-deployed hosts will adopt it on next rebuild. Two hosts' deployments stalled 3+ days behind `main2` (18 commits); investigate why the deliberate drain/deploy hasn't cleared. The byteArray stack is complete and green across both finish-line PRs ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) — gated on re-review only; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line un-draft/review) is mergeable and clean. Five gauntlets halted mid-stage; four panel stages on a single host (endolin-garden-ece02cb4) exhausted requeue after repeated handler failure, parked with `go-ahead` gates. The endor fixture-parity ratchet halted on child one (elapsed-constancy failure, fast-exit pattern); remaining six children parked. Designs landed: budget enforcement (live pool admission), omega task rank (precedent for orchestration sequencing), with open questions outstanding on unum's rank definition and test262 fixture consolidation scope (metering corpus merge vs. separate expectation trees). Maintainer inbox carries 25+ decisions pending: SIWE tier 1 allowlist (addresses needed), root-repo worktree disposition, pre-push gate driver relocation, and infrastructure remediations (node24-runner flake, offline journal recovery, fleet budget token caps). Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) MERGE-NOW verdict but blocked on recurring node24 flake — either direct merge or fix the fleet CI infra.
+Scholar library work on Cloudflare OS wrapped three ingestion cycles with phase 4 in progress. Node 24 parity gate deployed; provisioning required on other hosts. Bytearray design PRs [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are complete and awaiting your re-review; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line) awaits un-draft. Two dependabot updates ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green but blocked on a fleet CI flake. Infrastructure: root deployments stalled across two hosts; multiple gauntlets halted and PRs doomed on requeue limits, pending your decisions on parked work (SIWE tier-1 allowlist for minion.town, disclosed-repo disclosure timing, various design follow-ups).
 
 ## Parked for maintainer feedback
 
@@ -342,6 +342,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T183927Z-a6d3fb` — from scholar:scholar-ingest-cloudflare-os-2, reply_to `scholar-ingest-cloudflare-os-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T183927Z-a6d3fb.md)
 
 > Ingested the five remaining top-level Cloudflare OS design documents into 20 sections, adding focused coverage for observer-safe sharing, real-Worker integration testing, Gatekeeper-based sign-in, and AI Gateway credit routing. The cycle added two topics and three concepts, repaired malformed shared-index rows from the concurrent first cycle, and passed source-cluster link and topic-count integrity checks. The exact remaining plans, operating docs, and package README backlog is now owned by `scholar-ingest-cloudflare-os-3`; full details are in `entries/2026/08/24/183909Z-result-scholar-12f20e.md`.
+
+- `20260824T185719Z-2b96bf` — from scholar:scholar-ingest-cloudflare-os-3, reply_to `scholar-ingest-cloudflare-os-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T185719Z-2b96bf.md)
+
+> Cloudflare OS cycle 3 ingested all three remaining plans plus AGENTS.md, CONTRIBUTING.md, and REVIEW.md into 25 sections, adding four concepts for Git-backed gadget code, lazy pinning, workpieces, and the pi agent loop. The integrity checks passed and both projected indexes are current. Follow-on scholar-ingest-cloudflare-os-4 owns the exact package-README backlog before any source-comment survey. Full details are in entries/2026/08/24/185709Z-result-scholar-3bf523.md.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1048,24 +1052,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.8M | $957.31 _(notional, rate-card)_ | no quota set |
-| Codex | 29.9M _(+1362.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 130.7M | $958.59 _(notional, rate-card)_ | no quota set |
+| Codex | 30.2M _(+1374.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`scholar-ingest-cloudflare-os-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-3.md) — ---
-- [`self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry.md) — ---
+### doin (1)
+- [`scholar-ingest-cloudflare-os-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-4.md) — ---
 
-### tada (5517)
+### tada (5519)
+- [`scholar-ingest-cloudflare-os-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-3.md) — Cost
+- [`self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry.md) — Completion report
 - [`deadmail-20260824T184007Z-a131de`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260824T184007Z-a131de.md) — Completion report
 - [`scholar-ingest-cloudflare-os-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-2.md) — Ingested the five remaining Cloudflare OS design documents into 20 sections, ...
 - [`fix-library-index-patch-marker-corruption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-library-index-patch-marker-corruption.md) — Cost
-- [`scholar-ingest-cloudflare-os`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os.md) — Cost
-- [`endo-but-for-bots-designs-readme-refresh-20260824`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-designs-readme-refresh-20260824.md) — Completion report
-- … and 5512 more
+- … and 5514 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
