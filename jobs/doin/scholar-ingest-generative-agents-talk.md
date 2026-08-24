@@ -24,3 +24,13 @@ first, don't presume) and cross-link into journal/projects/ where a concrete
 connection to Endo's own agent work is clear, same as any other source.
 Normal section budget applies; if the deck is large, a faithful first pass is
 enough and a follow-on scholar-ingest-source job names what's left.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-24T09:05:12Z
