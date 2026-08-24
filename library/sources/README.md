@@ -768,6 +768,7 @@ The bot-fork's per-package READMEs (lal, fae, genie, familiar, whylip, exo, chat
 | [Cloudflare OS MCP account connect flow (comment)](cloudflare-os--packages-mcp-shared-src-account.md) | account.ts comments: endpoint immutability, credential-confusion avoidance, and provenance versus live trust. | 2 | current |
 | [Cloudflare OS collaborator sharing engine (comment)](cloudflare-os--packages-workshop-backend-src-sharing.md) | sharing.ts comments: lazy reversible revocation, share-key redemption, and fixed-point effective-role computation. | 3 | current |
 | [Cloudflare OS MCP tool trust boundary (comment)](cloudflare-os--packages-mcp-shared-src-tools.md) | tools.ts comments: the annotation trust boundary and the ServerTrust-mediated classification policy. | 2 | current |
+| [Cloudflare OS Gatekeeper protocol contracts (comment)](cloudflare-os--packages-workshop-shared-src-gatekeeper.md) | gatekeeper.ts comments: account authentication, observer verification, approval and revert, persistent hooks, and sensitive-observation confinement. | 5 | current |
 
 ## Backlog (not yet ingested)
 
