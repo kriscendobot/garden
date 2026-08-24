@@ -78,6 +78,11 @@
 | [MemGPT memory tools](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--self-directed-memory-tools-and-control-flow.md) | MemGPT paper | Tool calls, feedback, events, and multi-step retrieval. |
 | [MemGPT conversation evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--conversation-memory-evaluation.md) | MemGPT paper | Experiment-specific deep-memory retrieval and opener results. |
 | [MemGPT retrieval evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--document-retrieval-and-multihop-evaluation.md) | MemGPT paper | Archival search, pagination, and nested key-value findings. |
+| [motivation and Smallville setup](../sections/talks--chinta-generative-agents-2024--motivation-and-smallville-setup.md) | llm-agent-frameworks, open-ended-agent-ecologies | Chinta frames Generative Agents as a memory/reflection/planning architecture and Smallville as its 25-agent, two-day social-simulation testbed. |
+| [memory stream and retrieval](../sections/talks--chinta-generative-agents-2024--memory-stream-and-retrieval.md) | llm-agent-frameworks, context-engineering | Timestamped natural-language memories are ranked by recency, model-scored importance, and embedding relevance before entering working context. |
+| [reflection and memory integration](../sections/talks--chinta-generative-agents-2024--reflection-and-memory-integration.md) | llm-agent-frameworks, context-engineering | Threshold-triggered questions retrieve evidence for higher-level inferences that return to the memory stream. |
+| [hierarchical planning and reaction](../sections/talks--chinta-generative-agents-2024--hierarchical-planning-and-reaction.md) | llm-agent-frameworks | Daily plans decompose to 5–15-minute actions and are regenerated forward from observations that merit reaction. |
+| [evaluation, emergence, and limitations](../sections/talks--chinta-generative-agents-2024--evaluation-emergence-and-limitations.md) | open-ended-agent-ecologies, llm-agent-frameworks | Believability ablations and bounded social outcomes are qualified by norm, location, style, and inference-cost failures. |
 
 ## See also
 
