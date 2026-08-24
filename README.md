@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T01:55:31Z_
+_As of 2026-08-24T02:01:20Z_
 
 ## Latest
 
-Two conduct/gauntlet stages claimed: [endojs/endo-but-for-bots#872](https://github.com/endojs/endo-but-for-bots/pull/872) is now merging, and [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/pull/52) cleared its clean stage and is running panel review. Both hosts report a 3-day deploy stall (18 commits behind main2), and multiple panel/orchestration jobs are parked after repeated failures — [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) panel round 2, [endojs/endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807) and [endojs/endo-but-for-bots#909](https://github.com/endojs/endo-but-for-bots/pull/909) fix stages, and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) panel round 6. The maintainer inbox holds 30+ open messages spanning deploy stalls, SIWE tier authorization needs, byteArray program status (all green awaiting re-review), Node24 parity fixes shipped, and several orchestrations halted on child stalls. Watchdog flags include a node24 CI flake blocking two dependabot merges and a shared frozen-base conflict on [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046).
+Minion.town's SIWE on-chain auth is deployed at siwe-idp.minion.town and awaiting your tier/allowlist decision; meanwhile, [minion.town#52](https://github.com/kriscendobot/minion.town/pull/52) cleared gauntlet and is in fix. Node 24 parity for local-verify landed and provisioned into the Dockerfile—this fixes the silent local/CI version skew that was causing type-checking to pass locally but fail in CI—though it needs a redeploy to reach the other garden instances. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are merge-ready but blocked by a recurring fleet node24-runner binary cache loss; the conductor can't auto-merge past that flake. Multiple gauntlet stages hit their requeue limits and parked (PRs [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909)), and the garden's own deploy has stalled 18 commits behind on two hosts.
 
 ## Parked for maintainer feedback
 
@@ -1028,24 +1028,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.0M | $1058.07 _(notional, rate-card)_ | no quota set |
+| Claude | 135.2M | $1058.35 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+1221.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr872-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr872-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #872
-- [`kriscendobot-minion-town-pr52-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
+- [`endojs-endo-but-for-bots-pr889-review-a90146c0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-a90146c0.md) — Review directive on endojs/endo-but-for-bots PR #889
+- [`kriscendobot-minion-town-pr52-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #52
 
-### tada (5491)
+### tada (5492)
+- [`kriscendobot-minion-town-pr52-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-panel-1.md) — Completion report
 - [`kriscendobot-minion-town-pr52-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260824-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-010505.md) — Cost
 - [`improve-mentor-transient-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mentor-transient-outage-backoff.md) — What I did
 - [`build-minion-town-sites-exo-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-sites-exo-20260823.md) — Completion report — build-minion-town-sites-exo-20260823
-- [`deadmail-issue-comment-5388921796`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5388921796.md) — Completion report
-- … and 5486 more
+- … and 5487 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1151,6 +1152,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-ironhorse-ses-hostrow`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-ironhorse-ses-hostrow.md) — _low_ · Add an Ironhorse+SES host row to the ImmutableArrayBuffer view-behavior matrix
 - [`endojs-endo-but-for-bots-pr475-review-4b9e411c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-4b9e411c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-d7b66ffe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-d7b66ffe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr889-review-a90146c0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr889-review-a90146c0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #889 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
