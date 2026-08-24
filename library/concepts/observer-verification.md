@@ -20,6 +20,8 @@ Cloudflare OS's information-flow check for shared gadgets: each non-owner proves
 | [Collaborator observer verification](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--collaborator-observer-verification.md) | Requires each collaborator's own Cloudflare account to prove resource access. |
 | [Observer tracking strategy per binding granularity](../sections/cloudflare-os--packages-gatekeeper-supabase-src-supabase--observer-tracking-strategy.md) | Supabase uses single-unit ACL for a project binding and data-set tracking by project for an org binding. |
 | [Verifier answers access against the observer's own token](../sections/cloudflare-os--packages-gatekeeper-supabase-src-supabase--own-token-verifier.md) | The minted verifier runs hasProjectAccess/hasOrgAccess against the observer's own Supabase token. |
+| [Observer verification across past and future reads](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--observer-verification-contract.md) | The protocol-level contract for admission, re-verification, removal, and forward exclusion. |
+| [Sensitive observation confinement](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--sensitive-observation-confinement.md) | Per-observer exclusion lets a read proceed only when the Overseer can enforce the view boundary. |
 
 ## See also
 
