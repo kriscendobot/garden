@@ -14,6 +14,7 @@ OAuth 2.0 application credential models for programmatic and delegated access, a
 | [OAuth apps: user-delegated authorization-code model](../sections/web--tailscale-oauth-apps--user-delegated-authorization-code-model.md) | A Tailscale OAuth app lets a tool act on behalf of an individual user via the authorization-code flow; the authorization carries the user's identity, and the source draws the explicit OAuth-apps-versus-OAuth-clients decision contrast. |
 | [OAuth apps: requirements and limitations](../sections/web--tailscale-oauth-apps--requirements-and-limitations.md) | Preconditions (Owner/Admin, admin-scoped API token) and boundaries (single-tailnet authorization, non-customizable consent screen) of the OAuth-apps flow. |
 | [Login Identifier(s) (Session Authentication) — federated capability-based logins and the separation payoff](../sections/habitat-chronicles--tripartite-identity-pattern--login-identifier.md) | Farmer's tripartite-identity login leg recognizes OpenID / OAuth / Facebook Connect as **capability-based identities** a relying party adopts instead of minting its own namespace — a delegated session-establishing credential, not a re-typed password (2008, an early naming of federated login as capability). |
+| [verified-email identity and incremental OAuth scopes](../sections/cloudflare-os--docs-oauth-signin--verified-email-identity-and-incremental-scopes.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | Auth and full grants have separate scope and persistence lifecycles. |
 
 ## See also
 
