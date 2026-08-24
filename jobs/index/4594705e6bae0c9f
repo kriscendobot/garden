@@ -1,2 +1,2 @@
-base: improve-gardener-deterministic-overrun-alert
+base: improve-gardener-transient-silence
 identity: mentor:scripts/jobs/gardener.sh
