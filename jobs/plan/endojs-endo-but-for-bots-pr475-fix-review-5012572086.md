@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentat
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-24T23:13:06Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-24T23:13:06Z
+---
+
+---
 tier: mentat
 dispatch: manual
 ---
@@ -108,15 +125,3 @@ top-level summary comment per `skills/pr-review-thread-replies` and
 All in-scope asks applied (or explicitly declined with reason in the thread reply),
 per-concern commits pushed to `feat/narrow-bytearray-to-uint8`, `pre-push-gates` clean,
 thread replies + one top-level summary comment posted, CI observed.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-24T22:17:03Z
