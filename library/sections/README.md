@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6925 (530 parent indexes + 6395 children).
+Total section files: 6934 (530 parent indexes + 6404 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -795,6 +795,11 @@ Total section files: 6925 (530 parent indexes + 6395 children).
 - [cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary](cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary.md)
 - [cloudflare-os--packages-gatekeeper-supabase-readme--project-and-organization-resource-grants](cloudflare-os--packages-gatekeeper-supabase-readme--project-and-organization-resource-grants.md)
 
+### cloudflare-os--packages-gatekeeper-supabase-src-supabase
+
+- [cloudflare-os--packages-gatekeeper-supabase-src-supabase--observer-tracking-strategy](cloudflare-os--packages-gatekeeper-supabase-src-supabase--observer-tracking-strategy.md)
+- [cloudflare-os--packages-gatekeeper-supabase-src-supabase--own-token-verifier](cloudflare-os--packages-gatekeeper-supabase-src-supabase--own-token-verifier.md)
+
 ### cloudflare-os--packages-gatekeeper-zoominfo-readme
 
 - [cloudflare-os--packages-gatekeeper-zoominfo-readme--account-search-and-enrichment-capability](cloudflare-os--packages-gatekeeper-zoominfo-readme--account-search-and-enrichment-capability.md)
@@ -813,6 +818,22 @@ Total section files: 6925 (530 parent indexes + 6395 children).
 - [cloudflare-os--packages-mcp-shared-readme--bounded-transport-and-state](cloudflare-os--packages-mcp-shared-readme--bounded-transport-and-state.md)
 - [cloudflare-os--packages-mcp-shared-readme--shared-connector-security-kernel](cloudflare-os--packages-mcp-shared-readme--shared-connector-security-kernel.md)
 - [cloudflare-os--packages-mcp-shared-readme--trust-tier-annotation-policy](cloudflare-os--packages-mcp-shared-readme--trust-tier-annotation-policy.md)
+
+### cloudflare-os--packages-mcp-shared-src-account
+
+- [cloudflare-os--packages-mcp-shared-src-account--endpoint-immutability](cloudflare-os--packages-mcp-shared-src-account--endpoint-immutability.md)
+- [cloudflare-os--packages-mcp-shared-src-account--provenance-vs-live-trust](cloudflare-os--packages-mcp-shared-src-account--provenance-vs-live-trust.md)
+
+### cloudflare-os--packages-mcp-shared-src-tools
+
+- [cloudflare-os--packages-mcp-shared-src-tools--annotation-trust-boundary](cloudflare-os--packages-mcp-shared-src-tools--annotation-trust-boundary.md)
+- [cloudflare-os--packages-mcp-shared-src-tools--tool-classification-policy](cloudflare-os--packages-mcp-shared-src-tools--tool-classification-policy.md)
+
+### cloudflare-os--packages-workshop-backend-src-sharing
+
+- [cloudflare-os--packages-workshop-backend-src-sharing--effective-role-fixed-point](cloudflare-os--packages-workshop-backend-src-sharing--effective-role-fixed-point.md)
+- [cloudflare-os--packages-workshop-backend-src-sharing--lazy-revocation-model](cloudflare-os--packages-workshop-backend-src-sharing--lazy-revocation-model.md)
+- [cloudflare-os--packages-workshop-backend-src-sharing--share-key-redemption](cloudflare-os--packages-workshop-backend-src-sharing--share-key-redemption.md)
 
 ### cloudflare-os--packages-workshop-frontend-readme
 
