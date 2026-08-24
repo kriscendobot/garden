@@ -37,6 +37,11 @@ A Gatekeeper is a service-specific Worker that gives an agent or gadget a narrow
 | [ZoomInfo credit approval and query guards](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--credit-approval-and-query-guards.md) | Defers credit-bearing enrichment and rejects silently broadened queries. |
 | [Observer tracking strategy per binding granularity](../sections/cloudflare-os--packages-gatekeeper-supabase-src-supabase--observer-tracking-strategy.md) | A concrete gatekeeper's observer methods pick ACL-check versus data-set-tracking from binding granularity. |
 | [Verifier answers access against the observer's own token](../sections/cloudflare-os--packages-gatekeeper-supabase-src-supabase--own-token-verifier.md) | A gatekeeper mints a verifier the overseer hands back to it, trusting its booleans against the observer's token. |
+| [Account authentication and resource authority](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--account-authentication-and-resource-authority.md) | Separates vendor discovery, privileged account authority, transient identity, and narrowed resource grants. |
+| [Observer verification across past and future reads](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--observer-verification-contract.md) | Defines the opaque verifier handoff, historical admission check, re-verification, and forward exclusion duty. |
+| [Approval, simulation, rejection, and revert](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--approval-and-revert-contract.md) | Defines mandatory asynchronous submission, optional provisional simulation, rejection cleanup, and best-effort undo. |
+| [Persistent hook binding and fresh-session delivery](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--persistent-hook-lifecycle.md) | Stores persistent callbacks under the Overseer and refreshes session authority for each event. |
+| [Sensitive observation confinement](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--sensitive-observation-confinement.md) | Blocks disclosure until authorized and supports owner-only lockdown or per-observer exclusion. |
 
 ## See also
 
