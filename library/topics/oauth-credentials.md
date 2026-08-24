@@ -28,6 +28,9 @@ OAuth 2.0 application credential models for programmatic and delegated access, a
 | [OAuth discovery connect flow and token handling](../sections/cloudflare-os--packages-gatekeeper-mcp-readme--oauth-discovery-connect-flow.md) | capability-mediated-integrations, oauth-credentials, cloudflare-workers-agent-hosting | A 401 runs the standards-based MCP OAuth discovery chain; tokens live in a per-account Durable Object. |
 | [Notion workspace, page, and database resources](../sections/cloudflare-os--packages-gatekeeper-notion-readme--workspace-page-and-database-resources.md) | capability-mediated-integrations, oauth-credentials, cloudflare-workers-agent-hosting | Notion connects via an OAuth 2.0 public integration with refresh tokens in a UserAccount DO. |
 | [Slack read-only mediation and user-token scopes](../sections/cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth.md) | capability-mediated-integrations, oauth-credentials, cloudflare-workers-agent-hosting | Slack uses an OAuth user token with rotation and per-resource scope requests. |
+| [Spotify OAuth and development-mode requirements](../sections/cloudflare-os--packages-gatekeeper-spotify-readme--oauth-development-mode.md) | oauth-credentials, cloudflare-workers-agent-hosting | Spotify development apps require a loopback-IP callback and explicit user enrollment. |
+| [Supabase OAuth and approval boundary](../sections/cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary.md) | oauth-credentials, capability-mediated-integrations | Organization OAuth credentials coexist with unsimulated approval-gated SQL writes. |
+| [ZoomInfo OAuth PKCE and token lifecycle](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--oauth-pkce-and-token-lifecycle.md) | oauth-credentials, cloudflare-workers-agent-hosting | ZoomInfo uses PKCE, client Basic authentication, and refresh-token rotation. |
 
 ## See also
 
