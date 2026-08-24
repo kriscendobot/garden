@@ -1,6 +1,6 @@
 ---
 id: cloudflare-os-gatekeeper
-aliases: [Gatekeeper, Cloudflare OS Gatekeeper, deferred approval, Email Gatekeeper, Home Assistant Gatekeeper, LLAT]
+aliases: [Gatekeeper, Cloudflare OS Gatekeeper, deferred approval, Email Gatekeeper, Home Assistant Gatekeeper, Spotify Gatekeeper, Supabase Gatekeeper, ZoomInfo Gatekeeper, LLAT]
 topics: [capability-mediated-integrations, capability-security]
 ---
 
@@ -29,6 +29,12 @@ A Gatekeeper is a service-specific Worker that gives an agent or gadget a narrow
 | [Notion workspace, page, and database resources](../sections/cloudflare-os--packages-gatekeeper-notion-readme--workspace-page-and-database-resources.md) | Mediates OAuth access to a user's Notion pages and databases at workspace or per-page grain. |
 | [Slack read-only mediation and user-token scopes](../sections/cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth.md) | Read-only Slack access through a user token so the agent sees only what the user can. |
 | [Scheduled task registration API](../sections/cloudflare-os--packages-gatekeeper-scheduler-readme--scheduled-task-registration-api.md) | An ambient Gatekeeper registering persistent scheduled callbacks as disabled hooks. |
+| [Spotify account and playlist resource granularities](../sections/cloudflare-os--packages-gatekeeper-spotify-readme--resource-granularities.md) | Attenuates Spotify authority to one account or one playlist. |
+| [Spotify approval simulation and provider limits](../sections/cloudflare-os--packages-gatekeeper-spotify-readme--approval-simulation-and-provider-limits.md) | Simulates pending library edits while preserving real playback state. |
+| [Supabase project and organization resource grants](../sections/cloudflare-os--packages-gatekeeper-supabase-readme--project-and-organization-resource-grants.md) | Prefers one Supabase project capability over organization-wide access. |
+| [Supabase OAuth and approval boundary](../sections/cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary.md) | Approval-gates arbitrary SQL without pretending pending mutations are readable. |
+| [ZoomInfo account search and enrichment capability](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--account-search-and-enrichment-capability.md) | Exposes one entitlement-scoped account for search, enrichment, Copilot, and usage. |
+| [ZoomInfo credit approval and query guards](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--credit-approval-and-query-guards.md) | Defers credit-bearing enrichment and rejects silently broadened queries. |
 
 ## See also
 
