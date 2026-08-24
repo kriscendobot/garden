@@ -16,6 +16,7 @@ Authentication Gatekeepers reuse capability-mediating service Workers as federat
 | [OAuth App permission model](../sections/cloudflare-os--packages-gatekeeper-github-readme--oauth-app-permission-model.md) | authentication-gatekeepers, oauth-credentials, capability-security | OAuth Apps honor request scopes while GitHub Apps fix permissions globally. |
 | [verified-email login and resource scopes](../sections/cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | Google login discards identity scopes while connections add only selected API scopes. |
 | [Workshop build-time authentication modes](../sections/cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes.md) | authentication-gatekeepers, cloudflare-workers-agent-hosting | A build flag selects password login or Cloudflare Access identity. |
+| [Account authentication and resource authority](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--account-authentication-and-resource-authority.md) | authentication-gatekeepers, capability-mediated-integrations, capability-security, cloudflare-workers-agent-hosting | Gatekeeper protocol layers separate transient verified identity, privileged account authority, and selected resource grants. |
 
 ## See also
 
