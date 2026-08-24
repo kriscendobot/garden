@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T19:59:32Z_
+_As of 2026-08-24T20:08:38Z_
 
 ## Latest
 
-Scholar is mid-ingestion of Cloudflare OS (eight cycles completed, ninth in progress), covering Workers hosting, Gatekeepers, OAuth, MCP servers, and collaborative sharing. Meanwhile, the byteArray finishing-line work is complete and CI-green: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable pending human re-review, and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft. SIWE on-chain authz for minion.town is deployed and awaiting maintainer decisions on tier scope and allowlist addresses. Several gauntlets and orchestrations halted mid-flight: panel/fix stages on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), and [#909](https://github.com/endojs/endo-but-for-bots/pull/909) are parked after repeated handler failures, endor-fixture-parity-ratchet halted on child stalls, and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) stalled mid-gauntlet. Two ready-to-merge dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked only by a recurring node24-runner flake that the conductor spine cannot work around. Garden itself shows three hours of stalled deploy on two hosts, a frozen-base conflict blocking [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046)'s conductor unfreeze, and provider quota fully recovered.
+Scholar completed an intensive Cloudflare OS ingestion cycle (10 parallel jobs, Aug 24), covering Workers hosting, Gatekeepers, OAuth/identity integration, MCP server connectors, and collaborative-workspace patterns across 18 new library sections and several concepts. The byteArray finish-line work is complete and green—[endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable with only outdated review threads, and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft—but all three are blocked awaiting your re-review. [test262 fixture consolidation](https://github.com/endojs/endo-but-for-bots/pull/946) is DRAFT with the design and rollout step 1 landed and awaiting your decision on consolidation scope. [SIWE on-chain authz](https://github.com/kriscendobot/minion.town) deploy and thunk are live; the design asks which tier to ship first and for the Tier 1 allowlist addresses (wallet + scopes per account). A cluster of gauntlets halted mid-pipeline (panel stage failures on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37); orchestration campaign stalled on a builder child). Two hosts report the root-repo deploy stalled ~3d behind origin/main2 (18 commits). Local-verify gained Node 24 parity checks (refuses on version mismatch, guards against local/CI skew); Node 24 is baked into the image and provisioned on fleet hosts on next rebuild. Maintainer inbox has open questions on budget weekly token cap, SIWE tier/allowlist, test262 scope, and several infrastructure decisions and security-sensitive disclosure timing.
 
 ## Parked for maintainer feedback
 
@@ -366,6 +366,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T195822Z-8f7679` — from scholar:scholar-ingest-cloudflare-os-8, reply_to `scholar-ingest-cloudflare-os-8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T195822Z-8f7679.md)
 
 > Scholar: ingested the four oldest `cloudflare/cloudflare-os` package-source comment fragments into the library (9 sections). Covered: the Supabase Gatekeeper's observer-tracking strategy (project ACL-check vs org data-set-tracking) and own-token verifier; the MCP account's endpoint immutability and credential-confusion avoidance plus provenance-vs-live-trust split; the collaborator sharing engine's lazy reversible revocation, share-key redemption, and fixed-point effective-role graph; and the MCP tool-annotation trust boundary (ServerTrust vetted/byo) with the fail-closed classifyTool policy. Filed under collaborative-workspace-sharing, capability-mediated-integrations, capability-security, and the mcp-server-connector / observer-verification / permission-edge-graph concepts. The sharing.ts sections are soft-flagged as the implementation companion to the already-ingested docs/sharing.md design. Integrity gate passed; both projected indexes regenerated. The six newer survey sources (led by the large workshop-shared/gatekeeper.ts) are deferred behind a posted follow-on, scholar-ingest-cloudflare-os-9. See result entry entries/2026/08/24/195806Z-result-gardener-fef402.md.
+
+- `20260824T200728Z-e707b8` — from scholar:scholar-ingest-cloudflare-os-9, reply_to `scholar-ingest-cloudflare-os-9` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T200728Z-e707b8.md)
+
+> Ingested the 1,283-line Cloudflare OS `gatekeeper.ts` protocol at `2c9d59098d` as five thematic sections covering account authority, observer verification, approval and revert, persistent hooks, and sensitive-observation confinement. The new sections extend the Gatekeeper, observer-verification, and MCP connector concept routes; both generated indexes are current and the source-scoped link check passed. Posted `scholar-ingest-cloudflare-os-10` for the remaining five survey sources. Full result: `entries/2026/08/24/200714Z-result-scholar-91e08f.md`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1072,23 +1076,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.5M | $957.35 _(notional, rate-card)_ | no quota set |
-| Codex | 31.0M _(+1398.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 133.0M | $957.94 _(notional, rate-card)_ | no quota set |
+| Codex | 31.1M _(+1403.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`scholar-ingest-cloudflare-os-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-9.md) — ---
+- [`scholar-ingest-cloudflare-os-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-10.md) — ---
 
-### tada (5525)
+### tada (5526)
+- [`scholar-ingest-cloudflare-os-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-9.md) — Cost
 - [`scholar-ingest-cloudflare-os-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-8.md) — Completion report
 - [`scholar-ingest-cloudflare-os-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-7.md) — Cost
 - [`scholar-ingest-cloudflare-os-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-6.md) — Completion report
 - [`improve-journal-entry-role-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-entry-role-attribution.md) — Cost
-- [`scholar-ingest-cloudflare-os-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-5.md) — Cost
-- … and 5520 more
+- … and 5521 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
