@@ -70,3 +70,13 @@ Do not re-audit the rest of the library corpus for other instances of this
 corruption class beyond the four named files — the scholar job already
 repaired the instance it found. This job is the deterministic guard against
 recurrence, not a corpus-wide sweep.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-24T18:35:12Z
