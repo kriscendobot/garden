@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T02:57:32Z_
+_As of 2026-08-24T03:00:53Z_
 
 ## Latest
 
-Minion.town PR [#52](https://github.com/kriscendobot/minion.town/pull/52) advanced through its gauntlet (panel and fix stages both complete, currently in the pipeline). Root garden deploys are stalled ~3 days behind on both hosts, blocking undeployed fixes. Two critical dependencies are waiting: maintainer approval on wallet addresses to finalize [wire-siwe-onchain-authz-minion-town](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260824-025004.md), and a decision on the fleet node24 CI flake that is blocking [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (the latter closes CRITICAL GHSA-37j7-fg3j-429f VM escape). Several gauntlets halted mid-pipeline and are held in the plan queue. Node 24 provisioning is done; local-verify parity restored for Node-24-pinned projects.
+Node 24 parity guard landed and deployed — local/CI version mismatches are now caught before any step runs. Root repo deploy stalled for ~3d on two hosts (18 commits behind origin/main2); the deliberate deploy is not advancing. [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (byteArray finish line) are all CI-green and awaiting re-review. SIWE on-chain authz for minion.town is live at https://siwe-idp.minion.town and gated on your tier choice (1 vs. 1+2) and tier-1 wallet allowlist. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are merge-ready except for the recurring node24-runner CI flake; either merge directly or repair the infra. Budget enforcement design is complete (main2 87ccd70ab6); activate by supplying each account's weekly token cap. Conductor unfrozen is blocked: [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) shares its frozen base with [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — weave the stack forward or merge in dependency order.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.9M | $1059.35 _(notional, rate-card)_ | no quota set |
-| Codex | 26.3M _(+1244.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 136.1M | $1059.59 _(notional, rate-card)_ | no quota set |
+| Codex | 26.4M _(+1246.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Daily dependabotany backstop for endo-but-for-bots
+- [`kriscendobot-minion-town-pr52-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #52
 
 ### tada (5498)
 - [`kriscendobot-minion-town-pr52-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-fix-2.md) — What I did
