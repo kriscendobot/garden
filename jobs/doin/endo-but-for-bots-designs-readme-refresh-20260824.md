@@ -10,3 +10,13 @@ remove or mark superseded/dropped designs, and correct any stale status
 notes (in-progress vs. landed vs. shelved). Treat it as a rolling index
 refresh, not a rewrite — preserve its existing structure/conventions unless
 they're actively wrong.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-24T18:15:49Z
