@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T04:32:01Z_
+_As of 2026-08-24T04:34:06Z_
 
 ## Latest
 
-Deploy is stalled ~18 commits behind on two hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64) for ~3 days; investigate why the deliberate drain/deploy cycle has not landed since 745fa90. Multiple gauntlets halted mid-stage ([endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)), and an orchestration (endor-fixture-parity-ratchet) stalled after 3 requeues. Bright spot: Node 24 parity was fixed and deployed; local-verify now enforces runtime version matching. Two deadmail jobs surfaced, signaling the issue-comment watcher's anti-pattern gap noted earlier. The board shows 23 parked PRs awaiting maintainer feedback and many go-ahead gates (byteArray finishing-line re-review, SIWE tier authorization, Tier 1 allowlist addresses, node24 runner flake decision on two dependabot PRs), plus a node24-runner CI flake blocking conduct and orchestration progress.
+Node 24 runtime parity gate landed and provisioned into fleet (local-verify now enforces matched .node-version), clearing a CI-parity gap; three fleet gauntlets halted mid-stage due to handler overruns (PR #1023, #807, #909, #37, #946 are held pending rescope). The byteArray program finished green ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) and awaits re-review; [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) is blocked on shared frozen-base coordination with [#475](https://github.com/endojs/endo-but-for-bots/pull/475). Garden's root checkout deploy stalled 3d behind main2 (18 commits); maintainer authorization gates remain open on SIWE tiers + allowlist, OpenRouter ZDR policy, and the test262-fixture consolidation's decision on metering-corpus scope.
 
 ## Parked for maintainer feedback
 
@@ -1028,27 +1028,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.2M | $1060.60 _(notional, rate-card)_ | no quota set |
-| Codex | 26.9M _(+1300.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 137.2M | $1060.49 _(notional, rate-card)_ | no quota set |
+| Codex | 26.9M _(+1301.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5390713648.md) — Dead-lettered message — pick up its intent
+### doin (4)
 - [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5390718343.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Review directive on endojs/endo-but-for-bots PR #889
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-transient-silence.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
 
-### tada (5502)
+### tada (5503)
+- [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390713648.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Cost
 - [`kriscendobot-minion-town-pr52-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-fix-3.md) — Completion report
 - [`minion-town-agenda-review-20260824-032005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-032005.md) — Completion report
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-panel-3.md) — Completion report
-- [`kriscendobot-minion-town-pr52-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-fix-2.md) — What I did
-- … and 5497 more
+- … and 5498 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
