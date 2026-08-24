@@ -10,6 +10,8 @@ Cloud-hosted work environments in which agents use organizational context, creat
 | [Workers runtime architecture](../sections/cloudflare-os--readme--workers-runtime-architecture.md) | cloudflare-workers-agent-hosting, agent-workspaces, sandbox-platforms | Workers primitives provide the kernel, process, driver, and workspace boundaries. |
 | [agent-built collaborative applications](../sections/cloudflare-os--readme--agent-built-collaborative-apps.md) | ai-generated-apps, collaborative-workspace-sharing, agent-workspaces | Gadgets are generated, invoked, and collaboratively edited by agents through explicit APIs. |
 | [bundled formats and administrative curation](../sections/cloudflare-os--docs-blueprints--bundled-formats-and-curation.md) | reusable-app-blueprints, agent-workspaces | Administrators curate which Blueprints appear as standard application formats. |
+| [daily allowance and credit routing](../sections/cloudflare-os--docs-ai-gateway-billing--daily-allowance-and-credit-routing.md) | ai-usage-billing, agent-workspaces, capability-mediated-integrations | Public workspaces meter user-initiated agent turns. |
+| [public multi-user deployment](../sections/cloudflare-os--docs-public-server--public-multi-user-deployment.md) | agent-workspaces, authentication-gatekeepers, ai-usage-billing, cloudflare-workers-agent-hosting | Public deployment combines federated login and metered AI usage. |
 
 ## See also
 
