@@ -92,6 +92,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [cloudflare-workers-agent-hosting](cloudflare-workers-agent-hosting.md) | Hosting agent workspaces and generated applications on Cloudflare Workers primitives such as Durable Objects, Dynamic Workers, Facets, KV, R2, and bindings. | 3 |
 | [reusable-app-blueprints](reusable-app-blueprints.md) | Versioned, portable templates for creating independent application instances from code and dependency requirements without copying live data or credentials. | 6 |
 | [collaborative-workspace-sharing](collaborative-workspace-sharing.md) | Sharing stateful agent-built applications while preserving role restrictions, grant provenance, transitive revocation, per-user credentials, and live-session authorization. | 7 |
+| [authentication-gatekeepers](authentication-gatekeepers.md) | Authentication Gatekeepers reuse capability-mediating service Workers as federated sign-in providers, separating transient identity-only OAuth grants from explicitly connected full-capability accounts. | 0 |
+| [ai-usage-billing](ai-usage-billing.md) | Metering, quota, credit, and authority-routing designs for funding AI inference, including platform allowances and user-owned provider billing without custody of user funds or credentials. | 0 |
 
 ## Seed-but-not-yet-populated topics
 
