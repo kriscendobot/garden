@@ -24,6 +24,11 @@ A Gatekeeper is a service-specific Worker that gives an agent or gadget a narrow
 | [identity grant versus resource grant](../sections/cloudflare-os--packages-gatekeeper-github-readme--identity-grant-versus-resource-grant.md) | Separates GitHub authentication authority from explicitly connected repository authority. |
 | [verified-email login and resource scopes](../sections/cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes.md) | Separates Google identity authority from resource-specific API grants. |
 | [resource capability granularities](../sections/cloudflare-os--packages-gatekeeper-homeassistant-readme--resource-capability-granularities.md) | Attenuates a Home Assistant account to instance, area, label, device, or entity access. |
+| [Bring-your-own MCP server connector](../sections/cloudflare-os--packages-gatekeeper-mcp-readme--bring-your-own-server-connector.md) | Connects any user-supplied MCP server as a capability with generated typed tool methods. |
+| [MCP portal connector and per-server grants](../sections/cloudflare-os--packages-gatekeeper-mcp-portal-readme--portal-server-connector.md) | Connects an administrator-configured MCP portal, granting one upstream server at a time. |
+| [Notion workspace, page, and database resources](../sections/cloudflare-os--packages-gatekeeper-notion-readme--workspace-page-and-database-resources.md) | Mediates OAuth access to a user's Notion pages and databases at workspace or per-page grain. |
+| [Slack read-only mediation and user-token scopes](../sections/cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth.md) | Read-only Slack access through a user token so the agent sees only what the user can. |
+| [Scheduled task registration API](../sections/cloudflare-os--packages-gatekeeper-scheduler-readme--scheduled-task-registration-api.md) | An ambient Gatekeeper registering persistent scheduled callbacks as disabled hooks. |
 
 ## See also
 
