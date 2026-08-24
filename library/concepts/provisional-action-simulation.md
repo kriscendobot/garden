@@ -13,6 +13,7 @@ Provisional action simulation records a side effect for later human approval whi
 | Section | One-line summary |
 |---|---|
 | [Deferred actions and simulation](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--deferred-actions-and-simulation.md) | Overlays pending Confluence writes until approval, rejection, or reversion. |
+| [approval overlay simulation](../sections/cloudflare-os--packages-gatekeeper-homeassistant-readme--approval-overlay-simulation.md) | Predicts final Home Assistant states while physical changes await approval. |
 
 ## See also
 
