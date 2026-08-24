@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T00:01:57Z_
+_As of 2026-08-24T00:52:18Z_
 
 ## Latest
 
-Deploy stalled for three days on both fleet hosts; investigate why `deploy-garden.sh` hasn't landed. Multiple gauntlets halted mid-stage (panel/fix failures on PRs #807, #909, #1023 and minion.town #37; endor-fixture-parity-ratchet stalled), with doom jobs parked pending re-promotion. The bytearray press finished green and mergeable ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), awaiting maintainer re-review to clear CHANGES_REQUESTED; finish-line PR [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) ready for un-draft once the base PRs land. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by the fleet node24-runner infra flake; [endo-but-for-bots#869](https://github.com/endojs/endo-but-for-bots/pull/869) closes a CRITICAL VM RCE (GHSA-37j7-fg3j-429f) and is waiting on your approval. Node.js version parity fixed (local-verify now matches CI Node 24); fleet hosts provisioned in code but image rebuild pending. Design completions: live budget admission (main2 87ccd70ab6), ocap.site deployment (DNSSEC gate pending your authorization), SIWE onchain authz ready for tier-choice decision + allowlist config.
+Root repo deploy is stalled ~3 days behind origin/main2 on both hosts; investigate why `deploy-garden.sh` hasn't landed. Multiple gauntlet stages halted on handler failures ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37), [#881](https://github.com/endojs/endo-but-for-bots/pull/881)); several doom jobs parked due to elapsed-constancy and requeue thresholds. The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is green and gated on maintainer re-review. Node 24 parity fix deployed but requires propagation to other running hosts. Maintainer inbox carries critical pending decisions: SIWE on-chain authz tier selection + wallet allowlist for minion.town, two dependabot PRs (#1006, #1009) blocked on fleet node24-runner infra flake, OpenRouter ZDR policy + stealth-lane implementation, and a cluster of design follow-ups.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.1M | $1056.76 _(notional, rate-card)_ | no quota set |
-| Codex | 25.6M _(+1220.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 134.2M | $1056.93 _(notional, rate-card)_ | no quota set |
+| Codex | 25.7M _(+1220.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-mentor-transient-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mentor-transient-outage-backoff.md) — ---
 
 ### tada (5488)
 - [`build-minion-town-sites-exo-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-sites-exo-20260823.md) — Completion report — build-minion-town-sites-exo-20260823
