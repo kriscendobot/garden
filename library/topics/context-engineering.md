@@ -18,6 +18,8 @@ The discipline of curating and maintaining the optimal set of tokens available t
 | [Structured note-taking](../sections/web--anthropic-context-engineering--structured-note-taking.md) | context-engineering | Agentic memory: write notes outside the window and pull them back (NOTES.md, to-do lists); the Claude-plays-Pokémon demonstration; the Sonnet 4.5 memory tool. |
 | [Sub-agent architectures](../sections/web--anthropic-context-engineering--sub-agent-architectures.md) | context-engineering, agent-fleet-orchestration | Sub-agents explore with clean context windows and return only a 1,000-2,000-token distilled summary; separation of concerns for complex research. |
 | [Conclusion](../sections/web--anthropic-context-engineering--conclusion.md) | context-engineering | The invariant principle: curate what enters the finite attention budget at each step; treat context as a precious, finite resource. |
+| [memory stream and retrieval](../sections/talks--chinta-generative-agents-2024--memory-stream-and-retrieval.md) | llm-agent-frameworks, context-engineering | Recency, model-scored importance, and embedding relevance select a bounded working set from an accumulating memory stream. |
+| [reflection and memory integration](../sections/talks--chinta-generative-agents-2024--reflection-and-memory-integration.md) | llm-agent-frameworks, context-engineering | Reflection turns retrieved records into evidence-linked abstractions that can themselves be retrieved later. |
 
 ## See also
 
