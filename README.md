@@ -1,21 +1,21 @@
 # Garden bulletin
 
-_As of 2026-08-24T09:13:59Z_
+_As of 2026-08-24T18:10:18Z_
 
 ## Latest
 
-Infrastructure work completed this cycle: scholar ingestion, Node 24 provisioning, and local-verify parity restoration landed. However, deploys have stalled for ~3 days on both primary hosts, and multiple gauntlet runs halted with work parked, including [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37). Substantial maintainer decisions await: SIWE on-chain authz tier and wallet allowlist for minion.town, OpenRouter zero-retention policy and stealth-model scheme, test262 fixture consolidation strategy, and several architectural design questions.
+The byteArray work is complete and CI-green: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) await maintainer re-review on frozen bases, with finish-line [#888](https://github.com/endojs/endo-but-for-bots/pull/888) draft-ready. SIWE on-chain authz was deployed to minion.town and awaits policy-tier and allowlist configuration. Node 24 parity was restored for local-verify. Infrastructure issues are mounting: deploy stalled ~3d on two hosts, multiple gauntlets halted mid-run, and several requeue and classification bugs are parked.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 26d)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 25d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 26d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 36d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 38d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 41d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 52d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 69d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 53d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 70d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 103d)
 - [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) — feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting 103d)
 
@@ -1032,15 +1032,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.2M | $1051.39 _(notional, rate-card)_ | no quota set |
-| Codex | 28.2M _(+1327.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 129.1M | $963.64 _(notional, rate-card)_ | no quota set |
+| Codex | 28.8M _(+1330.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-ingest-cloudflare-os`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os.md) — ---
 
 ### tada (5511)
 - [`scholar-ingest-generative-agents-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-generative-agents-talk.md) — Cost
