@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T22:18:25Z_
+_As of 2026-08-24T22:19:01Z_
 
 ## Latest
 
-Three major items: the byteArray finalization ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503)) is all green and code-complete, awaiting your re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/issues/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009) (dependabot PRs, both merge-now eligible) are stuck on the recurring fleet node24-runner infra flake and need a decision to merge directly or wait for the CI fix. The SIWE auth tier for minion.town is deployed and live; you need to provide the tier-1 allowlist (wallet addresses + scopes) to proceed. Garden deploys are stalled 3 days behind on two hosts — investigate why drained deploys haven't landed. A full Cloudflare OS ingest campaign (10 cycles) landed in the library; test262 fixture consolidation opened as DRAFT [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/issues/946) with a design decision needed on keeping metering-corpus coverage separate from upstream test262. Several gauntlets and orchestrations halted; budget enforcement design is live and gates live admission to the pool once a per-account weekly token cap is supplied.
+Scholar completed ingesting Cloudflare OS across ten cycles (9 jobs in tada), covering its Workers agent workspace, Gatekeeper capability mediation, MCP integration, and code-storage architecture. [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) review routing spawned a fixer for code changes and a designer proposal for an O(1) make-hardener optimization. Multiple gauntlets halted mid-stage due to recurring panel handler failures across [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and minion.town PRs; the root cause appears handler-scoped rather than code-attributable. Deploy has stalled 3d on two hosts (18 commits behind main2); investigate whether the drain/deploy cycle needs clearing. Provider quota recovered; fleet resumed serving 2026-08-24. Maintainer inbox carries 30+ pending decisions spanning byteArray PR re-review, SIWE tier authorization (addresses needed), shellcheck CI widening, deadmail closure mechanisms, node24-runner CI flake (two dependabot PRs blocked), and OpenRouter zero-data-retention enforcement.
 
 ## Parked for maintainer feedback
 
@@ -1107,25 +1107,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.8M | $951.15 _(notional, rate-card)_ | no quota set |
-| Codex | 31.3M _(+1403.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 132.9M | $951.23 _(notional, rate-card)_ | no quota set |
+| Codex | 31.3M _(+1404.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization.md) — Propose: O(1) short-circuit for the own-keys walk in make-hardener
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
-- [`endojs-endo-but-for-bots-pr475-review-27339ee8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-27339ee8.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (5527)
+### tada (5528)
+- [`endojs-endo-but-for-bots-pr475-review-27339ee8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-27339ee8.md) — Completion report: endojs-endo-but-for-bots-pr475-review-27339ee8
 - [`scholar-ingest-cloudflare-os-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-10.md) — Completion report
 - [`scholar-ingest-cloudflare-os-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-9.md) — Cost
 - [`scholar-ingest-cloudflare-os-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-8.md) — Completion report
 - [`scholar-ingest-cloudflare-os-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-7.md) — Cost
-- [`scholar-ingest-cloudflare-os-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-6.md) — Completion report
-- … and 5522 more
+- … and 5523 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
