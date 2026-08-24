@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6934 (530 parent indexes + 6404 children).
+Total section files: 6939 (530 parent indexes + 6409 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -839,6 +839,14 @@ Total section files: 6934 (530 parent indexes + 6404 children).
 
 - [cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes](cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes.md)
 - [cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract](cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract.md)
+
+### cloudflare-os--packages-workshop-shared-src-gatekeeper
+
+- [cloudflare-os--packages-workshop-shared-src-gatekeeper--account-authentication-and-resource-authority](cloudflare-os--packages-workshop-shared-src-gatekeeper--account-authentication-and-resource-authority.md)
+- [cloudflare-os--packages-workshop-shared-src-gatekeeper--approval-and-revert-contract](cloudflare-os--packages-workshop-shared-src-gatekeeper--approval-and-revert-contract.md)
+- [cloudflare-os--packages-workshop-shared-src-gatekeeper--observer-verification-contract](cloudflare-os--packages-workshop-shared-src-gatekeeper--observer-verification-contract.md)
+- [cloudflare-os--packages-workshop-shared-src-gatekeeper--persistent-hook-lifecycle](cloudflare-os--packages-workshop-shared-src-gatekeeper--persistent-hook-lifecycle.md)
+- [cloudflare-os--packages-workshop-shared-src-gatekeeper--sensitive-observation-confinement](cloudflare-os--packages-workshop-shared-src-gatekeeper--sensitive-observation-confinement.md)
 
 ### cloudflare-os--plans-git-storage
 
