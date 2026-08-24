@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T22:31:07Z_
+_As of 2026-08-24T22:34:08Z_
 
 ## Latest
 
-Three new jobs active: [endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) entered the gauntlet clean stage, and PRs [#340](https://github.com/endojs/endo-but-for-bots/pull/340) and [#796](https://github.com/endojs/endo-but-for-bots/pull/796) moved into refresh and retcon respectively. Scholar ingest completed a 10-cycle sweep of Cloudflare OS architecture into the library; node-runtime parity for local-verify now enforces Node-24 adoption before running pinned projects. Multiple gauntlet and orchestration jobs halted on repeated handler failures, with frames parked awaiting maintainer promotion; separate alerts flag root-repo deploys stalled 3d behind on both endolin hosts. Clustered maintenance: dependent-conduct blockers on [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) are both waiting on the node24-runner CI flake; budget enforcement design landed with one open input (weekly token cap from your accounts); SIWE tier-1 allowlist addresses needed before minion.town policy wiring can proceed; deploy markers stalled, investigate why the drained gateway hasn't advanced in 3d.
+Two PRs advanced into active gauntlet work ([endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) clean stage, [endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/pull/970) awaiting conduct), but multiple stages across the board have halted and parked with handler failures — five gauntlet/orchestration jobs blocked on go-ahead, plus two elder defects (`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`, `endor-walker-exports-resolution`) awaiting promotion. The byteArray finish-line PRs ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) remain complete and CI-green, gated solely on your re-review; two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW verdicts blocked by the recurring fleet node24-runner infra flake, and the garden deploy has stalled 3+ days behind main2. Scholar completed the Cloudflare OS ingestion cycle (nine jobs, full source coverage), and the maintainer inbox holds 16 open messages covering SIWE tier authorization, git-remote design advance checks, disclosure and security decisions, and budget enforcement activation.
 
 ## Parked for maintainer feedback
 
@@ -1080,18 +1080,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.5M | $944.72 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+1411.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 132.7M | $944.83 _(notional, rate-card)_ | no quota set |
+| Codex | 31.8M _(+1414.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1058
 - [`endojs-endo-but-for-bots-pr340-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 - [`endojs-endo-but-for-bots-pr796-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr970-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr970-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #970
 
 ### tada (5529)
 - [`endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization.md) — Cost
