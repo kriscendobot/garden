@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T04:27:54Z_
+_As of 2026-08-24T04:32:01Z_
 
 ## Latest
 
-The board is quiet with three jobs in flight and an empty todo queue. Recent completions included a dependabotany sweep and minion.town gauntlet iterations; a review directive was posted for [endojs/endo-but-for-bots#889](https://github.com/endojs/endo-but-for-bots/pull/889). Local-verify now enforces Node runtime parity to close CI version skew, and Node 24 has been provisioned to all hosts. Deployment is stalled on two hosts for ~3 days despite deliberate drain, and four gauntlets halted mid-run awaiting requeue authority. Maintainer decisions gate core work: byteArray completion ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is green but awaits re-review, test262 consolidation ([endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) is DRAFT pending a fixtures decision, and SIWE on-chain auth ([kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)) infrastructure is live but awaits tier and allowlist configuration.
+Deploy is stalled ~18 commits behind on two hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64) for ~3 days; investigate why the deliberate drain/deploy cycle has not landed since 745fa90. Multiple gauntlets halted mid-stage ([endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)), and an orchestration (endor-fixture-parity-ratchet) stalled after 3 requeues. Bright spot: Node 24 parity was fixed and deployed; local-verify now enforces runtime version matching. Two deadmail jobs surfaced, signaling the issue-comment watcher's anti-pattern gap noted earlier. The board shows 23 parked PRs awaiting maintainer feedback and many go-ahead gates (byteArray finishing-line re-review, SIWE tier authorization, Tier 1 allowlist addresses, node24 runner flake decision on two dependabot PRs), plus a node24-runner CI flake blocking conduct and orchestration progress.
 
 ## Parked for maintainer feedback
 
@@ -1028,14 +1028,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.0M | $1060.54 _(notional, rate-card)_ | no quota set |
-| Codex | 26.8M _(+1300.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 137.2M | $1060.60 _(notional, rate-card)_ | no quota set |
+| Codex | 26.9M _(+1300.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
+- [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5390713648.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5390718343.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Review directive on endojs/endo-but-for-bots PR #889
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-transient-silence.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
