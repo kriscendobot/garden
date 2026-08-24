@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T02:38:46Z_
+_As of 2026-08-24T02:50:59Z_
 
 ## Latest
 
-byteArray finish-line ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, both MERGEABLE awaiting re-review; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted. SIWE on-chain authz deployed to siwe-idp.minion.town; wiring awaits allowlist addresses and tier-depth decision. Node24 local-verify parity fixed and provisioned; fleet hosts need redeploy to adopt. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by recurring node24-runner flake—awaits decision to merge or fix fleet. Deploy stalled 3+ days on two hosts; investigate why. Fixture parity campaign halted after first child stalled; six gauntlets doomed. Maintainer inbox: ~30 follow-ups awaiting decisions.
+The garden is actively running three jobs ([kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/pull/52)'s gauntlet fix round 2, dependabotany recheck, and a containment follow-up) while processing a backlog of 101 parked decisions awaiting maintainer authorization. Two significant infrastructure issues surfaced: the root repo deploy on both garden instances has stalled ~3 days behind (18 commits) with no motion, and a recurring node24-runner CI flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) that are otherwise green and merge-ready. Multiple gauntlets hit terminal failures this period (PRs [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), and minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)), plus an orchestration on the Endor fixture-parity ratchet that stalled and was parked. On the finish line: the bytearray press ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) sits green awaiting maintainer re-review to clear CHANGES_REQUESTED, [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry immutable-bytes) is draft-ready for un-draft/review, and SIWE on-chain authz for minion.town is deployed with the allowlist and tier choice awaiting your input.
 
 ## Parked for maintainer feedback
 
@@ -1028,14 +1028,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.7M | $1059.01 _(notional, rate-card)_ | no quota set |
-| Codex | 26.1M _(+1241.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 135.8M | $1059.19 _(notional, rate-card)_ | no quota set |
+| Codex | 26.2M _(+1241.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Daily dependabotany backstop for endo-but-for-bots
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260824-025004.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #52
 
 ### tada (5496)
