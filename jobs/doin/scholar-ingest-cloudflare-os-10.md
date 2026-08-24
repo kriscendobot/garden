@@ -14,3 +14,13 @@ The remaining five survey sources, all at `1ef6020a42fbabb6d27dd1063db3a075ba95c
 5. `packages/workshop-shared/src/code-change.ts`: code-change representation, concurrent operational transform, and staged ingestion-validation invariants.
 
 Extend `cloudflare-workers-agent-hosting`, `collaborative-workspace-sharing`, and the existing Git-backed gadget concepts where appropriate. Repost any sources that remain after the normal cycle budget.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-24T20:04:07Z
