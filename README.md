@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T20:24:41Z_
+_As of 2026-08-24T20:25:16Z_
 
 ## Latest
 
-Scholar ingested all of Cloudflare OS's documentation and source comments into 10 consecutive cycles; the complete domain is now represented in the library. Meanwhile, a wave of gauntlets and orchestrations have stalled or halted mid-stage: [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) remain parked with go-ahead gates, and two orchestrations ([endor-fixture-parity-ratchet](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-walker-exports-resolution.md), [endor-walker](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-walker-exports-resolution.md)) are halted after stalls. Several fixes shipped: Node24 parity restored for local-verify, usage-meter unbound-variable patched on main2, and the provider quota has recovered. However, deploy remains stalled on both `endolin-garden-ece02cb4` and `endolin-garden2-5bcdff64` (~18 commits behind), and the maintainer inbox holds 15+ open questions spanning SIWE allowlist authorization, [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) re-review, test262 fixture consolidation strategy, OpenRouter policy, and minion.town git-remote design advancement.
+Bytearray finish-line [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are complete and await maintainer re-review to clear CHANGES_REQUESTED; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft. Two MERGE-NOW dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely by a recurring node24 CI runner flake. Multiple gauntlets are stalled (endo-but-for-bots [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909); minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)), the root deploy is stalled 3 days behind on two hosts, and 20+ decision gates await in the inbox. Scholar completed Cloudflare OS ingestion (10 cycles).
 
 ## Parked for maintainer feedback
 
@@ -1080,23 +1080,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.0M | $958.02 _(notional, rate-card)_ | no quota set |
+| Claude | 133.1M | $958.10 _(notional, rate-card)_ | no quota set |
 | Codex | 31.1M _(+1403.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-cloudflare-os-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-10.md) — ---
+### doin (0)
+(none)
 
-### tada (5526)
+### tada (5527)
+- [`scholar-ingest-cloudflare-os-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-10.md) — Completion report
 - [`scholar-ingest-cloudflare-os-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-9.md) — Cost
 - [`scholar-ingest-cloudflare-os-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-8.md) — Completion report
 - [`scholar-ingest-cloudflare-os-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-7.md) — Cost
 - [`scholar-ingest-cloudflare-os-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-6.md) — Completion report
-- [`improve-journal-entry-role-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-entry-role-attribution.md) — Cost
-- … and 5521 more
+- … and 5522 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
