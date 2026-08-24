@@ -13,6 +13,7 @@ Apple's **EndpointSecurity** (ES) framework: the macOS system-extension API for 
 | [atproto--specs-data-model--security-and-future-changes](../sections/atproto--specs-data-model--security-and-future-changes.md) | Untrusted CBOR parsing as a resource-exhaustion surface, and three open ends: floats may return, the legacy blob format may be removed, more hash types are likely. |
 | [atproto--specs-sync--message-validation-checklist](../sections/atproto--specs-sync--message-validation-checklist.md) | What a firehose consumer must check per message, with responsibility placed on the consumer; relays validate envelopes, not lexicons. |
 | [atproto--specs-sync--guidelines-security-and-future-work](../sections/atproto--specs-sync--guidelines-security-and-future-work.md) | In-order per account and concurrent across accounts, non-portable cursors, and the SSRF and traffic-amplification surface every identity-resolving firehose consumer inherits. |
+| [Two-stage ingestion-validation trust boundary](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | Schema-before-transform / content-after validation, the running size budget, and byte-identical-replica surrogate rules. |
 
 ## See also
 
