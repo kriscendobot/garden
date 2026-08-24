@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6939 (530 parent indexes + 6409 children).
+Total section files: 6953 (530 parent indexes + 6423 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -829,6 +829,17 @@ Total section files: 6939 (530 parent indexes + 6409 children).
 - [cloudflare-os--packages-mcp-shared-src-tools--annotation-trust-boundary](cloudflare-os--packages-mcp-shared-src-tools--annotation-trust-boundary.md)
 - [cloudflare-os--packages-mcp-shared-src-tools--tool-classification-policy](cloudflare-os--packages-mcp-shared-src-tools--tool-classification-policy.md)
 
+### cloudflare-os--packages-workshop-backend-src-agent-compaction
+
+- [cloudflare-os--packages-workshop-backend-src-agent-compaction--legacy-chat-base-version-anchor](cloudflare-os--packages-workshop-backend-src-agent-compaction--legacy-chat-base-version-anchor.md)
+- [cloudflare-os--packages-workshop-backend-src-agent-compaction--proposed-change-fold-and-epoch-boundaries](cloudflare-os--packages-workshop-backend-src-agent-compaction--proposed-change-fold-and-epoch-boundaries.md)
+
+### cloudflare-os--packages-workshop-backend-src-git-store
+
+- [cloudflare-os--packages-workshop-backend-src-git-store--plumbing-only-gitstore-and-fs-shim](cloudflare-os--packages-workshop-backend-src-git-store--plumbing-only-gitstore-and-fs-shim.md)
+- [cloudflare-os--packages-workshop-backend-src-git-store--refless-content-addressed-object-store](cloudflare-os--packages-workshop-backend-src-git-store--refless-content-addressed-object-store.md)
+- [cloudflare-os--packages-workshop-backend-src-git-store--three-way-file-map-merge](cloudflare-os--packages-workshop-backend-src-git-store--three-way-file-map-merge.md)
+
 ### cloudflare-os--packages-workshop-backend-src-sharing
 
 - [cloudflare-os--packages-workshop-backend-src-sharing--effective-role-fixed-point](cloudflare-os--packages-workshop-backend-src-sharing--effective-role-fixed-point.md)
@@ -839,6 +850,24 @@ Total section files: 6939 (530 parent indexes + 6409 children).
 
 - [cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes](cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes.md)
 - [cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract](cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract.md)
+
+### cloudflare-os--packages-workshop-frontend-src-chatinterface
+
+- [cloudflare-os--packages-workshop-frontend-src-chatinterface--durable-and-live-code-branch-state](cloudflare-os--packages-workshop-frontend-src-chatinterface--durable-and-live-code-branch-state.md)
+- [cloudflare-os--packages-workshop-frontend-src-chatinterface--streaming-edit-preview-stream](cloudflare-os--packages-workshop-frontend-src-chatinterface--streaming-edit-preview-stream.md)
+
+### cloudflare-os--packages-workshop-shared-src-api
+
+- [cloudflare-os--packages-workshop-shared-src-api--accept-mainline-merge-and-revert](cloudflare-os--packages-workshop-shared-src-api--accept-mainline-merge-and-revert.md)
+- [cloudflare-os--packages-workshop-shared-src-api--chat-code-base-epochs-and-pins](cloudflare-os--packages-workshop-shared-src-api--chat-code-base-epochs-and-pins.md)
+- [cloudflare-os--packages-workshop-shared-src-api--code-change-submission-sole-edit-path](cloudflare-os--packages-workshop-shared-src-api--code-change-submission-sole-edit-path.md)
+- [cloudflare-os--packages-workshop-shared-src-api--live-edit-preview-stream-contract](cloudflare-os--packages-workshop-shared-src-api--live-edit-preview-stream-contract.md)
+
+### cloudflare-os--packages-workshop-shared-src-code-change
+
+- [cloudflare-os--packages-workshop-shared-src-code-change--concurrent-transform-priority-convention](cloudflare-os--packages-workshop-shared-src-code-change--concurrent-transform-priority-convention.md)
+- [cloudflare-os--packages-workshop-shared-src-code-change--operational-transform-representation](cloudflare-os--packages-workshop-shared-src-code-change--operational-transform-representation.md)
+- [cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation](cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md)
 
 ### cloudflare-os--packages-workshop-shared-src-gatekeeper
 
