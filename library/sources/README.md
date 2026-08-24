@@ -758,18 +758,16 @@ The bot-fork's per-package READMEs (lal, fae, genie, familiar, whylip, exo, chat
 | [Cloudflare OS Notion Gatekeeper](cloudflare-os--packages-gatekeeper-notion-readme.md) | OAuth-mediated Notion pages and databases at workspace or per-page grain, read-simulated pending writes, and a hidden data-source split. | 2 | current |
 | [Cloudflare OS Slack Gatekeeper](cloudflare-os--packages-gatekeeper-slack-readme.md) | Read-only Slack mediation via a user token, three grant granularities, per-resource OAuth scopes, and a conversation-scoped search hard-restriction. | 2 | current |
 | [Cloudflare OS Scheduled Tasks Gatekeeper](cloudflare-os--packages-gatekeeper-scheduler-readme.md) | Ambient persistent scheduled callbacks: three registration methods, runId-keyed retries, DST-aware cadence, and one SQLite ScheduleDriver per account. | 4 | current |
-| [Cloudflare OS Spotify Gatekeeper](cloudflare-os--packages-gatekeeper-spotify-readme.md) | Account and playlist capabilities, strict development-mode OAuth, approval overlays, and provider limitations around playback and non-owned playlists. | 3 | current |
-| [Cloudflare OS Supabase Gatekeeper](cloudflare-os--packages-gatekeeper-supabase-readme.md) | Project and organization grants, organization OAuth setup, and unsimulated approval-gated SQL mutations. | 2 | current |
-| [Cloudflare OS ZoomInfo Gatekeeper](cloudflare-os--packages-gatekeeper-zoominfo-readme.md) | Entitlement-scoped GTM search and enrichment, PKCE and refresh tokens, credit-bearing approvals, and query-confinement guards. | 3 | current |
-| [Cloudflare OS integration-test package](cloudflare-os--packages-integration-tests-readme.md) | Reusable real-Worker and Cap'n Web harness, concurrent persistent-state isolation, and a protocol-real fixture Gatekeeper. | 3 | current |
-| [Cloudflare OS shared MCP implementation](cloudflare-os--packages-mcp-shared-readme.md) | Common security implementation for both MCP Gatekeepers: connector boundaries, annotation trust tiers, at-most-once calls, and resource limits. | 4 | current |
-| [Cloudflare OS Workshop frontend](cloudflare-os--packages-workshop-frontend-readme.md) | Vite+ build-cache correctness and the build-time switch between password authentication and Cloudflare Access identity. | 2 | current |
 | [Cloudflare OS Git-backed gadget code plan](cloudflare-os--plans-git-storage.md) | Git object persistence, commit-backed chat merging, lazy pins, OT revisions, migration, and CodeMirror delivery. | 7 | current |
 | [Cloudflare OS multi-gadget workspace plan](cloudflare-os--plans-multi-gadget.md) | Workpiece namespaces, per-gadget binding edges, provisional chat changes, and named restricted environments. | 4 | current |
 | [Cloudflare OS pi implementation playbook](cloudflare-os--plans-pi-impl.md) | Fixed routing, replay, tool, awaited-loop, verification, and follow-up decisions for the pi-ai migration. | 4 | current |
 | [Cloudflare OS agent guide](cloudflare-os--agents.md) | Repository architecture, kernel quality bar, Vite+ build rules, Cap'n Web practices, and observability boundaries. | 4 | current |
 | [Cloudflare OS contribution policy](cloudflare-os--contributing.md) | Narrow outside-contribution bar and the security reason fork PRs do not receive preview deployments. | 2 | current |
 | [Cloudflare OS review guide](cloudflare-os--review.md) | Kernel, capability, secret, RPC, build-system, contribution, and false-positive guidance for AI reviewers. | 4 | current |
+| [Cloudflare OS Supabase observer strategy (comment)](cloudflare-os--packages-gatekeeper-supabase-src-supabase.md) | supabase.ts comments: observer-tracking strategy by binding granularity and own-token verification. | 2 | current |
+| [Cloudflare OS MCP account connect flow (comment)](cloudflare-os--packages-mcp-shared-src-account.md) | account.ts comments: endpoint immutability, credential-confusion avoidance, and provenance versus live trust. | 2 | current |
+| [Cloudflare OS collaborator sharing engine (comment)](cloudflare-os--packages-workshop-backend-src-sharing.md) | sharing.ts comments: lazy reversible revocation, share-key redemption, and fixed-point effective-role computation. | 3 | current |
+| [Cloudflare OS MCP tool trust boundary (comment)](cloudflare-os--packages-mcp-shared-src-tools.md) | tools.ts comments: the annotation trust boundary and the ServerTrust-mediated classification policy. | 2 | current |
 
 ## Backlog (not yet ingested)
 
