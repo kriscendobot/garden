@@ -75,6 +75,11 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - authentication Gatekeeper, auth Gatekeeper, Gatekeeper sign-in, `AUTH_GATEKEEPERS`, verified-email login -> authentication-gatekeeper
 - Git-backed gadget code, git object store, gadget commit, gadget head commit, `gitObjects` -> git-backed-gadget-code
 - lazy per-gadget pinning, chat code pin, chat epoch, code-base generation, `observedCommit` -> lazy-gadget-pinning
+- code-change operational transform, `CodeChange`, `submitCodeChange`, `transformCodeChange`, `composeCodeChange`, revisioned change stream, `ChatCodeChanges`, change materialization watermark, editFile OT, code-change validation, `validateCodeChangeSchema`, `validateCodeChangeContent` -> code-change-operational-transform
+- three-way file-map merge, `threeWayMerge`, `GitStore`, `splitLines`, refless git object store, `makeGitObjectsFs`, isomorphic-git plumbing -> git-backed-gadget-code
+- `ChatCodeBase`, `mergeChanges`, `updateChatFromMainline`, `mainlineMerge`, `epochBoundary`, mainline merge, fast-forward accept, discontinuous gadgets -> lazy-gadget-pinning
+- `editPreviewStart`, `editPreviewDelta`, `AiChatStreamEvent`, live edit preview, streaming edit preview, `ChatLiveEditPreviews`, `ChatLiveChangeRows` -> code-change-operational-transform
+- `legacyChatBaseVersion`, `foldProposedChanges`, `chatChangeStatuses`, context compaction, compaction checkpoint, `COMPACTION_SYSTEM_PROMPT`, conversion boundary -> lazy-gadget-pinning
 - workpiece, `WorkpieceId`, multi-gadget workspace, gadget binding edge, named chat binding -> cloudflare-os-workpiece
 - pi-ai, pi-agent-core, `runAgentLoopContinue`, awaited agent event sink, pi migration -> pi-agent-loop
 - AI Gateway billing, AI Gateway credits, daily LLM allowance, BYOK routing, `CF_AI_GATEWAY` -> ai-gateway-credit-routing
