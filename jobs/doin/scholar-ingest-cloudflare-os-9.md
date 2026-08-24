@@ -14,3 +14,13 @@ Continue the oldest-first ingestion of `cloudflare/cloudflare-os` package-source
 6. `packages/workshop-shared/src/code-change.ts` at `1ef6020a42fbabb6d27dd1063db3a075ba95c974` (2026-08-21): code-change representation, concurrent OT transform, and staged ingestion-validation invariants.
 
 Extend `capability-mediated-integrations`, `cloudflare-workers-agent-hosting`, `collaborative-workspace-sharing`, `mcp-server-connector`, and the existing Git-backed gadget concepts where appropriate. Repost any of these that remain unprocessed after your cycle.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-24T19:58:01Z
