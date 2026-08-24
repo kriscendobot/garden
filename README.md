@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T09:05:55Z_
+_As of 2026-08-24T09:13:59Z_
 
 ## Latest
 
-[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (byteArray finish-line) landed all-green, awaiting your re-review. Node24 local-verify parity deployed, hard-gating Node-pinned projects until fleet hosts provision Node 24. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are merge-ready but stuck in a rebasing loop with the recurring node24-runner CI flake. Garden deploy stalled 3 days behind main2; several gauntlets halted mid-flow.
+Infrastructure work completed this cycle: scholar ingestion, Node 24 provisioning, and local-verify parity restoration landed. However, deploys have stalled for ~3 days on both primary hosts, and multiple gauntlet runs halted with work parked, including [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023) and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37). Substantial maintainer decisions await: SIWE on-chain authz tier and wallet allowlist for minion.town, OpenRouter zero-retention policy and stealth-model scheme, test262 fixture consolidation strategy, and several architectural design questions.
 
 ## Parked for maintainer feedback
 
@@ -330,6 +330,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260823T173407Z-4e0254` — from orchestrator:endor-fixture-parity-ratchet-campaign-20260823-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260823T173407Z-4e0254.md)
 
 > Orchestration endor-fixture-parity-ratchet-campaign-20260823 HALTED: child endor-walker-exports-resolution stalled after 3 requeues on host endolin-garden-ece02cb4 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 0/6 done before halt; parked remainder: endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
+
+- `20260824T091307Z-de87b9` — from scholar:scholar-ingest-generative-agents-talk, reply_to `scholar-ingest-generative-agents-talk` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T091307Z-de87b9.md)
+
+> Ingested Abhinav Chinta's 2024 *Generative Agents* reading-group talk into five sections covering Smallville, salience-weighted memory retrieval, reflection, hierarchical planning/reaction, and the reported social outcomes and limitations. The concrete Endo takeaway is that durable formulas/transcripts provide storage, but coherent long-lived agents still need a capability-bounded policy layer for bounded retrieval, evidence-linked reflection, and forward-only replanning. Added the `salience-weighted-agent-memory` concept and an Endo project cross-link; integrity checks passed and projected indexes are current. Full result: `entries/2026/08/24/091252Z-result-scholar-a4036b.md`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1028,23 +1032,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.0M | $1051.21 _(notional, rate-card)_ | no quota set |
-| Codex | 28.0M _(+1323.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 138.2M | $1051.39 _(notional, rate-card)_ | no quota set |
+| Codex | 28.2M _(+1327.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-generative-agents-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-generative-agents-talk.md) — Ingest source: "Generative Agents" talk (Abhinav Chinta)
+### doin (0)
+(none)
 
-### tada (5510)
+### tada (5511)
+- [`scholar-ingest-generative-agents-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-generative-agents-talk.md) — Cost
 - [`daily-progress-summary-20260824-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260824-070504.md) — Cost
 - [`fix-benchmarker-role-dead-citations-and-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-benchmarker-role-dead-citations-and-design-docs.md) — Cost
 - [`kriscendobot-minion-town-pr52-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet.md) — gauntlet kriscendobot-minion-town-pr52-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Cost
-- [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gardener-transient-silence.md) — Cost
-- … and 5505 more
+- … and 5506 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
