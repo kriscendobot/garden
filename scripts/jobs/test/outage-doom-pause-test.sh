@@ -200,6 +200,7 @@ place_stale() {
     [ "$reaped" -gt 0 ] && printf '<!-- garden-reaped: %s -->\n' "$reaped"
     [ "$wall" -gt 0 ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$wall"
     [ "$constancy" -gt 0 ] && printf '<!-- garden-elapsed-constancy: %s -->\n' "$constancy"
+    [ "$outage" = "1" ] && printf '<!-- garden-transient-elapsed: kind=signature through=%s values=470,472 -->\n' "$reaped"
     printf -- '---\nclaim:\n  host: reaphost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > "$wt/jobs/doin/$base.md"
   printf 'worktree_dir: %s\n' "$T3/nonexistent-wt-$base" > "$wt/work/$base"
@@ -224,6 +225,7 @@ if [ -f "$T3/v/jobs/todo/outjob.md" ]; then
   grep -Eq '^<!-- garden-reaped: 3 -->$' "$T3/v/jobs/todo/outjob.md" || { out_ok=0; echo "    reap counter not HELD at 3 ($(grep -o 'garden-reaped: [0-9]*' "$T3/v/jobs/todo/outjob.md" | head -1))"; }
   grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$T3/v/jobs/todo/outjob.md" || { out_ok=0; echo "    wall-hit counter was not held"; }
   grep -Eq '^<!-- garden-elapsed-constancy: 2 -->$' "$T3/v/jobs/todo/outjob.md" || { out_ok=0; echo "    elapsed-constancy counter was not held"; }
+  grep -Eq '^<!-- garden-transient-elapsed:' "$T3/v/jobs/todo/outjob.md" && { out_ok=0; echo "    stale transient-elapsed history bridged the outage"; }
   grep -Eq '^<!-- garden-outage-cycle -->$' "$T3/v/jobs/todo/outjob.md" && { out_ok=0; echo "    outage marker not stripped on requeue"; }
 fi
 [ "$out_ok" -eq 1 ] \

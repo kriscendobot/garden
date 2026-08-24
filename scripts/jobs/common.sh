@@ -3969,30 +3969,82 @@ reap_count() {
 # counter surfaces it (~5×TTL). Its TELL is a near-CONSTANT elapsed across requeue
 # cycles: a genuine deploy/drain/OOM blip is killed at a VARIED elapsed (and reads
 # as an external-kill/timeout rc), whereas a deterministic overrun dies at the same
-# wall-time every cycle. These two helpers let gardener.sh make that "is this
-# actually stuck?" call in the script, READ-ONLY of state it already holds, so a
+# wall-time every cycle. These helpers let gardener.sh make that "is this actually
+# stuck?" call from a bounded observation window carried with the claim, so a
 # misclassified job surfaces in ~2 cycles instead of ~5 — without a human or a
-# watchman grep, and without the gardener ever writing the requeue (the reaper
-# stays the sole requeue writer; the gardener only escalates a warning).
+# watchman grep and without the gardener writing the requeue (the reaper remains
+# the sole requeue writer).
 
-# prior_transient_elapsed_series <clone> <base> — echo the elapsed seconds (one
-# integer per line, oldest→newest) recovered READ-ONLY from this gardener-clone's
-# prior progress journal entries for job <base>. Each transient/overrun note
-# gardener.sh posts carries `job <base> handler exited … elapsed=<N>s`; this greps
-# those notes (the clone was synced at claim time, so it holds prior cycles' notes
-# but NOT the current one) so a later cycle can tell a near-CONSTANT elapsed from a
-# VARIED one — no new state, no CAS. The `job <base> handler exited` anchor pins
-# the base with a trailing token so a base that is a prefix of another cannot
-# bleed in. Entries sort chronologically by their entries/YYYY/MM/DD/HHMMSSZ-…
-# path, so `sort` on the matching filenames orders the series oldest→newest.
-# Always returns 0 (an empty series is not an error).
-prior_transient_elapsed_series() {
-  local clone="${1:-}" base="${2:-}" dir f
-  dir="$clone/entries"
-  [ -n "$clone" ] && [ -n "$base" ] && [ -d "$dir" ] || return 0
-  grep -rlF "job $base handler exited" "$dir" 2>/dev/null | sort | while IFS= read -r f; do
-    sed -n 's/.*elapsed=\([0-9][0-9]*\)s.*/\1/p' "$f" | head -1
-  done || true
+# The elapsed window is claim/requeue metadata, not a shared journal entry. `through`
+# binds it to the reap count of the cycle that observed the last value, so a stale
+# window cannot bridge an intervening external kill, outage, or productive cycle.
+# `kind` keeps exit-0 and diagnostic-bearing transient failures from contaminating
+# one another. `values` is bounded by GARDEN_ELAPSED_CONSTANCY_CYCLES when stamped.
+TRANSIENT_ELAPSED_MARKER_RE='^<!-- garden-transient-elapsed: kind=(exit0|signature) through=[0-9][0-9]* values=[0-9][0-9]*(,[0-9][0-9]*)* -->$'
+
+# transient_elapsed_series <jobfile> <kind> <current-cycle> — print the trailing
+# elapsed observations only when the marker ends at the immediately preceding
+# requeue cycle and has the same classification. Otherwise print nothing: the
+# history is not consecutive and must not contribute to a constancy verdict.
+transient_elapsed_series() {
+  local f="${1:-}" want_kind="${2:-}" cycle="${3:-}" line kind through values
+  [ -f "$f" ] || return 0
+  case "$want_kind" in exit0|signature) ;; *) return 0 ;; esac
+  case "$cycle" in ''|*[!0-9]*) return 0 ;; esac
+  [ "$cycle" -gt 0 ] || return 0
+  line="$(grep -E "$TRANSIENT_ELAPSED_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"
+  [ -n "$line" ] || return 0
+  kind="$(printf '%s\n' "$line" | sed -nE 's/^<!-- garden-transient-elapsed: kind=([^ ]+) through=([0-9]+) values=([^ ]+) -->$/\1/p')"
+  through="$(printf '%s\n' "$line" | sed -nE 's/^<!-- garden-transient-elapsed: kind=([^ ]+) through=([0-9]+) values=([^ ]+) -->$/\2/p')"
+  values="$(printf '%s\n' "$line" | sed -nE 's/^<!-- garden-transient-elapsed: kind=([^ ]+) through=([0-9]+) values=([^ ]+) -->$/\3/p')"
+  [ "$kind" = "$want_kind" ] && [ "$through" -eq "$(( cycle - 1 ))" ] || return 0
+  printf '%s\n' "$values" | tr ',' '\n'
+}
+
+# stamp_transient_elapsed <clone> <doin-relpath> <kind> <cycle> <elapsed> <keep> —
+# replace the job's elapsed marker with the consecutive trailing window ending at
+# this cycle. This is deliberately metadata-only: the caller still stamps the
+# appropriate reap-now or provider-reset hint. Idempotent across CAS retries.
+stamp_transient_elapsed() {
+  local clone="$1" rel="$2" kind="$3" cycle="$4" elapsed="$5" keep="$6"
+  local attempt f rc prior values marker existing
+  case "$kind" in exit0|signature) ;; *) return 1 ;; esac
+  case "$cycle:$elapsed:$keep" in *[!0-9:]*) return 1 ;; esac
+  [ "$elapsed" -ge 0 ] && [ "$keep" -ge 2 ] || return 1
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi
+    existing="$(grep -E "$TRANSIENT_ELAPSED_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"
+    if printf '%s\n' "$existing" | grep -Eq "^<!-- garden-transient-elapsed: kind=$kind through=$cycle values=([0-9]+,)*$elapsed -->$"; then
+      clone_unlock "$clone"
+      return 0
+    fi
+    prior="$(transient_elapsed_series "$f" "$kind" "$cycle")"
+    values="$( { printf '%s\n' "$prior"; printf '%s\n' "$elapsed"; } |
+      grep -E '^[0-9]+$' | tail -n "$keep" | paste -sd, - )"
+    marker="<!-- garden-transient-elapsed: kind=$kind through=$cycle values=$values -->"
+    awk -v obs_re="$TRANSIENT_ELAPSED_MARKER_RE" -v obs="$marker" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) print obs
+          if (line[i] ~ obs_re) continue
+          print line[i]
+        }
+        if (cut == 0) print obs
+      }
+    ' "$f" > "$f.elapsed" && mv "$f.elapsed" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "transient-elapsed: classify $rel ($kind cycle $cycle) by $GARDEN"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
+  done
+  return 1
 }
 
 # elapsed_within_band <tol_pct> <v1> <v2> … — 0 iff every value is within a
@@ -4450,7 +4502,7 @@ stamp_outage_cycle_hint() {
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
 # spelling of "the family", so no caller enumerates the members itself.
-CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
 
 # strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
 # Idempotent by construction: a body with no markers passes through byte-identical, and
@@ -4466,10 +4518,13 @@ strip_cycle_markers() {
 # body carries no markers (the common non-doom case), else a comma-joined list like
 # `reaped=4,deadline-overrun=2,reap-now`.
 cycle_marker_summary() {
-  local f="$1" out="" n
+  local f="$1" out="" n line observation
   n="$(reap_count "$f")";             [ "$n" -gt 0 ] && out="${out:+$out,}reaped=$n"
   n="$(deadline_overrun_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}deadline-overrun=$n"
   n="$(elapsed_constancy_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}elapsed-constancy=$n"
+  line="$(grep -E "$TRANSIENT_ELAPSED_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"
+  observation="$(printf '%s\n' "$line" | sed -nE 's/^<!-- garden-transient-elapsed: kind=([^ ]+) through=([0-9]+) values=([^ ]+) -->$/\1@\2[\3]/p')"
+  [ -n "$observation" ] && out="${out:+$out,}transient-elapsed=$observation"
   if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
   if provider_quota_backoff_fields "$f" >/dev/null 2>&1; then out="${out:+$out,}provider-quota-backoff"; fi
   if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi

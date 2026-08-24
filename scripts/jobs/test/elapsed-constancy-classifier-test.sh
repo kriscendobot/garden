@@ -1,7 +1,7 @@
 #!/bin/bash
 # elapsed-constancy-classifier-test.sh — regression guard for gardener.sh's
 # elapsed-constancy early-escalation (gardener.sh transient branch; the pure
-# helpers prior_transient_elapsed_series / elapsed_within_band in common.sh).
+# helpers transient_elapsed_series / elapsed_within_band in common.sh).
 #
 # The problem: a transient CLASSIFICATION is not proof of a self-resolving blip. A
 # job that deterministically OVERRUNS and dies with a transient-claude signature (a
@@ -16,8 +16,8 @@
 #
 # The fix: after the transient classification (which still leaves the job in doin
 # for the reaper — the reaper stays the SOLE requeue writer), the gardener recovers
-# the prior cycles' elapsed for this base READ-ONLY from its already-synced progress
-# entries and, once the trailing N-cycle window (N = GARDEN_ELAPSED_CONSTANCY_CYCLES,
+# the prior cycles' elapsed from bounded claim/requeue metadata and, once the
+# trailing N-cycle window (N = GARDEN_ELAPSED_CONSTANCY_CYCLES,
 # default 2) agrees within a tolerance band on a NON-external-kill rc WITH real
 # output, emits ONE gardener-inbox kind:error flagging the likely misclassification
 # — surfacing a genuinely-stuck job in ~2 cycles instead of ~5, and moving the
@@ -64,7 +64,7 @@ source "$JOBS/common.sh"
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 # ============================================================================
-hr; echo "SUBTEST 1 — pure helpers: elapsed_within_band + prior_transient_elapsed_series"; hr
+hr; echo "SUBTEST 1 — pure helpers: elapsed_within_band + transient_elapsed_series"; hr
 # Near-constant windows agree; a wide spread does not; a single value / non-integer
 # / zero is never "constant" (inconclusive, never a false positive).
 elapsed_within_band 15 470 471       && ok "470,471 within ±15% → constant" || bad "470,471 not classified constant"
@@ -74,21 +74,20 @@ if elapsed_within_band 15 470;     then bad "single value classified constant"; 
 if elapsed_within_band 15 470 abc; then bad "non-integer swept into constant"; else ok "non-integer arg → NOT constant (inconclusive)"; fi
 if elapsed_within_band 15 0 0;     then bad "zeros classified constant"; else ok "zero values → NOT constant"; fi
 
-# prior_transient_elapsed_series recovers elapsed in chronological order and does
-# NOT bleed a base that is only a PREFIX of a different base into the series.
+# transient_elapsed_series accepts only the immediately preceding cycle and the
+# same failure classification, so stale or cross-kind history cannot bleed in.
 TD="$(mktemp -d "${TMPDIR:-/tmp}/garden-series.XXXXXX")"
-mkdir -p "$TD/entries/2026/07/01"
-printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 0, elapsed=470s); left in doin\n' > "$TD/entries/2026/07/01/010000Z-progress-gardener-a.md"
-printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 1, elapsed=472s); left in doin\n' > "$TD/entries/2026/07/01/020000Z-progress-gardener-b.md"
-printf 'job overrunjob-extra handler exited rc=1 (…); elapsed=99s\n' > "$TD/entries/2026/07/01/030000Z-progress-gardener-c.md"
-series="$(prior_transient_elapsed_series "$TD" overrunjob | paste -sd, -)"
-if [ "$series" = "470,472" ]; then ok "series recovered oldest→newest (470,472), prefix base 'overrunjob-extra' (99s) NOT bled in"; else bad "series wrong: got '$series' (expected 470,472)"; fi
+printf '<!-- garden-transient-elapsed: kind=signature through=1 values=470,472 -->\n' > "$TD/job.md"
+series="$(transient_elapsed_series "$TD/job.md" signature 2 | paste -sd, -)"
+if [ "$series" = "470,472" ]; then ok "consecutive same-kind series recovered oldest→newest (470,472)"; else bad "series wrong: got '$series' (expected 470,472)"; fi
+if [ -n "$(transient_elapsed_series "$TD/job.md" exit0 2)" ]; then bad "signature history bled into exit0"; else ok "cross-kind history rejected"; fi
+if [ -n "$(transient_elapsed_series "$TD/job.md" signature 3)" ]; then bad "stale history bridged a skipped cycle"; else ok "non-consecutive history rejected"; fi
 rm -rf "$TD"
 
 # ---------------------------------------------------------------------------
 # Shared integration fixture builder: a throwaway origin with the board structure,
 # ONE job in todo carrying a seeded reap-count marker, and (optionally) prior
-# constant-elapsed progress notes + a prior escalation entry seeded into entries/.
+# constant-elapsed claim metadata + a prior escalation entry seeded into entries/.
 # Echoes "<TR> <BARE>".
 build_fixture() {
   local reaps="$1" seed_priors="$2" seed_dedup="$3"
@@ -109,15 +108,11 @@ build_fixture() {
       [ "$reaps" -gt 0 ] && printf '<!-- garden-reaped: %s -->\n' "$reaps"
     } > jobs/todo/overrunjob.md
     if [ "$seed_priors" = 1 ]; then
-      mkdir -p entries/2026/07/01
-      printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 0, elapsed=3s); left in doin\n' > entries/2026/07/01/010000Z-progress-gardener-a.md
-      printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 1, elapsed=3s); left in doin\n' > entries/2026/07/01/020000Z-progress-gardener-b.md
+      printf '<!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->\n' >> jobs/todo/overrunjob.md
     elif [ "$seed_priors" = 2 ]; then
       # VARIED priors: the prior cycles died at a wildly different elapsed than the
       # stub's ~3s, so the trailing window is NOT near-constant and nothing may fire.
-      mkdir -p entries/2026/07/01
-      printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 0, elapsed=470s); left in doin\n' > entries/2026/07/01/010000Z-progress-gardener-a.md
-      printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 1, elapsed=900s); left in doin\n' > entries/2026/07/01/020000Z-progress-gardener-b.md
+      printf '<!-- garden-transient-elapsed: kind=signature through=1 values=470,900 -->\n' >> jobs/todo/overrunjob.md
     fi
     if [ "$seed_dedup" = 1 ]; then
       mkdir -p entries/2026/07/01
@@ -289,7 +284,8 @@ fi
 hr; echo "SUBTEST 5 — not enough cycles: a first-pass job (reap-count 0) escalates NOTHING"; hr
 read -r TR5 BARE5 < <(build_fixture 0 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5"' EXIT
-run_gardener "$BARE5" echost5 "$TR5" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
+run_gardener "$BARE5" echost5 "$TR5" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
+  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
 CLONE5="$TR5/state/gardeners/1/journal"
 # Ordinary transient behavior must be intact: transient verdict, NO inbox escalation.
 if grep -Eq "looks transient \(rc=1[,)]" "$TR5/gardener.log"; then
@@ -306,6 +302,48 @@ if [ -e "$CLONE5/inboxes/echost5/gardener.md" ]; then
   bad "inbox escalation created on a first-pass transient failure"
 else
   ok "no inbox escalation on a first-pass transient failure (ordinary transient path intact)"
+fi
+if find "$CLONE5/entries" -type f -name '*-progress-*' -print -quit | grep -q .; then
+  bad "first-pass transient emitted a shared progress entry"
+else
+  ok "first-pass transient stayed out of the shared progress journal"
+fi
+if grep -Eq '^<!-- garden-transient-elapsed: kind=signature through=0 values=[0-9]+ -->$' "$CLONE5/jobs/doin/overrunjob.md"; then
+  ok "first-pass elapsed classification persisted on claim metadata"
+else
+  bad "first-pass elapsed classification missing from claim metadata"
+fi
+
+# Requeue and repeat the same failure. The private observation must survive the
+# reaper, the second attempt must now be visible in the shared journal, and the
+# two-cycle constant window must still trigger early wedge detection.
+env JOURNAL_REMOTE="$BARE5" JOURNAL_BRANCH=journal2 GARDEN=reapconst5 \
+    GARDEN_STATE="$TR5/reaper-state" GARDEN_SCRATCH="$TR5/reaper-scratch" \
+    GARDEN_CLAIM_TTL=3600 GARDEN_REAP_DOOM_THRESHOLD=99 \
+    GARDEN_REAP_OVERRUN_THRESHOLD=1 GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD=2 \
+    GARDEN_PROGRESS_DOOM=off "$JOBS/reaper.sh" > "$TR5/reaper.log" 2>&1
+rm -rf "$TR5/after-reap"
+git clone -q --single-branch --branch journal2 "$BARE5" "$TR5/after-reap" 2>/dev/null
+if grep -Eq '^<!-- garden-transient-elapsed: kind=signature through=0 values=[0-9]+ -->$' "$TR5/after-reap/jobs/todo/overrunjob.md" \
+   && [ "$(reap_count "$TR5/after-reap/jobs/todo/overrunjob.md")" -eq 1 ]; then
+  ok "reaper preserved elapsed metadata while advancing the requeue cycle"
+else
+  bad "reaper did not preserve elapsed metadata with the requeue"
+fi
+run_gardener "$BARE5" echost5 "$TR5" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
+  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
+rm -rf "$TR5/after-repeat"
+git clone -q --single-branch --branch journal2 "$BARE5" "$TR5/after-repeat" 2>/dev/null
+if find "$TR5/after-repeat/entries" -type f -name '*-progress-*' -print -quit | grep -q .; then
+  ok "repeated transient emitted shared progress"
+else
+  bad "repeated transient remained silent in shared progress"
+fi
+if grep -Eq '^<!-- garden-transient-elapsed: kind=signature through=1 values=[0-9]+,[0-9]+ -->$' "$TR5/after-repeat/jobs/doin/overrunjob.md" \
+   && grep -q "elapsed-constancy early-escalation for 'overrunjob'" "$TR5/gardener.log"; then
+  ok "second attempt extended metadata and preserved early wedge detection"
+else
+  bad "second attempt did not extend metadata or detect the constant-elapsed wedge"
 fi
 
 # ============================================================================
@@ -425,12 +463,10 @@ for cap_type in weekly 5-hour; do
 done
 
 # ============================================================================
-hr; echo "SUBTEST 9 — SELF-SAMPLE regression: reap-count 2 with NO prior notes must NOT confirm constancy"; hr
-# THE 2026-07-28 DEFECT. The check reads the prior cycles' elapsed out of $CLONE and
-# appends this cycle's elapsed itself. But this cycle's OWN progress note is written
-# (and pushed) BEFORE that read, and stamp_reap_now_hint's sync_clone then hard-resets
-# $CLONE onto the origin tip that now CONTAINS it — so the "prior" series ended with
-# THIS cycle's elapsed and the appended current value duplicated it. The window was
+hr; echo "SUBTEST 9 — SELF-SAMPLE regression: reap-count 2 with NO prior metadata must NOT confirm constancy"; hr
+# THE 2026-07-28 DEFECT. The old check read elapsed out of shared progress and could
+# read this cycle's OWN freshly pushed note before appending the current value. The
+# window was
 # [current, current]: bit-identical by construction, so constancy was ALWAYS confirmed.
 # On 2026-07-28 that stamped the early-doom overrun counter on nine unrelated jobs in
 # eight minutes on one host — each reported as a perfect pair at a DIFFERENT value
@@ -438,7 +474,7 @@ hr; echo "SUBTEST 9 — SELF-SAMPLE regression: reap-count 2 with NO prior notes
 # doom-parked four of them, one of which had only ever run ONE cycle.
 #
 # This fixture is exactly that shape: the cycle floor is CLEARED (reap-count 2) but
-# there are NO prior notes at all, so a correct window can never be full. Nothing may
+# there is NO prior claim metadata, so a correct window can never be full. Nothing may
 # escalate, and — the damaging half — the early-doom counter must NOT be stamped.
 read -r TR9 BARE9 < <(build_fixture 2 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9"' EXIT

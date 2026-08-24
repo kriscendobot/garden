@@ -720,16 +720,16 @@ while :; do
     cycle="$(reap_count "$jobfile")"
     log "handler for '$base' exited 0 WITHOUT the completion signal (exit-0-unsatisfying: quota/API/clean-but-unfinished); requeueing (requeue cycle $cycle, elapsed=${elapsed}s), left in doin for reaper requeue"
     # SILENT-UNTIL-REPEAT. A `kind:progress` note on EVERY exit-0-unsatisfying
-    # requeue is routine self-healing progress. A CYCLE-1 exit-0-unsatisfying is a
+    # requeue is routine self-healing progress. A first-pass exit-0-unsatisfying is a
     # benign, expected transient — a quota/usage cut, a swallowed API error, a run
     # that clean-exited without finishing — that the reaper requeues silently and
     # escalates to DOOM only after GARDEN_REAP_DOOM_THRESHOLD cycles. So a
     # single-cycle note is routine progress that burns supervisor/journal context,
     # the silent-until-error violation the mentor brief flags (seen in the digest:
-    # job fix-stale-bulletin-leader-singleton, requeue cycle 1). CYCLE-1 TRANSIENTS
+    # job fix-stale-bulletin-leader-singleton). FIRST-PASS TRANSIENTS
     # THEREFORE LOG LOCALLY ONLY: the local `log` above stays UNCONDITIONAL
     # (stderr/systemd/journalctl operator visibility), but the SHARED-journal note
-    # fires only on a REPEAT (cycle >= 2) — a second requeue indicates a
+    # fires only on a REPEAT (cycle >= 1) — a second attempt indicates a
     # deterministic, non-transient cut worth a note, distinct from a one-off blip.
     # The reaper — the single writer of the requeue AND the `<!-- garden-reaped:
     # N -->` doom counter — still owns the authoritative escalation; as a repeat
@@ -738,22 +738,24 @@ while :; do
     # flags ABOUT TO ESCALATE.
     doom_threshold="${GARDEN_REAP_DOOM_THRESHOLD:-5}"
     case "$doom_threshold" in ''|*[!0-9]*) doom_threshold=5 ;; esac
-    # SNAPSHOT THE PRIOR SERIES *BEFORE* THIS CYCLE'S OWN NOTE IS WRITTEN.
-    # The constancy check below needs the elapsed of the PRIOR cycles; it appends
-    # this cycle's $elapsed itself. Reading the series after the note below is
-    # pushed — and after stamp_reap_now_hint's sync_clone hard-resets $CLONE to the
-    # origin tip that now CONTAINS that note — makes the series' last element THIS
-    # cycle's elapsed, which the check then appends a second time. The window is
-    # then [current, current]: bit-identical by construction, so constancy is
-    # ALWAYS "confirmed", on the very first cycle, for every job. That is not
-    # hypothetical: on 2026-07-28 it stamped the early-doom counter on nine
-    # unrelated jobs in eight minutes on one host, each reported as a perfectly
-    # constant pair at a different value (12,12s / 61,61s / 1403,1403s …) — and at
-    # GARDEN_REAP_OVERRUN_THRESHOLD=1 the reaper doom-parked four of them, one
-    # (fu-endojs-endo-but-for-bots-pr825-8840fcdb-2) on the only cycle it had ever
-    # run. Snapshotting here restores the invariant the check was written against.
-    prior_series0="$(prior_transient_elapsed_series "$CLONE" "$base")"
-    if [ "$cycle" -ge 2 ]; then
+    # Persist the bounded elapsed window on the claim itself. This is the private,
+    # deterministic input to early-wedge detection; a first-cycle self-healing blip
+    # no longer has to publish a shared journal entry merely so a later cycle can
+    # recover its elapsed. The marker's `through` cycle prevents stale history from
+    # bridging a non-consecutive classification.
+    constancy_n0="$GARDEN_ELAPSED_CONSTANCY_CYCLES"
+    case "$constancy_n0" in ''|*[!0-9]*) constancy_n0=0 ;; esac
+    prior_series0=""
+    series0=""
+    if [ "$constancy_n0" -ge 2 ]; then
+      prior_series0="$(transient_elapsed_series "$jobfile" exit0 "$cycle")"
+      series0="$( { printf '%s\n' "$prior_series0"; printf '%s\n' "$elapsed"; } |
+        grep -E '^[0-9]+$' | tail -n "$constancy_n0" || true )"
+      if ! ( stamp_transient_elapsed "$CLONE" "$JOBS_DOIN/$base.md" exit0 "$cycle" "$elapsed" "$constancy_n0" ); then
+        log "could not persist transient elapsed metadata on '$base' (rc=$?); constancy history may restart next cycle"
+      fi
+    fi
+    if [ "$cycle" -ge 1 ]; then
       near_doom=""
       [ "$cycle" -ge "$(( doom_threshold - 1 ))" ] && near_doom=" — ABOUT TO ESCALATE as doom"
       printf 'gardener-%s on %s: job %s handler exited 0 but never emitted the completion signal (exit-0-unsatisfying — claude quota/usage cut, swallowed API error, or unfinished run); requeueing doin→todo (requeue cycle %s of doom threshold %s, elapsed=%ss), left in doin for reaper requeue%s\n' \
@@ -777,34 +779,25 @@ while :; do
     # cycles with no further HEAD movement would mean the child is wedged, not
     # working"), burning ~2000s per cycle silently up to GARDEN_REAP_DOOM_THRESHOLD
     # times before the reaper dooms it. Its tell is the SAME near-constant elapsed
-    # the rc!=0 overrun check watches for. Recover the prior cycles' elapsed for this
-    # base (READ-ONLY grep of this clone's already-synced progress notes — the exit-0
-    # note above carries the same `job <base> handler exited … elapsed=<N>s` anchor
-    # prior_transient_elapsed_series reads — no new state, no CAS, the reaper stays
-    # the sole requeue writer) and, once the trailing N-cycle window agrees within the
-    # tolerance band, emit ONE gardener-inbox kind:error flagging the likely wedge so
+    # the rc!=0 overrun check watches for. Recover the prior cycles' elapsed from the
+    # bounded claim/requeue marker and, once the trailing N-cycle window agrees
+    # within the tolerance band, emit ONE gardener-inbox kind:error flagging the likely wedge so
     # a human sees it in ~2 cycles instead of the reaper's ~5-cycle doom burn.
     # Gated by GARDEN_ELAPSED_CONSTANCY_CYCLES (N; 0/1 disables). No rc/capture gate
     # is needed: an exit-0-unsatisfying handler produced NO failure output by
     # construction, and there is only one kind here to watch — a clean exit that
     # never finished. (The rc!=0 branch's is_external_kill_rc/is_handler_timeout_rc
     # exclusions have no analogue on the exit-0 path.)
-    constancy_n0="$GARDEN_ELAPSED_CONSTANCY_CYCLES"
-    # A misconfigured (non-integer) tunable DISABLES the check rather than crashing
-    # the gardener loop on the arithmetic test below.
-    case "$constancy_n0" in ''|*[!0-9]*) constancy_n0=0 ;; esac
+    # A misconfigured (non-integer) tunable disables both metadata and the check.
     # SUPPRESS during a fleet-wide outage: the constancy check reads a near-constant
     # elapsed as "a WEDGED child, not a working one", but under an ENGAGED fleet brake
     # a constant elapsed is just as consistent with an environmental storm (a usage cap
     # tripping at the same point every run — the 2026-07-01 incident) that will
     # self-resolve. Firing a wedge advisory then is a false alarm, so skip it while the
     # brake is engaged; the outage-cycle hint (below) already spares the doom counter.
-    if [ "$constancy_n0" -ge 2 ] && [ "$cycle" -ge 2 ] && ! fleet_brake_engaged; then
-      # Prior cycles' elapsed (SNAPSHOTTED above, before this cycle's own note was
-      # written and before stamp_reap_now_hint re-synced $CLONE onto a tip carrying
-      # it — see the snapshot comment) with the current elapsed appended, then the
-      # trailing N-cycle window; require a FULL window before judging constancy.
-      series0="$(printf '%s\n' "$prior_series0"; printf '%s\n' "$elapsed")"
+    if [ "$constancy_n0" -ge 2 ] && [ "$cycle" -ge 1 ] && ! fleet_brake_engaged; then
+      # The precomputed claim-metadata series already includes the current elapsed;
+      # take the trailing N-cycle window and require a FULL window before judging.
       window0="$(printf '%s\n' "$series0" | grep -E '^[0-9]+$' | tail -n "$constancy_n0" || true)"
       count0="$(printf '%s\n' "$window0" | grep -cE '^[0-9]+$' || true)"
       # Fire at most ONCE per base: dedup on the marker the kind:error entry below
@@ -1088,31 +1081,17 @@ while :; do
       # instead of waiting out the full doom cycle. elapsed is READ-ONLY of the
       # SECONDS timing captured at the call site — no new state, no CAS.
       log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, elapsed=${elapsed}s, signal-kill/timeout/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
-      # SILENT-UNTIL-ESCALATION (same rationale as the exit-0-unsatisfying branch
+      # SILENT-UNTIL-REPEAT (same rationale as the exit-0-unsatisfying branch
       # above): the reaper dooms a job that keeps failing the same transient way
       # after GARDEN_REAP_DOOM_THRESHOLD cycles, so a per-cycle shared-journal note
       # on each routine requeue (a deploy-drain SIGTERM, a shepherd hitting the 2400s
       # wall as rc=124, an empty-output blip) just duplicates self-healing progress.
-      # Keep the local `log` (stderr/systemd) and fire the SHARED-journal note only as
-      # the job APPROACHES the reaper's doom escalation (cycle>=threshold-1).
-      #
-      # EXCEPTION — the elapsed-constancy early-escalation below reconstructs its input
-      # elapsed SERIES by grepping THESE per-cycle transient notes out of the journal
-      # (common.sh prior_transient_elapsed_series). Silencing them for the subset it
-      # watches — a transient-claude-signature / bare claude-CLI failure WITH output,
-      # NOT an external signal-kill, wall-clock timeout, or empty-capture blip — would
-      # blind that check (it would never assemble a full window and could not surface a
-      # deterministic overrun misclassified as a blip in ~2 cycles). So keep writing the
-      # note for exactly that subset; only the noisy escalation-less routine requeues
-      # (which no downstream check consumes) are quieted until doom is imminent.
+      # Keep the local `log` (stderr/systemd) and fire the SHARED-journal note only
+      # after a repeat (cycle>=1), or on the last pre-doom cycle when a deliberately
+      # small threshold makes that earlier. Elapsed-constancy no longer creates an
+      # exception: its bounded input window lives on the claim metadata below.
       doom_threshold="${GARDEN_REAP_DOOM_THRESHOLD:-5}"
       case "$doom_threshold" in ''|*[!0-9]*) doom_threshold=5 ;; esac
-      # SNAPSHOT THE PRIOR SERIES *BEFORE* THIS CYCLE'S OWN NOTE IS WRITTEN — same
-      # self-sample defect, and the same fix, as the exit-0 branch above (see the
-      # snapshot comment there for the 2026-07-28 incident this closes). Here the
-      # re-sync that pulls this cycle's note into $CLONE comes from
-      # stamp_reap_now_hint / stamp_deadline_overrun_hint below.
-      prior_series="$(prior_transient_elapsed_series "$CLONE" "$base")"
       constancy_n_g="$GARDEN_ELAPSED_CONSTANCY_CYCLES"
       case "$constancy_n_g" in ''|*[!0-9]*) constancy_n_g=0 ;; esac
       constancy_applicable=0
@@ -1129,7 +1108,17 @@ while :; do
       # on the OTHER transient paths (external signal-kill, plain timeout below the
       # wall, empty-capture blip, transient-claude signature). The local `log` above
       # is unconditional and stays.
-      if { [ "$cycle" -ge "$(( doom_threshold - 1 ))" ] || [ "$constancy_applicable" -eq 1 ]; } \
+      prior_series=""
+      elapsed_series=""
+      if [ "$constancy_applicable" -eq 1 ] && [ "$outage_cycle" -ne 1 ]; then
+        prior_series="$(transient_elapsed_series "$jobfile" signature "$cycle")"
+        elapsed_series="$( { printf '%s\n' "$prior_series"; printf '%s\n' "$elapsed"; } |
+          grep -E '^[0-9]+$' | tail -n "$constancy_n_g" || true )"
+        if ! ( stamp_transient_elapsed "$CLONE" "$JOBS_DOIN/$base.md" signature "$cycle" "$elapsed" "$constancy_n_g" ); then
+          log "could not persist transient elapsed metadata on '$base' (rc=$?); constancy history may restart next cycle"
+        fi
+      fi
+      if { [ "$cycle" -ge 1 ] || [ "$cycle" -ge "$(( doom_threshold - 1 ))" ]; } \
          && [ "${deadline_overrun:-0}" -ne 1 ]; then
         printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage, requeue cycle %s of doom threshold %s (elapsed=%ss); left in doin for reaper requeue\n' \
           "$id" "$GARDEN" "$base" "$rc" "$cycle" "$doom_threshold" "$elapsed" \
@@ -1219,9 +1208,8 @@ while :; do
       # drives the CLI to the same failure) is classified transient here and requeued
       # UNCHANGED through all GARDEN_REAP_DOOM_THRESHOLD cycles before the reaper's
       # doom counter surfaces it (~5×TTL). Its tell is a near-CONSTANT elapsed
-      # across requeue cycles. Recover the prior cycles' elapsed for this base
-      # (READ-ONLY grep of this clone's already-synced progress entries — no new
-      # state, no CAS, the reaper stays the sole requeue writer) and, once the
+      # across requeue cycles. Recover the prior cycles' elapsed from the bounded
+      # marker carried by the claim/requeue metadata and, once the
       # trailing N-cycle window agrees within a tolerance band on a NON-external-kill
       # rc WITH real output, emit ONE gardener-inbox kind:error flagging the likely
       # misclassification so a human sees it in ~2 cycles instead of ~5. Gated by
@@ -1246,15 +1234,12 @@ while :; do
       # counter then would doom a healthy job via the overrun path on its first stamp,
       # DEFEATING the outage-cycle doom-pause. So skip the whole early-escalation while the brake is
       # engaged; the outage-cycle hint (above) spares the requeue counter for these cycles.
-      if [ "$constancy_n" -ge 2 ] && [ "$cycle" -ge 2 ] && [ -s "$capture" ] \
+      if [ "$constancy_n" -ge 2 ] && [ "$cycle" -ge 1 ] && [ -s "$capture" ] \
          && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" \
          && ! is_environmental_rc "$rc" && [ "$outage_cycle" -ne 1 ]; then
-        # Prior cycles' elapsed (SNAPSHOTTED above, before this cycle's own note was
-        # written and before the stamp helpers re-synced $CLONE onto a tip carrying
-        # it) with the current elapsed appended, then the trailing N-cycle window;
-        # require a FULL window before judging constancy.
-        series="$(printf '%s\n' "$prior_series"; printf '%s\n' "$elapsed")"
-        window="$(printf '%s\n' "$series" | grep -E '^[0-9]+$' | tail -n "$constancy_n" || true)"
+        # The precomputed claim-metadata series includes the current elapsed. Take
+        # its trailing N-cycle window and require a FULL window before judging.
+        window="$(printf '%s\n' "$elapsed_series" | grep -E '^[0-9]+$' | tail -n "$constancy_n" || true)"
         count="$(printf '%s\n' "$window" | grep -cE '^[0-9]+$' || true)"
         # Fire at most ONCE per base: dedup on the marker the kind:error entry below
         # carries. The clone was synced at claim, so a prior cycle's escalation entry

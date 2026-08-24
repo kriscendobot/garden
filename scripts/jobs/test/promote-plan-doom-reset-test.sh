@@ -16,8 +16,9 @@
 # past it" — a manual step no promoter reliably performs.
 #
 # THE FIX: promotion is a deliberate "run this again" act, so promote-plan.sh CLEARS the
-# whole cycle-marker family (reap-count, deadline-overrun, elapsed-constancy, and the
-# per-cycle reap-now / productive-cycle / outage-cycle hints) and records what it
+# whole cycle-marker family (reap-count, deadline-overrun, elapsed-constancy,
+# transient-elapsed history, and the per-cycle reap-now / productive-cycle /
+# outage-cycle hints) and records what it
 # cleared in the existing
 # `<!-- garden-promoted-from-plan: … -->` provenance comment, so the reset is auditable
 # rather than silent. The reaper's protection is unchanged: a job that still fails
@@ -134,6 +135,7 @@ park allmarkers \
   '<!-- garden-reaped: 4 -->' \
   '<!-- garden-deadline-overrun: 2 -->' \
   '<!-- garden-elapsed-constancy: 2 -->' \
+  '<!-- garden-transient-elapsed: kind=signature through=3 values=470,472 -->' \
   '<!-- garden-reap-now -->' \
   '<!-- garden-productive-cycle -->' \
   '<!-- garden-outage-cycle -->'
@@ -142,11 +144,11 @@ park allmarkers \
 body="$(readback jobs/todo/allmarkers.md)"
 
 strip_ok=1
-for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
+for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-transient-elapsed:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
   printf '%s\n' "$body" | grep -q -- "$m" && { strip_ok=0; echo "    marker survived promotion: $m"; }
 done
 [ "$strip_ok" -eq 1 ] \
-  && ok "every cycle marker (reaped / wall-hit / elapsed-constancy / reap-now / productive / outage) is cleared on promotion" \
+  && ok "every cycle marker (reaped / wall-hit / elapsed-constancy / transient-elapsed / reap-now / productive / outage) is cleared on promotion" \
   || bad "promotion left cycle markers on the todo body"
 
 printf '%s\n' "$body" | grep -q 'the original work body for allmarkers' \
@@ -164,6 +166,7 @@ prov="$(printf '%s\n' "$body" | grep 'garden-promoted-from-plan' | head -1)"
   && printf '%s' "$prov" | grep -q 'reaped=4' \
   && printf '%s' "$prov" | grep -q 'deadline-overrun=2' \
   && printf '%s' "$prov" | grep -q 'elapsed-constancy=2' \
+  && printf '%s' "$prov" | grep -qF 'transient-elapsed=signature@3[470,472]' \
   && printf '%s' "$prov" | grep -q 'reap-now' \
   && printf '%s' "$prov" | grep -q 'productive-cycle' \
   && printf '%s' "$prov" | grep -q 'outage-cycle'; } \
@@ -279,6 +282,7 @@ the original work body for reparked
 <!-- garden-reaped: 4 -->
 <!-- garden-deadline-overrun: 2 -->
 <!-- garden-elapsed-constancy: 2 -->
+<!-- garden-transient-elapsed: kind=signature through=3 values=470,472 -->
 <!-- garden-reap-now -->
 <!-- garden-productive-cycle -->
 <!-- garden-outage-cycle -->
@@ -288,7 +292,7 @@ EOF
 parked="$(readback3 jobs/plan/reparked.md)"
 
 strip3_ok=1
-for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
+for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-transient-elapsed:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
   printf '%s\n' "$parked" | grep -q -- "$m" && { strip3_ok=0; echo "    marker survived the park: $m"; }
 done
 [ "$strip3_ok" -eq 1 ] \
@@ -304,7 +308,7 @@ printf '%s\n' "$parked" | grep -q '<!-- some-other-marker: keep me -->' \
   && ok "the body's own '---' rule survives beside both frontmatter blocks" \
   || bad "the body's '---' rule did not survive the park"
 
-printf '%s\n' "$parked" | grep -q '^cleared: reaped=4,deadline-overrun=2,elapsed-constancy=2,reap-now,productive-cycle,outage-cycle$' \
+printf '%s\n' "$parked" | grep -qF 'cleared: reaped=4,deadline-overrun=2,elapsed-constancy=2,transient-elapsed=signature@3[470,472],reap-now,productive-cycle,outage-cycle' \
   && ok "the park records what it cleared: $(printf '%s\n' "$parked" | grep '^cleared:')" \
   || bad "post-plan did not record the cleared set ($(printf '%s\n' "$parked" | grep '^cleared:' || echo '<no cleared: field>'))"
 
@@ -397,6 +401,7 @@ the last cycle reported this, verbatim:
 <!-- garden-reaped: 4 -->
 <!-- garden-deadline-overrun: 2 -->
 <!-- garden-elapsed-constancy: 2 -->
+<!-- garden-transient-elapsed: kind=signature through=3 values=470,472 -->
 <!-- garden-reap-now -->
 <!-- garden-productive-cycle -->
 <!-- garden-outage-cycle -->
@@ -406,7 +411,7 @@ EOF
 parked5="$(readback5 jobs/plan/annotated.md)"
 
 strip5_ok=1
-for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
+for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-transient-elapsed:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
   printf '%s\n' "$parked5" | grep -q -- "$m" && { strip5_ok=0; echo "    marker survived the annotation: $m"; }
 done
 [ "$strip5_ok" -eq 1 ] \
@@ -424,7 +429,7 @@ printf '%s\n' "$parked5" | grep -q '<!-- some-other-marker: keep me -->' \
   && ok "the note's own '---' rule survives beside both frontmatter blocks" \
   || bad "$(printf '%s\n' "$parked5" | grep -c '^---$') '---' lines (want 5)"
 printf '%s\n' "$parked5" \
-  | grep -q 'garden-annotation: .*cleared=reaped=4,deadline-overrun=2,elapsed-constancy=2,reap-now,productive-cycle,outage-cycle' \
+  | grep -qF 'cleared=reaped=4,deadline-overrun=2,elapsed-constancy=2,transient-elapsed=signature@3[470,472],reap-now,productive-cycle,outage-cycle' \
   && ok "the annotation marker records what it cleared" \
   || bad "annotate-plan did not record the cleared set ($(printf '%s\n' "$parked5" | grep -o 'garden-annotation: .*' || echo '<no marker>'))"
 

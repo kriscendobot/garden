@@ -817,6 +817,17 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       constancy=0
       body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE" || true)"
     fi
+    # The transient-elapsed window is valid only across consecutive cycles of the
+    # same classification. An outage cycle HOLDS the reap count, so its prior
+    # `through=N` marker would otherwise still look consecutive on the next attempt
+    # and bridge across the outage. A productive cycle similarly begins a fresh
+    # failure streak. Clear only this observation window; the reason-specific doom
+    # counters above retain their existing hold/reset semantics.
+    if { [ "$productive" -eq 1 ] || [ "$outage" -eq 1 ]; } \
+       && grep -Eq "$TRANSIENT_ELAPSED_MARKER_RE" "$f"; then
+      body="$(printf '%s\n' "$body" | grep -vE "$TRANSIENT_ELAPSED_MARKER_RE" || true)"
+      log "cycle classification reset: '$base' cleared stale transient-elapsed history (productive=$productive outage=$outage)"
+    fi
     old_doom=0
     if [ "$outage" -ne 1 ] && { \
       [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] \

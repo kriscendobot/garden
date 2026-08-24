@@ -209,6 +209,16 @@ if [ -f "$V3/jobs/doin/gapjob.md" ] && grep -Eq '^<!-- garden-reap-now -->$' "$V
 else
   bad "no reap-now hint on the doin claim (job would idle the full TTL)"
 fi
+if find "$V3/entries" -type f -name '*-progress-*' -print -quit | grep -q .; then
+  bad "first-pass exit-0 transient emitted a shared progress entry"
+else
+  ok "first-pass exit-0 transient stayed out of the shared progress journal"
+fi
+if grep -Eq '^<!-- garden-transient-elapsed: kind=exit0 through=0 values=[0-9]+ -->$' "$V3/jobs/doin/gapjob.md"; then
+  ok "first-pass exit-0 elapsed classification persisted on claim metadata"
+else
+  bad "first-pass exit-0 elapsed classification missing from claim metadata"
+fi
 
 # The reaper then requeues it doin→todo (the deterministic requeue completes).
 env GARDEN="reaphost" GARDEN_STATE="$T3/reaper-state" GARDEN_CLAIM_TTL=3600 \
