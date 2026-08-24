@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T02:36:31Z_
+_As of 2026-08-24T02:38:46Z_
 
 ## Latest
 
-SIWE on-chain authz tier deployed to minion.town (thunk at https://siwe-idp.minion.town, mainnet ready); awaiting your tier selection and wallet address allowlist to wire the policy layer. Simultaneously, the byteArray program landed complete and CI-green across all finish-line PRs ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888))—only maintainer re-review clearance on the first two stands between green and merge. Fleet-side: deploy is stalled ~3 days on two hosts (root repo 18 commits behind), local-verify's Node24 parity guard is live but hosts need Node 24 provisioned to avoid refuse-to-run on pinned projects, and the recurring node24-runner CI flake is blocking two dependabot merges ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) that are otherwise merge-ready. Several gauntlet stages halted after requeue exhaustion; a few need investigation before promotion.
+byteArray finish-line ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, both MERGEABLE awaiting re-review; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted. SIWE on-chain authz deployed to siwe-idp.minion.town; wiring awaits allowlist addresses and tier-depth decision. Node24 local-verify parity fixed and provisioned; fleet hosts need redeploy to adopt. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by recurring node24-runner flake—awaits decision to merge or fix fleet. Deploy stalled 3+ days on two hosts; investigate why. Fixture parity campaign halted after first child stalled; six gauntlets doomed. Maintainer inbox: ~30 follow-ups awaiting decisions.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.6M | $1058.86 _(notional, rate-card)_ | no quota set |
+| Claude | 135.7M | $1059.01 _(notional, rate-card)_ | no quota set |
 | Codex | 26.1M _(+1241.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion-town-pr52-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #52
 
 ### tada (5496)
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-panel-2.md) — Completion report
