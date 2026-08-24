@@ -17,6 +17,7 @@ OS packaging and distribution of the Endo gateway node for marketplace deploymen
 | [Cap'n Web instance boundary across repositories](../sections/cloudflare-os--docs-integration-testing--capnweb-instance-boundary.md) | testing, capability-security, node-packaging | Separate workspace stores can install incompatible Cap'n Web identities. |
 | [Vite+ build, test, and lint contract](../sections/cloudflare-os--agents--vite-plus-build-test-and-lint-contract.md) | Cloudflare OS AGENTS.md | pnpm and Vite+ tasks define full gates, caching inputs, environment declarations, and package iteration. |
 | [RPC and build-system review](../sections/cloudflare-os--review--rpc-and-build-system-review.md) | Cloudflare OS REVIEW.md | Review protects intentional RPC pipelining and catches Vite+ cache surfaces that fail silently. |
+| [Workshop Vite+ build cache contract](../sections/cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract.md) | cloudflare-workers-agent-hosting, node-packaging | Vite+ fingerprints build flags and cleans output before production builds. |
 
 ## See also
 
