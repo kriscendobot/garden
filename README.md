@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T22:38:39Z_
+_As of 2026-08-24T22:45:12Z_
 
 ## Latest
 
-The byteArray program reached its finishing line with all three core PRs ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) complete and green; [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are waiting on maintainer re-review to clear CHANGES_REQUESTED and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready for un-draft. Test262 fixture consolidation opened as [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) (DRAFT, awaiting a decision on collapsing metering-specific test trees). Local Node version parity was restored and Node 24 provisioned for fleet hosts to fix CI-local mismatches. Multiple high-level architectural decisions are queued in the maintainer inbox — OpenRouter zero-retention enforcement and stealth-model policy, SIWE tier authorization shape for minion.town, endor walker conditional exports, and more — and several gauntlet stages halted awaiting completion of their dependencies or maintainer direction. The provider quota condition cleared after a ~7-day outage window, and the fleet is serving again.
+Cloudflare OS scholarly ingestion completed (9 cycles in 8 hours, final 3 layers yesterday evening); all 50+ sections, topics, and concepts now indexed. Deploy has stalled 3d on both active hosts, 18 commits behind origin/main2 — investigate why no drain/deploy has landed. Five gauntlets halted mid-stage (endor-fixture-parity-ratchet, minion.town PRs #37/#52, endojs-endo-but-for-bots PR #1023) and multiple builder jobs doomed to plan/ on handler timeout/elapsed-constancy failures; quota recovered (provider issue cleared 2026-08-24 evening). Three critical parked PRs await re-review: [#475](https://github.com/endojs/endo-but-for-bots/pull/475) (byteArray view, MERGEABLE, 2 threads outdated), [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim, MERGEABLE, 2 threads outdated), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (registry-immutable-bytes, DRAFT, no review yet) — the byteArray finish-line stack is green and blocked only on maintainer re-review. Fleet improvements landed: Node 24 provisioned and local-verify parity guard active, usage-meter unbound-variable fixed, pre-push-gates broader coverage queued. Maintainer inbox has 32 open messages; SIWE on-chain authz deployed and awaiting tier/address authorization.
 
 ## Parked for maintainer feedback
 
@@ -1080,7 +1080,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.0M | $944.22 _(notional, rate-card)_ | no quota set |
+| Claude | 133.2M | $943.96 _(notional, rate-card)_ | no quota set |
 | Codex | 32.0M _(+1417.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
@@ -1089,16 +1089,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (3)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1058
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1058
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 
-### tada (5532)
+### tada (5533)
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr340-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-refresh.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-retcon.md) — Cost
 - [`endojs-endo-but-for-bots-pr970-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr970-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-review-27339ee8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-27339ee8.md) — Completion report: endojs-endo-but-for-bots-pr475-review-27339ee8
-- … and 5527 more
+- … and 5528 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
