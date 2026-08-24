@@ -1,5 +1,7 @@
-once: 2026-08-24T09:00:00Z
-job_basename_prefix: scholar-ingest-generative-agents-talk
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Ingest source: "Generative Agents" talk (Abhinav Chinta)
 
