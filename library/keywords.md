@@ -70,6 +70,8 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - observer verification, observer record, Gatekeeper verifier, `addObserver`, `removeObserver`, `excludeObservers` -> observer-verification
 - Worker telemetry confinement, service-scoped telemetry, immutable service filter, defensive telemetry filtering, foreign telemetry event -> worker-telemetry-confinement
 - provisional action simulation, deferred side-effect simulation, pending action overlay, simulated pending write -> provisional-action-simulation
+- MCP Gatekeeper, MCP Server Portals gatekeeper, gatekeeper-mcp, gatekeeper-mcp-portal, Model Context Protocol connector, byo trust tier, vetted trust tier, `portal_list_servers`, `McpAccount` -> mcp-server-connector
+- Scheduled Tasks, Scheduler gatekeeper, gatekeeper-scheduler, `ScheduleSession`, `ScheduleDriver`, `calendarAt`, `runAt`, persistent scheduled callback -> scheduled-tasks-gatekeeper
 - authentication Gatekeeper, auth Gatekeeper, Gatekeeper sign-in, `AUTH_GATEKEEPERS`, verified-email login -> authentication-gatekeeper
 - Git-backed gadget code, git object store, gadget commit, gadget head commit, `gitObjects` -> git-backed-gadget-code
 - lazy per-gadget pinning, chat code pin, chat epoch, code-base generation, `observedCommit` -> lazy-gadget-pinning
