@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-24T06:09:53Z_
+_As of 2026-08-24T06:13:00Z_
 
 ## Latest
 
@@ -1028,24 +1028,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.7M | $1055.56 _(notional, rate-card)_ | no quota set |
-| Codex | 27.5M _(+1316.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 137.7M | $1055.63 _(notional, rate-card)_ | no quota set |
+| Codex | 27.5M _(+1318.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Review directive on endojs/endo-but-for-bots PR #889
+### doin (1)
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
 
-### tada (5506)
+### tada (5507)
+- [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Cost
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gardener-transient-silence.md) — Cost
 - [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390718343.md) — Completion report
 - [`minion-town-agenda-review-20260824-053507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-053507.md) — Completion report
 - [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390713648.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Cost
-- … and 5501 more
+- … and 5502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
