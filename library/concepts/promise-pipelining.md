@@ -35,6 +35,8 @@ implemented primitive.
 | [agoric-sdk--pkg-swingset-readme--promise-pipelining](../sections/agoric-sdk--pkg-swingset-readme--promise-pipelining.md) | SwingSet's framing of the same pattern: "the Promise returned by an eventual-send can be used as a target itself — `E(E(bob).foo()).bar()` queues `bar` to deliver to whatever `foo` returns." |
 | [ocapn--implementation-guide--stage-4-promise-pipelining](../sections/ocapn--implementation-guide--stage-4-promise-pipelining.md) | OCapN's Stage 4 implementation milestone: pipelining via `<desc:answer answer-pos>`. The wire form of an answer-slot reference. |
 | [ocapn--draft-specifications-captp--promises](../sections/ocapn--draft-specifications-captp--promises.md) | Spec-level account of promises in CapTP, including the answer-slot machinery that the wire side of pipelining depends on. |
+| [Capn Web RPC discipline](../sections/cloudflare-os--agents--capn-web-rpc-discipline.md) | Cloudflare OS requires pipelined RPC promises to remain unawaited when their future result or stub feeds another call. |
+| [RPC and build-system review](../sections/cloudflare-os--review--rpc-and-build-system-review.md) | Review guidance explicitly excludes intentional Capn Web pipelining from floating-promise findings. |
 
 ## See also
 
