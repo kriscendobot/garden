@@ -16,6 +16,7 @@ Cloudflare OS's per-turn choice between a daily platform-funded allowance and th
 | [Cloudflare Gatekeeper billing connection](../sections/cloudflare-os--docs-ai-gateway-billing--cloudflare-gatekeeper-billing-connection.md) | Sources user billing authority from the Cloudflare Gatekeeper. |
 | [AI Gateway transport configuration](../sections/cloudflare-os--docs-ai-gateway-billing--gateway-transport-configuration.md) | Routes in-account through a binding and cross-account through HTTPS. |
 | [public multi-user deployment](../sections/cloudflare-os--docs-public-server--public-multi-user-deployment.md) | Shows the complete public-deployment composition. |
+| [Service roles and resource boundaries](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--service-roles-and-resource-boundaries.md) | Persists Cloudflare authority used for user-funded Gateway inference. |
 
 ## See also
 
