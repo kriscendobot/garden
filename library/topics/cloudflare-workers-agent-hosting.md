@@ -17,6 +17,12 @@ Hosting agent workspaces and generated applications on Cloudflare Workers primit
 | [AI Gateway transport configuration](../sections/cloudflare-os--docs-ai-gateway-billing--gateway-transport-configuration.md) | ai-usage-billing, cloudflare-workers-agent-hosting | Cross-account Gateways require explicit binding opt-out. |
 | [billing state and code layout](../sections/cloudflare-os--docs-ai-gateway-billing--billing-state-and-code-layout.md) | ai-usage-billing, cloudflare-workers-agent-hosting | Tokens remain in Gatekeeper storage while backend services route usage. |
 | [public multi-user deployment](../sections/cloudflare-os--docs-public-server--public-multi-user-deployment.md) | agent-workspaces, authentication-gatekeepers, ai-usage-billing, cloudflare-workers-agent-hosting | Local and deployed Gateway transports use Workers bindings deliberately. |
+| [Git object store and commit model](../sections/cloudflare-os--plans-git-storage--git-object-store-and-commit-model.md) | Cloudflare OS plans/git-storage.md | Gadget code moves from workspace-wide Yjs mainline into real Git commits stored as loose objects in each Overseer Durable Object. |
+| [Revision epochs, stragglers, and materialization](../sections/cloudflare-os--plans-git-storage--revision-epochs-stragglers-and-materialization.md) | Cloudflare OS plans/git-storage.md | Revision windows materialize compactly while eligible in-flight changes bridge merge boundaries against recorded commits. |
+| [Migration decisions and provider routing](../sections/cloudflare-os--plans-pi-impl--migration-decisions-and-provider-routing.md) | Cloudflare OS plans/pi-impl.md | The pi migration fixes low-level loop selection, provider endpoints, credentials, and compatibility bounds. |
+| [Structured observability and error reporting](../sections/cloudflare-os--agents--structured-observability-and-error-reporting.md) | Cloudflare OS AGENTS.md | Typed structured logs and bounded reports share a no-secrets contract across server and browser paths. |
+| [Pull-request CI and preview boundary](../sections/cloudflare-os--contributing--pull-request-ci-and-preview-boundary.md) | Cloudflare OS CONTRIBUTING.md | Fork pull requests receive normal CI but not token-authorized Cloudflare previews. |
+| [Secret-safe logging and reporting review](../sections/cloudflare-os--review--secret-safe-logging-and-reporting-review.md) | Cloudflare OS REVIEW.md | Logs, exceptions, reports, and locations must not disclose secrets or bearer capabilities. |
 
 ## See also
 
