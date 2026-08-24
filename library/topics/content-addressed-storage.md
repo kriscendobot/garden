@@ -148,6 +148,10 @@
 | [atproto--specs-sync--inductive-verification-and-operation-inversion](../sections/atproto--specs-sync--inductive-verification-and-operation-inversion.md) | atproto specs/sync | Why a consumer need not hold the MST: invert the claimed ops against the diff and check the recomputed root against the previous commit's data field, keeping only a revision and a root per repository. |
 | [UCAN token resolution](../sections/ucan-wg--spec-readme--token-resolution.md) | ucan-authorization, content-addressed-storage | Transport defines CID retrieval; an unavailable required proof makes validation fail. |
 | [UCAN implementation recommendations](../sections/ucan-wg--spec-readme--implementation-recommendations.md) | ucan-authorization, capability-security, content-addressed-storage | CID stores, memoized validation, replay tracking, leaderless deployment, and the boundary of ACL wrapping. |
+| [Refless content-addressed git object store](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os git-store.ts | The Overseer's real-git loose-object store: refless, content-addressed, GC-free, chosen for future repo export/import. |
+| [Plumbing-only GitStore and the fs shim](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os git-store.ts | GitStore as pure plumbing over a virtual fs shim, presenting commits as flat path-to-text maps and diffing by oid. |
+| [Three-way file-map merge](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os git-store.ts | The never-throwing 3-way merge over file maps that replaces Yjs and isomorphic-git merging, with lossless line splitting. |
+| [Operational-transform code-change representation](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os code-change.ts | Base-free revisioned CodeChanges over committed code, and why per-gadget files are lists not __proto__-losing objects. |
 
 ## See also
 
