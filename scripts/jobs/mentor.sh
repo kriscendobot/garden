@@ -24,6 +24,12 @@ GARDEN_TAG="mentor"
 : "${GARDEN_MENTOR_REJECT_THRESHOLD:=3}"
 [[ "$GARDEN_MENTOR_REJECT_THRESHOLD" =~ ^[1-9][0-9]*$ ]] \
   || die "GARDEN_MENTOR_REJECT_THRESHOLD must be a positive integer"
+# Cap (in ticks) on the transient-outage warning backoff: warnings double their
+# gap (ticks 1,2,4,8,…) until it reaches this cap, then repeat every cap ticks so
+# a sustained outage stays visible but never floods. See note_transient_outage.
+: "${GARDEN_MENTOR_OUTAGE_BACKOFF_CAP:=32}"
+[[ "$GARDEN_MENTOR_OUTAGE_BACKOFF_CAP" =~ ^[1-9][0-9]*$ ]] \
+  || die "GARDEN_MENTOR_OUTAGE_BACKOFF_CAP must be a positive integer"
 
 fleet_draining && exit 0
 
@@ -34,7 +40,61 @@ sync_clone "$DIR"
 SEEN="$GARDEN_STATE/mentor/seen"
 JSINCE="$GARDEN_STATE/mentor/journalctl-since"
 REJECTION_STATE="$GARDEN_STATE/mentor/semantic-rejections"
+OUTAGE_STATE="$GARDEN_STATE/mentor/transient-outage"
 mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"
+
+# --- transient-outage warning backoff ----------------------------------------
+# A sustained transient provider outage (a claude quota/usage cut, an Anthropic
+# overload/5xx, an api.github.com/network blip) leaves $SEEN/$JSINCE UNADVANCED so
+# the retry intent is honored — but that means the SAME inputs are re-attempted
+# EVERY tick, and the old code logged a fresh WARN each time. On a multi-hour
+# outage that is one root cause screaming once per tick, which both violates
+# silent-until-error and buries the eventual real signal. These helpers persist
+# the episode (a consecutive-transient-tick counter, in $OUTAGE_STATE) and rate-
+# limit the WARN on a bounded exponential backoff, then emit ONE recovery notice
+# when the outage clears. Retry behavior is unchanged — only the noise is.
+
+# _outage_should_warn <count> — true on a doubling schedule (1,2,4,8,…) until the
+# gap reaches GARDEN_MENTOR_OUTAGE_BACKOFF_CAP, then once every cap ticks. Bounded
+# so warnings thin out under a long outage yet never fall permanently silent.
+_outage_should_warn() {
+  local n="$1" cap="$GARDEN_MENTOR_OUTAGE_BACKOFF_CAP"
+  if [ "$n" -le "$cap" ]; then
+    [ $(( n & (n - 1) )) -eq 0 ]   # power of two → the doubling boundaries
+  else
+    [ $(( n % cap )) -eq 0 ]
+  fi
+}
+
+# note_transient_outage <sha> <message> — record one transient tick and emit a
+# rate-limited WARN. The counter increments on ANY consecutive transient tick,
+# not only a matching $sha: a sustained outage's digest can drift (our own WARN
+# feeds back into the next journalctl read, and new warnings accrue), and the
+# episode we are throttling is "the provider is down", not one exact blob. $sha is
+# retained only for the human-readable line. Leaves the input markers untouched;
+# the caller's `exit 0` performs the retry.
+note_transient_outage() {
+  local sha="$1" msg="$2" count=0 _prev
+  read -r _prev count < "$OUTAGE_STATE" 2>/dev/null || true
+  [[ "$count" =~ ^[0-9]+$ ]] || count=0
+  count=$((count + 1))
+  printf '%s %s\n' "$sha" "$count" > "$OUTAGE_STATE"
+  if _outage_should_warn "$count"; then
+    log "WARN: $msg (transient outage tick #$count; further duplicate warnings suppressed with exponential backoff)"
+  fi
+}
+
+# note_transient_recovery — close an open transient-outage episode with a SINGLE
+# recovery notice. A no-op when no episode is open, so every non-transient outcome
+# (handler success, semantic rejection, a real defect) can call it unconditionally.
+note_transient_recovery() {
+  [ -f "$OUTAGE_STATE" ] || return 0
+  local sha="" count=0
+  read -r sha count < "$OUTAGE_STATE" 2>/dev/null || true
+  [[ "$count" =~ ^[0-9]+$ ]] || count=0
+  rm -f "$OUTAGE_STATE"
+  log "mentor transient provider outage cleared after $count consecutive tick(s) (last digest $sha)"
+}
 
 # 1. new journal entries since last run
 new=()
@@ -120,6 +180,7 @@ set +e
 rc=$?
 set -e
 if [ "$rc" -eq 0 ]; then
+  note_transient_recovery
   for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
   printf '%s\n' "$tick_start" > "$JSINCE"
   rm -f "$REJECTION_STATE"
@@ -137,16 +198,20 @@ elif [ ! -s "$capture" ] && is_transient_empty_failure "$rc"; then
   # SAME common.sh helper so the two handlers stay aligned: WARN + exit 0, leaving
   # $SEEN/$JSINCE unadvanced so the next tick retries.
   rm -f "$capture" "$REJECTION_STATE"
-  log "WARN: improve handler killed with empty output (rc=$rc); leaving markers, retrying next tick"
+  note_transient_outage "$sha" "improve handler killed with empty output (rc=$rc); leaving markers, retrying next tick"
   exit 0
 else
   out="$(tail -c 65536 "$capture" 2>/dev/null || true)"
   rm -f "$capture"
   if is_transient_claude_signature "$out" || _fetch_stderr_is_offline "$out"; then
     rm -f "$REJECTION_STATE"
-    log "WARN: improve handler hit a transient outage; leaving markers, retrying next tick"
+    note_transient_outage "$sha" "improve handler hit a transient outage; leaving markers, retrying next tick"
     exit 0
   fi
+  # Past the transient checks: this tick reached the provider and got a real
+  # verdict, so any open outage episode is over — close it with one recovery
+  # notice before the semantic/real-failure handling below.
+  note_transient_recovery
   if printf '%s' "$out" | grep -q 'malformed semantic output'; then
     # A semantic rejection correctly refuses provider fallback, but retrying the
     # same content-addressed digest forever only reproduces the same decision.
