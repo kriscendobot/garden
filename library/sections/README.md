@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6799 (530 parent indexes + 6269 children).
+Total section files: 6817 (530 parent indexes + 6287 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -636,6 +636,33 @@ Total section files: 6799 (530 parent indexes + 6269 children).
 
 - [cask--verbs--verb-catalog](cask--verbs--verb-catalog.md)
 - [cask--verbs--verb-dispatch-and-type-designators](cask--verbs--verb-dispatch-and-type-designators.md)
+
+### cloudflare-os--docs-blueprints
+
+- [cloudflare-os--docs-blueprints--binding-requirements](cloudflare-os--docs-blueprints--binding-requirements.md)
+- [cloudflare-os--docs-blueprints--bundled-formats-and-curation](cloudflare-os--docs-blueprints--bundled-formats-and-curation.md)
+- [cloudflare-os--docs-blueprints--capture-and-properties](cloudflare-os--docs-blueprints--capture-and-properties.md)
+- [cloudflare-os--docs-blueprints--instantiation](cloudflare-os--docs-blueprints--instantiation.md)
+- [cloudflare-os--docs-blueprints--portable-gadget-format](cloudflare-os--docs-blueprints--portable-gadget-format.md)
+- [cloudflare-os--docs-blueprints--storage-and-publication](cloudflare-os--docs-blueprints--storage-and-publication.md)
+
+### cloudflare-os--docs-sharing
+
+- [cloudflare-os--docs-sharing--authorization-and-session-termination](cloudflare-os--docs-sharing--authorization-and-session-termination.md)
+- [cloudflare-os--docs-sharing--collaborator-resource-isolation](cloudflare-os--docs-sharing--collaborator-resource-isolation.md)
+- [cloudflare-os--docs-sharing--collaborator-roles](cloudflare-os--docs-sharing--collaborator-roles.md)
+- [cloudflare-os--docs-sharing--effective-role-graph](cloudflare-os--docs-sharing--effective-role-graph.md)
+- [cloudflare-os--docs-sharing--lazy-revocation](cloudflare-os--docs-sharing--lazy-revocation.md)
+- [cloudflare-os--docs-sharing--share-links-and-permission-edges](cloudflare-os--docs-sharing--share-links-and-permission-edges.md)
+
+### cloudflare-os--readme
+
+- [cloudflare-os--readme--agent-built-collaborative-apps](cloudflare-os--readme--agent-built-collaborative-apps.md)
+- [cloudflare-os--readme--capability-based-introductions](cloudflare-os--readme--capability-based-introductions.md)
+- [cloudflare-os--readme--gadgets-personal-software-sandboxes](cloudflare-os--readme--gadgets-personal-software-sandboxes.md)
+- [cloudflare-os--readme--gatekeepers-and-deferred-approval](cloudflare-os--readme--gatekeepers-and-deferred-approval.md)
+- [cloudflare-os--readme--overview-and-workspace-model](cloudflare-os--readme--overview-and-workspace-model.md)
+- [cloudflare-os--readme--workers-runtime-architecture](cloudflare-os--readme--workers-runtime-architecture.md)
 
 ### cloudflare-w4p--configuration-bindings
 
