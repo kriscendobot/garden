@@ -76,7 +76,11 @@ case "$kind" in
 esac
 
 body_src="${2:-}"
-role="${GARDEN_ROLE:-gardener}"
+# The handler exports the role parsed from the claimed job as GARDEN_JOB_ROLE;
+# that is the canonical attribution for entries an agent posts during the job.
+# Keep GARDEN_ROLE as the explicit per-invocation override used by infrastructure
+# producers, and retain gardener for callers outside any claimed-job context.
+role="${GARDEN_ROLE:-${GARDEN_JOB_ROLE:-gardener}}"
 
 # Body source guard: a non-empty $2 that is not a readable file is almost always
 # a mistake (an inline body string passed where a body-FILE path is expected).

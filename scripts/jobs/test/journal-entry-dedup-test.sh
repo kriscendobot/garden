@@ -71,6 +71,25 @@ run_entry() {  # run_entry [args...]
   set -e
 }
 
+# Run with the role environment shaped exactly as an agent sees it. A dash means
+# the variable is absent, which distinguishes claimed-job attribution from an
+# explicit per-invocation override and from the no-job fallback.
+run_entry_with_roles() {  # run_entry_with_roles <explicit-or-> <claimed-or-> [args...]
+  local explicit="$1" claimed="$2"; shift 2
+  local -a role_env=()
+  [ "$explicit" = - ] || role_env+=(GARDEN_ROLE="$explicit")
+  [ "$claimed" = - ] || role_env+=(GARDEN_JOB_ROLE="$claimed")
+  set +e
+  OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+             GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
+             GARDEN_PRODUCER_CLONE="$CLONE" GARDEN=testhost \
+             GARDEN_ENTRY_DUP_WINDOW=900 GARDEN_TEST=1 \
+             GARDEN_NO_MAINTAINER_ALERT=1 "${role_env[@]}" \
+             bash "$ENTRY" "$@" <<<"$BODY" 2>&1)"
+  RC=$?
+  set -e
+}
+
 # Entries of a given kind at the origin tip (the serialization point: only what
 # actually landed counts).
 count_kind() { git -C "$BARE" ls-tree -r --name-only journal2 -- entries 2>/dev/null | grep -cE "Z-$1-" || true; }
@@ -82,6 +101,44 @@ REPORT="$(printf '%s\n' '# botanist result' '' 'endojs/endo-but-for-bots#269: de
 # ============================================================================
 hr; echo "STATIC — the script parses (bash -n)"; hr
 bash -n "$ENTRY" && ok "journal-entry.sh parses" || bad "syntax error"
+
+# ============================================================================
+hr; echo "ROLE — explicit override, claimed-job role, gardener fallback"; hr
+setup_fixture
+BODY="role attribution probe"
+run_entry_with_roles - scholar progress
+CLAIMED="$(git -C "$BARE" ls-tree -r --name-only journal2 -- entries | grep -E 'Z-progress-scholar-')"
+[ "$RC" -eq 0 ] && [ -n "$CLAIMED" ] \
+  && ok "GARDEN_JOB_ROLE supplies the claimed job's role" \
+  || bad "claimed-job role was not attributed to scholar (rc=$RC, path=$CLAIMED): $OUT"
+
+BODY="explicit override probe"
+run_entry_with_roles botanist scholar progress
+OVERRIDE="$(git -C "$BARE" ls-tree -r --name-only journal2 -- entries | grep -E 'Z-progress-botanist-')"
+[ "$RC" -eq 0 ] && [ -n "$OVERRIDE" ] \
+  && ok "GARDEN_ROLE overrides the claimed-job role" \
+  || bad "explicit role did not override claimed role (rc=$RC, path=$OVERRIDE): $OUT"
+
+BODY="fallback probe"
+run_entry_with_roles - - progress
+FALLBACK="$(git -C "$BARE" ls-tree -r --name-only journal2 -- entries | grep -E 'Z-progress-gardener-')"
+[ "$RC" -eq 0 ] && [ -n "$FALLBACK" ] \
+  && ok "callers outside a claimed job still fall back to gardener" \
+  || bad "no-context caller did not fall back to gardener (rc=$RC, path=$FALLBACK): $OUT"
+
+# Equivalent reports must share attribution no matter whether the scholar role
+# was supplied explicitly (the old obligation) or inherited from the claim. If
+# those paths disagree, duplicate suppression cannot recognize the second post.
+setup_fixture
+BODY="$REPORT"
+run_entry_with_roles scholar - result
+[ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 1 ] \
+  || bad "explicit scholar fixture result did not land: $OUT"
+ROLE_HEAD="$(origin_head)"
+run_entry_with_roles - scholar result
+[ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 1 ] && [ "$(origin_head)" = "$ROLE_HEAD" ] \
+  && ok "explicit and claimed scholar attribution deduplicate as equivalent reports" \
+  || bad "equivalent explicit/claimed scholar reports did not deduplicate: $OUT"
 
 # ============================================================================
 hr; echo "SUPPRESS — a second invocation with the same report posts nothing"; hr
