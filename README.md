@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-24T06:54:51Z_
+_As of 2026-08-24T07:05:51Z_
 
 ## Latest
 
-Root repo deploy has stalled on multiple hosts for three days (18 commits behind origin/main2); investigate and trigger a manual deploy if `deploy-garden.sh` is blocked. Several gauntlets halted mid-stage after panel/fix handlers failed repeatedly; reaper parked the work in jobs/plan/ with gate=go-ahead, awaiting investigation. Infrastructure stability shows strain across multiple roles (panel, fix, conduct stages) with consistent handler failures on the same host (endolin-garden-ece02cb4). On the positive side: Node 24 provisioning deployed and verified, local-verify parity fixed, and budget enforcement design (live-pool admission) landed on main2. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW on merits but blocked by the recurring node24-runner CI flake; conductor cannot auto-merge past the red cell. Maintainer inbox carries several pending decisions: SIWE Tier 1 allowlist (wallet addresses + scopes for minion.town auth), OpenRouter ZDR policy + stealth-lane mechanics, test262 fixture consolidation (keep dual trees vs. collapse), and others; no blocker on any has code waiting.
+Local-verify Node 24 parity fixed and deployed (provisioned alongside Node 22); multiple gauntlet PRs halted mid-pipeline due to handler timeouts and requeue exhaustion ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#37](https://github.com/kriscendobot/minion.town/pull/37), others). Root deploy stalled 18 commits behind on both active hosts for ~3 days. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) blocked solely on the recurring node24-runner CI flake; byteArray work complete and green awaiting re-review on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503); SIWE on-chain authz deployment complete, awaiting maintainer tier and allowlist decisions; 23 design/feature PRs parked (top 10 range 26–103 days); inbox has 26 actionable messages including multiple design prerequisites, infrastructure decisions (qwen lane, node24 provisioning), and security follow-ups needing your call.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 26d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 25d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 36d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.5M | $1057.44 _(notional, rate-card)_ | no quota set |
+| Claude | 138.6M | $1057.60 _(notional, rate-card)_ | no quota set |
 | Codex | 27.7M _(+1320.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`daily-progress-summary-20260824-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260824-070504.md) — Daily midnight Pacific progress summary
 
 ### tada (5509)
 - [`fix-benchmarker-role-dead-citations-and-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-benchmarker-role-dead-citations-and-design-docs.md) — Cost
