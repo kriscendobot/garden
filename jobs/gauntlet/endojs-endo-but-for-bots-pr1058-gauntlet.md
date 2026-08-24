@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1058
 build_job: endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1058-gauntlet-clean
+current_child: endojs-endo-but-for-bots-pr1058-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-24T22:27:28Z
