@@ -69,4 +69,8 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - lazy revocation, reachability revocation, reversible revocation, `keepUsers`, revocation restart -> lazy-graph-revocation
 - observer verification, observer record, Gatekeeper verifier, `addObserver`, `removeObserver`, `excludeObservers` -> observer-verification
 - authentication Gatekeeper, auth Gatekeeper, Gatekeeper sign-in, `AUTH_GATEKEEPERS`, verified-email login -> authentication-gatekeeper
+- Git-backed gadget code, git object store, gadget commit, gadget head commit, `gitObjects` -> git-backed-gadget-code
+- lazy per-gadget pinning, chat code pin, chat epoch, code-base generation, `observedCommit` -> lazy-gadget-pinning
+- workpiece, `WorkpieceId`, multi-gadget workspace, gadget binding edge, named chat binding -> cloudflare-os-workpiece
+- pi-ai, pi-agent-core, `runAgentLoopContinue`, awaited agent event sink, pi migration -> pi-agent-loop
 - AI Gateway billing, AI Gateway credits, daily LLM allowance, BYOK routing, `CF_AI_GATEWAY` -> ai-gateway-credit-routing
