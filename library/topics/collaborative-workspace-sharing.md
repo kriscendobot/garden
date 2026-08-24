@@ -23,6 +23,7 @@ Sharing stateful agent-built applications among users while preserving role rest
 | [Revision epochs, stragglers, and materialization](../sections/cloudflare-os--plans-git-storage--revision-epochs-stragglers-and-materialization.md) | Cloudflare OS plans/git-storage.md | Revision windows materialize compactly while eligible in-flight changes bridge merge boundaries against recorded commits. |
 | [CodeMirror client and delivery sequence](../sections/cloudflare-os--plans-git-storage--codemirror-client-and-delivery-sequence.md) | Cloudflare OS plans/git-storage.md | One OT client per chat feeds CodeMirror views through a kernel-first delivery sequence and explicit full gate. |
 | [Chat-scoped provisional changes](../sections/cloudflare-os--plans-multi-gadget--chat-scoped-provisional-changes.md) | Cloudflare OS plans/multi-gadget.md | Chats can create and connect several gadgets while pending records remain private until accepted. |
+| [Collaborator observer verification](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--collaborator-observer-verification.md) | collaborative-workspace-sharing, capability-mediated-integrations, worker-observability, capability-security | Every collaborator must prove through their own account that they can read the bound telemetry resource. |
 
 ## See also
 
