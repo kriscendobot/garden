@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T06:47:01Z_
+_As of 2026-08-24T06:52:46Z_
 
 ## Latest
 
-The fleet is in a holding pattern: multiple gauntlets and orchestrations halted mid-pipeline ([endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#807](https://github.com/endojs/endo-but-for-bots/pull/807)), root deployments stalled ~3 days on both running hosts, and multiple maintainer decisions blocking forward progress—most urgently the byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) complete and green awaiting re-review, two MERGE-NOW dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) blocked on a recurring node24 CI flake, and infrastructure decisions on test262 fixtures ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)), SIWE on-chain authz for minion.town, OpenRouter policy, and the debugger-uncaught-exceptions gate ([#1038](https://github.com/endojs/endo-but-for-bots/pull/1038)). On the infrastructure side, pre-push gates are broken (missing driver script, shellcheck under-coverage, Node parity guard failing on non-LTS hosts), and a bundle of follow-ups on minion.town design work awaiting your authorization ([daemon commit formula](https://github.com/kriscendobot/minion.town/pull/41), DNSSEC setup for ocap.site, weblet-isolation gateway fixes).
+The byteArray press is complete and green: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are mergeable and awaiting your re-review; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft. Local-verify gained Node 24 parity infrastructure (resolved via `n` manager), though provisioning hasn't yet reached all fleet hosts. Garden root deploys on two instances have stalled 3d behind; investigate why no drain-and-deploy has landed. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) / [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on the recurring fleet node24-runner flake; either merge them directly (llm has no branch protection) or fix the infrastructure. Pending decisions: SIWE tier choice and allowlist for minion.town, test262 fixture consolidation strategy, and orchestration staging guards on several parked jobs.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.1M | $1056.26 _(notional, rate-card)_ | no quota set |
-| Codex | 27.6M _(+1319.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 138.5M | $1057.36 _(notional, rate-card)_ | no quota set |
+| Codex | 27.6M _(+1319.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-benchmarker-role-dead-citations-and-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-benchmarker-role-dead-citations-and-design-docs.md) — Grounding
 
 ### tada (5508)
 - [`kriscendobot-minion-town-pr52-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet.md) — gauntlet kriscendobot-minion-town-pr52-gauntlet — HALTED
