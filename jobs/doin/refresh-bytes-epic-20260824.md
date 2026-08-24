@@ -62,3 +62,13 @@ that summary is still current by the time this job runs.
 Do not touch `pr-review-sequence.md` or any other reference file. Do not
 open, review, comment on, or merge any of the PRs surveyed — this is a
 read-only status refresh.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-24T18:15:06Z
