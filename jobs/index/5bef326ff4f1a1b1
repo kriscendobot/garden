@@ -1,2 +1,2 @@
-base: improve-journal-entry-duplicate-suppression
+base: improve-journal-entry-role-attribution
 identity: mentor:scripts/jobs/journal-entry.sh
