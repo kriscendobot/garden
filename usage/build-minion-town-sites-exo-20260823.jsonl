@@ -1,3 +1,4 @@
 {"ts":"2026-08-23T22:54:02Z","base":"build-minion-town-sites-exo-20260823","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
 {"ts":"2026-08-23T23:03:31Z","base":"build-minion-town-sites-exo-20260823","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":9}
 {"ts":"2026-08-23T23:23:27Z","base":"build-minion-town-sites-exo-20260823","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
+{"source":"result","model":"claude-opus-4-8","num_turns":81,"elapsed_s":1669,"input_tokens":147,"output_tokens":112488,"cache_creation_tokens":242246,"cache_read_tokens":12402125,"total_cost_usd":12.772354250000006,"ts":"2026-08-24T00:01:38Z","base":"build-minion-town-sites-exo-20260823","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder"}
