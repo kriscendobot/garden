@@ -42,3 +42,13 @@ A design proposal that (a) specifies the cardinality-equality short-circuit, (b)
 concrete O(1) mechanism for the indexed-own-property count with its preconditions and
 failure modes, (c) proves the fast path is behavior-preserving, and (d) is routed per the
 designer's bare-vs-PR decision. Implementation is a later job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-24T22:17:39Z
