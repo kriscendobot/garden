@@ -27,6 +27,7 @@ Web frontend CSS and HTML techniques for building and styling the garden's web s
 | [appearance: base-select — opting a select into customizable rendering](../sections/web--mdn-appearance-base-select--base-select-value.md) | The CSS appearance property's none/base framing and the base-select value that opts a select and its ::picker(select) into customizable rendering. |
 | [The <selectedcontent> element: clone semantics, inertness, and styling](../sections/web--mdn-selectedcontent--element-semantics-and-cloning.md) | The <selectedcontent> element that displays the selected option inside the closed select button: cloneNode() clone semantics, inertness, independent styling. |
 | [::picker(select): targeting the picker, popover behavior, and default anchor styles](../sections/web--mdn-picker-select-pseudo-element--targeting-and-defaults.md) | What ::picker(select) targets, the base-select precondition, and the browser default picker position / position-try-fallback styles. |
+| [Streaming edit-preview stream](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | The start/delta/clear/reset edit-preview event protocol, and why finished previews outlive their streaming until a durable row resolves them. |
 
 ## See also
 
