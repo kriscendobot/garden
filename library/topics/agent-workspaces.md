@@ -23,6 +23,7 @@ Cloud-hosted work environments in which agents use organizational context, creat
 | [Session API and Markdown boundary](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--session-api-and-markdown-boundary.md) | capability-mediated-integrations, agent-workspaces | Resource-shaped sessions translate Confluence storage XHTML to and from agent-friendly Markdown. |
 | [Deferred actions and simulation](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--deferred-actions-and-simulation.md) | capability-mediated-integrations, agent-workspaces, capability-security | Pending side effects overlay simulated results until a human approves provider execution. |
 | [Multi-site resource pickers](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--multi-site-resource-pickers.md) | capability-mediated-integrations, agent-workspaces | Pasted URLs and pickers preserve site identity across a multi-site Atlassian account. |
+| [approval overlay simulation](../sections/cloudflare-os--packages-gatekeeper-homeassistant-readme--approval-overlay-simulation.md) | home-automation-integrations, capability-mediated-integrations, agent-workspaces, capability-security | Agents can continue coherent work against the simulated result of pending actions. |
 
 ## See also
 
