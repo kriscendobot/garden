@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T04:34:06Z_
+_As of 2026-08-24T05:36:31Z_
 
 ## Latest
 
-Node 24 runtime parity gate landed and provisioned into fleet (local-verify now enforces matched .node-version), clearing a CI-parity gap; three fleet gauntlets halted mid-stage due to handler overruns (PR #1023, #807, #909, #37, #946 are held pending rescope). The byteArray program finished green ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) and awaits re-review; [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) is blocked on shared frozen-base coordination with [#475](https://github.com/endojs/endo-but-for-bots/pull/475). Garden's root checkout deploy stalled 3d behind main2 (18 commits); maintainer authorization gates remain open on SIWE tiers + allowlist, OpenRouter ZDR policy, and the test262-fixture consolidation's decision on metering-corpus scope.
+Fixed local-verify ↔ CI Node parity (Node 22/24 version skew that silently passed locally but failed in CI), provisioned Node 24 onto fleet hosts, and resolved an inbox-send.sh help-flag misfiring. Two dependabot PRs ([eslint-plugin-unicorn #1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [npm-packlist #1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW-ready but stuck on a recurring fleet node24-runner CI flake — awaiting decision to merge directly or fix the infrastructure. The byteArray press is feature-complete and CI-green ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) pending maintainer re-review of CHANGES_REQUESTED threads. Garden deploy has stalled ~3d on both instances; investigate why no deliberate deploy has landed.
 
 ## Parked for maintainer feedback
 
@@ -1028,18 +1028,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.2M | $1060.49 _(notional, rate-card)_ | no quota set |
-| Codex | 26.9M _(+1301.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 137.3M | $1058.80 _(notional, rate-card)_ | no quota set |
+| Codex | 27.0M _(+1301.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5390718343.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Review directive on endojs/endo-but-for-bots PR #889
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-transient-silence.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
+- [`minion-town-agenda-review-20260824-053507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260824-053507.md) — Minion Town press (every two hours)
 
 ### tada (5503)
 - [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390713648.md) — Cost
