@@ -34,6 +34,7 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - compaction, context compaction, conversation summarization, context window summarization, tool result clearing, auto-compact -> context-compaction
 - progressive disclosure, incremental context discovery, layer by layer understanding, self-managed context window -> progressive-disclosure
 - structured note-taking, agentic memory, NOTES.md, memory tool, notes outside the context window -> context-engineering
+- generative agents, Generative Agents memory stream, recency importance relevance, salience-weighted retrieval, reflection tree -> salience-weighted-agent-memory
 - right altitude, Goldilocks prompt altitude, minimal system prompt, smallest set of high-signal tokens -> context-engineering
 - atproto, at protocol, bluesky, at:// uri, merkle search tree, MST, DRISL, CAR file, signed commit, PDS, personal data server, subscribeRepos, firehose, operation inversion -> atproto-repository-mst
 - did, DID document, decentralized identifier, did:plc, did:web, did:key, did:webvh, service endpoint, serviceEndpoint, atproto_pds, alsoKnownAs, connection hint for DIDs, location hint -> did-document-service-endpoint
