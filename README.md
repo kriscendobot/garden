@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T22:54:14Z_
+_As of 2026-08-24T22:58:48Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) progressed through panel and clean gauntlet stages with fix now queued; [endojs/endo-but-for-bots#1057](https://github.com/endojs/endo-but-for-bots/pull/1057) entered review. Cloudflare OS scholarship ingestion completed across 10 cycles. Maintainer inbox holds 40+ pending messages on critical decisions: byteArray finalization ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) both green, awaiting re-review), test262 fixture scope on [#946](https://github.com/endojs/endo-but-for-bots/pull/946) (DRAFT), SIWE on-chain authorization (deployed, awaiting allowlist addresses), and infrastructure (Node 24 provisioning deployed, root deploy stalled 3 days, fleet retuning). Multiple gauntlets halted mid-stage and several jobs parked on elapsed-constancy thresholds; investigate deploy blockage and handler budget overruns.
+[endojs/endo-but-for-bots#1057](https://github.com/endojs/endo-but-for-bots/pull/1057) review completed; [#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) gauntlet fix now in progress. Node 24 runtime parity guard deployed, tightening local-verify ↔ CI consistency. Maintainer inbox holds 40+ open items spanning PR reviews ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) blocked solely on CI flake; byteArray [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503) awaiting re-review; [#670](https://github.com/endojs/endo-but-for-bots/pull/670), [#101](https://github.com/endojs/endo-but-for-bots/pull/101) parked 41+ days), design follow-ups (budget admission gates, orchestration rank grounding), infrastructure decisions (SIWE tier-1 policy addresses, deploy scheduling), and stalled gauntlets requiring promotion. Scholar ingested Cloudflare OS architecture across 10 complete cycles; quota monitor cleared and fleet serving resumed.
 
 ## Parked for maintainer feedback
 
@@ -978,6 +978,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-fix-review-5012572086` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-fix-review-5012572086.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr475-fix-review-5012572086' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1080,25 +1084,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.5M | $944.33 _(notional, rate-card)_ | no quota set |
+| Claude | 133.4M | $942.83 _(notional, rate-card)_ | no quota set |
 | Codex | 32.0M _(+1417.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1058-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1058
+### todo (0)
+(none)
 
 ### doin (3)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1057-review-f6afbf40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1057-review-f6afbf40.md) — Review directive on endojs/endo-but-for-bots PR #1057
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1058
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 
-### tada (5534)
+### tada (5535)
+- [`endojs-endo-but-for-bots-pr1057-review-f6afbf40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1057-review-f6afbf40.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr340-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-refresh.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-retcon.md) — Cost
-- [`endojs-endo-but-for-bots-pr970-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr970-conduct.md) — Cost
-- … and 5529 more
+- … and 5530 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
