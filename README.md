@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T18:16:26Z_
+_As of 2026-08-24T18:24:58Z_
 
 ## Latest
 
-Two design-refresh jobs launched (designs readme, bytes epic snapshot). **High-priority maintainer attention needed:** deploy stalled ~3 days on both garden instances; node24 CI runner flake blocking [endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (plus earlier [#877](https://github.com/endojs/endo-but-for-bots/pull/877) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) with no automatic path forward — either merge those PRs directly or fix the fleet issue. **Pending decisions:** SIWE tier selection + allowlist for minion.town (needed to wire authz), OpenRouter ZDR/stealth policy, Node24 provisioning rollout timing. **Completed:** byteArray program (design + immutable-arraybuffer shim + frozen Uint8Array view) all green at [#503](https://github.com/endojs/endo-but-for-bots/pull/503) / [#475](https://github.com/endojs/endo-but-for-bots/pull/475) / [#888](https://github.com/endojs/endo-but-for-bots/pull/888), awaiting maintainer re-review to clear CHANGES_REQUESTED. Test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) open in DRAFT, blocked on your decision: keep metering corpus separate or fold into upstream parity tree? **25 parked jobs** holding on maintainer authorization; several gauntlets halted mid-pipeline awaiting promotion.
+Scholar ingested Generative Agents and Cloudflare OS (6 new topics, 23 sections total). Local-verify now enforces Node version parity with CI; Node 24 provisioned fleet-wide. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on a node24-runner CI flake. Multiple gauntlets ([endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909); [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37), [#52](https://github.com/kriscendobot/minion.town/pull/52)) are stalled on handler failures; deploy is 18 commits behind and stalled 3 days on both hosts.
 
 ## Parked for maintainer feedback
 
@@ -334,6 +334,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T091307Z-de87b9` — from scholar:scholar-ingest-generative-agents-talk, reply_to `scholar-ingest-generative-agents-talk` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T091307Z-de87b9.md)
 
 > Ingested Abhinav Chinta's 2024 *Generative Agents* reading-group talk into five sections covering Smallville, salience-weighted memory retrieval, reflection, hierarchical planning/reaction, and the reported social outcomes and limitations. The concrete Endo takeaway is that durable formulas/transcripts provide storage, but coherent long-lived agents still need a capability-bounded policy layer for bounded retrieval, evidence-linked reflection, and forward-only replanning. Added the `salience-weighted-agent-memory` concept and an Endo project cross-link; integrity checks passed and projected indexes are current. Full result: `entries/2026/08/24/091252Z-result-scholar-a4036b.md`.
+
+- `20260824T182326Z-dc5232` — from scholar:scholar-ingest-cloudflare-os, reply_to `scholar-ingest-cloudflare-os` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T182326Z-dc5232.md)
+
+> Cloudflare OS is now represented as a distinct library domain: I ingested its repository overview, Blueprint design, and sharing design into 18 sections, six new topics, and five concepts. The first pass captures its Workers-hosted agent workspace, private AI-generated gadgets, capability-mediated Gatekeepers, portable app templates, and graph-based collaboration/revocation model. The integrity gate passed and both projected indexes are current; follow-on `scholar-ingest-cloudflare-os-2` owns the remaining docs, plans, package READMEs, and source-comment survey. See today's `result` entry from `scholar` for the complete source anchors and file inventory.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1032,8 +1036,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.5M | $957.36 _(notional, rate-card)_ | no quota set |
-| Codex | 28.9M _(+1331.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 128.7M | $954.48 _(notional, rate-card)_ | no quota set |
+| Codex | 29.4M _(+1341.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1041,16 +1045,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (3)
 - [`endo-but-for-bots-designs-readme-refresh-20260824`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-designs-readme-refresh-20260824.md) — ---
-- [`refresh-bytes-epic-20260824`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/refresh-bytes-epic-20260824.md) — What has changed since the 2026-07-02 snapshot (from this week's
+- [`scholar-ingest-cloudflare-os-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-2.md) — ---
 - [`scholar-ingest-cloudflare-os`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os.md) — ---
 
-### tada (5511)
+### tada (5512)
+- [`refresh-bytes-epic-20260824`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/refresh-bytes-epic-20260824.md) — Cost
 - [`scholar-ingest-generative-agents-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-generative-agents-talk.md) — Cost
 - [`daily-progress-summary-20260824-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260824-070504.md) — Cost
 - [`fix-benchmarker-role-dead-citations-and-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-benchmarker-role-dead-citations-and-design-docs.md) — Cost
 - [`kriscendobot-minion-town-pr52-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet.md) — gauntlet kriscendobot-minion-town-pr52-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Cost
-- … and 5506 more
+- … and 5507 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
