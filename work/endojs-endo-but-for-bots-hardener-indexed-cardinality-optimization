@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 3
-worker_kind: cleric
-claimed_at: 2026-08-24T22:17:39Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-hardener-indexed-cardinality-optimization
-pr_number: 1058
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1058
-pr_head: design/hardener-indexed-cardinality
