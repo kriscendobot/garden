@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T03:15:58Z_
+_As of 2026-08-24T03:17:56Z_
 
 ## Latest
 
-Local-verify and Node 24 parity infrastructure landed (main2 commits 57d851dfaf and c1583f733f) — the parity guard now rejects jobs on mismatched Node versions and the image bakes Node 24 for LTS-pinned projects. Test262 consolidation opened as [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) (DRAFT) with a design choice on folding proprietary metering fixtures vs. unifying only expectation accounting. SIWE on-chain authz deployed to minion.town awaiting maintainer tier selection (Tier 1 allowlist or Tier 1+2 machinery) and wallet addresses. Multiple gauntlet campaigns stalled mid-run — [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) are all blocked on panel or fix handlers failing repeatedly; two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW per diligence but held by the recurring node24-runner CI flake. Maintainer inbox carries 40+ follow-ups spanning decisions (node lane fate, deploy gates, budget caps, Endo sturdyref sequencing) and infrastructure status reports (garden deploy stalled ~3d, SIWE allowlist needed, multiple retry-exhausted jobs parked).
+Gauntlet traffic has stalled: multiple endojs/endo-but-for-bots and kriscendobot/minion.town PR gauntlets halted mid-stage over the past ~48 hours, with five doom jobs parked from requeue exhaustion (PRs #1023 panel-2, #807 fix-1, #909 fix-1, #946 conduct, and minion.town #37 panel-6). Two endor-fixture-parity-ratchet orchestration runs also halted on the same hosts (endolin-garden-ece02cb4), with the child endor-walker-exports-resolution stalled on an elapsed-constancy fast failure. Concurrently, garden deploy has stalled for ~3d on both endolin-garden-ece02cb4 and endolin-garden2-5bcdff64 (18 commits behind origin/main2). On the operational side: Node 24 provisioning deployed to garden2; local-verify parity guard landed and is now refusing Node-24-pinned projects on hosts without Node 24; and [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) remain MERGE-NOW verdicts waiting on the fleet node24-runner infra flake. Upstream, the byteArray press finished all components green ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) and gated on maintainer re-review + un-draft, budget enforcement design landed, and SIWE on-chain authz deployed—awaiting maintainer authorization for tier 1 allowlist configuration.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.2M | $1059.82 _(notional, rate-card)_ | no quota set |
-| Codex | 26.5M _(+1259.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 136.3M | $1059.98 _(notional, rate-card)_ | no quota set |
+| Codex | 26.5M _(+1260.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Daily dependabotany backstop for endo-but-for-bots
+- [`kriscendobot-minion-town-pr52-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #52
 
 ### tada (5499)
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-panel-3.md) — Completion report
