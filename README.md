@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T01:06:56Z_
+_As of 2026-08-24T01:09:37Z_
 
 ## Latest
 
-Fixed a critical local-verify ↔ CI parity gap discovered when Node-24 projects silently passed locally but failed CI type-checking (local Node 22.23.2 vs. CI's pinned `lts/*` → Node 24). A Node runtime-parity guard now refuses to run under version mismatch, and Node 24 has been baked into the Dockerfile; however, propagation is blocked by stalled deploys—two hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64) remain 18 commits behind on main2 for ~3 days. The byteArray press completed and is green across all engines ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) merged layers ready for re-review; [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) finish-line awaiting un-draft), pending only human sign-off. Test262 consolidation work opened [endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) in draft with design and rollout step 1 complete; one decision needed on whether to fold bespoke metering fixtures into the parity tree or keep them separate. SIWE auth thunk deployed and live at minion.town; awaiting maintainer to provide the allowlist of wallet addresses for Tier 1. Multiple gauntlets and orchestration jobs have halted due to handler failures and requeue exhaustion, and several datagathering/fix jobs are parked pending decisions on scope and sequencing.
+The **byteArray program** reached finish line: [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) are all CI-green and mergeable, blocked only on maintainer re-review to clear CHANGES_REQUESTED. **Node 24 runtime parity** restored — local-verify now enforces matching the `.node-version` pin, adopted or refused per-run (provision-node-lts.sh baked Node 24 into the Dockerfile). Fleet infrastructure shows strain: root-repo deploys stalled ~3 days behind origin/main2 on two hosts, seven jobs doomed from handler timeouts/failures, and a shared frozen base blocking conductor unfreeze on [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046). **SIWE on-chain authz** (minion.town) is deployed and needs a Tier 1 allowlist decision before policy can activate. Multiple maintainer decisions flagged in inbox (byteArray re-review + merge coordination, SIWE tiers/addresses, open-signup gate, deploy-drain resolution, and a half-dozen infrastructure corrections).
 
 ## Parked for maintainer feedback
 
@@ -1028,23 +1028,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.5M | $1057.27 _(notional, rate-card)_ | no quota set |
+| Claude | 134.5M | $1057.35 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+1220.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`minion-town-agenda-review-20260824-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260824-010505.md) — Minion Town press (every two hours)
+### doin (0)
+(none)
 
-### tada (5489)
+### tada (5490)
+- [`minion-town-agenda-review-20260824-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-010505.md) — Cost
 - [`improve-mentor-transient-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mentor-transient-outage-backoff.md) — What I did
 - [`build-minion-town-sites-exo-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-sites-exo-20260823.md) — Completion report — build-minion-town-sites-exo-20260823
 - [`deadmail-issue-comment-5388921796`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5388921796.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-d7b66ffe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-d7b66ffe.md) — Completion report
-- [`minion-town-agenda-review-20260823-225008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260823-225008.md) — Cost
-- … and 5484 more
+- … and 5485 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
