@@ -24,6 +24,10 @@ A Cloudflare OS Gatekeeper family that connects Model Context Protocol servers a
 | [MCP trust-tier annotation policy](../sections/cloudflare-os--packages-mcp-shared-readme--trust-tier-annotation-policy.md) | Defines how byo and vetted deployments may trust tool annotations. |
 | [At-most-once approved MCP calls](../sections/cloudflare-os--packages-mcp-shared-readme--at-most-once-approved-calls.md) | Claims approvals before dispatch and never retries uncertain outcomes. |
 | [Bounded MCP transport and state](../sections/cloudflare-os--packages-mcp-shared-readme--bounded-transport-and-state.md) | Fixes limits across discovery, transport, prompts, and retained actions. |
+| [Endpoint immutability and the credential-confusion hazard](../sections/cloudflare-os--packages-mcp-shared-src-account--endpoint-immutability.md) | The connected endpoint is pinned after first connect so a token minted for one server never reaches another. |
+| [Connect-time provenance versus live trust configuration](../sections/cloudflare-os--packages-mcp-shared-src-account--provenance-vs-live-trust.md) | Provenance and endpoint are frozen at connect; ServerTrust and static tokens are read live from configuration. |
+| [Tool-annotation trust boundary and ServerTrust tiers](../sections/cloudflare-os--packages-mcp-shared-src-tools--annotation-trust-boundary.md) | The sole file reading tool annotations; a deployment-decided vetted/byo tier bounds how far they are trusted. |
+| [Classifying a tool into read or action and deciding auto-approval](../sections/cloudflare-os--packages-mcp-shared-src-tools--tool-classification-policy.md) | classifyTool fails closed: a write auto-applies only on a vetted endpoint with strict destructive/idempotent claims. |
 
 ## See also
 
