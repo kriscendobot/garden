@@ -4,6 +4,12 @@ Per-source-document inventory. Each row points to a `<source-slug>.md` file that
 
 The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The rest of the endo corpus (~70 substantive markdown files: top-level, `docs/`, per-package READMEs, per-package `docs/` and `doc/` directories) is queued for future ingestion batches; the index will grow as those are filed.
 
+## External presentations
+
+| Source | URL | Date | Author | Sections | Status |
+|--------|-----|------|--------|----------|--------|
+| [Generative Agents: Interactive Simulacra of Human Behavior](talks--chinta-generative-agents-2024.md) | https://abhinavchinta.com/files/generative_agents_talk.pdf | 2024-09-05 | Abhinav Chinta | 5 | current (ConvAI Reading Group #2 deck; direct PDF SHA-256 `ecbf72e6`; secondary synthesis of Park et al.) |
+
 ## TypeScript Website
 
 | Source | Repo | Date | Authors | Sections | Status |
