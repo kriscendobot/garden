@@ -83,6 +83,10 @@
 | [reflection and memory integration](../sections/talks--chinta-generative-agents-2024--reflection-and-memory-integration.md) | llm-agent-frameworks, context-engineering | Threshold-triggered questions retrieve evidence for higher-level inferences that return to the memory stream. |
 | [hierarchical planning and reaction](../sections/talks--chinta-generative-agents-2024--hierarchical-planning-and-reaction.md) | llm-agent-frameworks | Daily plans decompose to 5–15-minute actions and are regenerated forward from observations that merit reaction. |
 | [evaluation, emergence, and limitations](../sections/talks--chinta-generative-agents-2024--evaluation-emergence-and-limitations.md) | open-ended-agent-ecologies, llm-agent-frameworks | Believability ablations and bounded social outcomes are qualified by norm, location, style, and inference-cost failures. |
+| [Migration decisions and provider routing](../sections/cloudflare-os--plans-pi-impl--migration-decisions-and-provider-routing.md) | Cloudflare OS plans/pi-impl.md | The pi migration fixes low-level loop selection, provider endpoints, credentials, and compatibility bounds. |
+| [Message replay and tool adaptation](../sections/cloudflare-os--plans-pi-impl--message-replay-and-tool-adaptation.md) | Cloudflare OS plans/pi-impl.md | Existing chat records replay into pi message types while tools move from Zod to TypeBox. |
+| [Awaited agent loop and persistence barrier](../sections/cloudflare-os--plans-pi-impl--awaited-agent-loop-and-persistence-barrier.md) | Cloudflare OS plans/pi-impl.md | An awaited event sink makes successful turn end the persistence barrier and drops failed partial output. |
+| [Verification and deferred bridges](../sections/cloudflare-os--plans-pi-impl--verification-and-deferred-bridges.md) | Cloudflare OS plans/pi-impl.md | Automated gates and manual smoke cover the migration while PDF and binding bridges stay separate follow-ups. |
 
 ## See also
 
