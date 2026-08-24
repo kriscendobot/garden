@@ -29,6 +29,8 @@ Sharing stateful agent-built applications among users while preserving role rest
 | [Lazy revocation model and reversibility](../sections/cloudflare-os--packages-workshop-backend-src-sharing--lazy-revocation-model.md) | collaborative-workspace-sharing, capability-security | Access is owner-reachability recomputed live, so revocation severs edges without cascading and is reversible. |
 | [Share-key redemption and link/alias edges](../sections/cloudflare-os--packages-workshop-backend-src-sharing--share-key-redemption.md) | collaborative-workspace-sharing, capability-security | Redeeming a raw share key hashes it and collapses a link's keys and copies to a single permission edge. |
 | [Effective roles by fixed-point graph traversal](../sections/cloudflare-os--packages-workshop-backend-src-sharing--effective-role-fixed-point.md) | collaborative-workspace-sharing, capability-security | Effective role is the maximum owner-rooted role, computed by a monotone fixed-point iteration. |
+| [Observer verification across past and future reads](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--observer-verification-contract.md) | collaborative-workspace-sharing, capability-mediated-integrations, capability-security | Admission proves access to prior observations; later incompatible reads must exclude the observer or fail. |
+| [Sensitive observation confinement](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--sensitive-observation-confinement.md) | collaborative-workspace-sharing, capability-mediated-integrations, capability-security | Owner-only reads forbid sharing and actions; narrower reads can exclude named observers or fail closed. |
 
 ## See also
 
