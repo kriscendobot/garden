@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-24T18:15:49Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-but-for-bots-designs-readme-refresh-20260824
-pr_number: 1057
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1057
-pr_head: kriscendobot:designs-readme-refresh-20260824
