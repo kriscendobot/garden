@@ -769,6 +769,11 @@ The bot-fork's per-package READMEs (lal, fae, genie, familiar, whylip, exo, chat
 | [Cloudflare OS collaborator sharing engine (comment)](cloudflare-os--packages-workshop-backend-src-sharing.md) | sharing.ts comments: lazy reversible revocation, share-key redemption, and fixed-point effective-role computation. | 3 | current |
 | [Cloudflare OS MCP tool trust boundary (comment)](cloudflare-os--packages-mcp-shared-src-tools.md) | tools.ts comments: the annotation trust boundary and the ServerTrust-mediated classification policy. | 2 | current |
 | [Cloudflare OS Gatekeeper protocol contracts (comment)](cloudflare-os--packages-workshop-shared-src-gatekeeper.md) | gatekeeper.ts comments: account authentication, observer verification, approval and revert, persistent hooks, and sensitive-observation confinement. | 5 | current |
+| [Cloudflare OS agent context compaction (comment)](cloudflare-os--packages-workshop-backend-src-agent-compaction.md) | agent-compaction.ts comments: the legacy code-log migration anchor, and the merge/revert fold that derives proposed changes and checkpoint pins/epoch. | 2 | current |
+| [Cloudflare OS workspace git object store (comment)](cloudflare-os--packages-workshop-backend-src-git-store.md) | git-store.ts comments: refless content-addressed storage, plumbing-only GitStore over an fs shim, and a never-throwing three-way file-map merge. | 3 | current |
+| [Cloudflare OS chat code-branch UI model (comment)](cloudflare-os--packages-workshop-frontend-src-chatinterface.md) | ChatInterface.tsx comments: durable snapshot plus synchronous live row stream, and the streaming edit-preview event protocol. | 2 | current |
+| [Cloudflare OS chat code-branch API contracts (comment)](cloudflare-os--packages-workshop-shared-src-api.md) | api.ts comments: code-change submission as the sole edit path, chat code base epochs/pins, accept and mainline merge, and the live edit-preview stream. | 4 | current |
+| [Cloudflare OS code-change OT module (comment)](cloudflare-os--packages-workshop-shared-src-code-change.md) | code-change.ts comments: base-free revisioned representation, concurrent transform under a server-order priority convention, and two-stage ingestion validation. | 3 | current |
 
 ## Backlog (not yet ingested)
 
