@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T19:36:41Z_
+_As of 2026-08-24T19:51:33Z_
 
 ## Latest
 
-Cloudflare OS library ingestion completed cycles 1–6 and is advancing through cycle 7; the byteArray finish-line stack ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is all CI-green and awaiting review approval. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by the node24 runner flake; SIWE on-chain authz is wired and live, awaiting tier-1 allowlist addresses; Node 24 is now provisioned fleet-wide. Watchdog alerts: deploys have stalled 3 days on both garden hosts. Ten maintainer holds remain open across design decisions, authorization gates, and infrastructure choices.
+The scholar ingested Cloudflare OS library domain in a sequential eight-cycle sweep (2026-08-24), capturing 170+ sections across Workers agents, Gatekeepers, OAuth, MCP server connectors, and scheduled-tasks integration, plus an earlier pass on the Generative Agents talk grounding durable formula retrieval and bounded agent policy. The provider quota recovered overnight (cleared 2026-08-24T18:39:14Z after a 41-observation window). Multiple infrastructure fixes landed: local-verify now enforces Node runtime parity (fails loud on major mismatch, provisioned Node 24 fleet-wide), the garden's budget enforcement design went live on main2, and pre-push-gates shell checks tightened CI parity. The maintainer has a batch of open decisions: SIWE Tier 1 allowlist addresses for minion.town (two scopes + optional evaluator grants per address), the fleet's recurring node24-runner CI flake blocking two dependabot PRs from merge-now state ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), and Cloudflare OS test262 fixture consolidation's handling of 1712 bespoke metering micro-cases (keep two case trees or fold into upstream). Four major gauntlets halted (panel/fix handlers persistent-failing on multiple endojs/endo-but-for-bots PRs, and a minion.town build); eight jobs doomed to plan/ after requeue exhaustion or elapsed-constancy floors.
 
 ## Parked for maintainer feedback
 
@@ -358,6 +358,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T193558Z-9c0343` — from scholar:scholar-ingest-cloudflare-os-6, reply_to `scholar-ingest-cloudflare-os-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T193558Z-9c0343.md)
 
 > Scholar ingested five more `cloudflare/cloudflare-os` gatekeeper READMEs into the library (16 sections): **MCP** and **MCP Server Portals** (connecting Model Context Protocol servers as capabilities, the untrusted `byo` vs `vetted` trust tiers), **Notion**, **Slack** (read-only), and **Scheduled Tasks**. Added two concepts (`mcp-server-connector`, `scheduled-tasks-gatekeeper`) and one new topic `scheduled-agent-tasks` for persistent scheduled callbacks — the only genuinely new domain, kept out of the endo taxonomy. Integrity gate passed; sections index and topics counts regenerated current. Remaining backlog (`gatekeeper-{spotify,supabase,zoominfo}`, `integration-tests`, `mcp-shared`, `workshop-frontend`) is posted as `scholar-ingest-cloudflare-os-7`. Full result: `entries/2026/08/24/193544Z-result-scholar-62ac00.md`.
+
+- `20260824T194942Z-30b3a8` — from scholar:scholar-ingest-cloudflare-os-7, reply_to `scholar-ingest-cloudflare-os-7` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T194942Z-30b3a8.md)
+
+> Completed the remaining six documented `cloudflare/cloudflare-os` package READMEs as 17 library sections, including the shared `mcp-shared` security implementation under the existing `mcp-server-connector` concept. The cycle also extended the Gatekeeper, Workers-hosting, OAuth, testing, packaging, and authentication indexes, with all source-cluster links and projected topic counts passing their deterministic checks. After exhausting the README backlog, I surveyed package source and posted `scholar-ingest-cloudflare-os-8` with a precise oldest-first list of 10 longform architectural-comment sources. Full result: `entries/2026/08/24/194927Z-result-scholar-d97e46.md`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1064,23 +1068,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.7M | $956.21 _(notional, rate-card)_ | no quota set |
-| Codex | 30.7M _(+1390.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 132.4M | $957.16 _(notional, rate-card)_ | no quota set |
+| Codex | 30.9M _(+1397.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`scholar-ingest-cloudflare-os-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-7.md) — ---
+- [`scholar-ingest-cloudflare-os-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-8.md) — ---
 
-### tada (5523)
+### tada (5524)
+- [`scholar-ingest-cloudflare-os-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-7.md) — Cost
 - [`scholar-ingest-cloudflare-os-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-6.md) — Completion report
 - [`improve-journal-entry-role-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-entry-role-attribution.md) — Cost
 - [`scholar-ingest-cloudflare-os-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-5.md) — Cost
 - [`scholar-ingest-cloudflare-os-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-4.md) — Cost
-- [`scholar-ingest-cloudflare-os-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-3.md) — Cost
-- … and 5518 more
+- … and 5519 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
