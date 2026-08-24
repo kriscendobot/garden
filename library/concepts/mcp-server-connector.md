@@ -1,6 +1,6 @@
 ---
 id: mcp-server-connector
-aliases: [MCP Gatekeeper, MCP gatekeeper, MCP Server Portals gatekeeper, gatekeeper-mcp, gatekeeper-mcp-portal, byo trust tier, vetted trust tier, portal_list_servers, McpAccount]
+aliases: [MCP Gatekeeper, MCP gatekeeper, MCP Server Portals gatekeeper, gatekeeper-mcp, gatekeeper-mcp-portal, mcp-shared, byo trust tier, vetted trust tier, portal_list_servers, McpAccount]
 topics: [capability-mediated-integrations, capability-security]
 ---
 
@@ -20,6 +20,10 @@ A Cloudflare OS Gatekeeper family that connects Model Context Protocol servers a
 | [Portal configuration and fail-closed repoint](../sections/cloudflare-os--packages-gatekeeper-mcp-portal-readme--configuration-and-repoint.md) | Changing the portal URL fails every existing binding closed and forces reconnection. |
 | [Recovering upstream servers from tool-name prefixes](../sections/cloudflare-os--packages-gatekeeper-mcp-portal-readme--recovering-upstream-servers.md) | Server membership is a pure string test on the `{server_id}_` prefix, so a scope cannot fail open. |
 | [Portal trust tier and the annotation-trust flag](../sections/cloudflare-os--packages-gatekeeper-mcp-portal-readme--portal-trust-tier-and-annotations.md) | Aggregated annotations stay byo unless MCP_PORTAL_TRUST_ANNOTATIONS asserts trust in the upstreams. |
+| [Shared MCP connector security kernel](../sections/cloudflare-os--packages-mcp-shared-readme--shared-connector-security-kernel.md) | Centralizes the protocol, policy, and state used by both MCP Gatekeepers. |
+| [MCP trust-tier annotation policy](../sections/cloudflare-os--packages-mcp-shared-readme--trust-tier-annotation-policy.md) | Defines how byo and vetted deployments may trust tool annotations. |
+| [At-most-once approved MCP calls](../sections/cloudflare-os--packages-mcp-shared-readme--at-most-once-approved-calls.md) | Claims approvals before dispatch and never retries uncertain outcomes. |
+| [Bounded MCP transport and state](../sections/cloudflare-os--packages-mcp-shared-readme--bounded-transport-and-state.md) | Fixes limits across discovery, transport, prompts, and retained actions. |
 
 ## See also
 
