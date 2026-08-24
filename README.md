@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T23:52:40Z_
+_As of 2026-08-24T23:53:58Z_
 
 ## Latest
 
-The deploy has stalled for three days across both leader hosts (endolin-garden-ece02cb4, endolin-garden2-5bcdff64), with the deployed checkout 18 commits behind `main2` and no advancement. Several gauntlets halted mid-stage over the past week — [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) — most parked with exhausted requeue limits after handler failures. The maintainer inbox accumulated 40+ open messages since the last bulletin, largely driven by infrastructure diagnostics (three job handlers hitting wall-clock overruns, one elapsed-constancy false alarm), multiple orchestrations halted, the recurring Node24 CI flake blocking [endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), and substantive maintainer decisions pending on byteArray re-review, SIWE tier authorization, Cloudflare OS ingestion completing (scholar work finishing across 10 cycles), and several follow-up promotion gates. A fresh deploy and a triage of the parked/halted jobs would clear much of the log.
+[endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) is in gauntlet fix round 3, the only substantive work in flight; 82 parked jobs and 10 maintainer messages flag a decision backlog dominated by byteArray re-review, SIWE/OpenRouter policy choices, and minion.town authz allowlist setup. Deployments have stalled 18 commits behind for ~3 days. Infrastructure wins this cycle: complete Cloudflare OS library ingest and Node 24 parity repair.
 
 ## Parked for maintainer feedback
 
@@ -1080,15 +1080,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.9M | $931.09 _(notional, rate-card)_ | no quota set |
+| Claude | 133.0M | $931.25 _(notional, rate-card)_ | no quota set |
 | Codex | 32.2M _(+1420.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1058
 
 ### tada (5540)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-3.md) — Cost
