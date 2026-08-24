@@ -63,7 +63,7 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - isolation realm, coeffect isolation, coeffect interception, service broker, dependency injection at runtime -> spatiotemporal-composability
 - Cloudflare OS, company OS, agent workspace, AI productivity environment -> cloudflare-os-gadget
 - gadget, Cloudflare OS gadget, personal software instance, Dynamic Worker gadget -> cloudflare-os-gadget
-- Gatekeeper, Cloudflare OS Gatekeeper, deferred approval, simulated side effect, capability-mediated integration -> cloudflare-os-gatekeeper
+- Gatekeeper, Cloudflare OS Gatekeeper, deferred approval, simulated side effect, capability-mediated integration, Email Gatekeeper, Home Assistant Gatekeeper, LLAT, long-lived access token -> cloudflare-os-gatekeeper
 - Blueprint, Cloudflare OS Blueprint, `.gadget`, gadget archive, bundled blueprint, output format -> cloudflare-os-blueprint
 - permission graph, permission edge, effective role graph, share-link node, `computeEffectiveRoles` -> permission-edge-graph
 - lazy revocation, reachability revocation, reversible revocation, `keepUsers`, revocation restart -> lazy-graph-revocation
