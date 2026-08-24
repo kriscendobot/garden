@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6837 (530 parent indexes + 6307 children).
+Total section files: 6862 (530 parent indexes + 6332 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -637,6 +637,18 @@ Total section files: 6837 (530 parent indexes + 6307 children).
 - [cask--verbs--verb-catalog](cask--verbs--verb-catalog.md)
 - [cask--verbs--verb-dispatch-and-type-designators](cask--verbs--verb-dispatch-and-type-designators.md)
 
+### cloudflare-os--agents
+
+- [cloudflare-os--agents--capn-web-rpc-discipline](cloudflare-os--agents--capn-web-rpc-discipline.md)
+- [cloudflare-os--agents--repository-architecture-and-kernel-bar](cloudflare-os--agents--repository-architecture-and-kernel-bar.md)
+- [cloudflare-os--agents--structured-observability-and-error-reporting](cloudflare-os--agents--structured-observability-and-error-reporting.md)
+- [cloudflare-os--agents--vite-plus-build-test-and-lint-contract](cloudflare-os--agents--vite-plus-build-test-and-lint-contract.md)
+
+### cloudflare-os--contributing
+
+- [cloudflare-os--contributing--outside-contribution-policy](cloudflare-os--contributing--outside-contribution-policy.md)
+- [cloudflare-os--contributing--pull-request-ci-and-preview-boundary](cloudflare-os--contributing--pull-request-ci-and-preview-boundary.md)
+
 ### cloudflare-os--docs-ai-gateway-billing
 
 - [cloudflare-os--docs-ai-gateway-billing--billing-state-and-code-layout](cloudflare-os--docs-ai-gateway-billing--billing-state-and-code-layout.md)
@@ -690,6 +702,30 @@ Total section files: 6837 (530 parent indexes + 6307 children).
 - [cloudflare-os--docs-sharing--lazy-revocation](cloudflare-os--docs-sharing--lazy-revocation.md)
 - [cloudflare-os--docs-sharing--share-links-and-permission-edges](cloudflare-os--docs-sharing--share-links-and-permission-edges.md)
 
+### cloudflare-os--plans-git-storage
+
+- [cloudflare-os--plans-git-storage--codemirror-client-and-delivery-sequence](cloudflare-os--plans-git-storage--codemirror-client-and-delivery-sequence.md)
+- [cloudflare-os--plans-git-storage--commit-backed-chat-merge-and-migration](cloudflare-os--plans-git-storage--commit-backed-chat-merge-and-migration.md)
+- [cloudflare-os--plans-git-storage--deterministic-yjs-seeds-and-reserved-client-ids](cloudflare-os--plans-git-storage--deterministic-yjs-seeds-and-reserved-client-ids.md)
+- [cloudflare-os--plans-git-storage--git-object-store-and-commit-model](cloudflare-os--plans-git-storage--git-object-store-and-commit-model.md)
+- [cloudflare-os--plans-git-storage--lazy-per-gadget-pinning-and-epochs](cloudflare-os--plans-git-storage--lazy-per-gadget-pinning-and-epochs.md)
+- [cloudflare-os--plans-git-storage--operational-transform-change-model](cloudflare-os--plans-git-storage--operational-transform-change-model.md)
+- [cloudflare-os--plans-git-storage--revision-epochs-stragglers-and-materialization](cloudflare-os--plans-git-storage--revision-epochs-stragglers-and-materialization.md)
+
+### cloudflare-os--plans-multi-gadget
+
+- [cloudflare-os--plans-multi-gadget--binding-edges-and-workpiece-capabilities](cloudflare-os--plans-multi-gadget--binding-edges-and-workpiece-capabilities.md)
+- [cloudflare-os--plans-multi-gadget--chat-scoped-provisional-changes](cloudflare-os--plans-multi-gadget--chat-scoped-provisional-changes.md)
+- [cloudflare-os--plans-multi-gadget--named-chat-environments-and-spawner-scope](cloudflare-os--plans-multi-gadget--named-chat-environments-and-spawner-scope.md)
+- [cloudflare-os--plans-multi-gadget--workpiece-namespace-and-gadget-roots](cloudflare-os--plans-multi-gadget--workpiece-namespace-and-gadget-roots.md)
+
+### cloudflare-os--plans-pi-impl
+
+- [cloudflare-os--plans-pi-impl--awaited-agent-loop-and-persistence-barrier](cloudflare-os--plans-pi-impl--awaited-agent-loop-and-persistence-barrier.md)
+- [cloudflare-os--plans-pi-impl--message-replay-and-tool-adaptation](cloudflare-os--plans-pi-impl--message-replay-and-tool-adaptation.md)
+- [cloudflare-os--plans-pi-impl--migration-decisions-and-provider-routing](cloudflare-os--plans-pi-impl--migration-decisions-and-provider-routing.md)
+- [cloudflare-os--plans-pi-impl--verification-and-deferred-bridges](cloudflare-os--plans-pi-impl--verification-and-deferred-bridges.md)
+
 ### cloudflare-os--readme
 
 - [cloudflare-os--readme--agent-built-collaborative-apps](cloudflare-os--readme--agent-built-collaborative-apps.md)
@@ -698,6 +734,13 @@ Total section files: 6837 (530 parent indexes + 6307 children).
 - [cloudflare-os--readme--gatekeepers-and-deferred-approval](cloudflare-os--readme--gatekeepers-and-deferred-approval.md)
 - [cloudflare-os--readme--overview-and-workspace-model](cloudflare-os--readme--overview-and-workspace-model.md)
 - [cloudflare-os--readme--workers-runtime-architecture](cloudflare-os--readme--workers-runtime-architecture.md)
+
+### cloudflare-os--review
+
+- [cloudflare-os--review--kernel-and-capability-security-review](cloudflare-os--review--kernel-and-capability-security-review.md)
+- [cloudflare-os--review--outside-contribution-and-review-exclusions](cloudflare-os--review--outside-contribution-and-review-exclusions.md)
+- [cloudflare-os--review--rpc-and-build-system-review](cloudflare-os--review--rpc-and-build-system-review.md)
+- [cloudflare-os--review--secret-safe-logging-and-reporting-review](cloudflare-os--review--secret-safe-logging-and-reporting-review.md)
 
 ### cloudflare-w4p--configuration-bindings
 
