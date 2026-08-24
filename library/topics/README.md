@@ -94,3 +94,13 @@ The taxonomy in `conventions.md` lists additional topics expected to fill in as 
 (no remaining seed-but-empty topics — streams is now populated by the stream + stream-node ingestion)
 
 These will appear when the next ingestion batches (the flagship package READMEs queued in the inbox) create sections that file under them.
+@@
+-## Seed-but-not-yet-populated topics
++| [agent-workspaces](agent-workspaces.md) | Cloud-hosted work environments in which agents use organizational context, create artifacts and applications, and operate through governed integrations. | 0 |
++| [ai-generated-apps](ai-generated-apps.md) | Applications generated and modified by AI for individual users, including isolation, API, portability, and ownership properties. | 0 |
++| [capability-mediated-integrations](capability-mediated-integrations.md) | External-service integrations that replace ambient connector access with narrow, user-designated resource capabilities, authorization, audit, and deferred approval. | 0 |
++| [cloudflare-workers-agent-hosting](cloudflare-workers-agent-hosting.md) | Hosting agent workspaces and generated applications on Cloudflare Workers primitives such as Durable Objects, Dynamic Workers, Facets, KV, R2, and bindings. | 0 |
++| [reusable-app-blueprints](reusable-app-blueprints.md) | Versioned, portable templates for creating independent application instances from code and dependency requirements without copying live data or credentials. | 0 |
++| [collaborative-workspace-sharing](collaborative-workspace-sharing.md) | Sharing stateful agent-built applications while preserving role restrictions, grant provenance, transitive revocation, per-user credentials, and live-session authorization. | 0 |
++
++## Seed-but-not-yet-populated topics
