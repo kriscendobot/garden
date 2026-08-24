@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T06:43:48Z_
+_As of 2026-08-24T06:47:01Z_
 
 ## Latest
 
-The byteArray program reached complete-and-green status ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are CI-green and mergeable; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is drafted and ready), but remains gated on maintainer re-review of the two complementary base layers. Several gauntlets halted after handler failures ([endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and minion.town PRs [#52](https://github.com/kriscendobot/minion.town/pull/52) and [#37](https://github.com/kriscendobot/minion.town/pull/37)), and the endor-fixture-parity-ratchet campaign stalled mid-sequence; all are held pending promotion. Garden deploys have been stalled for ~3 days on both running hosts, 18 commits behind main2. The budget-enforcement design landed on main2 and is ready to activate pending the token-cap input. Two node24-runner CI flakes are blocking [endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) from merge. A long backlog of follow-ups awaits maintainer decision — SIWE tier-1 allowlist addresses, DNSSEC Route53 setup for ocap.site, pre-push gate coverage, and several campaign pause/resume calls.
+The fleet is in a holding pattern: multiple gauntlets and orchestrations halted mid-pipeline ([endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/pull/881), [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#807](https://github.com/endojs/endo-but-for-bots/pull/807)), root deployments stalled ~3 days on both running hosts, and multiple maintainer decisions blocking forward progress—most urgently the byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) complete and green awaiting re-review, two MERGE-NOW dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) blocked on a recurring node24 CI flake, and infrastructure decisions on test262 fixtures ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)), SIWE on-chain authz for minion.town, OpenRouter policy, and the debugger-uncaught-exceptions gate ([#1038](https://github.com/endojs/endo-but-for-bots/pull/1038)). On the infrastructure side, pre-push gates are broken (missing driver script, shellcheck under-coverage, Node parity guard failing on non-LTS hosts), and a bundle of follow-ups on minion.town design work awaiting your authorization ([daemon commit formula](https://github.com/kriscendobot/minion.town/pull/41), DNSSEC setup for ocap.site, weblet-isolation gateway fixes).
 
 ## Parked for maintainer feedback
 
@@ -708,56 +708,6 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > Garden repo (main2): SUBTEST 7 of `elapsed-constancy-classifier-test.sh` fails on main2 (explicit-cap exemption not firing — sub-floor reclassification wins instead). Fix it.
 
-- `doomed-kriscendobot-minion-town-pr52-gauntlet-panel-4-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr52-gauntlet-panel-4-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/kriscendobot-minion-town-pr52-gauntlet-panel-4; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion-town-pr52-gauntlet-panel-4) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion-town-pr52-gauntlet-panel-4
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 7200
-> gauntlet: kriscendobot-minion-town-pr52-gauntlet
-> gauntlet_stage: panel
-> gauntlet_iteration: 4
-> pr: [https://github.com/kriscendobot/minion.town/pull/52](https://github.com/kriscendobot/minion.town/pull/52)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
->
-> You are ONE stage of a staged gauntlet (kriscendobot-minion-town-pr52-gauntlet). Run EXACTLY ONE panel round, post the
-> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion-town-pr52-gauntlet-panel-4 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/52 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Run the panel in SINGLE-ROUND mode against that worktree:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 52 <base-ref>`
->    It fans the seats, aggregates, and prints its disposition as the terminal line's
->    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
-> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/kriscendobot/minion.town/pull/52](https://github.com/kriscendobot/minion.town/pull/52) — the
->    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
->    review on must-fix, a comment/approve on pass).
-> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
->    report with `orchestration-failed: true` and do NOT emit a panel marker.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: panel=pass -->
->   <!-- gauntlet-stage-result: panel=must-fix -->
-
 - `doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -1078,7 +1028,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.9M | $1055.90 _(notional, rate-card)_ | no quota set |
+| Claude | 138.1M | $1056.26 _(notional, rate-card)_ | no quota set |
 | Codex | 27.6M _(+1319.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -1088,13 +1038,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (5507)
+### tada (5508)
+- [`kriscendobot-minion-town-pr52-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet.md) — gauntlet kriscendobot-minion-town-pr52-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Cost
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gardener-transient-silence.md) — Cost
 - [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390718343.md) — Completion report
 - [`minion-town-agenda-review-20260824-053507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-053507.md) — Completion report
-- [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390713648.md) — Cost
-- … and 5502 more
+- … and 5503 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
