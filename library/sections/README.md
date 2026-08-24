@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6908 (530 parent indexes + 6378 children).
+Total section files: 6925 (530 parent indexes + 6395 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -783,6 +783,41 @@ Total section files: 6908 (530 parent indexes + 6378 children).
 
 - [cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth](cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth.md)
 - [cloudflare-os--packages-gatekeeper-slack-readme--resource-granularities-and-api](cloudflare-os--packages-gatekeeper-slack-readme--resource-granularities-and-api.md)
+
+### cloudflare-os--packages-gatekeeper-spotify-readme
+
+- [cloudflare-os--packages-gatekeeper-spotify-readme--approval-simulation-and-provider-limits](cloudflare-os--packages-gatekeeper-spotify-readme--approval-simulation-and-provider-limits.md)
+- [cloudflare-os--packages-gatekeeper-spotify-readme--oauth-development-mode](cloudflare-os--packages-gatekeeper-spotify-readme--oauth-development-mode.md)
+- [cloudflare-os--packages-gatekeeper-spotify-readme--resource-granularities](cloudflare-os--packages-gatekeeper-spotify-readme--resource-granularities.md)
+
+### cloudflare-os--packages-gatekeeper-supabase-readme
+
+- [cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary](cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary.md)
+- [cloudflare-os--packages-gatekeeper-supabase-readme--project-and-organization-resource-grants](cloudflare-os--packages-gatekeeper-supabase-readme--project-and-organization-resource-grants.md)
+
+### cloudflare-os--packages-gatekeeper-zoominfo-readme
+
+- [cloudflare-os--packages-gatekeeper-zoominfo-readme--account-search-and-enrichment-capability](cloudflare-os--packages-gatekeeper-zoominfo-readme--account-search-and-enrichment-capability.md)
+- [cloudflare-os--packages-gatekeeper-zoominfo-readme--credit-approval-and-query-guards](cloudflare-os--packages-gatekeeper-zoominfo-readme--credit-approval-and-query-guards.md)
+- [cloudflare-os--packages-gatekeeper-zoominfo-readme--oauth-pkce-and-token-lifecycle](cloudflare-os--packages-gatekeeper-zoominfo-readme--oauth-pkce-and-token-lifecycle.md)
+
+### cloudflare-os--packages-integration-tests-readme
+
+- [cloudflare-os--packages-integration-tests-readme--concurrent-storage-isolation](cloudflare-os--packages-integration-tests-readme--concurrent-storage-isolation.md)
+- [cloudflare-os--packages-integration-tests-readme--protocol-real-fixture-gatekeeper](cloudflare-os--packages-integration-tests-readme--protocol-real-fixture-gatekeeper.md)
+- [cloudflare-os--packages-integration-tests-readme--reusable-real-worker-test-toolkit](cloudflare-os--packages-integration-tests-readme--reusable-real-worker-test-toolkit.md)
+
+### cloudflare-os--packages-mcp-shared-readme
+
+- [cloudflare-os--packages-mcp-shared-readme--at-most-once-approved-calls](cloudflare-os--packages-mcp-shared-readme--at-most-once-approved-calls.md)
+- [cloudflare-os--packages-mcp-shared-readme--bounded-transport-and-state](cloudflare-os--packages-mcp-shared-readme--bounded-transport-and-state.md)
+- [cloudflare-os--packages-mcp-shared-readme--shared-connector-security-kernel](cloudflare-os--packages-mcp-shared-readme--shared-connector-security-kernel.md)
+- [cloudflare-os--packages-mcp-shared-readme--trust-tier-annotation-policy](cloudflare-os--packages-mcp-shared-readme--trust-tier-annotation-policy.md)
+
+### cloudflare-os--packages-workshop-frontend-readme
+
+- [cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes](cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes.md)
+- [cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract](cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract.md)
 
 ### cloudflare-os--plans-git-storage
 
