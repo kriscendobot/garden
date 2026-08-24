@@ -25,3 +25,13 @@ exactly what's left if the repo's docs exceed one cycle.
 No project-tree growth requested — library ingestion only, no
 `journal/projects/<slug>/` work implied unless the survey turns up a clear
 existing garden project this repo is directly relevant to.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-24T18:09:31Z
