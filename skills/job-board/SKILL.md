@@ -118,6 +118,7 @@ The canonical table is `role_default_handler_timeout` in `common.sh`:
 | Runtime role/stage | Knob | Default |
 |---|---|---|
 | `builder`, `web-builder` | `GARDEN_BUILD_HANDLER_TIMEOUT` | 7200 s |
+| `fixer` | `GARDEN_FIXER_HANDLER_TIMEOUT` | 7200 s |
 | `shepherd` (including gauntlet clean/fix) | `GARDEN_SHEPHERD_HANDLER_TIMEOUT` | 7200 s |
 | `conductor` | `GARDEN_CONDUCTOR_HANDLER_TIMEOUT` | 7200 s |
 | review directive | `GARDEN_REVIEW_HANDLER_TIMEOUT` | 7200 s |

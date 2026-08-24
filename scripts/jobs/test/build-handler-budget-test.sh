@@ -49,8 +49,8 @@ mk shepherd    'role: shepherd'
   && ok "builder defaults to 7200s" || bad "builder base = $(job_handler_budget_base "$TMP/builder.md")"
 [ "$(job_handler_budget_base "$TMP/webbuilder.md")" = 7200 ] \
   && ok "web-builder defaults to 7200s" || bad "web-builder base wrong"
-[ "$(job_handler_budget_base "$TMP/fixer.md")" = 2400 ] \
-  && ok "fixer keeps the 2400s fleet default" || bad "fixer base changed"
+[ "$(job_handler_budget_base "$TMP/fixer.md")" = 7200 ] \
+  && ok "fixer defaults to 7200s for review fixes plus CI" || bad "fixer base wrong"
 [ "$(job_handler_budget_base "$TMP/designer.md")" = 2400 ] \
   && ok "designer keeps the fleet default (a design is not a build)" || bad "designer base changed"
 [ "$(job_handler_budget_base "$TMP/norole.md")" = 2400 ] \
@@ -142,6 +142,12 @@ hr; echo "THE KNOB"; hr
   [ "$(role_default_handler_timeout builder)" = 2400 ] ) \
   && ok "GARDEN_BUILD_HANDLER_TIMEOUT=2400 retires the distinction" \
   || bad "the knob does not override the build default"
+( export GARDEN_FIXER_HANDLER_TIMEOUT=3600
+  # shellcheck source=../common.sh
+  source "$JOBS/common.sh"
+  [ "$(role_default_handler_timeout fixer)" = 3600 ] ) \
+  && ok "GARDEN_FIXER_HANDLER_TIMEOUT overrides the fixer default" \
+  || bad "the fixer knob does not override its default"
 
 hr
 printf 'passed %d, failed %d\n' "$pass" "$fail"

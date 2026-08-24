@@ -159,11 +159,28 @@ else
   BODY="$(printf '%s\n' "$BODY" | automatic_route_body)"
 fi
 
-# --role: stamp the performing role into the body's leading YAML frontmatter so
-# the gardener handler can resolve a per-role default model. If the body already
-# opens with a `---` frontmatter block, insert the field just after it (unless a
-# `role:` is already present there — never clobber an explicit one); otherwise
-# prepend a fresh frontmatter block. A body that names its own `role:` wins.
+# Manual jobs commonly use the canonical prose template `**Role: fixer.** ...`.
+# Normalize that role into machine-readable metadata when the template names
+# exactly one role that exists in this checkout. This is deliberately narrower
+# than accepting arbitrary prose as routing metadata: malformed, ambiguous, and
+# unknown role labels remain ordinary body text. An explicit --role or leading
+# role: field always wins.
+if [ -z "$role" ] && ! printf '%s\n' "$BODY" | sed -n '2,/^---$/p' | grep -q '^role:[[:space:]]'; then
+  template_roles="$(printf '%s\n' "$BODY" \
+    | sed -n 's/^\*\*Role: \([a-z][a-z0-9-]*\)\.\*\*\([[:space:]].*\)\?$/\1/p' \
+    | sort -u)"
+  if [ "$(printf '%s\n' "$template_roles" | sed '/^$/d' | wc -l)" -eq 1 ] \
+     && [ -f "$HERE/../../roles/$template_roles/AGENT.md" ]; then
+    role="$template_roles"
+    log "normalized canonical template role '$role' into metadata for '$base'"
+  fi
+fi
+
+# Stamp the explicit or normalized performing role into the body's leading YAML
+# frontmatter so the gardener handler can resolve per-role policy. If the body
+# already opens with a `---` frontmatter block, insert the field just after it
+# (unless a `role:` is already present there — never clobber explicit metadata);
+# otherwise prepend a fresh frontmatter block.
 if [ -n "$role" ]; then
   first_line="$(printf '%s\n' "$BODY" | head -1)"
   if [ "$first_line" = "---" ]; then

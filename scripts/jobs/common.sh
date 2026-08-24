@@ -45,13 +45,14 @@
 # couple-hours shepherd this targets.
 : "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:=7200}"
 
-# These stage types have the same shipped two-hour budget for different structural
+# These roles/stage types have the same shipped two-hour budget for different structural
 # reasons, but keep separate knobs so operators can tune one workload without
 # widening all of them. A conductor/botanist can host ci-wait-merge.sh, whose
-# bounded wait alone defaults to 5400s. A review directive may have to implement
-# every item in a review and then drive CI. A panel fans out up to 35 seats. Every
-# such default must remain larger than the bounded wait/fan-out it contains and
-# below the single-claim ceiling enforced by applied_handler_budget.
+# bounded wait alone defaults to 5400s. A fixer or review directive may have to
+# implement every item in a review and then drive CI. A panel fans out up to 35
+# seats. Every such default must remain larger than the bounded wait/fan-out it
+# contains and below the single-claim ceiling enforced by applied_handler_budget.
+: "${GARDEN_FIXER_HANDLER_TIMEOUT:=7200}"
 : "${GARDEN_CONDUCTOR_HANDLER_TIMEOUT:=7200}"
 : "${GARDEN_REVIEW_HANDLER_TIMEOUT:=7200}"
 : "${GARDEN_PANEL_HANDLER_TIMEOUT:=7200}"
@@ -5908,6 +5909,7 @@ role_default_handler_timeout() {
   local role="${1:-}"
   case "$role" in
     builder|web-builder) printf '%s\n' "${GARDEN_BUILD_HANDLER_TIMEOUT:-7200}" ;;
+    fixer)               printf '%s\n' "${GARDEN_FIXER_HANDLER_TIMEOUT:-7200}" ;;
     shepherd)            printf '%s\n' "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:-7200}" ;;
     conductor)           printf '%s\n' "${GARDEN_CONDUCTOR_HANDLER_TIMEOUT:-7200}" ;;
     review)              printf '%s\n' "${GARDEN_REVIEW_HANDLER_TIMEOUT:-7200}" ;;
