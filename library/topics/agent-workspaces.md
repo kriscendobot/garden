@@ -20,6 +20,9 @@ Cloud-hosted work environments in which agents use organizational context, creat
 | [Message replay and tool adaptation](../sections/cloudflare-os--plans-pi-impl--message-replay-and-tool-adaptation.md) | Cloudflare OS plans/pi-impl.md | Existing chat records replay into pi message types while tools move from Zod to TypeBox. |
 | [Awaited agent loop and persistence barrier](../sections/cloudflare-os--plans-pi-impl--awaited-agent-loop-and-persistence-barrier.md) | Cloudflare OS plans/pi-impl.md | An awaited event sink makes successful turn end the persistence barrier and drops failed partial output. |
 | [Repository architecture and kernel bar](../sections/cloudflare-os--agents--repository-architecture-and-kernel-bar.md) | Cloudflare OS AGENTS.md | The monorepo map identifies the backend and shared API as the high-scrutiny kernel. |
+| [Session API and Markdown boundary](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--session-api-and-markdown-boundary.md) | capability-mediated-integrations, agent-workspaces | Resource-shaped sessions translate Confluence storage XHTML to and from agent-friendly Markdown. |
+| [Deferred actions and simulation](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--deferred-actions-and-simulation.md) | capability-mediated-integrations, agent-workspaces, capability-security | Pending side effects overlay simulated results until a human approves provider execution. |
+| [Multi-site resource pickers](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--multi-site-resource-pickers.md) | capability-mediated-integrations, agent-workspaces | Pasted URLs and pickers preserve site identity across a multi-site Atlassian account. |
 
 ## See also
 
