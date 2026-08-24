@@ -13,6 +13,8 @@ OS packaging and distribution of the Endo gateway node for marketplace deploymen
 | [TLS provisioning patterns for first-boot self-custodial nodes](../sections/web--tls-first-boot-patterns--vendor-delegated-and-tofu.md) | Four first-boot TLS patterns with trade-offs for marketplace-deployed appliances. |
 | [The Update Framework (TUF): overview](../sections/web--tuf-signed-update-framework--overview.md) | Signed update channel architecture for always-online nodes. |
 | [tc39-module-harmony--asset-references--use-cases-node-react-and-deno](../sections/tc39-module-harmony--asset-references--use-cases-node-react-and-deno.md) | Static asset declarations let Node stream a resource without loading it into JS memory and let Deno cache non-code assets at compile time instead of at runtime. |
+| [Wrangler and workerd version coupling](../sections/cloudflare-os--docs-integration-testing--wrangler-workerd-version-coupling.md) | testing, cloudflare-workers-agent-hosting, node-packaging | A root override couples the packaged runtime to Wrangler's Miniflare. |
+| [Cap'n Web instance boundary across repositories](../sections/cloudflare-os--docs-integration-testing--capnweb-instance-boundary.md) | testing, capability-security, node-packaging | Separate workspace stores can install incompatible Cap'n Web identities. |
 
 ## See also
 
