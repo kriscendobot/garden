@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6817 (530 parent indexes + 6287 children).
+Total section files: 6837 (530 parent indexes + 6307 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -637,6 +637,13 @@ Total section files: 6817 (530 parent indexes + 6287 children).
 - [cask--verbs--verb-catalog](cask--verbs--verb-catalog.md)
 - [cask--verbs--verb-dispatch-and-type-designators](cask--verbs--verb-dispatch-and-type-designators.md)
 
+### cloudflare-os--docs-ai-gateway-billing
+
+- [cloudflare-os--docs-ai-gateway-billing--billing-state-and-code-layout](cloudflare-os--docs-ai-gateway-billing--billing-state-and-code-layout.md)
+- [cloudflare-os--docs-ai-gateway-billing--cloudflare-gatekeeper-billing-connection](cloudflare-os--docs-ai-gateway-billing--cloudflare-gatekeeper-billing-connection.md)
+- [cloudflare-os--docs-ai-gateway-billing--daily-allowance-and-credit-routing](cloudflare-os--docs-ai-gateway-billing--daily-allowance-and-credit-routing.md)
+- [cloudflare-os--docs-ai-gateway-billing--gateway-transport-configuration](cloudflare-os--docs-ai-gateway-billing--gateway-transport-configuration.md)
+
 ### cloudflare-os--docs-blueprints
 
 - [cloudflare-os--docs-blueprints--binding-requirements](cloudflare-os--docs-blueprints--binding-requirements.md)
@@ -645,6 +652,34 @@ Total section files: 6817 (530 parent indexes + 6287 children).
 - [cloudflare-os--docs-blueprints--instantiation](cloudflare-os--docs-blueprints--instantiation.md)
 - [cloudflare-os--docs-blueprints--portable-gadget-format](cloudflare-os--docs-blueprints--portable-gadget-format.md)
 - [cloudflare-os--docs-blueprints--storage-and-publication](cloudflare-os--docs-blueprints--storage-and-publication.md)
+
+### cloudflare-os--docs-integration-testing
+
+- [cloudflare-os--docs-integration-testing--capnweb-instance-boundary](cloudflare-os--docs-integration-testing--capnweb-instance-boundary.md)
+- [cloudflare-os--docs-integration-testing--cross-process-time-and-fixture-control](cloudflare-os--docs-integration-testing--cross-process-time-and-fixture-control.md)
+- [cloudflare-os--docs-integration-testing--persistent-harness-storage-isolation](cloudflare-os--docs-integration-testing--persistent-harness-storage-isolation.md)
+- [cloudflare-os--docs-integration-testing--real-worker-harness](cloudflare-os--docs-integration-testing--real-worker-harness.md)
+- [cloudflare-os--docs-integration-testing--worker-entry-module-export-discipline](cloudflare-os--docs-integration-testing--worker-entry-module-export-discipline.md)
+- [cloudflare-os--docs-integration-testing--wrangler-workerd-version-coupling](cloudflare-os--docs-integration-testing--wrangler-workerd-version-coupling.md)
+
+### cloudflare-os--docs-oauth-signin
+
+- [cloudflare-os--docs-oauth-signin--capability-shaped-sign-in-flow](cloudflare-os--docs-oauth-signin--capability-shaped-sign-in-flow.md)
+- [cloudflare-os--docs-oauth-signin--deployment-configuration-and-lockout-guard](cloudflare-os--docs-oauth-signin--deployment-configuration-and-lockout-guard.md)
+- [cloudflare-os--docs-oauth-signin--pending-login-storage-and-code-layout](cloudflare-os--docs-oauth-signin--pending-login-storage-and-code-layout.md)
+- [cloudflare-os--docs-oauth-signin--verified-email-identity-and-incremental-scopes](cloudflare-os--docs-oauth-signin--verified-email-identity-and-incremental-scopes.md)
+
+### cloudflare-os--docs-observers
+
+- [cloudflare-os--docs-observers--configuration-and-reverification-on-open](cloudflare-os--docs-observers--configuration-and-reverification-on-open.md)
+- [cloudflare-os--docs-observers--forward-exclusion-and-sharing-change-teardown](cloudflare-os--docs-observers--forward-exclusion-and-sharing-change-teardown.md)
+- [cloudflare-os--docs-observers--gatekeeper-observer-strategies](cloudflare-os--docs-observers--gatekeeper-observer-strategies.md)
+- [cloudflare-os--docs-observers--observer-records-and-verifiers](cloudflare-os--docs-observers--observer-records-and-verifiers.md)
+- [cloudflare-os--docs-observers--security-invariant-and-observer-model](cloudflare-os--docs-observers--security-invariant-and-observer-model.md)
+
+### cloudflare-os--docs-public-server
+
+- [cloudflare-os--docs-public-server--public-multi-user-deployment](cloudflare-os--docs-public-server--public-multi-user-deployment.md)
 
 ### cloudflare-os--docs-sharing
 
