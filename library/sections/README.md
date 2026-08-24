@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6794 (530 parent indexes + 6264 children).
+Total section files: 6799 (530 parent indexes + 6269 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8960,6 +8960,14 @@ Total section files: 6794 (530 parent indexes + 6264 children).
 - [system--readme--history](system--readme--history.md)
 - [system--readme--overview](system--readme--overview.md)
 - [system--readme--usage-and-bootstrapping](system--readme--usage-and-bootstrapping.md)
+
+### talks--chinta-generative-agents-2024
+
+- [talks--chinta-generative-agents-2024--evaluation-emergence-and-limitations](talks--chinta-generative-agents-2024--evaluation-emergence-and-limitations.md)
+- [talks--chinta-generative-agents-2024--hierarchical-planning-and-reaction](talks--chinta-generative-agents-2024--hierarchical-planning-and-reaction.md)
+- [talks--chinta-generative-agents-2024--memory-stream-and-retrieval](talks--chinta-generative-agents-2024--memory-stream-and-retrieval.md)
+- [talks--chinta-generative-agents-2024--motivation-and-smallville-setup](talks--chinta-generative-agents-2024--motivation-and-smallville-setup.md)
+- [talks--chinta-generative-agents-2024--reflection-and-memory-integration](talks--chinta-generative-agents-2024--reflection-and-memory-integration.md)
 
 ### tc39-module-harmony
 
