@@ -16,6 +16,7 @@ A Cloudflare OS Gatekeeper that can produce a provider-verified email for a tran
 | [capability-shaped sign-in flow](../sections/cloudflare-os--docs-oauth-signin--capability-shaped-sign-in-flow.md) | Completes OAuth through a short-lived PendingLogin capability. |
 | [deployment configuration and lockout guard](../sections/cloudflare-os--docs-oauth-signin--deployment-configuration-and-lockout-guard.md) | Allowlists providers while guarding against passwordless lockout. |
 | [Cloudflare Gatekeeper billing connection](../sections/cloudflare-os--docs-ai-gateway-billing--cloudflare-gatekeeper-billing-connection.md) | Distinguishes Cloudflare login from a persisted full-scope billing connection. |
+| [Service roles and resource boundaries](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--service-roles-and-resource-boundaries.md) | Uses verified Cloudflare identity while keeping broader grants resource-specific. |
 
 ## See also
 
