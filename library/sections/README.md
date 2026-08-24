@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6879 (530 parent indexes + 6349 children).
+Total section files: 6892 (530 parent indexes + 6362 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -727,6 +727,31 @@ Total section files: 6879 (530 parent indexes + 6349 children).
 - [cloudflare-os--packages-gatekeeper-confluence-readme--oauth-connect-and-refresh-flow](cloudflare-os--packages-gatekeeper-confluence-readme--oauth-connect-and-refresh-flow.md)
 - [cloudflare-os--packages-gatekeeper-confluence-readme--resource-capability-hierarchy](cloudflare-os--packages-gatekeeper-confluence-readme--resource-capability-hierarchy.md)
 - [cloudflare-os--packages-gatekeeper-confluence-readme--session-api-and-markdown-boundary](cloudflare-os--packages-gatekeeper-confluence-readme--session-api-and-markdown-boundary.md)
+
+### cloudflare-os--packages-gatekeeper-email-readme
+
+- [cloudflare-os--packages-gatekeeper-email-readme--binding-and-local-test-contract](cloudflare-os--packages-gatekeeper-email-readme--binding-and-local-test-contract.md)
+- [cloudflare-os--packages-gatekeeper-email-readme--mailbox-capability-and-delivery-path](cloudflare-os--packages-gatekeeper-email-readme--mailbox-capability-and-delivery-path.md)
+- [cloudflare-os--packages-gatekeeper-email-readme--production-email-routing](cloudflare-os--packages-gatekeeper-email-readme--production-email-routing.md)
+
+### cloudflare-os--packages-gatekeeper-github-readme
+
+- [cloudflare-os--packages-gatekeeper-github-readme--credential-and-callback-setup](cloudflare-os--packages-gatekeeper-github-readme--credential-and-callback-setup.md)
+- [cloudflare-os--packages-gatekeeper-github-readme--identity-grant-versus-resource-grant](cloudflare-os--packages-gatekeeper-github-readme--identity-grant-versus-resource-grant.md)
+- [cloudflare-os--packages-gatekeeper-github-readme--oauth-app-permission-model](cloudflare-os--packages-gatekeeper-github-readme--oauth-app-permission-model.md)
+
+### cloudflare-os--packages-gatekeeper-google-readme
+
+- [cloudflare-os--packages-gatekeeper-google-readme--oauth-project-and-testing-lifecycle](cloudflare-os--packages-gatekeeper-google-readme--oauth-project-and-testing-lifecycle.md)
+- [cloudflare-os--packages-gatekeeper-google-readme--scope-to-api-mapping](cloudflare-os--packages-gatekeeper-google-readme--scope-to-api-mapping.md)
+- [cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes](cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes.md)
+
+### cloudflare-os--packages-gatekeeper-homeassistant-readme
+
+- [cloudflare-os--packages-gatekeeper-homeassistant-readme--approval-overlay-simulation](cloudflare-os--packages-gatekeeper-homeassistant-readme--approval-overlay-simulation.md)
+- [cloudflare-os--packages-gatekeeper-homeassistant-readme--instance-credentials-and-reachability](cloudflare-os--packages-gatekeeper-homeassistant-readme--instance-credentials-and-reachability.md)
+- [cloudflare-os--packages-gatekeeper-homeassistant-readme--resource-capability-granularities](cloudflare-os--packages-gatekeeper-homeassistant-readme--resource-capability-granularities.md)
+- [cloudflare-os--packages-gatekeeper-homeassistant-readme--service-call-and-validation-boundaries](cloudflare-os--packages-gatekeeper-homeassistant-readme--service-call-and-validation-boundaries.md)
 
 ### cloudflare-os--plans-git-storage
 
