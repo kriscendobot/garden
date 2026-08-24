@@ -10,6 +10,8 @@ Authentication Gatekeepers reuse capability-mediating service Workers as federat
 | [PendingLogin storage and authentication code layout](../sections/cloudflare-os--docs-oauth-signin--pending-login-storage-and-code-layout.md) | authentication-gatekeepers, cloudflare-workers-agent-hosting | A waiting RPC keeps the ephemeral PendingLogin object alive. |
 | [Cloudflare Gatekeeper billing connection](../sections/cloudflare-os--docs-ai-gateway-billing--cloudflare-gatekeeper-billing-connection.md) | ai-usage-billing, authentication-gatekeepers, capability-mediated-integrations | Login and full billing connection remain distinct grants. |
 | [public multi-user deployment](../sections/cloudflare-os--docs-public-server--public-multi-user-deployment.md) | agent-workspaces, authentication-gatekeepers, ai-usage-billing, cloudflare-workers-agent-hosting | Google, GitHub, and Cloudflare Gatekeepers can provide login. |
+| [Service roles and resource boundaries](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--service-roles-and-resource-boundaries.md) | capability-mediated-integrations, authentication-gatekeepers, ai-usage-billing, worker-observability | The Cloudflare Gatekeeper composes sign-in, billing authority, and Workers telemetry over one provider connection. |
+| [OAuth configuration and verification](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--oauth-configuration-and-verification.md) | authentication-gatekeepers, oauth-credentials, cloudflare-workers-agent-hosting | Cloudflare OAuth setup separates exact callback, credential, sign-in, billing, and observability configuration. |
 
 ## See also
 
