@@ -15,6 +15,8 @@ OS packaging and distribution of the Endo gateway node for marketplace deploymen
 | [tc39-module-harmony--asset-references--use-cases-node-react-and-deno](../sections/tc39-module-harmony--asset-references--use-cases-node-react-and-deno.md) | Static asset declarations let Node stream a resource without loading it into JS memory and let Deno cache non-code assets at compile time instead of at runtime. |
 | [Wrangler and workerd version coupling](../sections/cloudflare-os--docs-integration-testing--wrangler-workerd-version-coupling.md) | testing, cloudflare-workers-agent-hosting, node-packaging | A root override couples the packaged runtime to Wrangler's Miniflare. |
 | [Cap'n Web instance boundary across repositories](../sections/cloudflare-os--docs-integration-testing--capnweb-instance-boundary.md) | testing, capability-security, node-packaging | Separate workspace stores can install incompatible Cap'n Web identities. |
+| [Vite+ build, test, and lint contract](../sections/cloudflare-os--agents--vite-plus-build-test-and-lint-contract.md) | Cloudflare OS AGENTS.md | pnpm and Vite+ tasks define full gates, caching inputs, environment declarations, and package iteration. |
+| [RPC and build-system review](../sections/cloudflare-os--review--rpc-and-build-system-review.md) | Cloudflare OS REVIEW.md | Review protects intentional RPC pipelining and catches Vite+ cache surfaces that fail silently. |
 
 ## See also
 
