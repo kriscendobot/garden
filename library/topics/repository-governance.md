@@ -67,6 +67,15 @@
 | [The LORE corpus — distilled-incident lessons](../sections/unum--lore-corpus-shape.md) | unum LORE/INDEX.md | Steward-written durable lessons kept distinct from STANDARDS (how-to-code), skills (how-to-operate), and TADA (per-task records); mined from a lesson frontmatter field. |
 | [Engineering discipline for a self-editing harness](../sections/unum--lore-engineering-discipline.md) | unum LORE | Design-out-the-hazard over coordinate-around, the lighter cut, fail-loud-without-failing-the-push, cross-reference-never-inline-copy schemas, no dead parsed fields, seam injection. |
 | [Operations standards for a self-editing monorepo](../sections/unum--operations-standards.md) | unum STANDARDS/operations.md | Safety invariants (never break the evocation loop, killswitch always works), don't-stage-on-production, config resolution order, and the lesson-capture pipeline that feeds LORE. |
+| [CodeMirror client and delivery sequence](../sections/cloudflare-os--plans-git-storage--codemirror-client-and-delivery-sequence.md) | Cloudflare OS plans/git-storage.md | One OT client per chat feeds CodeMirror views through a kernel-first delivery sequence and explicit full gate. |
+| [Verification and deferred bridges](../sections/cloudflare-os--plans-pi-impl--verification-and-deferred-bridges.md) | Cloudflare OS plans/pi-impl.md | Automated gates and manual smoke cover the migration while PDF and binding bridges stay separate follow-ups. |
+| [Repository architecture and kernel bar](../sections/cloudflare-os--agents--repository-architecture-and-kernel-bar.md) | Cloudflare OS AGENTS.md | The monorepo map identifies the backend and shared API as the high-scrutiny kernel. |
+| [Outside contribution policy](../sections/cloudflare-os--contributing--outside-contribution-policy.md) | Cloudflare OS CONTRIBUTING.md | External patches are limited to small changes that are obviously correct and trivially reviewed. |
+| [Pull-request CI and preview boundary](../sections/cloudflare-os--contributing--pull-request-ci-and-preview-boundary.md) | Cloudflare OS CONTRIBUTING.md | Fork pull requests receive normal CI but not token-authorized Cloudflare previews. |
+| [Kernel and capability-security review](../sections/cloudflare-os--review--kernel-and-capability-security-review.md) | Cloudflare OS REVIEW.md | Review prioritizes kernel quality and capability-minting chokepoints before lower-risk surfaces. |
+| [Secret-safe logging and reporting review](../sections/cloudflare-os--review--secret-safe-logging-and-reporting-review.md) | Cloudflare OS REVIEW.md | Logs, exceptions, reports, and locations must not disclose secrets or bearer capabilities. |
+| [RPC and build-system review](../sections/cloudflare-os--review--rpc-and-build-system-review.md) | Cloudflare OS REVIEW.md | Review protects intentional RPC pipelining and catches Vite+ cache surfaces that fail silently. |
+| [Outside-contribution and review exclusions](../sections/cloudflare-os--review--outside-contribution-and-review-exclusions.md) | Cloudflare OS REVIEW.md | The narrow contributor bar pairs with explicit exclusions that prevent repository decisions becoming false positives. |
 
 ## See also
 
