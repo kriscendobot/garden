@@ -16,7 +16,18 @@ Description=Garden regenerate-sections-index timer
 # urgent and the hourly cadence is ample. (`*:37`, not `*:37/60`: a step of 60 on
 # the 0-59 minute field is rejected by systemd; bare `*:37` is the valid spelling
 # of "minute 37 of every hour".)
+#
+# RandomizedDelaySec spreads the fleet's simultaneous `*:37` wakeups so two
+# instances do not compose-and-land against the same tip at the same instant
+# (the failure that made the loser's base-blob stale and tripped
+# land-journal-edit.sh's guard). It only NARROWS the collision window — the
+# compose-to-land gap is ~15s of real work, so an overlap is still possible;
+# the retry loop in the `land)` branch is the real fix and lands regardless. The
+# 300s spread keeps every actual fire inside :37–:42, still clear of the sibling
+# library cadences (clone-keeper :00/:30, drift-scan :07, link-scan :22), so the
+# reasoning behind the :37 anchor above is preserved.
 OnCalendar=*:37
+RandomizedDelaySec=300
 Persistent=true
 
 [Install]

@@ -327,23 +327,66 @@ case "$MODE" in
   land)
     # Sync a dedicated clone to tip, regenerate against it, and land via the
     # producer-clone sync+CAS lander. Tip-sync discipline per library-link-scan.sh.
+    #
+    # COMPOSE-AND-LAND RETRY. Two fleet instances run this timer at the same
+    # minute, so the loser reads its BASE_BLOB from a tip the peer then advances
+    # with the SAME deterministic projection (`git log`: d5d239a72c landing on
+    # 52d8e8b650). land-journal-edit.sh's base-blob guard then refuses (exit 1)
+    # — a real refusal, but NOT a genuine divergence: re-sync + re-compose
+    # against the new tip, and the next pass normally finds the index already
+    # current (the peer landed our projection) and exits 0. Only a conflict that
+    # survives every attempt is a real non-idempotent divergence worth exiting
+    # non-zero. We never pass --force: a genuine concurrent edit must not be
+    # clobbered. The generator's own hard failures (missing library, rc=2 anchor
+    # error, an incomplete/dangling index) still `die`/exit and are NOT swallowed
+    # by the retry, which triggers only on the lander's conflict exit (rc=1).
     DIR="${GARDEN_SECTIONS_INDEX_CLONE:-$GARDEN_STATE/regenerate-sections-index/journal}"
     ensure_clone "$DIR"
-    sync_clone "$DIR"                          # may exit 75 on a transient outage
-    LIB="$DIR/library"
-    [ -d "$LIB/sections" ] || die "no library/sections in the synced clone at $DIR"
-    TIP="$(git -C "$DIR" rev-parse --short HEAD 2>/dev/null || echo '?')"
-    out="$(generate_auto_index "$LIB")"; rc=$?
-    [ "$rc" = 2 ] && exit 2
-    if [ "$rc" -ne 0 ]; then
-      die "refusing to land an incomplete index (see COMPLETENESS/DANGLING above); fix the corpus and re-run"
-    fi
-    if diff -q <(printf '%s\n' "$out") "$LIB/sections/README.md" >/dev/null 2>&1; then
-      log "tip $TIP: sections index already current; nothing to land"
-      exit 0
-    fi
-    log "tip $TIP: regenerated sections index differs; landing via land-journal-edit.sh"
-    BASE_BLOB="$(git -C "$DIR" rev-parse HEAD:library/sections/README.md)"
-    printf '%s\n' "$out" | GARDEN_ROLE="${GARDEN_ROLE:-scholar}" "$HERE/land-journal-edit.sh" --base-blob "$BASE_BLOB" library/sections/README.md
+    # Compose $out to a temp file ONCE per pass: reused for the current-check
+    # diff and passed to the lander as its <body-file> argument. This kills two
+    # SIGPIPEs the old `diff -q <(printf …)` + stdin-pipe pattern logged on every
+    # stale/refused run — `diff -q` short-circuits at the first difference (and
+    # the lander refuses before draining stdin), leaving `printf` writing into an
+    # unread pipe and dying "printf: write error: Broken pipe" above the real
+    # error. Cleaned up on exit alongside the generator's internal temps.
+    out_tmp="$(mktemp)"
+    trap 'rm -f "$out_tmp"' EXIT
+    attempts="${GARDEN_SECTIONS_INDEX_LAND_ATTEMPTS:-4}"
+    for attempt in $(seq 1 "$attempts"); do
+      sync_clone "$DIR"                        # may exit 75 on a transient outage
+      LIB="$DIR/library"
+      [ -d "$LIB/sections" ] || die "no library/sections in the synced clone at $DIR"
+      TIP="$(git -C "$DIR" rev-parse --short HEAD 2>/dev/null || echo '?')"
+      generate_auto_index "$LIB" > "$out_tmp"; rc=$?
+      [ "$rc" = 2 ] && exit 2                  # setup/anchor error: never retried
+      if [ "$rc" -ne 0 ]; then
+        die "refusing to land an incomplete index (see COMPLETENESS/DANGLING above); fix the corpus and re-run"
+      fi
+      if diff -q "$out_tmp" "$LIB/sections/README.md" >/dev/null 2>&1; then
+        log "tip $TIP: sections index already current; nothing to land"
+        exit 0
+      fi
+      log "tip $TIP: regenerated sections index differs; landing via land-journal-edit.sh (attempt $attempt/$attempts)"
+      BASE_BLOB="$(git -C "$DIR" rev-parse HEAD:library/sections/README.md)"
+      # Capture the lander's rc directly (this script runs without `set -e`); a
+      # bare `if lander; then exit 0; fi` would report rc=0 for a FAILED lander,
+      # since a condition-false `if` with no else succeeds.
+      GARDEN_ROLE="${GARDEN_ROLE:-scholar}" "$HERE/land-journal-edit.sh" \
+        --base-blob "$BASE_BLOB" library/sections/README.md "$out_tmp"; lrc=$?
+      [ "$lrc" -eq 0 ] && exit 0
+      # land-journal-edit.sh exit codes: 0 landed (handled above); 1 base-blob
+      # conflict OR CAS contention exhausted — a peer advanced the tip, so
+      # re-sync + re-compose (the retryable case); 2 usage/path/live-worktree
+      # refusal — a hard misconfiguration retrying cannot fix; 75 transient
+      # outage. Only rc=1 loops; the rest surface immediately.
+      case "$lrc" in
+        1)  log "tip $TIP: land refused (conflict/contention, rc=1); re-syncing and re-composing"
+            backoff "$attempt" ;;
+        2)  exit 2 ;;
+        75) exit 75 ;;
+        *)  die "land-journal-edit.sh failed unexpectedly (rc=$lrc)" ;;
+      esac
+    done
+    die "sections index still conflicts after $attempts compose-and-land attempts — a genuine non-idempotent divergence; investigate rather than reaching for --force"
     ;;
 esac
