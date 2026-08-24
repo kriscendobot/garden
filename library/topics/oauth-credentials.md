@@ -25,6 +25,9 @@ OAuth 2.0 application credential models for programmatic and delegated access, a
 | [verified-email login and resource scopes](../sections/cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes.md) | Google separates transient identity scopes from granular connected-resource scopes. |
 | [scope-to-API mapping](../sections/cloudflare-os--packages-gatekeeper-google-readme--scope-to-api-mapping.md) | Google scopes map to resource APIs, with compensating checks where provider scopes are broad. |
 | [OAuth project and testing lifecycle](../sections/cloudflare-os--packages-gatekeeper-google-readme--oauth-project-and-testing-lifecycle.md) | Enabled APIs, test users, Web credentials, and callbacks govern local Google OAuth. |
+| [OAuth discovery connect flow and token handling](../sections/cloudflare-os--packages-gatekeeper-mcp-readme--oauth-discovery-connect-flow.md) | capability-mediated-integrations, oauth-credentials, cloudflare-workers-agent-hosting | A 401 runs the standards-based MCP OAuth discovery chain; tokens live in a per-account Durable Object. |
+| [Notion workspace, page, and database resources](../sections/cloudflare-os--packages-gatekeeper-notion-readme--workspace-page-and-database-resources.md) | capability-mediated-integrations, oauth-credentials, cloudflare-workers-agent-hosting | Notion connects via an OAuth 2.0 public integration with refresh tokens in a UserAccount DO. |
+| [Slack read-only mediation and user-token scopes](../sections/cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth.md) | capability-mediated-integrations, oauth-credentials, cloudflare-workers-agent-hosting | Slack uses an OAuth user token with rotation and per-resource scope requests. |
 
 ## See also
 
