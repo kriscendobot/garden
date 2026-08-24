@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":26,"elapsed_s":574,"input_tokens":48,"output_tokens":33088,"cache_creation_tokens":91124,"cache_read_tokens":1976274,"total_cost_usd":2.7299130000000003,"ts":"2026-08-24T18:50:09Z","base":"self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry","host":"endolin-garden2-5bcdff64","outcome":"tada"}
