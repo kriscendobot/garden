@@ -56,3 +56,13 @@ Small, self-contained role-file fix; no code changes expected unless you
 choose the "port scout + benchmark-comparative-report forward" branch of
 item 1, in which case scope the port itself narrowly (translate, don't
 blind-copy, per the root CLAUDE.md v1→v2 migration norms).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-24T06:51:54Z
