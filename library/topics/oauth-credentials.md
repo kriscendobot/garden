@@ -19,6 +19,12 @@ OAuth 2.0 application credential models for programmatic and delegated access, a
 | [Dual-scope OAuth and API versions](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--dual-scope-oauth-and-api-versions.md) | capability-mediated-integrations, oauth-credentials | Confluence v2 and remaining v1 operations require distinct OAuth scope families. |
 | [Confluence credential and deployment configuration](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--credential-and-deployment-configuration.md) | oauth-credentials, cloudflare-workers-agent-hosting | Data-connector credentials remain separate from Cloudflare OS sign-in configuration. |
 | [OAuth connect and refresh flow](../sections/cloudflare-os--packages-gatekeeper-confluence-readme--oauth-connect-and-refresh-flow.md) | capability-mediated-integrations, oauth-credentials, cloudflare-workers-agent-hosting | A Durable Object preserves rotating credentials and accessible-site identity through the connect flow. |
+| [identity grant versus resource grant](../sections/cloudflare-os--packages-gatekeeper-github-readme--identity-grant-versus-resource-grant.md) | GitHub login and repository connection use separate scope and persistence lifecycles. |
+| [OAuth App permission model](../sections/cloudflare-os--packages-gatekeeper-github-readme--oauth-app-permission-model.md) | OAuth Apps preserve incremental scopes that GitHub Apps cannot reproduce. |
+| [credential and callback setup](../sections/cloudflare-os--packages-gatekeeper-github-readme--credential-and-callback-setup.md) | GitHub client secrets and an exact deployment callback form the Gatekeeper contract. |
+| [verified-email login and resource scopes](../sections/cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes.md) | Google separates transient identity scopes from granular connected-resource scopes. |
+| [scope-to-API mapping](../sections/cloudflare-os--packages-gatekeeper-google-readme--scope-to-api-mapping.md) | Google scopes map to resource APIs, with compensating checks where provider scopes are broad. |
+| [OAuth project and testing lifecycle](../sections/cloudflare-os--packages-gatekeeper-google-readme--oauth-project-and-testing-lifecycle.md) | Enabled APIs, test users, Web credentials, and callbacks govern local Google OAuth. |
 
 ## See also
 
