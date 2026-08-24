@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6892 (530 parent indexes + 6362 children).
+Total section files: 6908 (530 parent indexes + 6378 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -752,6 +752,37 @@ Total section files: 6892 (530 parent indexes + 6362 children).
 - [cloudflare-os--packages-gatekeeper-homeassistant-readme--instance-credentials-and-reachability](cloudflare-os--packages-gatekeeper-homeassistant-readme--instance-credentials-and-reachability.md)
 - [cloudflare-os--packages-gatekeeper-homeassistant-readme--resource-capability-granularities](cloudflare-os--packages-gatekeeper-homeassistant-readme--resource-capability-granularities.md)
 - [cloudflare-os--packages-gatekeeper-homeassistant-readme--service-call-and-validation-boundaries](cloudflare-os--packages-gatekeeper-homeassistant-readme--service-call-and-validation-boundaries.md)
+
+### cloudflare-os--packages-gatekeeper-mcp-portal-readme
+
+- [cloudflare-os--packages-gatekeeper-mcp-portal-readme--configuration-and-repoint](cloudflare-os--packages-gatekeeper-mcp-portal-readme--configuration-and-repoint.md)
+- [cloudflare-os--packages-gatekeeper-mcp-portal-readme--portal-server-connector](cloudflare-os--packages-gatekeeper-mcp-portal-readme--portal-server-connector.md)
+- [cloudflare-os--packages-gatekeeper-mcp-portal-readme--portal-trust-tier-and-annotations](cloudflare-os--packages-gatekeeper-mcp-portal-readme--portal-trust-tier-and-annotations.md)
+- [cloudflare-os--packages-gatekeeper-mcp-portal-readme--recovering-upstream-servers](cloudflare-os--packages-gatekeeper-mcp-portal-readme--recovering-upstream-servers.md)
+
+### cloudflare-os--packages-gatekeeper-mcp-readme
+
+- [cloudflare-os--packages-gatekeeper-mcp-readme--bring-your-own-server-connector](cloudflare-os--packages-gatekeeper-mcp-readme--bring-your-own-server-connector.md)
+- [cloudflare-os--packages-gatekeeper-mcp-readme--byo-trust-tier-and-approvals](cloudflare-os--packages-gatekeeper-mcp-readme--byo-trust-tier-and-approvals.md)
+- [cloudflare-os--packages-gatekeeper-mcp-readme--connector-limitations-and-ssrf](cloudflare-os--packages-gatekeeper-mcp-readme--connector-limitations-and-ssrf.md)
+- [cloudflare-os--packages-gatekeeper-mcp-readme--oauth-discovery-connect-flow](cloudflare-os--packages-gatekeeper-mcp-readme--oauth-discovery-connect-flow.md)
+
+### cloudflare-os--packages-gatekeeper-notion-readme
+
+- [cloudflare-os--packages-gatekeeper-notion-readme--approvals-simulation-and-data-sources](cloudflare-os--packages-gatekeeper-notion-readme--approvals-simulation-and-data-sources.md)
+- [cloudflare-os--packages-gatekeeper-notion-readme--workspace-page-and-database-resources](cloudflare-os--packages-gatekeeper-notion-readme--workspace-page-and-database-resources.md)
+
+### cloudflare-os--packages-gatekeeper-scheduler-readme
+
+- [cloudflare-os--packages-gatekeeper-scheduler-readme--architecture-and-limits](cloudflare-os--packages-gatekeeper-scheduler-readme--architecture-and-limits.md)
+- [cloudflare-os--packages-gatekeeper-scheduler-readme--cadence-and-lifecycle](cloudflare-os--packages-gatekeeper-scheduler-readme--cadence-and-lifecycle.md)
+- [cloudflare-os--packages-gatekeeper-scheduler-readme--persistent-callbacks-and-retries](cloudflare-os--packages-gatekeeper-scheduler-readme--persistent-callbacks-and-retries.md)
+- [cloudflare-os--packages-gatekeeper-scheduler-readme--scheduled-task-registration-api](cloudflare-os--packages-gatekeeper-scheduler-readme--scheduled-task-registration-api.md)
+
+### cloudflare-os--packages-gatekeeper-slack-readme
+
+- [cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth](cloudflare-os--packages-gatekeeper-slack-readme--read-only-user-token-auth.md)
+- [cloudflare-os--packages-gatekeeper-slack-readme--resource-granularities-and-api](cloudflare-os--packages-gatekeeper-slack-readme--resource-granularities-and-api.md)
 
 ### cloudflare-os--plans-git-storage
 
