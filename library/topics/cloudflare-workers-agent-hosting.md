@@ -56,6 +56,8 @@ Hosting agent workspaces and generated applications on Cloudflare Workers primit
 | [Bounded MCP transport and state](../sections/cloudflare-os--packages-mcp-shared-readme--bounded-transport-and-state.md) | capability-mediated-integrations, capability-security, cloudflare-workers-agent-hosting | Fixed limits bound untrusted server work and Durable Object state. |
 | [Workshop Vite+ build cache contract](../sections/cloudflare-os--packages-workshop-frontend-readme--vite-plus-build-cache-contract.md) | cloudflare-workers-agent-hosting, node-packaging | Vite+ fingerprints build flags and cleans output before production builds. |
 | [Workshop build-time authentication modes](../sections/cloudflare-os--packages-workshop-frontend-readme--build-time-authentication-modes.md) | authentication-gatekeepers, cloudflare-workers-agent-hosting | A build flag selects password login or Cloudflare Access identity. |
+| [Account authentication and resource authority](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--account-authentication-and-resource-authority.md) | authentication-gatekeepers, capability-mediated-integrations, capability-security, cloudflare-workers-agent-hosting | Gatekeeper protocol layers separate transient verified identity, privileged account authority, and selected resource grants. |
+| [Persistent hook binding and fresh-session delivery](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--persistent-hook-lifecycle.md) | capability-mediated-integrations, capability-security, cloudflare-workers-agent-hosting | The Overseer stores the callback and provides fresh session authority for every approved hook delivery. |
 
 ## See also
 
