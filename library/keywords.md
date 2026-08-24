@@ -63,14 +63,14 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - isolation realm, coeffect isolation, coeffect interception, service broker, dependency injection at runtime -> spatiotemporal-composability
 - Cloudflare OS, company OS, agent workspace, AI productivity environment -> cloudflare-os-gadget
 - gadget, Cloudflare OS gadget, personal software instance, Dynamic Worker gadget -> cloudflare-os-gadget
-- Gatekeeper, Cloudflare OS Gatekeeper, deferred approval, simulated side effect, capability-mediated integration, Email Gatekeeper, Home Assistant Gatekeeper, LLAT, long-lived access token -> cloudflare-os-gatekeeper
+- Gatekeeper, Cloudflare OS Gatekeeper, deferred approval, simulated side effect, capability-mediated integration, Email Gatekeeper, Home Assistant Gatekeeper, Spotify Gatekeeper, Supabase Gatekeeper, ZoomInfo Gatekeeper, LLAT, long-lived access token -> cloudflare-os-gatekeeper
 - Blueprint, Cloudflare OS Blueprint, `.gadget`, gadget archive, bundled blueprint, output format -> cloudflare-os-blueprint
 - permission graph, permission edge, effective role graph, share-link node, `computeEffectiveRoles` -> permission-edge-graph
 - lazy revocation, reachability revocation, reversible revocation, `keepUsers`, revocation restart -> lazy-graph-revocation
 - observer verification, observer record, Gatekeeper verifier, `addObserver`, `removeObserver`, `excludeObservers` -> observer-verification
 - Worker telemetry confinement, service-scoped telemetry, immutable service filter, defensive telemetry filtering, foreign telemetry event -> worker-telemetry-confinement
 - provisional action simulation, deferred side-effect simulation, pending action overlay, simulated pending write -> provisional-action-simulation
-- MCP Gatekeeper, MCP Server Portals gatekeeper, gatekeeper-mcp, gatekeeper-mcp-portal, Model Context Protocol connector, byo trust tier, vetted trust tier, `portal_list_servers`, `McpAccount` -> mcp-server-connector
+- MCP Gatekeeper, MCP Server Portals gatekeeper, gatekeeper-mcp, gatekeeper-mcp-portal, mcp-shared, Model Context Protocol connector, byo trust tier, vetted trust tier, `portal_list_servers`, `McpAccount` -> mcp-server-connector
 - Scheduled Tasks, Scheduler gatekeeper, gatekeeper-scheduler, `ScheduleSession`, `ScheduleDriver`, `calendarAt`, `runAt`, persistent scheduled callback -> scheduled-tasks-gatekeeper
 - authentication Gatekeeper, auth Gatekeeper, Gatekeeper sign-in, `AUTH_GATEKEEPERS`, verified-email login -> authentication-gatekeeper
 - Git-backed gadget code, git object store, gadget commit, gadget head commit, `gitObjects` -> git-backed-gadget-code
