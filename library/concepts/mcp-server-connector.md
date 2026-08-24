@@ -28,6 +28,7 @@ A Cloudflare OS Gatekeeper family that connects Model Context Protocol servers a
 | [Connect-time provenance versus live trust configuration](../sections/cloudflare-os--packages-mcp-shared-src-account--provenance-vs-live-trust.md) | Provenance and endpoint are frozen at connect; ServerTrust and static tokens are read live from configuration. |
 | [Tool-annotation trust boundary and ServerTrust tiers](../sections/cloudflare-os--packages-mcp-shared-src-tools--annotation-trust-boundary.md) | The sole file reading tool annotations; a deployment-decided vetted/byo tier bounds how far they are trusted. |
 | [Classifying a tool into read or action and deciding auto-approval](../sections/cloudflare-os--packages-mcp-shared-src-tools--tool-classification-policy.md) | classifyTool fails closed: a write auto-applies only on a vetted endpoint with strict destructive/idempotent claims. |
+| [Approval, simulation, rejection, and revert](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--approval-and-revert-contract.md) | The generic Gatekeeper action contract that MCP tool calls enter for deferred approval. |
 
 ## See also
 
