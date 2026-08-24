@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T07:12:43Z_
+_As of 2026-08-24T09:05:55Z_
 
 ## Latest
 
-Node 24 local-verify parity landed (main2 57d851dfaf) — prevented silent local-pass/CI-fail for Node-24-pinned projects; fleet Node 24 provisioning posted. Root repo deploy is stalled 18 commits behind origin/main2 for ~3d on two hosts; investigate why the deliberate drain isn't advancing. Multiple gauntlets halted this period ([#881](https://github.com/endojs/endo-but-for-bots/pull/881), [ironhorse-coverage-matrix](https://github.com/endojs/endo-but-for-bots), minion.town #52/#37) due to panel/fix stage failures — several panel and fix jobs parked as HELD after requeue exhaustion. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked by the recurring fleet node24-runner CI flake; either merge directly or fix the runner issue to unblock. [minion.town SIWE](https://github.com/kriscendobot/minion.town/issues/20) deployment is complete and awaiting maintainer: tier choice (Tier 1 address allowlist vs. Tier 1+2 with onchain rules) and the initial wallet address grants.
+[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (byteArray finish-line) landed all-green, awaiting your re-review. Node24 local-verify parity deployed, hard-gating Node-pinned projects until fleet hosts provision Node 24. Two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are merge-ready but stuck in a rebasing loop with the recurring node24-runner CI flake. Garden deploy stalled 3 days behind main2; several gauntlets halted mid-flow.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.7M | $1057.67 _(notional, rate-card)_ | no quota set |
-| Codex | 27.9M _(+1323.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 138.0M | $1051.21 _(notional, rate-card)_ | no quota set |
+| Codex | 28.0M _(+1323.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-ingest-generative-agents-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-generative-agents-talk.md) — Ingest source: "Generative Agents" talk (Abhinav Chinta)
 
 ### tada (5510)
 - [`daily-progress-summary-20260824-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260824-070504.md) — Cost
