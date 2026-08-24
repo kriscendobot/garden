@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 52
 build_job: build-minion-town-sites-exo-20260823
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion-town-pr52-gauntlet-fix-1
+current_child: kriscendobot-minion-town-pr52-gauntlet-panel-2
 state: running
 created_by: producer
 created_at: 2026-08-24T01:08:06Z
