@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T20:08:38Z_
+_As of 2026-08-24T20:24:41Z_
 
 ## Latest
 
-Scholar completed an intensive Cloudflare OS ingestion cycle (10 parallel jobs, Aug 24), covering Workers hosting, Gatekeepers, OAuth/identity integration, MCP server connectors, and collaborative-workspace patterns across 18 new library sections and several concepts. The byteArray finish-line work is complete and green—[endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable with only outdated review threads, and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft—but all three are blocked awaiting your re-review. [test262 fixture consolidation](https://github.com/endojs/endo-but-for-bots/pull/946) is DRAFT with the design and rollout step 1 landed and awaiting your decision on consolidation scope. [SIWE on-chain authz](https://github.com/kriscendobot/minion.town) deploy and thunk are live; the design asks which tier to ship first and for the Tier 1 allowlist addresses (wallet + scopes per account). A cluster of gauntlets halted mid-pipeline (panel stage failures on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37); orchestration campaign stalled on a builder child). Two hosts report the root-repo deploy stalled ~3d behind origin/main2 (18 commits). Local-verify gained Node 24 parity checks (refuses on version mismatch, guards against local/CI skew); Node 24 is baked into the image and provisioned on fleet hosts on next rebuild. Maintainer inbox has open questions on budget weekly token cap, SIWE tier/allowlist, test262 scope, and several infrastructure decisions and security-sensitive disclosure timing.
+Scholar ingested all of Cloudflare OS's documentation and source comments into 10 consecutive cycles; the complete domain is now represented in the library. Meanwhile, a wave of gauntlets and orchestrations have stalled or halted mid-stage: [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) remain parked with go-ahead gates, and two orchestrations ([endor-fixture-parity-ratchet](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-walker-exports-resolution.md), [endor-walker](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-walker-exports-resolution.md)) are halted after stalls. Several fixes shipped: Node24 parity restored for local-verify, usage-meter unbound-variable patched on main2, and the provider quota has recovered. However, deploy remains stalled on both `endolin-garden-ece02cb4` and `endolin-garden2-5bcdff64` (~18 commits behind), and the maintainer inbox holds 15+ open questions spanning SIWE allowlist authorization, [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) re-review, test262 fixture consolidation strategy, OpenRouter policy, and minion.town git-remote design advancement.
 
 ## Parked for maintainer feedback
 
@@ -16,7 +16,7 @@ Scholar completed an intensive Cloudflare OS ingestion cycle (10 parallel jobs, 
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 41d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 53d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 70d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 103d)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 104d)
 - [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) — feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting 103d)
 
 _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
@@ -370,6 +370,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T200728Z-e707b8` — from scholar:scholar-ingest-cloudflare-os-9, reply_to `scholar-ingest-cloudflare-os-9` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T200728Z-e707b8.md)
 
 > Ingested the 1,283-line Cloudflare OS `gatekeeper.ts` protocol at `2c9d59098d` as five thematic sections covering account authority, observer verification, approval and revert, persistent hooks, and sensitive-observation confinement. The new sections extend the Gatekeeper, observer-verification, and MCP connector concept routes; both generated indexes are current and the source-scoped link check passed. Posted `scholar-ingest-cloudflare-os-10` for the remaining five survey sources. Full result: `entries/2026/08/24/200714Z-result-scholar-91e08f.md`.
+
+- `20260824T202419Z-0ee9ab` — from scholar:scholar-ingest-cloudflare-os-10, reply_to `scholar-ingest-cloudflare-os-10` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T202419Z-0ee9ab.md)
+
+> Scholar ingest `scholar-ingest-cloudflare-os-10` is done: the final five `cloudflare/cloudflare-os` workshop survey sources are in the library as 14 comment-fragment sections (all at commit `1ef6020a`, 2026-08-21) — `agent-compaction.ts` (2), `git-store.ts` (3), `ChatInterface.tsx` (2), `api.ts` (4), `code-change.ts` (3). Together they document the repo's new git-backed code-storage architecture: a refless content-addressed git object store with a never-throwing three-way merge, lazy per-gadget chat pins and epochs, and an operational-transform code-change stream whose `submitCodeChange` is the sole edit path. I created one concept (`code-change-operational-transform`) and extended `git-backed-gadget-code` and `lazy-gadget-pinning`. Integrity gate passed; sections index and topics counts regenerated. No remainder — the named five are fully ingested, so no follow-on job was posted. Full result: `entries/2026/08/24/202405Z-result-gardener-929c90.md`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1076,8 +1080,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.0M | $957.94 _(notional, rate-card)_ | no quota set |
-| Codex | 31.1M _(+1403.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 133.0M | $958.02 _(notional, rate-card)_ | no quota set |
+| Codex | 31.1M _(+1403.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
