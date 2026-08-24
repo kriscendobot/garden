@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T03:52:26Z_
+_As of 2026-08-24T04:09:14Z_
 
 ## Latest
 
-Multiple gauntlets are halted mid-stage, with panel/fix jobs requeue-exhausted ([endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)); root deployments have stalled ~3d on both active hosts; and framework gaps are surfacing (pre-push-gates driver missing, usage-meter.sh unbound variable, node24 provisioned but not yet rolled out to fleet hosts). Substantive work is complete: the byteArray immutable subsystem is green and awaiting your re-review ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)), budget enforcement design landed on main2, and SIWE on-chain authz deployed to minion.town. Two dependabot updates ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are merge-ready but blocked by the recurring node24-runner CI flake.
+Deploy is stalled ~3 days behind (18 commits) on both garden hosts; investigate why no drain-and-deploy cycles have landed. Several gauntlets halted mid-run, and a fleet-wide node24-runner infra flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) at green-except-for-that-flake — either merge them directly or fix the runner. Node24 parity infrastructure landed; local-verify now refuses to run Node-24 projects without Node 24 on PATH, and the fleet is provisioned (except existing containers until redeployment). The byteArray program is complete and green: [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are mergeable, awaiting your re-review to clear CHANGES_REQUESTED; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line PR) is draft-and-green, ready to un-draft. SIWE IDP thunk is deployed and live; awaiting your wallet allowlist to unlock tier-1 policy and advance. Maintainer inbox holds 20+ opens, including design decisions on test262 consolidation, OpenRouter ZDR policy, and three gauntlets doomed by handler overruns or handler crashes.
 
 ## Parked for maintainer feedback
 
@@ -1028,25 +1028,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.8M | $1060.55 _(notional, rate-card)_ | no quota set |
-| Codex | 26.7M _(+1286.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 136.7M | $1060.14 _(notional, rate-card)_ | no quota set |
+| Codex | 26.7M _(+1300.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (2)
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-transient-silence.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
 
-### tada (5501)
+### tada (5502)
+- [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Cost
 - [`kriscendobot-minion-town-pr52-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-fix-3.md) — Completion report
 - [`minion-town-agenda-review-20260824-032005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-032005.md) — Completion report
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-panel-3.md) — Completion report
 - [`kriscendobot-minion-town-pr52-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-fix-2.md) — What I did
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260824-025004.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260824-0...
-- … and 5496 more
+- … and 5497 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
