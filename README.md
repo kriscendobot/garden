@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-08-24T05:36:31Z_
+_As of 2026-08-24T05:54:37Z_
 
 ## Latest
 
-Fixed local-verify ↔ CI Node parity (Node 22/24 version skew that silently passed locally but failed in CI), provisioned Node 24 onto fleet hosts, and resolved an inbox-send.sh help-flag misfiring. Two dependabot PRs ([eslint-plugin-unicorn #1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [npm-packlist #1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW-ready but stuck on a recurring fleet node24-runner CI flake — awaiting decision to merge directly or fix the infrastructure. The byteArray press is feature-complete and CI-green ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) pending maintainer re-review of CHANGES_REQUESTED threads. Garden deploy has stalled ~3d on both instances; investigate why no deliberate deploy has landed.
+**Deploy stalled for 3 days** on both `endolin-garden-ece02cb4` and `endolin-garden2-5bcdff64` (18 commits behind origin/main2, deployed at 745fa90). A **fleet node24-runner CI flake** is blocking at least two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from auto-conducting merge — both are green except for the recurring infra failure. **Local-verify Node parity landed**: the guard now refuses projects pinned to LTS versions the host lacks (Node 24 provisioned into the Dockerfile alongside Node 22). Separately, the **byteArray press reported finish-line components ready**: [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are CI-green and mergeable, blocked only on maintainer re-review to clear CHANGES_REQUESTED; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) follows once those two land. Multiple gauntlets halted mid-stage and several jobs doomed after requeue exhaustion; 78 jobs parked in plan awaiting go-ahead. The maintainer inbox holds 20+ open messages requesting decisions on SIWE authz tiers/addresses for minion.town, byteArray stack landing sequence, test262 fixture consolidation, Ironhorse campaign prioritization, and more.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 25d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 35d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 36d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 38d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 41d)
@@ -1028,19 +1028,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.3M | $1058.80 _(notional, rate-card)_ | no quota set |
-| Codex | 27.0M _(+1301.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 137.3M | $1056.24 _(notional, rate-card)_ | no quota set |
+| Codex | 27.1M _(+1302.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`minion-town-agenda-review-20260824-053507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260824-053507.md) — Minion Town press (every two hours)
 
-### doin (5)
+### doin (4)
 - [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5390718343.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Review directive on endojs/endo-but-for-bots PR #889
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-transient-silence.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
-- [`minion-town-agenda-review-20260824-053507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260824-053507.md) — Minion Town press (every two hours)
 
 ### tada (5503)
 - [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390713648.md) — Cost
