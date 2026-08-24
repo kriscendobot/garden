@@ -746,6 +746,12 @@ The bot-fork's per-package READMEs (lal, fae, genie, familiar, whylip, exo, chat
 | [Cloudflare OS OAuth sign-in](cloudflare-os--docs-oauth-signin.md) | Verified-email login through auth-capable Gatekeepers with transient minimal-scope grants and capability-shaped login attempts. | 4 | current |
 | [Cloudflare OS AI Gateway billing](cloudflare-os--docs-ai-gateway-billing.md) | Daily platform allowance, user-funded Cloudflare credits, Gatekeeper-held OAuth authority, and Gateway transport selection. | 4 | current |
 | [Cloudflare OS public server](cloudflare-os--docs-public-server.md) | Deployment overview composing federated sign-in, AI quota, user credits, and Workers AI transport. | 1 | current |
+| [Cloudflare OS Git-backed gadget code plan](cloudflare-os--plans-git-storage.md) | Git object persistence, commit-backed chat merging, lazy pins, OT revisions, migration, and CodeMirror delivery. | 7 | current |
+| [Cloudflare OS multi-gadget workspace plan](cloudflare-os--plans-multi-gadget.md) | Workpiece namespaces, per-gadget binding edges, provisional chat changes, and named restricted environments. | 4 | current |
+| [Cloudflare OS pi implementation playbook](cloudflare-os--plans-pi-impl.md) | Fixed routing, replay, tool, awaited-loop, verification, and follow-up decisions for the pi-ai migration. | 4 | current |
+| [Cloudflare OS agent guide](cloudflare-os--agents.md) | Repository architecture, kernel quality bar, Vite+ build rules, Cap'n Web practices, and observability boundaries. | 4 | current |
+| [Cloudflare OS contribution policy](cloudflare-os--contributing.md) | Narrow outside-contribution bar and the security reason fork PRs do not receive preview deployments. | 2 | current |
+| [Cloudflare OS review guide](cloudflare-os--review.md) | Kernel, capability, secret, RPC, build-system, contribution, and false-positive guidance for AI reviewers. | 4 | current |
 
 ## Backlog (not yet ingested)
 
