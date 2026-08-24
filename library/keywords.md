@@ -67,3 +67,6 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - Blueprint, Cloudflare OS Blueprint, `.gadget`, gadget archive, bundled blueprint, output format -> cloudflare-os-blueprint
 - permission graph, permission edge, effective role graph, share-link node, `computeEffectiveRoles` -> permission-edge-graph
 - lazy revocation, reachability revocation, reversible revocation, `keepUsers`, revocation restart -> lazy-graph-revocation
+- observer verification, observer record, Gatekeeper verifier, `addObserver`, `removeObserver`, `excludeObservers` -> observer-verification
+- authentication Gatekeeper, auth Gatekeeper, Gatekeeper sign-in, `AUTH_GATEKEEPERS`, verified-email login -> authentication-gatekeeper
+- AI Gateway billing, AI Gateway credits, daily LLM allowance, BYOK routing, `CF_AI_GATEWAY` -> ai-gateway-credit-routing
