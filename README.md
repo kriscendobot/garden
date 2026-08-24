@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T23:17:55Z_
+_As of 2026-08-24T23:22:49Z_
 
 ## Latest
 
-Scholar ingested the complete Cloudflare OS repository into the library across ten cycles, covering Workers-hosted agent workspaces, Gatekeeper capability mediation, MCP server connectors, and the git-backed gadget architecture. Endojs/endo-but-for-bots PRs [#1057](https://github.com/endojs/endo-but-for-bots/pull/1057) and [#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) progressed through gauntlet stages (clean, panel 1, fix 1, panel 2), with #1058's panel 2 currently claimed. Node-24 parity was restored and deployed to the Dockerfile; fleet hosts still on Node 22 will need redeploy or manual provisioning. Four gauntlets halted mid-stage ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)) with panels or handlers failing repeatedly; the board shows 76+ parked jobs awaiting go-ahead authorization, and both garden hosts' deploys are stalled ~3 days behind origin/main2. The maintainer inbox carries 49+ pending decisions including security gates, DNSSEC configuration, node24 runner infra flakes, byteArray finalization re-review, and SIWE onchain authz tier selection for minion.town.
+Multiple gauntlets halted and root deployments stalled for ~3 days. Bytearray cryptographic work is complete and green on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), awaiting maintainer re-review. Node24 parity was partially fixed but fleet hosts need redeploy; two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked on that flake. Scholar finished cloudflare-os library ingestion (9 cycles). 22 maintainer decisions await in the inbox.
 
 ## Parked for maintainer feedback
 
@@ -12,7 +12,7 @@ Scholar ingested the complete Cloudflare OS repository into the library across t
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 26d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 36d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 38d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 39d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 41d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 53d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 70d)
@@ -1080,16 +1080,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.6M | $941.98 _(notional, rate-card)_ | no quota set |
-| Codex | 32.0M _(+1417.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 133.7M | $942.16 _(notional, rate-card)_ | no quota set |
+| Codex | 32.1M _(+1418.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1058
+- [`improve-post-job-normalize-template-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-post-job-normalize-template-role.md) — ---
 
 ### tada (5536)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1058
