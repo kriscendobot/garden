@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T23:28:24Z_
+_As of 2026-08-24T23:41:56Z_
 
 ## Latest
 
-**ByteArray program reached finish line** — [#475](https://github.com/endojs/endo-but-for-bots/pull/475) (plain frozen Uint8Array view + @endo/bytes helpers) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim substrate) are both CI-green and mergeable, gated only on maintainer re-review to clear CHANGES_REQUESTED; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (RegistryInterface.resolve integration) auto-promoted after [#671](https://github.com/endojs/endo-but-for-bots/pull/671) merged and awaits un-draft/review. **Fixed local-verify ↔ CI Node parity** ([#1048](https://github.com/endojs/endo-but-for-bots/pull/1048) follow-up): parity guard now resolves pinned LTS versions; Node 24 provisioning landed in the Dockerfile and is deployed to this host; other hosts will adopt it on next rebuild. **SIWE on-chain authz thunk deployed live** to minion.town (https://siwe-idp.minion.town, mainnet EIP-1271 in / ENS out); Tier 1 policy (address allowlist) awaiting your authorization of specific addresses and scopes. **Multiple gauntlets halted mid-pipeline** — [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#37](https://github.com/kriscendobot/minion.town/pull/37), and others now parked; doomed jobs preserved in `jobs/plan/` awaiting re-promotion or removal. **root repo deploy stalled ~3d** on both endolin hosts (deployed HEAD 18 commits behind origin/main2); investigate why no deploy-garden run has landed. **Budget enforcement design landed** ([designs/live-budget-admission.md](https://github.com/kriscendobot/garden/blob/main2/designs/live-budget-admission.md)) — machine-readable weekly token cap needed to activate; two input options outlined in the design. **Scholar ingestion of Cloudflare OS completed** (10 cycles, 98 sections ingested); post-ingestion pass added `mcp-server-connector`, `scheduled-tasks-gatekeeper`, and code-change-operational-transform concepts.
+Scholarly ingestion of Cloudflare OS completed its ten-cycle sweep (08-24), covering capability-mediated integrations, the Gatekeeper protocol, MCP connectivity, and git-backed gadget storage. Local-verify node parity landed with Node 24 provisioned; hosts running older images need reprovisioning before Node-24–pinned projects work locally. Several gauntlets halted on panel stages ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)) and await promotion; [#946](https://github.com/endojs/endo-but-for-bots/pull/946) conduct is parked awaiting approval. The byteArray program is complete and green ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) waiting on maintainer re-review; [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) is frozen on a shared base with [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and cannot be unfrozen unilaterally. Inbox escalations include SIWE tier-gating for minion.town, pre-existing endor fixture-parity ratchet stalls, and deploy stalled across two hosts for three days.
 
 ## Parked for maintainer feedback
 
@@ -13,7 +13,7 @@ _As of 2026-08-24T23:28:24Z_
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 36d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 39d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 41d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 42d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 53d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 70d)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 104d)
@@ -1080,24 +1080,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.0M | $942.51 _(notional, rate-card)_ | no quota set |
+| Claude | 132.6M | $930.96 _(notional, rate-card)_ | no quota set |
 | Codex | 32.2M _(+1420.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1058
 
-### tada (5538)
+### tada (5539)
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-2.md) — Completion report
 - [`improve-post-job-normalize-template-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-post-job-normalize-template-role.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1058
 - [`endojs-endo-but-for-bots-pr1057-review-f6afbf40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1057-review-f6afbf40.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-1.md) — Completion report
-- … and 5533 more
+- … and 5534 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
