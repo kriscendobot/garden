@@ -15,6 +15,7 @@ Lazy graph revocation removes or disables the edges that support access, leaves 
 | [effective roles over a permission graph](../sections/cloudflare-os--docs-sharing--effective-role-graph.md) | Supplies hypothetical graph changes for previewing revocation. |
 | [lazy revocation and restoration](../sections/cloudflare-os--docs-sharing--lazy-revocation.md) | Preserves downstream records while edge reachability controls access. |
 | [authorization and live-session termination](../sections/cloudflare-os--docs-sharing--authorization-and-session-termination.md) | Reauthorizes existing sessions after a graph change. |
+| [Lazy revocation model and reversibility](../sections/cloudflare-os--packages-workshop-backend-src-sharing--lazy-revocation-model.md) | removeCollaborator and revokeShareLink sever or soft-flag without cascading; unreachable users are denied at open time. |
 
 ## See also
 
