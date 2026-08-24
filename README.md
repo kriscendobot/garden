@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-24T22:58:48Z_
+_As of 2026-08-24T23:02:49Z_
 
 ## Latest
 
@@ -978,10 +978,6 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-fix-review-5012572086` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr475-fix-review-5012572086.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr475-fix-review-5012572086' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1084,7 +1080,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.4M | $942.83 _(notional, rate-card)_ | no quota set |
+| Claude | 133.5M | $941.95 _(notional, rate-card)_ | no quota set |
 | Codex | 32.0M _(+1417.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
