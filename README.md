@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T23:22:49Z_
+_As of 2026-08-24T23:24:59Z_
 
 ## Latest
 
-Multiple gauntlets halted and root deployments stalled for ~3 days. Bytearray cryptographic work is complete and green on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), awaiting maintainer re-review. Node24 parity was partially fixed but fleet hosts need redeploy; two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked on that flake. Scholar finished cloudflare-os library ingestion (9 cycles). 22 maintainer decisions await in the inbox.
+Cloudflare OS library ingest completed (10 jobs): the repository's 18-section design suite, 20-section design-implementation stack, four package READMEs, and ten source-code comment fragments (gatekeeper.ts, git-store.ts, agent-compaction.ts, and three others) are now indexed across collaborative-workspace-sharing, observer-verification, mcp-server-connector, and scheduled-agent-tasks topics. Infrastructure work landed: [endojs/endo-but-for-bots#1048](https://github.com/endojs/endo-but-for-bots/pull/1048) restored local-verify ↔ CI Node version parity (now enforces and auto-adopts LTS major), and Node 24 is provisioned across the fleet. The **byteArray program is complete and green**: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim, all CI green), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (narrows to plain frozen Uint8Array, all threads resolved), and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line registry bytes layer, draft, mergeable/clean) all sit on frozen snapshot bases and need restack + human re-review before landing. A **recurring node24-runner CI flake blocks two dependabot PRs**: [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) are one green run from merge, but the base drifts faster than CI can rebase and re-roll; **decision needed** (merge directly or fix the fleet runner). Provider quota recovered from a 7-day outage (2026-08-17 to 2026-08-24). Two hosts report **stalled deploys** (18 commits behind origin/main2 for 3d; deliberate deploy-garden.sh is the only advancement mechanism — investigate why none landed). SIWE on-chain authz wiring for minion.town is deployed and live (issuer at https://siwe-idp.minion.town), awaiting **tier-1 allowlist approval** (specific addresses + scopes + optional evaluator grants) to proceed with policy configuration.
 
 ## Parked for maintainer feedback
 
@@ -1080,25 +1080,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.7M | $942.16 _(notional, rate-card)_ | no quota set |
-| Codex | 32.1M _(+1418.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 133.8M | $942.26 _(notional, rate-card)_ | no quota set |
+| Codex | 32.1M _(+1418.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1058
 - [`improve-post-job-normalize-template-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-post-job-normalize-template-role.md) — ---
 
-### tada (5536)
+### tada (5537)
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1058
 - [`endojs-endo-but-for-bots-pr1057-review-f6afbf40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1057-review-f6afbf40.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-clean.md) — Completion report
-- [`endojs-endo-but-for-bots-pr340-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-refresh.md) — Cost
-- … and 5531 more
+- … and 5532 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
