@@ -20,11 +20,13 @@
 # body-file argument or stdin), it:
 #   1. refuses any path outside the allowlisted trees, and refuses to operate on
 #      the live $GARDEN_ROOT/journal worktree (the read-side guarantee, mirrored);
-#   2. inside the isolated ${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}
+#   2. rejects literal diff hunk headers in the four hand-maintained shared
+#      library indexes, before malformed patch text can reach journal2;
+#   3. inside the isolated ${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}
 #      clone, runs sync_clone (fetch + hard-reset to origin/journal2 tip) so the
 #      edit always lands on the CURRENT committed tip, never an in-context-stale
 #      snapshot;
-#   3. writes the file, `git add`s it, and commit_and_push with the CAS
+#   4. writes the file, `git add`s it, and commit_and_push with the CAS
 #      retry/backoff loop and _verify_pushed silent-loss guard from common.sh.
 #
 # This is the ONLY sanctioned way for a gardener (scholar, librarian, or any role
@@ -139,6 +141,21 @@ if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ -n "$body_src" ];                       then refuse "body-file '$body_src' not found"
 elif [ ! -t 0 ];                               then BODY="$(cat)"
 else refuse "no body: pass a <body-file> or pipe the new file content on stdin"; fi
+
+# --- shared-index patch-fragment guard --------------------------------------
+# These four files are hand-maintained aggregation surfaces. Their parsers can
+# ignore a stray raw-diff hunk header, allowing link/count gates to stay green
+# while literal patch syntax lands as content. A hunk header is unambiguous and
+# therefore always rejected here. We intentionally do not reject bare leading
+# '+'/'-': '-' is ordinary Markdown list syntax, and without a nearby hunk
+# header those prefixes alone are not precise evidence of patch corruption.
+case "$rel" in
+  library/sources/README.md|library/topics/README.md|library/concepts/README.md|library/keywords.md)
+    patch_marker_line="$(printf '%s\n' "$BODY" | awk '/^@@ .* @@/{print NR; exit}')"
+    [ -z "$patch_marker_line" ] \
+      || conflict "refusing patch-marker-shaped content in $rel at line $patch_marker_line (literal diff hunk header)"
+    ;;
+esac
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 

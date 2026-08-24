@@ -42,8 +42,12 @@ setup_fixture() {
   git init -q --bare "$BARE"
   local SEED="$TR/seed"; git init -q "$SEED"
   git -C "$SEED" checkout -q -b journal2
-  mkdir -p "$SEED/library/concepts" "$SEED/projects/endo"
-  printf '%s\n' "# keywords" > "$SEED/library/keywords.md"
+  mkdir -p "$SEED/library/concepts" "$SEED/library/sources" \
+    "$SEED/library/topics" "$SEED/projects/endo"
+  printf '%s\n' "# Concepts" "- [clean](clean.md)" > "$SEED/library/concepts/README.md"
+  printf '%s\n' "# Sources" "- [clean](clean.md)" > "$SEED/library/sources/README.md"
+  printf '%s\n' "# Topics" "- [clean](clean.md)" > "$SEED/library/topics/README.md"
+  printf '%s\n' "# Keywords" "term | clean" > "$SEED/library/keywords.md"
   printf '%s\n' "# endo project" > "$SEED/projects/endo/README.md"
   git -C "$SEED" add -A
   git -C "$SEED" "${git_id[@]}" commit -q -m "seed journal2 fixture"
@@ -114,6 +118,35 @@ BODY="$(printf '%s\n' "# keywords" "term | caretaker-pattern")"
 run_land library/keywords.md
 [ "$RC" -eq 0 ] && ok "idempotent re-land exits 0" || bad "re-land exit $RC: $OUT"
 grep -qi "no change" <<<"$OUT" && ok "idempotent re-land reports no change" || bad "re-land did not detect no-op: $OUT"
+
+# ============================================================================
+hr; echo "GUARD — shared indexes reject raw diff hunk headers without rejecting Markdown"; hr
+# Exercise all four current clean index shapes. In particular, the three README
+# fixtures contain legitimate '-' Markdown bullets, which must remain accepted.
+for index in \
+  library/sources/README.md \
+  library/topics/README.md \
+  library/concepts/README.md \
+  library/keywords.md; do
+  BODY="$(origin_show "$index")"
+  run_land "$index"
+  [ "$RC" -eq 0 ] && ok "clean $index is accepted" || bad "clean $index exit $RC: $OUT"
+done
+
+before="$(git -C "$BARE" rev-parse journal2)"
+BODY="$(printf '%s\n' \
+  '# Topics' \
+  '@@ -12,7 +12,8 @@' \
+  '- [existing](existing.md)' \
+  '+ [accidental](accidental.md)')"
+run_land library/topics/README.md
+[ "$RC" -eq 1 ] && ok "diff hunk header exits 1" || bad "diff hunk header exit $RC (want 1): $OUT"
+grep -qi "literal diff hunk header" <<<"$OUT" \
+  && ok "rejection identifies the patch artifact" || bad "patch-artifact diagnosis missing: $OUT"
+[ "$(git -C "$BARE" rev-parse journal2)" = "$before" ] \
+  && ok "rejected patch fragment creates no journal2 commit" || bad "rejected patch fragment changed journal2"
+grep -qF '@@ -12,7 +12,8 @@' <<<"$(origin_show library/topics/README.md)" \
+  && bad "rejected patch fragment reached origin" || ok "rejected patch fragment did not reach origin"
 
 # ============================================================================
 hr; echo "GUARD — a supplied read base refuses a concurrent whole-file edit"; hr
