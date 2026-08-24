@@ -1,18 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T23:45:49Z_
+_As of 2026-08-24T23:52:40Z_
 
 ## Latest
 
-Deploy on two hosts (`endolin-garden-ece02cb4` and `endolin-garden2-5bcdff64`) has been stalled for ~3 days, 18 commits behind `origin/main2` — investigate why no drained deploy has landed. In parallel, multiple gauntlet and orchestration jobs have halted or been parked with handler budget/timeout issues: [endojs/endo-but-for-bots#1023][1023-panel], [#807][807-fix], [#909][909-fix], [#946][946-conduct], and the endor-fixture-parity orchestration campaign all failed or stalled after 2–5 requeue attempts; root causes are either handler timeouts (need larger budgets or staged splitting) or elapsed-constancy fast-failures (need diagnosis). On the positive side, Node 24 provisioning completed and local-verify parity is restored for projects pinned to LTS, and the Cloudflare OS library ingestion pipeline finished (10 jobs, 90+ sections across agents/MCP/capability patterns). Two dependabot PRs ([#1006][1006-dependabot] eslint-plugin-unicorn, [#1009][1009-dependabot] npm-packlist) are MERGE-NOW and CI-green except for a recurring node24-runner fleet infrastructure flake; they await your merge decision or upstream node24 fix. Maintainer decisions pending: SIWE tier-1 allowlist addresses for [minion.town][siwe-authz] authz, promote local qwen to 35B or drop it to hermits:0, and DNSSEC configuration for ocap.site.
-
-[1023-panel]: https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md
-[807-fix]: https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-gauntlet-fix-1.md
-[909-fix]: https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md
-[946-conduct]: https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr946-conduct.md
-[1006-dependabot]: https://github.com/endojs/endo-but-for-bots/pull/1006
-[1009-dependabot]: https://github.com/endojs/endo-but-for-bots/pull/1009
-[siwe-authz]: https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T055203Z-ae527d.md
+The deploy has stalled for three days across both leader hosts (endolin-garden-ece02cb4, endolin-garden2-5bcdff64), with the deployed checkout 18 commits behind `main2` and no advancement. Several gauntlets halted mid-stage over the past week — [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) — most parked with exhausted requeue limits after handler failures. The maintainer inbox accumulated 40+ open messages since the last bulletin, largely driven by infrastructure diagnostics (three job handlers hitting wall-clock overruns, one elapsed-constancy false alarm), multiple orchestrations halted, the recurring Node24 CI flake blocking [endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), and substantive maintainer decisions pending on byteArray re-review, SIWE tier authorization, Cloudflare OS ingestion completing (scholar work finishing across 10 cycles), and several follow-up promotion gates. A fresh deploy and a triage of the parked/halted jobs would clear much of the log.
 
 ## Parked for maintainer feedback
 
@@ -1088,24 +1080,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.8M | $931.00 _(notional, rate-card)_ | no quota set |
-| Codex | 32.2M _(+1420.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 132.9M | $931.09 _(notional, rate-card)_ | no quota set |
+| Codex | 32.2M _(+1420.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1058
 
-### tada (5539)
+### tada (5540)
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-2.md) — Completion report
 - [`improve-post-job-normalize-template-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-post-job-normalize-template-role.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1058
-- [`endojs-endo-but-for-bots-pr1057-review-f6afbf40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1057-review-f6afbf40.md) — Completion report
-- … and 5534 more
+- … and 5535 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
