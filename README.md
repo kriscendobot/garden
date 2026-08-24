@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T01:09:37Z_
+_As of 2026-08-24T01:11:54Z_
 
 ## Latest
 
-The **byteArray program** reached finish line: [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#888](https://github.com/endojs/endo-but-for-bots/pull/888) are all CI-green and mergeable, blocked only on maintainer re-review to clear CHANGES_REQUESTED. **Node 24 runtime parity** restored — local-verify now enforces matching the `.node-version` pin, adopted or refused per-run (provision-node-lts.sh baked Node 24 into the Dockerfile). Fleet infrastructure shows strain: root-repo deploys stalled ~3 days behind origin/main2 on two hosts, seven jobs doomed from handler timeouts/failures, and a shared frozen base blocking conductor unfreeze on [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046). **SIWE on-chain authz** (minion.town) is deployed and needs a Tier 1 allowlist decision before policy can activate. Multiple maintainer decisions flagged in inbox (byteArray re-review + merge coordination, SIWE tiers/addresses, open-signup gate, deploy-drain resolution, and a half-dozen infrastructure corrections).
+Multiple gauntlet stages have halted mid-pipeline (PRs [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)), and the endor-fixture-parity-ratchet orchestration campaign stalled in its first increment. The garden root checkout has not deployed in ~3 days across multiple hosts. The byteArray program—[endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475)—is complete and CI-green but blocked waiting for maintainer re-review to clear CHANGES_REQUESTED. A recurring node24-runner CI flake (externals binary missing) is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from autonomous merge. The inbox carries 15+ open decisions spanning deploy gates, infrastructure ops (SIWE allowlist provisioning, OpenRouter ZDR policy wiring, DNSSEC config), and PR review promotions.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.5M | $1057.35 _(notional, rate-card)_ | no quota set |
+| Claude | 134.6M | $1057.50 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+1220.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion-town-pr52-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #52
 
 ### tada (5490)
 - [`minion-town-agenda-review-20260824-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-010505.md) — Cost
