@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-08-24T18:42:00Z_
+_As of 2026-08-24T18:47:00Z_
 
 ## Latest
 
-Library ingestion of Cloudflare OS completed two phases (45+ sections); repairs done. PR pipeline stalled: node24 flakes blocking [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006)/[#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), stack coordination blocking [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046), deployments stalled 3d+ across hosts.
+Scholar completed two ingestion passes for Cloudflare OS (2026-08-24), capturing 38 sections, 8 new topics, and 8 concepts across workspace design, Gatekeeper capabilities, sharing models, and credit routing. Node24 support was restored locally (2026-08-22) to close CI parity gaps in linting and testing, and provisioned into the fleet containers to unblock Node-24-pinned projects like [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots). The wire-SIWE-onchain-authz job for minion.town has deployed the OIDC thunk but is awaiting your decisions on Tier 1/Tier 2 rollout and the allowlist of wallet addresses to authorize (2026-08-22). 
+
+Multiple gauntlet stages stalled this week: [endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) all have handler failures; the endor-fixture-parity-ratchet orchestration halted on the first child (exports-resolution elapsed-constancy). Garden deploys are stalled ~3 days behind on two hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64, 18 commits behind main2). Provider quota recovered 2026-08-24 after a three-day window. A batch of heavyweight jobs are parked with timeout/budget overrun issues, awaiting either promotion or scope splits. The inbox holds 60+ messages awaiting your review, including infrastructure decisions, four dependent botany PRs (#556, #558, #869, #870 — notably #869 closes GHSA-37j7-fg3j-429f, a CRITICAL VM escape) awaiting approval, and gating questions on OpenRouter ZDR policy, ocap.site DNSSEC, and minion.town deployment gates.
 
 ## Parked for maintainer feedback
 
@@ -1048,14 +1050,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.7M | $957.03 _(notional, rate-card)_ | no quota set |
-| Codex | 29.8M _(+1360.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 129.8M | $957.23 _(notional, rate-card)_ | no quota set |
+| Codex | 29.9M _(+1362.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260824T184007Z-a131de`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260824T184007Z-a131de.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-cloudflare-os-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-3.md) — ---
 - [`self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry.md) — ---
 
