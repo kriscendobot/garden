@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T18:10:18Z_
+_As of 2026-08-24T18:16:26Z_
 
 ## Latest
 
-The byteArray work is complete and CI-green: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) await maintainer re-review on frozen bases, with finish-line [#888](https://github.com/endojs/endo-but-for-bots/pull/888) draft-ready. SIWE on-chain authz was deployed to minion.town and awaits policy-tier and allowlist configuration. Node 24 parity was restored for local-verify. Infrastructure issues are mounting: deploy stalled ~3d on two hosts, multiple gauntlets halted mid-run, and several requeue and classification bugs are parked.
+Two design-refresh jobs launched (designs readme, bytes epic snapshot). **High-priority maintainer attention needed:** deploy stalled ~3 days on both garden instances; node24 CI runner flake blocking [endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (plus earlier [#877](https://github.com/endojs/endo-but-for-bots/pull/877) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) with no automatic path forward — either merge those PRs directly or fix the fleet issue. **Pending decisions:** SIWE tier selection + allowlist for minion.town (needed to wire authz), OpenRouter ZDR/stealth policy, Node24 provisioning rollout timing. **Completed:** byteArray program (design + immutable-arraybuffer shim + frozen Uint8Array view) all green at [#503](https://github.com/endojs/endo-but-for-bots/pull/503) / [#475](https://github.com/endojs/endo-but-for-bots/pull/475) / [#888](https://github.com/endojs/endo-but-for-bots/pull/888), awaiting maintainer re-review to clear CHANGES_REQUESTED. Test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) open in DRAFT, blocked on your decision: keep metering corpus separate or fold into upstream parity tree? **25 parked jobs** holding on maintainer authorization; several gauntlets halted mid-pipeline awaiting promotion.
 
 ## Parked for maintainer feedback
 
@@ -1032,14 +1032,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.1M | $963.64 _(notional, rate-card)_ | no quota set |
-| Codex | 28.8M _(+1330.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 128.5M | $957.36 _(notional, rate-card)_ | no quota set |
+| Codex | 28.9M _(+1331.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endo-but-for-bots-designs-readme-refresh-20260824`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-designs-readme-refresh-20260824.md) — ---
+- [`refresh-bytes-epic-20260824`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/refresh-bytes-epic-20260824.md) — What has changed since the 2026-07-02 snapshot (from this week's
 - [`scholar-ingest-cloudflare-os`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os.md) — ---
 
 ### tada (5511)
