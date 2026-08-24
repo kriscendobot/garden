@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6862 (530 parent indexes + 6332 children).
+Total section files: 6879 (530 parent indexes + 6349 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -701,6 +701,32 @@ Total section files: 6862 (530 parent indexes + 6332 children).
 - [cloudflare-os--docs-sharing--effective-role-graph](cloudflare-os--docs-sharing--effective-role-graph.md)
 - [cloudflare-os--docs-sharing--lazy-revocation](cloudflare-os--docs-sharing--lazy-revocation.md)
 - [cloudflare-os--docs-sharing--share-links-and-permission-edges](cloudflare-os--docs-sharing--share-links-and-permission-edges.md)
+
+### cloudflare-os--packages-backend-utils-readme
+
+- [cloudflare-os--packages-backend-utils-readme--worker-observability-utilities](cloudflare-os--packages-backend-utils-readme--worker-observability-utilities.md)
+
+### cloudflare-os--packages-gatekeeper-cloudflare-readme
+
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--collaborator-observer-verification](cloudflare-os--packages-gatekeeper-cloudflare-readme--collaborator-observer-verification.md)
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--defensive-worker-query-confinement](cloudflare-os--packages-gatekeeper-cloudflare-readme--defensive-worker-query-confinement.md)
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--oauth-configuration-and-verification](cloudflare-os--packages-gatekeeper-cloudflare-readme--oauth-configuration-and-verification.md)
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--paginated-account-discovery](cloudflare-os--packages-gatekeeper-cloudflare-readme--paginated-account-discovery.md)
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--provider-error-data-minimization](cloudflare-os--packages-gatekeeper-cloudflare-readme--provider-error-data-minimization.md)
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--safe-telemetry-discovery](cloudflare-os--packages-gatekeeper-cloudflare-readme--safe-telemetry-discovery.md)
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--service-roles-and-resource-boundaries](cloudflare-os--packages-gatekeeper-cloudflare-readme--service-roles-and-resource-boundaries.md)
+- [cloudflare-os--packages-gatekeeper-cloudflare-readme--telemetry-field-name-normalization](cloudflare-os--packages-gatekeeper-cloudflare-readme--telemetry-field-name-normalization.md)
+
+### cloudflare-os--packages-gatekeeper-confluence-readme
+
+- [cloudflare-os--packages-gatekeeper-confluence-readme--credential-and-deployment-configuration](cloudflare-os--packages-gatekeeper-confluence-readme--credential-and-deployment-configuration.md)
+- [cloudflare-os--packages-gatekeeper-confluence-readme--deferred-actions-and-simulation](cloudflare-os--packages-gatekeeper-confluence-readme--deferred-actions-and-simulation.md)
+- [cloudflare-os--packages-gatekeeper-confluence-readme--dual-scope-oauth-and-api-versions](cloudflare-os--packages-gatekeeper-confluence-readme--dual-scope-oauth-and-api-versions.md)
+- [cloudflare-os--packages-gatekeeper-confluence-readme--limitations-and-verification](cloudflare-os--packages-gatekeeper-confluence-readme--limitations-and-verification.md)
+- [cloudflare-os--packages-gatekeeper-confluence-readme--multi-site-resource-pickers](cloudflare-os--packages-gatekeeper-confluence-readme--multi-site-resource-pickers.md)
+- [cloudflare-os--packages-gatekeeper-confluence-readme--oauth-connect-and-refresh-flow](cloudflare-os--packages-gatekeeper-confluence-readme--oauth-connect-and-refresh-flow.md)
+- [cloudflare-os--packages-gatekeeper-confluence-readme--resource-capability-hierarchy](cloudflare-os--packages-gatekeeper-confluence-readme--resource-capability-hierarchy.md)
+- [cloudflare-os--packages-gatekeeper-confluence-readme--session-api-and-markdown-boundary](cloudflare-os--packages-gatekeeper-confluence-readme--session-api-and-markdown-boundary.md)
 
 ### cloudflare-os--plans-git-storage
 
