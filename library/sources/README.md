@@ -747,10 +747,6 @@ The bot-fork's per-package READMEs (lal, fae, genie, familiar, whylip, exo, chat
 | [Cloudflare OS AI Gateway billing](cloudflare-os--docs-ai-gateway-billing.md) | Daily platform allowance, user-funded Cloudflare credits, Gatekeeper-held OAuth authority, and Gateway transport selection. | 4 | current |
 | [Cloudflare OS public server](cloudflare-os--docs-public-server.md) | Deployment overview composing federated sign-in, AI quota, user credits, and Workers AI transport. | 1 | current |
 
-| [Cloudflare OS repository overview](cloudflare-os--readme.md) | cloudflare/cloudflare-os | 2026-08-21 (commit `1ef6020a`) | Kenton Varda, Yo'av Moshe, Nathan Disidore, Phillip Jones, Dan Carter | 6 | current (agent workspace, gadgets, Gatekeepers, Workers architecture, and capability-based introductions) |
-| [Cloudflare OS Blueprints](cloudflare-os--docs-blueprints.md) | cloudflare/cloudflare-os | 2026-08-03 (commit `69c39d50`) | Phillip Jones, Kenton Varda | 6 | current (portable gadget templates, bindings, publication, curation, and instantiation) |
-| [Cloudflare OS sharing](cloudflare-os--docs-sharing.md) | cloudflare/cloudflare-os | 2026-08-03 (commit `814bdc7e`) | Phillip Jones, Kenton Varda, Dan Carter | 6 | current (role capabilities, permission graph, lazy revocation, resource isolation, and session termination) |
-
 ## Backlog (not yet ingested)
 
 Roughly grouped by priority. The full file inventory was captured during the pilot survey; the lists below are summaries, not authoritative manifests.
