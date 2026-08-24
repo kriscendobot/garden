@@ -17,6 +17,7 @@ Cloudflare OS's information-flow check for shared gadgets: each non-owner proves
 | [configuration and re-verification on open](../sections/cloudflare-os--docs-observers--configuration-and-reverification-on-open.md) | Selects accounts and repeats Gatekeeper checks on every open. |
 | [forward exclusion and sharing-change teardown](../sections/cloudflare-os--docs-observers--forward-exclusion-and-sharing-change-teardown.md) | Blocks incompatible observations while excluded users remain authorized. |
 | [Gatekeeper observer strategies](../sections/cloudflare-os--docs-observers--gatekeeper-observer-strategies.md) | Chooses private, atomic, data-set-tracking, or low-stakes enforcement per resource. |
+| [Collaborator observer verification](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--collaborator-observer-verification.md) | Requires each collaborator's own Cloudflare account to prove resource access. |
 
 ## See also
 
