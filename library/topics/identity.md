@@ -26,6 +26,8 @@
 | [did:plc method, operations, recovery, and directory trust](../sections/did-method-plc--website-spec-v0-1-did-plc--method-operations-recovery-and-trust.md) | identity, decentralized-identifiers, capability-security | A hash-derived, self-certifying DID with priority key recovery and a directory trusted only for availability and fork ordering. |
 | [verified-email identity and incremental OAuth scopes](../sections/cloudflare-os--docs-oauth-signin--verified-email-identity-and-incremental-scopes.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | Multiple providers converge on one verified-email account key. |
 | [capability-shaped sign-in flow](../sections/cloudflare-os--docs-oauth-signin--capability-shaped-sign-in-flow.md) | authentication-gatekeepers, identity, capability-mediated-integrations | Verified email resolves the user before a session token is delivered. |
+| [identity grant versus resource grant](../sections/cloudflare-os--packages-gatekeeper-github-readme--identity-grant-versus-resource-grant.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | A primary verified GitHub email identifies the user without retaining repository authority. |
+| [verified-email login and resource scopes](../sections/cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | Google identity requires the provider verified-email signal. |
 
 ## See also
 
