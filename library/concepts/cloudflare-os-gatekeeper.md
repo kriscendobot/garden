@@ -35,6 +35,8 @@ A Gatekeeper is a service-specific Worker that gives an agent or gadget a narrow
 | [Supabase OAuth and approval boundary](../sections/cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary.md) | Approval-gates arbitrary SQL without pretending pending mutations are readable. |
 | [ZoomInfo account search and enrichment capability](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--account-search-and-enrichment-capability.md) | Exposes one entitlement-scoped account for search, enrichment, Copilot, and usage. |
 | [ZoomInfo credit approval and query guards](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--credit-approval-and-query-guards.md) | Defers credit-bearing enrichment and rejects silently broadened queries. |
+| [Observer tracking strategy per binding granularity](../sections/cloudflare-os--packages-gatekeeper-supabase-src-supabase--observer-tracking-strategy.md) | A concrete gatekeeper's observer methods pick ACL-check versus data-set-tracking from binding granularity. |
+| [Verifier answers access against the observer's own token](../sections/cloudflare-os--packages-gatekeeper-supabase-src-supabase--own-token-verifier.md) | A gatekeeper mints a verifier the overseer hands back to it, trusting its booleans against the observer's token. |
 
 ## See also
 
