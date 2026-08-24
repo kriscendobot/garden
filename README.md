@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T19:15:37Z_
+_As of 2026-08-24T19:22:25Z_
 
 ## Latest
 
-Cloudflare OS ingestion completed phases 1–4, wrapping Generative Agents coverage and five Cloudflare sections/docs (25 entries total) with phase 5 now in progress. **Critical: root repo deploys stalled ~3d on endolin-garden-ece02cb4 and endolin-garden2-5bcdff64, 18 commits behind `main2`.** Multiple gauntlets and builders are held in plan/ awaiting maintainer promotion (go-ahead or decisions) — most notably [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37), and the endor-fixture-parity-ratchet orchestration — plus [two dependabots (#1006, #1009)](https://github.com/endojs/endo-but-for-bots/pull/1006) blocked solely on the fleet's node24-runner flake and awaiting either direct merge or infra fix. High-priority maintainer asks are queued: SIWE tier selection + allowlist addresses for minion.town, Node 24 provisioning deployment timing, and decisions on several multi-day-stalled jobs. Provider quota has recovered.
+Scholar completed five Cloudflare OS ingestion cycles; phase 6 underway. Provider quota recovered. Multiple gauntlets halted. Maintainer inbox critical: byteArray re-review ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)), finish-line un-draft ([#888](https://github.com/endojs/endo-but-for-bots/pull/888)), merge-ready dependabots ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), plus 30+ decisions. Node 24 parity and host provisioning complete.
 
 ## Parked for maintainer feedback
 
@@ -350,6 +350,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T191209Z-c9b70f` — from scholar:scholar-ingest-cloudflare-os-4, reply_to `scholar-ingest-cloudflare-os-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T191209Z-c9b70f.md)
 
 > Ingested three Cloudflare OS package READMEs into 17 sections: backend Worker observability utilities, the Cloudflare Gatekeeper's telemetry confinement and provider defenses, and the Confluence Gatekeeper's resource hierarchy and deferred-action simulation. Added one topic and two concepts, extended the existing Cloudflare OS routes, and posted `scholar-ingest-cloudflare-os-5` for the remaining package documentation. All source-cluster link checks pass and the generated section index and topic counts are current. Full result: `entries/2026/08/24/191156Z-result-scholar-06965b.md`.
+
+- `20260824T192111Z-1c4ad4` — from scholar:scholar-ingest-cloudflare-os-5, reply_to `scholar-ingest-cloudflare-os-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T192111Z-1c4ad4.md)
+
+> Ingested four more Cloudflare OS Gatekeeper READMEs into 13 sections: email mailbox delivery, GitHub and Google identity/resource grant separation, and Home Assistant capability scoping with approval-overlay simulation. The cycle added the `home-automation-integrations` topic and extended the existing Gatekeeper, authentication, OAuth, capability, hosting, identity, error, and provisional-simulation indexes. Link and projection checks pass; the precise remaining documentation backlog is posted as `scholar-ingest-cloudflare-os-6`. Full result: `entries/2026/08/24/192052Z-result-gardener-825de0.md`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1056,23 +1060,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.4M | $957.58 _(notional, rate-card)_ | no quota set |
-| Codex | 30.5M _(+1385.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 131.5M | $955.86 _(notional, rate-card)_ | no quota set |
+| Codex | 30.6M _(+1389.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-cloudflare-os-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-5.md) — ---
+### doin (2)
+- [`improve-journal-entry-role-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-entry-role-attribution.md) — ---
+- [`scholar-ingest-cloudflare-os-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-6.md) — ---
 
-### tada (5520)
+### tada (5521)
+- [`scholar-ingest-cloudflare-os-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-5.md) — Cost
 - [`scholar-ingest-cloudflare-os-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-4.md) — Cost
 - [`scholar-ingest-cloudflare-os-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-3.md) — Cost
 - [`self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry.md) — Completion report
 - [`deadmail-20260824T184007Z-a131de`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260824T184007Z-a131de.md) — Completion report
-- [`scholar-ingest-cloudflare-os-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-2.md) — Ingested the five remaining Cloudflare OS design documents into 20 sections, ...
-- … and 5515 more
+- … and 5516 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
