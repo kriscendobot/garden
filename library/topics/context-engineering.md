@@ -20,6 +20,7 @@ The discipline of curating and maintaining the optimal set of tokens available t
 | [Conclusion](../sections/web--anthropic-context-engineering--conclusion.md) | context-engineering | The invariant principle: curate what enters the finite attention budget at each step; treat context as a precious, finite resource. |
 | [memory stream and retrieval](../sections/talks--chinta-generative-agents-2024--memory-stream-and-retrieval.md) | llm-agent-frameworks, context-engineering | Recency, model-scored importance, and embedding relevance select a bounded working set from an accumulating memory stream. |
 | [reflection and memory integration](../sections/talks--chinta-generative-agents-2024--reflection-and-memory-integration.md) | llm-agent-frameworks, context-engineering | Reflection turns retrieved records into evidence-linked abstractions that can themselves be retrieved later. |
+| [Proposed-change fold and epoch boundaries](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | change-propagation, collaborative-workspace-sharing, context-engineering | The single merge/revert fold that derives proposed changes, change statuses, and a compaction checkpoint's carried-forward pins and epoch. |
 
 ## See also
 
