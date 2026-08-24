@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T18:59:00Z_
+_As of 2026-08-24T19:15:37Z_
 
 ## Latest
 
-Scholar library work on Cloudflare OS wrapped three ingestion cycles with phase 4 in progress. Node 24 parity gate deployed; provisioning required on other hosts. Bytearray design PRs [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are complete and awaiting your re-review; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line) awaits un-draft. Two dependabot updates ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are green but blocked on a fleet CI flake. Infrastructure: root deployments stalled across two hosts; multiple gauntlets halted and PRs doomed on requeue limits, pending your decisions on parked work (SIWE tier-1 allowlist for minion.town, disclosed-repo disclosure timing, various design follow-ups).
+Cloudflare OS ingestion completed phases 1–4, wrapping Generative Agents coverage and five Cloudflare sections/docs (25 entries total) with phase 5 now in progress. **Critical: root repo deploys stalled ~3d on endolin-garden-ece02cb4 and endolin-garden2-5bcdff64, 18 commits behind `main2`.** Multiple gauntlets and builders are held in plan/ awaiting maintainer promotion (go-ahead or decisions) — most notably [endojs/endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/pull/37), and the endor-fixture-parity-ratchet orchestration — plus [two dependabots (#1006, #1009)](https://github.com/endojs/endo-but-for-bots/pull/1006) blocked solely on the fleet's node24-runner flake and awaiting either direct merge or infra fix. High-priority maintainer asks are queued: SIWE tier selection + allowlist addresses for minion.town, Node 24 provisioning deployment timing, and decisions on several multi-day-stalled jobs. Provider quota has recovered.
 
 ## Parked for maintainer feedback
 
@@ -346,6 +346,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T185719Z-2b96bf` — from scholar:scholar-ingest-cloudflare-os-3, reply_to `scholar-ingest-cloudflare-os-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T185719Z-2b96bf.md)
 
 > Cloudflare OS cycle 3 ingested all three remaining plans plus AGENTS.md, CONTRIBUTING.md, and REVIEW.md into 25 sections, adding four concepts for Git-backed gadget code, lazy pinning, workpieces, and the pi agent loop. The integrity checks passed and both projected indexes are current. Follow-on scholar-ingest-cloudflare-os-4 owns the exact package-README backlog before any source-comment survey. Full details are in entries/2026/08/24/185709Z-result-scholar-3bf523.md.
+
+- `20260824T191209Z-c9b70f` — from scholar:scholar-ingest-cloudflare-os-4, reply_to `scholar-ingest-cloudflare-os-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T191209Z-c9b70f.md)
+
+> Ingested three Cloudflare OS package READMEs into 17 sections: backend Worker observability utilities, the Cloudflare Gatekeeper's telemetry confinement and provider defenses, and the Confluence Gatekeeper's resource hierarchy and deferred-action simulation. Added one topic and two concepts, extended the existing Cloudflare OS routes, and posted `scholar-ingest-cloudflare-os-5` for the remaining package documentation. All source-cluster link checks pass and the generated section index and topic counts are current. Full result: `entries/2026/08/24/191156Z-result-scholar-06965b.md`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1052,23 +1056,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.7M | $958.59 _(notional, rate-card)_ | no quota set |
-| Codex | 30.2M _(+1374.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 131.4M | $957.58 _(notional, rate-card)_ | no quota set |
+| Codex | 30.5M _(+1385.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`scholar-ingest-cloudflare-os-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-4.md) — ---
+- [`scholar-ingest-cloudflare-os-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-os-5.md) — ---
 
-### tada (5519)
+### tada (5520)
+- [`scholar-ingest-cloudflare-os-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-4.md) — Cost
 - [`scholar-ingest-cloudflare-os-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-3.md) — Cost
 - [`self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-regenerate-sections-index-land-cas-conflict-retry.md) — Completion report
 - [`deadmail-20260824T184007Z-a131de`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260824T184007Z-a131de.md) — Completion report
 - [`scholar-ingest-cloudflare-os-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-os-2.md) — Ingested the five remaining Cloudflare OS design documents into 20 sections, ...
-- [`fix-library-index-patch-marker-corruption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-library-index-patch-marker-corruption.md) — Cost
-- … and 5514 more
+- … and 5515 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
