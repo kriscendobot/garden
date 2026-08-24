@@ -12,6 +12,8 @@
 | [AI Anthropologist post-hoc analysis](../sections/papers--paolo-terralingua-open-endedness-2026--ai-anthropologist-post-hoc-analysis.md) | open-ended-agent-ecologies, llm-agent-frameworks | A separate LLM observer tags logs, detects groups, scores artifacts, and infers lineage without reward feedback. |
 | [ablation balance and ecological stability](../sections/papers--paolo-terralingua-open-endedness-2026--ablation-balance-and-ecological-stability.md) | open-ended-agent-ecologies | The reported design hypothesis balances survival pressure, cognitive load, motivation, and artifact access. |
 | [lineages, institutions, and governance](../sections/papers--paolo-terralingua-open-endedness-2026--lineages-institutions-and-governance.md) | open-ended-agent-ecologies | Lineage depth and differentiated artifact roles distinguish cumulative refinement from isolated novelty. |
+| [motivation and Smallville setup](../sections/talks--chinta-generative-agents-2024--motivation-and-smallville-setup.md) | llm-agent-frameworks, open-ended-agent-ecologies | Smallville supplies a persistent, shared, 25-agent environment for observing information diffusion, relationship formation, and coordination. |
+| [evaluation, emergence, and limitations](../sections/talks--chinta-generative-agents-2024--evaluation-emergence-and-limitations.md) | open-ended-agent-ecologies, llm-agent-frameworks | The deck reports diffusion, network-density, and attendance outcomes while limiting the claim to a bounded two-day simulation. |
 
 ## See also
 
