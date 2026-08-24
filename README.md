@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T00:56:43Z_
+_As of 2026-08-24T01:06:56Z_
 
 ## Latest
 
-Infrastructure improvements landed 08-22: Node-parity local-verify guard (57d851dfaf) + Node 24 fleet provisioning (c1583f733f) to restore CI consistency; separately, live budget-admission design (87ccd70ab6 from 08-15). SIWE on-chain authz deployed to https://siwe-idp.minion.town, awaiting maintainer tier/allowlist decisions. ByteArray stack CI-green and mergeable ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) awaiting re-review. Fleet blockers: deploy stalled ~3d (18 commits behind), node24-runner CI flake preventing [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006)/[#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) merge, shared frozen-base locking conductor ([#1046](https://github.com/endojs/endo-but-for-bots/pull/1046)). Inbox: 30+ follow-ups on parked PRs.
+Fixed a critical local-verify ↔ CI parity gap discovered when Node-24 projects silently passed locally but failed CI type-checking (local Node 22.23.2 vs. CI's pinned `lts/*` → Node 24). A Node runtime-parity guard now refuses to run under version mismatch, and Node 24 has been baked into the Dockerfile; however, propagation is blocked by stalled deploys—two hosts (endolin-garden-ece02cb4 and endolin-garden2-5bcdff64) remain 18 commits behind on main2 for ~3 days. The byteArray press completed and is green across all engines ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) merged layers ready for re-review; [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) finish-line awaiting un-draft), pending only human sign-off. Test262 consolidation work opened [endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) in draft with design and rollout step 1 complete; one decision needed on whether to fold bespoke metering fixtures into the parity tree or keep them separate. SIWE auth thunk deployed and live at minion.town; awaiting maintainer to provide the allowlist of wallet addresses for Tier 1. Multiple gauntlets and orchestration jobs have halted due to handler failures and requeue exhaustion, and several datagathering/fix jobs are parked pending decisions on scope and sequencing.
 
 ## Parked for maintainer feedback
 
@@ -1028,15 +1028,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.3M | $1057.01 _(notional, rate-card)_ | no quota set |
+| Claude | 134.5M | $1057.27 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+1220.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-agenda-review-20260824-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260824-010505.md) — Minion Town press (every two hours)
 
 ### tada (5489)
 - [`improve-mentor-transient-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mentor-transient-outage-backoff.md) — What I did
