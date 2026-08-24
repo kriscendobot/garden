@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T06:01:11Z_
+_As of 2026-08-24T06:09:53Z_
 
 ## Latest
 
-Two jobs completed in the last day: deadmail cleanup and agenda review. Root deployment is stalled on two hosts (18 commits behind `main2` for ~3 days); a maintainer-driven deploy step is needed. The byteArray press is complete and green across [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (both MERGEABLE, awaiting maintainer re-review to clear CHANGES_REQUESTED), plus finish-line [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) DRAFT-ready. Local-verify Node parity was fixed and deployed (resolves the CI/local skew on Node-24-pinned projects), and fleet hosts are now provisioned with Node 24; one host has adopted it, others await redeploy. A fleet CI infra flake (node24 binary loss) is blocking two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) that are otherwise green and merge-ready; the conductor cannot converge them due to rebase-churn outpacing CI queue time. SIWE on-chain authz deployment is done; wiring awaits two maintainer decisions (tier choice and Tier 1 allowlist addresses). Several gauntlet and orchestration jobs have halted (panel runs, fix cycles) requiring attention or re-promotion from plan.
+One job completed ([improve-gardener-transient-silence](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gardener-transient-silence.md)); multiple gauntlets halted mid-run, and root repo deploys are stalled 18 commits behind on both running hosts (~3 days). The board holds 23 parked PRs awaiting your feedback, with several over 100 days old; the maintainer inbox carries 40+ messages flagging decisions on deploy policies, budget gating, SIWE authorization tiers, byteArray finalization, the node24 CI flake, and decommissioning infrastructure prerequisites — most not blocking active work yet but waiting on your call. Critical dependabot #869 (GHSA-37j7-fg3j-429f, VM escape to RCE) is one of two merge-blocked on the node24 flake.
 
 ## Parked for maintainer feedback
 
@@ -1028,25 +1028,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.6M | $1056.72 _(notional, rate-card)_ | no quota set |
-| Codex | 27.3M _(+1304.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 137.7M | $1055.56 _(notional, rate-card)_ | no quota set |
+| Codex | 27.5M _(+1316.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Review directive on endojs/endo-but-for-bots PR #889
-- [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-transient-silence.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #52
 
-### tada (5505)
+### tada (5506)
+- [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gardener-transient-silence.md) — Cost
 - [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390718343.md) — Completion report
 - [`minion-town-agenda-review-20260824-053507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-053507.md) — Completion report
 - [`deadmail-issue-comment-5390713648`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390713648.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260824-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260824-025004.md) — Cost
-- [`kriscendobot-minion-town-pr52-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-fix-3.md) — Completion report
-- … and 5500 more
+- … and 5501 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
