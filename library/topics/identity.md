@@ -24,6 +24,8 @@
 | [w3c--did-core-1-0--method-operations-security-and-privacy](../sections/w3c--did-core-1-0--method-operations-security-and-privacy.md) | W3C DID Core 1.0 | DID lifecycle and correlatability are method-level identity concerns. |
 | [w3c--did-core-1-0--architectural-considerations](../sections/w3c--did-core-1-0--architectural-considerations.md) | W3C DID Core 1.0 | DID controller and DID subject can coincide or differ. |
 | [did:plc method, operations, recovery, and directory trust](../sections/did-method-plc--website-spec-v0-1-did-plc--method-operations-recovery-and-trust.md) | identity, decentralized-identifiers, capability-security | A hash-derived, self-certifying DID with priority key recovery and a directory trusted only for availability and fork ordering. |
+| [verified-email identity and incremental OAuth scopes](../sections/cloudflare-os--docs-oauth-signin--verified-email-identity-and-incremental-scopes.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | Multiple providers converge on one verified-email account key. |
+| [capability-shaped sign-in flow](../sections/cloudflare-os--docs-oauth-signin--capability-shaped-sign-in-flow.md) | authentication-gatekeepers, identity, capability-mediated-integrations | Verified email resolves the user before a session token is delivered. |
 
 ## See also
 
