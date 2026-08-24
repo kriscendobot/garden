@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T06:52:46Z_
+_As of 2026-08-24T06:54:51Z_
 
 ## Latest
 
-The byteArray press is complete and green: [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are mergeable and awaiting your re-review; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is ready to un-draft. Local-verify gained Node 24 parity infrastructure (resolved via `n` manager), though provisioning hasn't yet reached all fleet hosts. Garden root deploys on two instances have stalled 3d behind; investigate why no drain-and-deploy has landed. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) / [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on the recurring fleet node24-runner flake; either merge them directly (llm has no branch protection) or fix the infrastructure. Pending decisions: SIWE tier choice and allowlist for minion.town, test262 fixture consolidation strategy, and orchestration staging guards on several parked jobs.
+Root repo deploy has stalled on multiple hosts for three days (18 commits behind origin/main2); investigate and trigger a manual deploy if `deploy-garden.sh` is blocked. Several gauntlets halted mid-stage after panel/fix handlers failed repeatedly; reaper parked the work in jobs/plan/ with gate=go-ahead, awaiting investigation. Infrastructure stability shows strain across multiple roles (panel, fix, conduct stages) with consistent handler failures on the same host (endolin-garden-ece02cb4). On the positive side: Node 24 provisioning deployed and verified, local-verify parity fixed, and budget enforcement design (live-pool admission) landed on main2. Two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW on merits but blocked by the recurring node24-runner CI flake; conductor cannot auto-merge past the red cell. Maintainer inbox carries several pending decisions: SIWE Tier 1 allowlist (wallet addresses + scopes for minion.town auth), OpenRouter ZDR policy + stealth-lane mechanics, test262 fixture consolidation (keep dual trees vs. collapse), and others; no blocker on any has code waiting.
 
 ## Parked for maintainer feedback
 
@@ -1028,23 +1028,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.5M | $1057.36 _(notional, rate-card)_ | no quota set |
-| Codex | 27.6M _(+1319.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 138.5M | $1057.44 _(notional, rate-card)_ | no quota set |
+| Codex | 27.7M _(+1320.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`fix-benchmarker-role-dead-citations-and-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-benchmarker-role-dead-citations-and-design-docs.md) — Grounding
+### doin (0)
+(none)
 
-### tada (5508)
+### tada (5509)
+- [`fix-benchmarker-role-dead-citations-and-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-benchmarker-role-dead-citations-and-design-docs.md) — Cost
 - [`kriscendobot-minion-town-pr52-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet.md) — gauntlet kriscendobot-minion-town-pr52-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr889-review-3cda2858`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-review-3cda2858.md) — Cost
 - [`improve-gardener-transient-silence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gardener-transient-silence.md) — Cost
 - [`deadmail-issue-comment-5390718343`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5390718343.md) — Completion report
-- [`minion-town-agenda-review-20260824-053507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-053507.md) — Completion report
-- … and 5503 more
+- … and 5504 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
