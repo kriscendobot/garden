@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T02:20:53Z_
+_As of 2026-08-24T02:23:59Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (byteArray program) are complete and CI-green; both sit MERGEABLE on frozen snapshot bases awaiting your re-review to clear CHANGES_REQUESTED. Node 24 local-verify parity is now fixed and provisioned; the guard adopts matching runtimes or refuses loudly, unblocking [endojs/endo-but-for-bots#1048](https://github.com/endojs/endo-but-for-bots/pull/1048) and future Node 24 projects. Garden root deploys stalled ~3d (18 commits behind); investigate why no deliberate-drain-and-deploy has landed. Several gauntlets halted mid-cycle due to handler failure rates and stalls; [endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (dependabot) are MERGEABLE but blocked on the recurring node24-runner CI flake; inbox holds 40+ follow-ups awaiting your call on SIWE auth tiers, budget gates, the Temporal-host exclusion, sealed-sender attestation, minion.town git-remote follow-up, and others.
+Minion.town [PR #52](https://github.com/kriscendobot/minion.town/pull/52) advanced through clean/panel/fix/panel rounds of the gauntlet; the second panel is in progress. Endojs [#872](https://github.com/endojs/endo-but-for-bots/pull/872) has been conducted. The byteArray press (2026-08-01) completed green: [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are MERGEABLE with only outdated review threads, needing human re-review to clear CHANGES_REQUESTED; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted and is draft-ready with all CI green. In opposition: three gauntlet stages halted mid-run (panels/fix on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909); orchestration halts on endor-walker and minion.town jobs; root-repo deploy stalled ~3 days on two hosts). A recurring node24-runner CI flake is blocking conducts of [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009). Multiple maintainer decisions are parked: siwe-onchain-authz tier choice and allowlist ([#20](https://github.com/kriscendobot/minion.town/pull/20)), dependabot approvals (#556/#558/#869/#870), node24 CI routing, route53 DNSSEC for ocap.site, and budget pool token caps.
 
 ## Parked for maintainer feedback
 
@@ -1028,25 +1028,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.4M | $1058.62 _(notional, rate-card)_ | no quota set |
-| Codex | 26.0M _(+1230.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 135.5M | $1058.70 _(notional, rate-card)_ | no quota set |
+| Codex | 26.1M _(+1234.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr872-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr872-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #872
+### doin (2)
 - [`endojs-endo-but-for-bots-pr889-review-a90146c0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-review-a90146c0.md) — Review directive on endojs/endo-but-for-bots PR #889
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #52
 
-### tada (5493)
+### tada (5494)
+- [`endojs-endo-but-for-bots-pr872-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr872-conduct.md) — Completion report
 - [`kriscendobot-minion-town-pr52-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-fix-1.md) — FIX stage round 1 — kriscendobot/minion.town PR #52 — complete
 - [`kriscendobot-minion-town-pr52-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-panel-1.md) — Completion report
 - [`kriscendobot-minion-town-pr52-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260824-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260824-010505.md) — Cost
-- [`improve-mentor-transient-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mentor-transient-outage-backoff.md) — What I did
-- … and 5488 more
+- … and 5489 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
