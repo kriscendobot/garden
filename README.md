@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:12:33Z_
+_As of 2026-08-25T10:13:53Z_
 
 ## Latest
 
@@ -432,15 +432,9 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > ([endojs/endo-but-for-bots#1040](https://github.com/endojs/endo-but-for-bots/issues/1040)) is available to ratchet parity per the 08-20 annotation.
 > Halt me here if you want the resume held.
 
-- `20260825T101219Z-1d73e8` — from gardener:endojs-endo-but-for-bots-pr475-023bfb11, reply_to `endojs-endo-but-for-bots-pr475-023bfb11` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101219Z-1d73e8.md)
+- `20260825T101244Z-22fcd6` — from gardener:endojs-endo-but-for-bots-pr340-merge, reply_to `endojs-endo-but-for-bots-pr340-merge` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101244Z-22fcd6.md)
 
-> Re: your [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) comment (post a fixer using Fable / check for a doomed job).
->
-> Doomed job found: the Fable (mentat) fixer `endojs-endo-but-for-bots-pr475-fix-review-5012572086` doomed 2026-08-24 on deadline-overrun (rc=124 at 2401s, default 40-min wall), parked in jobs/plan/. Branch head unchanged since 08-19, so that reviews asks never landed. (Older 12-ask Opus fixer -5001589064 also parked/doomed.)
->
-> Action: promoted the parked Fable fixer back to the live board (tier: mentat), doom counter reset. Replied on the PR ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) issue comment 5408905073).
->
-> Caveat: it can re-doom on the same 2400s wall. I could not inject a larger handler-timeout at promote time (the directive-dedup ties any new fixer to the parked job, and promote preserves whatever budget the plan file carried, which was none). If it re-dooms, recommend splitting the 10 asks into staged fixers or bumping the fleet fixer budget. Say the word and I will re-issue it split.
+> PR [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340) was unfrozen to live llm and rebased from 98add24d698 to 43cffe6998c by the required merge spine. CI is running on 43cffe6998c. The existing maintainer approval predates this rewritten head, so the exact-head approval gate requires @kriskowal to re-approve 43cffe6998c after reviewing the rebase before I can merge.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1148,29 +1142,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 34.1M _(+1445.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 34.2M _(+1447.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
+- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr475-f8479d52`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-f8479d52.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
-- [`ironhorse-js26-milestone-with-opcode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js26-milestone-with-opcode.md) — js-26 MILESTONE — the with opcode family (VM prerequisite + Annex-B/language/...
 
-### doin (6)
-- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
 - [`endojs-endo-but-for-bots-pr340-review-1841867c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-1841867c.md) — Review directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
-- [`endojs-endo-but-for-bots-pr475-023bfb11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-023bfb11.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`ironhorse-js26-milestone-with-opcode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-with-opcode.md) — js-26 MILESTONE — the with opcode family (VM prerequisite + Annex-B/language/...
 
-### tada (5559)
+### tada (5560)
+- [`endojs-endo-but-for-bots-pr475-023bfb11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-023bfb11.md) — Completion report
 - [`deadmail-issue-comment-5408746440`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5408746440.md) — Cost
 - [`ironhorse-campaign-paused-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-campaign-paused-20260816.md) — Completion report
 - [`deadmail-issue-comment-5408743282`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5408743282.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-2e3ae7fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-2e3ae7fe.md) — Cost
-- [`endojs-endo-but-for-bots-pr340-review-232e84bf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-232e84bf.md) — Completion report
-- … and 5554 more
+- … and 5555 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
