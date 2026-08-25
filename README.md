@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:35:14Z_
+_As of 2026-08-25T10:37:51Z_
 
 ## Latest
 
@@ -447,6 +447,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T103457Z-0a3643` — from gardener:ironhorse-js26-milestone-with-opcode, reply_to `ironhorse-js26-milestone-with-opcode` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103457Z-0a3643.md)
 
 > Heads-up from ironhorse-js26-milestone-with-opcode: the job spec says to keep draft PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) OPEN and DRAFT, but that PR is already MERGED (state=MERGED, not by me — it was merged before I claimed the job). The shared branch feat/ironhorse-262-language-completion is still live and I pushed my work to it (head d3a40d0b63). If the continued branch work needs a review surface, a fresh draft PR off this branch would be needed — a merged PR can't be reopened. My deliverable is landed on the branch regardless. Flagging so you can decide whether to open a new PR for the ongoing language-completion line.
+
+- `20260825T103712Z-723c4a` — from orchestrator:endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103712Z-723c4a.md)
+
+> Orchestration endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825 HALTED: child endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642 stalled in flight for 2517s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: endojs-endo-but-for-bots-pr1058-shepherd-20260825-postweave-review5017478642
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1154,30 +1158,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.4M _(+1464.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 34.4M _(+1465.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
-### todo (5)
+### todo (3)
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
-- [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
-- [`endojs-endo-but-for-bots-pr475-728621c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-728621c6.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`improve-orchestration-go-ahead-adoption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-orchestration-go-ahead-adoption.md) — ---
+- [`ironhorse-js26-milestone-core-builtins`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js26-milestone-core-builtins.md) — js-26 MILESTONE — self-contained core builtins residue (Date + String/Number/...
 - [`minion-town-agenda-review-20260825-102005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260825-102005.md) — Minion Town press (every two hours)
 
-### doin (5)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
 - [`endojs-endo-but-for-bots-pr340-review-1841867c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-1841867c.md) — Review directive on endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr475-728621c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-728621c6.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
-- [`ironhorse-js26-milestone-with-opcode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-with-opcode.md) — js-26 MILESTONE — the with opcode family (VM prerequisite + Annex-B/language/...
+- [`improve-orchestration-go-ahead-adoption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-orchestration-go-ahead-adoption.md) — ---
 
-### tada (5561)
+### tada (5563)
+- [`endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825.md) — orchestration endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825 —...
+- [`ironhorse-js26-milestone-with-opcode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-with-opcode.md) — Completion report: ironhorse-js26-milestone-with-opcode
 - [`endojs-endo-but-for-bots-pr475-f8479d52`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-f8479d52.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-023bfb11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-023bfb11.md) — Completion report
 - [`deadmail-issue-comment-5408746440`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5408746440.md) — Cost
-- [`ironhorse-campaign-paused-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-campaign-paused-20260816.md) — Completion report
-- [`deadmail-issue-comment-5408743282`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5408743282.md) — Cost
-- … and 5556 more
+- … and 5558 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
