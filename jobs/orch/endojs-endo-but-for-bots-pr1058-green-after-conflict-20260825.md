@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642 endojs-endo-but-for-bots-pr1058-shepherd-20260825-postweave-review5017478642
 on-child-failure: halt
