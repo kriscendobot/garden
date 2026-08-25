@@ -1989,6 +1989,23 @@ fleet_brake_pause() {
 # $GARDEN_SCRATCH tree is gitignored, so nothing under it can ever block the
 # watchman.
 #
+# project_worktree_base_key <base> -- return the filesystem key used for a
+# per-job project worktree. Short bases stay readable and unchanged. Long bases
+# are capped at 20 characters with a 12-hex digest of the full, unsanitized base,
+# preserving deterministic resume and distinguishing bases that share a prefix.
+# The tight cap leaves room below Linux's 108-byte sockaddr_un limit for daemon
+# suites that create sockets deep inside the checkout.
+project_worktree_base_key() {
+  local base="${1:?base}" safe digest
+  safe="${base//[^A-Za-z0-9._-]/-}"
+  if [ "${#safe}" -le 20 ]; then
+    printf '%s\n' "$safe"
+    return 0
+  fi
+  digest="$(printf '%s' "$base" | (sha1sum 2>/dev/null || shasum) | cut -c1-12)"
+  printf '%.7s-%s\n' "$safe" "$digest"
+}
+
 # scratch_dir <base> [<keep-list>] — make and echo a fresh private path
 #   $GARDEN_SCRATCH/<base>-<short-rand>/, created on demand. The <base> is a
 #   human-readable label (the job slug); the random suffix keeps concurrent
@@ -4563,7 +4580,8 @@ cut_claim_block() {
 #
 # A job's real work lands in ISOLATED per-job git worktrees under GARDEN_SCRATCH: the
 # garden worktree (gardener-wt-<base>, created by handlers/gardener-claude.sh) and any
-# project checkouts (project-wt-<base_safe>-<disc>, from ensure-project-worktree.sh).
+# project checkouts (project-wt-<bounded-base-key>-<disc>, from
+# ensure-project-worktree.sh).
 # Both are keyed by the UNIQUE job base and PERSIST across a reaper requeue so a resumed
 # run re-enters them, which is exactly what lets the gardener compare git state ACROSS a
 # handler run and see whether the cycle committed anything.
@@ -4572,9 +4590,14 @@ cut_claim_block() {
 # worktree under GARDEN_SCRATCH that exists and has a resolvable HEAD (the garden
 # worktree and any project checkouts). Empty output when none exist yet. READ-ONLY.
 job_worktree_heads() {
-  local base="${1:?base}" base_safe wt head
-  base_safe="${base//[^A-Za-z0-9._-]/-}"
-  for wt in "$GARDEN_SCRATCH/gardener-wt-$base" "$GARDEN_SCRATCH"/project-wt-"$base_safe"-*; do
+  local base="${1:?base}" base_key legacy_key wt head
+  local candidates=()
+  base_key="$(project_worktree_base_key "$base")"
+  legacy_key="${base//[^A-Za-z0-9._-]/-}"
+  candidates+=("$GARDEN_SCRATCH/gardener-wt-$base")
+  candidates+=("$GARDEN_SCRATCH"/project-wt-"$base_key"-*)
+  [ "$legacy_key" = "$base_key" ] || candidates+=("$GARDEN_SCRATCH"/project-wt-"$legacy_key"-*)
+  for wt in "${candidates[@]}"; do
     [ -e "$wt/.git" ] || continue
     head="$(git -C "$wt" rev-parse HEAD 2>/dev/null || true)"
     [ -n "$head" ] && printf '%s:%s\n' "$wt" "$head"

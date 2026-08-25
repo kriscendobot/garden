@@ -404,21 +404,38 @@ fi
 # ── the isolated, per-job path ───────────────────────────────────────────────
 # Keyed by the UNIQUE job base (never repo+branch), plus a short discriminator
 # over <owner/repo@branch> so one job holding two checkouts does not self-collide.
-# `base` is a job basename (no '/', '#', ':'), safe as a path component; sanitize
-# defensively anyway. The discriminator keeps the path deterministic (stable for
-# resume) while bounding its length — the full base can be long, and deep paths
-# under project/ (endo daemon UNIX sockets) push toward the 108-char sockaddr_un
-# limit, so we append a fixed 8-hex digest rather than the raw repo/branch.
-base_safe="${base//[^A-Za-z0-9._-]/-}"
+# The base key stays readable for short jobs, but long bases are truncated and
+# carry a stable hash suffix. This bounds the job-owned portion of the path even
+# when a producer emits a verbose base, leaving daemon suites room for deep UNIX
+# socket paths without asking agents to invent shorter aliases. The discriminator
+# separately bounds and identifies <owner/repo@branch>.
+base_safe="$(project_worktree_base_key "$base")"
 disc="$(printf '%s@%s' "$repo" "$branch" | cksum | cut -d' ' -f1)"
 disc="$(printf '%08x' "$disc" 2>/dev/null || printf '%s' "$disc")"
 wt="$GARDEN_SCRATCH/project-wt-${base_safe}-${disc}"
+legacy_base_safe="${base//[^A-Za-z0-9._-]/-}"
+legacy_wt="$GARDEN_SCRATCH/project-wt-${legacy_base_safe}-${disc}"
 
 # ── resume: reuse an existing, validly-registered worktree as-is ─────────────
 # If the dir exists AND the bare clone still knows it as a registered worktree,
 # the caller is resuming into in-flight work; hand back the same path untouched.
 if [ -d "$wt" ] && git --git-dir="$bare" worktree list --porcelain 2>/dev/null \
      | grep -qxF "worktree $wt"; then
+  printf '%s\n' "$wt"
+  exit 0
+fi
+
+# One-time migration for a long-base checkout created before base keys were
+# bounded. Move the registered worktree instead of making a fresh checkout, so
+# the shorter path takes effect without losing in-flight uncommitted work.
+if [ "$legacy_wt" != "$wt" ] && [ -d "$legacy_wt" ] \
+   && git --git-dir="$bare" worktree list --porcelain 2>/dev/null \
+      | grep -qxF "worktree $legacy_wt"; then
+  [ -e "$wt" ] && scratch_cleanup "$wt"
+  mkdir -p "$GARDEN_SCRATCH"
+  git --git-dir="$bare" worktree move "$legacy_wt" "$wt" \
+    || die "ensure-project-worktree: could not shorten legacy worktree path $legacy_wt"
+  log "ensure-project-worktree: shortened legacy worktree path to $wt"
   printf '%s\n' "$wt"
   exit 0
 fi

@@ -523,9 +523,14 @@ meter_claude() {
 # job's private garden/project worktrees.  This is intentionally not a time-window
 # scan: snapshots before and after one handler invocation form the engagement delta.
 job_session_dirs() {
-  local base="${1:?}" safe root p enc
-  safe="$(printf '%s' "$base" | tr -c 'A-Za-z0-9._-' '_')"
-  for root in "$GARDEN_SCRATCH/gardener-wt-$base" "$GARDEN_SCRATCH/project-wt-$safe"*; do
+  local base="${1:?}" base_key legacy_key root p enc
+  local roots=()
+  base_key="$(project_worktree_base_key "$base")"
+  legacy_key="${base//[^A-Za-z0-9._-]/-}"
+  roots+=("$GARDEN_SCRATCH/gardener-wt-$base")
+  roots+=("$GARDEN_SCRATCH"/project-wt-"$base_key"-*)
+  [ "$legacy_key" = "$base_key" ] || roots+=("$GARDEN_SCRATCH"/project-wt-"$legacy_key"-*)
+  for root in "${roots[@]}"; do
     [ -n "$root" ] || continue
     for enc in "$(printf '%s' "$root" | sed 's#/#-#g')" "$(printf '%s' "$root" | sed 's#[/.]#-#g')"; do
       p="$GARDEN_CCUSAGE_LOGDIR/$enc"

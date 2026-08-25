@@ -423,14 +423,14 @@ GARDEN_SCRATCH_GC_AGE="${GARDEN_SCRATCH_GC_AGE:-24}"   # hours of quiescence bef
 gc_scratch() {
   [ -d "$GARDEN_SCRATCH" ] || return 0
   # LIVE-BASE protection. Per-job worktrees (gardener-wt-<base>,
-  # project-wt-<base_safe>-*) deliberately PERSIST across a reaper requeue so a
+  # project-wt-<bounded-base-key>-*) deliberately PERSIST across a reaper requeue so a
   # resumed claim re-enters its in-flight work. During a long drain or quota
   # outage a requeued job sits in todo/ untouched past the quiescence window
   # while its worktree still holds uncommitted work — age alone must not reap
   # it. Protect every entry whose base is still live on the board
   # (todo|doin|plan), read from the reaper's already-synced clone; when the
   # clone is unavailable the protection set is empty and behavior is unchanged.
-  local live_bases=() b sub name
+  local live_bases=() b base_key legacy_key sub name
   if [ -n "${DIR:-}" ] && [ -d "$DIR/jobs" ]; then
     for sub in todo doin plan; do
       while IFS= read -r b; do
@@ -443,8 +443,10 @@ gc_scratch() {
     [ -e "$entry" ] || continue                         # empty-glob guard
     name="$(basename "$entry")"
     for b in "${live_bases[@]}"; do
+      base_key="$(project_worktree_base_key "$b")"
+      legacy_key="${b//[^A-Za-z0-9._-]/-}"
       case "$name" in
-        "gardener-wt-$b"|"project-wt-${b//[^A-Za-z0-9._-]/-}"-*) continue 2 ;;
+        "gardener-wt-$b"|"project-wt-${base_key}"-*|"project-wt-${legacy_key}"-*) continue 2 ;;
       esac
     done
     # Quiescence: the most recent mtime anywhere in the subtree. If nothing has

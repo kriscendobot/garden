@@ -20,6 +20,8 @@
 #   7. A branch held checked-out by a standing worktree is still delivered (the
 #      2026-07-06 hard-failure: the old refs/heads fetch died with "refusing to
 #      fetch into branch '...' checked out at ...").
+#   8. Long job bases produce bounded keys with stable hash suffixes, preserving
+#      resume stability and isolation without consuming UNIX-socket path space.
 #
 # Hermetic: throwaway bare "fork" clones + a throwaway garden root, no network.
 
@@ -143,6 +145,35 @@ P1b="$(run_helper garden-fix-error-trace endojs/endo-but-for-bots pr-58)"
   || bad "requeue resolved to a different path ('$P1b' != '$P1')"
 [ -f "$P1/.in-flight" ] && ok "requeue REUSES the tree; in-flight work preserved" \
   || bad "requeue clobbered the in-flight worktree (lost uncommitted work)"
+
+# Long producer-generated bases must not flow into the path verbatim. Two bases
+# with the same readable prefix still need distinct hash suffixes, and a requeue
+# must resolve the first one identically.
+LONG_PREFIX="daemon-suite-with-a-producer-generated-base-that-is-far-too-long-for-sockets"
+LP1="$(run_helper "${LONG_PREFIX}-alpha" endojs/endo-but-for-bots pr-58)"
+LP2="$(run_helper "${LONG_PREFIX}-bravo" endojs/endo-but-for-bots pr-58)"
+long_name="$(basename "$LP1")"
+long_key="${long_name#project-wt-}"; long_key="${long_key%-????????}"
+expected_digest="$(printf '%s' "${LONG_PREFIX}-alpha" | sha1sum | cut -c1-12)"
+[ "${#long_key}" -le 20 ] \
+  && ok "long job base is bounded to a 20-character worktree key" \
+  || bad "long job base was not bounded (key='$long_key', length=${#long_key})"
+[ "$long_key" = "daemon--$expected_digest" ] \
+  && ok "bounded key retains a readable prefix and stable 12-hex hash suffix" \
+  || bad "bounded key has the wrong prefix/hash ('$long_key', expected 'daemon--$expected_digest')"
+[ "$LP1" != "$LP2" ] \
+  && ok "long bases with the same prefix remain DISTINCT" \
+  || bad "long bases collided ('$LP1' == '$LP2')"
+# Recreate the pre-change long path, including in-flight state, and prove the
+# next resume moves that registered worktree rather than replacing it.
+legacy_disc="${LP1##*-}"
+legacy_path="$SCRATCH/project-wt-${LONG_PREFIX}-alpha-${legacy_disc}"
+git --git-dir="$GROOT/worktrees/endojs-endo-but-for-bots.git" worktree move "$LP1" "$legacy_path"
+printf 'legacy in-flight\n' > "$legacy_path/.legacy-in-flight"
+LP1b="$(run_helper "${LONG_PREFIX}-alpha" endojs/endo-but-for-bots pr-58)"
+[ "$LP1b" = "$LP1" ] && [ -f "$LP1b/.legacy-in-flight" ] && [ ! -e "$legacy_path" ] \
+  && ok "long-base requeue migrates the legacy path and preserves in-flight work" \
+  || bad "long-base legacy migration lost its stable path or in-flight work"
 
 # === 5: same base, different repo/branch → distinct (no self-collision) =======
 make_fork endojs endo main
