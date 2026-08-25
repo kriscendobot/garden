@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 52
 build_job: 
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion-town-pr52-gauntlet-20260825-clean
+current_child: kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1
 state: running
 created_by: liaison
 created_at: 2026-08-25T14:37:46Z
