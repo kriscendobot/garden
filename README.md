@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T14:38:59Z_
+_As of 2026-08-25T14:45:06Z_
 
 ## Latest
 
@@ -1160,16 +1160,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-minion-town-pr52-gauntlet-20260825-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #52
+### doin (0)
+(none)
 
-### tada (5581)
+### tada (5582)
+- [`kriscendobot-minion-town-pr52-gauntlet-20260825-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-20260825-clean.md) — Completion report
 - [`minion-town-agenda-review-20260825-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-143507.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — Cost
 - [`ironhorse-test262-milestone-campaign-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-milestone-campaign-20260825.md) — orchestration ironhorse-test262-milestone-campaign-20260825 — complete
 - [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-parser-annexb.md) — Milestone: js-26 parser/compiler-unimplemented + Annex-B parse (parse-or-deco...
-- [`kriscendobot-minion-town-pr52-fix-panel4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-fix-panel4.md) — Cost
-- … and 5576 more
+- … and 5577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
