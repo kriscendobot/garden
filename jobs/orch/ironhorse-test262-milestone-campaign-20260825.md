@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-campaign-paused-20260816 ironhorse-js26-milestone-with-opcode ironhorse-js26-milestone-core-builtins ironhorse-js26-milestone-native-callables ironhorse-js26-milestone-iterator-collections ironhorse-js26-milestone-async ironhorse-js26-milestone-parser-annexb
 on-child-failure: halt
-state: pending
+state: running
 budget_tokens: 2080000
 created_by: gardener
 created_at: 2026-08-25T10:04:09Z
