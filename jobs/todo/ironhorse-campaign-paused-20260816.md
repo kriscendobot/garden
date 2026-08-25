@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-test262-milestone-campaign-20260825
-priority: normal
-posted_by: producer
-posted_at: 2026-08-16T06:51:00Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-25T10:07:03Z cleared=none -->
 
 ---
 tier: mentor
