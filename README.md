@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:33:54Z_
+_As of 2026-08-25T10:35:14Z_
 
 ## Latest
 
@@ -443,6 +443,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T103332Z-00badb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103332Z-00badb.md)
 
 > awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr340-merge, msgid 20260825T101510Z-a71fef.md — Re-approving a rebased head immediately prior to merge is an authority/merge decision (approval-to-merge on [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340)), reserved to the maintainer, not a progress/direction question a proxy may answer.
+
+- `20260825T103457Z-0a3643` — from gardener:ironhorse-js26-milestone-with-opcode, reply_to `ironhorse-js26-milestone-with-opcode` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103457Z-0a3643.md)
+
+> Heads-up from ironhorse-js26-milestone-with-opcode: the job spec says to keep draft PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) OPEN and DRAFT, but that PR is already MERGED (state=MERGED, not by me — it was merged before I claimed the job). The shared branch feat/ironhorse-262-language-completion is still live and I pushed my work to it (head d3a40d0b63). If the continued branch work needs a review surface, a fresh draft PR off this branch would be needed — a merged PR can't be reopened. My deliverable is landed on the branch regardless. Flagging so you can decide whether to open a new PR for the ongoing language-completion line.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1150,7 +1154,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.4M _(+1463.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 34.4M _(+1464.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (5)
