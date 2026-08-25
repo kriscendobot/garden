@@ -118,6 +118,7 @@ thread replies + one top-level summary comment posted, CI observed.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
