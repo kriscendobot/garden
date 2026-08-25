@@ -44,8 +44,13 @@ file_content() {
 }
 
 is_exempt() {
-  local file="$1"
-  file_content "$file" | head -5 | grep -q 'inline-import-exempt'
+  local file="$1" content
+  content=$(file_content "$file")
+  # Capture first, then feed `head` from a here-string: piping the producer
+  # straight into `head -5` makes the producer exit 141 (SIGPIPE) on a file
+  # longer than the head window, and under `pipefail` the exemption is then
+  # silently voided even though `grep -q` matched.
+  head -5 <<<"$content" | grep -q 'inline-import-exempt'
 }
 
 added_line_numbers() {

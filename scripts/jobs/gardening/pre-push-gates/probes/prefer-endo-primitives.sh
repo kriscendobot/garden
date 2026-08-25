@@ -89,7 +89,11 @@ is_exempt() {
   local file="$1" content
   content=$(git show ":$file" 2>/dev/null) || content=""
   [ -z "$content" ] && content=$(cat "$file" 2>/dev/null)
-  printf '%s\n' "$content" | head -5 | grep -q 'prefer-endo-primitives-exempt'
+  # Feed `head` from a here-string, not a `printf` pipe: under `pipefail` a
+  # file longer than the head window makes `printf` exit 141 (SIGPIPE) and the
+  # pipeline report failure even though `grep -q` matched, silently voiding the
+  # exemption for exactly the large files most likely to need it.
+  head -5 <<<"$content" | grep -q 'prefer-endo-primitives-exempt'
 }
 
 added_lines_for() {

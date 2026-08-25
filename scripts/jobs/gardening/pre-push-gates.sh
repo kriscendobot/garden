@@ -100,7 +100,18 @@ if [ "$probes_only" -eq 0 ] && [ "$auto_fix" -eq 1 ]; then
     run_command_stage "yarn format" "$yarn_command run format"
     git -C "$project_root" add -A
   fi
-  if has_script lint; then
+  # Prefer a dedicated fix script over appending `--fix` to `lint`: yarn
+  # appends extra args to the END of the script string, so on a chained
+  # script (`lint:a && lint:b && lint:sh`) the flag lands on the last leg
+  # only — and a leg that does not know `--fix` (shellcheck) hard-fails the
+  # stage even though every real linter passed.
+  if has_script lint-fix; then
+    run_command_stage "yarn lint-fix" "$yarn_command run lint-fix"
+    git -C "$project_root" add -A
+  elif has_script lint:fix; then
+    run_command_stage "yarn lint:fix" "$yarn_command run lint:fix"
+    git -C "$project_root" add -A
+  elif has_script lint; then
     run_command_stage "yarn lint --fix" "$yarn_command run lint --fix"
     git -C "$project_root" add -A
   fi
