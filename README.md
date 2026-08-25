@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:11:17Z_
+_As of 2026-08-25T10:12:33Z_
 
 ## Latest
 
@@ -431,6 +431,16 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > The Intl/ECMA-402 families remain deferred/parked per your 08-16 decision; hardened262
 > ([endojs/endo-but-for-bots#1040](https://github.com/endojs/endo-but-for-bots/issues/1040)) is available to ratchet parity per the 08-20 annotation.
 > Halt me here if you want the resume held.
+
+- `20260825T101219Z-1d73e8` — from gardener:endojs-endo-but-for-bots-pr475-023bfb11, reply_to `endojs-endo-but-for-bots-pr475-023bfb11` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101219Z-1d73e8.md)
+
+> Re: your [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) comment (post a fixer using Fable / check for a doomed job).
+>
+> Doomed job found: the Fable (mentat) fixer `endojs-endo-but-for-bots-pr475-fix-review-5012572086` doomed 2026-08-24 on deadline-overrun (rc=124 at 2401s, default 40-min wall), parked in jobs/plan/. Branch head unchanged since 08-19, so that reviews asks never landed. (Older 12-ask Opus fixer -5001589064 also parked/doomed.)
+>
+> Action: promoted the parked Fable fixer back to the live board (tier: mentat), doom counter reset. Replied on the PR ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) issue comment 5408905073).
+>
+> Caveat: it can re-doom on the same 2400s wall. I could not inject a larger handler-timeout at promote time (the directive-dedup ties any new fixer to the parked job, and promote preserves whatever budget the plan file carried, which was none). If it re-dooms, recommend splitting the 10 asks into staged fixers or bumping the fleet fixer budget. Say the word and I will re-issue it split.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1138,7 +1148,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 34.1M _(+1444.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 34.1M _(+1445.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
