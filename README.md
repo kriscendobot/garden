@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-25T00:48:28Z_
+_As of 2026-08-25T00:51:55Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) completed panel round 5 and advanced through the gauntlet; the byteArray press is feature-complete and green across all CI (both [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) clear all tests, awaiting maintainer re-review), with [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted after its base merged. Test262 fixture consolidation landed a DRAFT [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) with the ratchet mechanism and expectation baseline tooling ready pending your decision on metering-corpus scope. Local-verify Node 24 parity is restored; Node 24 is now provisioned into fleet containers, but two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) remain MERGE-NOW pending on the fleet node24-runner CI flake. Multiple gauntlet stages and an orchestration halted on handler failure cycles; budget enforcement design shipped; SIWE on-chain authz deployed to minion.town awaiting tier and allowlist decisions; and several major jobs await your go-ahead across endor fixture parity, build scopes, and minion.town phases. Root deploys stalled ~3d behind main2.
+PR [endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) is in gauntlet fix-5. The byteArray program ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and CI-green but blocked on maintainer re-review to clear CHANGES_REQUESTED. Deploy has stalled for ~3 days (18 commits behind on both hosts). Pending maintainer decisions: SIWE tier-1 allowlist for minion.town, test262 fixture consolidation scope, and node24 provisioning across hosts. Scholar completed the entire Cloudflare OS ingestion (47 jobs into the library).
 
 ## Parked for maintainer feedback
 
@@ -1080,15 +1080,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.7M | $915.96 _(notional, rate-card)_ | no quota set |
-| Codex | 32.2M _(+1420.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 131.8M | $916.16 _(notional, rate-card)_ | no quota set |
+| Codex | 32.3M _(+1420.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1058
 
 ### tada (5544)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-5.md) — Cost
