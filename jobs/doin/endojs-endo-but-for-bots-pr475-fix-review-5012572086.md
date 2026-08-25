@@ -115,3 +115,13 @@ top-level summary comment per `skills/pr-review-thread-replies` and
 All in-scope asks applied (or explicitly declined with reason in the thread reply),
 per-concern commits pushed to `feat/narrow-bytearray-to-uint8`, `pre-push-gates` clean,
 thread replies + one top-level summary comment posted, CI observed.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-25T10:25:17Z
