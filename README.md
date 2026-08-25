@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-25T01:38:07Z_
+_As of 2026-08-25T02:50:59Z_
 
 ## Latest
 
-Gauntlet [endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) halted after completing multiple fix rounds — root cause pending. The board shows broader strain: five gauntlets/orchestrations are stalled (PRs [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37)), and two hosts report a 3-day deploy stall (18 commits behind). On the upside: the byteArray program is complete and green ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888) all mergeable, awaiting re-review to clear CHANGES_REQUESTED); Node 24 provisioning and local-verify parity landed; Cloudflare OS ingestion completed through package source; and SIWE on-chain authz is deployed pending tier/allowlist decisions. A shared frozen base is blocking [#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) from conductor merge.
+Budget enforcement design landed on main2 (live admission gate now ready for per-account token cap input). byteArray program completed—both [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) green and mergeable, awaiting re-review to clear CHANGES_REQUESTED; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted post-merge and ready for finish-line un-draft. Root-repo deploy stalled ~3d on two hosts (endolin-garden-ece02cb4, endolin-garden2-5bcdff64); investigate why no drained deploy has landed. Three gauntlets halted mid-stage (panel/clean failures on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37), [#882](https://github.com/endojs/endo-but-for-bots/pull/882)), one endor-fixture parity campaign halted after export-resolution stalled (elapsed-constancy). Five doomed jobs parked awaiting promotion or decision (shellcheck CI widening, node24 parity guard deployment, panel timeouts on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023)/[#807](https://github.com/endojs/endo-but-for-bots/pull/807)/[#909](https://github.com/endojs/endo-but-for-bots/pull/909), test262 fixture consolidation [#946](https://github.com/endojs/endo-but-for-bots/pull/946) conduct). Maintainer inbox overflowing: SIWE tier-1 allowlist addresses needed for minion.town auth, OpenRouter stealth-lane policy decision pending, ocap.site DNSSEC signing, two dependabot PRs (#1006, #1009) blocked on recurring fleet node24-runner flake. Cloudflare OS ingestion completed (10 cycles, full source survey).
 
 ## Parked for maintainer feedback
 
@@ -1080,15 +1080,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.0M | $912.70 _(notional, rate-card)_ | no quota set |
-| Codex | 32.3M _(+1421.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 132.2M | $912.11 _(notional, rate-card)_ | no quota set |
+| Codex | 32.4M _(+1421.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
+- [`dependabotany-recheck-endo-but-for-bots-20260825-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260825-025004.md) — Daily dependabotany backstop for endo-but-for-bots
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260825-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260825-025004.md) — ---
 
 ### tada (5548)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1058-gauntlet — HALTED
