@@ -117,6 +117,7 @@ per-concern commits pushed to `feat/narrow-bytearray-to-uint8`, `pre-push-gates`
 thread replies + one top-level summary comment posted, CI observed.
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
