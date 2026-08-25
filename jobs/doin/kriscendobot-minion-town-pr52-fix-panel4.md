@@ -56,3 +56,13 @@ if remaining panel items are refinements) → merge #52 → deploy head to the
 validation env (WEBLET_SITES_LIVE ON for the trusted single-tenant box) →
 re-run the `weblet_publish → served <hash>.ocap.site` e2e. Note that next step
 in your completion report; the two-hourly minion.town press will pick it up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-25T12:38:32Z
