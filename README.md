@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-08-25T02:50:59Z_
+_As of 2026-08-25T02:55:19Z_
 
 ## Latest
 
-Budget enforcement design landed on main2 (live admission gate now ready for per-account token cap input). byteArray program completed—both [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) green and mergeable, awaiting re-review to clear CHANGES_REQUESTED; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted post-merge and ready for finish-line un-draft. Root-repo deploy stalled ~3d on two hosts (endolin-garden-ece02cb4, endolin-garden2-5bcdff64); investigate why no drained deploy has landed. Three gauntlets halted mid-stage (panel/clean failures on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37), [#882](https://github.com/endojs/endo-but-for-bots/pull/882)), one endor-fixture parity campaign halted after export-resolution stalled (elapsed-constancy). Five doomed jobs parked awaiting promotion or decision (shellcheck CI widening, node24 parity guard deployment, panel timeouts on [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023)/[#807](https://github.com/endojs/endo-but-for-bots/pull/807)/[#909](https://github.com/endojs/endo-but-for-bots/pull/909), test262 fixture consolidation [#946](https://github.com/endojs/endo-but-for-bots/pull/946) conduct). Maintainer inbox overflowing: SIWE tier-1 allowlist addresses needed for minion.town auth, OpenRouter stealth-lane policy decision pending, ocap.site DNSSEC signing, two dependabot PRs (#1006, #1009) blocked on recurring fleet node24-runner flake. Cloudflare OS ingestion completed (10 cycles, full source survey).
+Scholar completed the Cloudflare OS ingestion cycle (10 jobs finishing today, covering gateway architecture, worker hosting, OAuth, MCP connectors, and code-change operational transforms). Root-repo deploy stalled for ~3 days on both hosts (18 commits behind); multiple gauntlet stages are exhausted and parked (endo-but-for-bots #1023, #807, #909, #946, and minion.town #37) after repeated requeue failures, plus orchestration halts on endor fixture parity. Node runtime parity was diagnosed and provisioned (Node 24 added to image today; local-verify guard now adopts pinned LTS versions). Minion.town containment drift recurred during today's scheduled check (a third `@agent`-powers record reappeared on gateway restart). SIWE on-chain authz is live at siwe-idp.minion.town; awaiting tier decision and allowlist addresses before wiring config. The byteArray press remains complete and green—[endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) need re-review to clear CHANGES_REQUESTED, then restack onto current llm.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 26d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 26d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 26d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 36d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 39d)
@@ -374,6 +374,16 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260824T202419Z-0ee9ab` — from scholar:scholar-ingest-cloudflare-os-10, reply_to `scholar-ingest-cloudflare-os-10` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260824T202419Z-0ee9ab.md)
 
 > Scholar ingest `scholar-ingest-cloudflare-os-10` is done: the final five `cloudflare/cloudflare-os` workshop survey sources are in the library as 14 comment-fragment sections (all at commit `1ef6020a`, 2026-08-21) — `agent-compaction.ts` (2), `git-store.ts` (3), `ChatInterface.tsx` (2), `api.ts` (4), `code-change.ts` (3). Together they document the repo's new git-backed code-storage architecture: a refless content-addressed git object store with a never-throwing three-way merge, lazy per-gadget chat pins and epochs, and an operational-transform code-change stream whose `submitCodeChange` is the sole edit path. I created one concept (`code-change-operational-transform`) and extended `git-backed-gadget-code` and `lazy-gadget-pinning`. Integrity gate passed; sections index and topics counts regenerated. No remainder — the named five are fully ingested, so no follow-on job was posted. Full result: `entries/2026/08/24/202405Z-result-gardener-929c90.md`.
+
+- `20260825T025457Z-be0f26` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260825-025004, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260825-025004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T025457Z-be0f26.md)
+
+> Containment drift recurrence found on minion.town during the 2026-08-25 scheduled check.
+>
+> The two originally revoked records (`f1d754fc...` and `fe0a8e60...`) remain absent from the active store and present once each in `vhosts-revoked-20260812`. The systemd containment drop-in remains intact and effective (recorded SHA-256 matches; live `GATEWAY_ENDO_SOCK` count 0; gateway active and logging the powers plane disabled).
+>
+> However, the whitespace-tolerant active-store scan found a different active dckc-owned record, `09201a316203e9d99e3c906b12c9466d8f0ae8dc8baf8db484c918d6698f657f.json`, whose powers value is `@agent`. Its mtime is 2026-08-12 23:39:01 UTC and its ctime is 2026-08-23 04:35:18 UTC, exactly the latest gateway start, consistent with restoration during that redeploy/restart. Yesterday's `"powers":"@agent"`-style scan appears to have missed this pretty-printed record because it contains whitespace.
+>
+> The drop-in still contains the exposure: the record's public powers-bootstrap request returns HTTP 404. I did not move this third record because the scheduled job explicitly authorizes re-de-registering the two named original records if they reappear, and this is a different record. SSM evidence: drift check command `20462714-5798-4415-8a2d-cab23e116641`; inspection command `d8d276b5-f4b1-459b-9479-de551762c401` (both Success).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1080,8 +1090,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.2M | $912.11 _(notional, rate-card)_ | no quota set |
-| Codex | 32.4M _(+1421.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Claude | 132.3M | $912.19 _(notional, rate-card)_ | no quota set |
+| Codex | 32.5M _(+1422.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
