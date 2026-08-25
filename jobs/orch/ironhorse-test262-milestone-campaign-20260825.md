@@ -1,4 +1,5 @@
 ---
+child-ironhorse-campaign-paused-20260816-reap-count: 0
 order: serial
 children: ironhorse-campaign-paused-20260816 ironhorse-js26-milestone-with-opcode ironhorse-js26-milestone-core-builtins ironhorse-js26-milestone-native-callables ironhorse-js26-milestone-iterator-collections ironhorse-js26-milestone-async ironhorse-js26-milestone-parser-annexb
 on-child-failure: halt
