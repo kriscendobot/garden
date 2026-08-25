@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642 endojs-endo-but-for-bots-pr1058-shepherd-20260825-postweave-review5017478642
 on-child-failure: halt
-state: pending
+state: running
 created_by: shepherd
 created_at: 2026-08-25T09:54:46Z
 ---
