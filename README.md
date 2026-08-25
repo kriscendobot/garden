@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T14:53:42Z_
+_As of 2026-08-25T15:03:18Z_
 
 ## Latest
 
@@ -1157,11 +1157,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 36.4M _(+1546.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 
-### doin (1)
-- [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
+### doin (0)
+(none)
 
 ### tada (5582)
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-20260825-clean.md) — Completion report
