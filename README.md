@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:13:53Z_
+_As of 2026-08-25T10:15:41Z_
 
 ## Latest
 
@@ -435,6 +435,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T101244Z-22fcd6` — from gardener:endojs-endo-but-for-bots-pr340-merge, reply_to `endojs-endo-but-for-bots-pr340-merge` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101244Z-22fcd6.md)
 
 > PR [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340) was unfrozen to live llm and rebased from 98add24d698 to 43cffe6998c by the required merge spine. CI is running on 43cffe6998c. The existing maintainer approval predates this rewritten head, so the exact-head approval gate requires @kriskowal to re-approve 43cffe6998c after reviewing the rebase before I can merge.
+
+- `20260825T101510Z-a71fef` — from gardener:endojs-endo-but-for-bots-pr340-merge, reply_to `endojs-endo-but-for-bots-pr340-merge` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101510Z-a71fef.md)
+
+> Update for [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340): a CI-driven fixup arrived at 056edf777f2 while the merge wait was active. I autosquashed it into its target with a byte-identical tree check and lease-pushed final head 5fdf0232648. CI is now running on 5fdf0232648. Please re-approve that exact head if the rebase and fixup are acceptable.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1142,7 +1146,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 34.2M _(+1447.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 34.2M _(+1450.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
