@@ -30,19 +30,37 @@
 # Usage:
 #   post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
 #                         [--budget-tokens N] [--resume-from TERMINAL-CAMPAIGN]
+#                         [--adopt-go-ahead]
 #                         [--by ROLE] [--no-validate] <orch-base> <child>... [-- body-file]
 #
 #   --serial | --parallel        ordering of the children (default --serial).
 #   --on-child-failure halt|continue   policy on a child failure (default halt).
 #   --budget-tokens N           positive billable-token cap (serial only).
 #   --resume-from CAMPAIGN      adopt that terminal campaign's parked remainder.
+#   --adopt-go-ahead            atomically adopt children currently parked
+#                                gate=go-ahead into this new orchestration, flipping
+#                                gate go-ahead -> orchestrated AND setting
+#                                orchestrated_by in the SAME journal commit as the
+#                                record. This is the "go ahead" path: children parked
+#                                for maintainer authorization become an orchestration
+#                                the moment authorization is given, with no window in
+#                                which the record exists over un-retagged children.
 #   --by ROLE                    provenance (default: $GARDEN_SENDER or "producer").
-#   --no-validate                skip the "each child is parked in plan/" check
-#                                (use only when children are posted concurrently).
+#   --no-validate                skip the child-gate validation (use only when
+#                                children are posted concurrently). Incompatible
+#                                with --adopt-go-ahead, which reads the gate to retag.
 #   <orch-base>                  the orchestration spine (its own basename).
 #   <child>...                   child job basenames, in the order they run.
 #   [-- body-file]               optional human description file for the record;
 #                                if omitted a one-line placeholder is written.
+#
+# CHILD VALIDATION (unless --no-validate): each named child must ALREADY be parked
+# as this orchestration's own — gate=orchestrated with orchestrated_by=<orch-base>
+# (the ordinary flow: post-plan.sh --orchestrated --orchestrated-by) — OR be a
+# gate=go-ahead child adopted here via --adopt-go-ahead, OR already be past plan/
+# (a restart-safe re-post). An existence-only check was too weak: it recorded
+# campaigns over children the watcher could never promote as its own (wrong gate,
+# or owned by another orchestration), a silent stall.
 #
 # Idempotent on <orch-base>: if the record (or a completed tada/<orch-base>)
 # already exists, the post is a no-op success. Posts are ADDs, so a rejected push
@@ -61,6 +79,7 @@ post-orchestration.sh — record an orchestration over parked child sub-jobs.
 Usage:
   post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
                         [--budget-tokens N] [--resume-from TERMINAL-CAMPAIGN]
+                        [--adopt-go-ahead]
                         [--by ROLE] [--no-validate] <orch-base> <child>... [-- body-file]
 
   --serial | --parallel              ordering (default --serial).
@@ -68,8 +87,12 @@ Usage:
   --budget-tokens N                 positive billable-token cap (serial only).
   --resume-from CAMPAIGN            atomically adopt its parked remainder under
                                     this new campaign and budget epoch.
+  --adopt-go-ahead                   atomically adopt gate=go-ahead children into
+                                    this orchestration (flip gate -> orchestrated
+                                    and set orchestrated_by in the record commit).
   --by ROLE                          provenance (default $GARDEN_SENDER or producer).
-  --no-validate                      skip the "child parked in plan/" precheck.
+  --no-validate                      skip child-gate validation (not with
+                                    --adopt-go-ahead).
   <orch-base>                        the orchestration spine.
   <child>...                         child job basenames, in run order.
   [-- body-file]                     optional description file.
@@ -80,6 +103,7 @@ order="serial"
 policy="halt"
 by="${GARDEN_SENDER:-producer}"
 validate=1
+adopt_go_ahead=0
 body_src=""
 budget_tokens=""
 resume_from=""
@@ -91,6 +115,7 @@ while [ $# -gt 0 ]; do
     --on-child-failure) policy="${2:?--on-child-failure needs halt|continue}"; shift 2;;
     --budget-tokens)   budget_tokens="${2:?--budget-tokens needs a positive integer}"; shift 2;;
     --resume-from)     resume_from="${2:?--resume-from needs a terminal campaign base}"; shift 2;;
+    --adopt-go-ahead)   adopt_go_ahead=1; shift;;
     --by)               by="${2:?--by needs a value}"; shift 2;;
     --no-validate)      validate=0; shift;;
     --)                 shift; break;;   # end of options; positionals (and a trailing
@@ -129,6 +154,13 @@ while [ $# -gt 0 ]; do
   esac
 done
 [ "${#children[@]}" -ge 1 ] || die "an orchestration needs at least one child sub-job"
+
+# Adoption RE-TAGS a go-ahead child based on what the validation loop reads off the
+# board; with validation skipped there is nothing to key the retag on. Reject the
+# contradictory combination rather than silently adopting nothing.
+if [ "$adopt_go_ahead" -eq 1 ] && [ "$validate" -eq 0 ]; then
+  die "--adopt-go-ahead cannot be combined with --no-validate (adoption reads the child's gate to retag it)"
+fi
 
 # Reject a duplicated child (a repeated basename would corrupt serial ordering and
 # the done-count).
@@ -194,12 +226,51 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
         || die "parked remainder child '$c' is not owned by '$resume_from'"
     done
   fi
-  # Validate each child is parked in plan/ (the producer must park children BEFORE
-  # recording the orchestration, so the watcher has something to promote). A child
-  # already promoted (todo/doin/tada) is also accepted — a restart-safe re-post.
+  # Validate each parked child, and collect any go-ahead children to ADOPT.
+  #
+  # The producer must park children BEFORE recording the orchestration, so the
+  # watcher has something to promote. A parked child is legitimate ONLY if it is
+  # already gate=orchestrated owned by THIS orchestration (the ordinary flow:
+  # post-plan.sh --orchestrated --orchestrated-by <base>), or if it is a
+  # gate=go-ahead child being adopted here (--adopt-go-ahead). An existence-only
+  # check was too weak: it would record a campaign over children the watcher can
+  # never promote as its own — a child parked under a DIFFERENT gate (deferred /
+  # go-ahead without adoption), or gate=orchestrated but owned by ANOTHER
+  # orchestration — a silent stall. A child already promoted (todo/doin/tada) is
+  # accepted as a restart-safe re-post; a --resume-from remainder is validated and
+  # retagged separately above.
+  adopt_children=()
   if [ "$validate" -eq 1 ]; then
     for c in "${children[@]}"; do
-      if [ ! -e "$DIR/$JOBS_PLAN/$c.md" ] && ! job_in_lifecycle "$DIR" "$c"; then
+      # A --resume-from remainder child was already validated (and is retagged
+      # from its old owner below); do not re-judge it under the this-base rule.
+      if [ "${#resume_children[@]}" -gt 0 ] \
+         && printf '%s\n' "${resume_children[@]}" | grep -qx "$c"; then
+        continue
+      fi
+      plan="$DIR/$JOBS_PLAN/$c.md"
+      if [ -f "$plan" ]; then
+        cgate="$(plan_gate "$plan")"
+        cowner="$(plan_field "$plan" orchestrated_by)"
+        if [ "$cgate" = orchestrated ] && [ "$cowner" = "$base" ]; then
+          :   # correctly parked child of THIS orchestration
+        elif [ "$cgate" = go-ahead ] && [ "$adopt_go_ahead" -eq 1 ]; then
+          # A budget-hold go-ahead child is machine-managed by the budget-refresh
+          # watcher (which scans plan/ for budget_hold regardless of gate); adopting
+          # it would leave two owners racing to promote it. Refuse it explicitly.
+          [ "$(plan_field "$plan" budget_hold)" = true ] \
+            && die "child '$c' is a budget-hold go-ahead plan; clear its hold before adopting it into '$base'"
+          adopt_children+=("$c")   # retag gate+owner atomically in the record commit
+        elif [ "$cgate" = orchestrated ]; then
+          die "child '$c' is orchestrated but owned by '${cowner:-?}', not '$base'; a child cannot belong to two orchestrations"
+        elif [ "$cgate" = go-ahead ]; then
+          die "child '$c' is parked gate=go-ahead; pass --adopt-go-ahead to adopt it into '$base', or re-park it with post-plan.sh --orchestrated --orchestrated-by $base $c"
+        else
+          die "child '$c' is parked gate=$cgate; an orchestration child must be gate=orchestrated owned by '$base' (park it with post-plan.sh --orchestrated --orchestrated-by $base $c)"
+        fi
+      elif job_in_lifecycle "$DIR" "$c"; then
+        :   # already promoted (todo/doin/tada) — a restart-safe re-post
+      else
         die "child '$c' is not parked in plan/ (or anywhere on the board); park it first with post-plan.sh --orchestrated --orchestrated-by $base $c"
       fi
     done
@@ -208,10 +279,24 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   compose > "$DIR/$JOBS_ORCH/$base.md"
   git -C "$DIR" add "$JOBS_ORCH/$base.md"
   # Adoption and the new orchestration record are one journal commit: a watcher
-  # can see either the old ownership or the complete new budget epoch, never a
+  # can see either the old ownership or the complete new campaign, never a
   # half-retagged remainder.
   for c in "${resume_children[@]}"; do
     sed -i "s/^orchestrated_by:.*/orchestrated_by: $base/" "$DIR/$JOBS_PLAN/$c.md"
+    git -C "$DIR" add "$JOBS_PLAN/$c.md"
+  done
+  # Adopt each go-ahead child into this orchestration: flip gate go-ahead ->
+  # orchestrated AND set orchestrated_by, in this SAME commit. A go-ahead plan has
+  # no orchestrated_by field yet, so insert it right after the gate line when
+  # absent (replace it if, defensively, one is already present).
+  for c in "${adopt_children[@]}"; do
+    plan="$DIR/$JOBS_PLAN/$c.md"
+    sed -i "s/^gate:[[:space:]].*/gate: orchestrated/" "$plan"
+    if grep -q '^orchestrated_by:' "$plan"; then
+      sed -i "s/^orchestrated_by:.*/orchestrated_by: $base/" "$plan"
+    else
+      sed -i "0,/^gate: orchestrated$/s//gate: orchestrated\norchestrated_by: $base/" "$plan"
+    fi
     git -C "$DIR" add "$JOBS_PLAN/$c.md"
   done
   if commit_and_push "$DIR" "orch($base) recorded [$order/$policy, ${#children[@]} children] by $GARDEN"; then

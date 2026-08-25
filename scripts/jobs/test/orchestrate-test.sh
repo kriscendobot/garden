@@ -846,6 +846,57 @@ rm -rf "$cas_view"
   || bad "serial CAS gate breached (todo=$(board jobs/todo), plan=$(board jobs/plan))"
 
 # ============================================================================
+hr; echo "SUBTEST 23 — ADOPT GO-AHEAD: gate=go-ahead children are retagged atomically with the record"; hr
+# The "go ahead" path: children parked for maintainer authorization (gate=go-ahead)
+# become an orchestration the moment authorization is given. --adopt-go-ahead flips
+# each child's gate go-ahead -> orchestrated AND sets orchestrated_by in the SAME
+# commit as the record, so the watcher can promote them as its own.
+"$JOBS/post-plan.sh" --go-ahead ga-a >/dev/null
+"$JOBS/post-plan.sh" --go-ahead ga-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --adopt-go-ahead ga-orch ga-a ga-b >/dev/null
+adopt_ok=1
+adopt_view="$(mktemp -d "$TR/adopt-view.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$adopt_view"
+grep -q '^order: serial$' "$adopt_view/jobs/orch/ga-orch.md" || adopt_ok=0
+for c in ga-a ga-b; do
+  grep -q '^gate: orchestrated$'      "$adopt_view/jobs/plan/$c.md" || { adopt_ok=0; echo "    $c gate not flipped"; }
+  grep -q '^orchestrated_by: ga-orch$' "$adopt_view/jobs/plan/$c.md" || { adopt_ok=0; echo "    $c owner not set"; }
+  grep -q '^gate: go-ahead$'          "$adopt_view/jobs/plan/$c.md" && { adopt_ok=0; echo "    $c still go-ahead"; }
+done
+rm -rf "$adopt_view"
+tick   # serial: promote adopted child #1 only
+{ in_dir jobs/todo ga-a && ! in_dir jobs/todo ga-b && in_dir jobs/plan ga-b; } \
+  || { adopt_ok=0; echo "    watcher did not promote adopted ga-a as its own (todo=[$(board jobs/todo)] plan=[$(board jobs/plan)])"; }
+[ "$adopt_ok" -eq 1 ] \
+  && ok "go-ahead children adopted atomically (gate+owner retagged) and promoted as this orchestration's own" \
+  || bad "go-ahead adoption mismatch"
+
+# ============================================================================
+hr; echo "SUBTEST 24 — CHILD VALIDATION: a wrong-gate / wrong-owner child is refused, no record written"; hr
+val_ok=1
+# (a) a go-ahead child WITHOUT --adopt-go-ahead is refused.
+"$JOBS/post-plan.sh" --go-ahead vg-a >/dev/null
+rc=0; "$JOBS/post-orchestration.sh" --serial val-orch-a vg-a >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] || { val_ok=0; echo "    unadopted go-ahead child was accepted"; }
+in_dir jobs/orch val-orch-a && { val_ok=0; echo "    record written despite invalid child"; }
+# (b) a plain deferred child (the existence-only check would have passed) is refused.
+"$JOBS/post-plan.sh" --deferred vd-a >/dev/null
+rc=0; "$JOBS/post-orchestration.sh" --serial val-orch-b vd-a >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] || { val_ok=0; echo "    deferred child was accepted"; }
+in_dir jobs/orch val-orch-b && { val_ok=0; echo "    record written for deferred child"; }
+# (c) a child already owned by ANOTHER orchestration is refused (no theft).
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by other-orch vo-a >/dev/null
+rc=0; "$JOBS/post-orchestration.sh" --serial val-orch-c vo-a >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] || { val_ok=0; echo "    foreign-owned child was accepted"; }
+in_dir jobs/orch val-orch-c && { val_ok=0; echo "    record written stealing a foreign child"; }
+# (d) --adopt-go-ahead + --no-validate is a contradiction and is refused up front.
+rc=0; "$JOBS/post-orchestration.sh" --adopt-go-ahead --no-validate val-orch-d vg-a >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] || { val_ok=0; echo "    --adopt-go-ahead --no-validate was accepted"; }
+[ "$val_ok" -eq 1 ] \
+  && ok "wrong-gate, foreign-owned, and contradictory-flag children are refused before any record is written" \
+  || bad "child validation did not fail closed"
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 hr

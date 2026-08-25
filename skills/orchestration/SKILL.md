@@ -67,11 +67,24 @@ progress, and applies a failure policy rather than silently stalling.
    [job-board](../job-board/SKILL.md) § Basename shape.
 3. **Record the orchestration:**
    `post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
-   [--budget-tokens N] [--resume-from terminal-campaign]
-   <orch-base> <child>...`. It validates each child is parked, then writes the
-   record. Serial is the default; `--parallel` promotes all children at once. A
-   token budget is serial-only because parallel promotion admits every child
-   before actual spend exists.
+   [--budget-tokens N] [--resume-from terminal-campaign] [--adopt-go-ahead]
+   <orch-base> <child>...`. It validates each child, then writes the record.
+   Validation is not existence-only: each parked child must already be **this**
+   orchestration's own — `gate: orchestrated` with `orchestrated_by: <orch-base>`
+   (the step-2 flow) — or already past `plan/` (a restart-safe re-post). A child
+   parked under a different gate, or `orchestrated` but owned by **another**
+   orchestration, is refused before any record is written; an existence-only check
+   would otherwise record a campaign whose watcher can never promote its children
+   as its own (a silent stall). **Go-ahead adoption:** children parked
+   `gate: go-ahead` for maintainer authorization are adopted atomically with
+   `--adopt-go-ahead`, which flips `gate: go-ahead → orchestrated` **and** sets
+   `orchestrated_by` in the **same journal commit** as the record — so "go ahead"
+   turns a held set into a running orchestration with no window in which the record
+   exists over un-retagged children. (A budget-hold go-ahead child is machine-owned
+   by the budget-refresh watcher and is refused; clear its hold first.) Serial is
+   the default; `--parallel` promotes all children at once. A token budget is
+   serial-only because parallel promotion admits every child before actual spend
+   exists.
 4. **The deterministic watcher drives it.** `orchestrate.sh` (the leader-only
    `garden-orchestrate` timer, ~3m cadence, **no `claude -p`**) advances every
    active orchestration ONE step per tick against the board state:
