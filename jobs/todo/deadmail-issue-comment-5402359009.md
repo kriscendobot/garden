@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Dead-lettered message — pick up its intent
@@ -44,12 +45,4 @@ I trust the press resumed.
 
 ----- END ORIGINAL MESSAGE -----
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-24T22:35:16Z
+<!-- garden-reaped: 0 -->
