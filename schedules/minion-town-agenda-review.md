@@ -1,5 +1,5 @@
 cadence: 2h
-last_dispatched: 2026-08-25T15:00:00Z
+last_dispatched: 2026-08-25T08:08:56Z
 job_basename_prefix: minion-town-agenda-review
 preflight: minion-town-press-preflight.sh
 handler-timeout: 7200
