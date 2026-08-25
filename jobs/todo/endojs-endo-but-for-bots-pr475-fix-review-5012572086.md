@@ -1,6 +1,7 @@
 ---
 tier: mentat
 token-budget: 100000
+handler-timeout: 7200
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-25T10:10:54Z cleared=none -->
 
