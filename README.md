@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-24T23:53:58Z_
+_As of 2026-08-25T00:09:47Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) is in gauntlet fix round 3, the only substantive work in flight; 82 parked jobs and 10 maintainer messages flag a decision backlog dominated by byteArray re-review, SIWE/OpenRouter policy choices, and minion.town authz allowlist setup. Deployments have stalled 18 commits behind for ~3 days. Infrastructure wins this cycle: complete Cloudflare OS library ingest and Node 24 parity repair.
+PR [#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) advanced through the gauntlet's fix rounds and is now in panel round 4. The byteArray program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and green across all CI — awaiting human re-review to clear CHANGES_REQUESTED on the foundation layers. Two blocking issues surfaced: the node24-runner CI flake is preventing dependabot PR merges ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)), and garden deploys have stalled for ~3 days on both active hosts. Scholar completed a ten-cycle Cloudflare OS ingestion sweep (210+ sections) and recovered quota after a brief provider outage. A substantial plan queue awaits maintainer go-aheads, including SIWE auth tier decisions for minion.town, OpenRouter policy/stealth-model mechanics, and several gauntlet jobs parked after requeue exhaustion.
 
 ## Parked for maintainer feedback
 
@@ -1080,7 +1080,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.0M | $931.25 _(notional, rate-card)_ | no quota set |
+| Claude | 131.6M | $919.51 _(notional, rate-card)_ | no quota set |
 | Codex | 32.2M _(+1420.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
@@ -1089,15 +1089,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1058
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1058
 
-### tada (5540)
+### tada (5541)
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-2.md) — Completion report
 - [`improve-post-job-normalize-template-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-post-job-normalize-template-role.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, endojs/endo-but-for-bots PR #1058
-- … and 5535 more
+- … and 5536 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
