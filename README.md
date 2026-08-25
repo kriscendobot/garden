@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T12:54:46Z_
+_As of 2026-08-25T12:58:55Z_
 
 ## Latest
 
@@ -1156,17 +1156,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
-- [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-parser-annexb.md) — js-26 MILESTONE — parser/compiler-unimplemented constructs + Annex-B parse (p...
 
-### tada (5577)
+### tada (5578)
+- [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-parser-annexb.md) — Milestone: js-26 parser/compiler-unimplemented + Annex-B parse (parse-or-deco...
 - [`kriscendobot-minion-town-pr52-fix-panel4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-fix-panel4.md) — Cost
 - [`ironhorse-js26-milestone-async`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-async.md) — Cost
 - [`minion-town-agenda-review-20260825-123505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-123505.md) — Completion report
 - [`ironhorse-js26-milestone-iterator-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-iterator-collections.md) — Cost
-- [`ironhorse-js26-milestone-native-callables`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-native-callables.md) — Milestone report — js-26 native/bound callable invocation
-- … and 5572 more
+- … and 5573 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
