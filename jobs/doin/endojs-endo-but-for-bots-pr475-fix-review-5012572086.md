@@ -117,3 +117,13 @@ per-concern commits pushed to `feat/narrow-bytearray-to-uint8`, `pre-push-gates`
 thread replies + one top-level summary comment posted, CI observed.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-25T11:03:10Z
