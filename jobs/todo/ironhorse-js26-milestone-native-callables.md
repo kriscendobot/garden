@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-test262-milestone-campaign-20260825
-priority: normal
-posted_by: gardener
-posted_at: 2026-08-22T07:21:49Z
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-25T11:01:03Z cleared=none -->
 
 ---
 tier: mentor
