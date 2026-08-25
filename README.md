@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:48:53Z_
+_As of 2026-08-25T10:51:57Z_
 
 ## Latest
 
@@ -1150,26 +1150,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.6M _(+1471.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 34.7M _(+1475.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
-- [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 - [`ironhorse-js26-milestone-core-builtins`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-core-builtins.md) — js-26 MILESTONE — self-contained core builtins residue (Date + String/Number/...
 - [`minion-town-agenda-review-20260825-102005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-102005.md) — Minion Town press (every two hours)
 
-### tada (5567)
+### tada (5568)
+- [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-merge.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #1046
 - [`improve-orchestration-go-ahead-adoption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-orchestration-go-ahead-adoption.md) — Completion report: improve-orchestration-go-ahead-adoption
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-728621c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-728621c6.md) — Report: attention directive on endojs/endo-but-for-bots#475 (comment 5408967078)
-- [`endojs-endo-but-for-bots-pr340-review-1841867c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-1841867c.md) — Cost
-- … and 5562 more
+- … and 5563 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
