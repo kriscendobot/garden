@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T12:35:41Z_
+_As of 2026-08-25T12:38:53Z_
 
 ## Latest
 
@@ -1150,15 +1150,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 35.6M _(+1523.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Codex | 35.7M _(+1524.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`ironhorse-js26-milestone-async`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-async.md) — js-26 MILESTONE — async residue (fromAsync + async-generator/for-await + Prom...
+- [`kriscendobot-minion-town-pr52-fix-panel4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-fix-panel4.md) — Fix PR #52 panel-4 must-fix findings (kriscendobot/minion.town @sites daemon ...
 - [`minion-town-agenda-review-20260825-123505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-123505.md) — Minion Town press (every two hours)
 
 ### tada (5574)
