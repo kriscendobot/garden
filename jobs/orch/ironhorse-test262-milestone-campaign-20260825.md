@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js26-milestone-core-builtins-reap-count: 0
 child-ironhorse-js26-milestone-with-opcode-host: endolin-garden2-5bcdff64
 child-ironhorse-js26-milestone-with-opcode-reap-count: 0
 child-ironhorse-campaign-paused-20260816-reap-count: 0
