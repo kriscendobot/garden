@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-08-25
 author: gardener
 ---
 
@@ -22,6 +22,8 @@ Find each thread's parent comment id:
 gh api repos/<owner>/<repo>/pulls/<N>/comments --paginate \
   --jq '.[] | {id, path, line, user: .user.login}'
 ```
+
+**Take every cited SHA from `git rev-parse`, never from memory or by hand-extending a short SHA.** A model that writes a 40-hex SHA from a remembered 10-char prefix fabricates the tail, and the resulting commit URL 404s on every thread at once (endo-but-for-bots#475, 2026-08-25: all ten replies plus the summary cited fabricated full SHAs and had to be patched after the fact). Generate the reply bodies from `git rev-parse HEAD` / `git log --format=%H` output captured in the same session.
 
 Reply on the thread (note: `/replies` endpoint, not the parent endpoint):
 
