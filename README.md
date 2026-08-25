@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T07:05:35Z_
+_As of 2026-08-25T07:11:42Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 26d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 26d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 37d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
@@ -1121,22 +1121,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 121.7M | $818.10 _(notional, rate-card)_ | no quota set |
-| Codex | 32.8M _(+1424.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Codex | 33.0M _(+1426.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`daily-progress-summary-20260825-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260825-070504.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
-### tada (5551)
+### tada (5552)
+- [`daily-progress-summary-20260825-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260825-070504.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260825-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260825-025004.md) — Cost
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5402359009.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260825-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260825-025004.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1058-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-6.md) — Completion report
-- … and 5546 more
+- … and 5547 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
