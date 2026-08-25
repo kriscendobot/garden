@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T14:35:39Z_
+_As of 2026-08-25T14:38:59Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 39d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 42d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 53d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 54d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 70d)
 
 _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
@@ -1161,15 +1161,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`minion-town-agenda-review-20260825-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-143507.md) — Minion Town press (every two hours)
+- [`kriscendobot-minion-town-pr52-gauntlet-20260825-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #52
 
-### tada (5580)
+### tada (5581)
+- [`minion-town-agenda-review-20260825-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-143507.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — Cost
 - [`ironhorse-test262-milestone-campaign-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-milestone-campaign-20260825.md) — orchestration ironhorse-test262-milestone-campaign-20260825 — complete
 - [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-parser-annexb.md) — Milestone: js-26 parser/compiler-unimplemented + Annex-B parse (parse-or-deco...
 - [`kriscendobot-minion-town-pr52-fix-panel4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-fix-panel4.md) — Cost
-- [`ironhorse-js26-milestone-async`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-async.md) — Cost
-- … and 5575 more
+- … and 5576 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
