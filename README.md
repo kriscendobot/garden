@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:42:22Z_
+_As of 2026-08-25T10:43:40Z_
 
 ## Latest
 
@@ -1047,14 +1047,6 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
-- `watchdog-changes-requested-endojs_endo-but-for-bots-340` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-changes-requested-endojs_endo-but-for-bots-340.md)
-
-> conductor merge BLOCKED for [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340): reviewDecision=CHANGES_REQUESTED. A reviewer requested changes; I will NOT merge over it even though GitHub reports the PR mergeable (no branch protection requiring approval). Address the review feedback (or dismiss/supersede the review) and the next tick merges cleanly. (#340 left claimable: not merged, not stranded.)
-
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642` — from watchdog:cleric/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2402s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1158,30 +1150,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.4M _(+1466.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 34.4M _(+1467.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
-- [`ironhorse-js26-milestone-core-builtins`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js26-milestone-core-builtins.md) — js-26 MILESTONE — self-contained core builtins residue (Date + String/Number/...
+- [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 - [`minion-town-agenda-review-20260825-102005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260825-102005.md) — Minion Town press (every two hours)
 
-### doin (7)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
-- [`endojs-endo-but-for-bots-pr340-review-1841867c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-1841867c.md) — Review directive on endojs/endo-but-for-bots PR #340
-- [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr475-728621c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-728621c6.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 - [`improve-orchestration-go-ahead-adoption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-orchestration-go-ahead-adoption.md) — ---
+- [`ironhorse-js26-milestone-core-builtins`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-core-builtins.md) — js-26 MILESTONE — self-contained core builtins residue (Date + String/Number/...
 
-### tada (5563)
+### tada (5564)
+- [`endojs-endo-but-for-bots-pr340-review-1841867c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-1841867c.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825.md) — orchestration endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825 —...
 - [`ironhorse-js26-milestone-with-opcode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-with-opcode.md) — Completion report: ironhorse-js26-milestone-with-opcode
 - [`endojs-endo-but-for-bots-pr475-f8479d52`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-f8479d52.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-023bfb11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-023bfb11.md) — Completion report
-- [`deadmail-issue-comment-5408746440`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5408746440.md) — Cost
-- … and 5558 more
+- … and 5559 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
