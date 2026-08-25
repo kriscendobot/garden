@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825
-priority: normal
 role: weaver
-posted_by: shepherd
-posted_at: 2026-08-25T09:54:35Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-25T09:55:03Z cleared=none -->
 
 ---
 tier: mentor
