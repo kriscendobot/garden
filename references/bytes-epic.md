@@ -15,21 +15,21 @@ plus the related **`@endo/hex`** codec thread.
 > **Upstream-bound.** The open feature PRs below are destined for upstream `endojs/endo`
 > master and will need to be stacked/ferried; confirm the intended order before ferrying.
 
-Maintained by the liaison for reference; update as PRs land. Last refreshed 2026-08-24.
+Maintained by the liaison for reference; update as PRs land. Last refreshed 2026-08-25.
 
 ## In-flight (open) — upstream-bound
 
 | PR | Title | Base | Upstream |
 |----|-------|------|----------|
-| [#572](https://github.com/endojs/endo-but-for-bots/pull/572) | design: **byteArray maps a frozen Uint8Array view**, not a bare immutable ArrayBuffer — the design of record for the pivot. Non-draft and 5/5 green, but currently **CONFLICTING/DIRTY**; whole-buffer span remains restrictive (sub-view relaxation tracked at [#573](https://github.com/endojs/endo-but-for-bots/issues/573)) | `llm` | — |
-| [#475](https://github.com/endojs/endo-but-for-bots/pull/475) | feat(pass-style): **narrow byteArray to plain frozen Uint8Array** — now the **broad integrated landing line**: consolidates `frozenBytes`/`thawedBytes` and carries the model through bytes, marshal, OCapN, thixotrope, pass-style, docs, types, and changesets; completes DataView emulation and adds hardened262/test262/XS/SES coverage, including the TextEncoder/TextDecoder intersection matrix. Non-draft, **MERGEABLE/CLEAN**, 27/27 green at `df0606e1bd`; latest review decision is Changes requested | `llm-e22e67a` | — |
+| [#572](https://github.com/endojs/endo-but-for-bots/pull/572) | design: **byteArray maps a frozen Uint8Array view**, not a bare immutable ArrayBuffer — the design of record for the pivot. Non-draft and 5/5 green, but still **CONFLICTING/DIRTY** (unchanged since 2026-07-01); whole-buffer span remains restrictive (sub-view relaxation tracked at [#573](https://github.com/endojs/endo-but-for-bots/issues/573)) | `llm` | — |
+| [#475](https://github.com/endojs/endo-but-for-bots/pull/475) | feat(pass-style): **narrow byteArray to plain frozen Uint8Array** — still the **broad integrated landing line**: consolidates `frozenBytes`/`thawedBytes` and carries the model through bytes, marshal, OCapN, thixotrope, pass-style, docs, types, and changesets; completes DataView emulation and adds hardened262/test262/XS/SES coverage, including the TextEncoder/TextDecoder intersection matrix. Non-draft, **MERGEABLE/CLEAN**, 27/27 green at `c7a76eb8e` (advanced from `df0606e1bd` with a 2026-08-24 identifier-naming/pass-style-of.js cleanup pass); kriskowal filed another **Changes requested** review 2026-08-25 — still in an active fix-loop, not yet a stable blocker list | `llm-e22e67a` | — |
 | [#472](https://github.com/endojs/endo-but-for-bots/pull/472) | chore: document `bytesToImmutable` freezable-TypedArray usage. Non-draft, **MERGEABLE/CLEAN**, 15/15 green | `master-80e9b3e` | — |
 | [#586](https://github.com/endojs/endo-but-for-bots/pull/586) | test(immutable-arraybuffer): exhaustive `byteOffset`+`length` constructor boundary tests (96 deterministic cases across the eleven flavors), carrying the boundary-test follow-up parked in #472. Non-draft, **MERGEABLE/CLEAN** | `master-46d4edf` | — |
 | [#602](https://github.com/endojs/endo-but-for-bots/pull/602) | feat(immutable-arraybuffer): **Proxy-based freezable-TypedArray comparison** requested from #472 — an empirical alternative, not the landing implementation. **Draft**, MERGEABLE/CLEAN, 15/15 green | `master-80e9b3e` | — |
 
 ## @endo/hex codec thread
 
-- [#664](https://github.com/endojs/endo-but-for-bots/pull/664) docs(designs): **platform-conditional `@endo/hex` dispatch** — the design follow-up requested when #580 landed: native first; shipped char-code fallback by default; legacy-XS `Map` decoder behind the `xs` export condition. **Draft**, 5/5 green but **CONFLICTING/DIRTY** on `llm`.
+- [#664](https://github.com/endojs/endo-but-for-bots/pull/664) docs(designs): **platform-conditional `@endo/hex` dispatch** — the design follow-up requested when #580 landed: native first; shipped char-code fallback by default; legacy-XS `Map` decoder behind the `xs` export condition. **Draft**, 5/5 green but still **CONFLICTING/DIRTY** on `llm` (unchanged since 2026-07-10; no movement this cycle).
 - The benchmark that motivated this design, #580, has landed; the downstream agoric-sdk experiment #7 closed without merging after its original fixes landed upstream independently. See the dispositions below.
 
 ## Landed (merged) — substrate / context
