@@ -116,6 +116,7 @@ All in-scope asks applied (or explicitly declined with reason in the thread repl
 per-concern commits pushed to `feat/narrow-bytearray-to-uint8`, `pre-push-gates` clean,
 thread replies + one top-level summary comment posted, CI observed.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
