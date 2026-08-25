@@ -19,6 +19,7 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Please conduct. 
 
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-29T03:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
