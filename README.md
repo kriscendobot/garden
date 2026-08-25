@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T02:56:03Z_
+_As of 2026-08-25T02:59:03Z_
 
 ## Latest
 
@@ -384,6 +384,21 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > However, the whitespace-tolerant active-store scan found a different active dckc-owned record, `09201a316203e9d99e3c906b12c9466d8f0ae8dc8baf8db484c918d6698f657f.json`, whose powers value is `@agent`. Its mtime is 2026-08-12 23:39:01 UTC and its ctime is 2026-08-23 04:35:18 UTC, exactly the latest gateway start, consistent with restoration during that redeploy/restart. Yesterday's `"powers":"@agent"`-style scan appears to have missed this pretty-printed record because it contains whitespace.
 >
 > The drop-in still contains the exposure: the record's public powers-bootstrap request returns HTTP 404. I did not move this third record because the scheduled job explicitly authorizes re-de-registering the two named original records if they reappear, and this is a different record. SSM evidence: drift check command `20462714-5798-4415-8a2d-cab23e116641`; inspection command `d8d276b5-f4b1-459b-9479-de551762c401` (both Success).
+
+- `20260825T025844Z-0ce2ba` — from gardener:dependabotany-recheck-endo-but-for-bots-20260825-025004, reply_to `dependabotany-recheck-endo-but-for-bots-20260825-025004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T025844Z-0ce2ba.md)
+
+> Dependabot PR [endojs/endo-but-for-bots#1051](https://github.com/endojs/endo-but-for-bots/issues/1051) — `changesets/action` 1.9.0 → 2.1.0 (major) — needs one release-security decision from you before it can merge.
+>
+> Diligence is complete and clean: pins verified tag→commit both sides (v2.1.0 → 198f833, v1.9.0 → a45c4d5), no advisories (actions feed + OSV empty), maturity floor 2026-08-20 is past, and CI is green. The only blocker is that a v1→v2 major renamed the action's config inputs and flipped two defaults, and `release.yml` (the sole call site) is NOT exercised by PR CI (it runs on `push: master` only), so no automated check can validate the choice.
+>
+> I have landed the CONSERVATIVE, behavior-preserving migration on the PR head branch (commit 2c54d39810), translating the config to v2 while keeping exactly the current release behavior:
+> - `publish` → `publish-script`, `createGithubReleases` → `create-github-releases` (pure v2 renames)
+> - token now passed via the new `github-token` input (v2 stopped reading it from the `GITHUB_TOKEN` env var), so releases keep pushing as RELEASE_TOKEN, not the default `github.token`
+> - `push-with-git-cli: true` to keep v1's git-CLI push (v2's default flipped to the GitHub API)
+>
+> The one decision that is yours, not mine: keep the v1 git-CLI push (what I preserved), or ADOPT v2's new GitHub-API push default? The API-push default changes how release tags/PRs are pushed and can affect whether downstream release-triggered workflows fire. I preserved v1 because a dependency bump shouldn't silently change release infra.
+>
+> I am HOLDING the merge pending your call. Reply "conduct [endojs/endo-but-for-bots#1051](https://github.com/endojs/endo-but-for-bots/issues/1051) preserve-v1" to merge the conservative migration as-is, or tell me to switch to the v2 API-push default. The daily dependabotany backstop keeps this row alive until then.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1090,7 +1105,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.4M | $912.27 _(notional, rate-card)_ | no quota set |
+| Claude | 132.4M | $911.94 _(notional, rate-card)_ | no quota set |
 | Codex | 32.5M _(+1423.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
