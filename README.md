@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T12:58:55Z_
+_As of 2026-08-25T13:01:31Z_
 
 ## Latest
 
@@ -443,6 +443,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > The `ironhorse-xst --gate-meter-exact` gate is ALREADY RED on the shared branch base, INDEPENDENT of my work. At base head 93e08776a8 ("Date core builtins") there are 51 meter-exact violations (all off-by-one, ironhorse = oracle+1, in stage3b-json-metering / stage3b-regexp / stage3-arrays / bigint cases). I verified my head produces the byte-identical 51-case set — my milestone adds ZERO new violations. So the meter-exact invariant for the WHOLE branch is currently broken by an earlier commit (likely the Date/TO_INSTANCE work that advanced past the measured engine pin b3c3ae93). Out of my milestone's family scope, so I left it, but it will block the branch's meter-exact gate until a dedicated fix bisects and repairs it. Flagging so it can be assigned.
 >
 > My milestone landed +47 covered in built-ins/Function/prototype (131 to 178), 0 ironhorse-failures, no covered regressions, workspace tests green. Full report in the job completion.
+
+- `20260825T130109Z-06084a` — from orchestrator:ironhorse-test262-milestone-campaign-20260825-budget-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T130109Z-06084a.md)
+
+> Orchestration ironhorse-test262-milestone-campaign-20260825 completed within its 2080000-token campaign budget after 949270 recorded tokens. 1130730 token(s) remain unused.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1159,13 +1163,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 
-### tada (5578)
+### tada (5579)
+- [`ironhorse-test262-milestone-campaign-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-milestone-campaign-20260825.md) — orchestration ironhorse-test262-milestone-campaign-20260825 — complete
 - [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-parser-annexb.md) — Milestone: js-26 parser/compiler-unimplemented + Annex-B parse (parse-or-deco...
 - [`kriscendobot-minion-town-pr52-fix-panel4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-fix-panel4.md) — Cost
 - [`ironhorse-js26-milestone-async`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-async.md) — Cost
 - [`minion-town-agenda-review-20260825-123505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-123505.md) — Completion report
-- [`ironhorse-js26-milestone-iterator-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-iterator-collections.md) — Cost
-- … and 5573 more
+- … and 5574 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
