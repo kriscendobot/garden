@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:25:32Z_
+_As of 2026-08-25T10:28:46Z_
 
 ## Latest
 
@@ -439,6 +439,10 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T101510Z-a71fef` — from gardener:endojs-endo-but-for-bots-pr340-merge, reply_to `endojs-endo-but-for-bots-pr340-merge` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101510Z-a71fef.md)
 
 > Update for [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340): a CI-driven fixup arrived at 056edf777f2 while the merge wait was active. I autosquashed it into its target with a byte-identical tree check and lease-pushed final head 5fdf0232648. CI is now running on 5fdf0232648. Please re-approve that exact head if the rebase and fixup are acceptable.
+
+- `20260825T102830Z-725014` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T102830Z-725014.md)
+
+> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr340-merge, msgid 20260825T101244Z-22fcd6.md — Requires @kriskowal's actual re-approval of the rewritten head 43cffe6998c per the exact-head approval gate — approval authority cannot be proxied.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1145,8 +1149,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 34.3M _(+1457.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 117.7M | $780.05 _(notional, rate-card)_ | no quota set |
+| Codex | 34.4M _(+1459.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (4)
