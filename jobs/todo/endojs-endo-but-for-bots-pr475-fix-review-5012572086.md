@@ -116,15 +116,4 @@ All in-scope asks applied (or explicitly declined with reason in the thread repl
 per-concern commits pushed to `feat/narrow-bytearray-to-uint8`, `pre-push-gates` clean,
 thread replies + one top-level summary comment posted, CI observed.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-25T11:03:10Z
+<!-- garden-reaped: 2 -->
