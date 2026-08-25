@@ -46,3 +46,13 @@ I trust the press resumed.
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-25T03:13:11Z
