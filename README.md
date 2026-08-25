@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T12:21:42Z_
+_As of 2026-08-25T12:22:37Z_
 
 ## Latest
 
@@ -1156,8 +1156,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
+- [`ironhorse-js26-milestone-async`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-async.md) — js-26 MILESTONE — async residue (fromAsync + async-generator/for-await + Prom...
 
 ### tada (5574)
 - [`ironhorse-js26-milestone-iterator-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-iterator-collections.md) — Cost
