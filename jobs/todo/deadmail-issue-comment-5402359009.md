@@ -45,15 +45,4 @@ I trust the press resumed.
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-25T02:43:16Z
+<!-- garden-reaped: 1 -->
