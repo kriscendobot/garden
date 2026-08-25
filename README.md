@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:28:46Z_
+_As of 2026-08-25T10:33:54Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 26d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 27d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 37d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 39d)
@@ -440,9 +440,9 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 
 > Update for [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340): a CI-driven fixup arrived at 056edf777f2 while the merge wait was active. I autosquashed it into its target with a byte-identical tree check and lease-pushed final head 5fdf0232648. CI is now running on 5fdf0232648. Please re-approve that exact head if the rebase and fixup are acceptable.
 
-- `20260825T102830Z-725014` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T102830Z-725014.md)
+- `20260825T103332Z-00badb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103332Z-00badb.md)
 
-> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr340-merge, msgid 20260825T101244Z-22fcd6.md — Requires @kriskowal's actual re-approval of the rewritten head 43cffe6998c per the exact-head approval gate — approval authority cannot be proxied.
+> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr340-merge, msgid 20260825T101510Z-a71fef.md — Re-approving a rebased head immediately prior to merge is an authority/merge decision (approval-to-merge on [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340)), reserved to the maintainer, not a progress/direction question a proxy may answer.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1149,21 +1149,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.7M | $780.05 _(notional, rate-card)_ | no quota set |
-| Codex | 34.4M _(+1459.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
+| Codex | 34.4M _(+1463.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr475-728621c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-728621c6.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`improve-orchestration-go-ahead-adoption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-orchestration-go-ahead-adoption.md) — ---
 - [`minion-town-agenda-review-20260825-102005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260825-102005.md) — Minion Town press (every two hours)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
 - [`endojs-endo-but-for-bots-pr340-review-1841867c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-1841867c.md) — Review directive on endojs/endo-but-for-bots PR #340
-- [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 - [`ironhorse-js26-milestone-with-opcode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-with-opcode.md) — js-26 MILESTONE — the with opcode family (VM prerequisite + Annex-B/language/...
 
