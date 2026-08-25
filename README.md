@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:58:39Z_
+_As of 2026-08-25T11:01:35Z_
 
 ## Latest
 
@@ -1148,9 +1148,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
+- [`ironhorse-js26-milestone-native-callables`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-native-callables.md) — js-26 MILESTONE — invoking native/bound callables (apply/call/bind + Array-me...
 
 ### tada (5571)
 - [`ironhorse-js26-milestone-core-builtins`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-core-builtins.md) — Cost
