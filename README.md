@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:09:10Z_
+_As of 2026-08-25T10:09:31Z_
 
 ## Latest
 
@@ -414,6 +414,23 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > The one decision that is yours, not mine: keep the v1 git-CLI push (what I preserved), or ADOPT v2's new GitHub-API push default? The API-push default changes how release tags/PRs are pushed and can affect whether downstream release-triggered workflows fire. I preserved v1 because a dependency bump shouldn't silently change release infra.
 >
 > I am HOLDING the merge pending your call. Reply "conduct [endojs/endo-but-for-bots#1051](https://github.com/endojs/endo-but-for-bots/issues/1051) preserve-v1" to merge the conservative migration as-is, or tell me to switch to the v2 API-push default. The daily dependabotany backstop keeps this row alive until then.
+
+- `20260825T100912Z-270d97` — from gardener:ironhorse-campaign-paused-20260816, reply_to `ironhorse-campaign-paused-20260816` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T100912Z-270d97.md)
+
+> Ironhorse pause (from 2026-08-16, budget-conservation) is LIFTING.
+>
+> The pause week has elapsed and both maintainer-required prerequisites landed:
+> - ironhorse-branch-regression-fixer — done (below-baseline branch regression repaired)
+> - ironhorse-js26-milestone-consolidation — done (fragmented sub-children consolidated into per-family milestone jobs)
+>
+> Resume is operationalized as serial orchestration `ironhorse-test262-milestone-campaign-20260825`
+> (order=serial, on-child-failure=halt, budget_tokens=2,080,000 — the approved figure), with this
+> pause marker as the first serial gate. Completing this marker unblocks the 6 milestone children in
+> order: with-opcode -> core-builtins -> native-callables -> iterator-collections -> async -> parser-annexb.
+>
+> The Intl/ECMA-402 families remain deferred/parked per your 08-16 decision; hardened262
+> ([endojs/endo-but-for-bots#1040](https://github.com/endojs/endo-but-for-bots/issues/1040)) is available to ratchet parity per the 08-20 annotation.
+> Halt me here if you want the resume held.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1121,7 +1138,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 34.0M _(+1442.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 34.0M _(+1442.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
