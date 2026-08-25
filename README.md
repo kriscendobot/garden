@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T18:40:38Z_
+_As of 2026-08-25T18:42:41Z_
 
 ## Latest
 
@@ -1154,24 +1154,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.3M | $778.20 _(notional, rate-card)_ | no quota set |
-| Codex | 36.6M _(+1547.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 36.7M _(+1548.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-issue-comment-5414984800`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5414984800.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 
-### tada (5582)
+### tada (5583)
+- [`deadmail-issue-comment-5414984800`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5414984800.md) — Cost
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-20260825-clean.md) — Completion report
 - [`minion-town-agenda-review-20260825-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-143507.md) — Cost
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — Cost
 - [`ironhorse-test262-milestone-campaign-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-milestone-campaign-20260825.md) — orchestration ironhorse-test262-milestone-campaign-20260825 — complete
-- [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-parser-annexb.md) — Milestone: js-26 parser/compiler-unimplemented + Annex-B parse (parse-or-deco...
-- … and 5577 more
+- … and 5578 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
