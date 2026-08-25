@@ -30,3 +30,13 @@ automatic gauntlet.
 Definition of done: one focused fresh pull request containing the marshal type
 refactor, preserving the public type and runtime surfaces, with the local
 verification evidence recorded in its body.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-25T18:46:50Z
