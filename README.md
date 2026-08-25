@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:01:14Z_
+_As of 2026-08-25T10:03:34Z_
 
 ## Latest
 
@@ -1121,17 +1121,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 33.6M _(+1432.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 33.8M _(+1435.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 
 ### doin (5)
 - [`deadmail-issue-comment-5408743282`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5408743282.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`endojs-endo-but-for-bots-pr340-review-232e84bf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-232e84bf.md) — Review directive on endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr475-023bfb11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-023bfb11.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-2e3ae7fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-2e3ae7fe.md) — attention directive on endojs/endo-but-for-bots PR #796
 
 ### tada (5554)
@@ -1254,6 +1254,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1057-review-f6afbf40-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1057-review-f6afbf40-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1057 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr340-review-232e84bf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr340-review-232e84bf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #340 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr796-2e3ae7fe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr796-2e3ae7fe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #796 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-023bfb11-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-023bfb11-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
