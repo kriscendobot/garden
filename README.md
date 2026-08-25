@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-25T00:18:13Z_
+_As of 2026-08-25T00:21:09Z_
 
 ## Latest
 
-The byteArray program reached its finish line — components [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are all CI-green and mergeable, with only outdated review threads; finish-line follow-on [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is also green. Infrastructure improvements shipped: Node 24 provisioning landed (local-verify now adopts the pinned LTS), and the local-verify/CI parity gate was restored to catch version skew before pushing. However, several critical blockers remain: root-repo deploys have stalled ~3d behind on both active hosts; the recurring node24-runner CI flake is blocking two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)); multiple gauntlets and orchestration campaigns halted mid-run (panels + fixture-parity-ratchet); and the maintainer inbox holds 20+ decisions across design directions (SIWE tier selection, stealth-model policy, budget caps, disclosure timing), deployment authorization, and infrastructure calls. The byteArray work is ready to land; the stalled deploy and CI flake warrant immediate attention.
+The byteArray finish-line stack ([#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) sits CI-green and mergeable, with all review threads resolved and awaiting maintainer re-review to clear `CHANGES_REQUESTED`; the follow-on [#888](https://github.com/endojs/endo-but-for-bots/pull/888) auto-promoted and is draft-pending un-draft/review once its base PRs land. Node 24 local-verify parity has been restored with a runtime gate that now refuses incompatible projects rather than silently failing, and Node 24 is baked into the Dockerfile; two hosts' root deploys have been stalled for ~3d (18 commits behind main2) and need investigation. SIWE on-chain authz is deployed at minion.town and wired through the policy layer, awaiting maintainer decisions on which tier to ship and Tier 1 allowlist addresses. Several gauntlets halted mid-stage (endojs/endo-but-for-bots [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), kriscendobot/minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)) and are parked with `go-ahead` held. Cloudflare OS ingestion completed all 10 scholar cycles and the full library is now represented across domains and indexes.
 
 ## Parked for maintainer feedback
 
@@ -1080,15 +1080,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.3M | $916.15 _(notional, rate-card)_ | no quota set |
-| Codex | 32.2M _(+1420.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 131.4M | $916.32 _(notional, rate-card)_ | no quota set |
+| Codex | 32.2M _(+1420.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1058
 
 ### tada (5542)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-4.md) — Completion report
