@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:48:06Z_
+_As of 2026-08-25T10:48:53Z_
 
 ## Latest
 
@@ -443,27 +443,6 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T103457Z-0a3643` — from gardener:ironhorse-js26-milestone-with-opcode, reply_to `ironhorse-js26-milestone-with-opcode` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103457Z-0a3643.md)
 
 > Heads-up from ironhorse-js26-milestone-with-opcode: the job spec says to keep draft PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) OPEN and DRAFT, but that PR is already MERGED (state=MERGED, not by me — it was merged before I claimed the job). The shared branch feat/ironhorse-262-language-completion is still live and I pushed my work to it (head d3a40d0b63). If the continued branch work needs a review surface, a fresh draft PR off this branch would be needed — a merged PR can't be reopened. My deliverable is landed on the branch regardless. Flagging so you can decide whether to open a new PR for the ongoing language-completion line.
-
-- `20260825T104420Z-06bb9c` — from gardener:endojs-endo-but-for-bots-pr475-728621c6, reply_to `endojs-endo-but-for-bots-pr475-728621c6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T104420Z-06bb9c.md)
-
-> Re "It's doom is sealed. Please break up the work accordingly." (comment 5408967078, [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)):
->
-> The split is moot — the work you asked to break up completed WHOLE. The Fable fixer for review 5012572086, once its handler budget was raised 40min->2h (handler-timeout: 7200), did NOT re-doom: it landed all 10 asks in one run at 10:35 as head c7a76eb8e8 (7 atomic commits on the reviewed df0606e1bd), posted an inline reply on every one of the 10 threads citing a SHA (comments 3852116474-3852119565), and a summary (5409161129). So there are no un-landed asks left to stage into claim-sized fixers -- breaking them up now would be make-work on resolved threads. The real fix for the dooming was budget, not decomposition.
->
-> CI on c7a76eb8e8 is in flight (20 checks green, 7 pending, 0 red so far). One item the fixer deferred with reason: the typedefs-belong-in-dts gate on marshal/ocapn types.js (pre-dates this branch; standalone refactor).
->
-> Board hygiene: two now-redundant fixer jobs remain -- fix-review-5012572086 (in todo/, would re-run resolved work) and fix-review-5001589064 (parked in plan/, its 08-23 asks already landed). Recommend withdrawing both.
->
-> Awaiting your call on whether you still want a standing "split future review rounds into claim-sized fixers" practice, or the larger 08-19 "stack of individually reviewable packages" projection to start now.
-
-- `20260825T104636Z-ca215e` — from gardener:endojs-endo-but-for-bots-pr340-shepherd, reply_to `endojs-endo-but-for-bots-pr340-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T104636Z-ca215e.md)
-
-> Shepherd [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340): CI is GREEN. All 28 check-runs succeed on
-> the current head 5fdf023264 (claude/endo-daemon-ocapn-FkmHO). The only merge
-> blocker now is your own CHANGES_REQUESTED review (body: "Shepherd.") — no inline
-> change-requests, no unresolved threads. Re-approve/dismiss to unblock merge. The
-> one CI failure I found (prettier on packages/stream-node/index.js) was already
-> fixed by a peer's force-push to 5fdf023264, so nothing of mine needed pushing.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1171,26 +1150,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.6M _(+1471.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 34.6M _(+1471.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`minion-town-agenda-review-20260825-102005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260825-102005.md) — Minion Town press (every two hours)
+### todo (0)
+(none)
 
 ### doin (5)
-- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
 - [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Fix: address kriskowal's review 5012572086 on endojs/endo-but-for-bots #475
 - [`ironhorse-js26-milestone-core-builtins`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-core-builtins.md) — js-26 MILESTONE — self-contained core builtins residue (Date + String/Number/...
+- [`minion-town-agenda-review-20260825-102005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-102005.md) — Minion Town press (every two hours)
 
-### tada (5566)
+### tada (5567)
+- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #1046
 - [`improve-orchestration-go-ahead-adoption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-orchestration-go-ahead-adoption.md) — Completion report: improve-orchestration-go-ahead-adoption
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-728621c6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-728621c6.md) — Report: attention directive on endojs/endo-but-for-bots#475 (comment 5408967078)
 - [`endojs-endo-but-for-bots-pr340-review-1841867c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-1841867c.md) — Cost
-- [`endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825.md) — orchestration endojs-endo-but-for-bots-pr1058-green-after-conflict-20260825 —...
-- … and 5561 more
+- … and 5562 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
