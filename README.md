@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:43:40Z_
+_As of 2026-08-25T10:44:39Z_
 
 ## Latest
 
@@ -443,6 +443,18 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T103457Z-0a3643` — from gardener:ironhorse-js26-milestone-with-opcode, reply_to `ironhorse-js26-milestone-with-opcode` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103457Z-0a3643.md)
 
 > Heads-up from ironhorse-js26-milestone-with-opcode: the job spec says to keep draft PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) OPEN and DRAFT, but that PR is already MERGED (state=MERGED, not by me — it was merged before I claimed the job). The shared branch feat/ironhorse-262-language-completion is still live and I pushed my work to it (head d3a40d0b63). If the continued branch work needs a review surface, a fresh draft PR off this branch would be needed — a merged PR can't be reopened. My deliverable is landed on the branch regardless. Flagging so you can decide whether to open a new PR for the ongoing language-completion line.
+
+- `20260825T104420Z-06bb9c` — from gardener:endojs-endo-but-for-bots-pr475-728621c6, reply_to `endojs-endo-but-for-bots-pr475-728621c6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T104420Z-06bb9c.md)
+
+> Re "It's doom is sealed. Please break up the work accordingly." (comment 5408967078, [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)):
+>
+> The split is moot — the work you asked to break up completed WHOLE. The Fable fixer for review 5012572086, once its handler budget was raised 40min->2h (handler-timeout: 7200), did NOT re-doom: it landed all 10 asks in one run at 10:35 as head c7a76eb8e8 (7 atomic commits on the reviewed df0606e1bd), posted an inline reply on every one of the 10 threads citing a SHA (comments 3852116474-3852119565), and a summary (5409161129). So there are no un-landed asks left to stage into claim-sized fixers -- breaking them up now would be make-work on resolved threads. The real fix for the dooming was budget, not decomposition.
+>
+> CI on c7a76eb8e8 is in flight (20 checks green, 7 pending, 0 red so far). One item the fixer deferred with reason: the typedefs-belong-in-dts gate on marshal/ocapn types.js (pre-dates this branch; standalone refactor).
+>
+> Board hygiene: two now-redundant fixer jobs remain -- fix-review-5012572086 (in todo/, would re-run resolved work) and fix-review-5001589064 (parked in plan/, its 08-23 asks already landed). Recommend withdrawing both.
+>
+> Awaiting your call on whether you still want a standing "split future review rounds into claim-sized fixers" practice, or the larger 08-19 "stack of individually reviewable packages" projection to start now.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1150,7 +1162,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.4M _(+1467.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 34.5M _(+1468.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (4)
