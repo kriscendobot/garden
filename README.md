@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:05:04Z_
+_As of 2026-08-25T10:06:41Z_
 
 ## Latest
 
@@ -1121,27 +1121,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 33.8M _(+1437.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 33.9M _(+1439.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
-- [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
+### todo (0)
+(none)
 
 ### doin (5)
-- [`deadmail-issue-comment-5408743282`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5408743282.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-5408746440`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5408746440.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
-- [`endojs-endo-but-for-bots-pr340-review-232e84bf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-232e84bf.md) — Review directive on endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr340-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-merge.md) — Merge endojs/endo-but-for-bots PR #340 (finalization)
 - [`endojs-endo-but-for-bots-pr475-023bfb11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-023bfb11.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr796-2e3ae7fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-2e3ae7fe.md) — attention directive on endojs/endo-but-for-bots PR #796
 
-### tada (5554)
+### tada (5557)
+- [`deadmail-issue-comment-5408743282`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5408743282.md) — Cost
+- [`endojs-endo-but-for-bots-pr796-2e3ae7fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-2e3ae7fe.md) — Cost
+- [`endojs-endo-but-for-bots-pr340-review-232e84bf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-232e84bf.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1058-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr1057-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1057-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — Cost
-- [`daily-progress-summary-20260825-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260825-070504.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20260825-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260825-025004.md) — Cost
-- … and 5549 more
+- … and 5552 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
