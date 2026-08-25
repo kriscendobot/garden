@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:45:12Z_
+_As of 2026-08-25T10:46:52Z_
 
 ## Latest
 
@@ -455,6 +455,15 @@ _Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
 > Board hygiene: two now-redundant fixer jobs remain -- fix-review-5012572086 (in todo/, would re-run resolved work) and fix-review-5001589064 (parked in plan/, its 08-23 asks already landed). Recommend withdrawing both.
 >
 > Awaiting your call on whether you still want a standing "split future review rounds into claim-sized fixers" practice, or the larger 08-19 "stack of individually reviewable packages" projection to start now.
+
+- `20260825T104636Z-ca215e` — from gardener:endojs-endo-but-for-bots-pr340-shepherd, reply_to `endojs-endo-but-for-bots-pr340-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T104636Z-ca215e.md)
+
+> Shepherd [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340): CI is GREEN. All 28 check-runs succeed on
+> the current head 5fdf023264 (claude/endo-daemon-ocapn-FkmHO). The only merge
+> blocker now is your own CHANGES_REQUESTED review (body: "Shepherd.") — no inline
+> change-requests, no unresolved threads. Re-approve/dismiss to unblock merge. The
+> one CI failure I found (prettier on packages/stream-node/index.js) was already
+> fixed by a peer's force-push to 5fdf023264, so nothing of mine needed pushing.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1162,7 +1171,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.5M _(+1468.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 34.5M _(+1469.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
