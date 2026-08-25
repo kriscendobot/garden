@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T18:15:49Z_
+_As of 2026-08-25T18:36:31Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 7h)
 - [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) — feat(daemon): OCapN-Noise transport for daemon-to-daemon connectivity (waiting 7h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 7h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 27d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 37d)
@@ -1154,7 +1154,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.3M | $778.20 _(notional, rate-card)_ | no quota set |
-| Codex | 36.6M _(+1547.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 36.6M _(+1547.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
