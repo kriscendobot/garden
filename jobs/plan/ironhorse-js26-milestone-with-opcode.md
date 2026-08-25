@@ -1,5 +1,6 @@
 ---
-gate: go-ahead
+gate: orchestrated
+orchestrated_by: ironhorse-test262-milestone-campaign-20260825
 priority: normal
 posted_by: gardener
 posted_at: 2026-08-22T07:21:40Z
