@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T09:51:00Z_
+_As of 2026-08-25T09:53:15Z_
 
 ## Latest
 
@@ -1127,8 +1127,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1058-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1058
 
 ### tada (5553)
 - [`endojs-endo-but-for-bots-pr1057-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1057-conduct.md) — Cost
