@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js26-milestone-async-reap-count: 0
 child-ironhorse-js26-milestone-iterator-collections-host: endolin-garden-ece02cb4
 child-ironhorse-js26-milestone-iterator-collections-reap-count: 0
 child-ironhorse-js26-milestone-native-callables-host: endolin-garden2-5bcdff64
