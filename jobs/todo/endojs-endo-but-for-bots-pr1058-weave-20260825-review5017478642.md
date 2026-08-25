@@ -13,12 +13,4 @@ Rebase and resolve conflicts for https://github.com/endojs/endo-but-for-bots/pul
 
 The 2026-08-25 shepherd observed head 840bd481be6ffa4be1c657ec79bf4233609dd37b is 3 commits behind llm and GitHub reports mergeable=false, mergeable_state=dirty. Rebase the PR-owned head branch design/hardener-indexed-cardinality onto current llm, resolve conflicts according to the weaver role, run the required local gates, and push only with force-with-lease against the observed head.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-25T09:55:07Z
+<!-- garden-reaped: 1 -->
