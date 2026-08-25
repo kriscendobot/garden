@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T09:46:59Z_
+_As of 2026-08-25T09:48:24Z_
 
 ## Latest
 
@@ -1121,14 +1121,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 33.2M _(+1427.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 33.2M _(+1427.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1057-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1057-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1057
+- [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr621-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #621
 
 ### tada (5552)
 - [`daily-progress-summary-20260825-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260825-070504.md) — Cost
