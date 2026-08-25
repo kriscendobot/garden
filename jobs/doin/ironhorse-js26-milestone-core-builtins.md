@@ -82,3 +82,13 @@ measurement path here remains `full-run.sh` against the XS oracle.
 
 **Report:** commands run, before/after totals+reasons for each slice, head SHA, PR URL,
 and the honest residual (what remains and where).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-25T10:43:26Z
