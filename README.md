@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-25T01:16:34Z_
+_As of 2026-08-25T01:17:59Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) completed its panel round 6 and is continuing through the gauntlet. Elsewhere, the fleet continues fielding multiple halted gauntlets (PRs [#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)) with their stages parked after requeue exhaustion — each needs investigation or re-promotion. The provider quota condition has cleared, but the root-garden deploy remains stalled three days behind main2 on both hosts, and two dependabot PRs ([#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW but blocked on the recurring fleet node24-runner infra flake. Scholar completed a ten-cycle systematic ingestion of the Cloudflare OS repository into the library, and local-verify now enforces Node.js runtime parity for CI reproducibility. A backlog of 23 open PRs await your review, plus 20 messages in the maintainer inbox flagging design decisions, security gates, authority calls, and follow-up work across Endo, minion.town, the garden itself, and follow-on builds.
+Multiple gauntlets are stalled on persistent handler failures—[endo-but-for-bots#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), and [minion.town#37](https://github.com/kriscendobot/minion.town/pull/37) are each doomed after 5 requeue cycles—and the deployment has stalled ~3 days behind on two hosts (18 commits). Two merge-ready dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely by a recurring node24-runner CI flake. On the design side, budget enforcement ([live-budget-admission.md](designs/live-budget-admission.md)) landed on main2, SIWE on-chain authz is deployed and awaiting tier/allowlist decisions, and the Cloudflare OS library ingestion completed nine cycles of comprehensive documentation. Several high-effort jobs remain doomed pending maintainer decisions—handler budgets, test262 fixture consolidation strategy, xs2rust-endor sequencing, and the OpenRouter ZDR+stealth-model policy.
 
 ## Parked for maintainer feedback
 
@@ -1080,15 +1080,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.1M | $916.59 _(notional, rate-card)_ | no quota set |
+| Claude | 132.2M | $916.54 _(notional, rate-card)_ | no quota set |
 | Codex | 32.3M _(+1420.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1058
 
 ### tada (5546)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-panel-6.md) — Completion report
