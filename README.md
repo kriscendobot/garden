@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T18:36:31Z_
+_As of 2026-08-25T18:40:38Z_
 
 ## Latest
 
@@ -1160,7 +1160,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-issue-comment-5414984800`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5414984800.md) — Dead-lettered message — pick up its intent
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 
