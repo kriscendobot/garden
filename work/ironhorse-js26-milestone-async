@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-08-25T12:22:08Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-js26-milestone-async
-pr_number: 1060
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1060
-pr_head: feat/ironhorse-262-language-completion
