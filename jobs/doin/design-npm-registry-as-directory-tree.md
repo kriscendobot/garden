@@ -117,3 +117,13 @@ bespoke method-call shape should be replaced, mark that file stale with a
 touch `endor-npm-registry-proxy.md`'s mechanics-layer content beyond noting
 where the new capability shape wraps it. Open questions the maintainer must
 resolve go under `## Open questions` in question form.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-25T18:50:52Z
