@@ -117,3 +117,13 @@ Cached test262 at the pin: `/home/kris/garden/scratch/test262-pin-be13516f`
 
 **Report:** commands run, before/after totals+reasons for each slice, head SHA, PR URL,
 and the honest residual (what remains and where).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-25T10:12:59Z
