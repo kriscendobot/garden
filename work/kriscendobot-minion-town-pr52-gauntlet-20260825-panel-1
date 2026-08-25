@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-25T14:53:28Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1
