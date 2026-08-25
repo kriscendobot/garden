@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T10:53:17Z_
+_As of 2026-08-25T10:53:41Z_
 
 ## Latest
 
@@ -431,14 +431,6 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > The Intl/ECMA-402 families remain deferred/parked per your 08-16 decision; hardened262
 > ([endojs/endo-but-for-bots#1040](https://github.com/endojs/endo-but-for-bots/issues/1040)) is available to ratchet parity per the 08-20 annotation.
 > Halt me here if you want the resume held.
-
-- `20260825T101244Z-22fcd6` — from gardener:endojs-endo-but-for-bots-pr340-merge, reply_to `endojs-endo-but-for-bots-pr340-merge` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101244Z-22fcd6.md)
-
-> PR [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340) was unfrozen to live llm and rebased from 98add24d698 to 43cffe6998c by the required merge spine. CI is running on 43cffe6998c. The existing maintainer approval predates this rewritten head, so the exact-head approval gate requires @kriskowal to re-approve 43cffe6998c after reviewing the rebase before I can merge.
-
-- `20260825T101510Z-a71fef` — from gardener:endojs-endo-but-for-bots-pr340-merge, reply_to `endojs-endo-but-for-bots-pr340-merge` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T101510Z-a71fef.md)
-
-> Update for [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340): a CI-driven fixup arrived at 056edf777f2 while the merge wait was active. I autosquashed it into its target with a byte-identical tree check and lease-pushed final head 5fdf0232648. CI is now running on 5fdf0232648. Please re-approve that exact head if the rebase and fixup are acceptable.
 
 - `20260825T103457Z-0a3643` — from gardener:ironhorse-js26-milestone-with-opcode, reply_to `ironhorse-js26-milestone-with-opcode` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103457Z-0a3643.md)
 
@@ -1150,7 +1142,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.7M _(+1476.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 34.7M _(+1476.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
