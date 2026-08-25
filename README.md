@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T09:49:34Z_
+_As of 2026-08-25T09:51:00Z_
 
 ## Latest
 
@@ -1121,22 +1121,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $779.94 _(notional, rate-card)_ | no quota set |
-| Codex | 33.3M _(+1428.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 33.3M _(+1428.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1057-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1057-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1057
+### doin (0)
+(none)
 
-### tada (5552)
+### tada (5553)
+- [`endojs-endo-but-for-bots-pr1057-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1057-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — Cost
 - [`daily-progress-summary-20260825-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260825-070504.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260825-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260825-025004.md) — Cost
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5402359009.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260825-025004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260825-025004.md) — Cost
-- … and 5547 more
+- … and 5548 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
