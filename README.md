@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T11:13:42Z_
+_As of 2026-08-25T11:14:20Z_
 
 ## Latest
 
@@ -8,7 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) — feat(daemon): OCapN-Noise transport for daemon-to-daemon connectivity (waiting 18m)
+- [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) — feat(daemon): OCapN-Noise transport for daemon-to-daemon connectivity (waiting 24m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 28s)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 27d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 37d)
@@ -17,9 +18,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 42d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 53d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 70d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 104d)
 
-_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
