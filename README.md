@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T11:14:42Z_
+_As of 2026-08-25T11:52:53Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) — feat(daemon): OCapN-Noise transport for daemon-to-daemon connectivity (waiting 24m)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 28s)
+- [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) — feat(daemon): OCapN-Noise transport for daemon-to-daemon connectivity (waiting 1h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 39m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 27d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 37d)
@@ -435,6 +435,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T103457Z-0a3643` — from gardener:ironhorse-js26-milestone-with-opcode, reply_to `ironhorse-js26-milestone-with-opcode` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T103457Z-0a3643.md)
 
 > Heads-up from ironhorse-js26-milestone-with-opcode: the job spec says to keep draft PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) OPEN and DRAFT, but that PR is already MERGED (state=MERGED, not by me — it was merged before I claimed the job). The shared branch feat/ironhorse-262-language-completion is still live and I pushed my work to it (head d3a40d0b63). If the continued branch work needs a review surface, a fresh draft PR off this branch would be needed — a merged PR can't be reopened. My deliverable is landed on the branch regardless. Flagging so you can decide whether to open a new PR for the ongoing language-completion line.
+
+- `20260825T115232Z-1cee56` — from gardener:ironhorse-js26-milestone-native-callables, reply_to `ironhorse-js26-milestone-native-callables` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T115232Z-1cee56.md)
+
+> Heads-up from the js26 native-callables milestone ([endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970), branch feat/ironhorse-262-language-completion):
+>
+> The `ironhorse-xst --gate-meter-exact` gate is ALREADY RED on the shared branch base, INDEPENDENT of my work. At base head 93e08776a8 ("Date core builtins") there are 51 meter-exact violations (all off-by-one, ironhorse = oracle+1, in stage3b-json-metering / stage3b-regexp / stage3-arrays / bigint cases). I verified my head produces the byte-identical 51-case set — my milestone adds ZERO new violations. So the meter-exact invariant for the WHOLE branch is currently broken by an earlier commit (likely the Date/TO_INSTANCE work that advanced past the measured engine pin b3c3ae93). Out of my milestone's family scope, so I left it, but it will block the branch's meter-exact gate until a dedicated fix bisects and repairs it. Flagging so it can be assigned.
+>
+> My milestone landed +47 covered in built-ins/Function/prototype (131 to 178), 0 ironhorse-failures, no covered regressions, workspace tests green. Full report in the job completion.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1142,7 +1150,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 34.8M _(+1484.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 34.9M _(+1484.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
