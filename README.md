@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-25T00:38:37Z_
+_As of 2026-08-25T00:41:58Z_
 
 ## Latest
 
-Provider quota has recovered ([cleared 2026-08-24](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md) after ~7d outage); the fleet is serving again. Several gauntlets have stalled with stuck stages ([#1023](https://github.com/endojs/endo-but-for-bots/pull/1023), [#807](https://github.com/endojs/endo-but-for-bots/pull/807), [#909](https://github.com/endojs/endo-but-for-bots/pull/909), [#946](https://github.com/endojs/endo-but-for-bots/pull/946), and minion.town [#37](https://github.com/kriscendobot/minion.town/pull/37)) — jobs parked awaiting re-promotion. Node 24 has been provisioned for local-verify parity; fleet containers will pick it up on next redeploy. Scholar ingestion of Cloudflare OS completed its cycle (10 phases, 107 sections total). Twenty-three PRs remain parked for maintainer review, led by byteArray finish-line components ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) and registry-transport design work ([#730](https://github.com/endojs/endo-but-for-bots/pull/730)).
+The byteArray program is complete and CI-green across all layers ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)), gated only on maintainer re-review of the CHANGES_REQUESTED threads. The budget enforcement design (live-budget-admission.md) landed on main2, automating the worker leveling you performed by hand on 2026-08-15. Four PRs are blocked mid-gauntlet after repeated panel failures, and two dependabot PRs ([endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are MERGE-NOW-ready but stalled on the recurring node24-runner CI flake. Node parity for local-verify is restored, and Node 24 provisioning is in progress across the fleet. The scholar completed ingesting Cloudflare OS (ten cycles, 138 sections) and an Agoric generative-agents reading group. Three major open questions await your call: the SIWE allowlist for minion.town, the test262 fixture-consolidation strategy, and whether to activate the endor-fixture-parity ratchet campaign after its stalls.
 
 ## Parked for maintainer feedback
 
@@ -1080,15 +1080,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.8M | $917.55 _(notional, rate-card)_ | no quota set |
+| Claude | 131.9M | $917.71 _(notional, rate-card)_ | no quota set |
 | Codex | 32.2M _(+1420.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1058
 
 ### tada (5543)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-4.md) — Completion report
