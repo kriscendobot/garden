@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-25T01:06:50Z_
+_As of 2026-08-25T01:08:58Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1058](https://github.com/endojs/endo-but-for-bots/pull/1058) advanced through gauntlet fix cycles. The byteArray design is complete and green across both finish-line components — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) — all mergeable and awaiting your re-review to clear CHANGES_REQUESTED. Two dependabot PRs ([endojs/endo-but-for-bots#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) are blocked solely by a recurring node24-runner infrastructure flake that needs either fixing or a direct merge call. The Cloudflare OS library ingest completed through cycle 10 (18+ sections across MCP, scheduling, and persistence domains). Deploy is stalled ~3 days behind main2 on both hosts; multiple gauntlet and orchestration jobs halted mid-run; and the journal holds ~100 parked jobs awaiting your decisions on scope, authorization, or unblocking.
+The byteArray program is complete and all-green: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) have passed CI with all review comments addressed, and the finish-line [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) is green and ready for un-draft — both layers sit on frozen snapshot bases and will need restacking onto current `llm` as part of landing. Local-verify/CI parity is restored with Node 24 provisioning and a usage-meter.sh bug fix; fleet hosts without Node 24 will need redeploy before they can test Node-24-pinned projects. Provider quota recovered after a brief outage. The garden's deployed root is stalled 3+ days behind main2 on both hosts — deploys are deliberate/drained, so investigate why none has landed. Multiple design decisions and maintainer re-reviews are queued in the inbox; the most time-sensitive are the byteArray PRs, two blocking dependabot rows (#1006 / #1009 on node24-runner flake), and the SIWE tier-1 allowlist addresses for minion.town.
 
 ## Parked for maintainer feedback
 
@@ -1080,15 +1080,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.9M | $916.26 _(notional, rate-card)_ | no quota set |
+| Claude | 132.0M | $916.43 _(notional, rate-card)_ | no quota set |
 | Codex | 32.3M _(+1420.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-5402359009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5402359009.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1058-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1058
 
 ### tada (5545)
 - [`endojs-endo-but-for-bots-pr1058-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1058-gauntlet-fix-5.md) — Completion report
