@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-25T12:40:56Z_
+_As of 2026-08-25T12:54:46Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) — feat(daemon): OCapN-Noise transport for daemon-to-daemon connectivity (waiting 1h)
+- [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) — feat(daemon): OCapN-Noise transport for daemon-to-daemon connectivity (waiting 2h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 27d)
@@ -1150,24 +1150,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 117.7M | $780.15 _(notional, rate-card)_ | no quota set |
-| Codex | 35.8M _(+1525.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Codex | 36.0M _(+1537.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1058-weave-20260825-review5017478642.md) — ---
 - [`ironhorse-js26-milestone-parser-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js26-milestone-parser-annexb.md) — js-26 MILESTONE — parser/compiler-unimplemented constructs + Annex-B parse (p...
-- [`kriscendobot-minion-town-pr52-fix-panel4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-fix-panel4.md) — Fix PR #52 panel-4 must-fix findings (kriscendobot/minion.town @sites daemon ...
 
-### tada (5576)
+### tada (5577)
+- [`kriscendobot-minion-town-pr52-fix-panel4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-fix-panel4.md) — Cost
 - [`ironhorse-js26-milestone-async`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-async.md) — Cost
 - [`minion-town-agenda-review-20260825-123505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-123505.md) — Completion report
 - [`ironhorse-js26-milestone-iterator-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-iterator-collections.md) — Cost
 - [`ironhorse-js26-milestone-native-callables`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js26-milestone-native-callables.md) — Milestone report — js-26 native/bound callable invocation
-- [`endojs-endo-but-for-bots-pr475-fix-review-5012572086`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-fix-review-5012572086.md) — Cost
-- … and 5571 more
+- … and 5572 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
