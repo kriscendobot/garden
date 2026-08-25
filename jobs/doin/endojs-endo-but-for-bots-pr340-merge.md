@@ -24,3 +24,13 @@ You are the conductor / finalization step. Drive PR #340 to merge:
 
 Bot repo (endojs/endo-but-for-bots) — merging here is authorized. NEVER
 merge agoric-sdk or the endojs/endo upstream.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-25T10:06:14Z
