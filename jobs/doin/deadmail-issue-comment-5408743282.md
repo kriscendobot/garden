@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-540874328
 Please resume this orchestration with this week’s allocated token budget. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-25T10:00:26Z
