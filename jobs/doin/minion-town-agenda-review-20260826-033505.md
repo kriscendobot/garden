@@ -75,3 +75,13 @@ has nothing left to do, so an honest `no-next-step` (rather than manufactured
 motion) is exactly what the maintainer asked for. A budget park self-recovers as
 spend ages out of the window; an idle park is sticky — a maintainer resumes it with
 `scripts/jobs/resume-minion-town-press.sh` once the blockers clear.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-26T03:35:16Z
