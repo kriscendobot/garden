@@ -1,12 +1,27 @@
-# shepherd (auto) retired: CI recovered/settled before claim
+---
+handed-off: endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826
+deliverable-complete: false
+---
+Re-fetched the maintainer directive and PR state. PR #877 is blocked by merge conflicts (`mergeable_state: dirty`) at head `43abed75a`.
 
-CI recovered/settled before claim — nothing to shepherd; ci-watcher retired
-this stale auto-shepherd. The CI-status watcher minted `endojs-endo-but-for-bots-pr877-shepherd`
-from a point-in-time RED rollup read; on a later tick the live rollup was
-in progress/queued (settling) (no longer red), so this stale auto-shepherd was retired
-deterministically (todo -> tada) rather than left to be claimed, re-fetch a
-no-longer-red CI, and exit-0-unsatisfying.
+Posted serial orchestration `endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826` with three parked children:
 
-Retired by: ci-watcher stale-shepherd re-validation sweep on endolin-garden2-5bcdff64.
+1. Resolve conflicts as a weaver.
+2. Drive CI green as a shepherd.
+3. Conduct and merge if all gates pass.
 
-<<<GARDEN-JOB-COMPLETE>>>
+Follow-up: the orchestration now owns all remaining work. Reported the comment-watcher’s failure to recognize “Orchestrate resolve, shepherd, conduct” to `role/liaison` for regression coverage.
+
+Self-improvement: reported the compound-orchestration parsing gap to `role/liaison`.
+
+<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr877-shepherd.jsonl; not agent-authored — do not edit -->
+
+## Cost
+- Engagements: 4 on 2 host(s) (3 unmetered)
+- Input: 44 tokens (1420176 cached reads)
+- Output: 19029 tokens
+- Cost: $1.866839 (3 engagement(s) unpriced)
+- Wall-clock: 661s
+- Model(s): claude-opus-4-8 ×1
+
+<!-- garden-usage-end -->
