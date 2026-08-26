@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1063
 build_job: build-endo1062-typedarray-preventextensions
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: build-endo1062-typedarray-preventextensions-gauntlet-clean
+current_child: build-endo1062-typedarray-preventextensions-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-26T16:08:44Z
