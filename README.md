@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-26T16:24:15Z_
+_As of 2026-08-26T16:33:25Z_
 
 ## Latest
 
@@ -1169,8 +1169,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (10)
-- [`build-endo1062-typedarray-preventextensions-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo1062-typedarray-preventextensions-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1063
+### doin (9)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1181,13 +1180,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5613)
+### tada (5614)
+- [`build-endo1062-typedarray-preventextensions-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo1062-typedarray-preventextensions-gauntlet-clean.md) — Cost
 - [`improve-node-tool-shims-tsd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-node-tool-shims-tsd.md) — Cost
 - [`build-endo1062-typedarray-preventextensions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo1062-typedarray-preventextensions.md) — Cost
 - [`endojs-endo-but-for-bots-pr1062-d0ffce05`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1062-d0ffce05.md) — Cost
 - [`daily-progress-summary-20260826-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260826-070505.md) — Cost
-- [`endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826.md) — orchestration endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-2026082...
-- … and 5608 more
+- … and 5609 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
