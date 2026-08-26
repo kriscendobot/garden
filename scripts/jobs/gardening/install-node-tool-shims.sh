@@ -85,5 +85,6 @@ emit_shim eslint   eslint/bin/eslint.js
 emit_shim prettier prettier/bin/prettier.cjs prettier/bin-prettier.js
 emit_shim tsc      typescript/bin/tsc
 emit_shim ava      ava/entrypoints/cli.mjs ava/entrypoints/cli.js
+emit_shim tsd      tsd/dist/cli.js
 
 log "node tool shims installed into $BIN_DIR (resolve relative to \$PWD)"
