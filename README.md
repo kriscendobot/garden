@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-26T01:40:04Z_
+_As of 2026-08-26T02:05:26Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3354](https://github.com/endojs/endo/pull/3354) — fix(compartment-mapper): exports cannot rewrite internal specifiers (waiting 35m)
+- [endojs/endo#3354](https://github.com/endojs/endo/pull/3354) — fix(compartment-mapper): exports cannot rewrite internal specifiers (waiting 1h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 27d)
@@ -1153,19 +1153,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.6M | $766.17 _(notional, rate-card)_ | no quota set |
-| Codex | 39.8M _(+1666.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 116.2M | $763.19 _(notional, rate-card)_ | no quota set |
+| Codex | 39.9M _(+1666.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (13)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1061-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1061-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1061
+- [`endojs-endo-but-for-bots-pr475-review-38d1f281`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-38d1f281.md) — Review directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr738-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr738-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #738
+- [`endojs-endo-but-for-bots-pr738-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr738-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #738
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
@@ -1291,6 +1294,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-review-d7012ba6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1046 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1060-review-cb8c64d0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1060-review-cb8c64d0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1060 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1058-review-af2aa1d9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1058-review-af2aa1d9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1058 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr475-review-38d1f281-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-38d1f281-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
