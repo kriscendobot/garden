@@ -21,3 +21,13 @@ Requirements:
 - After the PR is up, post the PR link and a concise verification summary on issue 1062. The bot repository's standing authorization covers that issue-scoped reply.
 
 This work is independent of the indexed-cardinality fast-path design in https://github.com/endojs/endo-but-for-bots/pull/1058; do not fold it into that PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-26T15:47:54Z
