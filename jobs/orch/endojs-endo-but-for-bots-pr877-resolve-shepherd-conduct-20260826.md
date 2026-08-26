@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr877-resolve-20260826-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr877-resolve-20260826-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr877-resolve-20260826 endojs-endo-but-for-bots-pr877-shepherd-20260826 endojs-endo-but-for-bots-pr877-conduct-20260826
