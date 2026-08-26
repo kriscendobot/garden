@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-26T04:09:03Z_
+_As of 2026-08-26T04:10:37Z_
 
 ## Latest
 
@@ -1154,18 +1154,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 109.7M | $703.54 _(notional, rate-card)_ | no quota set |
-| Codex | 42.1M _(+1770.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 42.1M _(+1771.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (11)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
-- [`endojs-endo-but-for-bots-pr282-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr475-review-38d1f281`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-38d1f281.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr877-resolve-20260826`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-resolve-20260826.md) — Resolve merge conflicts on endojs/endo-but-for-bots PR #877
@@ -1174,13 +1173,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5604)
+### tada (5605)
+- [`endojs-endo-but-for-bots-pr282-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr888-review-8b40fdbe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr888-review-8b40fdbe.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-shepherd.md) — Cost
 - [`deadmail-issue-comment-5420268393`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5420268393.md) — Cost
 - [`deadmail-issue-comment-5420247869`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5420247869.md) — Cost
-- [`minion-town-agenda-review-20260826-033505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260826-033505.md) — Cost
-- … and 5599 more
+- … and 5600 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
