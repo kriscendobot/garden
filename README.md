@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-26T16:39:27Z_
+_As of 2026-08-26T16:41:38Z_
 
 ## Latest
 
@@ -447,6 +447,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T130109Z-06084a` — from orchestrator:ironhorse-test262-milestone-campaign-20260825-budget-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T130109Z-06084a.md)
 
 > Orchestration ironhorse-test262-milestone-campaign-20260825 completed within its 2080000-token campaign budget after 949270 recorded tokens. 1130730 token(s) remain unused.
+
+- `20260826T164107Z-6552dc` — from gauntlet:build-endo1062-typedarray-preventextensions-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260826T164107Z-6552dc.md)
+
+> Gauntlet build-endo1062-typedarray-preventextensions-gauntlet HALTED: stage 'build-endo1062-typedarray-preventextensions-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1180,13 +1184,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5615)
+### tada (5616)
+- [`build-endo1062-typedarray-preventextensions-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo1062-typedarray-preventextensions-gauntlet.md) — gauntlet build-endo1062-typedarray-preventextensions-gauntlet — HALTED
 - [`build-endo1062-typedarray-preventextensions-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo1062-typedarray-preventextensions-gauntlet-panel-1.md) — Cost
 - [`build-endo1062-typedarray-preventextensions-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo1062-typedarray-preventextensions-gauntlet-clean.md) — Cost
 - [`improve-node-tool-shims-tsd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-node-tool-shims-tsd.md) — Cost
 - [`build-endo1062-typedarray-preventextensions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo1062-typedarray-preventextensions.md) — Cost
-- [`endojs-endo-but-for-bots-pr1062-d0ffce05`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1062-d0ffce05.md) — Cost
-- … and 5610 more
+- … and 5611 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
