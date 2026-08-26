@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-542024786
 Cancel the scheduled press 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-26T03:45:11Z
