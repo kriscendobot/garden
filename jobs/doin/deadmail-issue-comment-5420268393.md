@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/56#issuecomment-542026839
 Sitrep 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-26T03:45:47Z
