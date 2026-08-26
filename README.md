@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-26T15:45:36Z_
+_As of 2026-08-26T15:46:34Z_
 
 ## Latest
 
@@ -1055,6 +1055,15 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
+
+> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#1062](https://github.com/endojs/endo-but-for-bots/issues/1062) (cid=5427621486) and failed open.
+> This is a tool/transport failure, not a no-evidence finding — real feedback may
+> have been processed WITHOUT the peer-resolution recheck. Reason:
+> evidence gathering failed: could not fetch pull [endojs/endo-but-for-bots#1062](https://github.com/endojs/endo-but-for-bots/issues/1062)
+> --- captured stderr ---
+> gh: Not Found (HTTP 404)
+
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
 > RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-08-17T14:38:22Z, cleared 2026-08-24T18:39:14Z).
@@ -1154,7 +1163,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 94.7M | $559.47 _(notional, rate-card)_ | no quota set |
-| Codex | 43.4M _(+1791.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 43.5M _(+1791.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
