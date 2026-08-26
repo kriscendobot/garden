@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-26T16:21:29Z_
+_As of 2026-08-26T16:24:15Z_
 
 ## Latest
 
@@ -1163,32 +1163,31 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 94.7M | $559.47 _(notional, rate-card)_ | no quota set |
-| Codex | 43.9M _(+1807.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Codex | 44.0M _(+1808.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`build-endo1062-typedarray-preventextensions-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo1062-typedarray-preventextensions-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1063
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
-- [`improve-node-tool-shims-tsd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-node-tool-shims-tsd.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5612)
+### tada (5613)
+- [`improve-node-tool-shims-tsd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-node-tool-shims-tsd.md) — Cost
 - [`build-endo1062-typedarray-preventextensions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo1062-typedarray-preventextensions.md) — Cost
 - [`endojs-endo-but-for-bots-pr1062-d0ffce05`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1062-d0ffce05.md) — Cost
 - [`daily-progress-summary-20260826-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260826-070505.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826.md) — orchestration endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-2026082...
-- [`endojs-endo-but-for-bots-pr877-conduct-20260826`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-conduct-20260826.md) — Cost
-- … and 5607 more
+- … and 5608 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
