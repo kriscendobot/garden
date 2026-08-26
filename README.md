@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-26T05:01:36Z_
+_As of 2026-08-26T05:04:13Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3354](https://github.com/endojs/endo/pull/3354) — fix(compartment-mapper): exports cannot rewrite internal specifiers (waiting 3h)
+- [endojs/endo#3354](https://github.com/endojs/endo/pull/3354) — fix(compartment-mapper): exports cannot rewrite internal specifiers (waiting 4h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 27d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 37d)
@@ -447,10 +447,6 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260825T130109Z-06084a` — from orchestrator:ironhorse-test262-milestone-campaign-20260825-budget-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T130109Z-06084a.md)
 
 > Orchestration ironhorse-test262-milestone-campaign-20260825 completed within its 2080000-token campaign budget after 949270 recorded tokens. 1130730 token(s) remain unused.
-
-- `20260826T050110Z-eec3c5` — from orchestrator:endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260826T050110Z-eec3c5.md)
-
-> Orchestration endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826 HALTED: child endojs-endo-but-for-bots-pr877-conduct-20260826 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 2/3 done before halt; parked remainder: none
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1157,7 +1153,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.0M | $690.15 _(notional, rate-card)_ | no quota set |
+| Claude | 109.0M | $689.69 _(notional, rate-card)_ | no quota set |
 | Codex | 42.6M _(+1785.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
