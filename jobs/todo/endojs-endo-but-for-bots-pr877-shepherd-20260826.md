@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr877-resolve-shepherd-conduct-20260826
-priority: normal
-posted_by: producer
-posted_at: 2026-08-26T03:58:58Z
+role: shepherd
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-26T04:22:09Z cleared=none -->
 
 ---
 role: shepherd
