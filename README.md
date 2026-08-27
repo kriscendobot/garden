@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:59:48Z_
+_As of 2026-08-27T23:01:36Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 10m)
+- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 2m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 15h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 13h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 13h)
@@ -547,12 +547,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Full detail + evidence: [https://github.com/kriscendobot/garden/issues/58](https://github.com/kriscendobot/garden/issues/58)#issuecomment-5446098485
 
-- `20260827T224428Z-6629c2` — from gardener:endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827, reply_to `endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T224428Z-6629c2.md)
-
-> Conducting [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (Ironhorse coverage). CI was green on head e66cf4d and kriskowal approved it, but live `llm` moved during the CI wait (two unrelated design(cbor) commits, [endojs/endo-but-for-bots#738](https://github.com/endojs/endo-but-for-bots/issues/738)). Per conductor discipline I rebased onto live `llm` (c5c06a00); the rebase was clean. New head is a3e9d138 and CI is re-running on it.
->
-> The rebase invalidated the just-given approval (exact-head invariant). I've re-requested kriskowal's review on a3e9d138. Merge is blocked until kriskowal re-approves the rebased head; once approved I'll merge into live `llm` via the spine in this same job.
-
 - `20260827T225610Z-886dcf` — from gardener:minion-town-mcp-guest-eval-and-remaining-tools, reply_to `minion-town-mcp-guest-eval-and-remaining-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T225610Z-886dcf.md)
 
 > Re: minion.town guest-facet MCP tool inventory (job minion-town-mcp-guest-eval-and-remaining-tools).
@@ -570,15 +564,34 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Proceeding to investigate; will not ship any policy widening without your explicit sign-off.
 
-- `20260827T225704Z-3bd2f7` — from gardener:endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827, reply_to `endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T225704Z-3bd2f7.md)
+- `20260827T230112Z-2c01ea` — from gardener:minion-town-mcp-guest-eval-and-remaining-tools, reply_to `minion-town-mcp-guest-eval-and-remaining-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T230112Z-2c01ea.md)
 
-> [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) conduct — STALLED, not merged.
+> Got both messages — rescoping. Confirming my understanding + plan:
 >
-> After I rebased onto live `llm` (new head a3e9d138), CI came back RED on fuzz-ironhorse: a NEW seed-dependent crash in the `bytecode_decoder` fuzz target (panic at rust/engine/ironhorse-vm/src/interp.rs:30797:14), distinct from the stack-overflow the shepherd already fixed. fuzz-ironhorse had passed on the pre-rebase head e66cf4d, so this is a fresh fuzzer find, not caused by the rebase content (the rebase only added two unrelated design(cbor) commits).
+> 1. OCAP FRAMING: I'll rip out the evaluator ACL entirely. `evaluate` becomes a
+>    baseline facet capability alongside list/writeText/etc.; guest_eval mounts
+>    uniformly for every guest facet; no grants/policy branching. I'll remove
+>    FacetGrants.evaluator, the policy.guestFacetGrants machinery, config/policy.json's
+>    "guestFacetGrants" entries, and the `if (deps.grants.evaluator)` gate.
 >
-> Per conductor discipline I did not merge and did not fix. I handed the crash off to the active shepherds (pr1046-shepherd and pr1046-fuzz-async-instance-oom) and re-requested kriskowal's review on the rebased head. A fresh conduct job should carry the merge once fuzz-ironhorse is green on the final head and kriskowal re-approves that exact head.
+> 2. NEW TOOLS + REAL ROUND-TRIP PROOF: I'll build guest_eval (unconditional),
+>    guest_has (directory), and the mail write-verbs guest_send + guest_dismiss, and
+>    attempt guest_resolve/guest_adopt. I'll prove each against a REAL endo daemon
+>    (pinned f6650503) via the integration harness, and cite actual tool calls +
+>    responses in the report — no mocked calls.
 >
-> Separately, [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) remains OPEN / CHANGES_REQUESTED (its own fuzz-ironhorse history was red); resolving it is out of scope for this job and belongs to its active review-response job.
+> One design question on guest_send round-trip: a guest's `send(recipientName, …)`
+> needs a recipient pet name in its own directory. To send "to our own guest" I'll
+> have the guest name-itself (adopt its own handle / self pet-name) so the message
+> lands in its own inbox — is a guest→itself loopback the round trip you want, or do
+> you specifically want two distinct guests (A sends → B's inbox)? I'll default to
+> the self-loopback (simplest provable round trip on one daemon) unless you say
+> otherwise.
+>
+> On guest_request: it pends until a human resolves. I'll only ship it if I can
+> demonstrate the async-handle idiom actually resolving E2E per your requirement;
+> if I can't prove that in-harness I'll leave it out and say so rather than ship an
+> unproven tool. Starting the daemon build now.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1384,8 +1397,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.4M | $651.34 _(notional, rate-card)_ | no quota set |
-| Codex | 51.2M _(+1978.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.5M | $653.39 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+1977.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
