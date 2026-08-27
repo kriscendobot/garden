@@ -55,3 +55,13 @@ green.
 
 A normal mergeable PR against `llm` with the corpus edit + fixed tests +
 regenerated baselines. This auto-runs the gauntlet. Not a draft, not a design.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T23:30:36Z
