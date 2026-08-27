@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden continuous Ironhorse fuzz campaign timer
+
+[Timer]
+# OnBootSec anchors the first elapse to a fixed monotonic reference (boot) so the timer
+# always has a concrete next-trigger and fires promptly on arming; OnUnitActiveSec drives
+# the steady cadence AFTER the previous tick finishes (Type=oneshot), so a slow fuzz
+# increment or a one-time project build never overlaps the next — the gap is measured
+# from tick completion, giving a bounded duty cycle. ~5-minute idle gap between
+# increments keeps the campaign continuous without pinning the host.
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=2s
+
+[Install]
+WantedBy=timers.target

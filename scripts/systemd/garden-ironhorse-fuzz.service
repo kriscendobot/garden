@@ -1,0 +1,59 @@
+[Unit]
+Description=Garden continuous Ironhorse fuzz campaign (off the PR critical path → repair jobs → one standing PR)
+# Producer: drive the Ironhorse libFuzzer campaign CONTINUOUSLY in the background over a
+# PERSISTENT corpus, and turn every distinct reproducible crash into one durable,
+# deduplicated repair job that creates-or-amends ONE standing bot-fork pull request
+# (endojs/endo-but-for-bots#1046). Driven by its .timer as a bounded per-tick increment.
+#
+# Injection-safe / untrusted-data BY CONSTRUCTION: crash bytes are treated as hostile
+# input — passed to the fuzzer only by path, keyed by an inert sha256, and surfaced to
+# the repair job as bounded metadata + a durable artifact path/hash + an inert base64
+# blob, NEVER inlined into a shell command or an LLM prompt. The tick itself runs no
+# `claude`; the only LLM work is the bounded repair jobs it posts (CLAUDE.md
+# § Monitoring safety constraint). See designs/continuous-ironhorse-fuzz.md.
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit. The
+# self-heal wrapper normalizes 143/130 to 0; this is the belt-and-suspenders.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+# Graceful drain: SIGTERM the main process (self-heal-run.sh → ironhorse-fuzz.sh), whose
+# EXIT/TERM trap reaps the fuzz subprocess group; the cgroup-wide SIGKILL backstop at
+# TimeoutStopSec fells any libFuzzer straggler. A killed tick simply loses its in-RAM
+# increment — the corpus, dedup markers, and standing-PR state are all durable.
+KillMode=mixed
+TimeoutStopSec=30s
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Leader-only singleton: run the campaign on exactly ONE host. On a follower the timer
+# fires but this ExecCondition fails, so the tick is skipped cleanly (never Failed) — two
+# hosts never run the same campaign or double-post a finding (issue kriskowal/garden#11).
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-ironhorse-fuzz -- @GARDEN_ROOT@/scripts/jobs/ironhorse-fuzz.sh
+# A fuzz increment plus a one-time project provision/build can be slow; give the tick
+# real headroom. The per-target -max_total_time and the per-tick finding cap keep a
+# steady-state tick well under this bound.
+TimeoutStartSec=3600
+
+# ── Resource bounds (the FIRST leader-only singleton to carry real cgroup limits) ──
+# A fuzz process is adversarially resource-hungry by design. Confine it to this unit's
+# cgroup so a crash/OOM/CPU-spike takes down at most the tick — never a gardener, another
+# singleton, or the host. Modeled on garden-worker@.service.in's block.
+MemoryAccounting=yes
+# Soft throttle first: reclaim/swap pressure on THIS cgroup before any kill.
+MemoryHigh=6G
+# Hard cap: an OOM is confined here and the next tick restarts cleanly. libFuzzer's own
+# -rss_limit_mb (default 4096) bounds a single process below this so the target aborts
+# with a diagnosable OOM artifact before systemd's killer engages. TUNING: raise both in
+# step if a legitimate target needs more than the differential oracle's footprint.
+MemoryMax=8G
+# Bounded duty cycle: cap sustained CPU so a continuous campaign never starves the fleet's
+# gardeners/singletons on a shared host. 150% ~= 1.5 cores average; raise on a dedicated
+# fuzz host, lower on a contended one.
+CPUQuota=150%
+CPUWeight=20
+IOWeight=20
+# Cap the process/thread explosion a misbehaving target could cause.
+TasksMax=512
+
+[Install]
+WantedBy=timers.target
