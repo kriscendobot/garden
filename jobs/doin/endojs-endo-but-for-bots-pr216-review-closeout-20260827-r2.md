@@ -22,3 +22,13 @@ still incomplete. Otherwise make no gratuitous source change. Close the review
 loop: resolve any fully addressed thread, re-request maintainer review after CI
 is green, and post the required top-level completion summary with the verified
 head SHA and real test/CI evidence. Do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T09:40:24Z
