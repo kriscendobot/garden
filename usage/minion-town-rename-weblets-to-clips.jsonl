@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":36,"elapsed_s":505,"input_tokens":67,"output_tokens":33993,"cache_creation_tokens":79016,"cache_read_tokens":2567535,"total_cost_usd":2.9265614999999996,"ts":"2026-08-27T22:27:42Z","base":"minion-town-rename-weblets-to-clips","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
