@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T12:53:33Z_
+_As of 2026-08-27T12:54:22Z_
 
 ## Latest
 
@@ -1460,6 +1460,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
+- [`endojs-endo-but-for-bots-pr282-weave-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-weave-20260827.md) — awaiting `endor-host-hook-surface-20260827-gauntlet-clean` · Weave endojs/endo-but-for-bots#282 after the live clean worker exits
 - [`endojs-endo-but-for-bots-pr388-passable-byte-arrays-after-pr475-37754f3b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-passable-byte-arrays-after-pr475-37754f3b.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Fix endojs/endo-but-for-bots PR 388 after PR 475
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
