@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T09:28:28Z_
+_As of 2026-08-27T09:31:21Z_
 
 ## Latest
 
@@ -484,6 +484,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > PR front is healthy: [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (APPROVED) re-running CI on a new head, [endojs/endo-but-for-bots#1060](https://github.com/endojs/endo-but-for-bots/issues/1060) mergeable
 > w/ checks pending + freshly reviewed, [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) recently conducted. No idle
 > CHANGES_REQUESTED mechanical target needing a fixer.
+
+- `20260827T093107Z-ab7bc3` — from orchestrator:endor-fixture-parity-ratchet-campaign-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T093107Z-ab7bc3.md)
+
+> Orchestration endor-fixture-parity-ratchet-campaign-20260827 HALTED: child endor-walker-host-hooks completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 4/5 done before halt; parked remainder: none
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1219,13 +1223,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5648)
+### tada (5649)
+- [`endor-fixture-parity-ratchet-campaign-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260827.md) — orchestration endor-fixture-parity-ratchet-campaign-20260827 — HALTED
 - [`endor-walker-host-hooks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks.md) — Cost
 - [`endor-walker-language-extensions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-language-extensions.md) — Completion report — Build Increment 6 (language-for-extension & non-JS assets...
 - [`endor-walker-nested-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-nested-resolution.md) — Completion report — endor-walker-nested-resolution (Increment 5, Group G)
 - [`xs2rust-endor-press-20260827-082007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-082007.md) — Cost
-- [`minion-town-press-20260827-082007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-082007.md) — Cost
-- … and 5643 more
+- … and 5644 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
