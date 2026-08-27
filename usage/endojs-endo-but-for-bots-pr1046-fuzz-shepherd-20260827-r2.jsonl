@@ -1,1 +1,2 @@
 {"ts":"2026-08-27T09:44:01Z","base":"endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":89}
+{"ts":"2026-08-27T13:53:30Z","base":"endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":604}
