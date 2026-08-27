@@ -60,3 +60,13 @@ it) garden automation that:
   (or an orchestration) to actually carve the juror seat + role + skill.
 - This is garden-library work (roles/skills/scripts on main2), NOT a change to
   any project repo.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T21:46:31Z
