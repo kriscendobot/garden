@@ -1108,6 +1108,8 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 | [Fireworks Tool Calling](web--fireworks-tool-calling.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 2 | current (tool request and response schema, multi-turn exchange, streaming, and schema boundary) |
 | [Fireworks Structured Outputs](web--fireworks-structured-outputs.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 2 | current (response-format schema, JSON-reference behavior, reasoning tradeoff, and grammar mode) |
 
+| [Freezable TypedArray emulation design archive](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray.md) | endojs/endo-but-for-bots PR #475 | 2026-08-25 (PR head `c8007ce9`) | Kriscendo Bot | 7 | current (unreviewed reference preserved at maintainer direction before deletion from the PR) |
+
 ## Addressing and authorization specifications (ATProto, UCAN)
 
 Primary specifications for the identifier / authorization families the garden's
