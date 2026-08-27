@@ -23,3 +23,13 @@ vs. straight rename case by case and note the reasoning.
 
 This likely touches many files; consider whether it needs to land as a
 single PR or a staged sequence, and say so in the completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T22:18:40Z
