@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-27T09:13:02Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-27T09:13:02Z
+---
+
+---
 role: fixer
 tier: mentor
 fallback-tier: minion
@@ -26,15 +44,3 @@ the current head already satisfies the ask, make no gratuitous source change.
 In either case, close the review loop: resolve the addressed thread, re-request
 the maintainer review after CI is green, and post the required top-level
 completion summary with the verified head SHA and test/CI status. Do not merge.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-27T08:28:44Z
