@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:16:21Z_
+_As of 2026-08-27T23:16:49Z_
 
 ## Latest
 
@@ -592,6 +592,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > demonstrate the async-handle idiom actually resolving E2E per your requirement;
 > if I can't prove that in-harness I'll leave it out and say so rather than ship an
 > unproven tool. Starting the daemon build now.
+
+- `20260827T231628Z-b7654b` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T231628Z-b7654b.md)
+
+> awaiting maintainer — beyond proxy authority: gardener minion-town-mcp-guest-eval-and-remaining-tools, msgid 20260827T225610Z-886dcf.md — Question 1 asks the proxy to approve/ratify a live security-policy grant (which identities get guest-facet "evaluator"/eval-execution rights on minion.town) — an access-control authority decision reserved to the maintainer, not a progress/direction call a proxy can make.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1397,8 +1401,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.9M | $673.04 _(notional, rate-card)_ | no quota set |
-| Codex | 51.0M _(+1969.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.9M | $673.76 _(notional, rate-card)_ | no quota set |
+| Codex | 51.0M _(+1969.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
