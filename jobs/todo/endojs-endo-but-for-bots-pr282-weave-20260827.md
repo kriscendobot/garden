@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: endor-host-hook-surface-20260827-gauntlet-clean
-priority: high
 role: weaver
-posted_by: gardener
-posted_at: 2026-08-27T12:54:04Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-08-27T12:55:26Z cleared=none -->
 
 ---
 tier: mentor
