@@ -26,6 +26,7 @@ regression plus applicable Ironhorse tests and the fuzz target, drive CI
 to green, and post a completion summary with head SHA and real-execution
 evidence. Do not merge.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
