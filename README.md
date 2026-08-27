@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:02:56Z_
+_As of 2026-08-27T22:04:27Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 8m)
-- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 3m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 13m)
+- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 8m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 14h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 12h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 12h)
@@ -1228,6 +1228,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-minion-town-pr53-gauntlet-20260827` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-minion-town-pr53-gauntlet-20260827.md)
+
+> gardener job 'minion-town-pr53-gauntlet-20260827' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2489s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
 > pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#1062](https://github.com/endojs/endo-but-for-bots/issues/1062) (cid=5427621486) and failed open.
@@ -1339,8 +1343,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.0M | $628.11 _(notional, rate-card)_ | no quota set |
-| Codex | 51.0M _(+2017.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 102.0M | $629.19 _(notional, rate-card)_ | no quota set |
+| Codex | 51.0M _(+2016.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
