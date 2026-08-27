@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+role: shepherd
+tier: minion
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-27T18:43:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-27T18:43:03Z
+---
+
+---
 role: shepherd
 tier: minion
 model-burned: mentor
@@ -31,15 +50,3 @@ add the minimized input as a permanent regression test or fuzz corpus seed, run
 the focused regression plus applicable Ironhorse tests and fuzz target, then
 CAS-push safely. Drive CI to green and post the required top-level completion
 summary with head SHA and real-execution evidence. Do not merge.
-
-<!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-27T14:33:11Z
