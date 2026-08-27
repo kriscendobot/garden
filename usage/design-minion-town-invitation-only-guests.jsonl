@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":41,"elapsed_s":482,"input_tokens":59,"output_tokens":30042,"cache_creation_tokens":125482,"cache_read_tokens":3464324,"total_cost_usd":3.741079000000001,"ts":"2026-08-27T23:13:13Z","base":"design-minion-town-invitation-only-guests","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
