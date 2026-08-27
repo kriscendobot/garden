@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T06:11:18Z_
+_As of 2026-08-27T06:16:42Z_
 
 ## Latest
 
@@ -1170,14 +1170,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.5M | $498.88 _(notional, rate-card)_ | no quota set |
-| Codex | 46.1M _(+1848.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 89.6M | $503.46 _(notional, rate-card)_ | no quota set |
+| Codex | 46.1M _(+1853.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`minion-town-press-20260827-061533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-press-20260827-061533.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
 
-### doin (17)
+### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-base32-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-base32-package.md) — ---
@@ -1195,6 +1195,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
+- [`xs2rust-endor-press-20260827-061533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-061533.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (5628)
 - [`scholar-ingest-alan-kay-personal-computer-for-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-alan-kay-personal-computer-for-children.md) — Cost
