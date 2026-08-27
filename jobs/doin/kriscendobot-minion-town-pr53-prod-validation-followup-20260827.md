@@ -18,3 +18,13 @@ Remaining work owned by this successor:
 4. Confirm the PR is mergeable and checks green, then post a conductor job to un-draft and merge kriscendobot/minion.town#53. Do not name a merge method.
 
 The prior attempt also ran the one-time Cognito guest-scope migration successfully after fixing its order-sensitive read-back check in 46f3210; the full test client can now request `mcp/tools mcp/guest`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T19:57:28Z
