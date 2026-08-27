@@ -10,3 +10,13 @@ Treat a report reference that GitHub definitively says is not a pull request as 
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T23:23:28Z
