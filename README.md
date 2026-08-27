@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T10:55:03Z_
+_As of 2026-08-27T10:56:44Z_
 
 ## Latest
 
@@ -1135,6 +1135,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-22T07:14:36Z, latest 2026-08-27T10:56:26Z).
+> The SAME condition (`shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > conductor unfreeze BLOCKED for [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046): frozen base 'llm-e22e67a' is shared by open PRs (#1046, #475). Forwarding #1046 to live 'llm' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#1046 left on the snapshot: not stranded silently, not force-forked.)
 
 - `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
@@ -1215,8 +1219,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $507.34 _(notional, rate-card)_ | no quota set |
-| Codex | 49.4M _(+1985.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 89.8M | $508.04 _(notional, rate-card)_ | no quota set |
+| Codex | 49.4M _(+1986.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
