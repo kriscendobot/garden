@@ -28,3 +28,13 @@ mergeStateStatus UNSTABLE (as of this investigation) on top of its
 CHANGES_REQUESTED review — if that's a flaky/transient check rather than a
 real regression, mention it, but resolving #475 itself is out of scope for
 this job (it has its own active review-response job).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T21:50:26Z
