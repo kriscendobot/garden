@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: hermit
+claimed_at: 2026-08-27T12:43:12Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-endor-host-hook-surface-20260827-gauntlet-clean
