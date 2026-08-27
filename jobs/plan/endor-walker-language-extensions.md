@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: endor-fixture-parity-ratchet-campaign-20260823
+orchestrated_by: endor-fixture-parity-ratchet-campaign-20260827
 priority: normal
 role: builder
 posted_by: producer
