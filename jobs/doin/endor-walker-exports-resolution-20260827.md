@@ -60,3 +60,13 @@ On success, the 5 downstream ratchet children (dep-classification,
 dynamic-import, nested-resolution, language-extensions, host-hooks) remain parked
 under `orchestrated_by: endor-fixture-parity-ratchet-campaign-20260823`; a future
 press dispatch re-orchestrates them once this blocker clears.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T06:24:58Z
