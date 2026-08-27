@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: cleric
-claimed_at: 2026-08-27T09:23:12Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endojs-endo-base32-package
-pr_number: 3
-pr_repo: kriscendobot/endo
-pr_url: https://github.com/kriscendobot/endo/pull/3
-pr_head: feat/base32-package
