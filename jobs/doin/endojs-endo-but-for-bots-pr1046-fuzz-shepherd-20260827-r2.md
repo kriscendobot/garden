@@ -30,3 +30,13 @@ add the minimized input as a permanent regression test or fuzz corpus seed, run
 the focused regression plus applicable Ironhorse tests and fuzz target, then
 CAS-push safely. Drive CI to green and post the required top-level completion
 summary with head SHA and real-execution evidence. Do not merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T09:42:00Z
