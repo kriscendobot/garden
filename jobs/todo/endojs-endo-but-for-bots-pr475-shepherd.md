@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # shepherd directive on endojs/endo-but-for-bots PR #475
@@ -19,12 +20,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Shepherd. 
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-27T18:00:26Z
+<!-- garden-reaped: 0 -->
