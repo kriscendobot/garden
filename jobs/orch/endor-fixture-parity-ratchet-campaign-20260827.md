@@ -1,4 +1,5 @@
 ---
+child-endor-walker-language-extensions-reap-count: 0
 child-endor-walker-nested-resolution-host: endolin-garden-ece02cb4
 child-endor-walker-nested-resolution-reap-count: 0
 child-endor-walker-dynamic-import-host: endolin-garden2-5bcdff64
