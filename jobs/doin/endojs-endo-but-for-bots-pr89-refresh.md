@@ -16,3 +16,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please refresh. A scheduler is in progress with `@endo/reminder`, which supersedes these earlier designs. Look for other facets of Genie that have made similar progress. Trim this proposal down to what remains. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T05:17:59Z
