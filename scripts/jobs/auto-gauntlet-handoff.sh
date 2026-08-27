@@ -78,7 +78,31 @@ case "$gh_bin" in
   */*) [ -x "$gh_bin" ] || die "auto-gauntlet: gh is required to inspect $pr_url" ;;
   *)   command -v "$gh_bin" >/dev/null 2>&1 || die "auto-gauntlet: gh is required to inspect $pr_url" ;;
 esac
-pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body,author,files)"
+# The shorthand `owner/repo#N` citation form is number-only, and an ISSUE and a PR
+# share the same `#N` namespace on GitHub — extract_pr_refs_from_text cannot tell them
+# apart, so an ISSUE citation gets normalized to a `/pull/<N>` URL indistinguishable
+# from a real PR reference. When `gh pr view` then asks the GraphQL API for that number
+# as a PullRequest and GitHub answers DEFINITIVELY that no PR with that number exists
+# (`Could not resolve to a PullRequest`), the citation is of a NON-PR — an issue, or
+# nothing — never the build's own artifact. Treat it as an issue citation and skip
+# gauntlet inspection cleanly. Letting `set -e` kill the hook here is exactly what
+# unnecessarily requeued two completed issue-driven jobs that cited kriscendobot/garden#58
+# (an issue): the non-zero exit was read as a FAILED handoff, so the caller left the
+# build in doin and the reaper retried it. The match is narrowed to GitHub's definitive
+# "not a PullRequest" answer, so a TRANSIENT failure (network, auth, rate-limit, or a
+# repo that cannot be resolved at all) still fails hard and is retried, never skipped.
+_pr_view_err="$(mktemp)"
+if ! pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body,author,files 2>"$_pr_view_err")"; then
+  if grep -qi 'Could not resolve to a PullRequest' "$_pr_view_err"; then
+    rm -f "$_pr_view_err"
+    log "auto-gauntlet: job '$base' report reference $pr_url resolves to no pull request (GitHub: not a PullRequest) — an issue citation, not the build's own PR; no handoff, nothing touched"
+    exit 0
+  fi
+  cat "$_pr_view_err" >&2 || true
+  rm -f "$_pr_view_err"
+  die "auto-gauntlet: gh could not inspect $pr_url"
+fi
+rm -f "$_pr_view_err"
 state="$(printf '%s' "$pr_json" | jq -r '.state // empty')"
 draft="$(printf '%s' "$pr_json" | jq -r '.isDraft // false')"
 author="$(printf '%s' "$pr_json" | jq -r '.author.login // empty')"
