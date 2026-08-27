@@ -1,35 +1,34 @@
-The rebase is complete and verified. PR #889 went from `CONFLICTING`/`DIRTY` to `MERGEABLE`, with head now at my pushed commit `e8c5226b9`.
+The rebase is complete and verified. Here is my report.
 
-## Completion report
+---
 
-**Job:** `endojs-endo-but-for-bots-pr889-rebase` (weaver / rebase directive on endojs/endo-but-for-bots PR #889, "docs: Design exo-git root advancement follower").
+**Job: rebase endojs/endo-but-for-bots PR #889 (weaver)**
+
+**Directive:** "Rebase, retcon, conduct." (comment by kriskowal). This job is the **rebase** leg only; retcon and conduct are separate directives/jobs.
 
 **What I did:**
-- Fetched the PR: a design-doc PR (3 commits) on head `design/exo-git-follow-root-advancement` (kriscendobot fork), base `llm`, in `CONFLICTING`/`DIRTY` state. The branch sat on a stale base (`b2fa678d4`); upstream `endojs/endo-but-for-bots` `llm` had advanced to `87764067f0`.
-- Rebased the 3 design commits `--onto upstream/llm`, dropping the fork's stale copy of `llm` history.
-- Resolved conflicts in `designs/README.md` across all 3 commits. The conflicts were structural: upstream restructured the index (historical "Layered on…" groom notes moved to `ARCHIVE.md`; a new rolling current-totals block). I kept **upstream's** new structure and grafted on only the branch's genuine contribution — registering `exo-git-follow-root-advancement`:
-  - summary-table row (Proposed), preserving upstream's `In Progress` statuses for the daemon-git trio;
-  - dependency-graph mermaid node + 3 edges;
-  - roadmap milestone row and estimate row (using the revision commit's transaction-layer descriptions and `M-L / 1-1.5 weeks` estimate);
-  - M3 rollup 18→19;
-  - a totals note (Proposed 37→38, design count 192→193).
-  - Discarded the branch's re-layered groom notes that upstream had deliberately archived.
+- PR #889 (`docs: Design exo-git-follow-root-advancement follower`), head `design/exo-git-follow-root-advancement` on `kriscendobot/endo-but-for-bots`, base `llm` on `endojs/endo-but-for-bots`. It was **CONFLICTING**, 3 ahead / 38 behind its old merge base (`87764067f`).
+- Rebased the 3 commits onto the current `upstream/llm` tip (`5782df42f`).
+- One conflicting file: `designs/README.md`, in two regions (both bookkeeping, no code):
+  1. **Changelog block** — `llm` had independently appended a "PR #89 refresh (genie retrospective)" line. I kept it and appended the PR's own "rebase adds exo-git-follow-root-advancement (Proposed), 37→38 Proposed, 192→193 designs" line after it; the numbers chain coherently off the existing 2026-08-25 line, so no renumbering was needed.
+  2. **M3/M4 milestone rows** — took the PR's M3 row (18→19, adding `exo-git-follow-root-advancement`) and kept `llm`'s M4 row (which had independently renamed `cbors`→`cbor-frame`, a change the PR never touched). Verified via 3-way stage inspection that M3 membership was only the PR's edit and the M4 rename was only `llm`'s.
+- Resolutions honor both sides (no `--ours`/`--theirs`).
 
-**Verification (matches the PR's stated checks):**
-- `git diff --check` clean; net diff vs `upstream/llm` is exactly the 707-line design file + focused 11-line README registration (no leftover conflict debris).
-- `prettier --check` on both files: clean.
-- All merged mermaid node ids resolve.
-- Force-pushed with `--force-with-lease` (lease matched old head; no peer race). PR now `MERGEABLE` (mergeStateStatus `UNSTABLE` = CI still running, not a conflict).
+**Verification:**
+- No conflict markers remain; net diff vs `upstream/llm` is exactly the PR's original intent — `designs/README.md` (+11/−1) and the new `designs/exo-git-follow-root-advancement.md` (707 lines). 3 commits, 0 behind.
+- Force-with-lease pushed head `e8c5226b9 → 6d73ce462`.
+- GitHub now reports PR #889 **MERGEABLE**, base still `llm` (natural upstream branch — no frozen-base field change applies).
+- Docs-only change; no package tests apply. Inbox drained (empty).
 
-**Follow-ups (out of scope for this rebase job):** the originating comment was a compound chain — "Rebase, resolve, retcon, conduct, and dispatch a builder for this design **when landed**." This job covered only **rebase + resolve**. The remaining verbs (retcon, conduct, and a builder dispatch gated on the design landing) are separate directives for the liaison to post; I did not act on them.
+**Follow-ups:** The chain's remaining legs (**retcon**, **conduct**) are separate directives handled by their own jobs; not in this weaver's scope. No comment posted (no explicit per-action comment authorization in the job body, and a mid-chain rebase note would be noise before the retcon/conduct legs).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr889-rebase.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 72 tokens (2778649 cached reads)
-- Output: 20391 tokens
-- Cost: $2.7187984999999997
-- Wall-clock: 323s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 122 tokens (4516279 cached reads)
+- Output: 39293 tokens
+- Cost: $4.819269499999999
+- Wall-clock: 605s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
