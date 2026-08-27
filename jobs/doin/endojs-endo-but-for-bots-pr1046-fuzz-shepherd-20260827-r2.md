@@ -34,6 +34,7 @@ summary with head SHA and real-execution evidence. Do not merge.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
