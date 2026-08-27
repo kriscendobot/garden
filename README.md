@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T11:27:32Z_
+_As of 2026-08-27T11:32:27Z_
 
 ## Latest
 
@@ -11,7 +11,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 3h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 5h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 29d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 39d)
@@ -1245,14 +1245,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $505.58 _(notional, rate-card)_ | no quota set |
-| Codex | 49.6M _(+2008.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 89.7M | $503.22 _(notional, rate-card)_ | no quota set |
+| Codex | 49.6M _(+2011.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1260,20 +1260,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`endor-host-hook-surface-20260827-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-host-hook-surface-20260827-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #282
-- [`endor-walker-host-hooks-20260827-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-host-hooks-20260827-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #282
 - [`kriscendobot-endo-pr3-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-endo-pr3-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo PR #3
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5661)
+### tada (5662)
+- [`endor-walker-host-hooks-20260827-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks-20260827-gauntlet-clean.md) — Clean stage — endojs/endo-but-for-bots#282 (gauntlet endor-walker-host-hooks-...
 - [`endor-walker-host-hooks-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks-20260827.md) — Cost
 - [`endor-host-hooks-ratchet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-host-hooks-ratchet-20260827.md) — orchestration endor-host-hooks-ratchet-20260827 — HALTED
 - [`endojs-endo-but-for-bots-pr1046-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-shepherd.md) — Cost
-- [`xs2rust-endor-press-20260827-103509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-103509.md) — Cost
-- … and 5656 more
+- … and 5657 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
