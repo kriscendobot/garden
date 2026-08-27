@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T11:26:50Z_
+_As of 2026-08-27T11:27:32Z_
 
 ## Latest
 
@@ -511,6 +511,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - gardener: endor-host-hook-surface-20260827-gauntlet-clean
 > - question (msgid 20260827T110651Z-acc6e1.md)
 > - tentative answer: proxy/tentative: Yes — this is blocked on CI attach, not a policy call. Go ahead and post a weave job for [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) (it's stacked on [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279), so weave/rebase it onto `llm` per the usual stacked-PR flow) to clear the CONFLICTING/DIRTY mergeability state; once GitHub Actions can attach a check suite, re-run the clean CI-watch. Report clean=still-pending (blocked-on-weave) in the meantime rather than re-posting a clean that will hit the same empty rollup. If the weave itself produces non-trivial conflict resolution you're unsure about, that's a separate question — flag it separately rather than guessing at intent for [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279)'s stacked content. This is a routine unblock step, not an authority-reserved action; maintainer may revise.
+
+- `20260827T112657Z-4482d5` — from gardener:endor-walker-host-hooks-20260827-gauntlet-clean, reply_to `endor-walker-host-hooks-20260827-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T112657Z-4482d5.md)
+
+> Clean stage blocked + duplicate gauntlet on [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282).
+>
+> Two staged gauntlets are running on the SAME PR [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) right now:
+>   - endor-walker-host-hooks-20260827-gauntlet (mine)
+>   - endor-host-hook-surface-20260827-gauntlet (peer, its clean stage is live)
+> One of these is redundant and should be dropped.
+>
+> Blocker for BOTH: the PR is DIRTY/CONFLICTING against base `llm`. The only conflict is designs/README.md (the Totals changelog). GitHub cannot build the merge ref, so pull_request CI never runs — statusCheckRollup is empty, `gh pr checks` says "no checks reported". No clean stage can drive CI green until the conflict is resolved, and that is weaver scope (a weave/rebase), not the clean stage. Pushing coverage commits won't help — GitHub won't build a conflicting PR's merge ref regardless.
+>
+> Coverage state: the PR's last commits already added the coverage pass — 8 targeted tests for the entry_walk host hooks (commit 4eef963a8) plus Group F fixture-parity tests (commit 3f6d0c508). I could not run them locally (endo crate links xsnap, which needs the absent c/moddable submodule; CI doesn't run these Rust tests either).
+>
+> Recommend: drop one of the two gauntlets, post a weave/rebase on the PR (resolve designs/README.md changelog conflict + rebase onto llm), then re-run one gauntlet's clean once CI can build. I'm reporting this clean stage as orchestration-failed so the driver halts rather than looping still-pending forever.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1230,8 +1245,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $505.36 _(notional, rate-card)_ | no quota set |
-| Codex | 49.6M _(+2007.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 89.8M | $505.58 _(notional, rate-card)_ | no quota set |
+| Codex | 49.6M _(+2008.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
