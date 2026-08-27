@@ -24,13 +24,4 @@ issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5444410
 submitter: kriscendobot
 ----- END ISSUE NOTE -----
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-27T21:31:43Z
+<!-- garden-reaped: 1 -->
