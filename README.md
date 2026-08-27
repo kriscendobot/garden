@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T06:49:32Z_
+_As of 2026-08-27T06:50:49Z_
 
 ## Latest
 
@@ -484,10 +484,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > PR front is healthy: [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (APPROVED) re-running CI on a new head, [endojs/endo-but-for-bots#1060](https://github.com/endojs/endo-but-for-bots/issues/1060) mergeable
 > w/ checks pending + freshly reviewed, [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) recently conducted. No idle
 > CHANGES_REQUESTED mechanical target needing a fixer.
-
-- `20260827T064907Z-e97a90` — from orchestrator:pr796-unpin-shepherd-merge-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T064907Z-e97a90.md)
-
-> Orchestration pr796-unpin-shepherd-merge-20260827 HALTED: child endojs-endo-but-for-bots-pr796-shepherd-20260827 stalled in flight for 2495s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: endojs-endo-but-for-bots-pr796-conduct-20260827
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1092,10 +1088,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr796-shepherd-20260827` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr796-shepherd-20260827.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr796-shepherd-20260827' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1207,8 +1199,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $513.64 _(notional, rate-card)_ | no quota set |
-| Codex | 46.4M _(+1882.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
+| Claude | 89.8M | $514.64 _(notional, rate-card)_ | no quota set |
+| Codex | 46.5M _(+1882.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
