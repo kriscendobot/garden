@@ -2,3 +2,4 @@
 {"ts":"2026-08-27T11:09:19Z","base":"endor-host-hook-surface-20260827-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":42}
 {"ts":"2026-08-27T11:13:42Z","base":"endor-host-hook-surface-20260827-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":29}
 {"ts":"2026-08-27T12:29:45Z","base":"endor-host-hook-surface-20260827-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":3985}
+{"source":"result","num_turns":46,"elapsed_s":534,"input_tokens":92,"output_tokens":16238,"cache_creation_tokens":86913,"cache_read_tokens":3315914,"total_cost_usd":1.7629802,"ts":"2026-08-27T12:42:17Z","base":"endor-host-hook-surface-20260827-gauntlet-clean","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"gardener","provider":"anthropic"}
