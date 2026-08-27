@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-08-27T21:48:25Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-design-hardened262-all-environment-runs
+pr_number: 1066
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1066
+pr_head: design/hardened262-all-environment-runs
