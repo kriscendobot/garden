@@ -33,3 +33,13 @@ CAS-push safely. Drive CI to green and post the required top-level completion
 summary with head SHA and real-execution evidence. Do not merge.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T13:43:12Z
