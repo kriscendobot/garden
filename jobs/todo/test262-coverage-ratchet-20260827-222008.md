@@ -1,7 +1,3 @@
-cadence: hourly
-last_dispatched: 2026-08-27T22:20:08Z
-job_basename_prefix: test262-coverage-ratchet
----
 ---
 tier: mentor
 fallback-tier: minion
