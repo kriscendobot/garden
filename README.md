@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:10:14Z_
+_As of 2026-08-27T23:13:41Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 8m)
+- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 15m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 15h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 13h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 13h)
@@ -1397,17 +1397,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.9M | $664.91 _(notional, rate-card)_ | no quota set |
-| Codex | 51.1M _(+1973.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.8M | $670.36 _(notional, rate-card)_ | no quota set |
+| Codex | 51.1M _(+1972.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (21)
+### doin (20)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
-- [`design-minion-town-invitation-only-guests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-invitation-only-guests.md) — ---
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
@@ -1427,13 +1426,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-mcp-guest-eval-and-remaining-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-guest-eval-and-remaining-tools.md) — ---
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5728)
+### tada (5729)
+- [`design-minion-town-invitation-only-guests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-invitation-only-guests.md) — Completion report
 - [`minion-town-press-20260827-230505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-230505.md) — Completion report — minion-town-press-20260827-230505
 - [`endojs-endo-but-for-bots-pr1066-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827.md) — Conductor report — endojs/endo-but-for-bots#1046
-- [`endojs-endo-but-for-bots-pr1066-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-clean.md) — Completion report
-- … and 5723 more
+- … and 5724 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
