@@ -1,19 +1,14 @@
-Shepherded PR #475 to green at head `b1c0f69b9afe82440a44ce0150ff590562509d62`.
+PR #475 CI is green on head `479582126`: all checks pass, including `fuzz-ironhorse` (CI run attempt 3).
 
-- Diagnosed Node 24 coverage failure as an operational `ENOTEMPTY` cleanup race.
-- Reran failed CI; the complete matrix passed.
-- Confirmed PR is mergeable and clean.
-- Posted completion summary: https://github.com/endojs/endo-but-for-bots/pull/475#issuecomment-5418709928
-- No source changes or follow-ups needed.
-- Self-improvement: nothing this time.
+No source changes were needed. The earlier fuzz stack-overflow was retried; the final run succeeded. No follow-up required.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr475-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 8 on 2 host(s) (6 unmetered)
-- Input: 584 tokens (57747891 cached reads)
-- Output: 129733 tokens
-- Cost: $35.15578949999999 (6 engagement(s) unpriced)
-- Wall-clock: 7444s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 13 on 2 host(s) (10 unmetered)
+- Input: 620 tokens (58883853 cached reads)
+- Output: 138509 tokens
+- Cost: $36.477859499999994 (10 engagement(s) unpriced)
+- Wall-clock: 8196s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
