@@ -13,3 +13,13 @@ Second step of the PR #796 unpin/rebase/shepherd/merge chain
 been unpinned back to `llm` and rebased by the preceding orchestrated
 child. Drive CI to green on the rebased head. Do not touch the base again;
 that step is already done.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T06:07:26Z
