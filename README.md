@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T12:54:22Z_
+_As of 2026-08-27T12:56:52Z_
 
 ## Latest
 
@@ -531,6 +531,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endor-walker-host-hooks-20260827-gauntlet HALTED: stage 'endor-walker-host-hooks-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
+
+> Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -750,58 +754,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Source: pr-review-body by kriskowal
 > Approval: [https://github.com/endojs/endo-but-for-bots/pull/946](https://github.com/endojs/endo-but-for-bots/pull/946)#pullrequestreview-4941598685
-
-- `doomed-endor-host-hook-surface-20260827-gauntlet-clean-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endor-host-hook-surface-20260827-gauntlet-clean-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/endor-host-hook-surface-20260827-gauntlet-clean; it stays HELD until a human promotes it
-> (promote-plan.sh endor-host-hook-surface-20260827-gauntlet-clean) or removes it, so nothing is lost.
-> Original job base: endor-host-hook-surface-20260827-gauntlet-clean
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> gauntlet: endor-host-hook-surface-20260827-gauntlet
-> gauntlet_stage: clean
-> gauntlet_iteration: 0
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282)
-> ---
->
-> # Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #282
->
-> You are ONE stage of a staged gauntlet (endor-host-hook-surface-20260827-gauntlet). Do ONLY the clean stage, then STOP.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Idempotence first. `gh pr view https://github.com/endojs/endo-but-for-bots/pull/282 --json isDraft,state,statusCheckRollup`. If the
->    PR is already the right shape (coverage already pushed, CI GREEN at the current
->    head), this stage is a NO-OP: skip to the marker with clean=done.
-> 2. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endor-host-hook-surface-20260827-gauntlet-clean <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/282 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 3. In that checkout: run the coverage pass on the touched packages
->    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
-> 4. If you changed anything, push follow-ups to the PR head with
->    `scripts/jobs/gardening/safe-push-pr-head.sh`.
-> 5. Watch CI to a terminal state, BOUNDED so this handler is never killed mid-wait:
->    `GARDEN_CI_DEADLINE_SECS=3600 \
->      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 282 --no-merge`
->    - rc 0 (GREEN): success.
->    - rc 4 (still PENDING at the deadline): CI is not terminal — report still-pending
->      so the driver re-posts this stage on a fresh budget (do NOT emit clean=done).
->    - rc 3 (RED): this stage FAILS. Begin your report with a line
->      `orchestration-failed: true` and describe the failing checks; do NOT emit any
->      clean=done marker (the driver halts the gauntlet and surfaces it).
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
->   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
 - `doomed-endor-walker-exports-resolution-elapsed-constancy` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endor-walker-exports-resolution-elapsed-constancy.md)
 
@@ -1314,20 +1266,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2.md) — Fix the settled Ironhorse fuzz failure on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr282-weave-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-weave-20260827.md) — Weave endojs/endo-but-for-bots#282 after the live clean worker exits
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`xs2rust-endor-press-20260827-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-125007.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5666)
+### tada (5668)
+- [`xs2rust-endor-press-20260827-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-125007.md) — Cost
+- [`endor-host-hook-surface-20260827-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-host-hook-surface-20260827-gauntlet.md) — gauntlet endor-host-hook-surface-20260827-gauntlet — HALTED
 - [`minion-town-press-20260827-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-125007.md) — Cost
 - [`kriscendobot-endo-pr3-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-endo-pr3-shepherd.md) — Cost
 - [`xs2rust-endor-press-20260827-115004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-115004.md) — Cost
-- [`endor-walker-host-hooks-20260827-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks-20260827-gauntlet.md) — gauntlet endor-walker-host-hooks-20260827-gauntlet — HALTED
-- [`endor-walker-host-hooks-20260827-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks-20260827-gauntlet-clean.md) — Clean stage — endojs/endo-but-for-bots#282 (gauntlet endor-walker-host-hooks-...
-- … and 5661 more
+- … and 5663 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1460,7 +1412,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
-- [`endojs-endo-but-for-bots-pr282-weave-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-weave-20260827.md) — awaiting `endor-host-hook-surface-20260827-gauntlet-clean` · Weave endojs/endo-but-for-bots#282 after the live clean worker exits
 - [`endojs-endo-but-for-bots-pr388-passable-byte-arrays-after-pr475-37754f3b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-passable-byte-arrays-after-pr475-37754f3b.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Fix endojs/endo-but-for-bots PR 388 after PR 475
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
