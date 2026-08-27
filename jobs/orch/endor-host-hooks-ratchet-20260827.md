@@ -1,4 +1,5 @@
 ---
+child-endor-walker-host-hooks-20260827-host: endolin-garden-ece02cb4
 child-endor-walker-host-hooks-20260827-reap-count: 0
 child-endor-host-hook-surface-20260827-host: endolin-garden-ece02cb4
 child-endor-host-hook-surface-20260827-reap-count: 0
