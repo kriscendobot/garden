@@ -7,7 +7,7 @@ kind: feature
 stage: clean
 iteration: 0
 max_iterations: 6
-resumes: 0
+resumes: 1
 max_resumes: 6
 current_child: endor-host-hook-surface-20260827-gauntlet-clean
 state: running
