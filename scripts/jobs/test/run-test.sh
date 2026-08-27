@@ -3250,7 +3250,13 @@ DV="$(mktemp -d "$II_TR/dv2.XXXXXX")"; git clone -q --single-branch --branch "$B
 promoted="$(ls -1 "$DV/jobs/todo"/deadmail-*.md 2>/dev/null | head -1)"
 { [ -n "$promoted" ] && grep -qF 'issue_spine: issue-kriskowal-garden-60' "$promoted" \
   && grep -qF 'issue_url: https://github.com/kriskowal/garden/issues/60' "$promoted"; } \
-  && ok "deadmail-promoted job carries the issue note forward (url + spine)" || bad "promoted job missing the issue note"
+  && ok "deadmail promotes the late comment as typed issue-follow-up work (canonical url + spine)" || bad "promoted job missing issue-follow-up metadata"
+{ [ -n "$promoted" ] && grep -qF 'kind: issue-follow-up' "$promoted" \
+  && grep -qF 'It is not pull' "$promoted" \
+  && grep -qF 'do not query, infer, or report PR state' "$promoted"; } \
+  && ok "issue-follow-up framing explicitly prohibits PR-state assumptions" || bad "issue follow-up has generic/PR-ambiguous framing"
+{ [ -n "$promoted" ] && grep -qF 'issue_url: https://github.com/kriskowal/garden/issues/60#issuecomment-9200' "$promoted"; } \
+  && ok "the original ISSUE NOTE remains verbatim beneath canonical job metadata" || bad "original issue note/comment URL was not preserved"
 rm -rf "$DV"
 
 # E — an issue CLOSED BY THE SUBMITTER is terminal → dispatch nothing
