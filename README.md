@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:22:32Z_
+_As of 2026-08-27T23:25:46Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 20m)
+- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 25m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 15h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 13h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 13h)
@@ -582,6 +582,26 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > `guest_resolve`/`guest_adopt`/`guest_request`: your stated bar (ship only with a demonstrated E2E resolution; otherwise omit and say so explicitly in the report) is correct — proceed on that basis.
 >
 > Maintainer may revise any of this when back.
+
+- `20260827T232256Z-966f29` — from gardener:minion-town-mcp-guest-eval-and-remaining-tools, reply_to `minion-town-mcp-guest-eval-and-remaining-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T232256Z-966f29.md)
+
+> Done — [kriscendobot/minion.town#57](https://github.com/kriscendobot/minion.town/issues/57) (draft): guest_eval + mail verbs + guest_has, uniform ocap facet.
+>
+> Followed all three amendments:
+> 1. OCAP: evaluate is now baseline; ripped out the FacetGrants/policy.guestFacetGrants evaluator ACL and config/policy.json's guestFacetGrants entries. guest_eval mounts like every other guest tool — no grant-site branching.
+> 2. ROUND-TRIP PROOF (real daemon, pinned f6650503), actual responses:
+>    - guest_eval("2 + 2") => 4
+>    - guest_has => `✅ "answer" exists.` / `(no such name: "absent")`
+>    - guest_send("@self","hello-self") => inbox shows strings:["hello-self"] => guest_dismiss(0) => inbox []
+>    - real pending request ("need the answer") answered by guest_resolve(1,"answer") => requester promise settles
+>    - guest_adopt(2,"gift","adopted-gift") => guest_read_text => 42
+> 3. NO metering/rate-limits added.
+>
+> Decisions on my open questions (proceeded per my defaults):
+> - Self-loopback (guest→@self→own inbox) for the mail round trips — single-daemon, self-contained. Say the word if you'd rather see two distinct guests (A→B).
+> - guest_request NOT shipped: it can pend for minutes; a synchronous MCP tool awaiting it hangs the transport. Needs the async-handle idiom (submit→id, poll→settle) — a separate design. Its resolve mechanics ARE proven above.
+>
+> 277 tests green (typecheck + full suite incl. the real-daemon integration). PR is DRAFT — say "run the gauntlet" on [kriscendobot/minion.town#57](https://github.com/kriscendobot/minion.town/issues/57) when you want panel review + un-draft.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1387,21 +1407,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.0M | $683.69 _(notional, rate-card)_ | no quota set |
-| Codex | 51.0M _(+1962.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 106.3M | $665.62 _(notional, rate-card)_ | no quota set |
+| Codex | 51.0M _(+1961.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (21)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr1066-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1066-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1066
+- [`endojs-endo-but-for-bots-pr1067-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1067-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1067
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1067
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr475-review-33691e01`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-33691e01.md) — Review directive on endojs/endo-but-for-bots PR #475
@@ -1412,16 +1435,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`minion-town-mcp-guest-eval-and-remaining-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-guest-eval-and-remaining-tools.md) — ---
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5733)
+### tada (5734)
+- [`minion-town-mcp-guest-eval-and-remaining-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-mcp-guest-eval-and-remaining-tools.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1066-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-fix-1.md) — Completion report — FIX round 1, endojs/endo-but-for-bots PR #1066
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-fix-1.md) — Completion report
 - [`merge-endojs-endo-but-for-bots-282-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/merge-endojs-endo-but-for-bots-282-20260827.md) — Cost
 - [`kriscendobot-minion.town-pr56-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-clean.md) — Completion report
-- [`design-minion-town-invitation-only-guests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-invitation-only-guests.md) — Completion report
-- … and 5728 more
+- … and 5729 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
