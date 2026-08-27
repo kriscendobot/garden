@@ -16,3 +16,13 @@ green on its head, but mergeable_state is `dirty` (CONFLICTING with base `llm`).
 Rebase the head onto origin/llm, resolve conflicts (docs-only design PR), push
 with --force-with-lease, and confirm CI reconverges to green. If it was left
 draft only because of the conflict, it can be un-drafted once green and mergeable.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T06:00:29Z
