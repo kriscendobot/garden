@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:24:16Z_
+_As of 2026-08-27T22:26:47Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 1s)
+- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 3m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 14h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 12h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 12h)
@@ -1347,23 +1347,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.6M | $644.74 _(notional, rate-card)_ | no quota set |
-| Codex | 50.8M _(+2002.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 102.7M | $648.69 _(notional, rate-card)_ | no quota set |
+| Codex | 50.8M _(+2001.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
-- [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
+### todo (2)
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #282
 - [`xs2rust-endor-press-20260827-222008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260827-222008.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (19)
+### doin (20)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
-- [`deadmail-issue-comment-5445865146`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445865146.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
+- [`endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827.md) — ---
+- [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
 - [`endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827.md) — ---
-- [`endojs-endo-but-for-bots-pr1046-pr475-base-dependency-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-pr475-base-dependency-20260827.md) — ---
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1064-weaver-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-weaver-20260827.md) — Rebase endojs/endo-but-for-bots PR #1064
 - [`endojs-endo-but-for-bots-pr1066-review-9a660f54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1066-review-9a660f54.md) — Review directive on endojs/endo-but-for-bots PR #1066
@@ -1378,13 +1377,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-rename-weblets-to-clips`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-rename-weblets-to-clips.md) — ---
 - [`test262-coverage-ratchet-20260827-222008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260827-222008.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5709)
+### tada (5711)
+- [`endojs-endo-but-for-bots-pr1046-pr475-base-dependency-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-pr475-base-dependency-20260827.md) — Cost
+- [`deadmail-issue-comment-5445865146`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5445865146.md) — Completion report
 - [`design-hardened262-all-environment-runs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-hardened262-all-environment-runs.md) — Completion report: design-hardened262-all-environment-runs
 - [`endojs-endo-but-for-bots-pr1064-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-shepherd.md) — Cost
 - [`design-american-english-panel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-american-english-panel.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1064-conduct-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-conduct-20260827.md) — Cost
-- [`endojs-endo-but-for-bots-pr1065-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1065-conduct.md) — Cost
-- … and 5704 more
+- … and 5706 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
