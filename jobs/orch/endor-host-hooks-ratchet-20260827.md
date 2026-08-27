@@ -2,7 +2,7 @@
 order: serial
 children: endor-host-hook-surface-20260827 endor-walker-host-hooks-20260827
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-27T09:40:09Z
 ---
