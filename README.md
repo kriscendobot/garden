@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T11:17:35Z_
+_As of 2026-08-27T11:26:50Z_
 
 ## Latest
 
@@ -505,26 +505,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration endor-host-hooks-ratchet-20260827 HALTED: child endor-walker-host-hooks-20260827 stalled in flight for 2514s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
 
-- `20260827T110651Z-acc6e1` — from gardener:endor-host-hook-surface-20260827-gauntlet-clean, reply_to `endor-host-hook-surface-20260827-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T110651Z-acc6e1.md)
+- `20260827T112612Z-100574` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T112612Z-100574.md)
 
-> Gauntlet CLEAN stage for [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) (endor host-hook surface):
->
-> Coverage pass DONE and pushed to the PR head (feat/endor-run-entry-point-deps,
-> 29ef53bce -> 4eef963a8): +7 entry_walk unit tests closing the host-hook branch
-> gaps (ingest_entry_point_for_run dispatch, non-mjs synthetic-parser rejection,
-> synthetic relative-import rejection, exit-hook decline, missing-bare-package and
-> excluded-dependency resolution). Local: endo --lib 333 pass / 0 fail;
-> entry_walk.rs line coverage 77.94% -> 79.87%; rustfmt clean; no new clippy
-> warnings in the touched file.
->
-> BUT CI cannot reach terminal green at this stage: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) is
-> CONFLICTING/DIRTY against base `llm` (mergeable=CONFLICTING, no merge ref), so
-> GitHub Actions creates NO check suite for the head (only Renovate/Claude apps
-> queue). This is pre-existing — the pre-push head 29ef53bce had the same empty
-> rollup, so it is NOT caused by the coverage commit. Reporting clean=still-pending,
-> but a blind re-post of clean will hit the same wall: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282)
-> needs a WEAVE onto `llm` (it is a stacked PR pinning [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279))
-> before CI will attach and the clean CI-watch can go green.
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endor-host-hook-surface-20260827-gauntlet-clean
+> - question (msgid 20260827T110651Z-acc6e1.md)
+> - tentative answer: proxy/tentative: Yes — this is blocked on CI attach, not a policy call. Go ahead and post a weave job for [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) (it's stacked on [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279), so weave/rebase it onto `llm` per the usual stacked-PR flow) to clear the CONFLICTING/DIRTY mergeability state; once GitHub Actions can attach a check suite, re-run the clean CI-watch. Report clean=still-pending (blocked-on-weave) in the meantime rather than re-posting a clean that will hit the same empty rollup. If the weave itself produces non-trivial conflict resolution you're unsure about, that's a separate question — flag it separately rather than guessing at intent for [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279)'s stacked content. This is a routine unblock step, not an authority-reserved action; maintainer may revise.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1244,8 +1230,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.6M | $503.00 _(notional, rate-card)_ | no quota set |
-| Codex | 49.6M _(+2003.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Claude | 89.8M | $505.36 _(notional, rate-card)_ | no quota set |
+| Codex | 49.6M _(+2007.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
