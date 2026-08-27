@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:30:20Z_
+_As of 2026-08-27T22:30:53Z_
 
 ## Latest
 
@@ -1347,14 +1347,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.6M | $647.79 _(notional, rate-card)_ | no quota set |
-| Codex | 50.9M _(+1997.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 102.6M | $647.92 _(notional, rate-card)_ | no quota set |
+| Codex | 50.9M _(+1996.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (21)
+### doin (20)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
@@ -1363,7 +1363,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
 - [`endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827.md) — ---
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
-- [`endojs-endo-but-for-bots-pr1064-weaver-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-weaver-20260827.md) — Rebase endojs/endo-but-for-bots PR #1064
 - [`endojs-endo-but-for-bots-pr1066-review-9a660f54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1066-review-9a660f54.md) — Review directive on endojs/endo-but-for-bots PR #1066
 - [`endojs-endo-but-for-bots-pr475-review-33691e01`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-33691e01.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
@@ -1377,13 +1376,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`test262-coverage-ratchet-20260827-222008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260827-222008.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`xs2rust-endor-press-20260827-222008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-222008.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5713)
+### tada (5714)
+- [`endojs-endo-but-for-bots-pr1064-weaver-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-weaver-20260827.md) — Cost
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1.md) — Completion report
 - [`minion-town-rename-weblets-to-clips`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-rename-weblets-to-clips.md) — Completion report — minion-town-rename-weblets-to-clips
 - [`endojs-endo-but-for-bots-pr1046-pr475-base-dependency-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-pr475-base-dependency-20260827.md) — Cost
 - [`deadmail-issue-comment-5445865146`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5445865146.md) — Completion report
-- [`design-hardened262-all-environment-runs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-hardened262-all-environment-runs.md) — Completion report: design-hardened262-all-environment-runs
-- … and 5708 more
+- … and 5709 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
