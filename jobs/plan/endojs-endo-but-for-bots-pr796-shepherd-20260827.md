@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-27T06:53:04Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-27T06:53:04Z
+---
+
+---
 tier: mentor
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-27T06:07:03Z cleared=none -->
@@ -13,15 +30,3 @@ Second step of the PR #796 unpin/rebase/shepherd/merge chain
 been unpinned back to `llm` and rebased by the preceding orchestrated
 child. Drive CI to green on the rebased head. Do not touch the base again;
 that step is already done.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-27T06:07:26Z
