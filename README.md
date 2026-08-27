@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T06:48:39Z_
+_As of 2026-08-27T06:49:32Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 2h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 16m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 21m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 28d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 28d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 39d)
@@ -484,6 +484,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > PR front is healthy: [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (APPROVED) re-running CI on a new head, [endojs/endo-but-for-bots#1060](https://github.com/endojs/endo-but-for-bots/issues/1060) mergeable
 > w/ checks pending + freshly reviewed, [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) recently conducted. No idle
 > CHANGES_REQUESTED mechanical target needing a fixer.
+
+- `20260827T064907Z-e97a90` — from orchestrator:pr796-unpin-shepherd-merge-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T064907Z-e97a90.md)
+
+> Orchestration pr796-unpin-shepherd-merge-20260827 HALTED: child endojs-endo-but-for-bots-pr796-shepherd-20260827 stalled in flight for 2495s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: endojs-endo-but-for-bots-pr796-conduct-20260827
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1203,7 +1207,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $513.33 _(notional, rate-card)_ | no quota set |
+| Claude | 89.8M | $513.64 _(notional, rate-card)_ | no quota set |
 | Codex | 46.4M _(+1882.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 ## Board
@@ -1225,13 +1229,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5634)
+### tada (5635)
+- [`pr796-unpin-shepherd-merge-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr796-unpin-shepherd-merge-20260827.md) — orchestration pr796-unpin-shepherd-merge-20260827 — HALTED
 - [`endojs-endo-but-for-bots-pr1060-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1060-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-1e3eb099`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-1e3eb099.md) — Cost
 - [`endojs-endo-but-for-bots-pr89-conduct-5037708934`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr89-conduct-5037708934.md) — Completion report
 - [`xs2rust-endor-press-20260827-061533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-061533.md) — Completion report — Ironhorse press dispatch 2026-08-27T06:16Z
-- [`minion-town-press-20260827-061533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-061533.md) — Cost
-- … and 5629 more
+- … and 5630 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
