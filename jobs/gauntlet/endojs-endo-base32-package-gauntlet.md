@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: endojs-endo-base32-package-gauntlet-clean
+state: running
 created_by: producer
 created_at: 2026-08-27T09:54:41Z
 ---
