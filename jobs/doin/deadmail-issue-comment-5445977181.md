@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-544597718
 We made progress. How’s the ratchet? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T22:35:34Z
