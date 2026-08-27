@@ -24,6 +24,7 @@ issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5444410
 submitter: kriscendobot
 ----- END ISSUE NOTE -----
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
