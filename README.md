@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T05:14:25Z_
+_As of 2026-08-27T05:16:43Z_
 
 ## Latest
 
@@ -1167,15 +1167,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 90.1M | $498.44 _(notional, rate-card)_ | no quota set |
-| Codex | 44.9M _(+1812.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Codex | 45.0M _(+1814.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (12)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
+- [`endojs-endo-base32-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-base32-package.md) — ---
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1060-review-5025156654`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1060-review-5025156654.md) — ---
