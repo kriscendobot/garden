@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:56:50Z_
+_As of 2026-08-27T23:58:07Z_
 
 ## Latest
 
@@ -1407,14 +1407,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.3M | $698.10 _(notional, rate-card)_ | no quota set |
-| Codex | 51.3M _(+1958.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 109.1M | $694.65 _(notional, rate-card)_ | no quota set |
+| Codex | 51.3M _(+1958.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (23)
+### doin (21)
 - [`build-continuous-ironhorse-fuzz-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-continuous-ironhorse-fuzz-service.md) — Build a continuous Ironhorse fuzzing service and remove fuzzing from pull-req...
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
@@ -1422,7 +1422,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
-- [`endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827.md) — Fix the bytecode_decoder fuzz panic leave_call with empty call stack on endoj...
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1067
@@ -1430,7 +1429,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-review-33691e01`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-33691e01.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr889-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #889
 - [`improve-issue-deadmail-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-deadmail-routing.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`kriscendobot-minion.town-pr56-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr56-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #56
@@ -1439,13 +1437,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5749)
+### tada (5750)
+- [`endojs-endo-but-for-bots-pr889-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-rebase.md) — Cost
+- [`endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-fix-2.md) — Completion report
 - [`build-hardened262-retire-onlylockdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-hardened262-retire-onlylockdown.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1066-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1066-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1066-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-fix-2.md) — Report
-- [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-2.md) — Completion report
-- … and 5744 more
+- … and 5745 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
