@@ -25,3 +25,13 @@ as a permanent regression test or fuzz corpus seed, run the focused
 regression plus applicable Ironhorse tests and the fuzz target, drive CI
 to green, and post a completion summary with head SHA and real-execution
 evidence. Do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T21:50:44Z
