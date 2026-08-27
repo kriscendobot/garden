@@ -73,6 +73,8 @@ pushing the deletion as a normal CAS commit (so it never re-fires):
 
 Until a stop condition holds, keep pressing serially, one slice per engagement.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
