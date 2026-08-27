@@ -8,6 +8,7 @@ Treat a report reference that GitHub definitively says is not a pull request as 
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
