@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T06:16:42Z_
+_As of 2026-08-27T06:18:02Z_
 
 ## Latest
 
@@ -1170,12 +1170,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.6M | $503.46 _(notional, rate-card)_ | no quota set |
-| Codex | 46.1M _(+1853.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 89.7M | $504.06 _(notional, rate-card)_ | no quota set |
+| Codex | 46.1M _(+1854.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`minion-town-press-20260827-061533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-press-20260827-061533.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
+### todo (0)
+(none)
 
 ### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
@@ -1189,21 +1189,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-review-1e3eb099`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-1e3eb099.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-shepherd-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd-20260827.md) — ---
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr889-weave-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-weave-20260827.md) — weave directive on endojs/endo-but-for-bots PR #889
 - [`endojs-endo-but-for-bots-pr89-conduct-5037708934`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr89-conduct-5037708934.md) — Conduct endojs/endo-but-for-bots PR #89
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
+- [`minion-town-press-20260827-061533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260827-061533.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
 - [`xs2rust-endor-press-20260827-061533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-061533.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5628)
+### tada (5629)
+- [`endojs-endo-but-for-bots-pr889-weave-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-weave-20260827.md) — Cost
 - [`scholar-ingest-alan-kay-personal-computer-for-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-alan-kay-personal-computer-for-children.md) — Cost
 - [`endojs-endo-but-for-bots-pr89-review-094bbf1b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr89-review-094bbf1b.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-unpin-rebase-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-unpin-rebase-20260827.md) — Cost
 - [`endojs-endo-but-for-bots-pr889-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-rebase.md) — Completion report
-- [`endojs-endo-but-for-bots-pr889-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-shepherd.md) — Completion report
-- … and 5623 more
+- … and 5624 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
