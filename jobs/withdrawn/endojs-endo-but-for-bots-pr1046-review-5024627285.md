@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded — kriskowal's 08-25 Changes-requested review was overtaken by a fresh APPROVED review (5037714164) on 08-27 via a different review-response job (d7012ba6); this parked copy is moot
+withdrawn_by: producer
+withdrawn_at: 2026-08-27T21:49:40Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
