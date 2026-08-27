@@ -84,3 +84,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - pi-ai, pi-agent-core, `runAgentLoopContinue`, awaited agent event sink, pi migration -> pi-agent-loop
 - AI Gateway billing, AI Gateway credits, daily LLM allowance, BYOK routing, `CF_AI_GATEWAY` -> ai-gateway-credit-routing
 - `freezeTypedArray`, TypedArray hardening, integer-indexed exotic hardening, indexed cardinality -> typedarray-hardening
+- freezable TypedArray emulation, emulated TypedArray, emulated DataView, immutable ArrayBuffer view wrapper -> freezable-typedarray-emulation
