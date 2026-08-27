@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-544306766
 Sitrep. What’s changed since the last update? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T17:55:11Z
