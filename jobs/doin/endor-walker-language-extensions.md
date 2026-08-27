@@ -31,3 +31,13 @@ Add a language-for-extension config and asset parser surface. Graduate assets an
 language-for-extension, running the node oracle with the matching parser
 registration (EMULATE — the asset IS the fixture; do not refactor it out). Bump
 floor to 30. Depends on Increment 0.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T09:01:09Z
