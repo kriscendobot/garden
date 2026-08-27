@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T15:43:33Z_
+_As of 2026-08-27T15:44:29Z_
 
 ## Latest
 
@@ -534,6 +534,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
 
 > Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260827T154406Z-3a48f2` — from gauntlet:endojs-endo-but-for-bots-pr282-gauntlet-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T154406Z-3a48f2.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr282-gauntlet-20260827 HALTED: stage 'endojs-endo-but-for-bots-pr282-gauntlet-20260827-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1272,13 +1276,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5675)
+### tada (5676)
+- [`endojs-endo-but-for-bots-pr282-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-gauntlet-20260827.md) — gauntlet endojs-endo-but-for-bots-pr282-gauntlet-20260827 — HALTED
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-gauntlet-20260827-fix-1.md) — Cost
 - [`xs2rust-endor-press-20260827-150505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-150505.md) — Cost
 - [`minion-town-press-20260827-150505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-150505.md) — Cost
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-gauntlet-20260827-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-gauntlet-20260827-clean.md) — Cost
-- … and 5670 more
+- … and 5671 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
