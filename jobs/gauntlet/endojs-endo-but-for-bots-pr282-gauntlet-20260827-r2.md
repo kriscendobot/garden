@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-clean
+state: running
 created_by: gardener
 created_at: 2026-08-27T17:07:36Z
 ---
