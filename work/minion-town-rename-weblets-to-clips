@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-08-27T22:18:40Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-rename-weblets-to-clips
+pr_number: 54
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/54
+pr_head: rename-weblets-to-clips
