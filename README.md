@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:41:40Z_
+_As of 2026-08-27T22:44:46Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 14h)
+- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 15h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 12h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 12h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
@@ -534,6 +534,24 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
 
 > Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260827T224413Z-5ede72` — from gardener:ocapn-cbor-noise-press-20260827-223512, reply_to `ocapn-cbor-noise-press-20260827-223512` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T224413Z-5ede72.md)
+
+> OCapN-CBOR-Noise press ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)), tick 1 — one maintainer security decision gates the whole goal.
+>
+> Everything technical is already built + deployed + healthy: the Caddy route `/.well-known/ocapn-cbor-np` -> 127.0.0.1:8931 is live on the box, and the endo-pet-daemon there answers a WS upgrade with 101 and boots `ocapn+noise+ws://` with `bootstrap swissnum=endo-bootstrap` (locate-any-object). Cross-host Noise reach is already proven (M1-M5).
+>
+> The ONLY blocker: a box-local emergency containment `00-containment-ocapn-daemon-routes.caddy` (authorized by you 2026-08-12; "run only with explicit maintainer authorization" to remove) makes that route `respond 404`. It is separate from the zz-containment powers-plane control (which I'm leaving intact). Lifting it exposes the full daemon bootstrap publicly behind Noise-only auth — a security-posture change outside my proxy delegation, so I'm asking, not acting.
+>
+> QUESTION: Do you authorize lifting that 2026-08-12 emergency containment so the garden host can reach wss://minion.town/.well-known/ocapn-cbor-np and invoke the daemon bootstrap? If yes, that's the last step — I'll remove the drop-in, persist the removal against redeploy, and post the end-to-end proof (the press's retirement condition). If "keep it contained," I'll propose retiring the press as not-attainable under current posture.
+>
+> Full detail + evidence: [https://github.com/kriscendobot/garden/issues/58](https://github.com/kriscendobot/garden/issues/58)#issuecomment-5446098485
+
+- `20260827T224428Z-6629c2` — from gardener:endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827, reply_to `endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T224428Z-6629c2.md)
+
+> Conducting [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (Ironhorse coverage). CI was green on head e66cf4d and kriskowal approved it, but live `llm` moved during the CI wait (two unrelated design(cbor) commits, [endojs/endo-but-for-bots#738](https://github.com/endojs/endo-but-for-bots/issues/738)). Per conductor discipline I rebased onto live `llm` (c5c06a00); the rebase was clean. New head is a3e9d138 and CI is re-running on it.
+>
+> The rebase invalidated the just-given approval (exact-head invariant). I've re-requested kriskowal's review on a3e9d138. Merge is blocked until kriskowal re-approves the rebased head; once approved I'll merge into live `llm` via the spine in this same job.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1339,8 +1357,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.3M | $633.81 _(notional, rate-card)_ | no quota set |
-| Codex | 51.1M _(+1986.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 102.5M | $635.90 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+1981.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
