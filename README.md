@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T10:36:07Z_
+_As of 2026-08-27T10:37:55Z_
 
 ## Latest
 
@@ -492,6 +492,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T102007Z-e3a721` — from gauntlet:endojs-endo-base32-package-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T102007Z-e3a721.md)
 
 > Gauntlet endojs-endo-base32-package-gauntlet HALTED: stage 'endojs-endo-base32-package-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260827T103737Z-da1fd1` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T103737Z-da1fd1.md)
+
+> (empty message)
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1207,8 +1211,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.6M | $502.40 _(notional, rate-card)_ | no quota set |
-| Codex | 49.1M _(+1962.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Claude | 89.6M | $503.22 _(notional, rate-card)_ | no quota set |
+| Codex | 49.2M _(+1965.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
