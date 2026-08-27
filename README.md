@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T08:29:11Z_
+_As of 2026-08-27T08:30:39Z_
 
 ## Latest
 
@@ -1199,14 +1199,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.7M | $505.18 _(notional, rate-card)_ | no quota set |
-| Codex | 47.6M _(+1904.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 89.7M | $505.94 _(notional, rate-card)_ | no quota set |
+| Codex | 47.7M _(+1904.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-base32-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-base32-package.md) — ---
@@ -1220,15 +1220,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`xs2rust-endor-press-20260827-082007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-082007.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5644)
+### tada (5645)
+- [`xs2rust-endor-press-20260827-082007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-082007.md) — Cost
 - [`minion-town-press-20260827-082007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-082007.md) — Cost
 - [`endor-walker-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-dynamic-import.md) — Cost
 - [`endor-walker-dep-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-dep-classification.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-fix-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-fix-20260827.md) — Completion report
-- [`xs2rust-endor-press-20260827-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-072005.md) — Cost
-- … and 5639 more
+- … and 5640 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
