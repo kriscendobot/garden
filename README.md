@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:41:48Z_
+_As of 2026-08-27T23:43:07Z_
 
 ## Latest
 
@@ -1407,11 +1407,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.3M | $676.99 _(notional, rate-card)_ | no quota set |
-| Codex | 51.2M _(+1959.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 107.3M | $678.43 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+1958.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
+- [`endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827.md) — Fix the bytecode_decoder fuzz panic leave_call with empty call stack on endoj...
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 
 ### doin (24)
