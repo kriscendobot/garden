@@ -40,3 +40,13 @@ permanent regression (a Rust test asserting bounded memory / a StepLimit with
 bounded async_instances, since fuzz/corpus is gitignored), run the focused
 regression + `cargo test -p ironhorse-vm -p ironhorse-snapshot` + the fuzz
 target, drive CI to green. Do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T22:26:26Z
