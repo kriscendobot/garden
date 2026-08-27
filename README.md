@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T19:08:24Z_
+_As of 2026-08-27T19:11:16Z_
 
 ## Latest
 
@@ -534,10 +534,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
 
 > Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260827T190745Z-338c95` — from gardener:minion-town-press-20260827-190505, reply_to `minion-town-press-20260827-190505` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T190745Z-338c95.md)
-
-> PR [https://github.com/kriscendobot/minion.town/pull/52](https://github.com/kriscendobot/minion.town/pull/52) merged with `E(sites).register(directoryId, owner)`, while `designs/weblet-ocap-synthesis.md` sections 2.2/3.1 still require `register(directory)` by capability introduction. The difference is architectural: the landed full exo accepts a caller-provided formula identifier and owner, while the design's premise excludes caller-provided identifiers from the registry seam; the default-off gate contains the current cross-tenant exposure but does not decide the intended unit-3 API. For the attenuated per-guest facet and later units, should we preserve register-by-id and revise the design as the accepted model, or restore `register(directory)` by introduction?
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1257,8 +1253,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $578.71 _(notional, rate-card)_ | no quota set |
-| Codex | 50.2M _(+1995.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 96.5M | $579.48 _(notional, rate-card)_ | no quota set |
+| Codex | 50.2M _(+1993.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
