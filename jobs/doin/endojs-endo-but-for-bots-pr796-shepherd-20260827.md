@@ -14,6 +14,8 @@ been unpinned back to `llm` and rebased by the preceding orchestrated
 child. Drive CI to green on the rebased head. Do not touch the base again;
 that step is already done.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
