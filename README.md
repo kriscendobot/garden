@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T06:57:37Z_
+_As of 2026-08-27T06:58:04Z_
 
 ## Latest
 
@@ -1199,14 +1199,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.9M | $518.43 _(notional, rate-card)_ | no quota set |
-| Codex | 46.8M _(+1887.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 89.9M | $519.11 _(notional, rate-card)_ | no quota set |
+| Codex | 46.8M _(+1888.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-base32-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-base32-package.md) — ---
@@ -1215,19 +1215,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`endor-walker-exports-resolution-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-exports-resolution-20260827.md) — Build Increment 2 — conditional & subpath exports/imports (Group C) — REPEAT-...
-- [`improve-orchestrated-shepherd-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-orchestrated-shepherd-budget.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5636)
+### tada (5637)
+- [`improve-orchestrated-shepherd-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-orchestrated-shepherd-budget.md) — Cost
 - [`improve-review-handler-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-review-handler-budget.md) — Cost
 - [`pr796-unpin-shepherd-merge-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr796-unpin-shepherd-merge-20260827.md) — orchestration pr796-unpin-shepherd-merge-20260827 — HALTED
 - [`endojs-endo-but-for-bots-pr1060-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1060-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-1e3eb099`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-1e3eb099.md) — Cost
-- [`endojs-endo-but-for-bots-pr89-conduct-5037708934`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr89-conduct-5037708934.md) — Completion report
-- … and 5631 more
+- … and 5632 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
