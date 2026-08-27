@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:21:43Z_
+_As of 2026-08-27T22:22:27Z_
 
 ## Latest
 
@@ -1339,12 +1339,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.5M | $641.32 _(notional, rate-card)_ | no quota set |
-| Codex | 50.7M _(+2005.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 102.6M | $642.35 _(notional, rate-card)_ | no quota set |
+| Codex | 50.7M _(+2004.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (3)
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
 - [`xs2rust-endor-press-20260827-222008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260827-222008.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### doin (20)
