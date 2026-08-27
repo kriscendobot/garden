@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T21:43:40Z_
+_As of 2026-08-27T21:45:29Z_
 
 ## Latest
 
@@ -1339,18 +1339,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.3M | $620.47 _(notional, rate-card)_ | no quota set |
-| Codex | 51.2M _(+2024.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 101.4M | $622.15 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+2022.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (15)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr1064-review-9d21882f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-review-9d21882f.md) — Review directive on endojs/endo-but-for-bots PR #1064
 - [`endojs-endo-but-for-bots-pr1065-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1065-gauntlet-20260827.md) — Run the gauntlet — endojs/endo-but-for-bots#1065 (Hardened Test262: Generator...
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr282-review-215966e1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-review-215966e1.md) — Review directive on endojs/endo-but-for-bots PR #282
@@ -1501,6 +1502,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #53 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr1064-review-159dcf9b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1064-review-159dcf9b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1064 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr282-review-215966e1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-review-215966e1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #282 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr1064-review-9d21882f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1064-review-9d21882f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1064 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
