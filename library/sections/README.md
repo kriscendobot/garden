@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6960 (530 parent indexes + 6430 children).
+Total section files: 6966 (530 parent indexes + 6436 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9621,6 +9621,15 @@ Total section files: 6960 (530 parent indexes + 6430 children).
 - [web--hyndman-fpp3-forecast-evaluation--percentage-and-scaled-errors-mase](web--hyndman-fpp3-forecast-evaluation--percentage-and-scaled-errors-mase.md)
 - [web--hyndman-fpp3-forecast-evaluation--time-series-cross-validation](web--hyndman-fpp3-forecast-evaluation--time-series-cross-validation.md)
 - [web--hyndman-fpp3-forecast-evaluation--training-and-test-sets](web--hyndman-fpp3-forecast-evaluation--training-and-test-sets.md)
+
+### web--kay-personal-computer-for-children-1972
+
+- [web--kay-personal-computer-for-children-1972--feasibility-cost-and-distribution](web--kay-personal-computer-for-children-1972--feasibility-cost-and-distribution.md)
+- [web--kay-personal-computer-for-children-1972--objects-as-processes](web--kay-personal-computer-for-children-1972--objects-as-processes.md)
+- [web--kay-personal-computer-for-children-1972--operational-models-and-development](web--kay-personal-computer-for-children-1972--operational-models-and-development.md)
+- [web--kay-personal-computer-for-children-1972--portable-personal-medium](web--kay-personal-computer-for-children-1972--portable-personal-medium.md)
+- [web--kay-personal-computer-for-children-1972--productive-learning-environments](web--kay-personal-computer-for-children-1972--productive-learning-environments.md)
+- [web--kay-personal-computer-for-children-1972--vision-and-active-medium](web--kay-personal-computer-for-children-1972--vision-and-active-medium.md)
 
 ### web--langchain-agents
 
