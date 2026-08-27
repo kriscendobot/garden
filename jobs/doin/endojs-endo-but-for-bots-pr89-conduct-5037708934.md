@@ -18,3 +18,13 @@ already repointed the base and reconciled the index).
 
 Task: un-draft if needed (not needed) and merge. Conductor owns the merge method.
 Bot repo — merging is authorized.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T06:10:36Z
