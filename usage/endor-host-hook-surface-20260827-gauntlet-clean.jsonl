@@ -1,1 +1,2 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":106,"elapsed_s":2419,"input_tokens":200,"output_tokens":51006,"cache_creation_tokens":145238,"cache_read_tokens":10727204,"total_cost_usd":8.095146999999999,"ts":"2026-08-27T11:07:27Z","base":"endor-host-hook-surface-20260827-gauntlet-clean","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener","provider":"anthropic"}
+{"ts":"2026-08-27T11:09:19Z","base":"endor-host-hook-surface-20260827-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":42}
