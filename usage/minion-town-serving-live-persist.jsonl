@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":50,"elapsed_s":656,"input_tokens":90,"output_tokens":38416,"cache_creation_tokens":94567,"cache_read_tokens":3692153,"total_cost_usd":3.755647499999999,"ts":"2026-08-27T22:40:47Z","base":"minion-town-serving-live-persist","host":"endolin-garden-ece02cb4","outcome":"fail","provider":"anthropic"}
