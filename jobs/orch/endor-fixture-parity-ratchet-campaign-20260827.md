@@ -1,4 +1,5 @@
 ---
+child-endor-walker-host-hooks-host: endolin-garden-ece02cb4
 child-endor-walker-host-hooks-reap-count: 0
 child-endor-walker-language-extensions-host: endolin-garden-ece02cb4
 child-endor-walker-language-extensions-reap-count: 0
