@@ -48,6 +48,16 @@
 # refuses the move with exit 3. A recoverable stalled chain is safer than an early
 # destructive stage.
 #
+# ORCHESTRATED SHEPHERD CHILDREN carry one additional promotion invariant. A child
+# whose basename matches `*-shepherd-*` is a named long-running stage, even when its
+# producer forgot to stamp execution metadata. Promoting such a child at the flat
+# 2400s fleet default deterministically kills CI supervision before it can finish.
+# Require either the performing `role: shepherd`, a handler-budget-role whose
+# default is at least the shepherd default, or an explicit handler-timeout at least
+# that large. This check belongs at promotion rather than only at post time because
+# parked orchestration records can predate the producer-side conventions and can be
+# edited while held. Missing metadata refuses the move with exit 4.
+#
 # Idempotent: if <base> is already past plan/ (in todo/doin/tada) the promotion is
 # a no-op success. If <base> is nowhere, it is an error.
 
@@ -150,6 +160,27 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   htimeout="$(plan_field "$src" handler-timeout)"
   token_budget="$(plan_field "$src" token-budget)"
   budget_epoch="$(plan_field "$src" token-budget-epoch)"
+
+  if [ "$gate" = orchestrated ] && [[ "$base" == *-shepherd-* ]] \
+     && [ "$role" != shepherd ]; then
+    shepherd_budget="$(role_default_handler_timeout shepherd)"
+    equivalent_budget=""
+    if [ -n "$budget_role" ]; then
+      equivalent_budget="$(role_default_handler_timeout "$budget_role")"
+    fi
+    # A valid explicit timeout overrides the budget-role default in the worker's
+    # applied_handler_budget calculation, including when it deliberately lowers it.
+    # Mirror that precedence here rather than accepting a large budget role whose
+    # effective timeout is actually short.
+    if [[ "$htimeout" =~ ^[1-9][0-9]*$ ]]; then
+      equivalent_budget="$htimeout"
+    fi
+    if [ -z "$equivalent_budget" ] || [ "$equivalent_budget" -lt "$shepherd_budget" ]; then
+      log "refusing to promote orchestrated shepherd child '$base': add role: shepherd, handler-budget-role: shepherd (or an equivalent long-running budget role), or handler-timeout: $shepherd_budget or greater"
+      exit 4
+    fi
+  fi
+
   if [ "$(plan_field "$src" budget_hold)" = true ]; then
     budget_epoch="$(date -u +%FT%TZ)"
   fi
