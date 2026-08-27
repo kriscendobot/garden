@@ -1,2 +1,2 @@
-base: improve-deadmail-schedule-tick-carry-forward
+base: improve-issue-deadmail-routing
 identity: mentor:scripts/jobs/deadmail.sh
