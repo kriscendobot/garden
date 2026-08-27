@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 4
-worker_kind: monk
-claimed_at: 2026-08-27T21:20:19Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-test262-coverage-ratchet-20260827-212008
-pr_number: 1065
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1065
-pr_head: test262-generator-intrinsic-metadata
