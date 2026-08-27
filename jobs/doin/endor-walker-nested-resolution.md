@@ -32,3 +32,13 @@ disambiguation, realpath for symlinks, browser/resolve-field option. Fix stabili
 current NON-parity rejection. Graduate fixtures-1, stability, common-deps, symlink,
 resolve (match the browser-field option on both sides). Bump floor to 28. Depends on
 Increment 0.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T08:19:12Z
