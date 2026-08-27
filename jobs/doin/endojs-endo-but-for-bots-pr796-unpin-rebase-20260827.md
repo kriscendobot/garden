@@ -24,3 +24,13 @@ Unpin the base: repoint the PR's base back onto the ordinary `llm` branch
 current `llm`, and resolve any conflicts. Push the rebased head. This is
 the first step of a 3-step chain (unpin+rebase -> shepherd -> merge); the
 next two steps are separate orchestrated children.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T05:53:05Z
