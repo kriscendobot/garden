@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:22:27Z_
+_As of 2026-08-27T22:23:22Z_
 
 ## Latest
 
@@ -534,6 +534,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
 
 > Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260827T222306Z-6bb2fe` — from gardener:endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827, reply_to `endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T222306Z-6bb2fe.md)
+
+> PR [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) fuzz-ironhorse stack overflow FIXED and pushed (head e66cf4d5f). Root cause: unbounded native dispatch_at re-entry via nested START_ASYNC — the step limit bounds dispatch count, not native recursion depth. Fix: a dispatch_at wrapper caps native re-entry depth (DISPATCH_REENTRY_LIMIT), degrading to Halt::StackOverflow. Verified the crash input runs clean under the real ASan fuzz build (pinned nightly-2026-08-15); added a regression test; full ironhorse-vm+snapshot suites pass.
+>
+> Also diagnosed WHY the prior r2 fuzz-shepherd handler failed every cycle: a tier-routing failure (r2 was tier=minion, routed to a source that could not serve it — `source:none` on all 5 cycles plus a failed kimi->opus fallback), NOT a crashing tool or short timeout. This diagnose job at tier=mentor claimed cleanly on an anthropic worker.
+>
+> HEADS-UP: while fuzzing I found a SEPARATE pre-existing OOM (distinct from the stack overflow, unaffected by my fix): 2-byte input [193,169] (START_ASYNC,RETURN) spins re-executing START_ASYNC and accumulates ~2M never-reclaimed async_instances (~2.8GB) -> libFuzzer OOM. It's an async-instance lifecycle/GC defect needing its own design call (when is a settled async instance safe to free?). Posted follow-up job endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827. Because it's easily reachable, a future CI fuzz run could hit it nondeterministically — the assigned stack-overflow crash is definitively fixed, but I cannot guarantee the fuzz leg stays green against that separate latent OOM. Did not merge.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1339,16 +1347,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.6M | $642.35 _(notional, rate-card)_ | no quota set |
-| Codex | 50.7M _(+2004.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 102.6M | $643.23 _(notional, rate-card)_ | no quota set |
+| Codex | 50.8M _(+2003.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (5)
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
+- [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #282
+- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`xs2rust-endor-press-20260827-222008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260827-222008.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (20)
+### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445865146`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445865146.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
@@ -1358,9 +1368,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1064-weaver-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-weaver-20260827.md) — Rebase endojs/endo-but-for-bots PR #1064
 - [`endojs-endo-but-for-bots-pr1066-review-9a660f54`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1066-review-9a660f54.md) — Review directive on endojs/endo-but-for-bots PR #1066
-- [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr475-review-33691e01`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-33691e01.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr738-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr738-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #738
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
