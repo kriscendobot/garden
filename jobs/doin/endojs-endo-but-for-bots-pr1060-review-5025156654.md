@@ -10,3 +10,13 @@ https://github.com/endojs/endo-but-for-bots/pull/1060#pullrequestreview-50251566
 address the feedback (fix-loop as needed), and reply/push so the thread is
 closed out. The PR is currently DRAFT — leave it draft unless the review
 itself signals it's ready to come out of draft.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T05:14:01Z
