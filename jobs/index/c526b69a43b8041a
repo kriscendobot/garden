@@ -1,2 +1,2 @@
-base: improve-promote-plan-poison-reset
+base: improve-orchestrated-shepherd-budget
 identity: mentor:scripts/jobs/promote-plan.sh
