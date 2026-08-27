@@ -834,6 +834,7 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 
 | Source | URL | Sections | Status |
 |--------|-----|----------|--------|
+| [A Personal Computer for Children of All Ages](web--kay-personal-computer-for-children-1972.md) | https://filiph.net/text/alan-kay-personal-computer-for-children-of-all-ages.html | 6 | current (`source_kind: web-transcription`; Alan Kay, 1972; transcribed by Filip Hracek; retrieved directly 2026-08-27; content SHA-256 `e87da9e5`; active medium, constructionist learning, DynaBook, object-as-process language, and ownership-centered feasibility) |
 | [LangChain overview](web--langchain-overview.md) | https://docs.langchain.com/oss/python/langchain/overview | 1 | current (LangChain/LangGraph focused-ingest batch 2026-06-30 for the gap-analysis job; idempotency anchor is content SHA-256 over the `.md` rendering) |
 | [LangChain retrieval (RAG)](web--langchain-retrieval.md) | https://docs.langchain.com/oss/python/langchain/retrieval | 1 | current (batch 2026-06-30) |
 | [LangGraph overview](web--langgraph-overview.md) | https://docs.langchain.com/oss/python/langgraph/overview | 1 | current (batch 2026-06-30) |
