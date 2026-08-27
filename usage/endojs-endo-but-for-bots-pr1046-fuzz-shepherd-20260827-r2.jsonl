@@ -3,3 +3,4 @@
 {"ts":"2026-08-27T14:08:00Z","base":"endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":283}
 {"ts":"2026-08-27T14:16:40Z","base":"endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":203}
 {"ts":"2026-08-27T14:25:37Z","base":"endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":142}
+{"ts":"2026-08-27T14:33:47Z","base":"endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":29}
