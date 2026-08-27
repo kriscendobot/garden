@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:01:40Z_
+_As of 2026-08-27T22:02:56Z_
 
 ## Latest
 
@@ -1339,16 +1339,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.1M | $631.69 _(notional, rate-card)_ | no quota set |
-| Codex | 51.0M _(+2017.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 102.0M | $628.11 _(notional, rate-card)_ | no quota set |
+| Codex | 51.0M _(+2017.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (15)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
-- [`design-hardened262-all-environment-runs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-hardened262-all-environment-runs.md) — Propose eliminating Hardened Test262 lockdown-only runs
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-diagnose-20260827.md) — ---
@@ -1364,13 +1363,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-pr53-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr53-gauntlet-20260827.md) — ---
 
-### tada (5708)
+### tada (5709)
+- [`design-hardened262-all-environment-runs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-hardened262-all-environment-runs.md) — Completion report: design-hardened262-all-environment-runs
 - [`endojs-endo-but-for-bots-pr1064-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-shepherd.md) — Cost
 - [`design-american-english-panel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-american-english-panel.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1064-conduct-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-conduct-20260827.md) — Cost
 - [`endojs-endo-but-for-bots-pr1065-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1065-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr1065-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1065-gauntlet-20260827.md) — Completion report
-- … and 5703 more
+- … and 5704 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
