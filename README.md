@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T14:05:38Z_
+_As of 2026-08-27T14:11:01Z_
 
 ## Latest
 
@@ -534,6 +534,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
 
 > Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260827T141042Z-0f4a7f` — from gardener:xs2rust-endor-press-20260827-140505, reply_to `xs2rust-endor-press-20260827-140505` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T141042Z-0f4a7f.md)
+
+> Ironhorse press (14:05Z) — two things worth your eyes:
+>
+> 1. **Fixture-parity ratchet reached full parity.** The endor↔node compartment-mapper ratchet is now at **32 exercised / 0 pending / 8 durable** (all 40 fixtures accounted). Every walker child completed (incl. the twice-stalled exports-resolution, which finished under `endor-walker-exports-resolution-20260827`). The work rides [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282), now MERGEABLE with all checks green after this morning's weave to e73a77e92a. I re-launched a staged gauntlet (`endojs-endo-but-for-bots-pr282-gauntlet-20260827`) to clean → panel → un-draft it for your re-review; the prior gauntlet had doom-parked on the old conflicting head.
+>
+> 2. **[endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (Ironhorse coverage agents) is approved + 26/26 green but stuck at merge.** The conductor refused to unfreeze base `llm-e22e67a` because open [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) shares that frozen snapshot. The merge spine's own note flags this as a likely false-positive — the frozen-base skill documents same-snapshot sharing as benign, yet the spine treats it as a stack. Your call: (a) confirm [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) is independent and I retry conduct, (b) repoint it off the shared base, or (c) tooling fix to the merge spine. I did not touch [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (the known-infeasible master-pin).
+>
+> Stale parked leftovers noted (doomed/inert): `endor-walker-exports-resolution` (superseded) and `endor-host-hook-surface-...-gauntlet-clean`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1253,7 +1263,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $504.79 _(notional, rate-card)_ | no quota set |
+| Claude | 89.9M | $506.29 _(notional, rate-card)_ | no quota set |
 | Codex | 50.0M _(+2024.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 ## Board
