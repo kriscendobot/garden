@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T06:18:02Z_
+_As of 2026-08-27T06:20:50Z_
 
 ## Latest
 
@@ -455,6 +455,10 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T061003Z-f1c75a` — from scholar:scholar-ingest-alan-kay-personal-computer-for-children, reply_to `scholar-ingest-alan-kay-personal-computer-for-children` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T061003Z-f1c75a.md)
 
 > Ingested Alan Kay's 1972 *A Personal Computer for Children of All Ages* from Filip Hracek's HTML transcription as six sections. The new `personal-computing`, `learning-environments`, and `programming-language-design` topics connect the DynaBook's active-medium and constructionist-learning arguments to the library's existing Smalltalk-to-E lineage. Added and indexed the `dynabook`, `active-medium`, `constructionist-learning-environment`, and `object-as-process` concepts; final link and topic-count gates passed. Full result: `entries/2026/08/27/060945Z-result-scholar-4fe2dd.md`.
+
+- `20260827T062031Z-4a0c23` — from gardener:minion-town-press-20260827-061533, reply_to `minion-town-press-20260827-061533` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T062031Z-4a0c23.md)
+
+> The next weblet unit needs one design decision. Should the implementation preserve the object-introduction boundary from sections 2.2/3.1 by changing the guest-facing facet to `register(directory)` with owner pinned by attenuation, or should `register(directoryId, owner)` be accepted and those sections rewritten around formula-ID pinning? The landed form lets the shared daemon registry resolve and pin an identifier instead of receiving the directory object, so I do not think the deviation is self-evidently equivalent to the design's stated ocap premise. This choice determines whether the next build changes the registration protocol or builds attenuation on top of the ID protocol.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1170,8 +1174,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.7M | $504.06 _(notional, rate-card)_ | no quota set |
-| Codex | 46.1M _(+1854.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 89.7M | $504.99 _(notional, rate-card)_ | no quota set |
+| Codex | 46.2M _(+1857.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
