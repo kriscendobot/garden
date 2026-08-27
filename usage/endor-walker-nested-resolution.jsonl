@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":141,"elapsed_s":2354,"input_tokens":259,"output_tokens":144056,"cache_creation_tokens":302447,"cache_read_tokens":29481104,"total_cost_usd":21.370316999999986,"ts":"2026-08-27T08:58:50Z","base":"endor-walker-nested-resolution","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder","provider":"anthropic"}
