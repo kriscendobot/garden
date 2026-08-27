@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T19:59:57Z_
+_As of 2026-08-27T20:05:43Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2h)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 12h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 10h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 10h)
@@ -1253,14 +1253,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $578.60 _(notional, rate-card)_ | no quota set |
-| Codex | 50.5M _(+1993.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 96.5M | $581.30 _(notional, rate-card)_ | no quota set |
+| Codex | 50.5M _(+1992.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (15)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1273,7 +1273,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
+- [`test262-coverage-ratchet-20260827-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260827-200508.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`test262-coverage-ratchet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260827.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
+- [`xs2rust-endor-press-20260827-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-200508.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (5691)
 - [`kriscendobot-minion.town-pr53-review-90b51c86`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr53-review-90b51c86.md) — Cost
