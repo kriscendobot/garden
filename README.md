@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T05:21:01Z_
+_As of 2026-08-27T05:22:59Z_
 
 ## Latest
 
@@ -1166,8 +1166,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.1M | $498.82 _(notional, rate-card)_ | no quota set |
-| Codex | 45.1M _(+1816.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 90.3M | $500.12 _(notional, rate-card)_ | no quota set |
+| Codex | 45.2M _(+1818.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1321,6 +1321,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
+- [`endojs-endo-but-for-bots-pr388-passable-byte-arrays-after-pr475-37754f3b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-passable-byte-arrays-after-pr475-37754f3b.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Fix endojs/endo-but-for-bots PR 388 after PR 475
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
