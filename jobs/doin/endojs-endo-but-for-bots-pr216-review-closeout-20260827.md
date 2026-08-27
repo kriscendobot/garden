@@ -27,6 +27,8 @@ In either case, close the review loop: resolve the addressed thread, re-request
 the maintainer review after CI is green, and post the required top-level
 completion summary with the verified head SHA and test/CI status. Do not merge.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
