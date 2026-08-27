@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T21:20:45Z_
+_As of 2026-08-27T21:25:53Z_
 
 ## Latest
 
@@ -1339,14 +1339,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.3M | $604.71 _(notional, rate-card)_ | no quota set |
-| Codex | 51.3M _(+2023.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 99.5M | $606.66 _(notional, rate-card)_ | no quota set |
+| Codex | 51.4M _(+2026.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1360,15 +1360,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-pr53-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr53-gauntlet-20260827.md) — ---
 - [`test262-coverage-ratchet-20260827-212008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260827-212008.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
-- [`xs2rust-endor-press-20260827-212008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-212008.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5698)
+### tada (5699)
+- [`xs2rust-endor-press-20260827-212008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-212008.md) — Cost
 - [`endojs-endo-but-for-bots-pr1064-review-159dcf9b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-review-159dcf9b.md) — Cost
 - [`minion-town-press-20260827-210505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-210505.md) — Cost
 - [`deadmail-issue-comment-5445035002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5445035002.md) — Completion report
 - [`merge-kriscendobot-minion-town-53`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/merge-kriscendobot-minion-town-53.md) — Completion report
-- [`kriscendobot-minion-town-pr53-prod-validation-followup-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr53-prod-validation-followup-20260827.md) — Completion report: production validation for kriscendobot/minion.town#53
-- … and 5693 more
+- … and 5694 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
