@@ -63,3 +63,13 @@ Do:
    `fuzz-ironhorse` goes green in CI. Cite the commands and their output.
 5. Do NOT commit the gitignored Moddable/bootstrap build inputs. Do NOT merge.
    Post a completion-summary comment with the head SHA and evidence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T23:46:53Z
