@@ -1,4 +1,5 @@
 ---
+child-endor-walker-dep-classification-host: endolin-garden-ece02cb4
 child-endor-walker-dep-classification-reap-count: 0
 order: serial
 children: endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
