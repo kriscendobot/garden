@@ -31,3 +31,13 @@ Detect statically-analyzable dynamic `import()`/`require()` specifiers and
 record dynamic edges to match compartment-mapper. Graduate dynamic,
 dynamic-ancestor, dynamic-import-esm, optional. Bump floor to 23. Depends on
 Increment 1.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T07:55:06Z
