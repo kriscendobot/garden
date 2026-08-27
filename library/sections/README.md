@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6953 (530 parent indexes + 6423 children).
+Total section files: 6960 (530 parent indexes + 6430 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7298,6 +7298,16 @@ Total section files: 6953 (530 parent indexes + 6423 children).
 ### endo-but-for-bots--packages-genie-src-tools-index-js
 
 - [endo-but-for-bots--packages-genie-src-tools-index-js--FTS5-shipping-and-VFS-with-two-backends](endo-but-for-bots--packages-genie-src-tools-index-js--FTS5-shipping-and-VFS-with-two-backends.md)
+
+### endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray
+
+- [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--background-and-api-surface](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--background-and-api-surface.md)
+- [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--decisions-and-references](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--decisions-and-references.md)
+- [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--implementation-outline](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--implementation-outline.md)
+- [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--scope](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--scope.md)
+- [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--semantics](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--semantics.md)
+- [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--status-and-problem](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--status-and-problem.md)
+- [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--test-plan](endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--test-plan.md)
 
 ### endo-but-for-bots--packages-init-README-md
 
