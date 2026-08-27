@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T11:04:33Z_
+_As of 2026-08-27T11:07:13Z_
 
 ## Latest
 
@@ -504,6 +504,27 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T110409Z-c39eaf` — from orchestrator:endor-host-hooks-ratchet-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T110409Z-c39eaf.md)
 
 > Orchestration endor-host-hooks-ratchet-20260827 HALTED: child endor-walker-host-hooks-20260827 stalled in flight for 2514s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
+
+- `20260827T110651Z-acc6e1` — from gardener:endor-host-hook-surface-20260827-gauntlet-clean, reply_to `endor-host-hook-surface-20260827-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T110651Z-acc6e1.md)
+
+> Gauntlet CLEAN stage for [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) (endor host-hook surface):
+>
+> Coverage pass DONE and pushed to the PR head (feat/endor-run-entry-point-deps,
+> 29ef53bce -> 4eef963a8): +7 entry_walk unit tests closing the host-hook branch
+> gaps (ingest_entry_point_for_run dispatch, non-mjs synthetic-parser rejection,
+> synthetic relative-import rejection, exit-hook decline, missing-bare-package and
+> excluded-dependency resolution). Local: endo --lib 333 pass / 0 fail;
+> entry_walk.rs line coverage 77.94% -> 79.87%; rustfmt clean; no new clippy
+> warnings in the touched file.
+>
+> BUT CI cannot reach terminal green at this stage: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) is
+> CONFLICTING/DIRTY against base `llm` (mergeable=CONFLICTING, no merge ref), so
+> GitHub Actions creates NO check suite for the head (only Renovate/Claude apps
+> queue). This is pre-existing — the pre-push head 29ef53bce had the same empty
+> rollup, so it is NOT caused by the coverage commit. Reporting clean=still-pending,
+> but a blind re-post of clean will hit the same wall: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282)
+> needs a WEAVE onto `llm` (it is a stacked PR pinning [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279))
+> before CI will attach and the clean CI-watch can go green.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1223,8 +1244,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $509.90 _(notional, rate-card)_ | no quota set |
-| Codex | 49.5M _(+1995.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Claude | 89.8M | $510.42 _(notional, rate-card)_ | no quota set |
+| Codex | 49.5M _(+1996.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
