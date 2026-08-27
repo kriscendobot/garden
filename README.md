@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:36:47Z_
+_As of 2026-08-27T23:37:59Z_
 
 ## Latest
 
@@ -1407,14 +1407,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.8M | $671.78 _(notional, rate-card)_ | no quota set |
-| Codex | 51.1M _(+1957.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 106.9M | $673.79 _(notional, rate-card)_ | no quota set |
+| Codex | 51.1M _(+1957.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`kriscendobot-minion.town-pr56-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr56-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #56
 
-### doin (23)
+### doin (22)
 - [`build-continuous-ironhorse-fuzz-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-continuous-ironhorse-fuzz-service.md) — Build a continuous Ironhorse fuzzing service and remove fuzzing from pull-req...
 - [`build-hardened262-retire-onlylockdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-hardened262-retire-onlylockdown.md) — build: retire lockdown-only test selection in @endo/hardened262
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
@@ -1436,16 +1436,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
-- [`test262-coverage-ratchet-20260827-233529`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260827-233529.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`xs2rust-endor-press-20260827-233529`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260827-233529.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5737)
+### tada (5738)
+- [`test262-coverage-ratchet-20260827-233529`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260827-233529.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-508512a2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-508512a2.md) — Cost
 - [`kriscendobot-minion.town-pr56-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1066-573f0c19`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-573f0c19.md) — Completion report
 - [`minion-town-mcp-guest-eval-and-remaining-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-mcp-guest-eval-and-remaining-tools.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1066-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-fix-1.md) — Completion report — FIX round 1, endojs/endo-but-for-bots PR #1066
-- … and 5732 more
+- … and 5733 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
