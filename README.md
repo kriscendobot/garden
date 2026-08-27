@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:06:03Z_
+_As of 2026-08-27T23:10:14Z_
 
 ## Latest
 
@@ -1397,14 +1397,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.7M | $658.14 _(notional, rate-card)_ | no quota set |
-| Codex | 51.1M _(+1975.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.9M | $664.91 _(notional, rate-card)_ | no quota set |
+| Codex | 51.1M _(+1973.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (22)
+### doin (21)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`design-minion-town-invitation-only-guests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-invitation-only-guests.md) — ---
@@ -1425,16 +1425,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-mcp-guest-eval-and-remaining-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-guest-eval-and-remaining-tools.md) — ---
-- [`minion-town-press-20260827-230505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260827-230505.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5727)
+### tada (5728)
+- [`minion-town-press-20260827-230505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-230505.md) — Completion report — minion-town-press-20260827-230505
 - [`endojs-endo-but-for-bots-pr1066-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827.md) — Conductor report — endojs/endo-but-for-bots#1046
 - [`endojs-endo-but-for-bots-pr1066-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-clean.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-clean.md) — Completion report
-- … and 5722 more
+- … and 5723 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
