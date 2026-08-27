@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:56:56Z_
+_As of 2026-08-27T22:57:36Z_
 
 ## Latest
 
@@ -569,6 +569,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >   2. Given guest_eval is done, the only genuinely-remaining §5.1 surface is: mail write-verbs (request/send/resolve/adopt/dismiss, gated on the X2 long-promise exercise), directory has/lookup, and define/form. I'm checking X2 status now; will report which are actually buildable. Want me to add the cheap JSON-representable ones (e.g. guest_has), or leave the surface where B4 left it?
 >
 > Proceeding to investigate; will not ship any policy widening without your explicit sign-off.
+
+- `20260827T225704Z-3bd2f7` — from gardener:endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827, reply_to `endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T225704Z-3bd2f7.md)
+
+> [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) conduct — STALLED, not merged.
+>
+> After I rebased onto live `llm` (new head a3e9d138), CI came back RED on fuzz-ironhorse: a NEW seed-dependent crash in the `bytecode_decoder` fuzz target (panic at rust/engine/ironhorse-vm/src/interp.rs:30797:14), distinct from the stack-overflow the shepherd already fixed. fuzz-ironhorse had passed on the pre-rebase head e66cf4d, so this is a fresh fuzzer find, not caused by the rebase content (the rebase only added two unrelated design(cbor) commits).
+>
+> Per conductor discipline I did not merge and did not fix. I handed the crash off to the active shepherds (pr1046-shepherd and pr1046-fuzz-async-instance-oom) and re-requested kriskowal's review on the rebased head. A fresh conduct job should carry the merge once fuzz-ironhorse is green on the final head and kriskowal re-approves that exact head.
+>
+> Separately, [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) remains OPEN / CHANGES_REQUESTED (its own fuzz-ironhorse history was red); resolving it is out of scope for this job and belongs to its active review-response job.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1374,8 +1384,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.0M | $647.51 _(notional, rate-card)_ | no quota set |
-| Codex | 51.2M _(+1979.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.3M | $650.05 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+1979.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
