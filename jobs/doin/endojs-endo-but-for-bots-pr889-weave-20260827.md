@@ -18,3 +18,13 @@ with --force-with-lease, and confirm CI reconverges to green. If it was left
 draft only because of the conflict, it can be un-drafted once green and mergeable.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T06:13:14Z
