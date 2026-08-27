@@ -1,0 +1,32 @@
+<6>23:25:41 [jobs] job 'deadmail-issue-comment-5446369936' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>23:25:41 [jobs] job 'deadmail-issue-comment-5446369936' resolved tier 'mentor' -> claude --model claude-opus-4-8
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+Inbox empty, worktree clean (no garden-repo changes — this was live-ops work). The job is complete.
+
+---
+
+## Completion report
+
+**Job:** dead-lettered issue-inbox message for `issue-kriscendobot-garden-58` — kriskowal's comment on kriscendobot/garden#58: *"Open containment and verify that a weblet's CapTP websocket remote bootstrap object is the backend powers designated for the weblet. Do a round-trip-test."*
+
+**What I did**
+
+1. **Disambiguated the ask** to the **weblet powers-plane** containment (`zz-containment-20260812.conf` / `GATEWAY_ENDO_SOCK`) — not the separate OCapN daemon-route containment.
+2. **Confirmed opening was safe before opening:** inspected the deployed gateway dist (`/opt/minion-town/dist`, built today) and verified it runs the **guest-scoped** design (`E(self).copy([powerPetName],[dir,'back'])` at publish; `read(directoryId,'back')` as the CapTP bootstrap) — the host-escape the containment note describes is fixed and deployed. The containment rationale was stale.
+3. **Captured a baseline** (containment on → CapTP endpoint fails closed, 426, no bootstrap).
+4. **Opened containment** on the prod box (`i-0380cd68b90020fad`): disabled the drop-in (backed up to `/root/…bak-issue58`; this also restored the `endo-daemon` supplementary group it stripped), `daemon-reload`, `restart endo-gateway` → boot log `powers plane : ENABLED`.
+5. **Ran the round-trip test:** stored a known marker as a designatable power, `weblet_publish` designating it (`bhda65…fehq.ocap.site`), then a native `@endo/captp`-over-WS client `getBootstrap()`:
+   - Bootstrap = the designated `back` power; `E(bootstrap).text()` returned the **exact** marker.
+   - All `EndoHost` methods (`makeUnconfined`/`evaluate`/`provideHost`/`provideShell`/`lookup`/`store`/`endow`) **absent and reject** — zero host authority.
+   - Unknown hash → 404 fail-closed even with the plane enabled.
+   - Public `wss://…ocap.site/.well-known/endo-captp` handshake returns **101** over TLS through Caddy.
+6. **Posted the verification reply** on the issue thread (did not close it): https://github.com/kriscendobot/garden/issues/58#issuecomment-5446507693
+7. Cleaned up the stray on-box probe script; updated memory.
+
+**What changed**
+- Prod box: weblet powers-plane containment **opened** (persists across redeploys — deploy source already arms `GATEWAY_ENDO_SOCK`; the containment was box-local). Fully reversible via the backed-up drop-in.
+- No garden-repo (main2) changes; nothing to commit.
+
+**Follow-up (flagged to maintainer, non-blocking):** an explicit audit that no reachable guest pet name exposes a surface a publisher wouldn't want public via their weblet's CapTP endpoint. The separate OCapN daemon-route containment remains intact.
