@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 282
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-1
+current_child: endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1
 state: running
 created_by: gardener
 created_at: 2026-08-27T17:07:36Z
