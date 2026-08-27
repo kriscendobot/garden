@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T10:57:58Z_
+_As of 2026-08-27T11:04:33Z_
 
 ## Latest
 
@@ -500,6 +500,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T103804Z-b958e2` — from gardener:minion-town-press-20260827-103509, reply_to `minion-town-press-20260827-103509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T103804Z-b958e2.md)
 
 > Decision needed before the next minion.town weblet unit: should the merged `E(sites).register(directoryId, owner)` API be accepted as the durable design (and §§ 2.2/3.1 rewritten), or should unit 3 first restore `register(directory)` by introduction? Passing an id appears to reopen the exact ambient-resolution seam the design meant to remove: even an owner-pinned, register-only guest facet could submit any known 256-bit formula id for the top-host registry store to pin, whereas passing the directory object proves possession structurally. Which contract should the follow-on build preserve?
+
+- `20260827T110409Z-c39eaf` — from orchestrator:endor-host-hooks-ratchet-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T110409Z-c39eaf.md)
+
+> Orchestration endor-host-hooks-ratchet-20260827 HALTED: child endor-walker-host-hooks-20260827 stalled in flight for 2514s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1219,8 +1223,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $508.50 _(notional, rate-card)_ | no quota set |
-| Codex | 49.4M _(+1988.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 89.8M | $509.90 _(notional, rate-card)_ | no quota set |
+| Codex | 49.5M _(+1995.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1241,13 +1245,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5659)
+### tada (5660)
+- [`endor-host-hooks-ratchet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-host-hooks-ratchet-20260827.md) — orchestration endor-host-hooks-ratchet-20260827 — HALTED
 - [`endojs-endo-but-for-bots-pr1046-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-shepherd.md) — Cost
 - [`xs2rust-endor-press-20260827-103509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-103509.md) — Cost
 - [`minion-town-press-20260827-103509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-103509.md) — Cost
-- [`endor-host-hook-surface-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-host-hook-surface-20260827.md) — Cost
-- … and 5654 more
+- … and 5655 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
