@@ -41,3 +41,13 @@ contradicting each other.
 
 No usage metering/limiting as part of this design — that's a deliberately
 separate, deferred concern.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T23:04:25Z
