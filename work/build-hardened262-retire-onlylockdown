@@ -3,3 +3,7 @@ gardener: 3
 worker_kind: monk
 claimed_at: 2026-08-27T23:30:36Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-hardened262-retire-onlylockdown
+pr_number: 1068
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1068
+pr_head: test/hardened262-retire-onlylockdown
