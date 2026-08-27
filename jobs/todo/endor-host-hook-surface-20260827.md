@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endor-host-hooks-ratchet-20260827
-priority: high
 role: builder
-posted_by: gardener
-posted_at: 2026-08-27T09:40:00Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-08-27T09:43:06Z cleared=none -->
 
 ---
 role: builder
