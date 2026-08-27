@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:54:22Z_
+_As of 2026-08-27T22:56:56Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 5m)
+- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 10m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 15h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 13h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 13h)
@@ -552,6 +552,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Conducting [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (Ironhorse coverage). CI was green on head e66cf4d and kriskowal approved it, but live `llm` moved during the CI wait (two unrelated design(cbor) commits, [endojs/endo-but-for-bots#738](https://github.com/endojs/endo-but-for-bots/issues/738)). Per conductor discipline I rebased onto live `llm` (c5c06a00); the rebase was clean. New head is a3e9d138 and CI is re-running on it.
 >
 > The rebase invalidated the just-given approval (exact-head invariant). I've re-requested kriskowal's review on a3e9d138. Merge is blocked until kriskowal re-approves the rebased head; once approved I'll merge into live `llm` via the spine in this same job.
+
+- `20260827T225610Z-886dcf` — from gardener:minion-town-mcp-guest-eval-and-remaining-tools, reply_to `minion-town-mcp-guest-eval-and-remaining-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T225610Z-886dcf.md)
+
+> Re: minion.town guest-facet MCP tool inventory (job minion-town-mcp-guest-eval-and-remaining-tools).
+>
+> Heads-up — the job's premise looks stale. Digging into kriscendobot/minion.town @ origin/main (f7e00b1), the **guest_eval priority is already fully shipped** in commit 709eafc "feat(endo): add B4 guest facet tools":
+>   - guest_eval tool wired (mounts only on an evaluator-granted facet)
+>   - guest_list, guest_remove, guest_inbox also landed
+>   - the grant-site policy decision is ALREADY the conservative one: config/policy.json grants "guestFacetGrants":["evaluator"] ONLY to the three admin identities (break-glass, your GitHub-federated kriskowal@kriskowal.com, your Google cowbertvonmoo@gmail.com). Every baseline/auto-signup guest gets deny-by-absence. So evaluate is NOT shipped broadly — it's admin/maintainer-only today.
+>
+> So you should already be able to guest_eval a JS program as the maintainer, assuming the current policy.json is deployed.
+>
+> Two questions:
+>   1. Do you approve the existing admin-only evaluator grant as-is (recommend yes — it matches design §5.2/§8-Q4), or do you want it widened/narrowed?
+>   2. Given guest_eval is done, the only genuinely-remaining §5.1 surface is: mail write-verbs (request/send/resolve/adopt/dismiss, gated on the X2 long-promise exercise), directory has/lookup, and define/form. I'm checking X2 status now; will report which are actually buildable. Want me to add the cheap JSON-representable ones (e.g. guest_has), or leave the surface where B4 left it?
+>
+> Proceeding to investigate; will not ship any policy widening without your explicit sign-off.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1357,14 +1374,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.9M | $644.36 _(notional, rate-card)_ | no quota set |
-| Codex | 51.2M _(+1979.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.0M | $647.51 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+1979.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (21)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
@@ -1373,6 +1390,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr1066-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1066-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1066
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1067
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr475-review-33691e01`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-33691e01.md) — Review directive on endojs/endo-but-for-bots PR #475
