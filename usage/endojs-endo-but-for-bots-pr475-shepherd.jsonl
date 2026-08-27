@@ -8,3 +8,4 @@
 {"ts":"2026-08-26T00:06:32Z","base":"endojs-endo-but-for-bots-pr475-shepherd","host":"endolin-garden-ece02cb4","outcome":"tada","source":"none","elapsed_s":1472}
 {"ts":"2026-08-27T18:07:38Z","base":"endojs-endo-but-for-bots-pr475-shepherd","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":422}
 {"ts":"2026-08-27T22:05:07Z","base":"endojs-endo-but-for-bots-pr475-shepherd","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":105}
+{"source":"result","model":"claude-opus-4-8","num_turns":19,"elapsed_s":152,"input_tokens":36,"output_tokens":8776,"cache_creation_tokens":53225,"cache_read_tokens":1135962,"total_cost_usd":1.32207,"ts":"2026-08-27T22:16:06Z","base":"endojs-endo-but-for-bots-pr475-shepherd","host":"endolin-garden-ece02cb4","outcome":"requeue","provider":"anthropic"}
