@@ -28,3 +28,13 @@ this is the named follow-up review surface requested by the maintainer.
 
 Originating artifact: review 5045929318 at head
 `ec37f708d74c64714475c8452145623bf26b004c`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T21:48:25Z
