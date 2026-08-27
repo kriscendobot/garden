@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-544586514
 Please post a follow-up job to press for OCapN CBOR Noise Protocol support. Use a proxy reviewer for the maintainer, with the authority to approve, merge, and deploy until we can communicate over this protocol from the garden’s host to the minion.town host. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T22:20:29Z
