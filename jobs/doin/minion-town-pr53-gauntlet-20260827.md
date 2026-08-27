@@ -9,6 +9,8 @@ Context: five fixup commits landed since the PR's initial build, all addressing 
 
 Verify tests pass locally (test/gateway/gateway.test.ts, test/endo-daemon-integration.test.ts, test/gateway/daemon-site-registry.test.ts, test/gateway/site-registry-exo.test.ts, test/endo-root-host-socket.test.ts) before/alongside the gauntlet's clean phase, then proceed through panel review, fix-loop on any findings, and un-draft.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
