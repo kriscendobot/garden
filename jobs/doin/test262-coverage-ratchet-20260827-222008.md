@@ -72,3 +72,13 @@ pushing the deletion as a normal CAS commit (so it never re-fires):
   `test262-ratchet-deadline` is also armed at this instant as a backstop.)
 
 Until a stop condition holds, keep pressing serially, one slice per engagement.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T22:20:22Z
