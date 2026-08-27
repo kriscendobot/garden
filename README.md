@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T21:54:23Z_
+_As of 2026-08-27T21:55:28Z_
 
 ## Latest
 
@@ -1339,12 +1339,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.0M | $627.20 _(notional, rate-card)_ | no quota set |
-| Codex | 51.2M _(+2019.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 102.0M | $627.58 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+2019.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1064-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1064-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1064
 
 ### doin (15)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
