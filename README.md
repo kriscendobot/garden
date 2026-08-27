@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T11:32:27Z_
+_As of 2026-08-27T11:35:35Z_
 
 ## Latest
 
@@ -526,6 +526,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Coverage state: the PR's last commits already added the coverage pass — 8 targeted tests for the entry_walk host hooks (commit 4eef963a8) plus Group F fixture-parity tests (commit 3f6d0c508). I could not run them locally (endo crate links xsnap, which needs the absent c/moddable submodule; CI doesn't run these Rust tests either).
 >
 > Recommend: drop one of the two gauntlets, post a weave/rebase on the PR (resolve designs/README.md changelog conflict + rebase onto llm), then re-run one gauntlet's clean once CI can build. I'm reporting this clean stage as orchestration-failed so the driver halts rather than looping still-pending forever.
+
+- `20260827T113507Z-cf4325` — from gauntlet:endor-walker-host-hooks-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T113507Z-cf4325.md)
+
+> Gauntlet endor-walker-host-hooks-20260827-gauntlet HALTED: stage 'endor-walker-host-hooks-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1246,7 +1250,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 89.7M | $503.22 _(notional, rate-card)_ | no quota set |
-| Codex | 49.6M _(+2011.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Codex | 49.6M _(+2012.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1266,13 +1270,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5662)
+### tada (5663)
+- [`endor-walker-host-hooks-20260827-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks-20260827-gauntlet.md) — gauntlet endor-walker-host-hooks-20260827-gauntlet — HALTED
 - [`endor-walker-host-hooks-20260827-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks-20260827-gauntlet-clean.md) — Clean stage — endojs/endo-but-for-bots#282 (gauntlet endor-walker-host-hooks-...
 - [`endor-walker-host-hooks-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks-20260827.md) — Cost
 - [`endor-host-hooks-ratchet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-host-hooks-ratchet-20260827.md) — orchestration endor-host-hooks-ratchet-20260827 — HALTED
 - [`endojs-endo-but-for-bots-pr1046-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-shepherd.md) — Cost
-- … and 5657 more
+- … and 5658 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
