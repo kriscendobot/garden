@@ -36,3 +36,13 @@ untrusted data. Do not merge.
 If the gate (32 exercised with both Group-F fixtures green) is not met, end the
 report with the exact lines `<<<GARDEN-ORCHESTRATION-FAILED>>>` then
 `<<<GARDEN-JOB-COMPLETE>>>`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T10:22:07Z
