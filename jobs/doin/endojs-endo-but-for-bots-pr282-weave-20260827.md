@@ -26,3 +26,13 @@ report current CI evidence. Do not merge.
 The subsequent Ironhorse press should rerun one staged gauntlet after the weave;
 the two 2026-08-27 host-hook gauntlets halted only because the PR was conflicting
 and GitHub could not create a merge ref.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T12:55:33Z
