@@ -38,3 +38,13 @@ those mechanically):
 There is a parked follow-on job in `jobs/plan/`,
 `minion-town-mcp-b2-first-guest-tools-gauntlet` — check it before starting
 so this doesn't duplicate or conflict with work already staged there.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T22:53:08Z
