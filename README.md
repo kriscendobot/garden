@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T08:30:39Z_
+_As of 2026-08-27T08:59:22Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 48m)
+- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 1h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 2h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 28d)
@@ -1199,14 +1199,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.7M | $505.94 _(notional, rate-card)_ | no quota set |
-| Codex | 47.7M _(+1904.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 89.5M | $501.69 _(notional, rate-card)_ | no quota set |
+| Codex | 47.9M _(+1923.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-base32-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-base32-package.md) — ---
@@ -1215,19 +1215,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr216-review-closeout-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-review-closeout-20260827.md) — Close out the remaining maintainer review state on endojs/endo-but-for-bots P...
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
-- [`endor-walker-nested-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-nested-resolution.md) — Build Increment 5 — nested/duplicate/symlink/resolve resolution (Group G)
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5645)
+### tada (5646)
+- [`endor-walker-nested-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-nested-resolution.md) — Completion report — endor-walker-nested-resolution (Increment 5, Group G)
 - [`xs2rust-endor-press-20260827-082007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-082007.md) — Cost
 - [`minion-town-press-20260827-082007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-082007.md) — Cost
 - [`endor-walker-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-dynamic-import.md) — Cost
 - [`endor-walker-dep-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-dep-classification.md) — Cost
-- [`endojs-endo-but-for-bots-pr877-fix-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-fix-20260827.md) — Completion report
-- … and 5640 more
+- … and 5641 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
