@@ -1,0 +1,33 @@
+<6>18:13:18 [jobs] resuming session 8c0e92a7-7b42-5a85-923c-b60da818f6e9 for requeued job 'endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1' in worktree /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1
+<6>18:13:18 [jobs] job 'endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>18:13:18 [jobs] job 'endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>18:24:11 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-fix-1' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+FIX round 1 complete. All panel round-2 must-fix items applied, pushed to PR #282's head (`36187686d`), and CI is fully green.
+
+## What I did
+
+Read the latest panel verdict (review `5043647222`, disposition MUST-FIX) on PR #282 and applied all six must-fix themes as a single clean logical commit to `endojs/endo-but-for-bots` branch `feat/endor-run-entry-point-deps`:
+
+1. **`resolve_package_main` containment** (saboteur/purist/locksmith/wire-watcher): routed all four package.json-derived entry candidates (`browser`/`exports["."]`/`module`/`main`) plus the `index.*` fallback through `canonicalize_within`, so a malicious `"main": "../../secret.js"` (or an absolute path) is rejected by the resolver itself. Added `resolve_package_main_rejects_escape`.
+2. **Regex-literal recognition** in `scan_static_imports`/`scan_cjs_requires` (engine-realist/spec-keeper): both scanners now skip regex literals, disambiguating regex-vs-division by the previous significant token (`ends_value_expression`/`skip_regex_literal`), fixing the false-negative where a regex body containing `"`, `'`, or `//` swallowed a following import. Added two regex tests.
+3. **Static import-attributes** (corner-prober): trim the statement body at the `with`/`assert` clause before specifier extraction so `import x from "./data.json" with { type: "json" }` returns `./data.json`, not `json`. Added a test.
+4. **Stale `dynamic-import-esm` golden** (prover): confirmed the drift via `gen-parity-golden.mjs --check` (the oracle links a `dep` compartment the committed golden dropped, masking a real walker gap). Reclassified `Exercise → PendingExclude` and lowered `EXERCISED_FLOOR 32 → 31`, removing the false parity claim.
+5. **Abbreviated identifiers** (stylist): `idx→index_path`, `disc_idx→discovery_index`, `importer_dir`/`entry_dir`/`start_dir→*_directory`, `cid`/`spec`/`fname→escaped_*`, `ep_*→entry_point_*`.
+6. **Design-doc rename sweep** (integrator): `endor-run-expanded.md:52` `cmd_run_entry_point_with_cas → cmd_run_entry_node_modules`.
+
+## Verification
+
+- Locally built the crate (initialized the `c/moddable` submodule; used throwaway gitignored bundle stubs) and ran the endo lib suite: **335/335 pass**, including all new tests and every pre-existing scanner/resolver test (no regressions).
+- Parity integration test: `scoreboard`, `no_unaccounted_fixture_drift`, and `exercised_fixtures_match_node_golden` all pass with the new floor of 31 and `dynamic-import-esm` correctly skipped.
+- Kept the commit a pure logical change with **no cargo-fmt sweep** (reverted the global reformat cargo-fmt produced on 18 unrelated files), directly answering the packager/integrator diff-hygiene finding, and gave the commit a descriptive body enumerating each finding addressed.
+- **CI: 27 pass, 0 pending, 0 failures** — including build-xsnap, test-xs, test-ironhorse, test262, and all JS test matrices.
+
+## Follow-ups (not blocking; noted for the panel/design record)
+
+- The opaque-dynamic-import declared-dependency-inclusion walker capability is now a tracked `PendingExclude` rather than a false Exercise.
+- The historical tip commit `99217458b`'s format/substance conflation is documented but not retroactively split (that would require rewriting an already-reviewed, pushed commit; the fix was delivered as a clean follow-up commit instead).
+- Stylist's crate-wide `pkg_`/`_dir` abbreviation sweep and typist's ASCII-glyph doc-comment swaps remain as should-fix, out-of-this-diff follow-ups.
+
+<!-- gauntlet-stage-result: fix=done -->
