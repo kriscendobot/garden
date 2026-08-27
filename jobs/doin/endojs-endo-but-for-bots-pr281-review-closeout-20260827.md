@@ -22,3 +22,13 @@ fix it, test it, and CAS-push safely. If it is already complete, make no
 gratuitous source change: re-request maintainer review and post/refresh the
 required top-level completion summary with the verified head SHA and current CI
 evidence. Do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T09:42:50Z
