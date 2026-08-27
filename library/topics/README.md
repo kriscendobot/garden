@@ -19,10 +19,10 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 70 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 19 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 50 |
-| [testing](testing.md) | How to run and write tests in endo. | 41 |
+| [testing](testing.md) | How to run and write tests in endo. | 42 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 10 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 48 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 97 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 104 |
 | [engine-implementation](engine-implementation.md) | Engine-level (interpreter/C/native) implementation of SES/ocap primitives — how `harden`, `lockdown`, intrinsics isolation, and Compartment/realm semantics are built into a small JIT-free bytecode machine (XS, quickjs-ng), with the performance-vs-safety tradeoffs; the home for sibling-engine comparisons read for the XS→Rust (Endor) program. | 5 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 371 |
 | [identity](identity.md) | How a user's (or agent's) identity is **decomposed into separable identifiers**, each with a distinct role, rather than conflated into one overloaded handle. Keystone: Randy Farmer's **tripartite identity pattern** (Habitat Chronicles, 2008) — account identifier (permanent, inert, random, capability-free DB key), login identifier(s) (name/password or federated capability-based logins from OpenID / OAuth / Facebook Connect), and public identifier(s) (the non-unique, compound, mutable, context-plural social face). The separation is the identity-side statement of POLA: a leaked or shared handle never doubles as a credential or a spam target. Distinct from `capability-security` (ocap practice) and `capability-theory` (the papers). | 22 |
@@ -35,7 +35,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 78 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format; encodePassable rank-order-preserving format; rankOrder in-memory comparator. | 86 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 40 |
-| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 71 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 75 |
 | [e-language](e-language.md) | Mark Miller's capability-secure distributed language E (sameness, selfless/selfish objects, the doc-tree map) as documented on erights.org; the language-level ancestor of Hardened JavaScript / Endo. Distinct from `capability-theory` (the papers arguing the discipline). | 44 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 113 |
 | [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 81 |
