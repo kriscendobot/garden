@@ -10,6 +10,8 @@ https://github.com/endojs/endo-but-for-bots/pull/1046#pullrequestreview-50246272
 comments, loop a fixer until all feedback is explicitly addressed, push,
 and reply so the thread is closed out.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
