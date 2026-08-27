@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:04:40Z_
+_As of 2026-08-27T23:06:03Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 2m)
+- [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/pull/1046) — test(hardened262): add Ironhorse coverage agents (waiting 8m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 15h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 13h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 13h)
@@ -1397,14 +1397,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.6M | $656.33 _(notional, rate-card)_ | no quota set |
-| Codex | 51.1M _(+1976.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.7M | $658.14 _(notional, rate-card)_ | no quota set |
+| Codex | 51.1M _(+1975.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (22)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`design-minion-town-invitation-only-guests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-invitation-only-guests.md) — ---
@@ -1413,6 +1413,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr1066-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1066-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1066
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1067
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr475-review-33691e01`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-33691e01.md) — Review directive on endojs/endo-but-for-bots PR #475
@@ -1424,6 +1425,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-mcp-guest-eval-and-remaining-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-guest-eval-and-remaining-tools.md) — ---
+- [`minion-town-press-20260827-230505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260827-230505.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
 ### tada (5727)
