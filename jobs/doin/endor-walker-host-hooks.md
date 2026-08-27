@@ -33,3 +33,13 @@ by supplying the same hook to both the node oracle and the walker; bump floor to
 If the host-hook surface does not yet exist, report that precondition and hand back
 rather than forcing it. error-handling stays a DurableExclude (negative-diagnostic
 fixture). Depends on Increment 0.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T09:25:08Z
