@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T06:23:56Z_
+_As of 2026-08-27T06:24:18Z_
 
 ## Latest
 
@@ -459,6 +459,31 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T062031Z-4a0c23` — from gardener:minion-town-press-20260827-061533, reply_to `minion-town-press-20260827-061533` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T062031Z-4a0c23.md)
 
 > The next weblet unit needs one design decision. Should the implementation preserve the object-introduction boundary from sections 2.2/3.1 by changing the guest-facing facet to `register(directory)` with owner pinned by attenuation, or should `register(directoryId, owner)` be accepted and those sections rewritten around formula-ID pinning? The landed form lets the shared daemon registry resolve and pin an identifier instead of receiving the directory object, so I do not think the deviation is self-evidently equivalent to the design's stated ocap premise. This choice determines whether the next build changes the registration protocol or builds attenuation on top of the ID protocol.
+
+- `20260827T062400Z-4bf20f` — from gardener:xs2rust-endor-press-20260827-061533, reply_to `xs2rust-endor-press-20260827-061533` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T062400Z-4bf20f.md)
+
+> Ironhorse press (2026-08-27): investigated the fixture-parity ratchet campaign's
+> twice-halting child `endor-walker-exports-resolution` per your directive
+> ("if halted a third time on this same child, do NOT blindly re-resume; investigate").
+>
+> ROOT CAUSE (both halts): NOT a build hang or task difficulty. All four 2026-08-23
+> requeue cycles failed with source=none, elapsed 2-6s (journal/usage/
+> endor-walker-exports-resolution.jsonl) — the worker invocation fast-failed with
+> no model/provider attributed (a provider/worker-acquisition gap), which the reaper
+> read as elapsed-constancy and requeued to doom. The build body never ran. The doom
+> notice confirms "raising the handler budget will not help."
+>
+> ACTION: rather than blind-re-orchestrate, posted ONE targeted re-attempt
+> `endor-walker-exports-resolution-20260827` as dispatch:manual at true mentor (no
+> anthropic auto-downshift) so a live real-provider worker serves it — fleet is
+> healthy now (monks+clerics running). The job body carries the finding and instructs
+> the worker to REPORT (not silently exit) on any immediate infra failure, so a third
+> occurrence is captured rather than re-doomed. The 5 downstream ratchet children stay
+> parked; a future dispatch re-orchestrates them once this blocker clears.
+>
+> PR front is healthy: [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (APPROVED) re-running CI on a new head, [endojs/endo-but-for-bots#1060](https://github.com/endojs/endo-but-for-bots/issues/1060) mergeable
+> w/ checks pending + freshly reviewed, [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) recently conducted. No idle
+> CHANGES_REQUESTED mechanical target needing a fixer.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1174,8 +1199,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.7M | $505.89 _(notional, rate-card)_ | no quota set |
-| Codex | 46.3M _(+1861.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 89.7M | $506.02 _(notional, rate-card)_ | no quota set |
+| Codex | 46.3M _(+1862.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
