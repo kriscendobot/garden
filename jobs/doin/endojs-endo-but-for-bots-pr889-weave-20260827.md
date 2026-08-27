@@ -17,6 +17,7 @@ Rebase the head onto origin/llm, resolve conflicts (docs-only design PR), push
 with --force-with-lease, and confirm CI reconverges to green. If it was left
 draft only because of the conflict, it can be un-drafted once green and mergeable.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
