@@ -32,3 +32,13 @@ over-including devDependencies. Flip no-trans-dev-deps from its current NON-pari
 state to parity (match `dev:false` on both sides); graduate
 missing-optional-peer-dependencies and optional-peer-dependencies. Bump floor to 19.
 Depends on Increment 1 (require-based peer fixtures).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T07:25:22Z
