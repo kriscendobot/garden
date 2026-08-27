@@ -2,7 +2,7 @@
 order: serial
 children: endor-walker-dep-classification endor-walker-dynamic-import endor-walker-nested-resolution endor-walker-language-extensions endor-walker-host-hooks
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-27T07:22:43Z
 ---
