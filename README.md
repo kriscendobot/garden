@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T09:44:48Z_
+_As of 2026-08-27T09:45:09Z_
 
 ## Latest
 
@@ -1203,14 +1203,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.6M | $502.19 _(notional, rate-card)_ | no quota set |
-| Codex | 48.2M _(+1934.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
+| Claude | 89.5M | $501.69 _(notional, rate-card)_ | no quota set |
+| Codex | 48.2M _(+1934.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-base32-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-base32-package.md) — ---
@@ -1218,7 +1218,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2.md) — Fix the settled Ironhorse fuzz failure on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
-- [`endojs-endo-but-for-bots-pr281-review-closeout-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr281-review-closeout-20260827.md) — Close out stale CHANGES_REQUESTED state on endojs/endo-but-for-bots PR #281
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`endor-host-hook-surface-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-host-hook-surface-20260827.md) — Add the Endor host-hook surface required by the fixture-parity ratchet
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
@@ -1226,13 +1225,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5651)
+### tada (5652)
+- [`endojs-endo-but-for-bots-pr281-review-closeout-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr281-review-closeout-20260827.md) — Completion report
 - [`endojs-endo-but-for-bots-pr216-review-closeout-20260827-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr216-review-closeout-20260827-r2.md) — Completion report
 - [`xs2rust-endor-press-20260827-093507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260827-093507.md) — Cost
 - [`endor-fixture-parity-ratchet-campaign-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-fixture-parity-ratchet-campaign-20260827.md) — orchestration endor-fixture-parity-ratchet-campaign-20260827 — HALTED
 - [`endor-walker-host-hooks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-host-hooks.md) — Cost
-- [`endor-walker-language-extensions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-walker-language-extensions.md) — Completion report — Build Increment 6 (language-for-extension & non-JS assets...
-- … and 5646 more
+- … and 5647 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
