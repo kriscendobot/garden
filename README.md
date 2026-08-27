@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T23:14:59Z_
+_As of 2026-08-27T23:16:21Z_
 
 ## Latest
 
@@ -1397,14 +1397,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.9M | $671.16 _(notional, rate-card)_ | no quota set |
-| Codex | 51.0M _(+1971.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 104.9M | $673.04 _(notional, rate-card)_ | no quota set |
+| Codex | 51.0M _(+1969.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (21)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
@@ -1419,21 +1419,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`improve-auto-gauntlet-issue-ref`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-auto-gauntlet-issue-ref.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
-- [`kriscendobot-minion.town-pr56-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr56-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #56
-- [`merge-endojs-endo-but-for-bots-282-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endojs-endo-but-for-bots-282-20260827.md) — Conduct (un-draft if needed + merge) endojs/endo-but-for-bots PR #282
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-mcp-guest-eval-and-remaining-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-guest-eval-and-remaining-tools.md) — ---
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5729)
+### tada (5731)
+- [`merge-endojs-endo-but-for-bots-282-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/merge-endojs-endo-but-for-bots-282-20260827.md) — Cost
+- [`kriscendobot-minion.town-pr56-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-clean.md) — Completion report
 - [`design-minion-town-invitation-only-guests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-invitation-only-guests.md) — Completion report
 - [`minion-town-press-20260827-230505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260827-230505.md) — Completion report — minion-town-press-20260827-230505
 - [`endojs-endo-but-for-bots-pr1066-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1066-gauntlet-panel-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-conduct-after-dependency-20260827.md) — Conductor report — endojs/endo-but-for-bots#1046
-- … and 5724 more
+- … and 5726 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
