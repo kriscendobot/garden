@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: pr796-unpin-shepherd-merge-20260827
-priority: normal
-posted_by: producer
-posted_at: 2026-08-27T05:52:19Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-27T06:07:03Z cleared=none -->
 
 ---
 tier: mentor
