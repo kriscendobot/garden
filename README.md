@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-27T22:11:36Z_
+_As of 2026-08-27T22:13:41Z_
 
 ## Latest
 
@@ -972,6 +972,28 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
 
+- `doomed-minion-town-pr53-gauntlet-20260827-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-minion-town-pr53-gauntlet-20260827-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/minion-town-pr53-gauntlet-20260827; it stays HELD until a human promotes it
+> (promote-plan.sh minion-town-pr53-gauntlet-20260827) or removes it.
+> Original job base: minion-town-pr53-gauntlet-20260827
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Run the full gauntlet (clean → panel review → fix-loop → un-draft) on kriscendobot/minion.town PR #53 (branch feat/weblet-attenuated-sites-facet).
+>
+> Context: five fixup commits landed since the PR's initial build, all addressing production failures found during live @sites end-to-end validation under the powers-plane containment (deploy/aws/systemd/endo-gateway.service.d/zz-containment-*.conf): fully-qualified daemon formula ids, daemon registration surviving vhost-write failure, live guest reprovisioning, TasksMax headroom for the daemon service, and — the final commit — serving live weblets from record.contentRoot (content plane) instead of the disabled CapTP powers path. The last two commits report "verified end to end against production" directly, but the PR itself has not been re-panel-reviewed since these fixes landed, and the change touches the containment boundary described in memory minion-town-gateway-powers-containment (never bypass GATEWAY_ENDO_SOCK containment — these commits correctly avoid it by serving from the content plane, confirm that invariant holds under panel review).
+>
+> Verify tests pass locally (test/gateway/gateway.test.ts, test/endo-daemon-integration.test.ts, test/gateway/daemon-site-registry.test.ts, test/gateway/site-registry-exo.test.ts, test/endo-root-host-socket.test.ts) before/alongside the gauntlet's clean phase, then proceed through panel review, fix-loop on any findings, and un-draft.
+
 - `doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -1339,14 +1361,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.2M | $633.45 _(notional, rate-card)_ | no quota set |
-| Codex | 50.9M _(+2012.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 102.3M | $634.68 _(notional, rate-card)_ | no quota set |
+| Codex | 50.8M _(+2012.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1363,7 +1385,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`minion-town-pr53-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr53-gauntlet-20260827.md) — ---
 
 ### tada (5709)
 - [`design-hardened262-all-environment-runs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-hardened262-all-environment-runs.md) — Completion report: design-hardened262-all-environment-runs
@@ -1437,6 +1458,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-endo-b3-daemon-deploy-verify.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
+- [`minion-town-pr53-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr53-gauntlet-20260827.md) — _normal_ · ---
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mtown-git-remote-followup-notice-recheck-20260818.md) — _normal_ · Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/openrouter-zdr-policy-and-stealth-lane.md) — _normal_ · Decision 1 — reject logging/training-use by default (answers Open question 1)
