@@ -13,3 +13,13 @@ or "Dynabook" as of 2026-08-27).
 Follow the standing scholar ingest procedure per skills/library-lookup and
 skills/context-library: extract topics/concepts, cross-link related
 existing library entries, and record the source.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T05:58:35Z
