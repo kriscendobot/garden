@@ -1,7 +1,8 @@
 ---
 role: shepherd
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 handler-timeout: 7200
 ---
@@ -31,12 +32,4 @@ the focused regression plus applicable Ironhorse tests and fuzz target, then
 CAS-push safely. Drive CI to green and post the required top-level completion
 summary with head SHA and real-execution evidence. Do not merge.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-27T09:42:00Z
+<!-- garden-reaped: 0 -->
