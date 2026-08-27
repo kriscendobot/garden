@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-544636993
 Open containment and verify that a weblet's CapTP websocket remote bootstrap object is the backend powers designated for the weblet. Do a round-trip-test. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T23:25:12Z
