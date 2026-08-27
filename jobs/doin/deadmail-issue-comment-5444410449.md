@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-544441044
 Please start a serial ratchet loop to increase test262 coverage in the hardened262 suite and the proper test262 suites, to continue until coverage reaches 90%, quota runs out, or Friday at 8 Pacific.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-27T19:50:16Z
