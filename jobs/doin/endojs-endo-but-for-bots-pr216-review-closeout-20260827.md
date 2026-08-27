@@ -26,3 +26,13 @@ the current head already satisfies the ask, make no gratuitous source change.
 In either case, close the review loop: resolve the addressed thread, re-request
 the maintainer review after CI is green, and post the required top-level
 completion summary with the verified head SHA and test/CI status. Do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T08:28:44Z
