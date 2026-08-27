@@ -22,3 +22,13 @@ Task: drive PR #282 to merge.
 - The review is a current maintainer APPROVAL by kriskowal.
 - Bot repo — merging endojs/endo-but-for-bots is authorized. NEVER touch
   agoric-sdk or endojs/endo upstream.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-27T22:38:11Z
