@@ -2,7 +2,7 @@
 order: serial
 children: garden-current-head-approval-guard-remove-5053510672 endojs-endo-but-for-bots-pr889-conduct-5053510672
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-28T17:36:19Z
 ---
