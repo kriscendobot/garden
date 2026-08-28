@@ -1,6 +1,6 @@
 ---
 gate: go-ahead
-priority: normal
+priority: high
 tier: mentor
 handler-budget-role: review
 token-budget: 250000
@@ -14,6 +14,7 @@ doomed_at: 2026-08-28T06:03:13Z
 doomed_on: endolin-garden-ece02cb4
 posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-08-28T06:03:13Z
+roadmap: ocapn-noise-m1-m5
 ---
 
 ---
@@ -68,3 +69,13 @@ directive:
   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
     and do the work.
 Never state in your report that a peer did work you did not verify.
+
+<!-- garden-annotation: key=issue-comment-5455474681 by=gardener at=2026-08-28T17:18:37Z fields=priority=high roadmap=ocapn-noise-m1-m5 -->
+
+Maintainer continuation directive from https://github.com/kriscendobot/garden/issues/49#issuecomment-5455474681: resume and finish this held review-feedback job as the first step of the OCapN-over-Noise continuation campaign.
+
+----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
+issue_spine: issue-kriscendobot-garden-49
+issue_url: https://github.com/kriscendobot/garden/issues/49#issuecomment-5455474681
+submitter: kriscendobot
+----- END ISSUE NOTE -----
