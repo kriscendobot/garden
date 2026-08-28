@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T23:39:19Z_
+_As of 2026-08-28T23:40:47Z_
 
 ## Latest
 
@@ -1634,8 +1634,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.8M | $1072.41 _(notional, rate-card)_ | no quota set |
-| Codex | 58.3M _(+2035.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 149.8M | $1072.33 _(notional, rate-card)_ | no quota set |
+| Codex | 58.3M _(+2034.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1713,7 +1713,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr946-conduct.md) — _normal_ · Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endor-host-hook-surface-20260827-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-host-hook-surface-20260827-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #282
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
-- [`endor-walker-exports-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-walker-exports-resolution.md) — _normal_ · Build Increment 2 — conditional & subpath exports/imports (Group C)
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260801.md) — _low_ · Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-fix-panel-r5.md) — _low_ · Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260730-020502-gauntlet-panel-1.md) — _low_ · Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
