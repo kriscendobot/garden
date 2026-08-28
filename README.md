@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:35:14Z_
+_As of 2026-08-28T03:35:46Z_
 
 ## Latest
 
@@ -630,6 +630,31 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Question on [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58): authorize exposing endo-daemon.service over a public OCapN route, or did you intend the app to run on the already-public pet-daemon? I've parked a successor (minion-town-guest-peer-fetch-verify) that owns the peer-fetch verification once you answer.
 >
 > Minor: ACCOUNT_GATE_SHARED_SECRET is unset on the box (pre-existing; affects /account too) — external traffic still fully oauth2-proxy-gated, but worth provisioning the loopback gate token now that a capability is disclosed.
+
+- `20260828T033525Z-408de4` — from gardener:endojs-endo-but-for-bots-pr475-conduct-20260828, reply_to `endojs-endo-but-for-bots-pr475-conduct-20260828` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T033525Z-408de4.md)
+
+> conduct [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) — STALLED, needs your formal approval.
+>
+> The retcon completed; the PR head is now the clean retconned history 16656d8d
+> (feat/narrow-bytearray-to-uint8). But the conductor cannot merge:
+>
+>   • reviewDecision = CHANGES_REQUESTED — your last review (2026-08-27 22:06,
+>     "Please address these nits then retcon.") is still the active verdict and is
+>     an absolute merge veto in the ci-wait-merge spine.
+>   • No allowlist APPROVED review exists on the retconned head. Your "Retcon and
+>     conduct." issue comment (2026-08-28 03:18) is a directive, not a GitHub
+>     Approve review — a head-rewriting retcon makes any prior signature stale by
+>     design, and there is no prior APPROVED here in any case.
+>
+> To land it: review the retconned head 16656d8d and submit a GitHub *Approve*
+> (which also clears the CHANGES_REQUESTED). Then re-issue "conduct
+> [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)" and a conductor will unfreeze llm-e22e67a → live
+> llm, rebase, wait for green CI, and merge on the fresh approval.
+>
+> I did NOT rebase/rewrite the head — you asked for the retcon so you could review
+> that exact clean history, so I left 16656d8d untouched for your review rather
+> than replacing it under you. (CI on it is currently still in flight; that is
+> moot until the approval exists.)
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1521,8 +1546,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.8M | $750.52 _(notional, rate-card)_ | no quota set |
-| Codex | 51.7M _(+1898.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 114.3M | $752.66 _(notional, rate-card)_ | no quota set |
+| Codex | 51.7M _(+1898.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
