@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr987-gix-probe-5456716519-host: endolin-garden-ece02cb4
 order: parallel
 children: endojs-endo-but-for-bots-pr987-gix-probe-5456716519 endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519
 on-child-failure: halt
