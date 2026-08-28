@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T02:11:01Z_
+_As of 2026-08-28T02:12:37Z_
 
 ## Latest
 
@@ -1511,8 +1511,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.7M | $709.34 _(notional, rate-card)_ | no quota set |
-| Codex | 50.9M _(+1899.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 108.7M | $709.83 _(notional, rate-card)_ | no quota set |
+| Codex | 50.9M _(+1900.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1534,18 +1534,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`minion-town-guest-self-formula-id`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-self-formula-id.md) — Build: guest self-formula-identifier reveal (OAuth → HTTPS route + home-page ...
+- [`minion-town-guest-self-formula-id-land-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-self-formula-id-land-verify.md) — Land, deploy, and verify guest self-formula identifier
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 - [`test262-coverage-ratchet-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-020506.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5782)
+### tada (5784)
+- [`minion-town-guest-self-formula-id`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-self-formula-id.md) — Cost
+- [`kriscendobot-minion.town-pr60-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-clean.md) — Completion report
 - [`xs2rust-endor-press-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-020506.md) — Completion report — xs2rust-endor-press-20260828-020506
 - [`deadmail-issue-comment-5447329184`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447329184.md) — Cost
 - [`deadmail-issue-comment-5447308724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447308724.md) — Completion report
-- [`minion-town-browser-e2e-testing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-browser-e2e-testing.md) — Completion report — minion-town-browser-e2e-testing
-- [`minion-town-document-mcp-test-cc-client`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-document-mcp-test-cc-client.md) — Cost
-- … and 5777 more
+- … and 5779 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
