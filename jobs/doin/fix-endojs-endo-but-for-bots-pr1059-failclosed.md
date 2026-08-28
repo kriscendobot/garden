@@ -107,3 +107,13 @@ message bus rather than unilaterally landing a large refactor in this fix pass.
 - CI green before re-requesting review from kumavis.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-28T14:33:08Z
