@@ -17,3 +17,13 @@ The staged gauntlet `endojs-endo-but-for-bots-pr1074-gauntlet-20260828` halted a
 - Post the required top-level PR completion summary covering the responding SHAs and verification. This repository has standing authorization for that comment.
 
 Apply the fixes once, push safely to the PR head, run the relevant hardened262 test on the Node floor if available plus the ordinary targeted checks, and watch CI to terminal with a bounded wait. Reply to any actionable inline thread if applicable and post the required top-level summary. Do not merge or un-draft; a later press/gauntlet continuation owns the next panel round.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T08:38:38Z
