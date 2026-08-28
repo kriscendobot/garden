@@ -223,3 +223,15 @@ like one of these recurring classes.
   every pinned-major project — the honest state — so the standing follow-up is to
   provision the pinned Node (or the current LTS) onto fleet hosts / bake it into
   the image so the guard *adopts* rather than *refuses*.
+- _2026-08-28_: closed the CI-only XS-suite gap exposed by
+  endojs/endo-but-for-bots#1077. The harness ran each workspace's primary
+  `test`/`test:unit` but omitted the root CI job's additive `test:xs`, so a rebase
+  could drift hardened262 baselines locally and only CI would catch it. Simply
+  adding the script candidate was unsafe: the host's bare `xst` was XS 17.9.1,
+  while the workflow pins Moddable 5.0.0 (XS 15.5.1), and the newer engine
+  produced a false local baseline change. Fix: `test-xs` is now a separate
+  workspace-aggregated step, and its runtime is selected from the project's
+  unique Moddable pin through `provision-moddable-xst.sh`; ordinary PATH is never
+  a fallback. The image bakes the current release and a locked per-host cache
+  fills future pins. General lesson: adding a missing CI suite is only parity if
+  the suite's separately pinned runtime is part of the gate too.

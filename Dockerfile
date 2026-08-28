@@ -28,6 +28,7 @@ ARG NODE_MAJOR=22
 # the newest LTS advances, bump both. See skills/node-lts-window-watch and
 # scripts/jobs/provision-node-lts.sh.
 ARG NODE_LTS_MAJOR=24
+ARG MODDABLE_VERSION=5.0.0
 ARG GO_VERSION=1.23.6
 ARG DOTFILES_REPO=https://github.com/kriskowal/dotfiles.git
 ARG VUNDLE_REPO=https://github.com/VundleVim/Vundle.vim.git
@@ -114,6 +115,17 @@ RUN ARCH="$(dpkg --print-architecture)" \
 COPY scripts/jobs/provision-node-lts.sh /usr/local/lib/garden/provision-node-lts.sh
 RUN chmod +x /usr/local/lib/garden/provision-node-lts.sh \
     && /usr/local/lib/garden/provision-node-lts.sh "$NODE_LTS_MAJOR"
+
+# The exact Moddable release used by endo's test-xs CI leg. local-verify selects
+# this release by the project's own MODDABLE_VERSION pin and never falls back to
+# an unrelated xst on host PATH. The provisioner also has a writable per-host
+# cache fallback, so a newly pinned release does not require an image rebuild.
+COPY scripts/jobs/common.sh /usr/local/lib/garden/common.sh
+COPY scripts/jobs/provision-moddable-xst.sh /usr/local/lib/garden/provision-moddable-xst.sh
+RUN chmod +x /usr/local/lib/garden/provision-moddable-xst.sh \
+    && GARDEN_XST_SYSTEM_ROOT=/opt/moddable \
+       GARDEN_XST_CACHE_ROOT=/opt/moddable \
+       /usr/local/lib/garden/provision-moddable-xst.sh "$MODDABLE_VERSION"
 
 # Go toolchain
 RUN curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-$(dpkg --print-architecture).tar.gz \

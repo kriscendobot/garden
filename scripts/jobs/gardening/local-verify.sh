@@ -4,7 +4,7 @@
 # Runs the project's real verification steps, IN ORDER, before a change is
 # pushed for a pull request:
 #
-#   format -> lint -> build -> codegen -> test -> docgen
+#   format -> build -> lint -> codegen -> test -> test-xs -> docgen
 #
 # then a codegen-then-clean gate: if any step (a generator, typically) left the
 # worktree dirty, a checked-in generated artifact was stale — fail loud.
@@ -55,6 +55,10 @@
 #   2. A package.json "scripts" entry matching the step's candidate names
 #      (run as `<yarn> run <script>`).
 #   3. Otherwise the step is skipped (recorded, silent).
+#
+# `test:xs` is an additional suite, not an alternative spelling of `test`. When
+# present it runs under the Moddable release pinned by CI, provisioned into an
+# isolated tool cache; an unrelated host `xst` is never selected from PATH.
 #
 # A project with no package.json and no overrides verifies nothing and exits 0;
 # wire the real commands per project via package.json scripts or the overrides.
@@ -159,7 +163,7 @@ fi
 # after the build reports zero errors. Ordering costs nothing here: the harness
 # runs every step regardless (it does not stop at the first failure), so this
 # only changes whether the lint result is trustworthy.
-STEPS="format build lint codegen test docs"
+STEPS="format build lint codegen test test-xs docs"
 candidates() {
   case "$1" in
     format)  echo "format:check check:format format-check format" ;;
@@ -173,6 +177,10 @@ candidates() {
     # `build:types` (a tsc compile that regenerates nothing).
     codegen) echo "gen:code-mode-types codegen gen generate build:types:gen build:types" ;;
     test)    echo "test test:unit" ;;
+    # CI-only suites are additive: a workspace with both `test` and `test:xs`
+    # must run both. Keeping this as its own step prevents first-match discovery
+    # from treating the XS suite as an alternative to the primary test.
+    test-xs) echo "test:xs" ;;
     docs)    echo "docs build:types generate-docs" ;;
     *)       echo "" ;;
   esac
@@ -189,10 +197,13 @@ has_script_in() {  # has_script_in <package.json> <name>
   fi
 }
 
+override_name() {  # override_name <step>
+  printf 'LOCAL_VERIFY_%s\n' "$(printf '%s' "$1" | tr '[:lower:]-' '[:upper:]_')"
+}
+
 discover_in() {  # discover_in <package.json> <step> — print command, or nothing
-  local package_json="$1" step="$2" up override name
-  up="$(printf '%s' "$step" | tr '[:lower:]' '[:upper:]')"
-  override="LOCAL_VERIFY_$up"
+  local package_json="$1" step="$2" override name
+  override="$(override_name "$step")"
   if [ -n "${!override+x}" ]; then        # override is SET (even if empty)
     case "${!override}" in
       -|"") return 0 ;;                    # explicit skip
@@ -207,6 +218,69 @@ discover_in() {  # discover_in <package.json> <step> — print command, or nothi
 
 discover() { discover_in "$pkg" "$1"; }
 
+# Resolve the Moddable release used by CI. A repository-local pin wins; the
+# workflow fallback covers projects such as endo, whose test-xs job declares
+# `env: MODDABLE_VERSION: 5.0.0`. Multiple workflow values are ambiguous and
+# fail loud instead of choosing whichever grep happened to encounter first.
+moddable_version_spec() {  # print "<release><TAB><source>", or nothing
+  local workflow values count
+  if [ -n "${GARDEN_MODDABLE_VERSION:-}" ]; then
+    printf '%s\t%s\n' "$GARDEN_MODDABLE_VERSION" GARDEN_MODDABLE_VERSION
+    return 0
+  fi
+  if [ -s "$wt/.moddable-version" ]; then
+    values="$(sed -e 's/[[:space:]]*#.*//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' \
+      "$wt/.moddable-version" | grep -v '^$' | sort -u)"
+    count="$(printf '%s\n' "$values" | grep -c .)"
+    [ "$count" -eq 1 ] || return 1
+    printf '%s\t%s\n' "$values" .moddable-version
+    return 0
+  fi
+  values=""
+  for workflow in "$wt"/.github/workflows/*.yml "$wt"/.github/workflows/*.yaml; do
+    [ -f "$workflow" ] || continue
+    values="$values
+$(awk '
+  /^[[:space:]]*MODDABLE_VERSION:[[:space:]]*/ {
+    sub(/^[[:space:]]*MODDABLE_VERSION:[[:space:]]*/, "")
+    sub(/[[:space:]]*#.*/, "")
+    gsub(/^[[:space:]"\047]+|[[:space:]"\047]+$/, "")
+    if (length) print
+  }
+' "$workflow")"
+  done
+  values="$(printf '%s\n' "$values" | grep -v '^$' | sort -u)"
+  [ -n "$values" ] || return 1
+  count="$(printf '%s\n' "$values" | grep -c .)"
+  [ "$count" -eq 1 ] || return 1
+  printf '%s\t%s\n' "$values" .github/workflows
+}
+
+prepare_xst_runtime() {  # print the bin directory holding CI's pinned xst
+  local spec release source provisioner bin_dir
+  if ! spec="$(moddable_version_spec)"; then
+    printf 'XS RUNTIME PARITY: test:xs is present but no unique Moddable release pin was found. Set .moddable-version, CI env MODDABLE_VERSION, or GARDEN_MODDABLE_VERSION; refusing to use an unpinned host xst.\n' >&2
+    return 1
+  fi
+  release="${spec%%$'\t'*}"; source="${spec#*$'\t'}"
+  case "$release" in
+    *[!A-Za-z0-9._+-]*|'')
+      printf 'XS RUNTIME PARITY: invalid Moddable release %s from %s.\n' "$release" "$source" >&2
+      return 1 ;;
+  esac
+  provisioner="${GARDEN_XST_PROVISIONER:-$HERE/../provision-moddable-xst.sh}"
+  if ! bin_dir="$("$provisioner" "$release")"; then
+    printf 'XS RUNTIME PARITY: could not provision Moddable %s from %s; refusing to fall back to the host xst.\n' \
+      "$release" "$source" >&2
+    return 1
+  fi
+  [ -x "$bin_dir/xst" ] || {
+    printf 'XS RUNTIME PARITY: provisioner returned %s, which has no executable xst.\n' "$bin_dir" >&2
+    return 1
+  }
+  printf '%s\n' "$bin_dir"
+}
+
 failures=0
 
 # Per-failure ledger backing the environment-fault check below: for every failed
@@ -217,12 +291,18 @@ fail_cmds=()
 fail_shas=()
 
 run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
-  local step="$1" cmd out sha lines tail
+  local step="$1" cmd out sha lines tail xst_bin="" prep_rc=0
   cmd="$(discover "$step")"
   [ -n "$cmd" ] || return 0               # nothing discovered — skipped, silent
 
   out="$(mktemp "${TMPDIR:-/tmp}/local-verify-$step.XXXXXX")"
-  if ( cd "$wt" && bash -c "$cmd" ) >"$out" 2>&1; then
+  if [ "$step" = test-xs ]; then
+    xst_bin="$(prepare_xst_runtime 2>"$out")"
+    prep_rc=$?
+  else
+    prep_rc=0
+  fi
+  if [ "$prep_rc" -eq 0 ] && ( cd "$wt" && PATH="${xst_bin:+$xst_bin:}$PATH" bash -c "$cmd" ) >>"$out" 2>&1; then
     rm -f "$out"                          # success: silent; blob not needed
     return 0
   fi
@@ -241,29 +321,29 @@ run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
   return 1
 }
 
-run_workspace_tests() {  # Run every workspace test, even after one fails.
+run_workspace_tests() {  # run_workspace_tests <test-step>
   # A root `test` script often uses `workspaces foreach`, whose fail-fast
   # behavior hides later red packages. List the workspaces and invoke each
   # package's own test script instead, accumulating their output into the usual
   # one-blob failure report.
-  local listing location workspace_pkg cmd out sha lines tail failed=0 found=0
+  local step="$1" listing location workspace_pkg cmd out sha lines tail failed=0 found=0 i
+  local override xst_bin=""
+  local locations=() commands=()
   # An explicit command is defined to run in the project worktree, not once in
   # every package. Preserve that override contract.
-  [ -n "${LOCAL_VERIFY_TEST+x}" ] && return 2
+  override="$(override_name "$step")"
+  [ -n "${!override+x}" ] && return 2
   listing="$(cd "$wt" && $YARN workspaces list --json 2>/dev/null)" || return 2
   [ -n "$listing" ] || return 2
 
-  out="$(mktemp "${TMPDIR:-/tmp}/local-verify-test.XXXXXX")"
   while IFS= read -r location; do
     [ -n "$location" ] || continue
     [ "$location" = . ] && continue       # root test is commonly fail-fast aggregation
     workspace_pkg="$wt/$location/package.json"
-    cmd="$(discover_in "$workspace_pkg" test)"
+    cmd="$(discover_in "$workspace_pkg" "$step")"
     [ -n "$cmd" ] || continue
     found=1
-    if ! { printf '[workspace %s]\n' "$location"; ( cd "$wt/$location" && bash -c "$cmd" ); } >>"$out" 2>&1; then
-      failed=1
-    fi
+    locations+=("$location"); commands+=("$cmd")
   done < <(
     if command -v jq >/dev/null 2>&1; then
       printf '%s\n' "$listing" | jq -r '.location // empty'
@@ -282,8 +362,24 @@ run_workspace_tests() {  # Run every workspace test, even after one fails.
   # A non-workspace project, or a runner that cannot list workspaces, retains
   # the ordinary root-package test behavior.
   if [ "$found" -eq 0 ]; then
-    rm -f "$out"
     return 2
+  fi
+
+  out="$(mktemp "${TMPDIR:-/tmp}/local-verify-$step.XXXXXX")"
+  if [ "$step" = test-xs ]; then
+    if ! xst_bin="$(prepare_xst_runtime 2>>"$out")"; then
+      failed=1
+    fi
+  fi
+  if [ "$failed" -eq 0 ]; then
+    for i in "${!locations[@]}"; do
+      location="${locations[$i]}"; cmd="${commands[$i]}"
+      if ! { printf '[workspace %s]\n' "$location"; \
+        ( cd "$wt/$location" && PATH="${xst_bin:+$xst_bin:}$PATH" bash -c "$cmd" ); \
+      } >>"$out" 2>&1; then
+        failed=1
+      fi
+    done
   fi
   if [ "$failed" -eq 0 ]; then
     rm -f "$out"
@@ -293,18 +389,18 @@ run_workspace_tests() {  # Run every workspace test, even after one fails.
   sha="$(capture_blob "$out" "$wt" 2>/dev/null)" || sha="(capture failed)"
   lines="$(wc -l <"$out" | tr -d ' ')"
   tail="$(grep -v '^[[:space:]]*$' "$out" | tail -n 1)"
-  printf 'STEP test FAILED: output blob %s (%s lines) inspect: git -C %s cat-file -p %s\n' \
-    "$sha" "$lines" "$wt" "$sha"
+  printf 'STEP %s FAILED: output blob %s (%s lines) inspect: git -C %s cat-file -p %s\n' \
+    "$step" "$sha" "$lines" "$wt" "$sha"
   [ -n "$tail" ] && printf '  %s\n' "$tail"
   rm -f "$out"
-  fail_steps+=(test); fail_cmds+=("<workspace tests>"); fail_shas+=("$sha")
+  fail_steps+=("$step"); fail_cmds+=("<workspace $step>"); fail_shas+=("$sha")
   failures=$((failures + 1))
   return 1
 }
 
 for step in $STEPS; do
-  if [ "$step" = test ]; then
-    run_workspace_tests
+  if [ "$step" = test ] || [ "$step" = test-xs ]; then
+    run_workspace_tests "$step"
     test_rc=$?
     # 2 means this is not a discoverable Yarn workspace tree; use the ordinary
     # root script in that case. A real workspace test failure (1) is already

@@ -29,6 +29,10 @@
 #      proven NOT to run; a matching pin passes; the bypass/override/lts-alias/
 #      .nvmrc/adopt-a-discovered-runtime paths each behave. Regression for job
 #      `fix-local-verify-node24-eslint-parity` (endojs/endo-but-for-bots#1048).
+#  12. CI-only test:xs parity: every workspace's additive `test:xs` suite runs
+#      after its primary test under the Moddable release pinned by CI; the
+#      harness uses the explicitly provisioned xst rather than a mismatched host
+#      PATH entry, stays silent on success, and fails loud when no pin exists.
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
 # with a stubbed package runner (GARDEN_YARN), and — for 10 — a throwaway garden
@@ -48,7 +52,7 @@ TR="$(mktemp -d "${TMPDIR:-/tmp}/lv-test.XXXXXX")"
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
-trap 'rm -rf "$TR"' EXIT
+trap 'rm -rf "$TR" "${XS_TEST_ROOT:-}"' EXIT
 
 # A stub package runner: `yarn run <script>` -> run scripts/<script> body from a
 # tiny dispatch table the fixture defines. Invoked as `bash <stub> run <script>`.
@@ -429,7 +433,7 @@ fi
 # host (CI runs this on whatever node it pins).
 if command -v node >/dev/null 2>&1; then
   NODEMAJ="$(node --version 2>/dev/null | sed 's/^v//; s/\..*//')"
-  OTHER=$((NODEMAJ + 2))     # a major the host definitely is NOT, and no VM has
+  OTHER=99                   # deliberately outside the provisioned Node window
 
   # A repo whose lint step FAILS, so we can prove the guard runs BEFORE the steps:
   # when the guard fires, the STEP lint FAILED line must NOT appear.
@@ -527,6 +531,87 @@ esac'
 else
   echo "  SKIP: node parity guard needs a node on PATH"
 fi
+
+# --- 17: additive test:xs + pinned Moddable runtime parity ------------------
+# endo CI runs root `test:xs` with Moddable 5.0.0 (XS 15.5.1), while the garden
+# host currently also has a newer xst. The workspace gate must run BOTH primary
+# test and test:xs, prepend only the explicitly provisioned binary, and never
+# select the unrelated host xst merely because it appears first on PATH.
+RXS="$TR/xs-parity"; mkdir -p "$RXS/.github/workflows" "$RXS/packages/a" "$RXS/packages/b"
+git -C "$RXS" init -q
+git -C "$RXS" config user.email t@localhost; git -C "$RXS" config user.name test
+cat > "$RXS/package.json" <<'PKG'
+{ "name": "root", "workspaces": ["packages/*"],
+  "scripts": { "test": "root-test-aggregator", "test:xs": "root-xs-aggregator" } }
+PKG
+cat > "$RXS/packages/a/package.json" <<'PKG'
+{ "name": "workspace-a", "scripts": { "test": "test-a", "test:xs": "xs-a" } }
+PKG
+cat > "$RXS/packages/b/package.json" <<'PKG'
+{ "name": "workspace-b", "scripts": { "test": "test-b", "test:xs": "xs-b" } }
+PKG
+cat > "$RXS/.github/workflows/ci.yml" <<'YAML'
+jobs:
+  test-xs:
+    env:
+      MODDABLE_VERSION: 5.0.0
+YAML
+cat > "$RXS/yarn-stub.sh" <<'STUB'
+#!/bin/bash
+case "$1:$2" in
+  workspaces:list)
+    printf '{"location":".","name":"root"}\n'
+    printf '{"location":"packages/a","name":"workspace-a"}\n'
+    printf '{"location":"packages/b","name":"workspace-b"}\n'
+    ;;
+  run:test)
+    printf 'test:%s\n' "$PWD" >> "$XS_TRACE"
+    ;;
+  run:test:xs)
+    printf 'xs:%s:%s\n' "$PWD" "$(xst -v)" >> "$XS_TRACE"
+    ;;
+  *) exit 0 ;;
+esac
+STUB
+
+# Put a deliberately wrong xst first on PATH and provide the pinned binary via
+# GARDEN_XST. If local-verify ever falls back to PATH, the trace exposes 17.9.1.
+XS_TEST_ROOT="${HOME:-/var/tmp}/.cache/lvtest-xs.$$"
+BAD_XST="$XS_TEST_ROOT/host-bin"; GOOD_XST="$XS_TEST_ROOT/moddable-5/bin"
+mkdir -p "$BAD_XST" "$GOOD_XST"
+printf '#!/bin/sh\necho "XS 17.9.1, host mismatch"\n' > "$BAD_XST/xst"
+printf '#!/bin/sh\necho "XS 15.5.1, pinned Moddable 5.0.0"\n' > "$GOOD_XST/xst"
+chmod +x "$BAD_XST/xst" "$GOOD_XST/xst" "$RXS/yarn-stub.sh"
+git -C "$RXS" add -A; git -C "$RXS" commit -qm init >/dev/null
+XS_TRACE="$TR/xs-trace"
+oxs="$(XS_TRACE="$XS_TRACE" PATH="$BAD_XST:$PATH" GARDEN_XST="$GOOD_XST/xst" \
+  GARDEN_YARN="bash $RXS/yarn-stub.sh" "$LV" "$RXS" 2>&1)"; rcxs=$?
+[ "$rcxs" -eq 0 ] && [ -z "$oxs" ] \
+  && ok "primary + test:xs workspace suites are silent on success" \
+  || bad "test:xs success was not silent/zero (rc=$rcxs out=[$oxs])"
+[ "$(grep -c '^test:' "$XS_TRACE")" -eq 2 ] \
+  && ok "runs every workspace primary test" || bad "primary workspace test count is not 2"
+[ "$(grep -c '^xs:' "$XS_TRACE")" -eq 2 ] \
+  && ok "runs every workspace test:xs additively" || bad "test:xs workspace count is not 2"
+grep -q 'XS 15.5.1, pinned Moddable 5.0.0' "$XS_TRACE" \
+  && ok "test:xs sees the provisioned CI-pinned xst" || bad "test:xs did not see pinned xst"
+grep -q '17.9.1' "$XS_TRACE" \
+  && bad "test:xs used the mismatched host xst" || ok "mismatched host xst is ignored"
+grep -q 'root-' "$XS_TRACE" \
+  && bad "ran a fail-fast root test aggregator" || ok "workspace suites do not re-run root aggregators"
+
+# Removing the pin must fail rather than silently use the host binary.
+mv "$RXS/.github/workflows/ci.yml" "$RXS/.github/workflows/ci.disabled"
+XS_TRACE="$TR/xs-unpinned-trace"
+oxsu="$(XS_TRACE="$XS_TRACE" PATH="$BAD_XST:$PATH" GARDEN_XST="$GOOD_XST/xst" \
+  GARDEN_YARN="bash $RXS/yarn-stub.sh" "$LV" "$RXS" 2>&1)"; rcxsu=$?
+[ "$rcxsu" -ne 0 ] && printf '%s' "$oxsu" | grep -q 'STEP test-xs FAILED' \
+  && ok "an unpinned test:xs suite fails loud" || bad "unpinned test:xs did not fail (rc=$rcxsu out=[$oxsu])"
+s_xs="$(printf '%s' "$oxsu" | sed -nE 's/.*STEP test-xs FAILED: output blob ([0-9a-f]{40}).*/\1/p' | head -1)"
+git -C "$RXS" cat-file -p "$s_xs" 2>/dev/null | grep -q 'refusing to use an unpinned host xst' \
+  && ok "failure capture explains that host xst is refused" || bad "unpinned diagnosis missing from blob"
+[ "$(grep -c '^xs:' "$XS_TRACE" 2>/dev/null || true)" -eq 0 ] \
+  && ok "unpinned test:xs does not execute with the host xst" || bad "unpinned test:xs executed unexpectedly"
 
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"

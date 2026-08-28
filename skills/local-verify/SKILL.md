@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-08-13
+updated: 2026-08-28
 author: gardener
 ---
 
@@ -119,7 +119,8 @@ green while the `.node-version=lts/*` → Node 24.18.0 CI leg failed type-aware 
 
 ## The steps (in order)
 
-`format -> build -> lint -> codegen -> test -> docgen`, then a **codegen-then-clean gate**.
+`format -> build -> lint -> codegen -> test -> test-xs -> docgen`, then a
+**codegen-then-clean gate**.
 
 Run in that order against the project worktree. The harness errs toward running
 the project's **full** suite: false positives (a wasted check) are fine, false
@@ -152,6 +153,33 @@ endo-but-for-bots failure where a rebase staled
 jobs after approval (endojs/endo-but-for-bots#714). It is generic: any project
 with a mutating generator benefits.
 
+The `test-xs` step is additive: it runs `test:xs` after the ordinary workspace
+tests instead of treating it as an alternative spelling of `test`. This closes
+the coverage gap exposed by endojs/endo-but-for-bots#1077, where CI's `test-xs`
+job caught hardened262 baseline drift that the primary workspace tests do not
+exercise.
+
+### XS runtime parity (the Moddable release)
+
+A discovered `test:xs` suite runs only with the Moddable release the project
+pins. The harness resolves that pin from `GARDEN_MODDABLE_VERSION`, then
+`.moddable-version`, then a unique `MODDABLE_VERSION` value in
+`.github/workflows/*.yml` / `*.yaml`. It asks
+`scripts/jobs/provision-moddable-xst.sh` for that exact release and prepends only
+the returned directory to `PATH` for the XS suite. It deliberately never uses a
+bare host `xst`: endo CI pins Moddable 5.0.0 (XS 15.5.1), while a garden host had
+XS 17.9.1 on PATH and produced a false hardened262 baseline change locally.
+
+The provisioner first honors the explicit `GARDEN_XST=<dir|binary>` override,
+then checks the image cache at `/opt/moddable/<release>/bin/xst`, then the
+per-host cache under `$GARDEN_STATE/tool-cache/moddable`. A cache miss downloads
+the release's Linux x64 binary atomically under a lock. The image bakes the
+current endo pin through the same provisioner; the writable cache handles a new
+project pin without requiring an image rebuild. Unsupported platforms, an
+ambiguous/missing pin, or a provisioning failure all fail as `STEP test-xs
+FAILED`, with the diagnosis SHA-captured like any other check. None fall back to
+the host binary.
+
 ## When to use
 
 - **Before any push to a PR branch** (initial create or follow-up): run it; if it
@@ -175,7 +203,8 @@ Per-step command discovery (each step, in order, first match wins):
 
 1. An explicit override env var `LOCAL_VERIFY_<STEP>` (uppercased step name:
    `LOCAL_VERIFY_FORMAT`, `LOCAL_VERIFY_LINT`, `LOCAL_VERIFY_BUILD`,
-   `LOCAL_VERIFY_CODEGEN`, `LOCAL_VERIFY_TEST`, `LOCAL_VERIFY_DOCS`):
+   `LOCAL_VERIFY_CODEGEN`, `LOCAL_VERIFY_TEST`, `LOCAL_VERIFY_TEST_XS`,
+   `LOCAL_VERIFY_DOCS`):
    - set to a command string: run that command in the worktree;
    - set to `-` (or empty): skip the step.
 2. A `package.json` `scripts` entry matching the step's candidate names, run as
@@ -189,24 +218,33 @@ Per-step command discovery (each step, in order, first match wins):
    | build   | `build`, `compile`, `build:js`                  |
    | codegen | `gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types:gen`, `build:types` |
    | test    | `test`, `test:unit`                            |
+   | test-xs | `test:xs`                                     |
    | docs    | `docs`, `build:types`, `generate-docs`         |
 
 3. Otherwise the step is skipped (recorded, silent).
 
-For a Yarn workspace tree, the `test` step deliberately does not delegate to a
-root test aggregator. It lists every workspace and runs each workspace's first
-matching `test` / `test:unit` script directly. This prevents a fail-fast
-`workspaces foreach` root script from hiding failures in later packages. All
-workspace output is accumulated into the single SHA-captured `STEP test FAILED`
-report; every workspace test runs even after an earlier one fails. A project
-that is not a discoverable Yarn workspace tree retains the ordinary root test
-script behavior.
+For a Yarn workspace tree, the `test` and `test-xs` steps deliberately do not
+delegate to root aggregators. They list every workspace and run each workspace's
+matching primary (`test` / `test:unit`) and additive XS (`test:xs`) scripts
+directly. This prevents a fail-fast `workspaces foreach` root script from hiding
+failures in later packages. Each suite accumulates workspace output into its own
+SHA-captured failure report, and every workspace in that suite runs even after
+an earlier one fails. A project that is not a discoverable Yarn workspace tree
+retains the ordinary root-script behavior.
 
 Runtime-parity knobs (see [Runtime parity](#runtime-parity-the-node-version)):
 `GARDEN_SKIP_NODE_PARITY=1` bypasses the Node guard; `GARDEN_NODE=<dir|binary>`
 names a matching runtime to adopt; `GARDEN_REQUIRED_NODE_MAJOR` overrides the
 resolved requirement (`-`/`none` clears it); `GARDEN_NODE_LTS_LATEST` sets the
 major `lts/*` resolves to (default `24`).
+
+XS-parity knobs (see [XS runtime parity](#xs-runtime-parity-the-moddable-release)):
+`GARDEN_MODDABLE_VERSION` overrides pin discovery; `GARDEN_XST=<dir|binary>`
+supplies an explicit xst; `GARDEN_XST_SYSTEM_ROOT` and
+`GARDEN_XST_CACHE_ROOT` override the provisioner's lookup/cache roots;
+`GARDEN_MODDABLE_RELEASE_BASE_URL` selects a release mirror; and
+`GARDEN_XST_PROVISIONER` replaces the provisioner command for a controlled test
+or deployment.
 
 The package runner defaults to `yarn` when present, else `npx corepack yarn`
 (plain `yarn` is often absent in a fresh worktree; see
@@ -222,10 +260,12 @@ repo's CI workflow, and the [pre-pr-checklist](../pre-pr-checklist/SKILL.md) /
 
 ## State
 
-The harness is stateless. Each invocation reads the worktree, runs each
-discovered step, and exits. Re-running is idempotent and deterministic: identical
-inputs hash to identical SHAs, so a recurring failure is recognizable by its
-content address. The harness does **not** commit, push, or mutate tracked files
+The harness keeps no project state. The XS provisioner may populate a
+release-keyed host tool cache, atomically and under a lock; subsequent runs reuse
+the exact release binary. Each invocation otherwise reads the worktree, runs
+each discovered step, and exits. Re-running is idempotent and deterministic:
+identical inputs hash to identical SHAs, so a recurring failure is recognizable
+by its content address. The harness does **not** commit, push, or mutate tracked files
 (beyond whatever a project's own `format`/`build` script does when no check
 variant exists). It writes only unreferenced git blobs into the worktree's object
 store for failure captures, which `git gc` collects.
@@ -334,7 +374,10 @@ surface, `cat-file` recovery of the captured output, check-variant discovery,
 override skip/replace, no-`package.json` exit 0, SHA determinism, the
 codegen-then-clean gate (fires on a staled artifact, silent when up to date), and
 two failing workspaces both appearing in the captured test blob without the
-fail-fast root aggregator. Two later groups cover the environment-fault class: unit
+fail-fast root aggregator. The XS-parity group proves that `test` and `test:xs`
+both run for every workspace, that a CI-pinned xst overrides a deliberately
+mismatched host xst while success remains silent, and that a missing pin fails
+loud without executing XS. Two later groups cover the environment-fault class: unit
 cases prove identical output from **different** commands is reported as one
 `ENVIRONMENT FAULT` (cause named, per-step blocks retained) while distinct output —
 and one script matched by two steps — is not flagged; an end-to-end case drives the
