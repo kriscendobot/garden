@@ -62,3 +62,13 @@ A short design (bare-to-`main2` unless it carries open questions) that specifies
 - sequencing into buildable follow-ups.
 
 Part of the test262 coverage ratchet (kriscendobot/garden issue #51).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T03:26:49Z
