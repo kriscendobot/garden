@@ -45,3 +45,13 @@ Please post a proposal to host an npm proxy on npm.minion.town to satisfy the ga
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T21:13:07Z
