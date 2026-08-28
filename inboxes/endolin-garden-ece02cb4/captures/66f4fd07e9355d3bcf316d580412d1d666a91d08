@@ -1,0 +1,22 @@
+<6>03:33:44 [jobs] requeued job 'deadmail-issue-comment-5446369936' has no local transcript on endolin-garden-ece02cb4; prior session and worktree were lost — starting FRESH session d757586b-a166-5144-b079-0129fd572d98 with lost-state framing
+<6>03:33:44 [jobs] job 'deadmail-issue-comment-5446369936' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>03:33:44 [jobs] job 'deadmail-issue-comment-5446369936' resolved tier 'mentor' -> claude --model claude-opus-4-8
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+The prior attempt of this exact job already completed the deliverable durably. No further work is needed — posting anything again would duplicate the reply.
+
+## Completion report
+
+**Job:** dead-lettered issue-inbox message for `issue-kriscendobot-garden-58` — comment 5446369936 on kriscendobot/garden#58 asked to "Open containment and verify that a weblet's CapTP websocket remote bootstrap object is the backend powers designated for the weblet. Do a round-trip-test."
+
+**Finding on re-derivation:** the deliverable is already posted. Issue comment **5446507693** (2026-08-27T23:39:39Z, by `kriscendobot`) is this job's output — its provenance footer reads verbatim *"job `deadmail-issue-comment-5446369936` (picked up from a dead-lettered issue-inbox message for `issue-kriscendobot-garden-58`)"*. That reply:
+
+- Opened the weblet **powers-plane containment** (disabled `zz-containment-20260812.conf`, backup at `/root/…bak-issue58`, `daemon-reload` + `restart endo-gateway`; boot log confirmed `powers plane: ENABLED`).
+- Verified the deployed gateway uses the guest-scoped design (host-escape fix live) — publish via `E(self).copy([power],[dir,'back'])`, serve via `E(dir).lookup("back")`; no host-scope lookup.
+- Ran the **round-trip test**: designated a known marker as `rt58-designated-power`, published a weblet, connected a native `@endo/captp`-over-WS client to `/.well-known/endo-captp` (loopback and public `wss://…ocap.site`), called `getBootstrap()`, and `E(bootstrap).text()` returned the **exact** designated marker. Host-escape probes (`makeUnconfined`, `evaluate`, `provideHost`, `lookup`, `store`, …) all absent/rejected; unknown hash fail-closed (404).
+- Confirmed the separate OCapN daemon-route containment is untouched; left a demonstration weblet published as living evidence; flagged one non-blocking follow-up (audit that no reachable guest pet name exposes an unwanted surface).
+
+This matches the recorded memory (`minion-town-gateway-powers-containment`): containment opened 2026-08-27, CapTP bootstrap == guest-designated back power, round-trip verified on issue #58.
+
+**Actions this attempt:** none needed — verified the reply is durably on the thread; deliberately did **not** re-post to avoid a duplicate comment. The issue remains open (submitter closes it). No git changes.
