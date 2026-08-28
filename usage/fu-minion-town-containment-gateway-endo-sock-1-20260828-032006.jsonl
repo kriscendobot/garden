@@ -1,1 +1,2 @@
 {"ts":"2026-08-28T03:25:20Z","base":"fu-minion-town-containment-gateway-endo-sock-1-20260828-032006","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":240}
+{"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":161,"input_tokens":27,"output_tokens":10534,"cache_creation_tokens":47830,"cache_read_tokens":729750,"total_cost_usd":1.1090939999999998,"ts":"2026-08-28T07:26:07Z","base":"fu-minion-town-containment-gateway-endo-sock-1-20260828-032006","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
