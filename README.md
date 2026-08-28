@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T01:57:09Z_
+_As of 2026-08-28T02:05:38Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 51m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 57m)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 16h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 16h)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 18h)
@@ -1512,13 +1512,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 108.6M | $707.43 _(notional, rate-card)_ | no quota set |
-| Codex | 50.7M _(+1887.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 50.8M _(+1892.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (20)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
@@ -1537,6 +1537,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-guest-self-formula-id`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-self-formula-id.md) — Build: guest self-formula-identifier reveal (OAuth → HTTPS route + home-page ...
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
+- [`test262-coverage-ratchet-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-020506.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
+- [`xs2rust-endor-press-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-020506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (5780)
 - [`deadmail-issue-comment-5447308724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447308724.md) — Completion report
