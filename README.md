@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T17:20:48Z_
+_As of 2026-08-28T17:22:48Z_
 
 ## Latest
 
@@ -702,6 +702,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
+
+- `20260828T172206Z-9874c1` — from orchestrator:ocapn-noise-arc-continue-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T172206Z-9874c1.md)
+
+> Orchestration ocapn-noise-arc-continue-20260828 HALTED: child endojs-endo-but-for-bots-pr1071-review-bd9ecfaa doomed and held in plan (serial, on-child-failure=halt). 0/5 done before halt; parked remainder: ocapn-noise-pr1072-composite-hints-20260828 ocapn-noise-pr684-rebuild-20260828 ocapn-noise-pr683-refresh-20260828 ocapn-noise-pr688-pr693-restack-20260828
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1620,7 +1624,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 149.8M | $1049.44 _(notional, rate-card)_ | no quota set |
-| Codex | 57.4M _(+2049.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Codex | 57.5M _(+2049.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1640,13 +1644,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`test262-coverage-ratchet-20260828-145011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-145011.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5949)
+### tada (5950)
+- [`ocapn-noise-arc-continue-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-arc-continue-20260828.md) — orchestration ocapn-noise-arc-continue-20260828 — HALTED
 - [`deadmail-issue-comment-5455474681`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5455474681.md) — Cost
 - [`endojs-endo-but-for-bots-pr889-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-shepherd.md) — Cost
 - [`xs2rust-endor-press-20260828-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-170506.md) — Completion report — Ironhorse press (xs2rust-endor-press-20260828-170506)
 - [`deadmail-issue-comment-5455371626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5455371626.md) — Cost
-- [`xs2rust-endor-press-20260828-160506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-160506.md) — Completion report — Ironhorse press (xs2rust-endor-press-20260828-160506)
-- … and 5944 more
+- … and 5945 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
