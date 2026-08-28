@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 60
 build_job: deadmail-issue-comment-5447329184
 kind: feature
-stage: fix
-iteration: 2
+stage: panel
+iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion.town-pr60-gauntlet-fix-2
+current_child: kriscendobot-minion.town-pr60-gauntlet-panel-3
 state: running
 created_by: producer
 created_at: 2026-08-28T02:08:11Z
