@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: cleric
 claimed_at: 2026-08-28T13:03:57Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-rename-main-worker-to-at-main
+pr_number: 62
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/62
+pr_head: fix/main-worker-name
