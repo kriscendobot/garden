@@ -44,12 +44,4 @@ Yes, open it. Verify that you can connect from the garden host to minion.town ov
 
 ----- END ORIGINAL MESSAGE -----
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-28T01:20:13Z
+<!-- garden-reaped: 1 -->
