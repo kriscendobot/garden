@@ -1,0 +1,22 @@
+<6>15:03:31 [jobs] resuming session 04a14757-d039-5097-ac36-afa5258abe61 for requeued job 'test262-coverage-ratchet-20260828-145011' in worktree /home/kris/garden/scratch/gardener-wt-test262-coverage-ratchet-20260828-145011
+<6>15:03:31 [jobs] job 'test262-coverage-ratchet-20260828-145011' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>15:03:31 [jobs] job 'test262-coverage-ratchet-20260828-145011' resolved tier 'mentor' -> claude --model claude-opus-4-8
+GraphQL: Could not resolve to a PullRequest with the number of 51. (repository.pullRequest)
+
+--- handler report (partial) ---
+All three deadline-retirement duties complete. My job inbox was empty; working tree clean (this teardown operated on `journal2` via the producer clone, not on `main2`, so no worktree commit was needed).
+
+---
+
+**Completion report — `test262-coverage-ratchet-20260828-145011` (deadline wind-down)**
+
+Resumed after reaper requeue. Checked stop conditions first, as the spec mandates: current time **15:03Z > 15:00Z deadline** (Friday 2026-08-28 08:00 America/Los_Angeles). The **deadline stop condition held**, so this was a teardown dispatch, not a coverage turn.
+
+What I did:
+- **Retired the recurring schedule.** Deleted `journal/schedules/test262-coverage-ratchet.md` from `journal2` via the producer-clone CAS pattern (commit `retire schedule(test262-coverage-ratchet): deadline 2026-08-28T15:00Z reached`). Verified gone from origin — only the self-consuming one-shot backstop `test262-ratchet-deadline` remains (idempotent). No further ratchet jobs will dispatch.
+- **Posted the final wind-down summary** to issue #51 (kriscendobot/garden#51, comment `5454176004`) — the run arc (hardened262 intrinsic-metadata slices across ArrayBuffer/views, TypedArray, AsyncFunction, ThrowTypeError, RegExp/Promise, Map/Set/WeakMap/WeakSet, Reflect/Proxy/Math/JSON/Atomics), the seven PRs opened (endojs/endo-but-for-bots #1064, #1074–#1079), the live consolidation job folding them onto survivor #1064, the unreached whole-corpus 90% target (checkpoint still 23,496/51,976 @ 2026-08-14), and named residuals. Left the issue **open** for the submitter to close.
+- **Sent the same summary to the maintainer inbox** (`inbox/maintainer 20260828T150612Z-a7dbfe`).
+
+Deferred correctly: the live `endo-but-for-bots-consolidate-test262-ratchet-prs-20260828` job owns PR consolidation and its own consolidated-state issue update — I did not duplicate that.
+
+Follow-ups (for whoever resumes whole-corpus work): RegExp Unicode, TypedArray/ArrayBuffer (engine), exotic MOP, runtime eval/dynamic import (Intl deferred); plus the `xs/module` `Compartment/prototype/globalThis/defaults.js` flake flagged during the 13:50Z turn.
