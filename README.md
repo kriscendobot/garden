@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:33:03Z_
+_As of 2026-08-28T03:33:28Z_
 
 ## Latest
 
@@ -1521,16 +1521,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.8M | $749.64 _(notional, rate-card)_ | no quota set |
-| Codex | 51.7M _(+1897.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 113.8M | $749.95 _(notional, rate-card)_ | no quota set |
+| Codex | 51.7M _(+1897.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 
-### doin (19)
+### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
-- [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
 - [`design-hardened262-skipped-scenario-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-hardened262-skipped-scenario-harness.md) — design: wire the skipped @endo/hardened262 test262 scenarios (script-mode + C...
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
