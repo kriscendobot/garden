@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr889-approval-guard-removal-5053510672
-priority: urgent
 role: fixer
-posted_by: gardener
-posted_at: 2026-08-28T17:36:09Z
+tier: mentor
+handler-budget-role: fixer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-08-28T17:37:03Z cleared=none -->
 
 ---
 role: fixer
