@@ -29,3 +29,13 @@ submitter: kriscendobot
 If the press schedule was already retired earlier (a coverage/quota stop
 condition fired first), just confirm it is gone and post a one-line
 "ratchet already wound down on <reason>" note; do not manufacture new work.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T15:05:23Z
