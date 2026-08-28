@@ -89,3 +89,13 @@ ordered children under a serial halt-on-failure orchestration and hand off to th
 posted orchestration. Do not leave loose follow-up jobs.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T00:13:22Z
