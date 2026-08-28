@@ -1,14 +1,18 @@
-PR #475 CI is green on head `479582126`: all checks pass, including `fuzz-ironhorse` (CI run attempt 3).
+Shepherded PR #475 to green at `98cba429a`.
 
-No source changes were needed. The earlier fuzz stack-overflow was retried; the final run succeeded. No follow-up required.
+- Fixed Guix download failures via GNU’s mirror redirect (`57eba2b31`).
+- Fixed macOS Node 24 chat-test races by replaying menu state after Preact mount (`98cba429a`).
+- All 27 CI checks pass; PR is clean and mergeable.
+- Posted the PR summary and journal result. No follow-ups.
+- Self-improvement: nothing this time.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr475-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 13 on 2 host(s) (10 unmetered)
-- Input: 620 tokens (58883853 cached reads)
-- Output: 138509 tokens
-- Cost: $36.477859499999994 (10 engagement(s) unpriced)
-- Wall-clock: 8196s
-- Model(s): claude-opus-4-8 ×3
+- Engagements: 15 on 2 host(s) (11 unmetered)
+- Input: 636 tokens (59494804 cached reads)
+- Output: 141383 tokens
+- Cost: $37.45627499999999 (11 engagement(s) unpriced)
+- Wall-clock: 12589s
+- Model(s): claude-opus-4-8 ×4
 
 <!-- garden-usage-end -->
