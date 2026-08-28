@@ -8,3 +8,13 @@ Continue PR #475 review-response closeout after job `endojs-endo-but-for-bots-pr
 The review nits and full retcon are pushed at `d4c308872`; inline replies `3876634012` and `3876634095` are posted. A peer subsequently added CI fix `57eba2b31` on top. Wait for latest-head CI to settle, diagnose or rerun only unrelated flakes, then post the required top-level completion summary mapping every review ask to its SHA and verification. Re-request `kriskowal` review only after CI is green. Do not redo or overwrite the retcon.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T01:03:07Z
