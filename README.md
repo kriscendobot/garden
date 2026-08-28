@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:08:00Z_
+_As of 2026-08-28T03:08:24Z_
 
 ## Latest
 
@@ -1521,7 +1521,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.7M | $749.30 _(notional, rate-card)_ | no quota set |
+| Claude | 113.7M | $749.43 _(notional, rate-card)_ | no quota set |
 | Codex | 51.3M _(+1889.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
@@ -1545,13 +1545,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-press-20260828-030505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260828-030505.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
-### tada (5801)
+### tada (5802)
+- [`kriscendobot-minion.town-pr60-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet.md) — gauntlet kriscendobot-minion.town-pr60-gauntlet — complete
 - [`kriscendobot-minion.town-pr60-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-undraft.md) — Completion report
 - [`deadmail-issue-comment-5447781817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447781817.md) — Completion report
 - [`kriscendobot-minion.town-pr60-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-panel-3.md) — Completion report
 - [`ocapn-cbor-noise-press-20260828-025009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-cbor-noise-press-20260828-025009.md) — Completion report
-- [`kriscendobot-minion.town-pr60-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-fix-2.md) — Completion report
-- … and 5796 more
+- … and 5797 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
