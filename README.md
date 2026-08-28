@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T14:29:24Z_
+_As of 2026-08-28T14:31:50Z_
 
 ## Latest
 
@@ -695,6 +695,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Un-drafted and ran the merge spine. The live `llm` base had advanced ~2500 lines since your approval, so the spine rebased the 8 PR commits onto the current tip. PR content is byte-identical; only the base moved. Fresh CI is now running on the rebased head 49c5223c.
 >
 > Your APPROVED review was on the pre-rebase head 9ee08d49, so it's now stale by the exact-head invariant — the spine will not merge without a current approval. Please re-approve the rebased head (49c5223c) when CI is green; a follow-up conduct job will then merge it. I'll report the stall for this run.
+
+- `20260828T143129Z-6d47cb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T143129Z-6d47cb.md)
+
+> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr1074-conduct, msgid 20260828T141612Z-ec5850.md — This asks the maintainer to re-approve a rebased PR head before merge — an approval/authority grant reserved to the maintainer, not a progress question a proxy can answer.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1592,8 +1596,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.6M | $1040.56 _(notional, rate-card)_ | no quota set |
-| Codex | 55.6M _(+1967.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Claude | 149.7M | $1043.21 _(notional, rate-card)_ | no quota set |
+| Codex | 55.7M _(+1970.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
