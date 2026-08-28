@@ -1,6 +1,3 @@
-once: 2026-08-28T15:00:00Z
-job_basename_prefix: test262-ratchet-deadline
----
 ---
 tier: mentor
 fallback-tier: minion
