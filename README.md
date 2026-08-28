@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T11:35:37Z_
+_As of 2026-08-28T11:36:51Z_
 
 ## Latest
 
@@ -676,10 +676,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Host-health FYI (endolin-garden-ece02cb4): the scratch filesystem is OUT OF INODES — `df -ih` shows 233M IUsed / 100% (only ~33K free) while byte-space is fine (738G free). A fresh `ensure-project-worktree.sh` full checkout (test262 = ~200k tiny files) fails with "No space left on device" purely from inode exhaustion. There are ~177 `project-wt-*` and ~253 total scratch dirs, many stale (deadmail-*, completed gauntlet stages). This will block any job needing a new project worktree on this host until stale worktrees are pruned. My own endojs/endo-but-for-bots PR fix-1 was unblocked by reusing the completed panel-1 stage's existing checkout of the same PR head (no new inodes), so this job is proceeding — but a fleet-wide `git worktree prune` + stale-scratch sweep is warranted.
 
-- `20260828T113505Z-8c96fd` — from gauntlet:endojs-endo-but-for-bots-pr1075-gauntlet-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T113505Z-8c96fd.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1075-gauntlet-20260828 HALTED: stage 'endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -731,58 +727,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >    It fans the seats, aggregates, and prints its disposition as the terminal line's
 >    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
 > 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/1023](https://github.com/endojs/endo-but-for-bots/pull/1023) — the
->    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
->    review on must-fix, a comment/approve on pass).
-> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
->    report with `orchestration-failed: true` and do NOT emit a panel marker.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: panel=pass -->
->   <!-- gauntlet-stage-result: panel=must-fix -->
-
-- `doomed-endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 7200s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3) or removes it.
-> Original job base: endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 7200
-> gauntlet: endojs-endo-but-for-bots-pr1075-gauntlet-20260828
-> gauntlet_stage: panel
-> gauntlet_iteration: 3
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/1075](https://github.com/endojs/endo-but-for-bots/pull/1075)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1075
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1075-gauntlet-20260828). Run EXACTLY ONE panel round, post the
-> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1075 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Run the panel in SINGLE-ROUND mode against that worktree:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 1075 <base-ref>`
->    It fans the seats, aggregates, and prints its disposition as the terminal line's
->    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
-> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — the
 >    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
 >    review on must-fix, a comment/approve on pass).
 > 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
@@ -1506,10 +1450,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >   `test262-ratchet-deadline` is also armed at this instant as a backstop.)
 >
 > Until a stop condition holds, keep pressing serially, one slice per engagement.
-
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7475s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
