@@ -71,3 +71,13 @@ correct execution to `Halt` and failing the tests.
 
 Distinct from and do not touch the separately-owned async-instance OOM job
 (`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T00:58:19Z
