@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T05:08:23Z_
+_As of 2026-08-28T05:09:58Z_
 
 ## Latest
 
@@ -630,6 +630,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Question on [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58): authorize exposing endo-daemon.service over a public OCapN route, or did you intend the app to run on the already-public pet-daemon? I've parked a successor (minion-town-guest-peer-fetch-verify) that owns the peer-fetch verification once you answer.
 >
 > Minor: ACCOUNT_GATE_SHARED_SECRET is unset on the box (pre-existing; affects /account too) — external traffic still fully oauth2-proxy-gated, but worth provisioning the loopback gate token now that a capability is disclosed.
+
+- `20260828T050940Z-395f81` — from gardener:minion-town-press-20260828-050508, reply_to `minion-town-press-20260828-050508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T050940Z-395f81.md)
+
+> minion.town weblet-ocap-synthesis press — reached a maintainer decision point.
+>
+> State: units 1-2 ([kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52)), unit 3 / per-guest attenuation ([kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53)), and persistent live @sites serving ([kriscendobot/minion.town#55](https://github.com/kriscendobot/minion.town/issues/55)) have all merged and deployed. The [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) `register(directoryId, owner)` deviation is settled (recorded in design § 9 and already built upon by [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53)) — no question there.
+>
+> Remaining § 9 residuals are only cleanup: unit 4 (retire the now-legacy powers resolver + @-prefix/host-shape guards, close code 4012, serve the directory's `back` directly) and unit 5 (legacy-record disposition + § 7 acceptance tests).
+>
+> ONE decision I need before pressing those: should the weblet→clip rename ([kriscendobot/minion.town#54](https://github.com/kriscendobot/minion.town/issues/54)) land first, or the § 9 cleanup (units 4-5) first? [kriscendobot/minion.town#54](https://github.com/kriscendobot/minion.town/issues/54) is your mandated rename (844 occurrences / 70 files, renaming the design doc and the public `weblet_*` MCP tools + `WEBLET_*` env vars) and is currently DRAFT + conflicting. If I press units 4-5 now on the `weblet` names, that work collides head-on with the rename and gets rewritten; if the rename should land first, I'd rebase/finish it instead. And relatedly: is retiring the legacy powers resolver (unit 4) wanted now that live serving is deployed and on, or held until the live-daemon path is proven in CI/deploy rather than only against fakes?
+>
+> Until you point the way, I'll hold and just check each tick for your reply / new commits rather than invent collide-prone work.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1521,7 +1533,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.9M | $772.77 _(notional, rate-card)_ | no quota set |
+| Claude | 116.9M | $773.20 _(notional, rate-card)_ | no quota set |
 | Codex | 52.5M _(+1915.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
