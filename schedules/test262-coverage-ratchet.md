@@ -51,11 +51,22 @@ This is a **serial ratchet**: at most one coverage-advancing worker at a time.
 3. **Advance it end to end**: build/fix the engine or shim gap, run the
    affected slice(s) locally for real-execution evidence (cite the command and
    its output — no bar is "green" without it), prove no covered-case
-   regression, and open/extend a PR on `endojs/endo-but-for-bots` (base `llm`).
-   Follow the normal gauntlet for any mergeable PR.
+   regression, and land the advance in a PR on `endojs/endo-but-for-bots`
+   (base `llm`). Follow the normal gauntlet for any mergeable PR.
+   - **Every turn must supplement or create a PR** (maintainer @kriskowal,
+     2026-08-28: *"let each subsequent turn of the ratchet supplement or create
+     a PR as needed"*). A turn that only records local evidence on the issue
+     without a corresponding PR is **incomplete**. Prefer **supplementing an
+     already-open, still-draft ratchet PR** for the same suite/family when the
+     slice fits it cleanly (extend that PR's branch with the new commit rather
+     than opening a near-duplicate); **create a fresh PR** when the slice
+     belongs to a different suite/family or no suitable open PR exists. Either
+     way the turn's coverage delta ships as reviewable, mergeable code — not
+     just prose. Name the PR (new or extended) in the issue comment.
 4. **Record the delta** back on issue #51 (comment on the `issue_url` above,
    NEVER close it — the submitter closes it): the slice touched, the measured
-   before/after covered count, the PR/commit, and remaining named residuals.
+   before/after covered count, the PR it supplemented or opened (with its
+   number/URL and the commit), and remaining named residuals.
 
 ## STOP CONDITIONS — check these FIRST, every dispatch
 
