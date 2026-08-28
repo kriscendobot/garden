@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T08:35:52Z_
+_As of 2026-08-28T08:36:30Z_
 
 ## Latest
 
@@ -658,10 +658,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report fu-minion-town-containment-gateway-endo-sock-1-20260828-032006: a daily drift-check schedule tied to the minion.town containment/gateway work is now checking against what looks like an obsolete premise (containment was opened/resolved 2026-08-27/28 per the OCapN-CBOR-Noise and gateway-powers-containment work). Please confirm whether to retire or repurpose that schedule — until you decide, it will keep firing daily for no useful purpose.
 
-- `20260828T083506Z-bd0d1c` — from gauntlet:endojs-endo-but-for-bots-pr1074-gauntlet-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T083506Z-bd0d1c.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1074-gauntlet-20260828 HALTED: stage 'endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -721,58 +717,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
-
-- `doomed-endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 7200s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4) or removes it.
-> Original job base: endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> gauntlet: endojs-endo-but-for-bots-pr1074-gauntlet-20260828
-> gauntlet_stage: fix
-> gauntlet_iteration: 4
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/1074](https://github.com/endojs/endo-but-for-bots/pull/1074)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1074
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1074-gauntlet-20260828). Apply the panel's must-fix items ONCE,
-> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-5).
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1074 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Read the LATEST panel verdict on [https://github.com/endojs/endo-but-for-bots/pull/1074](https://github.com/endojs/endo-but-for-bots/pull/1074) (the request-changes `gh pr review` the
->    panel-4 stage just posted) for its must-fix items. Apply them.
-> 3. Push the fix as review-feedback follow-up commits to the PR head with
->    `scripts/jobs/gardening/safe-push-pr-head.sh`.
-> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
->    `GARDEN_CI_DEADLINE_SECS=3600 \
->      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1074 --no-merge`
->    - rc 0 (GREEN): success.
->    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
->    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
->   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
 - `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
 
@@ -1604,8 +1548,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.7M | $824.29 _(notional, rate-card)_ | no quota set |
-| Codex | 53.1M _(+1917.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 123.8M | $824.49 _(notional, rate-card)_ | no quota set |
+| Codex | 53.1M _(+1917.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
