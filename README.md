@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T08:33:37Z_
+_As of 2026-08-28T08:35:52Z_
 
 ## Latest
 
@@ -657,6 +657,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T072824Z-cf595b` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T072824Z-cf595b.md)
 
 > From report fu-minion-town-containment-gateway-endo-sock-1-20260828-032006: a daily drift-check schedule tied to the minion.town containment/gateway work is now checking against what looks like an obsolete premise (containment was opened/resolved 2026-08-27/28 per the OCapN-CBOR-Noise and gateway-powers-containment work). Please confirm whether to retire or repurpose that schedule — until you decide, it will keep firing daily for no useful purpose.
+
+- `20260828T083506Z-bd0d1c` — from gauntlet:endojs-endo-but-for-bots-pr1074-gauntlet-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T083506Z-bd0d1c.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1074-gauntlet-20260828 HALTED: stage 'endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1600,14 +1604,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.7M | $823.74 _(notional, rate-card)_ | no quota set |
+| Claude | 123.7M | $824.29 _(notional, rate-card)_ | no quota set |
 | Codex | 53.1M _(+1917.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (12)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1618,14 +1622,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
+- [`test262-coverage-ratchet-20260828-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-083506.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
+- [`xs2rust-endor-press-20260828-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-083506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5857)
+### tada (5858)
+- [`endojs-endo-but-for-bots-pr1074-gauntlet-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1074-gauntlet-20260828.md) — gauntlet endojs-endo-but-for-bots-pr1074-gauntlet-20260828 — HALTED
 - [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-fix-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-clean.md) — Completion report
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5446369936.md) — Cost
-- [`test262-coverage-ratchet-20260828-073506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260828-073506.md) — Completion report
-- … and 5852 more
+- … and 5853 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
