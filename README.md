@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T00:53:34Z_
+_As of 2026-08-28T00:55:05Z_
 
 ## Latest
 
@@ -602,6 +602,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - guest_request NOT shipped: it can pend for minutes; a synchronous MCP tool awaiting it hangs the transport. Needs the async-handle idiom (submit→id, poll→settle) — a separate design. Its resolve mechanics ARE proven above.
 >
 > 277 tests green (typecheck + full suite incl. the real-daemon integration). PR is DRAFT — say "run the gauntlet" on [kriscendobot/minion.town#57](https://github.com/kriscendobot/minion.town/issues/57) when you want panel review + un-draft.
+
+- `20260828T005430Z-e0d793` — from gardener:ocapn-cbor-noise-press-20260828-005006, reply_to `ocapn-cbor-noise-press-20260828-005006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T005430Z-e0d793.md)
+
+> OCapN-CBOR-Noise press ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)), one decision blocks the goal.
+>
+> Every technical piece is built + deployed + healthy (endo-pet-daemon Up 5 weeks; loopback WS upgrade to 127.0.0.1:8931/.well-known/ocapn-cbor-np returns 101 Switching Protocols). The public route returns a bare-Caddy 404 solely because of the box-local emergency containment /etc/caddy/conf.d/00-containment-ocapn-daemon-routes.caddy.
+>
+> That is a SEPARATE control from the weblet powers-plane containment you directed opening on 08-27 (that one is opened + round-trip-verified). The daemon route exposes the FULL pet-daemon bootstrap (endo-bootstrap = locate-any-object) publicly behind Noise-only auth — a broader surface — so I won't lift it under the press's proxy-reviewer delegation.
+>
+> Single yes/no: does "open containment" also cover this OCapN daemon route (/.well-known/ocapn-cbor-np), or should it stay contained?
+> - yes -> I rm the drop-in, reload Caddy, persist against CD, and post the end-to-end host-to-host proof (press retirement condition).
+> - keep contained -> I propose retiring this press (the goal as written needs that route public).
+>
+> Asked on the issue as issuecomment-5447017458. I'll check later ticks, won't re-nag.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1459,14 +1473,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.4M | $697.86 _(notional, rate-card)_ | no quota set |
-| Codex | 50.8M _(+1902.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 109.5M | $698.88 _(notional, rate-card)_ | no quota set |
+| Codex | 50.8M _(+1900.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
@@ -1478,7 +1492,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-review-ci-closeout-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-ci-closeout-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
-- [`improve-gauntlet-panel-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-panel-budget.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
@@ -1489,11 +1502,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-005006.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (5772)
+- [`improve-gauntlet-panel-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-panel-budget.md) — Cost
 - [`kriscendobot-minion.town-pr56-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet.md) — gauntlet kriscendobot-minion.town-pr56-gauntlet — complete
 - [`kriscendobot-minion.town-pr56-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-undraft.md) — Completion report
 - [`kriscendobot-minion.town-pr56-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr56-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-fix-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr1069-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1069-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1069-gauntlet — complete
 - … and 5767 more
 
 ## Plan queue (parked — not claimable until promoted)
