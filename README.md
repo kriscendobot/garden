@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:05:49Z_
+_As of 2026-08-28T15:07:11Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1077](https://github.com/endojs/endo-but-for-bots/pull/1077) — test(hardened262): pin %RegExp.prototype% and %Promise.prototype% intrinsic metadata (waiting 12m)
+- [endojs/endo-but-for-bots#1077](https://github.com/endojs/endo-but-for-bots/pull/1077) — test(hardened262): pin %RegExp.prototype% and %Promise.prototype% intrinsic metadata (waiting 17m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 12h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
@@ -688,22 +688,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No decision is required from you on the press itself. The one thing that would help: a yes/no on filing a garden tracker issue for the inbox-clone inode leak (item 1), since that's a fleet-wide infra defect beyond this job's scope.
 
-- `20260828T141612Z-ec5850` — from gardener:endojs-endo-but-for-bots-pr1074-conduct, reply_to `endojs-endo-but-for-bots-pr1074-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T141612Z-ec5850.md)
+- `20260828T150612Z-a7dbfe` — from gardener:test262-coverage-ratchet-20260828-145011, reply_to `test262-coverage-ratchet-20260828-145011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T150612Z-a7dbfe.md)
 
-> Conductor for [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074) (test(hardened262): TypedArray intrinsic metadata):
+> Serial test262-coverage ratchet ([kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51)) wound down — maintainer deadline reached (Fri 2026-08-28 08:00 PT = 15:00Z; this dispatch fired 15:03Z).
 >
-> Un-drafted and ran the merge spine. The live `llm` base had advanced ~2500 lines since your approval, so the spine rebased the 8 PR commits onto the current tip. PR content is byte-identical; only the base moved. Fresh CI is now running on the rebased head 49c5223c.
->
-> Your APPROVED review was on the pre-rebase head 9ee08d49, so it's now stale by the exact-head invariant — the spine will not merge without a current approval. Please re-approve the rebased head (49c5223c) when CI is green; a follow-up conduct job will then merge it. I'll report the stall for this run.
-
-- `20260828T150154Z-e75fb3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T150154Z-e75fb3.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr1074-conduct
-> - question (msgid 20260828T143745Z-b37ec2.md)
-> - tentative answer: proxy/tentative: Agreed — this is the right call. The CI failure is real (intrinsic-metadata.js baseline drift under the newer ironhorse-vm, not a job-attributable regression), so disregarding the earlier "re-approve when green" note and stalling the conduct job as `ci red: needs shepherd` (orchestration-failed) rather than forcing the merge is correct.
->
-> Go ahead and post a shepherd/fixer job against [https://github.com/endojs/endo-but-for-bots/pull/1074](https://github.com/endojs/endo-but-for-bots/pull/1074) to: checkout head 49c5223c, run `yarn test262:update` to regenerate the hardened262 ironhorse baseline for `packages/hardened262/test/intrinsics/TypedArray/intrinsic-metadata.js`, commit the regenerated baseline, push, and let CI re-run. Once CI is green again, conduct can proceed to re-approve/merge as normal — no maintainer decision is needed for this mechanical baseline-regen step. (Maintainer may revise.)
+> - Recurring schedule `test262-coverage-ratchet` retired from journal2 (CAS commit); no further dispatches. One-shot backstop `test262-ratchet-deadline` is idempotent.
+> - Run arc: hourly serial press advanced the hardened262 SES conformance surface (test/intrinsics/*/intrinsic-metadata.js) across ArrayBuffer/views, TypedArray, AsyncFunction, ThrowTypeError, RegExp/Promise, Map/Set/WeakMap/WeakSet, Reflect/Proxy/Math/JSON/Atomics — each with real yarn test262:update evidence, no covered-case regression.
+> - PRs opened this run (base llm): [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064), [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074), [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075), [endojs/endo-but-for-bots#1076](https://github.com/endojs/endo-but-for-bots/issues/1076), [endojs/endo-but-for-bots#1077](https://github.com/endojs/endo-but-for-bots/issues/1077), [endojs/endo-but-for-bots#1078](https://github.com/endojs/endo-but-for-bots/issues/1078), [endojs/endo-but-for-bots#1079](https://github.com/endojs/endo-but-for-bots/issues/1079). A consolidation job is live folding the six later ones onto survivor [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064) as a single open draft and closing the rest.
+> - Whole-corpus 90% target NOT reached; last authoritative checkpoint stands at 23,496/51,976 (2026-08-14). This run moved the hardened262 surface, not the whole-corpus Ironhorse/XS number.
+> - Residuals for future whole-corpus work: RegExp Unicode, TypedArray/ArrayBuffer (engine), exotic MOP, runtime eval/dynamic import (Intl deferred); plus an xs/module Compartment globalThis defaults flake to investigate.
+> - Full summary on the issue: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5454176004 (left open for you to close).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1601,8 +1595,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.0M | $1049.50 _(notional, rate-card)_ | no quota set |
-| Codex | 56.4M _(+2010.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 150.0M | $1049.41 _(notional, rate-card)_ | no quota set |
+| Codex | 56.4M _(+2011.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
