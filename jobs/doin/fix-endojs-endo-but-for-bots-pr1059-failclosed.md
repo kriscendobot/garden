@@ -108,6 +108,7 @@ message bus rather than unilaterally landing a large refactor in this fix pass.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
