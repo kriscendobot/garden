@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-28T00:20:16Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-build-continuous-ironhorse-fuzz-service-gauntlet-panel-1
