@@ -87,15 +87,4 @@ async-instance OOM job
 (`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`) or the moot
 generator-frame-regression job (test-xs is already green).
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-28T06:13:12Z
+<!-- garden-reaped: 1 -->
