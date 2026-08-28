@@ -54,3 +54,13 @@ Use an isolated project worktree keyed by this job base and use
 `scripts/jobs/gardening/ensure-pr.sh` for PR identity. If a platform cannot be
 executed on available runners, preserve the build attempt and report it as not
 verified rather than inferring runtime support.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T19:19:20Z
