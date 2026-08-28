@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 63
 build_job: minion-town-press-20260828-173506
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion.town-pr63-gauntlet-panel-3
+current_child: kriscendobot-minion.town-pr63-gauntlet-fix-3
 state: running
 created_by: producer
 created_at: 2026-08-28T17:43:22Z
