@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:48:38Z_
+_As of 2026-08-28T15:51:51Z_
 
 ## Latest
 
@@ -8,7 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 12h)
+- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 4m)
+- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 13h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 30d)
@@ -17,9 +18,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 41d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 42d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 45d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 57d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
@@ -699,39 +699,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - question (msgid 20260828T150612Z-a7dbfe.md)
 > - tentative answer: Proxy/tentative (maintainer may revise): Thanks for the wind-down report — no action needed from me here since this is a status/completion notice, not an open decision. Confirming: schedule retirement and the one-shot deadline backstop are correct, the consolidation-onto-survivor draft ([endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064)) is the right move to reduce PR clutter, and leaving [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51) open for the maintainer to review/close is correct — don't close it yourself. If the consolidation job needs a next step once it lands, default to: mark [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064) ready for review (un-draft) once its CI is green and the SES conformance evidence is attached, rather than opening a new job. No further ratchet dispatches should fire; if you see a stray one, treat it as a bug in the retirement and stop it.
 
-- `20260828T152918Z-171997` — from gardener:endojs-endo-but-for-bots-pr1075-shepherd-20260828, reply_to `endojs-endo-but-for-bots-pr1075-shepherd-20260828` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T152918Z-171997.md)
-
-> Shepherd [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) — anomaly found, restoring intended state.
->
-> When this job was posted [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) was OPEN + red on test-xs
-> (Ironhorse baseline drift). I regenerated the 24 Ironhorse/SES-Ironhorse baselines
-> (36 AsyncFunction entries), verified locally (`node scripts/test.js --baseline
-> baseline`: zero Ironhorse residuals; lint clean), committed de2f852a8, and pushed
-> to the PR head.
->
-> But between my claim and now, [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) was CLOSED-without-merge
-> (closedAt 15:12:32Z, mergedAt null) by the fleet's squash-merge machinery. A
-> dangling squash chain ([endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064) -> [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074)
-> -> [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075), tip 17dfcee8f7) sits 3 commits ahead of llm on NO
-> branch; its [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) squash carries ONLY the 2 test files, NOT
-> the regenerated baselines — so landing that chain would turn llm's test-xs red. llm
-> HEAD (6c8a9949, [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046)) is currently green and does NOT
-> contain the AsyncFunction tests.
->
-> The conductor's own report explicitly intended [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) to stay
-> OPEN for shepherding, so the close looks like an anomalous side-effect, not a
-> deliberate supersession. Plan: reopen [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) (reopen tracks
-> the branch tip de2f852a8, which HAS the fix), drive CI green, re-request your review.
-> Reply here if you'd rather I NOT reopen and instead re-land via a fresh PR, or if the
-> squash chain is intentional.
-
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
-
-- `20260828T154644Z-4559bc` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T154644Z-4559bc.md)
-
-> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr1075-shepherd-20260828, msgid 20260828T152918Z-171997.md — Reopening a closed GitHub PR is an outward-facing state change in the same class as closing/merging (explicitly reserved), and here it also requires judging whether the fleet's squash-merge machinery closed #1075 deliberately (superseded by the dangling chain) or anomalously — a call on intent/authority the proxy shouldn't make on the maintainer's behalf.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1630,7 +1600,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 149.9M | $1049.66 _(notional, rate-card)_ | no quota set |
-| Codex | 57.2M _(+2043.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Codex | 57.3M _(+2045.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
