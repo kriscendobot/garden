@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T00:30:43Z_
+_As of 2026-08-28T00:32:22Z_
 
 ## Latest
 
@@ -1407,8 +1407,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.6M | $690.99 _(notional, rate-card)_ | no quota set |
-| Codex | 50.9M _(+1933.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 108.6M | $691.90 _(notional, rate-card)_ | no quota set |
+| Codex | 50.9M _(+1929.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1434,13 +1434,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5767)
+### tada (5768)
+- [`endojs-endo-but-for-bots-pr1069-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1069-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1069-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1069-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1069-gauntlet-undraft.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1069-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1069-gauntlet-panel-1.md) — Completion report
 - [`build-continuous-ironhorse-fuzz-service-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-continuous-ironhorse-fuzz-service-gauntlet.md) — gauntlet build-continuous-ironhorse-fuzz-service-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1064-d926e862`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-d926e862.md) — Report
-- [`endojs-endo-but-for-bots-pr1069-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1069-gauntlet-clean.md) — Cost
-- … and 5762 more
+- … and 5763 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
