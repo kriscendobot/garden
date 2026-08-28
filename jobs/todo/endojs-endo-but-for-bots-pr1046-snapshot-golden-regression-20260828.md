@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 token-budget: 250000
 ---
@@ -86,12 +87,4 @@ async-instance OOM job
 (`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`) or the moot
 generator-frame-regression job (test-xs is already green).
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-28T02:09:45Z
+<!-- garden-reaped: 0 -->
