@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:22:26Z_
+_As of 2026-08-28T03:24:17Z_
 
 ## Latest
 
@@ -1521,18 +1521,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.8M | $749.81 _(notional, rate-card)_ | no quota set |
-| Codex | 51.4M _(+1891.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 113.9M | $751.42 _(notional, rate-card)_ | no quota set |
+| Codex | 51.5M _(+1892.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
-- [`deadmail-issue-comment-5447959558`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447959558.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-12b9ebb7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-12b9ebb7.md) — attention directive on endojs/endo-but-for-bots PR #1046
@@ -1550,13 +1549,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`test262-coverage-ratchet-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-032006.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`xs2rust-endor-press-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-032006.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5804)
+### tada (5805)
+- [`deadmail-issue-comment-5447959558`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447959558.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1070-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1070-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-shepherd.md) — Cost
 - [`minion-town-press-20260828-030505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-030505.md) — Cost
 - [`kriscendobot-minion.town-pr60-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet.md) — gauntlet kriscendobot-minion.town-pr60-gauntlet — complete
-- [`kriscendobot-minion.town-pr60-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-undraft.md) — Completion report
-- … and 5799 more
+- … and 5800 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
