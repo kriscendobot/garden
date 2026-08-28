@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1069
 build_job: build-continuous-ironhorse-fuzz-service
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: build-continuous-ironhorse-fuzz-service-gauntlet-clean
+current_child: build-continuous-ironhorse-fuzz-service-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-28T00:14:38Z
