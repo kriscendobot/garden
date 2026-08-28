@@ -34,3 +34,13 @@ what's CI-safe versus a documented manual/staging-only suite.
 Note: this is a genuinely new testing capability being added to the
 project, not a fix — expect a design-then-build shape if the scope turns
 out to be larger than one increment can safely land.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T01:30:02Z
