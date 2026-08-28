@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T14:56:52Z_
+_As of 2026-08-28T15:02:29Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1077](https://github.com/endojs/endo-but-for-bots/pull/1077) — test(hardened262): pin %RegExp.prototype% and %Promise.prototype% intrinsic metadata (waiting 7m)
+- [endojs/endo-but-for-bots#1077](https://github.com/endojs/endo-but-for-bots/pull/1077) — test(hardened262): pin %RegExp.prototype% and %Promise.prototype% intrinsic metadata (waiting 12m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 12h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
@@ -696,15 +696,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Your APPROVED review was on the pre-rebase head 9ee08d49, so it's now stale by the exact-head invariant — the spine will not merge without a current approval. Please re-approve the rebased head (49c5223c) when CI is green; a follow-up conduct job will then merge it. I'll report the stall for this run.
 
-- `20260828T143745Z-b37ec2` — from gardener:endojs-endo-but-for-bots-pr1074-conduct, reply_to `endojs-endo-but-for-bots-pr1074-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T143745Z-b37ec2.md)
+- `20260828T150154Z-e75fb3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T150154Z-e75fb3.md)
 
-> Correction / update on [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074):
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1074-conduct
+> - question (msgid 20260828T143745Z-b37ec2.md)
+> - tentative answer: proxy/tentative: Agreed — this is the right call. The CI failure is real (intrinsic-metadata.js baseline drift under the newer ironhorse-vm, not a job-attributable regression), so disregarding the earlier "re-approve when green" note and stalling the conduct job as `ci red: needs shepherd` (orchestration-failed) rather than forcing the merge is correct.
 >
-> CI went RED on the rebased head 49c5223c, so please DISREGARD my earlier "re-approve when green" note for now. The failure is real and mechanical: the live `llm` base advanced its `ironhorse-vm` (rust/engine, ~233 lines in interp.rs) and under the newer VM this PR's new test file
-> `packages/hardened262/test/intrinsics/TypedArray/intrinsic-metadata.js`
-> now fails in all 24 ironhorse runner scenarios ("Result baseline changed (24 entries)"). The fix is to regenerate the ironhorse baseline (`yarn test262:update`) on the rebased head and commit it, then re-run CI and re-approve.
->
-> I'm stalling this conduct job `ci red: needs shepherd` (orchestration-failed) rather than forcing the merge. A shepherd/fixer job is needed to regenerate + commit the hardened262 ironhorse baseline on head 49c5223c.
+> Go ahead and post a shepherd/fixer job against [https://github.com/endojs/endo-but-for-bots/pull/1074](https://github.com/endojs/endo-but-for-bots/pull/1074) to: checkout head 49c5223c, run `yarn test262:update` to regenerate the hardened262 ironhorse baseline for `packages/hardened262/test/intrinsics/TypedArray/intrinsic-metadata.js`, commit the regenerated baseline, push, and let CI re-run. Once CI is green again, conduct can proceed to re-approve/merge as normal — no maintainer decision is needed for this mechanical baseline-regen step. (Maintainer may revise.)
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1602,8 +1601,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.9M | $1047.91 _(notional, rate-card)_ | no quota set |
-| Codex | 56.2M _(+2003.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 149.9M | $1048.03 _(notional, rate-card)_ | no quota set |
+| Codex | 56.3M _(+2008.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
