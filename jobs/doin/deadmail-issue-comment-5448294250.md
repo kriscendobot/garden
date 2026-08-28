@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/46#issuecomment-544829425
 Please report implementation progress.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T04:15:16Z
