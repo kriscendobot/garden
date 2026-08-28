@@ -22,3 +22,13 @@ You are the FINAL stage of a staged gauntlet (endojs-endo-but-for-bots-pr1073-ga
 
 END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T03:56:27Z
