@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:09:09Z_
+_As of 2026-08-28T15:10:53Z_
 
 ## Latest
 
@@ -1599,19 +1599,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.0M | $1050.74 _(notional, rate-card)_ | no quota set |
-| Codex | 56.5M _(+2012.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 150.1M | $1051.96 _(notional, rate-card)_ | no quota set |
+| Codex | 56.5M _(+2013.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endo-but-for-bots-consolidate-test262-ratchet-prs-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-consolidate-test262-ratchet-prs-20260828.md) — ---
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr1074-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-shepherd-20260828.md) — Shepherd endojs/endo-but-for-bots #1074 — regenerate Ironhorse hardened262 ba...
+- [`endojs-endo-but-for-bots-pr1075-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1075-shepherd-20260828.md) — Shepherd endojs/endo-but-for-bots #1075 — regenerate Ironhorse hardened262 ba...
+- [`endojs-endo-but-for-bots-pr1076-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1076-shepherd-20260828.md) — Shepherd endojs/endo-but-for-bots #1076 — regenerate Ironhorse hardened262 ba...
 - [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1078
 - [`endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1079
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
