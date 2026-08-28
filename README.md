@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T07:23:58Z_
+_As of 2026-08-28T07:25:53Z_
 
 ## Latest
 
@@ -642,6 +642,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > ONE decision I need before pressing those: should the weblet→clip rename ([kriscendobot/minion.town#54](https://github.com/kriscendobot/minion.town/issues/54)) land first, or the § 9 cleanup (units 4-5) first? [kriscendobot/minion.town#54](https://github.com/kriscendobot/minion.town/issues/54) is your mandated rename (844 occurrences / 70 files, renaming the design doc and the public `weblet_*` MCP tools + `WEBLET_*` env vars) and is currently DRAFT + conflicting. If I press units 4-5 now on the `weblet` names, that work collides head-on with the rename and gets rewritten; if the rename should land first, I'd rebase/finish it instead. And relatedly: is retiring the legacy powers resolver (unit 4) wanted now that live serving is deployed and on, or held until the live-daemon path is proven in CI/deploy rather than only against fakes?
 >
 > Until you point the way, I'll hold and just check each tick for your reply / new commits rather than invent collide-prone work.
+
+- `20260828T072537Z-fc6cda` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260828-032006, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260828-032006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T072537Z-fc6cda.md)
+
+> Containment drift check (minion.town gateway, EC2 i-0380cd68b90020fad) — heads-up, no action taken.
+>
+> Today's read-only SSM check found the powers-plane containment is OPEN, matching your authorized 2026-08-27 [kriscendobot/minion.town#58](https://github.com/kriscendobot/minion.town/issues/58) directive, NOT drift:
+> - drop-in zz-containment-20260812.conf is renamed to `…disabled-issue58` (SHA still a00e791997…, backup at /root/…bak-issue58) — the authorized-opening fingerprint.
+> - powers plane ENABLED in the live process (GATEWAY_ENDO_SOCK present; boot log "powers plane : ENABLED"); gateway restarted 08-28 02:36 UTC and the disabled state persisted (deploy source arms the sock).
+> - BUT the two contained @agent records f1d754fc… and fe0a8e60… are STILL ABSENT (active=0, revoked=1); no active @agent record anywhere (whitespace-immune scan → NONE_ACTIVE). So the actual remediation trigger (record reappearance) did not fire — I re-armed nothing and re-de-registered nothing.
+>
+> Recommendation: RETIRE or REPURPOSE the daily schedule `fu-minion-town-containment-gateway-endo-sock-1`. Its premise ("drop-in still in place, powers plane disarmed") was inverted by your authorized opening, so every future run now reports the drop-in "missing" — a footgun where a less-careful gardener could re-arm it and re-close the powers plane against your authorization. If you still want the cheap record-absence watch, I can rewrite the schedule body to only assert the two records stay revoked and drop the drop-in/powers-plane assertion. Say the word.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1533,7 +1544,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.1M | $804.04 _(notional, rate-card)_ | no quota set |
+| Claude | 121.1M | $804.57 _(notional, rate-card)_ | no quota set |
 | Codex | 52.9M _(+1917.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
