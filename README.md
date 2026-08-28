@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:44:57Z_
+_As of 2026-08-28T03:48:12Z_
 
 ## Latest
 
@@ -8,10 +8,10 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 54m)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12m)
-- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 17h)
-- [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 17h)
+- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 1h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18m)
+- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 18h)
+- [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 18h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 29d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 39d)
@@ -1521,14 +1521,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.3M | $753.38 _(notional, rate-card)_ | no quota set |
-| Codex | 51.8M _(+1903.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 115.5M | $761.86 _(notional, rate-card)_ | no quota set |
+| Codex | 51.9M _(+1905.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
@@ -1537,7 +1537,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828.md) — Fix Ironhorse test-ironhorse regression: snapshot golden-vector hash stale af...
-- [`endojs-endo-but-for-bots-pr1064-08da6661`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-08da6661.md) — attention directive on endojs/endo-but-for-bots PR #1064
 - [`endojs-endo-but-for-bots-pr1072-review-73226ec0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-73226ec0.md) — Review directive on endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr1072-review-bb54af10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-bb54af10.md) — Review directive on endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr1073-gauntlet-20260828-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1073-gauntlet-20260828-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1073
@@ -1549,13 +1548,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
-### tada (5815)
+### tada (5816)
+- [`endojs-endo-but-for-bots-pr1064-08da6661`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-08da6661.md) — Cost
 - [`endojs-endo-but-for-bots-pr1073-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1073-gauntlet-20260828-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1046-12b9ebb7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-12b9ebb7.md) — Cost
 - [`endojs-endo-but-for-bots-pr1073-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1073-shepherd.md) — Report
 - [`endojs-endo-but-for-bots-pr475-retcon-conduct-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-retcon-conduct-20260828.md) — orchestration endojs-endo-but-for-bots-pr475-retcon-conduct-20260828 — HALTED
-- [`endojs-endo-but-for-bots-pr475-conduct-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-conduct-20260828.md) — Completion report
-- … and 5810 more
+- … and 5811 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
