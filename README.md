@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T19:39:02Z_
+_As of 2026-08-28T19:41:42Z_
 
 ## Latest
 
@@ -702,6 +702,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
+
+- `20260828T194121Z-59223f` — from gardener:minion-town-press-20260828-193506, reply_to `minion-town-press-20260828-193506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T194121Z-59223f.md)
+
+> minion.town press (off merged [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52)): [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) "docs(weblet): reconcile register-by-id design" is now **ready for your review** (was draft). It rewrites sections 2.2/3.1 + 9 of designs/weblet-ocap-synthesis.md to describe the register(directoryId, owner) boundary that shipped in [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52), was attenuated in [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53), and left serving in [kriscendobot/minion.town#55](https://github.com/kriscendobot/minion.town/issues/55).
+>
+> No decision is pending from you — this is a review request, not a fork:
+> - The register-by-id deviation is already settled: you APPROVED [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) and [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53) and said "validate in prod." [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) only documents that settled boundary.
+> - Your [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) review asked to be shown the unconfined-caplet `export const make` endowment or a follow-up. That exists in the shipped code: src/endo/gateway/site-registry-caplet.ts:30 `export const make` ("Unconfined Endo caplet that constructs the daemon-hosted @sites registry"), with per-guest attenuation via site-register-caplet.ts.
+> - [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) is CI-green and went through 3 design-panel rounds; the last round's must-fixes (faithful 3.1 paraphrase of guestRegisterSource, confidentiality-escalation severity retune) are applied at head 4208dca.
+>
+> Design residuals it records as future BUILD work (not decisions): live weblet_upgrade, an always-on real-daemon CI lane, and restart-durability verification. I'll leave those parked unless you want one pressed next.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1619,8 +1630,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.8M | $1068.55 _(notional, rate-card)_ | no quota set |
-| Codex | 59.5M _(+2105.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Claude | 151.8M | $1069.08 _(notional, rate-card)_ | no quota set |
+| Codex | 59.5M _(+2109.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
