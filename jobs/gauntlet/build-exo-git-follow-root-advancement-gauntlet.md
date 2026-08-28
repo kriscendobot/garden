@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1080
 build_job: build-exo-git-follow-root-advancement
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: build-exo-git-follow-root-advancement-gauntlet-clean
+current_child: build-exo-git-follow-root-advancement-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-28T19:28:43Z
