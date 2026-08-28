@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T18:41:58Z_
+_As of 2026-08-28T18:43:43Z_
 
 ## Latest
 
@@ -762,6 +762,32 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
+
+- `doomed-endojs-endo-but-for-bots-pr1038-fix-20260828-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1038-fix-20260828-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1038-fix-20260828; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr1038-fix-20260828) or removes it.
+> Original job base: endojs-endo-but-for-bots-pr1038-fix-20260828
+>
+> --- original job body ---
+> ---
+> role: fixer
+> tier: mentor
+> dispatch: automatic
+> fallback-tier: minion
+> ---
+>
+> # Revalidate endojs/endo-but-for-bots PR #1038 after post-approval head movement
+>
+> The conductor backstop found that the current head 41cd489f30cc587e5a2d8296dfc81955da744ff3 was pushed after kriskowal approved 470c5957c5f668b9814f58bd86d45829dd748360. The originating conduct job explicitly requires approval on the exact head and directs a fixer/shepherd dispatch on regression.
+>
+> Inspect the post-approval delta (currently the fixup commit), verify it is coherent and checks remain green, and leave the branch ready for a fresh maintainer approval. Do not merge. Bot repo only: endojs/endo-but-for-bots.
+>
+> PR: [https://github.com/endojs/endo-but-for-bots/pull/1038](https://github.com/endojs/endo-but-for-bots/pull/1038)
 
 - `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
 
@@ -1619,19 +1645,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.7M | $1065.70 _(notional, rate-card)_ | no quota set |
+| Claude | 151.7M | $1066.45 _(notional, rate-card)_ | no quota set |
 | Codex | 58.2M _(+2063.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5455406421`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5455406421.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
-- [`endojs-endo-but-for-bots-pr1038-fix-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1038-fix-20260828.md) — Revalidate endojs/endo-but-for-bots PR #1038 after post-approval head movement
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1076-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1076-shepherd-20260828.md) — Shepherd endojs/endo-but-for-bots #1076 — regenerate Ironhorse hardened262 ba...
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
@@ -1672,6 +1697,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sturdyref-enliven-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-enliven-design.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
 - [`endojs-endo-but-for-bots-pr1038-c9b18630`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1038-c9b18630.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1038
+- [`endojs-endo-but-for-bots-pr1038-fix-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1038-fix-20260828.md) — _normal_ · Revalidate endojs/endo-but-for-bots PR #1038 after post-approval head movement
 - [`endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-fuzz-shepherd-20260827-r2.md) — _normal_ · Fix the settled Ironhorse fuzz failure on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-generator-frame-regression-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-generator-frame-regression-20260828.md) — _normal_ · Fix Ironhorse regression: valid generator frames wrongly degraded to Halt (en...
 - [`endojs-endo-but-for-bots-pr1051-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1051-fixer.md) — _normal_ · fixer: migrate release.yml config for changesets/action v2 (endojs/endo-but-f...
