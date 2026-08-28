@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T11:58:43Z_
+_As of 2026-08-28T12:00:30Z_
 
 ## Latest
 
@@ -1456,11 +1456,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-08-17T14:38:22Z, cleared 2026-08-24T18:39:14Z).
-> It was observed 41 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #42 (first seen 2026-08-17T14:38:22Z, latest 2026-08-28T11:59:47Z).
+> The SAME condition (`provider-quota`) has now been observed 42 times; this is ONE
+> coalesced notice that updates in place, not 42 messages. Latest detail:
 >
-> provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-regenerate-sections-index). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
+> provider weekly limit reached: the API is refusing calls fleet-wide (resets 3am (UTC) — the responder could NOT diagnose garden-hermit (rc=1); its capture is blob 9bd6a9a0226ecd8b2fb7d5da1247e0a175872ad8 (git -C /home/kris/garden2/).
+> limit_type: weekly
+> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
+> resumes on its own once the window resets (see skills/restore/SKILL.md for the
+> post-outage restore). Every unit that trips the limit folds into THIS one notice
+> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
+> provider quota exceeded while running garden-hermit. Observed: You've hit your weekly limit · resets 3am (UTC) — the responder could NOT diagnose garden-hermit (rc=1); its capture is blob 9bd6a9a0226ecd8b2fb7d5da1247e0a175872ad8 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9bd6a9a0226ecd8b2fb7d5da1247e0a175872ad8).
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -1556,14 +1562,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 144.2M | $981.98 _(notional, rate-card)_ | no quota set |
+| Claude | 144.8M | $986.75 _(notional, rate-card)_ | no quota set |
 | Codex | 53.7M _(+1922.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (15)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1572,7 +1578,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1074
 - [`endojs-endo-but-for-bots-pr1076-gauntlet-20260828-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1076-gauntlet-20260828-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1076
 - [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1078
+- [`endojs-endo-but-for-bots-pr1079-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1079-gauntlet-20260828-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1079
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
+- [`fix-endojs-endo-but-for-bots-pr1059-failclosed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1059-failclosed.md) — fix: address kumavis's fail-closed persistence review on endojs/endo-but-for-...
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
