@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-545540642
 Please post a proposal to host an npm proxy on npm.minion.town to satisfy the garden issue regarding continuous publishing for dev tag releases. This would be a stage from which we would automate publication of only dev tag releases.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T17:10:18Z
