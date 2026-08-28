@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by completed dated retry endor-walker-exports-resolution-20260827 and merged fixture-parity PR; retaining this doomed duplicate risks accidental promotion.
+withdrawn_by: mentor
+withdrawn_at: 2026-08-28T23:40:24Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: builder
