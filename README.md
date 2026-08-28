@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T09:21:10Z_
+_As of 2026-08-28T09:23:39Z_
 
 ## Latest
 
@@ -657,6 +657,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T072824Z-cf595b` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T072824Z-cf595b.md)
 
 > From report fu-minion-town-containment-gateway-endo-sock-1-20260828-032006: a daily drift-check schedule tied to the minion.town containment/gateway work is now checking against what looks like an obsolete premise (containment was opened/resolved 2026-08-27/28 per the OCapN-CBOR-Noise and gateway-powers-containment work). Please confirm whether to retire or repurpose that schedule — until you decide, it will keep firing daily for no useful purpose.
+
+- `20260828T092256Z-ef6dc3` — from gardener:minion-town-press-20260828-092006, reply_to `minion-town-press-20260828-092006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T092256Z-ef6dc3.md)
+
+> Decision needed for the deviation recorded in https://github.com/kriscendobot/minion.town/blob/main/[designs/weblet-ocap-synthesis.md#9](https://github.com/designs/weblet-ocap-synthesis.md/issues/9)-follow-on-implementation-units: which authority contract should govern `@sites` going forward: keep `register(directoryId)` and explicitly treat knowledge of an Endo formula identifier as sufficient bearer authority, rewriting sections 2.2/3.1 accordingly, or restore `register(directory)` by introduction so registration proves the guest holds the directory? The normal publish wrapper derives the identifier from a guest-held directory, but the attenuated guest facet itself accepts any well-formed identifier and the operator registry pins it, so a guest can submit a learned foreign identifier directly. I am stopping before units 3-5 until this boundary is decided.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1548,14 +1552,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.8M | $841.31 _(notional, rate-card)_ | no quota set |
-| Codex | 53.3M _(+1919.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 125.9M | $842.28 _(notional, rate-card)_ | no quota set |
+| Codex | 53.4M _(+1920.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (11)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1567,16 +1571,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`minion-town-press-20260828-092006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260828-092006.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
-- [`ocapn-cbor-noise-press-20260828-092006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-092006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
-### tada (5865)
+### tada (5867)
+- [`minion-town-press-20260828-092006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-092006.md) — Cost
+- [`ocapn-cbor-noise-press-20260828-092006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-cbor-noise-press-20260828-092006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1076-gauntlet-20260828-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1076-gauntlet-20260828-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1076-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1076-gauntlet-20260828-clean.md) — Clean stage — PR #1076 complete
-- [`endojs-endo-but-for-bots-pr1074-halted-gauntlet-fixer-20260828-0835`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1074-halted-gauntlet-fixer-20260828-0835.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-2.md) — Cost
-- … and 5860 more
+- … and 5862 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
