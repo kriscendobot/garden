@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:44:11Z_
+_As of 2026-08-28T03:44:57Z_
 
 ## Latest
 
@@ -1521,14 +1521,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.3M | $753.02 _(notional, rate-card)_ | no quota set |
-| Codex | 51.8M _(+1903.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 114.3M | $753.38 _(notional, rate-card)_ | no quota set |
+| Codex | 51.8M _(+1903.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
@@ -1540,6 +1540,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1064-08da6661`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-08da6661.md) — attention directive on endojs/endo-but-for-bots PR #1064
 - [`endojs-endo-but-for-bots-pr1072-review-73226ec0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-73226ec0.md) — Review directive on endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr1072-review-bb54af10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-bb54af10.md) — Review directive on endojs/endo-but-for-bots PR #1072
+- [`endojs-endo-but-for-bots-pr1073-gauntlet-20260828-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1073-gauntlet-20260828-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1073
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260828-032006.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
