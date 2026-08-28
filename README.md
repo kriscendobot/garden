@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T20:23:22Z_
+_As of 2026-08-28T21:03:39Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 4h)
-- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 17h)
+- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 5h)
+- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 18h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 30d)
@@ -1630,15 +1630,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.9M | $1076.38 _(notional, rate-card)_ | no quota set |
-| Codex | 59.6M _(+2113.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 153.7M | $1085.41 _(notional, rate-card)_ | no quota set |
+| Codex | 59.7M _(+2113.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
-- [`build-exo-git-follow-root-advancement-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-git-follow-root-advancement-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1080
+### doin (10)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5455406421`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5455406421.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
@@ -1650,13 +1649,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5981)
+### tada (5982)
+- [`build-exo-git-follow-root-advancement-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-git-follow-root-advancement-gauntlet-panel-1.md) — Cost
 - [`xs2rust-endor-press-20260828-202008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-202008.md) — Cost
 - [`build-exo-git-follow-root-advancement-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-git-follow-root-advancement-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr987-backend-comparison-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-backend-comparison-5456716519.md) — orchestration endojs-endo-but-for-bots-pr987-backend-comparison-5456716519 — ...
 - [`endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519.md) — Backend comparison
-- [`minion-town-press-20260828-193506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-193506.md) — Cost
-- … and 5976 more
+- … and 5977 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
