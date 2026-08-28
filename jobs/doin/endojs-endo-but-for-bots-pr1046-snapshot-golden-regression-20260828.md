@@ -88,3 +88,13 @@ async-instance OOM job
 generator-frame-regression job (test-xs is already green).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T06:23:14Z
