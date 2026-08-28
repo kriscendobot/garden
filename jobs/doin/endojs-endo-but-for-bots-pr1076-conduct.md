@@ -25,6 +25,7 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/1076#pullrequestrevie
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
