@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T19:49:33Z_
+_As of 2026-08-28T19:52:19Z_
 
 ## Latest
 
@@ -1631,7 +1631,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 151.7M | $1068.80 _(notional, rate-card)_ | no quota set |
-| Codex | 59.6M _(+2112.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Codex | 59.6M _(+2112.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1650,13 +1650,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5978)
+### tada (5979)
+- [`endojs-endo-but-for-bots-pr987-backend-comparison-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-backend-comparison-5456716519.md) — orchestration endojs-endo-but-for-bots-pr987-backend-comparison-5456716519 — ...
 - [`endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519.md) — Backend comparison
 - [`minion-town-press-20260828-193506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-193506.md) — Cost
 - [`endojs-endo-but-for-bots-pr987-gix-probe-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-gix-probe-5456716519.md) — Completion report
 - [`build-exo-git-follow-root-advancement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-git-follow-root-advancement.md) — Cost
-- [`xs2rust-endor-press-20260828-192007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-192007.md) — Cost
-- … and 5973 more
+- … and 5974 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
