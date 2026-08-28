@@ -44,14 +44,4 @@ Open containment and verify that a weblet's CapTP websocket remote bootstrap obj
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-28T03:33:32Z
+<!-- garden-reaped: 2 -->
