@@ -52,3 +52,13 @@ deleting, and prefer deleting the biggest/most-clearly-safe candidates
 first to build headroom incrementally rather than attempting one giant
 sweep that itself might fail partway through for lack of inodes to even
 run `find`/`git` commands.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T14:09:25Z
