@@ -41,3 +41,13 @@ retired itself, that's fine, this consolidation still stands on its own
 merits regardless of whether the ratchet is still actively running.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T15:03:29Z
