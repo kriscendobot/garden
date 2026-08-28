@@ -72,6 +72,8 @@ correct execution to `Halt` and failing the tests.
 Distinct from and do not touch the separately-owned async-instance OOM job
 (`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`).
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
