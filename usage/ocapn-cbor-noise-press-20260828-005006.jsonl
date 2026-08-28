@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":17,"elapsed_s":223,"input_tokens":24,"output_tokens":15117,"cache_creation_tokens":68338,"cache_read_tokens":821583,"total_cost_usd":1.4757775,"ts":"2026-08-28T00:55:16Z","base":"ocapn-cbor-noise-press-20260828-005006","host":"endolin-garden-ece02cb4","outcome":"fail","provider":"anthropic"}
