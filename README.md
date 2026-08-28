@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T02:14:48Z_
+_As of 2026-08-28T02:15:53Z_
 
 ## Latest
 
@@ -1511,14 +1511,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.0M | $713.09 _(notional, rate-card)_ | no quota set |
-| Codex | 50.9M _(+1900.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 109.1M | $712.76 _(notional, rate-card)_ | no quota set |
+| Codex | 50.9M _(+1900.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
@@ -1538,15 +1538,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-guest-self-formula-id-land-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-self-formula-id-land-verify.md) — Land, deploy, and verify guest self-formula identifier
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
-- [`test262-coverage-ratchet-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-020506.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5784)
+### tada (5785)
+- [`test262-coverage-ratchet-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260828-020506.md) — Completion report
 - [`minion-town-guest-self-formula-id`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-self-formula-id.md) — Cost
 - [`kriscendobot-minion.town-pr60-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-clean.md) — Completion report
 - [`xs2rust-endor-press-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-020506.md) — Completion report — xs2rust-endor-press-20260828-020506
 - [`deadmail-issue-comment-5447329184`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447329184.md) — Cost
-- [`deadmail-issue-comment-5447308724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447308724.md) — Completion report
-- … and 5779 more
+- … and 5780 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
