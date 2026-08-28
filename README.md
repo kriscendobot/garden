@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T14:33:39Z_
+_As of 2026-08-28T14:37:04Z_
 
 ## Latest
 
@@ -695,10 +695,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Un-drafted and ran the merge spine. The live `llm` base had advanced ~2500 lines since your approval, so the spine rebased the 8 PR commits onto the current tip. PR content is byte-identical; only the base moved. Fresh CI is now running on the rebased head 49c5223c.
 >
 > Your APPROVED review was on the pre-rebase head 9ee08d49, so it's now stale by the exact-head invariant — the spine will not merge without a current approval. Please re-approve the rebased head (49c5223c) when CI is green; a follow-up conduct job will then merge it. I'll report the stall for this run.
-
-- `20260828T143129Z-6d47cb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T143129Z-6d47cb.md)
-
-> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr1074-conduct, msgid 20260828T141612Z-ec5850.md — This asks the maintainer to re-approve a rebased PR head before merge — an approval/authority grant reserved to the maintainer, not a progress question a proxy can answer.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1596,14 +1592,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.8M | $1045.67 _(notional, rate-card)_ | no quota set |
-| Codex | 55.8M _(+1973.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 149.8M | $1047.23 _(notional, rate-card)_ | no quota set |
+| Codex | 55.9M _(+1977.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1074
+### todo (0)
+(none)
 
-### doin (17)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endo-but-for-bots-consolidate-test262-ratchet-prs-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-consolidate-test262-ratchet-prs-20260828.md) — ---
@@ -1611,6 +1607,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1059-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-rebase-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr1074-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1074
+- [`endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1074
 - [`endojs-endo-but-for-bots-pr1077-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1077-shepherd-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1078
 - [`endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1079
@@ -1618,6 +1615,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`fix-endojs-endo-but-for-bots-pr1059-failclosed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1059-failclosed.md) — fix: address kumavis's fail-closed persistence review on endojs/endo-but-for-...
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
+- [`local-verify-endo-test-xs-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/local-verify-endo-test-xs-parity.md) — ---
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
