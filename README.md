@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T14:12:25Z_
+_As of 2026-08-28T14:14:24Z_
 
 ## Latest
 
@@ -1584,30 +1584,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 147.7M | $1022.54 _(notional, rate-card)_ | no quota set |
-| Codex | 55.1M _(+1954.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 148.3M | $1027.01 _(notional, rate-card)_ | no quota set |
+| Codex | 55.1M _(+1955.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (4)
+- [`endojs-endo-but-for-bots-pr1019-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1019-rebase-20260828.md) — ---
+- [`endojs-endo-but-for-bots-pr1076-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1076-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1076
+- [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1078
+- [`fix-endojs-endo-but-for-bots-pr1059-failclosed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1059-failclosed.md) — fix: address kumavis's fail-closed persistence review on endojs/endo-but-for-...
 
-### doin (22)
+### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
-- [`endojs-endo-but-for-bots-pr1019-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-rebase-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1059-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-rebase-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr1074-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1074
 - [`endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1074
 - [`endojs-endo-but-for-bots-pr1075-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1075-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1075
-- [`endojs-endo-but-for-bots-pr1076-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1076-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1076
 - [`endojs-endo-but-for-bots-pr1077-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1077-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1077
-- [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1078
 - [`endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1079
 - [`endojs-endo-but-for-bots-pr1079-review-f762ce23`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1079-review-f762ce23.md) — Review directive on endojs/endo-but-for-bots PR #1079
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
-- [`fix-endojs-endo-but-for-bots-pr1059-failclosed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1059-failclosed.md) — fix: address kumavis's fail-closed persistence review on endojs/endo-but-for-...
 - [`fix-worktree-scratch-inode-exhaustion-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-worktree-scratch-inode-exhaustion-20260828.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
