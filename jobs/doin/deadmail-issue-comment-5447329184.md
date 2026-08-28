@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-544732918
 Let’s also close the loop further. Please verify and provide instructions for interacting with a particular minion.town guest remotely using the `endo` CLI. This presumably requires the user to create an invitation either with an MCP invite call, or create an invitation from a 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T01:45:10Z
