@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T14:52:00Z_
+_As of 2026-08-28T14:56:52Z_
 
 ## Latest
 
@@ -8,6 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#1077](https://github.com/endojs/endo-but-for-bots/pull/1077) — test(hardened262): pin %RegExp.prototype% and %Promise.prototype% intrinsic metadata (waiting 7m)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 12h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
@@ -17,9 +18,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 41d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 42d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 45d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 57d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
@@ -1496,17 +1496,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> WATCHDOG notice — occurrence #42 (first seen 2026-08-17T14:38:22Z, latest 2026-08-28T11:59:47Z).
-> The SAME condition (`provider-quota`) has now been observed 42 times; this is ONE
-> coalesced notice that updates in place, not 42 messages. Latest detail:
+> WATCHDOG notice — occurrence #43 (first seen 2026-08-17T14:38:22Z, latest 2026-08-28T14:56:30Z).
+> The SAME condition (`provider-quota`) has now been observed 43 times; this is ONE
+> coalesced notice that updates in place, not 43 messages. Latest detail:
 >
-> provider weekly limit reached: the API is refusing calls fleet-wide (resets 3am (UTC) — the responder could NOT diagnose garden-hermit (rc=1); its capture is blob 9bd6a9a0226ecd8b2fb7d5da1247e0a175872ad8 (git -C /home/kris/garden2/).
-> limit_type: weekly
+> provider session limit reached: the API is refusing calls fleet-wide (resets 3pm (UTC) — the responder could NOT diagnose garden-proxy (rc=1); its capture is blob f5ee58b35f57e41c67a940fd358a60eb111d2f6e (git -C /home/kris/garden/).
+> limit_type: session
 > This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
 > resumes on its own once the window resets (see skills/restore/SKILL.md for the
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
-> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
-> provider quota exceeded while running garden-hermit. Observed: You've hit your weekly limit · resets 3am (UTC) — the responder could NOT diagnose garden-hermit (rc=1); its capture is blob 9bd6a9a0226ecd8b2fb7d5da1247e0a175872ad8 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 9bd6a9a0226ecd8b2fb7d5da1247e0a175872ad8).
+> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden-ece02cb4):
+> provider quota exceeded while running garden-proxy. Observed: You've hit your session limit · resets 3pm (UTC) — the responder could NOT diagnose garden-proxy (rc=1); its capture is blob f5ee58b35f57e41c67a940fd358a60eb111d2f6e (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f5ee58b35f57e41c67a940fd358a60eb111d2f6e).
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -1603,7 +1603,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 149.9M | $1047.91 _(notional, rate-card)_ | no quota set |
-| Codex | 56.2M _(+2001.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Codex | 56.2M _(+2003.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
