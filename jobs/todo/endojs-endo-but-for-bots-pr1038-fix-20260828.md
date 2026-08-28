@@ -1,0 +1,14 @@
+---
+role: fixer
+tier: mentor
+dispatch: automatic
+fallback-tier: minion
+---
+
+# Revalidate endojs/endo-but-for-bots PR #1038 after post-approval head movement
+
+The conductor backstop found that the current head 41cd489f30cc587e5a2d8296dfc81955da744ff3 was pushed after kriskowal approved 470c5957c5f668b9814f58bd86d45829dd748360. The originating conduct job explicitly requires approval on the exact head and directs a fixer/shepherd dispatch on regression.
+
+Inspect the post-approval delta (currently the fixup commit), verify it is coherent and checks remain green, and leave the branch ready for a fresh maintainer approval. Do not merge. Bot repo only: endojs/endo-but-for-bots.
+
+PR: https://github.com/endojs/endo-but-for-bots/pull/1038
