@@ -88,6 +88,7 @@ If the implementation is too large for one handler, decompose it into bounded
 ordered children under a serial halt-on-failure orchestration and hand off to that
 posted orchestration. Do not leave loose follow-up jobs.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
