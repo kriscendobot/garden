@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T18:48:31Z_
+_As of 2026-08-28T18:50:53Z_
 
 ## Latest
 
@@ -1620,13 +1620,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 151.6M | $1064.32 _(notional, rate-card)_ | no quota set |
-| Codex | 58.2M _(+2063.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 58.2M _(+2063.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (14)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5455406421`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5455406421.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
@@ -1634,7 +1634,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1076-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1076-shepherd-20260828.md) — Shepherd endojs/endo-but-for-bots #1076 — regenerate Ironhorse hardened262 ba...
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr889-0d62e3e5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr889-0d62e3e5.md) — attention directive on endojs/endo-but-for-bots PR #889
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
+- [`kriscendobot-minion.town-pr63-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr63-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #63
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
