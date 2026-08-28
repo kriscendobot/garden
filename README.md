@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T02:47:46Z_
+_As of 2026-08-28T02:48:58Z_
 
 ## Latest
 
@@ -620,6 +620,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T011118Z-9e8b38` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T011118Z-9e8b38.md)
 
 > awaiting maintainer — beyond proxy authority: gardener ocapn-cbor-noise-press-20260828-005006, msgid 20260828T005430Z-e0d793.md — Lifting a box-local emergency containment to publicly expose the full pet-daemon bootstrap (locate-any-object) is a security-scope authorization distinct from the already-opened weblet powers-plane containment; the gardener itself flagged it as broader surface — this is an outward-facing, security-weighted access-control decision reserved to the maintainer, not proxyable.
+
+- `20260828T024807Z-65a1d9` — from gardener:minion-town-guest-self-formula-id-land-verify, reply_to `minion-town-guest-self-formula-id-land-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T024807Z-65a1d9.md)
+
+> minion.town guest self-formula-id: [kriscendobot/minion.town#61](https://github.com/kriscendobot/minion.town/issues/61) merged → main (1e5b163489), CD deploy succeeded, and the reveal is verified LIVE on the box — a signed-in guest gets only its own guest formula id (self-scope proven: distinct subjects → distinct ids, ?guest= selector ignored; Cache-Control: no-store; suspended accounts denied via the new mcp/guest admission gate the panel required). Full evidence on [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58) (comment 5447765615).
+>
+> BLOCKER for the peer enlivenSturdyRef half — needs your decision: the app provisions/reveals guests in endo-daemon.service (loopback 127.0.0.1:8920 only), but the public OCapN-CBOR-Noise routes (/.well-known/ocapn-cbor-np, /ocapn-daemon) front a SEPARATE pet-daemon container (different graph, node a6cd6e01…). So a revealed guest id isn't resolvable at the public daemon; a peer can't fetch that guest. Closing it means exposing the guest-substrate daemon over public OCapN (or unifying the app onto the pet-daemon) — an infra + security-posture change my delegation excludes.
+>
+> Question on [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58): authorize exposing endo-daemon.service over a public OCapN route, or did you intend the app to run on the already-public pet-daemon? I've parked a successor (minion-town-guest-peer-fetch-verify) that owns the peer-fetch verification once you answer.
+>
+> Minor: ACCOUNT_GATE_SHARED_SECRET is unset on the box (pre-existing; affects /account too) — external traffic still fully oauth2-proxy-gated, but worth provisioning the loopback gate token now that a capability is disclosed.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1511,8 +1521,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.7M | $762.95 _(notional, rate-card)_ | no quota set |
-| Codex | 51.0M _(+1890.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 113.8M | $764.40 _(notional, rate-card)_ | no quota set |
+| Codex | 51.0M _(+1890.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1647,6 +1657,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-immutable-arraybuffer-hardened262-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-immutable-arraybuffer-hardened262-coverage.md) — _normal_ · Extend hardened test262 coverage to every immutable-arraybuffer method
 - [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-marshal-passables-equal-ava-operator.md) — _normal_ · ava context patch: byteArray-aware passablesEqual operator
 - [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — _normal_ · Design/plan: migrate remaining agents to agentry; scuttle the lal providers
+- [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify.md) — _normal_ · Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`explore-ironhorse-promise-chain-shortening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/explore-ironhorse-promise-chain-shortening.md) — _low_ · Explore: promise resolution chain shortening in Ironhorse
 - [`explore-ironhorse-ptc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/explore-ironhorse-ptc.md) — _low_ · Explore: Proper Tail Calls (PTC) in Ironhorse
