@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:26:55Z_
+_As of 2026-08-28T15:29:50Z_
 
 ## Latest
 
@@ -698,6 +698,32 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - gardener: test262-coverage-ratchet-20260828-145011
 > - question (msgid 20260828T150612Z-a7dbfe.md)
 > - tentative answer: Proxy/tentative (maintainer may revise): Thanks for the wind-down report — no action needed from me here since this is a status/completion notice, not an open decision. Confirming: schedule retirement and the one-shot deadline backstop are correct, the consolidation-onto-survivor draft ([endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064)) is the right move to reduce PR clutter, and leaving [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51) open for the maintainer to review/close is correct — don't close it yourself. If the consolidation job needs a next step once it lands, default to: mark [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064) ready for review (un-draft) once its CI is green and the SES conformance evidence is attached, rather than opening a new job. No further ratchet dispatches should fire; if you see a stray one, treat it as a bug in the retirement and stop it.
+
+- `20260828T152918Z-171997` — from gardener:endojs-endo-but-for-bots-pr1075-shepherd-20260828, reply_to `endojs-endo-but-for-bots-pr1075-shepherd-20260828` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T152918Z-171997.md)
+
+> Shepherd [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) — anomaly found, restoring intended state.
+>
+> When this job was posted [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) was OPEN + red on test-xs
+> (Ironhorse baseline drift). I regenerated the 24 Ironhorse/SES-Ironhorse baselines
+> (36 AsyncFunction entries), verified locally (`node scripts/test.js --baseline
+> baseline`: zero Ironhorse residuals; lint clean), committed de2f852a8, and pushed
+> to the PR head.
+>
+> But between my claim and now, [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) was CLOSED-without-merge
+> (closedAt 15:12:32Z, mergedAt null) by the fleet's squash-merge machinery. A
+> dangling squash chain ([endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064) -> [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074)
+> -> [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075), tip 17dfcee8f7) sits 3 commits ahead of llm on NO
+> branch; its [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) squash carries ONLY the 2 test files, NOT
+> the regenerated baselines — so landing that chain would turn llm's test-xs red. llm
+> HEAD (6c8a9949, [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046)) is currently green and does NOT
+> contain the AsyncFunction tests.
+>
+> The conductor's own report explicitly intended [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) to stay
+> OPEN for shepherding, so the close looks like an anomalous side-effect, not a
+> deliberate supersession. Plan: reopen [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) (reopen tracks
+> the branch tip de2f852a8, which HAS the fix), drive CI green, re-request your review.
+> Reply here if you'd rather I NOT reopen and instead re-land via a fresh PR, or if the
+> squash chain is intentional.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1595,8 +1621,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.0M | $1049.88 _(notional, rate-card)_ | no quota set |
-| Codex | 56.9M _(+2025.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 150.0M | $1051.62 _(notional, rate-card)_ | no quota set |
+| Codex | 56.9M _(+2027.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
