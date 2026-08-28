@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T07:38:41Z_
+_As of 2026-08-28T07:44:41Z_
 
 ## Latest
 
@@ -1548,8 +1548,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.2M | $804.89 _(notional, rate-card)_ | no quota set |
-| Codex | 52.9M _(+1917.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 121.1M | $803.82 _(notional, rate-card)_ | no quota set |
+| Codex | 53.0M _(+1917.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1562,20 +1562,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-gauntlet-20260828-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1074
+- [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1075
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`test262-coverage-ratchet-20260828-073506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-073506.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5852)
+### tada (5853)
+- [`test262-coverage-ratchet-20260828-073506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260828-073506.md) — Completion report
 - [`xs2rust-endor-press-20260828-073506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-073506.md) — Completion report — xs2rust-endor-press-20260828-073506
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260828-032006.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1-20260828-0...
 - [`ocapn-cbor-noise-press-20260828-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-cbor-noise-press-20260828-072005.md) — Completion report
 - [`minion-town-press-20260828-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-072005.md) — Cost
-- [`daily-progress-summary-20260828-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260828-070506.md) — Cost
-- … and 5847 more
+- … and 5848 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
