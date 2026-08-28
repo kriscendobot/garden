@@ -85,3 +85,13 @@ once on issue #58 + the maintainer inbox and then just check for the answer on
 later ticks; never manufacture busywork to look productive while blocked.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T04:53:15Z
