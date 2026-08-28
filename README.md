@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:04:35Z_
+_As of 2026-08-28T15:05:49Z_
 
 ## Latest
 
@@ -1601,14 +1601,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.0M | $1048.33 _(notional, rate-card)_ | no quota set |
-| Codex | 56.3M _(+2010.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 150.0M | $1049.50 _(notional, rate-card)_ | no quota set |
+| Codex | 56.4M _(+2010.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endo-but-for-bots-consolidate-test262-ratchet-prs-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-consolidate-test262-ratchet-prs-20260828.md) — ---
@@ -1624,6 +1624,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`test262-coverage-ratchet-20260828-145011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-145011.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
+- [`test262-ratchet-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-ratchet-deadline.md) — Retire the test262-coverage ratchet — deadline reached (Friday 8 Pacific)
 - [`xs2rust-endor-press-20260828-145011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-145011.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (5934)
