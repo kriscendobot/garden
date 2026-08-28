@@ -27,3 +27,13 @@ Guards (the reconciler already enforced these; re-verify before merging):
 PR: https://github.com/kriscendobot/minion.town/pull/29
 Head: kriscendobot/minion.town (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T17:55:37Z
