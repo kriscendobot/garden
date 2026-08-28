@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:38:38Z_
+_As of 2026-08-28T15:47:05Z_
 
 ## Latest
 
@@ -728,6 +728,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
+
+- `20260828T154644Z-4559bc` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T154644Z-4559bc.md)
+
+> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr1075-shepherd-20260828, msgid 20260828T152918Z-171997.md — Reopening a closed GitHub PR is an outward-facing state change in the same class as closing/merging (explicitly reserved), and here it also requires judging whether the fleet's squash-merge machinery closed #1075 deliberately (superseded by the dangling chain) or anomalously — a call on intent/authority the proxy shouldn't make on the maintainer's behalf.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1625,8 +1629,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.9M | $1049.54 _(notional, rate-card)_ | no quota set |
-| Codex | 57.1M _(+2035.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 149.9M | $1049.66 _(notional, rate-card)_ | no quota set |
+| Codex | 57.2M _(+2042.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
