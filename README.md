@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T17:06:50Z_
+_As of 2026-08-28T17:09:08Z_
 
 ## Latest
 
@@ -702,6 +702,24 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
+
+- `20260828T170849Z-bdfae2` — from gardener:xs2rust-endor-press-20260828-170506, reply_to `xs2rust-endor-press-20260828-170506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T170849Z-bdfae2.md)
+
+> Ironhorse press (17:05): three fronts green; one stalled PR needs your call.
+>
+> GREEN/no-action: compartment-mapper campaign complete (no orch, no halt); [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064), [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075), [endojs/endo-but-for-bots#1039](https://github.com/endojs/endo-but-for-bots/issues/1039) all 24/24; endor-git-bindings [kriscendobot/endo-but-for-bots#4](https://github.com/kriscendobot/endo-but-for-bots/issues/4) unchanged (only the non-gating windows-gnu-zig-probe red).
+>
+> STALLED — [endojs/endo-but-for-bots#1059](https://github.com/endojs/endo-but-for-bots/issues/1059) (feat(ironhorse)!: snapshot store seam, DRAFT, CONFLICTING):
+> kumavis requested changes (9 blocking fail-closed findings). Both owning jobs are now DOOMED, awaiting your go-ahead in plan/:
+>   - fix-...-pr1059-failclosed: requeue-exhausted (5 cycles)
+>   - ...-pr1059-rebase-20260828: deadline-overrun
+>
+> Root cause is NOT task-impossibility: the git log shows garden2 hermit-1 (local model) claimed the fixer 5x and died each time with "transient handler kill". It is a deep Rust snapshot/persistence fix (9 findings + a maintainer-facing centralized-validator design question) being repeatedly grabbed by a free local hermit at minion tier that cannot complete it and crashes.
+>
+> I did NOT blind re-resume (per the press circuit-breaker). Options for you:
+>   1. Promote the fixer at a capable tier (mentor+, not the free hermit) — directly fixes the tier mismatch.
+>   2. Park it pending your decision on the reviewer's proposed centralized-validator pipeline redesign (the fix body flags it as a design fork).
+> Say the word and I will re-post at the tier you pick, or file a designer handoff for the validator pipeline.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1599,16 +1617,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.8M | $1049.84 _(notional, rate-card)_ | no quota set |
-| Codex | 57.4M _(+2051.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 149.9M | $1050.39 _(notional, rate-card)_ | no quota set |
+| Codex | 57.3M _(+2050.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
-- [`deadmail-issue-comment-5455371626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5455371626.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
@@ -1622,13 +1639,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`test262-coverage-ratchet-20260828-145011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-145011.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`xs2rust-endor-press-20260828-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5946)
+### tada (5947)
+- [`deadmail-issue-comment-5455371626`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5455371626.md) — Cost
 - [`xs2rust-endor-press-20260828-160506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-160506.md) — Completion report — Ironhorse press (xs2rust-endor-press-20260828-160506)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr1075-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1075-shepherd-20260828.md) — Cost
 - [`minion-town-press-20260828-153506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-153506.md) — Cost
-- [`ocapn-cbor-noise-press-20260828-153506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-cbor-noise-press-20260828-153506.md) — Completion report
-- … and 5941 more
+- … and 5942 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
