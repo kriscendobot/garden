@@ -87,3 +87,13 @@ pushing the deletion as a normal CAS commit (so it never re-fires):
 Until a stop condition holds, keep pressing serially, one slice per engagement.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T15:03:25Z
