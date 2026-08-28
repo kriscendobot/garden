@@ -84,12 +84,4 @@ approve/merge/deploy, which is delegated. If blocked on such a decision, ask
 once on issue #58 + the maintainer inbox and then just check for the answer on
 later ticks; never manufacture busywork to look productive while blocked.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-28T00:50:33Z
+<!-- garden-reaped: 1 -->
