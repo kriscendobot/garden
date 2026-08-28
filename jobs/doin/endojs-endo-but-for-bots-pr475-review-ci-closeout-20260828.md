@@ -9,6 +9,7 @@ The review nits and full retcon are pushed at `d4c308872`; inline replies `38766
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
