@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-28T14:43:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-28T14:43:03Z
+---
+
+---
 role: fixer
 dispatch: automatic
 tier: minion
@@ -105,16 +123,3 @@ message bus rather than unilaterally landing a large refactor in this fix pass.
 - Inline thread replies citing addressing SHAs + a top-level summary comment
   (head SHA, what changed, what was declined and why, verification status).
 - CI green before re-requesting review from kumavis.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-28T14:33:08Z
