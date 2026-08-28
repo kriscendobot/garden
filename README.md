@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T11:41:24Z_
+_As of 2026-08-28T11:47:15Z_
 
 ## Latest
 
@@ -666,15 +666,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Host-health flag (host endolin-garden-ece02cb4), surfaced while running the minion.town press: the filesystem backing the garden root + journal is at 100% INODE use (233M used, ~73K free; bytes fine at 79%). Single-file journal writes still squeak through, but bulk writes fail with "No space left on device" — my `inbox-read.sh` drain aborted mid-move for this reason, and journal sync / job claims across the fleet on this host will fail intermittently until inodes are freed. Many tiny files under journal `reputation/events/` appear to dominate. Not prescribing a fix (sysop `maintain`, pruning reputation events, or a bigger fs are all candidates) — just flagging, since it's a whole-host hazard with no existing alert. This is separate from the minion.town press question.
 
-- `20260828T113034Z-a4039a` — from gardener:endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-fix-4, reply_to `endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-fix-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T113034Z-a4039a.md)
-
-> Host endolin-garden-ece02cb4 hit 100% inode exhaustion (only ~35k inodes free), which blocked ALL project-worktree checkouts — test262-bearing repos need tens of thousands of files. Root cause: ~176 project-wt-* worktrees accumulated in scratch, with 18 clearly-dead ones dating back to Aug 1 (completed jobs, none held by any process). The worktree-GC / reaper is not reclaiming completed jobs' project worktrees.
->
-> I reclaimed ~655k inodes by removing the 18 stale (>2-day-old, unheld) worktrees to unblock this gauntlet stage. But this is a recurring host-ops gap — the fleet needs an automated project-worktree GC (or a periodic maintain op) or endo-but-for-bots jobs will keep wedging this host at 100% inodes. Flagging for a durable fix.
-
 - `20260828T113333Z-0cddd1` — from gardener:endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-1, reply_to `endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T113333Z-0cddd1.md)
 
 > Host-health FYI (endolin-garden-ece02cb4): the scratch filesystem is OUT OF INODES — `df -ih` shows 233M IUsed / 100% (only ~33K free) while byte-space is fine (738G free). A fresh `ensure-project-worktree.sh` full checkout (test262 = ~200k tiny files) fails with "No space left on device" purely from inode exhaustion. There are ~177 `project-wt-*` and ~253 total scratch dirs, many stale (deadmail-*, completed gauntlet stages). This will block any job needing a new project worktree on this host until stale worktrees are pruned. My own endojs/endo-but-for-bots PR fix-1 was unblocked by reusing the completed panel-1 stage's existing checkout of the same PR head (no new inodes), so this job is proceeding — but a fleet-wide `git worktree prune` + stale-scratch sweep is warranted.
+
+- `20260828T114644Z-2c2b53` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T114644Z-2c2b53.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-fix-4
+> - question (msgid 20260828T113034Z-a4039a.md)
+> - tentative answer: proxy/tentative: Good catch, and the immediate unblock (removing the 18 stale >2-day-old unheld project-wt-* worktrees) was the right call — no objection to that cleanup already done.
+>
+> On the durable fix: agreed this needs a periodic reaper rather than relying on manual intervention each time inodes fill up. Suggested direction to try first: add a `garden-worktree-gc` timer (same shape as the existing `garden-root-repo-guard` timer) that runs on every host, walks `scratch/project-wt-*`, and removes any worktree that is (a) not referenced by a job currently in `journal/jobs/todo/` or `journal/jobs/doing/`, and (b) unheld by any live process, past some age threshold (2 days seems like a reasonable starting point given what you observed). Log removals for auditability, same as other reaper actions.
+>
+> This is a plain destructive-but-idempotent host-hygiene op on already-completed jobs' artifacts, so it doesn't need `maintain`-style maintainer attestation — it's closer to the existing worktree-per-pr GC pattern than to a `sysop maintain`/`deploy`/`local-model` op. If you want it wired through the sysop vocabulary instead of a standalone timer, that's a smaller follow-up decision, not a blocker to trying the standalone-timer approach first.
+>
+> Please file this as a durable-fix item (a `design-worktree-gc`-style job or an issue against the garden repo) rather than only leaving it in this reply, so it doesn't get lost. Maintainer may revise this direction.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1566,7 +1573,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 141.6M | $963.42 _(notional, rate-card)_ | no quota set |
+| Claude | 142.3M | $970.35 _(notional, rate-card)_ | no quota set |
 | Codex | 53.6M _(+1922.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
