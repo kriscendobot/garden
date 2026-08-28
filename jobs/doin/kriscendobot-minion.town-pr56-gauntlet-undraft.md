@@ -22,3 +22,13 @@ You are the FINAL stage of a staged gauntlet (kriscendobot-minion.town-pr56-gaun
 
 END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T00:47:22Z
