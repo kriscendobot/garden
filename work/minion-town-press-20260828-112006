@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 4
+worker_kind: monk
+claimed_at: 2026-08-28T11:20:17Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-press-20260828-112006
