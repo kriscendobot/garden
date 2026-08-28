@@ -26,3 +26,13 @@ re-derived from the Cognito console each time. Flag clearly that the
 guest behind this client is a SHARED test identity (already held 19 pet
 names from other test runs when checked) — not private, not durable
 for real user data.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T01:29:44Z
