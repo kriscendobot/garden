@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T18:43:43Z_
+_As of 2026-08-28T18:47:00Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 2h)
-- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 15h)
+- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 16h)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 30d)
@@ -762,32 +762,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
-
-- `doomed-endojs-endo-but-for-bots-pr1038-fix-20260828-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1038-fix-20260828-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1038-fix-20260828; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr1038-fix-20260828) or removes it.
-> Original job base: endojs-endo-but-for-bots-pr1038-fix-20260828
->
-> --- original job body ---
-> ---
-> role: fixer
-> tier: mentor
-> dispatch: automatic
-> fallback-tier: minion
-> ---
->
-> # Revalidate endojs/endo-but-for-bots PR #1038 after post-approval head movement
->
-> The conductor backstop found that the current head 41cd489f30cc587e5a2d8296dfc81955da744ff3 was pushed after kriskowal approved 470c5957c5f668b9814f58bd86d45829dd748360. The originating conduct job explicitly requires approval on the exact head and directs a fixer/shepherd dispatch on regression.
->
-> Inspect the post-approval delta (currently the fixup commit), verify it is coherent and checks remain green, and leave the branch ready for a fresh maintainer approval. Do not merge. Bot repo only: endojs/endo-but-for-bots.
->
-> PR: [https://github.com/endojs/endo-but-for-bots/pull/1038](https://github.com/endojs/endo-but-for-bots/pull/1038)
 
 - `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
 
@@ -1645,7 +1619,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.7M | $1066.45 _(notional, rate-card)_ | no quota set |
+| Claude | 151.7M | $1068.79 _(notional, rate-card)_ | no quota set |
 | Codex | 58.2M _(+2063.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
