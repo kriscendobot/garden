@@ -104,3 +104,13 @@ message bus rather than unilaterally landing a large refactor in this fix pass.
 - Inline thread replies citing addressing SHAs + a top-level summary comment
   (head SHA, what changed, what was declined and why, verification status).
 - CI green before re-requesting review from kumavis.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T11:59:38Z
