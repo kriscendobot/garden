@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":28,"elapsed_s":599,"input_tokens":51,"output_tokens":38575,"cache_creation_tokens":83922,"cache_read_tokens":1969910,"total_cost_usd":2.7918370000000006,"ts":"2026-08-28T14:19:59Z","base":"fix-worktree-scratch-inode-exhaustion-20260828","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
