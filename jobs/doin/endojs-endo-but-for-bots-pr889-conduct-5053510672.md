@@ -39,3 +39,13 @@ Post the required PR completion summary with the final head, check evidence,
 and merged-state evidence. If a genuine gate other than the deliberately
 removed exact-head approval freshness rule blocks the merge, report the exact
 gate and emit the orchestration-failure signal before completing this child.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T17:55:11Z
