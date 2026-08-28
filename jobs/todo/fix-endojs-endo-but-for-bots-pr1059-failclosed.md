@@ -1,8 +1,9 @@
 ---
 role: fixer
 dispatch: automatic
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 ---
 # fix: address kumavis's fail-closed persistence review on endojs/endo-but-for-bots PR #1059
 
@@ -105,13 +106,4 @@ message bus rather than unilaterally landing a large refactor in this fix pass.
   (head SHA, what changed, what was declined and why, verification status).
 - CI green before re-requesting review from kumavis.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-28T11:59:38Z
+<!-- garden-reaped: 0 -->
