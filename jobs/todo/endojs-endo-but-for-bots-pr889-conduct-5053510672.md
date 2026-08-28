@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr889-approval-guard-removal-5053510672
-priority: urgent
 role: conductor
-posted_by: gardener
-posted_at: 2026-08-28T17:36:15Z
+tier: mentor
+handler-budget-role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-08-28T17:55:04Z cleared=none -->
 
 ---
 role: conductor
