@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:07:11Z_
+_As of 2026-08-28T15:08:30Z_
 
 ## Latest
 
@@ -698,6 +698,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - Whole-corpus 90% target NOT reached; last authoritative checkpoint stands at 23,496/51,976 (2026-08-14). This run moved the hardened262 surface, not the whole-corpus Ironhorse/XS number.
 > - Residuals for future whole-corpus work: RegExp Unicode, TypedArray/ArrayBuffer (engine), exotic MOP, runtime eval/dynamic import (Intl deferred); plus an xs/module Compartment globalThis defaults flake to investigate.
 > - Full summary on the issue: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5454176004 (left open for you to close).
+
+- `20260828T150807Z-1a5653` — from gardener:test262-ratchet-deadline, reply_to `test262-ratchet-deadline` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T150807Z-1a5653.md)
+
+> Ratchet already wound down on the maintainer deadline; the recurring schedule is absent from `journal2`, and the final summary is at [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5454176004.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1595,8 +1599,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.0M | $1049.41 _(notional, rate-card)_ | no quota set |
-| Codex | 56.4M _(+2011.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 150.0M | $1050.33 _(notional, rate-card)_ | no quota set |
+| Codex | 56.5M _(+2012.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
