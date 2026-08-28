@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T14:14:24Z_
+_As of 2026-08-28T14:17:06Z_
 
 ## Latest
 
@@ -687,6 +687,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The repo is under active concurrent pushing (new PRs [kriscendobot/minion.town#62](https://github.com/kriscendobot/minion.town/issues/62) @main indelible worker, [kriscendobot/minion.town#60](https://github.com/kriscendobot/minion.town/issues/60) remote-guest CLI design, [kriscendobot/minion.town#59](https://github.com/kriscendobot/minion.town/issues/59) pluribus TCP, [kriscendobot/minion.town#58](https://github.com/kriscendobot/minion.town/issues/58) browser e2e all opened in the last ~12h; [kriscendobot/minion.town#62](https://github.com/kriscendobot/minion.town/issues/62) just 23m before my claim), so per the press brief I'm deferring rather than manufacturing overlapping work. Remaining § 9 work (unit 4 retire powers-resolver/guards, unit 5 legacy-record disposition + acceptance tests, and CI live-verification via ENDO_CHECKOUT) is real but not blocked on any decision.
 >
 > No decision is required from you on the press itself. The one thing that would help: a yes/no on filing a garden tracker issue for the inbox-clone inode leak (item 1), since that's a fleet-wide infra defect beyond this job's scope.
+
+- `20260828T141612Z-ec5850` — from gardener:endojs-endo-but-for-bots-pr1074-conduct, reply_to `endojs-endo-but-for-bots-pr1074-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T141612Z-ec5850.md)
+
+> Conductor for [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074) (test(hardened262): TypedArray intrinsic metadata):
+>
+> Un-drafted and ran the merge spine. The live `llm` base had advanced ~2500 lines since your approval, so the spine rebased the 8 PR commits onto the current tip. PR content is byte-identical; only the base moved. Fresh CI is now running on the rebased head 49c5223c.
+>
+> Your APPROVED review was on the pre-rebase head 9ee08d49, so it's now stale by the exact-head invariant — the spine will not merge without a current approval. Please re-approve the rebased head (49c5223c) when CI is green; a follow-up conduct job will then merge it. I'll report the stall for this run.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1584,26 +1592,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 148.3M | $1027.01 _(notional, rate-card)_ | no quota set |
-| Codex | 55.1M _(+1955.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 149.2M | $1035.34 _(notional, rate-card)_ | no quota set |
+| Codex | 55.2M _(+1957.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
-- [`endojs-endo-but-for-bots-pr1019-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1019-rebase-20260828.md) — ---
+### todo (2)
 - [`endojs-endo-but-for-bots-pr1076-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1076-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1076
-- [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1078
 - [`fix-endojs-endo-but-for-bots-pr1059-failclosed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1059-failclosed.md) — fix: address kumavis's fail-closed persistence review on endojs/endo-but-for-...
 
-### doin (18)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
+- [`endojs-endo-but-for-bots-pr1019-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-rebase-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1059-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-rebase-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr1074-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1074
 - [`endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-gauntlet-resume-20260828-0935-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1074
 - [`endojs-endo-but-for-bots-pr1075-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1075-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1075
 - [`endojs-endo-but-for-bots-pr1077-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1077-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1077
+- [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1078
 - [`endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1079
 - [`endojs-endo-but-for-bots-pr1079-review-f762ce23`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1079-review-f762ce23.md) — Review directive on endojs/endo-but-for-bots PR #1079
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
@@ -1612,15 +1620,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`xs2rust-endor-press-20260828-135007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-135007.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5922)
+### tada (5923)
+- [`xs2rust-endor-press-20260828-135007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-135007.md) — Cost
 - [`test262-coverage-ratchet-20260828-135007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260828-135007.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-host-inode-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-host-inode-exhaustion.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-refresh.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-669bfeb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-669bfeb8.md) — Completion report — weave endojs/endo-but-for-bots #475
-- [`endojs-endo-but-for-bots-pr1078-review-178a2e75`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1078-review-178a2e75.md) — Completion report
-- … and 5917 more
+- … and 5918 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
