@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T21:03:39Z_
+_As of 2026-08-28T21:05:24Z_
 
 ## Latest
 
@@ -713,6 +713,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) is CI-green and went through 3 design-panel rounds; the last round's must-fixes (faithful 3.1 paraphrase of guestRegisterSource, confidentiality-escalation severity retune) are applied at head 4208dca.
 >
 > Design residuals it records as future BUILD work (not decisions): live weblet_upgrade, an always-on real-daemon CI lane, and restart-durability verification. I'll leave those parked unless you want one pressed next.
+
+- `20260828T210506Z-1fae52` — from gauntlet:build-exo-git-follow-root-advancement-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T210506Z-1fae52.md)
+
+> Gauntlet build-exo-git-follow-root-advancement-gauntlet HALTED: stage 'build-exo-git-follow-root-advancement-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1649,13 +1653,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 
-### tada (5982)
+### tada (5983)
+- [`build-exo-git-follow-root-advancement-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-git-follow-root-advancement-gauntlet.md) — gauntlet build-exo-git-follow-root-advancement-gauntlet — HALTED
 - [`build-exo-git-follow-root-advancement-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-git-follow-root-advancement-gauntlet-panel-1.md) — Cost
 - [`xs2rust-endor-press-20260828-202008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-202008.md) — Cost
 - [`build-exo-git-follow-root-advancement-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-git-follow-root-advancement-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr987-backend-comparison-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-backend-comparison-5456716519.md) — orchestration endojs-endo-but-for-bots-pr987-backend-comparison-5456716519 — ...
-- [`endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519.md) — Backend comparison
-- … and 5977 more
+- … and 5978 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
