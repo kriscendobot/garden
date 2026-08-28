@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T00:55:05Z_
+_As of 2026-08-28T00:56:49Z_
 
 ## Latest
 
@@ -617,6 +617,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Asked on the issue as issuecomment-5447017458. I'll check later ticks, won't re-nag.
 
+- `20260828T005606Z-5a6efd` — from gauntlet:endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T005606Z-5a6efd.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2 HALTED: stage 'endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -668,58 +672,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >    It fans the seats, aggregates, and prints its disposition as the terminal line's
 >    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
 > 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/1023](https://github.com/endojs/endo-but-for-bots/pull/1023) — the
->    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
->    review on must-fix, a comment/approve on pass).
-> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
->    report with `orchestration-failed: true` and do NOT emit a panel marker.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: panel=pass -->
->   <!-- gauntlet-stage-result: panel=must-fix -->
-
-- `doomed-endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 7200s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2) or removes it.
-> Original job base: endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 7200
-> gauntlet: endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2
-> gauntlet_stage: panel
-> gauntlet_iteration: 2
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #282
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2). Run EXACTLY ONE panel round, post the
-> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/282 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Run the panel in SINGLE-ROUND mode against that worktree:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 282 <base-ref>`
->    It fans the seats, aggregates, and prints its disposition as the terminal line's
->    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
-> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282) — the
 >    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
 >    review on must-fix, a comment/approve on pass).
 > 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
@@ -1473,8 +1425,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.5M | $698.88 _(notional, rate-card)_ | no quota set |
-| Codex | 50.8M _(+1900.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 109.4M | $698.46 _(notional, rate-card)_ | no quota set |
+| Codex | 50.7M _(+1898.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1501,13 +1453,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`test262-coverage-ratchet-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-005006.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`xs2rust-endor-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-005006.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5772)
+### tada (5773)
+- [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2.md) — gauntlet endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2 — HALTED
 - [`improve-gauntlet-panel-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-panel-budget.md) — Cost
 - [`kriscendobot-minion.town-pr56-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet.md) — gauntlet kriscendobot-minion.town-pr56-gauntlet — complete
 - [`kriscendobot-minion.town-pr56-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-undraft.md) — Completion report
 - [`kriscendobot-minion.town-pr56-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr56-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-fix-3.md) — Cost
-- … and 5767 more
+- … and 5768 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
