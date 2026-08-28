@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1079
 build_job: test262-coverage-ratchet-20260828-125006
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-clean
+current_child: endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-panel-1
 state: running
 created_by: gardener
 created_at: 2026-08-28T12:59:31Z
