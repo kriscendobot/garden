@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T18:12:34Z_
+_As of 2026-08-28T18:13:23Z_
 
 ## Latest
 
@@ -1619,7 +1619,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.9M | $1058.84 _(notional, rate-card)_ | no quota set |
+| Claude | 150.9M | $1059.11 _(notional, rate-card)_ | no quota set |
 | Codex | 58.1M _(+2063.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
@@ -1642,13 +1642,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`test262-coverage-ratchet-20260828-145011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-145011.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5962)
+### tada (5963)
+- [`endojs-endo-but-for-bots-pr889-approval-guard-removal-5053510672`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-approval-guard-removal-5053510672.md) — orchestration endojs-endo-but-for-bots-pr889-approval-guard-removal-505351067...
 - [`endojs-endo-but-for-bots-pr889-conduct-5053510672`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-conduct-5053510672.md) — Cost
 - [`xs2rust-endor-press-20260828-180507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-180507.md) — Completion report — Ironhorse press (xs2rust-endor-press-20260828-180507)
 - [`kriscendobot-minion.town-pr63-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr63-gauntlet-fix-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1064-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-conduct.md) — Completion report
-- [`kriscendobot-minion.town-pr29-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr29-conduct.md) — Cost
-- … and 5957 more
+- … and 5958 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
