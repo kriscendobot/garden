@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T19:00:23Z_
+_As of 2026-08-28T19:02:38Z_
 
 ## Latest
 
@@ -702,6 +702,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
+
+- `20260828T190206Z-20e993` — from gauntlet:kriscendobot-minion.town-pr63-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T190206Z-20e993.md)
+
+> Gauntlet kriscendobot-minion.town-pr63-gauntlet HALTED: stage 'kriscendobot-minion.town-pr63-gauntlet-panel-4' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1620,7 +1624,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 151.6M | $1064.32 _(notional, rate-card)_ | no quota set |
-| Codex | 58.6M _(+2069.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
+| Codex | 58.6M _(+2072.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1641,13 +1645,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`test262-coverage-ratchet-20260828-145011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-145011.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5969)
+### tada (5970)
+- [`kriscendobot-minion.town-pr63-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr63-gauntlet.md) — gauntlet kriscendobot-minion.town-pr63-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr63-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr63-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr889-0d62e3e5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-0d62e3e5.md) — Cost
 - [`kriscendobot-minion.town-pr63-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr63-gauntlet-fix-3.md) — Completion report
 - [`kriscendobot-minion.town-pr63-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr63-gauntlet-panel-3.md) — Completion report
-- [`kriscendobot-minion.town-pr63-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr63-gauntlet-fix-2.md) — Completion report
-- … and 5964 more
+- … and 5965 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
