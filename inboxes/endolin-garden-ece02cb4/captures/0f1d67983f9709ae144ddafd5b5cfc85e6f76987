@@ -1,0 +1,13 @@
+<6>03:21:17 [jobs] job 'fu-minion-town-containment-gateway-endo-sock-1-20260828-032006' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+Containment drift check completed via SSM (`3e179256-97b6-4970-8eba-ccb8e30039a7`, Success).
+
+- Both originally revoked records remain absent from the active store and present in the revoked directory; the whitespace-immune `@agent` scan found none active. No de-registration was needed.
+- The powers-plane drop-in is intentionally disabled for the active, maintainer-authorized kriscendobot/garden#58 round-trip work: it was renamed `.disabled-issue58`. Its SHA-256 still matches the recorded original.
+- The gateway powers plane is currently enabled. I did not undo the maintainer-authorized opening.
+- Notified the active issue worker of these findings and the daily schedule disposition concern. No maintainer inbox alert was sent because neither record reappeared.
+- No repository changes or commits.
+
+Self-improvement: nothing this time.
