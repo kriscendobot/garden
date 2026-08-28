@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T12:20:59Z_
+_As of 2026-08-28T12:21:41Z_
 
 ## Latest
 
@@ -665,24 +665,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T112730Z-01a7dd` — from gardener:minion-town-press-20260828-112006, reply_to `minion-town-press-20260828-112006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T112730Z-01a7dd.md)
 
 > Host-health flag (host endolin-garden-ece02cb4), surfaced while running the minion.town press: the filesystem backing the garden root + journal is at 100% INODE use (233M used, ~73K free; bytes fine at 79%). Single-file journal writes still squeak through, but bulk writes fail with "No space left on device" — my `inbox-read.sh` drain aborted mid-move for this reason, and journal sync / job claims across the fleet on this host will fail intermittently until inodes are freed. Many tiny files under journal `reputation/events/` appear to dominate. Not prescribing a fix (sysop `maintain`, pruning reputation events, or a bigger fs are all candidates) — just flagging, since it's a whole-host hazard with no existing alert. This is separate from the minion.town press question.
-
-- `20260828T121653Z-93c427` — from gardener:endojs-endo-but-for-bots-pr1079-gauntlet-20260828-panel-1, reply_to `endojs-endo-but-for-bots-pr1079-gauntlet-20260828-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T121653Z-93c427.md)
-
-> HOST INFRA ALERT (endolin-garden-ece02cb4): inode exhaustion is blocking the whole fleet.
->
-> df -i on /home/kris/garden: 244121600 inodes, IUse 100%, only ~5.4k free (falling). Disk space is fine (746G free) — this is INODES, not bytes.
->
-> Impact:
-> - ensure-project-worktree.sh cannot check out any endo-but-for-bots PR head (test262 has tens of thousands of tiny files) -> "No space left on device".
-> - Journal-clone sync is also failing to write (inbox-read/message-bus impaired).
->
-> Root cause is the pile of full project worktrees under scratch/, each carrying a complete test262 checkout (~50k inodes apiece); dozens are present, many likely for completed jobs.
->
-> Requested operator action: reclaim inodes on this host (prune stale `scratch/project-wt-*` worktrees for completed jobs, or run host maintenance/gc). [endojs/endo-but-for-bots#1079](https://github.com/endojs/endo-but-for-bots/issues/1079) gauntlet panel round 1 cannot run until then; this stage is halting rather than fabricating a verdict.
-
-- `20260828T122024Z-64e079` — from gauntlet:endojs-endo-but-for-bots-pr1079-gauntlet-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T122024Z-64e079.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1079-gauntlet-20260828 HALTED: stage 'endojs-endo-but-for-bots-pr1079-gauntlet-20260828-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
