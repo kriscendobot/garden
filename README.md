@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T20:20:49Z_
+_As of 2026-08-28T20:23:22Z_
 
 ## Latest
 
@@ -1630,14 +1630,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1070.81 _(notional, rate-card)_ | no quota set |
+| Claude | 152.9M | $1076.38 _(notional, rate-card)_ | no quota set |
 | Codex | 59.6M _(+2113.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (11)
 - [`build-exo-git-follow-root-advancement-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-git-follow-root-advancement-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1080
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5455406421`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5455406421.md) — Dead-lettered message — pick up its intent
@@ -1649,15 +1649,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`xs2rust-endor-press-20260828-202008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-202008.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5980)
+### tada (5981)
+- [`xs2rust-endor-press-20260828-202008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-202008.md) — Cost
 - [`build-exo-git-follow-root-advancement-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-git-follow-root-advancement-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr987-backend-comparison-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-backend-comparison-5456716519.md) — orchestration endojs-endo-but-for-bots-pr987-backend-comparison-5456716519 — ...
 - [`endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-libgit2-probe-5456716519.md) — Backend comparison
 - [`minion-town-press-20260828-193506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-193506.md) — Cost
-- [`endojs-endo-but-for-bots-pr987-gix-probe-5456716519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-gix-probe-5456716519.md) — Completion report
-- … and 5975 more
+- … and 5976 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
