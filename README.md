@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:35:46Z_
+_As of 2026-08-28T03:37:50Z_
 
 ## Latest
 
@@ -631,30 +631,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Minor: ACCOUNT_GATE_SHARED_SECRET is unset on the box (pre-existing; affects /account too) — external traffic still fully oauth2-proxy-gated, but worth provisioning the loopback gate token now that a capability is disclosed.
 
-- `20260828T033525Z-408de4` — from gardener:endojs-endo-but-for-bots-pr475-conduct-20260828, reply_to `endojs-endo-but-for-bots-pr475-conduct-20260828` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T033525Z-408de4.md)
+- `20260828T033720Z-cd5f2f` — from orchestrator:endojs-endo-but-for-bots-pr475-retcon-conduct-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T033720Z-cd5f2f.md)
 
-> conduct [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) — STALLED, needs your formal approval.
->
-> The retcon completed; the PR head is now the clean retconned history 16656d8d
-> (feat/narrow-bytearray-to-uint8). But the conductor cannot merge:
->
->   • reviewDecision = CHANGES_REQUESTED — your last review (2026-08-27 22:06,
->     "Please address these nits then retcon.") is still the active verdict and is
->     an absolute merge veto in the ci-wait-merge spine.
->   • No allowlist APPROVED review exists on the retconned head. Your "Retcon and
->     conduct." issue comment (2026-08-28 03:18) is a directive, not a GitHub
->     Approve review — a head-rewriting retcon makes any prior signature stale by
->     design, and there is no prior APPROVED here in any case.
->
-> To land it: review the retconned head 16656d8d and submit a GitHub *Approve*
-> (which also clears the CHANGES_REQUESTED). Then re-issue "conduct
-> [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)" and a conductor will unfreeze llm-e22e67a → live
-> llm, rebase, wait for green CI, and merge on the fresh approval.
->
-> I did NOT rebase/rewrite the head — you asked for the retcon so you could review
-> that exact clean history, so I left 16656d8d untouched for your review rather
-> than replacing it under you. (CI on it is currently still in flight; that is
-> moot until the approval exists.)
+> Orchestration endojs-endo-but-for-bots-pr475-retcon-conduct-20260828 HALTED: child endojs-endo-but-for-bots-pr475-conduct-20260828 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1546,14 +1525,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.3M | $752.66 _(notional, rate-card)_ | no quota set |
-| Codex | 51.7M _(+1898.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 114.3M | $752.05 _(notional, rate-card)_ | no quota set |
+| Codex | 51.7M _(+1899.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (21)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
@@ -1563,9 +1542,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-12b9ebb7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-12b9ebb7.md) — attention directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828.md) — Fix Ironhorse test-ironhorse regression: snapshot golden-vector hash stale af...
+- [`endojs-endo-but-for-bots-pr1064-08da6661`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-08da6661.md) — attention directive on endojs/endo-but-for-bots PR #1064
 - [`endojs-endo-but-for-bots-pr1072-review-73226ec0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-73226ec0.md) — Review directive on endojs/endo-but-for-bots PR #1072
+- [`endojs-endo-but-for-bots-pr1072-review-bb54af10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-bb54af10.md) — Review directive on endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr1073-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1073-gauntlet-20260828-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1073
-- [`endojs-endo-but-for-bots-pr475-conduct-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-conduct-20260828.md) — conduct (merge) endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr1073-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1073-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1073
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260828-032006.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
@@ -1574,13 +1555,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
-### tada (5810)
+### tada (5812)
+- [`endojs-endo-but-for-bots-pr475-retcon-conduct-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-retcon-conduct-20260828.md) — orchestration endojs-endo-but-for-bots-pr475-retcon-conduct-20260828 — HALTED
+- [`endojs-endo-but-for-bots-pr475-conduct-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-conduct-20260828.md) — Completion report
 - [`test262-coverage-ratchet-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260828-032006.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-retcon-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-retcon-20260828.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1070-269933ea`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1070-269933ea.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-3182bf7e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-3182bf7e.md) — Completion report
-- [`xs2rust-endor-press-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-032006.md) — Completion report — xs2rust-endor-press-20260828-032006
-- … and 5805 more
+- … and 5807 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1725,6 +1706,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-508512a2-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-508512a2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1046 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1046-041d3163-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1046-041d3163-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1046 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1072-review-73226ec0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1072-review-73226ec0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1072-review-bb54af10-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1072-review-bb54af10-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
