@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T00:13:51Z_
+_As of 2026-08-28T00:14:57Z_
 
 ## Latest
 
@@ -1474,15 +1474,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.9M | $698.95 _(notional, rate-card)_ | no quota set |
-| Codex | 51.1M _(+1959.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 108.5M | $687.63 _(notional, rate-card)_ | no quota set |
+| Codex | 51.1M _(+1958.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
-- [`build-continuous-ironhorse-fuzz-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-continuous-ironhorse-fuzz-service.md) — Build a continuous Ironhorse fuzzing service and remove fuzzing from pull-req...
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
@@ -1503,13 +1502,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5756)
+### tada (5757)
+- [`build-continuous-ironhorse-fuzz-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-continuous-ironhorse-fuzz-service.md) — Resume verification report
 - [`kriscendobot-minion.town-pr56-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827.md) — gauntlet endojs-endo-but-for-bots-pr1067-gauntlet-20260827 — complete
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-undraft.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-3.md) — Completion report
-- [`kriscendobot-minion.town-pr56-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-panel-2.md) — Cost
-- … and 5751 more
+- … and 5752 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
