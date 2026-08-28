@@ -106,15 +106,17 @@ PR, `ci-wait-merge.sh` owns this deterministic sequence:
 5. at terminal green, repeat the live-base/rebase check; a moved base invalidates
    the green result and sends the new head back through stage 4;
 6. route red on the current head to `ci red: needs shepherd`; otherwise enforce
-   `CHANGES_REQUESTED` and the ordinary exact-current-head maintainer approval
-   (the scoped Dependabot path omits only this signature);
+   `CHANGES_REQUESTED` and the ordinary **effective** maintainer approval (a
+   still-standing `APPROVED`, per the 2026-08-28 amendment no longer required to
+   be on the current head; the scoped Dependabot path omits only this signature);
 7. apply stacked-branch retention, merge, and verify the post-merge state.
 
-A safe rebase that changes HEAD deliberately makes an ordinary approval stale.
-The spine never treats a clean replay as signature-preserving: the maintainer
-approves the rebased commit identity on a later invocation, whose freshness check
-is a no-op unless the base genuinely moved again. This ordering is specified in
-[conductor-rebase-before-merge](conductor-rebase-before-merge.md).
+A safe rebase that changes HEAD still binds CI-green to the post-rebase head, but
+(per the 2026-08-28 approval-freshness-guard removal, endojs/endo-but-for-bots#889)
+it **no longer stales the maintainer's approval**: a still-effective `APPROVED`
+authorizes the rebased head without a re-approval round trip. Only a dismissal or
+a later `CHANGES_REQUESTED` revokes it. This ordering — and the amendment — is
+specified in [conductor-rebase-before-merge](conductor-rebase-before-merge.md).
 
 ## Build handoff invariant
 

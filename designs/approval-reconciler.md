@@ -37,8 +37,10 @@ enumerate the repo's OWN open PRs (authoritative paginated REST — the shared
     approval read — a fresh approval bumps updated_at, so newly-approved PRs are
     always in-window (steady-state API thrift)
   → board dedup FIRST (no API): a conductor already tracked for the PR → skip
-  → require a CURRENT trusted-MAINTAINER approval on the EXACT head SHA
-    (pr-maintainer-approval-gh.sh) — stale/untrusted approvals do NOT count
+  → require an EFFECTIVE trusted-MAINTAINER approval (pr-maintainer-approval-gh.sh)
+    — a still-standing APPROVED, even on an earlier head (the exact-current-head
+    freshness guard was removed 2026-08-28); dismissed, CHANGES_REQUESTED-superseded,
+    and untrusted approvals do NOT count
   → reuse the event watcher's EXACT eligibility probe (pr-mergeable-gh.sh):
       rc 0  ready  → post <slug>-pr<N>-conduct (conductor un-drafts + merges)
       rc 2  merged/closed → nothing
@@ -52,7 +54,7 @@ invented:
 - `is_bot_repo` (denylist-by-default; agoric/agoric-sdk and endojs/endo upstream
   denied, the garden's own repo denied ahead of the bot-fork rule). The reconciler
   **never** interacts with or links to upstream `agoric/agoric-sdk`.
-- `pr-maintainer-approval-gh.sh` — the exact **approval-on-current-head** authority
+- `pr-maintainer-approval-gh.sh` — the same **effective-maintainer-approval** authority
   the merge spine `ci-wait-merge.sh` independently requires. Anchoring here (on
   `maintainers/allowlist`, stricter than the comment watcher's broader `is_trusted`
   trigger) guarantees a conductor the reconciler posts can **actually merge** — it
@@ -109,7 +111,8 @@ repo-gone error deactivates gracefully with one maintainer alert, mirroring
 
 `scripts/jobs/test/approval-reconciler-test.sh` is hermetic (no GitHub; the PR
 source, approval gate, and mergeable probe are stubbed) and covers: missed event →
-conductor; stale approval after head movement; event/sweep race; manual job under a
+conductor; a refused approval (approval gate nonzero: dismissed/CHANGES_REQUESTED/
+untrusted) → no job; event/sweep race; manual job under a
 different basename; red CI → shepherd; draft PR → conductor; untrusted approver;
 non-bot PR; merged/closed; shepherd dedup; leader/follower gating; non-bot repo slug.
 

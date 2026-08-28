@@ -10,8 +10,10 @@
 # Asserts (the job brief's required cases):
 #   A. MISSED EVENT — a bot PR with a current maintainer approval on head that is
 #      mergeable+green → exactly one <slug>-pr<N>-conduct job (no maintainer comment)
-#   B. STALE APPROVAL after head movement — approval handler returns nonzero (its
-#      commit_id != head) → no job
+#   B. NO EFFECTIVE APPROVAL — approval handler returns nonzero (dismissed, superseded
+#      by a later CHANGES_REQUESTED, or untrusted) → no job. (Note: an approval on an
+#      EARLIER head is NOT stale — the freshness guard was removed — so the handler
+#      returns 0 for it; this case pins that a genuine refusal still suppresses a job.)
 #   C. EVENT/SWEEP RACE — a <slug>-pr<N>-conduct already live on the board →
 #      idempotent (still exactly one conductor, no duplicate)
 #   D. MANUAL JOB, DIFFERENT BASENAME — a hand-named conductor job that references
@@ -146,13 +148,13 @@ if board_has "$BARE" "$SLUG-pr885-conduct" && [ "$(lane_count "$BARE" todo "cond
 else bad "expected exactly one $SLUG-pr885-conduct"; fi
 
 # ============================================================================
-hr; echo "B. STALE APPROVAL after head movement — approval gate nonzero → no job"; hr
+hr; echo "B. NO EFFECTIVE APPROVAL — approval gate nonzero → no job"; hr
 BARE="$TR/b.git"; seed_bare "$BARE"
 FIX="$TR/b.tsv"; prline 885 kriscendobot "$BOThead" > "$FIX"
-run_ar "$TR/sb" "$BARE" "$FIX" "885=1" "885=0"   # approval nonzero (stale/no current head)
+run_ar "$TR/sb" "$BARE" "$FIX" "885=1" "885=0"   # approval nonzero (dismissed/CR/untrusted)
 if ! board_has "$BARE" "$SLUG-pr885-conduct"; then
-  ok "no conductor when the approval is not on the current head"
-else bad "stale approval should not dispatch a conductor"; fi
+  ok "no conductor when there is no effective maintainer approval"
+else bad "a refused approval should not dispatch a conductor"; fi
 
 # ============================================================================
 hr; echo "C. EVENT/SWEEP RACE — a conductor already live → no duplicate"; hr

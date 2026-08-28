@@ -297,8 +297,10 @@ pile shrank, not which corpses were buried.
 **2. Classify.** Group what survives by what it *wants*, since that is what
 determines the maintainer's next keystroke. The recurring classes:
 
-- **Approval-gated.** A conductor stalled for want of a fresh APPROVED review on
-  a current head. Cheapest to clear and usually the largest class.
+- **Approval-gated.** A conductor stalled for want of an effective APPROVED review
+  by a journal maintainer (the approval need not be on the current head — a rebase
+  or push no longer stales it; a dismissal or a later CHANGES_REQUESTED does).
+  Cheapest to clear and usually the largest class.
 - **Decision-gated.** A design fork, a supersession, a retire-or-rescope
   recommendation. Genuinely needs judgment, so this is where the session's
   attention should go.

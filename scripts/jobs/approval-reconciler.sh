@@ -38,9 +38,10 @@
 #         approved PRs are always in-window (steady-state API thrift)
 #       → board dedup FIRST (no API): if a conductor is already tracked for the PR
 #         (any basename), the finalization is handled — skip, saving the read
-#       → require a CURRENT trusted-MAINTAINER approval on the EXACT head SHA
-#         (pr-maintainer-approval-gh.sh) — stale approvals (approval commit_id !=
-#         current head) and untrusted approvers do NOT count
+#       → require an EFFECTIVE trusted-MAINTAINER approval (pr-maintainer-approval-gh.sh)
+#         — a still-standing APPROVED from a journal maintainer authorizes even after
+#         the head moved; a GitHub-dismissal, a later CHANGES_REQUESTED, and untrusted
+#         approvers do NOT count
 #       → reuse the event watcher's EXACT eligibility probe (pr-mergeable-gh.sh):
 #           rc 0  ready (open+mergeable+green+approved)      → post the conductor
 #           rc 2  already merged/closed                      → nothing to do
@@ -51,8 +52,8 @@
 # ── Reuse, not reinvention ───────────────────────────────────────────────────
 # Every gate is the SAME code the event path already trusts: is_bot_repo (this
 # file), the bot-author gate (this file), pr-maintainer-approval-gh.sh (the exact
-# approval-on-current-head authority the merge spine ci-wait-merge.sh independently
-# requires), and pr-mergeable-gh.sh (the draft/mergeable/CI/approval rollup the
+# effective-maintainer-approval authority the merge spine ci-wait-merge.sh
+# independently requires), and pr-mergeable-gh.sh (the draft/mergeable/CI/approval rollup the
 # comment watcher's GARDEN_PR_MERGEABLE points at). We invent NO weaker gate. The
 # reconciler is deliberately at least as strict as the merge authority: it anchors
 # on maintainers/allowlist (not the broader is_trusted set the comment watcher's
@@ -92,7 +93,7 @@
 #
 # The per-PR I/O is indirected so tests substitute deterministic stubs:
 #   GARDEN_AR_PR_SOURCE <owner/name> <bot-login>  -> TSV: number author head updated title
-#   GARDEN_AR_APPROVAL  <owner/name> <pr>         -> exit 0 current maintainer approval on head
+#   GARDEN_AR_APPROVAL  <owner/name> <pr>         -> exit 0 effective maintainer approval
 #   GARDEN_AR_MERGEABLE <owner/name> <pr>         -> exit 0 ready / 1 not-green / 2 merged-closed
 #   GARDEN_AR_POST      <basename> <body-file>    (post-job.sh)
 # The bot-author, head-pushable, and is-bot-repo gates live HERE (not a handler) so
@@ -449,12 +450,13 @@ while IFS=$'\t' read -r pr author head updated _title; do
     deduped=$((deduped+1)); continue
   fi
 
-  # Gate 5 (API): CURRENT trusted-maintainer approval on the EXACT head SHA. Stale
-  # approvals (approval commit_id != head) and untrusted approvers return nonzero.
+  # Gate 5 (API): EFFECTIVE trusted-maintainer approval. A still-standing APPROVED
+  # counts even after the head moved; a dismissal, a later CHANGES_REQUESTED, and
+  # untrusted approvers return nonzero.
   set +e; "$GARDEN_AR_APPROVAL" "$repo" "$pr" >/dev/null 2>&1; arc=$?; set -e
   if [ "$arc" -ne 0 ]; then
     not_approved=$((not_approved+1))
-    log "#$pr: no current trusted-maintainer approval on head (rc=$arc) — skipping"
+    log "#$pr: no effective trusted-maintainer approval (rc=$arc) — skipping"
     continue
   fi
   approved=$((approved+1))
@@ -471,8 +473,9 @@ while IFS=$'\t' read -r pr author head updated _title; do
         {
           printf '%s\n%s\n%s\n\n' '---' 'role: conductor' '---'
           printf '# Finalize (curate -> merge) %s PR #%s\n\n' "$repo" "$pr"
-          printf 'A trusted maintainer APPROVED this PR on its CURRENT head and the\n'
-          printf 'approval RECONCILER confirmed it is OPEN, mergeable, and checks green.\n'
+          printf 'A trusted maintainer APPROVED this PR (the approval is still effective\n'
+          printf 'even if the head has since advanced) and the approval RECONCILER\n'
+          printf 'confirmed it is OPEN, mergeable, and checks green.\n'
           printf 'The event-driven comment/review watcher MISSED this approval (it was\n'
           printf 'down, over a cursor gap, or rate-limited when the review landed); this\n'
           printf 'periodic backstop caught it. This is the CURATION step: dispatch the\n'
@@ -481,10 +484,10 @@ while IFS=$'\t' read -r pr author head updated _title; do
           printf 'Guards (the reconciler already enforced these; re-verify before merging):\n'
           printf '  - Bot repo only (%s). NEVER merge agoric-sdk or the endojs/endo\n' "$repo"
           printf '    upstream, and never link to upstream agoric/agoric-sdk.\n'
-          printf '  - The PR must still be OPEN, mergeable, and checks green, with a\n'
-          printf '    current maintainer approval on the exact head. If it has regressed\n'
-          printf '    (conflicts, red CI, head moved past the approval), dispatch the\n'
-          printf '    shepherd/fixer instead of forcing the merge.\n'
+          printf '  - The PR must still be OPEN, mergeable, and checks green, with an\n'
+          printf '    effective maintainer approval (not dismissed, not superseded by a\n'
+          printf '    later CHANGES_REQUESTED). If it has regressed (conflicts, red CI,\n'
+          printf '    approval dismissed), dispatch the shepherd/fixer instead of the merge.\n'
           printf '  - Idempotent: if the PR is already merging/merged/closed, do nothing.\n\n'
           printf 'PR: https://github.com/%s/pull/%s\n' "$repo" "$pr"
           printf 'Head: %s (bot-pushable)\n' "$head"
@@ -516,8 +519,9 @@ while IFS=$'\t' read -r pr author head updated _title; do
           printf '%s\n%s\n%s\n\n' '---' 'role: shepherd' '---'
           printf 'handler-timeout: %s\n\n' "$GARDEN_SHEPHERD_HANDLER_TIMEOUT"
           printf '# shepherd (auto: approved but CI needs work) on %s PR #%s\n\n' "$repo" "$pr"
-          printf 'A trusted maintainer APPROVED this PR on its CURRENT head, but it is not\n'
-          printf 'yet mergeable/green. The approval RECONCILER caught an approval the\n'
+          printf 'A trusted maintainer APPROVED this PR (the approval is still effective\n'
+          printf 'even if the head has advanced), but it is not yet mergeable/green.\n'
+          printf 'The approval RECONCILER caught an approval the\n'
           printf 'event watcher missed and, exactly as the event finalize path does when\n'
           printf 'a PR is approved-but-not-ready, dispatched a **shepherd** (drive CI to\n'
           printf 'green) rather than forcing the merge. Map: **shepherd** -> drive CI to green.\n\n'
@@ -545,4 +549,4 @@ while IFS=$'\t' read -r pr author head updated _title; do
   esac
 done < "$SRC"
 
-log "reconciled $repo: $open_prs open PR(s), $ours bot-authored, $stale stale-skipped, $deduped already-tracked, $approved approved-current-head ($not_approved without), $merged_closed merged/closed, $conducted conductor(s) + $shepherded shepherd(s) posted"
+log "reconciled $repo: $open_prs open PR(s), $ours bot-authored, $stale stale-skipped, $deduped already-tracked, $approved effective-approval ($not_approved without), $merged_closed merged/closed, $conducted conductor(s) + $shepherded shepherd(s) posted"

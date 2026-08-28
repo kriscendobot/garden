@@ -1,16 +1,26 @@
 #!/bin/bash
-# pr-maintainer-approval-gh.sh -- deterministic current-maintainer-review gate.
+# pr-maintainer-approval-gh.sh -- deterministic maintainer-review gate.
 #
 # Usage: pr-maintainer-approval-gh.sh <owner/name> <pr-number>
 #
-# Returns 0 only when an APPROVED review from a current journal maintainer was
-# submitted for the current head commit. On repos WITH required-reviewer branch
-# protection the GitHub reviewDecision rollup must not be CHANGES_REQUESTED or
-# REVIEW_REQUIRED; on repos WITHOUT required-reviewer branch protection the rollup
-# is always empty and that check is skipped — the individual-review gate (below)
-# still enforces maintainer approval on the exact head commit.
-# A review of an earlier head is deliberately stale: a push supersedes it even
-# when a repository has no branch protection configured to dismiss approvals.
+# Returns 0 only when a current journal maintainer's EFFECTIVE (latest) review is
+# APPROVED and no maintainer's effective review is CHANGES_REQUESTED. On repos WITH
+# required-reviewer branch protection the GitHub reviewDecision rollup must not be
+# CHANGES_REQUESTED or REVIEW_REQUIRED; on repos WITHOUT required-reviewer branch
+# protection the rollup is always empty and that check is skipped — the
+# individual-review gate (below) still enforces effective maintainer approval.
+#
+# An approval is a STATE, not a per-commit event: a still-effective APPROVED review
+# from a trusted maintainer authorizes the PR even after the head advances or is
+# rebased. This is deliberate — a garden rebase-before-merge (ci-wait-merge.sh) and
+# ordinary follow-up pushes move the head past the reviewed commit, and requiring
+# the review's commit_id to equal the current headRefOid made a maintainer's real,
+# undismissed approval unsatisfiable (it stranded #656/#708/#755-class PRs and every
+# post-rebase merge). What still revokes an approval is a GitHub review DISMISSAL
+# (the review's state becomes DISMISSED) or the maintainer's own later
+# CHANGES_REQUESTED — both are honored below. CI freshness (that the green checks
+# belong to the current head) is a SEPARATE gate enforced by ci-wait-merge.sh and
+# is not weakened here.
 #
 # The maintainer trust source is journal2:maintainers/allowlist, matching the
 # issue-inbox gate. If that file is present but contains no login, the documented
@@ -83,27 +93,53 @@ head="$(printf '%s' "$meta" | jq -r '.headRefOid // ""')"
 # REVIEW_REQUIRED means branch protection requires a review but none submitted.
 # Either is a hard block. An empty reviewDecision means the repo has no
 # required-reviewer branch protection; fall through to the individual-review
-# check below — that check still requires a maintainer APPROVED on the current head.
+# check below — that check still requires an effective maintainer approval.
+# An unreadable head signals degenerate PR metadata (a broken read), so fail closed.
 if [ "$decision" = CHANGES_REQUESTED ] || [ "$decision" = REVIEW_REQUIRED ] || [ -z "$head" ]; then
   log "merge blocked: no maintainer approval (reviewDecision=${decision:-none})"
   exit 1
 fi
 
-# REST reviews include the exact commit_id for every review state. Slurping all
-# pages prevents a long review history from hiding the current approval.
+# Slurping all pages prevents a long review history from hiding the current state.
 reviews="$("$GH" api --paginate "repos/$repo/pulls/$pr/reviews?per_page=100" 2>/dev/null)" \
   || { log "could not read reviews for $repo#$pr -- no maintainer approval"; exit 1; }
 printf '%s\n' "$reviews" | jq -s -e . >/dev/null 2>&1 \
   || { log "unparseable reviews for $repo#$pr -- no maintainer approval"; exit 1; }
 
-while IFS= read -r login; do
-  if is_maintainer "$login"; then
+# Compute each maintainer's EFFECTIVE (latest) review state. Reviews arrive in
+# chronological order, so the last state-bearing entry per login wins. COMMENTED
+# and PENDING reviews carry no approval state and are ignored, so a later comment
+# never masks a standing APPROVED. A review dismissed on GitHub has state DISMISSED
+# (revoking a prior APPROVED); a later CHANGES_REQUESTED supersedes an earlier
+# APPROVED. The reviewed commit_id is deliberately NOT consulted — an approval on an
+# earlier head stays effective (see header).
+declare -A EFFECTIVE=()
+while IFS=$'\t' read -r login state; do
+  [ -n "$login" ] || continue
+  is_maintainer "$login" || continue
+  login="$(printf '%s' "$login" | tr '[:upper:]' '[:lower:]')"
+  EFFECTIVE["$login"]="$state"
+done < <(printf '%s\n' "$reviews" | jq -r -s '
+  [ .[] | .[]? ]
+  | .[]
+  | (.state // "") as $s
+  | select($s=="APPROVED" or $s=="CHANGES_REQUESTED" or $s=="DISMISSED")
+  | [ (.user.login // ""), $s ] | @tsv')
+
+# A maintainer's effective CHANGES_REQUESTED is a hard veto even without branch
+# protection, and even if another maintainer approved — never merge over it.
+for login in "${!EFFECTIVE[@]}"; do
+  if [ "${EFFECTIVE[$login]}" = CHANGES_REQUESTED ]; then
+    log "merge blocked: maintainer $login has an effective CHANGES_REQUESTED review"
+    exit 1
+  fi
+done
+for login in "${!EFFECTIVE[@]}"; do
+  if [ "${EFFECTIVE[$login]}" = APPROVED ]; then
     echo "maintainer-approval repo=$repo pr=$pr reviewer=$login head=$head"
     exit 0
   fi
-done < <(printf '%s\n' "$reviews" | jq -r -s --arg head "$head" '
-  .[] | .[]? | select((.state // "") == "APPROVED" and (.commit_id // "") == $head)
-  | .user.login // empty')
+done
 
-log "merge blocked: no maintainer approval (no current APPROVED review on head $head)"
+log "merge blocked: no effective maintainer approval (head $head)"
 exit 1

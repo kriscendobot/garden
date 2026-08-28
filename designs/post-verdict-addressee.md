@@ -62,7 +62,7 @@ flowchart TD
   M[Later correction] --> I[inbox-send stages unread mail]
   I --> W[Leader-only deterministic verdict-watch]
   W --> R[Context-carrying botanist re-review job]
-  W --> C[Approved current head: conductor execution job]
+  W --> C[Effective maintainer approval: conductor execution job]
   R --> A
   C --> G
 ```
@@ -190,7 +190,7 @@ directive and the inverse bug of treating a fresh correction as an old verdict.
 
 - **Only re-post when `reviewDecision` becomes APPROVED.** Rejected: it solves
   approval waiting but offers nowhere for the #269 correction, cannot preserve
-  review context, and a boolean rollup is weaker than the current-head approval
+  review context, and a boolean rollup is weaker than the effective-maintainer-approval
   helper.
 - **A gardener or orchestration supervisor parked forever per PR.** Rejected:
   orchestration is excellent for finite child chains, but a claimed poller leaks

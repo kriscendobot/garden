@@ -2,7 +2,26 @@
 
 | Created | 2026-08-12 |
 | Author  | gardener |
-| Status  | Implemented |
+| Status  | Implemented (amended 2026-08-28) |
+
+## Amendment (2026-08-28): approval freshness guard removed
+
+Per kriskowal's approved review on endojs/endo-but-for-bots#889, the garden no
+longer requires a maintainer approval's `commit_id` to equal the current
+`headRefOid`. A still-effective `APPROVED` review by a journal maintainer now
+authorizes the PR even after a rebase or follow-up push moves the head past the
+reviewed commit; only a GitHub review **dismissal** or the maintainer's own later
+**CHANGES_REQUESTED** revokes it. This supersedes the round-trip described in
+*The approval trap* and *Stage ordering* step 8 below: the merge spine still
+rebases every behind head and still binds CI-green to the post-rebase head (the
+CI-freshness invariant this design established is untouched), but it **no longer
+re-derails to a second approval** just because the rebase changed commit
+identities. The maintainer's approval persists across the garden's own
+rebase-before-merge. `pr-maintainer-approval-gh.sh` now computes the maintainer's
+*effective* (latest) review state instead of matching `commit_id`; see its header
+and the pr-maintainer-approval regression suite. The prose below is retained as
+the original rationale for the rebase-before-merge spine; read the exact-head
+approval claims in it as historical.
 
 ## Problem
 
@@ -81,7 +100,9 @@ For a merge-capable invocation, the deterministic order is:
 7. Route terminal red to the existing `ci red: needs shepherd` outcome. Once the
    final live-base check is a no-op and CI is green, re-read and enforce
    `CHANGES_REQUESTED`.
-8. On an ordinary call, require a maintainer `APPROVED` review on the current
+8. On an ordinary call, require an **effective** maintainer `APPROVED` review (a
+   still-standing approval, not dismissed and not superseded by a later
+   `CHANGES_REQUESTED`); per the 2026-08-28 amendment it need **not** be on the
    post-rebase head. On an eligible Dependabot call, omit only this signature.
 9. Apply the existing downstream-stack branch-retention guard, merge, and verify
    `MERGED` or a live auto-merge request.
@@ -107,8 +128,9 @@ last.
 ## Acceptance evidence
 
 Regression coverage must exercise the composed spine for a behind clean head, a
-conflicting head that never pushes or merges, red CI on the rebased OID, and an
-ordinary approval that becomes stale across the rewrite and is accepted only
-after approval of the new head. Existing tests continue to cover frozen bases,
-the `CHANGES_REQUESTED` veto, Dependabot scope, branch retention, and merge-state
-verification.
+conflicting head that never pushes or merges, and red CI on the rebased OID. Per
+the 2026-08-28 amendment, an approval on the pre-rebase head **must merge** (it is
+no longer staled by the rewrite: `ci-wait-merge-test.sh` T21), while a maintainer
+dismissal on that head still blocks (T21b). Existing tests continue to cover
+frozen bases, the `CHANGES_REQUESTED` veto, Dependabot scope, branch retention,
+and merge-state verification.

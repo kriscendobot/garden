@@ -36,7 +36,8 @@
 #   T18 explicit dependabot mode + unreadable author + no approval → no merge
 #   T19 explicit dependabot mode + unreadable final review state → no merge
 #   T20 post-rebase head whose CI is red → exit 3 / shepherd, no merge
-#   T21 ordinary approval on the pre-rebase head → stale, no merge
+#   T21 approval on the pre-rebase head still authorizes (freshness guard removed) → merge
+#   T21b a later maintainer dismissal on the pre-rebase head still blocks → no merge
 #   T22 ordinary approval on the post-rebase head → merge
 #   T23 base moves during CI → old green invalidated; new-head red → shepherd
 #   T24 safe-rebase conflict refusal → needs-weave, no CI merge
@@ -254,11 +255,21 @@ reset_seq; seq_add "$RED"; printf '  red: build = FAILURE\n' > "$STUBDIR/failure
 run o/r 178; chk "$rc" 3 T20; nomerge T20
 if [ -f "$STUBDIR/rebase.log" ]; then ok "T20 rebase stage ran before red CI"; else bad "T20 rebase stage did not run"; fi
 
-echo "T21 approval on pre-rebase head is stale → no merge"
+echo "T21 approval on pre-rebase head still authorizes (freshness guard removed) → merge"
+# The garden rebases the PR before merging, moving the head past the reviewed commit.
+# The maintainer's approval on the pre-rebase head (def456) must remain effective and
+# authorize the merge — this is the exact stranding the guard removal fixes. CI
+# freshness (green belongs to the post-rebase head) is a separate gate, still enforced.
 reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
 printf '{"reviewDecision":"APPROVED","headRefOid":"%s"}' "$HEAD" > "$STUBDIR/approvalmeta"
 printf '[{"state":"APPROVED","commit_id":"def456def456def456def456def456def456def4","user":{"login":"kriskowal"}}]' > "$STUBDIR/reviews"
-run o/r 178; chk "$rc" 1 T21; nomerge T21
+run o/r 178; chk "$rc" 0 T21; merged T21
+
+echo "T21b a later maintainer dismissal on the pre-rebase head still blocks the merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"reviewDecision":"APPROVED","headRefOid":"%s"}' "$HEAD" > "$STUBDIR/approvalmeta"
+printf '[{"state":"APPROVED","commit_id":"def456def456def456def456def456def456def4","user":{"login":"kriskowal"}},{"state":"DISMISSED","commit_id":"def456def456def456def456def456def456def4","user":{"login":"kriskowal"}}]' > "$STUBDIR/reviews"
+run o/r 178; chk "$rc" 1 T21b; nomerge T21b
 
 echo "T22 approval on post-rebase head is current → merge"
 reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"

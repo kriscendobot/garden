@@ -32,9 +32,20 @@ case_test() {
 
 case_test 'no review refuses' '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head1"}' '[]' 1
 case_test 'dismissed approval refuses' '{"reviewDecision":"APPROVED","headRefOid":"head1"}' '[{"state":"DISMISSED","commit_id":"head1","user":{"login":"kriskowal"}}]' 1
-case_test 'approval for older commit refuses as stale' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}}]' 1
+# The exact-current-head freshness guard is REMOVED: an active maintainer approval on
+# an EARLIER commit still authorizes the later head (a rebase or follow-up push no
+# longer staleness-dismisses it). GitHub-dismissal and a later CHANGES_REQUESTED are
+# the only revocations, tested below.
+case_test 'approval for older commit authorizes later head' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}}]' 0
 case_test 'current maintainer approval allows' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 0
 case_test 'current non-maintainer approval refuses' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"drive-by-rando"}}]' 1
+case_test 'earlier-head non-maintainer approval still refuses' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"drive-by-rando"}}]' 1
+# Effective-state precedence: the LATEST state-bearing review per maintainer wins.
+case_test 'later dismissal of an earlier approval refuses' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}},{"state":"DISMISSED","commit_id":"head1","user":{"login":"kriskowal"}}]' 1
+case_test 'later changes-requested vetoes an earlier approval' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}},{"state":"CHANGES_REQUESTED","commit_id":"head2","user":{"login":"kriskowal"}}]' 1
+case_test 're-approval after a dismissal authorizes' '{"reviewDecision":"APPROVED","headRefOid":"head3"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}},{"state":"DISMISSED","commit_id":"head1","user":{"login":"kriskowal"}},{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 0
+case_test 'a later COMMENTED review never masks a standing approval' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}},{"state":"COMMENTED","commit_id":"head2","user":{"login":"kriskowal"}}]' 0
+case_test 'a maintainer CHANGES_REQUESTED vetoes another maintainer approval' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}},{"state":"CHANGES_REQUESTED","commit_id":"head2","user":{"login":"erights"}}]' 1
 
 # The reviewDecision rollup is a VETO, not the approval authority. GitHub sets it
 # only on repos whose branch protection REQUIRES a reviewer; everywhere else it
@@ -45,12 +56,16 @@ case_test 'current non-maintainer approval refuses' '{"reviewDecision":"APPROVED
 # and pin that letting it through does NOT weaken the individual-review check.
 case_test 'empty rollup with current maintainer approval allows' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 0
 case_test 'empty rollup with no review still refuses' '{"reviewDecision":null,"headRefOid":"head2"}' '[]' 1
-case_test 'empty rollup with stale approval still refuses' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}}]' 1
+# Empty rollup + an approval on an earlier head: with the freshness guard removed this
+# now authorizes (the individual-review gate keys off effective state, not commit_id).
+case_test 'empty rollup with earlier-head approval authorizes' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}}]' 0
 case_test 'empty rollup with non-maintainer approval still refuses' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"drive-by-rando"}}]' 1
+case_test 'empty rollup with a dismissed approval refuses' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"DISMISSED","commit_id":"head1","user":{"login":"kriskowal"}}]' 1
 case_test 'changes-requested vetoes a current maintainer approval' '{"reviewDecision":"CHANGES_REQUESTED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 1
 case_test 'review-required vetoes a current maintainer approval' '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 1
-# An unreadable head is refused whatever the rollup says: without a head SHA there
-# is nothing to pin the approval to, so staleness cannot be judged.
+# An unreadable head is refused whatever the rollup says: an empty headRefOid signals
+# degenerate/broken PR metadata, so the gate fails closed (defensive, not a staleness
+# judgement -- staleness is no longer consulted).
 case_test 'missing head refuses' '{"reviewDecision":"APPROVED","headRefOid":""}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 1
 
 rm -rf "$TR"
