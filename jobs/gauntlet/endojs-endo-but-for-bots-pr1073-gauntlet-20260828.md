@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1073
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1073-gauntlet-20260828-panel-1
+current_child: endojs-endo-but-for-bots-pr1073-gauntlet-20260828-undraft
 state: running
 created_by: gardener
 created_at: 2026-08-28T03:29:37Z
