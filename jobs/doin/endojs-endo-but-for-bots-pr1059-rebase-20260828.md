@@ -7,3 +7,13 @@ https://github.com/endojs/endo-but-for-bots/pull/1059 ("feat(ironhorse)!: snapsh
 CONFLICTING/DIRTY against `llm` following the maintainer merging
 https://github.com/endojs/endo-but-for-bots/pull/1046 just now. Rebase
 onto current `llm`, resolve conflicts, push, and confirm CI.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T13:12:02Z
