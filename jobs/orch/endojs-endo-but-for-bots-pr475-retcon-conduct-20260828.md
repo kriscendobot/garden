@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr475-retcon-20260828-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr475-retcon-20260828 endojs-endo-but-for-bots-pr475-conduct-20260828
 on-child-failure: halt
