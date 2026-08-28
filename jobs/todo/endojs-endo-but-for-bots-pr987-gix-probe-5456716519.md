@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr987-backend-comparison-5456716519
-priority: high
 role: builder
-posted_by: gardener
-posted_at: 2026-08-28T19:16:50Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-08-28T19:19:11Z cleared=none -->
 
 ---
 tier: mentor
