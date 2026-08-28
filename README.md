@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:29:50Z_
+_As of 2026-08-28T15:32:50Z_
 
 ## Latest
 
@@ -1621,14 +1621,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.0M | $1051.62 _(notional, rate-card)_ | no quota set |
-| Codex | 56.9M _(+2027.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 149.9M | $1049.54 _(notional, rate-card)_ | no quota set |
+| Codex | 56.9M _(+2029.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (14)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1637,7 +1637,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1076-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1076-shepherd-20260828.md) — Shepherd endojs/endo-but-for-bots #1076 — regenerate Ironhorse hardened262 ba...
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
-- [`improve-reject-ambiguous-bare-pr-lookup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-reject-ambiguous-bare-pr-lookup.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
 - [`local-verify-endo-test-xs-cargo-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/local-verify-endo-test-xs-cargo-parity.md) — ---
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
@@ -1645,13 +1644,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`test262-coverage-ratchet-20260828-145011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/test262-coverage-ratchet-20260828-145011.md) — Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 
-### tada (5941)
+### tada (5942)
+- [`improve-reject-ambiguous-bare-pr-lookup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reject-ambiguous-bare-pr-lookup.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1074-shepherd-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1074-shepherd-20260828.md) — Cost
 - [`endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006.md) — gauntlet endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006 — H...
 - [`endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1079-gauntlet-ratchet-20260828-125006-fix-1.md) — Completion report — gauntlet FIX round 1, endojs/endo-but-for-bots #1079
 - [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1078-gauntlet-20260828.md) — gauntlet endojs-endo-but-for-bots-pr1078-gauntlet-20260828 — HALTED
-- [`endo-but-for-bots-consolidate-test262-ratchet-prs-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-consolidate-test262-ratchet-prs-20260828.md) — Cost
-- … and 5936 more
+- … and 5937 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
