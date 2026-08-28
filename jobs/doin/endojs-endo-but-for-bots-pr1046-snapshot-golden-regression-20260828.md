@@ -85,3 +85,13 @@ xsnap bootstrap stubs (that gotcha is for the `test-xs` / endor build, not the
 async-instance OOM job
 (`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`) or the moot
 generator-frame-regression job (test-xs is already green).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T02:09:45Z
