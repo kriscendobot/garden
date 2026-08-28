@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T15:21:46Z_
+_As of 2026-08-28T15:22:27Z_
 
 ## Latest
 
@@ -688,20 +688,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No decision is required from you on the press itself. The one thing that would help: a yes/no on filing a garden tracker issue for the inbox-clone inode leak (item 1), since that's a fleet-wide infra defect beyond this job's scope.
 
-- `20260828T150612Z-a7dbfe` — from gardener:test262-coverage-ratchet-20260828-145011, reply_to `test262-coverage-ratchet-20260828-145011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T150612Z-a7dbfe.md)
-
-> Serial test262-coverage ratchet ([kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51)) wound down — maintainer deadline reached (Fri 2026-08-28 08:00 PT = 15:00Z; this dispatch fired 15:03Z).
->
-> - Recurring schedule `test262-coverage-ratchet` retired from journal2 (CAS commit); no further dispatches. One-shot backstop `test262-ratchet-deadline` is idempotent.
-> - Run arc: hourly serial press advanced the hardened262 SES conformance surface (test/intrinsics/*/intrinsic-metadata.js) across ArrayBuffer/views, TypedArray, AsyncFunction, ThrowTypeError, RegExp/Promise, Map/Set/WeakMap/WeakSet, Reflect/Proxy/Math/JSON/Atomics — each with real yarn test262:update evidence, no covered-case regression.
-> - PRs opened this run (base llm): [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064), [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074), [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075), [endojs/endo-but-for-bots#1076](https://github.com/endojs/endo-but-for-bots/issues/1076), [endojs/endo-but-for-bots#1077](https://github.com/endojs/endo-but-for-bots/issues/1077), [endojs/endo-but-for-bots#1078](https://github.com/endojs/endo-but-for-bots/issues/1078), [endojs/endo-but-for-bots#1079](https://github.com/endojs/endo-but-for-bots/issues/1079). A consolidation job is live folding the six later ones onto survivor [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064) as a single open draft and closing the rest.
-> - Whole-corpus 90% target NOT reached; last authoritative checkpoint stands at 23,496/51,976 (2026-08-14). This run moved the hardened262 surface, not the whole-corpus Ironhorse/XS number.
-> - Residuals for future whole-corpus work: RegExp Unicode, TypedArray/ArrayBuffer (engine), exotic MOP, runtime eval/dynamic import (Intl deferred); plus an xs/module Compartment globalThis defaults flake to investigate.
-> - Full summary on the issue: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5454176004 (left open for you to close).
-
 - `20260828T150807Z-1a5653` — from gardener:test262-ratchet-deadline, reply_to `test262-ratchet-deadline` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T150807Z-1a5653.md)
 
 > Ratchet already wound down on the maintainer deadline; the recurring schedule is absent from `journal2`, and the final summary is at [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5454176004.
+
+- `20260828T152157Z-77e19c` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T152157Z-77e19c.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: test262-coverage-ratchet-20260828-145011
+> - question (msgid 20260828T150612Z-a7dbfe.md)
+> - tentative answer: Proxy/tentative (maintainer may revise): Thanks for the wind-down report — no action needed from me here since this is a status/completion notice, not an open decision. Confirming: schedule retirement and the one-shot deadline backstop are correct, the consolidation-onto-survivor draft ([endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064)) is the right move to reduce PR clutter, and leaving [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51) open for the maintainer to review/close is correct — don't close it yourself. If the consolidation job needs a next step once it lands, default to: mark [endojs/endo-but-for-bots#1064](https://github.com/endojs/endo-but-for-bots/issues/1064) ready for review (un-draft) once its CI is green and the SES conformance evidence is attached, rather than opening a new job. No further ratchet dispatches should fire; if you see a stray one, treat it as a bug in the retirement and stop it.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1599,8 +1595,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.8M | $1047.32 _(notional, rate-card)_ | no quota set |
-| Codex | 56.8M _(+2020.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 149.9M | $1047.67 _(notional, rate-card)_ | no quota set |
+| Codex | 56.8M _(+2021.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
