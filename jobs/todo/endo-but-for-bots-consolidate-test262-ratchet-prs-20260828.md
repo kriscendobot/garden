@@ -40,13 +40,4 @@ already have fired by the time this job runs — if the schedule has
 retired itself, that's fine, this consolidation still stands on its own
 merits regardless of whether the ratchet is still actively running.
 
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-28T15:00:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-28T14:27:32Z
+<!-- garden-reaped: 1 -->

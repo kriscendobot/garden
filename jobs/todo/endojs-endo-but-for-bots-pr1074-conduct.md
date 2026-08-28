@@ -23,13 +23,4 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/1074#pullrequestreview-5051402041
 
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-28T15:00:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-28T14:10:54Z
+<!-- garden-reaped: 1 -->
