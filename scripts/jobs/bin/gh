@@ -121,6 +121,29 @@ _gh_api_is_write() {
   return 1
 }
 
+# --- ambiguous bare-numeric `gh pr` guard --------------------------------------
+# Refuse a numeric `gh pr <sub> 51` selector that carries NO explicit repository
+# (-R/--repo) and NO PR URL when invoked OUTSIDE a project worktree. A bare PR
+# number resolves against the cwd git remote, so in a garden checkout (root,
+# journal, or a gardener-wt-* dev worktree) `51` resolves against the garden's own
+# repo — where issues and PRs share one number space and `#51` may be an issue,
+# yielding a "nonexistent PullRequest" that turned a completed deadline-retirement
+# job into a handler failure and a requeue. Runs BEFORE token resolution so a
+# blocked call never performs a (pointless) token lookup. Fail-open by
+# construction: pr-numeric-scope-guard.sh returns rc 1 (passthrough) for every
+# non-`pr` call, a non-selector subcommand, an -R/URL-scoped call, a call inside a
+# project worktree, or any parse doubt. See the deadline-retirement requeue and
+# improve-reject-ambiguous-bare-pr-lookup.
+_prnsg_lib="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/pr-numeric-scope-guard.sh"
+if [ -r "$_prnsg_lib" ]; then
+  # shellcheck source=../pr-numeric-scope-guard.sh
+  . "$_prnsg_lib" 2>/dev/null || true
+  if declare -f pr_numeric_scope_guard_argv >/dev/null 2>&1 \
+     && pr_numeric_scope_guard_argv "$@"; then
+    exit 1
+  fi
+fi
+
 # If the caller already chose a token, honor it untouched (explicit override,
 # including the boatman pre-setting GH_TOKEN directly). Otherwise inject the
 # resolved identity's live token. `env -u GH_TOKEN` keeps the token lookup itself

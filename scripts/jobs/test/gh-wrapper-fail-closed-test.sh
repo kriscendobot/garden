@@ -38,6 +38,15 @@ hr()  { echo "----------------------------------------------------------------";
 # splice its own GARDEN_*/GH_TOKEN state underneath the fixture.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|GH_)' || true) 2>/dev/null || true
 
+# This suite exercises the TOKEN-resolution fallback (fail-closed on writes,
+# degrade on reads) using bare-numeric `gh pr <sub> 5` fixtures. Those fixtures
+# are exactly the ambiguous shape the pr-numeric-scope-guard now refuses when the
+# cwd is not a project worktree (which the temp $TR is not), which would preempt
+# every fixture before token resolution ever runs. That guard is covered by its
+# own suite (pr-numeric-scope-guard-test.sh); opt OUT of it here so this suite
+# tests the token dimension in isolation.
+export GARDEN_ALLOW_BARE_PR_NUMBER=1
+
 # CRITICAL: the fake real gh is placed on PATH and must be EXECUTABLE. The default
 # fleet TMPDIR (/tmp) is mounted `noexec` here, and a fake gh under a noexec mount
 # is silently invisible to the wrapper's `type -aP gh` executability search — the
