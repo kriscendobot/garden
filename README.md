@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T07:26:22Z_
+_As of 2026-08-28T07:28:45Z_
 
 ## Latest
 
@@ -653,6 +653,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - BUT the two contained @agent records f1d754fc… and fe0a8e60… are STILL ABSENT (active=0, revoked=1); no active @agent record anywhere (whitespace-immune scan → NONE_ACTIVE). So the actual remediation trigger (record reappearance) did not fire — I re-armed nothing and re-de-registered nothing.
 >
 > Recommendation: RETIRE or REPURPOSE the daily schedule `fu-minion-town-containment-gateway-endo-sock-1`. Its premise ("drop-in still in place, powers plane disarmed") was inverted by your authorized opening, so every future run now reports the drop-in "missing" — a footgun where a less-careful gardener could re-arm it and re-close the powers plane against your authorization. If you still want the cheap record-absence watch, I can rewrite the schedule body to only assert the two records stay revoked and drop the drop-in/powers-plane assertion. Say the word.
+
+- `20260828T072824Z-cf595b` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T072824Z-cf595b.md)
+
+> From report fu-minion-town-containment-gateway-endo-sock-1-20260828-032006: a daily drift-check schedule tied to the minion.town containment/gateway work is now checking against what looks like an obsolete premise (containment was opened/resolved 2026-08-27/28 per the OCapN-CBOR-Noise and gateway-powers-containment work). Please confirm whether to retire or repurpose that schedule — until you decide, it will keep firing daily for no useful purpose.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1544,7 +1548,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.1M | $803.70 _(notional, rate-card)_ | no quota set |
+| Claude | 121.1M | $803.82 _(notional, rate-card)_ | no quota set |
 | Codex | 52.9M _(+1917.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
