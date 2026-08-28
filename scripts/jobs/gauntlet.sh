@@ -78,15 +78,16 @@ sync_clone "$DIR"
 : "${GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT:=$GARDEN_SHEPHERD_HANDLER_TIMEOUT}"
 # The panel stage is a SCRIPTED juror fan-out + aggregation, not a CI wait, but one
 # round routinely runs LONGER than the plain GARDEN_HANDLER_TIMEOUT (2400s / 40min):
-# the re-panel deadline overrun showed a single round exceeding it and being doomed
-# after ONE deterministic wall hit (rc=124), so the panel base burned its requeue
-# budget on a wall it was always going to hit rather than on genuine failure. Budget
-# that known long-running stage its OWN CI-sized default (a dedicated knob so it tunes
-# independently of the clean/fix CI budget) — comfortably under the same claim-TTL
-# ceiling as GARDEN_SHEPHERD_HANDLER_TIMEOUT (GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER
-# − 1 ≈ 14339s at the shipped defaults), so the gardener honors it verbatim rather than
-# clamping and escalating.
-: "${GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT:=7200}"
+# panel round 2 deadline overrun showed a single round exceeding even the old 7200s
+# budget and being doomed after ONE deterministic wall hit (rc=124), so the panel
+# base burned its requeue budget on a wall it was always going to hit rather than on
+# genuine failure. Give that known long-running stage its OWN 10800s / 3h default (a
+# dedicated knob so it tunes independently of the clean/fix CI budget). It still
+# leaves about one hour beneath the claim ceiling (GARDEN_CLAIM_TTL −
+# GARDEN_HANDLER_KILL_AFTER − 1 ≈ 14339s at the shipped defaults), so each panel
+# round remains one claim-sized unit and the gardener honors the budget verbatim
+# rather than clamping and escalating.
+: "${GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT:=10800}"
 # CI-wait deadline for the clean/fix stages — comfortably UNDER the stage handler
 # budget so ci-wait-merge returns rc=4 (still-pending) and the stage re-posts CLEANLY
 # rather than the handler being killed mid-wait (which the reaper dooms after one

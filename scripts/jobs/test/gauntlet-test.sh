@@ -56,12 +56,13 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
 export GARDEN_POST_ATTEMPTS=50
+export GARDEN_CLAIM_TTL=14400 GARDEN_HANDLER_KILL_AFTER=60
 # Keep the CI-blocking-stage budget line deterministic (not required by the test, but
 # stamped into the stage bodies the driver posts).
 export GARDEN_SHEPHERD_HANDLER_TIMEOUT=7200
-# The panel stage carries its OWN CI-sized budget (above the plain 2400s default), so a
-# long single round is budgeted rather than doomed after one deterministic wall hit.
-export GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT=7200
+# Leave GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT unset: this suite guards the shipped
+# 10800s default, including its claim-TTL headroom, rather than merely testing an
+# explicit override of the knob.
 
 # --- board inspection helpers (fresh clone each call) -----------------------
 V="$TR/verify"
@@ -169,9 +170,13 @@ panel_body="$(todo_body g1-panel-1)"
     && ! printf '%s' "$panel_body" | grep -Fq "$POSTING_GARDEN_ROOT/"; } \
   && ok "panel stage emits repo-relative garden script paths (no posting-host root)" \
   || bad "panel stage baked the posting host's garden root into its body"
-[ "$(handler_timeout g1-panel-1)" = 7200 ] \
-  && ok "panel stage carries its dedicated CI-sized handler-timeout (7200, above the 2400 default)" \
-  || bad "panel handler-timeout=[$(handler_timeout g1-panel-1)] (expected 7200)"
+panel_timeout="$(handler_timeout g1-panel-1)"
+[ "$panel_timeout" = 10800 ] \
+  && ok "panel stage carries its dedicated 10800s handler-timeout (above the old 7200s wall)" \
+  || bad "panel handler-timeout=[$panel_timeout] (expected 10800)"
+[ $((panel_timeout + GARDEN_HANDLER_KILL_AFTER)) -lt "$GARDEN_CLAIM_TTL" ] \
+  && ok "panel round remains claim-sized (${panel_timeout}s + ${GARDEN_HANDLER_KILL_AFTER}s < ${GARDEN_CLAIM_TTL}s TTL)" \
+  || bad "panel round exhausts claim TTL (${panel_timeout}s + ${GARDEN_HANDLER_KILL_AFTER}s >= ${GARDEN_CLAIM_TTL}s)"
 [ "$(handler_budget_role g1-panel-1)" = panel ] \
   && ok "panel stage is protected by the panel budget role" \
   || bad "panel handler-budget-role=[$(handler_budget_role g1-panel-1)] (expected panel)"
