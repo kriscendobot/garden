@@ -105,6 +105,7 @@ message bus rather than unilaterally landing a large refactor in this fix pass.
   (head SHA, what changed, what was declined and why, verification status).
 - CI green before re-requesting review from kumavis.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
