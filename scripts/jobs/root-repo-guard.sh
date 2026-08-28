@@ -92,6 +92,15 @@
 #      at most one attempt per GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS, so a store that
 #      cannot be repaired does not re-run a multi-minute gc every tick.
 #
+#   D. The HOST FILESYSTEM has inode headroom. `df -i` is classified independently
+#      from byte capacity: a filesystem can have plenty of bytes free while refusing
+#      every filesystem/git write with ENOSPC because its inode table is exhausted.
+#      Below GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT (default 5%), alert the
+#      maintainer with the filesystem-wide measurement and clear the notice after
+#      recovery. This guard deliberately does NOT delete anything: deciding whether a
+#      worktree is stale requires job-board + worktree-registration review, and a
+#      timer must never infer that from a directory name or age alone.
+#
 # Plus a STALLED-DEPLOY watch: when the recorded deployed sha lags origin/main2 for
 # longer than GARDEN_DEPLOY_STALL_DAYS, alert ONCE per breakage window (the incident
 # also noted deploys silently stalled since 07-17). Cleared automatically when the
@@ -140,6 +149,14 @@ STALL_ALERTED="$GUARD_STATE/stall-alerted"
 : "${GARDEN_ROOT_GUARD_MISSING_SCAN_TIMEOUT:=180}"
 MAINT_LAST="$GUARD_STATE/maint-last"
 OBJSTORE_ALERTED="$GUARD_STATE/objstore-alerted"
+
+# --- invariant D knobs (host filesystem inode headroom) ---------------------
+# Check the filesystem that backs the bind-mounted deployed root. Tests may replace
+# df with a fixture command; production uses the system df.
+: "${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT:=5}"
+: "${GARDEN_ROOT_GUARD_INODE_PATH:=$GARDEN_ROOT}"
+: "${GARDEN_ROOT_GUARD_DF_CMD:=df}"
+INODE_ALERT_KEY="root-repo-low-inodes-$GARDEN"
 
 # --- authorized gc-lock escalation (the sysop `maintain` op) ------------------
 # By DEFAULT the guard never breaks a `gc.pid` lock: a lock that MIGHT belong to a live
@@ -556,6 +573,37 @@ guard_object_store() {
   return 1
 }
 
+# --- INVARIANT D: host filesystem inode headroom ----------------------------
+# This is detection + classification only. An inode-pressure repair cannot be made
+# safe from `df`: cleanup first has to prove a worktree belongs to a completed job,
+# is not an active/resumable checkout, and is removed through its owning git repo.
+# Keep that destructive decision outside an unattended every-host timer.
+guard_inode_headroom() {
+  local path="$GARDEN_ROOT_GUARD_INODE_PATH" line fs total _used free _usep mount pct
+
+  line="$("$GARDEN_ROOT_GUARD_DF_CMD" -Pi -- "$path" 2>/dev/null \
+    | awk 'NR > 1 { line=$0 } END { print line }' || true)"
+  read -r fs total _used free _usep mount _ <<< "$line"
+  if [[ ! "${total:-}" =~ ^[0-9]+$ ]] || [ "${total:-0}" -eq 0 ] \
+     || [[ ! "${free:-}" =~ ^[0-9]+$ ]]; then
+    log "INODE-CHECK-UNKNOWN: could not classify inode headroom for $path from 'df -Pi' output; leaving alert state unchanged"
+    return 1
+  fi
+
+  pct="$(awk -v f="$free" -v t="$total" 'BEGIN { printf "%.2f", (f * 100) / t }')"
+  if awk -v p="$pct" -v minimum="$GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT" \
+       'BEGIN { exit !(p < minimum) }'; then
+    local msg="host filesystem inode headroom is CRITICAL: filesystem $fs mounted at ${mount:-<unknown>} (the filesystem backing $path) has $free/$total free inodes (${pct}%), below the ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. No automatic deletion was attempted because cleanup must first prove each candidate worktree's job is in jobs/tada and remove it through the owning worktree mechanism. Review completed per-job worktrees and their node_modules, then reclaim a bounded batch and re-check 'df -i $path'. (host=$GARDEN)"
+    log "INODE-HEADROOM-LOW: $msg"
+    alert_maintainer "$INODE_ALERT_KEY" "$msg"
+    return 1
+  fi
+
+  alert_maintainer_clear "$INODE_ALERT_KEY" \
+    "host filesystem inode headroom recovered to ${pct}% ($free/$total free on $fs, threshold ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}%; host=$GARDEN)."
+  return 0
+}
+
 # --- stalled-deploy watch ----------------------------------------------------
 # When the recorded deployed sha is an ancestor of origin/main2 (a normal lag) for
 # longer than the threshold, alert ONCE per window. Cleared when caught up.
@@ -594,6 +642,12 @@ guard_deploy_lag() {
 }
 
 guard_root_repo() {
+  # D is a host-filesystem invariant, not a git-repo invariant. Run it first so a
+  # damaged/missing root checkout cannot suppress the warning that explains why git
+  # writes are failing in the first place.
+  local inode_ok=0
+  guard_inode_headroom && inode_ok=1
+
   if ! git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
     log "WARN: root repo at $ROOT is not a git repository; skipping"
     return 0
@@ -625,8 +679,9 @@ guard_root_repo() {
   # Stalled-deploy watch (informational; never blocks the healthy path).
   guard_deploy_lag "$up"
 
-  if [ "$origin_ok" -eq 1 ] && [ "$head_ok" -eq 1 ] && [ "$obj_ok" -eq 1 ]; then
-    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor, object store maintainable"
+  if [ "$origin_ok" -eq 1 ] && [ "$head_ok" -eq 1 ] && [ "$obj_ok" -eq 1 ] \
+     && [ "$inode_ok" -eq 1 ]; then
+    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor, object store maintainable, host inode headroom above ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}%"
   fi
   return 0
 }

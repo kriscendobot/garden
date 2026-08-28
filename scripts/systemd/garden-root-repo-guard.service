@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden root-repo-guard (assert the deployed root repo's invariants — canonical origin, HEAD detached at a main2 ancestor, a healthy and gc-able object store — and repair + alert on drift, so a job that escapes into $GARDEN_ROOT/.git can no longer leave the fleet running a corrupted root for days; also watches for a stalled deploy)
+Description=Garden root-repo-guard (assert the deployed root repo and host-filesystem invariants — canonical origin, detached main2-ancestor HEAD, gc-able object store, and inode headroom — then repair or alert on classified drift; also watches for a stalled deploy)
 
 [Service]
 Type=oneshot

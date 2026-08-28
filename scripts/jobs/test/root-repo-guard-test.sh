@@ -52,7 +52,7 @@ export GARDEN_PRODUCTION_JOURNAL_REMOTE_RE='garden-root-guard-test/origin\.git$'
 # Capture alerts instead of posting to a journal inbox.
 ALERTS="$TR/alerts.log"; : > "$ALERTS"
 STUB="$TR/alert-stub.sh"
-printf '#!/bin/bash\nprintf "%%s\\n" "$1" >> "%s"\n' "$ALERTS" > "$STUB"; chmod +x "$STUB"
+printf '#!/bin/bash\nprintf "%%s\\t%%s\\n" "$1" "$2" >> "%s"\n' "$ALERTS" > "$STUB"; chmod +x "$STUB"
 export GARDEN_ALERT_CMD="$STUB"
 export GARDEN_ALERT_THROTTLE_SECS=0           # fire every alert (isolate cases; production throttles per key)
 export GARDEN_FETCH_RETRIES=1                 # fast, local fetches never need retry
@@ -88,6 +88,21 @@ head_is_main2_ancestor() {
     "$(git -C "$GARDEN_ROOT" rev-parse refs/remotes/origin/main2)" 2>/dev/null
 }
 alerted() { grep -q "^$1" "$ALERTS"; }
+
+# Deterministic df fixture for invariant D. Real df is the default; individual cases
+# select a mode so no test depends on the host's current inode consumption.
+DF_STUB="$TR/df-stub.sh"
+cat > "$DF_STUB" <<'EOF'
+#!/bin/bash
+case "${TEST_DF_MODE:-healthy}" in
+  healthy)   printf 'Filesystem Inodes IUsed IFree IUse%% Mounted on\n/dev/test 100000 90000 10000 90%% /fixture\n' ;;
+  low)       printf 'Filesystem Inodes IUsed IFree IUse%% Mounted on\n/dev/test 100000 96000 4000 96%% /fixture\n' ;;
+  malformed) printf 'not df output\n' ;;
+esac
+EOF
+chmod +x "$DF_STUB"
+export GARDEN_ROOT_GUARD_DF_CMD="$DF_STUB"
+export TEST_DF_MODE=healthy
 
 # ============================================================================
 hr; echo "CASE 1 — HEALTHY: detached at main2 tip, canonical origin → no repair"; hr
@@ -376,6 +391,26 @@ logged "OBJSTORE-GC-FAILED-INTACT" && ok "zero-missing gc failure classified as 
 ! alerted "root-repo-objstore" && ok "zero-missing gc failure does NOT page the maintainer" || bad "spurious objstore alert with zero missing objects"
 [ ! -f "$GARDEN_STATE/root-repo-guard/objstore-alerted" ] && ok "no breakage window opened with zero missing objects" || bad "breakage window opened with zero missing objects"
 unset GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS
+
+# ============================================================================
+hr; echo "CASE 18 — HOST INODES: low headroom alerts, recovery clears, malformed df is classified unknown"; hr
+fresh_root
+export TEST_DF_MODE=low
+run_guard_log
+alerted "root-repo-low-inodes-testhost" && ok "<5% free inodes alerts the maintainer" || bad "no low-inode alert"
+logged "INODE-HEADROOM-LOW" && ok "low inode headroom is classified separately from byte capacity" || bad "low inode classification missing"
+grep -q "No space left on device" "$GLOG" && ok "alert explains filesystem-write ENOSPC impact" || bad "low-inode alert omits ENOSPC impact"
+
+export TEST_DF_MODE=healthy
+run_guard
+alerted "root-repo-low-inodes-testhost" && grep -q "RECOVERED:" "$ALERTS" \
+  && ok "inode-headroom recovery closes the alert episode" || bad "inode recovery did not clear the alert"
+
+export TEST_DF_MODE=malformed
+run_guard_log
+logged "INODE-CHECK-UNKNOWN" && ok "malformed df output is classified unknown without guessing" || bad "malformed df output was not classified"
+! alerted "root-repo-low-inodes-testhost" && ok "unknown measurement does not raise a false low-inode alert" || bad "unknown measurement raised an alert"
+export TEST_DF_MODE=healthy
 
 # ============================================================================
 hr; echo "RESULT"; hr

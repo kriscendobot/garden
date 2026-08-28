@@ -1,6 +1,6 @@
 ---
 created: 2026-07-21
-updated: 2026-07-28
+updated: 2026-08-28
 author: gardener
 ---
 
@@ -79,6 +79,13 @@ Defense in depth, cheapest-first, each independently useful:
 
    - **Object store** must be **healthy and maintainable** — added 2026-07-28; see
      § Invariant C below for the failure mode and the repair ladder.
+
+   - **Host filesystem inode headroom** must stay at or above
+     `GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT` (default 5%). This is checked with
+     `df -Pi` against the filesystem backing the bind-mounted root and classified
+     independently from byte capacity. Below the threshold, the guard raises one
+     coalesced maintainer notice; recovery closes that alert episode. It never
+     deletes automatically because `df` cannot prove that a worktree is abandoned.
 
    Plus a **stalled-deploy watch**: when `deployed_sha` lags `origin/main2` past
    `GARDEN_DEPLOY_STALL_DAYS` (default 3), it alerts **once per breakage window**
@@ -222,3 +229,38 @@ alert firing once per window and clearing on recovery; the draining defer; the
 back-off; and the real end-to-end recovery — a root whose packs are gone, where gc
 fails, `--refetch` restores the objects from origin, and the retried gc then succeeds
 with no ref dropped.
+
+Invariant D adds deterministic `df` fixtures covering a low-headroom alert, recovery
+notice, and malformed-output classification without a false alert.
+
+## Invariant D — host filesystem inode headroom (2026-08-28)
+
+The trigger host reached 244,091,381 of 244,121,600 inodes used (30,219 free,
+effectively 0.01%) while byte use was only 79%. Git then failed to lock `.git/config`
+with `ENOSPC`. This is not a comment-watcher defect: every service writing on that
+filesystem can fail until inodes are reclaimed.
+
+The container can see the host filesystem statistic through the bind-mounted garden
+root, but cannot inventory the host's entire `/dev/nvme0n1p2`. A bounded audit of the
+visible garden found about 1.34 million unique directory entries under `scratch/` and
+996 thousand under legacy `worktrees/`; this is material but does not explain the
+filesystem-wide 217–244 million used inodes by itself. The filesystem had already
+recovered to 27,084,523 free inodes (11.09%) during the audit, which also demonstrates
+why this must be a recurring guard rather than a one-shot diagnosis.
+
+The seven named legacy `endojs-endo-but-for-bots` worktrees all have corresponding
+completed records in `jobs/tada/`. Their `node_modules` trees account for about
+172,320 unique inodes as one hardlink-aware batch. The reviewed cleanup proposal is:
+
+1. Reconfirm the matching `jobs/tada/` record and absence from `jobs/doin/` immediately
+   before each removal. Treat a missing or ambiguous mapping as a stop, not permission.
+2. Remove at most these seven worktrees in one batch, through the owning bare repo's
+   `git worktree remove` mechanism (never a recursive unlink first):
+   `gardener-fixer-442`, `port-pr57`, `pr472-shepherd`, `pr513-gauntlet`,
+   `shepherd-461`, `pr438-fixer`, and `pr96-finish`.
+3. Run `git worktree prune --dry-run`, then `df -i` and a registration audit. Stop
+   after this batch and review the measured recovery before selecting more targets.
+
+This bounds both the deletion set and the evidence needed to authorize it. It does
+not claim those seven explain the host-wide exhaustion, and the timer deliberately
+does not execute the cleanup.
