@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T17:22:48Z_
+_As of 2026-08-28T17:26:58Z_
 
 ## Latest
 
@@ -702,10 +702,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
-
-- `20260828T172206Z-9874c1` — from orchestrator:ocapn-noise-arc-continue-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T172206Z-9874c1.md)
-
-> Orchestration ocapn-noise-arc-continue-20260828 HALTED: child endojs-endo-but-for-bots-pr1071-review-bd9ecfaa doomed and held in plan (serial, on-child-failure=halt). 0/5 done before halt; parked remainder: ocapn-noise-pr1072-composite-hints-20260828 ocapn-noise-pr684-rebuild-20260828 ocapn-noise-pr683-refresh-20260828 ocapn-noise-pr688-pr693-restack-20260828
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
