@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-08-28T10:35:26Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-test262-coverage-ratchet-20260828-103509
+pr_number: 1078
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1078
+pr_head: test/hardened262-collection-prototype-intrinsic-metadata
