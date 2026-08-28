@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T17:44:01Z_
+_As of 2026-08-28T17:44:50Z_
 
 ## Latest
 
@@ -1619,14 +1619,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.9M | $1052.61 _(notional, rate-card)_ | no quota set |
+| Claude | 149.9M | $1053.29 _(notional, rate-card)_ | no quota set |
 | Codex | 57.8M _(+2055.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (14)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5455406421`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5455406421.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
@@ -1636,6 +1636,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`garden-current-head-approval-guard-remove-5053510672`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-current-head-approval-guard-remove-5053510672.md) — Remove the exact-current-head approval guard from the garden
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
+- [`kriscendobot-minion.town-pr63-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr63-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #63
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
