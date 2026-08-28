@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T04:57:27Z_
+_As of 2026-08-28T05:06:03Z_
 
 ## Latest
 
@@ -1521,14 +1521,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.8M | $771.58 _(notional, rate-card)_ | no quota set |
+| Claude | 116.8M | $772.02 _(notional, rate-card)_ | no quota set |
 | Codex | 52.4M _(+1914.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (17)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
@@ -1544,6 +1544,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
+- [`minion-town-press-20260828-050508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260828-050508.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
+- [`ocapn-cbor-noise-press-20260828-050508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-050508.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
 ### tada (5833)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-cbor-noise-press-20260828-005006.md) — Completion report — ocapn-cbor-noise-press tick (fresh worktree after reaper ...
