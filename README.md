@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T00:28:55Z_
+_As of 2026-08-28T00:30:00Z_
 
 ## Latest
 
@@ -1407,14 +1407,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.6M | $690.10 _(notional, rate-card)_ | no quota set |
-| Codex | 50.9M _(+1935.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 108.6M | $690.62 _(notional, rate-card)_ | no quota set |
+| Codex | 50.9M _(+1934.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (19)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5445866793.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
@@ -1423,6 +1423,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827.md) — Fix the bytecode_decoder fuzz OOM (unbounded async_instances growth) on endoj...
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
+- [`endojs-endo-but-for-bots-pr1069-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1069-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1069
 - [`endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-gauntlet-20260827-r2-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr475-review-ci-closeout-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-ci-closeout-20260828.md) — ---
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
