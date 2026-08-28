@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-28T01:43:04Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-28T01:43:04Z
+---
+
+---
 role: fixer
 tier: mentor
 fallback-tier: minion
@@ -71,15 +89,3 @@ correct execution to `Halt` and failing the tests.
 
 Distinct from and do not touch the separately-owned async-instance OOM job
 (`endojs-endo-but-for-bots-pr1046-fuzz-async-instance-oom-20260827`).
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-28T00:58:19Z
