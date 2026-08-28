@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-544778181
 Separate hints for the TCP host and port is an aberration. There should only be one hint per transport protocol. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T02:55:16Z
