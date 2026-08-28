@@ -83,3 +83,13 @@ fork, or a policy/authority question beyond the delegation. NOT for routine
 approve/merge/deploy, which is delegated. If blocked on such a decision, ask
 once on issue #58 + the maintainer inbox and then just check for the answer on
 later ticks; never manufacture busywork to look productive while blocked.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T05:05:29Z
