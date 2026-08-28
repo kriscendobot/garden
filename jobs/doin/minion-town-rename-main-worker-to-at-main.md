@@ -30,3 +30,13 @@ similar ad hoc names) while you're in there.
 `MAIN` worker. Decide whether to migrate/rename it in place, leave it as
 inert legacy cruft once `@main` takes over going forward, or provide a
 one-time cleanup path — say which and why in the completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T13:03:57Z
