@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T19:19:53Z_
+_As of 2026-08-28T19:20:47Z_
 
 ## Latest
 
@@ -1619,14 +1619,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.6M | $1064.32 _(notional, rate-card)_ | no quota set |
-| Codex | 58.9M _(+2082.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Claude | 151.6M | $1064.76 _(notional, rate-card)_ | no quota set |
+| Codex | 59.0M _(+2083.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (14)
 - [`build-exo-git-follow-root-advancement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-git-follow-root-advancement.md) — Build exo-git followable root advancement
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5455406421`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5455406421.md) — Dead-lettered message — pick up its intent
@@ -1640,6 +1640,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
+- [`xs2rust-endor-press-20260828-192007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260828-192007.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (5973)
 - [`endojs-endo-but-for-bots-pr987-7fc4cc3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-7fc4cc3a.md) — Cost
