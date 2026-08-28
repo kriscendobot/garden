@@ -53,16 +53,18 @@ This is a **serial ratchet**: at most one coverage-advancing worker at a time.
    its output — no bar is "green" without it), prove no covered-case
    regression, and land the advance in a PR on `endojs/endo-but-for-bots`
    (base `llm`). Follow the normal gauntlet for any mergeable PR.
-   - **Every turn must supplement or create a PR** (maintainer @kriskowal,
-     2026-08-28: *"let each subsequent turn of the ratchet supplement or create
-     a PR as needed"*). A turn that only records local evidence on the issue
-     without a corresponding PR is **incomplete**. Prefer **supplementing an
-     already-open, still-draft ratchet PR** for the same suite/family when the
-     slice fits it cleanly (extend that PR's branch with the new commit rather
-     than opening a near-duplicate); **create a fresh PR** when the slice
-     belongs to a different suite/family or no suitable open PR exists. Either
-     way the turn's coverage delta ships as reviewable, mergeable code — not
-     just prose. Name the PR (new or extended) in the issue comment.
+   - **Every turn must supplement a PR** (maintainer @kriskowal, 2026-08-28,
+     superseding the original "supplement or create a PR as needed"
+     directive after it produced seven near-duplicate PRs in one day:
+     **always append to the one open draft ratchet PR** — never open a new
+     one, regardless of which suite/family the slice belongs to. Push the
+     new commit onto that PR's existing branch. A turn that only records
+     local evidence on the issue without landing on that PR is
+     **incomplete**. If, and only if, no ratchet PR is currently open at
+     all (the prior one merged, closed, or this is the very first turn),
+     open exactly one fresh draft PR and it becomes the standing target
+     for every subsequent turn until it merges or closes. Name the PR in
+     the issue comment every turn regardless.
 4. **Record the delta** back on issue #51 (comment on the `issue_url` above,
    NEVER close it — the submitter closes it): the slice touched, the measured
    before/after covered count, the PR it supplemented or opened (with its
