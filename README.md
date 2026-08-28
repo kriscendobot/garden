@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T02:36:01Z_
+_As of 2026-08-28T02:37:24Z_
 
 ## Latest
 
@@ -1511,14 +1511,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.4M | $755.14 _(notional, rate-card)_ | no quota set |
-| Codex | 51.0M _(+1896.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 113.5M | $756.88 _(notional, rate-card)_ | no quota set |
+| Codex | 51.0M _(+1896.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
@@ -1536,16 +1536,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-guest-self-formula-id-land-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-self-formula-id-land-verify.md) — Land, deploy, and verify guest self-formula identifier
-- [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
-### tada (5789)
+### tada (5790)
+- [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-serving-live-persist.md) — Cost
 - [`deadmail-issue-comment-5445866793`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5445866793.md) — Cost
 - [`endojs-endo-but-for-bots-pr1070-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1070-gauntlet-20260828-clean.md) — Completion report
 - [`kriscendobot-minion.town-pr60-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr60-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-panel-1.md) — Completion report
-- [`test262-coverage-ratchet-20260828-020506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260828-020506.md) — Completion report
-- … and 5784 more
+- … and 5785 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
