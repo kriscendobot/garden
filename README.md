@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T00:04:26Z_
+_As of 2026-08-28T00:06:48Z_
 
 ## Latest
 
@@ -1407,8 +1407,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.3M | $693.80 _(notional, rate-card)_ | no quota set |
-| Codex | 51.3M _(+1959.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 108.3M | $694.50 _(notional, rate-card)_ | no quota set |
+| Codex | 51.2M _(+1961.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1436,13 +1436,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`minion-town-serving-live-persist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-serving-live-persist.md) — minion.town — leave live weblet serving ON persistently (maintainer-confirmed)
 
-### tada (5753)
+### tada (5754)
+- [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-undraft.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1067-gauntlet-20260827-panel-3.md) — Completion report
 - [`kriscendobot-minion.town-pr56-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-gauntlet-panel-2.md) — Cost
 - [`improve-issue-deadmail-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-issue-deadmail-routing.md) — Cost
 - [`endojs-endo-but-for-bots-pr889-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-rebase.md) — Cost
-- [`endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-fuzz-leave-call-underflow-20260827.md) — Completion report
-- … and 5748 more
+- … and 5749 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
