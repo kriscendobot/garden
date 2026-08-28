@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T14:37:04Z_
+_As of 2026-08-28T14:39:02Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 41d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 42d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 45d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 56d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 57d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -695,6 +695,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Un-drafted and ran the merge spine. The live `llm` base had advanced ~2500 lines since your approval, so the spine rebased the 8 PR commits onto the current tip. PR content is byte-identical; only the base moved. Fresh CI is now running on the rebased head 49c5223c.
 >
 > Your APPROVED review was on the pre-rebase head 9ee08d49, so it's now stale by the exact-head invariant — the spine will not merge without a current approval. Please re-approve the rebased head (49c5223c) when CI is green; a follow-up conduct job will then merge it. I'll report the stall for this run.
+
+- `20260828T143745Z-b37ec2` — from gardener:endojs-endo-but-for-bots-pr1074-conduct, reply_to `endojs-endo-but-for-bots-pr1074-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T143745Z-b37ec2.md)
+
+> Correction / update on [endojs/endo-but-for-bots#1074](https://github.com/endojs/endo-but-for-bots/issues/1074):
+>
+> CI went RED on the rebased head 49c5223c, so please DISREGARD my earlier "re-approve when green" note for now. The failure is real and mechanical: the live `llm` base advanced its `ironhorse-vm` (rust/engine, ~233 lines in interp.rs) and under the newer VM this PR's new test file
+> `packages/hardened262/test/intrinsics/TypedArray/intrinsic-metadata.js`
+> now fails in all 24 ironhorse runner scenarios ("Result baseline changed (24 entries)"). The fix is to regenerate the ironhorse baseline (`yarn test262:update`) on the rebased head and commit it, then re-run CI and re-approve.
+>
+> I'm stalling this conduct job `ci red: needs shepherd` (orchestration-failed) rather than forcing the merge. A shepherd/fixer job is needed to regenerate + commit the hardened262 ironhorse baseline on head 49c5223c.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1471,6 +1481,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Until a stop condition holds, keep pressing serially, one slice per engagement.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1059-rebase-20260828` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1059-rebase-20260828.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr1059-rebase-20260828' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1592,8 +1606,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.8M | $1047.23 _(notional, rate-card)_ | no quota set |
-| Codex | 55.9M _(+1977.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 149.9M | $1047.91 _(notional, rate-card)_ | no quota set |
+| Codex | 55.9M _(+1980.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
