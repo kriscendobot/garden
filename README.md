@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:48:42Z_
+_As of 2026-08-28T03:53:56Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 1h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 24m)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 18h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 18h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
@@ -1521,18 +1521,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.5M | $760.41 _(notional, rate-card)_ | no quota set |
-| Codex | 51.9M _(+1905.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 115.6M | $761.78 _(notional, rate-card)_ | no quota set |
+| Codex | 52.0M _(+1908.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
-- [`design-hardened262-skipped-scenario-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-hardened262-skipped-scenario-harness.md) — design: wire the skipped @endo/hardened262 test262 scenarios (script-mode + C...
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
@@ -1547,13 +1546,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
-### tada (5817)
+### tada (5818)
+- [`design-hardened262-skipped-scenario-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-hardened262-skipped-scenario-harness.md) — Cost
 - [`endojs-endo-but-for-bots-pr1072-review-73226ec0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-73226ec0.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1064-08da6661`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-08da6661.md) — Cost
 - [`endojs-endo-but-for-bots-pr1073-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1073-gauntlet-20260828-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1046-12b9ebb7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-12b9ebb7.md) — Cost
-- [`endojs-endo-but-for-bots-pr1073-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1073-shepherd.md) — Report
-- … and 5812 more
+- … and 5813 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
