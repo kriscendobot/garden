@@ -44,12 +44,4 @@ Please post a proposal to host an npm proxy on npm.minion.town to satisfy the ga
 
 ----- END ORIGINAL MESSAGE -----
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-28T17:10:18Z
+<!-- garden-reaped: 1 -->
