@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:31:26Z_
+_As of 2026-08-28T03:31:52Z_
 
 ## Latest
 
@@ -1521,14 +1521,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.7M | $748.85 _(notional, rate-card)_ | no quota set |
-| Codex | 51.7M _(+1896.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 113.7M | $749.18 _(notional, rate-card)_ | no quota set |
+| Codex | 51.7M _(+1896.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr475-conduct-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr475-conduct-20260828.md) — conduct (merge) endojs/endo-but-for-bots PR #475
+### todo (0)
+(none)
 
-### doin (17)
+### doin (18)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
@@ -1539,6 +1539,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828.md) — Fix Ironhorse test-ironhorse regression: snapshot golden-vector hash stale af...
 - [`endojs-endo-but-for-bots-pr1072-review-73226ec0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-73226ec0.md) — Review directive on endojs/endo-but-for-bots PR #1072
+- [`endojs-endo-but-for-bots-pr475-conduct-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-conduct-20260828.md) — conduct (merge) endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260828-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260828-032006.md) — ---
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
