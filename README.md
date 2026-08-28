@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:11:02Z_
+_As of 2026-08-28T03:11:39Z_
 
 ## Latest
 
@@ -1522,20 +1522,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 113.7M | $748.85 _(notional, rate-card)_ | no quota set |
-| Codex | 51.3M _(+1890.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 51.3M _(+1891.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
-- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828.md) — Fix Ironhorse test-ironhorse regression: snapshot golden-vector hash stale af...
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr52-gauntlet-20260825-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #52
@@ -1545,11 +1544,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
 ### tada (5803)
+- [`endojs-endo-but-for-bots-pr1046-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-shepherd.md) — Cost
 - [`minion-town-press-20260828-030505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-030505.md) — Cost
 - [`kriscendobot-minion.town-pr60-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet.md) — gauntlet kriscendobot-minion.town-pr60-gauntlet — complete
 - [`kriscendobot-minion.town-pr60-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-undraft.md) — Completion report
 - [`deadmail-issue-comment-5447781817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5447781817.md) — Completion report
-- [`kriscendobot-minion.town-pr60-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-gauntlet-panel-3.md) — Completion report
 - … and 5798 more
 
 ## Plan queue (parked — not claimable until promoted)
