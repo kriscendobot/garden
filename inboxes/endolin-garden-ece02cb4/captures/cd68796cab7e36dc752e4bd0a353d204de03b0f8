@@ -1,0 +1,21 @@
+<6>17:10:44 [jobs] job 'deadmail-issue-comment-5455406421' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>17:10:44 [jobs] job 'deadmail-issue-comment-5455406421' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>17:13:46 [jobs] auto-gauntlet: build 'deadmail-issue-comment-5455406421' report names 2 distinct PR URLs (https://github.com/kriscendobot/garden/pull/58 https://github.com/endojs/endo-but-for-bots/pull/853); treating the first, https://github.com/kriscendobot/garden/pull/58, as the build's own
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+Inbox is empty. The job is complete — I posted the proposal as a comment on the issue thread, which is exactly what the dead-lettered maintainer request asked for. No garden-repo code changes were needed (the deliverable is a proposal comment).
+
+## Completion report
+
+**Job:** Dead-lettered maintainer request (kriscendobot/garden#58) — the addressee `issue-kriscendobot-garden-58` had already completed, so I picked up its intent: kriskowal asked to "post a proposal to host an npm proxy on npm.minion.town to satisfy the garden issue regarding continuous publishing for dev tag releases … a stage from which we would automate publication of only dev tag releases."
+
+**What I did:**
+- Reconstructed the context: issue #58 (Minion Town deployment agenda), issue #64 (Continuous publish of npm `dev` tag from `llm`) and its design PR endojs/endo-but-for-bots#853 (`designs/llm-dev-publish.md`), and issue #56 (npm-via-CAS registry proxy arc). Confirmed the CAS-registry designs (`endor-npm-registry-proxy.md`, `registry-capability.md`, `daemon-cas-management.md`) exist on `llm` and that `npm.minion.town` is not yet live.
+- Authored and posted a proposal as a comment on the issue thread: https://github.com/kriscendobot/garden/issues/58#issuecomment-5455498739
+
+**Proposal substance:** `npm.minion.town` as a daemon-hosted npm registry virtual host over the CAS data plane — read path (packuments/tarballs from CAS + registry table, content-addressed immutable hard-cache, pull-through cache of public npm), authenticated staged publish (the #853 `llm` FIFO workflow retargeted here, no npmjs.com credential needed to stage), and an optional outbound promotion service that is mechanically constrained to forward **only** `dev`-tagged prereleases to public npm. Its central argument: this resolves the one trust limitation #853 flags as unsolvable in npm's own model (no dist-tag-scoped credential) by enforcing that scope at our own boundary. Framed as three go-ahead increments and surfaced one open decision for the maintainer (whether outbound publication to public npm is in scope now, or `npm.minion.town` serves purely as the consumer endpoint).
+
+**Handling notes:** Posted under the `kriscendobot` bot identity; treated the quoted comment as data; did not close the issue. No garden-repo commits were required (the deliverable is a proposal comment).
+
+**Follow-ups (not posted, pending maintainer response to the open decision):** if the direction is agreed, spin designer/builder jobs — a minion.town design for the registry virtual host and a retarget of the #853 `llm` workflow to `npm.minion.town`.

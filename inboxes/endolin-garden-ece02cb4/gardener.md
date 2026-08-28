@@ -2712,3 +2712,14 @@ Inspect via `git -C journal cat-file -p 66f4fd07e9355d3bcf316d580412d1d666a91d08
 
 Inspect via `git -C journal cat-file -p 2468030ea7dfa1830550e93307769cd1828084aa` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/2468030ea7dfa1830550e93307769cd1828084aa`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-08-28T17:13:51Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: cd68796cab7e36dc752e4bd0a353d204de03b0f8
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'deadmail-issue-comment-5455406421' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/cd68796cab7e36dc752e4bd0a353d204de03b0f8
+
+Inspect via `git -C journal cat-file -p cd68796cab7e36dc752e4bd0a353d204de03b0f8` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/cd68796cab7e36dc752e4bd0a353d204de03b0f8`) -- both work off-host after a plain `journal2` fetch.
