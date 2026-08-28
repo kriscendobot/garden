@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T18:01:15Z_
+_As of 2026-08-28T18:01:58Z_
 
 ## Latest
 
@@ -702,10 +702,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T153803Z-4d98c4` — from gardener:minion-town-press-20260828-153506, reply_to `minion-town-press-20260828-153506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T153803Z-4d98c4.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed register(directoryId, owner), allowing the guest facet to submit a formula-id string that the daemon registry pins, while designs/weblet-ocap-synthesis.md §§ 2.2/3.1 require capability introduction via register(directory). Should the design be revised to bless formula IDs as acceptable bearer designators here and future § 9 work build on this API, or must the implementation return to object introduction before units 3-4 proceed?
-
-- `20260828T175925Z-7a4334` — from gardener:endojs-endo-but-for-bots-pr1038-conduct, reply_to `endojs-endo-but-for-bots-pr1038-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T175925Z-7a4334.md)
-
-> [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/issues/1038) could not be merged under the claimed job exact-head guard: kriskowal approved 470c5957c5f668b9814f58bd86d45829dd748360 at 2026-08-22T14:17:33Z, but the current head is the later 41cd489f30cc587e5a2d8296dfc81955da744ff3 fixup commit (2026-08-23T02:55:57Z). Current CI is green and GitHub reports OPEN/CLEAN/MERGEABLE, but a fresh approval on the current head is required by this job. I posted fixer job endojs-endo-but-for-bots-pr1038-fix-20260828 to revalidate the post-approval delta; please reapprove the resulting head before another conduct pass.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1623,8 +1619,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.4M | $1055.08 _(notional, rate-card)_ | no quota set |
-| Codex | 58.1M _(+2059.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Claude | 150.4M | $1055.38 _(notional, rate-card)_ | no quota set |
+| Codex | 58.1M _(+2059.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
