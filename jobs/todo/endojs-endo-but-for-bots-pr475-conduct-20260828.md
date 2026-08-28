@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr475-retcon-conduct-20260828
-priority: normal
-posted_by: gardener
-posted_at: 2026-08-28T03:24:48Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-28T03:31:04Z cleared=none -->
 
 ---
 tier: mentor
