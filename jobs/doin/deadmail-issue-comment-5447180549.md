@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-544718054
 Yes, open it. Verify that you can connect from the garden host to minion.town over plain HTTP, switch to WebSocket, authenticate with Noise Protocol, establish a session, and from there verify that you hold the bootstrap object. From there, you should be able to fetch a guest kno
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T01:20:13Z
