@@ -39,6 +39,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-28T15:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
