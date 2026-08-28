@@ -1,3 +1,9 @@
+---
+created: 2026-06-27
+updated: 2026-08-28
+author: gardener
+---
+
 # Skill: issue-inbox
 
 Purpose: how an agent handles a job that originated from the garden's own GitHub
@@ -36,10 +42,12 @@ prompt-injection discipline).
 
 1. **Do the work** the issue asks for, as any gardener would.
 2. **Reply ON THE ISSUE THREAD — and only there.** Post a comment on `issue_url`:
-   `gh issue comment <issue_url> --body "…"`. Do **not** email, DM, or act outside
-   the issue thread; the issue is the entire conversation surface with the
-   submitter. Post a substantive reply (what you did, the SHA/PR if any,
-   verification) — mirror [`pr-completion-summary-comment`] discipline.
+   write the reply to a file, then run
+   `gh issue comment <issue_url> --body-file <reply-file>`. Do **not** put the
+   comment body on the shell command line, email, DM, or act outside the issue
+   thread; the issue is the entire conversation surface with the submitter. Post
+   a substantive reply (what you did, the SHA/PR if any, verification) — mirror
+   [`pr-completion-summary-comment`] discipline.
 3. **Never close the issue** — [`roles/COMMON.md`](../../roles/COMMON.md) §
    External-repo etiquette is canonical: an issue close is the submitter's to make,
    not the bot's. Leave it OPEN after replying. Issue-inbox-specific procedure: the
