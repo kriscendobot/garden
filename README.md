@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T04:29:37Z_
+_As of 2026-08-28T04:30:51Z_
 
 ## Latest
 
@@ -1521,14 +1521,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.6M | $763.45 _(notional, rate-card)_ | no quota set |
-| Codex | 52.4M _(+1913.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 115.6M | $763.86 _(notional, rate-card)_ | no quota set |
+| Codex | 52.4M _(+1914.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5446369936`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5446369936.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5447180549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5447180549.md) — Dead-lettered message — pick up its intent
@@ -1537,7 +1537,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1046-b476e995`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-b476e995.md) — attention directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Review directive on endojs/endo-but-for-bots PR #1046
 - [`endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1046-snapshot-golden-regression-20260828.md) — Fix Ironhorse test-ironhorse regression: snapshot golden-vector hash stale af...
-- [`endojs-endo-but-for-bots-pr1064-weaver-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1064-weaver-20260828.md) — Weave endojs/endo-but-for-bots PR 1064 after the latest retcon
 - [`endojs-endo-but-for-bots-pr1071-review-bd9ecfaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1071-review-bd9ecfaa.md) — Review directive on endojs/endo-but-for-bots PR #1071
 - [`endojs-endo-but-for-bots-pr1074-gauntlet-20260828-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1074-gauntlet-20260828-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1074
 - [`endojs-endo-but-for-bots-pr796-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #796
@@ -1548,13 +1547,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
 - [`ocapn-cbor-noise-press-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-cbor-noise-press-20260828-005006.md) — Press OCapN CBOR Noise Protocol support (garden host ⇄ minion.town host)
 
-### tada (5828)
+### tada (5829)
+- [`endojs-endo-but-for-bots-pr1064-weaver-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1064-weaver-20260828.md) — Cost
 - [`test262-coverage-ratchet-20260828-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/test262-coverage-ratchet-20260828-042006.md) — Completion report
 - [`xs2rust-endor-press-20260828-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-042006.md) — Cost
 - [`deadmail-issue-comment-5448294250`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5448294250.md) — Cost
 - [`deadmail-issue-comment-5448273788`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5448273788.md) — Cost
-- [`endojs-endo-but-for-bots-pr889-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr889-retcon.md) — Cost
-- … and 5823 more
+- … and 5824 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
