@@ -28,3 +28,13 @@ builder gauntlet owns clean, panel review, fixes, and un-drafting. Run the
 project's format, lint, type, and relevant test commands plus the garden
 pre-push gates before the initial push. Demonstrate regression evidence for
 each new test and report the commands and observed results.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-28T18:53:02Z
