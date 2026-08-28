@@ -26,3 +26,13 @@ per-package commits they amend. Net diff MUST be byte-identical (verify
 `git diff <pre-retcon-sha> HEAD` is empty). Force-push with --force-with-lease.
 
 Do the project work in an isolated per-job worktree (ensure-project-worktree.sh).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T03:25:24Z
