@@ -19,15 +19,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 [APPROVED]  
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-27T22:43:09Z
+<!-- garden-reaped: 0 -->
