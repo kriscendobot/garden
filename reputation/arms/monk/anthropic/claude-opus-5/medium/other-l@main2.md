@@ -4,10 +4,10 @@ model: claude-opus-5
 thoughtfulness: medium
 work_class: other:l
 target: main2
-attempts: 95
-accepts: 95
-censored: 95
-estimated: 95
-mean_dollars: 0.090352
-m2: 2.466440
+attempts: 97
+accepts: 97
+censored: 97
+estimated: 97
+mean_dollars: 0.089330
+m2: 2.471272
 acceptance_rate: 1.0000
