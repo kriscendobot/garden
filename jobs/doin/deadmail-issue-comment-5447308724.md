@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-544730872
 Let’s open up port 3469 (pluribus) to listen for TCP CBOR-framed CBOR-encoded Noise Protocol OCapN. Let’s defer `ws://`. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T01:40:19Z
