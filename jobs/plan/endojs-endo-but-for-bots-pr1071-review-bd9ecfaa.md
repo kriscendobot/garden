@@ -1,5 +1,6 @@
 ---
-gate: go-ahead
+gate: orchestrated
+orchestrated_by: ocapn-noise-arc-continue-20260828
 priority: high
 tier: mentor
 handler-budget-role: review
