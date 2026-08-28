@@ -56,3 +56,13 @@ inline threads to reply to. State that the serial orchestration owns final PR
 conduct after this child completes.
 
 Do not merge the PR in this child.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T17:37:12Z
