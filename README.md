@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T03:37:50Z_
+_As of 2026-08-28T03:41:26Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 48m)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 5m)
+- [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 54m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12m)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 17h)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 17h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
@@ -630,10 +630,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Question on [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58): authorize exposing endo-daemon.service over a public OCapN route, or did you intend the app to run on the already-public pet-daemon? I've parked a successor (minion-town-guest-peer-fetch-verify) that owns the peer-fetch verification once you answer.
 >
 > Minor: ACCOUNT_GATE_SHARED_SECRET is unset on the box (pre-existing; affects /account too) — external traffic still fully oauth2-proxy-gated, but worth provisioning the loopback gate token now that a capability is disclosed.
-
-- `20260828T033720Z-cd5f2f` — from orchestrator:endojs-endo-but-for-bots-pr475-retcon-conduct-20260828-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T033720Z-cd5f2f.md)
-
-> Orchestration endojs-endo-but-for-bots-pr475-retcon-conduct-20260828 HALTED: child endojs-endo-but-for-bots-pr475-conduct-20260828 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1525,8 +1521,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.3M | $752.05 _(notional, rate-card)_ | no quota set |
-| Codex | 51.7M _(+1899.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 114.3M | $752.84 _(notional, rate-card)_ | no quota set |
+| Codex | 51.7M _(+1901.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
