@@ -25,3 +25,13 @@ NOTE: the retcon force-push (and any rebase) rewrites the head, so a prior appro
 stale by design — stall `merge blocked: no maintainer approval` on the retconned/rebased
 head until kriskowal re-approves; do NOT merge without a fresh allowlist approval. After
 merge, sweep the frozen `llm-<sha>` base branch per skills/frozen-base-branch.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-28T03:31:32Z
