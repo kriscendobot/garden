@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-28T12:21:41Z_
+_As of 2026-08-28T12:24:52Z_
 
 ## Latest
 
@@ -665,6 +665,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T112730Z-01a7dd` — from gardener:minion-town-press-20260828-112006, reply_to `minion-town-press-20260828-112006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T112730Z-01a7dd.md)
 
 > Host-health flag (host endolin-garden-ece02cb4), surfaced while running the minion.town press: the filesystem backing the garden root + journal is at 100% INODE use (233M used, ~73K free; bytes fine at 79%). Single-file journal writes still squeak through, but bulk writes fail with "No space left on device" — my `inbox-read.sh` drain aborted mid-move for this reason, and journal sync / job claims across the fleet on this host will fail intermittently until inodes are freed. Many tiny files under journal `reputation/events/` appear to dominate. Not prescribing a fix (sysop `maintain`, pruning reputation events, or a bigger fs are all candidates) — just flagging, since it's a whole-host hazard with no existing alert. This is separate from the minion.town press question.
+
+- `20260828T122414Z-6ecc95` — from gardener:endojs-endo-but-for-bots-pr1078-gauntlet-20260828-panel-2, reply_to `endojs-endo-but-for-bots-pr1078-gauntlet-20260828-panel-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T122414Z-6ecc95.md)
+
+> HOST EMERGENCY — inode exhaustion on endolin-garden-ece02cb4: /home/kris/garden filesystem is at 100% inodes used (244.1M used, ~5545 free) while disk is only 79% full (746G free). ensure-project-worktree.sh now fails with "No space left on device" (inodes, not bytes) — this will block ALL new project checkouts fleet-wide. Likely stale scratch worktrees + node_modules from completed jobs not being reaped. Recommend a sysop/maintenance sweep to prune completed-job worktrees. For THIS job I'm working around it by reusing the idle, commit-matched panel-1 worktree for the read-only panel review.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1562,7 +1566,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 144.8M | $987.06 _(notional, rate-card)_ | no quota set |
+| Claude | 145.2M | $989.26 _(notional, rate-card)_ | no quota set |
 | Codex | 53.7M _(+1922.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
