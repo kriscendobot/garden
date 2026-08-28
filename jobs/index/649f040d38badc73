@@ -1,2 +1,2 @@
-base: improve-gh-wrapper-fail-closed-on-writes
+base: improve-reject-ambiguous-bare-pr-lookup
 identity: mentor:scripts/jobs/bin/gh
