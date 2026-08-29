@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T14:14:50Z_
+_As of 2026-08-29T14:16:05Z_
 
 ## Latest
 
@@ -1662,8 +1662,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 179.6M | $1411.01 _(notional, rate-card)_ | no quota set |
-| Codex | 52.9M _(+1742.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 179.7M | $1412.40 _(notional, rate-card)_ | no quota set |
+| Codex | 52.9M _(+1743.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1671,17 +1671,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1085
-- [`endojs-endo-but-for-bots-pr1014-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr1085-b27f483f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-b27f483f.md) — attention directive on endojs/endo-but-for-bots PR #1085
+- [`endojs-endo-but-for-bots-pr832-e39ce097`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-e39ce097.md) — attention directive on endojs/endo-but-for-bots PR #832
 - [`endojs-endo-but-for-bots-pr832-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #832
 
-### tada (6128)
+### tada (6129)
+- [`endojs-endo-but-for-bots-pr1014-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-gauntlet-fix-2.md) — Cost
 - [`fix-spell-out-identifiers-is-exempt-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-spell-out-identifiers-is-exempt-pipefail.md) — Completion report
 - [`endojs-endo-but-for-bots-pr832-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-2.md) — Completion report — FIX round 2, endojs/endo-but-for-bots#1085
 - [`endojs-endo-but-for-bots-pr1083-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1083-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1083-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-fix-6.md) — Completion report
-- … and 6123 more
+- … and 6124 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1853,6 +1853,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr647-702dd6ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr647-702dd6ab-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #647 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr832-review-f3554a0a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-review-f3554a0a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1085-b27f483f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1085-b27f483f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1085 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr832-e39ce097-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-e39ce097-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
