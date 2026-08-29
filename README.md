@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T06:01:18Z_
+_As of 2026-08-29T06:02:28Z_
 
 ## Latest
 
@@ -1654,11 +1654,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.7M | $1197.29 _(notional, rate-card)_ | no quota set |
-| Codex | 55.6M _(+1846.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 159.0M | $1201.42 _(notional, rate-card)_ | no quota set |
+| Codex | 55.6M _(+1846.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
+- [`endojs-endo-but-for-bots-pr832-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr832-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #832
 - [`kriscendobot-minion.town-pr64-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr64-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #64
 
 ### doin (10)
