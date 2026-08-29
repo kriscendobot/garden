@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T17:49:43Z_
+_As of 2026-08-29T17:50:43Z_
 
 ## Latest
 
@@ -1662,16 +1662,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 181.4M | $1508.72 _(notional, rate-card)_ | no quota set |
-| Codex | 53.8M _(+1771.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 181.4M | $1510.71 _(notional, rate-card)_ | no quota set |
+| Codex | 53.9M _(+1772.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1015
+- [`endojs-endo-but-for-bots-pr853-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr853-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #853
 - [`endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829.md) — ---
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
 - [`local-verify-parity-endo-package-uniformity-pr1015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/local-verify-parity-endo-package-uniformity-pr1015.md) — Close local verification coverage for Endo package-uniformity CI
