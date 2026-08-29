@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T03:38:52Z_
+_As of 2026-08-29T04:01:03Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 11h)
+- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 12h)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 1d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
@@ -1525,6 +1525,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget pool anthropic:endolin-garden-ece02cb4 changed zone ok -> backoff at spend=149290596 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
 
+- `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
+
+> budget pool anthropic:endolin-garden-ece02cb4 changed zone backoff -> ok at spend=4661 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1646,26 +1650,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.1M | $1118.28 _(notional, rate-card)_ | no quota set |
-| Codex | 55.5M _(+1848.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 148.8M | $1097.01 _(notional, rate-card)_ | no quota set |
+| Codex | 54.6M _(+1832.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1061
-- [`endojs-endo-but-for-bots-pr1083-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1083-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1083
+### todo (0)
+(none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-issue-comment-5460011044`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5460011044.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1059-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-shepherd-20260829.md) — Restore Ironhorse snapshot CI on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr890-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #890
 
-### tada (6011)
+### tada (6012)
+- [`endojs-endo-but-for-bots-pr1083-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-clean.md) — Completion report
 - [`xs2rust-endor-press-20260829-033515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-033515.md) — Cost
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-1.md) — Fix stage report — endojs/endo-but-for-bots PR #1061 (round 1)
 - [`endojs-endo-but-for-bots-pr890-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-gauntlet-panel-1.md) — Completion report
 - [`revert-budget-cap-post-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/revert-budget-cap-post-reset.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260829-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260829-032006.md) — Cost
-- … and 6006 more
+- … and 6007 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
