@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T03:12:19Z_
+_As of 2026-08-29T03:22:11Z_
 
 ## Latest
 
@@ -1638,26 +1638,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.3M | $1084.63 _(notional, rate-card)_ | no quota set |
-| Codex | 55.3M _(+1871.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 152.3M | $1119.08 _(notional, rate-card)_ | no quota set |
+| Codex | 55.5M _(+1864.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- [`deadmail-issue-comment-5460011044`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5460011044.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
-- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1059-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-shepherd-20260829.md) — Restore Ironhorse snapshot CI on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr890-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #890
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260829-032006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260829-032006.md) — ---
+- [`revert-budget-cap-post-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revert-budget-cap-post-reset.md) — ---
 
-### tada (6004)
+### tada (6005)
+- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-1.md) — Completion report
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-20260825.md) — gauntlet kriscendobot-minion-town-pr52-gauntlet-20260825 — complete
 - [`kriscendobot-minion-town-pr52-gauntlet-20260825-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr52-gauntlet-20260825-undraft.md) — Completion report
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-165008.md) — Cost
 - [`endojs-endo-but-for-bots-pr1046-review-d7012ba6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1046-review-d7012ba6.md) — Verification summary
-- [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260825-212005.md) — Completion report — minion-town-agenda-review-20260825-212005 (reaper re-run)
-- … and 5999 more
+- … and 6000 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
