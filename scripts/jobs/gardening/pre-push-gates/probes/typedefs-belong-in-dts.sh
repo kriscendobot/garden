@@ -12,7 +12,10 @@
 # NON-AUTO-FIXABLE finding: the probe fails the gate with a one-line summary the
 # pushing step addresses; it never rewrites the tree.
 #
-# Provenance: kriskowal asked for this twice, two days apart —
+# Provenance: kriskowal first asked for this on endojs/endo-but-for-bots#388
+# review 4413566645, comments 3344377619 and 3344477615 (2026-06-02), including
+# the `types.d.ts` + `@import` repair, a juror, and consideration of a scanner.
+# The convention recurred in later reviews:
 #   * endojs/endo-but-for-bots#58 review 4612637233 (2026-07-02,
 #     packages/daemon/src/trace-aggregator.js:41): "Typedefs in .d.ts, please.
 #     Adjust the garden to avoid this in the future with builder directives and
@@ -20,10 +23,9 @@
 #   * endojs/endo-but-for-bots#442 review 4629047816
 #     (pull/442#discussion_r3522728825, packages/platform/src/fs/types.js): the
 #     same ask, on a whole typedef-only `types.js` module.
-# The #58 round delivered only prose (a builder directive) + a panel seat
-# (typist); neither bound on #442 (its gauntlet never ran) and the maintainer
-# had to repeat himself. This is the missing tier-1 gate that cannot be skipped
-# or forgotten. Cluster: review-misses/clusters/typedef-location-dts.md.
+# The broad `@typedef` occurrence scanner suggested on #388 would also catch
+# legitimate module-private, single-use declarations. This is the useful narrow
+# tier-1 subset; contextual cases remain with builder/fixer guidance and typist.
 #
 # NARROW BY DESIGN (skills/pre-push-gates § Pitfalls, "too aggressive blocks a
 # legitimate diff"): the probe fires ONLY on the clear whole-file-of-typedefs

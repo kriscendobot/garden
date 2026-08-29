@@ -7,6 +7,7 @@ set -uo pipefail
 ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
 PREFER="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/prefer-endo-primitives.sh"
 SPELL="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/spell-out-identifiers.sh"
+TYPEDEFS="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/typedefs-belong-in-dts.sh"
 PURIST="$ROOT/skills/panel-hints/probes/C-purist.sh"
 DUALITY_AUDITOR="$ROOT/skills/panel-hints/probes/C-duality-auditor.sh"
 TEMPORARY_ROOT=$(mktemp -d)
@@ -70,6 +71,25 @@ if printf '%s\n' 'const listenAddress = address;' \
   ok 'spelled-out address abstains'
 else
   bad 'spelled-out address fired'
+fi
+
+if printf '%s\n' \
+    '/** @typedef {{ name: string, count: number }} SharedShape */' \
+    'export {};' \
+    | "$TYPEDEFS" --classify-stdin; then
+  ok 'typedef-only JavaScript is classified for the declaration-module gate'
+else
+  bad 'typedef-only JavaScript escaped the declaration-module classifier'
+fi
+
+if printf '%s\n' \
+    '/** @typedef {{ value: string }} LocalShape */' \
+    '/** @param {LocalShape} input */' \
+    'export const readValue = input => input.value;' \
+    | "$TYPEDEFS" --classify-stdin; then
+  bad 'implementation-local typedef was incorrectly classified as types-only'
+else
+  ok 'implementation-local typedef remains a typist judgment case'
 fi
 
 # Exercise the staged-diff path, including an import that predates the diff.
