@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T20:50:51Z_
+_As of 2026-08-29T20:53:25Z_
 
 ## Latest
 
@@ -1667,23 +1667,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 181.7M | $1547.49 _(notional, rate-card)_ | no quota set |
-| Codex | 54.8M _(+1807.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Codex | 54.9M _(+1808.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1087-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1087-shepherd-20260829.md) — Restore Ironhorse test262 ratchet PR CI
-- [`xs2rust-endor-press-20260829-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260829-205004.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6154)
+### tada (6155)
+- [`xs2rust-endor-press-20260829-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-205004.md) — Cost
 - [`endojs-endo-but-for-bots-pr858-review-8add9193`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-8add9193.md) — Cost
 - [`endojs-endo-but-for-bots-pr853-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr853-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr853-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-gauntlet-panel-1.md) — Cost
 - [`xs2rust-endor-press-20260829-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-195004.md) — Cost
-- [`xs2rust-endor-press-20260829-183507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-183507.md) — Cost
-- … and 6149 more
+- … and 6150 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
