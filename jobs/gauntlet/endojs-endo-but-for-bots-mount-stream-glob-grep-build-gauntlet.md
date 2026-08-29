@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1085
 build_job: endojs-endo-but-for-bots-mount-stream-glob-grep-build
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-1
 state: running
 created_by: producer
 created_at: 2026-08-29T05:29:56Z
