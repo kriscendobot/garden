@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T14:28:08Z_
+_As of 2026-08-29T14:31:38Z_
 
 ## Latest
 
@@ -1662,25 +1662,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.1M | $1415.45 _(notional, rate-card)_ | no quota set |
-| Codex | 53.0M _(+1750.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Claude | 180.4M | $1418.01 _(notional, rate-card)_ | no quota set |
+| Codex | 53.1M _(+1752.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr1085-b27f483f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-b27f483f.md) — attention directive on endojs/endo-but-for-bots PR #1085
-- [`endojs-endo-but-for-bots-pr832-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #832
 
-### tada (6133)
+### tada (6134)
+- [`endojs-endo-but-for-bots-pr832-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr832-e39ce097`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-e39ce097.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #832
 - [`endojs-endo-but-for-bots-pr832-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-gauntlet-fix-5.md) — Completion report
 - [`xs2rust-endor-press-20260829-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-142006.md) — Press report — Ironhorse fronts, 2026-08-29T14:20Z
 - [`endojs-endo-but-for-bots-pr1014-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1014-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1014-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-gauntlet-fix-2.md) — Cost
-- … and 6128 more
+- … and 6129 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
