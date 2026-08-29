@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T14:09:09Z_
+_As of 2026-08-29T14:10:32Z_
 
 ## Latest
 
@@ -1662,18 +1662,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 178.2M | $1404.76 _(notional, rate-card)_ | no quota set |
-| Codex | 52.8M _(+1741.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 178.8M | $1406.88 _(notional, rate-card)_ | no quota set |
+| Codex | 52.9M _(+1739.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr1014-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr1085-b27f483f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-b27f483f.md) — attention directive on endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr832-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #832
+- [`fix-spell-out-identifiers-is-exempt-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-spell-out-identifiers-is-exempt-pipefail.md) — ---
 
 ### tada (6126)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-2.md) — Completion report — FIX round 2, endojs/endo-but-for-bots#1085
