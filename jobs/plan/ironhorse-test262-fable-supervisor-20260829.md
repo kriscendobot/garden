@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentat
+handler-timeout: 7200
+token-budget: 4500000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-29T18:43:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-29T18:43:03Z
+---
+
+---
 tier: mentat
 dispatch: manual
 ---
@@ -88,15 +107,3 @@ product exercised; fresh before/after totals for covered, conformance-failure,
 infrastructure, and skipped outcomes; failure clusters fixed; commands actually
 run; any remaining clusters or unverifiable surfaces. Do not extrapolate a
 whole-corpus total from slice-only runs.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-29T16:33:22Z
