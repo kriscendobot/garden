@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T07:06:22Z_
+_As of 2026-08-29T07:09:40Z_
 
 ## Latest
 
@@ -1537,6 +1537,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr890-gauntlet-panel-3` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr890-gauntlet-panel-3.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr890-gauntlet-panel-3' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7201s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
 > pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#1062](https://github.com/endojs/endo-but-for-bots/issues/1062) (cid=5427621486) and failed open.
@@ -1654,8 +1658,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 155.2M | $1193.08 _(notional, rate-card)_ | no quota set |
-| Codex | 53.9M _(+1817.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
+| Claude | 155.0M | $1192.65 _(notional, rate-card)_ | no quota set |
+| Codex | 53.7M _(+1815.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
