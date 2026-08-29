@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T01:35:45Z_
+_As of 2026-08-29T01:38:06Z_
 
 ## Latest
 
@@ -717,6 +717,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260828T210506Z-1fae52` — from gauntlet:build-exo-git-follow-root-advancement-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T210506Z-1fae52.md)
 
 > Gauntlet build-exo-git-follow-root-advancement-gauntlet HALTED: stage 'build-exo-git-follow-root-advancement-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260829T013727Z-27a1f6` — from gardener:minion-town-press-20260829-013506, reply_to `minion-town-press-20260829-013506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T013727Z-27a1f6.md)
+
+> [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed `sites.register(directoryId)` (the per-guest caplet pins `owner`, but accepts any caller-supplied formula-id string) instead of the design's object-introduction-only `sites.register(directory)`. Because a guest can invoke that facet directly with a known formula id, the registry may resolve/pin authority represented by an identifier rather than a directory the guest demonstrably holds. Should we ratify this identifier-as-bearer boundary and rewrite §§ 2.2/3.1 to match, or require `register` to accept/validate an introduced directory capability so the original no-caller-string seam remains literal?
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1635,13 +1639,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 147.4M | $1065.82 _(notional, rate-card)_ | no quota set |
-| Codex | 56.2M _(+1944.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Codex | 56.3M _(+1941.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`deadmail-issue-comment-5417423850`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5417423850.md) — Dead-lettered message — pick up its intent
 - [`design-npm-registry-as-directory-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-registry-as-directory-tree.md) — Directive (kriskowal, 2026-08-25, verbatim)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1061
@@ -1652,17 +1656,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-agenda-review-20260825-165008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-165008.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-190507.md) — Minion Town press (every two hours)
 - [`minion-town-agenda-review-20260825-212005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260825-212005.md) — Minion Town press (every two hours)
-- [`minion-town-press-20260829-013506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260829-013506.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
 - [`xs2rust-endor-press-20260829-003506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260829-003506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260829-013506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260829-013506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (5990)
+### tada (5991)
+- [`minion-town-press-20260829-013506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260829-013506.md) — Cost
 - [`xs2rust-endor-press-20260828-233506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-233506.md) — Cost
 - [`minion-town-press-20260828-233506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-233506.md) — Cost
 - [`xs2rust-endor-press-20260828-223506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-223506.md) — Cost
 - [`xs2rust-endor-press-20260828-213506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260828-213506.md) — Cost
-- [`minion-town-press-20260828-213506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260828-213506.md) — Cost
-- … and 5985 more
+- … and 5986 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
