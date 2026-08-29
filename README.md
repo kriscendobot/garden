@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T05:23:51Z_
+_As of 2026-08-29T05:24:50Z_
 
 ## Latest
 
@@ -1654,13 +1654,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 155.6M | $1164.97 _(notional, rate-card)_ | no quota set |
-| Codex | 55.0M _(+1837.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 155.7M | $1166.96 _(notional, rate-card)_ | no quota set |
+| Codex | 55.0M _(+1837.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
+### todo (7)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1083-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1083
+- [`endojs-endo-but-for-bots-pr647-702dd6ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr647-702dd6ab.md) — attention directive on endojs/endo-but-for-bots PR #647
+- [`endojs-endo-but-for-bots-pr832-review-f3554a0a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr832-review-f3554a0a.md) — Review directive on endojs/endo-but-for-bots PR #832
+- [`endojs-endo-but-for-bots-pr858-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr858-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #858
 - [`endojs-endo-but-for-bots-pr896-review-b7fe106c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr896-review-b7fe106c.md) — Review directive on endojs/endo-but-for-bots PR #896
 - [`kriscendobot-minion.town-pr64-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr64-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #64
 
@@ -1849,6 +1852,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr1015-2b55429b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-2b55429b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1015-review-348a2017-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-review-348a2017-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr896-review-b7fe106c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr896-review-b7fe106c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #896 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr647-702dd6ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr647-702dd6ab-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #647 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr832-review-f3554a0a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-review-f3554a0a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
