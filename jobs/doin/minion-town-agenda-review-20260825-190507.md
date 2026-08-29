@@ -77,3 +77,13 @@ spend ages out of the window; an idle park is sticky — a maintainer resumes it
 `scripts/jobs/resume-minion-town-press.sh` once the blockers clear.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-29T03:03:48Z
