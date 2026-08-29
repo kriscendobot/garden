@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1084
 build_job: design-exo-stream-codel-pacing
 kind: feature
-stage: fix
-iteration: 2
+stage: panel
+iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1084-gauntlet-fix-2
+current_child: endojs-endo-but-for-bots-pr1084-gauntlet-panel-3
 state: running
 created_by: producer
 created_at: 2026-08-29T04:32:50Z
