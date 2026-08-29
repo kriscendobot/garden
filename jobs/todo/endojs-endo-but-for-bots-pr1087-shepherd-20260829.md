@@ -33,15 +33,4 @@ head, and push with compare-and-swap. Drive CI to green and post the required
 top-level completion summary on the PR with the addressing SHA and exact
 verification evidence.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-29T20:03:13Z
+<!-- garden-reaped: 2 -->
