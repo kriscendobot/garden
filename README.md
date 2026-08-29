@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T18:04:30Z_
+_As of 2026-08-29T18:05:44Z_
 
 ## Latest
 
@@ -725,6 +725,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260829T092006Z-c5d9c5` — from gauntlet:endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T092006Z-c5d9c5.md)
 
 > Gauntlet endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `20260829T180506Z-449d3a` — from gauntlet:endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T180506Z-449d3a.md)
+
+> Gauntlet endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet HALTED: stage 'endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3-deadline-overrun.md)
 
@@ -1714,8 +1718,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 181.2M | $1517.93 _(notional, rate-card)_ | no quota set |
-| Codex | 54.0M _(+1781.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 181.2M | $1519.52 _(notional, rate-card)_ | no quota set |
+| Codex | 54.0M _(+1782.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1726,13 +1730,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr853-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr853-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #853
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
 
-### tada (6147)
+### tada (6148)
+- [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet.md) — gauntlet endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet — HALTED
 - [`deadmail-20260829T175227Z-4da2b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260829T175227Z-4da2b9.md) — Completion report
 - [`endojs-endo-but-for-bots-dev-publishing-design-reconciliation-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-dev-publishing-design-reconciliation-20260829.md) — orchestration endojs-endo-but-for-bots-dev-publishing-design-reconciliation-2...
 - [`endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829.md) — Completion report
 - [`local-verify-parity-endo-package-uniformity-pr1015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-parity-endo-package-uniformity-pr1015.md) — Completion report
-- [`endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829.md) — Completion report
-- … and 6142 more
+- … and 6143 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
