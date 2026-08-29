@@ -2,7 +2,7 @@
 order: parallel
 children: endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829 endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-29T17:37:33Z
 ---
