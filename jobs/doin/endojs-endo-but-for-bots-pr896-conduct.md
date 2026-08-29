@@ -22,3 +22,13 @@ Carry the merge to completion: block-watch CI to terminal via ci-wait-merge.sh a
 `gh pr merge --merge` on green. kriskowal (maintainers allowlist) has an APPROVED review;
 if the approval gate reads stale after the rebase, stall for re-approval per the conductor
 brief — do not force. Bot repo (endojs/endo-but-for-bots llm trunk); never merge into master.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-29T05:42:54Z
