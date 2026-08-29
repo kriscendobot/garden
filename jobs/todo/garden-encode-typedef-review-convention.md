@@ -1,13 +1,9 @@
 ---
-gate: go-ahead
-budget_hold: true
-park_reason: over-token-budget
-parked_for_budget_at: 2026-08-26T02:09:58Z
-budget_window_seconds: 604800
-budget_resets_at: 2026-08-29T04:00:00Z
-posted_by: producer
-posted_at: 2026-08-26T02:09:58Z
+tier: mentor
+handler-budget-role: designer
+token-budget-epoch: 2026-08-29T04:02:20Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-29T04:02:20Z cleared=none -->
 
 ---
 handler-budget-role: designer
