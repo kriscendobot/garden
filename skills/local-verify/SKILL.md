@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-08-28
+updated: 2026-08-29
 author: gardener
 ---
 
@@ -115,12 +115,12 @@ Escape hatches (all auditable): `GARDEN_SKIP_NODE_PARITY=1` bypasses the guard;
 `GARDEN_NODE=<dir|binary>` points at a matching runtime; `GARDEN_REQUIRED_NODE_MAJOR`
 overrides the resolved requirement (`-`/`none` clears it). Grounding:
 endojs/endo-but-for-bots#1048 — a host on Node 22.23.2 reported `yarn lint:eslint`
-green while the `.node-version=lts/*` → Node 24.18.0 CI leg failed type-aware lint.
+green while the `.node-version=lts/*` -> Node 24.18.0 CI leg failed type-aware lint.
 
 ## The steps (in order)
 
-`format -> build -> lint -> codegen -> test -> test-xs -> docgen`, then a
-**codegen-then-clean gate**.
+`format -> build -> lint -> package-uniformity -> codegen -> test -> test-xs ->
+docgen`, then a **codegen-then-clean gate**.
 
 Run in that order against the project worktree. The harness errs toward running
 the project's **full** suite: false positives (a wasted check) are fine, false
@@ -158,6 +158,28 @@ tests instead of treating it as an alternative spelling of `test`. This closes
 the coverage gap exposed by endojs/endo-but-for-bots#1077, where CI's `test-xs`
 job caught hardened262 baseline drift that the primary workspace tests do not
 exercise.
+
+The `package-uniformity` step is likewise additive: it covers the check CI runs
+in its lint job **outside** `yarn lint` — the "Check package uniformity" step,
+`yarn test:package-uniformity && node scripts/check-package-uniformity.mjs`. That
+command has two halves: the `test:package-uniformity` script exercises the
+checker's helpers against fixtures, while the enforcement half — `node
+scripts/check-package-uniformity.mjs` — scans the actual tree and is a repo-root
+command that **no package.json script wraps**. First-match script discovery
+therefore cannot reach the scan, and folding it into `yarn lint` would *duplicate*
+it in CI's existing lint leg. So this step has its own discovery that
+reconstructs CI's compound command from the parts present (see
+[Inputs](#inputs)): an override wins; else a single project-declared wrap script
+(`lint:package-uniformity`, `check:package-uniformity`, `package-uniformity`,
+`lint:packages`) is used verbatim — the preferred durable form, since
+specialization belongs in the project's scripts; else the self-test script and
+every present repo-root checker (`scripts/check-package-uniformity.mjs`) are
+joined with `&&` so, like CI, both must pass. A project with none of these skips
+the step silently, so it is inert everywhere it does not apply. This closes the
+gap exposed by endojs/endo-but-for-bots#1015, where a tracked `src/types.d.ts`
+was rejected by `node scripts/check-package-uniformity.mjs` while the generic
+root-`lint` gate stayed silent — a coverage gap of exactly the class
+[Parity is the contract](#parity-is-the-contract) requires closing.
 
 ### XS runtime parity (the Moddable release)
 
@@ -201,8 +223,9 @@ their work is at the journal and review surfaces, not the project working tree.
 
 Per-step command discovery (each step, in order, first match wins):
 
-1. An explicit override env var `LOCAL_VERIFY_<STEP>` (uppercased step name:
-   `LOCAL_VERIFY_FORMAT`, `LOCAL_VERIFY_LINT`, `LOCAL_VERIFY_BUILD`,
+1. An explicit override env var `LOCAL_VERIFY_<STEP>` (uppercased step name, with
+   `-` mapped to `_`: `LOCAL_VERIFY_FORMAT`, `LOCAL_VERIFY_LINT`,
+   `LOCAL_VERIFY_BUILD`, `LOCAL_VERIFY_PACKAGE_UNIFORMITY`,
    `LOCAL_VERIFY_CODEGEN`, `LOCAL_VERIFY_TEST`, `LOCAL_VERIFY_TEST_XS`,
    `LOCAL_VERIFY_DOCS`):
    - set to a command string: run that command in the worktree;
@@ -222,6 +245,23 @@ Per-step command discovery (each step, in order, first match wins):
    | docs    | `docs`, `build:types`, `generate-docs`         |
 
 3. Otherwise the step is skipped (recorded, silent).
+
+The `package-uniformity` step is the exception to the single-script model above,
+because CI's uniformity check runs a repo-root command no package.json script
+wraps. After honoring an `LOCAL_VERIFY_PACKAGE_UNIFORMITY` override, its
+discovery composes a command from the parts present, in this precedence:
+
+- a **single wrap script** if the project declares one — candidates
+  `lint:package-uniformity`, `check:package-uniformity`, `package-uniformity`,
+  `lint:packages` — used verbatim (the preferred durable form);
+- otherwise the **self-test script** (`test:package-uniformity`) **and** every
+  present **repo-root checker** (`scripts/check-package-uniformity.mjs`, run as
+  `node <path>`), joined with `&&` so both must pass, mirroring CI's
+  `yarn test:package-uniformity && node scripts/check-package-uniformity.mjs`.
+
+With none present the step is skipped silently. Extend `PU_WRAP_SCRIPTS` /
+`PU_SELFTEST_SCRIPTS` / `PU_CHECKERS` in `local-verify.sh` to teach it another
+project's uniformity check.
 
 For a Yarn workspace tree, the `test` and `test-xs` steps deliberately do not
 delegate to root aggregators. They list every workspace and run each workspace's
@@ -346,7 +386,7 @@ and the cross-host `anchor_blob` note are in
 
 - The gardening state machine (`garden-pr.sh`) runs it as the eval gate before
   the CI push. A failing gate fails loud with the emitted SHAs; the supervising
-  gardener runs the **capture → hash → debugging-agent → fix → re-verify loop**
+  gardener runs the **capture -> hash -> debugging-agent -> fix -> re-verify loop**
   locally until the gate is silent, then pushes. CI then sees a pre-vetted change.
 - The shepherd's role shrinks accordingly: it confirms CI converged rather than
   discovering failures CI surfaces. A change that cleared the local gate is the
@@ -390,7 +430,13 @@ on any runner: a mismatched pin fails loud (`NODE RUNTIME PARITY`, non-zero) wit
 the steps proven **not** to run; a matching pin passes; `GARDEN_SKIP_NODE_PARITY`,
 `GARDEN_REQUIRED_NODE_MAJOR`, `GARDEN_NODE_LTS_LATEST`, `.nvmrc` fallback, and the
 adopt-a-discovered-runtime path (a fake nvm node on an exec-capable base) are each
-asserted. `bash -n` and `shellcheck` clean.
+asserted. A package-uniformity group proves the additive check reconstructs CI's
+compound command from the parts present — the self-test script then the repo-root
+scan, in CI's order — that a tracked-file rejection by the repo scan (which no
+package.json script wraps) fails the step with both halves' output in the blob,
+that a single wrap script subsumes the parts without a duplicate self-test/scan,
+that `LOCAL_VERIFY_PACKAGE_UNIFORMITY=-` skips it, and that it is inert on a
+project with no uniformity check. `bash -n` and `shellcheck` clean.
 
 ## Pitfalls
 

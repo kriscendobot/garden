@@ -209,8 +209,8 @@ like one of these recurring classes.
   major from `.node-version`/`.nvmrc` (explicit versions map directly; `lts/*`,
   `lts/-N`, `lts/<codename>` resolve from a static table + a documented
   `GARDEN_NODE_LTS_LATEST` constant — no network, deterministic, fail-safe
-  offline), then: matches → proceed; a discoverable version-manager runtime
-  (nvm/fnm/n/volta) or `GARDEN_NODE` → adopt it by PATH-prepend; otherwise
+  offline), then: matches -> proceed; a discoverable version-manager runtime
+  (nvm/fnm/n/volta) or `GARDEN_NODE` -> adopt it by PATH-prepend; otherwise
   **refuse to run** with one `NODE RUNTIME PARITY:` line and exit 3. Failing loud
   is deliberate: a silent green under the wrong Node is the defect, so the gate
   must not emit one. Helpers `required_node_major` / `active_node_major` /
@@ -235,3 +235,32 @@ like one of these recurring classes.
   a fallback. The image bakes the current release and a locked per-host cache
   fills future pins. General lesson: adding a missing CI suite is only parity if
   the suite's separately pinned runtime is part of the gate too.
+- _2026-08-29_: closed the CI-only package-uniformity gap exposed by
+  endojs/endo-but-for-bots#1015 (job
+  `local-verify-parity-endo-package-uniformity-pr1015`). CI's lint job runs, in a
+  step **outside** `yarn lint`, `yarn test:package-uniformity && node
+  scripts/check-package-uniformity.mjs`; the second half scans the actual tree and
+  rejected a tracked `src/types.d.ts` that did not follow the `*.types.d.*` naming
+  convention, while the harness's generic `lint` step (root `yarn lint` =
+  `lint:prettier && lint:eslint && lint:sh`) never ran it and stayed silent. The
+  wrinkle that made this more than "add a candidate": the enforcement half is a
+  **repo-root command that no package.json script wraps**, so first-match script
+  discovery cannot reach it, and the obvious workaround — folding the scan into
+  `yarn lint` — would *duplicate* the check in CI's own lint leg (CI runs `yarn
+  lint` **and** the dedicated uniformity step). Fix: a new additive
+  `package-uniformity` step whose discovery reconstructs CI's compound command
+  from the parts present — an override, else a single project-declared wrap script
+  (`lint:package-uniformity`, ...) used verbatim, else the self-test script
+  (`test:package-uniformity`) `&&` every present repo-root checker
+  (`scripts/check-package-uniformity.mjs`, run as `node <path>`). Both halves must
+  pass, mirroring CI; the ava self-test alone would **not** have caught #1015
+  because it exercises the checker's helpers against fixtures, never the real repo
+  scan. A project with none of the parts skips silently, so the step is inert
+  where it does not apply. Verified on the real `endojs/endo-but-for-bots` tree:
+  silent at clean HEAD, and a re-introduced tracked `packages/ses/src/types.d.ts`
+  reproduced the #1015 rejection. General lesson for the table: parity coverage
+  sometimes means running a check the project exposes **only** as a raw CI
+  command, not a script — reconstruct that command in a dedicated step rather than
+  mutating the project's `lint` composition, which would double-run it on CI. The
+  cleaner durable home is a single project-side wrap script (which the step's
+  `PU_WRAP_SCRIPTS` candidates already prefer), left for the project to adopt.

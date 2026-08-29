@@ -4,7 +4,7 @@
 # Runs the project's real verification steps, IN ORDER, before a change is
 # pushed for a pull request:
 #
-#   format -> build -> lint -> codegen -> test -> test-xs -> docgen
+#   format -> build -> lint -> package-uniformity -> codegen -> test -> test-xs -> docgen
 #
 # then a codegen-then-clean gate: if any step (a generator, typically) left the
 # worktree dirty, a checked-in generated artifact was stale — fail loud.
@@ -59,6 +59,16 @@
 # `test:xs` is an additional suite, not an alternative spelling of `test`. When
 # present it runs under the Moddable release pinned by CI, provisioned into an
 # isolated tool cache; an unrelated host `xst` is never selected from PATH.
+#
+# `package-uniformity` is another additive check CI runs in its lint job OUTSIDE
+# `yarn lint` (the "Check package uniformity" step, `yarn test:package-uniformity
+# && node scripts/check-package-uniformity.mjs`). Because the actual repo scan is
+# a repo-root command that no package.json script wraps, discovery for this step
+# reconstructs CI's compound command from the parts present (§ discover_package_
+# uniformity below), so the check runs locally WITHOUT being duplicated into the
+# project's `yarn lint`. Grounding: endojs/endo-but-for-bots#1015, where a tracked
+# `src/types.d.ts` was rejected by `node scripts/check-package-uniformity.mjs`
+# while the generic root-`lint` gate stayed silent.
 #
 # A project with no package.json and no overrides verifies nothing and exits 0;
 # wire the real commands per project via package.json scripts or the overrides.
@@ -163,7 +173,7 @@ fi
 # after the build reports zero errors. Ordering costs nothing here: the harness
 # runs every step regardless (it does not stop at the first failure), so this
 # only changes whether the lint result is trustworthy.
-STEPS="format build lint codegen test test-xs docs"
+STEPS="format build lint package-uniformity codegen test test-xs docs"
 candidates() {
   case "$1" in
     format)  echo "format:check check:format format-check format" ;;
@@ -216,7 +226,56 @@ discover_in() {  # discover_in <package.json> <step> — print command, or nothi
   return 0                                 # no command — skip
 }
 
-discover() { discover_in "$pkg" "$1"; }
+# Discovery for the additive `package-uniformity` step. CI runs, in its lint job
+# and OUTSIDE `yarn lint`, a compound "Check package uniformity" command:
+#   yarn test:package-uniformity && node scripts/check-package-uniformity.mjs
+# The self-test half is a package.json script (it exercises the checker's helpers
+# against fixtures); the enforcement half is a repo-root command that scans the
+# actual tree and that NO package.json script wraps. First-match script discovery
+# therefore cannot reach it, and folding the scan into `yarn lint` would duplicate
+# it in CI's existing lint leg — so this composer reconstructs CI's command from
+# whichever parts are present:
+#   1. Override LOCAL_VERIFY_PACKAGE_UNIFORMITY wins verbatim (or "-"/"" skips).
+#   2. A project that wraps the whole check in ONE package.json script (the ideal
+#      durable form — specialization belongs in the project's scripts) is used
+#      as-is. Extend PU_WRAP_SCRIPTS for a project's chosen name.
+#   3. Otherwise: the self-test script (PU_SELFTEST_SCRIPTS) AND every present
+#      repo-root checker (PU_CHECKERS, each run as `node <path>`), joined with
+#      `&&` so — like CI — both must pass. A project with none of these skips the
+#      step silently, so the step is inert everywhere it does not apply.
+PU_WRAP_SCRIPTS="lint:package-uniformity check:package-uniformity package-uniformity lint:packages"
+PU_SELFTEST_SCRIPTS="test:package-uniformity"
+PU_CHECKERS="scripts/check-package-uniformity.mjs"
+discover_package_uniformity() {  # print the compound command, or nothing (skip)
+  local override name parts=() joined i f
+  override="$(override_name package-uniformity)"
+  if [ -n "${!override+x}" ]; then        # override is SET (even if empty)
+    case "${!override}" in
+      -|"") return 0 ;;                    # explicit skip
+      *)    printf '%s\n' "${!override}" ; return 0 ;;
+    esac
+  fi
+  for name in $PU_WRAP_SCRIPTS; do
+    if has_script_in "$pkg" "$name"; then printf '%s run %s\n' "$YARN" "$name"; return 0; fi
+  done
+  for name in $PU_SELFTEST_SCRIPTS; do
+    if has_script_in "$pkg" "$name"; then parts+=("$YARN run $name"); break; fi
+  done
+  for f in $PU_CHECKERS; do
+    [ -f "$wt/$f" ] && parts+=("node $f")
+  done
+  [ "${#parts[@]}" -gt 0 ] || return 0     # nothing to run — skip, silent
+  joined="${parts[0]}"
+  for ((i = 1; i < ${#parts[@]}; i++)); do joined="$joined && ${parts[$i]}"; done
+  printf '%s\n' "$joined"
+}
+
+discover() {
+  case "$1" in
+    package-uniformity) discover_package_uniformity ;;
+    *)                  discover_in "$pkg" "$1" ;;
+  esac
+}
 
 # Resolve the Moddable release used by CI. A repository-local pin wins; the
 # workflow fallback covers projects such as endo, whose test-xs job declares

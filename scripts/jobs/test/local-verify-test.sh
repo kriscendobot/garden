@@ -33,6 +33,14 @@
 #      after its primary test under the Moddable release pinned by CI; the
 #      harness uses the explicitly provisioned xst rather than a mismatched host
 #      PATH entry, stays silent on success, and fails loud when no pin exists.
+#  13. Additive package-uniformity parity: CI's lint-leg "Check package
+#      uniformity" step (`yarn test:package-uniformity && node
+#      scripts/check-package-uniformity.mjs`) is reconstructed from the parts
+#      present and run as its own step — the repo scan that no package.json
+#      script wraps included — without duplicating it into `yarn lint`; a single
+#      wrap script subsumes the parts; the step is inert where absent. Regression
+#      for job `local-verify-parity-endo-package-uniformity-pr1015`
+#      (endojs/endo-but-for-bots#1015).
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
 # with a stubbed package runner (GARDEN_YARN), and — for 10 — a throwaway garden
@@ -612,6 +620,106 @@ git -C "$RXS" cat-file -p "$s_xs" 2>/dev/null | grep -q 'refusing to use an unpi
   && ok "failure capture explains that host xst is refused" || bad "unpinned diagnosis missing from blob"
 [ "$(grep -c '^xs:' "$XS_TRACE" 2>/dev/null || true)" -eq 0 ] \
   && ok "unpinned test:xs does not execute with the host xst" || bad "unpinned test:xs executed unexpectedly"
+
+# --- 18: additive package-uniformity check ----------------------------------
+# endo CI runs, in its lint job and OUTSIDE `yarn lint`, a compound
+# "Check package uniformity" step: `yarn test:package-uniformity && node
+# scripts/check-package-uniformity.mjs`. The self-test half is a package.json
+# script; the enforcement half is a repo-root command NO script wraps, so
+# first-match discovery cannot reach it and folding it into `yarn lint` would
+# duplicate it in CI's lint leg. The `package-uniformity` step reconstructs CI's
+# compound command from the parts present and runs it locally. Regression for job
+# `local-verify-parity-endo-package-uniformity-pr1015`
+# (endojs/endo-but-for-bots#1015: a tracked `src/types.d.ts` rejected by the repo
+# scan while the root-`lint` gate stayed silent).
+PU_TRACE="$TR/pu-trace"
+make_pu_repo() {  # make_pu_repo <dir> <package.json-scripts-json>
+  local dir="$1" scripts="$2"
+  mkdir -p "$dir/scripts"; git -C "$dir" init -q
+  git -C "$dir" config user.email t@localhost; git -C "$dir" config user.name test
+  printf '{ "name": "fixture", "scripts": %s }\n' "$scripts" > "$dir/package.json"
+  # A real .mjs repo scan: append "checker" to the trace, then fail if a tracked
+  # marker file `BAD` exists (mimicking #1015's tracked-file rejection).
+  cat > "$dir/scripts/check-package-uniformity.mjs" <<'MJS'
+import { appendFileSync, existsSync } from 'node:fs';
+if (process.env.PU_TRACE) appendFileSync(process.env.PU_TRACE, 'checker\n');
+if (existsSync(new URL('../BAD', import.meta.url))) {
+  console.error('REJECT: packages/x/src/types.d.ts violates *.types.d.* naming');
+  process.exit(1);
+}
+console.log('package uniformity: ok');
+MJS
+  # The stub runner traces which script it dispatched.
+  cat > "$dir/yarn-stub.sh" <<'STUB'
+#!/bin/bash
+case "$1:$2" in
+  run:test:package-uniformity) [ -n "$PU_TRACE" ] && echo selftest >> "$PU_TRACE"; echo "ava: 12 tests passed"; exit 0 ;;
+  run:lint:package-uniformity) [ -n "$PU_TRACE" ] && echo wrap >> "$PU_TRACE"; echo "wrapped uniformity: ok"; exit 0 ;;
+  *) exit 0 ;;
+esac
+STUB
+  chmod +x "$dir/yarn-stub.sh"
+  git -C "$dir" add -A; git -C "$dir" commit -qm init >/dev/null
+}
+
+# (a) self-test script + repo-root checker: BOTH run, in CI's order, on a clean
+# tree → silent, exit 0.
+RPU="$TR/pu-parts"; make_pu_repo "$RPU" '{ "test:package-uniformity": "tpu" }'
+: > "$PU_TRACE"
+opu="$(PU_TRACE="$PU_TRACE" GARDEN_YARN="bash $RPU/yarn-stub.sh" "$LV" "$RPU" 2>&1)"; rcpu=$?
+[ "$rcpu" -eq 0 ] && [ -z "$opu" ] \
+  && ok "package-uniformity clean tree: silent, exit 0" \
+  || bad "clean package-uniformity not silent/zero (rc=$rcpu out=[$opu])"
+[ "$(tr '\n' ' ' <"$PU_TRACE")" = "selftest checker " ] \
+  && ok "runs the self-test then the repo scan, in CI's order" \
+  || bad "package-uniformity parts/order wrong (trace=[$(tr '\n' '|' <"$PU_TRACE")])"
+
+# (b) the repo-root checker (which NO package.json script wraps) rejects a tracked
+# file → the step fails loud, and the blob holds BOTH halves' output.
+touch "$RPU/BAD"; git -C "$RPU" add BAD; git -C "$RPU" commit -qm bad >/dev/null
+opub="$(PU_TRACE="$PU_TRACE" GARDEN_YARN="bash $RPU/yarn-stub.sh" "$LV" "$RPU" 2>&1)"; rcpub=$?
+[ "$rcpub" -ne 0 ] && ok "a tracked-file rejection fails the gate" || bad "checker rejection did not fail the gate"
+printf '%s' "$opub" | grep -q 'STEP package-uniformity FAILED' \
+  && ok "emits STEP package-uniformity FAILED" || bad "missing STEP package-uniformity FAILED (out=[$opub])"
+spu="$(printf '%s' "$opub" | sed -nE 's/.*STEP package-uniformity FAILED: output blob ([0-9a-f]{40}).*/\1/p' | head -1)"
+bpu="$(git -C "$RPU" cat-file -p "$spu" 2>/dev/null)"
+printf '%s' "$bpu" | grep -q 'REJECT: packages/x/src/types.d.ts' \
+  && ok "blob holds the repo scan's rejection" || bad "blob missing the repo-scan rejection"
+printf '%s' "$bpu" | grep -q 'ava: 12 tests passed' \
+  && ok "blob also holds the self-test output (compound command ran both)" || bad "blob missing the self-test half"
+
+# (c) LOCAL_VERIFY_PACKAGE_UNIFORMITY=- skips the step even with a failing checker.
+opuc="$(LOCAL_VERIFY_PACKAGE_UNIFORMITY=- PU_TRACE="$PU_TRACE" \
+        GARDEN_YARN="bash $RPU/yarn-stub.sh" "$LV" "$RPU" 2>&1)"; rcpuc=$?
+[ "$rcpuc" -eq 0 ] && [ -z "$opuc" ] \
+  && ok "LOCAL_VERIFY_PACKAGE_UNIFORMITY=- skips the step" \
+  || bad "override skip not honored (rc=$rcpuc out=[$opuc])"
+
+# (d) the preferred durable form: a single wrap script is used VERBATIM, and the
+# self-test/checker are NOT separately invoked (no duplication).
+RPUW="$TR/pu-wrap"
+make_pu_repo "$RPUW" '{ "test:package-uniformity": "tpu", "lint:package-uniformity": "lpu" }'
+touch "$RPUW/BAD"; git -C "$RPUW" add BAD; git -C "$RPUW" commit -qm bad >/dev/null  # would fail if the checker ran
+: > "$PU_TRACE"
+opuw="$(PU_TRACE="$PU_TRACE" GARDEN_YARN="bash $RPUW/yarn-stub.sh" "$LV" "$RPUW" 2>&1)"; rcpuw=$?
+[ "$rcpuw" -eq 0 ] && [ -z "$opuw" ] \
+  && ok "a wrap script is used and passes (checker not separately run)" \
+  || bad "wrap-script form not honored (rc=$rcpuw out=[$opuw])"
+[ "$(tr '\n' ' ' <"$PU_TRACE")" = "wrap " ] \
+  && ok "the wrap script alone runs — no duplicate self-test/scan" \
+  || bad "wrap form did not subsume the parts (trace=[$(tr '\n' '|' <"$PU_TRACE")])"
+
+# (e) a project with neither a self-test script nor a checker file: the step is
+# inert (silent), so it never false-fails on projects it does not apply to.
+RPUN="$TR/pu-none"; mkdir -p "$RPUN"; git -C "$RPUN" init -q
+git -C "$RPUN" config user.email t@localhost; git -C "$RPUN" config user.name test
+echo '{ "name": "plain", "scripts": { "lint": "lint" } }' > "$RPUN/package.json"
+printf '#!/bin/bash\nexit 0\n' > "$RPUN/yarn-stub.sh"
+git -C "$RPUN" add -A; git -C "$RPUN" commit -qm init >/dev/null
+opun="$(GARDEN_YARN="bash $RPUN/yarn-stub.sh" "$LV" "$RPUN" 2>&1)"; rcpun=$?
+[ "$rcpun" -eq 0 ] && [ -z "$opun" ] \
+  && ok "package-uniformity is inert where the project has no uniformity check" \
+  || bad "package-uniformity false-fired on an unrelated project (rc=$rcpun out=[$opun])"
 
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"
