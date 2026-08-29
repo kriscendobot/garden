@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1061
 build_job: endojs-endo-but-for-bots-marshal-types-dts-refactor-build
 kind: feature
-stage: panel
+stage: fix
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4
+current_child: endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-4
 state: running
 created_by: producer
 created_at: 2026-08-25T19:28:36Z
