@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T17:36:03Z_
+_As of 2026-08-29T17:39:14Z_
 
 ## Latest
 
@@ -1662,26 +1662,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.9M | $1479.14 _(notional, rate-card)_ | no quota set |
-| Codex | 53.6M _(+1765.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Claude | 180.9M | $1484.85 _(notional, rate-card)_ | no quota set |
+| Codex | 53.7M _(+1766.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-issue-comment-5463858197`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5463858197.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1085
+- [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1015
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
-- [`xs2rust-endor-press-20260829-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260829-173507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6140)
+### tada (6142)
+- [`deadmail-issue-comment-5463858197`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5463858197.md) — Cost
+- [`xs2rust-endor-press-20260829-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-173507.md) — Cost
 - [`deadmail-issue-comment-5463658407`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5463658407.md) — Cost
 - [`xs2rust-endor-press-20260829-163504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-163504.md) — Cost
 - [`deadmail-issue-comment-5463542954`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5463542954.md) — Cost
-- [`xs2rust-endor-press-20260829-153504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-153504.md) — Press report — Ironhorse fronts, 2026-08-29T15:35Z
-- [`endojs-endo-but-for-bots-pr832-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr832-gauntlet — HALTED
-- … and 6135 more
+- … and 6137 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
