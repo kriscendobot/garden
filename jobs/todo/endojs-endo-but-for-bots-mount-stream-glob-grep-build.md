@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr647-conduct
-priority: normal
-posted_by: producer
-posted_at: 2026-08-29T04:43:57Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-29T05:06:05Z cleared=none -->
 
 ---
 role: builder
