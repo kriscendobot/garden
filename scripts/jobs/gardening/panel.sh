@@ -349,18 +349,38 @@ undraft() { "$GARDEN_PANEL_UNDRAFT" "$pr" || fail "un-draft"; }
 # unreadable brief — or a kill) is distinguishable from one that exhausted its
 # attempts, rather than looking identical to "no verdict".
 run_seat() {  # run_seat <seat> <block>  -> writes <block>, <block>.stderr, <block>.status
-  local seat="$1" block="$2" attempts try
+  local seat="$1" block="$2" attempts try seat_rc attempt_stderr last_failure
   attempts="${GARDEN_PANEL_SEAT_ATTEMPTS:-3}"
   echo pending > "$block.status"
+  : > "$block.stderr"
+  last_failure=fail
   for try in $(seq 1 "$attempts"); do
-    if seat_review "$seat" > "$block" 2> "$block.stderr" \
-       && grep -q '[^[:space:]]' "$block"; then
+    attempt_stderr="$block.stderr.attempt-$try"
+    seat_rc=0
+    # seat_review is intentionally expanded by the child Bash from its exported
+    # function table, not by this parent shell.
+    # shellcheck disable=SC2016
+    timeout --signal=TERM --kill-after="${GARDEN_PANEL_SEAT_KILL_AFTER}s" \
+      "${GARDEN_PANEL_SEAT_TIMEOUT}s" \
+      bash -c 'seat_review "$1"' panel-seat "$seat" \
+      > "$block" 2> "$attempt_stderr" || seat_rc=$?
+    {
+      printf '%s\n' "--- attempt $try/$attempts (rc=$seat_rc) ---"
+      cat "$attempt_stderr"
+    } >> "$block.stderr"
+    if [ "$seat_rc" -eq 0 ] && grep -q '[^[:space:]]' "$block"; then
       echo ok > "$block.status"; return 0
     fi
-    echo "panel #$pr: seat '$seat' returned no verdict (attempt $try/$attempts); retrying" >&2
+    if [ "$seat_rc" -eq 124 ]; then
+      last_failure=timeout
+      echo "panel #$pr: seat '$seat' timed out after ${GARDEN_PANEL_SEAT_TIMEOUT}s (attempt $try/$attempts)" >&2
+    else
+      last_failure=fail
+      echo "panel #$pr: seat '$seat' returned no verdict (attempt $try/$attempts, rc=$seat_rc)" >&2
+    fi
     [ "$try" -lt "$attempts" ] && sleep "$(( try * ${GARDEN_PANEL_SEAT_BACKOFF:-5} ))"
   done
-  echo fail > "$block.status"
+  echo "$last_failure" > "$block.status"
   return 1
 }
 
@@ -391,6 +411,32 @@ run_seat() {  # run_seat <seat> <block>  -> writes <block>, <block>.stderr, <blo
 : "${GARDEN_PANEL_CONCURRENCY:=8}"
 case "$GARDEN_PANEL_CONCURRENCY" in ''|*[!0-9]*) GARDEN_PANEL_CONCURRENCY=8 ;; esac
 [ "$GARDEN_PANEL_CONCURRENCY" -ge 1 ] || GARDEN_PANEL_CONCURRENCY=1
+
+# Every seat attempt gets its own wall, strictly inside the enclosing handler's
+# applied budget. A single `claude -p` otherwise has no bound and can consume the
+# panel stage's entire claim (one staged round did exactly that at 7200s). The
+# gardener exports the actual per-job budget; direct invocations fall back to the
+# panel role default. Keep a short TERM grace for a stuck CLI, and clamp an
+# over-large seat setting so configuration cannot erase the nesting invariant.
+: "${GARDEN_PANEL_HANDLER_TIMEOUT:=7200}"
+: "${GARDEN_PANEL_SEAT_TIMEOUT:=1200}"
+: "${GARDEN_PANEL_SEAT_KILL_AFTER:=30}"
+panel_handler_budget="${GARDEN_APPLIED_HANDLER_BUDGET:-$GARDEN_PANEL_HANDLER_TIMEOUT}"
+case "$panel_handler_budget" in ''|*[!0-9]*|0) panel_handler_budget=7200 ;; esac
+case "$GARDEN_PANEL_SEAT_TIMEOUT" in ''|*[!0-9]*|0) GARDEN_PANEL_SEAT_TIMEOUT=1200 ;; esac
+case "$GARDEN_PANEL_SEAT_KILL_AFTER" in ''|*[!0-9]*|0) GARDEN_PANEL_SEAT_KILL_AFTER=30 ;; esac
+seat_timeout_max=$((panel_handler_budget - GARDEN_PANEL_SEAT_KILL_AFTER - 1))
+[ "$seat_timeout_max" -ge 1 ] \
+  || fail "seat timeout configuration (handler budget ${panel_handler_budget}s must exceed kill-after ${GARDEN_PANEL_SEAT_KILL_AFTER}s by at least 2s)"
+if [ "$GARDEN_PANEL_SEAT_TIMEOUT" -gt "$seat_timeout_max" ]; then
+  GARDEN_PANEL_SEAT_TIMEOUT="$seat_timeout_max"
+fi
+
+# GNU timeout can execute external commands, not shell functions. Export the
+# review function and the run context into its short-lived Bash child so timeout
+# owns the whole seat process group (including `claude -p`) and can reap it.
+export -f fail seat_review
+export HERE JURORS_DIR wt pr base wt_repo
 
 # --- SHORT-CIRCUIT: an empty diff has nothing for a jury to review ----------
 # Zero rounds, zero seats, zero `claude -p`. There is no finding a seat could
@@ -500,6 +546,7 @@ while :; do
     block="$GARDEN_PANEL_RUNDIR/round-$round.$seat.md"
     case "$(cat "$block.status" 2>/dev/null || true)" in
       ok)   ;;
+      timeout) PANEL_DISPOSITION="seat-error"; fail "seat $seat (timed out after ${GARDEN_PANEL_SEAT_TIMEOUT}s on its final attempt; $attempts attempts exhausted; stderr in $block.stderr)" ;;
       fail) PANEL_DISPOSITION="seat-error"; fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)" ;;
       *)    PANEL_DISPOSITION="seat-error"; fail "seat $seat (fan-out died before reporting a verdict; stderr in $block.stderr)" ;;
     esac

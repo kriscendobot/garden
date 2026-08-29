@@ -538,7 +538,10 @@ while :; do
   [ "${GARDEN_JOB_HANDLER_BASH:-0}" = "1" ] && handler_cmd=(bash "$GARDEN_JOB_HANDLER")
   set +e
   set -m
+  # Nested bounded work (notably panel seats) must stay strictly inside the exact
+  # per-job wall, including an explicit handler-timeout override.
   GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" GARDEN_USAGE_FILE="$usage_file" \
+    GARDEN_APPLIED_HANDLER_BUDGET="$handler_budget" \
     timeout --foreground --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
     "${handler_cmd[@]}" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
   handler_pgid=$!

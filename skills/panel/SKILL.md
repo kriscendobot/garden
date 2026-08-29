@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-08-20
+updated: 2026-08-29
 author: gardener
 ---
 
@@ -61,6 +61,7 @@ runnable non-interactively):
 | `GARDEN_PANEL_REPO` | `<owner>/<repo>` for the record's store key (default: derived from the worktree's `origin`, else the worktree basename). Every remote-URL form git accepts reduces to the same key (`scripts/jobs/test/panel-repo-slug-test.sh`), so a run is keyed the same whether or not a caller passes this. |
 | `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); this is what makes the 29-seat panel fit a handler budget. |
 | `GARDEN_PANEL_SEAT_ATTEMPTS` / `_BACKOFF` | per-seat retry-on-empty attempts (default 3) and backoff step in seconds (default 5). |
+| `GARDEN_PANEL_SEAT_TIMEOUT` / `_KILL_AFTER` | wall-clock bound for each seat attempt (default 1200s) and TERM grace (default 30s). The bound is clamped below the enclosing handler budget. |
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
 | `GARDEN_TRACE` / `GARDEN_TRACE_LOG` | opt-in `set -x` diverted to a file via `BASH_XTRACEFD`. |
 
@@ -134,7 +135,11 @@ was previously deleted with the worktree.
    `roles/jurors/<seat>/AGENT.md` and the diff. Each seat returns one per-juror
    block, which the script files under the run dir; an empty or blank block is
    never legitimate signal, so the seat is retried with backoff and, once its
-   attempts are spent, fails the panel loudly. After the join, a **second pass
+   attempts are spent, fails the panel loudly. Each attempt is also bounded by
+   `GARDEN_PANEL_SEAT_TIMEOUT`, strictly below the enclosing panel handler
+   budget. A timeout is classified separately, retried deterministically, and
+   retains each attempt's stderr in the seat's combined `.stderr` file. After
+   the join, a **second pass
    appends the blocks to the round aggregate in `$seats` order**, so the
    aggregate is byte-identical however the seats happened to interleave.
    Concurrency is what makes the panel fit a gardener's handler budget *by
