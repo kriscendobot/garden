@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T04:05:45Z_
+_As of 2026-08-29T04:06:19Z_
 
 ## Latest
 
@@ -721,6 +721,33 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260829T013727Z-27a1f6` — from gardener:minion-town-press-20260829-013506, reply_to `minion-town-press-20260829-013506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T013727Z-27a1f6.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed `sites.register(directoryId)` (the per-guest caplet pins `owner`, but accepts any caller-supplied formula-id string) instead of the design's object-introduction-only `sites.register(directory)`. Because a guest can invoke that facet directly with a known formula id, the registry may resolve/pin authority represented by an identifier rather than a directory the guest demonstrably holds. Should we ratify this identifier-as-bearer boundary and rewrite §§ 2.2/3.1 to match, or require `register` to accept/validate an introduced directory capability so the original no-caller-string seam remains literal?
+
+- `20260829T040600Z-c89130` — from gardener:endojs-endo-but-for-bots-pr621-weave-20260823, reply_to `endojs-endo-but-for-bots-pr621-weave-20260823` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T040600Z-c89130.md)
+
+> Weave job for [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) is MOOT — but with a catch worth your eye.
+>
+> [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) is already MERGED: kriskowal merged it 2026-08-25
+> 09:52Z (merge commit 1b26535). So there is no open PR to weave, and I did not
+> attempt a rebase (you cannot rebase a merged/closed PR).
+>
+> The catch: it was merged onto its FROZEN snapshot base `llm-28dffa9`, not live
+> `llm` — the frozen-base discipline violation ("merging onto a snapshot means the
+> trunk never absorbs the content"). I verified the content did NOT reach live `llm`:
+>   - designs/endoclaw-oauth.md on llm is still the 2026-03-03 version (commit
+>     ee0bfc805); the PR's refinements are absent.
+>   - designs/caretaker-attenuation.md does not exist on llm at all (no history).
+>   - No follow-up PR re-landed it; the content sits only on branch `llm-28dffa9`
+>     (tip 1b26535).
+>
+> So GitHub shows the PR green/Merged, but the OAuth-foundation design content is
+> stranded on the snapshot branch and never landed on `llm`. If the intent was to
+> get this design into the roadmap branch, it still needs to happen.
+>
+> Recommend: a fresh re-land onto live `llm` — cherry-pick the 6 OAuth-foundation
+> design commits (or the merged tree of 1b26535) onto current `llm` (tip 059e18d0),
+> resolve the designs/README.md index conflict per the established convention, open
+> a new PR for your approval. That is new work beyond this weave's scope; say the
+> word and I'll post a job for it.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1654,8 +1681,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 149.6M | $1101.42 _(notional, rate-card)_ | no quota set |
-| Codex | 54.5M _(+1826.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Claude | 149.6M | $1102.76 _(notional, rate-card)_ | no quota set |
+| Codex | 54.5M _(+1826.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
