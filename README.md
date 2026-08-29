@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T04:31:29Z_
+_As of 2026-08-29T04:34:08Z_
 
 ## Latest
 
@@ -1654,17 +1654,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.1M | $1123.69 _(notional, rate-card)_ | no quota set |
-| Codex | 54.5M _(+1819.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
+| Claude | 152.9M | $1130.80 _(notional, rate-card)_ | no quota set |
+| Codex | 54.5M _(+1823.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (8)
 - [`deadmail-issue-comment-5460011044`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5460011044.md) — Dead-lettered message — pick up its intent
-- [`deadmail-issue-comment-5460321033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5460321033.md) — Dead-lettered message — pick up its intent
-- [`design-exo-stream-codel-pacing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-exo-stream-codel-pacing.md) — Design adaptive exo-stream pacing and buffer control
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1059-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-shepherd-20260829.md) — Restore Ironhorse snapshot CI on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1083-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1083
@@ -1673,13 +1671,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr858-review-e6eaf772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr858-review-e6eaf772.md) — Review directive on endojs/endo-but-for-bots PR #858
 - [`endojs-endo-but-for-bots-pr890-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #890
 
-### tada (6020)
+### tada (6022)
+- [`deadmail-issue-comment-5460321033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5460321033.md) — Cost
+- [`design-exo-stream-codel-pacing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-exo-stream-codel-pacing.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr890-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-gauntlet-panel-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-panel-1.md) — Panel round 1 — endojs/endo-but-for-bots PR #1083
-- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-2.md) — Completion report
-- … and 6015 more
+- … and 6017 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
