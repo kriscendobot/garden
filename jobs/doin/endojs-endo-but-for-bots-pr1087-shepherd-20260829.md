@@ -33,6 +33,7 @@ head, and push with compare-and-swap. Drive CI to green and post the required
 top-level completion summary on the PR with the addressing SHA and exact
 verification evidence.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
