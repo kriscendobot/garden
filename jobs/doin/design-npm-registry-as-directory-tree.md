@@ -119,3 +119,13 @@ where the new capability shape wraps it. Open questions the maintainer must
 resolve go under `## Open questions` in question form.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T03:03:16Z
