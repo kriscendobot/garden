@@ -1,0 +1,18 @@
+<6>03:20:55 [jobs] job 'deadmail-issue-comment-5460011044' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>03:20:55 [jobs] job 'deadmail-issue-comment-5460011044' resolved tier 'mentor' -> claude --model claude-opus-4-8
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+Done. Picked up the intent of the dead-lettered maintainer comment ("Pause the press" on `kriscendobot/garden#58`, the Minion Town issue).
+
+**What I did**
+- Identified the referenced press as the `minion-town-press` schedule (the standing 2h autonomous driver pressing `kriscendobot/minion.town` forward off merged #52). The `fu-minion-town-containment-gateway-endo-sock-1` daily drift-check is a distinct schedule and was deliberately left running.
+- Paused it by removing `schedules/minion-town-press.md` from `journal2` via a CAS push to `origin/journal2` (commit `84f8dabb11`, "schedule(minion-town-press) pause…"). The scheduler will no longer dispatch it. Verified the file is absent on origin and the remaining schedule set is intact.
+- Replied on the issue thread: https://github.com/kriscendobot/garden/issues/58#issuecomment-5460027265 — confirming the pause, noting the containment check was left running, and giving the resume one-liner. Did not close the issue.
+
+**What changed**
+- Journal (`journal2`): `minion-town-press` schedule removed. No `main2` code changes.
+
+**Follow-ups / notes**
+- The schedule body is preserved in git history (last-dispatch commit `9e066a93a2`); resume with `set-schedule.sh minion-town-press 2h` or by restoring the file.
+- Offered in the reply to also pause the daily containment drift-check if the maintainer wants it stopped too.
