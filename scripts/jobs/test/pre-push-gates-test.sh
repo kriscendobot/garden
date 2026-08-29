@@ -92,3 +92,32 @@ git -C "$REPOSITORY" diff --staged -- example.js | grep -Fq formattedName || {
   exit 1
 }
 echo "ok - full driver runs project stages, re-stages fixes, and passes silently"
+
+# Regression (endojs/endo-but-for-bots#1014): a file whose `spell-out-exempt`
+# marker sits in the first five lines must stay exempt even when the file is far
+# longer than the head window. The old exemption check piped the whole file
+# through `printf ... | head -5 | grep -q`; under `pipefail` a file past the
+# pipe buffer makes `printf` take a SIGPIPE (exit 141) once `head` closes its
+# read end, so the pipeline reports failure even though `grep -q` matched — and
+# the marker is silently voided on exactly the large files most likely to need
+# it. This file exceeds the 64 KiB pipe buffer and carries an abbreviated
+# identifier (`pendingIdx`), so a voided exemption would fail the probe.
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+{
+  printf '%s\n' '// spell-out-exempt'
+  printf '%s\n' 'const pendingIdx = 0;'
+  for i in $(seq 1 5000); do printf 'const filler%d = %d;\n' "$i" "$i"; done
+} >"$REPOSITORY/exempt-long.js"
+git -C "$REPOSITORY" add exempt-long.js
+output=$($DRIVER --no-auto-fix --probes-only --summary "$REPOSITORY") || {
+  echo "not ok - long spell-out-exempt file was rejected (head|grep SIGPIPE regression)"
+  exit 1
+}
+printf '%s\n' "$output" | grep -Fq 'result: pass' || {
+  echo "not ok - long spell-out-exempt file did not pass cleanly"
+  exit 1
+}
+echo "ok - a long spell-out-exempt file stays exempt under pipefail"
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
