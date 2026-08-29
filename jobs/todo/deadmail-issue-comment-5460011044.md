@@ -44,15 +44,4 @@ Pause the press
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-29T08:00:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-29T07:23:11Z
+<!-- garden-reaped: 2 -->
