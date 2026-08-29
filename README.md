@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T05:20:33Z_
+_As of 2026-08-29T05:23:51Z_
 
 ## Latest
 
@@ -1654,35 +1654,34 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 155.6M | $1162.92 _(notional, rate-card)_ | no quota set |
-| Codex | 55.0M _(+1835.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 155.6M | $1164.97 _(notional, rate-card)_ | no quota set |
+| Codex | 55.0M _(+1837.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (4)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1061
-- [`endojs-endo-but-for-bots-pr1014-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1014-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
+- [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1083-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1083
 - [`endojs-endo-but-for-bots-pr896-review-b7fe106c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr896-review-b7fe106c.md) — Review directive on endojs/endo-but-for-bots PR #896
-- [`endojs-endo-but-for-bots-pr989-ca1565ca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr989-ca1565ca.md) — attention directive on endojs/endo-but-for-bots PR #989
+- [`kriscendobot-minion.town-pr64-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr64-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #64
 
-### doin (10)
+### doin (9)
 - [`deadmail-issue-comment-5460011044`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5460011044.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build.md) — Build: streaming mount search (streamGlob / streamGrep)
-- [`endojs-endo-but-for-bots-pr1014-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #1014
+- [`endojs-endo-but-for-bots-pr1014-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr1015-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1015
-- [`endojs-endo-but-for-bots-pr1015-review-348a2017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-review-348a2017.md) — Review directive on endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr1059-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-shepherd-20260829.md) — Restore Ironhorse snapshot CI on endojs/endo-but-for-bots PR #1059
-- [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1083-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1083
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1084-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1084
 - [`endojs-endo-but-for-bots-pr819-review-f8bab00f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr819-review-f8bab00f.md) — Review directive on endojs/endo-but-for-bots PR #819
 - [`endojs-endo-but-for-bots-pr890-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #890
+- [`endojs-endo-but-for-bots-pr989-ca1565ca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr989-ca1565ca.md) — attention directive on endojs/endo-but-for-bots PR #989
 
-### tada (6039)
+### tada (6041)
+- [`endojs-endo-but-for-bots-pr1015-review-348a2017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-review-348a2017.md) — Cost
+- [`endojs-endo-but-for-bots-pr1014-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-refresh.md) — Completion report
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1084-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1018-review-cf8012a8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-review-cf8012a8.md) — Cost
-- [`endojs-endo-but-for-bots-pr1083-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr890-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-gauntlet-fix-2.md) — Cost
-- … and 6034 more
+- … and 6036 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
