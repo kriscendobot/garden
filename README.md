@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T05:09:09Z_
+_As of 2026-08-29T05:10:05Z_
 
 ## Latest
 
@@ -1654,31 +1654,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 155.0M | $1152.55 _(notional, rate-card)_ | no quota set |
-| Codex | 54.8M _(+1832.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Claude | 155.0M | $1152.97 _(notional, rate-card)_ | no quota set |
+| Codex | 54.8M _(+1833.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`deadmail-issue-comment-5460011044`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5460011044.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build.md) — Build: streaming mount search (streamGlob / streamGrep)
 - [`endojs-endo-but-for-bots-pr1015-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1015
-- [`endojs-endo-but-for-bots-pr1018-review-cf8012a8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-review-cf8012a8.md) — Review directive on endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr1059-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-shepherd-20260829.md) — Restore Ironhorse snapshot CI on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1084-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1084
 - [`endojs-endo-but-for-bots-pr819-review-f8bab00f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr819-review-f8bab00f.md) — Review directive on endojs/endo-but-for-bots PR #819
 - [`endojs-endo-but-for-bots-pr890-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #890
 
-### tada (6036)
+### tada (6037)
+- [`endojs-endo-but-for-bots-pr1018-review-cf8012a8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-review-cf8012a8.md) — Cost
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr890-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr647-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr647-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1084-gauntlet-fix-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1015-2b55429b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-2b55429b.md) — Completion report
-- … and 6031 more
+- … and 6032 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
