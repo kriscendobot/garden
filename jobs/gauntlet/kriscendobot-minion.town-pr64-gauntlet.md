@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 64
 build_job: endojs-endo-but-for-bots-pr1015-review-348a2017
 kind: feature
-stage: panel
+stage: fix
 iteration: 5
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion.town-pr64-gauntlet-panel-5
+current_child: kriscendobot-minion.town-pr64-gauntlet-fix-5
 state: running
 created_by: producer
 created_at: 2026-08-29T05:22:41Z
