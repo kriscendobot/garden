@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T18:35:08Z_
+_As of 2026-08-29T18:35:56Z_
 
 ## Latest
 
@@ -1677,9 +1677,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr853-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr853-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #853
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
+- [`xs2rust-endor-press-20260829-183507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260829-183507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6149)
 - [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-shepherd.md) — Cost
