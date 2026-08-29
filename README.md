@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T20:14:25Z_
+_As of 2026-08-29T20:18:14Z_
 
 ## Latest
 
@@ -729,10 +729,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260829T180506Z-449d3a` — from gauntlet:endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T180506Z-449d3a.md)
 
 > Gauntlet endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet HALTED: stage 'endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260829T201405Z-fdc378` — from gauntlet:endojs-endo-but-for-bots-pr853-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T201405Z-fdc378.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr853-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr853-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1671,7 +1667,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 181.7M | $1547.49 _(notional, rate-card)_ | no quota set |
-| Codex | 54.4M _(+1796.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Codex | 54.4M _(+1798.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
