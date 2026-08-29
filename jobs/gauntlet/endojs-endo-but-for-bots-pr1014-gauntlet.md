@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1014
 build_job: 
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1014-gauntlet-clean
+current_child: endojs-endo-but-for-bots-pr1014-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-29T05:19:47Z
