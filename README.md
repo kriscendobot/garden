@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T13:18:52Z_
+_As of 2026-08-29T13:20:57Z_
 
 ## Latest
 
@@ -1662,19 +1662,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 179.2M | $1418.42 _(notional, rate-card)_ | no quota set |
-| Codex | 53.1M _(+1761.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Claude | 179.4M | $1422.39 _(notional, rate-card)_ | no quota set |
+| Codex | 53.1M _(+1761.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (7)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr1014-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1083-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1083
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1084-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1084
 - [`endojs-endo-but-for-bots-pr832-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #832
+- [`kriscendobot-minion.town-pr64-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #64
+- [`xs2rust-endor-press-20260829-132004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260829-132004.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6110)
 - [`kriscendobot-minion.town-pr64-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-gauntlet-panel-5.md) — Completion report
