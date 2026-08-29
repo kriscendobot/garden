@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T17:58:07Z_
+_As of 2026-08-29T17:58:37Z_
 
 ## Latest
 
@@ -1662,8 +1662,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 181.2M | $1517.69 _(notional, rate-card)_ | no quota set |
-| Codex | 53.9M _(+1777.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 181.2M | $1517.94 _(notional, rate-card)_ | no quota set |
+| Codex | 53.9M _(+1777.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1676,13 +1676,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr853-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr853-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #853
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
 
-### tada (6145)
+### tada (6146)
+- [`endojs-endo-but-for-bots-dev-publishing-design-reconciliation-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-dev-publishing-design-reconciliation-20260829.md) — orchestration endojs-endo-but-for-bots-dev-publishing-design-reconciliation-2...
 - [`endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829.md) — Completion report
 - [`local-verify-parity-endo-package-uniformity-pr1015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-parity-endo-package-uniformity-pr1015.md) — Completion report
 - [`endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829.md) — Completion report
 - [`deadmail-issue-comment-5463858197`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5463858197.md) — Cost
-- [`xs2rust-endor-press-20260829-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-173507.md) — Cost
-- … and 6140 more
+- … and 6141 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
