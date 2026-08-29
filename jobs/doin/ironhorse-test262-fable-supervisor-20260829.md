@@ -89,6 +89,8 @@ infrastructure, and skipped outcomes; failure clusters fixed; commands actually
 run; any remaining clusters or unverifiable surfaces. Do not extrapolate a
 whole-corpus total from slice-only runs.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
