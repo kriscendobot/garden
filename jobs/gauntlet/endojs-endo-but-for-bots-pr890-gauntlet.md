@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 890
 build_job: deadmail-issue-comment-5455406421
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr890-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr890-gauntlet-fix-1
 state: running
 created_by: producer
 created_at: 2026-08-28T21:14:16Z
