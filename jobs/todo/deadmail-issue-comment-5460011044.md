@@ -44,12 +44,4 @@ Pause the press
 
 ----- END ORIGINAL MESSAGE -----
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-29T03:20:21Z
+<!-- garden-reaped: 1 -->
