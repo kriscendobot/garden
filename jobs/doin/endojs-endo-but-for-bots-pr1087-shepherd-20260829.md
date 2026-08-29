@@ -34,3 +34,13 @@ top-level completion summary on the PR with the addressing SHA and exact
 verification evidence.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T20:13:15Z
