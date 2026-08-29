@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T17:50:43Z_
+_As of 2026-08-29T17:56:27Z_
 
 ## Latest
 
@@ -1541,6 +1541,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget pool anthropic:endolin-garden-ece02cb4 changed zone backoff -> ok at spend=4661 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3.md)
+
+> gardener job 'endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7855s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1662,28 +1666,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 181.4M | $1510.71 _(notional, rate-card)_ | no quota set |
-| Codex | 53.9M _(+1772.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 181.2M | $1515.25 _(notional, rate-card)_ | no quota set |
+| Codex | 53.9M _(+1775.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
+- [`deadmail-20260829T175227Z-4da2b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260829T175227Z-4da2b9.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr853-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr853-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #853
-- [`endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829.md) — ---
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
-- [`local-verify-parity-endo-package-uniformity-pr1015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/local-verify-parity-endo-package-uniformity-pr1015.md) — Close local verification coverage for Endo package-uniformity CI
 
-### tada (6143)
+### tada (6145)
+- [`endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829.md) — Completion report
+- [`local-verify-parity-endo-package-uniformity-pr1015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-parity-endo-package-uniformity-pr1015.md) — Completion report
 - [`endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829.md) — Completion report
 - [`deadmail-issue-comment-5463858197`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5463858197.md) — Cost
 - [`xs2rust-endor-press-20260829-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-173507.md) — Cost
-- [`deadmail-issue-comment-5463658407`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5463658407.md) — Cost
-- [`xs2rust-endor-press-20260829-163504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-163504.md) — Cost
-- … and 6138 more
+- … and 6140 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
