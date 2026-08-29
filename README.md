@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T13:47:56Z_
+_As of 2026-08-29T13:54:45Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 21h)
+- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 22h)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 1d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 2d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 2d)
@@ -1662,26 +1662,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.3M | $1435.18 _(notional, rate-card)_ | no quota set |
-| Codex | 53.2M _(+1762.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Claude | 179.9M | $1430.32 _(notional, rate-card)_ | no quota set |
+| Codex | 53.1M _(+1760.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr1014-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1014
-- [`endojs-endo-but-for-bots-pr1083-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1083-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1083
 - [`endojs-endo-but-for-bots-pr832-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #832
 
-### tada (6123)
+### tada (6124)
+- [`endojs-endo-but-for-bots-pr1083-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-fix-6.md) — Completion report
 - [`kriscendobot-minion.town-pr64-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-gauntlet.md) — gauntlet kriscendobot-minion.town-pr64-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr64-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr832-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-panel-6.md) — Completion report
-- [`kriscendobot-minion.town-pr64-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-gauntlet-panel-6.md) — Completion report
-- … and 6118 more
+- … and 6119 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
