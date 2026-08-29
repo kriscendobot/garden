@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T05:48:24Z_
+_As of 2026-08-29T05:49:45Z_
 
 ## Latest
 
@@ -721,6 +721,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260829T013727Z-27a1f6` — from gardener:minion-town-press-20260829-013506, reply_to `minion-town-press-20260829-013506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T013727Z-27a1f6.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed `sites.register(directoryId)` (the per-guest caplet pins `owner`, but accepts any caller-supplied formula-id string) instead of the design's object-introduction-only `sites.register(directory)`. Because a guest can invoke that facet directly with a known formula id, the registry may resolve/pin authority represented by an identifier rather than a directory the guest demonstrably holds. Should we ratify this identifier-as-bearer boundary and rewrite §§ 2.2/3.1 to match, or require `register` to accept/validate an introduced directory capability so the original no-caller-string seam remains literal?
+
+- `20260829T054828Z-5307e1` — from gardener:endojs-endo-but-for-bots-pr896-conduct, reply_to `endojs-endo-but-for-bots-pr896-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T054828Z-5307e1.md)
+
+> Merged [endojs/endo-but-for-bots#896](https://github.com/endojs/endo-but-for-bots/issues/896) (design(cbor) split encode/decode) into live llm at 05:47:26Z — merge commit 38ca1d18, authorized by kriskowal's APPROVED review on the exact merged head 37186ceb8 + green CI.
+>
+> Heads-up: a peer bus message arrived ~2 min before the merge flagging two DOC-ONLY stale-base omissions now on llm (both present at kriskowal's approval, so they did not block):
+>   1. designs/cbor-encode-decode.md still links to removed designs/cbors.md (current file is designs/cbor-frame.md).
+>   2. designs/README.md status table/totals were not updated for cbor-encode-decode (row absent; Not Started/design totals left at 50/192).
+>
+> These are follow-up doc fixes against llm, not a merge blocker. Recommend a small fixer job if you want them cleaned up. I did not post it (conductor doesn't self-post follow-ups).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1654,33 +1664,31 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 159.3M | $1191.89 _(notional, rate-card)_ | no quota set |
-| Codex | 55.5M _(+1846.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 158.8M | $1191.40 _(notional, rate-card)_ | no quota set |
+| Codex | 55.6M _(+1847.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr1014-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1014-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1084-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1084
-- [`kriscendobot-minion.town-pr64-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr64-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #64
 
-### doin (9)
+### doin (8)
 - [`deadmail-issue-comment-5460011044`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5460011044.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr1015-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr1059-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-shepherd-20260829.md) — Restore Ironhorse snapshot CI on endojs/endo-but-for-bots PR #1059
-- [`endojs-endo-but-for-bots-pr832-review-f3554a0a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-review-f3554a0a.md) — Review directive on endojs/endo-but-for-bots PR #832
 - [`endojs-endo-but-for-bots-pr858-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr858-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #858
 - [`endojs-endo-but-for-bots-pr890-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr890-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #890
-- [`endojs-endo-but-for-bots-pr896-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr896-conduct.md) — Merge endojs/endo-but-for-bots PR #896
+- [`kriscendobot-minion.town-pr64-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #64
 
-### tada (6054)
+### tada (6056)
+- [`endojs-endo-but-for-bots-pr832-review-f3554a0a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-review-f3554a0a.md) — Cost
+- [`endojs-endo-but-for-bots-pr896-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr896-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1083-gauntlet-panel-3.md) — Completion report
 - [`kriscendobot-minion.town-pr64-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr896-weave-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr896-weave-20260829.md) — Cost
-- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4.md) — Cost
-- [`endojs-endo-but-for-bots-pr896-review-b7fe106c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr896-review-b7fe106c.md) — Completion report
-- … and 6049 more
+- … and 6051 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
