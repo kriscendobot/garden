@@ -54,3 +54,13 @@ report; do not attempt to merge from this weave job.
 Commenting on endojs/endo-but-for-bots is covered by the repo's standing
 authorization; a rebase-explanation top-level comment is appropriate per the
 weaver's usual practice.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-29T04:02:39Z
