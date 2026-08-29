@@ -1,5 +1,7 @@
-once: 2026-08-29T03:15:00Z
-job_basename_prefix: revert-budget-cap-post-reset
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 The weekly Claude quota should have just reset (~Friday 20:00 Pacific /
 2026-08-29T03:00:00Z). `config/budget-pools`'s cap for
