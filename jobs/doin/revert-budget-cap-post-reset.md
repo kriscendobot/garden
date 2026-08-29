@@ -20,3 +20,13 @@ not, fall back to ~150,000,000 (the prior week's back-solved estimate from
 until a fresher number is available. Confirm the recalibration by checking
 that `scripts/jobs/budget-level.sh`'s next tick computes a sane target
 (not pinned at MAX from the stale 650M) against this week's actual spend.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T03:21:01Z
