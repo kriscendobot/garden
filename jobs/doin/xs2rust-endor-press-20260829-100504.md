@@ -46,3 +46,13 @@ bar is "green" without real-execution evidence — cite the command and its
 output.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-29T13:03:22Z
