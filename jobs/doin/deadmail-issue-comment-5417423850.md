@@ -45,3 +45,13 @@ Please use fully qualified URLs for issues and pull requests, especially those i
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T03:03:54Z
