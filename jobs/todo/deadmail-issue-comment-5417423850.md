@@ -44,13 +44,4 @@ Please use fully qualified URLs for issues and pull requests, especially those i
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-29T03:00:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-25T22:05:11Z
+<!-- garden-reaped: 1 -->

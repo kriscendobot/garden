@@ -45,13 +45,4 @@ Defer to a genuinely live concurrent pusher; press by default otherwise. No
 bar is "green" without real-execution evidence — cite the command and its
 output.
 
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-29T03:00:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-29T00:35:14Z
+<!-- garden-reaped: 1 -->

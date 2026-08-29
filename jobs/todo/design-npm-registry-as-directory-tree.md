@@ -118,13 +118,4 @@ touch `endor-npm-registry-proxy.md`'s mechanics-layer content beyond noting
 where the new capability shape wraps it. Open questions the maintainer must
 resolve go under `## Open questions` in question form.
 
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-29T03:00:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-25T18:50:52Z
+<!-- garden-reaped: 1 -->
