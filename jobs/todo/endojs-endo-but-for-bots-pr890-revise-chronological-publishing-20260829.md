@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-dev-publishing-design-reconciliation-20260829
-priority: high
 role: designer
-posted_by: gardener
-posted_at: 2026-08-29T17:37:26Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-08-29T17:40:09Z cleared=none -->
 
 ---
 tier: mentor
