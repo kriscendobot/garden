@@ -1,2 +1,2 @@
-base: improve-panel-parallel-seat-fanout
+base: improve-panel-seat-timeout
 identity: mentor:scripts/jobs/gardening/panel.sh
