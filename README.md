@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T05:51:24Z_
+_As of 2026-08-29T05:52:34Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 13h)
+- [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 14h)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 1d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 1d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 1d)
@@ -721,16 +721,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260829T013727Z-27a1f6` — from gardener:minion-town-press-20260829-013506, reply_to `minion-town-press-20260829-013506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T013727Z-27a1f6.md)
 
 > [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) landed `sites.register(directoryId)` (the per-guest caplet pins `owner`, but accepts any caller-supplied formula-id string) instead of the design's object-introduction-only `sites.register(directory)`. Because a guest can invoke that facet directly with a known formula id, the registry may resolve/pin authority represented by an identifier rather than a directory the guest demonstrably holds. Should we ratify this identifier-as-bearer boundary and rewrite §§ 2.2/3.1 to match, or require `register` to accept/validate an introduced directory capability so the original no-caller-string seam remains literal?
-
-- `20260829T054828Z-5307e1` — from gardener:endojs-endo-but-for-bots-pr896-conduct, reply_to `endojs-endo-but-for-bots-pr896-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T054828Z-5307e1.md)
-
-> Merged [endojs/endo-but-for-bots#896](https://github.com/endojs/endo-but-for-bots/issues/896) (design(cbor) split encode/decode) into live llm at 05:47:26Z — merge commit 38ca1d18, authorized by kriskowal's APPROVED review on the exact merged head 37186ceb8 + green CI.
->
-> Heads-up: a peer bus message arrived ~2 min before the merge flagging two DOC-ONLY stale-base omissions now on llm (both present at kriskowal's approval, so they did not block):
->   1. designs/cbor-encode-decode.md still links to removed designs/cbors.md (current file is designs/cbor-frame.md).
->   2. designs/README.md status table/totals were not updated for cbor-encode-decode (row absent; Not Started/design totals left at 50/192).
->
-> These are follow-up doc fixes against llm, not a merge blocker. Recommend a small fixer job if you want them cleaned up. I did not post it (conductor doesn't self-post follow-ups).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1664,8 +1654,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 159.3M | $1195.89 _(notional, rate-card)_ | no quota set |
-| Codex | 55.5M _(+1848.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
+| Claude | 159.2M | $1197.87 _(notional, rate-card)_ | no quota set |
+| Codex | 55.6M _(+1848.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (4)
