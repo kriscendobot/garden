@@ -20,3 +20,13 @@ Keep the current `ReadableBlob.lines(buffer = 0)` decision unchanged unless
 this follow-up establishes a replacement suitable for the shared reader API.
 
 Origin: https://github.com/endojs/endo-but-for-bots/pull/832#discussion_r3885564599
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-29T04:23:31Z
