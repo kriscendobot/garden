@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T18:14:55Z_
+_As of 2026-08-29T18:17:54Z_
 
 ## Latest
 
@@ -1666,24 +1666,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 181.2M | $1536.51 _(notional, rate-card)_ | no quota set |
-| Codex | 54.0M _(+1787.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
+| Claude | 181.6M | $1542.78 _(notional, rate-card)_ | no quota set |
+| Codex | 54.0M _(+1790.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1015
+### doin (2)
 - [`endojs-endo-but-for-bots-pr853-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr853-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #853
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
 
 ### tada (6149)
+- [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr853-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet.md) — gauntlet endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet — HALTED
 - [`deadmail-20260829T175227Z-4da2b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260829T175227Z-4da2b9.md) — Completion report
 - [`endojs-endo-but-for-bots-dev-publishing-design-reconciliation-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-dev-publishing-design-reconciliation-20260829.md) — orchestration endojs-endo-but-for-bots-dev-publishing-design-reconciliation-2...
-- [`endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829.md) — Completion report
 - … and 6144 more
 
 ## Plan queue (parked — not claimable until promoted)
