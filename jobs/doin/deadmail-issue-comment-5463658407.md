@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/64#issuecomment-546365840
 Please update sitrep taking into consideration work toward npm.minion.town as our dev mode registry proxy 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T16:55:14Z
