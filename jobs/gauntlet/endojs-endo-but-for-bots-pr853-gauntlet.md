@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 853
 build_job: endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr853-gauntlet-clean
+current_child: endojs-endo-but-for-bots-pr853-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-29T17:49:05Z
