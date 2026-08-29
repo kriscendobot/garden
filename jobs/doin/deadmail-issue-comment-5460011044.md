@@ -45,3 +45,13 @@ Pause the press
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T08:03:19Z
