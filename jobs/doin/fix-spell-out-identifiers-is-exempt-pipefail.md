@@ -31,3 +31,13 @@ regress. Check the other probes in that same directory
 `prefer-endo-primitives.sh`, `typist-friendly-code-points.sh`) for the
 same pipeline shape — if any share this exact escape-hatch pattern, fix
 them too rather than leaving a known-bad pattern in sibling probes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-29T14:10:00Z
