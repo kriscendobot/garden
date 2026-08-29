@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T05:19:35Z_
+_As of 2026-08-29T05:20:33Z_
 
 ## Latest
 
@@ -1654,12 +1654,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 155.6M | $1162.46 _(notional, rate-card)_ | no quota set |
-| Codex | 55.0M _(+1834.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 155.6M | $1162.92 _(notional, rate-card)_ | no quota set |
+| Codex | 55.0M _(+1835.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1061
+- [`endojs-endo-but-for-bots-pr1014-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1014-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr896-review-b7fe106c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr896-review-b7fe106c.md) — Review directive on endojs/endo-but-for-bots PR #896
 - [`endojs-endo-but-for-bots-pr989-ca1565ca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr989-ca1565ca.md) — attention directive on endojs/endo-but-for-bots PR #989
 
