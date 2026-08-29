@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T23:05:56Z_
+_As of 2026-08-29T23:07:43Z_
 
 ## Latest
 
@@ -1673,16 +1673,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-press-20260829-230507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260829-230507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+### doin (0)
+(none)
 
-### tada (6157)
+### tada (6158)
+- [`xs2rust-endor-press-20260829-230507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-230507.md) — Ironhorse press — 2026-08-29T23:05Z
 - [`xs2rust-endor-press-20260829-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-215006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1087-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1087-shepherd-20260829.md) — Cost
 - [`xs2rust-endor-press-20260829-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-205004.md) — Cost
 - [`endojs-endo-but-for-bots-pr858-review-8add9193`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-8add9193.md) — Cost
-- [`endojs-endo-but-for-bots-pr853-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr853-gauntlet — HALTED
-- … and 6152 more
+- … and 6153 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
