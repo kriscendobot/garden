@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/64#issuecomment-546385819
 Let’s dispatch designers to revise the designs accordingly 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T17:35:25Z
