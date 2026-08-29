@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829-host: endolin-garden-ece02cb4
 order: parallel
 children: endojs-endo-but-for-bots-pr853-revise-npm-minion-town-20260829 endojs-endo-but-for-bots-pr890-revise-chronological-publishing-20260829
