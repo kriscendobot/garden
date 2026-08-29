@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-29T08:55:09Z_
+_As of 2026-08-29T08:55:49Z_
 
 ## Latest
 
@@ -1658,28 +1658,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.9M | $1298.98 _(notional, rate-card)_ | no quota set |
+| Claude | 165.8M | $1298.56 _(notional, rate-card)_ | no quota set |
 | Codex | 52.6M _(+1757.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (1)
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1085
-- [`endojs-endo-but-for-bots-pr832-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr832-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #832
 
 ### doin (5)
-- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1061
 - [`endojs-endo-but-for-bots-pr1014-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr1015-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr1083-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1083-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1083
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1084-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1084
+- [`endojs-endo-but-for-bots-pr832-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr832-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #832
 
-### tada (6084)
+### tada (6085)
+- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-panel-6.md) — Cost
 - [`kriscendobot-minion.town-pr64-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1084-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1084-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1014-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-gauntlet-panel-1.md) — Completion report
-- [`endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-marshal-types-dts-refactor-build-gauntlet-fix-5.md) — Completion report
-- … and 6079 more
+- … and 6080 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
