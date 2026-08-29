@@ -50,3 +50,13 @@ authorization), one commit per phase per the design's Phased Implementation:
 Run the CI-equivalent checks locally before pushing (lint + the daemon test
 suite); a CI failure is an automation defect. The draft PR auto-runs the
 gauntlet under its supervising gardener.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-29T05:06:31Z
