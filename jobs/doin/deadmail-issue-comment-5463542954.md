@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-546354295
 I would like to drive a ratchet for increasing ironhorse test262 compliance. I would like to assign a Fable supervisor to drive a single pull request to use hardened test262 and test262 runner with the official test262 suite synced to gradually increase coverage of the suite acro
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-29T16:30:12Z
