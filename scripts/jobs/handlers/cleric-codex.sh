@@ -282,10 +282,20 @@ if $resuming && [ -n "$resume_sid" ]; then
   rc=$?
   # A resume that fails on an unusable session (pruned/expired) falls back to a fresh
   # session over the preserved worktree — the uncommitted work carries the state.
+  # A provider safety/usage-policy refusal is different: it is a terminal response
+  # to THIS request, not evidence that the session id is unusable. Retrying the same
+  # prompt in a fresh session only repeats the refusal and, because both attempts use
+  # $json_capture, used to overwrite the diagnostic before gardener.sh could classify
+  # and quarantine it. Leave the failed resume capture intact for the handler's stderr
+  # tail and the gardener's durable capture path.
   if [ "$rc" -ne 0 ]; then
-    log "codex resume of session $resume_sid failed (rc=$rc) for '$base'; retrying as a FRESH session over the preserved worktree"
-    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
-    rc=$?
+    if is_provider_policy_refusal_text "$(tail -c 65536 "$json_capture" 2>/dev/null)"; then
+      log "codex resume of session $resume_sid was BLOCKED by a provider safety/usage-policy refusal (rc=$rc) for '$base'; terminal response -- preserving the diagnostic and skipping the fresh-session retry"
+    else
+      log "codex resume of session $resume_sid failed (rc=$rc) for '$base'; retrying as a FRESH session over the preserved worktree"
+      ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+      rc=$?
+    fi
   fi
 else
   attempt=1

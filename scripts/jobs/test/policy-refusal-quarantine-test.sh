@@ -40,7 +40,7 @@ hr; echo "SUBTEST 1 — CLASSIFIER: is_provider_policy_refusal_text"; hr
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
 
-CODEX_BLOCK='{"type":"turn.failed","error":{"message":"This content was flagged for possible cybersecurity risk. If this seems wrong, try rephrasing your request. To get authorized for security work, join the Trusted Access for Cyber program: https://chatgpt.com/cyber"}}'
+CODEX_BLOCK="$(cat "$HERE/fixtures/codex-policy-refusal-resume.jsonl")"
 class_ok=1
 is_provider_policy_refusal_text "$CODEX_BLOCK" \
   || { class_ok=0; echo "    missed the observed Codex cyber-block envelope"; }
