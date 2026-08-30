@@ -1,0 +1,2 @@
+base: improve-design-gauntlet-audit-bounded-pr-reads
+identity: mentor:scripts/jobs/design-pr-gauntlet-coverage-audit.sh
