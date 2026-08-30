@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T04:52:31Z_
+_As of 2026-08-30T04:54:17Z_
 
 ## Latest
 
@@ -1685,9 +1685,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1071-c86034b6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1071-c86034b6.md) — attention directive on endojs/endo-but-for-bots PR #1071
 - [`improve-budget-level-preflight-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-preflight-failures.md) — ---
+- [`ironhorse-fuzz-5d122a6fc10babd9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5d122a6fc10babd9-repair.md) — Fix Ironhorse fuzz finding 5d122a6fc10babd9 (target differential_regexp) and ...
 
 ### tada (6169)
 - [`endojs-endo-but-for-bots-pr1087-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1087-shepherd.md) — Cost
