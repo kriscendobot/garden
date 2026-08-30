@@ -141,14 +141,14 @@ reset_clone
 echo '   gate passed on an orchestration handoff'
 
 echo '== (c2) PASS: an active staged-gauntlet record also satisfies the handoff =='
-board_put gauntlet ironhorse-fuzz-case-repair-gauntlet
+board_put gauntlet ironhorse-fuzz-case-gauntlet
 cat >"$TR/r3b.md" <<'EOF'
 Fixed the Ironhorse finding and amended the standing PR.
 
 ## Follow-ups
 - The staged gauntlet owns clean, panel, fix-loop, and un-draft.
 
-<<<GARDEN-JOB-HANDED-OFF: ironhorse-fuzz-case-repair-gauntlet>>>
+<<<GARDEN-JOB-HANDED-OFF: ironhorse-fuzz-case-gauntlet>>>
 EOF
 reset_clone
 "$GATE" ironhorse-fuzz-case-repair "$JOB" "$TR/r3b.md" \

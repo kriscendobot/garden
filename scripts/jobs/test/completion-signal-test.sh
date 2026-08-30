@@ -182,17 +182,17 @@ T2B2="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2b2.XXXXXX")"
 BARE2B2="$(seed_board "$T2B2" ironhorse-fuzz-case-repair)"
 U2B2="$T2B2/update"; git clone -q --single-branch --branch journal2 "$BARE2B2" "$U2B2"
 printf -- '---\npr: https://github.com/endojs/endo-but-for-bots/pull/1088\nstate: running\n---\nstaged gauntlet\n' \
-  > "$U2B2/jobs/gauntlet/ironhorse-fuzz-case-repair-gauntlet.md"
-git -C "$U2B2" add jobs/gauntlet/ironhorse-fuzz-case-repair-gauntlet.md
+  > "$U2B2/jobs/gauntlet/ironhorse-fuzz-case-gauntlet.md"
+git -C "$U2B2" add jobs/gauntlet/ironhorse-fuzz-case-gauntlet.md
 git -C "$U2B2" -c user.name=test -c user.email=test@localhost commit -q -m 'record staged gauntlet'
 git -C "$U2B2" push -q origin HEAD:journal2
 env GARDEN="handoffhost" GARDEN_STATE="$T2B2/state" JOURNAL_REMOTE="$BARE2B2" JOURNAL_BRANCH=journal2 \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
-    GARDEN_STUB_HANDOFF_SUCCESSOR=ironhorse-fuzz-case-repair-gauntlet GARDEN_JOB_HANDLER="$STUB" \
+    GARDEN_STUB_HANDOFF_SUCCESSOR=ironhorse-fuzz-case-gauntlet GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T2B2/gardener.log" 2>&1 || true
 V2B2="$T2B2/verify"; git clone -q --single-branch --branch journal2 "$BARE2B2" "$V2B2" 2>/dev/null
 { [ -f "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" ] \
-  && grep -qx 'handed-off: ironhorse-fuzz-case-repair-gauntlet' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" \
+  && grep -qx 'handed-off: ironhorse-fuzz-case-gauntlet' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" \
   && grep -qx 'deliverable-complete: false' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md"; } \
   && ok "staged-gauntlet successor completed the repair handoff with a partial disposition" \
   || bad "staged-gauntlet successor was not accepted ($(sed -n '1,8p' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" 2>/dev/null | tr '\n' '|'))"
