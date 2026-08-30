@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T05:48:41Z_
+_As of 2026-08-30T05:49:00Z_
 
 ## Latest
 
@@ -1285,28 +1285,27 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.1M | $66.74 _(notional, rate-card)_ | 61% of 5.0M (ok) |
-| Codex | 3.2M _(+153.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 3.0M | $66.30 _(notional, rate-card)_ | 60% of 5.0M (ok) |
+| Codex | 3.2M _(+153.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1072-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`fu-pr910-review-4941452327-fuzzer-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-pr910-review-4941452327-fuzzer-1.md) — ---
 - [`ironhorse-fuzz-d99d263fcf6ca7a7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d99d263fcf6ca7a7-repair.md) — Fix Ironhorse fuzz finding d99d263fcf6ca7a7 (target differential_source) and ...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
-- [`kriscendobot-minion-town-pr66-conduct-20260830-r5060008635`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr66-conduct-20260830-r5060008635.md) — Conduct kriscendobot/minion.town PR #66
 
-### tada (6175)
+### tada (6176)
+- [`kriscendobot-minion-town-pr66-conduct-20260830-r5060008635`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr66-conduct-20260830-r5060008635.md) — Completion report — Conduct kriscendobot/minion.town PR #66
 - [`kriscendobot-minion.town-pr66-review-21dce903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr66-review-21dce903.md) — Cost
 - [`ironhorse-fuzz-493390fc03979205-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-493390fc03979205-repair.md) — Completion report
 - [`xs2rust-endor-press-20260830-043504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-043504.md) — Cost
 - [`xs2rust-endor-press-20260830-033504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-033504.md) — Cost
-- [`xs2rust-endor-press-20260830-023504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-023504.md) — Cost
-- … and 6170 more
+- … and 6171 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
