@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T04:45:40Z_
+_As of 2026-08-30T04:51:29Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 14h)
-- [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 7h)
+- [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 8h)
 - [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/pull/1075) — test(hardened262): cover %AsyncFunction% intrinsic metadata (waiting 1d)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 2d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 2d)
@@ -1537,6 +1537,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden-ece02cb4 gardener workers 1 -> 4: budget pool anthropic:endolin-garden-ece02cb4 spend=1815238 cap=149000000 high-water=0.85 target=4
 
+- `watchdog-budget-level-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-2.md)
+
+> budget-level changed endolin-garden2-5bcdff64 gardener workers 0 -> 2: budget pool anthropic:endolin-garden2-5bcdff64 spend=2265759 cap=5000000 high-water=0.85 target=2
+
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
 > budget pool anthropic:endolin-garden-ece02cb4 changed zone ok -> backoff at spend=149290596 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
@@ -1667,22 +1671,24 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 50.2M | $569.51 _(notional, rate-card)_ | 34% of 149.0M (ok) |
-| Codex | 6.9M _(+195.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 7.0M _(+195.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-5466757046`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5466757046.md) — Issue follow-up — fold a late comment into the issue work
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1071-c86034b6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1071-c86034b6.md) — attention directive on endojs/endo-but-for-bots PR #1071
+- [`endojs-endo-but-for-bots-pr1087-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1087-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1087
+- [`improve-budget-level-preflight-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-preflight-failures.md) — ---
 
-### tada (6167)
+### tada (6168)
+- [`deadmail-issue-comment-5466757046`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5466757046.md) — Completion report
 - [`xs2rust-endor-press-20260830-043504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-043504.md) — Cost
 - [`kriscendobot-minion.town-pr54-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-refresh.md) — Cost
 - [`endojs-endo-but-for-bots-pr1072-review-c8a0f42b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-c8a0f42b.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260830-033504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260830-033504.md) — Cost
-- [`xs2rust-endor-press-20260830-033504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-033504.md) — Cost
-- … and 6162 more
+- … and 6163 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1860,6 +1866,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr832-e39ce097-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-e39ce097-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr858-review-8add9193-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr858-review-8add9193-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #858 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1072-review-c8a0f42b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1072-review-c8a0f42b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1071-c86034b6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1071-c86034b6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1071 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
@@ -1876,4 +1883,4 @@ kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kris
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 gardeners
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 0 gardeners
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 gardeners
