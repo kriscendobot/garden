@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean
+state: running
 created_by: builder
 created_at: 2026-08-30T07:32:11Z
 ---
