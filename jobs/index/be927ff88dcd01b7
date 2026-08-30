@@ -1,2 +1,2 @@
-base: improve-gardener-scaler-absent-kind-warn-spam
+base: improve-budget-snapshot-warning-dedup
 identity: mentor:scripts/jobs/gardener-scaler.sh
