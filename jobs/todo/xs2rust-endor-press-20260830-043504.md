@@ -1,7 +1,3 @@
-cadence: hourly
-last_dispatched: 2026-08-30T04:35:04Z
-job_basename_prefix: xs2rust-endor-press
----
 ---
 tier: mentor
 fallback-tier: minion
