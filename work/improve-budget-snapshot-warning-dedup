@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: cleric
+claimed_at: 2026-08-30T06:04:29Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-improve-budget-snapshot-warning-dedup
