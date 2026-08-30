@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T04:56:57Z_
+_As of 2026-08-30T05:00:02Z_
 
 ## Latest
 
@@ -1678,7 +1678,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.2M | $569.56 _(notional, rate-card)_ | 34% of 149.0M (ok) |
+| Claude | 50.2M | $569.76 _(notional, rate-card)_ | 34% of 149.0M (ok) |
 | Codex | 7.0M _(+195.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
@@ -1687,17 +1687,17 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1071-c86034b6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1071-c86034b6.md) — attention directive on endojs/endo-but-for-bots PR #1071
-- [`improve-budget-level-preflight-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-preflight-failures.md) — ---
+- [`endojs-endo-but-for-bots-pr475-2d5f96ed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-2d5f96ed.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`ironhorse-fuzz-493390fc03979205-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-493390fc03979205-repair.md) — Fix Ironhorse fuzz finding 493390fc03979205 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-5d122a6fc10babd9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5d122a6fc10babd9-repair.md) — Fix Ironhorse fuzz finding 5d122a6fc10babd9 (target differential_regexp) and ...
 
-### tada (6169)
+### tada (6170)
+- [`improve-budget-level-preflight-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-level-preflight-failures.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1087-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1087-shepherd.md) — Cost
 - [`deadmail-issue-comment-5466757046`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5466757046.md) — Completion report
 - [`xs2rust-endor-press-20260830-043504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-043504.md) — Cost
 - [`kriscendobot-minion.town-pr54-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-refresh.md) — Cost
-- [`endojs-endo-but-for-bots-pr1072-review-c8a0f42b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-c8a0f42b.md) — Completion report
-- … and 6164 more
+- … and 6165 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1876,6 +1876,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr858-review-8add9193-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr858-review-8add9193-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #858 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1072-review-c8a0f42b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1072-review-c8a0f42b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1071-c86034b6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1071-c86034b6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1071 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr475-2d5f96ed-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-2d5f96ed-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
