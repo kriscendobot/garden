@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T05:52:11Z_
+_As of 2026-08-30T05:53:11Z_
 
 ## Latest
 
@@ -1285,14 +1285,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.1M | $68.15 _(notional, rate-card)_ | 63% of 5.0M (ok) |
-| Codex | 3.4M _(+155.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 3.2M | $69.23 _(notional, rate-card)_ | 64% of 5.0M (ok) |
+| Codex | 3.4M _(+156.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (4)
 - [`improve-budget-snapshot-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-snapshot-warning-dedup.md) — ---
 - [`improve-ci-outage-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-outage-warning-dedup.md) — ---
 - [`improve-journal-clone-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-journal-clone-outage-classification.md) — ---
+- [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1dc231089278c110-repair.md) — Fix Ironhorse fuzz finding 1dc231089278c110 (target differential_regexp) and ...
 
 ### doin (8)
 - [`endojs-endo-but-for-bots-pr1072-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1072
