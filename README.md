@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T06:35:36Z_
+_As of 2026-08-30T06:36:18Z_
 
 ## Latest
 
@@ -1285,30 +1285,30 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.2M | $69.50 _(notional, rate-card)_ | 64% of 5.0M (ok) |
-| Codex | 4.3M _(+182.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 3.2M | $70.15 _(notional, rate-card)_ | 64% of 5.0M (ok) |
+| Codex | 4.3M _(+182.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (9)
-- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Fix Ironhorse fuzz finding 1dc231089278c110 (target differential_regexp) and ...
 - [`ironhorse-fuzz-407764ab1120ed1a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-407764ab1120ed1a-repair.md) — Fix Ironhorse fuzz finding 407764ab1120ed1a (target differential_regexp) and ...
 - [`ironhorse-fuzz-7289e31013d074ec-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-7289e31013d074ec-repair.md) — Fix Ironhorse fuzz finding 7289e31013d074ec (target differential_source) and ...
 - [`ironhorse-fuzz-783be6e6106bad98-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-783be6e6106bad98-repair.md) — Fix Ironhorse fuzz finding 783be6e6106bad98 (target differential_source) and ...
+- [`ironhorse-fuzz-8275793bca439f6e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-8275793bca439f6e-repair.md) — Fix Ironhorse fuzz finding 8275793bca439f6e (target differential_regexp) and ...
 - [`ironhorse-fuzz-89e303d17e33b117-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-89e303d17e33b117-repair.md) — Fix Ironhorse fuzz finding 89e303d17e33b117 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-b95320dfb5dd9d3d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-b95320dfb5dd9d3d-repair.md) — Fix Ironhorse fuzz finding b95320dfb5dd9d3d (target differential_regexp_surfa...
 - [`ironhorse-fuzz-ccb76a40851925f9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ccb76a40851925f9-repair.md) — Fix Ironhorse fuzz finding ccb76a40851925f9 (target differential_regexp) and ...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
 
 ### tada (6190)
+- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-shepherd.md) — Cost
 - [`improve-quarantine-policy-refusals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-quarantine-policy-refusals.md) — Completion report
 - [`ironhorse-fuzz-a136f9038a1001fb-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-a136f9038a1001fb-repair.md) — Completion report
 - [`ironhorse-fuzz-3ea435c58b4c588e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-3ea435c58b4c588e-repair.md) — Completion report
 - [`ironhorse-fuzz-5c29667cc15d6d93-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-5c29667cc15d6d93-repair.md) — Completion report — fuzz finding 5c29667cc15d6d93 (differential_source)
-- [`fu-pr910-review-4941452327-fuzzer-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-pr910-review-4941452327-fuzzer-1.md) — Completion report — fuzzer clamp fix for PR #910
 - … and 6185 more
 
 ## Plan queue (parked — not claimable until promoted)
