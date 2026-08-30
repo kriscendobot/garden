@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T04:51:29Z_
+_As of 2026-08-30T04:52:31Z_
 
 ## Latest
 
@@ -1584,6 +1584,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > root repo /home/kris/garden2 deploy has been STALLED for ~3d: deployed sha 745fa90891f8692c12b6b14a06b4a5dbdcbbf503 is 18 commit(s) behind origin/main2 (231ef0576752a29e0f54a3c9316ac812a6790da3) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
 
+- `watchdog-root-repo-low-inodes-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-low-inodes-endolin-garden-ece02cb4.md)
+
+> host filesystem inode headroom is CRITICAL: filesystem /dev/nvme0n1p2 mounted at /home/kris/garden (the filesystem backing /home/kris/garden) has 11635759/244121600 free inodes (4.77%), below the 5% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. No automatic deletion was attempted because cleanup must first prove each candidate worktree's job is in jobs/tada and remove it through the owning worktree mechanism. Review completed per-job worktrees and their node_modules, then reclaim a bounded batch and re-check 'df -i /home/kris/garden'. (host=endolin-garden-ece02cb4)
+
+- `watchdog-root-repo-low-inodes-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-low-inodes-endolin-garden2-5bcdff64.md)
+
+> host filesystem inode headroom is CRITICAL: filesystem /dev/nvme0n1p2 mounted at /home/kris/garden2 (the filesystem backing /home/kris/garden2) has 11635752/244121600 free inodes (4.77%), below the 5% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. No automatic deletion was attempted because cleanup must first prove each candidate worktree's job is in jobs/tada and remove it through the owning worktree mechanism. Review completed per-job worktrees and their node_modules, then reclaim a bounded batch and re-check 'df -i /home/kris/garden2'. (host=endolin-garden2-5bcdff64)
+
 - `watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-e22e67a.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-08-22T07:14:36Z, latest 2026-08-27T18:25:40Z).
@@ -1670,25 +1678,24 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.2M | $569.51 _(notional, rate-card)_ | 34% of 149.0M (ok) |
-| Codex | 7.0M _(+195.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 50.2M | $569.56 _(notional, rate-card)_ | 34% of 149.0M (ok) |
+| Codex | 7.0M _(+195.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1071-c86034b6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1071-c86034b6.md) — attention directive on endojs/endo-but-for-bots PR #1071
-- [`endojs-endo-but-for-bots-pr1087-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1087-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1087
 - [`improve-budget-level-preflight-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-preflight-failures.md) — ---
 
-### tada (6168)
+### tada (6169)
+- [`endojs-endo-but-for-bots-pr1087-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1087-shepherd.md) — Cost
 - [`deadmail-issue-comment-5466757046`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5466757046.md) — Completion report
 - [`xs2rust-endor-press-20260830-043504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-043504.md) — Cost
 - [`kriscendobot-minion.town-pr54-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-refresh.md) — Cost
 - [`endojs-endo-but-for-bots-pr1072-review-c8a0f42b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-c8a0f42b.md) — Completion report
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260830-033504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260830-033504.md) — Cost
-- … and 6163 more
+- … and 6164 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
