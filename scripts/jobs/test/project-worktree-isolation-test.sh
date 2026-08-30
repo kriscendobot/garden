@@ -22,6 +22,8 @@
 #      fetch into branch '...' checked out at ...").
 #   8. Long job bases produce bounded keys with stable hash suffixes, preserving
 #      resume stability and isolation without consuming UNIX-socket path space.
+#   9. A branch absent upstream resolves from the garden fork, and the fetched
+#      ref is verified before checkout.
 #
 # Hermetic: throwaway bare "fork" clones + a throwaway garden root, no network.
 
@@ -103,6 +105,11 @@ HELPER="$GROOT/scripts/jobs/ensure-project-worktree.sh"
 SCRATCH="$GROOT/scratch"
 run_helper() {  # run_helper <base> <owner/repo> <branch>  → echoes the path
   GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" \
+    bash "$HELPER" "$1" "$2" "$3"
+}
+
+run_helper_with_fork_base() { # <base> <owner/repo> <branch> <clone-url-base>
+  GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_CLONE_URL_BASE="$4" \
     bash "$HELPER" "$1" "$2" "$3"
 }
 
@@ -236,7 +243,54 @@ else
   bad "helper hard-failed on a branch held checked-out by another worktree (the 2026-07-06 regression)"
 fi
 
-# === 8: warm dependency cache — build once, hardlink into every fresh tree ====
+# === 8: branch absent upstream, present on the garden fork ===================
+# The standing clone points at the upstream owner. Ironhorse repair branches
+# instead live on the garden's fork, so a verified upstream absence must trigger
+# a second, independently verified fetch from that fork.
+make_fork endojs fork-fallback main
+FORK_BASE="$TR/github"
+FORK_UP="$FORK_BASE/kriscendobot/fork-fallback.git"
+FORK_SEED="$TR/seed-kriscendobot-fork-fallback"
+mkdir -p "$(dirname "$FORK_UP")"
+git init -q --bare "$FORK_UP"
+git init -q "$FORK_SEED"
+( cd "$FORK_SEED" || exit
+  printf 'garden fork branch\n' > fork-only.txt
+  git "${git_id[@]}" add fork-only.txt
+  git "${git_id[@]}" commit -qm fork-only
+  git branch -M ironhorse-fuzz-findings
+  git remote add origin "$FORK_UP"
+  git push -q -u origin ironhorse-fuzz-findings ) >/dev/null 2>&1
+fork_sha="$(git -C "$FORK_SEED" rev-parse HEAD)"
+if PF="$(run_helper_with_fork_base garden-fork-fallback endojs/fork-fallback ironhorse-fuzz-findings "$FORK_BASE" 2>/dev/null)"; then
+  [ -f "$PF/fork-only.txt" ] && [ "$(git -C "$PF" rev-parse HEAD)" = "$fork_sha" ] \
+    && ok "branch absent upstream resolves to the verified garden-fork tip" \
+    || bad "garden-fork fallback checked out the wrong ref (path='$PF')"
+else
+  bad "helper did not resolve an upstream-absent branch from the garden fork"
+fi
+[ "$(git --git-dir="$GROOT/worktrees/endojs-fork-fallback.git" rev-parse refs/remotes/garden-fork/ironhorse-fuzz-findings)" = "$fork_sha" ] \
+  && ok "garden-fork tip is fetched into its own verified tracking ref" \
+  || bad "garden-fork tracking ref does not match the advertised fork tip"
+
+# Absence on both remotes must fail before worktree add rather than handing back
+# an unresolved or stale checkout.
+if run_helper_with_fork_base garden-fork-missing endojs/fork-fallback nowhere-branch "$FORK_BASE" >/dev/null 2>&1; then
+  bad "helper accepted a branch absent from both upstream and garden fork"
+else
+  ok "helper refuses a branch absent from both upstream and garden fork"
+fi
+
+# An inaccessible upstream is not evidence that the branch is absent. Even when
+# the garden fork has the branch, refuse to fall back until origin was checked.
+git --git-dir="$GROOT/worktrees/endojs-fork-fallback.git" remote set-url origin "$TR/no-such-upstream.git"
+if run_helper_with_fork_base garden-fork-unverified endojs/fork-fallback ironhorse-fuzz-findings "$FORK_BASE" >/dev/null 2>&1; then
+  bad "helper treated an inaccessible upstream as a verified branch absence"
+else
+  ok "helper refuses the garden-fork fallback when upstream absence is unverified"
+fi
+
+# === 9: warm dependency cache — build once, hardlink into every fresh tree ====
 # The recurring native-module rebuild (better-sqlite3 re-compiled/re-failed in
 # every fresh per-job worktree). The helper now provisions node_modules itself:
 # the FIRST fresh worktree on a lockfile runs the installer once and snapshots

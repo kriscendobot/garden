@@ -459,9 +459,17 @@ fi
 [ ! -e "$wt" ] && git --git-dir="$bare" worktree prune 2>/dev/null || true
 mkdir -p "$GARDEN_SCRATCH"
 
-# Resolve the requested branch into the bare clone's remote-tracking ref
-# (refs/remotes/origin/$branch) before the add, then check the worktree out from
-# THAT ref. We deliberately fetch into the REMOTE-TRACKING ref, never
+# Resolve the requested branch from the named repository first, then from the
+# garden's fork when the named repository does not have it. Ironhorse repair
+# branches are created on the bot fork (for example, kriscendobot's
+# ironhorse-fuzz-findings) while the standing endo-but-for-bots clone points at
+# endojs; consulting origin alone therefore made every repair handler fail even
+# though the requested branch existed. GARDEN_PROJECT_FORK_URL is an escape
+# hatch for a non-GitHub fork location and for hermetic tests.
+#
+# Fetch the selected branch into a bare-clone remote-tracking ref before the add,
+# then check the worktree out from THAT ref. We deliberately fetch into a
+# REMOTE-TRACKING ref, never
 # refs/heads/$branch: a standing worktree can legitimately hold refs/heads/$branch
 # checked out (e.g. the endo-but-for-bots monitor worktree holds refs/heads/llm),
 # and git refuses to fetch into a branch checked out in ANY worktree
@@ -481,52 +489,96 @@ mkdir -p "$GARDEN_SCRATCH"
 # was delivered 8 weeks stale at 68246ad9 — missing the very docs the job named —
 # while origin/llm was at 11322892, and a manual `git fetch origin llm` succeeded
 # moments later. So we verify the remote-tracking head against the AUTHORITATIVE
-# remote tip (`git ls-remote`) after the fetch, retry once on any divergence, and
-# die rather than hand back a stale tree. The remote lookup itself gets one retry
-# so a blip there does not defeat the guard. The fetch's stderr is captured and
-# surfaced via log() rather than discarded, so the next failure mode is visible.
-remote_branch_sha() {
-  git --git-dir="$bare" ls-remote origin "refs/heads/${branch}" 2>/dev/null | cut -f1
+# selected remote tip (`git ls-remote`) after the fetch, retry once on any
+# divergence, and die rather than hand back a stale tree. The remote lookup
+# distinguishes "branch absent" from "remote unreachable": only a verified
+# absence permits the fork fallback. The fetch's stderr is captured and surfaced
+# via log() rather than discarded, so the next failure mode is visible.
+probe_branch() { # probe_branch <remote-or-url>: 0 found, 1 absent, 2 inaccessible
+  local source="$1" out sha
+  out="$(git --git-dir="$bare" ls-remote "$source" "refs/heads/${branch}" 2>/dev/null)" \
+    || return 2
+  sha="$(printf '%s\n' "$out" | awk 'NR == 1 { print $1 }')"
+  [ -n "$sha" ] || return 1
+  printf '%s\n' "$sha"
 }
-tracking_branch_sha() {
-  git --git-dir="$bare" rev-parse --verify --quiet "refs/remotes/origin/${branch}" 2>/dev/null || true
+probe_branch_retry() { # one retry for a transient lookup failure
+  local source="$1" sha rc
+  if sha="$(probe_branch "$source")"; then
+    printf '%s\n' "$sha"
+    return 0
+  else
+    rc=$?
+  fi
+  [ "$rc" -eq 2 ] || return "$rc"
+  if sha="$(probe_branch "$source")"; then
+    printf '%s\n' "$sha"
+    return 0
+  else
+    rc=$?
+  fi
+  return "$rc"
 }
-fetch_branch() {
-  local err
-  err="$(git --git-dir="$bare" fetch --quiet origin \
-           "+refs/heads/${branch}:refs/remotes/origin/${branch}" 2>&1 >/dev/null)" \
-    || { [ -n "$err" ] && log "WARN: ensure-project-worktree: fetch of ${repo}@${branch} failed: ${err}"; return 1; }
-  [ -n "$err" ] && log "ensure-project-worktree: fetch ${repo}@${branch}: ${err}"
+tracking_branch_sha() { # tracking_branch_sha <full-ref>
+  git --git-dir="$bare" rev-parse --verify --quiet "$1" 2>/dev/null || true
+}
+fetch_branch() { # fetch_branch <remote-or-url> <tracking-ref> <label>
+  local source="$1" tracking_ref="$2" label="$3" err
+  err="$(git --git-dir="$bare" fetch --quiet "$source" \
+           "+refs/heads/${branch}:${tracking_ref}" 2>&1 >/dev/null)" \
+    || { [ -n "$err" ] && log "WARN: ensure-project-worktree: fetch of ${label}@${branch} failed: ${err}"; return 1; }
+  [ -n "$err" ] && log "ensure-project-worktree: fetch ${label}@${branch}: ${err}"
   return 0
 }
 
-remote_sha="$(remote_branch_sha)"
-[ -z "$remote_sha" ] && remote_sha="$(remote_branch_sha)"   # one retry past a blip
+selected_source=origin
+selected_label="$repo"
+selected_ref="refs/remotes/origin/${branch}"
+if remote_sha="$(probe_branch_retry origin)"; then
+  :
+else
+  probe_rc=$?
+  [ "$probe_rc" -eq 1 ] \
+    || die "ensure-project-worktree: could not verify whether ${repo}@${branch} exists; refusing an unverified fallback"
 
-fetch_branch || true
-
-if [ -n "$remote_sha" ]; then
-  # The branch exists upstream: the remote-tracking head MUST equal the remote tip,
-  # else the fetch silently failed or delivered a stale ref. Retry once, then refuse.
-  have_sha="$(tracking_branch_sha)"
-  if [ "$have_sha" != "$remote_sha" ]; then
-    log "WARN: ensure-project-worktree: refs/remotes/origin/${branch} is ${have_sha:-<absent>} but origin/${branch} is ${remote_sha}; retrying fetch"
-    fetch_branch || true
+  fork_owner="${GARDEN_BOT_LOGIN:-kriscendobot}"
+  if [ "$owner" = "$fork_owner" ]; then
+    die "ensure-project-worktree: branch ${branch} is absent from ${repo}"
   fi
-  now_sha="$(tracking_branch_sha)"
-  if [ "$now_sha" != "$remote_sha" ]; then
-    die "ensure-project-worktree: could not fetch ${repo}@${branch} to ${remote_sha} (remote-tracking head is ${now_sha:-absent}, likely a transient network/auth failure); refusing to hand back a stale tree"
+  selected_source="${GARDEN_PROJECT_FORK_URL:-${GARDEN_CLONE_URL_BASE%/}/${fork_owner}/${name}.git}"
+  selected_label="${fork_owner}/${name} (garden fork)"
+  selected_ref="refs/remotes/garden-fork/${branch}"
+  if remote_sha="$(probe_branch_retry "$selected_source")"; then
+    log "ensure-project-worktree: ${repo}@${branch} absent; resolving from ${selected_label}"
+  else
+    probe_rc=$?
+    if [ "$probe_rc" -eq 1 ]; then
+      die "ensure-project-worktree: branch ${branch} is absent from both ${repo} and ${selected_label}"
+    fi
+    die "ensure-project-worktree: could not verify ${selected_label}@${branch}; refusing to check out an unverified ref"
   fi
 fi
-# else: the branch is on neither side (a legitimate detached ref/sha checkout) —
-# the fetch is a no-op and the add below resolves $ref locally or errors clearly.
+
+fetch_branch "$selected_source" "$selected_ref" "$selected_label" || true
+
+# The selected remote-tracking head MUST equal the advertised remote tip, else
+# the fetch silently failed or delivered a stale ref. Retry once, then refuse.
+have_sha="$(tracking_branch_sha "$selected_ref")"
+if [ "$have_sha" != "$remote_sha" ]; then
+  log "WARN: ensure-project-worktree: ${selected_ref} is ${have_sha:-<absent>} but ${selected_label}/${branch} is ${remote_sha}; retrying fetch"
+  fetch_branch "$selected_source" "$selected_ref" "$selected_label" || true
+fi
+now_sha="$(tracking_branch_sha "$selected_ref")"
+if [ "$now_sha" != "$remote_sha" ]; then
+  die "ensure-project-worktree: could not fetch ${selected_label}@${branch} to ${remote_sha} (remote-tracking head is ${now_sha:-absent}, likely a transient network/auth failure); refusing to hand back a stale tree"
+fi
 
 # What to check out: when the caller wants the branch (the default), use the
 # remote-tracking ref we just fetched and verified — refs/heads/$branch is no
 # longer fetched into and may be absent or held by another worktree. An explicit
 # ref/SHA argument is resolved as given.
 add_ref="$ref"
-[ "$ref" = "$branch" ] && add_ref="refs/remotes/origin/${branch}"
+[ "$ref" = "$branch" ] && add_ref="$selected_ref"
 
 git --git-dir="$bare" worktree add --detach "$wt" "$add_ref" >/dev/null \
   || die "ensure-project-worktree: could not check out $repo@$ref into $wt"
