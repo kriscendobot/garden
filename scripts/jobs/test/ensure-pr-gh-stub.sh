@@ -37,6 +37,17 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = list ]; then
   exit 0
 fi
 
+if [ "${1:-}" = api ]; then
+  if [ "${FAKE_GH_FAIL:-}" = list-definitive ]; then
+    echo "gh: HTTP 404: Not Found (https://api.github.com/repos/x/y/pulls)" >&2
+    exit 1
+  fi
+  # `gh api --paginate --slurp` returns an outer array containing one array per
+  # page. The fixture chunks at GitHub's requested 100-item page size.
+  jq '[.[] | {number, body, html_url: ("https://github.com/example/repo/pull/" + (.number | tostring)), user: .author}] | [range(0; length; 100) as $i | .[$i:$i+100]]' "$FAKE_PR_DB"
+  exit 0
+fi
+
 if [ "${1:-}" = pr ] && [ "${2:-}" = create ]; then
   shift 2
   repo=""; head=""; body_file=""; draft=false

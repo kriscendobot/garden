@@ -33,9 +33,10 @@
 #   * more than one         -> print them ALL and exit 3. A human or a gardener
 #                              resolves the duplicate; the script NEVER guesses,
 #                              and above all never adds a third.
-# A discovery query that fails, or comes back at the page limit (so it may have
-# been truncated), is INCONCLUSIVE — exit 4 without creating. Failing closed
-# costs a retry; failing open costs a duplicate PR, which is the whole defect.
+# A discovery query that fails, or the targeted head query comes back at its
+# page limit (so it may have been truncated), is INCONCLUSIVE. Exit 4 without
+# creating. The marker query paginates through every open PR instead of treating
+# a busy repository's first page as the whole answer.
 #
 # The resulting number is recorded into the job's journal `work/<base>` record
 # (`pr_number:` / `pr_repo:` / `pr_url:`) so a later call within the same claim
@@ -54,6 +55,8 @@
 #                  owner prefix is stripped for the head-filter query and kept
 #                  for the create.
 #   --find-only    look, never create. Exit 2 when nothing is found.
+#   --limit N      cap the targeted head-branch query. Marker discovery always
+#                  paginates through the complete open-PR set.
 #   --no-draft     open ready-for-review. Reserved for the boatman's UPSTREAM
 #                  ferry PR: every fork-side PR the garden opens MUST be draft
 #                  (skills/pr-creation-flow § Draft discipline) because the
@@ -216,36 +219,49 @@ record_pr() {
 
 # --- discovery ---------------------------------------------------------------
 
-# list_prs <gh-pr-list-args...> — one `gh pr list`, with the SAME bounded transient
+# gh_read <gh-args...>: one read-only `gh` call, with the SAME bounded transient
 # absorber the rest of the fleet uses (common.sh's signature set + full-jitter
-# backoff), so a TLS blip does not read as "no PR exists". Prints the JSON array;
+# backoff), so a TLS blip does not read as "no PR exists". Prints the response;
 # returns non-zero when the read genuinely failed, and the caller then reports
 # INCONCLUSIVE rather than guessing.
-list_prs() {
+gh_read() {
   local attempt=1 out rc errf stderr
   errf="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/ensure-pr-list.$$")"
   while :; do
-    if out="$("$GH" pr list "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
+    if out="$("$GH" "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
     if [ "$rc" -eq 0 ]; then rm -f "$errf"; printf '%s' "$out"; return 0; fi
     stderr="$(cat "$errf" 2>/dev/null || true)"
     if ! _gh_api_stderr_is_transient "$stderr"; then
-      log "WARN: gh pr list failed (definitive, rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      log "WARN: gh read failed (definitive, rc=$rc); not retrying: ${stderr:-<no stderr>}"
       rm -f "$errf"; return "$rc"
     fi
     if [ "$attempt" -ge "${GARDEN_GH_API_ATTEMPTS:-4}" ]; then
-      log "WARN: gh pr list failed after $attempt transient attempt(s) (rc=$rc): ${stderr:-<no stderr>}"
+      log "WARN: gh read failed after $attempt transient attempt(s) (rc=$rc): ${stderr:-<no stderr>}"
       rm -f "$errf"; return "$rc"
     fi
-    log "gh pr list transient blip (rc=$rc); retry $((attempt+1)) after backoff"
+    log "gh read transient blip (rc=$rc); retry $((attempt+1)) after backoff"
     backoff "$attempt"
     attempt=$((attempt+1))
   done
 }
 
+list_prs() { gh_read pr list "$@"; }
+
+# list_open_prs_paginated: return every open PR as one JSON array. GitHub's
+# pulls endpoint is ordered newest-first and paginated at 100 items; --paginate
+# follows every Link header and --slurp preserves the page boundaries so jq can
+# flatten them deterministically. This deliberately has no caller-set cap: the
+# durable marker may be on an old PR in a repository with hundreds of open bot
+# PRs.
+list_open_prs_paginated() {
+  gh_read api --paginate --slurp "repos/$repo/pulls?state=open&per_page=100" \
+    | jq '[.[][] | {number, body, url: .html_url, author: {login: .user.login}}]'
+}
+
 # discover — print each candidate PR number, one per line, sorted and unique.
 # Returns 0 on a conclusive answer (including "none"), 4 when either query
-# failed or came back AT the page limit, where a truncated page could be hiding
-# the very PR we are looking for.
+# failed or the targeted head query came back AT the page limit, where a
+# truncated page could be hiding the very PR we are looking for.
 discover() {
   local by_head by_marker n foreign
   by_head="$(list_prs --repo "$repo" --state open --head "$head_ref" \
@@ -263,15 +279,15 @@ discover() {
   [ -z "$foreign" ] || log "WARN: ignoring open PR(s) $foreign on head '$head_ref' authored by someone other than $author"
   by_head="$(printf '%s' "$by_head" | jq --arg a "$author" '[.[] | select((.author.login // "") == $a)]')"
 
-  by_marker="$(list_prs --repo "$repo" --state open --author "$author" \
-                        --limit "$limit" --json number,body,url 2>/dev/null)" \
-    || { log "WARN: marker query for open $author PRs on $repo failed"; return 4; }
-  n="$(printf '%s' "$by_marker" | jq 'length' 2>/dev/null)" || { log "WARN: unparseable marker query result"; return 4; }
-  [ "$n" -lt "$limit" ] || { log "WARN: marker query returned $n open $author PRs at the page limit ($limit) — possibly truncated; raise GARDEN_ENSURE_PR_LIST_LIMIT"; return 4; }
+  by_marker="$(list_open_prs_paginated 2>/dev/null)" \
+    || { log "WARN: paginated marker query for open PRs on $repo failed"; return 4; }
+  printf '%s' "$by_marker" | jq -e 'type == "array"' >/dev/null 2>&1 \
+    || { log "WARN: unparseable paginated marker query result"; return 4; }
 
   {
     printf '%s' "$by_head"   | jq -r '.[].number'
-    printf '%s' "$by_marker" | jq -r --arg m "$marker" '.[] | select((.body // "") | contains($m)) | .number'
+    printf '%s' "$by_marker" | jq -r --arg m "$marker" --arg a "$author" \
+      '.[] | select((.author.login // "") == $a) | select((.body // "") | contains($m)) | .number'
   } | sort -n | uniq
 }
 

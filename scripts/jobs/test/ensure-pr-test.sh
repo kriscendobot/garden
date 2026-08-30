@@ -114,12 +114,20 @@ FAKE_GH_FAIL=list-definitive run feat/sturdyref
 [ "$RC" -eq 4 ] && ok "a failed discovery query exits 4" || bad "failed query should exit 4, got $RC ($ERR)"
 [ "$(creates)" = 0 ] && ok "nothing is created when discovery is unreadable" || bad "created a PR on an unreadable query"
 
-hr; echo "REFUSE — a result page at the limit may be truncated"; hr
-reset_db '[{"number": 700, "headRefName": "other", "author": {"login": "kriscendobot"}, "body": "unrelated"}]'
+hr; echo "REFUSE — a targeted head result page at the limit may be truncated"; hr
+reset_db '[{"number": 700, "headRefName": "feat/sturdyref", "author": {"login": "stranger"}, "body": "unrelated"}]'
 LIMIT=1 run feat/sturdyref
 unset LIMIT
 [ "$RC" -eq 4 ] && ok "a possibly-truncated page exits 4 rather than creating" || bad "truncated page should exit 4, got $RC ($ERR)"
 [ "$(creates)" = 0 ] && ok "nothing is created on a possibly-truncated page" || bad "created a PR on a truncated page"
+
+hr; echo "ADOPT - marker lookup paginates past 200 open PRs"; hr
+reset_db "$(jq -n --arg m "$MARKER" '[range(1; 202) as $n |
+  {number: $n, headRefName: ("unrelated-" + ($n | tostring)), author: {login: "kriscendobot"}, body: "unrelated"}]
+  + [{number: 865, headRefName: "feat/sturdyref", author: {login: "kriscendobot"}, body: ("standing\n" + $m)}]')"
+run feat/sturdyref
+[ "$RC" -eq 0 ] && [ "$OUT" = 865 ] && ok "a known head with a marker beyond 200 open PRs is adopted" || bad "paginated marker adoption failed: rc=$RC out='$OUT' ($ERR)"
+[ "$(creates)" = 0 ] && ok "a busy repository does not trigger duplicate creation" || bad "opened a duplicate after a paginated marker lookup"
 
 hr; echo "FIND-ONLY — look, never create"; hr
 reset_db
