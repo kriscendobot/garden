@@ -13,3 +13,13 @@ Task (fixer):
 - While in `src/http.ts`: the `WEBLET_SITES_LIVE=1` + `GATEWAY_STORE_DIR` branch still passes `sockPath: config.endoSock` unguarded, so an empty socket now produces a degraded-mode log reading `ENDO_SOCK=` with an empty value. Make that path either skip the install or report the empty-socket cause clearly.
 - Fix the doc drift the same change creates: `README.md` § "The guest tools and admission" still asserts "`ENDO_SOCK` defaults to `/run/endo-daemon/endo.sock`" and "The server never falls back to the retired in-memory minion surface" — both now wrong. Check `DEPLOYMENT.md` (~line 254, 303) for the same claim and correct it to describe the real socket-vs-memory selection rule you land.
 - Run `npm run typecheck` and `npm test` before pushing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-30T05:51:00Z
