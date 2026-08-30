@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T05:37:56Z_
+_As of 2026-08-30T05:39:30Z_
 
 ## Latest
 
@@ -441,6 +441,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260829T180506Z-449d3a` — from gauntlet:endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T180506Z-449d3a.md)
 
 > Gauntlet endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet HALTED: stage 'endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260830T053908Z-dea27e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260830T053908Z-dea27e.md)
+
+> The daily drift-check schedule behind report `fu-minion-town-containment-gateway-endo-sock-1-20260828-032006` is firing against a premise that no longer holds (the minion.town containment-gateway ENDO_SOCK drift it was watching for). Decision needed: retire that schedule, or repurpose it to a still-meaningful check? Until you decide it keeps running daily and reporting on an obsolete premise.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1281,14 +1285,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.0M | $71.03 _(notional, rate-card)_ | 60% of 5.0M (ok) |
+| Claude | 3.0M | $71.23 _(notional, rate-card)_ | 60% of 5.0M (ok) |
 | Codex | 2.9M _(+147.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`fu-pr910-review-4941452327-fuzzer-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-pr910-review-4941452327-fuzzer-1.md) — ---
 - [`ironhorse-fuzz-493390fc03979205-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-493390fc03979205-repair.md) — Fix Ironhorse fuzz finding 493390fc03979205 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
 
