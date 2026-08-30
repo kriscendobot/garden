@@ -1,2 +1,2 @@
-base: improve-ci-watcher-retire-stale-shepherd
+base: improve-ci-outage-warning-dedup
 identity: mentor:scripts/jobs/ci-watcher.sh
