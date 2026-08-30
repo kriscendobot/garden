@@ -22,9 +22,9 @@ trap 'rm -rf "$TR"' EXIT
 git init -q --bare "$TR/journal.git"
 git init -q "$TR/seed"
 git -C "$TR/seed" checkout -q -b journal2
-mkdir -p "$TR/seed/jobs/"{plan,todo,doin,tada,orch,index} \
+mkdir -p "$TR/seed/jobs/"{plan,todo,doin,tada,orch,gauntlet,index} \
   "$TR/seed/inbox/maintainer/"{unread,read}
-for d in plan todo doin tada orch index; do touch "$TR/seed/jobs/$d/.gitkeep"; done
+for d in plan todo doin tada orch gauntlet index; do touch "$TR/seed/jobs/$d/.gitkeep"; done
 touch "$TR/seed/inbox/maintainer/unread/.gitkeep" "$TR/seed/inbox/maintainer/read/.gitkeep"
 git -C "$TR/seed" add -A
 git -C "$TR/seed" -c user.name=test -c user.email=test@example.invalid commit -q -m seed
@@ -139,6 +139,21 @@ reset_clone
 "$GATE" pr876-rebase "$JOB" "$TR/r3.md" \
   || fail 'gate wrongly blocked a handoff to a real orchestration record'
 echo '   gate passed on an orchestration handoff'
+
+echo '== (c2) PASS: an active staged-gauntlet record also satisfies the handoff =='
+board_put gauntlet ironhorse-fuzz-case-repair-gauntlet
+cat >"$TR/r3b.md" <<'EOF'
+Fixed the Ironhorse finding and amended the standing PR.
+
+## Follow-ups
+- The staged gauntlet owns clean, panel, fix-loop, and un-draft.
+
+<<<GARDEN-JOB-HANDED-OFF: ironhorse-fuzz-case-repair-gauntlet>>>
+EOF
+reset_clone
+"$GATE" ironhorse-fuzz-case-repair "$JOB" "$TR/r3b.md" \
+  || fail 'gate wrongly blocked a handoff to a durable staged-gauntlet record'
+echo '   gate passed on a staged-gauntlet handoff'
 
 echo '== (d) PASS: an actual maintainer-inbox message (reply_to=base) satisfies the gate =='
 inbox_put pr876-rebase

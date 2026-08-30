@@ -3948,7 +3948,13 @@ followups_actionable() {
 
 # handoff_successor_posted <clone-dir> <successor-base> — 0 iff <successor-base> is
 # durably posted on the board in <clone-dir>: alive in the plan|todo|doin|tada
-# lifecycle, or an orchestration record. This is the SINGLE existence check a
+# lifecycle, an orchestration record, or an active staged-gauntlet record. A
+# staged gauntlet deliberately lives outside the ordinary claim lifecycle while
+# its driver posts one claim-sized child at a time (jobs/gauntlet/<base>.md), but
+# it is still the durable successor a completed builder hands off to. Omitting
+# that namespace made a correctly posted Ironhorse repair gauntlet look absent:
+# the follow-up gate/complete-job rejected the handoff even while its `-clean`
+# child was already live. This is the SINGLE existence check a
 # declared `--handed-off` disposition must satisfy. complete-job.sh gates its
 # doin->tada stamp on it and assert-followup-posted.sh reuses the SAME predicate,
 # so a report's handoff and the completion gate can never disagree on what
@@ -3957,6 +3963,7 @@ handoff_successor_posted() {
   local dir="$1" successor="$2"
   job_in_lifecycle "$dir" "$successor" && return 0
   [ -e "$dir/$JOBS_ORCH/$successor.md" ] && return 0
+  [ -e "$dir/$JOBS_GAUNTLET/$successor.md" ] && return 0
   return 1
 }
 

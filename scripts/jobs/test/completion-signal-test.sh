@@ -22,6 +22,8 @@
 # SUBTEST 2 — (b) handler exits 0 WITH the signal → job completed to tada.
 # SUBTEST 2A — an exact orchestration-failure signal is mechanically stamped
 #              into leading frontmatter and removed from the human report.
+# SUBTEST 2B2 — an active staged-gauntlet record is accepted as a durable
+#               successor and the builder completes with a partial disposition.
 # SUBTEST 2C — an unposted handoff with no Follow-ups section is caught by the
 #              pre-completion gate; the worker survives and leaves it in doin.
 # SUBTEST 2D — if the pre-gate is inconclusive/stale enough to pass, complete-job
@@ -63,8 +65,8 @@ seed_board() {
   git init -q --bare "$bare"
   git init -q "$seed"; git -C "$seed" checkout -q -b "$branch"
   ( cd "$seed"
-    mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
-    for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+    mkdir -p jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors
+    for d in jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
     printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md" )
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
@@ -173,6 +175,28 @@ V2B="$T2B/verify"; git clone -q --single-branch --branch journal2 "$BARE2B" "$V2
   && ok "gardener/complete-job translated an evidenced handoff into partial-disposition frontmatter" \
   || bad "handoff signal was not translated cleanly ($(sed -n '1,8p' "$V2B/jobs/tada/handoffjob.md" 2>/dev/null | tr '\n' '|'))"
 rm -rf "$T2B"
+
+# ============================================================================
+hr; echo "SUBTEST 2B2: an active staged-gauntlet record is a durable handoff successor"; hr
+T2B2="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2b2.XXXXXX")"
+BARE2B2="$(seed_board "$T2B2" ironhorse-fuzz-case-repair)"
+U2B2="$T2B2/update"; git clone -q --single-branch --branch journal2 "$BARE2B2" "$U2B2"
+printf -- '---\npr: https://github.com/endojs/endo-but-for-bots/pull/1088\nstate: running\n---\nstaged gauntlet\n' \
+  > "$U2B2/jobs/gauntlet/ironhorse-fuzz-case-repair-gauntlet.md"
+git -C "$U2B2" add jobs/gauntlet/ironhorse-fuzz-case-repair-gauntlet.md
+git -C "$U2B2" -c user.name=test -c user.email=test@localhost commit -q -m 'record staged gauntlet'
+git -C "$U2B2" push -q origin HEAD:journal2
+env GARDEN="handoffhost" GARDEN_STATE="$T2B2/state" JOURNAL_REMOTE="$BARE2B2" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
+    GARDEN_STUB_HANDOFF_SUCCESSOR=ironhorse-fuzz-case-repair-gauntlet GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2B2/gardener.log" 2>&1 || true
+V2B2="$T2B2/verify"; git clone -q --single-branch --branch journal2 "$BARE2B2" "$V2B2" 2>/dev/null
+{ [ -f "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" ] \
+  && grep -qx 'handed-off: ironhorse-fuzz-case-repair-gauntlet' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" \
+  && grep -qx 'deliverable-complete: false' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md"; } \
+  && ok "staged-gauntlet successor completed the repair handoff with a partial disposition" \
+  || bad "staged-gauntlet successor was not accepted ($(sed -n '1,8p' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" 2>/dev/null | tr '\n' '|'))"
+rm -rf "$T2B2"
 
 # ============================================================================
 hr; echo "SUBTEST 2C: an unposted handoff is rejected and remains unfinished"; hr
