@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 3
-worker_kind: monk
-claimed_at: 2026-08-30T05:56:47Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-improve-ci-outage-warning-dedup
