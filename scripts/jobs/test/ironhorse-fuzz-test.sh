@@ -11,13 +11,14 @@
 #   B. one reproduced finding → exactly one repair job + one durable finding marker + persisted artifact
 #   C. repeat-finding dedup — the SAME crash on the next tick posts NO duplicate (journal marker)
 #   D. restart/resume — a fresh state dir but a surviving journal marker still dedups (host-loss safe)
-#   E. two DISTINCT findings → two distinct repair jobs + two markers
+#   E. two DISTINCT findings → two markers, but only one live repair; completing it releases its successor
 #   F. a crash that does NOT reproduce (reproducer says flake) → no job, no marker
 #   G. bounded artifact — an input over the byte cap → marker recorded with base64 OMITTED, job still posted
 #   H. standing-PR adoption — every repair job targets the SAME marker_base + branch (one standing PR)
 #   I. post-merge rollover — a MERGED standing PR bumps the generation; the next finding targets gen 2
 #   J. first-run init — standing.md is created on a virgin journal
 #   K. untrusted-data — raw crash bytes never appear in the repair job body (only sha256 + base64 + path)
+#   L. failed release — the durable marker remains queued and a later tick retries it
 #
 # Usage: ironhorse-fuzz-test.sh
 set -euo pipefail
@@ -78,7 +79,20 @@ todo_count() {  # todo_count <bare> — repair jobs in todo (excludes .gitkeep)
 job_body() {  # job_body <bare> <base>
   local v out; v="$(mktemp -d "$TR/jb.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
-  out="$(cat "$v/jobs/todo/$2.md" 2>/dev/null || true)"; rm -rf "$v"; printf '%s' "$out"
+  out=""
+  for s in plan todo doin tada; do
+    [ -f "$v/jobs/$s/$2.md" ] && out="$(cat "$v/jobs/$s/$2.md")"
+  done
+  rm -rf "$v"; printf '%s' "$out"
+}
+complete_job() {  # complete_job <bare> <base> — simulate the gardener's todo -> tada transition
+  local bare="$1" base="$2" w; w="$(mktemp -d "$TR/done.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$bare" "$w" 2>/dev/null
+  mv "$w/jobs/todo/$base.md" "$w/jobs/tada/$base.md"
+  git -C "$w" add -A
+  git -C "$w" "${git_id[@]}" commit -q -m "complete $base"
+  git -C "$w" push -q origin "$BRANCH"
+  rm -rf "$w"
 }
 finding_ids() {  # finding_ids <bare> — list recorded finding ids
   local v; v="$(mktemp -d "$TR/fi.XXXXXX")"
@@ -122,7 +136,11 @@ EOF
 # args: repo marker author [--number]
 if [ "${4:-}" = "--number" ]; then echo "${STUB_PR_NUMBER:-0}"; else echo "${STUB_PR_STATE:-NONE}"; fi
 EOF
-  chmod +x "$RUNNER" "$MINIMIZER" "$REPRODUCER" "$SHACMD" "$PRSTATE"
+  FAILPOST="$TR/stub-fail-post.sh"; cat > "$FAILPOST" <<'EOF'
+#!/bin/bash
+exit 1
+EOF
+  chmod +x "$RUNNER" "$MINIMIZER" "$REPRODUCER" "$SHACMD" "$PRSTATE" "$FAILPOST"
 }
 mk_stubs
 
@@ -186,14 +204,25 @@ run_svc "$TR/state-b-fresh" "$BARE_B" "$SEED_B"
 [ "$(todo_count "$BARE_B")" -eq 1 ] && ok "journal marker dedups across host/state loss" || bad "re-posted after state loss: $(todo_count "$BARE_B")"
 
 # ============================================================================
-hr; echo "E — two distinct findings → two repair jobs"; hr
+hr; echo "E — two distinct findings are retained but repairs are serialized"; hr
 BARE_E="$TR/e.git"; seed_bare "$BARE_E"
 SEED_E="$TR/seed-e"; mkdir -p "$SEED_E/parser" "$SEED_E/bytecode_decoder"
 printf 'DISTINCT-ONE'   > "$SEED_E/parser/c1"
 printf 'DISTINCT-TWO-X' > "$SEED_E/bytecode_decoder/c1"
 run_svc "$TR/state-e" "$BARE_E" "$SEED_E"
-[ "$(todo_count "$BARE_E")" -eq 2 ] && ok "two distinct repair jobs" || { bad "expected 2, got $(todo_count "$BARE_E")"; cat "$TR/last.log"; }
 [ "$(finding_ids "$BARE_E" | wc -l)" -eq 2 ] && ok "two distinct finding markers" || bad "expected 2 markers"
+[ "$(todo_count "$BARE_E")" -eq 1 ] && ok "only one repair released while both findings remain durable" || { bad "expected 1 live repair, got $(todo_count "$BARE_E")"; cat "$TR/last.log"; }
+first_e="ironhorse-fuzz-$(finding_ids "$BARE_E" | sed -n 1p)-repair"
+second_e="ironhorse-fuzz-$(finding_ids "$BARE_E" | sed -n 2p)-repair"
+board_has "$BARE_E" "$first_e" && ok "first deterministic repair released" || bad "first repair was not released"
+if board_has "$BARE_E" "$second_e"; then bad "successor released before predecessor completed"; else ok "successor withheld while predecessor is live"; fi
+run_svc "$TR/state-e" "$BARE_E" "$SEED_E"
+[ "$(todo_count "$BARE_E")" -eq 1 ] && { board_has "$BARE_E" "$second_e" && bad "next tick released successor while predecessor remained live" || ok "next tick still withholds successor"; } || bad "live repair count changed before completion"
+complete_job "$BARE_E" "$first_e"
+run_svc "$TR/state-e" "$BARE_E" "$SEED_E"
+[ "$(todo_count "$BARE_E")" -eq 1 ] && board_has "$BARE_E" "$second_e" \
+  && ok "predecessor completion releases exactly one successor" \
+  || { bad "successor was not released after predecessor completion"; cat "$TR/last.log"; }
 
 # ============================================================================
 hr; echo "F — non-reproducing crash (flake) → no job"; hr
@@ -216,8 +245,8 @@ printf '%s' "$mk" | grep -q 'input_base64: (omitted' && ok "base64 omitted over 
 
 # ============================================================================
 hr; echo "H — standing-PR adoption: all repair jobs target the same marker_base + branch"; hr
-b1="$(job_body "$BARE_E" "ironhorse-fuzz-$(finding_ids "$BARE_E" | sed -n 1p)-repair")"
-b2="$(job_body "$BARE_E" "ironhorse-fuzz-$(finding_ids "$BARE_E" | sed -n 2p)-repair")"
+b1="$(job_body "$BARE_E" "$first_e")"
+b2="$(job_body "$BARE_E" "$second_e")"
 printf '%s' "$b1" | grep -q 'ensure-pr.sh ironhorse-fuzz-findings ' && \
 printf '%s' "$b2" | grep -q 'ensure-pr.sh ironhorse-fuzz-findings ' && \
   ok "both repair jobs adopt the same standing marker_base" || bad "repair jobs disagree on the standing PR"
@@ -253,6 +282,21 @@ hr; echo "K — untrusted-data: raw crash bytes never appear in the repair job b
 body_b="$(job_body "$BARE_B" "ironhorse-fuzz-${fid_b}-repair")"
 if printf '%s' "$body_b" | grep -q 'HELLO-CRASH-B'; then bad "raw crash bytes leaked into the job body"; else ok "raw crash bytes absent from the job body"; fi
 printf '%s' "$body_b" | grep -q 'sha256' && ok "body carries the sha256 provenance instead" || bad "body missing sha256 provenance"
+
+# ============================================================================
+hr; echo "L — a failed release remains queued and retries on a later tick"; hr
+BARE_L="$TR/l.git"; seed_bare "$BARE_L"
+SEED_L="$TR/seed-l"; mkdir -p "$SEED_L/parser"; printf 'RETRY-ME' > "$SEED_L/parser/c1"
+run_svc "$TR/state-l" "$BARE_L" "$SEED_L" GARDEN_IRONHORSE_FUZZ_POST="$FAILPOST"
+fid_l="$(finding_ids "$BARE_L" | head -n1)"
+[ -n "$fid_l" ] && [ "$(todo_count "$BARE_L")" -eq 0 ] \
+  && ok "failed post leaves the finding durable and unreleased" \
+  || bad "failed post did not preserve a queued finding"
+rm -f "$SEED_L/parser/c1"
+run_svc "$TR/state-l" "$BARE_L" "$SEED_L"
+board_has "$BARE_L" "ironhorse-fuzz-${fid_l}-repair" \
+  && ok "later tick releases the queued finding without rediscovery dependence" \
+  || { bad "later tick did not retry the queued repair"; cat "$TR/last.log"; }
 
 # ============================================================================
 hr

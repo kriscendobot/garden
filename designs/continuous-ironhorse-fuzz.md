@@ -2,9 +2,10 @@
 
 A deterministic, leader-only garden background service that drives the Ironhorse
 libFuzzer campaign **continuously** off the critical path of pull-request CI, and
-turns every distinct reproducible crash into a durable, deduplicated **repair job**
-that creates-or-amends **one standing bot-fork pull request** carrying the
-regression case and its fix.
+turns every distinct reproducible crash into a durable, deduplicated **finding**.
+It releases the corresponding repair jobs one at a time so they safely
+create-or-amend **one standing bot-fork pull request** carrying each regression
+case and its fix.
 
 Maintainer directive (kriskowal, endojs/endo-but-for-bots#1046, comment
 5446442895): *"Please post a job to move the fuzzer out of CI and to drive it
@@ -139,17 +140,20 @@ handoff to another host.
 ## 4. Finding identity and deduplication
 
 A finding is identified by `finding-id = sha256(target "\0" minimized-input)[:16]`.
-Two independent dedup gates make repeated discovery and restart idempotent:
+The journal marker is both the dedup record and the durable repair queue:
 
 1. **Journal marker** `ironhorse-fuzz/findings/<finding-id>.md` — if it exists, the
-   finding was already handled; skip. This survives host loss.
-2. **Board pre-check** — `posted_anywhere ironhorse-fuzz-<finding-id>-repair`
-   across `plan/todo/doin/tada` (the pages-watcher idiom), plus `post-job.sh`'s own
-   basename+`--identity` idempotency as belt-and-suspenders.
+   finding was already captured; skip re-recording it. This survives host loss.
+2. **Serialized release** — after capturing every finding in a tick, inspect the
+   markers for the standing generation. If a repair is live in `plan/todo/doin`,
+   release nothing. Otherwise skip repairs already in `tada` and post exactly one
+   pending marker through `post-job.sh`'s basename+`--identity` idempotency.
 
 So the same crash rediscovered on the next tick, or after a restart, posts **no
 duplicate job and no duplicate PR commit**. Two *distinct* crashes (distinct
-minimized bytes) yield two distinct finding-ids and two repair jobs.
+minimized bytes) yield two distinct finding-ids immediately, but only one repair
+is claimable; the second is released only after the first reaches `tada/`. A
+failed post leaves its marker pending and is retried by a later tick.
 
 Minimization (`cargo fuzz tmin`) before identity means two inputs that reduce to
 the same root cause collapse to one finding; it is the stable key, not the raw
@@ -164,9 +168,9 @@ There is **one open standing PR per generation**, on a stable bot-owned branch i
 `<!-- garden-job: <marker_base> -->` marker that
 [`ensure-pr.sh`](../scripts/jobs/gardening/ensure-pr.sh) uses to **create-or-adopt**.
 Every repair job in a generation targets the same branch and the same marker, so
-the **first** finding of a generation *creates* the PR and **every** later finding
-*adopts and amends* it — never a duplicate PR, never a duplicate commit (the
-finding-id dedup upstream guarantees each amendment is distinct).
+the **first** released finding of a generation *creates* the PR and **every** later
+finding *adopts and amends* it after its predecessor completes — never concurrent
+builders on the shared branch, a duplicate PR, or a duplicate commit.
 
 **Rollover after merge/close.** The service owns the lifecycle deterministically.
 Each tick, if `standing.md` records an open PR, it re-checks that PR's state:
@@ -179,8 +183,8 @@ Each tick, if `standing.md` records an open PR, it re-checks that PR's state:
   merge costs nothing and no empty PR is opened.
 
 Crucially, rollover is decoupled from finding capture: a finding is **always**
-represented (durable marker + repair job) regardless of standing-PR state, so
-nothing is lost in the merge→rollover window, and nothing is duplicated because the
+represented by its durable marker even while its repair is queued, so nothing is
+lost in the merge→rollover window, and nothing is duplicated because the
 generation bump is a single CAS write the next finding reads.
 
 A finding that **cannot yet be solved** is still durable and visible: its journal
@@ -192,8 +196,10 @@ finding markers whose repair job has not landed a fix.
 
 ## 6. The repair-job contract
 
-For each reproduced finding the service posts one uniquely-keyed repair job
-(`ironhorse-fuzz-<finding-id>-repair`, role `builder`) that owns **both** halves:
+For each reproduced finding the service durably queues, then eventually posts, one
+uniquely-keyed repair job (`ironhorse-fuzz-<finding-id>-repair`, role `builder`)
+that owns **both** halves. Within a standing generation, only one repair is live;
+the next is posted after its predecessor completes:
 
 - a **load-bearing regression case** — because `fuzz/corpus/` and `fuzz/artifacts/`
   are gitignored (a corpus seed cannot be committed as a permanent regression), the

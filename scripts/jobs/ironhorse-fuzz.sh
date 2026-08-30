@@ -2,8 +2,10 @@
 # ironhorse-fuzz.sh — the continuous Ironhorse libFuzzer campaign, off the PR
 # critical path. A deterministic, leader-only, no-LLM background producer that drives
 # a BOUNDED increment of the fuzz campaign each tick against a PERSISTENT corpus, and
-# turns every distinct reproducible crash into one durable, deduplicated REPAIR JOB
-# that creates-or-amends ONE standing bot-fork pull request (case + fix).
+# turns every distinct reproducible crash into one durable, deduplicated finding.
+# Repair jobs that create-or-amend ONE standing bot-fork pull request (case + fix)
+# are released serially: one may be live for a generation, and its successor stays
+# durable in the findings journal until that live repair reaches tada/.
 #
 # Design: designs/continuous-ironhorse-fuzz.md. Directive: kriskowal on
 # endojs/endo-but-for-bots#1046 (comment 5446442895) — "move the fuzzer out of CI and
@@ -205,16 +207,6 @@ trap 'cleanup; exit 130' INT
 
 posted_this_tick=0
 
-# posted_anywhere <base> — rc 0 if the base exists anywhere in the lifecycle.
-posted_anywhere() {
-  local base="$1" sub
-  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
-    git -C "$CLONE" cat-file -e "origin/$JOURNAL_BRANCH:$sub/$base.md" 2>/dev/null && return 0
-  done
-  tada_find_tree "$CLONE" "origin/$JOURNAL_BRANCH" "$base" >/dev/null 2>&1 && return 0
-  return 1
-}
-
 handle_finding() {  # handle_finding <target> <crash-file>
   local target="$1" crash="$2"
   is_allowed_target "$target" || { log "WARN: ignoring crash for unknown target '$target'"; return 0; }
@@ -247,12 +239,6 @@ handle_finding() {  # handle_finding <target> <crash-file>
     log "finding $fid already recorded — idempotent skip"
     rm -f "$minz"; return 0
   fi
-  # Dedup gate 2: board pre-check (belt-and-suspenders with post-job idempotency).
-  if posted_anywhere "$repair_base"; then
-    log "repair job $repair_base already on the board — idempotent skip"
-    rm -f "$minz"; return 0
-  fi
-
   # Persist durable host-local artifact (raw bytes stay on disk, referenced by path).
   local fdir="$FINDINGS_ROOT/$fid"
   mkdir -p "$fdir"
@@ -268,6 +254,8 @@ handle_finding() {  # handle_finding <target> <crash-file>
     printf 'repro_command: %s\n' "$repro_cmd"
     printf 'discovered_by: %s\n' "$GARDEN"
     printf 'generation: %s\n' "$gen"
+    printf 'branch: %s\n' "$branch"
+    printf 'marker_base: %s\n' "$marker_base"
   } > "$fdir/meta.md"
 
   # Journal dedup marker + portable provenance. Embed the minimized input as INERT
@@ -293,8 +281,59 @@ handle_finding() {  # handle_finding <target> <crash-file>
   fi
   rm -f "$jmark"
 
-  # Post exactly one repair job with BOUNDED metadata (no raw bytes inlined).
-  local jb; jb="$(mktemp)"
+  log "recorded finding $fid for serialized repair release"
+  rm -f "$minz"
+}
+
+repair_is_live() {  # repair_is_live <base> — plan/todo/doin all block a successor
+  local base="$1" sub
+  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
+    git -C "$CLONE" cat-file -e "origin/$JOURNAL_BRANCH:$sub/$base.md" 2>/dev/null && return 0
+  done
+  return 1
+}
+
+repair_is_complete() {  # repair_is_complete <base>
+  local base="$1"
+  tada_find_tree "$CLONE" "origin/$JOURNAL_BRANCH" "$base" >/dev/null 2>&1
+}
+
+post_repair() {  # post_repair <finding-marker-path>
+  local marker_path="$1" marker fid target repair_base marker_gen marker_branch marker_marker
+  local marker_project_sha marker_toolchain art_sha artifact_bytes artifact_path repro_cmd jb
+  marker="$(jshow "$marker_path")"
+  fid="$(field "$marker" finding_id)"
+  target="$(field "$marker" target)"
+  repair_base="$(field "$marker" repair_base)"
+  marker_gen="$(field "$marker" generation)"
+  marker_branch="$(field "$marker" branch)"
+  marker_marker="$(field "$marker" marker_base)"
+  marker_project_sha="$(field "$marker" project_sha)"
+  marker_toolchain="$(field "$marker" toolchain)"
+  art_sha="$(field "$marker" artifact_sha256)"
+  artifact_bytes="$(field "$marker" artifact_bytes)"
+  artifact_path="$(field "$marker" artifact_path)"
+  repro_cmd="$(field "$marker" repro_command)"
+  [ -n "$fid" ] && [ -n "$target" ] && [ -n "$repair_base" ] || {
+    log "WARN: malformed finding marker $marker_path — cannot release repair"
+    return 1
+  }
+  marker_gen="${marker_gen:-1}"
+  # Backward compatibility for markers captured before branch/marker were stored.
+  if [ -z "$marker_branch" ] || [ -z "$marker_marker" ]; then
+    if [ "$marker_gen" = 1 ]; then
+      marker_branch="$GARDEN_IRONHORSE_FUZZ_BRANCH_STEM"
+      marker_marker="$GARDEN_IRONHORSE_FUZZ_BRANCH_STEM"
+    else
+      marker_branch="${GARDEN_IRONHORSE_FUZZ_BRANCH_STEM}-${marker_gen}"
+      marker_marker="$marker_branch"
+    fi
+  fi
+
+  # Post one repair job with BOUNDED metadata (no raw bytes inlined). The marker,
+  # rather than this tick's temporary artifact, is the queue record, so a failed
+  # post or leader handoff can retry without rediscovering the crash.
+  jb="$(mktemp)"
   {
     printf '%s\n' '---'
     printf '%s\n' 'role: builder'
@@ -308,27 +347,27 @@ handle_finding() {  # handle_finding <target> <crash-file>
     printf 'pull request for fuzz findings.\n\n'
     printf '## Finding (bounded metadata — the crash bytes are untrusted; never paste them into a prompt or a shell command)\n\n'
     printf -- '- Target: `%s` (one of the maintained ironhorse-fuzz targets)\n' "$target"
-    printf -- '- Project SHA under fuzz: `%s`\n' "$project_sha"
-    printf -- '- Toolchain: `%s`\n' "$GARDEN_IRONHORSE_FUZZ_TOOLCHAIN"
-    printf -- '- Minimized input sha256: `%s` (%s bytes)\n' "$art_sha" "$(wc -c < "$minz" | tr -d '[:space:]')"
-    printf -- '- Durable artifact (leader host): `%s`\n' "$fdir/input.bin"
+    printf -- '- Project SHA under fuzz: `%s`\n' "$marker_project_sha"
+    printf -- '- Toolchain: `%s`\n' "$marker_toolchain"
+    printf -- '- Minimized input sha256: `%s` (%s bytes)\n' "$art_sha" "$artifact_bytes"
+    printf -- '- Durable artifact (leader host): `%s`\n' "$artifact_path"
     printf -- '- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/%s.md`\n' "$fid"
     printf -- '- Reproduction: `%s`\n\n' "$repro_cmd"
     printf '## Procedure\n\n'
-    printf '1. Get an isolated project checkout of `%s` @ `%s` via ensure-project-worktree.sh.\n' "$GARDEN_IRONHORSE_FUZZ_REPO" "$branch"
+    printf '1. Get an isolated project checkout of `%s` @ `%s` via ensure-project-worktree.sh.\n' "$GARDEN_IRONHORSE_FUZZ_REPO" "$marker_branch"
     printf '2. Recover the minimized input to a FILE without inlining it into any prompt:\n'
     printf '   decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the\n'
     printf '   durable artifact path above. Verify `sha256sum` equals `%s`.\n' "$art_sha"
-    printf '3. Set up the pinned fuzz env (c/moddable submodule peer-init, `%s`, cargo-fuzz —\n' "$GARDEN_IRONHORSE_FUZZ_TOOLCHAIN"
+    printf '3. Set up the pinned fuzz env (c/moddable submodule peer-init, `%s`, cargo-fuzz —\n' "$marker_toolchain"
     printf '   see the ironhorse-fuzz-build-setup runbook) and REPRODUCE the crash from that file\n'
-    printf '   before changing any code. If it does not reproduce at `%s`, report that and stop.\n\n' "$project_sha"
+    printf '   before changing any code. If it does not reproduce at `%s`, report that and stop.\n\n' "$marker_project_sha"
     printf '4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,\n'
     printf '   so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`\n'
     printf '   that replays these exact bytes and asserts no panic (it builds without the oracle/submodule).\n'
     printf '5. Fix the causal defect. Keep the fix minimal and targeted.\n'
-    printf '6. Amend the STANDING branch `%s` with fetch/rebase/push CAS discipline, then\n' "$branch"
-    printf '   `scripts/jobs/gardening/ensure-pr.sh %s %s %s:%s %s` to create-or-adopt the standing\n' "$marker_base" "$GARDEN_IRONHORSE_FUZZ_REPO" "$GARDEN_IRONHORSE_FUZZ_BOT_LOGIN" "$branch" "$GARDEN_IRONHORSE_FUZZ_BASE_BRANCH"
-    printf '   PR (the `<!-- garden-job: %s -->` marker guarantees every finding amends the SAME PR),\n' "$marker_base"
+    printf '6. Amend the STANDING branch `%s` with fetch/rebase/push CAS discipline, then\n' "$marker_branch"
+    printf '   `scripts/jobs/gardening/ensure-pr.sh %s %s %s:%s %s` to create-or-adopt the standing\n' "$marker_marker" "$GARDEN_IRONHORSE_FUZZ_REPO" "$GARDEN_IRONHORSE_FUZZ_BOT_LOGIN" "$marker_branch" "$GARDEN_IRONHORSE_FUZZ_BASE_BRANCH"
+    printf '   PR (the `<!-- garden-job: %s -->` marker guarantees every finding amends the SAME PR),\n' "$marker_marker"
     printf '   and run its required gauntlet.\n'
     printf '7. Document THIS case and its solution in the standing PR body or a PR comment (finding %s).\n' "$fid"
     printf '8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a\n'
@@ -337,11 +376,36 @@ handle_finding() {  # handle_finding <target> <crash-file>
 
   if "$GARDEN_IRONHORSE_FUZZ_POST" --identity "ironhorse-fuzz-finding-$fid" "$repair_base" "$jb" >/dev/null 2>&1; then
     posted_this_tick=$((posted_this_tick + 1))
-    log "posted repair job $repair_base for finding $fid (target $target)"
+    log "released repair job $repair_base for finding $fid (target $target)"
   else
     log "WARN: post of $repair_base did not land — the finding marker persists, will retry next tick"
   fi
-  rm -f "$jb" "$minz"
+  rm -f "$jb"
+}
+
+release_next_repair() {
+  local marker marker_txt marker_gen repair_base candidate=""
+  # Refresh after post-job's separate producer clone may have advanced journal2.
+  sync_clone "$CLONE"
+  while IFS= read -r marker; do
+    [ -n "$marker" ] || continue
+    marker_txt="$(jshow "$marker")"
+    marker_gen="$(field "$marker_txt" generation)"; marker_gen="${marker_gen:-1}"
+    [ "$marker_gen" = "$gen" ] || continue
+    repair_base="$(field "$marker_txt" repair_base)"
+    [ -n "$repair_base" ] || continue
+    if repair_is_live "$repair_base"; then
+      log "repair $repair_base is still live for generation $gen — retaining later findings in the durable queue"
+      return 0
+    fi
+    repair_is_complete "$repair_base" && continue
+    [ -n "$candidate" ] || candidate="$marker"
+  done < <(git -C "$CLONE" ls-tree -r --name-only "origin/$JOURNAL_BRANCH" -- ironhorse-fuzz/findings \
+    | grep '^ironhorse-fuzz/findings/[^/]*\.md$' | sort || true)
+
+  if [ -n "$candidate" ]; then
+    post_repair "$candidate"
+  fi
 }
 
 findings_seen=0
@@ -381,6 +445,10 @@ for target in $GARDEN_IRONHORSE_FUZZ_TARGETS; do
     done
   fi
 done
+
+# Findings are captured above without fan-out. Release at most one repair for this
+# standing generation, and only when every previously released repair is complete.
+release_next_repair
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 4. If we posted the FIRST finding of a generation, the repair job will create the
