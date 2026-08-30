@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T01:20:54Z_
+_As of 2026-08-30T01:24:18Z_
 
 ## Latest
 
@@ -1667,22 +1667,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 181.7M | $1547.49 _(notional, rate-card)_ | no quota set |
-| Codex | 55.2M _(+1811.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 55.3M _(+1812.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`xs2rust-endor-press-20260830-012005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260830-012005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+### doin (0)
+(none)
 
-### tada (6159)
+### tada (6160)
+- [`xs2rust-endor-press-20260830-012005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-012005.md) — Cost
 - [`xs2rust-endor-press-20260830-002005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-002005.md) — Ironhorse press — 2026-08-30T00:20Z
 - [`xs2rust-endor-press-20260829-230507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-230507.md) — Ironhorse press — 2026-08-29T23:05Z
 - [`xs2rust-endor-press-20260829-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-215006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1087-shepherd-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1087-shepherd-20260829.md) — Cost
-- [`xs2rust-endor-press-20260829-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-205004.md) — Cost
-- … and 6154 more
+- … and 6155 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
