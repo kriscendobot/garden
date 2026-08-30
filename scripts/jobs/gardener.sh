@@ -1312,6 +1312,32 @@ while :; do
       idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
     else
       append_usage fail
+      # --- provider policy-refusal: quarantine, do NOT requeue ------------------
+      # BEFORE the generic capture escalation: if the failed handler capture carries a
+      # provider SAFETY/USAGE-POLICY refusal envelope (is_provider_policy_refusal_text,
+      # common.sh) — the provider's control plane blocked the request, e.g. a Codex
+      # cyber-content flag — this is a DETERMINISTIC block, not a defect the fleet can
+      # fix by retrying: the same prompt re-run hits the same refusal every requeue.
+      # Two Ironhorse fuzz repairs failed identically this way. Stamp the policy-refusal
+      # hint so the reaper QUARANTINES the claim on its next tick (parks it held in
+      # plan/ with ONE concise maintainer notice keyed on base+policy-refusal), and
+      # SKIP both the per-cycle report-error escalation (which would spam the gardener
+      # inbox with an identical capture on every requeue) AND the hermit capability
+      # probe (a policy block is not a hermit-vs-capable-model signal). Subshell-isolated
+      # so a sync_clone offline-exit cannot kill this worker; only when the stamp lands
+      # do we skip the generic path — on a stamp failure we fall through so the failure
+      # is never silently lost. Read the same 64KiB capture tail the classifiers use.
+      if is_provider_policy_refusal_text "$(tail -c 65536 "$capture" 2>/dev/null)"; then
+        log "handler for '$base' was BLOCKED by a provider safety/usage-policy refusal (rc=$rc); DETERMINISTIC block — quarantining instead of requeueing/escalating per-cycle"
+        if ( stamp_policy_refusal_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+          printf 'gardener-%s on %s: job %s handler was BLOCKED by a provider safety/usage-policy refusal (rc=%s) — a DETERMINISTIC content/usage-policy block that repeats identically on every requeue; stamped <!-- garden-policy-refusal --> so the reaper QUARANTINES it (parks held in plan/ with ONE concise maintainer notice) instead of requeueing and re-escalating; left in doin for the reaper\n' \
+            "$id" "$GARDEN" "$base" "$rc" \
+            | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+          rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
+          continue
+        fi
+        log "could not stamp policy-refusal hint on '$base' (rc=$?); falling back to the ordinary real-failure escalation so the signal is not lost"
+      fi
       # --- real failure: escalate the diagnostic output by hash -----------------
       # Defensive: $capture is non-empty here (the transient branch absorbed the
       # empty case), but keep the synthesize-if-empty guard so a future change to

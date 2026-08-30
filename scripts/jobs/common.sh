@@ -1495,6 +1495,37 @@ is_provider_quota_text() {
   printf '%s' "${1:-}" | grep -qiE "$GARDEN_PROVIDER_QUOTA_SIGNATURES"
 }
 
+# Signatures of a PROVIDER SAFETY/USAGE-POLICY refusal — the provider's control
+# plane REFUSED the request (not the model declining in prose, and not a quota
+# cap). The observed case is a Codex/OpenAI cyber-content block that killed two
+# Ironhorse fuzz repairs identically ("This content was flagged for possible
+# cybersecurity risk … Trusted Access for Cyber program", carried in a
+# `{"type":"turn.failed",…}` envelope). Unlike a quota cap (self-resolving on a
+# reset) OR a transient overload (a retryable blip), a policy refusal is
+# DETERMINISTIC: the same prompt re-run hits the same block every requeue, so the
+# job must be QUARANTINED (parked, one maintainer notice), never requeued.
+#
+# Deliberately NARROW — keyed on the provider's structured refusal envelopes, NOT
+# on model output that merely discusses security/policy (a fuzz-repair report that
+# mentions "cybersecurity" must not self-quarantine). Every phrasing here is a
+# control-plane refusal the model itself does not emit as ordinary content. Matched
+# case-insensitively. It is ALSO gated in the caller to the real-failure branch
+# (a non-zero rc after the transient/quota classifiers already ran), so a benign
+# mention can never reach this check on a healthy exit.
+: "${GARDEN_PROVIDER_POLICY_REFUSAL_SIGNATURES:=flagged for possible cybersecurity risk|Trusted Access for Cyber program|flagged as potentially violating (our|the) usage polic|blocked by (our|the) (content|usage|safety) (policy|filter)|response was blocked by our (content|usage|safety) (policy|filter)}"
+
+# is_provider_policy_refusal_text <text> — 0 when the text carries a provider
+# safety/usage-policy refusal envelope (the deterministic-quarantine class), 1
+# otherwise. A quota/limit refusal is EXCLUDED here (it is the environmental class,
+# handled by is_provider_quota_text and the quota-backoff path): the two are
+# disjoint by wording, but the exclusion keeps the classification unambiguous if a
+# future signature widens.
+is_provider_policy_refusal_text() {
+  local text="${1:-}"
+  is_provider_quota_text "$text" && return 1
+  printf '%s' "$text" | grep -qiE "$GARDEN_PROVIDER_POLICY_REFUSAL_SIGNATURES"
+}
+
 # provider_quota_reset_clause <text> — echoes the "resets …" clause when the
 # refusal names its own reset time, else nothing. Lets the fleet notice tell the
 # maintainer WHEN the condition ends without them reading the raw diagnosis.
@@ -1789,41 +1820,24 @@ bounded_fetch() {
   done
 }
 
-# Bounded clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
-# discipline (git has no IO timeout of its own). Optional trailing args are extra
-# `git clone` flags; with none it defaults to `--bare` (its original contract, so
-# the standing bare-clone callers — clone-keeper, triager — are unchanged). The
-# journal-clone caller (reclone_clone) passes `--single-branch --branch <branch>`.
-#
-# We NEVER clone straight into the tracked path: git clone removes its own target on
-# an internal error, but a timeout SIGTERM can leave a partial tree, and a concurrent
-# tick (or a worktree being cut off this clone) could observe that half-populated
-# $abs. So we clone into a SIBLING temp path and, only on a fully-successful clone,
-# atomically `mv -T` it into place — a genuine atomic rename(2) on the same
-# filesystem, so $abs is only ever fully absent or fully complete. `mv -T` also
-# refuses to move INTO an existing dir, so if a racing tick recreated $abs first our
-# rename fails, we discard our temp, and report success. Every temp is scrubbed on
-# failure and between retries. Returns 0 on success, the last non-zero rc after the
-# retry budget is spent.
-#
-# The final attempt's git stderr is captured into GARDEN_CLONE_STDERR (the clone
-# analog of journal_fetch's GARDEN_FETCH_STDERR) so a caller can classify a failure
-# as a transient connectivity/DNS/SSH outage rather than a real repository error —
-# the shared-journal outage where a fresh clone must skip the tick (EX_TEMPFAIL),
-# not die. The capture rides an `if VAR="$(...)"` assignment so a non-zero clone does
-# NOT trip a bare caller's `set -e` before we read $rc (the same idiom journal_fetch
-# uses); stdout is dropped (-q already silences progress) and only stderr is kept.
-GARDEN_CLONE_STDERR=""
+# Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
+# discipline (git has no IO timeout of its own). We NEVER clone straight into the
+# tracked path: git clone removes its own target on an internal error, but a
+# timeout SIGTERM can leave a partial tree, and a concurrent tick (or a worktree
+# being cut off this clone) could observe that half-populated $abs. So we clone into
+# a SIBLING temp path and, only on a fully-successful clone, atomically `mv -T` it
+# into place — a genuine atomic rename(2) on the same filesystem, so $abs is only
+# ever fully absent or fully complete. `mv -T` also refuses to move INTO an existing
+# dir, so if a racing tick recreated $abs first our rename fails, we discard our
+# temp, and report success. Every temp is scrubbed on failure and between retries.
+# Returns 0 on success, the last non-zero rc after the retry budget is spent.
 bounded_clone() {
-  local src="$1" abs="$2"; shift 2
-  local attempt=1 rc=0 tmp
-  local flags=("$@"); [ "${#flags[@]}" -eq 0 ] && flags=(--bare)
-  GARDEN_CLONE_STDERR=""
+  local src="$1" abs="$2" attempt=1 rc=0 tmp
   mkdir -p "$(dirname "$abs")"
   while :; do
     tmp="${abs%/}.reclone.$$.$attempt"
     rm -rf "$tmp"
-    if GARDEN_CLONE_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git clone -q "${flags[@]}" "$src" "$tmp" 2>&1 1>/dev/null)"; then
+    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$tmp" 2>/dev/null; then
       if mv -T "$tmp" "$abs" 2>/dev/null; then
         return 0
       fi
@@ -1836,7 +1850,7 @@ bounded_clone() {
     fi
     [ "$rc" -eq 124 ] && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
     if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
-      log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)${GARDEN_CLONE_STDERR:+: $GARDEN_CLONE_STDERR}"
+      log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)"
       return "$rc"
     fi
     backoff "$attempt"; attempt=$((attempt+1))
@@ -3014,33 +3028,24 @@ clone_is_corrupt() {
   return 1
 }
 
-# reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt journal
-# clone. Routes through bounded_clone, which owns the timeout+retry discipline and
-# the sibling-temp atomic-rename (the destination only ever appears fully cloned or
-# not at all, never half-populated). The caller holds clone_lock, so the
-# remove/clone/rename sequence cannot race another producer using this clone; we
-# scrub $dir first so bounded_clone's `mv -T` lands cleanly onto an absent path.
-#
-# A clone failure is NOT unconditionally fatal. During the shared-journal outage a
-# fresh clone/claim over SSH fails transiently (ssh rc 255 with a "Could not read
-# from remote repository" / DNS / connection-reset / timeout diagnostic), and dying
-# here marked the systemd unit Failed and spawned a self-heal responder EVERY tick
-# across the hermits, the sysop, inbox readers, the scaler, and the watchers instead
-# of cleanly skipping until connectivity returned. So classify the captured stderr
-# exactly like sync_clone's fetch path: a recognized outage signature exits
-# EX_TEMPFAIL (the clean-skip code the spine and wrappers already normalize), and
-# only a genuine, non-transient clone failure still dies loud.
+# reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt clone
+# through a sibling temporary directory. The caller holds clone_lock, so the
+# remove/clone/rename sequence cannot race another producer using this clone.
+# The temp is a sibling (same parent, thus same filesystem) so the rename is
+# atomic: the destination only ever appears fully cloned or not at all, never
+# half-populated, so an interrupted clone leaves only a discardable temp behind.
 reclone_clone() {
-  local dir="$1" remote="$2"
+  local dir="$1" remote="$2" tmp
   rm -rf "$dir"
-  if bounded_clone "$remote" "$dir" --single-branch --branch "$JOURNAL_BRANCH"; then
-    return 0
+  mkdir -p "$(dirname "$dir")"
+  tmp="${dir}.tmp.$$"
+  rm -rf "$tmp"
+  if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
+    mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
+  else
+    rm -rf "$tmp"
+    die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
   fi
-  if _fetch_stderr_is_offline "$GARDEN_CLONE_STDERR"; then
-    log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC): clone of $remote ($JOURNAL_BRANCH) into $dir"
-    exit "$GARDEN_OFFLINE_RC"
-  fi
-  die "clone of $remote ($JOURNAL_BRANCH) into $dir failed${GARDEN_CLONE_STDERR:+: $GARDEN_CLONE_STDERR}"
 }
 
 ensure_clone() {
@@ -4319,6 +4324,67 @@ stamp_deadline_overrun_hint() {
   return 1
 }
 
+# --- provider policy-refusal hint (deterministic quarantine) ----------------
+#
+# A provider SAFETY/USAGE-POLICY refusal (is_provider_policy_refusal_text) is a
+# DETERMINISTIC block: the provider's control plane refused the request, so every
+# requeue re-runs the SAME prompt into the SAME refusal. Requeueing it burns cycles
+# and spams the inbox with an identical capture; the correct disposition is to
+# QUARANTINE it — park held in plan/, ONE concise maintainer notice — on the FIRST
+# observation. The gardener DETECTS the refusal in the failed handler capture (the
+# only place with that text) and stamps THIS marker on its still-in-doin claim; the
+# reaper READS it and dooms with the distinct `policy-refusal` signature the moment
+# it evaluates the claim, bypassing the full requeue/doom-threshold cycle. Like the
+# deadline-overrun hint it rides beside reap-now so the reaper acts on the next tick
+# rather than idling the whole GARDEN_CLAIM_TTL, and reaper.sh's clean_body /
+# strip_cycle_markers drop it so it never persists into a promoted body.
+POLICY_REFUSAL_MARKER='<!-- garden-policy-refusal -->'
+POLICY_REFUSAL_MARKER_RE='^<!-- garden-policy-refusal -->$'
+
+# has_policy_refusal_hint <file> — 0 iff the job file carries the policy-refusal marker.
+has_policy_refusal_hint() {
+  local f="${1:-}"
+  [ -f "$f" ] || return 1
+  grep -Eq "$POLICY_REFUSAL_MARKER_RE" "$f"
+}
+
+# stamp_policy_refusal_hint <clone> <doin-relpath> — insert the policy-refusal
+# marker AND the reap-now hint into the BODY of a still-in-doin claim (just above the
+# trailing claim block) and land it on the board, so the reaper quarantines the claim
+# on its NEXT tick with the `policy-refusal` signature. Idempotent (a claim already
+# carrying the marker, or already moved out of doin, is left as-is), bounded CAS retry
+# against journal push contention, subshell-safe — mirrors stamp_outage_cycle_hint's
+# contract exactly, plus the beside-reap-now insertion of stamp_deadline_overrun_hint.
+stamp_policy_refusal_hint() {
+  local clone="$1" rel="$2" attempt f rc
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi                 # already moved by a peer
+    if has_policy_refusal_hint "$f"; then clone_unlock "$clone"; return 0; fi  # already hinted
+    awk -v m="$POLICY_REFUSAL_MARKER" -v rnow="$REAP_NOW_MARKER" -v rnow_re="$REAP_NOW_MARKER_RE" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) { print m; print rnow }  # insert both, in the body above the claim block
+          if (line[i] ~ rnow_re) continue                   # drop a prior reap-now hint (idempotent)
+          print line[i]
+        }
+        if (cut == 0) { print m; print rnow }               # no claim block: append (defensive)
+      }
+    ' "$f" > "$f.policy" && mv "$f.policy" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "policy-refusal: hint $rel by $GARDEN (provider safety/usage-policy block — quarantine)"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
+    backoff "$attempt"            # rc=1: CAS lost — re-sync and retry
+  done
+  return 1
+}
+
 # --- elapsed-constancy hint -------------------------------------------------
 #
 # A fast transient-classified failure with near-constant elapsed across multiple
@@ -4546,7 +4612,7 @@ stamp_outage_cycle_hint() {
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
 # spelling of "the family", so no caller enumerates the members itself.
-CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$POLICY_REFUSAL_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
 
 # strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
 # Idempotent by construction: a body with no markers passes through byte-identical, and
@@ -4571,6 +4637,7 @@ cycle_marker_summary() {
   [ -n "$observation" ] && out="${out:+$out,}transient-elapsed=$observation"
   if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
   if provider_quota_backoff_fields "$f" >/dev/null 2>&1; then out="${out:+$out,}provider-quota-backoff"; fi
+  if has_policy_refusal_hint "$f";   then out="${out:+$out,}policy-refusal"; fi
   if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi
   if has_outage_cycle_hint "$f";     then out="${out:+$out,}outage-cycle"; fi
   printf '%s\n' "${out:-none}"

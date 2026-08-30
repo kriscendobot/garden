@@ -477,7 +477,7 @@ gc_scratch() {
 clean_body() {
   awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" \
       -v qback="$PROVIDER_QUOTA_BACKOFF_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" \
-      -v outage="$OUTAGE_MARKER_RE" '
+      -v outage="$OUTAGE_MARKER_RE" -v policy="$POLICY_REFUSAL_MARKER_RE" '
     { line[NR] = $0 }
     END {
       cut = 0
@@ -490,6 +490,7 @@ clean_body() {
         if (line[i] ~ qback) continue         # drop the consumed provider reset backoff
         if (line[i] ~ prod) continue          # drop the gardener productive-cycle hint (re-earned each cycle)
         if (line[i] ~ outage) continue        # drop the gardener outage-cycle hint (re-earned each cycle)
+        if (line[i] ~ policy) continue        # drop the gardener policy-refusal hint (a policy refusal always dooms, never requeues; belt-and-suspenders)
         out[++m] = line[i]
       }
       while (m > 0 && out[m] ~ /^[ \t]*$/) m--  # trim trailing blank lines
@@ -831,7 +832,23 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       log "cycle classification reset: '$base' cleared stale transient-elapsed history (productive=$productive outage=$outage)"
     fi
     old_doom=0
-    if [ "$outage" -ne 1 ] && { \
+    # A PROVIDER POLICY REFUSAL is quarantined on the FIRST observation, on its own
+    # `policy-refusal` signature. The gardener stamped this marker after detecting the
+    # provider's safety/usage-policy block in the failed handler capture (common.sh
+    # § provider policy-refusal hint): the block is DETERMINISTIC — the same prompt
+    # re-run hits the same refusal — so requeueing it is pure waste. Doom it directly,
+    # bypassing the requeue/overrun/constancy thresholds AND the progress-verdict
+    # rescue below (a policy block is about the prompt's CONTENT, not its progress, so
+    # "the worktree advanced" must not requeue it back into the same wall). It is
+    # NOT outage-gated: a policy refusal is a per-job content block, never a fleet-wide
+    # environmental storm, and it reaches the reaper only on a genuine (non-outage)
+    # real-failure cycle.
+    policy_refusal=0
+    if has_policy_refusal_hint "$f"; then
+      policy_refusal=1
+      old_doom=1
+    fi
+    if [ "$policy_refusal" -ne 1 ] && [ "$outage" -ne 1 ] && { \
       [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] \
       || [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ] \
       || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; \
@@ -841,11 +858,12 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     should_park="$old_doom"
     progress=unknown
     sig=""
+    [ "$policy_refusal" -eq 1 ] && sig=policy-refusal
     token_budget="$(applied_token_budget "$f")"
     token_epoch="$(plan_field "$f" token-budget-epoch)"
     token_spend="$(usage_tokens_since "$DIR" "$spine" "${token_epoch:--}" output 2>/dev/null || true)"
     [ -n "$token_spend" ] || token_spend=unknown
-    if [ "$old_doom" -eq 1 ] && [ "$GARDEN_PROGRESS_DOOM" != off ]; then
+    if [ "$old_doom" -eq 1 ] && [ "$policy_refusal" -ne 1 ] && [ "$GARDEN_PROGRESS_DOOM" != off ]; then
       claimed_at="$(sed -n 's/^  claimed_at:[[:space:]]*//p' "$f" | tail -1)"
       progress="$(job_progress_verdict "$DIR" "$spine" "$f" "$claimed_at")"
       if [[ "$token_spend" =~ ^[0-9]+$ ]] && [ "$token_spend" -ge "$token_budget" ]; then
@@ -1080,6 +1098,22 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
                  "${DOOM_TOKEN_SPEND[$i]}" "${DOOM_TOKEN_BUDGET[$i]}" "${DOOM_PROGRESS[$i]}"
           printf 'This is a budget hold, not a doom verdict. garden-budget-refresh promotes it after the recorded quota window refreshes.\n'
           printf 'The work is preserved at jobs/plan/%s.\n' "$pbase"
+        )"
+        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+      elif [ "$psig" = policy-refusal ]; then
+        log "QUARANTINE (policy-refusal): '$pbase' hit a provider safety/usage-policy block; parked in plan/ (held) on the FIRST observation, surfacing ONE notice to maintainer"
+        pbody="$(
+          printf 'Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on %s.\n' "$GARDEN"
+          printf "The provider's safety/usage policy BLOCKED the request (e.g. a content flagged as a\n"
+          printf 'possible cybersecurity risk). This is DETERMINISTIC: re-running the SAME prompt hits the\n'
+          printf 'SAME block, so the reaper did NOT requeue it — one refusal is conclusive, and requeueing\n'
+          printf 'would only repeat the failure and spam the error inbox with an identical capture.\n'
+          printf 'REMEDY: rephrase / re-scope the job so it no longer trips the policy filter (for a\n'
+          printf 'security-fuzz repair, describe the fix work WITHOUT the untrusted crash bytes and avoid\n'
+          printf 'framing that reads as offensive-security), then promote it (promote-plan.sh %s); or, if\n' "$pbase"
+          printf 'the work genuinely cannot be authorized, remove it. It stays HELD until then — nothing lost.\n'
+          printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
+                 "$pbase" "${DOOM_BODY[$i]}"
         )"
         surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       elif [ "$psig" = deadline-overrun ]; then
