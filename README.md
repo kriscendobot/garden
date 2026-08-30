@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T05:07:38Z_
+_As of 2026-08-30T05:10:39Z_
 
 ## Latest
 
@@ -1685,9 +1685,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ironhorse-fuzz-493390fc03979205-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-493390fc03979205-repair.md) — Fix Ironhorse fuzz finding 493390fc03979205 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-5d122a6fc10babd9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5d122a6fc10babd9-repair.md) — Fix Ironhorse fuzz finding 5d122a6fc10babd9 (target differential_regexp) and ...
+- [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
 
 ### tada (6172)
 - [`endojs-endo-but-for-bots-pr475-2d5f96ed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2d5f96ed.md) — Completion report: resolve conflicts on endojs/endo-but-for-bots PR #475
