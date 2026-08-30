@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-546675704
 Please pause the ratchet if it has not run out of tokens on its own. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-30T04:45:10Z
