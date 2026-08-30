@@ -43,11 +43,11 @@ pull request for fuzz findings.
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=118 -->
 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=signature through=1 values=118,1531 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
