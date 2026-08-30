@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T03:34:02Z_
+_As of 2026-08-30T03:36:03Z_
 
 ## Latest
 
@@ -1666,15 +1666,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 176.0M | $1517.79 _(notional, rate-card)_ | no quota set |
-| Codex | 53.9M _(+1726.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 175.8M | $1517.53 _(notional, rate-card)_ | no quota set |
+| Codex | 53.8M _(+1721.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260830-033504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260830-033504.md) — ---
+- [`xs2rust-endor-press-20260830-033504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260830-033504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6162)
 - [`kriscendobot-minion.town-pr54-8c94d20d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-8c94d20d.md) — Cost
