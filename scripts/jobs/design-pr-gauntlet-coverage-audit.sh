@@ -60,6 +60,9 @@
 #                                  uses, so an older open PR is never page-capped out).
 #     GARDEN_DPGCA_POST_GAUNTLET   the stager (default: post-gauntlet.sh).
 #     GARDEN_GH                    the gh binary (default: gh).
+#     GARDEN_DPGCA_SOURCE_TIMEOUT_SECS / GARDEN_DPGCA_KILL_AFTER
+#                                  bound both repo enumeration and each per-PR
+#                                  metadata read (defaults: 180 / 10s).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -137,6 +140,19 @@ pr_source() {  # pr_source <owner/name>
   fi
 }
 
+# Bounded authoritative metadata read for one PR. A single stalled GitHub request
+# must not consume the audit unit's whole 900-second systemd deadline; it is just an
+# inconclusive read, and the next periodic tick will retry it.
+pr_view() {  # pr_view <PR URL>
+  if command -v timeout >/dev/null 2>&1; then
+    timeout --signal=TERM --kill-after="$GARDEN_DPGCA_KILL_AFTER" \
+      "${GARDEN_DPGCA_SOURCE_TIMEOUT_SECS}s" \
+      "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,files
+  else
+    "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,files
+  fi
+}
+
 scanned_repos=0
 candidate_prs=0
 staged=0
@@ -159,8 +175,17 @@ while IFS= read -r repo; do
     [ "$author" = "$GARDEN_BOT_LOGIN" ] || continue
 
     pr_url="https://github.com/$repo/pull/$number"
-    pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body,author,files 2>/dev/null || true)"
-    [ -n "$pr_json" ] || { log "audit: could not read $pr_url; skipping (inconclusive)"; continue; }
+    pr_json=""
+    pr_rc=0
+    pr_json="$(pr_view "$pr_url" 2>/dev/null)" || pr_rc=$?
+    if [ "$pr_rc" -eq 124 ] || [ "$pr_rc" -eq 137 ]; then
+      log "audit: metadata read timed out for $pr_url; skipping (inconclusive)"
+      continue
+    fi
+    if [ "$pr_rc" -ne 0 ] || [ -z "$pr_json" ]; then
+      log "audit: could not read $pr_url; skipping (inconclusive)"
+      continue
+    fi
 
     state="$(printf '%s' "$pr_json" | jq -r '.state // empty' 2>/dev/null || true)"
     pauthor="$(printf '%s' "$pr_json" | jq -r '.author.login // empty' 2>/dev/null || true)"

@@ -15,6 +15,7 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     *minion.town/pull/49) printf '{"url":"%s","isDraft":false,"title":"fix: bug","body":"c",%s,%s}\n' "$url" "$botopen" "$code" ;;
     *minion.town/pull/50) printf '{"url":"%s","isDraft":false,"title":"design: x","body":"d","state":"OPEN","author":{"login":"interloper"},%s}\n' "$url" "$design" ;;
     *minion.town/pull/51) printf '{"url":"%s","isDraft":true,"title":"design: probe (gap-revealing prototype)","body":"gap report",%s,%s}\n' "$url" "$botopen" "$design" ;;
+    *minion.town/pull/54) sleep 600 ;;
     *minion.town/pull/52) printf '{"url":"%s","isDraft":true,"title":"design: draft doc","body":"d",%s,%s}\n' "$url" "$botopen" "$design" ;;
     *minion.town/pull/53) printf '{"url":"%s","isDraft":false,"title":"design: completed-gauntlet","body":"d",%s,%s}\n' "$url" "$botopen" "$design" ;;
     *garden/pull/28)      printf '{"url":"%s","isDraft":false,"title":"design: garden own","body":"d",%s,%s}\n' "$url" "$botopen" "$design" ;;

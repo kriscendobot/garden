@@ -16,6 +16,7 @@ case "$repo" in
     row 49 kriscendobot "$repo" 2026-08-16T00:00:00Z 'fix a bug'
     row 50 interloper   "$repo" 2026-08-16T00:00:00Z 'not the bot design'
     row 51 kriscendobot "$repo" 2026-08-16T00:00:00Z 'probe design'
+    row 54 kriscendobot "$repo" 2026-08-16T00:00:00Z 'metadata read hangs'
     row 52 kriscendobot "$repo" 2026-08-16T00:00:00Z 'draft design doc'
     row 53 kriscendobot "$repo" 2026-08-16T00:00:00Z 'design with a COMPLETED gauntlet'
     ;;

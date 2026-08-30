@@ -15,6 +15,8 @@
 #   * The draft variant of the same is staged too (state is never touched either way).
 #   * A design PR that ALREADY has a gauntlet record is an idempotent no-op.
 #   * A code PR, a NON-bot-authored PR, and a probe stage nothing.
+#   * A stalled per-PR metadata read times out as an inconclusive skip, and the
+#     audit continues to later PRs instead of consuming its service deadline.
 #   * The garden's OWN repo is excluded (no PR workflow runs on it).
 #   * Re-running the audit is idempotent (exactly one record per PR).
 
@@ -84,10 +86,12 @@ export GARDEN_GH="$HERE/design-pr-audit-gh-stub.sh"
 export GARDEN_DPGCA_POST_GAUNTLET="$HERE/design-pr-audit-stager-spy.sh"
 export GARDEN_DPGCA_REAL_POST_GAUNTLET="$JOBS/post-gauntlet.sh"
 export GARDEN_DPGCA_STAGE_LOG="$TR/stage-calls.log"
+export GARDEN_DPGCA_SOURCE_TIMEOUT_SECS=1
+export GARDEN_DPGCA_KILL_AFTER=1s
 : >"$GARDEN_DPGCA_STAGE_LOG"
 
 echo '== run the audit over the watched set =='
-"$AUDIT"
+"$AUDIT" 2>&1 | tee "$TR/audit.log"
 
 echo '== (a) the NON-DRAFT-at-birth design PR (#47, the grounding incident) is staged =='
 [ "$(record_count kriscendobot-minion.town-pr47-gauntlet)" -eq 1 ] \
@@ -97,16 +101,22 @@ echo '== (b) the DRAFT uncovered design PR (#52) is staged too (state never gate
 [ "$(record_count kriscendobot-minion.town-pr52-gauntlet)" -eq 1 ] \
   || fail 'minion.town #52 (draft, uncovered) did NOT get a gauntlet'
 
-echo '== (c) the already-covered design PR (#48) stays at exactly one record =='
+echo '== (c) a stalled per-PR metadata read is an inconclusive skip, then scanning continues =='
+grep -q 'metadata read timed out for https://github.com/kriscendobot/minion.town/pull/54; skipping (inconclusive)' "$TR/audit.log" \
+  || fail 'the stalled #54 metadata read was not reported as an inconclusive timeout'
+[ "$(record_count kriscendobot-minion.town-pr54-gauntlet)" -eq 0 ] \
+  || fail 'the inconclusive #54 metadata read wrongly staged a gauntlet'
+
+echo '== (d) the already-covered design PR (#48) stays at exactly one record =='
 [ "$(record_count kriscendobot-minion.town-pr48-gauntlet)" -eq 1 ] \
   || fail 'minion.town #48 (already covered) record count is not exactly 1'
 
-echo '== (d) a code PR (#49), a non-bot PR (#50), and a probe (#51) stage nothing =='
+echo '== (e) a code PR (#49), a non-bot PR (#50), and a probe (#51) stage nothing =='
 [ "$(record_count kriscendobot-minion.town-pr49-gauntlet)" -eq 0 ] || fail 'code PR #49 wrongly got a gauntlet'
 [ "$(record_count kriscendobot-minion.town-pr50-gauntlet)" -eq 0 ] || fail 'non-bot PR #50 wrongly got a gauntlet'
 [ "$(record_count kriscendobot-minion.town-pr51-gauntlet)" -eq 0 ] || fail 'probe PR #51 wrongly got a gauntlet'
 
-echo '== (e) the garden OWN repo (#28) is excluded — no PR workflow runs on it =='
+echo '== (f) the garden OWN repo (#28) is excluded — no PR workflow runs on it =='
 [ "$(record_count kriscendobot-garden-pr28-gauntlet)" -eq 0 ] \
   || fail "the garden's own repo design PR #28 wrongly got a gauntlet"
 
@@ -122,15 +132,15 @@ fi
 grep -q 'pr47-gauntlet' "$GARDEN_DPGCA_STAGE_LOG" || fail 'spy did not record the #47 staging'
 grep -q 'pr52-gauntlet' "$GARDEN_DPGCA_STAGE_LOG" || fail 'spy did not record the #52 staging'
 # It never called the stager for the covered/ineligible ones either.
-for p in pr48 pr49 pr50 pr51; do
+for p in pr48 pr49 pr50 pr51 pr54; do
   grep -q "${p}-gauntlet" "$GARDEN_DPGCA_STAGE_LOG" && fail "audit wrongly called the stager for minion.town #$p"
 done
 grep -q 'garden-pr28' "$GARDEN_DPGCA_STAGE_LOG" && fail 'audit wrongly called the stager for the garden own repo #28'
 true
 
-echo '== (f) re-running the audit is idempotent (exactly one record per newly-staged PR) =='
+echo '== (h) re-running the audit is idempotent (exactly one record per newly-staged PR) =='
 "$AUDIT"
 [ "$(record_count kriscendobot-minion.town-pr47-gauntlet)" -eq 1 ] || fail '#47 duplicated on re-run'
 [ "$(record_count kriscendobot-minion.town-pr52-gauntlet)" -eq 1 ] || fail '#52 duplicated on re-run'
 
-echo 'PASS: the standing audit stages a gauntlet for every uncovered bot-authored OPEN design PR (draft OR non-draft), never touches draft state, and leaves covered PRs, code PRs, non-bot PRs, probes, and the garden own repo alone; idempotent on re-run'
+echo 'PASS: the standing audit bounds every per-PR metadata read, skips timeouts as inconclusive, continues scanning, stages every conclusively uncovered bot-authored OPEN design PR (draft OR non-draft), and remains idempotent'
