@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T10:04:14Z_
+_As of 2026-08-30T10:06:11Z_
 
 ## Latest
 
@@ -1288,10 +1288,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 4.5M | $86.04 _(notional, rate-card)_ | 89% of 5.0M (backoff) |
-| Codex | 11.0M _(+294.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Codex | 11.0M _(+296.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
-### todo (103)
+### todo (104)
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1016-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1016-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1016
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1018
@@ -1389,6 +1389,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Fix Ironhorse fuzz finding ed616f6ec22095dc (target differential_regexp) and ...
 - [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
 - [`ironhorse-fuzz-f83dc8932cd3b41a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-f83dc8932cd3b41a-repair.md) — Fix Ironhorse fuzz finding f83dc8932cd3b41a (target differential_regexp) and ...
+- [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — Fix Ironhorse fuzz finding fad9672dc7a6e6be (target differential_source) and ...
 - [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Fix Ironhorse fuzz finding fd8517d5f3071227 (target differential_regexp) and ...
 - [`kriscendobot-agoric-sdk-pr10-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr10-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
@@ -1396,8 +1397,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260830-080504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260830-080504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260830-090504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260830-090504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (29)
-- [`improve-codex-policy-refusal-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-codex-policy-refusal-retry.md) — ---
+### doin (28)
 - [`ironhorse-fuzz-1898f584e9bf841a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1898f584e9bf841a-repair.md) — Fix Ironhorse fuzz finding 1898f584e9bf841a (target differential_regexp_surfa...
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — Fix Ironhorse fuzz finding 197b32cc30bdd4fe (target differential_regexp_surfa...
 - [`ironhorse-fuzz-1cb63ec6f8e6fc22-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1cb63ec6f8e6fc22-repair.md) — Fix Ironhorse fuzz finding 1cb63ec6f8e6fc22 (target differential_regexp_surfa...
@@ -1427,13 +1427,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-d87697d49a5f8f67-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d87697d49a5f8f67-repair.md) — Fix Ironhorse fuzz finding d87697d49a5f8f67 (target differential_source) and ...
 - [`ironhorse-fuzz-daf6694aec7856aa-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-daf6694aec7856aa-repair.md) — Fix Ironhorse fuzz finding daf6694aec7856aa (target differential_source) and ...
 
-### tada (6213)
+### tada (6214)
+- [`improve-codex-policy-refusal-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-codex-policy-refusal-retry.md) — Cost
 - [`ironhorse-fuzz-66facfd52ae8c673-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-66facfd52ae8c673-repair.md) — Cost
 - [`improve-pr-head-lookup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-pr-head-lookup.md) — Cost
 - [`improve-fork-branch-worktree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fork-branch-worktree.md) — Cost
 - [`improve-ironhorse-fuzz-serialize-standing-repairs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ironhorse-fuzz-serialize-standing-repairs.md) — Cost
-- [`daily-progress-summary-20260830-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260830-070503.md) — Cost
-- … and 6208 more
+- … and 6209 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
