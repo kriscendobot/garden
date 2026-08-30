@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T04:14:54Z_
+_As of 2026-08-30T04:35:22Z_
 
 ## Latest
 
@@ -1666,15 +1666,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.1M | $568.18 _(notional, rate-card)_ | 34% of 149.0M (ok) |
-| Codex | 6.8M _(+193.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 50.1M | $568.83 _(notional, rate-card)_ | 34% of 149.0M (ok) |
+| Codex | 6.8M _(+193.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`xs2rust-endor-press-20260830-043504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260830-043504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6165)
 - [`endojs-endo-but-for-bots-pr1072-review-c8a0f42b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-c8a0f42b.md) — Completion report
