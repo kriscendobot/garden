@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T07:55:43Z_
+_As of 2026-08-30T07:58:00Z_
 
 ## Latest
 
@@ -1288,7 +1288,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 4.5M | $86.04 _(notional, rate-card)_ | 89% of 5.0M (backoff) |
-| Codex | 6.5M _(+223.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 6.6M _(+225.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (71)
@@ -1364,8 +1364,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 
-### doin (16)
-- [`daily-progress-summary-20260830-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260830-070503.md) — Daily midnight Pacific progress summary
+### doin (15)
 - [`improve-ironhorse-fuzz-serialize-standing-repairs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ironhorse-fuzz-serialize-standing-repairs.md) — ---
 - [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Fix Ironhorse fuzz finding 1dc231089278c110 (target differential_regexp) and ...
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-378372c8706a48a8-repair.md) — Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
@@ -1382,13 +1381,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-daf6694aec7856aa-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-daf6694aec7856aa-repair.md) — Fix Ironhorse fuzz finding daf6694aec7856aa (target differential_source) and ...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
 
-### tada (6208)
+### tada (6209)
+- [`daily-progress-summary-20260830-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260830-070503.md) — Cost
 - [`investigate-ironhorse-repair-gauntlet-handoff-nonpost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/investigate-ironhorse-repair-gauntlet-handoff-nonpost.md) — Cost
 - [`xs2rust-endor-press-20260830-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-070503.md) — Cost
 - [`self-heal-fix-garden-cleric-complete-job-unposted-handoff-hard-die`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-complete-job-unposted-handoff-hard-die.md) — Cost
 - [`improve-design-gauntlet-audit-bounded-pr-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-design-gauntlet-audit-bounded-pr-reads.md) — Cost
-- [`ironhorse-fuzz-8275793bca439f6e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-8275793bca439f6e-repair.md) — Completion report — Ironhorse fuzz finding 8275793bca439f6e (differential_reg...
-- … and 6203 more
+- … and 6204 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
