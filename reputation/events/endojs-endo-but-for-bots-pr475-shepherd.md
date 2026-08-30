@@ -12,11 +12,11 @@ human_dollars: 0
 aggregate_dollars: 37.456275
 cost_source: ledger
 attempts: 1
-duration_secs: 5769
+duration_secs: 3304
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-1
-recorded_at: 2026-08-28T16:05:13Z
+recorded_by: endolin-garden2-5bcdff64/cleric-1
+recorded_at: 2026-08-30T06:35:47Z
 ---
 reputation event for endojs-endo-but-for-bots-pr475-shepherd: arm openai/gpt-5.6-sol/medium work_class other:s target main2 accepted true
