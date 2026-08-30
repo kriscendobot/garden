@@ -5,7 +5,11 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-live-budget-test.XXXXXX")"
-trap 'rm -rf "$TR"' EXIT
+# GARDEN_FETCH_CMD stubs are exec'd directly (not via `bash <file>`), so they must
+# live on an exec-mounted filesystem — $TMPDIR is commonly noexec — hence a $HOME
+# scratch dir like fetch-timeout-test.sh uses.
+EXECDIR="$(mktemp -d "$HOME/.garden-live-budget-exec.XXXXXX")"
+trap 'rm -rf "$TR" "$EXECDIR"' EXIT
 pass=0; fail=0
 ok() { echo "PASS: $*"; pass=$((pass+1)); }
 bad() { echo "FAIL: $*"; fail=$((fail+1)); }
@@ -136,6 +140,64 @@ lrc=$?
 set -e
 [ "$lrc" -eq 2 ] && ok "per-pool failures preserve scheduled-dispatch exit contract" \
   || bad "scheduled leveler returned $lrc instead of 2"
+
+# A transient journal outage in the clone/sync PREFLIGHT must not collapse into a
+# raw controller exit code. ensure_clone succeeds cloning the seeded bare, then an
+# injected offline fetch drives sync_clone's `exit GARDEN_OFFLINE_RC`; budget-level
+# catches it in its preflight subshell, logs an explicit offline diagnostic, and
+# fails open — exit 0 as a controller, 2 as a scheduled preflight — actuating nothing.
+OFETCH="$EXECDIR/offline-fetch"
+printf '#!/bin/bash\necho "fatal: unable to access '\''origin'\'': Could not resolve host: journal.invalid" >&2\nexit 128\n' > "$OFETCH"
+chmod +x "$OFETCH"
+: > "$ACT"
+POUT="$TR/preflight-offline.out"
+set +e
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/preflight-offline-state" JOURNAL_REMOTE="$LBARE" \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT" \
+  GARDEN_FETCH_CMD="$OFETCH" GARDEN_FETCH_RETRIES=1 \
+  GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" \
+  "$JOBS/budget-level.sh" >"$POUT" 2>&1
+prc=$?
+set -e
+# GARDEN_OFFLINE_RC's default (common.sh) is EX_TEMPFAIL 75; the diagnostic echoes it.
+if [ "$prc" -eq 0 ] && grep -q 'budget-level preflight offline' "$POUT" && grep -qi 'rc=75' "$POUT" && [ ! -s "$ACT" ]; then
+  ok "transient preflight outage fails open (rc=0) with an explicit isolated diagnostic and no actuation"
+else
+  bad "preflight-offline: rc=$prc act=$(tr '\n' ';' < "$ACT") log=$(tr '\n' ';' < "$POUT")"
+fi
+
+set +e
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/preflight-offline-sched-state" JOURNAL_REMOTE="$LBARE" \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT" \
+  GARDEN_FETCH_CMD="$OFETCH" GARDEN_FETCH_RETRIES=1 \
+  GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" \
+  "$JOBS/budget-level.sh" scheduled >/dev/null 2>&1
+psrc=$?
+set -e
+[ "$psrc" -eq 2 ] && ok "transient preflight outage preserves scheduled no-work exit contract (2)" \
+  || bad "scheduled preflight-offline returned $psrc instead of 2"
+
+# A HARD (non-offline, non-corrupt) fetch failure drives sync_clone's `die`; the
+# preflight subshell isolates it, and budget-level fails open with a distinct
+# hard-failure diagnostic rather than crashing on the raw controller exit code.
+HFETCH="$EXECDIR/hard-fetch"
+printf '#!/bin/bash\necho "fatal: some non-transient repository error" >&2\nexit 1\n' > "$HFETCH"
+chmod +x "$HFETCH"
+: > "$ACT"
+HPOUT="$TR/preflight-hard.out"
+set +e
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/preflight-hard-state" JOURNAL_REMOTE="$LBARE" \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT" \
+  GARDEN_FETCH_CMD="$HFETCH" GARDEN_FETCH_RETRIES=1 \
+  GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" \
+  "$JOBS/budget-level.sh" >"$HPOUT" 2>&1
+hrc=$?
+set -e
+if [ "$hrc" -eq 0 ] && grep -q 'budget-level preflight failed' "$HPOUT" && [ ! -s "$ACT" ]; then
+  ok "hard preflight failure fails open (rc=0) with a distinct isolated diagnostic and no actuation"
+else
+  bad "preflight-hard: rc=$hrc act=$(tr '\n' ';' < "$ACT") log=$(tr '\n' ';' < "$HPOUT")"
+fi
 
 # The scheduler wrapper preserves the controller's concrete failure evidence and
 # pages once under a stable key instead of emitting only a generic warning every

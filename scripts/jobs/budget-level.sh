@@ -30,25 +30,58 @@ fi
 [ "$GARDEN_BUDGET_LEVEL_MIN" -le "$GARDEN_BUDGET_LEVEL_MAX" ] || die "budget-level min exceeds max"
 
 DIR="${GARDEN_BUDGET_LEVEL_CLONE:-$GARDEN_STATE/budget-level/journal}"
-ensure_clone "$DIR"
-sync_clone "$DIR"
-file="$(budget_pool_file "$DIR" 2>/dev/null || true)"
-if [ -z "$file" ]; then
-  log "budget pool config absent; leveling is off"
+
+# Preflight: bring the journal clone current and read the budget-pool rows, ALL
+# inside one subshell that holds the clone lock. The two preflight controllers can
+# each abort hard: ensure_clone `die`s on a clone/lock failure, and sync_clone
+# either `exit`s GARDEN_OFFLINE_RC on a transient network/resolver outage or `die`s
+# on a hard fetch / unrecoverable-corruption failure. Under this script's `set -e`
+# any of those would crash the whole tick with a RAW journal-controller exit code —
+# the contextless failure this controller must not produce:
+#   * Run as the scheduler's budget-level controller, that raw code pages the
+#     maintainer as a budget-ACCOUNTING failure (an exit_status=75 "offline;
+#     skipping tick" tells no one it was merely journal weather, not a pool bug).
+#   * Run as a scheduler `preflight:` gate, any non-2 exit makes the scheduler fail
+#     OPEN and spuriously dispatch the leveling schedule as an LLM job.
+# Isolating clone+sync+read in a subshell contains the exit/die, lets us classify
+# it, and fails OPEN into finish (skip this leveling tick; retry next cadence) with
+# an explicit, isolated diagnostic. The subshell owns the entire locked read, so the
+# clone lock is acquired and released within it — nothing leaks to the parent, and
+# the read still sees a point-in-time-consistent clone. Exit-code contract of the
+# subshell: 0 rows-read (rows on stdout, possibly none), 3 config-absent,
+# GARDEN_OFFLINE_RC transient-outage, any other a hard clone/sync failure.
+preflight_rc=0
+rows_tsv="$(
+  ensure_clone "$DIR"
+  sync_clone "$DIR"
+  file="$(budget_pool_file "$DIR" 2>/dev/null || true)"
+  [ -n "$file" ] || exit 3
+  while IFS=$'\t ' read -r pool provider account kind cap _rest; do
+    case "$pool" in ''|'#'*) continue ;; esac
+    # The current leveling actuator is per-host Anthropic worker capacity. Metered
+    # API pools still participate in admission, but have no account-bound worker
+    # count for this controller to change.
+    [ "$provider" = anthropic ] && [ "$kind" = weekly-tokens ] || continue
+    printf '%s\t%s\t%s\t%s\n' "$pool" "$provider" "$account" "$cap"
+  done < "$file"
   clone_unlock "$DIR"
+)" || preflight_rc=$?
+
+if [ "$preflight_rc" -eq 3 ]; then
+  log "budget pool config absent; leveling is off"
+  finish
+elif [ "$preflight_rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+  log "WARN: budget-level preflight offline (journal clone/sync, rc=$preflight_rc); skipping this leveling tick, retry next cadence (fail-open)"
+  finish
+elif [ "$preflight_rc" -ne 0 ]; then
+  log "WARN: budget-level preflight failed (journal clone/sync, rc=$preflight_rc); skipping this leveling tick, retry next cadence (fail-open)"
   finish
 fi
 
 rows=()
-while IFS=$'\t ' read -r pool provider account kind cap _rest; do
-  case "$pool" in ''|'#'*) continue ;; esac
-  # The current leveling actuator is per-host Anthropic worker capacity. Metered
-  # API pools still participate in admission, but have no account-bound worker
-  # count for this controller to change.
-  [ "$provider" = anthropic ] && [ "$kind" = weekly-tokens ] || continue
-  rows+=("$pool"$'\t'"$provider"$'\t'"$account"$'\t'"$cap")
-done < "$file"
-clone_unlock "$DIR"
+while IFS= read -r row; do
+  [ -n "$row" ] && rows+=("$row")
+done <<<"$rows_tsv"
 
 if cutoff="$(meter_window_cutoff anchor 2>/dev/null)"; then
   cutoff_rc=0
