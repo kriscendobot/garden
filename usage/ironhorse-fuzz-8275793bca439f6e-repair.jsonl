@@ -1,1 +1,2 @@
 {"ts":"2026-08-30T06:38:32Z","base":"ironhorse-fuzz-8275793bca439f6e-repair","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":91}
+{"source":"result","model":"claude-opus-4-8","num_turns":107,"elapsed_s":1559,"input_tokens":195,"output_tokens":95398,"cache_creation_tokens":207051,"cache_read_tokens":13443761,"total_cost_usd":11.181387500000001,"ts":"2026-08-30T07:14:12Z","base":"ironhorse-fuzz-8275793bca439f6e-repair","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder","provider":"anthropic"}
