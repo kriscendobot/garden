@@ -99,6 +99,11 @@ RETIRE="$GARDEN_CI_RETIRE_CLONE"
 #     throttling every call; abort the rest of the sweep rather than deepen the cooldown.
 : "${GARDEN_CI_ACTIVITY_WINDOW:=3 days}"
 : "${GARDEN_CI_UNREADABLE_ABORT_THRESHOLD:=3}"
+# Host-scoped latch that dedups the stale-shepherd sweep's "journal fetch failed"
+# warning across the per-repo CI watchers (see § Journal-outage latch below). Shared
+# by every ci-watcher on this host — NOT keyed by slug — so one journal outage warns
+# once, not once per watched repo.
+: "${GARDEN_CI_JOURNAL_OUTAGE_LATCH:=$GARDEN_STATE/ci-watcher/journal-outage}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
@@ -436,6 +441,45 @@ if [ "$unreadable" -gt 0 ] && [ "$unreadable" -eq "$((ours - stale))" ]; then
   log "WARN: $unreadable/$((ours - stale)) read bot PR rollups unreadable this tick — likely a systemic gh outage (auth/rate-limit/network), not per-PR"
 fi
 
+# ── Journal-outage latch (dedup the stale-shepherd sweep warning) ─────────────
+# One shared journal outage makes EVERY per-repo ci-watcher's stale-shepherd sweep
+# fail its verify_fetch on the same tick, and each would otherwise emit an
+# indistinguishable "journal fetch failed" WARN — N identical lines for ONE fault,
+# per watched repo, every tick the outage lasts (a total journal outage reads as N
+# unrelated per-repo problems instead of one). Collapse them with a HOST-SCOPED edge
+# latch (deliberately NOT keyed by slug — the whole point is dedup ACROSS repos): the
+# first watcher (any repo) to hit the outage this episode wins the atomic mkdir and
+# emits the one loud WARN; every later watcher — same tick or a subsequent one, any
+# repo — finds the marker present and logs a quiet, non-WARN deduped line. When the
+# journal is reachable again, the first watcher to see it wins the atomic mv and emits
+# ONE recovery notice, clearing the latch so the NEXT outage warns afresh. Mirrors
+# common.sh worker_health_gate's healthy/unhealthy edge latch. Degrades safe: a marker
+# we cannot create at all still logs (the WARN path just stops being deduped), and the
+# happy path (no latch dir) is a single cheap `[ -d ]` test with no extra I/O.
+note_journal_outage() {  # note_journal_outage <context> — a failed sweep fetch
+  local ctx="$1" latch="$GARDEN_CI_JOURNAL_OUTAGE_LATCH" since=""
+  mkdir -p "$(dirname "$latch")" 2>/dev/null || true
+  if mkdir "$latch" 2>/dev/null; then
+    date -u +%FT%TZ > "$latch/since" 2>/dev/null || true
+    printf '%s\n' "$slug" > "$latch/first" 2>/dev/null || true
+    log "WARN: $ctx — journal fetch failed (never guess board state); host outage latch armed, further per-repo ci-watcher warnings deduped this episode"
+  else
+    [ -r "$latch/since" ] && since="$(cat "$latch/since" 2>/dev/null || true)"
+    log "$ctx — journal fetch still failing (host outage latched${since:+ since $since}; warning deduped)"
+  fi
+}
+note_journal_recovered() {  # note_journal_recovered — a successful sweep fetch
+  local latch="$GARDEN_CI_JOURNAL_OUTAGE_LATCH" claimed since=""
+  [ -d "$latch" ] || return 0                      # no episode open: cheap no-op
+  claimed="$latch.recovered.$$"
+  # Exactly one watcher wins the rename; every later caller finds the marker gone.
+  if mv "$latch" "$claimed" 2>/dev/null; then
+    [ -r "$claimed/since" ] && since="$(cat "$claimed/since" 2>/dev/null || true)"
+    rm -rf "$claimed" 2>/dev/null || true
+    log "journal reachable again${since:+ (outage since $since)} — ci-watcher stale-shepherd sweep resuming; host outage latch cleared"
+  fi
+}
+
 # ── Stale-shepherd re-validation sweep ───────────────────────────────────────
 # Close the false-positive-wedge loop (the endojs-endo-but-for-bots-pr693
 # exit-0-unsatisfying escalation, journal 2026-07-11T18:34Z). An auto-shepherd is
@@ -456,6 +500,7 @@ fi
 # § Leader-only singleton), so a follower never double-retires.
 retired=0; revalidated=0
 if verify_fetch fresh; then
+  note_journal_recovered   # if a host-scoped outage was latched, clear it + notice once
   # Enumerate THIS watcher's shepherd jobs currently in todo/ on the live board.
   todo_shepherds="$(git -C "$VERIFY" ls-tree --name-only "origin/$JOURNAL_BRANCH:$JOBS_TODO" 2>/dev/null \
                       | sed -n 's/\.md$//p' | grep -E "^${slug}-pr[0-9]+-shepherd$" || true)"
@@ -483,7 +528,7 @@ if verify_fetch fresh; then
     fi
   done
 else
-  log "WARN: stale-shepherd sweep skipped this tick — journal fetch failed (never guess board state)"
+  note_journal_outage "stale-shepherd sweep skipped this tick"
 fi
 if [ "$revalidated" -gt 0 ]; then
   log "stale-shepherd sweep on $repo: re-validated $revalidated unclaimed auto-shepherd(s), retired $retired"
