@@ -1,2 +1,2 @@
-base: improve-ensure-pr-find-or-create
+base: improve-pr-head-lookup
 identity: mentor:scripts/jobs/gardening/ensure-pr.sh
