@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T05:49:00Z_
+_As of 2026-08-30T05:52:11Z_
 
 ## Latest
 
@@ -1285,19 +1285,24 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.0M | $66.30 _(notional, rate-card)_ | 60% of 5.0M (ok) |
-| Codex | 3.2M _(+153.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 3.1M | $68.15 _(notional, rate-card)_ | 63% of 5.0M (ok) |
+| Codex | 3.4M _(+155.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (3)
+- [`improve-budget-snapshot-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-snapshot-warning-dedup.md) — ---
+- [`improve-ci-outage-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-outage-warning-dedup.md) — ---
+- [`improve-journal-clone-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-journal-clone-outage-classification.md) — ---
 
-### doin (5)
+### doin (8)
 - [`endojs-endo-but-for-bots-pr1072-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
+- [`fix-endo-sock-default-memory-fallback-guard`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-sock-default-memory-fallback-guard.md) — ---
+- [`fix-env-file-if-exists-dev-scripts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-env-file-if-exists-dev-scripts.md) — ---
 - [`fu-pr910-review-4941452327-fuzzer-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-pr910-review-4941452327-fuzzer-1.md) — ---
 - [`ironhorse-fuzz-d99d263fcf6ca7a7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d99d263fcf6ca7a7-repair.md) — Fix Ironhorse fuzz finding d99d263fcf6ca7a7 (target differential_source) and ...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
+- [`xs2rust-endor-press-20260830-055050`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260830-055050.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6176)
 - [`kriscendobot-minion-town-pr66-conduct-20260830-r5060008635`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr66-conduct-20260830-r5060008635.md) — Completion report — Conduct kriscendobot/minion.town PR #66
