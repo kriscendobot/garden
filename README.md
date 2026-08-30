@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T05:58:45Z_
+_As of 2026-08-30T06:01:58Z_
 
 ## Latest
 
@@ -1285,31 +1285,30 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.3M | $70.90 _(notional, rate-card)_ | 66% of 5.0M (ok) |
-| Codex | 3.6M _(+160.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 3.3M | $72.71 _(notional, rate-card)_ | 66% of 5.0M (ok) |
+| Codex | 3.7M _(+163.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (1)
 - [`improve-budget-snapshot-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-snapshot-warning-dedup.md) — ---
-- [`ironhorse-fuzz-3ea435c58b4c588e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-3ea435c58b4c588e-repair.md) — Fix Ironhorse fuzz finding 3ea435c58b4c588e (target differential_regexp_surfa...
 
 ### doin (8)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`fu-pr910-review-4941452327-fuzzer-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-pr910-review-4941452327-fuzzer-1.md) — ---
-- [`improve-ci-outage-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-outage-warning-dedup.md) — ---
 - [`improve-journal-clone-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-clone-outage-classification.md) — ---
 - [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Fix Ironhorse fuzz finding 1dc231089278c110 (target differential_regexp) and ...
+- [`ironhorse-fuzz-3ea435c58b4c588e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-3ea435c58b4c588e-repair.md) — Fix Ironhorse fuzz finding 3ea435c58b4c588e (target differential_regexp_surfa...
 - [`ironhorse-fuzz-d99d263fcf6ca7a7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d99d263fcf6ca7a7-repair.md) — Fix Ironhorse fuzz finding d99d263fcf6ca7a7 (target differential_source) and ...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
 - [`minion-town-199a061-guest-backend-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-199a061-guest-backend-deploy-verify.md) — ---
 
-### tada (6180)
+### tada (6181)
+- [`improve-ci-outage-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ci-outage-warning-dedup.md) — Completion report
 - [`fix-env-file-if-exists-dev-scripts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-env-file-if-exists-dev-scripts.md) — What I did
 - [`fix-endo-sock-default-memory-fallback-guard`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-endo-sock-default-memory-fallback-guard.md) — Completion report
 - [`xs2rust-endor-press-20260830-055050`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-055050.md) — Cost
 - [`endojs-endo-but-for-bots-pr1072-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`kriscendobot-minion-town-pr66-conduct-20260830-r5060008635`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr66-conduct-20260830-r5060008635.md) — Completion report — Conduct kriscendobot/minion.town PR #66
-- … and 6175 more
+- … and 6176 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
