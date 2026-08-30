@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-08-30T06:25:18Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-fuzz-7289e31013d074ec-repair
