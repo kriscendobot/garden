@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T06:09:08Z_
+_As of 2026-08-30T06:09:43Z_
 
 ## Latest
 
@@ -1285,29 +1285,28 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.1M | $68.83 _(notional, rate-card)_ | 63% of 5.0M (ok) |
-| Codex | 3.8M _(+169.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 3.2M | $69.33 _(notional, rate-card)_ | 64% of 5.0M (ok) |
+| Codex | 3.8M _(+169.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #475
 - [`fu-pr910-review-4941452327-fuzzer-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-pr910-review-4941452327-fuzzer-1.md) — ---
-- [`improve-budget-snapshot-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-snapshot-warning-dedup.md) — ---
 - [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Fix Ironhorse fuzz finding 1dc231089278c110 (target differential_regexp) and ...
 - [`ironhorse-fuzz-3ea435c58b4c588e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-3ea435c58b4c588e-repair.md) — Fix Ironhorse fuzz finding 3ea435c58b4c588e (target differential_regexp_surfa...
 - [`ironhorse-fuzz-5c29667cc15d6d93-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c29667cc15d6d93-repair.md) — Fix Ironhorse fuzz finding 5c29667cc15d6d93 (target differential_source) and ...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
 
-### tada (6184)
+### tada (6185)
+- [`improve-budget-snapshot-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-snapshot-warning-dedup.md) — Cost
 - [`improve-journal-clone-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-clone-outage-classification.md) — Completion report
 - [`ironhorse-fuzz-d99d263fcf6ca7a7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-d99d263fcf6ca7a7-repair.md) — Completion report — ironhorse fuzz finding d99d263fcf6ca7a7 (target different...
 - [`minion-town-199a061-guest-backend-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-199a061-guest-backend-deploy-verify.md) — Cost
 - [`improve-ci-outage-warning-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ci-outage-warning-dedup.md) — Completion report
-- [`fix-env-file-if-exists-dev-scripts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-env-file-if-exists-dev-scripts.md) — What I did
-- … and 6179 more
+- … and 6180 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
