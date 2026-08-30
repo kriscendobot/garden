@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T05:39:30Z_
+_As of 2026-08-30T05:40:04Z_
 
 ## Latest
 
@@ -1285,14 +1285,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.0M | $71.23 _(notional, rate-card)_ | 60% of 5.0M (ok) |
+| Claude | 3.1M | $71.52 _(notional, rate-card)_ | 61% of 5.0M (ok) |
 | Codex | 2.9M _(+147.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1072-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1072
 - [`fu-pr910-review-4941452327-fuzzer-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-pr910-review-4941452327-fuzzer-1.md) — ---
 - [`ironhorse-fuzz-493390fc03979205-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-493390fc03979205-repair.md) — Fix Ironhorse fuzz finding 493390fc03979205 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
