@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":44,"elapsed_s":475,"input_tokens":81,"output_tokens":33123,"cache_creation_tokens":99063,"cache_read_tokens":3669231,"total_cost_usd":3.655944499999999,"ts":"2026-08-30T04:59:37Z","base":"improve-budget-level-preflight-failures","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
