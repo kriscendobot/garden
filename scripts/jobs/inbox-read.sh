@@ -26,9 +26,20 @@ DIR="${GARDEN_INBOX_CLONE:-$GARDEN_STATE/inbox/$doer/journal}"
 # retry with the shared bounded exponential backoff.
 clone_ready=0
 for attempt in $(seq 1 "$GARDEN_INBOX_CLONE_RETRIES"); do
-  if ( ensure_clone "$DIR" ); then
+  clone_rc=0
+  ( ensure_clone "$DIR" ) || clone_rc=$?
+  if [ "$clone_rc" -eq 0 ]; then
     clone_ready=1
     break
+  fi
+  # The subshell CONTAINS ensure_clone's exit, so a transient connectivity outage
+  # (reclone_clone → EX_TEMPFAIL) surfaces here as the subshell's rc rather than
+  # propagating up. Honor it: skip this drain cleanly with the same EX_TEMPFAIL the
+  # spine normalizes, instead of retrying into a hard die that marked the inbox
+  # reader Failed for the whole shared-journal outage.
+  if [ "$clone_rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
+    log "inbox journal clone offline (rc=$clone_rc); skipping this drain until connectivity returns"
+    exit "${GARDEN_OFFLINE_RC:-75}"
   fi
   if [ "$attempt" -lt "$GARDEN_INBOX_CLONE_RETRIES" ]; then
     log "initial inbox journal clone failed (attempt $attempt/$GARDEN_INBOX_CLONE_RETRIES); backing off before retry"

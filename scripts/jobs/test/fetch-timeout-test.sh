@@ -440,6 +440,62 @@ EOF
 chmod +x "$TR/bin/git"
 
 # ============================================================================
+hr; echo "SUBTEST 10 — a fresh clone during a shared-journal SSH outage skips EX_TEMPFAIL (75), not die(1)"; hr
+# FOURTH outage shape: reclone_clone used a naked `git clone … || die`, so a fresh
+# journal clone/claim over SSH that failed transiently (ssh rc 255 + "Could not read
+# from remote repository") went FATAL — marking the unit Failed and spawning a
+# self-heal responder per tick across hermits, the sysop, inbox readers, the scaler,
+# and the watchers — instead of cleanly skipping until connectivity returned.
+# reclone_clone now routes through bounded_clone (which captures git stderr into
+# GARDEN_CLONE_STDERR) and classifies an outage signature as EX_TEMPFAIL, exactly like
+# sync_clone's fetch path. Drive it with a fake `git` whose `clone` emits the SSH
+# outage diagnostic and exits 255; ensure_clone (missing clone → reclone) must exit 75.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do
+  if [ "\$a" = clone ]; then
+    echo "kex_exchange_identification: Connection closed by remote host" >&2
+    echo "fatal: Could not read from remote repository." >&2
+    exit 255
+  fi
+done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+OFFDIR="$TR/offline-reclone"; rm -rf "$OFFDIR"
+rc=0
+( export JOURNAL_REMOTE="$GBARE" GARDEN_FETCH_RETRIES=1
+  ensure_clone "$OFFDIR" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 75 ]; then
+  ok "ensure_clone/reclone_clone exited EX_TEMPFAIL (75) on a transient SSH-255 clone outage"
+else
+  bad "ensure_clone/reclone_clone exited $rc on a transient SSH-255 clone outage (expected 75, not die(1))"
+fi
+
+# Boundary guard: a NON-transient clone failure (a genuinely bad/absent remote) must
+# still die loud (exit 1), never be swallowed as a transient skip.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do
+  if [ "\$a" = clone ]; then
+    echo "fatal: '/nope' does not appear to be a git repository" >&2
+    exit 128
+  fi
+done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+BADDIR="$TR/bad-reclone"; rm -rf "$BADDIR"
+rc=0
+( export JOURNAL_REMOTE="$GBARE" GARDEN_FETCH_RETRIES=1
+  ensure_clone "$BADDIR" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 1 ]; then
+  ok "ensure_clone/reclone_clone still die(1) on a non-transient clone failure (classification boundary held)"
+else
+  bad "ensure_clone/reclone_clone exited $rc on a non-transient clone failure (expected die 1)"
+fi
+
+# ============================================================================
 hr
 rm -rf "$TR"
 echo "RESULTS: $PASS passed, $FAIL failed"
