@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T03:31:40Z_
+_As of 2026-08-30T03:34:02Z_
 
 ## Latest
 
@@ -1666,23 +1666,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 176.0M | $1517.85 _(notional, rate-card)_ | no quota set |
-| Codex | 53.8M _(+1729.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 176.0M | $1517.79 _(notional, rate-card)_ | no quota set |
+| Codex | 53.9M _(+1726.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr54-8c94d20d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr54-8c94d20d.md) — attention directive on kriscendobot/minion.town PR #54
+### doin (0)
+(none)
 
-### tada (6161)
+### tada (6162)
+- [`kriscendobot-minion.town-pr54-8c94d20d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-8c94d20d.md) — Cost
 - [`xs2rust-endor-press-20260830-023504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-023504.md) — Cost
 - [`xs2rust-endor-press-20260830-012005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-012005.md) — Cost
 - [`xs2rust-endor-press-20260830-002005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-002005.md) — Ironhorse press — 2026-08-30T00:20Z
 - [`xs2rust-endor-press-20260829-230507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-230507.md) — Ironhorse press — 2026-08-29T23:05Z
-- [`xs2rust-endor-press-20260829-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260829-215006.md) — Cost
-- … and 6156 more
+- … and 6157 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
