@@ -1,19 +1,14 @@
-from_host: endolin-garden-ece02cb4
+from_host: endolin-garden2-5bcdff64
 from: watchdog:self-heal-claude
-sent_at: 2026-08-28T14:56:30Z
+sent_at: 2026-08-30T07:34:56Z
 watchdog_key: provider-quota
 notice_count: 43
 first_seen: 2026-08-17T14:38:22Z
-last_seen: 2026-08-28T14:56:30Z
+last_seen: 2026-08-30T07:34:56Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #43 (first seen 2026-08-17T14:38:22Z, latest 2026-08-28T14:56:30Z).
-The SAME condition (`provider-quota`) has now been observed 43 times; this is ONE
-coalesced notice that updates in place, not 43 messages. Latest detail:
+RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-08-17T14:38:22Z, cleared 2026-08-30T07:34:56Z).
+It was observed 43 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-provider session limit reached: the API is refusing calls fleet-wide (resets 3pm (UTC) — the responder could NOT diagnose garden-proxy (rc=1); its capture is blob f5ee58b35f57e41c67a940fd358a60eb111d2f6e (git -C /home/kris/garden/).
-limit_type: session
-This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
-resumes on its own once the window resets (see skills/restore/SKILL.md for the
-post-outage restore). Every unit that trips the limit folds into THIS one notice
-rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden-ece02cb4):
-provider quota exceeded while running garden-proxy. Observed: You've hit your session limit · resets 3pm (UTC) — the responder could NOT diagnose garden-proxy (rc=1); its capture is blob f5ee58b35f57e41c67a940fd358a60eb111d2f6e (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f5ee58b35f57e41c67a940fd358a60eb111d2f6e).
+provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-cleric). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
