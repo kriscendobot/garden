@@ -1,7 +1,7 @@
 ---
 created: 2026-06-01
-updated: 2026-08-01
-author: builder
+updated: 2026-08-30
+author: gardener, builder
 ---
 
 # Skill: gardener-inbox-error-reporting
@@ -69,9 +69,10 @@ what carries it off-host.
    An empty transcript is replaced by a synthetic self-describing line
    (never escalate the zero-byte blob `e69de29b…`), and a transcript
    over `GARDEN_REPORT_ERROR_MAX_BYTES` (default 64 KiB) is truncated
-   to its last that-many bytes *before* hashing — so the SHA always
-   names exactly the bytes a responder will read. The caller's file is
-   never mutated; both rewrites stage a temp copy.
+   to bounded beginning and ending slices *before* hashing, with an
+   explicit marker reporting how many middle bytes were omitted. The
+   SHA therefore always names exactly the bytes a responder will read.
+   The caller's file is never mutated; both rewrites stage a temp copy.
 
 2b. **Commit the transcript as a content-addressed capture file.**
 
@@ -165,12 +166,13 @@ one section at a time.
   `transcripts2` orphan branch, and the fleet-wide fetch cost is exactly
   why ([`designs/transcript-journal-capture.md`](../../designs/transcript-journal-capture.md),
   Decision 1). An escalation attachment is a bounded exception to that,
-  so the helper truncates to the **last**
-  `GARDEN_REPORT_ERROR_MAX_BYTES` (default `65536`; `0` disables the
-  cap) before hashing, prefixing a one-line truncation banner. 64 KiB is
-  not arbitrary: it is exactly the slice the fleet's capture readers
-  consume (`mentor.sh` and the gardener classifiers read
-  `tail -c 65536`), so the cap costs a responder nothing. At the
+  so the helper divides `GARDEN_REPORT_ERROR_MAX_BYTES` (default
+  `65536`; `0` disables the cap) between bounded slices from the
+  **beginning and end** before hashing. A banner describes the retained
+  slices, and an explicit marker between them reports the number of
+  omitted middle bytes. This preserves early setup and diagnostic
+  context as well as the final failure. 64 KiB matches the amount of
+  source transcript the fleet's capture readers consume. At the
   fleet's observed rate (~24 escalations/day across six hosts) the
   worst case is ~1.5 MiB/day and the realistic case far less. A caller
   that needs more can raise the cap for its invocation; a caller whose

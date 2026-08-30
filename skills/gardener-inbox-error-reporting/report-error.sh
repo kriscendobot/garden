@@ -56,9 +56,9 @@ test -d "$GARDEN_JOURNAL" || { echo "report-error: journal worktree missing: $GA
 # archive (that is the `transcripts2` orphan branch; see
 # designs/transcript-journal-capture.md), so an escalation attachment must stay
 # small. 64 KiB is not arbitrary: it is exactly the slice the fleet's capture
-# readers consume (`tail -c 65536` in mentor.sh and the gardener classifiers),
-# so the cap costs a responder nothing. The TAIL is kept -- the failure is at
-# the end. 0 disables the cap.
+# readers consume. Oversized transcripts keep half of the cap from each end:
+# setup and initial diagnostics are often at the beginning, while the failure is
+# usually at the end. 0 disables the cap.
 : "${GARDEN_REPORT_ERROR_MAX_BYTES:=65536}"
 
 # 1. Hash the transcript.
@@ -86,10 +86,17 @@ elif [ "$GARDEN_REPORT_ERROR_MAX_BYTES" -gt 0 ] \
   # Truncate BEFORE hashing, never after: the responder's `cat-file -p <sha>`
   # must yield exactly the bytes the escalation is about.
   TRANSCRIPT_COPY=$(mktemp)
+  TRANSCRIPT_BYTES=$(wc -c < "$TRANSCRIPT")
+  HEAD_BYTES=$((GARDEN_REPORT_ERROR_MAX_BYTES / 2))
+  TAIL_BYTES=$((GARDEN_REPORT_ERROR_MAX_BYTES - HEAD_BYTES))
+  OMITTED_BYTES=$((TRANSCRIPT_BYTES - HEAD_BYTES - TAIL_BYTES))
   {
-    printf 'report-error: transcript truncated to its last %s bytes (of %s); raise GARDEN_REPORT_ERROR_MAX_BYTES to keep more.\n\n' \
-      "$GARDEN_REPORT_ERROR_MAX_BYTES" "$(wc -c < "$TRANSCRIPT")"
-    tail -c "$GARDEN_REPORT_ERROR_MAX_BYTES" "$TRANSCRIPT"
+    printf 'report-error: transcript truncated from %s bytes; retained first %s and last %s bytes. Raise GARDEN_REPORT_ERROR_MAX_BYTES to keep more.\n\n' \
+      "$TRANSCRIPT_BYTES" "$HEAD_BYTES" "$TAIL_BYTES"
+    head -c "$HEAD_BYTES" "$TRANSCRIPT"
+    printf '\n\n[report-error: omitted %s bytes from the middle of the transcript]\n\n' \
+      "$OMITTED_BYTES"
+    tail -c "$TAIL_BYTES" "$TRANSCRIPT"
   } > "$TRANSCRIPT_COPY"
   SOURCE=$TRANSCRIPT_COPY
 fi

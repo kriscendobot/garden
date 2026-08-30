@@ -20,8 +20,9 @@
 #      SHA (content-addressed), while still appending a second inbox section.
 #   D. EMPTY TRANSCRIPT: the empty-blob defense still holds AND its synthetic
 #      content is reachable off-host (never the zero-byte blob e69de29b…).
-#   E. TRUNCATION BEFORE HASHING: over the byte cap, the SHA still names EXACTLY
-#      the committed bytes — a responder never reads a SHA that does not resolve.
+#   E. TRUNCATION BEFORE HASHING: over the byte cap, bounded beginning and ending
+#      slices surround an explicit omission marker, and the SHA still names
+#      EXACTLY the committed bytes.
 #
 # Usage: report-error-reachable-test.sh
 set -uo pipefail
@@ -129,7 +130,7 @@ fi
 
 hr; echo "E. truncation happens BEFORE hashing"
 fresh e
-{ printf 'noise line %s\n' $(seq 1 400); printf 'THE ACTUAL FAILURE\n'; } > "$TR/e/big.txt"
+{ printf 'THE INITIAL DIAGNOSTIC\n'; printf 'noise line %s\n' $(seq 1 400); printf 'THE ACTUAL FAILURE\n'; } > "$TR/e/big.txt"
 before_sum="$(cksum < "$TR/e/big.txt")"
 SHAE="$(report "$TR/e/big.txt" GARDEN_REPORT_ERROR_MAX_BYTES=200)"
 gote="$(mentor_cat "$SHAE")"
@@ -140,11 +141,13 @@ else
   bad "E: truncated capture does not match its SHA (sha=$SHAE)"
 fi
 if case "$gote" in "report-error: transcript truncated"*) true;; *) false;; esac \
+   && case "$gote" in *"THE INITIAL DIAGNOSTIC"*) true;; *) false;; esac \
+   && case "$gote" in *"[report-error: omitted "*" bytes from the middle of the transcript]"*) true;; *) false;; esac \
    && case "$gote" in *"THE ACTUAL FAILURE"*) true;; *) false;; esac \
    && [ "$(wc -c < "$capfile")" -lt "$(wc -c < "$TR/e/big.txt")" ]; then
-  ok "E: banner present, tail (the failure) kept, capture smaller than the source"
+  ok "E: banner, head, omission marker, and tail kept; capture smaller than source"
 else
-  bad "E: truncation kept the wrong slice ($(wc -c < "$capfile") bytes)"
+  bad "E: truncation did not retain both slices ($(wc -c < "$capfile") bytes)"
 fi
 if [ "$(cksum < "$TR/e/big.txt")" = "$before_sum" ]; then
   ok "E: the caller's transcript file was not mutated"
