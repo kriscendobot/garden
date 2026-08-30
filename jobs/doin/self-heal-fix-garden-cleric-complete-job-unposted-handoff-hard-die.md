@@ -23,3 +23,13 @@ This exact condition is a *soft* block everywhere else: `assert-followup-posted.
 Both changes are deterministic and no-LLM. Add coverage for the specific shape that escapes today: a completion report carrying `<<<GARDEN-JOB-HANDED-OFF: X>>>` with **no** `## Follow-ups` section and `X` absent from the board — assert the worker survives and the job stays in `doin`.
 
 Separately, note the nine `ironhorse-fuzz-*-repair` jobs currently in `doin`: their handler declares a `-gauntlet` handoff it apparently never posts. Fixing the disposition stops the crash loop but not the underlying non-post; worth naming in the job so whoever picks it up checks whether the repair handler's gauntlet post is failing silently.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-30T07:37:31Z
