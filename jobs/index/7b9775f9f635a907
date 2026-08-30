@@ -1,2 +1,2 @@
-base: improve-budget-level-fail-open-diagnostics
+base: improve-budget-level-preflight-failures
 identity: mentor:scripts/jobs/budget-level.sh
