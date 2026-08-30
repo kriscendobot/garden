@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T07:33:56Z_
+_As of 2026-08-30T07:35:13Z_
 
 ## Latest
 
@@ -1259,17 +1259,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> WATCHDOG notice — occurrence #43 (first seen 2026-08-17T14:38:22Z, latest 2026-08-28T14:56:30Z).
-> The SAME condition (`provider-quota`) has now been observed 43 times; this is ONE
-> coalesced notice that updates in place, not 43 messages. Latest detail:
+> RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-08-17T14:38:22Z, cleared 2026-08-30T07:34:56Z).
+> It was observed 43 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> provider session limit reached: the API is refusing calls fleet-wide (resets 3pm (UTC) — the responder could NOT diagnose garden-proxy (rc=1); its capture is blob f5ee58b35f57e41c67a940fd358a60eb111d2f6e (git -C /home/kris/garden/).
-> limit_type: session
-> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
-> resumes on its own once the window resets (see skills/restore/SKILL.md for the
-> post-outage restore). Every unit that trips the limit folds into THIS one notice
-> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden-ece02cb4):
-> provider quota exceeded while running garden-proxy. Observed: You've hit your session limit · resets 3pm (UTC) — the responder could NOT diagnose garden-proxy (rc=1); its capture is blob f5ee58b35f57e41c67a940fd358a60eb111d2f6e (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f5ee58b35f57e41c67a940fd358a60eb111d2f6e).
+> provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-cleric). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -1293,11 +1287,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.4M | $85.77 _(notional, rate-card)_ | 89% of 5.0M (backoff) |
-| Codex | 5.7M _(+209.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 4.5M | $86.04 _(notional, rate-card)_ | 89% of 5.0M (backoff) |
+| Codex | 5.7M _(+210.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
-### todo (68)
+### todo (69)
 - [`daily-progress-summary-20260830-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260830-070503.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1016-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1016-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1016
@@ -1365,6 +1359,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr996-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr996-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #996
 - [`ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
+- [`self-heal-fix-garden-cleric-complete-job-unposted-handoff-hard-die`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-cleric-complete-job-unposted-handoff-hard-die.md) — ---
 - [`xs2rust-endor-press-20260830-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260830-070503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### doin (13)
