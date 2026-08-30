@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T06:21:30Z_
+_As of 2026-08-30T06:22:12Z_
 
 ## Latest
 
@@ -1273,11 +1273,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-root-repo-low-inodes-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-low-inodes-endolin-garden2-5bcdff64.md)
 
-> RECOVERED — the watchdog condition `root-repo-low-inodes-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-08-30T04:52:00Z, cleared 2026-08-30T05:22:00Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-30T04:52:00Z, latest 2026-08-30T06:22:01Z).
+> The SAME condition (`root-repo-low-inodes-endolin-garden2-5bcdff64`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> host filesystem inode headroom recovered to 5.11% (12486782/244121600 free on /dev/nvme0n1p2, threshold 5%; host=endolin-garden2-5bcdff64).
+> host filesystem inode headroom is CRITICAL: filesystem /dev/nvme0n1p2 mounted at /home/kris/garden2 (the filesystem backing /home/kris/garden2) has 11876641/244121600 free inodes (4.87%), below the 5% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. No automatic deletion was attempted because cleanup must first prove each candidate worktree's job is in jobs/tada and remove it through the owning worktree mechanism. Review completed per-job worktrees and their node_modules, then reclaim a bounded batch and re-check 'df -i /home/kris/garden2'. (host=endolin-garden2-5bcdff64)
 
 
 ## Spend & quota
@@ -1285,8 +1285,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.4M | $79.65 _(notional, rate-card)_ | 69% of 5.0M (ok) |
-| Codex | 4.0M _(+175.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 3.5M | $80.48 _(notional, rate-card)_ | 70% of 5.0M (ok) |
+| Codex | 4.0M _(+175.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
