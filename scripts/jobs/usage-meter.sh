@@ -377,6 +377,60 @@ budget_publish_local_pool() {
   return 1
 }
 
+# The scaler runs every minute, but publication is deliberately fail-open: a
+# failed push changes only remote budget visibility, never worker reconciliation.
+# Keep that recurring controller failure edge-triggered so one outage reads as
+# one incident rather than a minute-scale stream of identical WARNs. The latch is
+# host-local (like the scaler itself); a successful publisher call claims and
+# clears it, emitting one summary before the next outage is re-armed.
+budget_publish_note_failure() {
+  local latch="${GARDEN_BUDGET_PUBLISH_OUTAGE_LATCH:-$GARDEN_STATE/gardener-scaler/budget-publish-outage}"
+  local count tmp
+  mkdir -p "$(dirname "$latch")" 2>/dev/null || true
+  if mkdir "$latch" 2>/dev/null; then
+    date -u +%FT%TZ > "$latch/since" 2>/dev/null || true
+    date -u +%s > "$latch/since_epoch" 2>/dev/null || true
+    printf '1\n' > "$latch/failures" 2>/dev/null || true
+    log "WARN: could not publish live budget snapshot; remote admission remains fail-open (further repeats suppressed until recovery)"
+    return 0
+  fi
+  if [ -d "$latch" ]; then
+    count="$(cat "$latch/failures" 2>/dev/null || true)"
+    [[ "$count" =~ ^[1-9][0-9]*$ ]] || count=1
+    count=$((count + 1))
+    tmp="$latch/failures.$$"
+    if printf '%s\n' "$count" > "$tmp" 2>/dev/null; then
+      mv "$tmp" "$latch/failures" 2>/dev/null || true
+    fi
+    return 0
+  fi
+  # If local state is unwritable, preserve the diagnostic instead of silently
+  # losing every failure; only the deduplication degrades.
+  log "WARN: could not publish live budget snapshot; remote admission remains fail-open (warning latch unavailable)"
+  return 0
+}
+
+budget_publish_note_success() {
+  local latch="${GARDEN_BUDGET_PUBLISH_OUTAGE_LATCH:-$GARDEN_STATE/gardener-scaler/budget-publish-outage}"
+  local claimed since since_epoch now elapsed count
+  [ -d "$latch" ] || return 0
+  claimed="$latch.recovered.$$"
+  if mv "$latch" "$claimed" 2>/dev/null; then
+    since="$(cat "$claimed/since" 2>/dev/null || true)"
+    since_epoch="$(cat "$claimed/since_epoch" 2>/dev/null || true)"
+    count="$(cat "$claimed/failures" 2>/dev/null || true)"
+    [[ "$count" =~ ^[1-9][0-9]*$ ]] || count=1
+    now="$(date -u +%s)"
+    elapsed=""
+    if [[ "$since_epoch" =~ ^[0-9]+$ ]] && [ "$now" -ge "$since_epoch" ]; then
+      elapsed=$((now - since_epoch))
+    fi
+    rm -rf "$claimed" 2>/dev/null || true
+    log "live budget snapshot publication recovered after $count failed scaler tick(s)${elapsed:+ over ${elapsed}s}${since:+ (outage since $since)}; remote admission visibility restored"
+  fi
+  return 0
+}
+
 meter_journal_provider_usd() {
   local dir="$1" provider="$2" cutoff="$3" files
   [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 1

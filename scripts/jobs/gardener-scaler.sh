@@ -32,8 +32,11 @@ host="$GARDEN"
 # default), so the leader can evaluate remote pools without a new timer or access
 # to another host's ~/.claude. Failure is only a visibility gap and must not block
 # worker reconciliation.
-budget_publish_local_pool "$DIR" \
-  || log "WARN: could not publish live budget snapshot; remote admission remains fail-open"
+if budget_publish_local_pool "$DIR"; then
+  budget_publish_note_success
+else
+  budget_publish_note_failure
+fi
 
 # Host-identity DRIFT guard — a deterministic preflight that runs EVERY tick,
 # host-level, independent of the desired-count read below. It catches the drift
