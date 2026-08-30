@@ -25,24 +25,28 @@
 # trusted board/inbox state only.
 #
 # Usage: assert-followup-posted.sh <base> <job-file> <completion-report>
-#   rc 0: nothing owed — no substantive `## Follow-ups` section; or one is present
-#         AND a valid, CHECKABLE disposition covers it (a verified handoff, a
-#         maintainer-inbox message actually sent, or an explicit override); or the
-#         determination is inconclusive (journal clone offline).
-#   rc 1: a substantive `## Follow-ups` section is present with NO checkable
-#         disposition — block completion (leave the job in doin for retry).
+#   rc 0: no declared handoff and nothing owed — no substantive `## Follow-ups`
+#         section; or a declared handoff / substantive section has a valid,
+#         CHECKABLE disposition (a verified handoff, a maintainer-inbox message
+#         actually sent, or an explicit override); or the determination is
+#         inconclusive (journal clone offline).
+#   rc 1: a declared handoff names an absent successor, regardless of whether a
+#         `## Follow-ups` section exists; or a substantive follow-up section has
+#         NO checkable disposition — block completion (leave in doin for retry).
 #
-# The three accepted dispositions, in the order checked:
-#   1. OVERRIDE  — the report carries a standalone
+# The three accepted dispositions:
+#   1. HANDOFF   — the report ends with <<<GARDEN-JOB-HANDED-OFF: successor>>> AND
+#      that successor is durably posted on the board (handoff_successor_posted,
+#      the SAME existence check complete-job.sh --handed-off enforces). Checked
+#      first and unconditionally because the marker itself declares unfinished
+#      work, even when the report has no `## Follow-ups` section.
+#   2. OVERRIDE  — the report carries a standalone
 #        <<<GARDEN-FOLLOWUP-GATE-OVERRIDE: reason>>>
 #      line. The safety valve: a report mentioning a follow-up in passing (not as
 #      unfinished chained work) declares that with a one-line reason, so a
 #      false-positive detection can never wedge a job forever. Read the same
 #      deliberate way orchestration-failed / deliverable-complete are — a named
 #      signal, not free prose.
-#   2. HANDOFF   — the report ends with <<<GARDEN-JOB-HANDED-OFF: successor>>> AND
-#      that successor is durably posted on the board (handoff_successor_posted,
-#      the SAME existence check complete-job.sh --handed-off enforces).
 #   3. INBOX     — a maintainer-inbox message tagged reply_to=<base> exists
 #      (the worker actually ran message-user.sh), the checkable form of the
 #      non-board-postable disposition.
@@ -62,14 +66,33 @@ GARDEN_TAG="assert-followup-posted"
 base="${1:?base}"; jobfile="${2:?job file}"; report="${3:?completion report}"
 [ -f "$report" ] || exit 0
 
-# 1. Is there a substantive follow-up section at all? Most jobs have none, or a
-#    trivially-empty "None." — the gate is a no-op for them.
+# 1. HANDOFF — a declared handoff is itself unfinished-work intent, independent
+#    of report prose or headings. Verify it before the follow-up-section fast
+#    path so an absent `## Follow-ups` section cannot bypass the durable-successor
+#    gate. The board read remains fail-open when inconclusive during an outage.
+DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+if successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
+  if ! ensure_clone "$DIR" 2>/dev/null; then
+    log "gate: producer clone $DIR unavailable; inconclusive, not blocking '$base'"
+    exit 0
+  fi
+  sync_clone "$DIR" >/dev/null 2>&1 || true
+  if handoff_successor_posted "$DIR" "$successor"; then
+    exit 0
+  fi
+  log "gate: BLOCK — '$base' declares handoff to '$successor' but that successor is not durably posted on the board; leaving in doin for retry"
+  exit 1
+fi
+
+# 2. Is there a substantive follow-up section at all? Most jobs have none, or a
+#    trivially-empty "None." — the gate is a no-op for them, provided they did
+#    not declare a handoff above.
 section="$(report_followups_section "$report" 2>/dev/null || true)"
 if ! followups_actionable "$section"; then
   exit 0
 fi
 
-# 2. OVERRIDE — an explicit, named safety valve, checked from the report text
+# 3. OVERRIDE — an explicit, named safety valve, checked from the report text
 #    alone (no clone needed) so a false positive can never wedge even during an
 #    outage.
 if reason="$(report_followup_override_reason "$report" 2>/dev/null)"; then
@@ -77,25 +100,14 @@ if reason="$(report_followup_override_reason "$report" 2>/dev/null)"; then
   exit 0
 fi
 
-# 3/4. HANDOFF or INBOX — both need the board/inbox state. Read the producer
-#    clone the worker just posted to. An unreachable clone is INCONCLUSIVE: pass
-#    rather than wedge (the async sweep is the backstop).
-DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+# 4. INBOX needs board/inbox state. Read the producer clone the worker just
+#    posted to. An unreachable clone is INCONCLUSIVE: pass rather than wedge (the
+#    async sweep is the backstop).
 if ! ensure_clone "$DIR" 2>/dev/null; then
   log "gate: producer clone $DIR unavailable; inconclusive, not blocking '$base'"
   exit 0
 fi
 sync_clone "$DIR" >/dev/null 2>&1 || true
-
-# 3. HANDOFF — the report's honest unfinished-handoff disposition, verified the
-#    SAME way complete-job.sh --handed-off verifies it.
-if successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
-  if handoff_successor_posted "$DIR" "$successor"; then
-    exit 0
-  fi
-  log "gate: BLOCK — '$base' declares handoff to '$successor' but that successor is not durably posted on the board; leaving in doin for retry"
-  exit 1
-fi
 
 # 4. INBOX — the checkable non-board-postable disposition: a maintainer-inbox
 #    message the worker actually sent, tagged reply_to=<base>.

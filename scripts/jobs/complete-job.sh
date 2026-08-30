@@ -154,7 +154,8 @@ for attempt in $(seq 1 100); do
     # deliverable. Require durable evidence that the named successor was posted
     # before allowing doin -> tada, then stamp the disposition mechanically.
     if ! handoff_successor_posted "$DIR" "$handed_off"; then
-      die "handoff successor '$handed_off' is not durably posted on the board"
+      log "SOFT BLOCK: handoff successor '$handed_off' is not durably posted on the board"
+      exit "$GARDEN_HANDOFF_UNPOSTED_RC"
     fi
     handoff_marker="$GARDEN_HANDOFF_MARKER_PREFIX $handed_off>>>"
     awk -v marker="$handoff_marker" '$0 != marker { print }' "$DIR/$JOBS_TADA/$base.md" \

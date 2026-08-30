@@ -22,6 +22,10 @@
 # SUBTEST 2 — (b) handler exits 0 WITH the signal → job completed to tada.
 # SUBTEST 2A — an exact orchestration-failure signal is mechanically stamped
 #              into leading frontmatter and removed from the human report.
+# SUBTEST 2C — an unposted handoff with no Follow-ups section is caught by the
+#              pre-completion gate; the worker survives and leaves it in doin.
+# SUBTEST 2D — if the pre-gate is inconclusive/stale enough to pass, complete-job
+#              returns its named soft rc and gardener still survives/leaves doin.
 # SUBTEST 3 — (a) handler exits 0 WITHOUT the signal → NOT in tada; left in doin
 #             with a reap-now hint; the reaper then requeues it doin→todo.
 # SUBTEST 4 — (c) each of the four named exit modes (API error / rate limit / quota
@@ -174,17 +178,48 @@ rm -rf "$T2B"
 hr; echo "SUBTEST 2C: an unposted handoff is rejected and remains unfinished"; hr
 T2C="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2c.XXXXXX")"
 BARE2C="$(seed_board "$T2C" unevidenced)"
+set +e
 env GARDEN="handoffhost" GARDEN_STATE="$T2C/state" JOURNAL_REMOTE="$BARE2C" JOURNAL_BRANCH=journal2 \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
     GARDEN_STUB_HANDOFF_SUCCESSOR=missing-successor GARDEN_JOB_HANDLER="$STUB" \
-    "$JOBS/gardener.sh" 1 > "$T2C/gardener.log" 2>&1 || true
+    "$JOBS/gardener.sh" 1 > "$T2C/gardener.log" 2>&1
+worker_rc=$?
+set -e
 V2C="$T2C/verify"; git clone -q --single-branch --branch journal2 "$BARE2C" "$V2C" 2>/dev/null
-{ [ -f "$V2C/jobs/doin/unevidenced.md" ] \
+{ [ "$worker_rc" -eq 0 ] \
+  && [ -f "$V2C/jobs/doin/unevidenced.md" ] \
   && [ ! -e "$V2C/jobs/tada/unevidenced.md" ] \
-  && grep -q "not durably posted" "$T2C/gardener.log"; } \
-  && ok "missing successor blocked the handoff completion and left the claim unfinished" \
-  || bad "unevidenced handoff escaped the durable-successor gate"
+  && grep -q "posted-follow-up GATE blocked completion" "$T2C/gardener.log"; } \
+  && ok "missing successor with no Follow-ups section soft-blocked completion; worker survived and claim stayed in doin" \
+  || bad "unevidenced handoff mishandled (worker rc=$worker_rc, doin=$([ -f "$V2C/jobs/doin/unevidenced.md" ] && echo y || echo n), tada=$([ -e "$V2C/jobs/tada/unevidenced.md" ] && echo y || echo n))"
 rm -rf "$T2C"
+
+# ============================================================================
+hr; echo "SUBTEST 2D: complete-job's named soft rc is nonfatal when the pre-gate passes stale evidence"; hr
+T2D="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2d.XXXXXX")"
+BARE2D="$(seed_board "$T2D/real" beltjob)"
+# Model an inconclusive/stale producer view that says the successor exists. The
+# pre-gate passes that evidence, while complete-job's authoritative worker clone
+# syncs the real board and sees that the successor is absent.
+FAKE2D="$(seed_board "$T2D/fake" missing-successor)"
+git clone -q --single-branch --branch journal2 "$FAKE2D" "$T2D/producer" 2>/dev/null
+set +e
+env GARDEN="handoffhost" GARDEN_STATE="$T2D/state" JOURNAL_REMOTE="$BARE2D" JOURNAL_BRANCH=journal2 \
+    GARDEN_PRODUCER_CLONE="$T2D/producer" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
+    GARDEN_STUB_HANDOFF_SUCCESSOR=missing-successor GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2D/gardener.log" 2>&1
+worker_rc=$?
+set -e
+V2D="$T2D/verify"; git clone -q --single-branch --branch journal2 "$BARE2D" "$V2D" 2>/dev/null
+{ [ "$worker_rc" -eq 0 ] \
+  && [ -f "$V2D/jobs/doin/beltjob.md" ] \
+  && [ ! -e "$V2D/jobs/tada/beltjob.md" ] \
+  && grep -q "semantic soft block, left in doin for retry" "$T2D/gardener.log" \
+  && ! grep -q "FATAL: complete-job failed" "$T2D/gardener.log"; } \
+  && ok "complete-job's handoff-unposted rc stayed job-level; worker survived and claim stayed in doin" \
+  || bad "handoff soft rc escaped as worker failure (worker rc=$worker_rc, doin=$([ -f "$V2D/jobs/doin/beltjob.md" ] && echo y || echo n), tada=$([ -e "$V2D/jobs/tada/beltjob.md" ] && echo y || echo n))"
+rm -rf "$T2D"
 
 # ============================================================================
 hr; echo "SUBTEST 3 — (a) handler exits 0 WITHOUT the signal → requeued, NOT tada"; hr

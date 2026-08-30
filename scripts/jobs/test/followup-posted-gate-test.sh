@@ -113,6 +113,18 @@ if "$GATE" pr910-shepherd "$JOB" "$TR/r2b.md"; then
 fi
 echo '   gate correctly blocked an unposted handoff (rc 1)'
 
+echo '== (b3) BLOCK: an unposted handoff with NO Follow-ups section is refused =='
+cat >"$TR/r2c.md" <<'EOF'
+Partial work is complete; the named successor owns the remainder.
+
+<<<GARDEN-JOB-HANDED-OFF: endo-pr910-unposted-no-section>>>
+EOF
+reset_clone
+if "$GATE" pr910-shepherd "$JOB" "$TR/r2c.md"; then
+  fail 'gate did NOT block an absent handoff successor when the report omitted Follow-ups'
+fi
+echo '   gate unconditionally checked the declared handoff and blocked it (rc 1)'
+
 echo '== (c) PASS: an orchestration record also satisfies the handoff =='
 board_put orch pr876-chain-orch
 cat >"$TR/r3.md" <<'EOF'
