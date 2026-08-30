@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-30T09:21:47Z_
+_As of 2026-08-30T09:22:48Z_
 
 ## Latest
 
@@ -1275,11 +1275,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-root-repo-low-inodes-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-low-inodes-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-08-30T04:52:00Z, latest 2026-08-30T08:22:00Z).
-> The SAME condition (`root-repo-low-inodes-endolin-garden2-5bcdff64`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-08-30T04:52:00Z, latest 2026-08-30T09:22:00Z).
+> The SAME condition (`root-repo-low-inodes-endolin-garden2-5bcdff64`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
-> host filesystem inode headroom is CRITICAL: filesystem /dev/nvme0n1p2 mounted at /home/kris/garden2 (the filesystem backing /home/kris/garden2) has 10655860/244121600 free inodes (4.36%), below the 5% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. No automatic deletion was attempted because cleanup must first prove each candidate worktree's job is in jobs/tada and remove it through the owning worktree mechanism. Review completed per-job worktrees and their node_modules, then reclaim a bounded batch and re-check 'df -i /home/kris/garden2'. (host=endolin-garden2-5bcdff64)
+> host filesystem inode headroom is CRITICAL: filesystem /dev/nvme0n1p2 mounted at /home/kris/garden2 (the filesystem backing /home/kris/garden2) has 9396337/244121600 free inodes (3.85%), below the 5% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. No automatic deletion was attempted because cleanup must first prove each candidate worktree's job is in jobs/tada and remove it through the owning worktree mechanism. Review completed per-job worktrees and their node_modules, then reclaim a bounded batch and re-check 'df -i /home/kris/garden2'. (host=endolin-garden2-5bcdff64)
 
 
 ## Spend & quota
@@ -1288,7 +1288,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 4.5M | $86.04 _(notional, rate-card)_ | 89% of 5.0M (backoff) |
-| Codex | 9.5M _(+260.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Codex | 9.5M _(+260.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (86)
