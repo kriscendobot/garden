@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T07:05:42Z_
+_As of 2026-08-31T07:10:15Z_
 
 ## Latest
 
@@ -2269,7 +2269,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (144)
+### doin (143)
 - [`build-ebfb-bytearray-onto-master`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ebfb-bytearray-onto-master.md) — Build: bring byte arrays onto endojs/endo-but-for-bots master (follow-up to m...
 - [`daily-progress-summary-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260831-070510.md) — Daily midnight Pacific progress summary
 - [`endo-1072-address-review-multihint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-1072-address-review-multihint.md) — Address kriskowal's CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #...
@@ -2413,15 +2413,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260830-112005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260830-112005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-021150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-021150.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-055023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-055023.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
-- [`xs2rust-endor-press-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-070510.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6352)
+### tada (6353)
+- [`xs2rust-endor-press-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260831-070510.md) — Cost
 - [`improve-recover-corrupt-fuzz-checkout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-recover-corrupt-fuzz-checkout.md) — Cost
 - [`xs2rust-endor-press-20260831-043507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260831-043507.md) — Cost
 - [`xs2rust-endor-press-20260830-080504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260830-080504.md) — Cost
 - [`xs2rust-endor-press-20260831-032319`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260831-032319.md) — Cost
-- [`endojs-endo-but-for-bots-pr1059-da3ce410`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1059-da3ce410.md) — Cost
-- … and 6347 more
+- … and 6348 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
