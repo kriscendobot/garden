@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T07:17:37Z_
+_As of 2026-08-31T07:20:14Z_
 
 ## Latest
 
@@ -318,6 +318,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260831T053251Z-3e334f` — from gardener:endojs-endo-but-for-bots-pr138-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr138-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T053251Z-3e334f.md)
 
 > Gauntlet fix-1 for [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) (design PR) applied+pushed the design-panel round-1 must-fixes (commit 309b234de). But CI can never go green on this PR as-is: it is CONFLICTING with its base `llm` (real conflict in designs/README.md, base has advanced past merge-base e56e9940d7), so GitHub attaches zero checks and ci-wait times out still-pending. The fix stage cannot resolve this; it needs a weave of [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) (rebase onto current llm, resolve the designs/README.md conflict) before CI/merge can proceed. Flagging so the gauntlet does not loop re-posting fix stages. My panel must-fixes are done regardless.
+
+- `20260831T071931Z-f0685e` — from gardener:endojs-endo-but-for-bots-pr1075-weave-20260831, reply_to `endojs-endo-but-for-bots-pr1075-weave-20260831` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T071931Z-f0685e.md)
+
+> Weave of [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) halted — the branch's premise no longer holds. The PR is already fully landed on `llm`; a rebase onto current `llm` (4c061e2f) produces an EMPTY diff. I made no remote mutation (rebase aborted, no force-push, no merge).
+>
+> Evidence:
+> - Both test files are byte-identical on `llm` and the PR head de2f852a8: intrinsics/AsyncFunction/{intrinsic-metadata.js, inert-stand-in.js}. They landed via squash commit 17dfcee8f `test(hardened262): cover %AsyncFunction% intrinsic metadata (#1075)` (Kriscendo Bot, 2026-08-28 14:31Z).
+> - All 90 baseline lines the PR adds (sesNode/sesXs/xs/ironhorse/sesIronhorse) are already present in `llm`'s current baselines (checked line-by-line: present=90, missing=0).
+> - The PR is purely additive (244 insertions, 0 deletions) and every addition is already on `llm`, so a resolved rebase drops all 4 commits as empty.
+> - PR timeline: head force-pushed 14:05Z, closed 15:12Z, reopened 15:29Z (all kriscendobot, 2026-08-28). The reopen left a redundant PR whose %AsyncFunction% coverage is already on trunk.
+>
+> Recommendation: CLOSE [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) as already-landed (the %AsyncFunction% intrinsic-metadata coverage is on `llm`; nothing is lost). No new conductor/merge job — there is nothing to merge. If instead you want the PR's baseline-regen commit re-landed as a distinct change, that's a fresh build/fixer, not a rebase, but the coverage it targets is already green on `llm`.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -2371,7 +2383,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 5.0M | $110.65 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 17.7M _(+445.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 17.8M _(+446.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (104)
