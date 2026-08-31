@@ -72,10 +72,10 @@ Run the local verify/lint the repo expects before pushing (CI failure = our
 defect). Reply to both review threads noting the resolving commit SHA(s), and
 leave the PR ready for re-review.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=4,4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
