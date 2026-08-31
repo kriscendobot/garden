@@ -23,6 +23,7 @@ You are the FINAL stage of a staged gauntlet (endojs-endo-but-for-bots-pr756-gau
 END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
