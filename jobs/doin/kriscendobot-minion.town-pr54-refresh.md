@@ -28,3 +28,13 @@ Refresh.
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=178,87 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T13:17:40Z
