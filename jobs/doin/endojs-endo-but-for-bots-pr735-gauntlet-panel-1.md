@@ -44,6 +44,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=signature through=2 values=1,3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T22:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
