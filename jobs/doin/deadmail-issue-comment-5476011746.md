@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-547601174
 Refresh title and description 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T09:11:06Z
