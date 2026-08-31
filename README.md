@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T19:41:36Z_
+_As of 2026-08-31T19:50:24Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 37m)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5m)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 47m)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16m)
 - [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 2h)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 2h)
 - [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 1d)
@@ -1978,6 +1978,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
+- `watchdog-budget-level-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 gardener workers 2 -> 1: budget pool anthropic:endolin-garden-ece02cb4 spend=108019249 cap=149000000 high-water=0.85 target=1
+
 - `watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods.md)
 
 > gardener job 'ebfb-exo-stream-drop-base64-stream-methods' declared handler-timeout=14400s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
@@ -2014,7 +2018,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 9.6M | $195.84 _(notional, rate-card)_ | 192% of 5.0M (backoff) |
-| Codex | 28.3M _(+706.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
+| Codex | 28.4M _(+712.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (65)
