@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T05:31:31Z_
+_As of 2026-08-31T05:34:31Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 14s)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 4m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1h)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 1h)
 - [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 1d)
@@ -288,18 +288,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Asked on the issue as issuecomment-5447017458. I'll check later ticks, won't re-nag.
 
-- `20260828T050940Z-395f81` — from gardener:minion-town-press-20260828-050508, reply_to `minion-town-press-20260828-050508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T050940Z-395f81.md)
-
-> minion.town weblet-ocap-synthesis press — reached a maintainer decision point.
->
-> State: units 1-2 ([kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52)), unit 3 / per-guest attenuation ([kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53)), and persistent live @sites serving ([kriscendobot/minion.town#55](https://github.com/kriscendobot/minion.town/issues/55)) have all merged and deployed. The [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) `register(directoryId, owner)` deviation is settled (recorded in design § 9 and already built upon by [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53)) — no question there.
->
-> Remaining § 9 residuals are only cleanup: unit 4 (retire the now-legacy powers resolver + @-prefix/host-shape guards, close code 4012, serve the directory's `back` directly) and unit 5 (legacy-record disposition + § 7 acceptance tests).
->
-> ONE decision I need before pressing those: should the weblet→clip rename ([kriscendobot/minion.town#54](https://github.com/kriscendobot/minion.town/issues/54)) land first, or the § 9 cleanup (units 4-5) first? [kriscendobot/minion.town#54](https://github.com/kriscendobot/minion.town/issues/54) is your mandated rename (844 occurrences / 70 files, renaming the design doc and the public `weblet_*` MCP tools + `WEBLET_*` env vars) and is currently DRAFT + conflicting. If I press units 4-5 now on the `weblet` names, that work collides head-on with the rename and gets rewritten; if the rename should land first, I'd rebase/finish it instead. And relatedly: is retiring the legacy powers resolver (unit 4) wanted now that live serving is deployed and on, or held until the live-daemon path is proven in CI/deploy rather than only against fakes?
->
-> Until you point the way, I'll hold and just check each tick for your reply / new commits rather than invent collide-prone work.
-
 - `20260828T194121Z-59223f` — from gardener:minion-town-press-20260828-193506, reply_to `minion-town-press-20260828-193506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T194121Z-59223f.md)
 
 > minion.town press (off merged [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52)): [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) "docs(weblet): reconcile register-by-id design" is now **ready for your review** (was draft). It rewrites sections 2.2/3.1 + 9 of designs/weblet-ocap-synthesis.md to describe the register(directoryId, owner) boundary that shipped in [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52), was attenuated in [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53), and left serving in [kriscendobot/minion.town#55](https://github.com/kriscendobot/minion.town/issues/55).
@@ -327,48 +315,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > The daily drift-check schedule behind report `fu-minion-town-containment-gateway-endo-sock-1-20260828-032006` is firing against a premise that no longer holds (the minion.town containment-gateway ENDO_SOCK drift it was watching for). Decision needed: retire that schedule, or repurpose it to a still-meaningful check? Until you decide it keeps running daily and reporting on an obsolete premise.
 
-- `20260831T024343Z-fa1087` — from gardener:endojs-endo-but-for-bots-pr536-gauntlet-clean, reply_to `endojs-endo-but-for-bots-pr536-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T024343Z-fa1087.md)
-
-> Gauntlet halted at CLEAN stage for [endojs/endo-but-for-bots#536](https://github.com/endojs/endo-but-for-bots/issues/536)
-> ("designs: redirect README + CLAUDE.md to the garden journal plan").
->
-> The PR's premise is superseded by how `llm` actually evolved, and it is
-> CONFLICTING (no CI can attach), so the gauntlet cannot proceed. Needs a
-> maintainer decision, not a mechanical clean.
->
-> Findings (current llm vs PR head 8ed0321, dated 2026-07-27):
-> - designs/CLAUDE.md: llm replaced it on 2026-07-06 with an 11-byte
->   "@AGENTS.md" redirect. This PR installs a 5.5 KB CLAUDE.md pointing at
->   journal/plan — opposite direction, direct conflict.
-> - designs/README.md: llm keeps it as the authoritative HAND-MAINTAINED
->   roadmap, last edited 2026-08-29 (2 days ago), still adding design entries
->   and "dissolving retired PLAN design-doc references inline". This PR wants
->   to replace the whole roadmap with a generated journal-redirect — the
->   approach llm did not adopt.
-> - mergeable=CONFLICTING / DIRTY; 0 CI checks on the current head (an earlier
->   head 142966b was green on 2026-06-25, but the 2026-07-27 refresh never
->   triggered CI and now conflicts).
->
-> Clean-stage coverage work is a genuine no-op (docs-only PR, no code packages
-> touched, no orphaned dead code).
->
-> Recommendation: close [endojs/endo-but-for-bots#536](https://github.com/endojs/endo-but-for-bots/issues/536) as superseded, OR (if the
-> plan-in-journal redirect is still wanted) re-generate designs/README.md +
-> CLAUDE.md fresh against current llm + current journal records and open a new
-> PR. I did not close or force-resolve it — that's your call.
-
-- `20260831T025218Z-48c50f` — from gardener:endojs-endo-but-for-bots-pr718-gauntlet-clean, reply_to `endojs-endo-but-for-bots-pr718-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T025218Z-48c50f.md)
-
-> Gauntlet CLEAN stage HALTED for [endojs/endo-but-for-bots#718](https://github.com/endojs/endo-but-for-bots/issues/718) — the PR is SUPERSEDED and unmergeable.
->
-> [endojs/endo-but-for-bots#718](https://github.com/endojs/endo-but-for-bots/issues/718) ("design(framing): reflect landed names @endo/cbor-frame / @endo/syrup-frame") edits designs/cbors.md, designs/syrups.md, and designs/ocapn-tcp-syrups-framing.md. All three of those paths NO LONGER EXIST on base `llm` — they were renamed to designs/cbor-frame.md, designs/syrup-frame.md, and designs/ocapn-tcp-syrup-framing.md, which is precisely the reconciliation the PR set out to make. designs/cbor-frame.md on llm is already titled `@endo/cbor-frame`.
->
-> Consequences: PR is mergeable=CONFLICTING / DIRTY; zero CI checks or workflow runs ever attached (GitHub can't build a merge ref), so CLEAN cannot reach green. Head commit is from 2026-07-13, untouched 7 weeks. Coverage pass is a no-op (docs-only, no packages).
->
-> Recommendation: CLOSE [endojs/endo-but-for-bots#718](https://github.com/endojs/endo-but-for-bots/issues/718) as superseded (like the earlier [endojs/endo-but-for-bots#536](https://github.com/endojs/endo-but-for-bots/issues/536) case). One residual nit if you care: designs/syrup-frame.md on llm still carries an H1 of `@endo/syrups` — that would be a fresh tiny fix against the new filename, not this PR's diff.
->
-> Halting the gauntlet (orchestration-failed) rather than driving a dead PR through panel.
-
 - `20260831T032332Z-0647d1` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T032332Z-0647d1.md)
 
 > A garden-follow-up action block was REJECTED and dropped (not retried):
@@ -386,14 +332,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr317-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr317-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
-- `20260831T033209Z-e047d3` — from gauntlet:endojs-endo-but-for-bots-pr536-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T033209Z-e047d3.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr536-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr536-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260831T034009Z-e8db7e` — from gauntlet:endojs-endo-but-for-bots-pr718-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T034009Z-e8db7e.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr718-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr718-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
 - `20260831T034231Z-0a4e7e` — from gauntlet:endojs-endo-but-for-bots-pr855-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T034231Z-0a4e7e.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr855-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr855-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
@@ -405,6 +343,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > BLOCKER: CI can't run. The PR is 2516 commits stale and CONFLICTING with base llm, so GitHub creates no CI runs (structurally blocked, not pending). The conflict is entirely in designs/README.md, whose structure+totals were rewritten wholesale on llm since the PR's May base (milestones renumbered M4→M9, 192 designs, dated rolling-index-refresh model) — the PR's README bookkeeping edits are obsolete and can't be mechanically rebased. The design file itself merges cleanly.
 >
 > I did NOT unilaterally rewrite the public PR history from a fix stage. I posted a weave successor (endojs-endo-but-for-bots-pr237-weave-20260831) that owns rebasing [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237) onto current llm — recommended resolution there is to drop the stale README edits (let the next index refresh pick up the design). Two things for you: (1) this design PR is ~3.5 months old — if you'd rather close it than land it, say so and I'll cancel the weave; (2) the gauntlet will keep re-posting the fix stage on still-pending, which loops until the weave lands — you may want to pause the gauntlet until the weave rebases the base.
+
+- `20260831T053251Z-3e334f` — from gardener:endojs-endo-but-for-bots-pr138-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr138-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T053251Z-3e334f.md)
+
+> Gauntlet fix-1 for [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) (design PR) applied+pushed the design-panel round-1 must-fixes (commit 309b234de). But CI can never go green on this PR as-is: it is CONFLICTING with its base `llm` (real conflict in designs/README.md, base has advanced past merge-base e56e9940d7), so GitHub attaches zero checks and ci-wait times out still-pending. The fix stage cannot resolve this; it needs a weave of [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) (rebase onto current llm, resolve the designs/README.md conflict) before CI/merge can proceed. Flagging so the gauntlet does not loop re-posting fix stages. My panel must-fixes are done regardless.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1165,17 +1107,18 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.0M | $109.11 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 15.4M _(+412.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 5.0M | $110.07 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
+| Codex | 15.5M _(+414.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
-### todo (136)
+### todo (138)
 - [`build-ebfb-bytearray-onto-master`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ebfb-bytearray-onto-master.md) — Build: bring byte arrays onto endojs/endo-but-for-bots master (follow-up to m...
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1016-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1016-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1016
 - [`endojs-endo-but-for-bots-pr231-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr231-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #231
 - [`endojs-endo-but-for-bots-pr237-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr237-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #237
 - [`endojs-endo-but-for-bots-pr241-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr241-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #241
+- [`endojs-endo-but-for-bots-pr249-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr249-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #249
 - [`endojs-endo-but-for-bots-pr264-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr264-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #264
 - [`endojs-endo-but-for-bots-pr266-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr266-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #266
 - [`endojs-endo-but-for-bots-pr300-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr300-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #300
@@ -1298,6 +1241,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-minion.town-pr54-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr54-refresh.md) — refresh directive on kriscendobot/minion.town PR #54
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
+- [`minion-town-weblet-ocap-synthesis-units-4-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-weblet-ocap-synthesis-units-4-5.md) — minion.town § 9 residual cleanup — units 4 and 5, BEFORE the weblet→clip rename
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr910-review-4941452327-base64-cleanup.md) — Remove superfluous ReadableBlob base64 machinery after byte-array work lands
 - [`xs2rust-endor-press-20260830-080504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260830-080504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260830-090504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260830-090504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -1307,7 +1251,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-032319`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-032319.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-043507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-043507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (25)
+### doin (24)
 - [`endo-1072-address-review-multihint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-1072-address-review-multihint.md) — Address kriskowal's CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #...
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr1059-ac4e65b2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-ac4e65b2.md) — attention directive on endojs/endo-but-for-bots PR #1059
@@ -1316,7 +1260,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1087-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1087-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1087
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr138-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr234-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr234-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #234
-- [`endojs-endo-but-for-bots-pr249-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #249
 - [`improve-ci-watcher-host-outage-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-host-outage-dedup.md) — ---
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Fix Ironhorse fuzz finding 05264cccae42245a (target differential_source) and ...
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
