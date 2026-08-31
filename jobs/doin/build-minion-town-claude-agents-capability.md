@@ -11,6 +11,7 @@ Also note in the PR body the design's § Open questions residual: the entitlemen
 Deliver as a draft PR on the fork and run the gauntlet per the usual build flow.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
