@@ -57,6 +57,8 @@ with counts at each step and the commands that produced them.
 
 Selection metadata corrected: the original body set 'tier: builder', an invalid tier value (builder is a ROLE; tier takes mentor/minion). Role is now set explicitly so this job draws the 7200s builder handler budget rather than the 2400s default.
 
+<!-- garden-policy-refusal -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
