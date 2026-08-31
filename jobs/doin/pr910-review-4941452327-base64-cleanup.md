@@ -19,6 +19,7 @@ Before editing, inventory the complete passable/immutable byte-array chain, incl
 
 Once the prerequisite is genuinely landed, remove the now-superfluous base64 machinery around the reviewed location while preserving the public ReadableBlob contract through the landed byte-array path. Use the isolated project worktree keyed by this job base, run all relevant local gates and regression evidence, and open or update exactly one follow-up PR under the fixer/action-followup workflow. Post a completion summary with the PR URL and execution evidence.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
