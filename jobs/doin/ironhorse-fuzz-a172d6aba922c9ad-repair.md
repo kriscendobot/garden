@@ -46,3 +46,13 @@ pull request for fuzz findings.
 <!-- garden-transient-elapsed: kind=signature through=0 values=130 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T07:49:43Z
