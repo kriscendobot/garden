@@ -46,10 +46,10 @@ pull request for fuzz findings.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=2 values=3 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=signature through=3 values=3,99 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
