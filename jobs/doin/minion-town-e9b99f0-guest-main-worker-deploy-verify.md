@@ -9,3 +9,13 @@ Specifically confirm the new bridge does not regress the live `@sites` path: the
 If it rejects (or if publishing fails for any reason after deploy), harden the bridge in `src/endo/gateway/daemon-site-registry.ts` to treat a rejected or non-boolean `has` as "no `@main`" (fall back to `MAIN`), add a regression test with a rejecting `has` double alongside the existing `uses the legacy MAIN worker...` test in `test/gateway/daemon-site-registry.test.ts`, and open a PR on kriscendobot/minion.town.
 If publishing verifies clean, report the observed `has("@main")` result and leave the code as is.
 Do not remove the `MAIN` fallback: that cleanup is blocked on endojs/endo-but-for-bots#982 landing and the deployment pin advancing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T23:26:04Z
