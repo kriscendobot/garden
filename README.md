@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T13:44:54Z_
+_As of 2026-08-31T13:46:13Z_
 
 ## Latest
 
@@ -383,6 +383,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260831T130025Z-d25394` — from gauntlet:endojs-endo-but-for-bots-pr300-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T130025Z-d25394.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr300-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr300-gauntlet-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260831T134537Z-704a93` — from gardener:endojs-endo-but-for-bots-pr322-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr322-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T134537Z-704a93.md)
+
+> Gauntlet FIX round 1 for [endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322) (design(familiar-flatpak-pipeline)) is applied and pushed (head 1fc3996ab), but CI is BLOCKED and cannot go green from a fix round.
+>
+> Why: the PR is mergeable=CONFLICTING / DIRTY against base `llm`. The conflict is in `designs/README.md` and is PRE-EXISTING base drift — the prior head efe14f625 (before my fix) already conflicts, because `llm`'s designs/README.md moved on over the ~3 months since this PR was opened (2026-05-20). GitHub does not run pull_request CI on an unmergeable PR, so zero `test`/`lint` checks attach to my push and none ever will.
+>
+> Recommendation: weave [endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322) (rebase the head onto current `llm`, resolve the designs/README.md index conflict) BEFORE the gauntlet can reach green. Re-posting the fix stage will loop uselessly — the must-fix items are already applied. After the weave, re-run the gauntlet.
+>
+> The panel round-1 must-fix items ARE addressed on the pushed head (socket/xdg-run grant, wiring contradiction, script rename, mermaid arrow, "signed" contradiction, MVR/G-code glosses, speculative finish-args split, release-gating marker, and the copyedits).
 
 - `doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun.md)
 
@@ -4725,9 +4735,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 25.1M _(+608.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 ## Board
-### todo (64)
+### todo (63)
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1013
-- [`endojs-endo-but-for-bots-pr138-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr138-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr231-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr231-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #231
 - [`endojs-endo-but-for-bots-pr241-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr241-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #241
 - [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
@@ -4791,8 +4800,9 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 
-### doin (18)
+### doin (19)
 - [`endojs-endo-but-for-bots-pr1098-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1098-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1098
+- [`endojs-endo-but-for-bots-pr138-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr138-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr237-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr237-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #237
 - [`endojs-endo-but-for-bots-pr264-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr264-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #264
 - [`endojs-endo-but-for-bots-pr322-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr322-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #322
