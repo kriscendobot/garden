@@ -1,0 +1,2 @@
+base: improve-recover-corrupt-fuzz-checkout
+identity: mentor:scripts/jobs/handlers/ironhorse-fuzz-run-gh.sh
