@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T21:47:09Z_
+_As of 2026-08-31T21:50:30Z_
 
 ## Latest
 
@@ -2163,11 +2163,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 10.1M | $202.80 _(notional, rate-card)_ | 201% of 5.0M (backoff) |
-| Codex | 29.6M _(+769.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 94% _(plan; codex-reported)_ |
+| Codex | 29.6M _(+770.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`xs2rust-endor-press-20260831-215012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-215012.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### doin (78)
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
