@@ -64,3 +64,13 @@ Three parts, in order:
 Run the local verify/lint the repo expects before pushing (CI failure = our
 defect). Reply to both review threads noting the resolving commit SHA(s), and
 leave the PR ready for re-review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T18:35:41Z
