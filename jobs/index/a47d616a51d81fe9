@@ -1,2 +1,2 @@
-base: improve-ironhorse-fuzz-serialize-standing-repairs
+base: improve-ironhorse-fuzz-shared-runner-backoff
 identity: mentor:scripts/jobs/ironhorse-fuzz.sh
