@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: target PR endojs/endo-but-for-bots#896 is MERGED and this deferred low-priority retrospective was never worked; cleared in the 2026-08-31 muster plan-queue consolidation (maintainer-authorized). Recoverable here if the review-retrospective lane wants it back.
+withdrawn_by: producer
+withdrawn_at: 2026-08-31T22:01:46Z
+withdrawn_from_gate: deferred
+---
+
+---
 gate: deferred
 priority: low
 role: prosecutor
