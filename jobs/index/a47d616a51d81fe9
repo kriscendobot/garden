@@ -1,2 +1,2 @@
-base: improve-ironhorse-fuzz-shared-runner-backoff
+base: improve-ironhorse-fuzz-shared-setup-outage-latch
 identity: mentor:scripts/jobs/ironhorse-fuzz.sh
