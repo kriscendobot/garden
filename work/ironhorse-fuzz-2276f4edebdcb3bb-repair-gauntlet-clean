@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 4
+worker_kind: monk
+claimed_at: 2026-08-31T14:47:56Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-fuzz-2276f4edebdcb3bb-repair-gauntlet-clean
