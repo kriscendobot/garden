@@ -67,3 +67,13 @@ migration applied and CI green. The build auto-runs the gauntlet
 If reading the release notes reveals the migration is larger than a
 mechanical bump (a real design fork — e.g. the Node-support-window decision),
 open a probe/gap report or escalate to the maintainer rather than guessing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T03:45:55Z
