@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: cleric
-claimed_at: 2026-08-31T23:26:04Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-e9b99f0-guest-main-worker-deploy-verify
-pr_number: 71
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/71
-pr_head: fix/guest-main-has-rejection
