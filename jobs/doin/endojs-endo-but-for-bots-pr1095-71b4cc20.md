@@ -45,3 +45,13 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=320,67 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T04:04:44Z
