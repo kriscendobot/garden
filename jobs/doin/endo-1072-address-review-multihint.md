@@ -57,6 +57,7 @@ The maintainer review text quoted above is the directive to implement (trusted r
 
 If the wire-format change (ordered-list locator hints) turns out to be larger or more contentious than the review implies, land what is unambiguous (Asks 1, 2, and the tcp omit-localhost/ipv6/list behavior) and surface the wire-format question to the maintainer via a PR comment + `message-user.sh` rather than guessing.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=702 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
