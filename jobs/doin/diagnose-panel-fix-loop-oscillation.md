@@ -66,6 +66,7 @@ here is why and here is what would") is acceptable; a guess dressed as a
 conclusion is not.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T22:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
