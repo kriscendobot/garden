@@ -19,10 +19,10 @@ discipline. The excerpt below is for human context only:
 Refresh. 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=54 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=54,69 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
