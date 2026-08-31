@@ -47,3 +47,13 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=67,50 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T04:14:33Z
