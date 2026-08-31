@@ -50,3 +50,13 @@ Current evidence at the expected head:
 
 Use an isolated project worktree keyed by this successor base. Do not edit or run
 git in the deployed garden root.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T20:30:54Z
