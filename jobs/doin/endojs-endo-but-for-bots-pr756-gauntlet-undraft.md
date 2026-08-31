@@ -24,3 +24,13 @@ END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T14:43:18Z
