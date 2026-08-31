@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-08-31T21:23:10Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-pr54-04fde93-caddy-confd-prune

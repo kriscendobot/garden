@@ -12,3 +12,13 @@ Scope:
 - Confirm on the live host whether the stale `weblet-gateway.caddy` is in fact present (SSM Run Command; see DEPLOYMENT.md § Caddy config discipline) and remove it, then `caddy validate` + `systemctl reload caddy`.
 - Check the same never-prunes pattern in the sibling deploy scripts (`deploy-caddy-route53.sh`, `deploy-www.sh`, any other conf.d/asset renderer) and note or fix equivalent orphan-on-rename hazards.
 - Add a regression check if one is cheap; otherwise document the reconcile behavior in DEPLOYMENT.md.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T21:23:10Z
