@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T17:53:44Z_
+_As of 2026-08-31T17:54:30Z_
 
 ## Latest
 
@@ -287,10 +287,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I did NOT unilaterally rewrite the public PR history from a fix stage. I posted a weave successor (endojs-endo-but-for-bots-pr237-weave-20260831) that owns rebasing [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237) onto current llm — recommended resolution there is to drop the stale README edits (let the next index refresh pick up the design). Two things for you: (1) this design PR is ~3.5 months old — if you'd rather close it than land it, say so and I'll cancel the weave; (2) the gauntlet will keep re-posting the fix stage on still-pending, which loops until the weave lands — you may want to pause the gauntlet until the weave rebases the base.
 
-- `20260831T053251Z-3e334f` — from gardener:endojs-endo-but-for-bots-pr138-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr138-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T053251Z-3e334f.md)
-
-> Gauntlet fix-1 for [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) (design PR) applied+pushed the design-panel round-1 must-fixes (commit 309b234de). But CI can never go green on this PR as-is: it is CONFLICTING with its base `llm` (real conflict in designs/README.md, base has advanced past merge-base e56e9940d7), so GitHub attaches zero checks and ci-wait times out still-pending. The fix stage cannot resolve this; it needs a weave of [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) (rebase onto current llm, resolve the designs/README.md conflict) before CI/merge can proceed. Flagging so the gauntlet does not loop re-posting fix stages. My panel must-fixes are done regardless.
-
 - `20260831T071931Z-f0685e` — from gardener:endojs-endo-but-for-bots-pr1075-weave-20260831, reply_to `endojs-endo-but-for-bots-pr1075-weave-20260831` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T071931Z-f0685e.md)
 
 > Weave of [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) halted — the branch's premise no longer holds. The PR is already fully landed on `llm`; a rebase onto current `llm` (4c061e2f) produces an EMPTY diff. I made no remote mutation (rebase aborted, no force-push, no merge).
@@ -302,30 +298,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > - PR timeline: head force-pushed 14:05Z, closed 15:12Z, reopened 15:29Z (all kriscendobot, 2026-08-28). The reopen left a redundant PR whose %AsyncFunction% coverage is already on trunk.
 >
 > Recommendation: CLOSE [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) as already-landed (the %AsyncFunction% intrinsic-metadata coverage is on `llm`; nothing is lost). No new conductor/merge job — there is nothing to merge. If instead you want the PR's baseline-regen commit re-landed as a distinct change, that's a fresh build/fixer, not a rebase, but the coverage it targets is already green on `llm`.
-
-- `20260831T073035Z-91e312` — from gardener:endo-1072-address-review-multihint, reply_to `endo-1072-address-review-multihint` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T073035Z-91e312.md)
-
-> Addressed all four asks on [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/issues/1072) (still DRAFT; pushed d41e3846e, replied on each review thread). One deliberate wire-format judgment call to flag: the maintainer's Ask 4 implies the on-wire OcapnLocation.hints could become a raw ordered array. I kept that OCapN *component* a spec `Record<string,string>` — it's Syrup-SIGNED via @endo/ocapn's dictionary-of-strings locator codec and shared with the tcp-testing-only/websocket netlayers + the Python interop suite, so a true-array codec change is OCapN-wide and out of this PR's scope. The priority-ordered list is carried across it as a positional dictionary (index keys -> dial URLs), and is a genuine ordered list at every layer the review commented on (tcp.js listener + connect + selection). Flagged in-thread and in the changeset; can promote to a first-class list codec later if we want to evolve the OCapN locator serialization itself. Local verify green: @endo/ocapn-noise 63/63, @endo/daemon networks-ocapn 9/9, tsc + eslint clean.
-
-- `20260831T084043Z-57ba8d` — from gardener:endojs-endo-but-for-bots-pr249-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr249-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T084043Z-57ba8d.md)
-
-> Gauntlet FIX round-1 on [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (SES top-level-await DESIGN doc): applied all panel round-1 must-fix items (skeptic/decomplector/copyeditor/novice) plus cheap should-fix items (critic/ergonomist/pedant) and pushed 1eb10a3de to the PR head.
->
-> BLOCKER: CI never turns green because it never *starts*. [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) is mergeStateStatus=DIRTY / mergeable=CONFLICTING against base 'llm', so GitHub attaches ZERO pull_request checks (statusCheckRollup=[]; the prior head 4424f3a96 also had 0 check-runs — pre-existing, not fix-introduced). ci-wait-merge returns rc 4 (empty rollup) indefinitely, so re-posting the fix stage loops with no progress.
->
-> Recommend a weave of [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (rebase the design-doc head onto current llm, resolve the designs/README.md conflict) before the gauntlet continues; only then can CI attach and panel-2 be meaningful. The design-doc content itself is complete and review-ready.
-
-- `20260831T091911Z-32c48c` — from orchestrator:endojs-endo-but-for-bots-pr1083-conduct-build-5064787686-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T091911Z-32c48c.md)
-
-> Orchestration endojs-endo-but-for-bots-pr1083-conduct-build-5064787686 HALTED: child endojs-endo-but-for-bots-pr1083-conduct completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: build-npm-registry-as-directory-tree
-
-- `20260831T094759Z-7f72dc` — from gardener:endojs-endo-but-for-bots-pr249-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr249-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T094759Z-7f72dc.md)
-
-> PR [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (design/ses-top-level-await, endojs/endo-but-for-bots): the fix-round-1 commit (panel round-1 must-fix items: skeptic's importNow-guard-predicate/master-vs-fork-citation fixes, decomplector's async-vs-pending state-model split, copyeditor's glossary/row-count fixes, novice's functor/CycleRoot/bundle-format/diagram-legend fixes) was already applied and pushed to the PR head by a prior attempt (commit 1eb10a3d, pushed 08:26:26Z) before this session started.
->
-> I watched CI to the full 3600s bounded deadline and it never attached ANY checks (statusCheckRollup stayed empty the whole time). Investigated: this isn't new — none of the last 5 commits on this branch since 2026-05-14 (the original CI-green commit f191dd1ae) have triggered a single workflow run, despite the repo's ci.yml/browser-test.yml/depcheck.yml having no path filters that would exclude designs/*.md changes, and other branches (design/ironhorse-panic etc.) triggering fine concurrently. Root cause unclear (no rate-limit/billing/ruleset/disabled-workflow explanation found).
->
-> Reporting still-pending per the job's rc=4 handling; the driver will re-post this stage, but it will likely hit the same empty-rollup wall every time since GitHub simply isn't dispatching workflow runs for this PR/branch. Worth a maintainer look, or GARDEN_CI_ALLOW_NO_CHECKS=1 if this is meant to be a checkless doc PR.
 
 - `20260831T095854Z-3a677d` — from gardener:endojs-endo-but-for-bots-pr138-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr138-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T095854Z-3a677d.md)
 
@@ -351,10 +323,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > kriskowal approved [endojs/endo-but-for-bots#300](https://github.com/endojs/endo-but-for-bots/issues/300) on 2026-08-15, but llm advanced past it via [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796) on 2026-08-23. A mechanical rebase would either regress llm's landed content or reduce the PR to a stale, internally-inconsistent fragment. Recommend CLOSE (superseded) or REGENERATE a fresh status-update against current llm HEAD (655730c9f) reflecting [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796).
 >
 > I applied the panel's copyedit must-fixes to the head (commit b1adc957b, pushed) before discovering the supersession; harmless but moot given the recommendation to close/regenerate. No rebase pushed.
-
-- `20260831T130025Z-d25394` — from gauntlet:endojs-endo-but-for-bots-pr300-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T130025Z-d25394.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr300-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr300-gauntlet-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `20260831T134537Z-704a93` — from gardener:endojs-endo-but-for-bots-pr322-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr322-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T134537Z-704a93.md)
 
@@ -1792,11 +1760,12 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.5M | $190.83 _(notional, rate-card)_ | 191% of 5.0M (backoff) |
-| Codex | 26.5M _(+619.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 9.5M | $191.04 _(notional, rate-card)_ | 191% of 5.0M (backoff) |
+| Codex | 26.5M _(+619.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
-### todo (65)
+### todo (66)
+- [`ebfb-exo-stream-drop-base64-stream-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-exo-stream-drop-base64-stream-methods.md) — Retire streamBase64() from @endo/exo-stream and collapse the bytes surface
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1098-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1098-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr237-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr237-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #237
