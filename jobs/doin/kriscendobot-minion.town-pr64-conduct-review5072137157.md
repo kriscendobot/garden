@@ -12,6 +12,7 @@ Kriskowal approved this bot-repository PR in review 5072137157. The review body 
 
 At dispatch time, `gh pr view` reported head `b7b2b730394f4186ba97d3c6309e0adb6ee8b3ee`, `MERGEABLE` / `CLEAN`, `APPROVED`, draft, and the sole `test (typecheck + vitest)` check completed with `SUCCESS`. Re-fetch current state, apply the conductor role gates, un-draft if still draft, and merge when all gates remain satisfied. The conductor owns merge strategy.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
