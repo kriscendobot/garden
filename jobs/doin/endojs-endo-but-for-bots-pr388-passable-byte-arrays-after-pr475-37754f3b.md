@@ -22,3 +22,13 @@ When https://github.com/endojs/endo-but-for-bots/pull/475 closes, address mainta
 - Run the deterministic pre-push gates and affected package verification, reply to every inline review thread, post the required top-level completion summary, and re-request review only after CI is green.
 
 The source review currently has no inline comments; re-fetch at execution time in case GitHub state has changed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T02:24:07Z
