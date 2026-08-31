@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-31T10:14:40Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-31T10:14:40Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -52,17 +69,3 @@ landed shape (docs hygiene noted by the 2026-08-28 press).
 Units 4 and 5 landed with real-execution evidence (cite commands and output),
 and a comment on the design's tracking surface recording that § 9 cleanup
 preceded the rename so whoever picks up `#54` knows the base moved.
-
-<!-- garden-reaped: 0 -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-31T09:22:02Z
