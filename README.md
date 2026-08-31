@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T05:34:31Z_
+_As of 2026-08-31T05:35:27Z_
 
 ## Latest
 
@@ -25,10 +25,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
 
 > Report `build-exo-google-sheets-facets` ([endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/issues/881), with #874) flags the design's thin follow-on layers `SheetsService` and `SpreadsheetStructure` as still unbuilt, "a natural next job once #874 and this land." Do you want builder jobs posted for those once both PRs merge, or should they wait?
-
-- `20260801T054230Z-416fa8` — from gardener:build-endo-regexp-conservative-subset, reply_to `build-endo-regexp-conservative-subset` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T054230Z-416fa8.md)
-
-> Self-improvement: pre-push-gates SKILL.md names scripts/jobs/gardening/pre-push-gates.sh, but that driver is absent; only probe scripts exist. Local verification passed, and I ran package lint/tests plus the Rust corpus test directly. Please repair or relocate the advertised driver so builders can run the required gate.
 
 - `20260803T024348Z-ebba81` — from gardener:garden-budget-omega, reply_to `garden-budget-omega` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260803T024348Z-ebba81.md)
 
@@ -118,14 +114,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003456Z-bdaa62` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003456Z-bdaa62.md)
 
 > From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
-
-- `20260819T003718Z-8431ee` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003718Z-8431ee.md)
-
-> From report `fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2`: the ollama container image needs a rebuild to actually land commit `d4a40ed9ba`'s invariant — a consequential host op I'm not spawning autonomously.
-
-- `20260819T003747Z-62301d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003747Z-62301d.md)
-
-> From report `fu-qwen-model-watch-20260728-180502-1-20260728-223502`: re-enabling the local-model hermit lane (or any systemd change) is a consequential host op — left to you, with the models-dir option laid out in the report.
 
 - `20260819T003803Z-7d3388` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003803Z-7d3388.md)
 
@@ -256,23 +244,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
 
 > Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260827T225610Z-886dcf` — from gardener:minion-town-mcp-guest-eval-and-remaining-tools, reply_to `minion-town-mcp-guest-eval-and-remaining-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T225610Z-886dcf.md)
-
-> Re: minion.town guest-facet MCP tool inventory (job minion-town-mcp-guest-eval-and-remaining-tools).
->
-> Heads-up — the job's premise looks stale. Digging into kriscendobot/minion.town @ origin/main (f7e00b1), the **guest_eval priority is already fully shipped** in commit 709eafc "feat(endo): add B4 guest facet tools":
->   - guest_eval tool wired (mounts only on an evaluator-granted facet)
->   - guest_list, guest_remove, guest_inbox also landed
->   - the grant-site policy decision is ALREADY the conservative one: config/policy.json grants "guestFacetGrants":["evaluator"] ONLY to the three admin identities (break-glass, your GitHub-federated kriskowal@kriskowal.com, your Google cowbertvonmoo@gmail.com). Every baseline/auto-signup guest gets deny-by-absence. So evaluate is NOT shipped broadly — it's admin/maintainer-only today.
->
-> So you should already be able to guest_eval a JS program as the maintainer, assuming the current policy.json is deployed.
->
-> Two questions:
->   1. Do you approve the existing admin-only evaluator grant as-is (recommend yes — it matches design §5.2/§8-Q4), or do you want it widened/narrowed?
->   2. Given guest_eval is done, the only genuinely-remaining §5.1 surface is: mail write-verbs (request/send/resolve/adopt/dismiss, gated on the X2 long-promise exercise), directory has/lookup, and define/form. I'm checking X2 status now; will report which are actually buildable. Want me to add the cheap JSON-representable ones (e.g. guest_has), or leave the surface where B4 left it?
->
-> Proceeding to investigate; will not ship any policy widening without your explicit sign-off.
 
 - `20260828T005430Z-e0d793` — from gardener:ocapn-cbor-noise-press-20260828-005006, reply_to `ocapn-cbor-noise-press-20260828-005006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T005430Z-e0d793.md)
 
@@ -1107,8 +1078,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.0M | $110.07 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 15.5M _(+414.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 5.0M | $110.65 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
+| Codex | 15.5M _(+415.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (138)
