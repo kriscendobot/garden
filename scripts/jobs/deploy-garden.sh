@@ -91,13 +91,15 @@ GARDEN_TAG="deploy-garden"
 : "${GARDEN_DEPLOY_TEST_SUITE_TIMEOUT:=60}" # max seconds for one candidate test suite
 : "${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT:=300}" # max seconds for the whole candidate gate
 : "${GARDEN_DEPLOY_REPORT_TIMEOUT:=30}"      # max seconds per failure-report sink
-# The two bounded classifier regressions directly protect the failure-reporting
-# helpers that previously let a deleted common.sh helper reach every host unnoticed.
+# These bounded regressions directly protect the failure-reporting helpers that
+# previously let a deleted common.sh helper reach every host unnoticed, plus the
+# provider policy-refusal quarantine/resume path whose regression would otherwise
+# put deterministic policy blocks back onto the retry treadmill.
 # The other classifier integrations deliberately exercise multi-minute reaper
 # timing, so they belong to the full suite rather than this deploy-window tier.
 # Keep the narrowing explicit; a test-only override lets deploy-garden-test.sh
 # supply its tiny hermetic probe without weakening the production default.
-: "${GARDEN_DEPLOY_TEST_SUITES:=scripts/jobs/test/empty-output-classifier-test.sh scripts/jobs/test/signal-kill-classifier-test.sh}"
+: "${GARDEN_DEPLOY_TEST_SUITES:=scripts/jobs/test/empty-output-classifier-test.sh scripts/jobs/test/signal-kill-classifier-test.sh scripts/jobs/test/policy-refusal-quarantine-test.sh scripts/jobs/test/codex-policy-refusal-resume-test.sh}"
 # A gardener already mid-job longer than this (its busy marker's age) is treated as
 # a long job that would not quiesce within the drain budget: the deploy DEFERS
 # rather than pause the fleet over it. Default is half the drain timeout — long

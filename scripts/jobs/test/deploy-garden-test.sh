@@ -92,6 +92,12 @@ hr; echo "STATIC — the scripts parse (bash -n)"; hr
 bash -n "$DEPLOY" && ok "deploy-garden.sh parses" || bad "deploy-garden.sh syntax error"
 bash -n "$JOBS/deploy-restart.sh" && ok "deploy-restart.sh parses" || bad "deploy-restart.sh syntax error"
 bash -n "$JOBS/upgrade-monitor.sh" && ok "upgrade-monitor.sh parses" || bad "upgrade-monitor.sh syntax error"
+grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/policy-refusal-quarantine-test.sh' "$DEPLOY" \
+  && ok "default candidate gate includes policy-refusal quarantine regression" \
+  || bad "default candidate gate omits policy-refusal quarantine regression"
+grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/codex-policy-refusal-resume-test.sh' "$DEPLOY" \
+  && ok "default candidate gate includes Codex policy-refusal resume regression" \
+  || bad "default candidate gate omits Codex policy-refusal resume regression"
 
 # ============================================================================
 hr; echo "CLEAN DEPLOY — quiesced fleet, scripts change: merge + record + lift + restart"; hr
