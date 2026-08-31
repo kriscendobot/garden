@@ -64,3 +64,13 @@ classification behind it, and a recommended remedy proportionate to the cause.
 Cite the runs and the commands. A clear negative result ("cannot distinguish,
 here is why and here is what would") is acceptable; a guess dressed as a
 conclusion is not.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T21:28:18Z
