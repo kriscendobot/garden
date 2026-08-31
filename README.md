@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T21:28:51Z_
+_As of 2026-08-31T21:31:15Z_
 
 ## Latest
 
@@ -2104,11 +2104,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 10.0M | $200.00 _(notional, rate-card)_ | 201% of 5.0M (backoff) |
-| Codex | 29.2M _(+763.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
+| Codex | 29.3M _(+764.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 94% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1097-fix-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-fix-review.md) — Fix PR #1097 per @kriskowal review (CHANGES_REQUESTED)
 
 ### doin (78)
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -2234,7 +2234,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3.md) — _normal_ · Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1075
 - [`endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1078-gauntlet-20260828-fix-2.md) — _normal_ · Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1078
 - [`endojs-endo-but-for-bots-pr1085-b27f483f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1085-b27f483f.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1085
-- [`endojs-endo-but-for-bots-pr1097-fix-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1097-fix-review.md) — _normal_ · Fix PR #1097 per @kriskowal review (CHANGES_REQUESTED)
 - [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr216-review-closeout-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr216-review-closeout-20260827.md) — _normal_ · Close out the remaining maintainer review state on endojs/endo-but-for-bots P...
