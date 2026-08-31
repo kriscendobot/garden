@@ -44,10 +44,10 @@ pull request for fuzz findings.
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=3 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=3,283 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
