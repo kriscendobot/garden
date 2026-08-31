@@ -48,6 +48,7 @@ pull request for fuzz findings.
 <!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=signature through=2 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T17:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
