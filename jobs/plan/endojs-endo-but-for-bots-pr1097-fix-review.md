@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-31T21:04:59Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-31T21:04:59Z
+---
+
+---
 role: fixer
 tier: mentor
 fallback-tier: minion
@@ -64,15 +82,3 @@ Three parts, in order:
 Run the local verify/lint the repo expects before pushing (CI failure = our
 defect). Reply to both review threads noting the resolving commit SHA(s), and
 leave the PR ready for re-review.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-31T18:35:41Z
