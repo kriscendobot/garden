@@ -17,3 +17,13 @@ Do:
 4. Report which external references to the old `weblet_*` tool names still exist (docs, e2e recipes, garden-side notes) so they can be updated.
 
 This is verification and reconciliation, not a re-rename: do not touch the frozen literals.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T21:23:14Z
