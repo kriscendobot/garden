@@ -55,6 +55,8 @@ preceded the rename so whoever picks up `#54` knows the base moved.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
