@@ -52,6 +52,7 @@ pull request for fuzz findings.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
