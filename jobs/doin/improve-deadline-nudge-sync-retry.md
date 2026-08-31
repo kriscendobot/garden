@@ -7,6 +7,7 @@ scripts/jobs/deadline-nudge.sh
 Harden clone and journal-sync failures with bounded retries and stage-specific diagnostics before falling back to the next timer tick. The same opaque local rc=1 recurred across consecutive minutes, so retrying only push races does not recover or identify the failing prerequisite.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T07:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
