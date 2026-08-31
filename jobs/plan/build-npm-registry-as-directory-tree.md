@@ -22,3 +22,7 @@ After the design PR is merged into llm, implement the approved design in full. R
 Open the implementation as a draft PR from the bot fork against llm, run the repository-local verification required by the builder role, and report the PR URL and exact executed evidence. Do not mutate or merge endojs/endo upstream.
 
 Source authorization: maintainer @kriskowal approved PR 1083 and directed, "Conduct and build this" in review 5064787686.
+
+<!-- garden-annotation: key=superseded-by-review5064787686-r2 by=gardener at=2026-08-31T09:21:38Z -->
+
+Superseded before execution by recovery child build-npm-registry-as-directory-tree-review5064787686-r2 under orchestration endojs-endo-but-for-bots-pr1083-resolve-conduct-build-5064787686-r2 because the original orchestration halted on the first conductor conflict. Do not promote this stale child.
