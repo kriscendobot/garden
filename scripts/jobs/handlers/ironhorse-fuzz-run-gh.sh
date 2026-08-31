@@ -82,7 +82,41 @@ provision_project() {
   return 0
 }
 
-if ! provision_project; then
+git_object_corruption_reported() {
+  local diagnostic="$1"
+  grep -Eiq \
+    'pack has unresolved deltas|pack checksum mismatch|packfile .* (is corrupt|does not match index)|object file .* is empty|object file .* is corrupt|loose object .* is corrupt|corrupt (loose )?object|bad (object|tree object)|invalid object [0-9a-f]+|unable to read sha1 file' \
+    "$diagnostic"
+}
+
+provision_err="$(mktemp "${TMPDIR:-/tmp}/garden-ironhorse-provision.XXXXXX")"
+trap 'rm -f "$provision_err"' EXIT
+
+provision_once() {
+  : > "$provision_err"
+  local rc=0
+  provision_project 2> "$provision_err" || rc=$?
+  [ ! -s "$provision_err" ] || cat "$provision_err" >&2
+  return "$rc"
+}
+
+if provision_once; then
+  :
+elif git_object_corruption_reported "$provision_err"; then
+  quarantine="${PROJ}.corrupt-$(date -u +%Y%m%dT%H%M%SZ)-$$"
+  log "WARN: Git object corruption detected while refreshing the fuzz checkout; quarantining $PROJ and retrying once"
+  if [ -e "$PROJ" ] || [ -L "$PROJ" ]; then
+    if ! mv -- "$PROJ" "$quarantine"; then
+      log "WARN: could not quarantine corrupt fuzz checkout at $PROJ"
+      exit 2
+    fi
+    log "quarantined corrupt fuzz checkout at $quarantine"
+  fi
+  if ! provision_once; then
+    log "WARN: could not recreate the pinned project checkout for $GARDEN_IRONHORSE_FUZZ_REPO@$GARDEN_IRONHORSE_FUZZ_BASE_BRANCH after corruption recovery"
+    exit 2
+  fi
+else
   log "WARN: could not provision the pinned project checkout for $GARDEN_IRONHORSE_FUZZ_REPO@$GARDEN_IRONHORSE_FUZZ_BASE_BRANCH"
   exit 2
 fi

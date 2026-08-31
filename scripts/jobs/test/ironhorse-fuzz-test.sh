@@ -21,6 +21,7 @@
 #   L. failed release — the durable marker remains queued and a later tick retries it
 #   M. shared runner outage — one rc=2 stops fan-out, warns once, and persists a bounded cooldown
 #   N. runner exit contract — a target run's own rc=2 is remapped to target-specific rc=1
+#   O. corrupt checkout recovery — quarantine only the project cache and retry provisioning once
 #
 # Usage: ironhorse-fuzz-test.sh
 set -euo pipefail
@@ -359,6 +360,56 @@ env HOME="$TR/home-n" GARDEN_TEST=1 GARDEN_STATE="$TR/state-n" GARDEN_ROOT="$TR/
 [ "$rc_n" -eq 1 ] \
   && ok "target cargo rc=2 is remapped to target-specific rc=1" \
   || { bad "target cargo rc=2 escaped as rc=$rc_n"; cat "$TR/runner-n.log"; }
+
+# ============================================================================
+hr; echo "O — corrupt checkout recovery quarantines only the disposable project cache"; hr
+PROJ_O="$TR/project-o"; ORIGIN_O="$TR/project-o.git"; SEED_O="$TR/project-seed-o"
+git init -q --bare "$ORIGIN_O"
+git init -q "$SEED_O"; git -C "$SEED_O" checkout -q -b llm
+mkdir -p "$SEED_O/rust/engine/ironhorse-fuzz/fuzz"
+touch "$SEED_O/rust/engine/ironhorse-fuzz/fuzz/.gitkeep"
+git -C "$SEED_O" add -A; git -C "$SEED_O" "${git_id[@]}" commit -q -m seed
+git -C "$SEED_O" remote add origin "$ORIGIN_O"; git -C "$SEED_O" push -q -u origin llm
+git clone -q --single-branch --branch llm "$ORIGIN_O" "$PROJ_O"
+ROOT_O="$TR/root-o"; mkdir -p "$ROOT_O/worktrees"
+ln -s "$ORIGIN_O" "$ROOT_O/worktrees/endojs-endo-but-for-bots.git"
+FAKEBIN_O="$TR/fakebin-o"; mkdir -p "$FAKEBIN_O"
+FETCH_COUNT_O="$TR/fetch-count-o"
+FAKEGIT_O="$FAKEBIN_O/git"
+printf '%s\n' \
+  '#!/bin/bash' \
+  'real_git=/usr/bin/git' \
+  'if [ "${3:-}" = fetch ]; then' \
+  '  n=0; [ ! -f "$FETCH_COUNT_O" ] || n="$(cat "$FETCH_COUNT_O")"' \
+  '  n=$((n + 1)); printf "%s\n" "$n" > "$FETCH_COUNT_O"' \
+  '  if [ "$n" -eq 1 ]; then echo "fatal: pack has unresolved deltas" >&2; exit 128; fi' \
+  '  exec "$real_git" -C "$2" fetch --quiet "$ORIGIN_O" llm' \
+  'fi' \
+  'exec "$real_git" "$@"' > "$FAKEGIT_O"
+chmod +x "$FAKEGIT_O"
+FAKECARGO_O="$FAKEBIN_O/cargo"
+printf '%s\n' '#!/bin/bash' 'exit 0' > "$FAKECARGO_O"; chmod +x "$FAKECARGO_O"
+STATE_O="$TR/state-o"; mkdir -p "$STATE_O/ihf/corpus"
+printf 'persistent-corpus' > "$STATE_O/ihf/corpus/sentinel"
+rc_o=0
+env HOME="$TR/home-n" GARDEN_TEST=1 GARDEN_STATE="$STATE_O" GARDEN_ROOT="$ROOT_O" \
+  GARDEN_IRONHORSE_FUZZ_STATE="$STATE_O/ihf" \
+  GARDEN_IRONHORSE_FUZZ_PROJECT_DIR="$PROJ_O" \
+  GARDEN_IRONHORSE_FUZZ_SUBMODULE=. PATH="$FAKEBIN_O:$PATH" \
+  FETCH_COUNT_O="$FETCH_COUNT_O" ORIGIN_O="$ORIGIN_O" \
+  "$JOBS/handlers/ironhorse-fuzz-run-gh.sh" parser "$STATE_O/ihf/corpus/parser" "$TR/arts-o" 1 \
+  >"$TR/runner-o.log" 2>&1 || rc_o=$?
+quarantine_o="$(find "$TR" -maxdepth 1 -type d -name 'project-o.corrupt-*' -print -quit)"
+[ "$rc_o" -eq 0 ] && [ "$(cat "$FETCH_COUNT_O")" -eq 2 ] && [ -d "$PROJ_O/.git" ] \
+  && [ -n "$quarantine_o" ] && [ -d "$quarantine_o/.git" ] \
+  && ok "object-corruption signature quarantines the checkout and retries provisioning exactly once" \
+  || { bad "corruption recovery failed (rc=$rc_o fetches=$(cat "$FETCH_COUNT_O" 2>/dev/null || echo 0) quarantine=$quarantine_o)"; cat "$TR/runner-o.log"; }
+[ "$(cat "$STATE_O/ihf/corpus/sentinel")" = persistent-corpus ] \
+  && ok "corruption recovery preserves the persistent corpus outside the project cache" \
+  || bad "corruption recovery touched the persistent corpus"
+grep -q 'Git object corruption detected' "$TR/runner-o.log" \
+  && ok "corruption recovery is diagnosed in the runner log" \
+  || bad "corruption recovery did not log its diagnosis"
 
 # ============================================================================
 hr
