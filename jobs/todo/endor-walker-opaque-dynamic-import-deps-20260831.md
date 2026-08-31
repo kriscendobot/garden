@@ -21,13 +21,5 @@ passed 5/5 but printed `31 exercised / 1 pending / 8 durable`; the sole pending 
 Local build setup requires `git submodule update --init c/moddable` plus gitignored empty `rust/endo/xsnap/src/{ses_boot,worker_bootstrap,daemon_bootstrap}.js` stubs when generated bundles are absent. Never commit those build-only inputs.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=5988 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-31T18:58:51Z
+
+<!-- garden-reaped: 1 -->
