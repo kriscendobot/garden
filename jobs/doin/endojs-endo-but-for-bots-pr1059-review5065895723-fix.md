@@ -18,3 +18,13 @@ Use the fixer workflow and an isolated project worktree. Implement every valid,
 actionable finding, preserve any justified behavior with concrete evidence, run
 the applicable real-execution gates, and push with rebase CAS discipline. Post
 the required top-level completion summary with addressing SHAs and verification.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T11:42:18Z
