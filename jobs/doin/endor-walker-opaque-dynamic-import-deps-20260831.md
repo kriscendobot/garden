@@ -23,3 +23,13 @@ Local build setup requires `git submodule update --init c/moddable` plus gitigno
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=5988 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T20:50:50Z
