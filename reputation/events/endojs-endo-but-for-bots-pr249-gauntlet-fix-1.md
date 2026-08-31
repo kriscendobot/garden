@@ -7,17 +7,17 @@ thoughtfulness: medium
 work_class: gardener:m
 target: main2
 accepted: true
-agentic_dollars: 6.277734
+agentic_dollars: 7.270170
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.258060
-attempts: 1
-duration_secs: 3740
+estimated_dollars: 0.069138
+attempts: 2
+duration_secs: 1002
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/monk-4
-recorded_at: 2026-08-31T09:48:21Z
+recorded_by: endolin-garden-ece02cb4/monk-2
+recorded_at: 2026-08-31T12:32:30Z
 ---
 reputation event for endojs-endo-but-for-bots-pr249-gauntlet-fix-1: arm anthropic/claude-default/medium work_class gardener:m target main2 accepted true
