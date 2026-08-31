@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":53,"elapsed_s":616,"input_tokens":104,"output_tokens":33709,"cache_creation_tokens":105931,"cache_read_tokens":4206403,"total_cost_usd":4.009404499999999,"ts":"2026-08-31T03:18:57Z","base":"ironhorse-fuzz-6fec81f3b42a99c1-repair","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder","provider":"anthropic"}
