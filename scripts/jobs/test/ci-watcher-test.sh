@@ -536,8 +536,8 @@ hr; echo "R — journal-outage latch dedups the stale-shepherd 'fetch failed' WA
 # emit an indistinguishable "journal fetch failed" WARN. A HOST-SCOPED edge latch
 # (shared GARDEN_STATE, NOT keyed by slug) collapses them: the first sweep to hit the
 # outage warns loud + arms the latch; later sweeps (any repo, sharing the host state)
-# log a quiet deduped line; the first sweep to see the journal reachable clears the
-# latch and emits one recovery notice. Simulate the outage with a failing
+# say nothing; the first sweep to see the journal reachable clears the latch and
+# emits one recovery notice. Simulate the outage with a failing
 # GARDEN_FETCH_CMD (the journal_fetch seam); an empty PR fixture means the sweep's
 # verify_fetch is the tick's only journal fetch. The shared host state is ONE
 # GARDEN_STATE dir reused across the (differently-slugged) runs.
@@ -563,12 +563,11 @@ run_ci_outage() {  # run_ci_outage <slug> <errfile> [FETCH_CMD]
 }
 # Run 1 — outage, first watcher: loud WARN + latch armed.
 run_ci_outage "$SLUG" "$TR/r1.err" "$FETCH_FAIL"
-grep -qi 'host outage latch armed' "$TR/r1.err" && ok "first outage tick warns loud and arms the latch" || bad "no armed WARN ($(cat "$TR/r1.err"))"
+grep -qi 'host outage episode opened' "$TR/r1.err" && ok "first outage tick warns loud and arms the latch" || bad "no armed WARN ($(cat "$TR/r1.err"))"
 [ -d "$STATE_R/ci-watcher/journal-outage" ] && ok "host-scoped latch marker created" || bad "latch marker not created"
-# Run 2 — same outage, a DIFFERENT repo's watcher sharing the host state: deduped.
+# Run 2 — same outage, a DIFFERENT repo's watcher sharing the host state: silent.
 run_ci_outage "kriscendobot-somefork" "$TR/r2.err" "$FETCH_FAIL"
-grep -qi 'warning deduped' "$TR/r2.err" && ok "second outage tick (another repo) logs the deduped line" || bad "no deduped line ($(cat "$TR/r2.err"))"
-! grep -qi 'host outage latch armed' "$TR/r2.err" && ok "second tick does NOT re-emit the loud armed WARN" || bad "loud WARN re-emitted during the same episode"
+! grep -qi 'journal fetch failed' "$TR/r2.err" && ok "second outage tick (another repo) is silent" || bad "duplicate outage message emitted ($(cat "$TR/r2.err"))"
 # Run 3 — journal reachable again (no failing FETCH_CMD): recovery notice + latch cleared.
 run_ci_outage "$SLUG" "$TR/r3.err" ""
 grep -qi 'journal reachable again' "$TR/r3.err" && ok "recovery tick emits the recovery notice" || bad "no recovery notice ($(cat "$TR/r3.err"))"
@@ -576,6 +575,30 @@ grep -qi 'journal reachable again' "$TR/r3.err" && ok "recovery tick emits the r
 # Run 4 — still healthy: no spurious recovery notice, no re-arm (latch stays clear).
 run_ci_outage "$SLUG" "$TR/r4.err" ""
 ! grep -qi 'journal reachable again' "$TR/r4.err" && ok "no spurious recovery notice when no episode was open" || bad "recovery notice fired with no outage latched"
+
+# Run 5 — simultaneous per-repo failures share one atomic transition. The old
+# sequential test could not catch a check/create race between service instances.
+rm -rf "$STATE_R/ci-watcher/journal-outage"
+for n in 1 2 3 4 5 6; do
+  run_ci_outage "kriscendobot-race$n" "$TR/r5-$n.err" "$FETCH_FAIL" &
+done
+wait
+[ "$(grep -hil 'host outage episode opened' "$TR"/r5-*.err | wc -l)" -eq 1 ] \
+  && ok "six concurrent repo watchers emit exactly one outage warning" \
+  || bad "concurrent outage emitted $(grep -hil 'host outage episode opened' "$TR"/r5-*.err | wc -l) warnings"
+[ "$(grep -hil 'journal fetch failed' "$TR"/r5-*.err | wc -l)" -eq 1 ] \
+  && ok "concurrent duplicate outage observations are silent" \
+  || bad "concurrent outage emitted extra messages"
+
+# Run 6 — simultaneous successful fetches likewise share one close transition.
+for n in 1 2 3 4 5 6; do
+  run_ci_outage "kriscendobot-race$n" "$TR/r6-$n.err" "" &
+done
+wait
+[ "$(grep -hil 'journal reachable again' "$TR"/r6-*.err | wc -l)" -eq 1 ] \
+  && ok "six concurrent repo watchers emit exactly one recovery notice" \
+  || bad "concurrent recovery emitted $(grep -hil 'journal reachable again' "$TR"/r6-*.err | wc -l) notices"
+[ ! -d "$STATE_R/ci-watcher/journal-outage" ] && ok "concurrent recovery leaves the latch clear" || bad "concurrent recovery left latch armed"
 
 # ============================================================================
 hr
