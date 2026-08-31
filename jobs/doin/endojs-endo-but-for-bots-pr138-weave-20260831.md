@@ -53,3 +53,13 @@ content itself is still wanted.
 The gauntlet's fix-round-1 stage is reporting `fix=still-pending` and
 handing off to this weave job rather than looping fix rounds against an
 unrebasable head.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T12:46:14Z
