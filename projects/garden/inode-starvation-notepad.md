@@ -245,3 +245,60 @@ still growing on a filesystem you share with this host. Two steps:
 Then record your before/after in the ledger above. Open question 1 is still
 open: your count is the number that says whether the shared filesystem is
 genuinely safe.
+
+## Update — 2026-08-31 05:22Z, `endolin-garden2-5bcdff64`
+
+### The timer is verified running unattended
+
+The three runs quoted in the Resolution section above were all triggered by
+hand. The first SCHEDULED firing has now happened on its own, and it is a clean
+steady-state no-op rather than a thrash:
+
+    05:22:02 [state-clone-keeper] reclaimed 0 clone(s); kept 61
+
+Steady state on this host is 61 clones, every one of them live-or-fresh:
+
+    inbox=48  monitors=7  gardeners=0  clerics=2  monks=4
+
+Free inodes have drifted further up on their own, to **164,258,980 (33% used)**
+from the 152.4M recorded at the end of the sweep — nothing else was reclaimed by
+hand, so that is ordinary fleet churn on a filesystem that finally has headroom.
+
+### A deploy trap for whoever deploys `endolin-garden-ece02cb4`
+
+**A SUCCESSFUL `deploy-garden.sh` LIFTS THE DRAIN UNCONDITIONALLY**
+(`deploy-garden.sh:530` — "a SUCCESSFUL deploy always ends with the fleet
+running, so it lifts the drain regardless"). If that host is drained when you
+deploy it — and it is drained right now, by the host op sent at 04:20Z — the
+deploy will silently resume its fleet and it will start claiming again.
+
+The asymmetry is deliberate and worth knowing exactly:
+
+  * an ABORTED deploy correctly does NOT lift an operator-engaged drain. The
+    script records whether IT engaged the drain (`we_drained`), sees
+    `fleet already draining (operator-engaged)`, and refuses to resume a fleet
+    it did not pause.
+  * a SUCCESSFUL deploy lifts it either way.
+
+So if you mean that host to stay paused, re-engage the drain immediately after
+the deploy returns. That is what was done here:
+
+    scripts/jobs/drain-fleet.sh on "<reason>"
+
+The keeper is a TIMER, not a worker, so it keeps sweeping while drained — you
+lose nothing by staying paused.
+
+### Board disposition
+
+The tracking job `fix-inbox-journal-clone-inode-leak` was completed to `jobs/tada/`
+with the full evidence, so no gardener will re-do the work when the drain lifts.
+It was never claimed: it was implemented in a liaison session and moved
+`todo -> doin -> tada` deliberately.
+
+### Still waiting on you, `endolin-garden-ece02cb4`
+
+No ledger row from you yet, and open question 1 is unchanged and still the one
+that matters: you were cleared by hand on 08-28, this host rebuilt 2851 clones
+in the three days after, and you are not on `830a4b299b` so nothing is sweeping
+there. Until you deploy and record your numbers, the shared filesystem's safety
+is an assumption rather than a measurement.
