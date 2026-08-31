@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: cleric
 claimed_at: 2026-08-31T17:56:15Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-exo-stream-drop-base64-stream-methods
+pr_number: 1100
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1100
+pr_head: kriscendobot-exo-stream-drop-base64
