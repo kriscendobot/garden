@@ -1,11 +1,29 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: policy-refusal
+doom_count: 1
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-31T06:34:20Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-31T06:34:20Z
+---
+
+---
 role: builder
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
 
-# Fix Ironhorse fuzz finding ad5b483fc5e0973f (target `differential_regexp_surface`) and amend the standing PR
+# Fix Ironhorse fuzz finding bc9529ac5818aa24 (target `differential_regexp_surface`) and amend the standing PR
 
 The continuous Ironhorse fuzz service reproduced a distinct crash. Own BOTH a
 load-bearing regression case AND the causal fix, then amend the ONE standing
@@ -16,9 +34,9 @@ pull request for fuzz findings.
 - Target: `differential_regexp_surface` (one of the maintained ironhorse-fuzz targets)
 - Project SHA under fuzz: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
 - Toolchain: `nightly-2026-08-15`
-- Minimized input sha256: `2cb19c84bdd3ba49bc1ac5004946f79f7c2757a5787b2153019a58cd7012a48e` (5 bytes)
-- Durable artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/ad5b483fc5e0973f/input.bin`
-- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/ad5b483fc5e0973f.md`
+- Minimized input sha256: `c4b0b8c2b5ccf49a2608eab08cc79e770fbe892697379f8a91d99f49e11b12e4` (11 bytes)
+- Durable artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/bc9529ac5818aa24/input.bin`
+- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/bc9529ac5818aa24.md`
 - Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp_surface <input> -- -runs=1`
 
 ## Procedure
@@ -26,7 +44,7 @@ pull request for fuzz findings.
 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
 2. Recover the minimized input to a FILE without inlining it into any prompt:
    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
-   durable artifact path above. Verify `sha256sum` equals `2cb19c84bdd3ba49bc1ac5004946f79f7c2757a5787b2153019a58cd7012a48e`.
+   durable artifact path above. Verify `sha256sum` equals `c4b0b8c2b5ccf49a2608eab08cc79e770fbe892697379f8a91d99f49e11b12e4`.
 3. Set up the pinned fuzz env (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
    see the ironhorse-fuzz-build-setup runbook) and REPRODUCE the crash from that file
    before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
@@ -39,18 +57,6 @@ pull request for fuzz findings.
    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
    and run its required gauntlet.
-7. Document THIS case and its solution in the standing PR body or a PR comment (finding ad5b483fc5e0973f).
+7. Document THIS case and its solution in the standing PR body or a PR comment (finding bc9529ac5818aa24).
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
-
-<!-- garden-policy-refusal -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-31T06:26:57Z
