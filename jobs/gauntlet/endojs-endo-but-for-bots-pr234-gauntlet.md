@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 234
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr234-gauntlet-panel-2
+current_child: endojs-endo-but-for-bots-pr234-gauntlet-undraft
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-08-30T06:51:51Z
