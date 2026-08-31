@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1083-resolve-conduct-build-5064787686-r2
-priority: high
 role: builder
-posted_by: gardener
-posted_at: 2026-08-31T09:21:43Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-08-31T09:43:04Z cleared=none -->
 
 ---
 tier: mentor
