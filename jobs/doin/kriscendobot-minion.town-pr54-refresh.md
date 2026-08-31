@@ -26,3 +26,13 @@ Refresh.
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=69,178 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-31T13:02:15Z
