@@ -24,10 +24,10 @@ END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=3 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=3,2 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
