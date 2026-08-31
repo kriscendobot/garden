@@ -60,3 +60,13 @@ If the wire-format change (ordered-list locator hints) turns out to be larger or
 <!-- garden-transient-elapsed: kind=signature through=0 values=702 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T07:14:53Z
