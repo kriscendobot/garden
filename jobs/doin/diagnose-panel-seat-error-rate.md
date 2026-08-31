@@ -63,3 +63,13 @@ which. If you cannot establish it, report what you ruled OUT and what evidence
 would settle it — a well-bounded negative result is a good outcome here and much
 more useful than a guess. Only implement a fix if the cause is established and
 the fix is small; otherwise propose it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T21:27:34Z
