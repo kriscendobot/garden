@@ -1,0 +1,2 @@
+base: improve-deadline-nudge-sync-retry
+identity: mentor:scripts/jobs/deadline-nudge.sh
