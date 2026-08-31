@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":2,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-08-31T06:35:31Z","base":"ironhorse-fuzz-c99f800f6a36e8a6-repair","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"builder","provider":"anthropic"}
