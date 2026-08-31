@@ -56,3 +56,13 @@ State plainly whether the escape fix is confirmed running in prod, since that is
 the question the maintainer actually needs answered. If it is NOT confirmed
 running, say so prominently and do not paper over it; that is a
 security-relevant negative result and more valuable than a clean-looking report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T14:19:09Z
