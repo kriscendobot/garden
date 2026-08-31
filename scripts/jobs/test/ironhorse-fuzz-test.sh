@@ -19,7 +19,7 @@
 #   J. first-run init — standing.md is created on a virgin journal
 #   K. untrusted-data — raw crash bytes never appear in the repair job body (only sha256 + base64 + path)
 #   L. failed release — the durable marker remains queued and a later tick retries it
-#   M. shared runner outage — one rc=2 stops fan-out, warns once, and persists a bounded cooldown
+#   M. shared runner outage — retries persist one episode, warn on its edge, and summarize recovery once
 #   N. runner exit contract — a target run's own rc=2 is remapped to target-specific rc=1
 #   O. corrupt checkout recovery — quarantine only the project cache and retry provisioning once
 #
@@ -111,6 +111,7 @@ mk_stubs() {
 # runner <target> <corpus-dir> <artifacts-dir> <seconds>
 target="$1"; arts="$3"
 printf '%s\n' "$target" >> "${STUB_RUN_LOG:-/dev/null}"
+[ -z "${STUB_RUN_DIAGNOSTIC:-}" ] || printf '%s\n' "$STUB_RUN_DIAGNOSTIC"
 [ "${STUB_RUN_RC:-0}" = 0 ] || exit "$STUB_RUN_RC"
 src="$STUB_SEED_ROOT/$target"
 dropped=0
@@ -304,12 +305,12 @@ board_has "$BARE_L" "ironhorse-fuzz-${fid_l}-repair" \
   || { bad "later tick did not retry the queued repair"; cat "$TR/last.log"; }
 
 # ============================================================================
-hr; echo "M — shared runner outage stops fan-out and persists a bounded cooldown"; hr
+hr; echo "M — shared runner outage is a durable, edge-triggered episode"; hr
 BARE_M="$TR/m.git"; seed_bare "$BARE_M"
 SEED_M="$TR/seed-m"; mkdir -p "$SEED_M"
 RUN_LOG_M="$TR/m-runs.log"
 run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=2 STUB_RUN_LOG="$RUN_LOG_M" \
-  GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS=99999
+  STUB_RUN_DIAGNOSTIC='first setup failure detail' GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS=99999
 [ "$(wc -l < "$RUN_LOG_M")" -eq 1 ] \
   && ok "first shared rc=2 skips every remaining target" \
   || bad "shared outage invoked $(wc -l < "$RUN_LOG_M") runners instead of one"
@@ -320,6 +321,11 @@ now="$(date +%s)"; retry_after="$(sed -n 's/^retry_after: *//p' "$cooldown")"
 [ -s "$cooldown" ] && [ "$retry_after" -gt "$now" ] && [ "$retry_after" -le $((now + 3600)) ] \
   && ok "shared retry cooldown persisted and was clamped to one hour" \
   || bad "shared retry cooldown missing or outside its bound"
+started_at="$(sed -n 's/^started_at: *//p' "$cooldown")"
+grep -q '^consecutive_failures: 1$' "$cooldown" \
+  && grep -q 'first setup failure detail' "$TR/state-m/ihf/logs/shared-runner-outage.log" \
+  && ok "outage latch records its start, failure count, and bounded diagnostic snapshot" \
+  || bad "outage episode metadata or diagnostics were not persisted"
 run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=2 STUB_RUN_LOG="$RUN_LOG_M"
 [ "$(wc -l < "$RUN_LOG_M")" -eq 1 ] \
   && ok "active cooldown invokes no runner" || bad "active cooldown retried a runner"
@@ -327,13 +333,29 @@ grep -q 'shared runner cooldown active' "$TR/last.log" \
   && ! grep -q 'WARN: shared fuzz campaign setup unavailable' "$TR/last.log" \
   && ok "cooldown tick is quiet apart from one status line" \
   || bad "cooldown tick repeated the outage warning"
-printf 'recorded_at: 1\nretry_after: 2\nfailed_target: parser\n' > "$cooldown"
+sed -i 's/^retry_after:.*/retry_after: 2/' "$cooldown"
 run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=2 STUB_RUN_LOG="$RUN_LOG_M" \
-  GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS=1
+  STUB_RUN_DIAGNOSTIC='second setup failure detail' GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS=1
 [ "$(wc -l < "$RUN_LOG_M")" -eq 2 ] \
-  && grep -q 'WARN: shared fuzz campaign setup unavailable' "$TR/last.log" \
-  && ok "expired cooldown permits one bounded retry" \
+  && ! grep -q 'WARN: shared fuzz campaign setup unavailable' "$TR/last.log" \
+  && grep -q 'consecutive failure #2' "$TR/last.log" \
+  && grep -q '^consecutive_failures: 2$' "$cooldown" \
+  && grep -q "^started_at: $started_at$" "$cooldown" \
+  && grep -q 'second setup failure detail' "$TR/state-m/ihf/logs/shared-runner-outage.log" \
+  && ok "expired cooldown retries once, retains the episode, and does not repeat the warning" \
   || bad "expired cooldown did not re-arm the shared setup probe"
+sed -i 's/^retry_after:.*/retry_after: 2/' "$cooldown"
+run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=0 STUB_RUN_LOG="$RUN_LOG_M"
+[ ! -e "$cooldown" ] \
+  && [ "$(grep -c 'shared fuzz campaign setup recovered' "$TR/last.log" || true)" -eq 1 ] \
+  && grep -q '2 consecutive rc=2 failure(s)' "$TR/last.log" \
+  && grep -q 'second setup failure detail' "$TR/state-m/ihf/logs/shared-runner-outage.log" \
+  && ok "first successful probe clears the latch and emits one duration/count recovery summary" \
+  || bad "shared outage recovery did not clear and summarize exactly once"
+run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=0 STUB_RUN_LOG="$RUN_LOG_M"
+[ "$(grep -c 'shared fuzz campaign setup recovered' "$TR/last.log" || true)" -eq 0 ] \
+  && ok "later healthy ticks emit no duplicate recovery summary" \
+  || bad "healthy tick repeated the recovery summary"
 
 # ============================================================================
 hr; echo "N — runner reserves rc=2 for shared setup failures"; hr

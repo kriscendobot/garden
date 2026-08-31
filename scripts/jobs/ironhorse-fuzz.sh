@@ -95,6 +95,7 @@ CORPUS_ROOT="$STATE/corpus"
 FINDINGS_ROOT="$STATE/findings"
 LOGS_ROOT="$STATE/logs"
 SHARED_COOLDOWN="$STATE/shared-runner-cooldown"
+SHARED_DIAGNOSTIC="$LOGS_ROOT/shared-runner-outage.log"
 mkdir -p "$STATE" "$CORPUS_ROOT" "$FINDINGS_ROOT" "$LOGS_ROOT"
 
 ensure_clone "$CLONE"
@@ -128,17 +129,53 @@ shared_cooldown_remaining() {
   printf '%s' "$((retry_after - now))"
 }
 
-record_shared_cooldown() {  # record_shared_cooldown <failed-target>
-  local target="$1" now retry_after tmp
+record_shared_failure() {  # record_shared_failure <failed-target> <runner-log>
+  local target="$1" runner_log="$2" now retry_after tmp previous started count diagnostic_tmp
   now="$(date +%s)"
   retry_after=$((now + shared_retry_secs))
+  previous="$(cat "$SHARED_COOLDOWN" 2>/dev/null || true)"
+  started="$(field "$previous" started_at)"
+  count="$(field "$previous" consecutive_failures)"
+  case "$started" in ''|*[!0-9]*) started="$now" ;; esac
+  case "$count" in ''|*[!0-9]*) count=0 ;; esac
+  count=$((count + 1))
+
+  # Keep the latest failed setup transcript separate from the per-target log: the
+  # successful recovery probe overwrites that target log. One bounded snapshot is
+  # enough to retain the diagnostics without accumulating one file per retry.
+  diagnostic_tmp="$(mktemp "$LOGS_ROOT/.shared-runner-outage.XXXXXX")"
+  cp "$runner_log" "$diagnostic_tmp"
+  mv -f "$diagnostic_tmp" "$SHARED_DIAGNOSTIC"
+
   tmp="$(mktemp "$STATE/.shared-runner-cooldown.XXXXXX")"
   {
-    printf 'recorded_at: %s\n' "$now"
+    printf 'started_at: %s\n' "$started"
+    printf 'last_failed_at: %s\n' "$now"
     printf 'retry_after: %s\n' "$retry_after"
+    printf 'consecutive_failures: %s\n' "$count"
     printf 'failed_target: %s\n' "$target"
+    printf 'diagnostic_log: %s\n' "$SHARED_DIAGNOSTIC"
   } > "$tmp"
   mv -f "$tmp" "$SHARED_COOLDOWN"
+
+  shared_failure_count="$count"
+  shared_outage_duration=$((now - started))
+}
+
+summarize_shared_recovery() {  # summarize_shared_recovery <recovered-target>
+  [ -s "$SHARED_COOLDOWN" ] || return 0
+  local target="$1" txt started count failed_target diagnostic now duration
+  txt="$(cat "$SHARED_COOLDOWN" 2>/dev/null || true)"
+  started="$(field "$txt" started_at)"
+  count="$(field "$txt" consecutive_failures)"
+  failed_target="$(field "$txt" failed_target)"
+  diagnostic="$(field "$txt" diagnostic_log)"
+  now="$(date +%s)"
+  case "$started" in ''|*[!0-9]*) started="$now" ;; esac
+  case "$count" in ''|*[!0-9]*) count=1 ;; esac
+  duration=$((now - started))
+  rm -f "$SHARED_COOLDOWN"
+  log "shared fuzz campaign setup recovered after ${duration}s and ${count} consecutive rc=2 failure(s); resumed at $target (last failed target $failed_target; diagnostics retained at ${diagnostic:-$SHARED_DIAGNOSTIC})"
 }
 
 # --- validate a target against the fixed allowlist (never trust dynamic input) ---
@@ -460,11 +497,18 @@ if [ -z "$cooldown_remaining" ]; then
   rc=0
   "$GARDEN_IRONHORSE_FUZZ_RUNNER" "$target" "$corpus" "$arts" "$GARDEN_IRONHORSE_FUZZ_SECS" \
     >"$LOGS_ROOT/$target.log" 2>&1 || rc=$?
+  if [ "$rc" -ne 2 ]; then
+    summarize_shared_recovery "$target"
+  fi
   case "$rc" in
     0)  : ;;                                   # clean increment
     77) log "$target: runner reported a crash artifact" ;;
-    2)  record_shared_cooldown "$target"
-        log "WARN: shared fuzz campaign setup unavailable (runner rc=2 at $target); skipping remaining targets and retrying in ${shared_retry_secs}s (see $LOGS_ROOT/$target.log)"
+    2)  record_shared_failure "$target" "$LOGS_ROOT/$target.log"
+        if [ "$shared_failure_count" -eq 1 ]; then
+          log "WARN: shared fuzz campaign setup unavailable (runner rc=2 at $target); skipping remaining targets and retrying in ${shared_retry_secs}s (diagnostics retained at $SHARED_DIAGNOSTIC)"
+        else
+          log "shared fuzz campaign setup remains unavailable: consecutive failure #${shared_failure_count} after ${shared_outage_duration}s (runner rc=2 at $target); retrying in ${shared_retry_secs}s (latest diagnostics at $SHARED_DIAGNOSTIC)"
+        fi
         break ;;
     *)  log "WARN: $target runner exited rc=$rc (see $LOGS_ROOT/$target.log) — skipping this target this tick"
         continue ;;
