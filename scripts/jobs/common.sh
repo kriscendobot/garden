@@ -2243,6 +2243,55 @@ find_node_bin_for_major() {
   return 0
 }
 
+# state_cleanup <dir> — remove a per-identity state dir under $GARDEN_STATE.
+#
+# The $GARDEN_STATE sibling of scratch_cleanup, for the per-ephemeral-id journal
+# clones the fleet creates and (until this existed) never removed:
+# $GARDEN_STATE/<kind>/<id>/journal, one full journal2 clone per doer inbox,
+# gardener id, monitor id, cleric and monk. Each costs ~17k-29k inodes.
+#
+# WHY THIS EXISTS (two inode-starvation incidents, three days apart). inbox-read.sh
+# points a doer's inbox at $GARDEN_STATE/inbox/<doer>/journal and calls
+# ensure_clone, which full-clones journal2 on demand. complete-job.sh looks like
+# the cleanup — its comment says "destroy this job doer's inbox; its lifetime ends
+# with the job" — but its $DIR is the gardener's OWN clone, so it removes only the
+# JOURNAL-SIDE inbox. The host-local clone outlives its job forever, and a job that
+# never reaches complete-job.sh at all (doomed, reaper-killed, host crash) leaks
+# unconditionally. On 2026-08-28 endolin-garden-ece02cb4 reached ZERO free inodes
+# with 3972 leaked clones (~206M inodes): every `git clone` of journal2 failed
+# ENOSPC, so no gardener could read its inbox, claim, or report, and the whole
+# host's fleet wedged silently while block space still showed 756G free. On
+# 2026-08-31 endolin-garden2-5bcdff64 held 2851 clones (69,052,121 inodes, 28% of
+# the filesystem) at 1.11% free. Hosts can SHARE a filesystem — both endolin
+# instances are on /dev/nvme0n1p2 — so either one's leak starves both.
+#
+# Nothing durable is lost by removing one: all message state lives on
+# origin/$JOURNAL_BRANCH and inbox-read.sh re-clones on demand. This was the
+# by-hand remedy on both hosts, twice, without loss.
+#
+# Refuses to touch anything outside $GARDEN_STATE so a bad argument can never
+# delete a live tree, and additionally refuses $GARDEN_STATE itself (a caller that
+# computed an empty <id> must not wipe the whole state dir). Best-effort: never
+# fails its caller — a cleanup failure must NEVER strand a finished job in doin/.
+state_cleanup() {
+  local dir="${1:-}"
+  [ -n "$dir" ] || return 0
+  local abs state_abs
+  abs="$(cd "$dir" 2>/dev/null && pwd)" || return 0
+  state_abs="$(cd "$GARDEN_STATE" 2>/dev/null && pwd)" || return 0
+  # Confine strictly BELOW $GARDEN_STATE: equal is refused, not just outside.
+  if [ "$abs" = "$state_abs" ]; then
+    log "state_cleanup: refusing to remove \$GARDEN_STATE itself ($abs)"
+    return 0
+  fi
+  case "$abs/" in
+    "$state_abs"/*) : ;;
+    *) log "state_cleanup: refusing to remove $abs (outside $state_abs)"; return 0 ;;
+  esac
+  rm -rf "$abs" 2>/dev/null || true
+  return 0
+}
+
 # scratch_cleanup <dir> — remove a scratch dir created by scratch_dir. If <dir>
 # is a registered git worktree (of any repo whose admin dir can be located), it
 # is torn down with `git worktree remove --force` first so no stale worktree

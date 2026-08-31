@@ -65,6 +65,7 @@ jobs:
             tests/checks/test_claude_md_inventory_drift.sh \
             tests/checks/test_run_all.sh \
             tests/checks/test_identity_drift_guard.sh \
+            tests/checks/test_state_clone_keeper.sh \
             scripts/jobs/test/identity-drift-guard-test.sh \
             scripts/jobs/test/report-error-reachable-test.sh
 

@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden state-clone-keeper (reclaim leaked per-identity journal clones under $GARDEN_STATE so a host cannot starve for inodes)
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN
+# exit, not a failure. The self-heal wrapper already normalizes 143/130 to 0;
+# this is the belt-and-suspenders so any future bypass of the wrapper still
+# doesn't mark a SIGTERM stop as Failed.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-state-clone-keeper -- @GARDEN_ROOT@/scripts/jobs/state-clone-keeper.sh
+# A first tick on a badly-leaked host removes up to GARDEN_STATE_CLONE_MAX_SWEEP
+# clones, each a full journal2 checkout; unlinking that many inodes takes real
+# wall-clock. Generous bound, well above the observed by-hand reclaim rate.
+TimeoutStartSec=1800

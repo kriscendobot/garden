@@ -199,6 +199,23 @@ for attempt in $(seq 1 100); do
   rc=0; commit_and_push "$DIR" "tada($base) done $GARDEN/gardener-$id" || rc=$?
   if [ "$rc" -eq 0 ]; then
     log "completed '$base'"
+    # Destroy this doer's HOST-LOCAL inbox state too. The `git rm inbox/$base`
+    # above removes only the JOURNAL-SIDE inbox: $DIR is the gardener's own clone
+    # ($GARDEN_STATE/gardeners/$id/journal, set at the top of this file), not the
+    # doer's inbox clone. inbox-read.sh full-clones journal2 into
+    # $GARDEN_STATE/inbox/<doer>/journal (~17k-29k inodes) and nothing pruned it,
+    # so every completed job left one behind forever — the leak that wedged
+    # endolin-garden-ece02cb4 at ZERO free inodes on 2026-08-28 and starved
+    # endolin-garden2-5bcdff64 to 1.11% on 2026-08-31 (state_cleanup in common.sh
+    # carries the full incident note). Nothing durable is lost: message state
+    # lives on origin/$JOURNAL_BRANCH and inbox-read.sh re-clones on demand.
+    #
+    # AFTER the successful push, never before: the push is what makes the job
+    # genuinely complete, and a doer whose completion lost its race still needs
+    # its inbox on the retry. state_cleanup is confined to $GARDEN_STATE and is
+    # best-effort by construction, so a cleanup failure can never strand a
+    # finished job in doin/ — this is deliberately fail-open.
+    state_cleanup "$GARDEN_STATE/inbox/$base"
     # This doin→tada→push IS the "gardener job completion" edge: kick the foreman
     # to re-evaluate now rather than at its next poll. Non-blocking + best-effort;
     # never fails or delays this completion (foreman_kick swallows all errors).
