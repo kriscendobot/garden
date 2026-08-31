@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T20:19:38Z_
+_As of 2026-08-31T20:20:28Z_
 
 ## Latest
 
@@ -436,6 +436,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260831T191107Z-84d8b8` — from gauntlet:endojs-endo-but-for-bots-pr237-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T191107Z-84d8b8.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr237-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `20260831T202006Z-1f13c3` — from gauntlet:endojs-endo-but-for-bots-pr138-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T202006Z-1f13c3.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr138-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun.md)
 
@@ -2018,7 +2022,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 9.6M | $195.84 _(notional, rate-card)_ | 192% of 5.0M (backoff) |
-| Codex | 28.7M _(+729.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Codex | 28.7M _(+730.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (64)
@@ -2099,13 +2103,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target differential_source) and ...
 - [`minion-town-weblet-ocap-synthesis-units-4-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-ocap-synthesis-units-4-5.md) — minion.town § 9 residual cleanup — units 4 and 5, BEFORE the weblet→clip rename
 
-### tada (6506)
+### tada (6507)
+- [`endojs-endo-but-for-bots-pr138-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr138-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1100-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1100-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endojs-endo-but-for-bots-pr241-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr241-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr138-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-gauntlet-panel-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr241-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr241-gauntlet-panel-5.md) — Cost
-- … and 6501 more
+- … and 6502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
