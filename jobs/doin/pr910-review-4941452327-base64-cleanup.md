@@ -23,6 +23,7 @@ Once the prerequisite is genuinely landed, remove the now-superfluous base64 mac
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,233 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
