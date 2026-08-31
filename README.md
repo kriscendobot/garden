@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T07:37:51Z_
+_As of 2026-08-31T07:38:34Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 2h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 3h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 4m)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 3h)
 - [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 1d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 1d)
@@ -2623,11 +2623,12 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 5.0M | $110.65 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 18.4M _(+450.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 18.5M _(+451.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
-### todo (99)
+### todo (100)
 - [`daily-progress-summary-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260831-070510.md) — Daily midnight Pacific progress summary
+- [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr231-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr231-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #231
 - [`endojs-endo-but-for-bots-pr234-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr234-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #234
