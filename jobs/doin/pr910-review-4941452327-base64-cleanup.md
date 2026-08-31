@@ -24,3 +24,13 @@ Once the prerequisite is genuinely landed, remove the now-superfluous base64 mac
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,233 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T08:40:14Z
