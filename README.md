@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T08:40:44Z_
+_As of 2026-08-31T08:41:05Z_
 
 ## Latest
 
@@ -334,6 +334,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260831T073035Z-91e312` — from gardener:endo-1072-address-review-multihint, reply_to `endo-1072-address-review-multihint` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T073035Z-91e312.md)
 
 > Addressed all four asks on [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/issues/1072) (still DRAFT; pushed d41e3846e, replied on each review thread). One deliberate wire-format judgment call to flag: the maintainer's Ask 4 implies the on-wire OcapnLocation.hints could become a raw ordered array. I kept that OCapN *component* a spec `Record<string,string>` — it's Syrup-SIGNED via @endo/ocapn's dictionary-of-strings locator codec and shared with the tcp-testing-only/websocket netlayers + the Python interop suite, so a true-array codec change is OCapN-wide and out of this PR's scope. The priority-ordered list is carried across it as a positional dictionary (index keys -> dial URLs), and is a genuine ordered list at every layer the review commented on (tcp.js listener + connect + selection). Flagged in-thread and in the changeset; can promote to a first-class list codec later if we want to evolve the OCapN locator serialization itself. Local verify green: @endo/ocapn-noise 63/63, @endo/daemon networks-ocapn 9/9, tsc + eslint clean.
+
+- `20260831T084043Z-57ba8d` — from gardener:endojs-endo-but-for-bots-pr249-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr249-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T084043Z-57ba8d.md)
+
+> Gauntlet FIX round-1 on [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (SES top-level-await DESIGN doc): applied all panel round-1 must-fix items (skeptic/decomplector/copyeditor/novice) plus cheap should-fix items (critic/ergonomist/pedant) and pushed 1eb10a3de to the PR head.
+>
+> BLOCKER: CI never turns green because it never *starts*. [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) is mergeStateStatus=DIRTY / mergeable=CONFLICTING against base 'llm', so GitHub attaches ZERO pull_request checks (statusCheckRollup=[]; the prior head 4424f3a96 also had 0 check-runs — pre-existing, not fix-introduced). ci-wait-merge returns rc 4 (empty rollup) indefinitely, so re-posting the fix stage loops with no progress.
+>
+> Recommend a weave of [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (rebase the design-doc head onto current llm, resolve the designs/README.md conflict) before the gauntlet continues; only then can CI attach and panel-2 be meaningful. The design-doc content itself is complete and review-ready.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -3626,7 +3634,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 5.0M | $110.65 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 20.3M _(+463.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 20.4M _(+463.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (61)
