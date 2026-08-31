@@ -83,6 +83,7 @@ A design under `designs/`. If it carries genuinely unresolved maintainer-facing
 open questions, follow the CLAUDE.md carve-out and present it as a review PR
 rather than landing it bare.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
