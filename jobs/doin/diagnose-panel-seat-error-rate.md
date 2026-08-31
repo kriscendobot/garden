@@ -64,6 +64,7 @@ would settle it — a well-bounded negative result is a good outcome here and mu
 more useful than a guess. Only implement a fix if the cause is established and
 the fix is small; otherwise propose it.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
