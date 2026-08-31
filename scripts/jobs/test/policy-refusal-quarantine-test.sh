@@ -8,16 +8,19 @@
 # proving that retrying the unchanged prompt only repeats the failure.
 #
 # Subtests (hermetic; no systemd, no network — a local bare journal):
-#   1. CLASSIFIER — is_provider_policy_refusal_text matches the observed provider
-#                   refusal envelopes and REJECTS benign security-discussing prose
+#   1. CLASSIFIER — the text and file classifiers match the observed provider
+#                   refusal envelopes and REJECT benign security-discussing prose
 #                   and a quota-cap refusal (the disjoint environmental class).
-#   2. QUARANTINE — a stale doin claim carrying <!-- garden-policy-refusal --> is
+#                   The file case puts the refusal outside the retained 64 KiB tail.
+#   2. GARDENER   — the real worker spine detects a refusal outside the final
+#                   64 KiB and stamps the quarantine hint without escalating.
+#   3. QUARANTINE — a stale doin claim carrying <!-- garden-policy-refusal --> is
 #                   PARKED in plan/ (gate=go-ahead, doomed:true, doom_signature:
 #                   policy-refusal) on the FIRST reap EVEN with the requeue/overrun
 #                   doom thresholds pinned huge — so it is the policy path, not a
 #                   counter, that quarantines it; gone from doin/, NOT in todo/, the
 #                   original body preserved, the marker stripped from the parked body.
-#   3. NOTICE     — exactly ONE maintainer notice is posted, keyed policy-refusal,
+#   4. NOTICE     — exactly ONE maintainer notice is posted, keyed policy-refusal,
 #                   whose body names the policy block and the rephrase/remove remedy.
 #
 # Usage: policy-refusal-quarantine-test.sh
@@ -60,6 +63,26 @@ fi
   && ok "classifier matches provider refusal envelopes, rejects benign prose and quota caps" \
   || bad "classifier misclassified at least one case"
 
+# Regression: Ironhorse fuzz repair emitted megabytes after the provider refusal.
+# The compact diagnostic tail no longer contained the refusal, but classification
+# must inspect the complete transcript before that capture is reduced.
+FULL_TRANSCRIPT="$(mktemp)"
+{
+  head -c 1048576 /dev/zero | tr '\0' x
+  printf '\nThis content was flagged for possible cybersecurity risk. See the Trusted Access for Cyber program.\n'
+  head -c 2097152 /dev/zero | tr '\0' y
+} > "$FULL_TRANSCRIPT"
+full_ok=1
+if is_provider_policy_refusal_text "$(tail -c 65536 "$FULL_TRANSCRIPT")"; then
+  full_ok=0; echo "    fixture error: compact tail unexpectedly contains the refusal"
+fi
+is_provider_policy_refusal_file "$FULL_TRANSCRIPT" \
+  || { full_ok=0; echo "    file classifier missed refusal outside compact diagnostic tail"; }
+rm -f "$FULL_TRANSCRIPT"
+[ "$full_ok" -eq 1 ] \
+  && ok "file classifier finds a refusal across a multi-megabyte transcript after the compact tail loses it" \
+  || bad "complete-transcript refusal classification failed"
+
 # ============================================================================
 # Reaper fixture: a throwaway bare journal + seeded board.
 TR="$(mktemp -d "$(dirname "$HOME")/.garden-policy-refusal-test.XXXXXX")"
@@ -91,6 +114,48 @@ V="$TR/verify"
 resync() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; }
 count_unread() { resync; ls -1 "$V/inbox/maintainer/unread" 2>/dev/null | grep -v -x '.gitkeep' | grep -c . || true; }
 
+# Drive the real gardener spine, not only the pure helper. Its handler puts the
+# refusal in the middle of a multi-megabyte stream, outside the final 64 KiB. The
+# gardener must stamp the quarantine hint and skip the ordinary error escalation.
+hr; echo "SUBTEST 2 - GARDENER: full transcript refusal stamps quarantine hint"; hr
+IW="$(mktemp -d "$TR/integration.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$IW"
+printf '%s\n' '---' 'tier: minion' '---' '# long-refusal' '' 'repair the fuzz target' \
+  > "$IW/jobs/todo/long-refusal.md"
+git -C "$IW" add jobs/todo/long-refusal.md
+git -C "$IW" "${git_id[@]}" commit -q -m "fixture: long policy-refusal job"
+git -C "$IW" push -q origin "HEAD:$BRANCH"
+rm -rf "$IW"
+
+env GARDEN=policyhost GARDEN_STATE="$TR/gardener-state" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+    GARDEN_JOB_HANDLER="$HERE/policy-refusal-full-transcript-handler-stub.sh" \
+    GARDEN_JOB_HANDLER_BASH=1 \
+    bash "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
+resync
+integration_ok=1
+if [ ! -f "$V/jobs/doin/long-refusal.md" ] \
+  || ! grep -q '^<!-- garden-policy-refusal -->$' "$V/jobs/doin/long-refusal.md"; then
+  integration_ok=0; echo "    gardener did not stamp the policy-refusal hint"
+fi
+if [ -e "$V/inboxes/policyhost/gardener.md" ]; then
+  integration_ok=0; echo "    gardener used ordinary error escalation instead of quarantine"
+fi
+grep -q "was BLOCKED by a provider safety/usage-policy refusal" "$TR/gardener.log" \
+  || { integration_ok=0; echo "    gardener log does not record the policy-refusal classification"; }
+[ "$integration_ok" -eq 1 ] \
+  && ok "gardener classifies the complete multi-megabyte transcript and stamps quarantine without error escalation" \
+  || bad "gardener full-transcript policy-refusal path failed"
+
+# Remove the integration claim before the reaper-only assertions below, which
+# deliberately expect exactly one quarantined job and one maintainer notice.
+IW="$(mktemp -d "$TR/integration-clean.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$IW"
+git -C "$IW" rm -q -f --ignore-unmatch jobs/doin/long-refusal.md work/long-refusal
+git -C "$IW" "${git_id[@]}" commit -q -m "fixture: remove integration claim"
+git -C "$IW" push -q origin "HEAD:$BRANCH"
+rm -rf "$IW"
+
 # Place a STALE doin claim carrying the policy-refusal marker (as the gardener would
 # have stamped it after detecting the provider block in the failed handler capture).
 place_policy_blocked() {
@@ -112,7 +177,7 @@ place_policy_blocked() {
 run_reaper() { "$JOBS/reaper.sh" >"$TR/reap.log" 2>&1 || { echo "  (reaper.sh rc=$? — see below)"; sed 's/^/    /' "$TR/reap.log"; }; }
 
 # ============================================================================
-hr; echo "SUBTEST 2 — QUARANTINE: policy-blocked claim parked in plan/ on first reap"; hr
+hr; echo "SUBTEST 3 - QUARANTINE: policy-blocked claim parked in plan/ on first reap"; hr
 place_policy_blocked fuzz-repair
 run_reaper
 resync
@@ -134,7 +199,7 @@ fi
   || bad "quarantine: plan=[$(ls "$V/jobs/plan" 2>/dev/null)] doin=[$(ls "$V/jobs/doin" 2>/dev/null)] todo=[$(ls "$V/jobs/todo" 2>/dev/null)]"
 
 # ============================================================================
-hr; echo "SUBTEST 3 — NOTICE: exactly one policy-refusal maintainer notice"; hr
+hr; echo "SUBTEST 4 - NOTICE: exactly one policy-refusal maintainer notice"; hr
 n_ok=1
 nunread="$(count_unread)"
 [ "$nunread" -eq 1 ] || { n_ok=0; echo "    expected 1 maintainer notice, found $nunread"; }

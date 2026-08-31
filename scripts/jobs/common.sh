@@ -1527,6 +1527,18 @@ is_provider_policy_refusal_text() {
   printf '%s' "$text" | grep -qiE "$GARDEN_PROVIDER_POLICY_REFUSAL_SIGNATURES"
 }
 
+# is_provider_policy_refusal_file <file> -- file-backed twin of the text
+# classifier. Use this for handler transcripts: they can be several megabytes,
+# and reducing them to the fleet's compact diagnostic tail before classification
+# can discard a refusal that appeared earlier in the run. The quota exclusion is
+# deliberately evaluated across the same complete input as the refusal match.
+is_provider_policy_refusal_file() {
+  local file="${1:?is_provider_policy_refusal_file: file required}"
+  [ -f "$file" ] || return 1
+  grep -qiE "$GARDEN_PROVIDER_QUOTA_SIGNATURES" "$file" 2>/dev/null && return 1
+  grep -qiE "$GARDEN_PROVIDER_POLICY_REFUSAL_SIGNATURES" "$file" 2>/dev/null
+}
+
 # provider_quota_reset_clause <text> — echoes the "resets …" clause when the
 # refusal names its own reset time, else nothing. Lets the fleet notice tell the
 # maintainer WHEN the condition ends without them reading the raw diagnosis.

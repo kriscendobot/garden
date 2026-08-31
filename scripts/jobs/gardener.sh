@@ -1333,8 +1333,11 @@ while :; do
       # probe (a policy block is not a hermit-vs-capable-model signal). Subshell-isolated
       # so a sync_clone offline-exit cannot kill this worker; only when the stamp lands
       # do we skip the generic path — on a stamp failure we fall through so the failure
-      # is never silently lost. Read the same 64KiB capture tail the classifiers use.
-      if is_provider_policy_refusal_text "$(tail -c 65536 "$capture" 2>/dev/null)"; then
+      # is never silently lost. Scan the COMPLETE handler transcript here, before
+      # report-error.sh reduces a real failure to its compact first+last diagnostic
+      # capture. Ironhorse's multi-megabyte fuzz output placed the refusal outside
+      # the old 64 KiB tail, so tail-only classification missed a deterministic block.
+      if is_provider_policy_refusal_file "$capture"; then
         log "handler for '$base' was BLOCKED by a provider safety/usage-policy refusal (rc=$rc); DETERMINISTIC block — quarantining instead of requeueing/escalating per-cycle"
         if ( stamp_policy_refusal_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
           printf 'gardener-%s on %s: job %s handler was BLOCKED by a provider safety/usage-policy refusal (rc=%s) — a DETERMINISTIC content/usage-policy block that repeats identically on every requeue; stamped <!-- garden-policy-refusal --> so the reaper QUARANTINES it (parks held in plan/ with ONE concise maintainer notice) instead of requeueing and re-escalating; left in doin for the reaper\n' \
