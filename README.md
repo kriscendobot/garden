@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T06:55:26Z_
+_As of 2026-08-31T07:05:42Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 1h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 2h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 3h)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 3h)
 - [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 1d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 1d)
@@ -2269,8 +2269,9 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (142)
+### doin (144)
 - [`build-ebfb-bytearray-onto-master`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ebfb-bytearray-onto-master.md) — Build: bring byte arrays onto endojs/endo-but-for-bots master (follow-up to m...
+- [`daily-progress-summary-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260831-070510.md) — Daily midnight Pacific progress summary
 - [`endo-1072-address-review-multihint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-1072-address-review-multihint.md) — Address kriskowal's CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #...
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1013-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1016-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1016-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1016
@@ -2412,6 +2413,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260830-112005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260830-112005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-021150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-021150.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-055023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-055023.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+- [`xs2rust-endor-press-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-070510.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6352)
 - [`improve-recover-corrupt-fuzz-checkout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-recover-corrupt-fuzz-checkout.md) — Cost
