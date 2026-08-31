@@ -9,3 +9,13 @@ Task: carry out step 1 of the design's § 8 delivery order — the only step its
 Tests: add a two-daemon test where an `EndoGuest` (not the top host) invites; assert both pet stores receive the opposite handle, that neither handle carries host-only methods, that a replayed invitation fails cleanly, and that a `cancel()` on a pending invitation revokes exactly that one.
 Read `designs/remote-guest-endo-cli.md` §§ 3 and 8 on minion.town `main` first; it is the authority for the contract.
 Hard gate — do NOT proceed past step 1: the design states sections 4–8 (the minion.town `RemoteInviteFacet`, `guest_invite`, attachment-enabled `guest_send`, public-hint rewriting, web panel) start only once the real upstream shape is merged or firmly specified, because the two-line API sketch is an assumed shape and not a merged API. Do not post or start the minion.town follow-ups yourself. When the primitive lands (or if it is declined, or lands with a materially different contract — e.g. a different broker-mediation shape), report the actual shape back to the maintainer via the inbox so the minion.town chain can be re-verified against it rather than assumed; if declined outright, say so and name the documented app-side-poller fallback with its crash-window and top-host-namespace costs rather than adopting it unilaterally.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T23:12:17Z
