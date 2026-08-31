@@ -55,3 +55,13 @@ merge-base SHA to the panel (see garden memory
 
 Note: this design PR is ~3.5 months old; if the maintainer would rather
 close it than land it, that decision precedes this weave.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T05:24:44Z
