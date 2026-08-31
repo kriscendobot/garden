@@ -49,6 +49,7 @@ pull request for fuzz findings.
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=signature through=2 values=4,71 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
