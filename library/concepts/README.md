@@ -16,6 +16,8 @@ This index is a third axis next to [`sources/`](../sources/README.md) (by proven
 
 ## Seed inventory (bootstrap, 2026-05-14)
 
+- [guest-special-names](guest-special-names.md) - daemon-provided read-only names that resolve through ordinary guest naming, persist with guest formulas, and cannot be removed or rebound (drafted 2026-08-31 by designer library lookup).
+
 - [fireworks-ai-integration](fireworks-ai-integration.md) — Fireworks provider harness configuration: OpenAI-compatible endpoint and Bearer key, Serverless versus dedicated deployments, streaming observability, adaptive limits, and storage boundary (added 2026-07-24; topic fireworks-ai-integration).
 
 Bootstrapped from the daemon design cluster and the structural principles in `conventions.md`. Extended cycle 50 with `delegates-and-epithets`, `caretaker-pattern`, and `pass-invariant-handle-equality` from the `daemon-capability-persona` ingest:
