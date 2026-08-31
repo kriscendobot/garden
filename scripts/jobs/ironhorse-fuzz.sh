@@ -37,7 +37,8 @@
 #   GARDEN_IRONHORSE_FUZZ_STATE      durable state root  (default $GARDEN_STATE/ironhorse-fuzz)
 #   GARDEN_IRONHORSE_FUZZ_RUNNER     run one bounded increment; drop crashes into artifacts dir
 #                                    (default handlers/ironhorse-fuzz-run-gh.sh)
-#       runner <target> <corpus-dir> <artifacts-dir> <seconds>  -> exit 0 clean / 77 crash / other error
+#       runner <target> <corpus-dir> <artifacts-dir> <seconds>
+#         -> exit 0 clean / 77 crash / 2 shared campaign setup outage / other target error
 #   GARDEN_IRONHORSE_FUZZ_MINIMIZER  minimize a crash input
 #       minimizer <target> <in-file> <out-file>  -> writes minimized bytes (falls back to a copy)
 #   GARDEN_IRONHORSE_FUZZ_REPRODUCER confirm a crash still reproduces
@@ -55,6 +56,8 @@
 #   GARDEN_IRONHORSE_FUZZ_MAX_ARTIFACT_BYTES  cap on a handled/embedded crash input (default 1048576)
 #   GARDEN_IRONHORSE_FUZZ_CORPUS_MAX_MB       per-target corpus size cap (default 256)
 #   GARDEN_IRONHORSE_FUZZ_MAX_FINDINGS_PER_TICK  bound work per tick (default 8)
+#   GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS retry delay after shared runner rc=2
+#                                    (default 900; clamped to 1..3600 seconds)
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -79,6 +82,7 @@ GARDEN_TAG="ironhorse-fuzz"
 : "${GARDEN_IRONHORSE_FUZZ_MAX_ARTIFACT_BYTES:=1048576}"
 : "${GARDEN_IRONHORSE_FUZZ_CORPUS_MAX_MB:=256}"
 : "${GARDEN_IRONHORSE_FUZZ_MAX_FINDINGS_PER_TICK:=8}"
+: "${GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS:=900}"
 : "${GARDEN_IRONHORSE_FUZZ_BOT_LOGIN:=${GARDEN_BOT_LOGIN:-kriscendobot}}"
 
 require_tools git sha256sum
@@ -90,6 +94,7 @@ CLONE="$GARDEN_IRONHORSE_FUZZ_CLONE"
 CORPUS_ROOT="$STATE/corpus"
 FINDINGS_ROOT="$STATE/findings"
 LOGS_ROOT="$STATE/logs"
+SHARED_COOLDOWN="$STATE/shared-runner-cooldown"
 mkdir -p "$STATE" "$CORPUS_ROOT" "$FINDINGS_ROOT" "$LOGS_ROOT"
 
 ensure_clone "$CLONE"
@@ -101,6 +106,39 @@ jshow() {  # jshow <journal2-relative-path> -> file content on stdout (empty if 
 }
 field() {  # field <text> <key> -> value of "key: value" (first match)
   printf '%s\n' "$1" | sed -n "s/^$2: *//p" | head -n1
+}
+
+# rc=2 is reserved by the runner for a campaign-wide provisioning/toolchain
+# outage. Keep its retry delay finite even if a bad unit override asks for more.
+shared_retry_secs="$GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS"
+case "$shared_retry_secs" in
+  ''|*[!0-9]*) shared_retry_secs=900 ;;
+esac
+[ "$shared_retry_secs" -ge 1 ] || shared_retry_secs=1
+[ "$shared_retry_secs" -le 3600 ] || shared_retry_secs=3600
+
+shared_cooldown_remaining() {
+  [ -s "$SHARED_COOLDOWN" ] || return 1
+  local txt retry_after now
+  txt="$(cat "$SHARED_COOLDOWN" 2>/dev/null || true)"
+  retry_after="$(field "$txt" retry_after)"
+  case "$retry_after" in ''|*[!0-9]*) return 1 ;; esac
+  now="$(date +%s)"
+  [ "$retry_after" -gt "$now" ] || return 1
+  printf '%s' "$((retry_after - now))"
+}
+
+record_shared_cooldown() {  # record_shared_cooldown <failed-target>
+  local target="$1" now retry_after tmp
+  now="$(date +%s)"
+  retry_after=$((now + shared_retry_secs))
+  tmp="$(mktemp "$STATE/.shared-runner-cooldown.XXXXXX")"
+  {
+    printf 'recorded_at: %s\n' "$now"
+    printf 'retry_after: %s\n' "$retry_after"
+    printf 'failed_target: %s\n' "$target"
+  } > "$tmp"
+  mv -f "$tmp" "$SHARED_COOLDOWN"
 }
 
 # --- validate a target against the fixed allowlist (never trust dynamic input) ---
@@ -409,7 +447,12 @@ release_next_repair() {
 }
 
 findings_seen=0
-for target in $GARDEN_IRONHORSE_FUZZ_TARGETS; do
+cooldown_remaining="$(shared_cooldown_remaining || true)"
+if [ -n "$cooldown_remaining" ]; then
+  log "shared runner cooldown active (${cooldown_remaining}s remaining); skipping fuzz targets this tick"
+fi
+if [ -z "$cooldown_remaining" ]; then
+  for target in $GARDEN_IRONHORSE_FUZZ_TARGETS; do
   is_allowed_target "$target" || continue
   corpus="$CORPUS_ROOT/$target"; mkdir -p "$corpus"
   arts="$ART_ROOT/$target"; mkdir -p "$arts"
@@ -420,6 +463,9 @@ for target in $GARDEN_IRONHORSE_FUZZ_TARGETS; do
   case "$rc" in
     0)  : ;;                                   # clean increment
     77) log "$target: runner reported a crash artifact" ;;
+    2)  record_shared_cooldown "$target"
+        log "WARN: shared fuzz campaign setup unavailable (runner rc=2 at $target); skipping remaining targets and retrying in ${shared_retry_secs}s (see $LOGS_ROOT/$target.log)"
+        break ;;
     *)  log "WARN: $target runner exited rc=$rc (see $LOGS_ROOT/$target.log) — skipping this target this tick"
         continue ;;
   esac
@@ -444,7 +490,8 @@ for target in $GARDEN_IRONHORSE_FUZZ_TARGETS; do
       rm -f "$oldest"
     done
   fi
-done
+  done
+fi
 
 # Findings are captured above without fan-out. Release at most one repair for this
 # standing generation, and only when every previously released repair is complete.

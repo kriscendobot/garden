@@ -19,6 +19,8 @@
 #   J. first-run init — standing.md is created on a virgin journal
 #   K. untrusted-data — raw crash bytes never appear in the repair job body (only sha256 + base64 + path)
 #   L. failed release — the durable marker remains queued and a later tick retries it
+#   M. shared runner outage — one rc=2 stops fan-out, warns once, and persists a bounded cooldown
+#   N. runner exit contract — a target run's own rc=2 is remapped to target-specific rc=1
 #
 # Usage: ironhorse-fuzz-test.sh
 set -euo pipefail
@@ -107,6 +109,8 @@ mk_stubs() {
 #!/bin/bash
 # runner <target> <corpus-dir> <artifacts-dir> <seconds>
 target="$1"; arts="$3"
+printf '%s\n' "$target" >> "${STUB_RUN_LOG:-/dev/null}"
+[ "${STUB_RUN_RC:-0}" = 0 ] || exit "$STUB_RUN_RC"
 src="$STUB_SEED_ROOT/$target"
 dropped=0
 if [ -d "$src" ]; then
@@ -297,6 +301,64 @@ run_svc "$TR/state-l" "$BARE_L" "$SEED_L"
 board_has "$BARE_L" "ironhorse-fuzz-${fid_l}-repair" \
   && ok "later tick releases the queued finding without rediscovery dependence" \
   || { bad "later tick did not retry the queued repair"; cat "$TR/last.log"; }
+
+# ============================================================================
+hr; echo "M — shared runner outage stops fan-out and persists a bounded cooldown"; hr
+BARE_M="$TR/m.git"; seed_bare "$BARE_M"
+SEED_M="$TR/seed-m"; mkdir -p "$SEED_M"
+RUN_LOG_M="$TR/m-runs.log"
+run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=2 STUB_RUN_LOG="$RUN_LOG_M" \
+  GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS=99999
+[ "$(wc -l < "$RUN_LOG_M")" -eq 1 ] \
+  && ok "first shared rc=2 skips every remaining target" \
+  || bad "shared outage invoked $(wc -l < "$RUN_LOG_M") runners instead of one"
+[ "$(grep -c 'WARN: shared fuzz campaign setup unavailable' "$TR/last.log" || true)" -eq 1 ] \
+  && ok "shared outage emits one warning" || bad "shared outage warning was not deduplicated"
+cooldown="$TR/state-m/ihf/shared-runner-cooldown"
+now="$(date +%s)"; retry_after="$(sed -n 's/^retry_after: *//p' "$cooldown")"
+[ -s "$cooldown" ] && [ "$retry_after" -gt "$now" ] && [ "$retry_after" -le $((now + 3600)) ] \
+  && ok "shared retry cooldown persisted and was clamped to one hour" \
+  || bad "shared retry cooldown missing or outside its bound"
+run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=2 STUB_RUN_LOG="$RUN_LOG_M"
+[ "$(wc -l < "$RUN_LOG_M")" -eq 1 ] \
+  && ok "active cooldown invokes no runner" || bad "active cooldown retried a runner"
+grep -q 'shared runner cooldown active' "$TR/last.log" \
+  && ! grep -q 'WARN: shared fuzz campaign setup unavailable' "$TR/last.log" \
+  && ok "cooldown tick is quiet apart from one status line" \
+  || bad "cooldown tick repeated the outage warning"
+printf 'recorded_at: 1\nretry_after: 2\nfailed_target: parser\n' > "$cooldown"
+run_svc "$TR/state-m" "$BARE_M" "$SEED_M" STUB_RUN_RC=2 STUB_RUN_LOG="$RUN_LOG_M" \
+  GARDEN_IRONHORSE_FUZZ_SHARED_RETRY_SECS=1
+[ "$(wc -l < "$RUN_LOG_M")" -eq 2 ] \
+  && grep -q 'WARN: shared fuzz campaign setup unavailable' "$TR/last.log" \
+  && ok "expired cooldown permits one bounded retry" \
+  || bad "expired cooldown did not re-arm the shared setup probe"
+
+# ============================================================================
+hr; echo "N — runner reserves rc=2 for shared setup failures"; hr
+PROJ_N="$TR/project-n"; ORIGIN_N="$TR/project-n.git"; SEED_N="$TR/project-seed-n"
+git init -q --bare "$ORIGIN_N"
+git init -q "$SEED_N"; git -C "$SEED_N" checkout -q -b llm
+mkdir -p "$SEED_N/rust/engine/ironhorse-fuzz/fuzz"
+touch "$SEED_N/rust/engine/ironhorse-fuzz/fuzz/.gitkeep"
+git -C "$SEED_N" add -A; git -C "$SEED_N" "${git_id[@]}" commit -q -m seed
+git -C "$SEED_N" remote add origin "$ORIGIN_N"; git -C "$SEED_N" push -q -u origin llm
+git clone -q --single-branch --branch llm "$ORIGIN_N" "$PROJ_N"
+FAKEBIN_N="$TR/fakebin-n"; mkdir -p "$FAKEBIN_N"
+FAKECARGO_N="$FAKEBIN_N/cargo"
+printf '%s\n' '#!/bin/bash' 'case " $* " in *" --help "*) exit 0 ;; *) exit 2 ;; esac' > "$FAKECARGO_N"
+chmod +x "$FAKECARGO_N"
+mkdir -p "$TR/home-n"
+rc_n=0
+env HOME="$TR/home-n" GARDEN_TEST=1 GARDEN_STATE="$TR/state-n" GARDEN_ROOT="$TR/root-n" \
+  GARDEN_IRONHORSE_FUZZ_STATE="$TR/state-n/ihf" \
+  GARDEN_IRONHORSE_FUZZ_PROJECT_DIR="$PROJ_N" \
+  GARDEN_IRONHORSE_FUZZ_SUBMODULE=. PATH="$FAKEBIN_N:$PATH" \
+  "$JOBS/handlers/ironhorse-fuzz-run-gh.sh" parser "$TR/corpus-n" "$TR/arts-n" 1 \
+  >"$TR/runner-n.log" 2>&1 || rc_n=$?
+[ "$rc_n" -eq 1 ] \
+  && ok "target cargo rc=2 is remapped to target-specific rc=1" \
+  || { bad "target cargo rc=2 escaped as rc=$rc_n"; cat "$TR/runner-n.log"; }
 
 # ============================================================================
 hr

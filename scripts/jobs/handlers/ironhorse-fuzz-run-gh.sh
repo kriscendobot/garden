@@ -5,8 +5,9 @@
 #
 # Runs ONE bounded libFuzzer increment of <target> against the persistent <corpus-dir>,
 # writing any crashing inputs as files into <artifacts-dir>. Exit 0 = clean increment,
-# 77 = at least one crash artifact produced, other = error (the service skips the
-# target this tick and logs).
+# 77 = at least one crash artifact produced, 2 = campaign-wide checkout/toolchain
+# provisioning failure, and 1 = target-specific build/run failure. The distinction
+# lets the campaign stop after one shared failure instead of provisioning all targets.
 #
 # This is the ONLY seam that touches the heavy fuzz toolchain (pinned nightly +
 # cargo-fuzz + the c/moddable XS-oracle submodule). It provisions a PINNED project
@@ -40,7 +41,10 @@ secs="${4:-60}"
 
 # cargo/cargo-fuzz live under ~/.cargo/bin, which is not always on PATH.
 export PATH="$HOME/.cargo/bin:$PATH"
-require_tools git cargo
+if ! command -v git >/dev/null 2>&1 || ! command -v cargo >/dev/null 2>&1; then
+  log "WARN: shared fuzz prerequisites unavailable (git and cargo are required)"
+  exit 2
+fi
 
 PROJ="$GARDEN_IRONHORSE_FUZZ_PROJECT_DIR"
 BARE="$GARDEN_ROOT/worktrees/${GARDEN_IRONHORSE_FUZZ_REPO//\//-}.git"
@@ -114,6 +118,8 @@ fi
 # A nonzero rc with no crash artifact is a build/setup error, not a finding.
 if [ "$rc" -ne 0 ]; then
   log "WARN: $target fuzz run exited rc=$rc with no crash artifact (build/setup issue?)"
-  exit "$rc"
+  # cargo/libFuzzer may itself use rc=2. Do not leak that through our reserved
+  # shared-outage code: once provisioning passed, this failure is target-specific.
+  exit 1
 fi
 exit 0
