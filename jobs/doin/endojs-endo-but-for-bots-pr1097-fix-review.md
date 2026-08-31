@@ -77,6 +77,8 @@ leave the PR ready for re-review.
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=4,4 -->
 <!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
+<!-- garden-elapsed-constancy: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
