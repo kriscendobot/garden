@@ -6425,6 +6425,8 @@ orch_resume_from() { plan_field "$1" resume_from; }
 #   max_iterations: 6                  # give-up bound for the loop
 #   resumes: <n>                       # still-pending re-posts spent so far
 #   max_resumes: 6                     # give-up bound for the still-pending re-post
+#   stage_retries: <n>                  # retryable deaths spent for this stage
+#   max_stage_retries: 2                # give-up bound for stage-job deaths
 #   current_child: <stage-job-base>    # the stage job currently in flight
 #   state: pending | running | done | halted
 #   created_by: <role>
@@ -6441,6 +6443,10 @@ gauntlet_max_iterations() { local v; v="$(plan_field "$1" max_iterations)"; prin
 # default so an in-flight gauntlet keeps advancing under the new bound.
 gauntlet_resumes() { local v; v="$(plan_field "$1" resumes)"; printf '%s\n' "${v:-0}"; }
 gauntlet_max_resumes() { local v; v="$(plan_field "$1" max_resumes)"; printf '%s\n' "${v:-6}"; }
+# Stage-death retries are a separate axis from still-pending resumes. Records from
+# before this field existed inherit the shipped bound without needing migration.
+gauntlet_stage_retries() { local v; v="$(plan_field "$1" stage_retries)"; printf '%s\n' "${v:-0}"; }
+gauntlet_max_stage_retries() { local v; v="$(plan_field "$1" max_stage_retries)"; printf '%s\n' "${v:-2}"; }
 gauntlet_current_child() { plan_field "$1" current_child; }
 gauntlet_state() { local v; v="$(plan_field "$1" state)"; printf '%s\n' "${v:-pending}"; }
 gauntlet_repo() { plan_field "$1" repo; }

@@ -22,10 +22,10 @@
 # PER TICK, per active record, read `current_child`'s board state (byte-for-byte the
 # read orchestrate.sh performs):
 #   active  — in jobs/todo/ or jobs/doin/            → wait (do nothing this tick).
-#   failed  — in NONE (promoted then vanished: the reaper doomed it), or its tada
-#             report carries the orchestration-failed marker, or it was doom-parked
-#             in plan/                                → HALT (surface once, never a
-#             silent strand).
+#   failed  — in NONE (promoted then vanished), its tada report carries the
+#             orchestration-failed marker, or it was doom-parked in plan/. Retry a
+#             transient-classified death under max_stage_retries; deterministic or
+#             unclassified doom reasons halt without wasting a retry.
 #   done    — in jobs/tada/ → read its STAGE-RESULT MARKER and apply the transition:
 #
 #     <!-- gauntlet-stage-result: <stage>=<result> -->
@@ -48,6 +48,12 @@
 # That re-post is BOUNDED by `max_resumes` (per stage), so CI that never goes terminal
 # — a checkless repo above all — halts loudly instead of looping forever (see
 # resume_stage).
+# Stage-death retries are a DIFFERENT bounded axis (`stage_retries` /
+# `max_stage_retries`). A retry re-posts the SAME basename atomically with its count.
+# `policy-refusal`, explicit stage declines, deadline/constancy doom, and an
+# unclassified `requeue-exhausted` are never retried. The reaper records
+# `failure_classification: transient` only when its final generic doom cycle carried
+# the gardener's reap-now proof; without that proof, fail closed.
 #
 # SELF-HEALING: a dead stage is simply requeued by the reaper; the driver re-observes
 # board state next tick and re-posts nothing it already posted (basename idempotence).
@@ -405,13 +411,67 @@ advance_stage() {  # <base> <rec-file> <newstage> <newiter> <child>
   if post_stage "$child" "$body"; then
     # resumes is reset here because the re-post bound is PER STAGE: a clean stage that
     # spent five waits must not shorten the fix stage's own budget.
-    if set_gauntlet_fields "$base" "stage=$nstage" "iteration=$niter" "current_child=$child" "state=running" "resumes=0"; then
+    if set_gauntlet_fields "$base" "stage=$nstage" "iteration=$niter" "current_child=$child" "state=running" "resumes=0" "stage_retries=0"; then
       log "gauntlet '$base': advanced to $nstage (child $child)"
     else
       log "gauntlet '$base': posted $child but record update failed; retrying next tick"
     fi
   else
     log "gauntlet '$base': could not post stage $child; retrying next tick"
+  fi
+  rm -f "$body"
+}
+
+# Atomically re-post a dead stage and advance its stage-death retry counter. The
+# child's held plan entry (when the reaper supplied transient proof), any stale tada,
+# the new todo body, and the gauntlet record move in ONE journal commit. A crash or
+# CAS loss therefore cannot post an uncounted retry or briefly expose the basename as
+# absent. The SAME child basename preserves the stage's session/worktree discipline.
+repost_failed_stage() {  # <base> <child> <body-file> <next-retry>
+  local base="$1" child="$2" body="$3" next="$4" attempt rc record tada_path
+  for attempt in $(seq 1 50); do
+    sync_clone "$DIR"
+    record="$DIR/$JOBS_GAUNTLET/$base.md"
+    [ -f "$record" ] || return 0
+    if [ -e "$DIR/$JOBS_TODO/$child.md" ] || [ -e "$DIR/$JOBS_DOIN/$child.md" ]; then
+      return 0
+    fi
+    mkdir -p "$DIR/$JOBS_TODO"
+    cp "$body" "$DIR/$JOBS_TODO/$child.md"
+    git -C "$DIR" add "$JOBS_TODO/$child.md"
+    [ -e "$DIR/$JOBS_PLAN/$child.md" ] && git -C "$DIR" rm -q "$JOBS_PLAN/$child.md"
+    tada_path="$(tada_find "$DIR" "$child" || true)"
+    [ -z "$tada_path" ] || git -C "$DIR" rm -q "$tada_path"
+    if grep -q '^stage_retries:' "$record"; then
+      sed -i "s/^stage_retries:.*/stage_retries: $next/" "$record"
+    else
+      sed -i "1a stage_retries: $next" "$record"
+    fi
+    git -C "$DIR" add "$JOBS_GAUNTLET/$base.md"
+    rc=0
+    commit_and_push "$DIR" "gauntlet retry stage $child ($next) by $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
+  done
+  return 1
+}
+
+retry_failed_stage() {  # <base> <rec> <stage> <iter> <child> <retries> <max> <why>
+  local base="$1" rec="$2" stage="$3" iter="$4" child="$5"
+  local retries="$6" max_retries="$7" why="$8" failures next body
+  failures=$((retries + 1))
+  next=$failures
+  if [ "$next" -gt "$max_retries" ]; then
+    halt_gauntlet "$base" "stage '$child' ($stage) failed $failures times; its stage retry budget is exhausted (max_stage_retries=$max_retries). Last failure: $why"
+    return 0
+  fi
+  body="$(mktemp "${TMPDIR:-/tmp}/gauntlet-stage.XXXXXX")"
+  compose_stage_body "$base" "$rec" "$stage" "$iter" "$child" > "$body"
+  if repost_failed_stage "$base" "$child" "$body" "$next"; then
+    log "gauntlet '$base': re-posted failed stage $child (stage retry $next/$max_retries; $why)"
+  else
+    log "gauntlet '$base': could not re-post failed stage $child; retrying next tick"
   fi
   rm -f "$body"
 }
@@ -464,6 +524,8 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   maxit="$(gauntlet_max_iterations "$f")"
   resumes="$(gauntlet_resumes "$f")"
   maxres="$(gauntlet_max_resumes "$f")"
+  stage_retries="$(gauntlet_stage_retries "$f")"
+  max_stage_retries="$(gauntlet_max_stage_retries "$f")"
   child="$(gauntlet_current_child "$f")"
   repo="$(gauntlet_repo "$f")"
   prnum="$(gauntlet_pr_number "$f")"
@@ -486,7 +548,32 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
       log "gauntlet '$base': waiting on stage '$child' ($stage, in flight)"
       continue;;
     failed)
-      halt_gauntlet "$base" "stage '$child' ($stage) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling."
+      child_plan="$DIR/$JOBS_PLAN/$child.md"
+      child_tada_path="$(tada_find "$DIR" "$child" || true)"
+      failures=$((stage_retries + 1))
+      if [ -f "$child_plan" ]; then
+        doom_signature="$(plan_field "$child_plan" doom_signature)"
+        failure_classification="$(plan_field "$child_plan" failure_classification)"
+        if [ "$doom_signature" = requeue-exhausted ] \
+          && [ "$failure_classification" = transient ]; then
+          retry_failed_stage "$base" "$f" "$stage" "$iter" "$child" \
+            "$stage_retries" "$max_stage_retries" \
+            "reaper doom_signature=requeue-exhausted with failure_classification=transient"
+        elif [ "$doom_signature" = requeue-exhausted ]; then
+          halt_gauntlet "$base" "stage '$child' ($stage) failed $failures times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=${failure_classification:-unknown}); repeating an unknown failure would waste the stage budget."
+        elif [ "$doom_signature" = policy-refusal ]; then
+          halt_gauntlet "$base" "stage '$child' ($stage) failed $failures times and was NOT retried: doom_signature=policy-refusal is deterministic, so the same prompt would be refused again."
+        else
+          halt_gauntlet "$base" "stage '$child' ($stage) failed $failures times and was NOT retried: doom_signature=${doom_signature:-unknown} (failure_classification=${failure_classification:-unknown}) is not proven transient."
+        fi
+      elif [ -n "$child_tada_path" ]; then
+        halt_gauntlet "$base" "stage '$child' ($stage) failed $failures times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined."
+      else
+        # No terminal evidence survived. This is the recoverable reaper/manual-loss
+        # class: retry it under the bound instead of vaporizing the whole gauntlet.
+        retry_failed_stage "$base" "$f" "$stage" "$iter" "$child" \
+          "$stage_retries" "$max_stage_retries" "stage vanished from the board without terminal evidence"
+      fi
       advanced=$((advanced+1))
       continue;;
     done) ;;   # fall through to the transition table

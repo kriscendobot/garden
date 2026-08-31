@@ -9,7 +9,7 @@
 #   1. HAPPY      — clean → panel-1 (pass) → undraft → done, no fixer round.
 #   2. FIXLOOP    — panel-1 (must-fix) → fix-1 → panel-2 (pass) → undraft → done.
 #   3. NONCONVERGE— the fix-loop that never passes HALTS at max_iterations (surfaces).
-#   4. STAGEFAIL  — a stage that VANISHES without a tada report HALTS the run (surfaces).
+#   4. STAGEFAIL  — with stage retries disabled, a vanished stage HALTS (surfaces).
 #   5. PROBE      — a kind:probe gauntlet passes the panel but NEVER un-drafts (done draft).
 #   6. STILLPEND  — a clean stage reporting `still-pending` re-posts the SAME stage.
 #   7. NOMARKER   — a `done` stage with NO parseable marker HALTS (fail-closed).
@@ -259,7 +259,7 @@ grep -rqi 'did not converge' "$V/inbox/maintainer/unread" 2>/dev/null \
 
 # ============================================================================
 hr; echo "SUBTEST 4 — STAGEFAIL: a vanished stage halts the run + surfaces"; hr
-post_gauntlet g4 https://github.com/testowner/testrepo/pull/4
+post_gauntlet --max-stage-retries 0 g4 https://github.com/testowner/testrepo/pull/4
 
 tick   # post g4-clean
 in_dir jobs/todo g4-clean || bad "stagefail: g4-clean not posted"

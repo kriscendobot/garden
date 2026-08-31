@@ -77,10 +77,11 @@ resync() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" 
 count_unread() { resync; ls -1 "$V/inbox/maintainer/unread" 2>/dev/null | grep -v -x '.gitkeep' | grep -c . || true; }
 
 # Place a STALE claim in doin/<base>.md (old claimed_at → past TTL), optionally
-# carrying a deadline-overrun marker in its body. Simulates a gardener that
-# claimed the job and died.  place_stale <base> [overrun-N]
+# carrying a deadline-overrun and/or reap-now marker in its body. Simulates a
+# gardener that claimed the job and died. place_stale <base> [overrun-N] [role]
+# [reap-now]
 place_stale() {
-  local base="$1" overrun="${2:-}" role="${3:-}" wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  local base="$1" overrun="${2:-}" role="${3:-}" reap_now="${4:-}" wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   {
     if [ -n "$role" ]; then
@@ -88,6 +89,7 @@ place_stale() {
     fi
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
     [ -n "$overrun" ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$overrun"
+    [ "$reap_now" = reap-now ] && printf '<!-- garden-reap-now -->\n'
     printf -- '---\nclaim:\n  host: testhost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > "$wt/jobs/doin/$base.md"
   # A real claimed job always has a work/<base> record (written at claim time); the
@@ -273,6 +275,18 @@ grep -qi 'draining .* spooled doom notice' "$TR/reap-drain.log" || { drain_ok=0;
 [ "$drain_ok" -eq 1 ] \
   && ok "next tick re-drained the spool: notice delivered, spool cleared (transient failure recovered)" \
   || bad "drain: spool=[$(ls "$SPOOL_DIR" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)] log=[$(tr '\n' '|' <"$TR/reap-drain.log")]"
+
+# A generic requeue exhaustion is safe for a gauntlet to retry ONLY when the
+# current claim carried the gardener's reap-now proof of transient classification.
+place_stale transient-doom "" "" reap-now
+run_reaper
+resync
+if grep -q '^doom_signature: requeue-exhausted$' "$V/jobs/plan/transient-doom.md" \
+  && grep -q '^failure_classification: transient$' "$V/jobs/plan/transient-doom.md"; then
+  ok "requeue-exhausted preserves final-cycle transient proof for gauntlet retry"
+else
+  bad "requeue-exhausted did not preserve failure_classification=transient"
+fi
 
 # ============================================================================
 hr

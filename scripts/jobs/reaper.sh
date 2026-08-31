@@ -790,6 +790,14 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       productive=0
       count=$(( prev + 1 ))
     fi
+    # A reap-now hint is the gardener's durable proof that THIS handler failure was
+    # classified transient (signal kill, environmental failure, provider blip, or
+    # another known-dead transient path). Capture it before clean_body removes the
+    # per-cycle marker. If the generic doom threshold is reached on this cycle, the
+    # plan record preserves that classification so a supervising gauntlet can safely
+    # distinguish a transient requeue-exhaustion from an unknown/deterministic one.
+    last_cycle_transient=0
+    has_reap_now_hint "$f" && last_cycle_transient=1
     body="$(clean_body "$f")"
     # A gardener stamps `<!-- garden-deadline-overrun: N -->` on a claim whose handler
     # hit its OWN wall-clock budget (rc=124 at the wall) — a DETERMINISTIC overrun that
@@ -961,6 +969,14 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf 'doomed: true\n'
           printf 'doom_signature: %s\n' "$sig"
           printf 'doom_count: %s\n'     "$pcount"
+          if [ "$sig" = requeue-exhausted ] && [ "$last_cycle_transient" -eq 1 ]; then
+            printf 'failure_classification: transient\n'
+          elif [ "$sig" = policy-refusal ] || [ "$sig" = deadline-overrun ] \
+            || [ "$sig" = elapsed-constancy ]; then
+            printf 'failure_classification: deterministic\n'
+          else
+            printf 'failure_classification: unknown\n'
+          fi
         fi
         printf 'requeue_cycles: %s\n'   "$count"
         printf 'deadline_overruns: %s\n' "$overrun"

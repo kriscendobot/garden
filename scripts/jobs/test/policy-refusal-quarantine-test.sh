@@ -191,6 +191,7 @@ if [ -f "$plan_file" ]; then
   grep -q '^gate: go-ahead$'                "$plan_file" || { q_ok=0; echo "    gate is not go-ahead"; }
   grep -q '^doomed: true$'                  "$plan_file" || { q_ok=0; echo "    doomed marker missing"; }
   grep -q '^doom_signature: policy-refusal$' "$plan_file" || { q_ok=0; echo "    signature is not policy-refusal"; }
+  grep -q '^failure_classification: deterministic$' "$plan_file" || { q_ok=0; echo "    policy refusal is not classified deterministic"; }
   grep -q 'the original work body for fuzz-repair' "$plan_file" || { q_ok=0; echo "    original body not preserved"; }
   grep -q 'garden-policy-refusal'           "$plan_file" && { q_ok=0; echo "    stale policy-refusal marker leaked into the parked body"; }
 fi
