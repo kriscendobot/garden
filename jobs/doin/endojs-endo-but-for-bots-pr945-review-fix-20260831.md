@@ -19,3 +19,13 @@ Use an isolated project worktree for the PR head, rebase before follow-ups, run
 the applicable checks, reply on every thread with the addressing SHA or evidence,
 post the required top-level completion summary, and re-request review only after
 green CI.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T08:51:41Z
