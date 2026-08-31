@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T12:27:52Z_
+_As of 2026-08-31T12:31:47Z_
 
 ## Latest
 
@@ -4465,7 +4465,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 8.8M | $179.53 _(notional, rate-card)_ | 175% of 5.0M (backoff) |
-| Codex | 24.1M _(+584.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Codex | 24.2M _(+587.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (77)
@@ -4547,12 +4547,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-021150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-021150.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-103504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-103504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (19)
+### doin (20)
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr1059-review5065895723-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-review5065895723-fix.md) — Address the CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr1099-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1099-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1099
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr138-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr237-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr237-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #237
+- [`endojs-endo-but-for-bots-pr237-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr237-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #237
 - [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
 - [`endojs-endo-but-for-bots-pr945-review-fix-20260831`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-review-fix-20260831.md) — Address unresolved maintainer review threads on endojs/endo-but-for-bots PR #945
 - [`ironhorse-fuzz-1a2012ae1ec44d21-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1a2012ae1ec44d21-repair.md) — Fix Ironhorse fuzz finding 1a2012ae1ec44d21 (target differential_regexp_surfa...
