@@ -22,3 +22,13 @@ Guards (the watcher already enforced these; re-verify before merging):
 
 Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/minion.town/pull/54#pullrequestreview-5071316023
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T21:16:26Z
