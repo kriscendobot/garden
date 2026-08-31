@@ -44,10 +44,10 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=4,24 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
