@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Disposition for the changes-requested review ([5065895723](https://github.com/endojs/endo-but-for-bots/pull/1059#pullrequestreview-5065895723)) — all three findings are now closed on head `c0a8625`: - **[P1] Promise state** — resolved by the **carry**, the stronger of the rev
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T13:07:19Z
