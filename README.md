@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T09:41:01Z_
+_As of 2026-08-31T09:41:20Z_
 
 ## Latest
 
@@ -3700,13 +3700,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 7.2M | $148.09 _(notional, rate-card)_ | 144% of 5.0M (backoff) |
-| Codex | 21.4M _(+489.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 7.2M | $148.32 _(notional, rate-card)_ | 144% of 5.0M (backoff) |
+| Codex | 21.4M _(+489.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
-### todo (66)
+### todo (67)
 - [`deadmail-20260831T091901Z-59b268`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260831T091901Z-59b268.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1018
+- [`endojs-endo-but-for-bots-pr1098-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1098-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr138-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr237-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr237-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #237
 - [`endojs-endo-but-for-bots-pr241-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr241-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #241
