@@ -65,10 +65,10 @@ Cite the runs and the commands. A clear negative result ("cannot distinguish,
 here is why and here is what would") is acceptable; a guess dressed as a
 conclusion is not.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=1,92 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
