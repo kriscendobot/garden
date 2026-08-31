@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T03:54:47Z_
+_As of 2026-08-31T03:55:01Z_
 
 ## Latest
 
@@ -1192,7 +1192,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 4.6M | $88.09 _(notional, rate-card)_ | 91% of 5.0M (backoff) |
-| Codex | 14.6M _(+372.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 14.6M _(+372.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (140)
@@ -1337,11 +1337,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-021150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-021150.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-032319`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-032319.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (22)
+### doin (21)
 - [`dependabotany-recheck-endo-but-for-bots-20260831-033523`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260831-033523.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endo-chat-vite-major-upgrade`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-chat-vite-major-upgrade.md) — build: upgrade Vite to the latest major in @endo/chat
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1013-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1013
-- [`endojs-endo-but-for-bots-pr1059-beaff99f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-beaff99f.md) — attention directive on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr1059-c4d75838`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-c4d75838.md) — attention directive on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr1093-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1093-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1093
 - [`endojs-endo-but-for-bots-pr1095-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1095-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1095
@@ -1361,13 +1360,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-9894aac5ad23c6eb-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-9894aac5ad23c6eb-repair.md) — Fix Ironhorse fuzz finding 9894aac5ad23c6eb (target differential_regexp) and ...
 - [`ironhorse-fuzz-a172d6aba922c9ad-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-a172d6aba922c9ad-repair.md) — Fix Ironhorse fuzz finding a172d6aba922c9ad (target differential_regexp) and ...
 
-### tada (6315)
+### tada (6316)
+- [`endojs-endo-but-for-bots-pr1059-beaff99f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1059-beaff99f.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260831-033523`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260831-033523.md) — Cost
 - [`endojs-endo-but-for-bots-pr1071-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1071-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr300-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr300-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1075-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1075-conduct.md) — Conductor report — endojs/endo-but-for-bots PR #1075
-- [`endojs-endo-but-for-bots-pr1016-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1016-gauntlet-fix-1.md) — Cost
-- … and 6310 more
+- … and 6311 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
