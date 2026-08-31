@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: target PR endojs/endo-but-for-bots#1046 is MERGED; this parked operational job can never advance (2026-08-31 muster plan-queue consolidation)
+withdrawn_by: producer
+withdrawn_at: 2026-08-31T21:35:30Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: fixer
