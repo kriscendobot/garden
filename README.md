@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T22:15:09Z_
+_As of 2026-08-31T22:15:47Z_
 
 ## Latest
 
@@ -2222,13 +2222,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 10.6M | $211.76 _(notional, rate-card)_ | 212% of 5.0M (backoff) |
-| Codex | 29.9M _(+777.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Codex | 29.9M _(+777.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
 
 ## Board
-### todo (76)
+### todo (74)
 - [`design-ironhorse-fuzz-triage-and-batch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-ironhorse-fuzz-triage-and-batch.md) — design: a triage-and-batch system for Ironhorse fuzz findings
-- [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
-- [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Review directive on endojs/endo-but-for-bots PR #1018
@@ -2303,7 +2301,9 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-193503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-193503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-215012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-215012.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (3)
+### doin (5)
+- [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
+- [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 - [`endojs-endo-but-for-bots-pr684-restack-onto-340`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr684-restack-onto-340.md) — Restack endojs/endo-but-for-bots#684 onto the merged #340
 - [`endor-walker-opaque-dynamic-import-deps-20260831`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-walker-opaque-dynamic-import-deps-20260831.md) — Restore the compartment-mapper fixture-parity ratchet to 32 exercised / 0 pen...
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-ocap-synthesis-units-4-5-land.md) — Finish and land minion.town OCap synthesis units 4-5 after panel provider reset
