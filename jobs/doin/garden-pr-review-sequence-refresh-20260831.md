@@ -59,3 +59,13 @@ sections). Preserve that structure.
   (`refresh-pr-review-sequence-20260823`) was doomed after five requeue cycles
   on a 100k-token minion budget and produced no document change; the 2026-08-27
   attempt succeeded in ~506s. Do not under-provision.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T17:53:29Z
