@@ -25,6 +25,7 @@ END your completion report with EXACTLY this marker line (last line):
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
