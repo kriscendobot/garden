@@ -44,6 +44,7 @@ pull request for fuzz findings.
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 <!-- garden-outage-cycle -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T07:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
