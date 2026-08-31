@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T06:47:31Z_
+_As of 2026-08-31T06:51:17Z_
 
 ## Latest
 
@@ -2263,13 +2263,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 5.0M | $110.65 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 17.6M _(+444.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 17.6M _(+444.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (142)
+### doin (143)
 - [`build-ebfb-bytearray-onto-master`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ebfb-bytearray-onto-master.md) — Build: bring byte arrays onto endojs/endo-but-for-bots master (follow-up to m...
 - [`endo-1072-address-review-multihint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-1072-address-review-multihint.md) — Address kriskowal's CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #...
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1013-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1013
@@ -2339,6 +2339,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr996-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr996-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #996
 - [`improve-deadline-nudge-sync-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-sync-retry.md) — ---
 - [`improve-gardener-full-transcript-policy-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-full-transcript-policy-classification.md) — ---
+- [`improve-recover-corrupt-fuzz-checkout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-recover-corrupt-fuzz-checkout.md) — ---
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Fix Ironhorse fuzz finding 05264cccae42245a (target differential_source) and ...
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Fix Ironhorse fuzz finding 13b68e2edb67861a (target differential_regexp) and ...
