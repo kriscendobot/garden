@@ -47,11 +47,11 @@ bar is "green" without real-execution evidence — cite the command and its
 output.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=108 -->
 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=signature through=1 values=34 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
