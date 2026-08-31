@@ -73,3 +73,13 @@ If the master-applicable subset cannot be cleanly separated from llm-only depend
 **do not force it**: deliver a structured gap report on the PR (gap-revealing-build
 posture) naming the specific coupling, and surface the blocker to the maintainer via
 the message bus rather than landing a broken or over-scoped port.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T06:43:09Z
