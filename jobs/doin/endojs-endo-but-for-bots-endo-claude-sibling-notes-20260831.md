@@ -91,3 +91,13 @@ design at 1–3 screens of *net* change: these are sharpenings of existing secti
 residuals, not a rewrite. Nothing here blocks or supersedes the #1015 build DRAFT (its
 confinement core stands; these lessons touch its explicitly-deferred residuals). Leave
 the refresh PR draft; name it in the completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T09:33:49Z
