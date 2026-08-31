@@ -14,6 +14,7 @@ Scope:
 - Add a regression check if one is cheap; otherwise document the reconcile behavior in DEPLOYMENT.md.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T22:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
