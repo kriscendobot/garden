@@ -3702,3 +3702,14 @@ Inspect via `git -C journal cat-file -p cfbc35f2b5d0920768dcfa077203277849391ca0
 
 Inspect via `git -C journal cat-file -p 947bd52525bf6f892541dbc729595f611caa1029` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/947bd52525bf6f892541dbc729595f611caa1029`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-08-31T22:41:38Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: d512d2a4ac881b903fdef92902fcf809da604569
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr675-gauntlet-panel-1' transient-classified (rc=1) but elapsed near-constant (4,5s) over 2 cycles — likely deterministic overrun, not a blip
+- Capture: inboxes/endolin-garden-ece02cb4/captures/d512d2a4ac881b903fdef92902fcf809da604569
+
+Inspect via `git -C journal cat-file -p d512d2a4ac881b903fdef92902fcf809da604569` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/d512d2a4ac881b903fdef92902fcf809da604569`) -- both work off-host after a plain `journal2` fetch.
