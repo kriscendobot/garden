@@ -54,6 +54,7 @@ and a comment on the design's tracking surface recording that § 9 cleanup
 preceded the rename so whoever picks up `#54` knows the base moved.
 
 <!-- garden-outage-cycle -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T07:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
