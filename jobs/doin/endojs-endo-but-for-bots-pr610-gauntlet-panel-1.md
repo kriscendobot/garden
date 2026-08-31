@@ -40,10 +40,10 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=must-fix -->
 
 
-<!-- garden-transient-elapsed: kind=signature through=2 values=4 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=signature through=3 values=4,4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
