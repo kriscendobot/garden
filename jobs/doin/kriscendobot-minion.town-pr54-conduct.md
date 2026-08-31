@@ -28,3 +28,13 @@ Approval: https://github.com/kriscendobot/minion.town/pull/54#pullrequestreview-
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=77 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-31T13:08:30Z
