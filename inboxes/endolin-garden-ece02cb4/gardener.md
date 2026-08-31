@@ -3130,3 +3130,14 @@ Inspect via `git -C journal cat-file -p e88428ac00c8622cfc7d6ceb1f88ceeb4d4f4877
 
 Inspect via `git -C journal cat-file -p e3d85b8edcc9b7be8d2fadc038a20cb64cd11fc6` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/e3d85b8edcc9b7be8d2fadc038a20cb64cd11fc6`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-08-31T08:24:49Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e5b1d346296cecf0a23a4ac3e9c31f437ab43029
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'ironhorse-fuzz-f2f53bb078bc8a4e-repair' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/e5b1d346296cecf0a23a4ac3e9c31f437ab43029
+
+Inspect via `git -C journal cat-file -p e5b1d346296cecf0a23a4ac3e9c31f437ab43029` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/e5b1d346296cecf0a23a4ac3e9c31f437ab43029`) -- both work off-host after a plain `journal2` fetch.
