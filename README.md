@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T21:23:44Z_
+_As of 2026-08-31T21:27:27Z_
 
 ## Latest
 
@@ -2103,12 +2103,12 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.7M | $196.62 _(notional, rate-card)_ | 193% of 5.0M (backoff) |
-| Codex | 29.1M _(+763.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
+| Claude | 10.0M | $199.28 _(notional, rate-card)_ | 201% of 5.0M (backoff) |
+| Codex | 29.2M _(+763.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 
 ### doin (75)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
