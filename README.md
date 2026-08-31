@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T04:16:39Z_
+_As of 2026-08-31T04:17:14Z_
 
 ## Latest
 
@@ -1196,7 +1196,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 4.6M | $89.47 _(notional, rate-card)_ | 92% of 5.0M (backoff) |
-| Codex | 14.7M _(+389.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 14.7M _(+390.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (136)
@@ -1362,13 +1362,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-9894aac5ad23c6eb-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-9894aac5ad23c6eb-repair.md) — Fix Ironhorse fuzz finding 9894aac5ad23c6eb (target differential_regexp) and ...
 - [`ironhorse-fuzz-a172d6aba922c9ad-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-a172d6aba922c9ad-repair.md) — Fix Ironhorse fuzz finding a172d6aba922c9ad (target differential_regexp) and ...
 
-### tada (6330)
+### tada (6331)
+- [`endojs-endo-but-for-bots-pr1071-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1071-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1071-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1093-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1093-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1071-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1071-gauntlet-undraft.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-gauntlet-fix-1.md) — Completion report
 - [`improve-ironhorse-fuzz-shared-runner-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ironhorse-fuzz-shared-runner-backoff.md) — Cost
-- [`endojs-endo-but-for-bots-pr264-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr264-gauntlet-panel-1.md) — Completion report
-- … and 6325 more
+- … and 6326 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
