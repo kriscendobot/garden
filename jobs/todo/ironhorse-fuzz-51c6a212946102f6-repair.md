@@ -43,12 +43,4 @@ pull request for fuzz findings.
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-30T11:44:42Z
+<!-- garden-reaped: 1 -->
