@@ -25,10 +25,10 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/minion.town/pull/54#pullrequestreview-5064640371
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=77 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=77,98 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
