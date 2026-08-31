@@ -213,6 +213,7 @@ The short-circuit costs one `gh` call rather than a full seat fan-out plus run s
 
 ## Pitfalls
 
+- **A failed read-only round may leave worktree residue.** Jury prompts prohibit edits, but a seat can still create a scratch reproducer or modify a tracked file before the panel fails closed. After any failed round, compare the worktree with the pre-round clean baseline, inspect every new change, and remove only confirmed panel-generated residue before retrying or running gates. Never carry an unexplained jury edit into the fixer loop.
 - **Panel-report prose is not exempt from the project style rules.** The aggregated body ships in a public PR review. The same prose rules apply (no em-dashes per [em-dash-style](../em-dash-style/SKILL.md), no methodology leaks). Sweep the body before submitting.
 - **A "shadow" finding may be a panel hallucination.** Variable-shadowing claims need a 30-second sanity check before promoting. Re-read the lines and confirm they are in the same lexical scope.
 - **Sibling-package forks miss recent peer fixes.** When a PR introduces a package by forking a peer, diff the new sibling against the peer's recent commits for fixes that landed between the fork point and submission.
