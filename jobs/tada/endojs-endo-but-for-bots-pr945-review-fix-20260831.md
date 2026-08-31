@@ -1,11 +1,11 @@
 Completed PR #945 review-thread reconciliation.
 
-- Re-fetched all six unresolved @kriskowal inline threads and treated their bodies independently of the prior report.
-- Verified that current head `455a32e6443d3bd529a8debd709a6630c981519a` already satisfies every request; no focused follow-up commit or push was warranted.
-- Posted fresh, concrete file-and-line evidence on all six threads, replacing the stale replies that cited the non-PR SHA `dd1cbcedf`.
-- Posted the required top-level completion summary: https://github.com/endojs/endo-but-for-bots/pull/945#issuecomment-5478757555
-- Fetched the base and confirmed `git rev-list --left-right --count origin/llm...HEAD` returned `0 1104`; the current-head GitHub checks are green: browser-tests, build, lint, test, and zizmor. @kriskowal is already the pending requested reviewer, so no duplicate re-request was sent.
-- Local Prettier check was not verified: `yarn prettier --check designs/endor-bytecode-precompile-cache.md` could not run because the isolated worktree lacks installed dependencies; its cache provisioning had already failed at `yarn install --immutable`. No source files were modified.
+- Re-fetched and replied to all six unresolved @kriskowal threads with current-head file-and-line evidence.
+- Confirmed head `455a32e6443d3bd529a8debd709a6630c981519a` already satisfies every request; no commit was needed.
+- Posted a top-level completion summary.
+- Current-head CI is green: browser-tests, build, lint, test, zizmor.
+- @kriskowal was already requested for review; no duplicate request sent.
+- Local Prettier check was not runnable because dependency provisioning failed; no source files changed.
 
 Follow-ups: none.
 Self-improvement: nothing this time.
