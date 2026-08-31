@@ -49,3 +49,13 @@ pull request for fuzz findings.
 <!-- garden-transient-elapsed: kind=signature through=1 values=1,68 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T16:44:45Z
