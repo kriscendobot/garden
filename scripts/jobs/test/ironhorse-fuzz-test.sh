@@ -17,12 +17,11 @@
 #   H. standing-PR adoption — every repair job targets the SAME marker_base + branch (one standing PR)
 #   I. post-merge rollover — a MERGED standing PR bumps the generation; the next finding targets gen 2
 #   J. first-run init — standing.md is created on a virgin journal
-#   K. untrusted-data — raw crash bytes never appear in the repair job body (only sha256 + base64 + path)
+#   K. repair-job body — raw bytes stay out; wording uses a correctness/robustness register
 #   L. failed release — the durable marker remains queued and a later tick retries it
 #   M. shared runner outage — retries persist one episode, warn on its edge, and summarize recovery once
 #   N. runner exit contract — a target run's own rc=2 is remapped to target-specific rc=1
 #   O. corrupt checkout recovery — quarantine only the project cache and retry provisioning once
-#   P. repair-job register — correctness/robustness wording without offensive-security vocabulary
 #
 # Usage: ironhorse-fuzz-test.sh
 set -euo pipefail
