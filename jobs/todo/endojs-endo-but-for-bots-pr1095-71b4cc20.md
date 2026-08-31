@@ -41,16 +41,7 @@ directive:
 Never state in your report that a peer did work you did not verify.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=320,67 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-31T03:55:40Z
+
+<!-- garden-reaped: 2 -->
