@@ -84,6 +84,7 @@ open questions, follow the CLAUDE.md carve-out and present it as a review PR
 rather than landing it bare.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T22:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
