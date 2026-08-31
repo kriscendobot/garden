@@ -9,6 +9,7 @@ set -uo pipefail
 export GARDEN_TEST=1
 export GARDEN_CLAIM_TTL=14400 GARDEN_HANDLER_KILL_AFTER=60
 export GARDEN_HANDLER_TIMEOUT=2400 GARDEN_BUILD_HANDLER_TIMEOUT=7200
+export GARDEN_FIXER_HANDLER_TIMEOUT=2400
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 ROOT="$(cd "$JOBS/../.." && pwd)"
@@ -250,6 +251,50 @@ run_nudge enabled > "$TEST_ROOT/enabled.out" 2>&1
 hr
 printf '%s\n' 'CONDITIONAL DELIVERY RACES AND FAIL-OPEN'
 hr
+preflight_git_stub="$HERE/deadline-nudge-preflight-git-stub.sh"
+fetch_stub="$HERE/deadline-nudge-fetch-stub.sh"
+real_git="$(command -v git)"
+
+add_claim_at_tip clone-retry 300
+clone_stub_bin="$TEST_ROOT/clone-stub-bin"
+mkdir -p "$clone_stub_bin"
+ln -s "$preflight_git_stub" "$clone_stub_bin/git"
+run_nudge clone-retry-scan env PATH="$clone_stub_bin:$PATH" \
+  GARDEN_NUDGE_REAL_GIT="$real_git" GARDEN_NUDGE_CLONE_FAIL_COUNT="$TEST_ROOT/clone-retry.count" \
+  GARDEN_NUDGE_FAIL_UNTIL=1 GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS=2 \
+  > "$TEST_ROOT/clone-retry.out" 2>&1
+if [ "$(cat "$TEST_ROOT/clone-retry.count" 2>/dev/null || echo 0)" -eq 2 ] \
+  && [ "$(nudge_paths clone-retry | wc -l)" -eq 1 ] \
+  && grep -q 'clone stage failed (attempt 1/2, rc=1)' "$TEST_ROOT/clone-retry.out"; then
+  ok 'cold clone failure is diagnosed and recovered within the retry bound'
+else
+  bad 'cold clone retry did not recover with stage-specific diagnostics'
+fi
+
+add_claim_at_tip sync-retry 300
+run_nudge sync-retry-scan env GARDEN_FETCH_CMD="$fetch_stub" GARDEN_FETCH_RETRIES=1 \
+  GARDEN_NUDGE_REAL_GIT="$real_git" GARDEN_NUDGE_FETCH_FAIL_COUNT="$TEST_ROOT/sync-retry.count" \
+  GARDEN_NUDGE_FAIL_UNTIL=1 GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS=2 \
+  > "$TEST_ROOT/sync-retry.out" 2>&1
+if [ "$(cat "$TEST_ROOT/sync-retry.count" 2>/dev/null || echo 0)" -ge 2 ] \
+  && [ "$(nudge_paths sync-retry | wc -l)" -eq 1 ] \
+  && grep -q 'journal-sync stage failed (attempt 1/2, rc=1)' "$TEST_ROOT/sync-retry.out"; then
+  ok 'journal-sync failure is diagnosed and recovered within the retry bound'
+else
+  bad 'journal-sync retry did not recover with stage-specific diagnostics'
+fi
+
+run_nudge sync-exhausted env GARDEN_FETCH_CMD="$fetch_stub" GARDEN_FETCH_RETRIES=1 \
+  GARDEN_NUDGE_REAL_GIT="$real_git" GARDEN_NUDGE_FETCH_FAIL_COUNT="$TEST_ROOT/sync-exhausted.count" \
+  GARDEN_NUDGE_FAIL_UNTIL=99 GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS=2 \
+  > "$TEST_ROOT/sync-exhausted.out" 2>&1
+if [ "$(cat "$TEST_ROOT/sync-exhausted.count" 2>/dev/null || echo 0)" -eq 2 ] \
+  && grep -q 'journal-sync stage exhausted after 2 attempt(s) (last rc=1)' "$TEST_ROOT/sync-exhausted.out"; then
+  ok 'journal-sync exhaustion is bounded, stage-specific, and fails open'
+else
+  bad 'journal-sync exhaustion was opaque or exceeded its retry bound'
+fi
+
 race_stub="$HERE/deadline-nudge-race-push-stub.sh"
 add_claim_at_tip claim-race 300
 old_claimed_at="$(tip_show jobs/doin/claim-race.md | sed -n 's/^  claimed_at: //p')"
@@ -292,11 +337,17 @@ run_nudge invalid env GARDEN_DEADLINE_NUDGE_INTERVAL=oops > "$TEST_ROOT/invalid.
 set +e
 env JOURNAL_REMOTE="$TEST_ROOT/missing.git" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
   GARDEN_STATE="$TEST_ROOT/dead-state" GARDEN=leader-one GARDEN_NO_MAINTAINER_ALERT=1 \
-  GARDEN_DEADLINE_NUDGE_CLONE="$TEST_ROOT/dead-state/journal" "$NUDGE" \
+  GARDEN_DEADLINE_NUDGE_CLONE="$TEST_ROOT/dead-state/journal" \
+  GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS=2 "$NUDGE" \
   > "$TEST_ROOT/dead-origin.out" 2>&1
 dead_rc=$?
 set -e
-[ "$dead_rc" -eq 0 ] && ok 'unavailable journal origin exits successfully' || bad "unavailable origin escaped rc=$dead_rc"
+if [ "$dead_rc" -eq 0 ] \
+  && grep -q 'clone stage exhausted after 2 attempt(s)' "$TEST_ROOT/dead-origin.out"; then
+  ok 'clone exhaustion is bounded, stage-specific, and fails open'
+else
+  bad "unavailable origin was opaque or escaped fail-open handling (rc=$dead_rc)"
+fi
 
 hr
 printf '%s\n' 'HONEST HANDOFF AND BUDGET PARK/REFRESH'
@@ -312,6 +363,7 @@ handoff_report="$TEST_ROOT/handoff-report"
 printf 'partial work committed and successor posted\n%s\n' '<<<GARDEN-JOB-HANDED-OFF: handoff-successor>>>' > "$handoff_report"
 env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
   GARDEN_STATE="$STATE" GARDEN=worker-host GARDEN_GARDENER_CLONE="$STATE/handoff/journal" \
+  GARDEN_WORKER_CLONE="$STATE/handoff/journal" \
   "$JOBS/complete-job.sh" --handed-off handoff-successor 3 handoff "$handoff_report" \
   > "$TEST_ROOT/handoff.out" 2>&1
 if tip_show jobs/tada/handoff.md | grep -q '^handed-off: handoff-successor$' \

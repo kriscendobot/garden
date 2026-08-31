@@ -16,10 +16,47 @@ GARDEN_TAG="deadline-nudge"
 : "${GARDEN_DEADLINE_NUDGE_FRACTION:=4}"
 : "${GARDEN_DEADLINE_NUDGE_CAP:=900}"
 : "${GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS:=5}"
+: "${GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS:=3}"
+: "${GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS:=3}"
 
 DIR="${GARDEN_DEADLINE_NUDGE_CLONE:-$GARDEN_STATE/deadline-nudge/journal}"
 
 positive_integer() { [[ "${1:-}" =~ ^[1-9][0-9]*$ ]]; }
+
+# ensure_clone and sync_clone deliberately exit from several failure paths. Run
+# them in contained subshells so this courtesy timer can absorb a short-lived
+# prerequisite failure instead of abandoning the whole tick on the first try.
+# A successful sync normally leaves the clone lock held for the following
+# write/push transaction; the subshell closes that fd, so reacquire it before
+# returning to the caller.
+prepare_clone() {
+  local attempt rc=1
+  for attempt in $(seq 1 "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS"); do
+    rc=0
+    ( ensure_clone "$DIR" ) || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    log "deadline-nudge clone stage failed (attempt $attempt/$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS, rc=$rc)"
+    [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS" ] || backoff "$attempt"
+  done
+  log "ERROR: deadline-nudge clone stage exhausted after $GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS attempt(s) (last rc=$rc); deferring to next timer tick"
+  return "$rc"
+}
+
+sync_journal() {
+  local attempt rc=1
+  for attempt in $(seq 1 "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS"); do
+    rc=0
+    ( sync_clone "$DIR" ) || rc=$?
+    if [ "$rc" -eq 0 ]; then
+      clone_lock "$DIR"
+      return 0
+    fi
+    log "deadline-nudge journal-sync stage failed (attempt $attempt/$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS, rc=$rc)"
+    [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS" ] || backoff "$attempt"
+  done
+  log "ERROR: deadline-nudge journal-sync stage exhausted after $GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS attempt(s) (last rc=$rc); deferring to next timer tick"
+  return "$rc"
+}
 
 claim_field() {
   local job_file="$1" field="$2"
@@ -280,7 +317,8 @@ stage_due_messages() {
 deadline_nudge_tick() {
   local now attempt rc
   for value in "$GARDEN_DEADLINE_NUDGE_INTERVAL" "$GARDEN_DEADLINE_NUDGE_FRACTION" \
-               "$GARDEN_DEADLINE_NUDGE_CAP" "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS"; do
+               "$GARDEN_DEADLINE_NUDGE_CAP" "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" \
+               "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS" "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS"; do
     if ! positive_integer "$value"; then
       log "invalid deadline-nudge timing/retry value '$value'; disabling this tick"
       return 0
@@ -292,9 +330,9 @@ deadline_nudge_tick() {
     return 0
   fi
 
-  ensure_clone "$DIR"
+  prepare_clone
   for attempt in $(seq 1 "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS"); do
-    sync_clone "$DIR"
+    sync_journal
     if ! nudge_enabled; then
       clone_unlock "$DIR"
       return 0
