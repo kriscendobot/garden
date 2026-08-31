@@ -75,3 +75,13 @@ posture) naming the specific coupling, and surface the blocker to the maintainer
 the message bus rather than landing a broken or over-scoped port.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T10:45:13Z
