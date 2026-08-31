@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T16:05:16Z_
+_As of 2026-08-31T16:05:43Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 2h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 2h)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 2h)
 - [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 7h)
 - [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 1d)
@@ -4846,10 +4846,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 25.6M _(+612.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`xs2rust-endor-press-20260831-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-160503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+### todo (0)
+(none)
 
-### doin (80)
+### doin (81)
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1013-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1098-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1098-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr138-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #138
@@ -4930,6 +4930,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-agoric-sdk-pr10-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
+- [`xs2rust-endor-press-20260831-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-160503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6479)
 - [`xs2rust-endor-press-20260831-145010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260831-145010.md) — Cost
