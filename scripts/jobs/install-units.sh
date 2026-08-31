@@ -46,9 +46,27 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 #      AUTHORIZATION to arm. garden-mention-watcher watches all of GitHub; arming
 #      it must be a deliberate maintainer act, never a side effect of a routine
 #      install. It is left for the maintainer to enable by hand. Named below.
+#
+#   3. Units the maintainer has DELIBERATELY PAUSED, where a routine install
+#      silently re-arming them would undo the pause. A host-local
+#      `systemctl --user disable` is not durable against this reconcile: the
+#      enable-set is derived from the units PRESENT in $SRC, so the next deploy
+#      re-enables anything not named here. Listing such a unit is what makes a
+#      pause survive a deploy; removing its line is what re-arms it.
+#
+#      garden-ironhorse-fuzz — PAUSED 2026-08-31 by maintainer directive. The
+#      lane emits one full repair job per fuzz finding, which produced 73
+#      quarantined jobs in jobs/plan/ across only three targets (66 of them
+#      doomed `policy-refusal`), with no triage separating genuine port defects
+#      from known xs-oracle/harness artifacts. It stays paused pending
+#      designs/ (job `design-ironhorse-fuzz-triage-and-batch`). Re-arming is
+#      therefore a deliberate TWO-PART act: delete this entry AND
+#      `systemctl --user enable --now garden-ironhorse-fuzz.timer`.
 EXCLUDED_UNITS=(
   garden-mention-watcher.timer
   garden-mention-watcher.service
+  garden-ironhorse-fuzz.timer
+  garden-ironhorse-fuzz.service
 )
 
 # Belt-and-suspenders list of unit names that must NEVER come back, even if a
@@ -119,8 +137,10 @@ intended_units() {
 #   * template files/instances (basename contains '@'): a template's source IS
 #     the @.service/@.timer file, and an enabled instance (garden-gardener@7) has
 #     no own source — neither must be pruned.
-#   * EXCLUDED_UNITS (monitoring-gated): these ship a source under $SRC anyway, so
-#     the source check already keeps them; the skip is belt-and-suspenders.
+#   * EXCLUDED_UNITS (monitoring-gated, or maintainer-paused): these ship a source
+#     under $SRC anyway, so the source check already keeps them; the skip is
+#     belt-and-suspenders. Keeping the source installed is deliberate — it means
+#     re-arming an excluded unit is a plain `enable`, with no re-render needed.
 # A unit named in RETIRED_UNITS is pruned UNCONDITIONALLY (even if a stray source
 # reappears) — the explicit never-come-back list.
 prune_retired() {

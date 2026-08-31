@@ -73,17 +73,22 @@ populate_dest
 "$INSTALL" enable-services >/dev/null 2>&1
 
 # Build the EXPECTED set independently of the script: every non-template
-# garden-*.timer with WantedBy=timers.target EXCEPT mention-watcher, plus every
+# garden-*.timer with WantedBy=timers.target EXCEPT the EXCLUDED_UNITS
+# (monitoring-gated mention-watcher; maintainer-paused ironhorse-fuzz), plus every
 # non-template garden-*.service that has NO sibling timer and declares [Install].
 expected="$TR/expected"; : > "$expected"
 for f in "$SRC"/garden-*.timer; do
   b="$(basename "$f")"; case "$b" in *@*) continue;; esac
   [ "$b" = garden-mention-watcher.timer ] && continue
+  # Maintainer-paused 2026-08-31 pending designs/ for fuzz triage-and-batch; a
+  # routine install must not silently re-arm it (install-units.sh EXCLUDED_UNITS).
+  [ "$b" = garden-ironhorse-fuzz.timer ] && continue
   grep -q '^WantedBy=timers\.target' "$f" && echo "$b" >> "$expected"
 done
 for f in "$SRC"/garden-*.service; do
   b="$(basename "$f")"; case "$b" in *@*) continue;; esac
   [ "$b" = garden-mention-watcher.service ] && continue
+  [ "$b" = garden-ironhorse-fuzz.service ] && continue
   # garden-ollama is hermit-count-gated (armed by `scale hermit N>0`, not the standing
   # enable set), so — like the monitoring-gated mention-watcher — it is NOT in the
   # derived intended set. See install-units.sh intended_units / reconcile_ollama_unit.
@@ -119,6 +124,14 @@ grep -q mention-watcher "$GARDEN_MOCK_STATE" \
   && bad "garden-mention-watcher was auto-enabled (monitoring-gated)" \
   || ok "garden-mention-watcher NOT auto-enabled (left for maintainer to arm)"
 
+# A maintainer PAUSE must survive a routine install. A host-local
+# `systemctl --user disable` does not: the enable-set is derived from the units
+# PRESENT in $SRC, so without an EXCLUDED_UNITS entry the next deploy silently
+# re-arms the paused unit and the pause evaporates with no one noticing.
+grep -q ironhorse-fuzz "$GARDEN_MOCK_STATE" \
+  && bad "garden-ironhorse-fuzz was auto-enabled (maintainer-paused 2026-08-31)" \
+  || ok "garden-ironhorse-fuzz NOT auto-enabled (maintainer pause survives install)"
+
 # ============================================================================
 hr; echo "RETIRE — a unit deleted from scripts/systemd/ is self-reconcilingly pruned"; hr
 # The deterministic replacement for the hand-maintained RETIRED_UNITS list: an
@@ -152,6 +165,10 @@ done
 # The monitoring-gated, excluded unit must survive even though it ships a source.
 [ -e "$DEST/garden-mention-watcher.service" ] \
   && ok "garden-mention-watcher.service kept (excluded + sourced)" || bad "garden-mention-watcher.service wrongly pruned"
+# Same for the paused unit: excluding it must NOT prune its source, so re-arming
+# is a plain `enable` with no re-render.
+[ -e "$DEST/garden-ironhorse-fuzz.service" ] \
+  && ok "garden-ironhorse-fuzz.service kept (excluded + sourced)" || bad "garden-ironhorse-fuzz.service wrongly pruned"
 
 # ============================================================================
 hr; echo "VERIFY — drift check passes when enabled, fails when a unit drops"; hr
