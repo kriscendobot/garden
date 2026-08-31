@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T17:56:42Z_
+_As of 2026-08-31T17:57:33Z_
 
 ## Latest
 
@@ -1801,6 +1801,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
+- `watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods.md)
+
+> gardener job 'ebfb-exo-stream-drop-base64-stream-methods' declared handler-timeout=14400s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1095-71b4cc20` — from watchdog:cleric/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1095-71b4cc20.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr1095-71b4cc20' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2423s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1819,8 +1823,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.5M | $191.47 _(notional, rate-card)_ | 191% of 5.0M (backoff) |
-| Codex | 26.5M _(+619.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 9.6M | $191.71 _(notional, rate-card)_ | 191% of 5.0M (backoff) |
+| Codex | 26.5M _(+619.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (66)
