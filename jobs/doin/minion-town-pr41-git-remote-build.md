@@ -10,6 +10,7 @@ Implement the smallest coherent end-to-end increment that exposes one authentica
 Start by reconciling the current gateway/guest primitives and the open guest-CLI design (#60) and content-from-guest work (#68), then choose and document a bounded implementation increment if the full smart-HTTP surface cannot land in one change. Include protocol/auth/error-path tests and an end-to-end test demonstrating an authenticated guest can clone/fetch/push a small directory while another guest cannot read it. Update operator and client documentation with the connection/runbook details and clearly record any deferred Strategy B or transport work.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
