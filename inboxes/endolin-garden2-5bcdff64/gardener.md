@@ -4685,3 +4685,14 @@ Inspect via `git -C journal cat-file -p 4735bc9da766edc4de82844a59aecbc446d58346
 
 Inspect via `git -C journal cat-file -p fc82da7a4b002a9de41c66392278dbb657279114` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/fc82da7a4b002a9de41c66392278dbb657279114`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-08-31T06:47:56Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a61836302e59958a660a06544c03882b6e4d755d
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'build-ebfb-bytearray-onto-master' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/a61836302e59958a660a06544c03882b6e4d755d
+
+Inspect via `git -C journal cat-file -p a61836302e59958a660a06544c03882b6e4d755d` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/a61836302e59958a660a06544c03882b6e4d755d`) -- both work off-host after a plain `journal2` fetch.
