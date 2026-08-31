@@ -67,3 +67,13 @@ past the budget halts with the new reason; a deterministically-doomed stage is
 not retried at all. Prove the test can fail — mutate each guard and show it is
 caught — and record that in the test header. Real-execution evidence, with
 commands and output.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T21:27:53Z
