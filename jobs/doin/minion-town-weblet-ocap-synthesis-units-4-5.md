@@ -52,3 +52,13 @@ landed shape (docs hygiene noted by the 2026-08-28 press).
 Units 4 and 5 landed with real-execution evidence (cite commands and output),
 and a comment on the design's tracking surface recording that § 9 cleanup
 preceded the rename so whoever picks up `#54` knows the base moved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T06:39:13Z
