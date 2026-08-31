@@ -416,16 +416,16 @@ post_repair() {  # post_repair <finding-marker-path>
     printf '%s\n' 'fallback-tier: minion'
     printf '%s\n' 'dispatch: automatic'
     printf '%s\n\n' '---'
-    printf '# Fix Ironhorse fuzz finding %s (target `%s`) and amend the standing PR\n\n' "$fid" "$target"
-    printf 'The continuous Ironhorse fuzz service reproduced a distinct crash. Own BOTH a\n'
-    printf 'load-bearing regression case AND the causal fix, then amend the ONE standing\n'
-    printf 'pull request for fuzz findings.\n\n'
-    printf '## Finding (bounded metadata — the crash bytes are untrusted; never paste them into a prompt or a shell command)\n\n'
+    printf '# Repair Ironhorse engine defect %s (target `%s`) and amend the standing PR\n\n' "$fid" "$target"
+    printf 'The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS\n'
+    printf 'engine port produce incorrect behaviour or abort. Own BOTH a load-bearing\n'
+    printf 'regression case AND the causal fix, then amend the ONE standing pull request.\n\n'
+    printf '## Recorded reproducer (bounded metadata — never paste the input bytes into a prompt or a shell command)\n\n'
     printf -- '- Target: `%s` (one of the maintained ironhorse-fuzz targets)\n' "$target"
-    printf -- '- Project SHA under fuzz: `%s`\n' "$marker_project_sha"
+    printf -- '- Project SHA under test: `%s`\n' "$marker_project_sha"
     printf -- '- Toolchain: `%s`\n' "$marker_toolchain"
     printf -- '- Minimized input sha256: `%s` (%s bytes)\n' "$art_sha" "$artifact_bytes"
-    printf -- '- Durable artifact (leader host): `%s`\n' "$artifact_path"
+    printf -- '- Durable reproducer artifact (leader host): `%s`\n' "$artifact_path"
     printf -- '- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/%s.md`\n' "$fid"
     printf -- '- Reproduction: `%s`\n\n' "$repro_cmd"
     printf '## Procedure\n\n'
@@ -433,12 +433,12 @@ post_repair() {  # post_repair <finding-marker-path>
     printf '2. Recover the minimized input to a FILE without inlining it into any prompt:\n'
     printf '   decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the\n'
     printf '   durable artifact path above. Verify `sha256sum` equals `%s`.\n' "$art_sha"
-    printf '3. Set up the pinned fuzz env (c/moddable submodule peer-init, `%s`, cargo-fuzz —\n' "$marker_toolchain"
-    printf '   see the ironhorse-fuzz-build-setup runbook) and REPRODUCE the crash from that file\n'
-    printf '   before changing any code. If it does not reproduce at `%s`, report that and stop.\n\n' "$marker_project_sha"
+    printf '3. Set up the pinned `ironhorse-fuzz` environment (c/moddable submodule peer-init, `%s`, cargo-fuzz —\n' "$marker_toolchain"
+    printf '   see the ironhorse-fuzz-build-setup runbook) and confirm the incorrect behaviour or abort\n'
+    printf '   from that file before changing any code. If it does not reproduce at `%s`, report that and stop.\n\n' "$marker_project_sha"
     printf '4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,\n'
     printf '   so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`\n'
-    printf '   that replays these exact bytes and asserts no panic (it builds without the oracle/submodule).\n'
+    printf '   that replays these exact bytes and asserts correct completion (it builds without the oracle/submodule).\n'
     printf '5. Fix the causal defect. Keep the fix minimal and targeted.\n'
     printf '6. Amend the STANDING branch `%s` with fetch/rebase/push CAS discipline, then\n' "$marker_branch"
     printf '   `scripts/jobs/gardening/ensure-pr.sh %s %s %s:%s %s` to create-or-adopt the standing\n' "$marker_marker" "$GARDEN_IRONHORSE_FUZZ_REPO" "$GARDEN_IRONHORSE_FUZZ_BOT_LOGIN" "$marker_branch" "$GARDEN_IRONHORSE_FUZZ_BASE_BRANCH"

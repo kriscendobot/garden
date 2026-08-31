@@ -22,6 +22,7 @@
 #   M. shared runner outage — retries persist one episode, warn on its edge, and summarize recovery once
 #   N. runner exit contract — a target run's own rc=2 is remapped to target-specific rc=1
 #   O. corrupt checkout recovery — quarantine only the project cache and retry provisioning once
+#   P. repair-job register — correctness/robustness wording without offensive-security vocabulary
 #
 # Usage: ironhorse-fuzz-test.sh
 set -euo pipefail
@@ -288,6 +289,15 @@ hr; echo "K — untrusted-data: raw crash bytes never appear in the repair job b
 body_b="$(job_body "$BARE_B" "ironhorse-fuzz-${fid_b}-repair")"
 if printf '%s' "$body_b" | grep -q 'HELLO-CRASH-B'; then bad "raw crash bytes leaked into the job body"; else ok "raw crash bytes absent from the job body"; fi
 printf '%s' "$body_b" | grep -q 'sha256' && ok "body carries the sha256 provenance instead" || bad "body missing sha256 provenance"
+printf '%s' "$body_b" | grep -q '^# Repair Ironhorse engine defect ' \
+  && printf '%s' "$body_b" | grep -q 'incorrect behaviour or abort' \
+  && ok "repair body frames the work as an engine correctness defect" \
+  || bad "repair body is missing the correctness-defect framing"
+if printf '%s' "$body_b" | grep -Eiq '\b(crash|untrusted|panic|attack|adversarial|exploit)\b'; then
+  bad "repair body retains offensive-security vocabulary"
+else
+  ok "repair body omits offensive-security vocabulary"
+fi
 
 # ============================================================================
 hr; echo "L — a failed release remains queued and retries on a later tick"; hr
