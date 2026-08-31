@@ -1,1 +1,2 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":2,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-08-31T22:00:11Z","base":"design-ironhorse-fuzz-triage-and-batch","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"designer","provider":"anthropic"}
+{"source":"none","ts":"2026-08-31T22:34:50Z","base":"design-ironhorse-fuzz-triage-and-batch","host":"endolin-garden-ece02cb4","outcome":"tada","elapsed_s":701,"role":"designer","provider":"openai"}
