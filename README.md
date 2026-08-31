@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T07:37:16Z_
+_As of 2026-08-31T07:37:51Z_
 
 ## Latest
 
@@ -2623,12 +2623,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 5.0M | $110.65 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 18.4M _(+450.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 18.4M _(+450.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
-### todo (100)
+### todo (99)
 - [`daily-progress-summary-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260831-070510.md) — Daily midnight Pacific progress summary
-- [`endojs-endo-but-for-bots-pr1016-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1016-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1016
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr231-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr231-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #231
 - [`endojs-endo-but-for-bots-pr234-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr234-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #234
@@ -2730,7 +2729,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (32)
 - [`build-ebfb-bytearray-onto-master`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ebfb-bytearray-onto-master.md) — Build: bring byte arrays onto endojs/endo-but-for-bots master (follow-up to m...
-- [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1013-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1013
+- [`endojs-endo-but-for-bots-pr1016-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1016-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1016
 - [`endojs-endo-but-for-bots-pr1059-9cfafd63`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-9cfafd63.md) — attention directive on endojs/endo-but-for-bots PR #1059
 - [`endojs-endo-but-for-bots-pr1080-review-09542d7d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1080-review-09542d7d.md) — Review directive on endojs/endo-but-for-bots PR #1080
 - [`endojs-endo-but-for-bots-pr1080-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1080-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1080
@@ -2762,13 +2761,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr54-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr54-refresh.md) — refresh directive on kriscendobot/minion.town PR #54
 - [`xs2rust-endor-press-20260831-021150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-021150.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6362)
+### tada (6363)
+- [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1013-gauntlet-panel-2.md) — Completion report
 - [`endo-1072-address-review-multihint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-1072-address-review-multihint.md) — Completion report
 - [`improve-deadline-nudge-sync-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deadline-nudge-sync-retry.md) — Cost
 - [`endojs-endo-but-for-bots-pr1016-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1016-gauntlet-fix-3.md) — Completion report
 - [`improve-gardener-full-transcript-policy-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gardener-full-transcript-policy-classification.md) — Cost
-- [`improve-ironhorse-fuzz-shared-setup-outage-latch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ironhorse-fuzz-shared-setup-outage-latch.md) — Cost
-- … and 6357 more
+- … and 6358 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
