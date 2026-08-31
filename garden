@@ -134,7 +134,11 @@ build_contract_inputs() {
         "$SCRIPT_DIR/Dockerfile" \
         "$SCRIPT_DIR/entrypoint.sh" \
         "$SCRIPT_DIR/scripts/systemd/seed-api-key-handoff.sh" \
-        "$SCRIPT_DIR/scripts/jobs/provision-node-lts.sh"
+        "$SCRIPT_DIR/scripts/jobs/provision-node-lts.sh" \
+        "$SCRIPT_DIR/scripts/jobs/common.sh" \
+        "$SCRIPT_DIR/scripts/jobs/usage-meter.sh" \
+        "$SCRIPT_DIR/scripts/jobs/quota-panel.sh" \
+        "$SCRIPT_DIR/scripts/jobs/provision-moddable-xst.sh"
 }
 
 # sha256 of the concatenated build inputs. Missing inputs (a partial checkout)

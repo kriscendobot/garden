@@ -121,6 +121,8 @@ RUN chmod +x /usr/local/lib/garden/provision-node-lts.sh \
 # an unrelated xst on host PATH. The provisioner also has a writable per-host
 # cache fallback, so a newly pinned release does not require an image rebuild.
 COPY scripts/jobs/common.sh /usr/local/lib/garden/common.sh
+COPY scripts/jobs/usage-meter.sh /usr/local/lib/garden/usage-meter.sh
+COPY scripts/jobs/quota-panel.sh /usr/local/lib/garden/quota-panel.sh
 COPY scripts/jobs/provision-moddable-xst.sh /usr/local/lib/garden/provision-moddable-xst.sh
 RUN chmod +x /usr/local/lib/garden/provision-moddable-xst.sh \
     && GARDEN_XST_SYSTEM_ROOT=/opt/moddable \
