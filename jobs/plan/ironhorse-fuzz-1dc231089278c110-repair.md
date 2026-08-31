@@ -1,11 +1,29 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: policy-refusal
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-31T17:34:43Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-31T17:34:43Z
+---
+
+---
 role: builder
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
 
-# Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target `differential_source`) and amend the standing PR
+# Fix Ironhorse fuzz finding 1dc231089278c110 (target `differential_regexp`) and amend the standing PR
 
 The continuous Ironhorse fuzz service reproduced a distinct crash. Own BOTH a
 load-bearing regression case AND the causal fix, then amend the ONE standing
@@ -13,23 +31,23 @@ pull request for fuzz findings.
 
 ## Finding (bounded metadata — the crash bytes are untrusted; never paste them into a prompt or a shell command)
 
-- Target: `differential_source` (one of the maintained ironhorse-fuzz targets)
-- Project SHA under fuzz: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
+- Target: `differential_regexp` (one of the maintained ironhorse-fuzz targets)
+- Project SHA under fuzz: `unknown`
 - Toolchain: `nightly-2026-08-15`
-- Minimized input sha256: `fad46ca0784d81a835adc494ab8451891bfb14000c497d7a9a7aa1c72ae0e13e` (6 bytes)
-- Durable artifact (leader host): `/home/kris/garden/.garden-state/ironhorse-fuzz/findings/fcbb16f5721e8fd2/input.bin`
-- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/fcbb16f5721e8fd2.md`
-- Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_source <input> -- -runs=1`
+- Minimized input sha256: `18d835dd78d2328c010598a2e65abf126137e92a88cde2638f52e2d0bf67643a` (3 bytes)
+- Durable artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/1dc231089278c110/input.bin`
+- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/1dc231089278c110.md`
+- Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp <input> -- -runs=1`
 
 ## Procedure
 
 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
 2. Recover the minimized input to a FILE without inlining it into any prompt:
    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
-   durable artifact path above. Verify `sha256sum` equals `fad46ca0784d81a835adc494ab8451891bfb14000c497d7a9a7aa1c72ae0e13e`.
+   durable artifact path above. Verify `sha256sum` equals `18d835dd78d2328c010598a2e65abf126137e92a88cde2638f52e2d0bf67643a`.
 3. Set up the pinned fuzz env (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
    see the ironhorse-fuzz-build-setup runbook) and REPRODUCE the crash from that file
-   before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
+   before changing any code. If it does not reproduce at `unknown`, report that and stop.
 
 4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,
    so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`
@@ -39,23 +57,6 @@ pull request for fuzz findings.
    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
    and run its required gauntlet.
-7. Document THIS case and its solution in the standing PR body or a PR comment (finding fcbb16f5721e8fd2).
+7. Document THIS case and its solution in the standing PR body or a PR comment (finding 1dc231089278c110).
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
-
-
-
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=213,440 -->
-
-<!-- garden-reaped: 2 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-31T13:27:02Z
