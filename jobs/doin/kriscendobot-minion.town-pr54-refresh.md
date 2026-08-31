@@ -21,10 +21,10 @@ Refresh.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=54,69 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=2 values=69,178 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
