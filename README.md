@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T14:17:56Z_
+_As of 2026-08-31T14:18:46Z_
 
 ## Latest
 
@@ -127,10 +127,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `issue-kriskowal-garden-67`: next steps are (1) turning "phase 0" (structural shapes + explicit membership checks, no registry/new authority) into an actual PR on the fork, and (2) drilling into the two-phase attestation mechanism against the resolver's existing invitation-based reporting path. This touches the `kriscendobot/agoric-sdk` fork, which per standing scope needs your call rather than an autonomous job.
 
-- `20260819T003838Z-76d819` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003838Z-76d819.md)
-
-> From report `minion-town-containment-gateway-endo-sock`: the permanent fix (`minion-town-weblet-powers-host-escape-fix`) is not yet deployed. A CD gateway redeploy won't re-arm the hole, but the two un-removed records could reappear and would need the de-registration re-run. Flagging for your awareness given the security-sensitive nature rather than spawning autonomous follow-up.
-
 - `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
 
 > From report `qwen-model-watch-20260728-180502` (echoed by `fu-qwen-model-watch-20260728-180502-1-20260728-223502`): decide the local qwen lane's fate — promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop it (`qwen3:0.6b` is small enough it isn't obviously useful).
@@ -186,16 +182,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > If you'd rather I ship the Tier-2 machinery now regardless (schema + cached reader + mocked-transport tests) with the allowlist to follow, say so. Otherwise I'll wait for the addresses before touching config/policy.json.
 
-- `20260825T025457Z-be0f26` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260825-025004, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260825-025004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260825T025457Z-be0f26.md)
-
-> Containment drift recurrence found on minion.town during the 2026-08-25 scheduled check.
->
-> The two originally revoked records (`f1d754fc...` and `fe0a8e60...`) remain absent from the active store and present once each in `vhosts-revoked-20260812`. The systemd containment drop-in remains intact and effective (recorded SHA-256 matches; live `GATEWAY_ENDO_SOCK` count 0; gateway active and logging the powers plane disabled).
->
-> However, the whitespace-tolerant active-store scan found a different active dckc-owned record, `09201a316203e9d99e3c906b12c9466d8f0ae8dc8baf8db484c918d6698f657f.json`, whose powers value is `@agent`. Its mtime is 2026-08-12 23:39:01 UTC and its ctime is 2026-08-23 04:35:18 UTC, exactly the latest gateway start, consistent with restoration during that redeploy/restart. Yesterday's `"powers":"@agent"`-style scan appears to have missed this pretty-printed record because it contains whitespace.
->
-> The drop-in still contains the exposure: the record's public powers-bootstrap request returns HTTP 404. I did not move this third record because the scheduled job explicitly authorizes re-de-registering the two named original records if they reappear, and this is a different record. SSM evidence: drift check command `20462714-5798-4415-8a2d-cab23e116641`; inspection command `d8d276b5-f4b1-459b-9479-de551762c401` (both Success).
-
 - `20260826T164107Z-6552dc` — from gauntlet:build-endo1062-typedarray-preventextensions-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260826T164107Z-6552dc.md)
 
 > Gauntlet build-endo1062-typedarray-preventextensions-gauntlet HALTED: stage 'build-endo1062-typedarray-preventextensions-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
@@ -244,20 +230,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
 
 > Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260828T005430Z-e0d793` — from gardener:ocapn-cbor-noise-press-20260828-005006, reply_to `ocapn-cbor-noise-press-20260828-005006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T005430Z-e0d793.md)
-
-> OCapN-CBOR-Noise press ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)), one decision blocks the goal.
->
-> Every technical piece is built + deployed + healthy (endo-pet-daemon Up 5 weeks; loopback WS upgrade to 127.0.0.1:8931/.well-known/ocapn-cbor-np returns 101 Switching Protocols). The public route returns a bare-Caddy 404 solely because of the box-local emergency containment /etc/caddy/conf.d/00-containment-ocapn-daemon-routes.caddy.
->
-> That is a SEPARATE control from the weblet powers-plane containment you directed opening on 08-27 (that one is opened + round-trip-verified). The daemon route exposes the FULL pet-daemon bootstrap (endo-bootstrap = locate-any-object) publicly behind Noise-only auth — a broader surface — so I won't lift it under the press's proxy-reviewer delegation.
->
-> Single yes/no: does "open containment" also cover this OCapN daemon route (/.well-known/ocapn-cbor-np), or should it stay contained?
-> - yes -> I rm the drop-in, reload Caddy, persist against CD, and post the end-to-end host-to-host proof (press retirement condition).
-> - keep contained -> I propose retiring this press (the goal as written needs that route public).
->
-> Asked on the issue as issuecomment-5447017458. I'll check later ticks, won't re-nag.
 
 - `20260828T194121Z-59223f` — from gardener:minion-town-press-20260828-193506, reply_to `minion-town-press-20260828-193506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T194121Z-59223f.md)
 
@@ -4797,11 +4769,12 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.1M | $182.08 _(notional, rate-card)_ | 181% of 5.0M (backoff) |
+| Claude | 9.1M | $182.29 _(notional, rate-card)_ | 181% of 5.0M (backoff) |
 | Codex | 25.3M _(+609.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
-### todo (63)
+### todo (64)
+- [`design-ocapn-nonce-locator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-ocapn-nonce-locator.md) — design: OCapN nonce locator backed by the daemon's formula table
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr138-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr237-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr237-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #237
