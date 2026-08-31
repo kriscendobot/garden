@@ -20,6 +20,7 @@ shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
 
 <!-- garden-outage-cycle -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-31T17:10:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
