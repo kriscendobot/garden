@@ -13,6 +13,7 @@ Scope:
 - Check the same never-prunes pattern in the sibling deploy scripts (`deploy-caddy-route53.sh`, `deploy-www.sh`, any other conf.d/asset renderer) and note or fix equivalent orphan-on-rename hazards.
 - Add a regression check if one is cheap; otherwise document the reconcile behavior in DEPLOYMENT.md.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
