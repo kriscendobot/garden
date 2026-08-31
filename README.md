@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T23:04:27Z_
+_As of 2026-08-31T23:04:46Z_
 
 ## Latest
 
@@ -2221,14 +2221,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.7M | $220.67 _(notional, rate-card)_ | 213% of 5.0M (backoff) |
+| Claude | 10.7M | $220.80 _(notional, rate-card)_ | 214% of 5.0M (backoff) |
 | Codex | 30.6M _(+793.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
-- [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr41-git-remote-build.md) — ---
+- [`kriscendobot-minion.town-pr60-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr60-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #60
 
-### doin (75)
+### doin (76)
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`design-endo-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-agents-capability.md) — Design: provision Claude agents for every Endo guest
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -2304,6 +2304,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr64-conduct-review5072137157`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-conduct-review5072137157.md) — Conduct kriscendobot/minion.town PR 64
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
+- [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
 
 ### tada (6523)
 - [`kriscendobot-minion.town-pr64-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-conduct.md) — Cost
