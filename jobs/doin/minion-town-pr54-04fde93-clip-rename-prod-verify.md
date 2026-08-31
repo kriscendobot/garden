@@ -18,6 +18,7 @@ Do:
 
 This is verification and reconciliation, not a re-rename: do not touch the frozen literals.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
