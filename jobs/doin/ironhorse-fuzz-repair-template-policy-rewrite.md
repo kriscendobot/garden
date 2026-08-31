@@ -61,3 +61,13 @@ Template landed on `main2`; ONE real dispatch shown surviving the policy filter,
 with the command and its output. State the before/after body vocabulary counts.
 The follow-on job `ironhorse-fuzz-repromote-quarantined` is BLOCKED on this one
 and will bulk-promote the 62 quarantined jobs once you have proven the fix.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T17:47:25Z
