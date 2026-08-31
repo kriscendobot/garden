@@ -1,0 +1,8 @@
+<6>12:24:39 [jobs] resuming codex session 01a056d0-3f00-7b52-aecc-72407d2fdc65 for requeued job 'ironhorse-fuzz-bc3d0df623811a38-repair' in worktree /home/kris/garden/scratch/gardener-wt-ironhorse-fuzz-bc3d0df623811a38-repair
+<6>12:24:39 [jobs] job 'ironhorse-fuzz-bc3d0df623811a38-repair' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>12:30:30 [jobs] codex resume of session 01a056d0-3f00-7b52-aecc-72407d2fdc65 failed (rc=1) for 'ironhorse-fuzz-bc3d0df623811a38-repair'; retrying as a FRESH session over the preserved worktree
+Reading additional input from stdin...
+{"type":"thread.started","thread_id":"01a057cc-bbbb-7242-8a5f-259610fef7bd"}
+{"type":"turn.started"}
+{"type":"error","message":"This content was flagged for possible cybersecurity risk. If this seems wrong, try rephrasing your request. To get authorized for security work, join the Trusted Access for Cyber program: https://chatgpt.com/cyber"}
+{"type":"turn.failed","error":{"message":"This content was flagged for possible cybersecurity risk. If this seems wrong, try rephrasing your request. To get authorized for security work, join the Trusted Access for Cyber program: https://chatgpt.com/cyber"}}
