@@ -54,3 +54,13 @@ and a comment on the design's tracking surface recording that § 9 cleanup
 preceded the rename so whoever picks up `#54` knows the base moved.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T09:22:02Z
