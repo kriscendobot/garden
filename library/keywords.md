@@ -92,3 +92,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - freezable TypedArray emulation, emulated TypedArray, emulated DataView, immutable ArrayBuffer view wrapper -> freezable-typedarray-emulation
 - `EndoRegistry`, MVS, minimum version selection, npm registry, registry capability -> npm-registry-proxy
 - `byteArray` -> freezable-typedarray-emulation
+- `introducedSpecialNames`, guest special names, indelible guest names, `specialNames` -> guest-special-names
