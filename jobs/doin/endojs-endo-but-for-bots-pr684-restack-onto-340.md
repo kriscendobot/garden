@@ -46,3 +46,13 @@ their state after your change even if you do not need to touch them.
 `#684` rebased onto current `llm` with conflicts resolved and CI attaching, or a
 reasoned supersession recommendation. State `#688`/`#693`'s post-change state
 either way.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T22:00:23Z
