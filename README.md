@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T18:44:57Z_
+_As of 2026-08-31T18:45:21Z_
 
 ## Latest
 
@@ -1953,12 +1953,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 9.6M | $195.84 _(notional, rate-card)_ | 192% of 5.0M (backoff) |
-| Codex | 27.5M _(+659.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Codex | 27.5M _(+659.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 ## Board
-### todo (68)
+### todo (67)
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1013
-- [`endojs-endo-but-for-bots-pr1098-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1098-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr1098-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1098-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr138-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr138-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr237-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr237-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #237
@@ -2026,10 +2025,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 
-### doin (10)
+### doin (11)
 - [`ebfb-exo-stream-drop-base64-stream-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods.md) — Retire streamBase64() from @endo/exo-stream and collapse the bytes surface
 - [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Review directive on endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr1097-fix-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-fix-review.md) — Fix PR #1097 per @kriskowal review (CHANGES_REQUESTED)
+- [`endojs-endo-but-for-bots-pr1098-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1098-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr1098-review-859f9c8f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1098-review-859f9c8f.md) — Review directive on endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr300-9b91dfc2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr300-9b91dfc2.md) — attention directive on endojs/endo-but-for-bots PR #300
 - [`ironhorse-fuzz-45f4af87eaf627c7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-45f4af87eaf627c7-repair.md) — Fix Ironhorse fuzz finding 45f4af87eaf627c7 (target differential_regexp) and ...
