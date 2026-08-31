@@ -10,6 +10,7 @@ Scope boundary — do NOT attempt steps 1 or 3–6 in this job. Step 1 is Endo-s
 Also note in the PR body the design's § Open questions residual: the entitlement premise (whether the Claude subscription terms permit routing a user's own consumer credential through minion.town) is a step-1 stop gate that no later gate re-opens — this build lands wiring only and must not enable the path by default.
 Deliver as a draft PR on the fork and run the gauntlet per the usual build flow.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
