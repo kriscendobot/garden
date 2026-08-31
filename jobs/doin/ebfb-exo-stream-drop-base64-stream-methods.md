@@ -108,3 +108,13 @@ emulated path is what will actually run, and note the consequence.
   reviewer can hold. See [stacked-pr-build](skills/stacked-pr-build/SKILL.md).
 - Do not touch `designs/` documents other than to note completion where a design
   explicitly tracked this migration.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T17:56:15Z
