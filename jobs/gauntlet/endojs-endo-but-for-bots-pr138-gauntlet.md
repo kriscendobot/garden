@@ -7,7 +7,7 @@ kind: feature
 stage: fix
 iteration: 1
 max_iterations: 6
-resumes: 1
+resumes: 2
 max_resumes: 6
 current_child: endojs-endo-but-for-bots-pr138-gauntlet-fix-1
 state: running
