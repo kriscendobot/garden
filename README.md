@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T23:03:23Z_
+_As of 2026-08-31T23:04:27Z_
 
 ## Latest
 
@@ -2221,12 +2221,12 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.7M | $220.50 _(notional, rate-card)_ | 213% of 5.0M (backoff) |
+| Claude | 10.7M | $220.67 _(notional, rate-card)_ | 213% of 5.0M (backoff) |
 | Codex | 30.6M _(+793.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr41-git-remote-build.md) — ---
 
 ### doin (75)
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
