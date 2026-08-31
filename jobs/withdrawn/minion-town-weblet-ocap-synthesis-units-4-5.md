@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: re-posting with the correct role: builder field and an explicit handler-timeout; the original body set 'tier: builder' (an invalid tier value; builder is a ROLE), so the job got the 2400s default instead of the 7200s builder budget and was doom-parked on a deadline overrun
+withdrawn_by: producer
+withdrawn_at: 2026-08-31T17:48:44Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
