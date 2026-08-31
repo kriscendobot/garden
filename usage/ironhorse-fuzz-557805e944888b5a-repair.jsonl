@@ -2,3 +2,4 @@
 {"ts":"2026-08-31T06:02:35Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":200}
 {"ts":"2026-08-31T06:16:31Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":62}
 {"ts":"2026-08-31T10:34:06Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":440}
+{"ts":"2026-08-31T10:50:08Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":295}
