@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T17:31:19Z_
+_As of 2026-08-31T17:32:46Z_
 
 ## Latest
 
@@ -396,6 +396,27 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Authorized SSM command `92b664b7-f441-46b6-ab8f-c503c695b16d` validated the exact dckc owner and powers value, moved the record to `vhosts-revoked-20260812/`, and returned all three named records `active=0 revoked=1`, recursive active `@agent` count 0, and parse-error count 0. Independent postcheck `31e28935-0cf1-4149-9fed-e04aef688bd9` again found the third record only in the revoked store and returned recursive active `@agent` count 0. Its public bootstrap and root URLs both return HTTP 404 after the move.
 >
 > The recurring scan should be retired as already requested, or changed to recursively scan active JSON below the store while excluding revoked paths. The root-only scan used by the 08-30 and 08-31 checks incorrectly reported no active `@agent` records while this third record remained active.
+
+- `20260831T173120Z-271bf7` — from gardener:endojs-endo-but-for-bots-pr249-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr249-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T173120Z-271bf7.md)
+
+> endo-but-for-bots [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (fix stage): applied the panel's must-fix items and
+> pushed (already done by a prior claimant, commit 1eb10a3de6). GitHub Actions has
+> never attached a check-suite to that commit or any of the branch's last 5
+> commits going back to May 2026 — confirmed by an empty "nudge" commit
+> (dc89073ec6) that also got zero check-suite attachment across 10 minutes of
+> polling. Only 'renovate' and 'claude' app check-suites exist for the commit and
+> both sit permanently 'queued'. The PR's mergeable_state is also 'dirty'
+> (GitHub reports conflicts; a local 3-way merge-tree against origin/llm shows
+> none).
+>
+> This looks like a structural GitHub-side CI-attachment defect on this specific
+> stale PR/branch, not something a fix commit can address — reposting the fix
+> stage again will hit the same wall indefinitely. Recommend a human look at the
+> PR directly (maybe close/reopen to force re-sync, or check org Actions
+> settings) before more gauntlet rounds are spent on it.
+>
+> Reporting fix=still-pending per the stage contract; watching to the 3600s
+> deadline for the formal rc before finishing this attempt.
 
 - `doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun.md)
 
@@ -5015,16 +5036,16 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 9.1M | $183.67 _(notional, rate-card)_ | 182% of 5.0M (backoff) |
-| Codex | 26.2M _(+615.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Codex | 26.3M _(+615.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
-### todo (65)
+### todo (64)
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1098-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1098-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1098
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr138-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr237-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr237-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #237
+- [`endojs-endo-but-for-bots-pr241-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr241-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #241
 - [`endojs-endo-but-for-bots-pr264-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr264-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #264
-- [`endojs-endo-but-for-bots-pr266-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr266-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #266
 - [`endojs-endo-but-for-bots-pr322-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr322-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #322
 - [`endojs-endo-but-for-bots-pr335-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr335-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #335
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
@@ -5083,11 +5104,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-agoric-sdk-pr10-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr10-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
-- [`xs2rust-endor-press-20260831-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (13)
-- [`endojs-endo-but-for-bots-pr241-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr241-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #241
+### doin (14)
 - [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
+- [`endojs-endo-but-for-bots-pr266-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr266-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #266
 - [`endojs-endo-but-for-bots-pr356-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr356-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #356
 - [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Fix Ironhorse fuzz finding 1dc231089278c110 (target differential_regexp) and ...
 - [`ironhorse-fuzz-45f4af87eaf627c7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-45f4af87eaf627c7-repair.md) — Fix Ironhorse fuzz finding 45f4af87eaf627c7 (target differential_regexp) and ...
@@ -5099,14 +5119,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
 - [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target differential_source) and ...
 - [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Fix Ironhorse fuzz finding fd8517d5f3071227 (target differential_regexp) and ...
+- [`xs2rust-endor-press-20260831-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6480)
+### tada (6481)
+- [`endojs-endo-but-for-bots-pr241-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr241-gauntlet-fix-4.md) — Completion report
 - [`xs2rust-endor-press-20260831-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260831-160503.md) — Cost
 - [`xs2rust-endor-press-20260831-145010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260831-145010.md) — Cost
 - [`design-ocapn-nonce-locator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ocapn-nonce-locator.md) — Cost
 - [`minion-town-gateway-containment-verify-20260831`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-gateway-containment-verify-20260831.md) — Cost
-- [`endojs-endo-but-for-bots-pr138-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr138-gauntlet-panel-4.md) — Completion report
-- … and 6475 more
+- … and 6476 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
