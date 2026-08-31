@@ -55,6 +55,7 @@ handing off to this weave job rather than looping fix rounds against an
 unrebasable head.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=741 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
