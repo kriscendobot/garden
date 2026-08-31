@@ -19,11 +19,11 @@ discipline. The excerpt below is for human context only:
 Refresh. 
 
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=116 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
