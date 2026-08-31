@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T08:02:20Z_
+_As of 2026-08-31T08:03:17Z_
 
 ## Latest
 
@@ -3036,10 +3036,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 5.0M | $110.65 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
-| Codex | 19.1M _(+457.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Codex | 19.2M _(+457.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
-### todo (85)
+### todo (84)
 - [`daily-progress-summary-20260831-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260831-070510.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1016-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1016-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1016
@@ -3103,7 +3103,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
 - [`ironhorse-fuzz-91afec2d990bc402-repair-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-91afec2d990bc402-repair-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
 - [`ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
-- [`ironhorse-fuzz-c9eaa7b5ae02437a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-c9eaa7b5ae02437a-repair.md) — Fix Ironhorse fuzz finding c9eaa7b5ae02437a (target differential_regexp_surfa...
 - [`ironhorse-fuzz-ccb76a40851925f9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-ccb76a40851925f9-repair.md) — Fix Ironhorse fuzz finding ccb76a40851925f9 (target differential_regexp) and ...
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Fix Ironhorse fuzz finding d38f12f4884e186c (target differential_regexp_surfa...
 - [`ironhorse-fuzz-d5413146a257bc30-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-d5413146a257bc30-repair.md) — Fix Ironhorse fuzz finding d5413146a257bc30 (target differential_regexp_surfa...
@@ -3126,7 +3125,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260830-112005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260830-112005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-055023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-055023.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (39)
+### doin (40)
 - [`build-ebfb-bytearray-onto-master`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ebfb-bytearray-onto-master.md) — Build: bring byte arrays onto endojs/endo-but-for-bots master (follow-up to m...
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr1059-9cfafd63`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-9cfafd63.md) — attention directive on endojs/endo-but-for-bots PR #1059
@@ -3162,6 +3161,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-c6c71d428a37088c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c6c71d428a37088c-repair.md) — Fix Ironhorse fuzz finding c6c71d428a37088c (target differential_regexp_surfa...
 - [`ironhorse-fuzz-c781c9b9de456ab2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c781c9b9de456ab2-repair.md) — Fix Ironhorse fuzz finding c781c9b9de456ab2 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-c99f800f6a36e8a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c99f800f6a36e8a6-repair.md) — Fix Ironhorse fuzz finding c99f800f6a36e8a6 (target differential_regexp) and ...
+- [`ironhorse-fuzz-c9eaa7b5ae02437a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c9eaa7b5ae02437a-repair.md) — Fix Ironhorse fuzz finding c9eaa7b5ae02437a (target differential_regexp_surfa...
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Fix Ironhorse fuzz finding e0fe14e41d5074a6 (target differential_source) and ...
 - [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Fix Ironhorse fuzz finding fd8517d5f3071227 (target differential_regexp) and ...
 - [`kriscendobot-minion.town-pr54-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr54-refresh.md) — refresh directive on kriscendobot/minion.town PR #54
