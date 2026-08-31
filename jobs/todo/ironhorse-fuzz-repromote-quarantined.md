@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: ironhorse-fuzz-repair-template-policy-rewrite
-priority: normal
-posted_by: producer
-posted_at: 2026-08-31T17:46:08Z
 role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-31T17:56:05Z cleared=none -->
 
 ---
 tier: mentor
