@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T04:15:44Z_
+_As of 2026-08-31T04:16:39Z_
 
 ## Latest
 
@@ -1196,7 +1196,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 4.6M | $89.47 _(notional, rate-card)_ | 92% of 5.0M (backoff) |
-| Codex | 14.7M _(+388.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 14.7M _(+389.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (136)
@@ -1337,11 +1337,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-021150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-021150.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-032319`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-032319.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (24)
+### doin (23)
 - [`endo-chat-vite-major-upgrade`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-chat-vite-major-upgrade.md) — build: upgrade Vite to the latest major in @endo/chat
 - [`endojs-endo-but-for-bots-pr1016-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1016-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1016
 - [`endojs-endo-but-for-bots-pr1072-review-070ee47a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-070ee47a.md) — Review directive on endojs/endo-but-for-bots PR #1072
-- [`endojs-endo-but-for-bots-pr1093-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1093-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1093
 - [`endojs-endo-but-for-bots-pr1095-71b4cc20`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1095-71b4cc20.md) — attention directive on endojs/endo-but-for-bots PR #1095
 - [`endojs-endo-but-for-bots-pr1095-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1095-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1095
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr138-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #138
@@ -1363,13 +1362,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-9894aac5ad23c6eb-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-9894aac5ad23c6eb-repair.md) — Fix Ironhorse fuzz finding 9894aac5ad23c6eb (target differential_regexp) and ...
 - [`ironhorse-fuzz-a172d6aba922c9ad-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-a172d6aba922c9ad-repair.md) — Fix Ironhorse fuzz finding a172d6aba922c9ad (target differential_regexp) and ...
 
-### tada (6329)
+### tada (6330)
+- [`endojs-endo-but-for-bots-pr1093-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1093-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1071-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1071-gauntlet-undraft.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-gauntlet-fix-1.md) — Completion report
 - [`improve-ironhorse-fuzz-shared-runner-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ironhorse-fuzz-shared-runner-backoff.md) — Cost
 - [`endojs-endo-but-for-bots-pr264-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr264-gauntlet-panel-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1016-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1016-gauntlet-fix-2.md) — Completion report
-- … and 6324 more
+- … and 6325 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
