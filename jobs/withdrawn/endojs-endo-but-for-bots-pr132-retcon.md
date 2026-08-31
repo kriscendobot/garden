@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: target PR endojs/endo-but-for-bots#132 is MERGED; this parked operational job can never advance (2026-08-31 muster plan-queue consolidation)
+withdrawn_by: producer
+withdrawn_at: 2026-08-31T21:34:16Z
+withdrawn_from_gate: blocked-failed
+---
+
+---
 gate: blocked-failed
 blocked_failed_reason: blocker 'endojs-endo-but-for-bots-pr132-gauntlet' completed but declined its gated outcome; held for a human decision
 blocked_on: endojs-endo-but-for-bots-pr132-gauntlet
