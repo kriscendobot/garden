@@ -11,6 +11,7 @@ Read `designs/remote-guest-endo-cli.md` §§ 3 and 8 on minion.town `main` first
 Hard gate — do NOT proceed past step 1: the design states sections 4–8 (the minion.town `RemoteInviteFacet`, `guest_invite`, attachment-enabled `guest_send`, public-hint rewriting, web panel) start only once the real upstream shape is merged or firmly specified, because the two-line API sketch is an assumed shape and not a merged API. Do not post or start the minion.town follow-ups yourself. When the primitive lands (or if it is declined, or lands with a materially different contract — e.g. a different broker-mediation shape), report the actual shape back to the maintainer via the inbox so the minion.town chain can be re-verified against it rather than assumed; if declined outright, say so and name the documented app-side-poller fallback with its crash-window and top-host-namespace costs rather than adopting it unilaterally.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
