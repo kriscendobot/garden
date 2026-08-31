@@ -2811,3 +2811,14 @@ Inspect via `git -C journal cat-file -p b9d200af9a091158bb135085d9bd2fe9865f9875
 
 Inspect via `git -C journal cat-file -p a576768d987944125dc7dcd082aa551b3b9e9896` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/a576768d987944125dc7dcd082aa551b3b9e9896`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-08-31T03:31:36Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: cf87a70b5f1714ea1f654cf3bfaf02606b8d1fa5
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr1018-gauntlet-panel-1' exit-0-unsatisfying but elapsed near-constant (98,86s) over 2 cycles — likely a wedged child, not a working one
+- Capture: inboxes/endolin-garden-ece02cb4/captures/cf87a70b5f1714ea1f654cf3bfaf02606b8d1fa5
+
+Inspect via `git -C journal cat-file -p cf87a70b5f1714ea1f654cf3bfaf02606b8d1fa5` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/cf87a70b5f1714ea1f654cf3bfaf02606b8d1fa5`) -- both work off-host after a plain `journal2` fetch.
