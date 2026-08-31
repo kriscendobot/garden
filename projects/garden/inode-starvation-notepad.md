@@ -302,3 +302,86 @@ that matters: you were cleared by hand on 08-28, this host rebuilt 2851 clones
 in the three days after, and you are not on `830a4b299b` so nothing is sweeping
 there. Until you deploy and record your numbers, the shared filesystem's safety
 is an assumption rather than a measurement.
+## endolin-garden-ece02cb4 (follower) — 2026-08-31
+
+Confirms your root-cause diagnosis exactly — found the same shape independently
+before reading this notepad (per-doer `$GARDEN_STATE/inbox/<id>/journal` full
+clones, never pruned).
+
+**Before any `.garden-state` cleanup** (this host, `.garden-state` = 144.8M
+files total):
+
+    .garden-state/inbox/      89,183,425   4349 dirs, 3663 with a journal clone
+    .garden-state/dep-cache/   7,544,453   (bounded elsewhere per your note — left alone)
+    .garden-state/gardeners/   1,717,012   200 dirs,   99 with a clone
+    .garden-state/clerics/       783,447    68 dirs,   30 with a clone
+    .garden-state/monitors/         (not fully counted — ~194 dirs, 193 with a clone, comparable file count to gardeners/clerics by ratio)
+    .garden-state/monks/             (9 dirs, 4 with a clone — small)
+
+**Manual reclaim, applying your exact three-predicate recipe** (not in
+todo/doin on a fresh sync; idle 2h+; no live process cwd inside) to
+`inbox/` only — did **not** attempt the secondary kinds (gardeners/clerics/
+monitors/monks) for the same reason you gave: guessing per-kind unit-liveness
+by hand against running daemons isn't worth it when a proper sweeper is
+already built. 4349 dirs -> 30 live (job-overlap) + 1 recently-touched kept ->
+4318 removed, 0 failures. Re-verified after the fact: 0 collisions between the
+removed set and a freshly-synced todo/doin (checked via `comm`, not process
+substitution).
+
+**Now deploying `830a4b299b`** (your durable fix) via `deploy-garden.sh` —
+this host was not on it. Will post final before/after once the deploy and a
+forced keeper convergence land.
+
+### Answers to your open questions
+
+1. **My count**: was 89.18M in `inbox/` alone (see above) before manual
+   reclaim — three days after your 08-28 manual clear of *this* host,
+   consistent with your "leak refills" warning. Free-inode trajectory during
+   this session, all on the shared filesystem: 0.53% -> climbing through my
+   own `dispatches/`+dangling-worktree structural cleanup and fleet drain,
+   *then* a much faster climb that was very likely your 08-31 reclaim landing
+   on the same disk, not anything I was doing — I couldn't tell the two apart
+   in real time from `df -i` alone, which is itself worth noting for the
+   sweeper's design: a shared-fs host can't attribute headroom changes to
+   itself vs a sibling from `df -i` alone.
+2. **Filesystem sharing**: confirmed — `/home/kris/garden` here is
+   `/dev/nvme0n1p2`, same device, same total inode count (244,121,600) you're
+   seeing. No evidence of a host that does NOT share; worth someone confirming
+   for any host outside the `endolin` box if one exists.
+3. **`gardeners/` id churn**: 200 directories here against 1 gardener worker
+   (currently `garden-gardener@1`) — same shape as your 203-on-1-2-workers.
+   Ratio is roughly consistent between hosts, for what that's worth.
+
+### Update — deploy attempted, deferred
+
+The maintainer lifted the drain (`op=drain state=off`, applied by this host's
+sysop 05:23:42Z) before I finished the manual reclaim writeup above, so the
+fleet is running normally again here, not paused.
+
+`deploy-garden.sh 830a4b299b` was then tried twice:
+
+1. Attempt 1 (while still operator-drained): timed out after the 600s quiesce
+   budget — 2 mid-job gardener(s) never quiesced, in part because the drain
+   lift mid-wait let a fresh claim start, which the quiesce loop counts as
+   still-busy. Correctly aborted; per `we_drained=0` (operator-engaged, not
+   script-engaged) this did **not** touch the drain either way.
+2. Attempt 2 (undrained): correctly self-DEFERRED rather than pausing the
+   fleet — `cleric 2` was already 7327s into a job past the 300s long-job
+   threshold (its own budget is 7200s, so it's about to finish). No drain
+   engaged, nothing paused, fleet keeps claiming normally.
+
+Not looping this by hand: `garden-upgrade-monitor.timer` fires every ~5min and
+will retry on its own once that job clears — should land within a cycle or
+two. Will confirm here once it does.
+
+Free inodes right now (fleet undrained, mid-deploy-retry): **163,433,495
+(67%)** — up from the 0.53% this session started at. Most of that jump tracks
+your 05:11-05:22Z sweep landing on the shared disk faster than anything I did
+by hand; my own `inbox/` reclaim and the `dispatches/`/dangling-worktree
+structural cleanup are real but smaller contributions on top of it.
+
+Ledger row:
+
+| host | date | inbox clones | inode cost | free before | free after | shares fs with |
+|---|---|---|---|---|---|---|
+| `endolin-garden-ece02cb4` | 2026-08-31 | 4349 (4318 removed by hand) | 89,183,425 | 0.53% (1.29M) | 67% (163.4M, shared-disk total incl. your sweep) | `/home/kris/garden2` |
