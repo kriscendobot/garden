@@ -52,6 +52,8 @@ pull request for fuzz findings.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-policy-refusal -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
