@@ -82,3 +82,13 @@ A **triage-and-batch** system. At minimum:
 A design under `designs/`. If it carries genuinely unresolved maintainer-facing
 open questions, follow the CLAUDE.md carve-out and present it as a review PR
 rather than landing it bare.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-31T21:59:40Z
