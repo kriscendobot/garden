@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T05:09:58Z_
+_As of 2026-08-31T05:24:23Z_
 
 ## Latest
 
@@ -1207,18 +1207,18 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.9M | $104.60 _(notional, rate-card)_ | 98% of 5.0M (backoff) |
-| Codex | 15.0M _(+408.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 4.9M | $108.24 _(notional, rate-card)_ | 99% of 5.0M (backoff) |
+| Codex | 15.1M _(+409.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
-### todo (145)
+### todo (144)
 - [`build-ebfb-bytearray-onto-master`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ebfb-bytearray-onto-master.md) — Build: bring byte arrays onto endojs/endo-but-for-bots master (follow-up to m...
 - [`endo-1072-address-review-multihint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-1072-address-review-multihint.md) — Address kriskowal's CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #...
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1013-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1013
 - [`endojs-endo-but-for-bots-pr1018-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1018
+- [`endojs-endo-but-for-bots-pr1059-b9fa19b7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1059-b9fa19b7.md) — attention directive on endojs/endo-but-for-bots PR #1059
+- [`endojs-endo-but-for-bots-pr1080-review-09542d7d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1080-review-09542d7d.md) — Review directive on endojs/endo-but-for-bots PR #1080
 - [`endojs-endo-but-for-bots-pr1087-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1087-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1087
-- [`endojs-endo-but-for-bots-pr1088-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1088-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1088
-- [`endojs-endo-but-for-bots-pr1095-71b4cc20`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1095-71b4cc20.md) — attention directive on endojs/endo-but-for-bots PR #1095
 - [`endojs-endo-but-for-bots-pr138-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr138-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #138
 - [`endojs-endo-but-for-bots-pr234-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr234-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #234
 - [`endojs-endo-but-for-bots-pr237-weave-20260831`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr237-weave-20260831.md) — Weave (rebase) endojs/endo-but-for-bots PR #237 onto current llm
@@ -1275,7 +1275,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr938-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr938-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #938
 - [`endojs-endo-but-for-bots-pr945-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr945-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #945
 - [`endojs-endo-but-for-bots-pr996-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr996-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #996
-- [`fix-inbox-journal-clone-inode-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-inbox-journal-clone-inode-leak.md) — Fix the inbox-journal-clone inode leak (fleet-wide infra defect)
 - [`improve-ci-watcher-host-outage-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-host-outage-dedup.md) — ---
 - [`ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — Fix Ironhorse fuzz finding 197b32cc30bdd4fe (target differential_regexp_surfa...
@@ -1358,7 +1357,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-032319`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-032319.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260831-043507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260831-043507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (14)
+### doin (15)
+- [`endojs-endo-but-for-bots-pr1059-8fea82b8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-8fea82b8.md) — attention directive on endojs/endo-but-for-bots PR #1059
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Fix Ironhorse fuzz finding 05264cccae42245a (target differential_source) and ...
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Fix Ironhorse fuzz finding 13b68e2edb67861a (target differential_regexp) and ...
@@ -1374,13 +1374,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-9894aac5ad23c6eb-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-9894aac5ad23c6eb-repair.md) — Fix Ironhorse fuzz finding 9894aac5ad23c6eb (target differential_regexp) and ...
 - [`ironhorse-fuzz-a172d6aba922c9ad-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-a172d6aba922c9ad-repair.md) — Fix Ironhorse fuzz finding a172d6aba922c9ad (target differential_regexp) and ...
 
-### tada (6338)
+### tada (6341)
+- [`fix-inbox-journal-clone-inode-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-inbox-journal-clone-inode-leak.md) — fix-inbox-journal-clone-inode-leak — DONE
+- [`endojs-endo-but-for-bots-pr1095-71b4cc20`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1095-71b4cc20.md) — Cost
+- [`endojs-endo-but-for-bots-pr1088-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1088-conduct.md) — Cost
 - [`improve-policy-refusal-deploy-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-policy-refusal-deploy-gate.md) — Cost
 - [`endojs-endo-but-for-bots-pr237-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr237-gauntlet-fix-1.md) — Completion report — endojs/endo-but-for-bots #237 gauntlet FIX round 1
-- [`endojs-endo-but-for-bots-pr231-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr231-gauntlet-fix-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1095-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1095-dependabot.md) — Cost
-- [`endojs-endo-but-for-bots-pr1072-review-070ee47a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-070ee47a.md) — Completion report
-- … and 6333 more
+- … and 6336 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1571,6 +1571,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1059-beaff99f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1059-beaff99f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1059 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1059-c4d75838-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1059-c4d75838-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1059 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1072-review-070ee47a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1072-review-070ee47a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1080-review-09542d7d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1080-review-09542d7d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1080 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
