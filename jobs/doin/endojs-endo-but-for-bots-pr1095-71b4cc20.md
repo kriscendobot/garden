@@ -41,3 +41,13 @@ directive:
 Never state in your report that a peer did work you did not verify.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-31T05:10:06Z
