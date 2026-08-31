@@ -46,3 +46,7 @@ This is the durable successor to `minion-town-weblet-ocap-synthesis-units-4-5-la
 - `GARDEN_YARN=npm pre-push-gates.sh --no-auto-fix --summary --base-ref origin/main`: all 6 stages passed.
 - GitHub Actions `test`: green at `9a3b01b92cd`.
 - The failed partial panel artifacts were under `/home/kris/garden/scratch/panel-minion-town-69-final`, but scratch is not durable; the actionable findings above are the durable handoff.
+
+<!-- garden-annotation: key=current-main-conflict-20260831 by=producer at=2026-08-31T22:22:08Z fields=priority=high role=shepherd -->
+
+Fresh GitHub inspection at 2026-08-31T22:21Z: kriscendobot/minion.town#69 changed from CLEAN to mergeable=CONFLICTING / mergeStateStatus=DIRTY at head 9a3b01b92cd4ff309566274fface4d9bdebd3d40 while this handoff was being posted. Rebase/weave the PR head onto current origin/main before the final panel; preserve the maintained scope boundaries while resolving conflicts, then rerun verification and CI.
