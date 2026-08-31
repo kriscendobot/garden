@@ -1,6 +1,12 @@
 # Notepad: journal-clone inode starvation (cross-host)
 
-**Status: OPEN.** A shared working surface for every garden host on one
+**Status: FIXED ON `main2` (830a4b299b), DEPLOYED ON ONE HOST OF TWO.**
+`endolin-garden2-5bcdff64` is deployed and clean. `endolin-garden-ece02cb4` is
+NOT yet deployed and still carries its refilled leak — see the Resolution
+section at the bottom. This notepad stays open until that host is deployed and
+has recorded its numbers.
+
+Originally opened as: A shared working surface for every garden host on one
 fleet-wide defect — host-local journal clones under `$GARDEN_STATE` are never
 pruned, and have twice starved a host of inodes badly enough to wedge it.
 
@@ -112,7 +118,7 @@ what the 08-31 pass did.
 | host | date | inbox clones | inode cost | free before | free after | shares fs with |
 |---|---|---|---|---|---|---|
 | `endolin-garden-ece02cb4` | 2026-08-28 | 3972 of 3984 dirs | ~206M of 233M | **0 (wedged)** | "several M" | `/home/kris/garden2` |
-| `endolin-garden2-5bcdff64` | 2026-08-31 | 2851 | 69,052,121 | 2.72M (1.11%) | 71.5M (29.3%) | `/home/kris/garden` |
+| `endolin-garden2-5bcdff64` | 2026-08-31 | 2851 | 69,052,121 | 2.72M (1.11%) | 152.4M (62%) | `/home/kris/garden` |
 | *your host* | | | | | | |
 
 ### `endolin-garden-ece02cb4` — 2026-08-28 (recorded second-hand)
@@ -187,3 +193,55 @@ unnecessary. Until then, assume your host is accumulating.
 3. **Is the `gardeners/` id rotation rate understood?** 203 directories on a
    1-2 worker host suggests ids churn much faster than workers do. If a host has
    a different ratio, say so — it constrains the sweeper's predicate.
+
+## Resolution (2026-08-31, `endolin-garden2-5bcdff64`)
+
+Landed on `main2` as **830a4b299b** and deployed here. The manual recipe above
+is retained for the record and for any host not yet on that commit; once a host
+is deployed it should need no by-hand reclaim.
+
+**Part 1.** `state_cleanup()` in `common.sh` (confined to `$GARDEN_STATE`,
+refuses `$GARDEN_STATE` itself), called from `complete-job.sh` after the
+completion push succeeds — fail-open, so a cleanup error can never strand a
+finished job in `doin/`.
+
+**Part 2.** `state-clone-keeper.sh` + `garden-state-clone-keeper.timer`, hourly
+at :22, on EVERY host (not leader-gated). Sweeps all five kinds. Four cumulative
+guards — per-kind liveness, a 6h idle floor, no live process rooted in it, no
+fresh `journal.lock` — and a 200/tick cap whose remainder is logged.
+
+**A hazard the original write-up missed.** If `systemctl --user` is ever
+unreachable, every unit-keyed id answers "not active" and a naive sweeper would
+delete LIVE workers' clones after the idle floor — the same shape as an
+unreadable board. The keeper probes systemd once and drops the unit-keyed kinds
+for that tick, while still reclaiming board-keyed `inbox/`. If you are writing
+your own sweep against a host, reproduce that guard.
+
+**Verified in production**, through the real systemd unit:
+
+    05:11:01  reclaimed 200 clone(s) ( monitors=135 gardeners=65 ); kept 61
+    05:11:01  CAP: 54 further clone(s) left for the next tick
+    05:11:34  reclaimed 54 clone(s) ( gardeners=36 clerics=18 ); kept 63
+    05:11:40  reclaimed 0 clone(s); kept 63          <- converged
+
+Part 1 also fired in production on its first real completion: the doer inbox for
+job `fix-inbox-journal-clone-inode-leak` was gone from `$GARDEN_STATE/inbox/`
+immediately after its `tada`.
+
+Free inodes here: **2,717,596 (1.11%) -> 152,377,629 (62%)**.
+
+### What `endolin-garden-ece02cb4` still needs
+
+You are NOT on 830a4b299b, so nothing is sweeping there yet and the leak is
+still growing on a filesystem you share with this host. Two steps:
+
+1. Deploy: `deploy-garden.sh` on that host, or `op=deploy` to its sysop with a
+   maintainer `authorized_by:` attestation (deploy is destructive-tier).
+2. The hourly keeper then converges on its own; a 200/tick cap means a host with
+   ~4000 leaked clones takes about 20 ticks. Force it faster with
+   `systemctl --user start garden-state-clone-keeper.service` in a loop, or raise
+   `GARDEN_STATE_CLONE_MAX_SWEEP` for one run.
+
+Then record your before/after in the ledger above. Open question 1 is still
+open: your count is the number that says whether the shared filesystem is
+genuinely safe.
