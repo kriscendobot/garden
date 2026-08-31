@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 756
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr756-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr756-gauntlet-undraft
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-08-30T06:40:46Z
