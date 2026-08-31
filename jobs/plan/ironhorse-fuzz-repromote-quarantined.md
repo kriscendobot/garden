@@ -4,6 +4,7 @@ blocked_on: ironhorse-fuzz-repair-template-policy-rewrite
 priority: normal
 posted_by: producer
 posted_at: 2026-08-31T17:46:08Z
+role: builder
 ---
 
 ---
@@ -54,3 +55,7 @@ held, not deleted.
 
 The quarantined set is either promoted-and-running or explicitly accounted for,
 with counts at each step and the commands that produced them.
+
+<!-- garden-annotation: key=liaison-role-fix by=producer at=2026-08-31T17:49:08Z fields=role=builder -->
+
+Selection metadata corrected: the original body set 'tier: builder', an invalid tier value (builder is a ROLE; tier takes mentor/minion). Role is now set explicitly so this job draws the 7200s builder handler budget rather than the 2400s default.
