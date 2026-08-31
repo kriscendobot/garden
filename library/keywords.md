@@ -58,6 +58,7 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - relative routing, relative route, choosing a route not an address, nearest reliable path, shortest path to a peer, connection hints as routes, path-based session establishment -> relative-routing
 - donorPath, donor path, vatASearchPath, search path, searchPath, acceptFrom route list, route list, candidate routes -> relative-routing
 - formula DAG, daemon-native commit formula, synthetic refs tree -> formula-graph
+- nonce locator, formula identifier as Swiss number, formula-backed sturdyref, OCapN formula locator -> sturdyref
 - spatiotemporal composability, spatial composability, temporal composability, dynamic composability, dynamic composition -> spatiotemporal-composability
 - revertible effect, revertible effects, effect accumulator, twisted composition, effect context, track and recover -> spatiotemporal-composability
 - reactive coeffect, reactive coeffects, coeffect, coeffect system, coeffect context, activating deactivating neutral notification -> spatiotemporal-composability
