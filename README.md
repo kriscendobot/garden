@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-31T23:13:45Z_
+_As of 2026-08-31T23:14:45Z_
 
 ## Latest
 
@@ -2222,7 +2222,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 10.7M | $221.39 _(notional, rate-card)_ | 215% of 5.0M (backoff) |
-| Codex | 30.7M _(+794.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Codex | 30.8M _(+795.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -2231,7 +2231,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (81)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
-- [`design-endo-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-agents-capability.md) — Design: provision Claude agents for every Endo guest
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
@@ -2239,6 +2238,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Review directive on endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr1097-fix-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-fix-review.md) — Fix PR #1097 per @kriskowal review (CHANGES_REQUESTED)
 - [`endojs-endo-but-for-bots-pr1098-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1098-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1098
+- [`endojs-endo-but-for-bots-pr1102-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1102
 - [`endojs-endo-but-for-bots-pr241-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr241-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #241
 - [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
 - [`endojs-endo-but-for-bots-pr264-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr264-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #264
@@ -2311,13 +2311,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6524)
+### tada (6525)
+- [`design-endo-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-claude-agents-capability.md) — Cost
 - [`kriscendobot-minion.town-pr60-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr60-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr64-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr64-review-54703139`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr64-review-54703139.md) — Cost
 - [`minion-town-pr54-04fde93-caddy-confd-prune`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr54-04fde93-caddy-confd-prune.md) — Cost
-- [`xs2rust-endor-press-20260831-215012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260831-215012.md) — Cost
-- … and 6519 more
+- … and 6520 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
