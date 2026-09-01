@@ -48,3 +48,13 @@ requires for a PR edit.
 
 4. Report the final list of PRs labeled (numbers + titles), any you found
    ambiguous or skipped and why, and the label's final description/color.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T19:34:57Z
