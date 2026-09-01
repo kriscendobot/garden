@@ -32,10 +32,10 @@ Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=2 values=33,30 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=3 values=30,132 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
