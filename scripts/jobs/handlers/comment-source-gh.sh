@@ -396,7 +396,15 @@ log "polled $scanned of $total open PR(s) on $repo (activity-bounded at since=$s
 # (field 3 = review id, field 7 = body) so it can never diverge from what was actually
 # surfaced. Now emit section 3's review-body lines (order is irrelevant; the watcher
 # re-sorts by created_at).
-surfaced_inline_rids="$(awk -F'\t' '$2=="pr-review-body" && $7 ~ /\[INLINE-REVIEW\]/ {print $3}' "$s3out" 2>/dev/null | sort -u | tr '\n' ' ' || true)"
+# Only an explicitly addressed review subsumes all of its inline comments. An
+# unaddressed review leaves each inline comment independent, where the watcher can
+# accept a comment carrying its own exact first-line routing marker.
+surfaced_inline_rids="$(awk -F'\t' -v marker="@$bot " -v explicit="${GARDEN_EXPLICIT_ADDRESS_REQUIRED:-1}" '
+  $2=="pr-review-body" && $7 ~ /\[INLINE-REVIEW\]/ {
+    body=$7
+    sub(/^(\[[A-Z_-]+\] )*/, "", body)
+    if (explicit == 0 || index(body, marker) == 1) print $3
+  }' "$s3out" 2>/dev/null | sort -u | tr '\n' ' ' || true)"
 cat "$s3out"
 
 # 2) inline PR review-comments (all comments tied to a review). A comment whose parent

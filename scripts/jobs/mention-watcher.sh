@@ -12,6 +12,8 @@
 #     poll GitHub-wide mentions since a durable cursor
 #       → SENDER-TRUST GATE (deterministic, no LLM) — DROP if the author is not
 #         a verified trusted contributor; this runs BEFORE anything else
+#       → EXACT-ADDRESS GATE — DROP unless the first line starts, case-sensitively,
+#         with "@<bot> " (GitHub mention discovery itself is only fuzzy discovery)
 #       → map the verb table deterministically (no claude; a bare @-mention with
 #         no verb maps to an "attention" triage job)
 #       → reactji-acknowledge the source (👀, before posting) AS THE BOT
@@ -53,6 +55,9 @@ source "$HERE/common.sh"
 
 GARDEN_TAG="mention-watcher"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
+: "${GARDEN_EXPLICIT_ADDRESS_REQUIRED:=1}"
+[ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ] || _in_test_context \
+  || die "GARDEN_EXPLICIT_ADDRESS_REQUIRED=0 is test-only"
 : "${GARDEN_MENTION_SOURCE:=$HERE/handlers/mention-source-gh.sh}"
 : "${GARDEN_MENTION_TRUST:=$HERE/handlers/mention-trust-gh.sh}"
 : "${GARDEN_MENTION_REACTJI:=$HERE/handlers/mention-reactji-gh.sh}"
@@ -358,6 +363,18 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
   if [ "$trc" -ne 0 ]; then
     log "untrusted sender ${author:-<none>} on ${repo:-?} #${number:-?}; dropped (not triaged)"
     dropped=$((dropped+1)); slide "$created"; continue
+  fi
+
+  # GitHub's mention surfaces are discovery, not routing authority. Act only on
+  # the exact, case-sensitive first-line address marker. This turns fuzzy search
+  # hits such as prose that mentions the bot later into deterministic drops.
+  if [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ]; then
+    case "$body" in
+      "@$GARDEN_BOT_LOGIN "*) ;;
+      *)
+        log "trusted but not explicitly addressed on ${repo:-?} #${number:-?}; dropped (expected exact first-line '@$GARDEN_BOT_LOGIN ')"
+        dropped=$((dropped+1)); slide "$created"; continue ;;
+    esac
   fi
 
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"

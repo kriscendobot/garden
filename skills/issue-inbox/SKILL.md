@@ -1,6 +1,6 @@
 ---
 created: 2026-06-27
-updated: 2026-08-28
+updated: 2026-09-01
 author: gardener
 ---
 
@@ -63,8 +63,11 @@ prompt-injection discipline).
 ## How a new comment reaches you mid-flight
 
 While you hold the issue's job (basename == `issue_spine`), the watcher delivers a
-**new maintainer comment** on that issue as a **message to your inbox** — fold it
-into your in-flight work (drain with `inbox-read.sh <issue_spine>`). If you have
+**new explicitly addressed maintainer comment** on that issue as a **message to
+your inbox**. The deterministic routing marker is a case-sensitive
+`@kriscendobot ` at the start of the first line. Comments without that exact
+marker are not bot messages and are dropped. Fold a delivered comment into your
+in-flight work (drain with `inbox-read.sh <issue_spine>`). If you have
 already finished (your inbox is gone), the message is **dead-lettered** and
 `garden-deadmail` promotes it to a fresh job that **carries the same issue note**,
 so the follow-up is never lost — you (or the next claimant) still know which issue

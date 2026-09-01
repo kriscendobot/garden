@@ -1,12 +1,12 @@
 ---
 created: 2026-05-15
-updated: 2026-06-24
+updated: 2026-09-01
 author: gardener
 ---
 
 # Skill: at-mention-surveillance
 
-Surface comment-body `@`-mentions of the bot (`@kriscendobot`) and the maintainer
+Surface explicitly addressed comments for the bot (`@kriscendobot`) and `@`-mentions of the maintainer
 (`@kriskowal`) on a watched repo, so the [triager](../../roles/triager/AGENT.md)
 can post a fix or design job on routing intent the maintainer or a contributor
 put in a comment. Distinct from the event-level surveillance the triager already
@@ -16,6 +16,14 @@ signal lives in the **body** of the comment, not in the event metadata. The
 `@kriscendobot you should also take a look at packages/genie`) is the
 precipitating example: the IssueCommentEvent surfaced, but the comment body never
 reached context, and the routing intent it carried was missed for ~75 minutes.
+
+The bot address is exact and deterministic: the first line must begin with the
+case-sensitive bytes `@kriscendobot `, including the trailing ASCII space. A bot
+mention later in a comment, with different casing, or without the trailing space
+is not an address. For a formal pull request review, the marker must start the
+review body; that one address routes the whole review, including every underlying
+inline comment. Without an addressed review body, each inline comment routes only
+when it carries its own exact first-line marker.
 
 In v1 this ran as a parent-context `Monitor` task in the steward's session and the
 steward dispatched a fixer/designer via `Agent`. In v2 it is a content-level pass

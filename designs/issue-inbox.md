@@ -1,3 +1,9 @@
+---
+created: 2026-06-27
+updated: 2026-09-01
+author: gardener
+---
+
 # Design: the issue inbox — driving the garden from its own GitHub issues
 
 A deterministic systemd watcher that turns the garden's **own GitHub repository's
@@ -116,8 +122,12 @@ Each issue keys to a stable **job spine**: `issue-<owner>-<repo>-<number>`.
 
 - **New issue (trusted):** `post-job <spine>` carrying the **issue note** and a
   generic body. Idempotent by spine (a re-poll/prior tick no-ops).
-- **New comment (trusted) on an in-flight issue:** delivered as a **message** to the
+- **New comment (trusted and explicitly addressed) on an in-flight issue:**
+  delivered as a **message** to the
   issue's doer via `inbox-send <spine>` (the doer's job basename *is* the spine).
+  The exact address is a case-sensitive `@kriscendobot ` at the start of the first
+  line. A trusted comment without that marker is logged and dropped; it is part of
+  the human conversation, not a bot directive.
   `inbox-send` reaches a live inbox, or **dead-letters** when the doer has finished;
   `garden-deadmail` then promotes the dead letter to a job. Either path is success.
   - *Why inbox-send, not `send-msg job/<spine>`:* the dead-letter→deadmail→job

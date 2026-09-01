@@ -34,6 +34,9 @@ set -euo pipefail
 # Explicit positive test-context sentinel: protects this standalone suite even when
 # invoked outside the test-tree entrypoint heuristic.
 export GARDEN_TEST=1
+# Legacy cases isolate issue lifecycle and delivery behavior. Dedicated ADDRESS
+# cases exercise the production default explicitly.
+export GARDEN_EXPLICIT_ADDRESS_REQUIRED=0
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
@@ -396,6 +399,26 @@ set -e
 grep -q 'Bad credentials (HTTP 401)' "$SOURCE_ERR" \
   && ok "source stderr contains the definitive gh diagnostic" \
   || bad "source stderr lost gh diagnostic: $(cat "$SOURCE_ERR")"
+
+# ============================================================================
+hr; echo "ADDRESS - issue comments require the exact first-line bot marker"; hr
+BARE_ADDR="$TR/address.git"; seed_bare "$BARE_ADDR"
+PL_ADDR="$TR/post-address.log"; ML_ADDR="$TR/msg-address.log"; ERR_ADDR="$TR/err-address.log"
+: > "$PL_ADDR"; : > "$ML_ADDR"; : > "$ERR_ADDR"
+FIX_ADDR_DROP="$TR/fix-address-drop.tsv"
+row issue-comment 2026-07-06T13:00:00Z 7101 31 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/31#issuecomment-7101 \
+  'Please update this for @kriscendobot.' > "$FIX_ADDR_DROP"
+GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_watcher "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR_DROP" "$PL_ADDR" "$ML_ADDR" "$ERR_ADDR"
+[ ! -s "$ML_ADDR" ] && ok "an unaddressed trusted issue comment is not delivered" || bad "unaddressed issue comment was delivered"
+grep -q 'not explicitly addressed' "$ERR_ADDR" && ok "the deterministic address drop is logged" || bad "address drop was not logged"
+
+FIX_ADDR_PASS="$TR/fix-address-pass.tsv"
+row issue-comment 2026-07-06T13:05:00Z 7102 31 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/31#issuecomment-7102 \
+  '@kriscendobot please update this.' > "$FIX_ADDR_PASS"
+GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_watcher "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR_PASS" "$PL_ADDR" "$ML_ADDR" "$ERR_ADDR"
+grep -q "MSG issue-$SLUG-31" "$ML_ADDR" && ok "an exactly addressed issue comment is delivered" || bad "exactly addressed issue comment was not delivered"
 
 # ============================================================================
 report_result

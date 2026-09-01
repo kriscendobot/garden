@@ -21,8 +21,9 @@
 #       → NEW ISSUE  → reactji-acknowledge the issue (👀 on the issue itself),
 #                      then post a generic job keyed to the issue spine, carrying
 #                      the issue note (so the doer replies on the right issue thread)
-#       → NEW COMMENT on an in-flight issue → reactji-acknowledge the comment (👀),
-#                      then deliver it as a MESSAGE to that issue's doer (inbox-send
+#       → NEW COMMENT on an in-flight issue → only when its first line starts
+#                      exactly "@<bot> ", reactji-acknowledge the comment (👀), then
+#                      deliver it as a MESSAGE to that issue's doer (inbox-send
 #                      to the spine); a dead inbox dead-letters → garden-deadmail
 #                      promotes it to a job that inherits the issue note (the note
 #                      rides in the message body). The 👀 mirrors the comment-watcher
@@ -87,6 +88,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 GARDEN_TAG="issue-inbox"
+: "${GARDEN_BOT_LOGIN:=kriscendobot}"
+: "${GARDEN_EXPLICIT_ADDRESS_REQUIRED:=1}"
+[ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ] || _in_test_context \
+  || die "GARDEN_EXPLICIT_ADDRESS_REQUIRED=0 is test-only"
 : "${GARDEN_ISSUE_SOURCE:=$HERE/handlers/issue-source-gh.sh}"
 : "${GARDEN_ISSUE_POST:=$HERE/post-job.sh}"
 : "${GARDEN_ISSUE_MSG:=$HERE/inbox-send.sh}"
@@ -540,6 +545,18 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
     # collaborator asking to interact is noticed rather than silently ignored.
     surface_would_be_maintainer "$author" "${number:-?}" "$url"
     dropped=$((dropped+1)); slide "$created"; continue
+  fi
+
+  # Filing a new issue still opens a work request. Follow-up comments do not:
+  # they are routed only when the first line begins with the exact,
+  # case-sensitive bot marker followed by one ASCII space.
+  if [ "$kind" = issue-comment ] && [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ]; then
+    case "$body" in
+      "@$GARDEN_BOT_LOGIN "*) ;;
+      *)
+        log "trusted comment id=$id on issue #$number is not explicitly addressed (expected exact first-line '@$GARDEN_BOT_LOGIN '); dropping"
+        dropped=$((dropped+1)); slide "$created"; continue ;;
+    esac
   fi
 
   # Closing etiquette, corrected for re-engagement (kriskowal/garden #10,

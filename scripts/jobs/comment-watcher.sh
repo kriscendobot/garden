@@ -9,6 +9,7 @@
 # silently dropped. One timer-driven instance per watched repo. The pipeline is:
 #
 #     poll comments since a durable cursor
+#       → require the exact, case-sensitive first-line marker "@<bot> "
 #       → map the verb table DETERMINISTICALLY (NO claude anywhere in this path)
 #       → post the corresponding job for a gardener to claim
 #       → VERIFY the post actually landed on origin/journal2
@@ -16,6 +17,13 @@
 #         posted job, never before (a lost push withholds the 👀 and re-polls, so a
 #         dropped directive can never look handled — the #600 five-acks-no-job fix).
 #         A lost push re-polls next tick and never drops the directive.
+#
+# A comment/review is never implicitly addressed to the bot. Conversation and
+# inline comments route independently when their body starts exactly
+# "@$GARDEN_BOT_LOGIN ". A formal review routes as one whole-review job only when
+# its review body starts with that marker; that job then reads every inline comment
+# in the review. The exact-address gate supersedes the older historical classifier
+# notes below about unmentioned trusted comments and bare imperative comments.
 #
 # ── FULLY DETERMINISTIC observe→post-job (NO LLM), maintainer directive 2026-07-01 ─
 # There is NO `claude -p` anywhere between observing a comment and posting a job.
@@ -207,6 +215,9 @@ source "$HERE/common.sh"
 slug="${1:?usage: comment-watcher.sh <repo-slug>}"
 GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
+: "${GARDEN_EXPLICIT_ADDRESS_REQUIRED:=1}"
+[ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ] || _in_test_context \
+  || die "GARDEN_EXPLICIT_ADDRESS_REQUIRED=0 is test-only"
 : "${GARDEN_COMMENT_SOURCE:=$HERE/handlers/comment-source-gh.sh}"
 : "${GARDEN_COMMENT_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
 # Reply-comment poster (the "at least a reply, not just a reactji" directive). Same
@@ -1694,6 +1705,26 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
 
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
 
+  # --- EXPLICIT ADDRESS gate (deterministic; before classification/react) -----
+  # A watched conversation is not implicitly addressed to this bot. The exact
+  # routing marker is a case-sensitive "@$GARDEN_BOT_LOGIN " at byte zero of the
+  # first line. A formal review carries source-owned state markers in front of its
+  # body; strip only those markers before applying the same test. An addressed
+  # review is one unit and therefore includes every underlying inline comment.
+  # Otherwise each inline/conversation comment must carry its own marker.
+  if [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ]; then
+    address_body="$body"
+    if [ "$surface" = pr-review-body ]; then
+      address_body="$(printf '%s' "$address_body" | sed -E 's/^(\[[A-Z_-]+\] )*//')"
+    fi
+    case "$address_body" in
+      "@$GARDEN_BOT_LOGIN "*) ;;
+      *)
+        log "DROP (not-addressed): $surface cid=$cid on #$pr does not begin exactly '@$GARDEN_BOT_LOGIN ' — not dispatching"
+        rm -f "$bf"; slide "$created"; continue ;;
+    esac
+  fi
+
   # PR number: prefer the source's field, else the first #N in the body. Resolved
   # up front because the mention-only filter (below) needs it before classify.
   [ -n "${pr:-}" ] && [ "$pr" != "?" ] || pr="$(grep -oE '#[0-9]+' "$bf" | head -1 | tr -d '#')"
@@ -1754,7 +1785,12 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # reviewer's inline comment feeds no work (the review-body path drops untrusted
   # reviews too). A pr-review-comment with NO review id (shouldn't occur, but be
   # defensive) falls through to the normal classify path — its current behavior.
-  if [ "$surface" = pr-review-comment ] && [ -n "${review_id:-}" ]; then
+  # The legacy routing model folded every inline comment onto its parent review.
+  # Under explicit addressing, only an addressed REVIEW BODY owns the whole review
+  # (and its comments are emitted as pr-review-comment-subsumed). Any remaining
+  # specifically addressed inline comment is its own unit of work.
+  if [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" = 0 ] \
+     && [ "$surface" = pr-review-comment ] && [ -n "${review_id:-}" ]; then
     if is_trusted "$author"; then
       VERB=review; PRIMARY_VERB=""    # REVIEW_KEY already resolved to review_id above
       log "FOLD: inline comment cid=$cid on #$pr ($author) folded onto its review's 'review' job (review_id=$review_id) — one review, one job [url=$url]"
@@ -1879,17 +1915,13 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     finalize)                                base="$slug-pr$pr-conduct";;
     review)                                  base="$slug-pr$pr-review-$(shorthash "$REVIEW_KEY")";;
     *)
-      # A non-`review` VERB minted from a surface that DEMONSTRABLY belongs to a review
-      # (a review BODY, or an inline review-COMMENT that carries a real review_id) still
-      # keys on the enclosing review id, NEVER the comment id — otherwise it fans out a
-      # second job for a review the review-body path already minted as `review` (the
-      # #544 attention sibling). This is defense for any future path that routes a
-      # review surface to a verb/attention instead of `review`; the fold normally forces
-      # VERB=review first. A standalone PR-line comment (pr-review-comment with NO
-      # review_id) and the conversation/issue surfaces are genuinely their own unit of
-      # work and keep the comment-id key.
+      # Review bodies key on the enclosing review id. In the legacy test model,
+      # inline review comments do too. Under explicit addressing, a remaining
+      # pr-review-comment was not subsumed by an addressed review and is its own
+      # unit, so it keeps the comment-id key below.
       if [ "$surface" = pr-review-body ] \
-         || { { [ "$surface" = pr-review-comment ] || [ "$surface" = pr-review-comment-subsumed ]; } \
+         || { [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" = 0 ] \
+              && { [ "$surface" = pr-review-comment ] || [ "$surface" = pr-review-comment-subsumed ]; } \
               && [ -n "${review_id:-}" ]; }; then
         base="$slug-pr$pr-review-$(shorthash "$REVIEW_KEY")"
       else

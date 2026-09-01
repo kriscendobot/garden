@@ -158,7 +158,7 @@ BARE_B="$TR/b.git"; seed_bare "$BARE_B"
 FIX_B="$TR/fix-b.tsv"; RLOG_B="$TR/react-b.log"; : > "$RLOG_B"
 mkline 2026-06-24T11:00:00Z pr-review-comment 222 endojs/endo-but-for-bots 58 somecontributor \
   https://github.com/endojs/endo-but-for-bots/pull/58#discussion_r222 \
-  'hey @kriscendobot can you take a look at this?' > "$FIX_B"
+  '@kriscendobot can you take a look at this?' > "$FIX_B"
 run_watcher "$TR/state-b" "$BARE_B" "$FIX_B" "$RLOG_B" somecontributor
 [ "$(board_count "$BARE_B")" -eq 1 ] && ok "org-member mention triaged (one job)" || bad "expected 1 job, got $(board_count "$BARE_B")"
 grep -qx "pr-review-comment 222 eyes" "$RLOG_B" && ok "eyes reactji on the org-member mention" || bad "reactji wrong ($(cat "$RLOG_B"))"
@@ -303,6 +303,18 @@ run_watcher "$TR/state-pk" "$BARE_PK" "$FIX_PK" "$RLOG_PK" ""
 [ "$(printf '%s\n' "$(plan_body "$BARE_PK" "$PK_BASE")" | grep -c 'garden-annotation: key=')" -eq 1 ] \
   && ok "still exactly one annotation after a re-poll" || bad "re-poll double-appended"
 [ "$(cursor_seen "$TR/state-pk" "$BARE_PK")" = 2026-07-29T09:00:00Z ] && ok "cursor stable on idempotent re-poll" || bad "cursor moved on re-poll"
+
+# ============================================================================
+hr; echo "ADDRESS — only the exact first-line marker routes a trusted mention"; hr
+BARE_ADDR="$TR/address.git"; seed_bare "$BARE_ADDR"
+FIX_ADDR="$TR/fix-address.tsv"; RLOG_ADDR="$TR/react-address.log"; : > "$RLOG_ADDR"
+mkline 2026-07-29T10:00:00Z issue-comment 4990000701 endojs/endo-but-for-bots 701 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/701#issuecomment-4990000701 \
+  'Could you help @kriscendobot please rebase?' > "$FIX_ADDR"
+run_watcher "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR" "$RLOG_ADDR" ""
+[ "$(board_count "$BARE_ADDR")" -eq 0 ] && ok "a mid-comment mention is not routed" || bad "mid-comment mention posted a job"
+[ ! -s "$RLOG_ADDR" ] && ok "a non-addressed mention is not acknowledged" || bad "non-addressed mention was acknowledged"
+[ "$(cursor_seen "$TR/state-address" "$BARE_ADDR")" = 2026-07-29T10:00:00Z ] && ok "cursor slid past the deterministic drop" || bad "cursor did not slide past non-addressed mention"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

@@ -3158,6 +3158,7 @@ ii_row() {  # ii_row kind created id number author submitter state closed_by clo
 }
 ii_run() {  # ii_run <state> <bare> <fixture> [repo]
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_EXPLICIT_ADDRESS_REQUIRED=0 \
       GARDEN_GARDEN_REPO="${4:-kriskowal/garden}" \
       GARDEN_MAINTAINERS_ALLOWLIST="$II_ALLOW" \
       II_FIXTURE="$3" \

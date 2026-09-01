@@ -24,6 +24,9 @@ set -euo pipefail
 # Explicit positive test-context sentinel: protects this standalone suite even when
 # invoked outside the test-tree entrypoint heuristic.
 export GARDEN_TEST=1
+# Most cases predate the explicit-address routing contract and isolate unrelated
+# watcher invariants. Dedicated ADDRESS cases below exercise the production default.
+export GARDEN_EXPLICIT_ADDRESS_REQUIRED=0
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
@@ -760,11 +763,10 @@ run_directive "$TR/state-p" "$BARE_P" "$FIX_P" "$RLOG_P"
 [ "$(todo_count "$BARE_P")" -eq 0 ] && ok "an empty review with no inline comments produced no job" || bad "empty no-inline review posted a job"
 
 # ============================================================================
-# Q — SOURCE-level: comment-source-gh.sh must SURFACE an empty-body review that
-# carries inline comments (marked [INLINE-REVIEW]), and must DROP an empty-body
-# review with no inline comments. A compact gh stub answers the four endpoints the
-# handler hits; the REAL jq processes the JSON.
-hr; echo "Q — comment-source-gh.sh surfaces empty-body inline-bearing reviews"; hr
+# Q — SOURCE-level: an explicitly addressed review subsumes its inline comments,
+# while an unaddressed review leaves each inline comment independent. The source
+# still surfaces inline-bearing review bodies for the watcher's deterministic gate.
+hr; echo "Q — comment-source marks inline comments subsumed only for an addressed review"; hr
 # The handler clamps `since` to a 24h floor, so the SOURCE-level tests (Q/Z/EE)
 # must use timestamps RELATIVE TO NOW or they rot the moment "today" drifts >24h
 # past a hardcoded fixture date (the latent failure these three used to ship).
@@ -789,25 +791,32 @@ case "$args" in
   *"/pulls?state=open"*)         # authoritative paginated open-PR list: one PR, #4
     printf '[{"number":4,"updated_at":"%s"}]\n' "$ts"; exit 0;;
   *"/issues/comments"*)          printf '[]\n'; exit 0;;
-  *"/pulls/comments"*)           printf '[]\n'; exit 0;;        # repo-wide inline feed (unused here)
-  *"/pulls/4/comments"*)         # inline comments on #4: two tied to review 9001, none to 9002
-    printf '%s\n' '[{"pull_request_review_id":9001},{"pull_request_review_id":9001}]'; exit 0;;
-  *"/pulls/4/reviews"*)          # one inline-bearing empty-body review, one empty no-inline review
-    printf '[{"id":9001,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9001"},{"id":9002,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9002"}]\n' "$ts" "$ts"; exit 0;;
+  *"/pulls/comments"*)
+    printf '[{"id":9101,"created_at":"%s","user":{"login":"kriskowal"},"body":"plain inline","html_url":"https://x/pull/4#c9101","pull_request_url":"https://api.github.com/repos/x/y/pulls/4","pull_request_review_id":9001},{"id":9103,"created_at":"%s","user":{"login":"kriskowal"},"body":"@kriscendobot own comment","html_url":"https://x/pull/4#c9103","pull_request_url":"https://api.github.com/repos/x/y/pulls/4","pull_request_review_id":9003}]\n' "$ts" "$ts"; exit 0;;
+  *"/pulls/4/comments"*)
+    printf '%s\n' '[{"pull_request_review_id":9001},{"pull_request_review_id":9003}]'; exit 0;;
+  *"/pulls/4/reviews"*)
+    printf '[{"id":9001,"state":"COMMENTED","body":"@kriscendobot review all","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9001"},{"id":9002,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9002"},{"id":9003,"state":"COMMENTED","body":"human review","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9003"}]\n' "$ts" "$ts" "$ts"; exit 0;;
 esac
 printf '[]\n'; exit 0
 EOF
   chmod +x "$GHQ/gh"
   Q_OUT="$TR/q.out"
-  env PATH="$GHQ:$PATH" TS="$REV_TS" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-q" \
+  env PATH="$GHQ:$PATH" TS="$REV_TS" GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-q" \
     "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
     > "$Q_OUT" 2>/dev/null || true
   grep -q $'\t9001\t' "$Q_OUT" && grep -q 'INLINE-REVIEW' "$Q_OUT" \
-    && ok "inline-bearing empty-body review 9001 surfaced with [INLINE-REVIEW]" \
+    && ok "inline-bearing addressed review 9001 surfaced with [INLINE-REVIEW]" \
     || bad "review 9001 not surfaced (out: $(cat "$Q_OUT"))"
   grep -q $'\t9002\t' "$Q_OUT" \
     && bad "empty no-inline review 9002 was surfaced (should be dropped)" \
     || ok "empty review 9002 with no inline comments correctly dropped"
+  awk -F'\t' '$3=="9101" && $2=="pr-review-comment-subsumed" {found=1} END{exit !found}' "$Q_OUT" \
+    && ok "addressed review 9001 subsumes its inline comment" \
+    || bad "addressed review's inline comment was not marked subsumed ($(cat "$Q_OUT"))"
+  awk -F'\t' '$3=="9103" && $2=="pr-review-comment" {found=1} END{exit !found}' "$Q_OUT" \
+    && ok "unaddressed review 9003 leaves its specifically addressed inline comment independent" \
+    || bad "unaddressed review incorrectly subsumed its inline comment ($(cat "$Q_OUT"))"
 fi
 
 # ============================================================================
@@ -2770,6 +2779,44 @@ EOF
   grep -qi 'FETCH INCOMPLETE' "$IDEN_ERR" && ok "the freeze is LOGGED (FETCH INCOMPLETE), not silently degraded" || bad "no FETCH-INCOMPLETE log ($(cat "$IDEN_ERR"))"
   grep -qi 'issues disabled' "$IDEN_ERR" && bad "wrongly entered issues-disabled mode on a repo whose Issues are ON" || ok "did not blindly treat the 404 as issues-disabled"
 fi
+
+# ============================================================================
+hr; echo "ADDRESS — comments and review bodies require the exact first-line bot marker"; hr
+BARE_ADDR="$TR/address.git"; seed_bare "$BARE_ADDR"
+RLOG_ADDR="$TR/react-address.log"; : > "$RLOG_ADDR"
+FIX_ADDR_DROP="$TR/fix-address-drop.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-30T10:00:00Z issue-comment 8100 801 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/801#issuecomment-8100 \
+  'Please rebase, @kriscendobot.' > "$FIX_ADDR_DROP"
+GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_watcher "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR_DROP" "$RLOG_ADDR"
+[ "$(todo_count "$BARE_ADDR")" -eq 0 ] && ok "a mid-comment mention does not dispatch" || bad "mid-comment mention dispatched"
+[ ! -s "$RLOG_ADDR" ] && ok "a non-addressed comment is not acknowledged" || bad "non-addressed comment was acknowledged"
+
+FIX_ADDR_PASS="$TR/fix-address-pass.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-30T10:05:00Z issue-comment 8101 801 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/801#issuecomment-8101 \
+  '@kriscendobot Please rebase.' > "$FIX_ADDR_PASS"
+GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_watcher "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR_PASS" "$RLOG_ADDR"
+board_has "$BARE_ADDR" "$SLUG-pr801-rebase" && ok "an exactly addressed comment dispatches" || bad "exactly addressed comment did not dispatch"
+
+FIX_ADDR_REVIEW="$TR/fix-address-review.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-30T10:10:00Z pr-review-body 8201 802 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/802#pullrequestreview-8201 \
+  '[INLINE-REVIEW] [CHANGES_REQUESTED] @kriscendobot Please address every inline comment.' > "$FIX_ADDR_REVIEW"
+GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_directive "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR_REVIEW" "$RLOG_ADDR"
+board_has "$BARE_ADDR" "$SLUG-pr802-review-$(printf 8201 | sha1sum | cut -c1-8)" && ok "an exactly addressed review dispatches as one whole-review job" || bad "addressed review did not dispatch as a whole-review job"
+
+FIX_ADDR_INLINE="$TR/fix-address-inline.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-30T10:15:00Z pr-review-comment 8301 803 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/803#discussion_r8301 \
+  '@kriscendobot Please update this line.' 8300 > "$FIX_ADDR_INLINE"
+GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_directive "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR_INLINE" "$RLOG_ADDR"
+[ "$(todo_glob "$BARE_ADDR" "^$SLUG-pr803-review-")" -eq 0 ] && ok "an independently addressed inline comment is not widened to its whole review" || bad "inline comment was incorrectly widened to a whole-review job"
+[ "$(todo_count "$BARE_ADDR")" -eq 3 ] && ok "the specifically addressed inline comment dispatches as its own job" || bad "specifically addressed inline comment did not dispatch independently"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
