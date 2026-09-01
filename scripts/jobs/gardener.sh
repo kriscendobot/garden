@@ -116,6 +116,13 @@ fi
 # empties, so a clean tree that respects SIGTERM costs ~0s and only a wedged tree
 # pays the full grace before the unconditional SIGKILL.
 : "${GARDEN_HANDLER_REAP_GRACE:=5}"
+# A restarted worker can inherit detached descendants from its prior incarnation
+# in the systemd service cgroup. Process-group reaping cannot reach a descendant
+# that called setsid/setpgid, and KillMode=mixed intentionally preserves the
+# handler tree during a graceful stop. Sweep the private unit cgroup before this
+# incarnation can claim anything, preserving only the current self-heal wrapper
+# tree. Outside the exact registered worker service leaf this is a strict no-op.
+reap_stale_worker_cgroup "$KIND" "$id" || true
 # The reaper's stale-claim window (reaper.sh, default 14400 = 4h — the authority).
 # Mirrored here ONLY so the optional per-job `handler-timeout:` header (resolved at the
 # call site below) can be clamped against the INVARIANT above; keep this default in

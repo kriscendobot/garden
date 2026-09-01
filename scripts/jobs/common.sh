@@ -3846,6 +3846,119 @@ reap_process_group() {
   return 0
 }
 
+# reap_stale_worker_cgroup <kind> <id> [grace-secs] — remove processes left in a
+# worker service's cgroup by an earlier incarnation before the new worker can
+# claim. A handler can detach into a new process group, so reap_process_group
+# cannot reach every descendant. systemd retains those descendants in the unit
+# cgroup and reports them as left-over processes on the next start.
+#
+# Safety is fail-closed. The sweep runs only in a cgroup v2 leaf whose name is
+# exactly the registered worker unit for <kind>/<id>. It preserves the current
+# invocation's whole in-cgroup tree: gardener.sh, its self-heal-run.sh parent,
+# and the wrapper's tee sibling. Everything else in that private service cgroup
+# is necessarily from a prior invocation. Signal PIDs directly rather than their
+# process groups because a detached stale process may share a group with a live
+# process from the current invocation.
+#
+# GARDEN_PROC_ROOT and GARDEN_CGROUP_ROOT are test seams. Production leaves them
+# at /proc and /sys/fs/cgroup.
+: "${GARDEN_WORKER_STARTUP_REAP_GRACE:=2}"
+: "${GARDEN_WORKER_STARTUP_REAP_KILL_WAIT:=2}"
+reap_stale_worker_cgroup() {
+  local kind="${1:-}" id="${2:-}" grace="${3:-$GARDEN_WORKER_STARTUP_REAP_GRACE}"
+  local proc_root="${GARDEN_PROC_ROOT:-/proc}"
+  local cgroup_root="${GARDEN_CGROUP_ROOT:-/sys/fs/cgroup}"
+  local line cgpath leaf unit_prefix expected procs root p parent
+  local -a members=() stale=()
+
+  [ -n "$kind" ] && [ -n "$id" ] || return 0
+  unit_prefix="$(worker_kind_field "$kind" unit 2>/dev/null)" || return 0
+  expected="${unit_prefix}${id}.service"
+  line="$(grep '^0::' "$proc_root/self/cgroup" 2>/dev/null)" || return 0
+  [ -n "$line" ] || return 0
+  cgpath="${line#0::}"
+  leaf="${cgpath##*/}"
+  [ "$leaf" = "$expected" ] || return 0
+  procs="$cgroup_root${cgpath}/cgroup.procs"
+  [ -r "$procs" ] || return 0
+
+  mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
+  [ "${#members[@]}" -gt 0 ] || return 0
+
+  # Find the topmost ancestor of this shell that is still inside this unit. For
+  # the rendered worker service this is self-heal-run.sh. Its descendants are
+  # the complete current invocation, including the wrapper's process-substitution
+  # tee, which is a sibling rather than an ancestor of gardener.sh.
+  root="$$"
+  while :; do
+    parent="$(awk '/^PPid:/{print $2}' "$proc_root/$root/status" 2>/dev/null || true)"
+    [[ "$parent" =~ ^[1-9][0-9]*$ ]] || break
+    case " ${members[*]} " in
+      *" $parent "*) root="$parent" ;;
+      *) break ;;
+    esac
+  done
+
+  _worker_pid_is_current() { # <pid>; true when its ancestry reaches $root
+    local candidate="$1" seen=" "
+    while [[ "$candidate" =~ ^[1-9][0-9]*$ ]]; do
+      [ "$candidate" = "$root" ] && return 0
+      case "$seen" in *" $candidate "*) return 1 ;; esac
+      seen="$seen$candidate "
+      candidate="$(awk '/^PPid:/{print $2}' "$proc_root/$candidate/status" 2>/dev/null || true)"
+    done
+    return 1
+  }
+
+  for p in "${members[@]}"; do
+    _worker_pid_is_current "$p" || stale+=("$p")
+  done
+  [ "${#stale[@]}" -gt 0 ] || { unset -f _worker_pid_is_current; return 0; }
+
+  log "startup cgroup cleanup: terminating ${#stale[@]} stale process(es) from a prior $kind/$id run (pids: ${stale[*]})"
+  for p in "${stale[@]}"; do kill -TERM "$p" 2>/dev/null || true; done
+  case "$grace" in ''|*[!0-9]*) grace=2 ;; esac
+  [ "$grace" -gt 0 ] && sleep "$grace"
+
+  # Re-read after the grace. This catches both TERM-ignoring survivors and a
+  # child forked by a stale process while the first pass was in progress.
+  stale=()
+  mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
+  for p in "${members[@]}"; do
+    _worker_pid_is_current "$p" || stale+=("$p")
+  done
+  for p in "${stale[@]}"; do kill -KILL "$p" 2>/dev/null || true; done
+
+  local wait_left="$GARDEN_WORKER_STARTUP_REAP_KILL_WAIT"
+  case "$wait_left" in ''|*[!0-9]*) wait_left=2 ;; esac
+  while :; do
+    stale=()
+    mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
+    for p in "${members[@]}"; do
+      _worker_pid_is_current "$p" || stale+=("$p")
+    done
+    [ "${#stale[@]}" -gt 0 ] || break
+    # Repeat the signal after every scan so a child forked between the prior
+    # scan and SIGKILL cannot escape merely by acquiring a new pid.
+    for p in "${stale[@]}"; do kill -KILL "$p" 2>/dev/null || true; done
+    [ "$wait_left" -gt 0 ] || break
+    sleep 1
+    wait_left=$((wait_left - 1))
+  done
+  # The loop's final KILL may not have disappeared from cgroup.procs yet. Take
+  # one last snapshot for an accurate warning without extending startup again.
+  stale=()
+  mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
+  for p in "${members[@]}"; do
+    _worker_pid_is_current "$p" || stale+=("$p")
+  done
+  if [ "${#stale[@]}" -gt 0 ]; then
+    log "WARN: startup cgroup cleanup: ${#stale[@]} stale process(es) still listed after SIGKILL (pids: ${stale[*]})"
+  fi
+  unset -f _worker_pid_is_current
+  return 0
+}
+
 # --- job completion signal ---------------------------------------------------
 #
 # The deterministic "the job genuinely finished" contract between the `claude -p`
