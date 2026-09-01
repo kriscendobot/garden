@@ -17,3 +17,13 @@ This is the hand-off's own top-ranked probe ("zero new research needed;
 design and probe recipe are both already written") — see `hand-off.md`
 (bare-host research session, this session) for the full harness x provider
 survey this probe sits inside of.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T21:06:27Z
