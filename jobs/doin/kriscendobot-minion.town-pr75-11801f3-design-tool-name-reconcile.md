@@ -16,3 +16,13 @@ Reconcile those proposed tool names with the interface-native convention PR #75 
 Do **not** touch the README old→new mapping table (the prefixed names there are deliberate history), and do not re-open the implemented surface — this is a docs-only reconciliation of unimplemented designs. Note that `src/endo/identity.ts` mentions `guest_name` as a DynamoDB attribute, not a tool name; leave it alone.
 
 Open a PR against `main` and run the gauntlet.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T17:51:10Z
