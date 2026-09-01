@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:31:44Z_
+_As of 2026-09-01T19:32:29Z_
 
 ## Latest
 
@@ -303,10 +303,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet fix-stage on [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) ([https://github.com/endojs/endo-but-for-bots/pull/138](https://github.com/endojs/endo-but-for-bots/pull/138)) pushed the panel's must-fix items (309b234de, already on origin), but the bounded CI wait cannot reach a terminal state: GitHub has created zero Actions check-suites for this head across ~80 minutes of observation (only stray `renovate`/`claude` app suites stuck `queued`). The PR is also `mergeable: CONFLICTING`, `mergeStateStatus: DIRTY` — 265 commits behind base `llm` and 942 ahead, per a git merge-base check in an isolated worktree. This looks like a structural GitHub-side stall (very stale/conflicting PR, not a transient CI queue), not something a bounded re-poll will resolve. Recommend a weave/rebase (or pin-the-merge-base) on [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) before the next gauntlet CI-wait attempt, or manual investigation of why Actions never attaches to this branch. Reporting this attempt as still-pending per the job's rc=4 contract so the driver re-posts rather than looping silently.
 
-- `20260831T103727Z-b14079` — from orchestrator:endojs-endo-but-for-bots-pr1083-resolve-conduct-build-5064787686-r2-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T103727Z-b14079.md)
-
-> Orchestration endojs-endo-but-for-bots-pr1083-resolve-conduct-build-5064787686-r2 HALTED: child build-npm-registry-as-directory-tree-review5064787686-r2 stalled in flight for 2564s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 2/3 done before halt; parked remainder: none
-
 - `20260831T123510Z-6b55eb` — from gauntlet:endojs-endo-but-for-bots-pr1018-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T123510Z-6b55eb.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1018-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
@@ -341,10 +337,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > BUT: CI never attaches to this branch. Checked via GH API — zero workflow_runs recorded against ANY of the last 5 pushed SHAs since 2026-05-15 (071f0849, 9a73e9d3, 919e8611, 4424f3a9, 1eb10a3d), even though sibling design/* branches in the same repo trigger pull_request runs fine within seconds of a push around the same time window. statusCheckRollup stays permanently empty. Also: PR mergeable_state is "dirty"/CONFLICTING (base `llm` has moved ~85 commits since this branch forked on 2026-05-14; branch was never rebased).
 >
 > ci-wait-merge.sh correctly reports rc=4 (still-pending) per its empty-rollup timeout, so this fix stage reports still-pending as designed. But if the driver just re-posts this stage on a fixed cadence expecting CI to eventually attach, it will loop forever — CI has never once attached in 3.5 months of pushes. Suspect the conflicting/stale base state is suppressing pull_request workflow triggering (or some other GH-side quirk specific to this branch/PR). This PR likely needs a `weave`/rebase onto live `llm` before CI can even run, not another fix round.
-
-- `20260831T140518Z-b97ce9` — from gauntlet:endojs-endo-but-for-bots-pr231-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T140518Z-b97ce9.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr231-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `20260831T142847Z-31b869` — from gardener:minion-town-gateway-containment-verify-20260831, reply_to `minion-town-gateway-containment-verify-20260831` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T142847Z-31b869.md)
 
@@ -2478,7 +2470,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.0M | $375.81 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Claude | 19.0M | $377.01 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 33.9M _(+904.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
