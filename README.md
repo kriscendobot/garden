@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T21:51:21Z_
+_As of 2026-09-01T21:54:18Z_
 
 ## Latest
 
@@ -1374,13 +1374,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 21.7M | $430.34 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 35.4M _(+939.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Codex | 35.5M _(+940.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (97)
+### doin (96)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`design-claude-ollama-cloud-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-ollama-cloud-worker-kind.md) — Status update from the liaison (2026-09-01, after hand-off.md was posted)
@@ -1477,15 +1477,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
-- [`xs2rust-endor-press-20260901-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-215006.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6612)
+### tada (6613)
+- [`xs2rust-endor-press-20260901-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-215006.md) — Cost
 - [`endojs-endo-but-for-bots-pr946-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr946-weave-20260901.md) — Cost
 - [`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md) — Cost
 - [`kriscendobot-minion.town-pr56-review-5867a29b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr56-review-5867a29b.md) — Cost
 - [`endojs-endo-but-for-bots-pr300-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr300-conduct.md) — Cost
-- [`probe-opencode-anthropic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/probe-opencode-anthropic.md) — Cost
-- … and 6607 more
+- … and 6608 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
