@@ -1,16 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 3
-deadline_overruns: 1
-doomed_at: 2026-08-01T11:43:03Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-01T11:43:03Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-01T23:07:31Z cleared=deadline-overrun=1 -->
 
 ---
 role: builder
@@ -79,4 +70,3 @@ tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with loa
 the before/after exemptions line count.
 
 
-<!-- garden-deadline-overrun: 1 -->
