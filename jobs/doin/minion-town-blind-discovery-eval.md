@@ -22,3 +22,13 @@ State whether discovery documentation alone led to the canonical `evaluate`
 call and result 4. If it did not, post explicit named follow-up job(s) for every
 documentation deficiency and cite them in the completion report. Never expose
 the client secret or bearer token in logs, prompts, commits, or the report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T17:55:03Z
