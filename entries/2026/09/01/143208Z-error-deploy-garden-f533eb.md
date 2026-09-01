@@ -1,0 +1,15 @@
+---
+kind: error
+role: deploy-garden
+host: endolin-garden2-5bcdff64
+at: 2026-09-01T14:32:09Z
+---
+kind: error
+
+# Deploy candidate test gate rejected main2
+
+candidate: `19913bbc70560186e15ea60df339497c8d6b0786`
+failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1), scripts/jobs/test/codex-policy-refusal-resume-test.sh(rc=1)
+
+The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+for a deliberate emergency deploy after assessing this failure.
