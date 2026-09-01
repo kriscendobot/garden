@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-01T17:41:40Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-remove-mcp-tool-prefixes
+pr_number: 75
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/75
+pr_head: feat/remove-mcp-tool-prefixes
