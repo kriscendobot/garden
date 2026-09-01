@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 4
+worker_kind: monk
+claimed_at: 2026-09-01T20:09:18Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-fix-usage-meter-unbound-var-and-widen-shellcheck-ci
