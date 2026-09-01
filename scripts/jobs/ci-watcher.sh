@@ -100,10 +100,13 @@ RETIRE="$GARDEN_CI_RETIRE_CLONE"
 : "${GARDEN_CI_ACTIVITY_WINDOW:=3 days}"
 : "${GARDEN_CI_UNREADABLE_ABORT_THRESHOLD:=3}"
 # Host-scoped latch that dedups the stale-shepherd sweep's "journal fetch failed"
-# warning across the per-repo CI watchers (see § Journal-outage latch below). Shared
-# by every ci-watcher on this host — NOT keyed by slug — so one journal outage warns
-# once, not once per watched repo.
-: "${GARDEN_CI_JOURNAL_OUTAGE_LATCH:=$GARDEN_STATE/ci-watcher/journal-outage}"
+# warning across the per-repo CI watchers (see § Journal-outage latch below). The
+# unit template gives every repo instance one GARDEN_ROOT, while invocation-local
+# state may be namespaced independently. Derive this coordination path from that
+# shared root directly — never from GARDEN_STATE — so every instance opens the same
+# latch and, critically, the same flock inode. NOT keyed by slug: one journal outage
+# warns once, not once per watched repo.
+: "${GARDEN_CI_JOURNAL_OUTAGE_LATCH:=$GARDEN_ROOT/.garden-state/ci-watcher/journal-outage}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 

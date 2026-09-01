@@ -49,11 +49,9 @@
 #      guess a state — same discipline as the post pass)
 #
 # Journal-outage latch (dedup the sweep's "fetch failed" WARN across per-repo watchers):
-#   R. one shared journal outage warns loud + arms a HOST-SCOPED latch on the first
-#      watcher; a later watcher (another repo, same host state) logs a quiet deduped
-#      line, not a second loud WARN; the first watcher to see the journal reachable
-#      again clears the latch and emits one recovery notice; a subsequent healthy tick
-#      emits no spurious recovery notice.
+#   R. concurrent unit-shaped invocations with one GARDEN_ROOT but independently
+#      namespaced GARDEN_STATE dirs still resolve one HOST-SCOPED latch + lock: one
+#      shared journal outage warns once, and recovery emits one close notice.
 #
 # Usage: ci-watcher-test.sh
 set -euo pipefail
@@ -533,14 +531,15 @@ in_lane "$BARE_Q" tada "$SLUG-pr105-shepherd" && bad "unreadable re-read wrongly
 # ============================================================================
 hr; echo "R — journal-outage latch dedups the stale-shepherd 'fetch failed' WARN"; hr
 # One shared journal outage would otherwise make every per-repo ci-watcher's sweep
-# emit an indistinguishable "journal fetch failed" WARN. A HOST-SCOPED edge latch
-# (shared GARDEN_STATE, NOT keyed by slug) collapses them: the first sweep to hit the
-# outage warns loud + arms the latch; later sweeps (any repo, sharing the host state)
-# say nothing; the first sweep to see the journal reachable clears the latch and
-# emits one recovery notice. Simulate the outage with a failing
+# emit an indistinguishable "journal fetch failed" WARN. In deployment, template
+# instances share GARDEN_ROOT but may have independently namespaced GARDEN_STATE.
+# Reproduce that shape here: every repo gets a different state dir, while the latch
+# and its sibling lock must resolve below the one shared root. The first sweep to hit
+# the outage warns loud + arms the latch; later sweeps say nothing; the first sweep
+# to see the journal reachable clears the latch and emits one recovery notice.
+# Simulate the outage with a failing
 # GARDEN_FETCH_CMD (the journal_fetch seam); an empty PR fixture means the sweep's
-# verify_fetch is the tick's only journal fetch. The shared host state is ONE
-# GARDEN_STATE dir reused across the (differently-slugged) runs.
+# verify_fetch is the tick's only journal fetch.
 BARE_R="$TR/r.git"; seed_bare "$BARE_R"
 FIX_R="$TR/fix-r.tsv"; : > "$FIX_R"                 # no PRs → straight to the sweep
 FETCH_FAIL="$TR/fetch-fail.sh"
@@ -550,11 +549,13 @@ echo 'simulated journal fetch failure' >&2
 exit 1
 EOF
 chmod +x "$FETCH_FAIL"
-STATE_R="$TR/state-r"                               # ONE host state, reused across runs
+ROOT_R="$TR/root-r"; mkdir -p "$ROOT_R"             # ONE rendered unit root
+LATCH_R="$ROOT_R/.garden-state/ci-watcher/journal-outage"
 run_ci_outage() {  # run_ci_outage <slug> <errfile> [FETCH_CMD]
   local slug="$1" errf="$2" fcmd="${3:-}"
   env ${fcmd:+GARDEN_FETCH_CMD="$fcmd"} GARDEN_FETCH_RETRIES=1 \
-      GARDEN_STATE="$STATE_R" JOURNAL_REMOTE="$BARE_R" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_ROOT="$ROOT_R" GARDEN_STATE="$TR/state-r/$slug" \
+      JOURNAL_REMOTE="$BARE_R" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_BOT_LOGIN=kriscendobot \
       GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_R" \
       GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' \
@@ -564,21 +565,21 @@ run_ci_outage() {  # run_ci_outage <slug> <errfile> [FETCH_CMD]
 # Run 1 — outage, first watcher: loud WARN + latch armed.
 run_ci_outage "$SLUG" "$TR/r1.err" "$FETCH_FAIL"
 grep -qi 'host outage episode opened' "$TR/r1.err" && ok "first outage tick warns loud and arms the latch" || bad "no armed WARN ($(cat "$TR/r1.err"))"
-[ -d "$STATE_R/ci-watcher/journal-outage" ] && ok "host-scoped latch marker created" || bad "latch marker not created"
+[ -d "$LATCH_R" ] && ok "host-scoped latch marker created below the shared unit root" || bad "latch marker not created at $LATCH_R"
 # Run 2 — same outage, a DIFFERENT repo's watcher sharing the host state: silent.
 run_ci_outage "kriscendobot-somefork" "$TR/r2.err" "$FETCH_FAIL"
 ! grep -qi 'journal fetch failed' "$TR/r2.err" && ok "second outage tick (another repo) is silent" || bad "duplicate outage message emitted ($(cat "$TR/r2.err"))"
 # Run 3 — journal reachable again (no failing FETCH_CMD): recovery notice + latch cleared.
 run_ci_outage "$SLUG" "$TR/r3.err" ""
 grep -qi 'journal reachable again' "$TR/r3.err" && ok "recovery tick emits the recovery notice" || bad "no recovery notice ($(cat "$TR/r3.err"))"
-[ ! -d "$STATE_R/ci-watcher/journal-outage" ] && ok "latch marker cleared on recovery" || bad "latch marker not cleared"
+[ ! -d "$LATCH_R" ] && ok "latch marker cleared on recovery" || bad "latch marker not cleared"
 # Run 4 — still healthy: no spurious recovery notice, no re-arm (latch stays clear).
 run_ci_outage "$SLUG" "$TR/r4.err" ""
 ! grep -qi 'journal reachable again' "$TR/r4.err" && ok "no spurious recovery notice when no episode was open" || bad "recovery notice fired with no outage latched"
 
 # Run 5 — simultaneous per-repo failures share one atomic transition. The old
 # sequential test could not catch a check/create race between service instances.
-rm -rf "$STATE_R/ci-watcher/journal-outage"
+rm -rf "$LATCH_R"
 for n in 1 2 3 4 5 6; do
   run_ci_outage "kriscendobot-race$n" "$TR/r5-$n.err" "$FETCH_FAIL" &
 done
@@ -598,7 +599,7 @@ wait
 [ "$(grep -hil 'journal reachable again' "$TR"/r6-*.err | wc -l)" -eq 1 ] \
   && ok "six concurrent repo watchers emit exactly one recovery notice" \
   || bad "concurrent recovery emitted $(grep -hil 'journal reachable again' "$TR"/r6-*.err | wc -l) notices"
-[ ! -d "$STATE_R/ci-watcher/journal-outage" ] && ok "concurrent recovery leaves the latch clear" || bad "concurrent recovery left latch armed"
+[ ! -d "$LATCH_R" ] && ok "concurrent recovery leaves the latch clear" || bad "concurrent recovery left latch armed"
 
 # ============================================================================
 hr
