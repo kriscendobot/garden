@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: satisfied: this asked to post/run the gauntlet for endojs/endo-but-for-bots#881 because its panel stage had never run. That gauntlet was posted on 2026-09-01 as endojs-endo-but-for-bots-pr881-gauntlet-20260901 (max_stage_retries=2) (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:46:25Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
