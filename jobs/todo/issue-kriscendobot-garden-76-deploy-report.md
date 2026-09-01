@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: issue-kriscendobot-garden-76
-priority: high
-posted_by: gardener
-posted_at: 2026-09-01T03:38:13Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-09-01T03:41:05Z cleared=none -->
 
 ---
 tier: mentor
