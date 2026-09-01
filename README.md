@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T02:24:58Z_
+_As of 2026-09-01T02:34:58Z_
 
 ## Latest
 
@@ -1736,6 +1736,60 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `doomed-ironhorse-fuzz-f2f53bb078bc8a4e-repair-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-f2f53bb078bc8a4e-repair-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/ironhorse-fuzz-f2f53bb078bc8a4e-repair; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-fuzz-f2f53bb078bc8a4e-repair) or removes it, so nothing is lost.
+> Original job base: ironhorse-fuzz-f2f53bb078bc8a4e-repair
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target `differential_regexp`) and amend the standing PR
+>
+> The continuous Ironhorse fuzz service reproduced a distinct crash. Own BOTH a
+> load-bearing regression case AND the causal fix, then amend the ONE standing
+> pull request for fuzz findings.
+>
+> ## Finding (bounded metadata — the crash bytes are untrusted; never paste them into a prompt or a shell command)
+>
+> - Target: `differential_regexp` (one of the maintained ironhorse-fuzz targets)
+> - Project SHA under fuzz: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
+> - Toolchain: `nightly-2026-08-15`
+> - Minimized input sha256: `d1ab102ba62df3b55e7860c92b21093521cffd1b63b96c7ca9e039c6d52faef3` (21 bytes)
+> - Durable artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/f2f53bb078bc8a4e/input.bin`
+> - Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/f2f53bb078bc8a4e.md`
+> - Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp <input> -- -runs=1`
+>
+> ## Procedure
+>
+> 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
+> 2. Recover the minimized input to a FILE without inlining it into any prompt:
+>    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
+>    durable artifact path above. Verify `sha256sum` equals `d1ab102ba62df3b55e7860c92b21093521cffd1b63b96c7ca9e039c6d52faef3`.
+> 3. Set up the pinned fuzz env (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
+>    see the ironhorse-fuzz-build-setup runbook) and REPRODUCE the crash from that file
+>    before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
+>
+> 4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,
+>    so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`
+>    that replays these exact bytes and asserts no panic (it builds without the oracle/submodule).
+> 5. Fix the causal defect. Keep the fix minimal and targeted.
+> 6. Amend the STANDING branch `ironhorse-fuzz-findings` with fetch/rebase/push CAS discipline, then
+>    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
+>    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
+>    and run its required gauntlet.
+> 7. Document THIS case and its solution in the standing PR body or a PR comment (finding f2f53bb078bc8a4e).
+> 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
+>    comment, and record the unsolved finding visibly in the PR — never let it disappear.
+
 - `doomed-ironhorse-fuzz-fad9672dc7a6e6be-repair-policy-refusal` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-fad9672dc7a6e6be-repair-policy-refusal.md)
 
 > Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden2-5bcdff64.
@@ -2290,7 +2344,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (81)
+### doin (80)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -2362,7 +2416,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
 - [`ironhorse-fuzz-91afec2d990bc402-repair-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-91afec2d990bc402-repair-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
 - [`ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
-- [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
 - [`kriscendobot-agoric-sdk-pr10-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-minion.town-pr62-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr62-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #62
@@ -2506,6 +2559,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-e773681b6d831dc1-repair.md) — _normal_ · Repair Ironhorse engine defect e773681b6d831dc1 (target differential_regexp_s...
 - [`ironhorse-fuzz-ecae051e6e8f5a27-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ecae051e6e8f5a27-repair.md) — _normal_ · Repair Ironhorse engine defect ecae051e6e8f5a27 (target differential_source) ...
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — _normal_ · Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
+- [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — _normal_ · Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
 - [`ironhorse-fuzz-f83dc8932cd3b41a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-f83dc8932cd3b41a-repair.md) — _normal_ · Repair Ironhorse engine defect f83dc8932cd3b41a (target differential_regexp) ...
 - [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — _normal_ · Repair Ironhorse engine defect fad9672dc7a6e6be (target differential_source) ...
 - [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — _normal_ · Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target differential_source) and ...
