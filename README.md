@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T14:40:18Z_
+_As of 2026-09-01T14:44:55Z_
 
 ## Latest
 
@@ -11,9 +11,9 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 19h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18h)
 - [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 21h)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 20h)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 21h)
 - [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/pull/858) — feat(stream): add auto buffer (waiting 2d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 2d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 3d)
 - [endojs/endo#3355](https://github.com/endojs/endo/pull/3355) — feat(ses): Apply special error logging to console.dir (waiting 4d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 5d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 5d)
@@ -2369,7 +2369,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (87)
+### doin (86)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -2435,7 +2435,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #935
 - [`endojs-endo-but-for-bots-pr938-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr938-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #938
 - [`endojs-endo-but-for-bots-pr945-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #945
-- [`endojs-endo-but-for-bots-pr945-review-refresh-20260901-143514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-review-refresh-20260901-143514.md) — Reconcile the outstanding maintainer review on endojs/endo-but-for-bots#945
 - [`endojs-endo-but-for-bots-pr996-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr996-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #996
 - [`improve-comment-attention-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-attention-budget.md) — ---
 - [`ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
@@ -2458,13 +2457,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6567)
+### tada (6568)
+- [`endojs-endo-but-for-bots-pr945-review-refresh-20260901-143514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-review-refresh-20260901-143514.md) — Cost
 - [`xs2rust-endor-press-20260901-143514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-143514.md) — Cost
 - [`endojs-endo-but-for-bots-pr1109-7ef7c52e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1109-7ef7c52e.md) — Cost
 - [`xs2rust-endor-press-20260901-132013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-132013.md) — Cost
 - [`endojs-endo-but-for-bots-pr1107-rerun-shepherd-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1107-rerun-shepherd-20260901.md) — Cost
-- [`endojs-endo-but-for-bots-pr1108-35a069a6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1108-35a069a6.md) — Cost
-- … and 6562 more
+- … and 6563 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
