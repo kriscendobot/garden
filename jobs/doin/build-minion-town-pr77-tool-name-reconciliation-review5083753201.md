@@ -32,3 +32,13 @@ PR 77 implementation item.
 
 Source authorization: maintainer @kriskowal directed, "Please conduct and post a job
 to build" in review 5083753201. That review had no inline comments.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T23:03:02Z
