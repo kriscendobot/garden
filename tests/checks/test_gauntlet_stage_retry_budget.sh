@@ -46,7 +46,7 @@ echo "=== test_gauntlet_stage_retry_budget ==="
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_)' || true) 2>/dev/null || true
 export GARDEN_TEST=1
 
-TEST_ROOT=$(mktemp -d "$(dirname "$HOME")/.garden-gauntlet-stage-retry.XXXXXX")
+TEST_ROOT=$(mktemp -d "$HOME/.garden-gauntlet-stage-retry.XXXXXX")
 trap 'rm -rf "$TEST_ROOT"' EXIT
 BARE="$TEST_ROOT/journal.git"
 STATE="$TEST_ROOT/state"

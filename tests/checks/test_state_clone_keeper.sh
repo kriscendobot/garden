@@ -68,7 +68,7 @@ unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_)' || tru
 export GARDEN_TEST=1
 
 # Not /tmp (may be noexec here) and not inside a git repo.
-TR="$(mktemp -d "$(dirname "$HOME")/.garden-state-keeper-test.XXXXXX")"
+TR="$(mktemp -d "$HOME/.garden-state-keeper-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 git_id=(-c user.name=test -c user.email=test@localhost)
 

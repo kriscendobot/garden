@@ -42,7 +42,7 @@ export GARDEN_TEST=1
 
 # Not /tmp (may be noexec here) and not inside a git repo: a unique dir under the
 # bot's real home, mirroring watchdog-notice-dedup-test.sh.
-TR="$(mktemp -d "$(dirname "$HOME")/.garden-maint-archive-test.XXXXXX")"
+TR="$(mktemp -d "$HOME/.garden-maint-archive-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 git_id=(-c user.name=test -c user.email=test@localhost)
 
