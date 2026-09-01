@@ -28,10 +28,10 @@ This is a tested hot path. Extend the comment-watcher tests: the imperative alia
 
 Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N` and `weave #N` should now be distinguished differently given weave's clarified definition, say so in your report as a recommendation; do not act on it in this job.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=92 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=92,33 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
