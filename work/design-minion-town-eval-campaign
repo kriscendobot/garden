@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-01T19:28:40Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-minion-town-eval-campaign
-pr_number: 77
-pr_repo: kriscendobot/garden
-pr_url: https://github.com/kriscendobot/garden/pull/77
-pr_head: campaign/minion-town-eval
