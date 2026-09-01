@@ -106,10 +106,10 @@ facts above does NOT hold when you check it, stop and report back rather than
 proceeding — this change forecloses rollback to the legacy pool.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=58 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=58,190 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
