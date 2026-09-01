@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T18:28:37Z_
+_As of 2026-09-01T18:31:20Z_
 
 ## Latest
 
@@ -2310,6 +2310,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden2-5bcdff64 gardener workers 1 -> 4: budget pool anthropic:endolin-garden2-5bcdff64 spend=14980884 cap=385000000 high-water=0.85 target=4
 
+- `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
+
+> budget pool anthropic:endolin-garden2-5bcdff64 changed zone backoff -> ok at spend=15421924 of cap=385000000 (high-water 0.85; Friday 21:00 Pacific window).
+
 - `watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods.md)
 
 > gardener job 'ebfb-exo-stream-drop-base64-stream-methods' declared handler-timeout=14400s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
@@ -2370,7 +2374,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.4M | $294.71 _(notional, rate-card)_ | 4% of 385.0M (ok) |
+| Claude | 15.4M | $296.68 _(notional, rate-card)_ | 4% of 385.0M (ok) |
 | Codex | 33.7M _(+901.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
