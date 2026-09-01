@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T22:27:25Z_
+_As of 2026-09-01T22:33:23Z_
 
 ## Latest
 
@@ -1362,6 +1362,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > evidence gathering failed: could not fetch pull [kriscendobot/minion.town#73](https://github.com/kriscendobot/minion.town/issues/73)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
+
+- `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
+
+> provider session limit reached: the API is refusing calls fleet-wide (resets 10:50pm (UTC) — the responder could NOT diagnose garden-mirror-closer (rc=1); its capture is blob aa43ec0bd60540c6b29db8ced88d5f611e990642 (git -C /home/kris/garden2/).
+> limit_type: session
+> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
+> resumes on its own once the window resets (see skills/restore/SKILL.md for the
+> post-outage restore). Every unit that trips the limit folds into THIS one notice
+> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
+> provider quota exceeded while running garden-mirror-closer. Observed: You've hit your session limit · resets 10:50pm (UTC) — the responder could NOT diagnose garden-mirror-closer (rc=1); its capture is blob aa43ec0bd60540c6b29db8ced88d5f611e990642 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p aa43ec0bd60540c6b29db8ced88d5f611e990642).
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
