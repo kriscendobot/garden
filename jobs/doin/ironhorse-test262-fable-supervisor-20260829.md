@@ -96,3 +96,13 @@ product exercised; fresh before/after totals for covered, conformance-failure,
 infrastructure, and skipped outcomes; failure clusters fixed; commands actually
 run; any remaining clusters or unverifiable surfaces. Do not extrapolate a
 whole-corpus total from slice-only runs.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T23:20:50Z
