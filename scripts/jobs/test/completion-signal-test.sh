@@ -222,13 +222,15 @@ rm -rf "$T2C"
 hr; echo "SUBTEST 2D: complete-job's named soft rc is nonfatal when the pre-gate passes stale evidence"; hr
 T2D="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2d.XXXXXX")"
 BARE2D="$(seed_board "$T2D/real" beltjob)"
+mkdir -p "$T2D/tmp"
 # Model an inconclusive/stale producer view that says the successor exists. The
 # pre-gate passes that evidence, while complete-job's authoritative worker clone
 # syncs the real board and sees that the successor is absent.
 FAKE2D="$(seed_board "$T2D/fake" missing-successor)"
 git clone -q --single-branch --branch journal2 "$FAKE2D" "$T2D/producer" 2>/dev/null
 set +e
-env GARDEN="handoffhost" GARDEN_STATE="$T2D/state" JOURNAL_REMOTE="$BARE2D" JOURNAL_BRANCH=journal2 \
+env TMPDIR="$T2D/tmp" GARDEN="handoffhost" GARDEN_STATE="$T2D/state" \
+    GARDEN_HANDOFF_UNVERIFIED_RC=78 JOURNAL_REMOTE="$BARE2D" JOURNAL_BRANCH=journal2 \
     GARDEN_PRODUCER_CLONE="$T2D/producer" \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
     GARDEN_STUB_HANDOFF_SUCCESSOR=missing-successor GARDEN_JOB_HANDLER="$STUB" \
@@ -239,9 +241,13 @@ V2D="$T2D/verify"; git clone -q --single-branch --branch journal2 "$BARE2D" "$V2
 { [ "$worker_rc" -eq 0 ] \
   && [ -f "$V2D/jobs/doin/beltjob.md" ] \
   && [ ! -e "$V2D/jobs/tada/beltjob.md" ] \
-  && grep -q "semantic soft block, left in doin for retry" "$T2D/gardener.log" \
+  && grep -q "handoff successor not durably posted for 'beltjob' (rc=78); left in doin for TTL requeue" "$T2D/gardener.log" \
+  && ! find "$T2D/tmp" -maxdepth 1 -type f \
+      \( -name 'garden-report-beltjob.*' -o -name 'garden-capture-beltjob.*' \
+         -o -name 'garden-done-beltjob.*' -o -name 'garden-usage-beltjob.*' \) \
+      -print -quit | grep -q . \
   && ! grep -q "FATAL: complete-job failed" "$T2D/gardener.log"; } \
-  && ok "complete-job's handoff-unposted rc stayed job-level; worker survived and claim stayed in doin" \
+  && ok "complete-job's handoff-unverified rc stayed job-level; worker survived, cleaned its files, and left the claim in doin" \
   || bad "handoff soft rc escaped as worker failure (worker rc=$worker_rc, doin=$([ -f "$V2D/jobs/doin/beltjob.md" ] && echo y || echo n), tada=$([ -e "$V2D/jobs/tada/beltjob.md" ] && echo y || echo n))"
 rm -rf "$T2D"
 

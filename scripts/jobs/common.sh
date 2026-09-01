@@ -308,7 +308,7 @@ export GARDEN
 : "${GARDEN_FETCH_KILL_AFTER:=10}"  # seconds after SIGTERM before SIGKILL escalation
 : "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
 : "${GARDEN_OFFLINE_RC:=75}"      # EX_TEMPFAIL: sync_clone exit on a connectivity/DNS outage
-: "${GARDEN_HANDOFF_UNPOSTED_RC:=76}" # soft job-level verdict: declared handoff successor is absent
+: "${GARDEN_HANDOFF_UNVERIFIED_RC:=76}" # soft job-level verdict: declared handoff successor is absent
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
 : "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up
 # Stale-lock recovery: a clone lock whose recorded holder is dead, or whose stamp

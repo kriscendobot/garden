@@ -703,9 +703,9 @@ while :; do
       idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
       continue
     fi
-    if [ "$crc" -eq "${GARDEN_HANDOFF_UNPOSTED_RC:-76}" ]; then
+    if [ "$crc" -eq "${GARDEN_HANDOFF_UNVERIFIED_RC:-76}" ]; then
       append_usage requeue
-      log "handoff successor absent during completion of '$base' (rc=$crc); semantic soft block, left in doin for retry"
+      log "handoff successor not durably posted for '$base' (rc=$crc); left in doin for TTL requeue"
       rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
       idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
       continue
