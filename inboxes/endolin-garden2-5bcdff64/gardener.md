@@ -4729,3 +4729,14 @@ Inspect via `git -C journal cat-file -p 2c0b3aebdd804fe6170bc5e1f599a7141b42ce89
 
 Inspect via `git -C journal cat-file -p 3c1f66f7aa4d24d517ae59c7a543597ed871be3f` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/3c1f66f7aa4d24d517ae59c7a543597ed871be3f`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-09-01T23:30:01Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 00139a428f7489415ed73c4913d414869438b3fd
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'weave-base-update-and-pin-alias' exit-0-unsatisfying but elapsed near-constant (33,30s) over 2 cycles — likely a wedged child, not a working one
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/00139a428f7489415ed73c4913d414869438b3fd
+
+Inspect via `git -C journal cat-file -p 00139a428f7489415ed73c4913d414869438b3fd` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/00139a428f7489415ed73c4913d414869438b3fd`) -- both work off-host after a plain `journal2` fetch.
