@@ -44,3 +44,13 @@ Each dispatch (hourly; be idempotent), assess don't assume:
 Defer to a genuinely live concurrent pusher; press by default otherwise. No
 bar is "green" without real-execution evidence — cite the command and its
 output.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T00:20:13Z
