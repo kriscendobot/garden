@@ -48,3 +48,13 @@ You're authorized to post a completion/merge-context comment on the PR
 (this is the bot's own repo, and the maintainer is actively engaged in
 review) per pr-completion-summary-comment: head SHA, the merge outcome,
 and the independent validation result (both scenarios, pass/fail).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T23:15:25Z
