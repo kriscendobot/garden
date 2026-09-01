@@ -1,10 +1,10 @@
 #!/bin/bash
 # openrouter-promo-lifecycle-test.sh — the cloaked lane's journal-backed ledger tooling.
 #
-# Exercises attest → classify → recheck(auto-disable) → drop against a throwaway local
-# journal (never the production remote). Asserts the re-review cadence actually DISABLES
-# an id (both the stale-attestation path and the 404-rotated-away path) and that the
-# rip-cord (drop) removes a row.
+# Exercises attest -> classify -> scheduled recheck (listing + live tool canary +
+# auto-disable) -> drop against a throwaway local journal. Asserts the cadence runs
+# a complete tool-call round trip with both privacy fields, disables stale/missing
+# ids, and keeps the per-id rip-cord idempotent.
 set -euo pipefail
 export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -62,16 +62,68 @@ bound="$(env "${common_env[@]}" GARDEN_OPENROUTER_PROMOS_FILE="$V/config/openrou
 [ "$bound" = "openrouter-promo/openrouter/horizon-beta" ] && ok "fresh attested id classifies (binds)" || bad "fresh id did not bind ($bound)"
 rm -rf "$V"
 
-echo 'RECHECK — a 404 (rotated-away) id is auto-disabled'
+echo 'RECHECK -- listed id gets a live two-turn tool canary under forced privacy policy'
 BIN="$TR/bin"; mkdir -p "$BIN"
 cat > "$BIN/curl" <<'EOF'
 #!/bin/bash
-printf '%s' "${FAKE_OPENROUTER_STATUS:-200}"
+set -euo pipefail
+out=/dev/null; data=; url=
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -o) out="$2"; shift 2 ;;
+    --data-binary) data="${2#@}"; shift 2 ;;
+    http://*|https://*) url="$1"; shift ;;
+    *) shift ;;
+  esac
+done
+status="${FAKE_OPENROUTER_STATUS:-200}"
+if [ "$status" = 404 ]; then
+  printf '{}\n' > "$out"
+  printf 404
+  exit 0
+fi
+if [[ "$url" == */models ]]; then
+  jq -n --arg id "${FAKE_OPENROUTER_ID:-openrouter/horizon-beta}" '{data:[{id:$id}]}' > "$out"
+  printf 200
+  exit 0
+fi
+: "${FAKE_CURL_DIR:?}"
+count_file="$FAKE_CURL_DIR/count"
+count=$(($(cat "$count_file" 2>/dev/null || echo 0) + 1))
+printf '%s\n' "$count" > "$count_file"
+cp "$data" "$FAKE_CURL_DIR/request-$count.json"
+if [ "$count" -eq 1 ]; then
+  nonce="$(jq -r '.messages[0].content | capture("nonce (?<nonce>[0-9a-f]+)").nonce' "$data")"
+  args="$(jq -cn --arg nonce "$nonce" '{nonce:$nonce}')"
+  jq -n --arg args "$args" '{choices:[{message:{role:"assistant",content:null,tool_calls:[{id:"call-1",type:"function",function:{name:"garden_canary_nonce",arguments:$args}}]}}]}' > "$out"
+else
+  printf '%s\n' '{"choices":[{"message":{"role":"assistant","content":"ok"}}]}' > "$out"
+fi
+printf 200
 EOF
 chmod +x "$BIN/curl"
-rc=0; env "${common_env[@]}" PATH="$BIN:$PATH" OPENROUTER_API_KEY=offline-fixture FAKE_OPENROUTER_STATUS=404 \
+
+mkdir -p "$TR/fake-curl"
+rc=0; env "${common_env[@]}" PATH="$BIN:$PATH" OPENROUTER_API_KEY=offline-fixture \
+  FAKE_OPENROUTER_STATUS=200 FAKE_OPENROUTER_ID=openrouter/horizon-beta \
+  FAKE_CURL_DIR="$TR/fake-curl" "$JOBS/openrouter-promo-recheck.sh" >/dev/null 2>&1 || rc=$?
+[ "$rc" -eq 2 ] && ok "recheck exits 2 after deterministic enforcement" || bad "recheck exit code ($rc)"
+[ "$(cat "$TR/fake-curl/count" 2>/dev/null || echo 0)" -eq 2 ] \
+  && ok "live canary completed tool request + tool-result continuation" \
+  || bad "live canary did not complete two requests"
+jq -e '.provider.data_collection == "deny" and .provider.zdr == true and
+  .tool_choice.function.name == "garden_canary_nonce"' "$TR/fake-curl/request-1.json" >/dev/null \
+  && jq -e '.provider.data_collection == "deny" and .provider.zdr == true and
+    .messages[-1].role == "tool"' "$TR/fake-curl/request-2.json" >/dev/null \
+  && ok "both canary turns force deny-collection + ZDR and exercise a tool result" \
+  || bad "tool canary privacy/tool transcript"
+ledger_has openrouter/horizon-beta && ok "passing canary keeps the fresh id enabled" || bad "passing canary dropped the id"
+
+echo 'RECHECK -- a 404 (rotated-away) id is auto-disabled'
+rc=0; env "${common_env[@]}" PATH="$BIN:$PATH" OPENROUTER_API_KEY=offline-fixture \
+  FAKE_OPENROUTER_STATUS=404 FAKE_CURL_DIR="$TR/fake-curl" \
   "$JOBS/openrouter-promo-recheck.sh" >/dev/null 2>&1 || rc=$?
-[ "$rc" -eq 2 ] && ok "recheck exits 2 (no LLM dispatch, preflight-gate contract)" || bad "recheck exit code ($rc)"
+[ "$rc" -eq 2 ] && ok "404 recheck exits 2 (preflight-gate contract)" || bad "recheck exit code ($rc)"
 ledger_has openrouter/horizon-beta && bad "404 id was NOT auto-disabled" || ok "404 id auto-disabled (row dropped)"
 
 echo 'RECHECK — a STALE attestation is auto-disabled without any network'

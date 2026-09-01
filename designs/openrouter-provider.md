@@ -1,6 +1,6 @@
 ---
 created: 2026-08-22
-updated: 2026-08-22
+updated: 2026-09-01
 author: gardener, designer
 ---
 
@@ -155,12 +155,15 @@ any host can prune it.
   A row that is not re-attested inside the window simply **stops classifying** — the id
   fails closed at claim time, auto-disabled *by construction*, even if no timer ever
   fires. This is the load-bearing guarantee.
-- **Janitor (on top).** `openrouter-promo-recheck.sh` is a deterministic, LLM-free sweep
-  (wired as a daily **schedule preflight**, so it runs in plain code and dispatches no
-  agent): it prunes the expired rows for real, and — when the key is present — 404-probes
-  each surviving id against OpenRouter's live listing and **drops any that has rotated
-  away**, raising one deduped maintainer alert per disable. It never auto-drops on a
-  transient (429/503/network); only a definitive 404 or a stale attestation disables.
+- **Janitor + canary (on top).** `openrouter-promo-recheck.sh` is a deterministic,
+  LLM-free sweep wired as the daily `openrouter-promo-recheck` **schedule preflight**.
+  It prunes expired rows, checks every surviving id against OpenRouter's public
+  `/models` listing, then uses the key (when present) for a forced two-turn tool call
+  through `openrouter-promo-tool-canary.sh`: the model must request a nonce tool and
+  accept its tool result. Both turns carry the same forced `data_collection: "deny"`
+  and `zdr: true` fields. A missing listing id or definitive request 404 drops the row
+  and raises a deduped alert. A transient, missing key, or non-404 canary failure never
+  auto-drops a still-listed id; a canary failure alerts for maintainer review.
 
 **Re-attestation and the rip-cord.** `openrouter-promo-attest.sh <wire-id> <tier> [by]`
 adds/refreshes a row (stamping `attested_at=now`) — running it *is* the periodic
@@ -257,7 +260,8 @@ later enabled, would want its own reviewed row and a revisited rate.
    stealth/promotional lane): a journal-backed, cadence-gated ledger (a row that is not
    re-attested within a 24h window fails closed with no daemon), a deterministic
    auto-disable recheck (stale attestation OR a 404 → the row is dropped), and a
-   two-lever rip-cord. It inherits the forced ZDR/deny-collection request fields from (1)
+   daily `/models` + live tool canary, and a two-lever rip-cord. It inherits the forced
+   ZDR/deny-collection request fields from (1)
    unconditionally — that is not relaxable. Shipped inert (pool zero, empty ledger).
 3. **Resolved — named seed-model review.** On 2026-08-22 the public
    `GET /api/v1/endpoints/zdr` inventory returned `z-ai/glm-5.2:free` as the sole
@@ -266,3 +270,8 @@ later enabled, would want its own reviewed row and a revisited rate.
    seed row. The former DeepSeek V3 0324 and Llama 3.3 70B `:free` ids returned empty
    endpoint lists and were removed. This proves catalog/ZDR eligibility, not an
    authenticated completion; the status-only canary remains required before enablement.
+   A 2026-09-01 re-review found that `z-ai/glm-5.2:free` remained listed and ZDR/tool
+   capable. It also found a newer zero-price, ZDR/tool-capable candidate,
+   `inclusionai/ling-3.0-flash-fin:free`; that id stays unregistered until it passes an
+   authenticated tool canary and receives an ordinary inventory review. The enabled
+   named row set therefore remains the single GLM row rather than silently expanding.

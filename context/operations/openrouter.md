@@ -1,6 +1,6 @@
 ---
 created: 2026-08-22
-updated: 2026-08-22
+updated: 2026-09-01
 author: gardener
 ---
 
@@ -81,9 +81,9 @@ guardrail ZDR settings and therefore cannot be relaxed by them. Sources:
 [ZDR](https://openrouter.ai/docs/guides/features/zdr), and
 [data collection](https://openrouter.ai/docs/guides/privacy/data-collection).
 
-The design still ships only **named** models because a cloaked/stealth model's
-operator and provenance are undisclosed. A future stealth lane must inherit this
-same adapter; it cannot relax these fields.
+The stable lane still ships only **named** models because a cloaked/stealth model's
+operator and provenance are undisclosed. The separate `openrouter-promo` lane below
+inherits this same adapter and cannot relax these fields.
 
 ## Create and canary
 
@@ -191,20 +191,24 @@ scripts/jobs/set-openrouter-promos.sh 0   # back to zero unless a larger trial i
 
 ### The re-review cadence (auto-disable)
 
-Register the deterministic recheck as a **daily schedule preflight** (leader-only; it
-runs in plain code and dispatches **no** agent, exiting 2 = "no work" after enforcing):
+The `openrouter-promo-recheck` schedule is registered at a **daily** cadence. Its
+leader-only preflight runs in plain code and dispatches **no** agent (exit 2 after
+enforcement). To repair or deliberately change the schedule definition:
 
 ```sh
-printf 'openrouter-promo re-review cadence (deterministic; see the preflight)\n' > /tmp/promo-recheck.md
-GARDEN_SCHEDULE_PREFLIGHT=openrouter-promo-recheck.sh \
-  scripts/jobs/set-schedule.sh openrouter-promo-recheck daily openrouter-promo-recheck /tmp/promo-recheck.md
+printf 'OpenRouter promo daily listing and live tool canary.\n' | \
+  GARDEN_SCHEDULE_PREFLIGHT=openrouter-promo-recheck.sh \
+  scripts/jobs/set-schedule.sh openrouter-promo-recheck daily openrouter-promo-recheck
 ```
 
-Each day it prunes any ledger row whose attestation has gone stale (>24h) and — when the
-key is present — 404-probes each surviving id and **drops any that has rotated away**,
-alerting the maintainer per disable. Even without the schedule armed, the read-side
-staleness filter already fails a stale id closed; the schedule is the janitor + liveness
-probe on top. Run it by hand for an immediate sweep: `scripts/jobs/openrouter-promo-recheck.sh`.
+Each day it prunes any row whose attestation is stale (>24h), checks every survivor
+against the public `/models` listing, and, when the key is present, performs a live
+two-turn tool canary: the model must call `garden_canary_nonce`, then accept the tool
+result. Both requests force deny-collection and ZDR. A missing listing id or definitive
+canary 404 **drops the row** and alerts the maintainer. A transient or non-404 canary
+failure alerts but does not drop a still-listed id. Even without the schedule, the
+read-side filter fails a stale id closed. Run an immediate sweep with
+`scripts/jobs/openrouter-promo-recheck.sh`.
 
 ### Rip-cord
 

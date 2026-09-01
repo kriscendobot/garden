@@ -39,7 +39,9 @@ fireworks	fireworks/accounts/fireworks/models/gpt-oss-120b	myrmidon
 # This namespace is garden routing metadata; the handler removes `openrouter/` before
 # sending the wire id.  Wildcard and cloaked/stealth ids are deliberately forbidden
 # (designs/openrouter-provider.md § stealth policy). The pool ships at zero. This is
-# the only text/tool-capable zero-price `:free` endpoint returned by OpenRouter's
-# public `/endpoints/zdr` inventory during the 2026-08-22 policy review; activation
-# still requires the authenticated status-only canary in context/operations/openrouter.md.
+# the only text/tool-capable zero-price `:free` endpoint admitted during the
+# 2026-08-22 policy review. It remained listed on 2026-09-01; a newer candidate
+# (`inclusionai/ling-3.0-flash-fin:free`) remains excluded pending an authenticated
+# tool canary and ordinary inventory review. Activation still requires the canary in
+# context/operations/openrouter.md.
 openrouter	openrouter/z-ai/glm-5.2:free	minion

@@ -5674,8 +5674,9 @@ _model_tier_inventory_file() {
 # a row whose attestation is older than GARDEN_OPENROUTER_PROMO_CADENCE_SECS (24h)
 # STOPS classifying, so an un-re-attested stealth id fails closed — auto-disabled by
 # construction, even if the recheck timer never fires.  The scheduled recheck
-# (openrouter-promo-recheck.sh) is the janitor + liveness probe on top: it prunes the
-# expired rows and drops any id that 404s from OpenRouter's live listing.
+# (openrouter-promo-recheck.sh) is the janitor + live capability check on top: it
+# prunes expired rows, drops ids absent from OpenRouter's `/models` listing, and
+# runs a forced two-turn tool canary when the key is available.
 : "${GARDEN_OPENROUTER_PROMOS_PATH:=config/openrouter-promos}"
 : "${GARDEN_OPENROUTER_PROMO_CADENCE_SECS:=86400}"   # 24h re-attestation window
 
