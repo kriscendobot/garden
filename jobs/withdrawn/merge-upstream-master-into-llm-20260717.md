@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by merge-upstream-master-into-llm-20260822 and finalize-merge-upstream-master-into-llm-20260822, both completed (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:05:58Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 doomed: true
