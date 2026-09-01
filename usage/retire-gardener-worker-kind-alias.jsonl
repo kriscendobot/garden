@@ -2,3 +2,4 @@
 {"source":"none","ts":"2026-09-01T20:58:10Z","base":"retire-gardener-worker-kind-alias","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":126,"provider":"openai"}
 {"source":"none","ts":"2026-09-01T21:07:20Z","base":"retire-gardener-worker-kind-alias","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":43,"provider":"openai"}
 {"ts":"2026-09-01T21:23:31Z","base":"retire-gardener-worker-kind-alias","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":175}
+{"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":1,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-09-01T21:34:56Z","base":"retire-gardener-worker-kind-alias","host":"endolin-garden2-5bcdff64","outcome":"requeue","provider":"anthropic"}
