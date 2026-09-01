@@ -44,3 +44,13 @@ recommendation. Cite the commands and their output.
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=73 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-01T23:45:27Z
