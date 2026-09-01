@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T23:54:34Z_
+_As of 2026-09-01T23:57:11Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 4h)
 - [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 4h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4h)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 2h)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 3h)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 1d)
@@ -99,14 +99,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
-- `20260815T171325Z-a98f9d` — from gardener:garden-budget-enforcement, reply_to `garden-budget-enforcement` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T171325Z-a98f9d.md)
-
-> Design landed on main2 (87ccd70ab6): designs/live-budget-admission.md — the budget-study capstone that makes a live budget draw a standing property of EVERY dispatch (not an orchestration opt-in) and makes the garden1/garden2 worker leveling you did by hand on 2026-08-15 automatic.
->
-> Headline finding: the mechanism already mostly exists. usage-meter.sh reads Claude Code's session logs, so it already captures ~100% of a host's Claude spend (the 28.8% figure is a retrospective PR-attribution artifact, not live-coverage), and per-host = per-account is already correct for our one-subscription-per-host topology. The meter is just OFF (quota unset) and only wired into the foreman + the gardener handler. The design generalizes its verdict to a shared pool_admits predicate at the three admission surfaces that lack it (promotion, direct post-job, and the universal claim gate), parks-not-refuses via the existing --budget-hold/budget-refresh, and adds a leader-only budget-level controller driving set-workers/the sysop op from live per-pool headroom. It composes alongside-and-ahead-of omega's ranked promoter (omega orders WHAT; budget admits WHETHER), replacing nothing.
->
-> One maintainer-only input gates turning it live: the per-account weekly TOKEN cap. It is not machine-readable from a Max subscription. Two ways to supply it — (a) read each account's weekly token ceiling off Claude Code's /usage panel and I/we seed config/budget-pools, or (b) greenlight building the already-designed phase-2 weekly-capacity-calibration.sh (recurring-budget-calibration.md) to MEASURE it (max billable tokens over the trailing four weeks). Until a number exists the gates stay off (transparent). No build is queued yet — this was design-only. The other open questions (account-asymmetry policy given hasExtraUsageEnabled true on one host / false on the other; gate at 0.85 vs 1.0 for directed work; leveling shape) are in the doc's §10.
-
 - `20260819T003451Z-370a6d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003451Z-370a6d.md)
 
 > From report `deadmail-20260728T074423Z-6bee53`: the new dead-letter anti-pattern documents that a botanist rendering MERGE-NOW and exiting while the approval gate blocks leaves no living addressee for a later correction, but doesn't fix the delivery gap itself. Worth deciding whether/how to close it (e.g. a standing re-addressee) — flagging for your call rather than guessing at the mechanism.
@@ -126,10 +118,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
 
 > From report `qwen-model-watch-20260728-180502` (echoed by `fu-qwen-model-watch-20260728-180502-1-20260728-223502`): decide the local qwen lane's fate — promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop it (`qwen3:0.6b` is small enough it isn't obviously useful).
-
-- `20260819T003855Z-0ad8da` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003855Z-0ad8da.md)
-
-> From report `requeue-ps23-stranded-claims`: `GARDEN_REAP_OVERRUN_THRESHOLD=1` has no safety margin on the elapsed-constancy path — one bad stamp parks a job with no second opinion. Worth considering raising it to 2 for that path specifically (the rc=124 wall-hit path is genuinely conclusive at 1).
 
 - `20260819T003940Z-06bfa7` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003940Z-06bfa7.md)
 
@@ -201,28 +189,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260830T053908Z-dea27e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260830T053908Z-dea27e.md)
 
 > The daily drift-check schedule behind report `fu-minion-town-containment-gateway-endo-sock-1-20260828-032006` is firing against a premise that no longer holds (the minion.town containment-gateway ENDO_SOCK drift it was watching for). Decision needed: retire that schedule, or repurpose it to a still-meaningful check? Until you decide it keeps running daily and reporting on an obsolete premise.
-
-- `20260831T043436Z-4db4ee` — from gardener:endojs-endo-but-for-bots-pr237-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr237-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T043436Z-4db4ee.md)
-
-> Gauntlet fix stage for endojs/endo-but-for-bots [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237) (design: lal defineJessie + Blockly): I applied the panel's round-1 must-fix items to designs/lal-jessie-blocky.md and pushed (head 014582b0b) — corrected the load-bearing integration-point error (incoming proposals render in inbox-component.js/endow-modal.js and submit via E(powers).endow, not define-form.js), fixed the forgeable options.language tag (render-side re-validation), added the missing Alternatives, reconciled the effort figures (8 days across design+README), renamed the tool define-jessie→defineJessie, and swept the prose/heading/spelling findings.
->
-> BLOCKER: CI can't run. The PR is 2516 commits stale and CONFLICTING with base llm, so GitHub creates no CI runs (structurally blocked, not pending). The conflict is entirely in designs/README.md, whose structure+totals were rewritten wholesale on llm since the PR's May base (milestones renumbered M4→M9, 192 designs, dated rolling-index-refresh model) — the PR's README bookkeeping edits are obsolete and can't be mechanically rebased. The design file itself merges cleanly.
->
-> I did NOT unilaterally rewrite the public PR history from a fix stage. I posted a weave successor (endojs-endo-but-for-bots-pr237-weave-20260831) that owns rebasing [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237) onto current llm — recommended resolution there is to drop the stale README edits (let the next index refresh pick up the design). Two things for you: (1) this design PR is ~3.5 months old — if you'd rather close it than land it, say so and I'll cancel the weave; (2) the gauntlet will keep re-posting the fix stage on still-pending, which loops until the weave lands — you may want to pause the gauntlet until the weave rebases the base.
-
-- `20260831T095854Z-3a677d` — from gardener:endojs-endo-but-for-bots-pr138-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr138-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T095854Z-3a677d.md)
-
-> Gauntlet fix-stage on [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) ([https://github.com/endojs/endo-but-for-bots/pull/138](https://github.com/endojs/endo-but-for-bots/pull/138)) pushed the panel's must-fix items (309b234de, already on origin), but the bounded CI wait cannot reach a terminal state: GitHub has created zero Actions check-suites for this head across ~80 minutes of observation (only stray `renovate`/`claude` app suites stuck `queued`). The PR is also `mergeable: CONFLICTING`, `mergeStateStatus: DIRTY` — 265 commits behind base `llm` and 942 ahead, per a git merge-base check in an isolated worktree. This looks like a structural GitHub-side stall (very stale/conflicting PR, not a transient CI queue), not something a bounded re-poll will resolve. Recommend a weave/rebase (or pin-the-merge-base) on [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) before the next gauntlet CI-wait attempt, or manual investigation of why Actions never attaches to this branch. Reporting this attempt as still-pending per the job's rc=4 contract so the driver re-posts rather than looping silently.
-
-- `20260831T134537Z-704a93` — from gardener:endojs-endo-but-for-bots-pr322-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr322-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T134537Z-704a93.md)
-
-> Gauntlet FIX round 1 for [endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322) (design(familiar-flatpak-pipeline)) is applied and pushed (head 1fc3996ab), but CI is BLOCKED and cannot go green from a fix round.
->
-> Why: the PR is mergeable=CONFLICTING / DIRTY against base `llm`. The conflict is in `designs/README.md` and is PRE-EXISTING base drift — the prior head efe14f625 (before my fix) already conflicts, because `llm`'s designs/README.md moved on over the ~3 months since this PR was opened (2026-05-20). GitHub does not run pull_request CI on an unmergeable PR, so zero `test`/`lint` checks attach to my push and none ever will.
->
-> Recommendation: weave [endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322) (rebase the head onto current `llm`, resolve the designs/README.md index conflict) BEFORE the gauntlet can reach green. Re-posting the fix stage will loop uselessly — the must-fix items are already applied. After the weave, re-run the gauntlet.
->
-> The panel round-1 must-fix items ARE addressed on the pushed head (socket/xdg-run grant, wiring contradiction, script rename, mermaid arrow, "signed" contradiction, MVR/G-code glosses, speculative finish-args split, release-gating marker, and the copyedits).
 
 - `20260901T175244Z-931faa` — from gardener:minion-town-remove-mcp-tool-prefixes, reply_to `minion-town-remove-mcp-tool-prefixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T175244Z-931faa.md)
 
@@ -1375,6 +1341,45 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > facts above does NOT hold when you check it, stop and report back rather than
 > proceeding — this change forecloses rollback to the legacy pool.
 
+- `doomed-weave-base-update-and-pin-alias-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-base-update-and-pin-alias-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/weave-base-update-and-pin-alias; it stays HELD until a human promotes it
+> (promote-plan.sh weave-base-update-and-pin-alias) or removes it, so nothing is lost.
+> Original job base: weave-base-update-and-pin-alias
+>
+> --- original job body ---
+> ---
+> tier: minion
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-01T23:07:04Z cleared=none -->
+>
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> Fold "pin the merge base" into `weave` as an alias, and correct weave's documented definition to state the base update it already performs.
+>
+> Maintainer decision, liaison session 2026-08-16: weaving means **update the merge base to the current hash and rebase with conflict resolution**. The newly coined term "pin the merge base" is an ALIAS for weave, not a new verb and not a composition of two verbs. Do not add a third branch-op verb.
+>
+> Provenance to quote: kriskowal, CHANGES_REQUESTED review on [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282), 2026-08-16T06:28:34Z — "Please pin the merge base to llm-xxxxx and rebase. I will hereafter call this 'pin the merge base', leaving the rebase and resolution of conflicts implicit."
+>
+> IMPORTANT — the behavior already exists; this is mostly a documentation correction. skills/frozen-base-branch/SKILL.md, cited from roles/weaver/AGENT.md § Skills, already specifies: every fork-side PR uses a frozen base named `<base>-<short-sha>`; when the weaver rebases it creates a NEW frozen base at upstream's current tip, rebases the head onto it, force-pushes the head, and updates the PR's `base` field, both refs moving together. Verify that is still true in the weaver's procedure before writing any docs, and if the implementation has drifted from it, fix the implementation to match rather than documenting the drift.
+>
+> Work:
+> 1. README.md § Key vocabulary — the `weave #N` row currently reads only "rebase and resolve conflicts", which understates it. Restate it as: update the merge base to the current base-branch hash (a new frozen `<base>-<short-sha>`), rebase the head onto it, resolve conflicts, force-push, and move the PR's base field. Add "pin the merge base" as an explicit alias on that row.
+> 2. CLAUDE.md § Orchestrator vocabulary — same correction and alias in that verb table.
+> 3. roles/weaver/AGENT.md — make the base update part of the role's stated purpose, not only an implication of a linked skill. A reader of the role brief alone should know weave moves the base.
+> 4. scripts/jobs/comment-watcher.sh — recognize "pin the merge base" in IMPERATIVE position and map it to the SAME job the existing `weave`/`rebase` directives mint. It is a multi-word phrase, so take care with the machinery around BRANCH_OP_VERBS (line ~721) and the verb table (lines ~760-830): preserve the existing verb-as-subject-matter and future-tense guards, and make sure the phrase used as subject matter (someone describing this policy, as this job body does) mints nothing.
+>
+> This is a tested hot path. Extend the comment-watcher tests: the imperative alias hit maps to weave; the subject-matter mention misses; no regression in existing single-verb recognition or distinct-imperative-verb counting.
+>
+> Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N` and `weave #N` should now be distinguished differently given weave's clarified definition, say so in your report as a recommendation; do not act on it in this job.
+
 - `watchdog-budget-level-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-1.md)
 
 > budget-level changed endolin-garden-ece02cb4 gardener workers 3 -> 1: budget pool anthropic:endolin-garden-ece02cb4 spend=121189197 cap=149000000 high-water=0.85 target=1
@@ -1467,19 +1472,21 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 23.3M | $475.05 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 38.0M _(+1008.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 23.7M | $484.73 _(notional, rate-card)_ | 6% of 385.0M (ok) |
+| Codex | 38.2M _(+1010.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
-### todo (5)
+### todo (8)
+- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #79
 - [`kriscendobot-minion-town-pr68-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #68
+- [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Review directive on kriscendobot/minion.town PR #56
 - [`kriscendobot-minion.town-pr77-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr77-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #77
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
+- [`sweep-ci-starved-conflicting-prs-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/sweep-ci-starved-conflicting-prs-20260901.md) — Sweep: find every PR starved of CI by a conflicting base, and weave them
 
-### doin (100)
-- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
+### doin (97)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-npm-registry-as-directory-tree-review5064787686-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2.md) — Build the approved npm registry directory-tree design (halt recovery)
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
@@ -1563,7 +1570,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`issue-kriscendobot-garden-76-deploy-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-76-deploy-report.md) — Verify deployment and report garden issue 76
 - [`kriscendobot-agoric-sdk-pr10-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
-- [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Review directive on kriscendobot/minion.town PR #56
 - [`kriscendobot-minion.town-pr56-review-7fde9428`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr56-review-7fde9428.md) — Review directive on kriscendobot/minion.town PR #56
 - [`kriscendobot-minion.town-pr62-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr62-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #62
 - [`kriscendobot-minion.town-pr64-conduct-review5072137157`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-conduct-review5072137157.md) — Conduct kriscendobot/minion.town PR 64
@@ -1575,7 +1581,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
-- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -1695,6 +1700,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`proposal-compartments-xs-parser-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-xs-parser-design.md) — _normal_ · ---
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-worker-kind-alias.md) — _normal_ · ---
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
+- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-base-update-and-pin-alias.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/implement-worktree-teardown-on-job-completion.md) — _high_ · ---
