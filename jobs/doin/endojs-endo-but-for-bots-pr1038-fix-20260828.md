@@ -23,3 +23,13 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1038
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=172 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T20:34:48Z
