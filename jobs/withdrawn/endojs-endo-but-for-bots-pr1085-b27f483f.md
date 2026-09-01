@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded: kriskowal's directive on endojs/endo-but-for-bots#1085 was 'Continue the gauntlet until ready for review'; that gauntlet was posted on 2026-09-01 as endojs-endo-but-for-bots-pr1085-gauntlet-20260901. The directive's second half ('explain premature halts generally') is covered by diagnose-panel-seat-error-rate, diagnose-panel-fix-loop-oscillation and audit-garden-automation-cybernetics (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:46:29Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
