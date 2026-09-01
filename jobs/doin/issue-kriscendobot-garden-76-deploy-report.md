@@ -32,6 +32,7 @@ issue_url: https://github.com/kriscendobot/garden/issues/76
 submitter: kriskowal
 ----- END ISSUE NOTE -----
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
