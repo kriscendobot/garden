@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T09:05:34Z_
+_As of 2026-09-01T09:10:24Z_
 
 ## Latest
 
@@ -2357,7 +2357,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (84)
+### doin (83)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -2441,15 +2441,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
-- [`xs2rust-endor-press-20260901-090503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-090503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6551)
+### tada (6552)
+- [`xs2rust-endor-press-20260901-090503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-090503.md) — Cost
 - [`kriscendobot-minion.town-pr72-cfad882a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr72-cfad882a.md) — Cost
 - [`xs2rust-endor-press-20260901-080503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-080503.md) — Cost
 - [`endojs-endo-but-for-bots-pr1029-a974e94d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1029-a974e94d.md) — Cost
 - [`daily-progress-summary-20260901-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260901-070503.md) — Cost
-- [`xs2rust-endor-press-20260901-070503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-070503.md) — Cost
-- … and 6546 more
+- … and 6547 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
