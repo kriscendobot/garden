@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-01T23:20:50Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-test262-fable-supervisor-20260829
+pr_number: 1113
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1113
+pr_head: feat/ironhorse-test262-compliance-ratchet
