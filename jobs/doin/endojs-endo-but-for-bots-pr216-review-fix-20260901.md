@@ -34,3 +34,13 @@ Requested changes applied and pushed, every review thread replied to, CI green,
 and the PR left ready for the reviewer to re-examine. Cite the commands and
 their output. If the review's asks turn out to be ambiguous in a way that
 materially changes the work, ask via the maintainer inbox rather than guessing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T20:26:35Z
