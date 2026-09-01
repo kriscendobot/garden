@@ -38,6 +38,7 @@ Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N
 <!-- garden-reaped: 4 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=4 values=132,27 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
