@@ -1,3 +1,4 @@
 {"ts":"2026-08-23T16:37:31Z","base":"fix-usage-meter-unbound-var-and-widen-shellcheck-ci","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":4}
 {"ts":"2026-08-23T16:43:37Z","base":"fix-usage-meter-unbound-var-and-widen-shellcheck-ci","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":6}
 {"source":"none","ts":"2026-08-23T17:33:58Z","base":"fix-usage-meter-unbound-var-and-widen-shellcheck-ci","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":2403}
+{"source":"none","ts":"2026-09-01T20:49:57Z","base":"fix-usage-meter-unbound-var-and-widen-shellcheck-ci","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":2401,"provider":"anthropic"}
