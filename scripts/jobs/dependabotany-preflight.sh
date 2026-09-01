@@ -115,11 +115,12 @@ DRAIN_RE='(embargo|embargoed)[^.]*set[^.]*(empty|drained)|zero[^.]*embargoed|no[
 # structured form instead:
 #
 #   ## Active rows
+#   ## Active due rows
 #
 #   None.
 #
 # That declaration is split across lines, so grep cannot recognize it as one
-# expression. Treat the first nonblank line after an "Active rows" heading as
+# expression. Treat the first nonblank line after either terminal heading as
 # authoritative only when it is exactly "None" or "Empty". This remains
 # conservative: a populated list or any unfamiliar prose falls through to the
 # fail-open due-row scan.
@@ -130,7 +131,7 @@ ledger_declares_drained() {
     BEGIN { after_heading = 0; found = 0 }
     {
       line = tolower($0)
-      if (line ~ /^#+[[:space:]]+active[[:space:]]+rows[[:space:]]*$/) {
+      if (line ~ /^#+[[:space:]]+active[[:space:]]+(due[[:space:]]+)?rows[[:space:]]*$/) {
         after_heading = 1
         next
       }

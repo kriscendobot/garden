@@ -118,6 +118,11 @@ active_rows_none_body() {
   printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s — terminal sweep\n\n## Active rows\n\nNone.\n' \
     "$PROJECT" "$REPO" "$REPO"
 }
+# The equivalent compact terminal shape emitted by the 2026-09-01 backstop.
+active_due_rows_none_body() {
+  printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s - terminal sweep\n\n## Active due rows\n\nNone.\n' \
+    "$PROJECT" "$REPO" "$REPO"
+}
 
 # ============================================================================
 hr; echo "STATIC — dependabotany-preflight.sh parses (bash -n)"; hr
@@ -138,6 +143,14 @@ add_entry 2026/08/01/000001Z-a "$(embargo_body 900 2026-08-05)"
 add_entry 2026/08/06/000002Z-b "$(active_rows_none_body)"
 run_pre ""
 [ "$RC" -eq 2 ] && ok "Active rows/None + no PRs → exit 2" || bad "exit $RC (want 2); OUT=$OUT"
+
+# ============================================================================
+hr; echo "NO WORK — structured Active due rows/None drain: exit 2"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 900 2026-08-05)"
+add_entry 2026/09/01/000002Z-b "$(active_due_rows_none_body)"
+run_pre ""
+[ "$RC" -eq 2 ] && ok "Active due rows/None + no PRs -> exit 2" || bad "exit $RC (want 2); OUT=$OUT"
 
 # ============================================================================
 hr; echo "NO WORK — no open dependabot PRs + live embargo NOT yet due: exit 2"; hr
