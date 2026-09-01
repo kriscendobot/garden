@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-01T02:34:39Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-01T02:34:39Z
+---
+
+---
 role: builder
 tier: mentor
 fallback-tier: minion
@@ -42,20 +60,3 @@ pull request for fuzz findings.
 7. Document THIS case and its solution in the standing PR body or a PR comment (finding f2f53bb078bc8a4e).
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
-
-
-
-
-<!-- garden-transient-elapsed: kind=signature through=3 values=2 -->
-
-<!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-31T22:28:06Z
