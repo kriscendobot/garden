@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: blocked on a PR that will never land: this job waits on endojs/endo-but-for-bots#1000 (pins the four Node 24.x matrix entries in ci.yml to 24.18.0), and #1000 is CLOSED, never merged. The rerun it gates can never fire. If the floating Node-24.x CI failure still matters, that needs a fresh job against current llm, not this one (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T23:06:53Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
