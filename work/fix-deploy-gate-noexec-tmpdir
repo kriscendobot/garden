@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: cleric
-claimed_at: 2026-09-01T17:19:44Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-fix-deploy-gate-noexec-tmpdir
