@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: orphaned gauntlet STAGE fragment: its parent gauntlet already halted, so promoting a lone stage cannot advance anything — the remedy for the underlying PR is a fresh gauntlet, not this stage (2026-09-01 muster, maintainer-authorized)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:08:17Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: gardener
