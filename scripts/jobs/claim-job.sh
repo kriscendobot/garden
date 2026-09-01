@@ -62,7 +62,7 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" tier pin constrained_provider role
+  local jf="$1" tier pin constrained_provider role routed_model
   # ROLE backend-fit: a job whose `role:` demands the full Claude-agent posture (the
   # self-directed `gardener` loop the codex/local handlers cannot honor) is claimable
   # only by an anthropic kind — the role analogue of the provider filter below, fencing
@@ -71,16 +71,34 @@ job_eligible_for_kind() {
   # tier-less `role: gardener` job (the automatic-dispatch default that would otherwise
   # fall through the unclassified-tier early-return below). Closes the
   # hermit-claims-gardener claim/die/requeue hot loop (2026-08-19).
-  if [ "$KIND_PROVIDER" != anthropic ] \
+  if [ "$KIND" != monk ] && [ "$KIND" != gardener ] \
      && role_requires_anthropic_posture "$(plan_field "$jf" role)"; then
     return 1
   fi
+  pin="$(plan_field "$jf" model)"
+  # A shared provider id cannot by itself select a harness: without this routing
+  # namespace, monk and OpenCode would both be eligible for the same Anthropic pin.
+  # The namespace is garden-only; the handler/reputation resolver strip it back to
+  # the underlying model so the two kind arms remain an apples-to-apples A/B.
+  if [[ "$pin" == opencode-anthropic/* ]]; then
+    [ "$KIND" = opencode-anthropic ] || return 1
+    routed_model="${pin#opencode-anthropic/}"
+    routed_model="$(resolve_model_tier anthropic "$routed_model")"
+    [ -n "$routed_model" ] || return 1
+    tier="$(model_dispatch_tier anthropic "$routed_model" 2>/dev/null || true)"
+    [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || return 1
+    if job_provider_is_constrained "$jf"; then
+      [ "$(job_provider_constraint "$jf" 2>/dev/null || true)" = anthropic ] || return 1
+    fi
+    return 0
+  fi
+  [ "$KIND" != opencode-anthropic ] || return 1
   tier="$(job_tier "$jf")" || {
     # An absent or unclassified historical model pin is unpinned work for the
     # established pools. Keep hosted pools opt-in: they require their explicit
     # supported pin and never absorb this compatibility traffic.
     [ "$KIND" != mystic ] && [ "$KIND" != fireworker ] && [ "$KIND" != openrouter ] \
-      && [ "$KIND" != openrouter-promo ] \
+      && [ "$KIND" != openrouter-promo ] && [ "$KIND" != opencode-anthropic ] \
       && ! job_provider_is_constrained "$jf" && return 0
     return 1
   }
@@ -98,7 +116,6 @@ job_eligible_for_kind() {
   # id AND fails closed (empty) when this provider does not own it, which is exactly
   # the backend-fit filter. A tier-only job (no model pin) is claimable by any
   # provider that has a model at that tier.
-  pin="$(plan_field "$jf" model)"
   # Mystic is an opt-in canary lane: it never receives tier-only or unpinned
   # work, and must not take high-stakes design/build routing.  Capacity is the
   # operational kill switch; this predicate keeps an accidentally running unit

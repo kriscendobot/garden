@@ -653,6 +653,19 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-openrouter-promo" ;;
         *) return 1 ;;
       esac ;;
+    opencode-anthropic)
+      # Harness-diversity canary: Anthropic's native API driven through OpenCode.
+      # A separate kind keeps its reputation arm distinct from the Claude harness.
+      case "$field" in
+        handler)   printf '%s\n' "handlers/opencode.sh" ;;
+        agent_bin) printf '%s\n' "opencode" ;;
+        provider)  printf '%s\n' "anthropic" ;;
+        unit)      printf '%s\n' "garden-opencode-anthropic@" ;;
+        count_key) printf '%s\n' "opencode_anthropic_workers" ;;
+        state_ns)  printf '%s\n' "opencode-anthropic" ;;
+        label)     printf '%s\n' "garden-opencode-anthropic" ;;
+        *) return 1 ;;
+      esac ;;
     *) return 1 ;;
   esac
 }
@@ -668,7 +681,7 @@ worker_kind_field() {
 # whichever count line a host already declares. The two Anthropic pools are NEVER
 # both armed for one capacity slot: the scaler picks the host-active spelling with
 # anthropic_active_kind (monks: wins, else the legacy gardeners:) and skips the other.
-worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter openrouter-promo; }
+worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic; }
 
 # canonical_worker_kind <raw> [schema] [provider] — the ONLY worker-kind decoder
 # (design anthropic-worker-kind-monk.md § Journal contract). It resolves a raw
@@ -684,7 +697,7 @@ worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker ope
 canonical_worker_kind() {
   local raw="${1:-}" schema="${2:-}" provider="${3:-}" ck="" want=""
   case "$raw" in
-    monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) ck="$raw" ;;
+    monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic) ck="$raw" ;;
     gardener)
       case "$schema" in
         ''|1) ck="monk" ;;                 # v1 record: gardener IS the Anthropic monk
@@ -712,6 +725,13 @@ anthropic_active_kind() {
   else
     printf 'gardener\n'
   fi
+}
+
+# native_anthropic_kind <kind> - true only for the overlapping Claude-harness
+# spellings. Other kinds may share provider=anthropic without sharing their one-slot
+# cutover, provisioning exemption, or minimum-worker floor.
+native_anthropic_kind() {
+  case "${1:-}" in monk|gardener) return 0 ;; *) return 1 ;; esac
 }
 
 # quota_routing_mode — temporary, host-scoped escape hatch for an Anthropic
@@ -970,6 +990,8 @@ require_tools() {
 #   /usr/local/bin     the image's npm -g prefix (Dockerfile), the fleet's normal home
 #   /usr/bin           a distro/system-wide install
 #   ~/.local/bin       the native installer's default, and pipx/pip --user
+#   ~/.opencode/bin    OpenCode's native installer's default
+#   ~/.bun/bin         Bun-installed CLIs
 #   ~/.claude/local    Claude Code's own local-install location (`claude migrate-installer`)
 #   $NVM_BIN           an nvm-managed node whose global bin is version-scoped
 #   ~/.npm-global/bin, ~/.node/bin, ~/bin   common hand-set npm prefixes
@@ -979,6 +1001,8 @@ agent_bin_candidates() {
     "/usr/local/bin/$name" \
     "/usr/bin/$name" \
     "${HOME:-}/.local/bin/$name" \
+    "${HOME:-}/.opencode/bin/$name" \
+    "${HOME:-}/.bun/bin/$name" \
     "${HOME:-}/.claude/local/$name" \
     "${NVM_BIN:-}/$name" \
     "${HOME:-}/.npm-global/bin/$name" \
@@ -1287,6 +1311,13 @@ _probe_bounded() {
 _worker_backend_probe_dispatch() {
   local kind="$1" provider="$2" handlers model
   handlers="$(dirname "${BASH_SOURCE[0]}")/handlers"
+  if [ "$kind" = opencode-anthropic ]; then
+    agent_bin_probe opencode >/dev/null 2>&1 \
+      || { echo "opencode not installed (opencode-anthropic backend)" >&2; return 1; }
+    [ -n "${ANTHROPIC_API_KEY:-}" ] \
+      || { echo "ANTHROPIC_API_KEY absent (opencode-anthropic backend)" >&2; return 1; }
+    return 0
+  fi
   case "$provider" in
     anthropic)
       claude_auth_ok ;;
@@ -6010,7 +6041,7 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) kind="$1"; role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
@@ -6069,6 +6100,9 @@ role_default_model() {
     openrouter-promo)
       # Explicit model only, even more so than the stable lane: a cloaked id is
       # anonymous and rotating, so no role may ever implicitly bind to it.
+      printf '%s\n' "" ;;
+    opencode-anthropic)
+      # Paid canary lane: explicit model pins only.
       printf '%s\n' "" ;;
     *) printf '%s\n' "" ;;
   esac
@@ -6161,7 +6195,7 @@ tier_rank() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

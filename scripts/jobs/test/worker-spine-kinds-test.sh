@@ -105,7 +105,10 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field openrouter-promo unit)" = "garden-openrouter-promo@" ] && ok "openrouter-promo unit prefix" || bad "openrouter-promo unit"
 [ "$(worker_kind_field openrouter-promo count_key)" = "openrouter_promos" ] && ok "openrouter-promo count key" || bad "openrouter-promo count key"
 [ "$(worker_kind_field openrouter-promo state_ns)" = "openrouter_promos" ] && ok "openrouter-promo state_ns" || bad "openrouter-promo state_ns"
-[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter,openrouter-promo" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+[ "$(worker_kind_field opencode-anthropic handler)" = "handlers/opencode.sh" ] && ok "opencode-anthropic handler" || bad "opencode-anthropic handler"
+[ "$(worker_kind_field opencode-anthropic provider)" = "anthropic" ] && ok "opencode-anthropic provider" || bad "opencode-anthropic provider"
+[ "$(worker_kind_field opencode-anthropic count_key)" = "opencode_anthropic_workers" ] && ok "opencode-anthropic count key" || bad "opencode-anthropic count key"
+[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter,openrouter-promo,opencode-anthropic" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
 [ "$(canonical_worker_kind openrouter-promo)" = "openrouter-promo" ] && ok "canonical_worker_kind passes openrouter-promo through" || bad "canonical_worker_kind openrouter-promo"
 # canonical_worker_kind: the SOLE decoder. v1 gardener -> monk; known v2 unchanged;
 # unknown / contradictory rejected with no silent fallback.
@@ -449,6 +452,12 @@ elig_case openrouter-promo stablepin "model: openrouter/z-ai/glm-5.2:free" left 
 elig_case openrouter promopin "model: openrouter-promo/openrouter/horizon-beta" left "$PROMO_ELIG_FRESH"
 elig_case cleric foreignpromo2 $'provider: openrouter-promo\ntier: minion' left "$PROMO_ELIG_FRESH"
 rm -f "$PROMO_ELIG_FRESH"
+# OpenCode/Anthropic shares Anthropic's model namespace but is explicit-pin-only.
+elig_case opencode-anthropic pinnedoc "model: opencode-anthropic/haiku" claimed
+elig_case opencode-anthropic unpinnedoc "" left
+elig_case opencode-anthropic tieronlyoc "tier: minion" left
+elig_case opencode-anthropic foreignoc "model: terra" left
+elig_case monk foreignocroute "model: opencode-anthropic/haiku" left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -464,6 +473,7 @@ elig_case cleric     gardener_role_c  "role: gardener"                 left
 elig_case mystic     gardener_role_y  $'model: kimi-k3\nrole: gardener' left
 elig_case fireworker gardener_role_f  $'provider: fireworks\ntier: mentor\nrole: gardener' left
 elig_case openrouter gardener_role_o  $'model: openrouter/z-ai/glm-5.2:free\nrole: gardener' left
+elig_case opencode-anthropic gardener_role_oc $'model: opencode-anthropic/haiku\nrole: gardener' left
 elig_case monk       gardener_role_m  "role: gardener"                 claimed
 elig_case gardener   gardener_role_g  "role: gardener"                 claimed
 elig_case cleric     fixer_role_c     "role: fixer"                    claimed
@@ -477,7 +487,7 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in monk gardener cleric hermit mystic fireworker openrouter openrouter-promo; do
+for kind in monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=monk' "$RT/garden-monk@.service" && ok "monk unit sets GARDEN_WORKER_KIND=monk" || bad "monk kind env"
@@ -497,6 +507,7 @@ grep -q 'self-heal-run.sh garden-openrouter ' "$RT/garden-openrouter@.service" &
 # its own @WORKER_KIND@; the hyphen in the kind name survives the substitution.
 grep -q 'GARDEN_WORKER_KIND=openrouter-promo' "$RT/garden-openrouter-promo@.service" && ok "openrouter-promo unit sets GARDEN_WORKER_KIND=openrouter-promo" || bad "openrouter-promo kind env"
 grep -q 'self-heal-run.sh garden-openrouter-promo ' "$RT/garden-openrouter-promo@.service" && ok "openrouter-promo ExecStart labels self-heal garden-openrouter-promo" || bad "openrouter-promo self-heal label"
+grep -q 'GARDEN_WORKER_KIND=opencode-anthropic' "$RT/garden-opencode-anthropic@.service" && ok "opencode-anthropic unit kind" || bad "opencode-anthropic kind env"
 rm -rf "$RT"
 
 # The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
@@ -512,6 +523,7 @@ export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale fireworker 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale openrouter 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale openrouter-promo 1 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale opencode-anthropic 1 >/dev/null 2>&1
 gm=$(grep -c '^garden-monk@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
@@ -520,6 +532,7 @@ gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 gf=$(grep -c '^garden-fireworker@1\.service$' "$GARDEN_MOCK_STATE" || true)
 go=$(grep -c '^garden-openrouter@1\.service$' "$GARDEN_MOCK_STATE" || true)
 gp=$(grep -c '^garden-openrouter-promo@1\.service$' "$GARDEN_MOCK_STATE" || true)
+goc=$(grep -c '^garden-opencode-anthropic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gm" -eq 2 ] && ok "scale monk 2 -> garden-monk@{1,2} armed (canonical Anthropic pool renders + scales)" || bad "monk scale (@1-2=$gm)"
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
@@ -528,6 +541,7 @@ gp=$(grep -c '^garden-openrouter-promo@1\.service$' "$GARDEN_MOCK_STATE" || true
 [ "$gf" -eq 1 ] && ok "scale fireworker 1 -> garden-fireworker@1 armed (Fireworks pool independently scalable)" || bad "fireworker scale (@1=$gf)"
 [ "$go" -eq 1 ] && ok "scale openrouter 1 -> garden-openrouter@1 armed (OpenRouter pool independently scalable)" || bad "openrouter scale (@1=$go)"
 [ "$gp" -eq 1 ] && ok "scale openrouter-promo 1 -> garden-openrouter-promo@1 armed (stealth pool independently scalable)" || bad "openrouter-promo scale (@1=$gp)"
+[ "$goc" -eq 1 ] && ok "scale opencode-anthropic 1 -> garden-opencode-anthropic@1 armed" || bad "opencode-anthropic scale (@1=$goc)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1

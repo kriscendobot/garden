@@ -111,8 +111,8 @@ printf -- '---\nrole: builder\n---\nshort\n' > "$tmp"
 printf -- '---\nwork-class: fix:l\n---\nx\n' > "$tmp"
 [ "$(rep_work_class "$tmp")" = "fix:l" ] && ok "explicit work-class: override honored" || bad "explicit work-class not honored"
 printf -- '---\nrole: builder\n---\nx\n' > "$tmp"
-[ "$(rep_resolve_arm gardener "$tmp" | paste -sd/ -)" = "anthropic/gpt-5.6-terra/high" ] \
-  && ok "gardener builder arm follows the exhausted-Kimi default = anthropic/gpt-5.6-terra/high" || bad "gardener arm wrong"
+[ "$(rep_resolve_arm gardener "$tmp" | paste -sd/ -)" = "anthropic/claude-opus-4-8/high" ] \
+  && ok "gardener builder arm matches the Claude handler = anthropic/claude-opus-4-8/high" || bad "gardener arm wrong"
 [ "$(rep_resolve_arm cleric "$tmp" | paste -sd/ -)" = "openai/gpt-5.6-terra/high" ] \
   && ok "cleric builder arm = openai/gpt-5.6-terra/high" || bad "cleric arm wrong"
 rm -f "$tmp"

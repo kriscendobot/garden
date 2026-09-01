@@ -257,12 +257,20 @@ rep_target() {
 # Prints three lines: provider, model, thoughtfulness.
 rep_resolve_arm() {
   local kind="${1:?rep_resolve_arm: kind}" jf="${2:?rep_resolve_arm: jobfile}"
-  local provider="" model="" effort="" role="" req_tier="" req_effort=""
+  local provider="" model="" effort="" role="" req_model="" req_tier="" req_effort=""
   provider="$(worker_kind_field "$kind" provider 2>/dev/null || echo anthropic)"
   role="$(plan_role "$jf")"
+  req_model="$(plan_field "$jf" model)"
+  if [ "$kind" = opencode-anthropic ] && [[ "$req_model" == opencode-anthropic/* ]]; then
+    req_model="${req_model#opencode-anthropic/}"
+  fi
   req_tier="$(job_tier "$jf" 2>/dev/null || true)"
   req_effort="$(plan_field "$jf" effort)"
-  [ -n "$req_tier" ] && model="$(tier_model_for_provider "$req_tier" "$provider")"
+  # Handlers resolve an explicit model pin directly. Do the same here; deriving its
+  # dispatch tier and resolving that tier back to a first-match model silently
+  # changed the arm (for example explicit Haiku became the tier's Sonnet default).
+  [ -n "$req_model" ] && model="$(resolve_model_tier "$provider" "$req_model")"
+  [ -n "$model" ] || { [ -n "$req_tier" ] && model="$(tier_model_for_provider "$req_tier" "$provider")"; }
   [ -n "$model" ] || model="$(role_default_model "$kind" "$role")"
   # Fleet default when still unresolved: openai and local read their concrete
   # default from the journal-backed routing table (model_routing_default), so a

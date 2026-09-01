@@ -80,7 +80,7 @@ quota_route_active=0
 active_anthropic="$(anthropic_active_kind "$f")"
 
 for kind in $(worker_kinds); do
-  if [ "$(worker_kind_field "$kind" provider)" = anthropic ] && [ "$kind" != "$active_anthropic" ]; then
+  if native_anthropic_kind "$kind" && [ "$kind" != "$active_anthropic" ]; then
     log "DEBUG host '$host' Anthropic slot is '$active_anthropic'; skipping shadowed kind '$kind' (never both pools armed)"
     continue
   fi
@@ -92,7 +92,7 @@ for kind in $(worker_kinds); do
 # leave the pool unchanged except the clean parse; missing is never scale-to-0,
 # while an explicit zero is.
   if want="$(read_desired_count "$f" "$count_key")"; then
-    if [ "$(worker_kind_field "$kind" provider)" = anthropic ] && [ "$want" -eq 0 ] && { [ "$quota_route_active" -ne 1 ] || [ "$non_claude_qualified" -ne 1 ]; }; then
+    if native_anthropic_kind "$kind" && [ "$want" -eq 0 ] && { [ "$quota_route_active" -ne 1 ] || [ "$non_claude_qualified" -ne 1 ]; }; then
       log "WARN host '$host' declares $count_key: 0 without the active quota route and a configured, probe-qualified non-Claude worker; refusing to leave zero qualified workers (use drain-fleet.sh to pause work)"
       continue
     fi
