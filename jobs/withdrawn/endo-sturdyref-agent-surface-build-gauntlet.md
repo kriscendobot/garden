@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: cannot pass its clean stage: target endojs/endo-but-for-bots#871 is OPEN/draft/CONFLICTING and untouched since 2026-08-13, so a gauntlet would re-halt exactly as #536/#718/#249 did. Replaced by endojs-endo-but-for-bots-pr871-weave-20260901 with a gauntlet parked blocked behind it (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T23:02:52Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 doomed: true
