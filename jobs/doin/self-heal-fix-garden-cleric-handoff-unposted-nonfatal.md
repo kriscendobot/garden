@@ -14,3 +14,13 @@ Root cause: `handoff_successor_posted` correctly rejects the unposted successor 
 which is the only completion-outcome branch that doesn't special-case a recoverable rc (contrast the offline-rc branch just above it, and the sibling deterministic gates `assert-followup-posted.sh`/`assert-design-pr-gauntlet.sh` a few lines earlier, which log and leave the job in `doin` for the reaper without killing the process). So a routine worker mistake (declaring a handoff to a basename it never actually ran `post-job.sh`/`post-plan.sh` on) takes down the entire long-running gardener/cleric process instead of just failing that one job.
 
 Fix: give the "handoff successor not durably posted" case its own non-fatal exit code out of `complete-job.sh` (parallel to `GARDEN_OFFLINE_RC`, e.g. a new `GARDEN_HANDOFF_UNVERIFIED_RC` constant in `common.sh`), and in `gardener.sh:699` handle that code the same way the offline-rc branch already does just above it: log `"handoff successor not durably posted for '$base' (rc=$crc); left in doin for TTL requeue"`, clean up the report/capture/sentinel files, and `continue` the loop rather than `die`. Leave every other non-zero `crc` fatal as today — this narrows only the one known-recoverable case.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T23:34:18Z
