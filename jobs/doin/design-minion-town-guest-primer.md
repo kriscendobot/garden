@@ -115,3 +115,13 @@ worked through rather than asserted; the placement question above resolved;
 and a path from the staged experiment to an eventual platform-wide default
 endowment, sequenced so it doesn't repeat the `@main` provisioning-gap class
 of failure.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T20:40:03Z
