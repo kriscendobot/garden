@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:12:58Z_
+_As of 2026-09-01T19:14:53Z_
 
 ## Latest
 
@@ -2302,6 +2302,118 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
 >   maintainer-attested, auditable, idempotent operator action.
 
+- `doomed-retire-gardener-worker-kind-alias-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-retire-gardener-worker-kind-alias-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/retire-gardener-worker-kind-alias; it stays HELD until a human promotes it
+> (promote-plan.sh retire-gardener-worker-kind-alias) or removes it.
+> Original job base: retire-gardener-worker-kind-alias
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Maintainer directive (2026-09-01, liaison session): retire the legacy `gardener`
+> worker-kind alias now that the Anthropic worker has been renamed to `monk`
+> fleet-wide.
+>
+> Context: `designs/anthropic-worker-kind-monk.md` landed stage 0 (compatibility
+> release) and stage 1 (per-host cutover) via job `monk-finish-gardener-rename`.
+> Both fleet hosts (`endolin-garden-ece02cb4`, `endolin-garden2-5bcdff64`) have
+> since cut over: `journal/hosts/<host>` declares `monks: N` on each, and on
+> `endolin-garden-ece02cb4` the legacy `garden-gardener@1.service` unit is
+> enabled but **inactive/dead** while `garden-monk@1..4` run live. Stage 2
+> (writer-default flip) and the alias retirement itself were explicitly deferred
+> in that job's report as "a still-later, separately-reviewed cleanup." This job
+> is that cleanup, now authorized.
+>
+> The design gates retirement on five recorded facts (§ Staged, reversible
+> rollout, stage 2 "Canonical writes and cleanup"). Re-verify all five before
+> touching anything irreversible, since the liaison could only check the local
+> host directly:
+>
+> 1. All fleet inventory reports zero legacy units and state markers — confirmed
+>    on `endolin-garden-ece02cb4` (`garden-gardener@1` inactive, no
+>    `state/gardeners/` markers). **Re-check `endolin-garden2-5bcdff64` directly**
+>    (its `hosts/` file still carries a `gardeners: 1` mirror line, same shadowed
+>    shape presumed but not yet confirmed live).
+> 2. No live `doin`, `work`, inbox, active worktree, or recent bid has a legacy
+>    (`gardener`-kind) owner — confirmed: the last ~15 `claim()` log entries
+>    fleet-wide are all `monk-N`/`cleric-N`. Note `complete-job.sh` always writes
+>    the commit-message label `gardener-$id` regardless of actual kind (that is
+>    the generic role label, not the worker-kind field — don't mistake it for a
+>    live legacy claim; verify by reading each `worker_kind:` field, not the
+>    commit subject).
+> 3. All hosts have deployed the canonical release — the monk registry row is
+>    present in both hosts' currently-deployed checkouts (root repo tested
+>    directly on `endolin-garden-ece02cb4`; the leader's live `garden-monk@`
+>    pool being active is itself proof for that host).
+> 4. No supported external script calls the alias — the internal compat shims
+>    (`GARDEN_GARDENER_CLONE` fallback, `set-gardeners.sh`, the
+>    `handlers/gardener-claude.sh` forwarder) are the alias implementation
+>    itself and are exactly what this job removes; they don't count against
+>    this gate. Do check `context/operations/starting.md`,
+>    `context/operations/scaling.md`, and `context/first-run/auth.md` (all
+>    currently mention `gardeners:`) and update them.
+> 5. A rollback drill is no longer promised — this is the maintainer's call,
+>    given in this directive.
+>
+> Do the removal by reversing each row of the design's inventory table (§
+> Boundary and inventory):
+>
+> - `scripts/jobs/common.sh`: delete the `gardener` row from `worker_kind_field`
+>   and `worker_kinds()`; simplify `canonical_worker_kind` to a pure v2 decoder
+>   (reject a v1 `worker_kind: gardener` record as unknown/legacy rather than
+>   silently mapping it — decide and document whether historical read paths
+>   still need the v1 mapping for old journal artifacts, since journal history
+>   is append-only and must remain readable); remove `anthropic_active_kind`'s
+>   monk-vs-gardener selection now that only one Anthropic kind exists.
+> - Delete `scripts/jobs/handlers/gardener-claude.sh` (the forwarding wrapper);
+>   update `gardener.sh`/`claim-job.sh`/`complete-job.sh` to drop the
+>   `GARDEN_GARDENER_CLONE` legacy-env fallback (keep `GARDEN_WORKER_CLONE`
+>   only), checking every call site the grep in this job's originating session
+>   found across `common.sh`, `usage-meter.sh`, `usage-append.sh`,
+>   `regenerate-topics-counts.sh`, `regenerate-sections-index.sh`,
+>   `library-slug-prefix-check.sh`, `library-link-check.sh`, `auction.sh`.
+> - `scripts/jobs/set-gardeners.sh`: retire it (or turn it into a clear
+>   "renamed to set-monks.sh" error) — check callers first.
+> - `scripts/jobs/reputation-reduce.sh`: drop the dual projection; write only
+>   `reputation/arms/monk/...` going forward. Decide whether the historical
+>   `reputation/arms/gardener/...` tree is deleted, left as an inert archive, or
+>   migrated — do not silently lose auction history.
+> - `scripts/systemd/`/`install-units.sh`: stop rendering `garden-gardener@`
+>   units; disable and remove any enabled-but-inactive `garden-gardener@N` unit
+>   files on both hosts as part of this job's own host-side cleanup (not a
+>   separate deploy step, since disabling an already-inactive unit changes no
+>   running behavior).
+> - Journal state: clear the stale `gardeners: N` mirror line from
+>   `journal/hosts/endolin-garden-ece02cb4` and
+>   `journal/hosts/endolin-garden2-5bcdff64` (a plain journal edit, no deploy
+>   needed).
+> - Tests: remove/retarget `monk-worker-kind-compat-test.sh` and
+>   `monk-host-cutover-test.sh` assertions that specifically exercise the
+>   gardener alias/dual-pool exclusivity/rollback path (or convert them into
+>   regression coverage that a legacy `worker_kind: gardener` claim/env is now
+>   correctly rejected, per whatever decision you make on historical-read
+>   compatibility above); keep `worker-spine-kinds-test.sh` green for monk.
+> - Docs: update `CLAUDE.md`, `context/operations/starting.md`,
+>   `context/operations/scaling.md`, `context/first-run/auth.md`, and this
+>   design doc's own "Implementation status" section to record retirement as
+>   complete (stage 2/3), per house convention of updating the design doc's
+>   status alongside the landing commit.
+>
+> Land directly on `main2` (no PR for the garden's own repo, per `CLAUDE.md` §
+> Conventions). Run the full regression sweep (scaler/deploy/reaper/handler/
+> health/worker-spine/auction-reputation suites) before pushing, and report
+> which of it needed updating versus already passed. If any of the five gate
+> facts above does NOT hold when you check it, stop and report back rather than
+> proceeding — this change forecloses rollback to the legacy pool.
+
 - `watchdog-budget-level-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-1.md)
 
 > budget-level changed endolin-garden-ece02cb4 gardener workers 2 -> 1: budget pool anthropic:endolin-garden-ece02cb4 spend=108019249 cap=149000000 high-water=0.85 target=1
@@ -2385,7 +2497,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (91)
+### doin (90)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`diagnose-budget-meter-overreport-ece02cb4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-budget-meter-overreport-ece02cb4.md) — Diagnose why the budget meter over-reports on endolin-garden-ece02cb4
@@ -2473,7 +2585,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
-- [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias.md) — ---
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -2638,6 +2749,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`refresh-pr-review-sequence-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/refresh-pr-review-sequence-20260823.md) — _normal_ · What to do
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
+- [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-worker-kind-alias.md) — _normal_ · ---
 - [`test262-coverage-ratchet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/test262-coverage-ratchet-20260827.md) — _normal_ · Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`test262-coverage-ratchet-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/test262-coverage-ratchet-20260828-005006.md) — _normal_ · Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
