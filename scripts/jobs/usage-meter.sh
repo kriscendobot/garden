@@ -93,6 +93,7 @@
 : "${GARDEN_USAGE_LEDGER_MAXLINES:=20000}"
 : "${GARDEN_BUDGET_SNAPSHOT_SECS:=900}"
 : "${GARDEN_BUDGET_SNAPSHOT_MAX_AGE:=1800}"
+: "${GARDEN_BUDGET_PUBLISH_ATTEMPTS:=3}"
 
 # Wall clock in epoch seconds, overridable for deterministic tests.
 meter_now() { printf '%s\n' "${GARDEN_USAGE_NOW:-$(date +%s)}"; }
@@ -332,12 +333,11 @@ meter_remote_snapshot_total() {
   printf '%s\n' "$s"
 }
 
-# budget_publish_local_pool <synced-journal-clone> — every host's existing scaler
-# timer publishes a cadence-bucketed exact session-log reading. This is the small
-# cross-host bridge the leader needs for fleet admission/leveling; at most one
-# journal commit per host per snapshot bucket, and any failure merely leaves the
-# remote verdict unknown (fail-open).
-budget_publish_local_pool() {
+# _budget_publish_local_pool_once <synced-journal-clone> — build and CAS-publish
+# one snapshot attempt from the clone's current journal tip. A retry must call
+# this again after sync_clone: pool configuration, the anchored meter reading,
+# zone, and cadence bucket may all have changed while the first push raced.
+_budget_publish_local_pool_once() {
   local dir="$1" pool="anthropic:$GARDEN" row _provider _account kind cap
   local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs
   row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || return 0
@@ -374,6 +374,32 @@ budget_publish_local_pool() {
     fi
     return 0
   fi
+  return 1
+}
+
+# budget_publish_local_pool <synced-journal-clone> — every host's existing scaler
+# timer publishes a cadence-bucketed exact session-log reading. This is the small
+# cross-host bridge the leader needs for fleet admission/leveling; at most one
+# journal commit per host per snapshot bucket. A lost journal CAS is retried
+# boundedly in the same scaler tick: re-sync, rebuild from the winning journal
+# tip, then try publication again. Exhaustion merely leaves the remote verdict
+# unknown (fail-open); worker reconciliation still proceeds.
+budget_publish_local_pool() {
+  local dir="$1" attempts="$GARDEN_BUDGET_PUBLISH_ATTEMPTS" attempt rc
+  [[ "$attempts" =~ ^[1-9][0-9]*$ ]] || attempts=3
+
+  if _budget_publish_local_pool_once "$dir"; then rc=0; else rc=$?; fi
+  [ "$rc" -eq 0 ] && return 0
+
+  for attempt in $(seq 2 "$attempts"); do
+    backoff "$((attempt - 1))"
+    # sync_clone exits with EX_TEMPFAIL for an offline journal. Contain that exit
+    # so snapshot publication remains fail-open and the scaler reaches its normal
+    # warning latch plus worker reconciliation path.
+    if ( sync_clone "$dir"; _budget_publish_local_pool_once "$dir" ); then
+      return 0
+    fi
+  done
   return 1
 }
 
