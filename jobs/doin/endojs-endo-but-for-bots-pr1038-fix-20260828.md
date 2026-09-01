@@ -19,3 +19,13 @@ The conductor backstop found that the current head 41cd489f30cc587e5a2d8296dfc81
 Inspect the post-approval delta (currently the fixup commit), verify it is coherent and checks remain green, and leave the branch ready for a fresh maintainer approval. Do not merge. Bot repo only: endojs/endo-but-for-bots.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1038
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T20:25:22Z
