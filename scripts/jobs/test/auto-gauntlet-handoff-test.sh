@@ -150,4 +150,41 @@ if grep -q 'pr ready' "$TR/gh-dep.log"; then
   exit 1
 fi
 
-echo 'PASS: auto-gauntlet handoff records a staged gauntlet for an open draft feature PR, skips probes, and never touches a PR merely cited in the job file or authored by another user'
+# REGRESSION (2026-08-27, kriscendobot/garden#58): shorthand issue citations are
+# syntactically indistinguishable from shorthand PR citations, so the shared extractor
+# normalizes this issue to a /pull/58 URL. GitHub's definitive PullRequest lookup error
+# means the reference is not a PR artifact. That answer must make the handoff succeed
+# without recording a gauntlet; otherwise gardener.sh treats a completed issue-driven
+# job as a failed handoff and leaves it in doin for the reaper to run again.
+issue_report="$TR/issue-report.md"
+printf 'Fixed on main2. Follow-up to kriscendobot/garden#58.\n' >"$issue_report"
+export FAKE_PR_VIEW_ERROR='GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)'
+GARDEN_GH_CALL_LOG="$TR/gh-issue.log" \
+  "$JOBS/auto-gauntlet-handoff.sh" build-issue-ref "$job" "$issue_report" 2>"$TR/issue.log"
+unset FAKE_PR_VIEW_ERROR
+if assert_recorded build-issue-ref-gauntlet; then
+  echo 'an issue citation incorrectly received a gauntlet record' >&2
+  exit 1
+fi
+grep -q 'not a PullRequest' "$TR/issue.log"
+[ "$(wc -l <"$TR/gh-issue.log")" -eq 1 ]
+grep -q '^pr view https://github.com/kriscendobot/garden/pull/58 ' "$TR/gh-issue.log"
+
+# Only GitHub's definitive non-PR answer is safe to skip. Authentication, network,
+# rate-limit, and other inspection failures must still fail the handoff so it retries.
+export FAKE_PR_VIEW_ERROR='HTTP 503: upstream unavailable'
+set +e
+GARDEN_GH_CALL_LOG="$TR/gh-transient.log" \
+  "$JOBS/auto-gauntlet-handoff.sh" build-transient "$job" "$issue_report" 2>"$TR/transient.log"
+transient_rc=$?
+set -e
+unset FAKE_PR_VIEW_ERROR
+[ "$transient_rc" -ne 0 ]
+grep -q 'HTTP 503: upstream unavailable' "$TR/transient.log"
+grep -q 'gh could not inspect https://github.com/kriscendobot/garden/pull/58' "$TR/transient.log"
+if assert_recorded build-transient-gauntlet; then
+  echo 'a transient lookup failure incorrectly received a gauntlet record' >&2
+  exit 1
+fi
+
+echo "PASS: auto-gauntlet handoff records feature PRs, skips probes and citations (including issues), never mutates another author's PR, and retries transient lookup failures"
