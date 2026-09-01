@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded: 35 later dependabotany-recheck ticks have since completed for this repo; a stale recheck tick has no value (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:05:50Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: botanist
