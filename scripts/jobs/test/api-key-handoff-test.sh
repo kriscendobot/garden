@@ -17,7 +17,7 @@ cleanup() { rm -rf "$TR"; }
 trap cleanup EXIT
 
 run_seed() {
-    env -u ANTHROPIC_API_KEY -u MOONSHOT_API_KEY -u FIREWORKS_API_KEY -u OPENROUTER_API_KEY \
+    env -u ANTHROPIC_API_KEY -u MOONSHOT_API_KEY -u FIREWORKS_API_KEY -u OPENROUTER_API_KEY -u OLLAMA_CLOUD_API_KEY \
         GARDEN_TEST=1 GARDEN_API_KEY_HANDOFF_DIR="$TR/run/environment.d" \
         GARDEN_USER="$(id -un)" "$@" "$SEED"
 }
@@ -26,9 +26,9 @@ bash -n "$ROOT/entrypoint.sh" "$SEED" "$ROOT/garden" \
     && ok "entrypoint, handoff seeder, and launcher parse" \
     || bad "shell syntax failure"
 
-run_seed env ANTHROPIC_API_KEY=synthetic-anthropic MOONSHOT_API_KEY=synthetic-moonshot FIREWORKS_API_KEY=synthetic-fireworks OPENROUTER_API_KEY=synthetic-openrouter
+run_seed env ANTHROPIC_API_KEY=synthetic-anthropic MOONSHOT_API_KEY=synthetic-moonshot FIREWORKS_API_KEY=synthetic-fireworks OPENROUTER_API_KEY=synthetic-openrouter OLLAMA_CLOUD_API_KEY=synthetic-ollama-cloud
 handoff="$TR/run/environment.d/60-garden-api-keys.conf"
-expected=$'ANTHROPIC_API_KEY=synthetic-anthropic\nMOONSHOT_API_KEY=synthetic-moonshot\nFIREWORKS_API_KEY=synthetic-fireworks\nOPENROUTER_API_KEY=synthetic-openrouter'
+expected=$'ANTHROPIC_API_KEY=synthetic-anthropic\nMOONSHOT_API_KEY=synthetic-moonshot\nFIREWORKS_API_KEY=synthetic-fireworks\nOPENROUTER_API_KEY=synthetic-openrouter\nOLLAMA_CLOUD_API_KEY=synthetic-ollama-cloud'
 actual="$(cat "$handoff")"
 [[ "$actual" = "$expected" ]] \
     && ok "all allowlisted keys reach the environment.d generator input" \

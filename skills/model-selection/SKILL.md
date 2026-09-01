@@ -16,7 +16,7 @@ unclassified and cannot acquire an automatic route.
 | --- | --- | --- |
 | mentat | Claude Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. |
 | mentor | Anthropic Opus 5 (`claude-opus-5`), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Highest tier automatic producers may emit. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
-| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen, Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`) | The tier below mentor; the automatic fallback tier. |
+| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen, Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`), Ollama Cloud Qwen 3.5 (`qwen3.5:cloud`) | The tier below mentor; the automatic fallback tier. |
 | myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
 
 **Fireworks mentor collision (GLM 5.2 vs Kimi K3).** Both Fireworks mentor models
@@ -54,6 +54,18 @@ are **cadence-gated**: a row not re-attested within 24h **fails closed automatic
 Explicit-model-only like the stable lane. Attest/rip-cord tooling and the recheck
 schedule: [`context/operations/openrouter.md`](../../context/operations/openrouter.md)
 § The promo (stealth) lane.
+
+**Ollama Cloud (`friar`, explicit-model-only, disabled by default).** The `friar`
+kind runs **Claude Code** (`claude`) against **Ollama Cloud** (ollama.com's
+Anthropic-compatible endpoint) — a paid, metered, external provider (`ollama-cloud`),
+distinct from `anthropic` and from local (`hermit`). It authenticates from the
+container's tmpfs handoff of `OLLAMA_CLOUD_API_KEY`; the key never enters a unit,
+journal, worktree, image, or report. Like the mystic/fireworker/openrouter arms it
+ships at **zero** pool size and refuses unconstrained work: no automatic/unpinned job
+reaches it — it claims only a `provider: ollama-cloud` canary or a `model: qwen3.5:cloud`
+pin. Its sole current row is Qwen 3.5 (`qwen3.5:cloud`) at **minion**. Design:
+[`designs/claude-ollama-cloud-worker-kind.md`](../../designs/claude-ollama-cloud-worker-kind.md);
+activation: [`context/operations/ollama-cloud.md`](../../context/operations/ollama-cloud.md).
 
 ## Current route
 

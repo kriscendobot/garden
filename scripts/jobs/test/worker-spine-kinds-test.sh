@@ -108,7 +108,17 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field opencode-anthropic handler)" = "handlers/opencode.sh" ] && ok "opencode-anthropic handler" || bad "opencode-anthropic handler"
 [ "$(worker_kind_field opencode-anthropic provider)" = "anthropic" ] && ok "opencode-anthropic provider" || bad "opencode-anthropic provider"
 [ "$(worker_kind_field opencode-anthropic count_key)" = "opencode_anthropic_workers" ] && ok "opencode-anthropic count key" || bad "opencode-anthropic count key"
-[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter,openrouter-promo,opencode-anthropic" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+# friar = Claude Code (SAME monk handler, reused) pointed at Ollama Cloud — provider
+# ollama-cloud, a paid metered external arm DISTINCT from anthropic (real API) and
+# local (hermit's free box), its own unit/count/state namespace.
+[ "$(worker_kind_field friar handler)" = "handlers/monk-claude.sh" ] && ok "friar reuses the monk claude handler" || bad "friar handler ($(worker_kind_field friar handler))"
+[ "$(worker_kind_field friar agent_bin)" = "claude" ] && ok "friar agent_bin claude" || bad "friar agent_bin"
+[ "$(worker_kind_field friar provider)" = "ollama-cloud" ] && ok "friar provider ollama-cloud" || bad "friar provider"
+[ "$(worker_kind_field friar unit)" = "garden-friar@" ] && ok "friar unit prefix" || bad "friar unit"
+[ "$(worker_kind_field friar count_key)" = "friars" ] && ok "friar count_key" || bad "friar count_key"
+[ "$(worker_kind_field friar state_ns)" = "friars" ] && ok "friar state_ns" || bad "friar state_ns"
+[ "$(worker_kind_field friar label)" = "garden-friar" ] && ok "friar self-heal label" || bad "friar label"
+[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter,openrouter-promo,opencode-anthropic,friar" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
 [ "$(canonical_worker_kind openrouter-promo)" = "openrouter-promo" ] && ok "canonical_worker_kind passes openrouter-promo through" || bad "canonical_worker_kind openrouter-promo"
 # canonical_worker_kind: the SOLE decoder. v1 gardener -> monk; known v2 unchanged;
 # unknown / contradictory rejected with no silent fallback.
@@ -116,7 +126,8 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(canonical_worker_kind monk)" = monk ] && ok "canonical: monk -> monk" || bad "canonical monk"
 [ "$(canonical_worker_kind cleric)" = cleric ] && ok "canonical: cleric unchanged" || bad "canonical cleric"
 canonical_worker_kind gardener 2 >/dev/null 2>&1 && bad "canonical: v2-schema gardener must reject" || ok "canonical: v2-schema gardener rejected (no such v2 spelling)"
-canonical_worker_kind friar >/dev/null 2>&1 && bad "canonical: unknown must reject" || ok "canonical: unknown kind rejected (no silent fallback)"
+[ "$(canonical_worker_kind friar)" = friar ] && ok "canonical: friar -> friar (Ollama Cloud kind)" || bad "canonical friar"
+canonical_worker_kind phantom >/dev/null 2>&1 && bad "canonical: unknown must reject" || ok "canonical: unknown kind rejected (no silent fallback)"
 canonical_worker_kind monk 2 openai >/dev/null 2>&1 && bad "canonical: contradictory provider must reject" || ok "canonical: contradictory kind/provider tuple rejected"
 [ "$(canonical_worker_kind monk 2 anthropic)" = monk ] && ok "canonical: monk/anthropic tuple accepted" || bad "canonical monk/anthropic"
 # anthropic_active_kind: monks: wins, else the legacy gardeners:; never both.
@@ -127,7 +138,7 @@ printf 'monks: 2\ngardeners: 3\n' > "$AAK_D/both"; [ "$(anthropic_active_kind "$
 rm -rf "$AAK_D"
 ( GARDEN_STATE=/tmp/x; [ "$(worker_busy_marker cleric 3)" = "/tmp/x/clerics/3/busy" ] ) && ok "cleric busy marker under clerics/ ns" || bad "cleric busy marker path"
 ( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/gardeners/3/busy" ] ) && ok "gardener busy marker back-compat wrapper" || bad "gardener busy marker wrapper"
-worker_kind_field friar handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'friar' → non-zero (registry rejects)"
+worker_kind_field phantom handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'phantom' → non-zero (registry rejects)"
 
 # ============================================================================
 hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; hr
@@ -281,7 +292,7 @@ hr; echo "POLICY INVARIANTS — no IMPLICIT Fable; K3 is an explicit-only trial 
 FABLE_ID="$(resolve_model_tier anthropic fable)"
 [ "$FABLE_ID" = "claude-fable-5" ] && ok "fable tier still BINDS (explicit model: fable honored)" || bad "fable tier binding ($FABLE_ID)"
 fable_default_leak=0
-for k in gardener cleric hermit mystic fireworker openrouter openrouter-promo; do
+for k in gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; do
   for r in designer builder fixer weaver conductor shepherd researcher scholar triager cleaner journalist orchestrator; do
     if [ "$(role_default_model "$k" "$r")" = "$FABLE_ID" ]; then
       bad "IMPLICIT Fable default leaked: kind=$k role=$r resolves to $FABLE_ID"
@@ -300,6 +311,19 @@ for r in designer builder fixer researcher scholar triager; do
   [ -z "$(role_default_model mystic "$r")" ] || bad "mystic role default must be empty (zero-default K3): role=$r"
 done
 ok "mystic zero-default across roles (K3 never an implicit choice)"
+# friar (Ollama Cloud) is likewise zero-default: a paid metered arm must never be an
+# implicit role choice — it claims only an explicit ollama-cloud pin / provider canary.
+for r in designer builder fixer researcher scholar triager; do
+  [ -z "$(role_default_model friar "$r")" ] || bad "friar role default must be empty (zero-default paid arm): role=$r"
+done
+ok "friar zero-default across roles (Ollama Cloud never an implicit choice)"
+# ollama-cloud tier map: the onboarded cloud tag binds at its inventory tier, a
+# claude-* id NEVER binds (the endpoint serves Ollama tags, not real Claude models),
+# and there is no fleet/role default (explicit-model-only).
+[ "$(resolve_model_tier ollama-cloud qwen3.5:cloud)" = "qwen3.5:cloud" ] && ok "ollama-cloud binds its onboarded cloud tag" || bad "ollama-cloud cloud tag ($(resolve_model_tier ollama-cloud qwen3.5:cloud))"
+[ -z "$(resolve_model_tier ollama-cloud claude-opus-4-8)" ] && ok "ollama-cloud rejects a real Claude id (no cross-provider leak onto the Ollama endpoint)" || bad "ollama-cloud leaked a claude id"
+[ "$(tier_model_for_provider minion ollama-cloud)" = "qwen3.5:cloud" ] && ok "minion ollama-cloud resolves to the onboarded cloud tag" || bad "minion ollama-cloud resolution"
+[ -z "$(model_routing_default ollama-cloud)" ] && ok "ollama-cloud has no fleet default (explicit-model-only)" || bad "ollama-cloud unexpectedly has a fleet default"
 # No non-mystic kind can even bind the BARE k3 id via its provider tier map. The
 # fireworks provider is included: a Fireworks-served K3 is reached by its namespaced
 # `fireworks/accounts/fireworks/models/kimi-k3` id, never by the bare `kimi-k3` pin
@@ -458,6 +482,21 @@ elig_case opencode-anthropic unpinnedoc "" left
 elig_case opencode-anthropic tieronlyoc "tier: minion" left
 elig_case opencode-anthropic foreignoc "model: terra" left
 elig_case monk foreignocroute "model: opencode-anthropic/haiku" left
+# friar (Ollama Cloud): explicit-model-only paid lane, like mystic. It claims ONLY a
+# job that pins an onboarded ollama-cloud tag OR names `provider: ollama-cloud`; it
+# never absorbs unpinned/tier-only work (that would spend the maintainer's key) and it
+# stays off high-stakes build/design routing. A foreign kind never takes an
+# ollama-cloud pin.
+elig_case friar   pinnedfriar     "model: qwen3.5:cloud"                          claimed
+elig_case friar   constrainedfriar $'provider: ollama-cloud\ntier: minion'        claimed
+elig_case friar   unpinnedfriar   ""                                              left
+elig_case friar   tieronlyfriar   "tier: minion"                                  left
+elig_case friar   foreignfriar    $'provider: moonshot\ntier: mentor'             left
+elig_case friar   builderfriar    $'model: qwen3.5:cloud\nrole: builder'          left
+elig_case friar   designerfriar   $'model: qwen3.5:cloud\nrole: designer'         left
+elig_case monk    foreignollama   "model: qwen3.5:cloud"                          left
+elig_case cleric  foreignollama2  "model: qwen3.5:cloud"                          left
+elig_case hermit  foreignollama3  "model: qwen3.5:cloud"                          left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -487,7 +526,7 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic; do
+for kind in monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=monk' "$RT/garden-monk@.service" && ok "monk unit sets GARDEN_WORKER_KIND=monk" || bad "monk kind env"
@@ -508,6 +547,10 @@ grep -q 'self-heal-run.sh garden-openrouter ' "$RT/garden-openrouter@.service" &
 grep -q 'GARDEN_WORKER_KIND=openrouter-promo' "$RT/garden-openrouter-promo@.service" && ok "openrouter-promo unit sets GARDEN_WORKER_KIND=openrouter-promo" || bad "openrouter-promo kind env"
 grep -q 'self-heal-run.sh garden-openrouter-promo ' "$RT/garden-openrouter-promo@.service" && ok "openrouter-promo ExecStart labels self-heal garden-openrouter-promo" || bad "openrouter-promo self-heal label"
 grep -q 'GARDEN_WORKER_KIND=opencode-anthropic' "$RT/garden-opencode-anthropic@.service" && ok "opencode-anthropic unit kind" || bad "opencode-anthropic kind env"
+# friar renders from the SAME single template (no per-kind source), reusing the monk
+# claude handler but under its own unit/kind identity.
+grep -q 'GARDEN_WORKER_KIND=friar' "$RT/garden-friar@.service" && ok "friar unit sets GARDEN_WORKER_KIND=friar" || bad "friar kind env"
+grep -q 'self-heal-run.sh garden-friar ' "$RT/garden-friar@.service" && ok "friar ExecStart labels self-heal garden-friar" || bad "friar self-heal label"
 rm -rf "$RT"
 
 # The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
@@ -524,6 +567,7 @@ export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale openrouter 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale openrouter-promo 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale opencode-anthropic 1 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale friar 1 >/dev/null 2>&1
 gm=$(grep -c '^garden-monk@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
@@ -533,6 +577,7 @@ gf=$(grep -c '^garden-fireworker@1\.service$' "$GARDEN_MOCK_STATE" || true)
 go=$(grep -c '^garden-openrouter@1\.service$' "$GARDEN_MOCK_STATE" || true)
 gp=$(grep -c '^garden-openrouter-promo@1\.service$' "$GARDEN_MOCK_STATE" || true)
 goc=$(grep -c '^garden-opencode-anthropic@1\.service$' "$GARDEN_MOCK_STATE" || true)
+gr=$(grep -c '^garden-friar@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gm" -eq 2 ] && ok "scale monk 2 -> garden-monk@{1,2} armed (canonical Anthropic pool renders + scales)" || bad "monk scale (@1-2=$gm)"
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
@@ -542,6 +587,7 @@ goc=$(grep -c '^garden-opencode-anthropic@1\.service$' "$GARDEN_MOCK_STATE" || t
 [ "$go" -eq 1 ] && ok "scale openrouter 1 -> garden-openrouter@1 armed (OpenRouter pool independently scalable)" || bad "openrouter scale (@1=$go)"
 [ "$gp" -eq 1 ] && ok "scale openrouter-promo 1 -> garden-openrouter-promo@1 armed (stealth pool independently scalable)" || bad "openrouter-promo scale (@1=$gp)"
 [ "$goc" -eq 1 ] && ok "scale opencode-anthropic 1 -> garden-opencode-anthropic@1 armed" || bad "opencode-anthropic scale (@1=$goc)"
+[ "$gr" -eq 1 ] && ok "scale friar 1 -> garden-friar@1 armed (Ollama Cloud pool independently scalable)" || bad "friar scale (@1=$gr)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1

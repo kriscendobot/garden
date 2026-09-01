@@ -89,8 +89,9 @@ gates dispatch and levels worker counts must read the same live figure for each.
 A **pool** is therefore `(provider[, account])`. Anthropic is one provider with two
 accounts (its two hosts); the others are one pool each today. The worker kinds map
 onto pools by provider: **monk** → Anthropic, **cleric** → OpenAI, **mystic** →
-Moonshot, **fireworker** → Fireworks, **hermit** → local (`skills/model-selection`).
-The generic gardener/Claude handler draws Anthropic.
+Moonshot, **fireworker** → Fireworks, **friar** → Ollama Cloud (metered), **hermit**
+→ local (`skills/model-selection`). The generic gardener/Claude handler draws
+Anthropic.
 
 **Per-host = per-account is already correct for our topology.** `usage-meter.sh`'s
 header carries a `TODO(multi-host)` warning that a per-host session-log sum

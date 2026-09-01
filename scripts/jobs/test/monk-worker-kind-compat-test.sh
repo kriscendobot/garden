@@ -52,7 +52,7 @@ hr; echo "DECODER — canonical_worker_kind, the SOLE worker-kind decoder"; hr
 [ "$(canonical_worker_kind cleric)"         = cleric ] && ok "cleric unchanged"                       || bad "cleric decode"
 [ "$(canonical_worker_kind hermit)"         = hermit ] && ok "hermit unchanged"                       || bad "hermit decode"
 canonical_worker_kind gardener 2 >/dev/null 2>&1 && bad "v2-schema 'gardener' must reject" || ok "v2-schema 'gardener' rejected (no such v2 spelling)"
-canonical_worker_kind friar     >/dev/null 2>&1 && bad "unknown kind must reject"          || ok "unknown kind rejected (no silent fallback)"
+canonical_worker_kind phantom   >/dev/null 2>&1 && bad "unknown kind must reject"          || ok "unknown kind rejected (no silent fallback)"
 canonical_worker_kind '' 2      >/dev/null 2>&1 && bad "empty kind must reject"            || ok "empty raw kind rejected"
 # The v1 Anthropic fixture decodes to the full monk/anthropic/claude identity.
 ck="$(canonical_worker_kind gardener)"

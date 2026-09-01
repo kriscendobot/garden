@@ -666,6 +666,29 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-opencode-anthropic" ;;
         *) return 1 ;;
       esac ;;
+    friar)
+      # Claude Code (the `claude` CLI, SAME handler as monk) pointed at Ollama Cloud's
+      # Anthropic-compatible endpoint (https://ollama.com) instead of the real
+      # Anthropic API. Its provider is `ollama-cloud` — a paid, metered, external
+      # surface DISTINCT from both `anthropic` (the real API, real prices) and `local`
+      # (hermit's free on-box Ollama), so its reputation, rate-card, tier map, and
+      # quota-throttle classification never pool with either. The handler is
+      # provider-parameterized: seeing provider=ollama-cloud it exports
+      # ANTHROPIC_BASE_URL/ANTHROPIC_AUTH_TOKEN (from OLLAMA_CLOUD_API_KEY) and clears
+      # ANTHROPIC_API_KEY before the same `claude -p` invocation monk uses — zero new
+      # handler file, mirroring hermit's reuse of the codex handler
+      # (designs/claude-ollama-cloud-worker-kind.md; common.sh § "adding a third
+      # backend").
+      case "$field" in
+        handler)   printf '%s\n' "handlers/monk-claude.sh" ;;
+        agent_bin) printf '%s\n' "claude" ;;
+        provider)  printf '%s\n' "ollama-cloud" ;;
+        unit)      printf '%s\n' "garden-friar@" ;;
+        count_key) printf '%s\n' "friars" ;;
+        state_ns)  printf '%s\n' "friars" ;;
+        label)     printf '%s\n' "garden-friar" ;;
+        *) return 1 ;;
+      esac ;;
     *) return 1 ;;
   esac
 }
@@ -681,12 +704,12 @@ worker_kind_field() {
 # whichever count line a host already declares. The two Anthropic pools are NEVER
 # both armed for one capacity slot: the scaler picks the host-active spelling with
 # anthropic_active_kind (monks: wins, else the legacy gardeners:) and skips the other.
-worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic; }
+worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; }
 
 # canonical_worker_kind <raw> [schema] [provider] — the ONLY worker-kind decoder
 # (design anthropic-worker-kind-monk.md § Journal contract). It resolves a raw
 # worker_kind token from a claim, event, or bid to its CANONICAL kind:
-#   * a known v2 kind (monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo) → itself, unchanged;
+#   * a known v2 kind (monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic|friar) → itself, unchanged;
 #   * v1 `gardener` (no schema, or schema 1) → `monk`, the Anthropic alias mapping;
 #   * anything else → non-zero, with NO silent fallback (an unknown v2 kind, or a
 #     `gardener` carrying an explicit v2 schema, is rejected so a contradictory
@@ -697,7 +720,7 @@ worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker ope
 canonical_worker_kind() {
   local raw="${1:-}" schema="${2:-}" provider="${3:-}" ck="" want=""
   case "$raw" in
-    monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic) ck="$raw" ;;
+    monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic|friar) ck="$raw" ;;
     gardener)
       case "$schema" in
         ''|1) ck="monk" ;;                 # v1 record: gardener IS the Anthropic monk
@@ -1338,6 +1361,16 @@ _worker_backend_probe_dispatch() {
     moonshot)
       declare -F kimi_provider_preflight >/dev/null 2>&1 || source "$handlers/kimi-provider-common.sh"
       kimi_provider_preflight scaler-probe ;;
+    ollama-cloud)
+      # The friar runs Claude Code against Ollama Cloud's Anthropic-compatible
+      # endpoint. Its credential is the maintainer-supplied OLLAMA_CLOUD_API_KEY (the
+      # bearer token the handler exports as ANTHROPIC_AUTH_TOKEN), NOT the real
+      # ANTHROPIC_API_KEY — so this probe is deliberately distinct from the anthropic
+      # branch's claude_auth_ok. READ-ONLY and token-free: the CLI must be on PATH and
+      # the key present. A missing key is an actionable operator fix (arm the key and
+      # rebuild the image), not a job defect.
+      command -v claude >/dev/null 2>&1 || { echo "claude not on PATH (friar backend)" >&2; return 1; }
+      [ -n "${OLLAMA_CLOUD_API_KEY:-}" ] || { echo "OLLAMA_CLOUD_API_KEY unset (friar backend needs the maintainer-supplied Ollama Cloud key)" >&2; return 1; } ;;
     fireworks)
       declare -F fireworks_provider_preflight >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
       fireworks_provider_preflight "$kind" scaler-probe ;;
@@ -5807,7 +5840,7 @@ job_provider_constraint() {
   local provider
   provider="$(plan_field "$1" provider)"
   [ -n "$provider" ] || return 1
-  case "$provider" in anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo) printf '%s\n' "$provider";; *) return 1;; esac
+  case "$provider" in anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo|ollama-cloud) printf '%s\n' "$provider";; *) return 1;; esac
 }
 
 job_provider_is_constrained() { [ -n "$(plan_field "$1" provider)" ]; }
@@ -5889,6 +5922,7 @@ _model_routing_table() {
     'openai	gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra' \
     'local	qwen3.6	qwen3.6' \
     'moonshot	kimi-k3' \
+    'ollama-cloud	qwen3.5:cloud' \
     'fireworks	fireworks/accounts/fireworks/models/glm-5p2	' \
     'openrouter	openrouter/z-ai/glm-5.2:free	'
 }
@@ -5967,7 +6001,7 @@ model_routing_default() {
 resolve_model_tier() {
   local provider tier
   case "${1:-}" in
-    anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo) provider="$1"; tier="${2:-}" ;;
+    anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo|ollama-cloud) provider="$1"; tier="${2:-}" ;;
     *)                      provider="anthropic"; tier="${1:-}" ;;
   esac
   case "$provider" in
@@ -6004,6 +6038,15 @@ resolve_model_tier() {
       # Mystic is activation-only. An abbreviated `model: k3` must not silently
       # select it: only the concrete, explicit `model: kimi-k3` is valid.
       if [ "$tier" = "kimi-k3" ] && _model_classify moonshot "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
+    ollama-cloud)
+      # The friar serves Ollama Cloud model TAGS through Claude Code (e.g.
+      # `qwen3.5:cloud`). Like the local provider there are no short tier aliases: a
+      # concrete served cloud tag passes through iff the closed inventory CLASSIFIES it
+      # as ollama-cloud, so an un-onboarded tag fails closed exactly like an unreviewed
+      # selector. A `claude-*` id is NEVER an ollama-cloud id (the table's anthropic
+      # rows own those), so a friar cannot be tricked into requesting a real Claude
+      # model against the Ollama endpoint (designs/claude-ollama-cloud-worker-kind.md).
+      if _model_classify ollama-cloud "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     fireworks)
       # The namespace is required, but the closed inventory still decides whether
       # this exact Fireworks selector is eligible.
@@ -6044,7 +6087,7 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic) kind="$1"; role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic|friar) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
@@ -6106,6 +6149,13 @@ role_default_model() {
       printf '%s\n' "" ;;
     opencode-anthropic)
       # Paid canary lane: explicit model pins only.
+      printf '%s\n' "" ;;
+    friar)
+      # Explicit model only. The friar is a PAID, metered external arm (Ollama Cloud),
+      # so no role may implicitly bind to it and start spending against the
+      # maintainer's key: an unpinned/role-only job is left for the flat-cost monk or
+      # the free hermit. A friar claims only a job whose `model:` names an onboarded
+      # ollama-cloud cloud tag (claim-job.sh eligibility fence).
       printf '%s\n' "" ;;
     *) printf '%s\n' "" ;;
   esac
@@ -6198,7 +6248,7 @@ tier_rank() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic) role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic|friar) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

@@ -15,7 +15,7 @@
 #   <provider>  <patterns>  <fleet-default-model>
 # provider  — the worker kind's provider (worker_kind_field <kind> provider):
 #             anthropic (gardener), openai (cleric), local (hermit), moonshot (mystic),
-#             fireworks (fireworker), openrouter (openrouter).
+#             fireworks (fireworker), openrouter (openrouter), ollama-cloud (friar).
 # patterns  — space-separated shell globs matched against a job's resolved `model:`
 #             value to decide which provider it PINS to. A leading `!` marks an
 #             EXCLUDE glob (matched → this provider does NOT own the id), so openai
@@ -38,6 +38,12 @@ openai	gpt-5.6-sol gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra
 local	qwen3.6	qwen3.6
 # Moonshot has no fleet default. Mystic claims only exact `model: kimi-k3` jobs.
 moonshot	kimi-k3
+# Ollama Cloud has no fleet default: the friar is a paid, metered external arm, so an
+# unpinned or role-only job is NEVER implicitly bound to it (it would spend the
+# maintainer's key). A friar claims only a job whose `model:` names an onboarded
+# ollama-cloud cloud tag. The pattern is the exact onboarded tag, no wildcard — a new
+# cloud tag stays unclassified until it earns a reviewed inventory row.
+ollama-cloud	qwen3.5:cloud
 # Fireworks has no fleet default. A reviewed exact selector is required; a new
 # Fireworks model stays unclassified until it is added to the closed inventory.
 fireworks	fireworks/accounts/fireworks/models/glm-5p2 fireworks/accounts/fireworks/models/kimi-k3 fireworks/accounts/fireworks/models/deepseek-v4-pro fireworks/accounts/fireworks/models/gpt-oss-120b

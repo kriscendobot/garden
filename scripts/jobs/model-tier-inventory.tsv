@@ -28,6 +28,14 @@ openai	gpt-5.5	minion
 openai	gpt-5.4-mini	minion
 moonshot	kimi-k3	mentor
 local	qwen3.6	minion	23938333577
+# Ollama Cloud (friar, provider ollama-cloud): Claude Code driven against the paid,
+# metered ollama.com endpoint. PROVISIONAL first onboard — the exact cloud tag(s) and
+# tier are an open question in designs/claude-ollama-cloud-worker-kind.md, to be
+# confirmed against the live ollama.com catalog + a capability probe. qwen3.5:cloud is
+# a strong coding tag verified present on the catalog 2026-09-01; classed at minion to
+# mirror the local qwen minion row. Per-instance edits go to config/model-routing on
+# journal2, not here. No `pull_bytes`: the model is hosted, never pulled to a host.
+ollama-cloud	qwen3.5:cloud	minion
 # Reviewed, live Fireworks selectors (one per tier where a fit exists).  This
 # namespace is garden routing metadata; the handler removes `fireworks/` before
 # sending the wire id.  Wildcard routing is deliberately forbidden.

@@ -18,7 +18,7 @@
 # THE INVARIANT UNDER TEST: a worker that cannot run a job never takes one.
 #
 #   SUBTEST 1  REGISTRY   — every worker kind declares the agent CLI its default
-#                           handler drives (gardener→claude, cleric/hermit/
+#                           handler drives (gardener/friar→claude, cleric/hermit/
 #                           fireworker→codex, mystic→kimi), so the ONE gate in the
 #                           spine covers every kind.
 #   SUBTEST 2  EDGE       — worker_health_gate refuses while the CLI is absent and
@@ -112,6 +112,7 @@ check_bin cleric     codex
 check_bin hermit     codex
 check_bin mystic     kimi
 check_bin fireworker codex
+check_bin friar      claude
 
 # Every kind the spine reconciles must be covered — a new kind added to
 # worker_kinds() without an agent_bin row would silently fail open (claim while

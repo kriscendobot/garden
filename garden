@@ -83,6 +83,9 @@ Environment:
   MOONSHOT_API_KEY    Forwarded to the container for hosted Kimi workers.
   FIREWORKS_API_KEY   Forwarded to the container for Fireworks workers.
   OPENROUTER_API_KEY  Forwarded to the container for OpenRouter workers.
+  OLLAMA_CLOUD_API_KEY Forwarded to the container for friar workers (Claude
+                      Code against Ollama Cloud, ollama.com). Distinct from the
+                      non-secret OLLAMA_API_KEY placeholder hermit/codex uses.
   GARDEN_IMAGE        Override image name (default: garden-<hostuser>, so the
                       per-user baked image never collides with another user's).
   GARDEN_CONTAINER    Expert override for the container name (default: the
@@ -266,6 +269,9 @@ ensure_container() {
         fi
         if [[ -n "${OPENROUTER_API_KEY:-}" ]]; then
             api_key_args+=(-e "OPENROUTER_API_KEY=${OPENROUTER_API_KEY}")
+        fi
+        if [[ -n "${OLLAMA_CLOUD_API_KEY:-}" ]]; then
+            api_key_args+=(-e "OLLAMA_CLOUD_API_KEY=${OLLAMA_CLOUD_API_KEY}")
         fi
 
         # Seed the container guard's SessionStart hook (host-side, only when

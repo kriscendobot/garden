@@ -87,6 +87,13 @@ schedule). The conversational first-run tour is the sibling tree,
   forwarding, status-only probe, NAMED-free-models-only closed inventory (stealth
   ids excluded), the terms/data-retention decision, and a bounded canary.
 
+- **[ollama-cloud.md](ollama-cloud.md)** — *"activate Ollama Cloud" / "run the
+  friar canary."* An explicit-model-only Claude Code → Ollama Cloud worker
+  (`friar`, provider `ollama-cloud`): the `OLLAMA_CLOUD_API_KEY` host env var
+  forwarded by `garden` → seed-api-key-handoff (needs an image rebuild),
+  zero-pool arming with `set-workers.sh friar N`, and a bounded paid-metered
+  canary.
+
 ## Convention
 
 Within-tree cross-references are relative; cross-tree references (skills,

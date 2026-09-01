@@ -20,7 +20,7 @@
 #   model   — GARDEN_JOB_MODEL, the model actually resolved for THIS job
 #             (exported by the handler from resolve_model_tier/role_default_model),
 #             not the role's nominal default. Empty ⇒ field omitted.
-#   harness — the worker kind's harness CLI (GARDEN_WORKER_KIND: gardener→claude,
+#   harness — the worker kind's harness CLI (GARDEN_WORKER_KIND: monk/gardener/friar→claude,
 #             cleric/hermit/fireworker/openrouter→codex, mystic→kimi). Empty ⇒ field omitted.
 #   garden  — the DEPLOYED sha from .garden-state/deploy/deployed-sha (the code that
 #             actually produced the behavior — NOT origin/main2 tip, which the
@@ -68,7 +68,7 @@ _prov_esc() {
 # An unknown/blank kind yields empty (field omitted, fail-open).
 _prov_harness() {
   case "${1-}" in
-    gardener)               printf 'claude' ;;
+    monk|gardener|friar)    printf 'claude' ;;
     cleric|hermit|fireworker|openrouter|openrouter-promo) printf 'codex' ;;
     opencode-anthropic)     printf 'opencode' ;;
     mystic)                 printf 'kimi' ;;

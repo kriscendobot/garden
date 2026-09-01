@@ -53,7 +53,8 @@ into the wall, and nothing restores the count. Accept and reuse, verbatim:
   may reach 0 only while a probe-qualified non-Claude class still claims work.
 - **Worker-kind registry (`common.sh` `worker_kind_field`/`worker_kinds`).** Each
   kind carries a `provider`: `monk`/`gardener` → `anthropic`, `cleric` → `openai`,
-  `hermit` → `local` (Ollama), `mystic` → `moonshot`, `fireworker` → `fireworks`.
+  `hermit` → `local` (Ollama), `mystic` → `moonshot`, `fireworker` → `fireworks`,
+  `friar` → `ollama-cloud` (paid Ollama Cloud, added 2026-09-01).
   This is how "throttle only the affected provider" is expressed mechanically.
 - **Fleet notice (`alert_maintainer`/`note_provider_quota`).** A cap already folds
   into ONE coalescing `provider-quota` maintainer notice carrying the limit type +
@@ -179,18 +180,29 @@ reset. Optional; the epoch is the authority.
   throttle preserves is *exactly* the non-`anthropic`/non-`openai` classes — Ollama
   is what **keeps claiming** while a paid provider is capped. A Claude or Codex cap
   MUST NOT throttle `hermit`; this is stated, not merely omitted.
-- **Manually-funded arms (`mystic`=moonshot/kimi, `fireworker`=fireworks, and paid
-  `cleric` credit) — a different failure shape, routed to a human.** Funding
-  exhaustion has **no programmatic reset time**. The discriminator is already in
-  hand: `is_provider_quota_text` may match, but **`provider_quota_reset_epoch`
-  returns nothing** (no parseable future reset — a billing/insufficient-funds/402
-  shape). In that case the design **does not** write an auto-restoring marker (there
-  is nothing valid to schedule); it routes to the maintainer inbox via
-  `alert_maintainer`/`note_provider_quota` ("needs funding, human action"). The host
-  may still stop claiming on that provider, but restoration is human-gated, never an
-  epoch that "can't possibly fire correctly." Presence-of-a-parseable-reset-epoch is
-  the single, existing, deterministic split between *"quota, will reset"* and
-  *"funding, needs a human."*
+- **Manually-funded arms (`mystic`=moonshot/kimi, `fireworker`=fireworks, `friar`=
+  ollama-cloud, and paid `cleric` credit) — a different failure shape, routed to a
+  human.** Funding exhaustion has **no programmatic reset time**. The discriminator is
+  already in hand: `is_provider_quota_text` may match, but
+  **`provider_quota_reset_epoch` returns nothing** (no parseable future reset — a
+  billing/insufficient-funds/402 shape). In that case the design **does not** write an
+  auto-restoring marker (there is nothing valid to schedule); it routes to the
+  maintainer inbox via `alert_maintainer`/`note_provider_quota` ("needs funding, human
+  action"). The host may still stop claiming on that provider, but restoration is
+  human-gated, never an epoch that "can't possibly fire correctly."
+  Presence-of-a-parseable-reset-epoch is the single, existing, deterministic split
+  between *"quota, will reset"* and *"funding, needs a human."*
+  - **`friar` (provider `ollama-cloud`) is explicitly NOT the local exclusion above.**
+    Even though a friar runs the `claude` CLI (like a monk) and points at an Ollama
+    endpoint (like a hermit), it is a **paid, metered, external** surface: it spends
+    the maintainer's Ollama Cloud key and *will* emit real rate-limit/quota errors,
+    unlike `hermit`'s free local compute which never emits a cap signature. So
+    `ollama-cloud` gets a throttle classification, and it is sized as a manually-funded
+    arm (this bullet), not pooled with `anthropic` (whose caps auto-restore on a
+    parsed reset epoch) and not excluded like `local`. If Ollama Cloud ever surfaces a
+    Claude-Code-worded cap that names a parseable UTC reset, the friar rides the same
+    `provider_quota_reset_epoch` self-restoring path as any other provider by
+    construction — the split is mechanical, not per-provider.
 
 ## Interaction with existing mechanisms
 

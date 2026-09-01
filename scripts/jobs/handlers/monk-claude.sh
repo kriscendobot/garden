@@ -25,6 +25,21 @@ source "$HERE/worker-common.sh"     # shared worktree lifecycle + prompt (anti-d
 
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 
+# --- worker kind + provider (this handler serves BOTH claude-backed kinds) -----
+#
+# The SAME claude handler drives two worker kinds, distinguished by their registry
+# `provider` field (common.sh worker-kind registry), exactly as cleric-codex.sh drives
+# the paid-OpenAI cleric and the LOCAL hermit off one file: the canonical Anthropic
+# `monk` (provider=anthropic, the real API) and the `friar` (provider=ollama-cloud),
+# Claude Code pointed at Ollama Cloud's Anthropic-compatible endpoint. Everything below
+# that differs between the two — the model-tier map it resolves against, the automatic
+# cost-ceiling downshift (an anthropic-only policy), and the auth environment injected
+# around the `claude -p` call — keys off $provider. The spine exports
+# GARDEN_WORKER_KIND; default to monk for a standalone invocation. The legacy
+# `gardener` spelling forwards here and resolves to provider=anthropic too.
+KIND="${GARDEN_WORKER_KIND:-monk}"
+provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo anthropic)"
+
 # --- per-job worktree (the HARD RULE: no development in the root tree) --------
 #
 # Every developing subagent works in its own git worktree off the dev branch,
@@ -195,18 +210,21 @@ if [ -n "$requested_tier" ]; then
   # An explicit `dispatch: manual` mentor job is honoured at mentor: a human
   # asking for Opus 5 by hand is not the automatic path this ceiling governs.
   serve_tier="$requested_tier"
-  if [ "$requested_tier" = mentor ] && [ "$(plan_field "$jobfile" dispatch)" != manual ]; then
+  if [ "$provider" = anthropic ] && [ "$requested_tier" = mentor ] && [ "$(plan_field "$jobfile" dispatch)" != manual ]; then
+    # The cost ceiling is an ANTHROPIC policy (claude-opus-4-8 is the automatic
+    # ceiling below the closed inventory's mentor-tier claude-opus-5). It does not
+    # apply to the friar, whose ollama-cloud tier map is priced separately.
     serve_tier=minion
     log "job '$base' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)"
   fi
-  resolved_model="$(tier_model_for_provider "$serve_tier" anthropic)"
+  resolved_model="$(tier_model_for_provider "$serve_tier" "$provider")"
   if [ -n "$resolved_model" ]; then
     model_args=(--model "$resolved_model"); log "job '$base' resolved tier '$requested_tier' -> claude --model $resolved_model"
   else
     log "job '$base' requested unavailable tier '$requested_tier'; falling back to the default model (no --model)"
   fi
 elif [ -n "$requested_role" ]; then
-  resolved_model="$(role_default_model "$requested_role")"
+  resolved_model="$(role_default_model "$KIND" "$requested_role")"
   if [ -n "$resolved_model" ]; then
     model_args=(--model "$resolved_model")
     log "job '$base' role '$requested_role' -> default model claude --model $resolved_model"
@@ -246,6 +264,30 @@ export GARDEN_JOB_BASE="$base"
 claude_cli="$(claude_bin)" \
   || die_environmental "claude CLI not found on PATH nor in any known install location after ${GARDEN_AGENT_BIN_ATTEMPTS} probes; cannot run default gardener handler for '$base'"
 
+# --- provider auth injection (the ONE thing that differs at the claude call) ---
+#
+# provider=anthropic (monk/gardener) runs against the real Anthropic API with the
+# ambient ANTHROPIC_API_KEY — the array stays EMPTY, so its invocation is byte-for-byte
+# what it always was. provider=ollama-cloud (friar) points the SAME `claude -p` at
+# Ollama Cloud's Anthropic-compatible endpoint instead: set ANTHROPIC_BASE_URL to
+# https://ollama.com, pass the maintainer-supplied OLLAMA_CLOUD_API_KEY as
+# ANTHROPIC_AUTH_TOKEN (Ollama Cloud wants `Authorization: Bearer`, NOT x-api-key), and
+# clear ANTHROPIC_API_KEY so the CLI cannot fall back to a real Anthropic key. The vars
+# are scoped to the child via `env NAME=VAL` on the invocation below — never exported
+# into the handler — so no other line of the run sees them. A missing key here is an
+# environmental defect (arm OLLAMA_CLOUD_API_KEY on the host and rebuild the image), so
+# it requeues rather than escalating the job.
+provider_auth_env=()
+if [ "$provider" = ollama-cloud ]; then
+  [ -n "${OLLAMA_CLOUD_API_KEY:-}" ] \
+    || die_environmental "OLLAMA_CLOUD_API_KEY unset; the friar (provider=ollama-cloud) cannot authenticate to Ollama Cloud for '$base'"
+  provider_auth_env=(
+    "ANTHROPIC_BASE_URL=https://ollama.com"
+    "ANTHROPIC_AUTH_TOKEN=$OLLAMA_CLOUD_API_KEY"
+    "ANTHROPIC_API_KEY="
+  )
+fi
+
 # The terminal JSON envelope is Claude's own cumulative accounting for exactly this
 # invocation. Keep it outside the report: the report remains the agent's .result,
 # while the code-only handoff gives gardener.sh the immutable measurement. Do not
@@ -255,9 +297,9 @@ envelope="$(mktemp "${TMPDIR:-/tmp}/garden-claude-envelope-$base.XXXXXX")"
 rusage="$(mktemp "${TMPDIR:-/tmp}/garden-claude-rusage-$base.XXXXXX")"
 set +e
 if [ -x /usr/bin/time ]; then
-  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
 else
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
 fi
 rc=$?
 set -e

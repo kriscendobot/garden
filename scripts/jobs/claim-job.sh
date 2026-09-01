@@ -98,7 +98,7 @@ job_eligible_for_kind() {
     # established pools. Keep hosted pools opt-in: they require their explicit
     # supported pin and never absorb this compatibility traffic.
     [ "$KIND" != mystic ] && [ "$KIND" != fireworker ] && [ "$KIND" != openrouter ] \
-      && [ "$KIND" != openrouter-promo ] && [ "$KIND" != opencode-anthropic ] \
+      && [ "$KIND" != openrouter-promo ] && [ "$KIND" != opencode-anthropic ] && [ "$KIND" != friar ] \
       && ! job_provider_is_constrained "$jf" && return 0
     return 1
   }
@@ -142,6 +142,18 @@ job_eligible_for_kind() {
   # `openrouter/<id>` pin is a FOREIGN provider to this kind and was already left.
   if [ "$KIND" = openrouter-promo ]; then
     job_provider_is_constrained "$jf" || [[ "$pin" == openrouter-promo/* ]] || return 1
+  fi
+  # The friar is an explicit-model-only, PAID, metered lane (Claude Code against Ollama
+  # Cloud): it never absorbs tier-only or unpinned work — that would spend the
+  # maintainer's key on a job a flat-cost monk or a free hermit could take — and, like
+  # mystic, it stays off high-stakes build/design routing until the arm has proven
+  # itself. It claims ONLY a job that names `provider: ollama-cloud` OR pins a model;
+  # the pin's provider-fit (that ollama-cloud actually owns the tag) is enforced by the
+  # resolve_model_tier check below.
+  if [ "$KIND" = friar ]; then
+    job_provider_is_constrained "$jf" || [ -n "$pin" ] || return 1
+    role="$(plan_field "$jf" role)"
+    case "$role" in builder|designer) return 1;; esac
   fi
   if [ -n "$pin" ]; then
     [ -n "$(resolve_model_tier "$KIND_PROVIDER" "$pin")" ]

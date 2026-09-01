@@ -283,6 +283,7 @@ rep_resolve_arm() {
       fireworks) model="fireworks-unconfigured" ;;
       openrouter) model="openrouter-unconfigured" ;;
       openrouter-promo) model="openrouter-promo-unconfigured" ;;
+      ollama-cloud) model="ollama-cloud-unconfigured" ;;
       *)      model="claude-default" ;;
     esac
   fi
