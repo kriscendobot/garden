@@ -86,3 +86,13 @@ still present in the garden root for the wider harness x provider survey
 this design sits inside of; its content is otherwise preserved in this job's
 sibling postings (`update-provider-model-catalog-matrix`,
 `probe-opencode-anthropic`) and this session's transcript.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T21:08:56Z
