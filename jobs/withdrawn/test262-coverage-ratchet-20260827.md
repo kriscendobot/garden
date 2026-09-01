@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: the test262 coverage ratchet schedule was retired at its 2026-08-28 maintainer deadline and is absent from journal2/schedules; this parked tick can never run (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:05:32Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
