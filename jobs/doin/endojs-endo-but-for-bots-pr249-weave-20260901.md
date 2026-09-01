@@ -58,3 +58,13 @@ either way.
 `#249` rebased onto current `llm` with conflicts resolved, plus an explicit
 statement of whether CI attached afterward and what that implies. Cite the
 commands and their output.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T19:37:31Z
