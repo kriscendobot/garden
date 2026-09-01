@@ -108,10 +108,10 @@ proceeding — this change forecloses rollback to the legacy pool.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=58,190 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=1 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
