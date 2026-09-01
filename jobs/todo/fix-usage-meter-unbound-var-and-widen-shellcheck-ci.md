@@ -70,16 +70,7 @@ widening plus the specific bug.
 
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=54,1579 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-01T21:05:53Z
+
+<!-- garden-reaped: 2 -->
