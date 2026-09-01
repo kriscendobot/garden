@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":31,"elapsed_s":272,"input_tokens":56,"output_tokens":15507,"cache_creation_tokens":67070,"cache_read_tokens":1981200,"total_cost_usd":2.052180999999999,"ts":"2026-09-01T23:20:39Z","base":"kriscendobot-minion-town-pr67-conduct-20260901","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
