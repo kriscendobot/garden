@@ -31,8 +31,9 @@
 #      `fix-local-verify-node24-eslint-parity` (endojs/endo-but-for-bots#1048).
 #  12. CI-only test:xs parity: every workspace's additive `test:xs` suite runs
 #      after its primary test under the Moddable release pinned by CI; the
-#      harness uses the explicitly provisioned xst rather than a mismatched host
-#      PATH entry, stays silent on success, and fails loud when no pin exists.
+#      harness initializes direct submodules like the CI checkout, uses the
+#      explicitly provisioned xst rather than a mismatched host PATH entry,
+#      stays silent on success, and fails loud when no pin exists.
 #  13. Additive package-uniformity parity: CI's lint-leg "Check package
 #      uniformity" step (`yarn test:package-uniformity && node
 #      scripts/check-package-uniformity.mjs`) is reconstructed from the parts
@@ -548,6 +549,14 @@ fi
 RXS="$TR/xs-parity"; mkdir -p "$RXS/.github/workflows" "$RXS/packages/a" "$RXS/packages/b"
 git -C "$RXS" init -q
 git -C "$RXS" config user.email t@localhost; git -C "$RXS" config user.name test
+XS_SUBMODULE_SOURCE="$TR/xs-submodule-source"
+mkdir -p "$XS_SUBMODULE_SOURCE/xs/sources"
+git -C "$XS_SUBMODULE_SOURCE" init -q
+git -C "$XS_SUBMODULE_SOURCE" config user.email t@localhost
+git -C "$XS_SUBMODULE_SOURCE" config user.name test
+printf '/* pinned XS oracle source */\n' > "$XS_SUBMODULE_SOURCE/xs/sources/xsAll.h"
+git -C "$XS_SUBMODULE_SOURCE" add xs/sources/xsAll.h
+git -C "$XS_SUBMODULE_SOURCE" commit -qm oracle
 cat > "$RXS/package.json" <<'PKG'
 { "name": "root", "workspaces": ["packages/*"],
   "scripts": { "test": "root-test-aggregator", "test:xs": "root-xs-aggregator" } }
@@ -576,6 +585,7 @@ case "$1:$2" in
     printf 'test:%s\n' "$PWD" >> "$XS_TRACE"
     ;;
   run:test:xs)
+    test -f "$XS_SUBMODULE_MARKER" || { echo "missing XS oracle submodule"; exit 1; }
     printf 'xs:%s:%s\n' "$PWD" "$(xst -v)" >> "$XS_TRACE"
     ;;
   *) exit 0 ;;
@@ -590,13 +600,24 @@ mkdir -p "$BAD_XST" "$GOOD_XST"
 printf '#!/bin/sh\necho "XS 17.9.1, host mismatch"\n' > "$BAD_XST/xst"
 printf '#!/bin/sh\necho "XS 15.5.1, pinned Moddable 5.0.0"\n' > "$GOOD_XST/xst"
 chmod +x "$BAD_XST/xst" "$GOOD_XST/xst" "$RXS/yarn-stub.sh"
+git -c protocol.file.allow=always -C "$RXS" submodule add -q \
+  "$XS_SUBMODULE_SOURCE" c/moddable
 git -C "$RXS" add -A; git -C "$RXS" commit -qm init >/dev/null
+git -C "$RXS" submodule deinit -q -f -- c/moddable
 XS_TRACE="$TR/xs-trace"
-oxs="$(XS_TRACE="$XS_TRACE" PATH="$BAD_XST:$PATH" GARDEN_XST="$GOOD_XST/xst" \
+XS_SUBMODULE_MARKER="$RXS/c/moddable/xs/sources/xsAll.h"
+[ ! -e "$XS_SUBMODULE_MARKER" ] \
+  && ok "fixture starts with its XS oracle submodule uninitialized" \
+  || bad "fixture submodule was already initialized"
+oxs="$(GIT_ALLOW_PROTOCOL=file XS_SUBMODULE_MARKER="$XS_SUBMODULE_MARKER" \
+  XS_TRACE="$XS_TRACE" PATH="$BAD_XST:$PATH" GARDEN_XST="$GOOD_XST/xst" \
   GARDEN_YARN="bash $RXS/yarn-stub.sh" "$LV" "$RXS" 2>&1)"; rcxs=$?
 [ "$rcxs" -eq 0 ] && [ -z "$oxs" ] \
   && ok "primary + test:xs workspace suites are silent on success" \
   || bad "test:xs success was not silent/zero (rc=$rcxs out=[$oxs])"
+[ -f "$XS_SUBMODULE_MARKER" ] \
+  && ok "test:xs initializes direct submodules like the CI checkout" \
+  || bad "test:xs left its required submodule uninitialized"
 [ "$(grep -c '^test:' "$XS_TRACE")" -eq 2 ] \
   && ok "runs every workspace primary test" || bad "primary workspace test count is not 2"
 [ "$(grep -c '^xs:' "$XS_TRACE")" -eq 2 ] \
@@ -611,7 +632,8 @@ grep -q 'root-' "$XS_TRACE" \
 # Removing the pin must fail rather than silently use the host binary.
 mv "$RXS/.github/workflows/ci.yml" "$RXS/.github/workflows/ci.disabled"
 XS_TRACE="$TR/xs-unpinned-trace"
-oxsu="$(XS_TRACE="$XS_TRACE" PATH="$BAD_XST:$PATH" GARDEN_XST="$GOOD_XST/xst" \
+oxsu="$(GIT_ALLOW_PROTOCOL=file XS_SUBMODULE_MARKER="$XS_SUBMODULE_MARKER" \
+  XS_TRACE="$XS_TRACE" PATH="$BAD_XST:$PATH" GARDEN_XST="$GOOD_XST/xst" \
   GARDEN_YARN="bash $RXS/yarn-stub.sh" "$LV" "$RXS" 2>&1)"; rcxsu=$?
 [ "$rcxsu" -ne 0 ] && printf '%s' "$oxsu" | grep -q 'STEP test-xs FAILED' \
   && ok "an unpinned test:xs suite fails loud" || bad "unpinned test:xs did not fail (rc=$rcxsu out=[$oxsu])"

@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-08-29
+updated: 2026-09-01
 author: gardener
 ---
 
@@ -184,7 +184,15 @@ root-`lint` gate stayed silent — a coverage gap of exactly the class
 ### XS runtime parity (the Moddable release)
 
 A discovered `test:xs` suite runs only with the Moddable release the project
-pins. The harness resolves that pin from `GARDEN_MODDABLE_VERSION`, then
+pins. Before provisioning the runtime, the harness runs `git submodule update
+--init --depth 1` when the project has `.gitmodules`. This mirrors a CI checkout
+with `submodules: true` and covers packages whose XS matrix builds an engine or
+oracle from a gitlink. It initializes direct submodules generically rather than
+naming a project-specific path. Initialization output is part of the step's
+discarded success capture or SHA-captured failure, so the harness remains silent
+when it succeeds.
+
+The harness resolves the Moddable pin from `GARDEN_MODDABLE_VERSION`, then
 `.moddable-version`, then a unique `MODDABLE_VERSION` value in
 `.github/workflows/*.yml` / `*.yaml`. It asks
 `scripts/jobs/provision-moddable-xst.sh` for that exact release and prepends only
@@ -201,6 +209,11 @@ project pin without requiring an image rebuild. Unsupported platforms, an
 ambiguous/missing pin, or a provisioning failure all fail as `STEP test-xs
 FAILED`, with the diagnosis SHA-captured like any other check. None fall back to
 the host binary.
+
+The garden image also supplies the current stable Rust toolchain through rustup.
+This matches GitHub's Ubuntu runner prerequisite for XS suites that launch Cargo
+to build another engine. `RUSTUP_HOME` is image-owned and writable by the garden
+user; Cargo's registry and build cache remain under the bind-mounted home.
 
 ## When to use
 
@@ -430,7 +443,10 @@ on any runner: a mismatched pin fails loud (`NODE RUNTIME PARITY`, non-zero) wit
 the steps proven **not** to run; a matching pin passes; `GARDEN_SKIP_NODE_PARITY`,
 `GARDEN_REQUIRED_NODE_MAJOR`, `GARDEN_NODE_LTS_LATEST`, `.nvmrc` fallback, and the
 adopt-a-discovered-runtime path (a fake nvm node on an exec-capable base) are each
-asserted. A package-uniformity group proves the additive check reconstructs CI's
+asserted. The XS fixture begins with a real direct git submodule uninitialized,
+requires its pinned source marker from every `test:xs` command, and proves the
+harness initializes it while retaining silent success. A package-uniformity
+group proves the additive check reconstructs CI's
 compound command from the parts present — the self-test script then the repo-root
 scan, in CI's order — that a tracked-file rejection by the repo scan (which no
 package.json script wraps) fails the step with both halves' output in the blob,

@@ -264,3 +264,13 @@ like one of these recurring classes.
   mutating the project's `lint` composition, which would double-run it on CI. The
   cleaner durable home is a single project-side wrap script (which the step's
   `PU_WRAP_SCRIPTS` candidates already prefer), left for the project to adopt.
+- _2026-09-01_: completed the environment half of the additive XS-suite fix.
+  A real run reached `@endo/hardened262`, then stopped before Ironhorse because
+  the garden image had no `cargo`; the isolated project worktree also retained
+  an uninitialized `c/moddable` gitlink even though CI checks out submodules.
+  The image now installs a current stable Rust toolchain through rustup, and the
+  `test-xs` preparation initializes every direct submodule with a shallow fetch
+  before provisioning xst. The harness does not name `c/moddable`: any project
+  whose XS suite depends on a direct gitlink gets the same checkout parity.
+  Submodule progress is captured and discarded on success, preserving the
+  silent gate contract.

@@ -57,8 +57,10 @@
 #   3. Otherwise the step is skipped (recorded, silent).
 #
 # `test:xs` is an additional suite, not an alternative spelling of `test`. When
-# present it runs under the Moddable release pinned by CI, provisioned into an
-# isolated tool cache; an unrelated host `xst` is never selected from PATH.
+# present, the harness initializes the project's direct submodules (matching a
+# CI checkout with `submodules: true`) and runs under the Moddable release pinned
+# by CI, provisioned into an isolated tool cache. An unrelated host `xst` is
+# never selected from PATH.
 #
 # `package-uniformity` is another additive check CI runs in its lint job OUTSIDE
 # `yarn lint` (the "Check package uniformity" step, `yarn test:package-uniformity
@@ -340,6 +342,22 @@ prepare_xst_runtime() {  # print the bin directory holding CI's pinned xst
   printf '%s\n' "$bin_dir"
 }
 
+prepare_xs_environment() {  # print the bin directory after CI checkout parity
+  # A package's test:xs command may build an engine or oracle from a gitlink.
+  # actions/checkout with `submodules: true` initializes every direct submodule
+  # before the suite; an isolated project worktree does not. Reproduce that
+  # prerequisite generically instead of teaching this harness a project path
+  # such as c/moddable. Git's ordinary progress goes to the step capture so a
+  # successful first checkout remains silent at the harness surface.
+  if [ -f "$wt/.gitmodules" ]; then
+    if ! git -C "$wt" submodule update --init --depth 1 >&2; then
+      printf 'XS WORKTREE PARITY: could not initialize the direct submodules required by the test:xs checkout.\n' >&2
+      return 1
+    fi
+  fi
+  prepare_xst_runtime
+}
+
 failures=0
 
 # Per-failure ledger backing the environment-fault check below: for every failed
@@ -356,7 +374,7 @@ run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
 
   out="$(mktemp "${TMPDIR:-/tmp}/local-verify-$step.XXXXXX")"
   if [ "$step" = test-xs ]; then
-    xst_bin="$(prepare_xst_runtime 2>"$out")"
+    xst_bin="$(prepare_xs_environment 2>"$out")"
     prep_rc=$?
   else
     prep_rc=0
@@ -426,7 +444,7 @@ run_workspace_tests() {  # run_workspace_tests <test-step>
 
   out="$(mktemp "${TMPDIR:-/tmp}/local-verify-$step.XXXXXX")"
   if [ "$step" = test-xs ]; then
-    if ! xst_bin="$(prepare_xst_runtime 2>>"$out")"; then
+    if ! xst_bin="$(prepare_xs_environment 2>>"$out")"; then
       failed=1
     fi
   fi

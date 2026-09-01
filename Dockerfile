@@ -29,6 +29,7 @@ ARG NODE_MAJOR=22
 # scripts/jobs/provision-node-lts.sh.
 ARG NODE_LTS_MAJOR=24
 ARG MODDABLE_VERSION=5.0.0
+ARG RUST_TOOLCHAIN=stable
 ARG GO_VERSION=1.23.6
 ARG DOTFILES_REPO=https://github.com/kriskowal/dotfiles.git
 ARG VUNDLE_REPO=https://github.com/VundleVim/Vundle.vim.git
@@ -128,6 +129,26 @@ RUN chmod +x /usr/local/lib/garden/provision-moddable-xst.sh \
     && GARDEN_XST_SYSTEM_ROOT=/opt/moddable \
        GARDEN_XST_CACHE_ROOT=/opt/moddable \
        /usr/local/lib/garden/provision-moddable-xst.sh "$MODDABLE_VERSION"
+
+# Rust is a test-xs prerequisite in projects whose XS coverage includes a Rust
+# engine. GitHub's Ubuntu runner supplies a current stable cargo, so install the
+# same moving stable channel rather than Ubuntu's older apt snapshot. Keep the
+# toolchain under /opt because the runtime bind-mounts $HOME; only Cargo's
+# registry/build cache belongs in the user's normal $HOME/.cargo. The rustup
+# proxy in /usr/local/bin finds this image-owned toolchain through RUSTUP_HOME.
+# The user gains ownership after USERNAME exists below, which also preserves the
+# operator's ability to add a separately pinned nightly for fuzzing.
+ENV RUSTUP_HOME=/opt/rustup
+RUN curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs \
+        | CARGO_HOME=/opt/rustup-installer sh -s -- \
+            -y --no-modify-path --profile minimal --default-toolchain "$RUST_TOOLCHAIN" \
+    && install -m 755 /opt/rustup-installer/bin/rustup /usr/local/bin/rustup \
+    && for tool in cargo rustc rustdoc rustfmt clippy-driver; do \
+         ln -sfn rustup "/usr/local/bin/$tool"; \
+       done \
+    && cargo --version \
+    && rustc --version \
+    && rm -rf /opt/rustup-installer
 
 # Go toolchain
 RUN curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-$(dpkg --print-architecture).tar.gz \
@@ -289,6 +310,7 @@ RUN apt-get update && apt-get install -y \
 # (often 1000) is free.
 RUN userdel -r ubuntu 2>/dev/null || true \
     && useradd -m -s /bin/bash -u "${USER_UID}" -G sudo "${USERNAME}" \
+    && chown -R "${USERNAME}:${USERNAME}" /opt/rustup \
     && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Dotfiles in /opt so the bind mount can't mask them.
