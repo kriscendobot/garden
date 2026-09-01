@@ -3385,7 +3385,10 @@ EOF
   GHII_FAIL="$GHII/gh-definitive-fail"
   cat > "$GHII_FAIL" <<'EOF'
 #!/bin/bash
-printf '%s\n' 'gh api: HTTP 401: Bad credentials' >&2
+# HTTP 401 / "Bad credentials" is deliberately transient: GitHub can emit it
+# while an installation token rotates. Use a real client-side 422 here so this
+# fixture exercises the definitive (no-retry) diagnostic path it claims to test.
+printf '%s\n' 'gh api: HTTP 422: Unprocessable Content' >&2
 exit 1
 EOF
   chmod +x "$GHII_FAIL"
@@ -3396,7 +3399,7 @@ EOF
     GARDEN_ISSUE_SOURCE="$JOBS/handlers/issue-source-gh.sh" GARDEN_GH="$GHII_FAIL" \
     GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
     "$JOBS/issue-inbox-watcher.sh" 2>&1 >/dev/null || true)"
-  grep -qE 'source: .*WARN: gh api repos/kriskowal/garden/issues\?.*failed \(definitive, rc=1\).*HTTP 401: Bad credentials' <<<"$g_death" \
+  grep -qE 'source: .*WARN: gh api repos/kriskowal/garden/issues\?.*failed \(definitive, rc=1\).*HTTP 422: Unprocessable Content' <<<"$g_death" \
     && ok "definitive source enumeration failure preserves gh API stderr in the tick death output" \
     || bad "definitive source enumeration stderr was swallowed (death: $g_death)"
 
