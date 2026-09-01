@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: target endojs/endo-but-for-bots#1059 is MERGED; this doom-parked job can never advance (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:05:23Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: fixer
