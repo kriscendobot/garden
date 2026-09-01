@@ -111,16 +111,7 @@ proceeding — this change forecloses rollback to the legacy pool.
 
 
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=29 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-01T22:55:09Z
+
+<!-- garden-reaped: 4 -->
