@@ -33,16 +33,7 @@ Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N
 
 
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=30,132 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-01T23:38:48Z
+
+<!-- garden-reaped: 4 -->

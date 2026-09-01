@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-01T23:45:12Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-01T23:45:12Z
+---
+
+---
 tier: mentor
 token-budget: 100000
 ---
@@ -104,25 +122,3 @@ health/worker-spine/auction-reputation suites) before pushing, and report
 which of it needed updating versus already passed. If any of the five gate
 facts above does NOT hold when you check it, stop and report back rather than
 proceeding — this change forecloses rollback to the legacy pool.
-
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=4 values=29,28 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-01T23:33:03Z
