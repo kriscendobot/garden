@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-01T19:14:33Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-01T19:14:33Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -98,15 +116,3 @@ health/worker-spine/auction-reputation suites) before pushing, and report
 which of it needed updating versus already passed. If any of the five gate
 facts above does NOT hold when you check it, stop and report back rather than
 proceeding — this change forecloses rollback to the legacy pool.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-01T18:31:52Z
