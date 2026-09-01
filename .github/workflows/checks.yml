@@ -34,18 +34,16 @@ jobs:
           sudo apt-get install -y shellcheck
           shellcheck --version
 
-      - name: shellcheck (daemons + watcher stub + checks gates + per-test scripts)
-        # Lint the in-PR bash artifacts. Scope is the daemon management
-        # wrappers, the stub feed watcher, the gardener-inbox error
-        # reporter, the pre-dispatch grep-gate runner and gates, the
-        # checks test harness, the two identity drift-guard tests (the
-        # sibling pair that leaked into the real maintainer inbox on
-        # 2026-07-28 — kept lint-clean so their hermetic-fixture layers
-        # cannot rot), and the reporter's own reachability test.
-        # Pre-existing scripts outside this scope have known
-        # issues; widening the lint surface is a separate effort.
+      - name: shellcheck (job entrypoints + gates + focused test scripts)
+        # Lint every jobs/ entrypoint, including usage-meter.sh, so adding a
+        # new production job script cannot silently bypass this required gate.
+        # The nested scripts/jobs/{handlers,gardening,test}/ trees remain
+        # excluded from shellcheck for now: their existing findings need a
+        # separate, behavior-sensitive cleanup. bash -n below still checks
+        # their syntax, and the focused job tests listed here stay linted.
         run: |
           shellcheck -S warning \
+            scripts/jobs/*.sh \
             scripts/daemons/start.sh \
             scripts/daemons/stop.sh \
             scripts/daemons/status.sh \

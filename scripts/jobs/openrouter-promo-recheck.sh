@@ -31,7 +31,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="openrouter-promo-recheck"
+export GARDEN_TAG="openrouter-promo-recheck"
 
 rel="${GARDEN_OPENROUTER_PROMOS_PATH:-config/openrouter-promos}"
 cadence="${GARDEN_OPENROUTER_PROMO_CADENCE_SECS:-86400}"

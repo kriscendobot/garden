@@ -29,7 +29,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="transcript-capture"
+export GARDEN_TAG="transcript-capture"
 
 require_tools git gzip jq sed
 

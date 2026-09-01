@@ -125,7 +125,7 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="fetch-source"
+export GARDEN_TAG="fetch-source"
 
 require_tools curl sha256sum jq gzip
 

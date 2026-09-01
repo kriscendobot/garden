@@ -58,7 +58,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="dependabotany-preflight"
+export GARDEN_TAG="dependabotany-preflight"
 
 : "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
@@ -210,7 +210,7 @@ fi
 
 dep_lc="$(printf '%s' "$GARDEN_DEPENDABOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
 open_dep=0
-while IFS=$'\t' read -r pr author head updated title; do
+while IFS=$'\t' read -r pr author _head _updated _title; do
   [ -n "$pr" ] || continue
   [ "$(printf '%s' "$author" | tr '[:upper:]' '[:lower:]')" = "$dep_lc" ] || continue
   open_dep=$((open_dep+1))

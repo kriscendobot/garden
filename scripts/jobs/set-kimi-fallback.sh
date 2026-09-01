@@ -21,7 +21,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-kimi-fallback"
+export GARDEN_TAG="set-kimi-fallback"
 
 state="${1:?usage: set-kimi-fallback.sh off}"
  [ "$state" = off ] || die "Kimi fallback is disabled while Moonshot credits are exhausted; only 'off' is allowed"

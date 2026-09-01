@@ -129,6 +129,7 @@ pr_job_marker_rewrite_argv() {
       [ "$from_stdin" -eq 1 ] || return 1
       local tmp; tmp="$(_prjm_mktemp)" || return 1
       printf '%s' "$body" > "$tmp" || return 1
+      # shellcheck disable=SC2034 # Caller executes the rewritten argv.
       PRJM_NEWARGV=("${keep[@]}" --body-file "$tmp")
       return 0 ;;
   esac
@@ -136,6 +137,7 @@ pr_job_marker_rewrite_argv() {
   local newbody; printf -v newbody '%s\n\n%s' "$body" "$marker"
   local tmp; tmp="$(_prjm_mktemp)" || return 1
   printf '%s' "$newbody" > "$tmp" || return 1
+  # shellcheck disable=SC2034 # Caller executes the rewritten argv.
   PRJM_NEWARGV=("${keep[@]}" --body-file "$tmp")
   return 0
 }

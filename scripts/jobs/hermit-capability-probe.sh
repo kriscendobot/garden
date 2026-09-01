@@ -34,7 +34,7 @@ source "$HERE/auction.sh"     # reputation.sh helpers (rep_*) + JOBS_* (source-o
 # shellcheck source=handlers/worker-common.sh
 source "$HERE/handlers/worker-common.sh"   # worker_worktree_path / worker_ensure_worktree
 
-GARDEN_TAG="hermit-probe"
+export GARDEN_TAG="hermit-probe"
 
 base="${1:?usage: hermit-capability-probe.sh <base> <jobfile>}"
 jobfile="${2:?missing jobfile}"

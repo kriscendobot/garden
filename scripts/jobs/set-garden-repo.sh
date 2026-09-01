@@ -13,7 +13,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-garden-repo"
+export GARDEN_TAG="set-garden-repo"
 
 repo="${1:?usage: set-garden-repo.sh <owner/name>}"
 case "$repo" in

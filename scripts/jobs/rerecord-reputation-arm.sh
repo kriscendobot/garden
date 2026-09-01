@@ -62,7 +62,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 # shellcheck source=reputation.sh
 source "$HERE/reputation.sh"   # REP_* layout constants + rep_sanitize/rep_arm_relpath
-GARDEN_TAG="rerecord-reputation-arm"
+export GARDEN_TAG="rerecord-reputation-arm"
 
 usage() { die "usage: rerecord-reputation-arm.sh <old-arm-key> <new-arm-key> --authorized-by <login> [--dry-run]"; }
 
@@ -91,6 +91,8 @@ parse_key() {   # parse_key <key> <out-kind-var> <out-provider-var> <out-model-v
   [ -n "$k" ] && [ -n "$p" ] && [ -n "$m" ] || die "arm key '$key' has an empty kind/provider/model segment"
   printf -v "$2" '%s' "$k"; printf -v "$3" '%s' "$p"; printf -v "$4" '%s' "$m"
 }
+old_kind=""; old_provider=""; old_model=""
+new_kind=""; new_provider=""; new_model=""
 parse_key "$old_key" old_kind old_provider old_model
 parse_key "$new_key" new_kind new_provider new_model
 

@@ -22,7 +22,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="ollama-serve"
+export GARDEN_TAG="ollama-serve"
 OLLAMA_RESTART_BACKOFF_SECONDS="${GARDEN_OLLAMA_RESTART_BACKOFF_SECONDS:-60}"
 # The Ollama binary, pinnable with GARDEN_<NAME>_BIN like every other fleet CLI
 # (common.sh § agent-CLI resolution). A pin is AUTHORITATIVE and FAIL-CLOSED: an

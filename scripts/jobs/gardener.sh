@@ -42,7 +42,7 @@ id="${1:?usage: gardener.sh <id>}"
 KIND="$GARDEN_WORKER_KIND"
 export GARDEN_WORKER_KIND
 STATE_NS="$(worker_kind_field "$KIND" state_ns)" || die "unknown worker kind '$KIND'"
-GARDEN_TAG="$KIND/$id"
+export GARDEN_TAG="$KIND/$id"
 
 # --- git-escape ceiling (the root-repo-corruption backstop) ------------------
 # The root checkout ($GARDEN_ROOT) and the journal/ worktree SHARE ONE repo

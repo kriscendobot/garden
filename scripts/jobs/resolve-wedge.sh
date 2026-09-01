@@ -36,7 +36,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="resolve-wedge"
+export GARDEN_TAG="resolve-wedge"
 BRANCH="${1:-${GARDEN_MAIN_BRANCH:-main2}}"
 ROOT="$GARDEN_ROOT"
 REMOTE_REF="origin/$BRANCH"

@@ -39,7 +39,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 # shellcheck source=auction.sh
 source "$HERE/auction.sh"   # canonical_worker_kind's decode is used on live claims
-GARDEN_TAG="monk-migrate"
+export GARDEN_TAG="monk-migrate"
 
 action="${1:-status}"
 

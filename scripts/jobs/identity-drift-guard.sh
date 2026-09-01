@@ -40,7 +40,7 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="identity-drift-guard"
+export GARDEN_TAG="identity-drift-guard"
 
 # Marker recording the drift signature we last reported, so we post the loud
 # journal entry once per distinct drift state rather than once per tick. Lives

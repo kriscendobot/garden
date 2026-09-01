@@ -115,7 +115,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 slug="${1:?usage: dependabot-watcher.sh <repo-slug>}"
-GARDEN_TAG="dependabot-watcher/$slug"
+export GARDEN_TAG="dependabot-watcher/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 # dependabot's GitHub author login on a bump PR is the bracketed bot handle.
 : "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
@@ -264,7 +264,7 @@ parse_bump_title() {
 # The source's columns are: number author head_repo updated_at title. A dependabot
 # PR is identified by AUTHOR alone; the title only decides GROUPING.
 # DEPS lines: pr \t pkg \t old \t new  (the last three empty when the title did not parse).
-while IFS=$'\t' read -r pr author head updated title; do
+while IFS=$'\t' read -r pr author _head _updated title; do
   [ -n "$pr" ] || continue
   open_prs=$((open_prs+1))
 
@@ -305,8 +305,8 @@ run_compare() {  # run_compare <pkg> <old> <new> -> TSV on stdout; rc 1 = not es
 }
 
 preflight() {
-  local pkg members n top_line top_pr top_pkg top_old top_new
-  local m_pr m_pkg m_old m_new cmp status ahead behind upstream oref nref
+  local pkg members n top_line top_pr _top_pkg top_old top_new
+  local m_pr _m_pkg m_old m_new cmp status ahead behind upstream oref nref
   while IFS= read -r pkg; do
     [ -n "$pkg" ] || continue
     members="$(awk -F'\t' -v p="$pkg" '$2 == p' "$DEPS")"
@@ -316,11 +316,11 @@ preflight() {
     # The dominating member: greatest target version, ties broken by the higher PR
     # number (a literal re-open of the same bump — the later one is the live one).
     top_line="$(printf '%s\n' "$members" | sort -t$'\t' -k4,4V -k1,1n | tail -1)"
-    IFS=$'\t' read -r top_pr top_pkg top_old top_new <<< "$top_line"
+    IFS=$'\t' read -r top_pr _top_pkg top_old top_new <<< "$top_line"
     log "preflight: $n open dependabot PR(s) move '$pkg'; #$top_pr (-> $top_new) dominates"
     NOTE[$top_pr]="The watcher preflight found $n open dependabot PRs moving \`$pkg\`, and this one carries the greatest target ($top_new), so it is the live member. The sibling-PR half of the step-1 supersession check is already done; do not redo it."
 
-    while IFS=$'\t' read -r m_pr m_pkg m_old m_new; do
+    while IFS=$'\t' read -r m_pr _m_pkg m_old m_new; do
       [ -n "$m_pr" ] && [ "$m_pr" != "$top_pr" ] || continue
       # Do not spend an API call reconciling a PR whose job already exists — the
       # posting loop would skip it anyway.

@@ -8,7 +8,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-deadline-nudge"
+export GARDEN_TAG="set-deadline-nudge"
 
 action="${1:-status}"
 case "$action" in on|off|status) : ;; *) die "usage: set-deadline-nudge.sh on|off|status" ;; esac

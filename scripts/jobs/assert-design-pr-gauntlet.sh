@@ -41,7 +41,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="assert-design-pr-gauntlet"
+export GARDEN_TAG="assert-design-pr-gauntlet"
 
 base="${1:?base}"; jobfile="${2:?job file}"; report="${3:?completion report}"
 

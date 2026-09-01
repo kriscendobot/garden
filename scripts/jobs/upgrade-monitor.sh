@@ -18,7 +18,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="upgrade-monitor"
+export GARDEN_TAG="upgrade-monitor"
 
 git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null \
   || { log "fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?); skipping tick"; exit 0; }

@@ -42,7 +42,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="unblock"
+export GARDEN_TAG="unblock"
 : "${GARDEN_UNBLOCK_PR_STATE:=$HERE/handlers/mirror-pr-state-gh.sh}"
 
 require_tools git

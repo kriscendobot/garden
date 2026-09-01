@@ -17,7 +17,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="inbox-list"
+export GARDEN_TAG="inbox-list"
 
 DIR="${GARDEN_INBOXLIST_CLONE:-$GARDEN_STATE/inbox-list/journal}"
 ensure_clone "$DIR"

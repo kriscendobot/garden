@@ -15,7 +15,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 doer="${1:?usage: inbox-read.sh <doer>}"
-GARDEN_TAG="inbox-read/$doer"
+export GARDEN_TAG="inbox-read/$doer"
 DIR="${GARDEN_INBOX_CLONE:-$GARDEN_STATE/inbox/$doer/journal}"
 : "${GARDEN_INBOX_CLONE_RETRIES:=3}"
 

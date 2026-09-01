@@ -170,7 +170,8 @@ auction_write_bid() {
 # auction_list_bidders <dir> <base> — the bidder ids with a committed bid, one/line.
 auction_list_bidders() {
   local dir="${1:?}" base="${2:?}" bdir; bdir="$(auction_bid_dir "$base")"
-  ls -1 "$dir/$bdir" 2>/dev/null | grep -v -x '.gitkeep' | sed -n 's/\.md$//p' || true
+  find "$dir/$bdir" -mindepth 1 -maxdepth 1 -type f -name '*.md' -printf '%f\n' 2>/dev/null \
+    | sed -n 's/\.md$//p' || true
 }
 
 # auction_award_order <dir> <base> — the bidders ranked BEST-first by the award rule

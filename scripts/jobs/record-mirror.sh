@@ -39,7 +39,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="record-mirror"
+export GARDEN_TAG="record-mirror"
 
 up_ref="${1:?usage: record-mirror.sh <upstream owner/repo#N> <mirror owner/repo#M> [how]}"
 mir_ref="${2:?usage: record-mirror.sh <upstream owner/repo#N> <mirror owner/repo#M> [how]}"

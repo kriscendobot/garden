@@ -45,7 +45,7 @@ set -uo pipefail   # deliberately NOT -e: we must observe the child's rc, not di
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="self-heal"
+export GARDEN_TAG="self-heal"
 
 # --- tunables (all overridable) ---------------------------------------------
 : "${SELF_HEAL_THROTTLE_SECS:=1800}"   # min seconds between responders per signature

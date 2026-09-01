@@ -57,7 +57,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="minion-town-press-preflight"
+export GARDEN_TAG="minion-town-press-preflight"
 
 # The press whose ticks and usage this gate reasons over. Overridable for the test.
 : "${GARDEN_MT_PRESS_PREFIX:=minion-town-agenda-review}"

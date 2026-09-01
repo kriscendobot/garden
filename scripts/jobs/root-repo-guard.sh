@@ -115,7 +115,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="root-repo-guard"
+export GARDEN_TAG="root-repo-guard"
 
 # Overridable for tests; defaults to the real deployed root.
 : "${GARDEN_ROOT_GUARD_REPO:=$GARDEN_ROOT}"

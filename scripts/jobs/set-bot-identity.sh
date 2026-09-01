@@ -19,7 +19,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-bot-identity"
+export GARDEN_TAG="set-bot-identity"
 
 name="${1:?usage: set-bot-identity.sh <name> <email> [host]}"
 email="${2:?usage: set-bot-identity.sh <name> <email> [host]}"

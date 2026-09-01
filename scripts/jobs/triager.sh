@@ -34,7 +34,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 slug="${1:?usage: triager.sh <repo-slug>}"
-GARDEN_TAG="triager/$slug"
+export GARDEN_TAG="triager/$slug"
 : "${GARDEN_TRIAGE_HANDLER:=$HERE/handlers/triager-claude.sh}"
 : "${GARDEN_WATCH_REF:=}"   # empty → use the bare clone's HEAD branch
 # Consecutive-failure circuit-breaker threshold: after this many failures of the

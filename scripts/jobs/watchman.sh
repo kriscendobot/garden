@@ -29,7 +29,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 # shellcheck source=wedge-resolve.sh
 source "$HERE/wedge-resolve.sh"
-GARDEN_TAG="watchman"
+export GARDEN_TAG="watchman"
 : "${GARDEN_MAIN_BRANCH:=main2}"
 : "${GARDEN_AGGRESSIVE_CHECKOUT:=0}"
 : "${GARDEN_WATCH_HANDLER:=$HERE/handlers/watchman-claude.sh}"

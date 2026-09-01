@@ -73,7 +73,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="clone-keeper"
+export GARDEN_TAG="clone-keeper"
 
 # Tracked bare clones, one per line: "<dir>|<remote>|<branch>[|<clone-url>]". <dir>
 # is relative to GARDEN_ROOT (or absolute). <remote> is the FETCH source of the

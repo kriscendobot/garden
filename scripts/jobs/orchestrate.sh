@@ -76,7 +76,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="orchestrate"
+export GARDEN_TAG="orchestrate"
 
 require_tools git
 
@@ -676,7 +676,7 @@ advance_parallel() {  # <base> <policy> <child>...
     return 0
   fi
   # running: re-promote any still-parked child (idempotent safety net), then tally.
-  local done_count=0 active=0 parked=0 c st
+  local done_count=0 active=0 parked_count=0 c st
   local failed=()
   for c in "${kids[@]}"; do
     st="$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")"
@@ -686,7 +686,7 @@ advance_parallel() {  # <base> <policy> <child>...
       active|progressing)
         active=$((active+1)); set_orch_claim_host "$base" "$c" || true
         [ "$st" = progressing ] && { set_orch_reap_baseline "$base" "$c" || true; };;
-      parked) parked=$((parked+1)); "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1 || true;;
+      parked) parked_count=$((parked_count+1)); "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1 || true;;
       retry) log "orchestration '$base': child '$c' board snapshot unreadable/inconsistent; retrying next tick"; return 0;;
     esac
   done
@@ -694,7 +694,7 @@ advance_parallel() {  # <base> <policy> <child>...
   if [ "$terminal" -eq "$total" ]; then
     complete_done "$base" "$total" "parallel" "${failed[@]}"
   else
-    log "orchestration '$base': $done_count/$total done, ${#failed[@]} failed, $active in flight, $parked parked (parallel)"
+    log "orchestration '$base': $done_count/$total done, ${#failed[@]} failed, $active in flight, $parked_count parked (parallel)"
   fi
 }
 

@@ -36,7 +36,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="repo-watcher"
+export GARDEN_TAG="repo-watcher"
 
 # --- own-fork auto-provisioning (BEFORE the reconcile) -----------------------
 # Map this host's own-fork bare clones (worktrees/<owner>-<name>.git, owner in

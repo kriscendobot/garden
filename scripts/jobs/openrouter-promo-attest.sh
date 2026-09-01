@@ -29,7 +29,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="openrouter-promo-attest"
+export GARDEN_TAG="openrouter-promo-attest"
 
 wire="${1:?usage: openrouter-promo-attest.sh <wire-id> <tier> [attested-by]}"
 tier="${2:?usage: openrouter-promo-attest.sh <wire-id> <tier> [attested-by]}"

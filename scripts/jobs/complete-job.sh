@@ -29,7 +29,7 @@ base="${2:?missing basename}"
 report="${3:?missing report-file}"
 # The completing worker's kind, inherited from the spine (gardener.sh exports it).
 KIND="${GARDEN_WORKER_KIND:-gardener}"
-GARDEN_TAG="done/$id"
+export GARDEN_TAG="done/$id"
 [ -f "$report" ] || die "report file not found: $report"
 case "$base" in -*|*/*|.*|'') die "illegal basename: '$base'";; esac
 case "$handed_off" in -*|*/*|.*|*' '*) die "illegal handoff successor: '$handed_off'";; esac

@@ -36,7 +36,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 # shellcheck source=auction.sh
 source "$HERE/auction.sh"     # reputation.sh helpers (source-once guarded)
-GARDEN_TAG="rep-reduce"
+export GARDEN_TAG="rep-reduce"
 
 DIR="${GARDEN_REDUCER_CLONE:-$GARDEN_STATE/reducer/journal}"
 ensure_clone "$DIR"
@@ -44,7 +44,7 @@ sync_clone "$DIR"
 
 # --- 1. finalize pending events ---------------------------------------------
 finalize_pending() {
-  local pf base tgt accepted verdict rounds words human agentic aggregate
+  local pf base tgt accepted rounds words human agentic aggregate
   [ -d "$DIR/$REP_PENDING" ] || return 0
   shopt -s nullglob
   for pf in "$DIR/$REP_PENDING"/*.md; do

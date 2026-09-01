@@ -82,7 +82,7 @@ source "$HERE/deploy-restart.sh"
 source "$HERE/deploy-tree-swap.sh"
 # shellcheck source=deploy-release-boundary.sh
 source "$HERE/deploy-release-boundary.sh"
-GARDEN_TAG="deploy-garden"
+export GARDEN_TAG="deploy-garden"
 
 : "${GARDEN_DEPLOY_DRAIN_TIMEOUT:=600}"   # seconds to wait for the fleet to quiesce
 : "${GARDEN_DEPLOY_POLL:=5}"              # seconds between quiesce polls

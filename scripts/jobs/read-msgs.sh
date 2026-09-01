@@ -21,7 +21,7 @@ source "$HERE/common.sh"
 
 seen_key="${1:?usage: read-msgs.sh <seen-key> <address>...}"; shift
 [ "$#" -ge 1 ] || die "need at least one address to watch"
-GARDEN_TAG="monitor/$seen_key"
+export GARDEN_TAG="monitor/$seen_key"
 
 # Validate each address with the SAME grammar send-msg.sh enforces: one of the
 # four kinds (role/<name>, job/<base>, host/<GARDEN>, broadcast), and after the
@@ -55,7 +55,7 @@ new=0
 for addr in "$@"; do
   d="$DIR/msgs/$addr"
   [ -d "$d" ] || continue
-  for f in $(ls -1 "$d" 2>/dev/null | grep -v -x '.gitkeep' | sort); do
+  while IFS= read -r f; do
     id="$addr/$f"
     grep -qxF "$id" "$SEEN" && continue
     printf '========== message %s ==========\n' "$id"
@@ -63,7 +63,7 @@ for addr in "$@"; do
     printf '\n'
     printf '%s\n' "$id" >> "$SEEN"
     new=$((new+1))
-  done
+  done < <(find "$d" -mindepth 1 -maxdepth 1 -type f ! -name '.gitkeep' -printf '%f\n' 2>/dev/null | sort)
 done
 [ "$new" -gt 0 ] && log "$new new message(s)"
 [ "$new" -gt 250 ] && new=250

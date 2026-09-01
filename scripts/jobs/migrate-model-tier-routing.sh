@@ -3,7 +3,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
-GARDEN_TAG="migrate-model-tier-routing"
+export GARDEN_TAG="migrate-model-tier-routing"
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 for attempt in $(seq 1 50); do

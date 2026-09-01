@@ -12,7 +12,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="cursor-get"
+export GARDEN_TAG="cursor-get"
 
 key="${1:?usage: cursor-get.sh <key>}"
 case "$key" in /*|*..*|'') die "illegal cursor key '$key'";; esac

@@ -75,7 +75,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="follow-up"
+export GARDEN_TAG="follow-up"
 : "${GARDEN_FOLLOWUP_HANDLER:=$HERE/handlers/follow-up-claude.sh}"
 # Consecutive-failure ceiling before a wedged digest is quarantined (see below).
 : "${GARDEN_FOLLOWUP_MAX_RETRIES:=5}"

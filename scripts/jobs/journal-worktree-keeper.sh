@@ -117,7 +117,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="journal-worktree-keeper"
+export GARDEN_TAG="journal-worktree-keeper"
 
 # The shared journal worktree. Overridable for tests; defaults to the real one.
 : "${GARDEN_JOURNAL_WORKTREE:=$GARDEN_ROOT/journal}"

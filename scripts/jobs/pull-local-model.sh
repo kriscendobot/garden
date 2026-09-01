@@ -17,7 +17,7 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="pull-local-model"
+export GARDEN_TAG="pull-local-model"
 
 : "${GARDEN_SYSOP_LOCALMODEL_STATE:=$GARDEN_STATE/sysop/local-model}"
 : "${GARDEN_SYSOP_OLLAMA_BIN:=ollama}"

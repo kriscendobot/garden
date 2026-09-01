@@ -68,7 +68,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="design-pr-gauntlet-coverage-audit"
+export GARDEN_TAG="design-pr-gauntlet-coverage-audit"
 
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_DPGCA_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"

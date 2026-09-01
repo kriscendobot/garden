@@ -21,7 +21,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-transcripts-remote"
+export GARDEN_TAG="set-transcripts-remote"
 
 url="${1:?usage: set-transcripts-remote.sh <git-url>}"
 # Accept the git URL shapes we actually push over: scp-like ssh

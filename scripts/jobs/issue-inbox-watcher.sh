@@ -87,7 +87,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 
-GARDEN_TAG="issue-inbox"
+export GARDEN_TAG="issue-inbox"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_EXPLICIT_ADDRESS_REQUIRED:=1}"
 [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ] || _in_test_context \

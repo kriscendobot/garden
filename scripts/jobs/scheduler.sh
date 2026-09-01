@@ -13,7 +13,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="scheduler"
+export GARDEN_TAG="scheduler"
 
 # Keep schedule-declared handler budgets inside the same single-claim invariant
 # enforced by gardener.sh. A schedule is durable configuration, so reject an

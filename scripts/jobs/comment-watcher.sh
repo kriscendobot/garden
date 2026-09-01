@@ -213,7 +213,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 slug="${1:?usage: comment-watcher.sh <repo-slug>}"
-GARDEN_TAG="comment-watcher/$slug"
+export GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_EXPLICIT_ADDRESS_REQUIRED:=1}"
 [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ] || _in_test_context \

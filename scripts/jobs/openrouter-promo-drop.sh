@@ -15,7 +15,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="openrouter-promo-drop"
+export GARDEN_TAG="openrouter-promo-drop"
 
 wire="${1:?usage: openrouter-promo-drop.sh <wire-id>}"
 rel="${GARDEN_OPENROUTER_PROMOS_PATH:-config/openrouter-promos}"

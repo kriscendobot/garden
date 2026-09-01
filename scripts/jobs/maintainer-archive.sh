@@ -5,7 +5,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="maintainer-archive"
+export GARDEN_TAG="maintainer-archive"
 id="${1:?usage: maintainer-archive.sh <msgid>}"
 DIR="${GARDEN_MAINT_CLONE:-$GARDEN_STATE/maintainer/journal}"
 

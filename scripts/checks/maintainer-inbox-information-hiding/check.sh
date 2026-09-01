@@ -84,6 +84,7 @@ INBOX_ALLOWLIST=(
   roles/foreman/AGENT.md
   roles/gardener/AGENT.md
   roles/orchestrator/AGENT.md
+  roles/scholar/AGENT.md
   skills/message-bus/SKILL.md
   skills/at-mention-surveillance/SKILL.md
   skills/activity-feed-watcher/SKILL.md

@@ -8,7 +8,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="requirements-watch"
+export GARDEN_TAG="requirements-watch"
 : "${GARDEN_REQUIREMENTS_DWELL_SECS:=900}"
 DIR="${GARDEN_REQUIREMENTS_WATCH_CLONE:-$GARDEN_STATE/requirements-watch/journal}"
 STATE="$GARDEN_STATE/requirements-watch"

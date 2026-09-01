@@ -78,7 +78,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="bulletin"
+export GARDEN_TAG="bulletin"
 
 : "${GARDEN_BULLETIN_HANDLER:=$HERE/handlers/bulletin-claude.sh}"
 : "${GARDEN_BULLETIN_IDLE_SLEEP:=5}"

@@ -19,7 +19,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="mentor"
+export GARDEN_TAG="mentor"
 : "${GARDEN_MENTOR_HANDLER:=$HERE/handlers/mentor-claude.sh}"
 : "${GARDEN_MENTOR_REJECT_THRESHOLD:=3}"
 [[ "$GARDEN_MENTOR_REJECT_THRESHOLD" =~ ^[1-9][0-9]*$ ]] \

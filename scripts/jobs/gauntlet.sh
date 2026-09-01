@@ -68,7 +68,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="gauntlet"
+export GARDEN_TAG="gauntlet"
 
 require_tools git
 

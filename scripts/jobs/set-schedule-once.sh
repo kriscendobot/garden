@@ -17,7 +17,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-schedule-once"
+export GARDEN_TAG="set-schedule-once"
 
 name="${1:?usage: set-schedule-once.sh <name> <ISO-datetime> [prefix] [body-file]}"
 when="${2:?ISO-datetime}"

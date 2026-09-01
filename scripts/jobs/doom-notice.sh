@@ -45,7 +45,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="doom-notice"
+export GARDEN_TAG="doom-notice"
 
 base="${1:?usage: doom-notice.sh <base> <signature> [body-file]}"
 signature="${2:?usage: doom-notice.sh <base> <signature> [body-file]}"

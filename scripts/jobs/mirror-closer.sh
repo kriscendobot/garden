@@ -71,7 +71,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="mirror-closer"
+export GARDEN_TAG="mirror-closer"
 
 : "${GARDEN_MIRROR_PR_STATE:=$HERE/handlers/mirror-pr-state-gh.sh}"
 : "${GARDEN_MIRROR_CLOSE:=$HERE/handlers/mirror-close-gh.sh}"

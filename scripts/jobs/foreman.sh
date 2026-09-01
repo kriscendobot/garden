@@ -59,7 +59,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="foreman"
+export GARDEN_TAG="foreman"
 
 : "${GARDEN_FOREMAN_HANDLER:=$HERE/handlers/foreman-claude.sh}"
 # Seconds of sustained below-target capacity before a pump. ~a few minutes; tune

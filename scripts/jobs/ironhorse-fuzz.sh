@@ -63,7 +63,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="ironhorse-fuzz"
+export GARDEN_TAG="ironhorse-fuzz"
 
 : "${GARDEN_IRONHORSE_FUZZ_STATE:=$GARDEN_STATE/ironhorse-fuzz}"
 : "${GARDEN_IRONHORSE_FUZZ_CLONE:=$GARDEN_IRONHORSE_FUZZ_STATE/journal}"

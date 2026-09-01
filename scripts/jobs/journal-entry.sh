@@ -38,7 +38,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="entry"
+export GARDEN_TAG="entry"
 
 # Print the leading comment block as usage (mirrors land-journal-edit.sh).
 usage() { awk 'NR>1 && /^#/{sub(/^# ?/,"");print;next} NR>1{exit}' "$0"; }

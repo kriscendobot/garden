@@ -18,7 +18,7 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="root-maintenance"
+export GARDEN_TAG="root-maintenance"
 
 : "${GARDEN_SYSOP_MAINT_STATE:=$GARDEN_STATE/sysop/root-maintenance}"
 : "${GARDEN_SYSOP_MAINT_GUARD:=$HERE/root-repo-guard.sh}"

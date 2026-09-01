@@ -26,7 +26,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="send"
+export GARDEN_TAG="send"
 
 addr="${1:?usage: send-msg.sh <role/NAME|job/BASE|broadcast> [body-file]}"
 body_src="${2:-}"

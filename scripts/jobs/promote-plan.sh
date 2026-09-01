@@ -65,7 +65,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="promote-plan"
+export GARDEN_TAG="promote-plan"
 
 required_tada=()
 while [ $# -gt 0 ]; do

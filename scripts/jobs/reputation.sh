@@ -26,9 +26,9 @@ GARDEN_REPUTATION_SH_SOURCED=1
 # live under jobs/bids/ (auction.sh) alongside the lifecycle dirs.
 REP_ROOT="reputation"
 REP_EVENTS="$REP_ROOT/events"        # one event per completed base (single-writer: its own worker)
-REP_PENDING="$REP_ROOT/pending"      # completed but acceptance not yet known (finalized by the reducer)
+export REP_PENDING="$REP_ROOT/pending"      # completed but acceptance not yet known (finalized by the reducer)
 REP_ARMS="$REP_ROOT/arms"            # derived projections — recomputed by the reducer ONLY
-REP_VERDICTS="$REP_ROOT/verdicts"    # optional per-base acceptance override (a maintainer/PR signal drop)
+export REP_VERDICTS="$REP_ROOT/verdicts"    # optional per-base acceptance override (a maintainer/PR signal drop)
 REP_ADJUSTMENTS="$REP_ROOT/adjustments" # append-only, invoice/backfill cost corrections
 
 # rep_adjusted_agentic_dollars <journal-dir> <base> — print the most recent

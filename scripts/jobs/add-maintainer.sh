@@ -15,7 +15,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="add-maintainer"
+export GARDEN_TAG="add-maintainer"
 
 login="${1:?usage: add-maintainer.sh <login>}"
 case "$login" in *[!A-Za-z0-9-]*|'') die "illegal login '$login'";; esac

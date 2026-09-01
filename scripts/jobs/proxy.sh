@@ -55,7 +55,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="proxy"
+export GARDEN_TAG="proxy"
 : "${GARDEN_PROXY_HANDLER:=$HERE/handlers/proxy-claude.sh}"
 # Courtesy-comment poster for a PR blocker (pluggable for tests). Best-effort; the
 # load-bearing unblock trigger is the parked plan's blocked_on field, not this.

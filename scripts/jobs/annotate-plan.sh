@@ -72,7 +72,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="annotate-plan"
+export GARDEN_TAG="annotate-plan"
 
 # die with a caller-chosen exit code, so "not parked" (3) is distinguishable from
 # "bad usage" (1) by a script that branches on it.

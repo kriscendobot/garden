@@ -46,7 +46,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="send-host-op"
+export GARDEN_TAG="send-host-op"
 
 : "${GARDEN_SYSOP_SEND:=$HERE/send-msg.sh}"
 

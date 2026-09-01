@@ -39,7 +39,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="snooze-schedule"
+export GARDEN_TAG="snooze-schedule"
 
 name="${1:?usage: snooze-schedule.sh <name> <until>}"
 until_spec="${2:?usage: snooze-schedule.sh <name> <until>}"

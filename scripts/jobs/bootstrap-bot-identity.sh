@@ -28,7 +28,7 @@ set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="bootstrap-bot-identity"
+export GARDEN_TAG="bootstrap-bot-identity"
 
 name="" email=""
 

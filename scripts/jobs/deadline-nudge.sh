@@ -10,7 +10,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="deadline-nudge"
+export GARDEN_TAG="deadline-nudge"
 
 : "${GARDEN_DEADLINE_NUDGE_INTERVAL:=60}"
 : "${GARDEN_DEADLINE_NUDGE_FRACTION:=4}"

@@ -27,7 +27,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-model-routing"
+export GARDEN_TAG="set-model-routing"
 
 RELPATH="${GARDEN_MODEL_ROUTING_PATH:-config/model-routing}"
 

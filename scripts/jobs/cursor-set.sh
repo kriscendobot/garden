@@ -13,7 +13,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="cursor-set"
+export GARDEN_TAG="cursor-set"
 
 key="${1:?usage: cursor-set.sh <key> [body-file]}"
 body_src="${2:-}"

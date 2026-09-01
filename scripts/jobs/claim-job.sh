@@ -34,7 +34,7 @@ KIND_PROVIDER="$(worker_kind_field "$KIND" provider 2>/dev/null || echo anthropi
 # auction_write_bid reads THIS worker's kind + id from the env (so its signature
 # stays a plain <dir> <base>); export them alongside the claim.
 export AUCTION_KIND="$KIND" AUCTION_ID="$id"
-GARDEN_TAG="claim/$id"
+export GARDEN_TAG="claim/$id"
 
 fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 

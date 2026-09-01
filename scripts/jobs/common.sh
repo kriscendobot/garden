@@ -2016,6 +2016,7 @@ _fleet_brake_prune() {
 # transient_failure_density [<window-secs>] — count ledger rows within the trailing
 # window. Prints the integer count (0 when the ledger is missing/unreadable — the
 # fail-open reading). Always returns 0.
+# shellcheck disable=SC2120 # Public helper deliberately accepts an optional window.
 transient_failure_density() {
   local window="${1:-$GARDEN_FLEET_BRAKE_WINDOW_SECS}" ledger="$GARDEN_FLEET_BRAKE_LEDGER" now cutoff
   now="$(_fleet_brake_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
@@ -2939,8 +2940,9 @@ _clone_lockfile() { printf '%s' "${1%/}.lock"; }
 # line, so trailing bytes from a longer prior stamp are harmless. Best-effort: a
 # failed stamp must never abort the holder that already owns the lock.
 _clone_lock_stamp() {
-  local fd="$1"
-  printf '%s %s\n' "$$" "$(date +%s 2>/dev/null || echo 0)" >&"$fd" 2>/dev/null || true
+  local fd="$1" now
+  now="$(date +%s 2>/dev/null)" || now=0
+  { printf '%s %s\n' "$$" "$now" >&"$fd"; } 2>/dev/null || true
 }
 
 # Decide whether the lock file <lf> is held by a crashed/hung holder and may be
@@ -2999,7 +3001,7 @@ gc_lock_holder_alive() {
     cmd="$(ps -o args= -p "$pid" 2>/dev/null || true)"
   fi
   case "$cmd" in
-    *git*gc*|*git*repack*|*git-gc*|*git-repack*) return 0 ;;  # a real gc → respect the lock
+    *git*gc*|*git*repack*) return 0 ;;  # a real gc → respect the lock
     *) return 1 ;;                                            # recycled/unrelated pid → safe
   esac
 }
@@ -5411,7 +5413,7 @@ list_jobs() {
     tada_list "$dir" | sed "s#^$JOBS_TADA/##"
     return 0
   fi
-  ls -1 "$dir/$sub" 2>/dev/null | grep -v -x '.gitkeep' || true
+  find "$dir/$sub" -mindepth 1 -maxdepth 1 ! -name '.gitkeep' -printf '%f\n' 2>/dev/null || true
 }
 
 # Per-schedule carry-forward mailbox (relative to a journal clone root). A

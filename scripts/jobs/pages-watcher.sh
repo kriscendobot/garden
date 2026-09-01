@@ -53,7 +53,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="pages-watcher"
+export GARDEN_TAG="pages-watcher"
 : "${GARDEN_PAGES_SOURCE:=$HERE/handlers/pages-runs-gh.sh}"
 : "${GARDEN_PAGES_POST:=$HERE/post-job.sh}"
 : "${GARDEN_PAGES_WORKFLOW:=pages-build-deployment}"

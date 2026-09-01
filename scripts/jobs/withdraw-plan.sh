@@ -48,7 +48,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="withdraw-plan"
+export GARDEN_TAG="withdraw-plan"
 
 # The withdrawn tombstone shelf. A sibling of plan/todo/doin/tada under jobs/,
 # deliberately NOT one of the JOBS_* lifecycle dirs any watcher enumerates.

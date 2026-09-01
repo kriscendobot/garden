@@ -74,7 +74,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 slug="${1:?usage: ci-watcher.sh <repo-slug>}"
-GARDEN_TAG="ci-watcher/$slug"
+export GARDEN_TAG="ci-watcher/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_CI_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
 : "${GARDEN_CI_ROLLUP:=$HERE/handlers/ci-rollup-gh.sh}"

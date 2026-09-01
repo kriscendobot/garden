@@ -105,7 +105,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 
 slug="${1:?usage: approval-reconciler.sh <repo-slug>}"
-GARDEN_TAG="approval-reconciler/$slug"
+export GARDEN_TAG="approval-reconciler/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_AR_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
 : "${GARDEN_AR_APPROVAL:=$HERE/handlers/pr-maintainer-approval-gh.sh}"

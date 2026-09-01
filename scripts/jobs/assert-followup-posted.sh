@@ -61,9 +61,12 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="assert-followup-posted"
+export GARDEN_TAG="assert-followup-posted"
 
-base="${1:?base}"; jobfile="${2:?job file}"; report="${3:?completion report}"
+base="${1:?base}"
+# shellcheck disable=SC2034 # Retained positional API: complete-job passes its job file.
+jobfile="${2:?job file}"
+report="${3:?completion report}"
 [ -f "$report" ] || exit 0
 
 # 1. HANDOFF — a declared handoff is itself unfinished-work intent, independent

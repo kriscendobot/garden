@@ -66,7 +66,7 @@ source "$HERE/common.sh"
 # event below. It never gates the requeue path.
 # shellcheck source=reputation.sh
 source "$HERE/reputation.sh"
-GARDEN_TAG="reaper"
+export GARDEN_TAG="reaper"
 
 : "${GARDEN_CLAIM_TTL:=14400}"         # seconds a claim may sit in doin before reaping (4h; must match gardener.sh)
 : "${GARDEN_FETCH_REAP_AGE:=120}"      # seconds a `git fetch` may run before it is killed

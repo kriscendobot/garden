@@ -34,7 +34,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="set-schedule"
+export GARDEN_TAG="set-schedule"
 
 name="${1:?usage: set-schedule.sh <name> <cadence> [prefix] [body-file]}"
 cadence="${2:?cadence}"

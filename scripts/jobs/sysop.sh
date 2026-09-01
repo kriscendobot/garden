@@ -72,7 +72,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="sysop"
+export GARDEN_TAG="sysop"
 
 # DELIBERATELY NO `fleet_draining && exit` guard (unlike the watchers): a drained
 # host MUST still tick the sysop, or it could never receive its own `drain off`
