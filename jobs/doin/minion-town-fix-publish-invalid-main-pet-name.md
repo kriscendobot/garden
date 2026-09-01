@@ -74,3 +74,13 @@ Documented in the garden's `skills/minion-town-clip-publishing/SKILL.md`
 (landed `main2` commit `226d6db06c`) alongside other clip-building gotchas
 found in the same evaluation. Update that skill's "known bug" note once this
 lands, noting the fix and (if relevant) which guests were affected.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T19:39:03Z
