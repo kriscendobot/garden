@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T04:58:21Z_
+_As of 2026-09-01T04:59:42Z_
 
 ## Latest
 
@@ -2326,6 +2326,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > evidence gathering failed: could not fetch pull [endojs/endo-but-for-bots#1098](https://github.com/endojs/endo-but-for-bots/issues/1098)
 > --- captured stderr ---
 > gh: API rate limit exceeded for user ID 279080640. If you reach out to GitHub Support for help, please include the request ID B8F6:160F2F:1B8596A:22F6900:6A95C137 and timestamp 2026-08-31 18:00:23 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (HTTP 403)
+
+- `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-10T23:05:19Z, latest 2026-09-01T04:59:18Z).
+> The SAME condition (`preflight-gather-fail-kriscendobot-minion.town`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> pr-feedback-preflight could not gather evidence for [kriscendobot/minion.town#73](https://github.com/kriscendobot/minion.town/issues/73) (cid=5489113009) and failed open.
+> This is a tool/transport failure, not a no-evidence finding — real feedback may
+> have been processed WITHOUT the peer-resolution recheck. Reason:
+> evidence gathering failed: could not fetch pull [kriscendobot/minion.town#73](https://github.com/kriscendobot/minion.town/issues/73)
+> --- captured stderr ---
+> gh: Not Found (HTTP 404)
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
