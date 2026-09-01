@@ -27,3 +27,13 @@ isolated project checkout keyed by THIS job base. Push with the safe PR-head CAS
 post the required SHA-anchored top-level completion summary, and re-request review
 after local verification and current-head CI are green. If the older worker wakes,
 the current-head preflight and push CAS are the coordination backstop.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T13:26:30Z
