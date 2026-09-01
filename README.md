@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T23:17:05Z_
+_As of 2026-09-01T23:17:48Z_
 
 ## Latest
 
@@ -1383,13 +1383,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.8M | $451.14 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 36.6M _(+963.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Claude | 22.8M | $452.11 _(notional, rate-card)_ | 6% of 385.0M (ok) |
+| Codex | 36.6M _(+964.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
-### todo (9)
+### todo (10)
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #79
 - [`ironhorse-test262-fable-supervisor-20260829`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-fable-supervisor-20260829.md) — Fable-supervised Ironhorse test262 compliance ratchet on one pull request
+- [`kriscendobot-minion-town-pr68-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr77-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr77-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #77
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-endo-b3-daemon-deploy-verify.md) — ---
