@@ -12,3 +12,13 @@ Shepherd PR #897 (fix(daemon): #713 panel must-fix + summary-fix bundle — maxR
 <!-- garden-transient-elapsed: kind=signature through=0 values=322 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T22:55:00Z
