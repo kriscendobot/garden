@@ -1,18 +1,14 @@
-# Journal config/budget-pools. Both Anthropic pools are now CALIBRATED from the
-# maintainer's account-specific Claude Code /usage figures; re-derive whenever a
-# subscription or promo changes the weekly ceiling.
-#   endolin-garden-ece02cb4  : 385M/wk, raised 2026-09-01 to match the sibling
-#     pool. This is a DELIBERATE UNBLOCK, not a calibration: on 2026-09-01 the
-#     meter read 120.1M/149M = 80.5% and the budget-level controller had throttled
-#     that host's gardeners 2 -> 1, while Claude Code /usage on that host reported
-#     0% of the week consumed. Those cannot both be right, and the host was being
-#     held at half capacity on the disputed number. Job
-#     `diagnose-budget-meter-overreport-ece02cb4` owns explaining the gap and
-#     replacing this with a real calibration. Until then 385M restores capacity
-#     while keeping a real 85% high-water (327M) rather than removing protection.
-#     NB the two hosts are on DIFFERENT Anthropic accounts: /usage shows the +50%
-#     weekly promo ending Aug 31 on garden2 and Sep 13 on ece02cb4, so parity here
-#     is an interim convenience, not evidence the ceilings match.
+# Journal config/budget-pools. Both Anthropic pools are calibrated from
+# account-specific Claude Code /usage samples; re-derive whenever a subscription
+# or promotion changes the weekly ceiling.
+#   endolin-garden-ece02cb4  : 149M/wk, calibrated 2026-08-27 from a simultaneous
+#     meter=/usage pair: 74,531,754 billable tokens at 50% => 149,063,508, rounded
+#     to 149M. The temporary 385M unblock on 2026-09-01 is removed. Investigation
+#     found the meter sound: at the 2026-09-01 contradiction the local account had
+#     been rejected at its seven-day limit at 17:55Z, then a credential/entitlement
+#     refresh at 18:17Z made /usage report a fresh 0% without clearing the same
+#     account's local session history. The fixed-window meter therefore measured
+#     the old and fresh entitlement epochs together. This is not a new ceiling.
 #   endolin-garden2-5bcdff64 : 385M/wk, calibrated 2026-09-01. Derived from
 #     /usage reporting 3% of the weekly limit consumed at a metered window spend
 #     of 13,437,641 tokens => ~448M point estimate, band 385M-538M across the
@@ -21,9 +17,9 @@
 #     second (spend, percent) sample for a tighter figure.
 #   NOTE the bases differ: this meter counts input + output + cache_creation and
 #   EXCLUDES cache_read (see usage-meter.sh), while /usage reports Anthropic's own
-#   weighted limit. The calibration above is a ratio over one shared window, so it
+#   weighted limit. Each calibration is a ratio over one shared window, so it
 #   holds only while the workload mix stays broadly similar.
 # Columns, tab-separated:
 # pool_id	provider	account/host	ceiling_kind	ceiling
-anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	385000000
+anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	149000000
 anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	385000000
