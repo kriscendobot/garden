@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr946-weave-20260901
-priority: normal
-posted_by: producer
-posted_at: 2026-09-01T20:25:57Z
+role: conductor
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-01T21:51:05Z cleared=none -->
 
 ---
 role: conductor
