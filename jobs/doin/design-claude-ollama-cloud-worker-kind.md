@@ -87,6 +87,7 @@ this design sits inside of; its content is otherwise preserved in this job's
 sibling postings (`update-provider-model-catalog-matrix`,
 `probe-opencode-anthropic`) and this session's transcript.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
