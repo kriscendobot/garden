@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded: pr-review-sequence.md on journal2 was refreshed on 2026-08-31 ('docs: refresh PR review sequence for August 31'), eight days after this tick was parked. A recurring refresh has no value once a later one has run (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T23:06:58Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
