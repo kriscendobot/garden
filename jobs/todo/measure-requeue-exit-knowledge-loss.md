@@ -1,16 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-requeue_cycles: 5
-deadline_overruns: 0
-doomed_at: 2026-08-01T11:53:04Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-01T11:53:04Z
+role: builder
+tier: minion
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-01T23:07:19Z cleared=none -->
 
 ---
 role: builder
