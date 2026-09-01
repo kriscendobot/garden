@@ -66,3 +66,13 @@ arithmetic), a corrected `config/budget-pools` entry for this host derived from 
 real sample pair, and — if the bug is in `usage-meter.sh` rather than in this
 host's data — a fix plus a regression test, since the same defect would silently
 mis-throttle every host in the fleet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T19:10:27Z
