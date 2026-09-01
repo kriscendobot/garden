@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: self-declared superseded: the recovery child build-npm-registry-as-directory-tree-review5064787686-r2 states it 'supersedes the unexecuted parked child build-npm-registry-as-directory-tree from the halted first orchestration', and that child was promoted on 2026-09-01. Design PR endojs/endo-but-for-bots#1083 merged 2026-08-31 (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T23:02:47Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: endojs-endo-but-for-bots-pr1083-conduct-build-5064787686
 priority: high
