@@ -1,7 +1,18 @@
-# Seed for journal config/budget-pools. PLACEHOLDER CAPS — NOT CALIBRATED.
-# Replace each weekly-token ceiling with the maintainer's account-specific
-# Claude Code /usage-derived figure (or the recurring calibration output).
+# Journal config/budget-pools. Both Anthropic pools are now CALIBRATED from the
+# maintainer's account-specific Claude Code /usage figures; re-derive whenever a
+# subscription or promo changes the weekly ceiling.
+#   endolin-garden-ece02cb4  : 149M/wk, calibrated 2026-08-27 from real usage.
+#   endolin-garden2-5bcdff64 : 385M/wk, calibrated 2026-09-01. Derived from
+#     /usage reporting 3% of the weekly limit consumed at a metered window spend
+#     of 13,437,641 tokens => ~448M point estimate, band 385M-538M across the
+#     display rounding of "3%". The LOW end is taken deliberately: it cannot
+#     over-grant, and it is still 77x the 5M seed it replaced. Re-derive from a
+#     second (spend, percent) sample for a tighter figure.
+#   NOTE the bases differ: this meter counts input + output + cache_creation and
+#   EXCLUDES cache_read (see usage-meter.sh), while /usage reports Anthropic's own
+#   weighted limit. The calibration above is a ratio over one shared window, so it
+#   holds only while the workload mix stays broadly similar.
 # Columns, tab-separated:
 # pool_id	provider	account/host	ceiling_kind	ceiling
 anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	149000000
-anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	5000000
+anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	385000000
