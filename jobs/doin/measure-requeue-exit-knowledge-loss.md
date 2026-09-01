@@ -102,10 +102,10 @@ burst sessions live it. The machinery here turned out to be better than that
 critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=108 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=108,177 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
