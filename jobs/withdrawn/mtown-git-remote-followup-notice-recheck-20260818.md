@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: the sentinel's question is already answered and its blocker is elsewhere: it exists to detect whether endojs/endo-but-for-bots#988 advanced to a build, and #988 is OPEN/draft/CONFLICTING and untouched since 2026-08-14. Re-arming would re-ask a question gated on #988's conflict; posted endojs-endo-but-for-bots-pr988-weave-20260901 instead (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:40:08Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: gardener
