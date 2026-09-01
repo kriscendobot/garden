@@ -24,3 +24,13 @@ push with PR-head CAS discipline. If every ask is already satisfied, make no
 gratuitous edit. In either case, after proportionate checks are green, re-request
 maintainer review and post the required SHA-anchored top-level completion
 summary with the evidence mapping each original ask to its resolving artifact.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T14:38:56Z
