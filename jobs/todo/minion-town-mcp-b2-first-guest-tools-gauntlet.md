@@ -1,16 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-doomed_at: 2026-08-01T11:23:04Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-01T11:23:04Z
+role: gardener
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-01T23:02:30Z cleared=deadline-overrun=1 -->
+
 handler-timeout: 7200
 <!-- liaison 2026-08-06: this job was DOOMED by the reaper after a
      deterministic deadline overrun at the 2400s default. It carried no
@@ -39,4 +32,3 @@ state machine now: clean, panel, fixer loop as needed, CI, then un-draft only wh
 the panel terminates cleanly. This handoff was posted by the build completion edge,
 not inferred by a watcher.
 
-<!-- garden-deadline-overrun: 1 -->
