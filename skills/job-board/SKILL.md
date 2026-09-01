@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-14
+updated: 2026-09-01
 author: gardener
 ---
 
@@ -309,6 +309,12 @@ A completed job leaves exactly one `tada/<base>.md` report; `doin`, `work`, and 
 inbox for that basename are gone.
 
 ## Notes
+
+An inbox or a file in `jobs/doin/` proves that a job is claimed, not that its
+worker is genuinely live. Before deferring work to a supposed concurrent owner,
+also inspect its claim time and cycle markers and look for recent durable progress
+(a fresh push, journal entry, or inbox activity). A stale claim carrying
+`garden-reap-now` or a long quota backoff is ownership evidence, not liveness.
 
 Claims back off; completions/posts retry — because a retried claim could steal a
 job, but a completion/post only ever fast-forwards its own files. Randomized
