@@ -7,6 +7,7 @@ scripts/jobs/comment-watcher.sh
 Stamp non-mechanical attention directives with `handler-budget-role: review`, matching whole-review feedback jobs. PR #1059 attention routing deterministically hit the generic 2400s wall; these directives re-fetch and assess substantive feedback, so the existing 7200s review budget avoids repeat timeout/reap cycles.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
