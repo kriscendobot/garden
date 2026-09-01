@@ -10,3 +10,4 @@
 {"source":"none","ts":"2026-09-01T23:12:48Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":98,"role":"builder","provider":"local"}
 {"source":"none","ts":"2026-09-01T23:28:25Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":171,"role":"builder","provider":"local"}
 {"source":"none","ts":"2026-09-01T23:37:57Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":7,"role":"builder","provider":"local"}
+{"source":"none","ts":"2026-09-01T23:52:52Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"tada","elapsed_s":426,"role":"builder","provider":"openai"}
