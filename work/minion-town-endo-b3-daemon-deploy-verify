@@ -3,3 +3,7 @@ gardener: 3
 worker_kind: cleric
 claimed_at: 2026-09-01T23:19:34Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-endo-b3-daemon-deploy-verify
+pr_number: 32
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/32
+pr_head: fix/verify-endo-daemon-deploy
