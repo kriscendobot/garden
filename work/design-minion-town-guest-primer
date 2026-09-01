@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-01T22:55:03Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-minion-town-guest-primer
-pr_number: 78
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/78
-pr_head: design/guest-primer
