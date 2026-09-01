@@ -71,6 +71,7 @@ the before/after exemptions line count.
 
 
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=107 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
