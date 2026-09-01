@@ -74,3 +74,13 @@ widening plus the specific bug.
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=54,1579 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T21:34:40Z
