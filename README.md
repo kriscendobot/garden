@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:05:36Z_
+_As of 2026-09-01T19:10:41Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 23h)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 22h)
 - [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 1d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 1d)
@@ -2374,16 +2374,17 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.8M | $334.53 _(notional, rate-card)_ | 4% of 385.0M (ok) |
+| Claude | 17.6M | $349.02 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 33.7M _(+901.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (90)
+### doin (91)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
+- [`diagnose-budget-meter-overreport-ece02cb4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-budget-meter-overreport-ece02cb4.md) — Diagnose why the budget meter over-reports on endolin-garden-ece02cb4
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
