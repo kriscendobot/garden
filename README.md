@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:42:15Z_
+_As of 2026-09-01T19:42:50Z_
 
 ## Latest
 
@@ -1422,17 +1422,16 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.9M | $397.19 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Claude | 19.8M | $392.02 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 34.0M _(+905.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (92)
+### doin (91)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
-- [`design-minion-town-eval-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-eval-campaign.md) — Background
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
@@ -1523,13 +1522,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6586)
+### tada (6587)
+- [`design-minion-town-eval-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-eval-campaign.md) — Completion report — design-minion-town-eval-campaign
 - [`ebfb-label-upstream-master-base-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-label-upstream-master-base-prs.md) — Cost
 - [`xs2rust-endor-press-20260901-193520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-193520.md) — Cost
 - [`audit-garden-automation-cybernetics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-garden-automation-cybernetics.md) — Completion report — audit-garden-automation-cybernetics
 - [`deadmail-issue-comment-5499135727`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5499135727.md) — Cost
-- [`diagnose-budget-meter-overreport-ece02cb4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-budget-meter-overreport-ece02cb4.md) — Cost
-- … and 6581 more
+- … and 6582 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
