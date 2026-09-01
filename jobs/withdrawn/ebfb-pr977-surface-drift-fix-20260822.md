@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: unpromotable: the parked body carries only frontmatter (role: fixer, token-budget) and no task description at all — the intent survives solely in the basename, so no doer could act on it. endojs/endo-but-for-bots#977 is OPEN/MERGEABLE; re-post with a real body if the drift fix is still wanted (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:39:59Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: fixer
