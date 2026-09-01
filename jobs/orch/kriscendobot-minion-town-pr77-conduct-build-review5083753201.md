@@ -2,7 +2,7 @@
 order: serial
 children: kriscendobot-minion-town-pr77-conduct-20260901-review5083753201 build-minion-town-pr77-tool-name-reconciliation-review5083753201
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-01T22:42:42Z
 ---
