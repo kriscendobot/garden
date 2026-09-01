@@ -1,2 +1,2 @@
-base: improve-ci-watcher-host-outage-dedup
+base: improve-deduplicate-ci-journal-outage
 identity: mentor:scripts/jobs/ci-watcher.sh
