@@ -10,3 +10,13 @@ Rename the public MCP tool-call surface to remove the implementation/category pr
 Resolve the name collision that naïvely removing prefixes creates (notably `guest_list` versus `clip_list`) by choosing interface-native, unambiguous method names rather than retaining category prefixes. Document the full old-to-new mapping and compatibility posture; if aliases are temporarily retained, mark them deprecated and ensure discovery presents the canonical unprefixed names without ambiguity. Update every server registration, client/doc example, test fixture, OAuth/tool policy reference, and deployment check that names these tools. Add an MCP tools/list contract test proving all canonical names are unique and contain neither `guest_` nor `clip_`, plus behavioral tests for evaluation, directory operations, messaging, and clip publication through the renamed surface.
 
 After deployment, run a blind discovery evaluation with an agent that has no repository or prior minion.town context and receives only the directive `evaluate 2 + 2`. Record whether tools/list documentation alone leads it to the correct confined evaluation call and result, and post any documentation deficiencies as explicit follow-ups.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T17:41:40Z
