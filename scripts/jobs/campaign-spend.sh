@@ -94,7 +94,7 @@ campaign_summary="$(jq -sc '
     | .unmetered += (if $unmetered then 1 else 0 end))
 ' "$matching_rows")" || die "could not aggregate campaign '$base'"
 
-# Reporting-only calibration: the latest Friday 9 p.m. Pacific reset through
+# Reporting-only calibration: the latest Friday 8 p.m. Pacific reset through
 # now, divided by the real weekly cost of two $200/month subscriptions. Tests may
 # pin the cutoff and clock without changing the admission quantity.
 calibration_as_of="${GARDEN_CAMPAIGN_NOW:-$(date -u +%FT%TZ)}"
@@ -104,11 +104,11 @@ else
   local_day="$(TZ=America/Los_Angeles date -d "$calibration_as_of" +%u)"
   local_clock="$(TZ=America/Los_Angeles date -d "$calibration_as_of" +%H%M%S)"
   days_since_friday=$(( (local_day + 2) % 7 ))
-  if [ "$days_since_friday" -eq 0 ] && [ "$local_clock" -lt 210000 ]; then
+  if [ "$days_since_friday" -eq 0 ] && [ "$local_clock" -lt 200000 ]; then
     days_since_friday=7
   fi
   local_date="$(TZ=America/Los_Angeles date -d "$calibration_as_of - $days_since_friday days" +%F)"
-  calibration_cutoff="$(TZ=America/Los_Angeles date -d "$local_date 21:00:00" -u +%FT%TZ)"
+  calibration_cutoff="$(TZ=America/Los_Angeles date -d "$local_date 20:00:00" -u +%FT%TZ)"
 fi
 
 fleet_notional="0"

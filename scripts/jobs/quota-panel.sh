@@ -235,7 +235,7 @@ render_quota_panel() {
     anchored_cutoff="$(meter_window_cutoff anchor 2>/dev/null || true)"
     if [[ "$anchored_cutoff" =~ ^[0-9]+$ ]]; then
       cutoff="$anchored_cutoff"
-      window_label="Since Friday 21:00 Pacific reset"
+      window_label="Since Friday ${GARDEN_TOKEN_RESET_HHMM} Pacific reset"
     fi
   fi
 

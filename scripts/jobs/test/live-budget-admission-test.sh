@@ -26,12 +26,12 @@ make_log() { # dir id iso tokens
 CFG="$TR/budget-pools"
 printf '%s\n' 'anthropic:testhost anthropic testhost weekly-tokens 1000' > "$CFG"
 LOGS="$TR/logs"
-make_log "$LOGS" old 2026-08-22T03:59:59Z 9999
-make_log "$LOGS" live 2026-08-22T04:00:01Z 900
+make_log "$LOGS" old 2026-08-22T02:59:59Z 9999
+make_log "$LOGS" live 2026-08-22T03:00:01Z 900
 status="$(GARDEN=testhost GARDEN_STATE="$TR/state" GARDEN_USAGE_NOW="$NOW" \
   GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_BUDGET_POOLS_FILE="$CFG" \
   bash -c 'source "$1/common.sh"; meter_quota_status anthropic:testhost' _ "$JOBS")"
-[ "$status" = backoff ] && ok "Friday-21:00-Pacific anchored pool reaches backoff" || bad "anchored verdict was $status"
+[ "$status" = backoff ] && ok "Friday-20:00-Pacific anchored pool reaches backoff" || bad "anchored verdict was $status"
 
 unknown="$(GARDEN=testhost GARDEN_STATE="$TR/state-u" GARDEN_USAGE_NOW="$NOW" \
   GARDEN_CCUSAGE_LOGDIR="$TR/missing" GARDEN_USAGE_LEDGER="$TR/no-ledger" GARDEN_BUDGET_POOLS_FILE="$CFG" \

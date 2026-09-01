@@ -51,7 +51,7 @@
 # hosts, its pool must aggregate those hosts before this one-host/account topology
 # is changed.
 #
-# THE WEEK BOUNDARY: the subscription reset is known: Friday 21:00
+# THE WEEK BOUNDARY: the subscription reset is known: Friday 20:00
 # America/Los_Angeles. The default meter window begins at the most recent such
 # anchor (DST-aware). The admission predicate requests that anchored view;
 # meter_window_total itself retains its historical rolling-window interface for
@@ -81,7 +81,7 @@
 : "${GARDEN_TOKEN_WINDOW_SECS:=604800}"
 : "${GARDEN_TOKEN_RESET_TZ:=America/Los_Angeles}"
 : "${GARDEN_TOKEN_RESET_DOW:=5}"       # ISO weekday: Friday
-: "${GARDEN_TOKEN_RESET_HHMM:=21:00}"
+: "${GARDEN_TOKEN_RESET_HHMM:=20:00}"
 # PRIMARY SOURCE: Claude Code's session-log directory (per-host). Overridable for
 # tests and for a non-default ~/.claude location.
 : "${GARDEN_CCUSAGE_LOGDIR:=${HOME:-/home/$(id -un 2>/dev/null || echo kris)}/.claude/projects}"
@@ -98,7 +98,7 @@
 # Wall clock in epoch seconds, overridable for deterministic tests.
 meter_now() { printf '%s\n' "${GARDEN_USAGE_NOW:-$(date +%s)}"; }
 
-# meter_week_anchor_epoch [now] — most recent Friday 21:00 Pacific at-or-before
+# meter_week_anchor_epoch [now] — most recent Friday 20:00 Pacific at-or-before
 # now. Local-date arithmetic, rather than subtracting 604800 seconds, preserves
 # the wall-clock reset across DST changes. Parse/tooling failure is unknown
 # upstream and therefore fail-open.
@@ -370,7 +370,7 @@ _budget_publish_local_pool_once() {
   if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then
     if [ "$old_status" != "$status" ] && { [ -n "$old_status" ] || [ "$status" = backoff ]; }; then
       alert_maintainer "budget-zone-$GARDEN-$status" \
-        "budget pool $pool changed zone ${old_status:-unpublished} -> $status at spend=$spend of cap=$cap (high-water $GARDEN_TOKEN_BACKOFF_FRACTION; Friday 21:00 Pacific window)."
+        "budget pool $pool changed zone ${old_status:-unpublished} -> $status at spend=$spend of cap=$cap (high-water $GARDEN_TOKEN_BACKOFF_FRACTION; Friday $GARDEN_TOKEN_RESET_HHMM Pacific window)."
     fi
     return 0
   fi

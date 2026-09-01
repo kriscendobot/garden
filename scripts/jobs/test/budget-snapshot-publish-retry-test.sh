@@ -39,7 +39,7 @@ git clone -q --single-branch --branch journal2 "$BARE" "$RIVAL"
 
 mkdir -p "$GARDEN_CCUSAGE_LOGDIR/p"
 printf '%s\n' \
-  '{"type":"assistant","timestamp":"2026-08-22T04:00:01Z","message":{"id":"live","usage":{"input_tokens":900,"output_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0}}}' \
+  '{"type":"assistant","timestamp":"2026-08-22T03:00:01Z","message":{"id":"live","usage":{"input_tokens":900,"output_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0}}}' \
   > "$GARDEN_CCUSAGE_LOGDIR/p/session.jsonl"
 
 # shellcheck source=../common.sh
