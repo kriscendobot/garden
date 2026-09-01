@@ -28,16 +28,16 @@ row. A cell records technical reach and integration maturity, not automatic job
 eligibility: the closed model inventory, provider constraints, explicit-model-only
 rules, credentials, and worker counts still gate every run.
 
-| Inference provider | Claude Code (`claude`) | Codex CLI (`codex`) | Kimi Code (`kimi`) | OpenCode (`opencode`) |
+| Inference provider | `claude` (Claude Code) | `codex` (Codex CLI) | `kimi` (Kimi Code) | `opencode` (OpenCode) |
 | --- | --- | --- | --- | --- |
-| Anthropic | ✅ `monk` / `gardener` | — no Anthropic protocol | 🔬 native Anthropic adapter | 🔬 landed `opencode-anthropic` probe lane |
-| OpenAI | — no OpenAI protocol | ✅ `cleric` | 🔬 native OpenAI Responses adapter | 🔬 native provider mapping |
-| Local Ollama | 🔬 Ollama Anthropic Messages compatibility | ✅ `hermit` | ❓ generic OpenAI-compatible route | 🔬 documented Ollama integration |
-| Ollama Cloud | 🔬 Ollama Anthropic Messages compatibility | 🔬 Ollama Responses compatibility | ❓ generic OpenAI-compatible route | 🔬 documented Ollama integration |
-| Moonshot | — no Anthropic protocol | ❓ OpenAI compatibility does not establish Codex Responses parity | ✅ `mystic` | 🔬 `moonshotai` provider mapping |
-| Fireworks | — no Anthropic protocol | ✅ `fireworker` | ❓ generic OpenAI-compatible route | ❓ custom OpenAI-compatible route |
-| OpenRouter | 🔬 Anthropic Messages compatibility | ✅ `openrouter` | ❓ generic OpenAI-compatible route | 🔬 provider-catalog route |
-| Google Gemini | — Claude Code's Google route serves Claude, not Gemini | — Gemini's compatibility surface does not provide Codex Responses parity | 🔬 native Gemini adapter | 🔬 native `google` provider mapping |
+| `anthropic` | ✅ `monk` / `gardener` | — no Anthropic protocol | 🔬 native Anthropic adapter | 🔬 landed `opencode-anthropic` probe lane |
+| `openai` | — no OpenAI protocol | ✅ `cleric` | 🔬 native OpenAI Responses adapter | 🔬 native provider mapping |
+| `local-ollama` | 🔬 Ollama Anthropic Messages compatibility | ✅ `hermit` | ❓ generic OpenAI-compatible route | 🔬 documented Ollama integration |
+| `ollama-cloud` | 🔬 Ollama Anthropic Messages compatibility | 🔬 Ollama Responses compatibility | ❓ generic OpenAI-compatible route | 🔬 documented Ollama integration |
+| `moonshot` | — no Anthropic protocol | ❓ OpenAI compatibility does not establish Codex Responses parity | ✅ `mystic` | 🔬 `moonshotai` provider mapping |
+| `fireworks` | — no Anthropic protocol | ✅ `fireworker` | ❓ generic OpenAI-compatible route | ❓ custom OpenAI-compatible route |
+| `openrouter` | 🔬 Anthropic Messages compatibility | ✅ `openrouter` | ❓ generic OpenAI-compatible route | 🔬 provider-catalog route |
+| `google-gemini` | — Claude Code's Google route serves Claude, not Gemini | — Gemini's compatibility surface does not provide Codex Responses parity | 🔬 native Gemini adapter | 🔬 native `google` provider mapping |
 
 Legend:
 
