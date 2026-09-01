@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: target endojs/endo-but-for-bots#600 (Ironhorse/xs2rust debugger) is MERGED; this follow-up ('recover the debugger row') can no longer apply to an open PR (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:56:01Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
