@@ -104,10 +104,10 @@ the worker when it fails.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=108,177 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=2 values=177,13 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
