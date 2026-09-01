@@ -127,6 +127,18 @@ GARDEN_DEPLOY_DEFER_RC=0
 # lifts the drain regardless — running on the new code is the point of a deploy.
 we_drained=0
 
+# The candidate archive is unpacked before the drain, but it still needs the same
+# exit-path cleanup discipline as the live-tree swap. Keep the selected path in
+# process-global state so the EXIT/TERM/INT belt can remove it if the deploy dies
+# while a suite is running. It is set only from mktemp's successful output.
+candidate_gate_root=""
+
+cleanup_candidate_gate_root() {
+  [ -n "$candidate_gate_root" ] || return 0
+  rm -rf "$candidate_gate_root" 2>/dev/null || true
+  candidate_gate_root=""
+}
+
 lift_drain_if_we_engaged() {
   [ "$we_drained" = "1" ] || return 0
   we_drained=0
@@ -145,7 +157,7 @@ thaw_timers_if_frozen() {
   log "timers thawed (deploy aborted after the release boundary was engaged)"
 }
 
-deploy_exit_cleanup() { thaw_timers_if_frozen; lift_drain_if_we_engaged; }
+deploy_exit_cleanup() { cleanup_candidate_gate_root; thaw_timers_if_frozen; lift_drain_if_we_engaged; }
 
 report_candidate_gate_failure() { # <candidate-sha> <failed-suite>...
   local candidate="$1"; shift
@@ -202,6 +214,59 @@ user manager, then re-run the deploy."
   fi
 }
 
+run_candidate_gate_exec_probe() { # <executable-probe>
+  local probe="$1"
+  # Hermetic tests need to model a noexec mount on hosts whose test filesystem is
+  # executable. The seam is unavailable to a real deploy even if inherited from
+  # an ambient environment: both the positive test sentinel and the explicit
+  # test-only probe command are required.
+  if [ "${GARDEN_TEST:-0}" = "1" ] && [ -n "${GARDEN_DEPLOY_TEST_EXEC_PROBE:-}" ]; then
+    "$GARDEN_DEPLOY_TEST_EXEC_PROBE" "$probe"
+  else
+    "$probe"
+  fi
+}
+
+prepare_candidate_gate_root() {
+  local preferred_base="${TMPDIR:-/tmp}" scratch_base="$GARDEN_SCRATCH/tmpexec"
+  local base root probe checked="" probe_rc
+  local -a candidate_bases=("$preferred_base")
+  [ "$scratch_base" = "$preferred_base" ] || candidate_bases+=("$scratch_base")
+
+  cleanup_candidate_gate_root
+  for base in "${candidate_bases[@]}"; do
+    checked="${checked:+$checked, }$base"
+    if ! mkdir -p "$base" 2>/dev/null; then
+      log "WARN: candidate gate rejected temporary location '$base': cannot create it"
+      continue
+    fi
+    root="$(mktemp -d "$base/garden-deploy-gate.XXXXXXXX" 2>/dev/null)" || {
+      log "WARN: candidate gate rejected temporary location '$base': cannot create a private directory"
+      continue
+    }
+    # Arm the EXIT cleanup before writing or executing anything in the new root;
+    # a TERM during the probe must not strand it.
+    candidate_gate_root="$root"
+    probe="$root/.garden-exec-probe"
+    probe_rc=1
+    if printf '#!/bin/sh\nexit 0\n' >"$probe" 2>/dev/null \
+      && chmod +x "$probe" 2>/dev/null \
+      && run_candidate_gate_exec_probe "$probe" >/dev/null 2>&1; then
+      probe_rc=0
+    fi
+    rm -f "$probe" 2>/dev/null || true
+    if [ "$probe_rc" -eq 0 ]; then
+      log "candidate gate unpack directory is exec-capable: $candidate_gate_root"
+      return 0
+    fi
+    cleanup_candidate_gate_root
+    log "WARN: candidate gate rejected temporary location '$base': executable probe failed (possible noexec mount)"
+  done
+
+  log "FATAL: no exec-capable candidate gate location found (possible noexec mounts or permissions); checked: $checked"
+  return 1
+}
+
 run_candidate_gate() { # <candidate-sha>
   local candidate="$1" gate_root suite path rc now deadline remaining limit
   local -a failed=()
@@ -212,13 +277,12 @@ run_candidate_gate() { # <candidate-sha>
   case "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT:$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" in
     *[!0-9:]*|0:*|*:0) log "FATAL: candidate gate timeouts must be positive integers"; return 1 ;;
   esac
-  gate_root="$(mktemp -d "${TMPDIR:-/tmp}/garden-deploy-gate.XXXXXXXX")" || {
-    log "FATAL: could not create candidate gate directory"; return 1;
-  }
+  prepare_candidate_gate_root || return 1
+  gate_root="$candidate_gate_root"
   # archive, rather than the live worktree, is the crucial candidate-tree
   # boundary: a new helper or a changed common.sh is what the suites exercise.
   if ! git -C "$GARDEN_ROOT" archive "$candidate" | tar -x -C "$gate_root"; then
-    rm -rf "$gate_root"
+    cleanup_candidate_gate_root
     log "FATAL: could not unpack candidate $candidate for its test gate"
     return 1
   fi
@@ -240,7 +304,7 @@ run_candidate_gate() { # <candidate-sha>
       }
     done
   fi
-  rm -rf "$gate_root"
+  cleanup_candidate_gate_root
   if [ "${#failed[@]}" -gt 0 ]; then
     log "ERROR: candidate test gate rejected $candidate; failing suites: ${failed[*]}"
     report_candidate_gate_failure "$candidate" "${failed[@]}"

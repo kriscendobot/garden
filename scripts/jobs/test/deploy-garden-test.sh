@@ -13,6 +13,12 @@
 # mocked `systemctl --user` (mock-systemctl.sh) records the restart calls. No real
 # systemd, no real journal, no broadcast (GARDEN_DEPLOY_NO_BROADCAST=1).
 #
+# LOAD-BEARING GUARD EVIDENCE (2026-09-01): the executable-root probe was
+# temporarily mutated to accept every location without executing its probe. This
+# suite then failed the simulated-noexec fallback and fail-loud assertions. With
+# the real probe restored, both cases pass. Thus these assertions catch removal
+# of the guard instead of merely describing the intended control flow.
+#
 # Usage: deploy-garden-test.sh
 set -euo pipefail
 # Explicit positive test-context sentinel: protects this standalone suite even when
@@ -35,6 +41,17 @@ rm -rf "$TR"; mkdir -p "$TR"
 BARE="$TR/origin.git"
 git_id=(-c user.name=test -c user.email=test@localhost)
 
+# A test-only executor for deploy-garden's executable-location probe. It models a
+# noexec mount deterministically even when the filesystem hosting this test is
+# executable; all non-rejected probes still execute for real.
+EXEC_PROBE_RUNNER="$TR/exec-probe-runner.sh"
+printf '%s\n' '#!/bin/bash' \
+  'case "$1" in' \
+  '  "$GARDEN_DEPLOY_TEST_NOEXEC_PREFIX"/*) exit 126 ;;' \
+  'esac' \
+  '"$1"' > "$EXEC_PROBE_RUNNER"
+chmod +x "$EXEC_PROBE_RUNNER"
+
 setup_fixture() {
   rm -rf "$BARE" "$TR/root" "$TR/seed" "$TR/state" "$TR/config" "$TR/armed" "$TR/log"
   git init -q --bare "$BARE"
@@ -46,7 +63,13 @@ setup_fixture() {
   # The production gate runs the candidate tree. This fixture carries a tiny,
   # hermetic stand-in for the classifier tier; individual gate cases below replace
   # it with a failing suite to prove the tree never swaps on a bad candidate.
-  printf '#!/bin/bash\nexit 0\n' > "$SEED/scripts/jobs/test/deploy-gate-probe.sh"
+  # The gate invokes the suite through bash, but the suite then DIRECTLY executes
+  # a child from the unpacked archive. A noexec gate root therefore fails this
+  # otherwise-green candidate exactly like the production classifier suites.
+  printf '#!/bin/bash\nexit 0\n' > "$SEED/scripts/jobs/test/deploy-gate-child.sh"
+  chmod +x "$SEED/scripts/jobs/test/deploy-gate-child.sh"
+  printf '#!/bin/bash\nHERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"\n"$HERE/deploy-gate-child.sh"\n' \
+    > "$SEED/scripts/jobs/test/deploy-gate-probe.sh"
   git -C "$SEED" add -A
   git -C "$SEED" "${git_id[@]}" commit -q -m "seed"
   git -C "$SEED" remote add origin "$BARE"
@@ -70,6 +93,7 @@ origin_commit() {  # origin_commit <relpath> <content> <msg>
 run_deploy() {  # run_deploy [extra env assignments...] ; returns rc, fills $OUT
   set +e
   OUT="$(env GARDEN_ROOT="$TR/root" GARDEN_STATE="$TR/state" GARDEN_MAIN_BRANCH=main2 \
+             GARDEN_TEST=1 \
              GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh" \
              GARDEN_MOCK_STATE="$TR/armed" GARDEN_MOCK_LOG="$TR/log" \
              GARDEN_DEPLOY_NO_BROADCAST=1 \
@@ -126,6 +150,42 @@ run_deploy
 draining && bad "drain engaged despite pre-drain candidate gate failure" || ok "candidate gate failed before engaging the drain"
 grep -q "deploy-gate-probe.sh(rc=1)" <<<"$OUT" && ok "failure names the failing suite" || bad "failing suite not named: $OUT"
 grep -q "kind:error" <<<"$OUT" && ok "kind:error reporting path is logged" || bad "kind:error reporting path not logged: $OUT"
+
+# ============================================================================
+hr; echo "CANDIDATE TEST GATE ROOT — reject noexec, fall back to executable scratch"; hr
+setup_fixture
+mkdir -p "$TR/simulated-noexec"
+run_deploy TMPDIR="$TR/simulated-noexec" \
+  GARDEN_DEPLOY_TEST_EXEC_PROBE="$EXEC_PROBE_RUNNER" \
+  GARDEN_DEPLOY_TEST_NOEXEC_PREFIX="$TR/simulated-noexec"
+[ "$RC" -eq 0 ] && ok "deploy passes after rejecting a noexec preferred location" || bad "fallback deploy exit $RC: $OUT"
+grep -q "rejected temporary location '$TR/simulated-noexec'.*noexec" <<<"$OUT" \
+  && ok "noexec preferred location is detected and named" \
+  || bad "noexec rejection diagnostic missing: $OUT"
+grep -q "unpack directory is exec-capable: $TR/root/scratch/tmpexec/" <<<"$OUT" \
+  && ok "candidate gate falls back to the exec-capable garden scratch filesystem" \
+  || bad "exec-capable scratch fallback not selected: $OUT"
+
+# If every candidate location rejects direct execution, fail BEFORE running a
+# suite or engaging the drain, with the environmental cause in the diagnostic.
+setup_fixture
+mkdir -p "$TR/simulated-noexec" "$TR/simulated-noexec/scratch"
+before="$(root_head)"
+run_deploy TMPDIR="$TR/simulated-noexec/primary" \
+  GARDEN_SCRATCH="$TR/simulated-noexec/scratch" \
+  GARDEN_DEPLOY_TEST_EXEC_PROBE="$EXEC_PROBE_RUNNER" \
+  GARDEN_DEPLOY_TEST_NOEXEC_PREFIX="$TR/simulated-noexec"
+[ "$RC" -ne 0 ] && ok "deploy fails when no exec-capable gate location exists" || bad "deploy passed without an executable gate root"
+[ "$(root_head)" = "$before" ] && ok "root is untouched when gate root selection fails" || bad "root advanced without an executable gate root"
+draining && bad "drain engaged before executable gate root validation" || ok "noexec failure occurs before the drain"
+grep -q "FATAL: no exec-capable candidate gate location found.*noexec" <<<"$OUT" \
+  && ok "fail-loud diagnostic names noexec and the missing exec-capable location" \
+  || bad "fail-loud noexec diagnostic missing: $OUT"
+if find "$TR/simulated-noexec" -type d -name 'garden-deploy-gate.*' -print -quit | grep -q .; then
+  bad "rejected candidate gate directory leaked on a failure path"
+else
+  ok "rejected candidate gate directories are cleaned on failure"
+fi
 
 # ============================================================================
 hr; echo "NO-OP — origin == root: nothing to deploy, drain lifted, no restart"; hr
