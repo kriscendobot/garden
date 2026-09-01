@@ -143,3 +143,13 @@ plan: actual planned job files.
   guest-sharing question, you find the honest answer is "this campaign as
   envisioned needs a small primitive extension that doesn't exist yet" — say
   so plainly in the PR body as an open question rather than forcing a fit.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T19:28:40Z
