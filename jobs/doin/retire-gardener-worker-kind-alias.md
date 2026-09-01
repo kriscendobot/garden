@@ -106,3 +106,13 @@ facts above does NOT hold when you check it, stop and report back rather than
 proceeding — this change forecloses rollback to the legacy pool.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T21:06:21Z
