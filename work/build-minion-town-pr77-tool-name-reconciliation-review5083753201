@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-01T23:03:02Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-pr77-tool-name-reconciliation-review5083753201
-pr_number: 79
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/79
-pr_head: feat/tool-name-reconciliation
