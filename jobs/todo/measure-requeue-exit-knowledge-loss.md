@@ -103,16 +103,7 @@ critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=108,177 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-01T23:25:27Z
+
+<!-- garden-reaped: 2 -->
