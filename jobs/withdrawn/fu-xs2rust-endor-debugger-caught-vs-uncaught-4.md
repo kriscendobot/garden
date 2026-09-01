@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: target endojs/endo-but-for-bots#600 (Ironhorse/xs2rust debugger) is MERGED; the three BreakpointTable parity nits would need re-filing against current llm if they survived the merge (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:56:06Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
