@@ -116,6 +116,7 @@ and a path from the staged experiment to an eventual platform-wide default
 endowment, sequenced so it doesn't repeat the `@main` provisioning-gap class
 of failure.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=957 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
