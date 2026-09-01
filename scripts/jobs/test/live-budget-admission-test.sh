@@ -33,6 +33,17 @@ status="$(GARDEN=testhost GARDEN_STATE="$TR/state" GARDEN_USAGE_NOW="$NOW" \
   bash -c 'source "$1/common.sh"; meter_quota_status anthropic:testhost' _ "$JOBS")"
 [ "$status" = backoff ] && ok "Friday-20:00-Pacific anchored pool reaches backoff" || bad "anchored verdict was $status"
 
+# A mid-week seven-day rejection followed by successful usage is a fresh server
+# entitlement/account epoch. Pre-boundary history must not leak into its meter.
+EPOCH_LOGS="$TR/epoch-logs"
+make_log "$EPOCH_LOGS" prior 2026-08-22T04:00:00Z 900
+make_log "$EPOCH_LOGS" fresh 2026-08-22T06:00:00Z 100
+printf '%s\n' '{"type":"assistant","timestamp":"2026-08-22T05:00:00Z","message":{"id":"rejected","model":"<synthetic>","usage":{"input_tokens":0,"output_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0}},"quotaLimits":{"status":"rejected","rateLimitType":"seven_day"}}' >> "$EPOCH_LOGS/p/session.jsonl"
+epoch_total="$(GARDEN=testhost GARDEN_STATE="$TR/state-e" GARDEN_USAGE_NOW="$NOW" \
+  GARDEN_CCUSAGE_LOGDIR="$EPOCH_LOGS" bash -c 'source "$1/common.sh"; meter_window_total anchor' _ "$JOBS")"
+[ "$epoch_total" = 100 ] && ok "mid-week entitlement boundary excludes the prior server epoch" \
+  || bad "entitlement boundary total was $epoch_total, expected 100"
+
 unknown="$(GARDEN=testhost GARDEN_STATE="$TR/state-u" GARDEN_USAGE_NOW="$NOW" \
   GARDEN_CCUSAGE_LOGDIR="$TR/missing" GARDEN_USAGE_LEDGER="$TR/no-ledger" GARDEN_BUDGET_POOLS_FILE="$CFG" \
   bash -c 'source "$1/common.sh"; pool_admits anthropic:testhost; echo rc=$?' _ "$JOBS")"

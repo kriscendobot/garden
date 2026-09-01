@@ -126,14 +126,59 @@ meter_next_reset_epoch() {
 }
 
 meter_window_cutoff() {
-  local now window="${1:-$GARDEN_TOKEN_WINDOW_SECS}"
+  local now window="${1:-$GARDEN_TOKEN_WINDOW_SECS}" cutoff effective
   now="$(meter_now)"; [[ "$now" =~ ^[0-9]+$ ]] || return 1
   if [ "$window" = anchor ]; then
-    meter_week_anchor_epoch "$now"
+    cutoff="$(meter_week_anchor_epoch "$now")" || return 1
+    effective="$(_meter_entitlement_cutoff "$GARDEN_CCUSAGE_LOGDIR" "$cutoff" 2>/dev/null || true)"
+    if [[ "$effective" =~ ^[0-9]+$ ]] && [ "$effective" -gt "$cutoff" ]; then
+      cutoff="$effective"
+    fi
+    printf '%s\n' "$cutoff"
   else
     [[ "$window" =~ ^[1-9][0-9]*$ ]] || return 1
     printf '%s\n' "$((now - window))"
   fi
+}
+
+# _meter_entitlement_cutoff <logdir> <anchor> — detect a quota/account boundary
+# inside the nominal week. A seven-day rejection followed by a successful paid
+# turn before the scheduled reset proves that the server began a fresh
+# entitlement epoch (for example after reauthentication or a promotion change).
+# Local session history survives that boundary, so continuing to count from the
+# calendar anchor would combine two server counters. Use the first success after
+# the most recent rejection as the effective cutoff. Ambiguous or unreadable logs
+# leave the calendar anchor unchanged.
+_meter_entitlement_cutoff() {
+  local logdir="$1" anchor="$2" listing rc boundary
+  command -v jq >/dev/null 2>&1 || return 1
+  [ -d "$logdir" ] && [ -r "$logdir" ] && [ -x "$logdir" ] || return 1
+  listing="$(find "$logdir" -maxdepth 6 -type f -name '*.jsonl' -newermt "@$anchor" 2>/dev/null)"; rc=$?
+  [ "$rc" -eq 0 ] || return 1
+  [ -n "$listing" ] || { printf '%s\n' "$anchor"; return 0; }
+  boundary="$(printf '%s\n' "$listing" | tr '\n' '\0' | xargs -0 jq -Rr '
+      fromjson? // empty
+      | select(.type == "assistant")
+      | ((.timestamp // "") | sub("\\.[0-9]+Z$"; "Z") | (fromdateiso8601? // -1)) as $epoch
+      | if (.quotaLimits.status == "rejected" and .quotaLimits.rateLimitType == "seven_day")
+        then [$epoch, "R"]
+        elif (.message.model != "<synthetic>" and
+              (((.message.usage.input_tokens // 0) +
+                (.message.usage.output_tokens // 0) +
+                (.message.usage.cache_creation_input_tokens // 0)) > 0))
+        then [$epoch, "S"]
+        else empty end
+      | @tsv' 2>/dev/null | awk -F'\t' -v a="$anchor" '
+        $1 >= a && $2 == "R" && $1 > rejected { rejected=$1 }
+        { epoch[NR]=$1; kind[NR]=$2 }
+        END {
+          if (!rejected) { print a; exit }
+          for (n=1; n<=NR; n++)
+            if (kind[n] == "S" && epoch[n] > rejected && (!success || epoch[n] < success)) success=epoch[n]
+          print success ? success : a
+        }')"
+  [[ "$boundary" =~ ^[0-9]+$ ]] || return 1
+  printf '%s\n' "$boundary"
 }
 
 # meter_record <billable-tokens> — append one usage event to the FALLBACK ledger.
