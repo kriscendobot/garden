@@ -43,10 +43,10 @@ recommendation. Cite the commands and their output.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=73,96 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=2 values=96,201 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
