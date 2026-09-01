@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T04:59:42Z_
+_As of 2026-09-01T05:01:17Z_
 
 ## Latest
 
@@ -2357,7 +2357,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (84)
+### doin (83)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -2435,7 +2435,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
 - [`kriscendobot-minion.town-pr62-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr62-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #62
 - [`kriscendobot-minion.town-pr64-conduct-review5072137157`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-conduct-review5072137157.md) — Conduct kriscendobot/minion.town PR 64
-- [`kriscendobot-minion.town-pr73-0a3488cd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr73-0a3488cd.md) — attention directive on kriscendobot/minion.town PR #73
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
@@ -2443,13 +2442,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6541)
+### tada (6542)
+- [`kriscendobot-minion.town-pr73-0a3488cd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr73-0a3488cd.md) — Cost
 - [`xs2rust-endor-press-20260901-043510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-043510.md) — Cost
 - [`improve-dependabotany-preflight-terminal-active-due-rows`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-preflight-terminal-active-due-rows.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260901-035003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260901-035003.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260901-035003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260901-035003.md) — Cost
-- [`issue-kriscendobot-garden-76`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-76.md) — Cost
-- … and 6536 more
+- … and 6537 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
