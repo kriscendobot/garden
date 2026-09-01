@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 77
 build_job: 
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr77-gauntlet-clean
+current_child: kriscendobot-minion.town-pr77-gauntlet-panel-1
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-09-01T18:39:40Z
