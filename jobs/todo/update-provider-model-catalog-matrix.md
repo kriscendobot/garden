@@ -18,13 +18,5 @@ garden root, its content is reproduced in this job's sibling postings
 this session's transcript; ask the liaison if you can't locate it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-01T22:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-01T21:06:31Z
+
+<!-- garden-reaped: 1 -->
