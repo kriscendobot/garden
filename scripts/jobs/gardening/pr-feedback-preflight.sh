@@ -4,7 +4,9 @@
 #
 # Usage: pr-feedback-preflight.sh <repo> <pr> <comment-id> [<reviewer-login>]
 #   <repo>           owner/name (e.g. endojs/endo-but-for-bots)
-#   <pr>             the pull-request number
+#   <pr>             the referenced pull-request number. For an attention directive
+#                    on a standalone issue, pass that issue number; the PR-only gate
+#                    detects it as inapplicable and returns 0 without gathering.
 #   <comment-id>     the triggering feedback id this job was minted from — a review
 #                    id, an inline (review) comment id, OR a PR conversation (issue)
 #                    comment id. These are three DISJOINT id spaces on three
@@ -12,7 +14,8 @@
 #   <reviewer-login> (optional) the reviewer/author whose feedback this is
 #
 # Exit code is the no-op signal:
-#   exit 0 = PROCEED  — no peer resolution found; do the work.
+#   exit 0 = PROCEED  — no peer resolution found, or the referenced item is an
+#                       issue for which this PR-only gate is inapplicable; do the work.
 #   exit 2 = NO-OP    — a peer's resolution citing THIS feedback is already on the
 #                       PR. Stop without touching the branch.
 #
@@ -72,6 +75,24 @@ reviewer="${4:-}"
 # for a deterministic test.
 : "${GARDEN_PREFLIGHT_COMMITS:=20}"
 : "${GARDEN_PREFLIGHT_EVIDENCE:=}"
+
+# The watcher also emits attention directives for standalone issues. In that case
+# <pr> is an issue number and every pull-specific evidence endpoint below is
+# inapplicable. Classify the referenced number through GitHub's shared issue/PR
+# surface first: pull requests carry a `pull_request` key, while true issues do not.
+# A true issue makes this PR-only preflight a clean no-op (the directive itself must
+# still proceed), rather than manufacturing expected pull-endpoint 404s and reporting
+# them as an infrastructure failure. If classification cannot be established, leave
+# the existing fail-open gather path in charge of reporting a genuine failure.
+if [ -z "$GARDEN_PREFLIGHT_EVIDENCE" ]; then
+  require_tools gh jq
+  referenced_item="$(gh api "repos/$repo/issues/$pr" 2>/dev/null || true)"
+  if jq -e 'type == "object" and (.number | type == "number") and (has("pull_request") | not)' \
+       >/dev/null 2>&1 <<<"$referenced_item"; then
+    log "INAPPLICABLE: $repo#$pr is an issue, not a pull request; skipping PR-feedback evidence gathering"
+    exit 0
+  fi
+fi
 
 gather_evidence() {  # gather_evidence <reason_file> -> JSON evidence on stdout
   # Emits the evidence JSON object on stdout on success. On ANY tool/transport

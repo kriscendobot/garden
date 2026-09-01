@@ -60,6 +60,7 @@ make_live_gh() {  # make_live_gh -> writes $TR/bin/gh dispatching on the API pat
 # simulate a transport failure on the pull fetch.
 path=""; for a in "$@"; do path="$a"; done
 case "$path" in
+  *"/issues/722") printf '{"number":722,"pull_request":{"url":"x"}}\n' ;;
   *"/reviews/"*)  cat "$GH_REVIEW" ;;
   *"/comments"*)  cat "$GH_COMMENTS" ;;
   *"/commits"*)   cat "$GH_COMMITS" ;;
@@ -117,6 +118,61 @@ run_live() {  # run_live <comments-file> [pull-fail-msg] — genuine gather path
 printf '#!/bin/bash\nprintf "%%s\\n" "$2" >> %q\n' "$TR/alert.log" > "$TR/alert-sink.sh"
 chmod +x "$TR/alert-sink.sh"
 
+# --- standalone-issue harness -------------------------------------------------
+# Attention directives can originate on true issues as well as PRs. The preflight
+# must recognize that shared issues/<number> object before touching any pull-only
+# evidence endpoint, then return cleanly without warning or maintainer-alert noise.
+make_live_gh_standalone_issue() {
+  mkdir -p "$TR/bin"
+  cat > "$TR/bin/gh" <<'GH'
+#!/bin/bash
+path=""; for a in "$@"; do path="$a"; done
+printf '%s\n' "$path" >> "$GH_CALLS"
+case "$path" in
+  "repos/$REPO/issues/$PR")
+    printf '{"number":%s,"title":"A standalone issue"}\n' "$PR" ;;
+  *)
+    printf 'fake gh: pull-specific evidence must not be gathered for issue #%s: %s\n' \
+      "$PR" "$path" >&2
+    exit 1 ;;
+esac
+GH
+  chmod +x "$TR/bin/gh"
+}
+
+run_live_standalone_issue() {
+  make_live_gh_standalone_issue
+  : > "$TR/gh-calls.log"
+  rm -f "$TR/alert.log"
+  set +e
+  OUT="$(env -u GARDEN_PREFLIGHT_EVIDENCE \
+             PATH="$TR/bin:$PATH" \
+             GARDEN=testhost GARDEN_STATE="$TR/state" \
+             GARDEN_ALERT_CMD="$TR/alert-sink.sh" \
+             GH_CALLS="$TR/gh-calls.log" REPO="$REPO" PR="$PR" \
+             bash "$PRE" "$REPO" "$PR" "$CID" "$REVIEWER" 2>&1)"
+  RC=$?
+  set -e
+}
+
+hr; echo "STANDALONE ISSUE - PR-feedback preflight is inapplicable"; hr
+run_live_standalone_issue
+{ [ "$RC" -eq 0 ] && grep -q 'INAPPLICABLE' <<<"$OUT"; } \
+  && ok "standalone issue returns cleanly as an inapplicable preflight" \
+  || bad "standalone issue did not return cleanly (exit $RC): $OUT"
+[ "$(grep -c '^repos/' "$TR/gh-calls.log")" -eq 1 ] \
+  && ok "standalone issue classification made no pull-feedback evidence calls" \
+  || bad "standalone issue made unexpected API calls: $(tr '\n' ' ' < "$TR/gh-calls.log")"
+grep -q 'repos/.*/issues/' "$TR/gh-calls.log" \
+  && ok "standalone issue was detected through the shared issue/PR endpoint" \
+  || bad "standalone issue classification endpoint was not called"
+grep -qiE 'WARN|evidence gathering FAILED' <<<"$OUT" \
+  && bad "standalone issue emitted warning/failure noise: $OUT" \
+  || ok "standalone issue emitted no warning/failure noise"
+[ -s "$TR/alert.log" ] \
+  && bad "standalone issue wrongly filed a maintainer alert" \
+  || ok "standalone issue filed no maintainer alert"
+
 # --- issue-comment (PR conversation) target-resolution harness ----------------
 # When the triggering id is a PR CONVERSATION comment, the review and inline-comment
 # surfaces 404 and resolution must fall through to issues/comments/<id>. These tests
@@ -134,6 +190,7 @@ make_live_gh_issue() {  # make_live_gh_issue -> gh where the target is an issue 
 # matched BEFORE the paginated corpus fetches (/pulls/<pr>/comments, /issues/<pr>/comments).
 path=""; for a in "$@"; do path="$a"; done
 case "$path" in
+  *"/issues/722")             printf '{"number":722,"pull_request":{"url":"x"}}\n' ;;
   *"/pulls/"*"/reviews/"*)   printf 'gh: HTTP 404 Not Found\n' >&2; exit 1 ;;
   *"/pulls/comments/"*)      printf 'gh: HTTP 404 Not Found\n' >&2; exit 1 ;;
   *"/issues/comments/"*)     cat "$GH_ISSUE_COMMENT" ;;
