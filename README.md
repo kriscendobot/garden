@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:18:25Z_
+_As of 2026-09-01T19:20:22Z_
 
 ## Latest
 
@@ -2494,14 +2494,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.0M | $355.23 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Claude | 18.0M | $356.81 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 33.7M _(+901.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (90)
+### doin (91)
+- [`audit-garden-automation-cybernetics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-garden-automation-cybernetics.md) — Systematic audit of the garden automation's cybernetics
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`diagnose-budget-meter-overreport-ece02cb4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-budget-meter-overreport-ece02cb4.md) — Diagnose why the budget meter over-reports on endolin-garden-ece02cb4
