@@ -159,8 +159,11 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
   # completion), so mirror that contract here: a fresh sentinel path per run, plus
   # the marker the fake claude emits on success.
   rm -f "$SENTINEL"
+  # This suite invokes the legacy gardener wrapper; do not let a caller's active
+  # worker kind (for example, a cleric job) change its provider/model assertions.
   HOME="$TR/home" PATH="$FAKEDIR:$PATH" \
     GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_STATE="$TR/state" \
+    GARDEN_WORKER_KIND=gardener \
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" GARDEN_USAGE_FILE="$TR/usage.json" FAKE_COMPLETION_MARKER="$MARKER" \
     FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" FAKE_USAGE_OUT="$TR/usage.out" \
