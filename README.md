@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T17:44:57Z_
+_As of 2026-09-01T17:51:39Z_
 
 ## Latest
 
@@ -2362,8 +2362,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.8M | $243.06 _(notional, rate-card)_ | 255% of 5.0M (backoff) |
-| Codex | 33.3M _(+875.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 12.8M | $243.57 _(notional, rate-card)_ | 256% of 5.0M (backoff) |
+| Codex | 33.4M _(+875.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -2450,7 +2450,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr62-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr62-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #62
 - [`kriscendobot-minion.town-pr64-conduct-review5072137157`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-conduct-review5072137157.md) — Conduct kriscendobot/minion.town PR 64
 - [`kriscendobot-minion.town-pr72-1785ef31`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr72-1785ef31.md) — attention directive on kriscendobot/minion.town PR #72
-- [`kriscendobot-minion.town-pr73-34dcca36`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr73-34dcca36.md) — attention directive on kriscendobot/minion.town PR #73
+- [`kriscendobot-minion.town-pr75-11801f3-design-tool-name-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr75-11801f3-design-tool-name-reconcile.md) — ---
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
@@ -2460,13 +2460,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6573)
+### tada (6574)
+- [`kriscendobot-minion.town-pr73-34dcca36`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr73-34dcca36.md) — Cost
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr982-0b4f9f5d.md) — Cost
 - [`fix-deploy-gate-noexec-tmpdir`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-deploy-gate-noexec-tmpdir.md) — Cost
 - [`xs2rust-endor-press-20260901-155004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-155004.md) — Cost
 - [`endojs-endo-but-for-bots-pr1018-fix-20260901-132013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-fix-20260901-132013.md) — Cost
-- [`improve-cleric-stale-cgroup-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-cleric-stale-cgroup-cleanup.md) — Cost
-- … and 6568 more
+- … and 6569 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
