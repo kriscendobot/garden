@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: generic attention-router around a one-word directive; kriskowal's comment on endojs/endo-but-for-bots#300 said simply 'Weave.' and the PR is still CONFLICTING, so the work is posted directly as endojs-endo-but-for-bots-pr300-weave-20260901 (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:39:49Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
