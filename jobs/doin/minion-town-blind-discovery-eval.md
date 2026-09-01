@@ -23,6 +23,7 @@ call and result 4. If it did not, post explicit named follow-up job(s) for every
 documentation deficiency and cite them in the completion report. Never expose
 the client secret or bearer token in logs, prompts, commits, or the report.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
