@@ -9,6 +9,7 @@ Implement creator-supplied special-name endowments for freshly provisioned Endo 
 
 Forward-reference requirement: immediately after opening or identifying the implementation pull request, post a comment on issue #982 linking that build PR and stating its current status. Do not complete this job with the forward reference merely described in prose; actually post it and include the issue-comment URL in the completion report. If an existing build already implements the issue, verify it at current head and post that exact PR as the forward reference instead of opening a duplicate.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
