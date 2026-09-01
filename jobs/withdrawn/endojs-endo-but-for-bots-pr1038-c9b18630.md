@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by endojs-endo-but-for-bots-pr1038-fix-20260828 (promoted 2026-09-01), which names the concrete task — revalidate the post-approval head movement from 470c5957c5 to 41cd489f30 — that this generic attention directive would only have routed to (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:25:04Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
