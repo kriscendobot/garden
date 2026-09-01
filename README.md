@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:49:50Z_
+_As of 2026-09-01T19:50:32Z_
 
 ## Latest
 
@@ -1422,7 +1422,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.7M | $406.56 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Claude | 20.5M | $402.93 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 34.0M _(+905.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
@@ -1511,7 +1511,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr62-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr62-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #62
 - [`kriscendobot-minion.town-pr64-conduct-review5072137157`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-conduct-review5072137157.md) — Conduct kriscendobot/minion.town PR 64
 - [`kriscendobot-minion.town-pr72-1785ef31`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr72-1785ef31.md) — attention directive on kriscendobot/minion.town PR #72
-- [`kriscendobot-minion.town-pr77-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr77-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #77
+- [`kriscendobot-minion.town-pr77-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr77-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #77
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 - [`minion-town-blind-discovery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-blind-discovery-eval.md) — ---
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
@@ -1522,13 +1522,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6588)
+### tada (6589)
+- [`kriscendobot-minion.town-pr77-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr77-gauntlet-panel-2.md) — Completion report
 - [`minion-town-fix-publish-invalid-main-pet-name`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-fix-publish-invalid-main-pet-name.md) — Cost
 - [`design-minion-town-eval-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-eval-campaign.md) — Completion report — design-minion-town-eval-campaign
 - [`ebfb-label-upstream-master-base-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-label-upstream-master-base-prs.md) — Cost
 - [`xs2rust-endor-press-20260901-193520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-193520.md) — Cost
-- [`audit-garden-automation-cybernetics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-garden-automation-cybernetics.md) — Completion report — audit-garden-automation-cybernetics
-- … and 6583 more
+- … and 6584 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
