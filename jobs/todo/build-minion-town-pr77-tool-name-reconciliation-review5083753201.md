@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-minion-town-pr77-conduct-build-review5083753201
-priority: high
 role: builder
-posted_by: gardener
-posted_at: 2026-09-01T22:42:38Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-09-01T22:58:08Z cleared=none -->
 
 ---
 tier: mentor
