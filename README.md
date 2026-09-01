@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T23:38:39Z_
+_As of 2026-09-01T23:40:26Z_
 
 ## Latest
 
@@ -115,10 +115,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
 
-- `20260819T003803Z-7d3388` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003803Z-7d3388.md)
-
-> From report `improve-promote-plan-poison-reset`: `endo-sturdyref-agent-surface-build-gauntlet` is still parked in `plan/` behind its `go-ahead`, held back by the deadline-overrun marker fixed in this change. Promoting it once the fix deploys is a maintainer-authorization act — flagging it's ready whenever you want to promote.
-
 - `20260819T003813Z-b83dfb` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003813Z-b83dfb.md)
 
 > From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
@@ -206,19 +202,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > The daily drift-check schedule behind report `fu-minion-town-containment-gateway-endo-sock-1-20260828-032006` is firing against a premise that no longer holds (the minion.town containment-gateway ENDO_SOCK drift it was watching for). Decision needed: retire that schedule, or repurpose it to a still-meaningful check? Until you decide it keeps running daily and reporting on an obsolete premise.
 
-- `20260831T032332Z-0647d1` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T032332Z-0647d1.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> Failed to authenticate: OAuth session expired and could not be refreshed
-
 - `20260831T043436Z-4db4ee` — from gardener:endojs-endo-but-for-bots-pr237-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr237-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T043436Z-4db4ee.md)
 
 > Gauntlet fix stage for endojs/endo-but-for-bots [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237) (design: lal defineJessie + Blockly): I applied the panel's round-1 must-fix items to designs/lal-jessie-blocky.md and pushed (head 014582b0b) — corrected the load-bearing integration-point error (incoming proposals render in inbox-component.js/endow-modal.js and submit via E(powers).endow, not define-form.js), fixed the forgeable options.language tag (render-side re-validation), added the missing Alternatives, reconciled the effort figures (8 days across design+README), renamed the tool define-jessie→defineJessie, and swept the prose/heading/spelling findings.
@@ -226,18 +209,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > BLOCKER: CI can't run. The PR is 2516 commits stale and CONFLICTING with base llm, so GitHub creates no CI runs (structurally blocked, not pending). The conflict is entirely in designs/README.md, whose structure+totals were rewritten wholesale on llm since the PR's May base (milestones renumbered M4→M9, 192 designs, dated rolling-index-refresh model) — the PR's README bookkeeping edits are obsolete and can't be mechanically rebased. The design file itself merges cleanly.
 >
 > I did NOT unilaterally rewrite the public PR history from a fix stage. I posted a weave successor (endojs-endo-but-for-bots-pr237-weave-20260831) that owns rebasing [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237) onto current llm — recommended resolution there is to drop the stale README edits (let the next index refresh pick up the design). Two things for you: (1) this design PR is ~3.5 months old — if you'd rather close it than land it, say so and I'll cancel the weave; (2) the gauntlet will keep re-posting the fix stage on still-pending, which loops until the weave lands — you may want to pause the gauntlet until the weave rebases the base.
-
-- `20260831T071931Z-f0685e` — from gardener:endojs-endo-but-for-bots-pr1075-weave-20260831, reply_to `endojs-endo-but-for-bots-pr1075-weave-20260831` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T071931Z-f0685e.md)
-
-> Weave of [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) halted — the branch's premise no longer holds. The PR is already fully landed on `llm`; a rebase onto current `llm` (4c061e2f) produces an EMPTY diff. I made no remote mutation (rebase aborted, no force-push, no merge).
->
-> Evidence:
-> - Both test files are byte-identical on `llm` and the PR head de2f852a8: intrinsics/AsyncFunction/{intrinsic-metadata.js, inert-stand-in.js}. They landed via squash commit 17dfcee8f `test(hardened262): cover %AsyncFunction% intrinsic metadata (#1075)` (Kriscendo Bot, 2026-08-28 14:31Z).
-> - All 90 baseline lines the PR adds (sesNode/sesXs/xs/ironhorse/sesIronhorse) are already present in `llm`'s current baselines (checked line-by-line: present=90, missing=0).
-> - The PR is purely additive (244 insertions, 0 deletions) and every addition is already on `llm`, so a resolved rebase drops all 4 commits as empty.
-> - PR timeline: head force-pushed 14:05Z, closed 15:12Z, reopened 15:29Z (all kriscendobot, 2026-08-28). The reopen left a redundant PR whose %AsyncFunction% coverage is already on trunk.
->
-> Recommendation: CLOSE [endojs/endo-but-for-bots#1075](https://github.com/endojs/endo-but-for-bots/issues/1075) as already-landed (the %AsyncFunction% intrinsic-metadata coverage is on `llm`; nothing is lost). No new conductor/merge job — there is nothing to merge. If instead you want the PR's baseline-regen commit re-landed as a distinct change, that's a fresh build/fixer, not a rebase, but the coverage it targets is already green on `llm`.
 
 - `20260831T095854Z-3a677d` — from gardener:endojs-endo-but-for-bots-pr138-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr138-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T095854Z-3a677d.md)
 
@@ -252,41 +223,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Recommendation: weave [endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322) (rebase the head onto current `llm`, resolve the designs/README.md index conflict) BEFORE the gauntlet can reach green. Re-posting the fix stage will loop uselessly — the must-fix items are already applied. After the weave, re-run the gauntlet.
 >
 > The panel round-1 must-fix items ARE addressed on the pushed head (socket/xdg-run grant, wiring contradiction, script rename, mermaid arrow, "signed" contradiction, MVR/G-code glosses, speculative finish-args split, release-gating marker, and the copyedits).
-
-- `20260831T135423Z-4c9fd0` — from gardener:endojs-endo-but-for-bots-pr249-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr249-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T135423Z-4c9fd0.md)
-
-> [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (design/ses-top-level-await) gauntlet fix-1: applied the panel's must-fix items (already committed/pushed as 1eb10a3de by a prior attempt of this same job — verified content covers all 4 request-changes seats: skeptic, decomplector, copyeditor, novice, plus the cheap should-fix items). PR head matches origin.
->
-> BUT: CI never attaches to this branch. Checked via GH API — zero workflow_runs recorded against ANY of the last 5 pushed SHAs since 2026-05-15 (071f0849, 9a73e9d3, 919e8611, 4424f3a9, 1eb10a3d), even though sibling design/* branches in the same repo trigger pull_request runs fine within seconds of a push around the same time window. statusCheckRollup stays permanently empty. Also: PR mergeable_state is "dirty"/CONFLICTING (base `llm` has moved ~85 commits since this branch forked on 2026-05-14; branch was never rebased).
->
-> ci-wait-merge.sh correctly reports rc=4 (still-pending) per its empty-rollup timeout, so this fix stage reports still-pending as designed. But if the driver just re-posts this stage on a fixed cadence expecting CI to eventually attach, it will loop forever — CI has never once attached in 3.5 months of pushes. Suspect the conflicting/stale base state is suppressing pull_request workflow triggering (or some other GH-side quirk specific to this branch/PR). This PR likely needs a `weave`/rebase onto live `llm` before CI can even run, not another fix round.
-
-- `20260831T184009Z-aba996` — from gardener:endojs-endo-but-for-bots-pr249-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr249-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T184009Z-aba996.md)
-
-> PR [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/issues/249) (endojs/endo-but-for-bots, design/ses-top-level-await) fix-1 stage:
-> the panel's must-fix items were already applied in a prior claim of this job
-> (commit 1eb10a3de "apply panel round-1 must-fix items"), followed by a CI-nudge
-> empty commit (dc89073ec) roughly 9h later that also failed to attach.
->
-> Diagnosis this round: CI checks have NEVER attached to this PR/branch since its
-> original creation on 2026-05-14 — 0 check-runs on any of the 5 follow-up
-> commits, despite the workflow files being valid YAML and this same bot identity
-> (kriscendobot) successfully triggering pull_request-event CI runs on OTHER PRs
-> in this same repo today. The PR is also mergeable=CONFLICTING /
-> mergeStateStatus=DIRTY against its base 'llm', which has diverged by hundreds
-> of commits since May (e.g. conflicting edits to designs/README.md's roadmap
-> table and totals).
->
-> I suspect the stale/conflicted merge state is why GitHub isn't dispatching
-> pull_request synchronize events for this branch, but couldn't confirm via the
-> Actions API (no permission for the actions/permissions endpoints from this
-> identity). This likely needs a weave/rebase of the branch onto current llm
-> before CI can attach at all — further polling won't change that.
->
-> Stopped the CI wait early (729s of the 3600s bound elapsed, status unchanged)
-> rather than burn the full hour on a wait I'm confident won't resolve.
-> Reporting fix=still-pending for this stage; recommend a weave/rebase pass
-> before the next fix/panel round is posted.
 
 - `20260901T175244Z-931faa` — from gardener:minion-town-remove-mcp-tool-prefixes, reply_to `minion-town-remove-mcp-tool-prefixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T175244Z-931faa.md)
 
@@ -1385,11 +1321,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.8M | $455.07 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 37.5M _(+987.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Claude | 22.8M | $456.57 _(notional, rate-card)_ | 6% of 385.0M (ok) |
+| Codex | 37.5M _(+988.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
-### todo (9)
+### todo (7)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #79
 - [`kriscendobot-minion-town-pr68-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #68
@@ -1397,10 +1333,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 - [`self-heal-fix-garden-mirror-closer-gh-primary-ratelimit-already`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-mirror-closer-gh-primary-ratelimit-already.md) — ---
-- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-base-update-and-pin-alias.md) — ---
-- [`xs2rust-endor-press-20260901-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260901-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (100)
+### doin (101)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-npm-registry-as-directory-tree-review5064787686-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2.md) — Build the approved npm registry directory-tree design (halt recovery)
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
@@ -1497,18 +1431,19 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias.md) — ---
-- [`self-heal-fix-garden-cleric-handoff-unposted-nonfatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-cleric-handoff-unposted-nonfatal.md) — ---
+- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+- [`xs2rust-endor-press-20260901-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6634)
+### tada (6635)
+- [`self-heal-fix-garden-cleric-handoff-unposted-nonfatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-cleric-handoff-unposted-nonfatal.md) — Cost
 - [`design-claude-ollama-cloud-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-claude-ollama-cloud-worker-kind.md) — Completion report: design-claude-ollama-cloud-worker-kind
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/openrouter-zdr-policy-and-stealth-lane.md) — Cost
 - [`kriscendobot-minion-town-pr67-conduct-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr67-conduct-20260901.md) — Completion report
 - [`kriscendobot-minion.town-pr70-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr70-conduct.md) — Cost
-- [`kriscendobot-minion-town-pr67-conduct-20260901-5083864114`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr67-conduct-20260901-5083864114.md) — Cost
-- … and 6629 more
+- … and 6630 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
