@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: finbot work deprioritised by maintainer directive (2026-09-01 muster): archive all parked finbot jobs regardless of PR state. kriscendobot/finbot#5 remains OPEN if this is ever revived
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:55:25Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: low
 doomed: true
