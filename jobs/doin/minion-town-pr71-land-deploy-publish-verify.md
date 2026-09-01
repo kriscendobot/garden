@@ -20,6 +20,7 @@ Complete all of the following:
 Origin: job `minion-town-fix-publish-invalid-main-pet-name`. This successor owns the entire unfinished deliverable.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=571 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
