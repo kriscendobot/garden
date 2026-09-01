@@ -17,6 +17,7 @@ garden root, its content is reproduced in this job's sibling postings
 (`probe-opencode-anthropic`) and the liaison's own summary of it survives in
 this session's transcript; ask the liaison if you can't locate it.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
