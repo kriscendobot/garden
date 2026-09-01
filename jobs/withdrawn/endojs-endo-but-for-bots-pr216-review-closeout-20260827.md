@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: premise no longer holds: endojs/endo-but-for-bots#216 carries CHANGES_REQUESTED, so a review CLOSEOUT is aimed at a step the PR has not reached. Replaced by a fixer job addressing the review (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:25:09Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: fixer
