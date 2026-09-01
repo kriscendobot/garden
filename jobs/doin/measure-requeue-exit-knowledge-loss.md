@@ -109,3 +109,13 @@ the worker when it fails.
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=177,13 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T23:45:38Z
