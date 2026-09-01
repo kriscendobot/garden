@@ -106,6 +106,7 @@ facts above does NOT hold when you check it, stop and report back rather than
 proceeding — this change forecloses rollback to the legacy pool.
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=193 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
