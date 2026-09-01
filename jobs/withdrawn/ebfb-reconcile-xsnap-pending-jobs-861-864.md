@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: already accomplished: this job's task was 'adopt #864, close #861'. endojs/endo-but-for-bots#864 is MERGED and #861 is CLOSED, so both halves are done (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:56:10Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 doomed: true
