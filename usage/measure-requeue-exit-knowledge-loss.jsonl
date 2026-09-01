@@ -9,3 +9,4 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":2,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-08-01T11:43:29Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"builder"}
 {"source":"none","ts":"2026-09-01T23:12:48Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":98,"role":"builder","provider":"local"}
 {"source":"none","ts":"2026-09-01T23:28:25Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":171,"role":"builder","provider":"local"}
+{"source":"none","ts":"2026-09-01T23:37:57Z","base":"measure-requeue-exit-knowledge-loss","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":7,"role":"builder","provider":"local"}
