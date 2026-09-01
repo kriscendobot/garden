@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: target kriscendobot/minion.town#53 is MERGED; the gauntlet has no PR left to drive (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:05:27Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
