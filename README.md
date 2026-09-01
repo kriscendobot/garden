@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T17:55:31Z_
+_As of 2026-09-01T17:56:11Z_
 
 ## Latest
 
@@ -2366,14 +2366,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.0M | $245.76 _(notional, rate-card)_ | 261% of 5.0M (backoff) |
-| Codex | 33.5M _(+877.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 13.1M | $247.20 _(notional, rate-card)_ | 262% of 5.0M (backoff) |
+| Codex | 33.5M _(+878.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (90)
+### doin (89)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -2460,18 +2460,17 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
-- [`minion-town-remove-mcp-tool-prefixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remove-mcp-tool-prefixes.md) — ---
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6574)
+### tada (6575)
+- [`minion-town-remove-mcp-tool-prefixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-remove-mcp-tool-prefixes.md) — Cost
 - [`kriscendobot-minion.town-pr73-34dcca36`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr73-34dcca36.md) — Cost
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr982-0b4f9f5d.md) — Cost
 - [`fix-deploy-gate-noexec-tmpdir`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-deploy-gate-noexec-tmpdir.md) — Cost
 - [`xs2rust-endor-press-20260901-155004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-155004.md) — Cost
-- [`endojs-endo-but-for-bots-pr1018-fix-20260901-132013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-fix-20260901-132013.md) — Cost
-- … and 6569 more
+- … and 6570 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
