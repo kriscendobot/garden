@@ -1,7 +1,7 @@
-# Reference: cross-provider model catalog (Claude + Codex)
+# Reference: cross-provider model and harness catalog
 
 | Created | 2026-07-13 |
-| Updated | 2026-08-22 |
+| Updated | 2026-09-01 |
 | Author  | gardener, gardener (scholar) |
 | Status  | Reference |
 
@@ -18,6 +18,61 @@ capability/cost, and intended use. It exists to ground two consumers:
   cost-per-acceptance estimate per model. The **cross-provider thoughtfulness axis**
   (§3 below) is the load-bearing output that lets a downstream reputation system key
 uniformly on `(provider, model, thoughtfulness)` regardless of backend.
+
+## Harness x provider matrix
+
+This is the top-level map of which agent harness can drive each inference provider.
+The provider is the API, billing, and reputation boundary, not necessarily the model
+author. For example, a Kimi model served by Fireworks remains on the `fireworks`
+row. A cell records technical reach and integration maturity, not automatic job
+eligibility: the closed model inventory, provider constraints, explicit-model-only
+rules, credentials, and worker counts still gate every run.
+
+| Inference provider | Claude Code (`claude`) | Codex CLI (`codex`) | Kimi Code (`kimi`) | OpenCode (`opencode`) |
+| --- | --- | --- | --- | --- |
+| Anthropic | ✅ `monk` / `gardener` | — no Anthropic protocol | 🔬 native Anthropic adapter | 🔬 landed `opencode-anthropic` probe lane |
+| OpenAI | — no OpenAI protocol | ✅ `cleric` | 🔬 native OpenAI Responses adapter | 🔬 native provider mapping |
+| Local Ollama | 🔬 Ollama Anthropic Messages compatibility | ✅ `hermit` | ❓ generic OpenAI-compatible route | 🔬 documented Ollama integration |
+| Ollama Cloud | 🔬 Ollama Anthropic Messages compatibility | 🔬 Ollama Responses compatibility | ❓ generic OpenAI-compatible route | 🔬 documented Ollama integration |
+| Moonshot | — no Anthropic protocol | ❓ OpenAI compatibility does not establish Codex Responses parity | ✅ `mystic` | 🔬 `moonshotai` provider mapping |
+| Fireworks | — no Anthropic protocol | ✅ `fireworker` | ❓ generic OpenAI-compatible route | ❓ custom OpenAI-compatible route |
+| OpenRouter | 🔬 Anthropic Messages compatibility | ✅ `openrouter` | ❓ generic OpenAI-compatible route | 🔬 provider-catalog route |
+| Google Gemini | — Claude Code's Google route serves Claude, not Gemini | — Gemini's compatibility surface does not provide Codex Responses parity | 🔬 native Gemini adapter | 🔬 native `google` provider mapping |
+
+Legend:
+
+- ✅ **Garden-integrated:** a worker kind and handler route exist. The lane may still
+  be disabled, explicit-only, or awaiting credentials and a bounded canary.
+- 🔬 **Direct route to probe:** the harness or provider documents a direct adapter,
+  or a garden probe exists, but this provider/harness pair is not a production lane.
+- ❓ **Plausible, unproved route:** only a generic compatibility adapter connects the
+  pair. Auth, streaming tools, resume, error classification, transcript capture, and
+  cost accounting still need an end-to-end probe.
+- — **No supported route:** the required API protocol is absent or, for Codex, the
+  available compatibility surface does not establish Responses API parity.
+
+The ✅ cells are detailed in the provider sections below. The OpenCode column and
+the one-kind-per-provider safety boundary come from
+[`opencode-alternate-harness.md`](opencode-alternate-harness.md); the landed
+Anthropic probe and its remaining live-canary gap are recorded in
+[`context/operations/opencode-anthropic.md`](../context/operations/opencode-anthropic.md).
+The unintegrated Ollama routes are deliberately kept at 🔬 or ❓: Ollama documents
+Claude Code, Codex, and OpenCode integrations for local and cloud models, but the
+garden currently has only the local Codex `hermit` lane. In particular, the Cloud
+route needs its own paid-provider identity, credential handoff, quota handling, and
+rate card rather than inheriting `provider: local`.
+
+External compatibility evidence is provider-owned: Ollama's
+[Anthropic](https://docs.ollama.com/api/anthropic-compatibility) and
+[OpenAI](https://docs.ollama.com/api/openai-compatibility) API surfaces plus its
+[three-harness launch guide](https://ollama.com/blog/launch), Kimi Code's
+[native and compatibility provider types](https://moonshotai.github.io/kimi-cli/en/configuration/providers.html),
+OpenRouter's
+[Claude Code integration](https://openrouter.ai/docs/guides/coding-agents/claude-code-integration),
+and Gemini's
+[Chat Completions compatibility surface](https://ai.google.dev/gemini-api/docs/openai).
+These sources establish a route, not garden readiness, which is why undocumented
+generic pairings remain ❓ and direct but unintegrated pairings remain 🔬.
 
 ## Dispatch vocabulary (current)
 
