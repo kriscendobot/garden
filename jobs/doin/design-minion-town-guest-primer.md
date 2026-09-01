@@ -117,6 +117,7 @@ endowment, sequenced so it doesn't repeat the `@main` provisioning-gap class
 of failure.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=957 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-01T22:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
