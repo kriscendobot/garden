@@ -43,21 +43,37 @@ clip's normal public URL — a visitor to a clip needs no login at all.
 
 - `powers` must name a pet name in your guest holding a sites capability; in
   practice pass `"sites"` (the literal name a guest is provisioned with).
-- **Known bug, unresolved as of 2026-09-01**: a `publish` call can fail
-  unconditionally with `Invalid pet name "@main"`, regardless of the `powers`
-  value (tried `sites` and three other held-capability pet names — 13 total
-  attempts) or the `content` payload (tried a 1-file trivial payload through a
-  full real page). `status`/`list` on the same guest already showed several
-  `@`-prefixed reserved names (`@agent`, `@host`, `@mail`, `@nets`, `@planes`,
-  `@self`) — evidently seeded by the platform through a path the ordinary MCP
-  tool surface doesn't expose — but not `@main` specifically. `has`'s own
-  validator rejects any pet name containing `@`, so there is no documented,
-  tool-reachable way for a guest to provision or repair this client-side. If
-  you hit this, don't keep varying `powers`/`content` hunting for a fix on
-  your side — it isn't there; report it instead. Filed as
-  `minion-town-fix-publish-invalid-main-pet-name` on the garden job board
-  (`kriscendobot/minion.town`) — check whether it has since landed before
-  re-diagnosing from scratch.
+- **`Invalid pet name "@main"` on publish — diagnosed and FIXED, deployed
+  2026-09-01.** Symptom: a `publish` call failed unconditionally with
+  `Invalid pet name "@main"`, regardless of the `powers` value or the
+  `content` payload. Root cause was **not** guest provisioning: the app
+  probed `guest.has("@main")` to choose between the intended `@main` worker
+  and the legacy `MAIN` worker, but the production-pinned Endo daemon does not
+  endow `@main` — its `has` delegates the unknown `@`-prefixed name to the
+  ordinary pet-name store, whose grammar *rejects* names containing `@` (it
+  throws instead of returning `false`), so the error propagated before the
+  guest evaluation ever ran. `status`/`list` on such a guest show the seeded
+  reserved names (`@agent`, `@host`, `@mail`, `@nets`, `@planes`, `@self`,
+  plus `MAIN`) but never `@main`.
+  - **Fix**: kriscendobot/minion.town#71 (merged to `main` as `975a035`,
+    commit `79c0430`) treats a *rejection* of the `has("@main")` probe as
+    "not endowed" and falls back to the legacy `MAIN` worker, with a
+    regression test that makes `has("@main")` throw the pinned daemon's error
+    and asserts evaluation proceeds on `MAIN`. Once Endo endows `@main` the
+    app will select it without another migration.
+  - **Deploy**: the merge auto-triggered minion.town's CD workflow
+    (`deploy.yml`, push-to-`main`), which redeployed the app to production
+    (run `33551873310`, success 2026-09-01T19:53Z).
+  - **Affected guest scope & repair**: the fallback is a client-side
+    compatibility shim that **repairs legacy guests in place** — no
+    per-guest provisioning or manual repair is required. Any guest holding
+    `MAIN` (rather than `@main`) is served by the fallback automatically.
+  - **Verification evidence (post-deploy, 2026-09-01)**: the exact failing
+    call — `publish` with `powers: "sites"` and one `index.html` whose base64
+    bytes are `dGVzdA==` — now returns a hash/URL with `serving: true`
+    instead of the error; fetching the returned `<hash>.ocap.site` URL gave
+    HTTP 200 with body `test` and ETag = `sha256("test")`. Smoke clip cleaned
+    up with `unpublish`.
 
 ## `evaluate` gotchas
 
