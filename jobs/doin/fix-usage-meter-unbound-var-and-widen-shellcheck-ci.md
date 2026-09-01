@@ -69,6 +69,8 @@ widening plus the specific bug.
    runs green on your PR-equivalent push and report the run URL.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
