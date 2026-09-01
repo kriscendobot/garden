@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T23:52:19Z_
+_As of 2026-09-01T23:53:08Z_
 
 ## Latest
 
@@ -1467,8 +1467,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.8M | $465.66 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 38.0M _(+1005.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 22.9M | $466.57 _(notional, rate-card)_ | 6% of 385.0M (ok) |
+| Codex | 38.0M _(+1006.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (5)
@@ -1478,7 +1478,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 
-### doin (100)
+### doin (99)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-npm-registry-as-directory-tree-review5064787686-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2.md) — Build the approved npm registry directory-tree design (halt recovery)
@@ -1569,7 +1569,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr68-review-45cc89f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr68-review-45cc89f1.md) — Review directive on kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr72-1785ef31`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr72-1785ef31.md) — attention directive on kriscendobot/minion.town PR #72
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
-- [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`minion-town-blind-discovery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-blind-discovery-eval.md) — ---
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
@@ -1580,13 +1579,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6640)
+### tada (6641)
+- [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/measure-requeue-exit-knowledge-loss.md) — Cost
 - [`endojs-endo-but-for-bots-pr897-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr897-conduct.md) — Completion report — conductor, endojs/endo-but-for-bots PR #897
 - [`self-heal-fix-garden-mirror-closer-gh-primary-ratelimit-already`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-primary-ratelimit-already.md) — Cost
 - [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-fix-1.md) — Cost
 - [`xs2rust-endor-press-20260901-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-230506.md) — Cost
-- [`endojs-endo-but-for-bots-pr1039-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1039-rebase.md) — Cost
-- … and 6635 more
+- … and 6636 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
