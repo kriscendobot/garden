@@ -1,21 +1,10 @@
 ---
-gate: go-ahead
-priority: normal
 role: builder
 tier: mentat
 handler-timeout: 7200
 token-budget: 4500000
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-08-29T18:43:03Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-08-29T18:43:03Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-01T23:07:09Z cleared=none -->
 
 ---
 tier: mentat
