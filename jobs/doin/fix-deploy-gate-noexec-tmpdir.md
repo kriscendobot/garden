@@ -93,3 +93,13 @@ reported rather than producing bogus suite failures. Prove the test can fail
 (mutate the guard, show it caught) and record that in the test header. Then
 demonstrate a real `deploy-garden.sh` run passing its gate with NO `TMPDIR`
 override, and cite the output.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T17:19:44Z
