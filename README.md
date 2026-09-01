@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T20:05:12Z_
+_As of 2026-09-01T20:06:17Z_
 
 ## Latest
 
@@ -1353,7 +1353,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.9M | $408.53 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Claude | 21.0M | $410.63 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 34.0M _(+905.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
@@ -1468,8 +1468,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-npm-registry-as-directory-tree-review5064787686-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-npm-registry-as-directory-tree-review5064787686-r2.md) — _normal_ · Build the approved npm registry directory-tree design (halt recovery)
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
-- [`dependabotany-recheck-endo-but-for-bots-20260817-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-20260817-170501.md) — _normal_ · Daily dependabotany backstop for endo-but-for-bots
-- [`dependabotany-recheck-endo-but-for-bots-20260819-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-20260819-170501.md) — _normal_ · Daily dependabotany backstop for endo-but-for-bots
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
@@ -1488,7 +1486,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
 - [`endojs-endo-but-for-bots-pr1038-c9b18630`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1038-c9b18630.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1038
 - [`endojs-endo-but-for-bots-pr1038-fix-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1038-fix-20260828.md) — _normal_ · Revalidate endojs/endo-but-for-bots PR #1038 after post-approval head movement
-- [`endojs-endo-but-for-bots-pr1059-rebase-20260828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1059-rebase-20260828.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1075-gauntlet-20260828-panel-3.md) — _normal_ · Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1075
 - [`endojs-endo-but-for-bots-pr1085-b27f483f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1085-b27f483f.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr216-review-closeout-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr216-review-closeout-20260827.md) — _normal_ · Close out the remaining maintainer review state on endojs/endo-but-for-bots P...
@@ -1504,7 +1501,6 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260801.md) — _low_ · Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-fix-panel-r5.md) — _low_ · Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260730-020502-gauntlet-panel-1.md) — _low_ · Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
-- [`fix-endojs-endo-but-for-bots-pr1059-failclosed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr1059-failclosed.md) — _normal_ · fix: address kumavis's fail-closed persistence review on endojs/endo-but-for-...
 - [`fix-usage-meter-unbound-var-and-widen-shellcheck-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md) — _normal_ · Grounding incident
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`fu-build-exo-google-sheets-facets-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-build-exo-google-sheets-facets-5.md) — _normal_ · ---
@@ -1597,24 +1593,19 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
 - [`local-verify-endo-test-xs-cargo-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-endo-test-xs-cargo-parity.md) — _normal_ · ---
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
-- [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-endo-b3-daemon-deploy-verify.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
-- [`minion-town-pr53-gauntlet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr53-gauntlet-20260827.md) — _normal_ · ---
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset.md) — _high_ · Finish and land minion.town OCap synthesis units 4-5 after the weekly panel r...
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mtown-git-remote-followup-notice-recheck-20260818.md) — _normal_ · Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`openrouter-zdr-policy-and-stealth-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/openrouter-zdr-policy-and-stealth-lane.md) — _normal_ · Decision 1 — reject logging/training-use by default (answers Open question 1)
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
 - [`proposal-compartments-xs-parser-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-xs-parser-design.md) — _normal_ · ---
-- [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`refresh-pr-review-sequence-20260823`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/refresh-pr-review-sequence-20260823.md) — _normal_ · What to do
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-worker-kind-alias.md) — _normal_ · ---
-- [`test262-coverage-ratchet-20260827`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/test262-coverage-ratchet-20260827.md) — _normal_ · Serial test262-coverage ratchet — hardened262 + the proper test262 suites
-- [`test262-coverage-ratchet-20260828-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/test262-coverage-ratchet-20260828-005006.md) — _normal_ · Serial test262-coverage ratchet — hardened262 + the proper test262 suites
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-base-update-and-pin-alias.md) — _normal_ · ---
 
