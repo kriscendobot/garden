@@ -69,10 +69,10 @@ widening plus the specific bug.
    runs green on your PR-equivalent push and report the run URL.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=54 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=54,1579 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
