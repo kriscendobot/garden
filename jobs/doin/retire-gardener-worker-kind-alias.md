@@ -104,3 +104,13 @@ health/worker-spine/auction-reputation suites) before pushing, and report
 which of it needed updating versus already passed. If any of the five gate
 facts above does NOT hold when you check it, stop and report back rather than
 proceeding — this change forecloses rollback to the legacy pool.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T20:54:55Z
