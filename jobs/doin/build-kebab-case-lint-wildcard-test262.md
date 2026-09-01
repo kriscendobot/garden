@@ -70,3 +70,13 @@ tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with loa
 the before/after exemptions line count.
 
 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-01T23:13:50Z
