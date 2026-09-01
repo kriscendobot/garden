@@ -25,3 +25,13 @@ or CHANGES_REQUESTED would change it — then perform the normal curation and me
 
 If the approval no longer holds at the current head, STOP and report rather than
 merging.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T21:51:10Z
