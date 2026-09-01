@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:14:53Z_
+_As of 2026-09-01T19:18:25Z_
 
 ## Latest
 
@@ -2418,6 +2418,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden-ece02cb4 gardener workers 2 -> 1: budget pool anthropic:endolin-garden-ece02cb4 spend=108019249 cap=149000000 high-water=0.85 target=1
 
+- `watchdog-budget-level-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-3.md)
+
+> budget-level changed endolin-garden-ece02cb4 gardener workers 1 -> 3: budget pool anthropic:endolin-garden-ece02cb4 spend=120079214 cap=385000000 high-water=0.85 target=3
+
 - `watchdog-budget-level-endolin-garden2-5bcdff64-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-4.md)
 
 > budget-level changed endolin-garden2-5bcdff64 gardener workers 1 -> 4: budget pool anthropic:endolin-garden2-5bcdff64 spend=14980884 cap=385000000 high-water=0.85 target=4
@@ -2490,7 +2494,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.6M | $350.58 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Claude | 18.0M | $355.23 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 33.7M _(+901.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
@@ -2833,5 +2837,5 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot kriscendobot-list kriscendobot-minion.town kriscendobot-moddable kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 gardeners
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 gardeners
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 4 gardeners
