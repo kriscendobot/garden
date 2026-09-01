@@ -18,3 +18,13 @@ Complete all of the following:
 6. Close or update https://github.com/kriscendobot/minion.town/issues/74 only if authorized by the active job/inbox; otherwise report the remaining issue bookkeeping.
 
 Origin: job `minion-town-fix-publish-invalid-main-pet-name`. This successor owns the entire unfinished deliverable.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T19:43:06Z
