@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: the merge window closed while this sat parked: it was queued to curate an APPROVED, mergeable, checks-green PR on 2026-08-23, but endojs/endo-but-for-bots#946 has since gone CONFLICTING. Replaced by a weave job with a conduct successor blocked on it (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:25:19Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: conductor
