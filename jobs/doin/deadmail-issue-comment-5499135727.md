@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-549913572
 @kriscendobot Please provide links to the most meaningful reviews I can provide to unblock progress. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T19:25:13Z
