@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 Our current interaction model has served us well but we need to revise them for a growing set of contributors interacting with their own bots in our collective. To that end, we need to adjust the garden's automation for filtering messages addressed to `@kriscendobot`. Rather than
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-01T03:18:46Z
