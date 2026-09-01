@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T23:46:14Z_
+_As of 2026-09-01T23:47:48Z_
 
 ## Latest
 
@@ -1467,14 +1467,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.8M | $458.80 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 37.7M _(+996.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 22.9M | $461.18 _(notional, rate-card)_ | 6% of 385.0M (ok) |
+| Codex | 37.8M _(+998.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
-### todo (8)
+### todo (9)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #79
 - [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1085
+- [`endojs-endo-but-for-bots-pr871-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr871-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #871
 - [`kriscendobot-minion-town-pr68-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr77-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr77-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #77
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
