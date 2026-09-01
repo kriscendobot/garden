@@ -59,8 +59,9 @@
 # leaves that mapping unresolved (no closed_at stamp, so the next tick re-handles
 # it), and continues to the other mappings rather than aborting the whole tick.
 # One bad mapping can no longer starve every other unresolved mapping. The tick
-# still exits nonzero when any mapping failed, so the failure stays visible to
-# systemd/journald — the failure is now per-mapping, not per-tick.
+# exits nonzero when any non-quota mapping failed, so the failure stays visible
+# to systemd/journald. A tick blocked only by GitHub's primary hourly quota exits
+# zero in a named degraded state; the unresolved mappings retry after reset.
 #
 # Pluggable GitHub I/O for deterministic tests (the close path is NEVER exercised
 # against a real upstream in CI — see test/mirror-closer-test.sh):
@@ -146,8 +147,38 @@ parse_state() {
   if [ "$1" = "$STATE" ]; then MERGED=false; else MERGED="${1#*$'\t'}"; fi
 }
 
+# Run one pluggable GitHub handler while retaining its stderr for failure
+# classification. Preserve the handler's diagnostics on this service's stderr so
+# journald still carries the original cause. Sets HANDLER_STDERR and the output
+# variable named by $1 (or discards stdout when that name is `-`).
+run_handler_captured() {  # run_handler_captured <output-var> <handler> [args...]
+  local output_var="$1" handler="$2" errf output rc stderr
+  shift 2
+  errf="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/mirror_closer_handler.$$")"
+  if output="$("$handler" "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
+  stderr="$(cat "$errf" 2>/dev/null || true)"
+  rm -f "$errf"
+  [ -z "$stderr" ] || printf '%s\n' "$stderr" >&2
+  HANDLER_STDERR="$stderr"
+  [ "$output_var" = - ] || printf -v "$output_var" '%s' "$output"
+  return "$rc"
+}
+
 acted=0
 failed=0
+quota_blocked=0
+out=''
+mout=''
+HANDLER_STDERR=''
+
+count_handler_failure() {
+  if is_gh_primary_rate_limit_text "$HANDLER_STDERR"; then
+    quota_blocked=$((quota_blocked+1))
+  else
+    failed=$((failed+1))
+  fi
+}
+
 for i in $(seq 0 $((n-1))); do
   key="${KEYS[$i]}"; up="${UPS[$i]}"; mir="${MIRS[$i]}"
   up_repo="${up%%#*}"; up_num="${up##*#}"
@@ -157,11 +188,11 @@ for i in $(seq 0 $((n-1))); do
   # state (a transient or permanent gh 404 on ONE mapped PR) must not abort the
   # whole tick and starve every other unresolved mapping. We WARN, leave this
   # mapping unresolved (do not stamp closed_at), and move on; the next tick
-  # re-handles it. The tick still reports unhealthy at the end (exit 1) so the
-  # failure stays visible to systemd/journald — per-mapping, not per-tick.
-  if ! out="$("$GARDEN_MIRROR_PR_STATE" "$up_repo" "$up_num")"; then
+  # re-handles it. A non-quota failure still reports unhealthy at the end; an
+  # all-primary-quota failure set reports degraded but healthy to systemd.
+  if ! run_handler_captured out "$GARDEN_MIRROR_PR_STATE" "$up_repo" "$up_num"; then
     log "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
-    failed=$((failed+1))
+    count_handler_failure
     continue
   fi
   parse_state "$out"
@@ -175,9 +206,9 @@ for i in $(seq 0 $((n-1))); do
   else                          phrasing="was closed without merging"; outcome=closed; fi
 
   # Look at our mirror. Only close it if it is still open; otherwise reconcile.
-  if ! mout="$("$GARDEN_MIRROR_PR_STATE" "$mir_repo" "$mir_num")"; then
+  if ! run_handler_captured mout "$GARDEN_MIRROR_PR_STATE" "$mir_repo" "$mir_num"; then
     log "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
-    failed=$((failed+1))
+    count_handler_failure
     continue
   fi
   parse_state "$mout"
@@ -194,10 +225,10 @@ for i in $(seq 0 $((n-1))); do
     printf 'Closing this mirror to follow. This is an automated action by the\n'
     printf 'garden mirror-closer (deterministic; no LLM in the loop).\n'
   } > "$cbody"
-  if ! "$GARDEN_MIRROR_CLOSE" "$mir_repo" "$mir_num" "$cbody"; then
+  if ! run_handler_captured - "$GARDEN_MIRROR_CLOSE" "$mir_repo" "$mir_num" "$cbody"; then
     rm -f "$cbody"
     log "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
-    failed=$((failed+1))
+    count_handler_failure
     continue
   fi
   rm -f "$cbody"
@@ -208,6 +239,10 @@ done
 
 log "tick complete: closed $acted mirror(s) this run"
 if [ "$failed" -gt 0 ]; then
-  log "WARN: $failed mapping(s) failed this tick and were left unresolved; will retry next tick"
+  log "WARN: $failed non-quota mapping failure(s) and $quota_blocked GitHub primary-quota-blocked failure(s) this tick; mappings were left unresolved; will retry next tick"
   exit 1
+fi
+if [ "$quota_blocked" -gt 0 ]; then
+  log "WARN: $quota_blocked mapping(s) blocked only by GitHub primary quota this tick and were left unresolved; degraded until quota resets"
+  exit 0
 fi

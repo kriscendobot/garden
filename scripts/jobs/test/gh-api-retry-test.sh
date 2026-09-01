@@ -93,6 +93,9 @@ assert_definitive ""                                          "no stderr at all 
 is_gh_primary_rate_limit_text "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" \
   && ok "primary-quota predicate matches GitHub's user-specific 403" \
   || bad "primary-quota predicate missed GitHub's user-specific 403"
+is_gh_primary_rate_limit_text "gh: API rate limit already exceeded for user ID 279080640." \
+  && ok "primary-quota predicate matches GitHub's 'already exceeded' wording" \
+  || bad "primary-quota predicate missed GitHub's 'already exceeded' wording"
 is_gh_primary_rate_limit_text "x-ratelimit-remaining: 0" \
   && ok "primary-quota predicate matches an exhausted remaining-quota header" \
   || bad "primary-quota predicate missed x-ratelimit-remaining: 0"

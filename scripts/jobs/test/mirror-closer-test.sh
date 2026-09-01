@@ -84,6 +84,10 @@ printf '#!/bin/bash\necho "boom" >&2; exit 1\n' > "$FAILCLOSE"; chmod +x "$FAILC
 # A state stub that FAILS (to prove loud failure on an unreadable PR state).
 FAILSTATE="$TR/state-fail.sh"
 printf '#!/bin/bash\necho "boom" >&2; exit 1\n' > "$FAILSTATE"; chmod +x "$FAILSTATE"
+# A state stub blocked by GitHub's primary hourly quota. This exact provider
+# wording includes the adverb that previously escaped the primary classifier.
+QUOTASTATE="$TR/state-primary-quota.sh"
+printf '#!/bin/bash\necho "gh: API rate limit already exceeded for user ID 279080640." >&2; exit 1\n' > "$QUOTASTATE"; chmod +x "$QUOTASTATE"
 # A state stub that FAILS only for a chosen "<repo>#<num>" (MC_FAIL_REF) and
 # otherwise behaves like STATESTUB. Proves per-mapping read isolation: one bad
 # mapping does not abort the tick or starve a healthy mapping behind it.
@@ -195,6 +199,20 @@ record "$TR/state-h" "$BARE_H" "up/repo#16" "garden/mir#26"
 run_closer "$TR/state-h" "$BARE_H" "$ST_H" "$CL_H" "$FAILSTATE"; rch=$?
 [ "$rch" -ne 0 ] && ok "mirror-closer exits nonzero when a state read fails (rc=$rch)" || bad "swallowed a failed state read (silent no-op!)"
 mapping_of "$BARE_H" up-repo-16.md | grep -q '^closed_at:' && bad "stamped a mapping despite the failure" || ok "mapping left unresolved on failure (will retry)"
+
+hr; echo "H1 — primary quota only: leave mapping unresolved but report a degraded, healthy tick"; hr
+BARE_H1="$TR/h1.git"; seed_bare "$BARE_H1"
+ST_H1="$TR/states-h1.tsv"; CL_H1="$TR/close-h1.log"; LOG_H1="$TR/closer-h1.log"; : > "$CL_H1"; : > "$ST_H1"
+record "$TR/state-h1" "$BARE_H1" "up/repo#160" "garden/mir#260"
+env GARDEN_STATE="$TR/state-h1" JOURNAL_REMOTE="$BARE_H1" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_STATES="$ST_H1" MC_CLOSE_LOG="$CL_H1" \
+    GARDEN_MIRROR_PR_STATE="$QUOTASTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_H1" 2>&1; rch1=$?
+[ "$rch1" -eq 0 ] && ok "tick exits 0 when every failure is blocked by GitHub primary quota" || bad "primary-quota-only tick exited $rch1"
+grep -q 'blocked only by GitHub primary quota' "$LOG_H1" \
+  && ok "degraded WARN names GitHub primary quota" || bad "quota WARN missing: $(cat "$LOG_H1")"
+mapping_of "$BARE_H1" up-repo-160.md | grep -q '^closed_at:' \
+  && bad "stamped a quota-blocked mapping" || ok "quota-blocked mapping left unresolved (never guessed a state)"
 
 hr; echo "H2 — loud failure: a failed close aborts nonzero and leaves mapping unresolved"; hr
 BARE_H2="$TR/h2.git"; seed_bare "$BARE_H2"
