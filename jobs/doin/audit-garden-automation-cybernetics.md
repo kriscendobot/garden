@@ -123,3 +123,13 @@ and looked fine, hiding the defect.
 The design landed under `designs/`. Per CLAUDE.md, if it carries genuinely
 unresolved maintainer-facing open questions, present it as a review PR rather
 than landing it bare.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-01T19:20:04Z
