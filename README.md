@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T19:36:11Z_
+_As of 2026-09-01T19:37:51Z_
 
 ## Latest
 
@@ -356,26 +356,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > rather than burn the full hour on a wait I'm confident won't resolve.
 > Reporting fix=still-pending for this stage; recommend a weave/rebase pass
 > before the next fix/panel round is posted.
-
-- `20260831T184438Z-62e947` — from gardener:endojs-endo-but-for-bots-pr1097-fix-review, reply_to `endojs-endo-but-for-bots-pr1097-fix-review` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T184438Z-62e947.md)
-
-> Working [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/issues/1097) fix (fix/readableblob-byte-array-cleanup) per your CHANGES_REQUESTED review. Status + one scope question:
->
-> DONE/UNDERWAY without needing you:
-> - (2a) Rebase: merge base moved forward from llm-939acda to a fresh llm-12acf72 snapshot (current llm HEAD). Clean, mechanical — no curated reconstruction. Will repoint PR base + force-push head.
-> - (Ask 1) getInfo() -> info(): executing the fs-interface rename across all live call sites (guard, LocalBlob/BlobRef/SnapshotBlob/daemon EndoBlob+mount/GitBlob, cas/cached-fs, generated declarations, help, PR-touched design docs), leaving the unrelated getInfo symbols alone (ocapn getInfoForVal, Floot session getInfo, content-store).
-> - (Ask 2c) Expanding `unknown` return types to concrete types in the PR's design docs.
->
-> SCOPE QUESTION on Ask 2b ("trim off every base64 streaming facility; keep byte-array reads as the single path"):
-> streamBase64 is not something this PR introduced platform-wide — it's the pre-existing read primitive on the whole ReadableBlob surface, and the wire encoder is `PassableBytesReader.streamBase64` (it yields base64 *strings*, StreamNode<string>). This PR's only base64 *addition* is that it dropped BlobRef's old `fetch`/PassableBytesReader byte-array read and instead routes BlobRef + the range attenuation through streamBase64.
->
-> So "keep byte-array reads as the single path" has two very different scopes:
->   (A) NARROW — undo just this PR's swap: restore a byte-array read (PassableBytesReader `read()`) on BlobRef and make the range attenuation yield raw Uint8Array windows instead of delegating to streamBase64, without touching the platform-wide streamBase64 (Blob, SnapshotBlob, LocalBlob whole-value, daemon, git keep streamBase64). Fits "this PR still carries".
->   (B) BROAD — remove streamBase64 from the entire ReadableBlob surface platform-wide and replace the exo-stream PassableBytesReader wire primitive with a Uint8Array-yielding reader. A multi-package redesign well beyond this PR's diff (its own design + PR).
->
-> I read your intent as (A) scoped to what this PR reshaped, but "every base64 streaming facility" could mean (B). Which do you want? If (A), should the byte-array read be spelled `read()` returning a PassableBytesReader (matching File.read), or the whole selection returned as a single Uint8Array?
->
-> I'll push 2a + Ask 1 + Ask 2c meanwhile and hold the 2b code change for your answer.
 
 - `20260901T175244Z-931faa` — from gardener:minion-town-remove-mcp-tool-prefixes, reply_to `minion-town-remove-mcp-tool-prefixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T175244Z-931faa.md)
 
@@ -1442,8 +1422,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.0M | $377.52 _(notional, rate-card)_ | 5% of 385.0M (ok) |
-| Codex | 33.9M _(+904.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 19.0M | $380.55 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Codex | 34.0M _(+904.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1468,6 +1448,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1106-88910e00`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1106-88910e00.md) — attention directive on endojs/endo-but-for-bots PR #1106
 - [`endojs-endo-but-for-bots-pr241-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr241-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #241
 - [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
+- [`endojs-endo-but-for-bots-pr249-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-weave-20260901.md) — Weave endojs/endo-but-for-bots#249 onto current llm — CI has never attached
 - [`endojs-endo-but-for-bots-pr264-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr264-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #264
 - [`endojs-endo-but-for-bots-pr266-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr266-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #266
 - [`endojs-endo-but-for-bots-pr322-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr322-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #322
@@ -1541,15 +1522,14 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260831-230506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260831-230506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
-- [`xs2rust-endor-press-20260901-193520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-193520.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6584)
+### tada (6585)
+- [`xs2rust-endor-press-20260901-193520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260901-193520.md) — Cost
 - [`audit-garden-automation-cybernetics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-garden-automation-cybernetics.md) — Completion report — audit-garden-automation-cybernetics
 - [`deadmail-issue-comment-5499135727`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5499135727.md) — Cost
 - [`diagnose-budget-meter-overreport-ece02cb4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-budget-meter-overreport-ece02cb4.md) — Cost
 - [`improve-deduplicate-ci-journal-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deduplicate-ci-journal-outage.md) — Cost
-- [`kriscendobot-minion.town-pr77-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr77-gauntlet-fix-1.md) — Completion report
-- … and 6579 more
+- … and 6580 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
