@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T20:02:41Z_
+_As of 2026-09-01T20:05:12Z_
 
 ## Latest
 
@@ -8,10 +8,10 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 21m)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 21m)
-- [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 12m)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 22m)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26m)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 26m)
+- [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 17m)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27m)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23h)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 1d)
@@ -149,22 +149,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > If you'd rather have a HARD runtime gate (e.g. the client throws for 'uncaught' until an Ironhorse session is attached), that needs capability detection the design currently rules out — say the word and I'll take it up with a design amendment. Otherwise the real fix stays owned by fu-...-1 + fu-...-3 (both still todo) under the paused campaign.
 
-- `20260819T032608Z-ce16c2` — from gauntlet:build-minion-town-git-content-substrate-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T032608Z-ce16c2.md)
-
-> Gauntlet build-minion-town-git-content-substrate-gauntlet HALTED: stage 'build-minion-town-git-content-substrate-gauntlet-panel-5' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260821T012318Z-92308e` — from gauntlet:endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260821T012318Z-92308e.md)
-
-> Gauntlet endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet HALTED: stage 'endojs-endo-but-for-bots-ironhorse-coverage-matrix-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260821T224706Z-a2e099` — from gauntlet:kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260821T224706Z-a2e099.md)
-
-> Gauntlet kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet HALTED: stage 'kriscendobot-minion.town-port-whoami-tool-20260819-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260822T054106Z-6e3888` — from gauntlet:endojs-endo-but-for-bots-build-endor-git-bindings-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T054106Z-6e3888.md)
-
-> Gauntlet endojs-endo-but-for-bots-build-endor-git-bindings-gauntlet HALTED: stage 'endojs-endo-but-for-bots-build-endor-git-bindings-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
 - `20260822T055203Z-ae527d` — from gardener:wire-siwe-onchain-authz-minion-town, reply_to `wire-siwe-onchain-authz-minion-town` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T055203Z-ae527d.md)
 
 > Wiring the SIWE on-chain authz tier into minion.town's policy layer (design § 3). Deploy is done — thunk issuer is live at https://siwe-idp.minion.town (mainnet, EIP-1271 in, ENS out), sub = checksummed EIP-55 address. I need two answers to proceed (design § 6):
@@ -181,10 +165,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > E.g. "0xf39F…2266 (my hardware wallet) → mcp/tools, mcp/guest, evaluator".
 >
 > If you'd rather I ship the Tier-2 machinery now regardless (schema + cached reader + mocked-transport tests) with the allowlist to follow, say so. Otherwise I'll wait for the addresses before touching config/policy.json.
-
-- `20260826T164107Z-6552dc` — from gauntlet:build-endo1062-typedarray-preventextensions-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260826T164107Z-6552dc.md)
-
-> Gauntlet build-endo1062-typedarray-preventextensions-gauntlet HALTED: stage 'build-endo1062-typedarray-preventextensions-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `20260827T062400Z-4bf20f` — from gardener:xs2rust-endor-press-20260827-061533, reply_to `xs2rust-endor-press-20260827-061533` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T062400Z-4bf20f.md)
 
@@ -211,26 +191,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > w/ checks pending + freshly reviewed, [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) recently conducted. No idle
 > CHANGES_REQUESTED mechanical target needing a fixer.
 
-- `20260827T093107Z-ab7bc3` — from orchestrator:endor-fixture-parity-ratchet-campaign-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T093107Z-ab7bc3.md)
-
-> Orchestration endor-fixture-parity-ratchet-campaign-20260827 HALTED: child endor-walker-host-hooks completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 4/5 done before halt; parked remainder: none
-
-- `20260827T102007Z-e3a721` — from gauntlet:endojs-endo-base32-package-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T102007Z-e3a721.md)
-
-> Gauntlet endojs-endo-base32-package-gauntlet HALTED: stage 'endojs-endo-base32-package-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260827T110409Z-c39eaf` — from orchestrator:endor-host-hooks-ratchet-20260827-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T110409Z-c39eaf.md)
-
-> Orchestration endor-host-hooks-ratchet-20260827 HALTED: child endor-walker-host-hooks-20260827 stalled in flight for 2514s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
-
-- `20260827T113507Z-cf4325` — from gauntlet:endor-walker-host-hooks-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T113507Z-cf4325.md)
-
-> Gauntlet endor-walker-host-hooks-20260827-gauntlet HALTED: stage 'endor-walker-host-hooks-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260827T125606Z-abb2f3` — from gauntlet:endor-host-hook-surface-20260827-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T125606Z-abb2f3.md)
-
-> Gauntlet endor-host-hook-surface-20260827-gauntlet HALTED: stage 'endor-host-hook-surface-20260827-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
 - `20260828T194121Z-59223f` — from gardener:minion-town-press-20260828-193506, reply_to `minion-town-press-20260828-193506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T194121Z-59223f.md)
 
 > minion.town press (off merged [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52)): [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) "docs(weblet): reconcile register-by-id design" is now **ready for your review** (was draft). It rewrites sections 2.2/3.1 + 9 of designs/weblet-ocap-synthesis.md to describe the register(directoryId, owner) boundary that shipped in [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52), was attenuated in [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53), and left serving in [kriscendobot/minion.town#55](https://github.com/kriscendobot/minion.town/issues/55).
@@ -241,14 +201,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > - [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) is CI-green and went through 3 design-panel rounds; the last round's must-fixes (faithful 3.1 paraphrase of guestRegisterSource, confidentiality-escalation severity retune) are applied at head 4208dca.
 >
 > Design residuals it records as future BUILD work (not decisions): live weblet_upgrade, an always-on real-daemon CI lane, and restart-durability verification. I'll leave those parked unless you want one pressed next.
-
-- `20260828T210506Z-1fae52` — from gauntlet:build-exo-git-follow-root-advancement-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T210506Z-1fae52.md)
-
-> Gauntlet build-exo-git-follow-root-advancement-gauntlet HALTED: stage 'build-exo-git-follow-root-advancement-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260829T180506Z-449d3a` — from gauntlet:endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260829T180506Z-449d3a.md)
-
-> Gauntlet endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet HALTED: stage 'endojs-endo-but-for-bots-mount-stream-glob-grep-build-gauntlet-panel-3' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `20260830T053908Z-dea27e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260830T053908Z-dea27e.md)
 
@@ -266,14 +218,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > stdout:
 > Failed to authenticate: OAuth session expired and could not be refreshed
-
-- `20260831T032646Z-86f810` — from gauntlet:endojs-endo-but-for-bots-pr317-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T032646Z-86f810.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr317-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr317-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260831T034231Z-0a4e7e` — from gauntlet:endojs-endo-but-for-bots-pr855-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T034231Z-0a4e7e.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr855-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr855-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `20260831T043436Z-4db4ee` — from gardener:endojs-endo-but-for-bots-pr237-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr237-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T043436Z-4db4ee.md)
 
@@ -298,19 +242,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260831T095854Z-3a677d` — from gardener:endojs-endo-but-for-bots-pr138-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr138-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T095854Z-3a677d.md)
 
 > Gauntlet fix-stage on [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) ([https://github.com/endojs/endo-but-for-bots/pull/138](https://github.com/endojs/endo-but-for-bots/pull/138)) pushed the panel's must-fix items (309b234de, already on origin), but the bounded CI wait cannot reach a terminal state: GitHub has created zero Actions check-suites for this head across ~80 minutes of observation (only stray `renovate`/`claude` app suites stuck `queued`). The PR is also `mergeable: CONFLICTING`, `mergeStateStatus: DIRTY` — 265 commits behind base `llm` and 942 ahead, per a git merge-base check in an isolated worktree. This looks like a structural GitHub-side stall (very stale/conflicting PR, not a transient CI queue), not something a bounded re-poll will resolve. Recommend a weave/rebase (or pin-the-merge-base) on [endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138) before the next gauntlet CI-wait attempt, or manual investigation of why Actions never attaches to this branch. Reporting this attempt as still-pending per the job's rc=4 contract so the driver re-posts rather than looping silently.
-
-- `20260831T125501Z-d42a9a` — from gardener:endojs-endo-but-for-bots-pr300-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr300-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T125501Z-d42a9a.md)
-
-> Gauntlet halted on [endojs/endo-but-for-bots#300](https://github.com/endojs/endo-but-for-bots/issues/300) (docs: mark cli-store/cli-edit status In Progress) — the PR is SUPERSEDED by llm and cannot reach CI green.
->
-> Why: the PR is CONFLICTING/DIRTY against current llm, so GitHub can't build refs/pull/300/merge and pull_request CI never attaches (rollup stays empty forever -> the fix stage can only ever time out "still-pending", looping the gauntlet). The conflict is genuine supersession, not mechanical drift:
-> - cli-edit-verb.md: llm's Status already reads "In Progress (pure core landed [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796))" with accurate landed prose (Updated 2026-08-23). The PR's "phased-form / [endojs/endo-but-for-bots#256](https://github.com/endojs/endo-but-for-bots/issues/256) wire-types skeleton / not_implemented until Phase 2" narrative predates [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796) and is now wrong; merging the PR would REVERT llm's accurate Status.
-> - designs/README.md: llm already has cli-edit "In Progress ... pure core landed in [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796)" and cli-store "Proposed"; the PR contradicts both rows.
-> - The PR's only non-conflicting content (a cli-store Status section citing [endojs/endo-but-for-bots#283](https://github.com/endojs/endo-but-for-bots/issues/283)) is itself stale — that PR is CONFLICTING ~2,500 commits behind (skeptic flagged this).
->
-> kriskowal approved [endojs/endo-but-for-bots#300](https://github.com/endojs/endo-but-for-bots/issues/300) on 2026-08-15, but llm advanced past it via [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796) on 2026-08-23. A mechanical rebase would either regress llm's landed content or reduce the PR to a stale, internally-inconsistent fragment. Recommend CLOSE (superseded) or REGENERATE a fresh status-update against current llm HEAD (655730c9f) reflecting [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796).
->
-> I applied the panel's copyedit must-fixes to the head (commit b1adc957b, pushed) before discovering the supersession; harmless but moot given the recommendation to close/regenerate. No rebase pushed.
 
 - `20260831T134537Z-704a93` — from gardener:endojs-endo-but-for-bots-pr322-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr322-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260831T134537Z-704a93.md)
 
@@ -1422,7 +1353,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.4M | $400.12 _(notional, rate-card)_ | 5% of 385.0M (ok) |
+| Claude | 20.9M | $408.53 _(notional, rate-card)_ | 5% of 385.0M (ok) |
 | Codex | 34.0M _(+905.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
