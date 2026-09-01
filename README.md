@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-01T22:57:47Z_
+_As of 2026-09-01T22:58:41Z_
 
 ## Latest
 
@@ -1383,11 +1383,12 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.9M | $433.68 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 35.8M _(+948.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 21.9M | $434.52 _(notional, rate-card)_ | 6% of 385.0M (ok) |
+| Codex | 35.8M _(+948.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (4)
+- [`build-minion-town-pr77-tool-name-reconciliation-review5083753201`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201.md) — Build the approved minion.town tool-name reconciliation
 - [`design-claude-ollama-cloud-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-claude-ollama-cloud-worker-kind.md) — Status update from the liaison (2026-09-01, after hand-off.md was posted)
 - [`kriscendobot-minion.town-pr70-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr70-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #70
 - [`kriscendobot-minion.town-pr77-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr77-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #77
