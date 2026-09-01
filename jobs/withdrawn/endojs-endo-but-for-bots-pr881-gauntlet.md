@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: doom counters are stale and the failure is not budget-related: elapsed-constancy x5 (the reaper states raising the handler budget will not help) plus a separate 7207s-vs-7200s overrun. Replaced by a fresh gauntlet on the current head (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:25:14Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
