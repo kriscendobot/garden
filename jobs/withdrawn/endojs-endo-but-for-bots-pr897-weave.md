@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: weave directive SATISFIED: endojs/endo-but-for-bots#897 is mergeable=MERGEABLE against llm with 4 commits and no conflicts left to resolve, so the rebase this job existed to perform has no work to do. The comment-watcher will re-post on a fresh directive if it drifts (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:39:55Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
