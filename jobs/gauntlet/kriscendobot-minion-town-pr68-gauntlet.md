@@ -1,4 +1,5 @@
 ---
+stage_retries: 0
 pr: https://github.com/kriscendobot/minion.town/pull/68
 repo: kriscendobot/minion.town
 pr_number: 68
@@ -9,8 +10,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: kriscendobot-minion-town-pr68-gauntlet-clean
+state: running
 created_by: gardener
 created_at: 2026-09-01T23:16:50Z
 ---
