@@ -77,11 +77,11 @@ the before/after exemptions line count.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=3 values=62,110 -->
 
 <!-- garden-reaped: 4 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=4 values=110,6575 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
