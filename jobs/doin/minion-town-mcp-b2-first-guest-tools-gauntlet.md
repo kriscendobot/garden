@@ -35,6 +35,7 @@ not inferred by a watcher.
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=1 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T13:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
