@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-02T01:40:16Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr1013-weave-20260902-sweep
-pr_number: 1013
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1013
-pr_head: design/relative-routing
