@@ -54,10 +54,10 @@ output.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=3 values=4,2 -->
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-transient-elapsed: kind=signature through=4 values=2,9 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
