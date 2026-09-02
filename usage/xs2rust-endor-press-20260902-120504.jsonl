@@ -3,3 +3,4 @@
 {"source":"none","ts":"2026-09-02T13:59:52Z","base":"xs2rust-endor-press-20260902-120504","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":115,"provider":"local"}
 {"ts":"2026-09-02T14:07:12Z","base":"xs2rust-endor-press-20260902-120504","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":7}
 {"ts":"2026-09-02T14:16:54Z","base":"xs2rust-endor-press-20260902-120504","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":7}
+{"ts":"2026-09-02T14:26:29Z","base":"xs2rust-endor-press-20260902-120504","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":8}
