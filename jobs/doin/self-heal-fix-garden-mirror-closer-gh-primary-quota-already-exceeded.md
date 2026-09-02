@@ -8,3 +8,13 @@ Two scoped changes; failure signature is `gh: API rate limit already exceeded fo
 1. `scripts/jobs/common.sh:3478` — `GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES` reads `API rate limit exceeded for user([[:space:]]+ID)?`, which misses gh's client-side pre-flight wording "API rate limit **already** exceeded for user ID <n>". Because the generic `rate limit` alternative in `GARDEN_TRANSIENT_GH_API_SIGNATURES` (line 3468) does match, `gh_api_retry` misclassifies primary-quota exhaustion as transient and burns all 4 attempts per call within one second — contradicting its own documented contract at common.sh:3392. Widen to `API rate limit (already )?exceeded for user([[:space:]]+ID)?`, keeping the existing `x-ratelimit-remaining: 0` alternative. Add a case to `scripts/jobs/test/gh-api-retry-test.sh` beside the existing assertion at line 93 covering the `already` wording (assert primary → no retry), and assert the non-primary strings there still classify transient.
 
 2. `scripts/jobs/mirror-closer.sh:150-213` — a primary-quota window is not a per-mapping fault, so exiting 1 on it fails the unit and re-triggers this self-heal responder every tick for the whole hour until quota resets. Track quota refusals separately from real failures (same shape as `fetch_primary_quota` in `scripts/jobs/handlers/comment-source-gh.sh:221`): have the state/close handler paths surface the quota class to the caller, and when EVERY skipped mapping this tick was skipped for primary-quota exhaustion, log a WARN naming the quota and `exit 0` (a degraded, no-state-guessed tick that retries next tick). Keep `exit 1` when any mapping failed for any other reason, including a mixed tick. Do not weaken "never guess a state": nothing is stamped and no mirror is closed on a quota tick. Update the `mirror-closer.sh:62` block comment, which currently states the unconditional nonzero-on-any-failure rule, and add a case to `scripts/jobs/test/mirror-closer-test.sh` driving `GARDEN_MIRROR_PR_STATE` with a stub that fails with the quota wording, asserting exit 0 and no `closed_at:` stamp.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T04:45:35Z
