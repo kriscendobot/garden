@@ -46,6 +46,7 @@ bar is "green" without real-execution evidence — cite the command and its
 output.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
