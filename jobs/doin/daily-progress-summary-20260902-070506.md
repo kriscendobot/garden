@@ -64,6 +64,7 @@ to `daily` while any leader host still runs a pre-anchor scheduler, or that
 scheduler would treat the token as its weekly default.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
