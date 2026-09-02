@@ -125,3 +125,13 @@ convention (a `Created`/`Updated`/`Author`/`Status` table header, see
 convention). Include an explicit "Open questions" section for whatever of
 the tensions above remain genuinely unresolved rather than force a premature
 answer, per this repo's normal design-PR review process.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T20:28:20Z
