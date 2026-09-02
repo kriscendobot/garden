@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T01:11:34Z_
+_As of 2026-09-02T01:13:20Z_
 
 ## Latest
 
@@ -152,6 +152,25 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260901T234214Z-fc1f27` — from gardener:kriscendobot-minion.town-pr56-review-7d4dc95d, reply_to `kriscendobot-minion.town-pr56-review-7d4dc95d` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T234214Z-fc1f27.md)
 
 > [kriscendobot/minion.town#56](https://github.com/kriscendobot/minion.town/issues/56) review feedback is addressed and retconned at 5bf920d; local typecheck/tests and GitHub Actions are green. The conduct gate is blocked only because GitHub still records reviewDecision=CHANGES_REQUESTED from review 5083787697. Please approve the current head if you intend the explicit “conduct” directive to proceed. I am keeping this job active; after approval I will merge and dispatch the requested builder.
+
+- `20260902T011259Z-3a7487` — from gardener:build-minion-town-invitation-onboarding, reply_to `build-minion-town-invitation-onboarding` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260902T011259Z-3a7487.md)
+
+> # Build invitation-only guest onboarding for minion.town
+>
+> Re-run the capability-first invitation-only guest onboarding build from
+> `designs/invitation-only-guest-onboarding.md` after the Endo prerequisite lands.
+>
+> Gate evidence captured 2026-09-02 against `endojs/endo-but-for-bots` branch
+> `llm` at `1956e545d`: `EndoGuest` still has neither `invite` nor `accept` in
+> `packages/daemon/src/interfaces.js`, `packages/daemon/src/types.d.ts`, or
+> `packages/daemon/src/guest.js`; those methods remain exclusive to `EndoHost`.
+> The retained multiplayer and daemon tests still exercise only host-level
+> `invite`/`accept` calls. Do not implement or emulate an app-mediated or
+> host-authority fallback.
+>
+> Blocked on Endo builder job
+> `minion-town-remote-guest-endo-cli-endo-invite-primitive`, which owns the
+> guest-safe invitation primitive and its two-daemon guest round-trip test.
 
 - `doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun.md)
 
@@ -1589,8 +1608,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.5M | $596.54 _(notional, rate-card)_ | 7% of 385.0M (ok) |
-| Codex | 40.6M _(+1118.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Claude | 28.9M | $601.61 _(notional, rate-card)_ | 8% of 385.0M (ok) |
+| Codex | 40.6M _(+1119.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (8)
