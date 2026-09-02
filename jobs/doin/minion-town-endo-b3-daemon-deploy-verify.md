@@ -22,3 +22,13 @@ Land any corrections as a PR on the fork and run the gauntlet. If a lightweight 
 <!-- garden-transient-elapsed: kind=signature through=1 values=605,2 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T04:03:56Z
