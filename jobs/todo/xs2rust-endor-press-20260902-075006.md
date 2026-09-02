@@ -47,16 +47,7 @@ bar is "green" without real-execution evidence — cite the command and its
 output.
 
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T07:55:19Z
+
+<!-- garden-reaped: 1 -->
