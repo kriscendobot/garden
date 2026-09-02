@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 4
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-09-02T08:35:08Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-02T08:35:08Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -45,25 +63,3 @@ Each dispatch (hourly; be idempotent), assess don't assume:
 Defer to a genuinely live concurrent pusher; press by default otherwise. No
 bar is "green" without real-execution evidence — cite the command and its
 output.
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-transient-elapsed: kind=signature through=3 values=7,8 -->
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T08:25:10Z
