@@ -83,10 +83,10 @@ presumptuous. Report the mirror PR's URL and stop.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=2 values=6 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=signature through=3 values=6,7 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
