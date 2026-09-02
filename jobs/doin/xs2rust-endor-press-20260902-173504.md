@@ -51,3 +51,13 @@ output.
 <!-- garden-transient-elapsed: kind=signature through=0 values=8 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T17:55:34Z
