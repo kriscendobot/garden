@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -46,16 +47,9 @@ bar is "green" without real-execution evidence — cite the command and its
 output.
 
 
-<!-- garden-reaped: 1 -->
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=1,4 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T13:56:09Z
+
+
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=122 -->
+
+<!-- garden-reaped: 2 -->

@@ -48,17 +48,6 @@ output.
 
 
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=1,4 -->
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=122 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-02T13:57:34Z
+<!-- garden-reaped: 0 -->
