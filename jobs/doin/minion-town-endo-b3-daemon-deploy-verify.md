@@ -19,6 +19,8 @@ Land any corrections as a PR on the fork and run the gauntlet. If a lightweight 
 <!-- garden-reaped: 0 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
