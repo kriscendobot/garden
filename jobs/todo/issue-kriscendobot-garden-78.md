@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Issue from kriskowal on kriscendobot/garden #78
@@ -30,13 +31,5 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 Please dispatch a scholar to ingest https://zed.dev/blog/agentic-xanadu and provide commentary here. 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T16:36:51Z
+
+<!-- garden-reaped: 0 -->
