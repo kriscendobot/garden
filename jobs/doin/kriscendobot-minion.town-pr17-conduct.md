@@ -30,6 +30,7 @@ Head: kriscendobot/minion.town (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no maintainer comment).
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T23:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
