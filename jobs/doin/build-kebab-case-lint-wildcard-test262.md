@@ -73,6 +73,7 @@ the before/after exemptions line count.
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=signature through=0 values=7 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T03:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
