@@ -83,12 +83,4 @@ until `#56` lands. Say so if that is what you find.
 A written recommendation (adapt / close / adapt-but-defer) with the reasoning and
 the concrete consequences for the deployed issuer either way.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T00:30:29Z
+<!-- garden-reaped: 1 -->
