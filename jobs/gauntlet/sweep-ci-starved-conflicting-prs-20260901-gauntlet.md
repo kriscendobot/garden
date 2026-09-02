@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean
+state: running
 created_by: producer
 created_at: 2026-09-02T00:21:35Z
 ---
