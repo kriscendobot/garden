@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-ci-starved-weave-survivors-20260902
-priority: normal
-posted_by: gardener
-posted_at: 2026-09-02T00:17:55Z
+role: weaver
+tier: mentor
+handler-timeout: 14000
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-02T00:37:08Z cleared=none -->
 
 ---
 role: weaver
