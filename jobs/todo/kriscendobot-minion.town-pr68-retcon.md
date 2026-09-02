@@ -1,7 +1,8 @@
 ---
 role: retcon
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -20,13 +21,5 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Please respond to my feedback above, retcon, conduct, deploy, and validate in production. 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T15:15:12Z
+
+<!-- garden-reaped: 0 -->
