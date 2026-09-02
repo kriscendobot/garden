@@ -24,3 +24,13 @@ session quota before issuing a verdict. Re-run it with available review capacity
 <!-- garden-transient-elapsed: kind=signature through=1 values=57,7 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T06:25:15Z
