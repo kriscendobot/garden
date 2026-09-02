@@ -25,16 +25,7 @@ session quota before issuing a verdict. Re-run it with available review capacity
 
 <!-- garden-elapsed-constancy: 1 -->
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=signature through=3 values=7,3 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T08:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T06:35:12Z
+
+<!-- garden-reaped: 4 -->

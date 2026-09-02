@@ -40,13 +40,5 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=must-fix -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T08:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T05:00:01Z
+
+<!-- garden-reaped: 1 -->

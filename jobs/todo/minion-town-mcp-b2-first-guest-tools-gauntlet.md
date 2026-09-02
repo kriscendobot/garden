@@ -32,19 +32,4 @@ state machine now: clean, panel, fixer loop as needed, CI, then un-draft only wh
 the panel terminates cleanly. This handoff was posted by the build completion edge,
 not inferred by a watcher.
 
-
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-
 <!-- garden-reaped: 1 -->
-
-<!-- garden-outage-cycle -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T08:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T05:01:06Z
