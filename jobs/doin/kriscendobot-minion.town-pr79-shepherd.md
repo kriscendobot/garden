@@ -24,11 +24,11 @@ discipline. The excerpt below is for human context only:
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=2 values=6,8 -->
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=signature through=3 values=8,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
