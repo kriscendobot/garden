@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T00:09:08Z_
+_As of 2026-09-02T00:11:09Z_
 
 ## Latest
 
@@ -132,10 +132,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > What [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/issues/1038) does (zero wire/behavior change): removes only the *silent* property of the footgun — on C-XS, selecting 'uncaught' clears the real exceptions breakpoint and arms a never-hit phantom, i.e. it silently DISABLES exception breaking. It documents that at every client API site (debug-session.js, debugger.js, types.d.ts) and relabels the Chat panel option to "Exceptions: uncaught (engine support pending)" with an honest tooltip. 16 daemon debugger tests + chat panel tests pass unmodified; eslint/prettier clean.
 >
 > If you'd rather have a HARD runtime gate (e.g. the client throws for 'uncaught' until an Ironhorse session is attached), that needs capability detection the design currently rules out — say the word and I'll take it up with a design amendment. Otherwise the real fix stays owned by fu-...-1 + fu-...-3 (both still todo) under the paused campaign.
-
-- `20260830T053908Z-dea27e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260830T053908Z-dea27e.md)
-
-> The daily drift-check schedule behind report `fu-minion-town-containment-gateway-endo-sock-1-20260828-032006` is firing against a premise that no longer holds (the minion.town containment-gateway ENDO_SOCK drift it was watching for). Decision needed: retire that schedule, or repurpose it to a still-meaningful check? Until you decide it keeps running daily and reporting on an obsolete premise.
 
 - `20260901T175244Z-931faa` — from gardener:minion-town-remove-mcp-tool-prefixes, reply_to `minion-town-remove-mcp-tool-prefixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T175244Z-931faa.md)
 
@@ -1423,8 +1419,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 25.3M | $519.51 _(notional, rate-card)_ | 7% of 385.0M (ok) |
-| Codex | 38.6M _(+1025.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
+| Claude | 25.3M | $521.86 _(notional, rate-card)_ | 7% of 385.0M (ok) |
+| Codex | 38.7M _(+1027.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (9)
