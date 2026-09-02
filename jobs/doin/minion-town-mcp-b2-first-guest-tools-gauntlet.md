@@ -37,6 +37,7 @@ not inferred by a watcher.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
