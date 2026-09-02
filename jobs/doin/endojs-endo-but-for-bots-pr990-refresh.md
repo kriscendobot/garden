@@ -17,6 +17,7 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please refresh on a current merge base. Note that we have byte arrays now. 
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=5 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
