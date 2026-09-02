@@ -23,12 +23,12 @@ Land any corrections as a PR on the fork and run the gauntlet. If a lightweight 
 
 
 
-<!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 4 -->
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=signature through=4 values=7,8 -->
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 ---
 claim:
