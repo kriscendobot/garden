@@ -47,16 +47,13 @@ bar is "green" without real-execution evidence — cite the command and its
 output.
 
 
-<!-- garden-reaped: 0 -->
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T13:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T12:15:36Z
+
+
+
+
+
+
+<!-- garden-transient-elapsed: kind=signature through=3 values=4,2 -->
+
+<!-- garden-reaped: 4 -->

@@ -2,29 +2,29 @@
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
-gauntlet: kriscendobot-minion.town-pr78-gauntlet
+gauntlet: sweep-ci-starved-conflicting-prs-20260901-gauntlet
 gauntlet_stage: clean
 gauntlet_iteration: 0
-pr: https://github.com/kriscendobot/minion.town/pull/78
+pr: https://github.com/endojs/endo-but-for-bots/pull/1013
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
 
-# Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
+# Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1013
 
-You are ONE stage of a staged gauntlet (kriscendobot-minion.town-pr78-gauntlet). Do ONLY the clean stage, then STOP.
+You are ONE stage of a staged gauntlet (sweep-ci-starved-conflicting-prs-20260901-gauntlet). Do ONLY the clean stage, then STOP.
 
 Garden script names below are repo-relative. Resolve them against THIS claiming
 worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
 posting host's garden root.
 
-1. Idempotence first. `gh pr view https://github.com/kriscendobot/minion.town/pull/78 --json isDraft,state,statusCheckRollup`. If the
+1. Idempotence first. `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1013 --json isDraft,state,statusCheckRollup`. If the
    PR is already the right shape (coverage already pushed, CI GREEN at the current
    head), this stage is a NO-OP: skip to the marker with clean=done.
 2. Get an ISOLATED project checkout of the PR head:
-   `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion.town-pr78-gauntlet-clean <pr-head-owner>/<repo-name> <pr-head-branch>`.
-   Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/78 --json headRepositoryOwner,headRefName`;
+   `scripts/jobs/ensure-project-worktree.sh sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean <pr-head-owner>/<repo-name> <pr-head-branch>`.
+   Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1013 --json headRepositoryOwner,headRefName`;
    do not pass the base repo when the PR head belongs to a fork.
 3. In that checkout: run the coverage pass on the touched packages
    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
@@ -32,7 +32,7 @@ posting host's garden root.
    `scripts/jobs/gardening/safe-push-pr-head.sh`.
 5. Watch CI to a terminal state, BOUNDED so this handler is never killed mid-wait:
    `GARDEN_CI_DEADLINE_SECS=3600 \
-     scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 78 --no-merge`
+     scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1013 --no-merge`
    - rc 0 (GREEN): success.
    - rc 4 (still PENDING at the deadline): CI is not terminal — report still-pending
      so the driver re-posts this stage on a fresh budget (do NOT emit clean=done).
@@ -45,19 +45,6 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
 
-
-<!-- garden-elapsed-constancy: 1 -->
+<!-- garden-transient-elapsed: kind=signature through=1 values=3 -->
 
 <!-- garden-reaped: 2 -->
-
-<!-- garden-transient-elapsed: kind=signature through=2 values=2,3 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T13:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T09:32:41Z

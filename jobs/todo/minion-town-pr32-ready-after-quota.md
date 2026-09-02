@@ -8,19 +8,6 @@ Repository: kriscendobot/minion.town. PR https://github.com/kriscendobot/minion.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
-
-<!-- garden-outage-cycle -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T13:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T09:34:04Z
