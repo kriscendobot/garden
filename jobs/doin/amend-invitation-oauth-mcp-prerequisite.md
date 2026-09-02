@@ -96,3 +96,13 @@ product text, not build/config.
 <!-- garden-transient-elapsed: kind=signature through=1 values=6,3 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T21:05:40Z
