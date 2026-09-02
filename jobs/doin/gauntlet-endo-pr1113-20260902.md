@@ -29,3 +29,13 @@ submitter: kriscendobot
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,2 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T08:55:25Z
