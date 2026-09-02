@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-09-02T19:55:36Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-02T19:55:36Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -74,29 +92,3 @@ Do not run the panel, a gauntlet, or any fix-loop against the mirror once
 it's open — it reproduces someone else's in-progress, external draft work,
 and starting a review/fix machinery on it wasn't asked for and would be
 presumptuous. Report the mirror PR's URL and stop.
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-transient-elapsed: kind=signature through=4 values=7,6 -->
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T19:45:48Z
