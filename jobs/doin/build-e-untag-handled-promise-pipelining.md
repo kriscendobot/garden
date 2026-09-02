@@ -94,3 +94,13 @@ which may already be stale. This mirrors the same pattern already used
 elsewhere this session for master-targeted work on this repo. This job
 lands the PR; ferrying it upstream to the real `endojs/endo` afterward is a
 separate, maintainer-gated boatman job, not part of this one.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T20:07:25Z
