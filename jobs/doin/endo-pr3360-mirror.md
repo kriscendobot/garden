@@ -74,10 +74,10 @@ it's open — it reproduces someone else's in-progress, external draft work,
 and starting a review/fix machinery on it wasn't asked for and would be
 presumptuous. Report the mirror PR's URL and stop.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=2,5 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
