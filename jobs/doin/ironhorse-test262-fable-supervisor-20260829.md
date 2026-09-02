@@ -97,6 +97,7 @@ infrastructure, and skipped outcomes; failure clusters fixed; commands actually
 run; any remaining clusters or unverifiable surfaces. Do not extrapolate a
 whole-corpus total from slice-only runs.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=2696 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
