@@ -16,26 +16,4 @@ Verify the deployment path is actually runnable as it now stands, and close the 
 - Confirm DEPLOYMENT.md at HEAD describes the deployment as it now works, including the daemon step and its ordering relative to minion-mcp.
 Land any corrections as a PR on the fork and run the gauntlet. If a lightweight smoke check (a dry-run or lint of the deploy script, or a unit-file validation) can be added cheaply to CI so this class of "landed but not runnable" regression is caught before merge, include it; if it is not cheap, say so in the PR description rather than building it.
 
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=signature through=4 values=7,8 -->
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T09:26:04Z
+<!-- garden-reaped: 0 -->
