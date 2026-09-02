@@ -39,6 +39,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=641 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
