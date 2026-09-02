@@ -196,16 +196,21 @@ n=$(wc -l < "$GH_STUB_CALLS")
   && ok "persistent 401: nonzero + empty after exactly $GARDEN_GH_API_ATTEMPTS attempts" \
   || bad "persistent 401 path wrong (rc=$rc out='$out' calls=$n want $GARDEN_GH_API_ATTEMPTS)"
 
-# (c2) primary quota exhaustion cannot recover inside this retry window: fail
-#      immediately after ONE request even though the generic text is also in the
-#      transient signature set.
+# (c2) gh's client-side primary-quota preflight cannot recover inside this retry
+#      window: through the real GARDEN_GH seam, fail immediately after ONE request
+#      even though the generic text is also in the transient signature set. Keep
+#      the warning, and prove the generic transient-retry branch was never entered.
 : > "$GH_STUB_CALLS"; set +e
-out="$(GH_STUB_MODE=primary-always gh_api_retry "repos/o/r/pulls/primary" 2>/dev/null)"; rc=$?
+out="$(GARDEN_GH="$HERE/gh-api-primary-rate-limit-stub.sh" \
+       gh_api_retry "repos/o/r/pulls/primary" 2>"$TR/primary.err")"; rc=$?
 set -e
 n=$(wc -l < "$GH_STUB_CALLS")
-{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 1 ]; } \
-  && ok "primary quota: gh api fails immediately after exactly one attempt" \
-  || bad "primary quota retried unexpectedly (rc=$rc out='$out' calls=$n want 1)"
+primary_warns=$(grep -c 'RATE LIMITED by GitHub primary quota' "$TR/primary.err" || true)
+transient_blips=$(grep -c 'transient blip' "$TR/primary.err" || true)
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 1 ] && \
+  [ "$primary_warns" -eq 1 ] && [ "$transient_blips" -eq 0 ]; } \
+  && ok "gh client-side primary quota: one attempt, primary-quota WARN, no transient retry" \
+  || bad "gh client-side primary quota fast-fail wrong (rc=$rc out='$out' calls=$n primary-warns=$primary_warns transient-blips=$transient_blips)"
 
 # (c3) secondary throttling remains transient and can recover inside the budget.
 : > "$GH_STUB_CALLS"; set +e

@@ -3541,7 +3541,9 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # shape keeps callers from re-deriving this distinction from a generic "rate limit"
 # substring. The failing response itself is the source of truth; do not spend an
 # extra, equally-doomed `gh api rate_limit` call merely to learn the reset time.
-: "${GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES:=API rate limit ([[:alpha:]]+[[:space:]]+)?exceeded for user([[:space:]]+ID)?|x-ratelimit-remaining:[[:space:]]*0}"
+# GitHub's server body says "rate limit exceeded"; gh's client-side preflight says
+# "rate limit already exceeded". The optional "already" was previously missed.
+: "${GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES:=API rate limit (already )?exceeded for user([[:space:]]+ID)?|x-ratelimit-remaining:[[:space:]]*0}"
 
 # is_gh_primary_rate_limit_text <text> — 0 only for GitHub primary quota
 # exhaustion, 1 for secondary/abuse throttling, HTTP 429, and other failures.
