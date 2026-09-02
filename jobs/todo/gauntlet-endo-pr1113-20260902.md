@@ -29,17 +29,8 @@ submitter: kriscendobot
 
 
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=signature through=3 values=9,7 -->
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T09:05:35Z
+
+<!-- garden-reaped: 4 -->

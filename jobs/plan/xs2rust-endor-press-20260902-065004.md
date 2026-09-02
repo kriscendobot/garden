@@ -1,6 +1,25 @@
 ---
-tier: mentor
-fallback-tier: minion
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-02T09:15:13Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-02T09:15:13Z
+---
+
+---
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -44,15 +63,3 @@ Each dispatch (hourly; be idempotent), assess don't assume:
 Defer to a genuinely live concurrent pusher; press by default otherwise. No
 bar is "green" without real-execution evidence — cite the command and its
 output.
-
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T09:05:42Z
