@@ -23,16 +23,7 @@ issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5463542
 submitter: kriscendobot
 ----- END ISSUE NOTE -----
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T08:35:17Z
+
+<!-- garden-reaped: 1 -->
