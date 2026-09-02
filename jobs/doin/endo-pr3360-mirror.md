@@ -78,6 +78,7 @@ presumptuous. Report the mirror PR's URL and stop.
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
