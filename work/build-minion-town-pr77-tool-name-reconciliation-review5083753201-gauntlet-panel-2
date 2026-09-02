@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-02T09:08:18Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-2
