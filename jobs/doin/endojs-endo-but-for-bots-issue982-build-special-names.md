@@ -16,3 +16,13 @@ Forward-reference requirement: immediately after opening or identifying the impl
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-02T21:25:29Z
