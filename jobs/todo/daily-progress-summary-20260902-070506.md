@@ -66,17 +66,8 @@ scheduler would treat the token as its weekly default.
 
 
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=signature through=2 values=6,6 -->
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T07:25:10Z
+
+<!-- garden-reaped: 3 -->
