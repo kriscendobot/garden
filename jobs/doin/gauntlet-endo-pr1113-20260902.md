@@ -26,10 +26,10 @@ submitter: kriscendobot
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=3,2 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=2,9 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
