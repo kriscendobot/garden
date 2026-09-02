@@ -126,6 +126,7 @@ convention). Include an explicit "Open questions" section for whatever of
 the tensions above remain genuinely unresolved rather than force a premature
 answer, per this repo's normal design-PR review process.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
