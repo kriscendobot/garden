@@ -12,3 +12,13 @@ If they have NOT landed: do not implement, do not emulate guest authority by cal
 If they HAVE landed: implement the design's § 3 extend/accept flow, § 2 fragment-envelope routes (`GET /` un-gated, `#v=1&invitation=…`, `#v=1&guest=…`, capabilities presented only over the `wss://minion.town/.well-known/ocapn-cbor-np` CapTP session — never in an HTTP path, query, cookie, form post, log, or `Referer`), § 4 local-storage + `history.replaceState` credential carry, and the § 7 shell states. Treat the § 9 build gates as the acceptance criteria and produce executable evidence for each one you claim. Do not flip the production admission gate and do not touch `ACCOUNT_AUTOPROVISION` until the § 6 migration of existing OAuth-derived guests reports no unexplained admitted rows; the "Superseded by" note on `designs/account-creation-open-signup.md` belongs to that same flip. OAuth work (§ 5 recovery bonds) is optional and off the critical path — scope it out if it grows the change, and say so.
 
 Coordinate rather than duplicate: `design-siwe-pivot-to-invitation-onboarding` (todo) is re-evaluating SIWE against this same pivot, and `minion-town-oauth-guest-facet-default` is in flight. Standard draft PR + auto-gauntlet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T01:10:01Z
