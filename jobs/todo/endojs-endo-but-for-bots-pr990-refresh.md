@@ -19,16 +19,7 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Please refresh on a current merge base. Note that we have byte arrays now. 
 
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=6 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T20:25:52Z
+
+<!-- garden-reaped: 1 -->
