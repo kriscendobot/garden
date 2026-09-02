@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T01:35:27Z_
+_As of 2026-09-02T01:35:46Z_
 
 ## Latest
 
@@ -1619,13 +1619,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 29.6M | $612.66 _(notional, rate-card)_ | 8% of 385.0M (ok) |
-| Codex | 41.4M _(+1132.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
+| Codex | 41.4M _(+1132.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`minion-town-pr32-ready-after-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr32-ready-after-quota.md) — ---
+### todo (0)
+(none)
 
-### doin (105)
+### doin (106)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #81
@@ -1725,6 +1725,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
+- [`minion-town-pr32-ready-after-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr32-ready-after-quota.md) — ---
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
 - [`sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1013
