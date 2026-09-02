@@ -23,6 +23,7 @@ session quota before issuing a verdict. Re-run it with available review capacity
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=57,7 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
