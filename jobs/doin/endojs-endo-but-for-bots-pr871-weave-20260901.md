@@ -45,10 +45,10 @@ recommendation. Cite the commands and their output.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=2 values=96,201 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=3 values=201,54 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
