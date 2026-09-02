@@ -12,6 +12,7 @@ Repository: kriscendobot/minion.town. PR https://github.com/kriscendobot/minion.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
