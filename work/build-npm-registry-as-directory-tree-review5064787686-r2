@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-01T23:12:20Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-npm-registry-as-directory-tree-review5064787686-r2
-pr_number: 1117
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1117
-pr_head: kriscendobot:build/npm-registry-as-directory-tree
