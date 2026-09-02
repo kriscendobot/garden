@@ -56,3 +56,13 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-02T03:55:39Z
