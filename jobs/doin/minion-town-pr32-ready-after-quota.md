@@ -11,3 +11,13 @@ Repository: kriscendobot/minion.town. PR https://github.com/kriscendobot/minion.
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T14:55:06Z
