@@ -25,6 +25,7 @@ Land any corrections as a PR on the fork and run the gauntlet. If a lightweight 
 <!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=signature through=3 values=8,7 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
