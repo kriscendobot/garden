@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T14:40:29Z_
+_As of 2026-09-02T14:41:38Z_
 
 ## Latest
 
@@ -2084,12 +2084,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.8M | $1011.86 _(notional, rate-card)_ | 14% of 385.0M (ok) |
+| Claude | 56.1M | $1016.44 _(notional, rate-card)_ | 15% of 385.0M (ok) |
 | Codex | 42.8M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (10)
+### todo (11)
 - [`build-kebab-case-lint-wildcard-test262-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #762
+- [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #79
 - [`endojs-endo-but-for-bots-pr1116-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1116-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1116
 - [`ironhorse-test262-fable-supervisor-20260829-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-fable-supervisor-20260829-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1113
 - [`kriscendobot-minion-town-pr68-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #68
