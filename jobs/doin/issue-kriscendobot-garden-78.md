@@ -40,6 +40,7 @@ Please dispatch a scholar to ingest https://zed.dev/blog/agentic-xanadu and prov
 <!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=signature through=3 values=12,2 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T18:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
