@@ -55,3 +55,13 @@ output.
 <!-- garden-transient-elapsed: kind=signature through=2 values=6,1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-02T08:55:53Z
