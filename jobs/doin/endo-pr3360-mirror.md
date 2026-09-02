@@ -75,6 +75,7 @@ and starting a review/fix machinery on it wasn't asked for and would be
 presumptuous. Report the mirror PR's URL and stop.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T18:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
