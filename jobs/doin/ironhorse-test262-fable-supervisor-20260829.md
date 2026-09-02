@@ -98,10 +98,10 @@ run; any remaining clusters or unverifiable surfaces. Do not extrapolate a
 whole-corpus total from slice-only runs.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=159 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=4 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
