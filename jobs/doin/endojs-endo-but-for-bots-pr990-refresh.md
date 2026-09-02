@@ -18,6 +18,7 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Please refresh on a current merge base. Note that we have byte arrays now. 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
