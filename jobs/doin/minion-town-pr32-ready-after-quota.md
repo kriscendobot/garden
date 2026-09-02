@@ -14,6 +14,7 @@ Repository: kriscendobot/minion.town. PR https://github.com/kriscendobot/minion.
 <!-- garden-reaped: 2 -->
 
 <!-- garden-outage-cycle -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T13:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
