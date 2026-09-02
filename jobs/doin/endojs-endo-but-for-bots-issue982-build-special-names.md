@@ -17,10 +17,10 @@ Forward-reference requirement: immediately after opening or identifying the impl
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=63,48 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=1 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
