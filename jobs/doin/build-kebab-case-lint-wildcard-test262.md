@@ -76,6 +76,7 @@ the before/after exemptions line count.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
