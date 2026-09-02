@@ -90,16 +90,7 @@ whether this specific copy change warrants review given it's user-facing
 product text, not build/config.
 
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=6 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T20:45:50Z
+
+<!-- garden-reaped: 1 -->
