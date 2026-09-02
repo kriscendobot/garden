@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Repository: endojs/endo-but-for-bots. Build https://github.com/endojs/endo-but-for-bots/issues/982 in response to https://github.com/endojs/endo-but-for-bots/issues/982#issuecomment-5497719522.
@@ -10,17 +11,8 @@ Implement creator-supplied special-name endowments for freshly provisioned Endo 
 Forward-reference requirement: immediately after opening or identifying the implementation pull request, post a comment on issue #982 linking that build PR and stating its current status. Do not complete this job with the forward reference merely described in prose; actually post it and include the issue-comment URL in the completion report. If an existing build already implements the issue, verify it at current head and post that exact PR as the forward reference instead of opening a duplicate.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T21:15:43Z
+
+<!-- garden-reaped: 0 -->
