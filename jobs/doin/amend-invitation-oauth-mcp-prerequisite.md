@@ -91,10 +91,10 @@ product text, not build/config.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=6 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=6,3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
