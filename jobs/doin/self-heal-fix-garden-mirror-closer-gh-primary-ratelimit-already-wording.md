@@ -21,3 +21,13 @@ What to change:
 3. Verify the fast-fail path end-to-end with the existing `GARDEN_GH` stub seam (a stub printing the `already exceeded` wording to stderr must produce exactly ONE attempt and a `RATE LIMITED by GitHub primary quota` WARN, not four `transient blip` lines).
 
 Note the residual (do NOT fix in this job unless it is trivial and clearly in scope): even with the fast-fail restored, `mirror-closer.sh:212` still exits 1 whenever any mapping failed, so a fleet-wide quota exhaustion re-triggers this LLM self-heal responder on every tick until the hourly reset. `comment-watcher.sh:1521` and `handlers/comment-source-gh.sh:489` already model the alternative (freeze the cursor, log `RATE LIMITED`, degrade the tick). If a follow-up is warranted, post it separately rather than widening this one.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T00:55:56Z
