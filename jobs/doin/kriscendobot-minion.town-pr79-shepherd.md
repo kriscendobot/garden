@@ -20,10 +20,10 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please conduct, deploy, and validate. 
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=3,6 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
