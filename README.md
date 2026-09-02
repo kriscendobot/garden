@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T07:50:45Z_
+_As of 2026-09-02T07:55:38Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 12h)
 - [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — design(ses,module-source): top-level-await proposal (leads with the test suite) (waiting 12h)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 12h)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 10h)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 11h)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 3d)
@@ -206,6 +206,80 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Open the implementation as a draft PR from the bot fork against llm, run the repository-local verification required by the builder role, and report the PR URL and exact executed evidence. Do not mutate or merge endojs/endo upstream.
 >
 > Source authorization: maintainer @kriskowal approved PR 1083 and directed, "Conduct and build this" in review 5064787686.
+
+- `doomed-daily-progress-summary-20260902-070506-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260902-070506-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/daily-progress-summary-20260902-070506; it stays HELD until a human promotes it
+> (promote-plan.sh daily-progress-summary-20260902-070506) or removes it, so nothing is lost.
+> Original job base: daily-progress-summary-20260902-070506
+>
+> --- original job body ---
+> Scheduled dispatch context (computed by the scheduler at fire time):
+>
+> - window_start: 2026-09-01T07:00:00Z (UTC, inclusive)
+> - window_end: 2026-09-02T07:00:00Z (UTC, exclusive)
+> - pacific_date: 2026-09-01 (the Pacific day this periodical covers)
+> - output: journal/periodicals/2026/09/01.md
+>
+> ---
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Daily midnight Pacific progress summary
+>
+> Act as the [journalist](../../roles/journalist/AGENT.md) with purpose
+> `daily-progress-summary` (see that role's § Daily progress summaries). Write one
+> daily progress-summary periodical covering the prior 24 hours across every project,
+> then commit it to `journal2`.
+>
+> 1. **Window.** If the scheduler prepended a "Scheduled dispatch context" block
+>    above (it does under the anchored `daily-at-00:00-America/Los_Angeles`
+>    cadence), use its `window_start`, `window_end`, `pacific_date`, and `output`
+>    verbatim. Otherwise fall back to the Pacific day that most recently closed:
+>    window `[<pacific_date> 00:00, next-day 00:00)` in America/Los_Angeles, and
+>    `output = journal/periodicals/<YYYY>/<MM>/<DD>.md` keyed by that `pacific_date`.
+> 2. **Read.** Every entry under `journal/entries/<YYYY>/<MM>/<DD>/` whose `ts:` is
+>    in `[window_start, window_end)` (a UTC window can straddle two day-directories;
+>    scan both and filter by `ts:`), plus the board transitions in the window
+>    (`jobs/{todo,doin,tada}` moves from `git -C journal log --since=... --until=...`).
+>    Scope is intentionally everything: dispatches, results, ticks, messages, and
+>    worktree-lifecycle entries alike.
+> 3. **Write.** One abstract-first periodical at `output`, partitioned by project
+>    (the `project:` slug; one section per project with any entry, plus a garden-meta
+>    section for untagged entries) and, within each, by activity kind. Do not skip a
+>    project for having only a couple of entries. Cite sources by relative path;
+>    paraphrase, do not copy. House style applies (no em-dashes in prose, no Latin
+>    shorthand, relative paths). Commit and push the one file with the usual CAS; if
+>    the file already exists for that Pacific date, overwrite it (the periodical is a
+>    function of the window, so a re-run is idempotent).
+>
+> Deliverable: the periodical file committed to `journal2`, or (empty window) a
+> one-line periodical saying nothing moved. No board writes, no upstream actions.
+>
+> ---
+> Translated from v1 `schedule/garden/20260513T070000Z--5a93f9.md`
+> (recurrence `daily-at-00:00-America/Los_Angeles`, dispatch `journalist` /
+> `daily-progress-summary`, window "prior 24 hours", scope all projects).
+> The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
+> specs keyed by cadence, not pre-computed per-fire event files. The v1 periodicals
+> output tree is archived under `legacy/v1/periodicals/`. The v1 original is
+> retained on `journal-v1` and `origin/journal`.
+>
+> The cadence is the anchored, DST-aware `daily-at-00:00-America/Los_Angeles` (which
+> the scheduler learned on main2 commit 85a1cd8e6): due-ness is decided against the
+> most recent Pacific-midnight anchor at-or-before now and `last_dispatched` is
+> stamped to that anchor, so the fire never drifts off local midnight and a 23h/25h
+> DST day is spanned correctly. It was flipped from the earlier fixed-interval
+> `daily` (which drifted, firing at each actual dispatch time rather than at local
+> midnight) once the anchored scheduler landed on the leader host; do not revert it
+> to `daily` while any leader host still runs a pre-anchor scheduler, or that
+> scheduler would treat the token as its weekly default.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1688,14 +1762,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (108)
+### doin (107)
 - [`build-kebab-case-lint-wildcard-test262-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #762
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #81
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #79
 - [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1117
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
-- [`daily-progress-summary-20260902-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260902-070506.md) — Daily midnight Pacific progress summary
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
@@ -1812,6 +1885,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
+- [`daily-progress-summary-20260902-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260902-070506.md) — _normal_ · Daily midnight Pacific progress summary
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
