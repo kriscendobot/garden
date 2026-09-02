@@ -100,3 +100,13 @@ product text, not build/config.
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=63 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T21:27:05Z
