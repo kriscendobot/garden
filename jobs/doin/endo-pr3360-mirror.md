@@ -84,3 +84,13 @@ presumptuous. Report the mirror PR's URL and stop.
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=114 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T19:25:40Z
