@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T00:02:52Z_
+_As of 2026-09-02T00:04:22Z_
 
 ## Latest
 
@@ -132,59 +132,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > What [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/issues/1038) does (zero wire/behavior change): removes only the *silent* property of the footgun — on C-XS, selecting 'uncaught' clears the real exceptions breakpoint and arms a never-hit phantom, i.e. it silently DISABLES exception breaking. It documents that at every client API site (debug-session.js, debugger.js, types.d.ts) and relabels the Chat panel option to "Exceptions: uncaught (engine support pending)" with an honest tooltip. 16 daemon debugger tests + chat panel tests pass unmodified; eslint/prettier clean.
 >
 > If you'd rather have a HARD runtime gate (e.g. the client throws for 'uncaught' until an Ironhorse session is attached), that needs capability detection the design currently rules out — say the word and I'll take it up with a design amendment. Otherwise the real fix stays owned by fu-...-1 + fu-...-3 (both still todo) under the paused campaign.
-
-- `20260822T055203Z-ae527d` — from gardener:wire-siwe-onchain-authz-minion-town, reply_to `wire-siwe-onchain-authz-minion-town` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260822T055203Z-ae527d.md)
-
-> Wiring the SIWE on-chain authz tier into minion.town's policy layer (design § 3). Deploy is done — thunk issuer is live at https://siwe-idp.minion.town (mainnet, EIP-1271 in, ENS out), sub = checksummed EIP-55 address. I need two answers to proceed (design § 6):
->
-> DECISION 3 — which tier to ship now?
->   (a) Tier 1 only (address allowlist in config/policy.json; the design's recommendation). Fast, zero new infra.
->   (b) Tier 1 + Tier 2 (onchain rule schema + cached viem reader in src/auth/policy.ts). If (b), which asset type first — the design recommends a purpose-built `registry` contract on Base; alternatives are safe_signer / erc721 / erc20_min_balance.
->
-> TIER 1 ALLOWLIST — I cannot invent these. For each address to authorize under iss=https://siwe-idp.minion.town, give me:
->   - the address (I'll EIP-55 checksum it),
->   - the scopes (vocabulary today: mcp/tools, mcp/guest),
->   - optionally guestFacetGrants: ["evaluator"], and a note.
->
-> E.g. "0xf39F…2266 (my hardware wallet) → mcp/tools, mcp/guest, evaluator".
->
-> If you'd rather I ship the Tier-2 machinery now regardless (schema + cached reader + mocked-transport tests) with the allowlist to follow, say so. Otherwise I'll wait for the addresses before touching config/policy.json.
-
-- `20260827T062400Z-4bf20f` — from gardener:xs2rust-endor-press-20260827-061533, reply_to `xs2rust-endor-press-20260827-061533` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260827T062400Z-4bf20f.md)
-
-> Ironhorse press (2026-08-27): investigated the fixture-parity ratchet campaign's
-> twice-halting child `endor-walker-exports-resolution` per your directive
-> ("if halted a third time on this same child, do NOT blindly re-resume; investigate").
->
-> ROOT CAUSE (both halts): NOT a build hang or task difficulty. All four 2026-08-23
-> requeue cycles failed with source=none, elapsed 2-6s (journal/usage/
-> endor-walker-exports-resolution.jsonl) — the worker invocation fast-failed with
-> no model/provider attributed (a provider/worker-acquisition gap), which the reaper
-> read as elapsed-constancy and requeued to doom. The build body never ran. The doom
-> notice confirms "raising the handler budget will not help."
->
-> ACTION: rather than blind-re-orchestrate, posted ONE targeted re-attempt
-> `endor-walker-exports-resolution-20260827` as dispatch:manual at true mentor (no
-> anthropic auto-downshift) so a live real-provider worker serves it — fleet is
-> healthy now (monks+clerics running). The job body carries the finding and instructs
-> the worker to REPORT (not silently exit) on any immediate infra failure, so a third
-> occurrence is captured rather than re-doomed. The 5 downstream ratchet children stay
-> parked; a future dispatch re-orchestrates them once this blocker clears.
->
-> PR front is healthy: [endojs/endo-but-for-bots#1046](https://github.com/endojs/endo-but-for-bots/issues/1046) (APPROVED) re-running CI on a new head, [endojs/endo-but-for-bots#1060](https://github.com/endojs/endo-but-for-bots/issues/1060) mergeable
-> w/ checks pending + freshly reviewed, [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) recently conducted. No idle
-> CHANGES_REQUESTED mechanical target needing a fixer.
-
-- `20260828T194121Z-59223f` — from gardener:minion-town-press-20260828-193506, reply_to `minion-town-press-20260828-193506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260828T194121Z-59223f.md)
-
-> minion.town press (off merged [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52)): [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) "docs(weblet): reconcile register-by-id design" is now **ready for your review** (was draft). It rewrites sections 2.2/3.1 + 9 of designs/weblet-ocap-synthesis.md to describe the register(directoryId, owner) boundary that shipped in [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52), was attenuated in [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53), and left serving in [kriscendobot/minion.town#55](https://github.com/kriscendobot/minion.town/issues/55).
->
-> No decision is pending from you — this is a review request, not a fork:
-> - The register-by-id deviation is already settled: you APPROVED [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) and [kriscendobot/minion.town#53](https://github.com/kriscendobot/minion.town/issues/53) and said "validate in prod." [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) only documents that settled boundary.
-> - Your [kriscendobot/minion.town#52](https://github.com/kriscendobot/minion.town/issues/52) review asked to be shown the unconfined-caplet `export const make` endowment or a follow-up. That exists in the shipped code: src/endo/gateway/site-registry-caplet.ts:30 `export const make` ("Unconfined Endo caplet that constructs the daemon-hosted @sites registry"), with per-guest attenuation via site-register-caplet.ts.
-> - [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) is CI-green and went through 3 design-panel rounds; the last round's must-fixes (faithful 3.1 paraphrase of guestRegisterSource, confidentiality-escalation severity retune) are applied at head 4208dca.
->
-> Design residuals it records as future BUILD work (not decisions): live weblet_upgrade, an always-on real-daemon CI lane, and restart-durability verification. I'll leave those parked unless you want one pressed next.
 
 - `20260830T053908Z-dea27e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260830T053908Z-dea27e.md)
 
@@ -1476,13 +1423,15 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.7M | $507.46 _(notional, rate-card)_ | 6% of 385.0M (ok) |
-| Codex | 38.3M _(+1015.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Claude | 25.0M | $514.23 _(notional, rate-card)_ | 6% of 385.0M (ok) |
+| Codex | 38.4M _(+1017.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
-### todo (6)
+### todo (8)
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #79
+- [`design-siwe-pivot-to-invitation-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-siwe-pivot-to-invitation-onboarding.md) — Revisit SIWE on-chain authz: adapt to invitation-only onboarding, or close
 - [`endo-guest-invite-accept-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-guest-invite-accept-design.md) — Design guest-native invitation acceptance in Endo
+- [`kriscendobot-minion-town-pr63-review-fix-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr63-review-fix-20260902.md) — Address the CHANGES_REQUESTED review on kriscendobot/minion.town#63
 - [`kriscendobot-minion-town-pr68-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr77-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr77-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #77
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
