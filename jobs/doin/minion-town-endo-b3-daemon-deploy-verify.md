@@ -22,3 +22,13 @@ Land any corrections as a PR on the fork and run the gauntlet. If a lightweight 
 <!-- garden-transient-elapsed: kind=signature through=1 values=8,5 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T09:55:21Z
