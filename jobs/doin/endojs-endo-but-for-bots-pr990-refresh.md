@@ -25,3 +25,13 @@ discipline. The excerpt below is for human context only:
 <!-- garden-transient-elapsed: kind=signature through=1 values=6,2 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-02T20:45:42Z
