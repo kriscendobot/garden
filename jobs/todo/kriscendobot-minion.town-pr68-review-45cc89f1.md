@@ -52,16 +52,7 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T03:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T03:15:01Z
+
+<!-- garden-reaped: 1 -->

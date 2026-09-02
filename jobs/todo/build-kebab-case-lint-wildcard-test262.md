@@ -70,16 +70,3 @@ tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with loa
 the before/after exemptions line count.
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=signature through=0 values=7 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T03:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T01:55:08Z
