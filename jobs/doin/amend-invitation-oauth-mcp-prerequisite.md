@@ -99,6 +99,7 @@ product text, not build/config.
 <!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=63 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
