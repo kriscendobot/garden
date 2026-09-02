@@ -70,10 +70,10 @@ scheduler would treat the token as its weekly default.
 <!-- garden-elapsed-constancy: 1 -->
 
 
-<!-- garden-transient-elapsed: kind=signature through=3 values=6,3 -->
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-transient-elapsed: kind=signature through=4 values=3,6 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
