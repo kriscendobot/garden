@@ -1,0 +1,12 @@
+---
+order: serial
+children: endojs-endo-but-for-bots-pr950-weave-20260902-sweep endojs-endo-but-for-bots-pr775-weave-20260902-sweep endojs-endo-but-for-bots-pr592-weave-20260902-sweep endojs-endo-but-for-bots-pr1013-weave-20260902-sweep endojs-endo-but-for-bots-pr335-weave-20260902-sweep endojs-endo-but-for-bots-pr322-weave-20260902-sweep endojs-endo-but-for-bots-pr266-weave-20260902-sweep
+on-child-failure: continue
+state: pending
+created_by: producer
+created_at: 2026-09-02T00:19:03Z
+---
+
+# orchestration ebfb-ci-starved-weave-survivors-20260902
+
+7 children (serial), on-child-failure=continue.
