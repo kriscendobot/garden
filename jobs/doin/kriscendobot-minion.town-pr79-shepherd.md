@@ -20,6 +20,7 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Please conduct, deploy, and validate. 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
