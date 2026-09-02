@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # shepherd directive on kriscendobot/minion.town PR #79
@@ -20,13 +21,5 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Please conduct, deploy, and validate. 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T20:06:51Z
+
+<!-- garden-reaped: 0 -->

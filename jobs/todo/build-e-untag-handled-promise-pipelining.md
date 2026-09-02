@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Build the remaining pieces needed for a pipelined `E.untag` /
@@ -96,13 +97,5 @@ lands the PR; ferrying it upstream to the real `endojs/endo` afterward is a
 separate, maintainer-gated boatman job, not part of this one.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T20:07:25Z
+
+<!-- garden-reaped: 0 -->
