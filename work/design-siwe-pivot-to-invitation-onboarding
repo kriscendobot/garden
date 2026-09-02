@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-02T00:30:29Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-siwe-pivot-to-invitation-onboarding
+pr_number: 80
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/80
+pr_head: design/siwe-invitation-pivot
