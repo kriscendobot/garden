@@ -25,3 +25,13 @@ Ground rules:
 7. Choose serial vs. parallel per the coupling in (2), not uniformly one or the other. `--on-child-failure halt` (the default) is fine — none of this is time-critical enough to want `continue`.
 
 Report back, in your completion report: the orchestration base name, the full child list with a one-line description of what each does, and which recommendation(s) (if any) you deliberately excluded and why.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T22:54:11Z
