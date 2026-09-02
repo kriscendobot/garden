@@ -97,16 +97,7 @@ infrastructure, and skipped outcomes; failure clusters fixed; commands actually
 run; any remaining clusters or unverifiable surfaces. Do not extrapolate a
 whole-corpus total from slice-only runs.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=159 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-02T00:49:09Z
+
+<!-- garden-reaped: 1 -->
