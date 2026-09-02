@@ -55,10 +55,10 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=720 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=133 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
