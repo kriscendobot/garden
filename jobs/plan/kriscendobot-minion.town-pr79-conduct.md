@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+role: conductor
+tier: minion
+token-budget: 250000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 3
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-09-02T20:45:38Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-02T20:45:38Z
+---
+
+---
 role: conductor
 tier: minion
 model-burned: mentor
@@ -29,23 +48,3 @@ Guards (the reconciler already enforced these; re-verify before merging):
 PR: https://github.com/kriscendobot/minion.town/pull/79
 Head: kriscendobot/minion.town (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no maintainer comment).
-
-
-
-
-
-
-<!-- garden-reaped: 2 -->
-
-<!-- garden-transient-elapsed: kind=signature through=2 values=6,8 -->
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T20:35:49Z

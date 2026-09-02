@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Maintainer directive (2026-09-02, liaison session): amend the minion.town
@@ -89,13 +90,5 @@ whether this specific copy change warrants review given it's user-facing
 product text, not build/config.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T20:33:47Z
+
+<!-- garden-reaped: 0 -->

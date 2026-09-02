@@ -23,17 +23,8 @@ discipline. The excerpt below is for human context only:
 
 
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=signature through=2 values=6,8 -->
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T20:35:40Z
+
+<!-- garden-reaped: 3 -->
