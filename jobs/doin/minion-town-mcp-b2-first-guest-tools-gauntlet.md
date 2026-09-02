@@ -34,6 +34,7 @@ not inferred by a watcher.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=1 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
