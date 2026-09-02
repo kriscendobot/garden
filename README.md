@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T05:25:32Z_
+_As of 2026-09-02T05:35:37Z_
 
 ## Latest
 
@@ -1659,11 +1659,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-09-01T22:33:11Z, cleared 2026-09-02T04:34:18Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-01T22:33:11Z, latest 2026-09-02T05:35:11Z).
+> The SAME condition (`provider-quota`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-mirror-closer). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
+> provider session limit reached: the API is refusing calls fleet-wide (resets 8:50am (UTC) — the responder could NOT diagnose garden-mirror-closer (rc=1); its capture is blob 1d4f71a60c237d137119b1482c336f981e65415e (git -C /home/kris/garden2/).
+> limit_type: session
+> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
+> resumes on its own once the window resets (see skills/restore/SKILL.md for the
+> post-outage restore). Every unit that trips the limit folds into THIS one notice
+> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
+> provider quota exceeded while running garden-mirror-closer. Observed: You've hit your session limit · resets 8:50am (UTC) — the responder could NOT diagnose garden-mirror-closer (rc=1); its capture is blob 1d4f71a60c237d137119b1482c336f981e65415e (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 1d4f71a60c237d137119b1482c336f981e65415e).
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -1676,7 +1682,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 38.8M | $713.09 _(notional, rate-card)_ | 10% of 385.0M (ok) |
-| Codex | 42.6M _(+1168.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 42.6M _(+1168.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
