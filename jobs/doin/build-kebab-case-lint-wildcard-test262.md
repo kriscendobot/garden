@@ -80,3 +80,13 @@ the before/after exemptions line count.
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=62,110 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T00:01:33Z
