@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T00:22:55Z_
+_As of 2026-09-02T00:23:46Z_
 
 ## Latest
 
@@ -1419,11 +1419,11 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 25.8M | $534.71 _(notional, rate-card)_ | 7% of 385.0M (ok) |
-| Codex | 39.3M _(+1053.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 25.8M | $536.58 _(notional, rate-card)_ | 7% of 385.0M (ok) |
+| Codex | 39.4M _(+1054.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
-### todo (12)
+### todo (13)
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #79
 - [`design-siwe-pivot-to-invitation-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-siwe-pivot-to-invitation-onboarding.md) — Revisit SIWE on-chain authz: adapt to invitation-only onboarding, or close
 - [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
@@ -1435,6 +1435,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-endo-b3-daemon-deploy-verify.md) — ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
+- [`sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1013
 - [`xs2rust-endor-press-20260902-002006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260902-002006.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### doin (98)
