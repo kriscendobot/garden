@@ -66,3 +66,13 @@ false premise.
 The full list with counts, the weaves performed, the close-as-superseded
 recommendations, and an explicit statement of whether rebasing restored CI. If
 the population is large, say how large and how much you left for a follow-up.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T00:02:15Z
