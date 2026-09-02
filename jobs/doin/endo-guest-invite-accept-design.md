@@ -22,3 +22,13 @@ and retained integration tests. The current `llm` surface exposes `invite` and
 
 This closes the dependency identified by kriskowal's review of
 https://github.com/kriscendobot/minion.town/pull/56#discussion_r3909478669.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T00:08:53Z
