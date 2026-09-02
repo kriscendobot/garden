@@ -47,10 +47,10 @@ recommendation. Cite the commands and their output.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=3 values=201,54 -->
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=4 values=54,206 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
