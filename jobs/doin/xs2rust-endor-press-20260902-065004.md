@@ -46,10 +46,10 @@ Defer to a genuinely live concurrent pusher; press by default otherwise. No
 bar is "green" without real-execution evidence — cite the command and its
 output.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
