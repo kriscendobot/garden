@@ -23,13 +23,13 @@ session quota before issuing a verdict. Re-run it with available review capacity
 
 
 
-<!-- garden-elapsed-constancy: 1 -->
 
 
 
 <!-- garden-reaped: 4 -->
 
 <!-- garden-transient-elapsed: kind=signature through=4 values=3,4 -->
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 ---
 claim:
