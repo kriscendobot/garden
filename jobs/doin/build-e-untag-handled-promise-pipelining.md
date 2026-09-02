@@ -96,10 +96,10 @@ elsewhere this session for master-targeted work on this repo. This job
 lands the PR; ferrying it upstream to the real `endojs/endo` afterward is a
 separate, maintainer-gated boatman job, not part of this one.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
