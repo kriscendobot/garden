@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T04:15:53Z_
+_As of 2026-09-02T04:16:49Z_
 
 ## Latest
 
@@ -1618,8 +1618,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.8M | $641.88 _(notional, rate-card)_ | 8% of 385.0M (ok) |
-| Codex | 42.1M _(+1146.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Claude | 32.0M | $644.62 _(notional, rate-card)_ | 8% of 385.0M (ok) |
+| Codex | 42.1M _(+1147.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (11)
@@ -1732,13 +1732,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6678)
+### tada (6679)
+- [`ebfb-ci-starved-weave-survivors-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ci-starved-weave-survivors-20260902.md) — orchestration ebfb-ci-starved-weave-survivors-20260902 — complete
 - [`endojs-endo-but-for-bots-pr266-weave-20260902-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr266-weave-20260902-sweep.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260902-035004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260902-035004.md) — Cost
 - [`kriscendobot-minion.town-pr77-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr77-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1029-38ff9f03`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1029-38ff9f03.md) — Cost
-- [`xs2rust-endor-press-20260902-033504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260902-033504.md) — Cost
-- … and 6673 more
+- … and 6674 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
