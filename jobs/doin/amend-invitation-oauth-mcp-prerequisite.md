@@ -87,3 +87,13 @@ that design docs land as PR review while small config/copy fixes may land as
 direct commits where pre-deploy review isn't needed; use your judgment on
 whether this specific copy change warrants review given it's user-facing
 product text, not build/config.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T20:33:47Z
