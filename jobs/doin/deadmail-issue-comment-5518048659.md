@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-551804865
 @kriscendobot Please reframe the issue description as a checklist with links to progress or evidence of completion. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T23:45:18Z
