@@ -19,10 +19,10 @@ Land any corrections as a PR on the fork and run the gauntlet. If a lightweight 
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=8,5 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=5,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
