@@ -84,3 +84,13 @@ A written recommendation (adapt / close / adapt-but-defer) with the reasoning an
 the concrete consequences for the deployed issuer either way.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T04:36:34Z
