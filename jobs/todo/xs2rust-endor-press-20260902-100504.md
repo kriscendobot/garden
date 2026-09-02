@@ -47,16 +47,15 @@ bar is "green" without real-execution evidence — cite the command and its
 output.
 
 
-<!-- garden-reaped: 1 -->
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=58 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-02T14:36:40Z
+
+
+
+
+
+
+
+
+<!-- garden-transient-elapsed: kind=signature through=3 values=6 -->
+
+<!-- garden-reaped: 4 -->
