@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T12:00:18Z_
+_As of 2026-09-02T12:05:28Z_
 
 ## Latest
 
@@ -1944,7 +1944,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (106)
+### doin (107)
 - [`build-kebab-case-lint-wildcard-test262-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #762
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-invitation-only-guest-onboarding-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #81
@@ -2051,6 +2051,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260902-090504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260902-090504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260902-100504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260902-100504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260902-110504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260902-110504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+- [`xs2rust-endor-press-20260902-120504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260902-120504.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### tada (6699)
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-1.md) — Completion report
