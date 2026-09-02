@@ -50,6 +50,7 @@ output.
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T13:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
