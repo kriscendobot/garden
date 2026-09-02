@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Maintainer directive (2026-09-02, liaison session): create a mirror of
@@ -75,16 +76,7 @@ and starting a review/fix machinery on it wasn't asked for and would be
 presumptuous. Report the mirror PR's URL and stop.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,5 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T18:55:49Z
+
+<!-- garden-reaped: 0 -->
