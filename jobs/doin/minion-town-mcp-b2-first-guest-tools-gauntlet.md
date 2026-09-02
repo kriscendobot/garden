@@ -33,10 +33,10 @@ the panel terminates cleanly. This handoff was posted by the build completion ed
 not inferred by a watcher.
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=1 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=1,3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
