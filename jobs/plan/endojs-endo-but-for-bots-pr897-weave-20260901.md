@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+role: weaver
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-02T00:39:17Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-02T00:39:17Z
+---
+
+---
 role: weaver
 tier: mentor
 fallback-tier: minion
@@ -36,15 +55,3 @@ Head: kriscendobot/endo-but-for-bots  branch fix/mount-glorp-713-followup (bot-p
 Base: endojs/endo-but-for-bots  branch llm
 
 Posted by the conductor (pr897-conduct) after a needs-weave rebase refusal.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-01T23:50:04Z
