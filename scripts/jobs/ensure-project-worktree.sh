@@ -47,7 +47,8 @@
 # cache: the first fresh worktree on a given lockfile runs the real installer
 # (native builds included, except for botanist jobs) and SNAPSHOTS the resulting
 # node_modules trees into a
-# content-addressed cache keyed by <owner>-<repo>/<lockfile-hash>; every later
+# content-addressed cache keyed by
+# <owner>-<repo>/<lockfile-hash>-<install-policy>-nodeabi-<abi>; every later
 # fresh worktree POPULATES from that cache with a hardlink copy (`cp -al`, the
 # pnpm-linker hardlink pattern the local-run recipe uses), so the compiled .node
 # inodes are shared, not recompiled. A lockfile change is a new key → an
@@ -74,6 +75,11 @@
 # none (measured on endojs/endo-but-for-bots: ~5s reconcile against a ~5s cold
 # install on an already-warm yarn store, with better-sqlite3's prebuilt .node
 # keeping its cached inode and mtime). Both numbers appear in the HIT log line.
+# Native addons are only portable across runtimes with the same Node module ABI.
+# The active Node's `process.versions.modules` therefore participates in the
+# cache key, is recorded in each completed entry, and is checked again before a
+# hit is linked. An entry whose marker disagrees is discarded and rebuilt; if
+# the active ABI cannot be resolved consistently, caching is bypassed.
 #
 # ── Isolation guarantees asserted by test/project-worktree-isolation-test.sh ──
 #   * two DIFFERENT bases, same repo+branch  → DISTINCT paths (the #58 fix);
@@ -200,8 +206,23 @@ dep_reconcile_cmd() {
   printf '%s\n' "$cmd"
 }
 
-# dep_cache_prune <slug> <keep-lockhash> — best-effort removal of sibling
-# lockfile-hash caches under this slug that have been idle (unbuilt AND unhit)
+# resolve_node_abi — print the native-module ABI for the Node executable that
+# the install/reconcile commands will resolve from PATH. Native addons such as
+# better-sqlite3 are compiled for this ABI, not merely for a semver release.
+# Refuse missing/non-numeric answers: an "unknown" cache namespace would allow
+# incompatible runtimes to collide, defeating the guard this identity provides.
+resolve_node_abi() {
+  local node_bin abi
+  node_bin="$(command -v node 2>/dev/null)" || return 1
+  abi="$("$node_bin" -p 'process.versions.modules || ""' 2>/dev/null)" || return 1
+  case "$abi" in
+    ''|*[!0-9]*) return 1 ;;
+  esac
+  printf '%s\n' "$abi"
+}
+
+# dep_cache_prune <slug> <keep-key> — best-effort removal of sibling lockfile /
+# policy / Node-ABI caches under this slug that have been idle (unbuilt AND unhit)
 # longer than the TTL, keeping the current one. Called under the per-slug lock so
 # it never races a concurrent provisioner for this slug; a fresh sibling hash
 # (just built or just hit → recent mtime) is never pruned.
@@ -245,9 +266,6 @@ provision_deps() {
   [ -n "$lockhash" ] || { log "WARN: dep-cache skip: could not hash $wt/$lockfile"; return 0; }
 
   local slug_dir="$GARDEN_DEP_CACHE_ROOT/$slug"
-  local cache_key="$lockhash-$dep_install_policy"
-  local cache_dir="$slug_dir/$cache_key"
-  local complete="$cache_dir/.complete"
   local lock="$slug_dir/.lock"
   mkdir -p "$slug_dir" 2>/dev/null \
     || { log "WARN: dep-cache skip: cannot create $slug_dir"; return 0; }
@@ -263,8 +281,21 @@ provision_deps() {
       exit 0
     }
 
-    local t0 t1 secs rel n
+    local t0 t1 secs rel n node_abi cache_key="" cache_dir="" complete="" abi_marker="" cache_enabled=1
     t0="$(date +%s 2>/dev/null || echo 0)"
+
+    # Resolve the ABI under the same serialization lock used to select/build the
+    # entry. If it cannot be established, do not invent a shared "unknown" key.
+    if node_abi="$(resolve_node_abi)"; then
+      cache_key="$lockhash-$dep_install_policy-nodeabi-$node_abi"
+      cache_dir="$slug_dir/$cache_key"
+      complete="$cache_dir/.complete"
+      abi_marker="$cache_dir/node-abi"
+    else
+      node_abi="unresolved"
+      cache_enabled=0
+      log "WARN: dep-cache bypass: could not resolve the active Node native-module ABI for $wt; installing without cache reuse or publication"
+    fi
 
     # yarn 4's portable shell writes exec shims to $TMPDIR; a noexec /tmp makes
     # every yarn-run bin die with "permission denied" (agoric-sdk-local-build-env).
@@ -273,16 +304,34 @@ provision_deps() {
     local tmpexec="$GARDEN_SCRATCH/tmpexec"
     mkdir -p "$tmpexec" 2>/dev/null || true
 
-    if [ -f "$complete" ] && [ -f "$cache_dir/manifest" ]; then
-      # Warm HIT: hardlink every cached node_modules tree into the fresh worktree.
-      n=0
-      while IFS= read -r rel; do
-        [ -n "$rel" ] || continue
-        [ -d "$cache_dir/trees/$rel" ] || continue
-        [ -e "$wt/$rel" ] && continue          # never clobber (fresh tree has none)
-        link_tree "$cache_dir/trees/$rel" "$wt/$rel" && n=$((n+1))
-      done < "$cache_dir/manifest"
-      touch "$cache_dir" "$complete" 2>/dev/null || true   # LRU: last-use, not last-build
+    if [ "$cache_enabled" -eq 1 ] && [ -f "$complete" ] && [ -f "$cache_dir/manifest" ]; then
+      # Validate the entry against the active runtime immediately before any
+      # hardlinks are created. The key prevents ordinary cross-ABI selection;
+      # this marker check also catches legacy, corrupt, or partially published
+      # entries. A runtime that changes during this invocation is safer to
+      # bypass than to rebuild under the identity resolved above.
+      local cached_abi="" current_abi=""
+      [ -f "$abi_marker" ] && cached_abi="$(cat "$abi_marker" 2>/dev/null || true)"
+      current_abi="$(resolve_node_abi 2>/dev/null || true)"
+      if [ "$current_abi" != "$node_abi" ]; then
+        log "WARN: dep-cache bypass: active Node ABI changed while selecting ${slug}@${lockhash:0:12} (was ${node_abi}, now ${current_abi:-unresolved}); installing without cache reuse or publication"
+        cache_enabled=0
+      elif [ "$cached_abi" != "$node_abi" ]; then
+        log "WARN: dep-cache incompatible: ${cache_dir} records Node ABI ${cached_abi:-missing}, active ABI is ${node_abi}; discarding and rebuilding"
+        rm -rf "$cache_dir" 2>/dev/null || {
+          log "WARN: dep-cache bypass: could not discard incompatible entry $cache_dir"
+          exit 0
+        }
+      else
+        # Warm HIT: hardlink every cached node_modules tree into the fresh worktree.
+        n=0
+        while IFS= read -r rel; do
+          [ -n "$rel" ] || continue
+          [ -d "$cache_dir/trees/$rel" ] || continue
+          [ -e "$wt/$rel" ] && continue          # never clobber (fresh tree has none)
+          link_tree "$cache_dir/trees/$rel" "$wt/$rel" && n=$((n+1))
+        done < "$cache_dir/manifest"
+        touch "$cache_dir" "$complete" 2>/dev/null || true   # LRU: last-use, not last-build
 
       # ── Link-state reconcile ──────────────────────────────────────────────
       # The cache holds node_modules trees ONLY, but a package manager keeps its
@@ -302,32 +351,33 @@ provision_deps() {
       # the native build the cache exists to spare (better-sqlite3's prebuilt
       # .node keeps its cached inode and mtime across the reconcile). The log line
       # below carries both numbers so the cold-vs-warm delta stays observable.
-      local rsecs=0 rrunner rrc=0 r0 r1 rout rsha cold="" coldnote="cold install unrecorded"
-      [ -f "$cache_dir/install-secs" ] && cold="$(cat "$cache_dir/install-secs" 2>/dev/null)"
-      [ -n "$cold" ] && coldnote="cold install was ${cold}s"
-      if [ "${GARDEN_SKIP_DEP_RECONCILE:-0}" = 1 ]; then
-        rrunner="(skipped: GARDEN_SKIP_DEP_RECONCILE=1)"
-      elif rrunner="$(dep_reconcile_cmd "$wt")"; then
-        r0="$(date +%s 2>/dev/null || echo 0)"
-        rout="$(mktemp "$GARDEN_SCRATCH/dep-reconcile.XXXXXX" 2>/dev/null)" || rout=""
-        ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$rrunner" ) \
-          >"${rout:-/dev/null}" 2>&1 || rrc=$?
-        r1="$(date +%s 2>/dev/null || echo 0)"; rsecs=$((r1 - r0))
-        if [ "$rrc" -ne 0 ]; then
+        local rsecs=0 rrunner rrc=0 r0 r1 rout rsha cold="" coldnote="cold install unrecorded"
+        [ -f "$cache_dir/install-secs" ] && cold="$(cat "$cache_dir/install-secs" 2>/dev/null)"
+        [ -n "$cold" ] && coldnote="cold install was ${cold}s"
+        if [ "${GARDEN_SKIP_DEP_RECONCILE:-0}" = 1 ]; then
+          rrunner="(skipped: GARDEN_SKIP_DEP_RECONCILE=1)"
+        elif rrunner="$(dep_reconcile_cmd "$wt")"; then
+          r0="$(date +%s 2>/dev/null || echo 0)"
+          rout="$(mktemp "$GARDEN_SCRATCH/dep-reconcile.XXXXXX" 2>/dev/null)" || rout=""
+          ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$rrunner" ) \
+            >"${rout:-/dev/null}" 2>&1 || rrc=$?
+          r1="$(date +%s 2>/dev/null || echo 0)"; rsecs=$((r1 - r0))
+          if [ "$rrc" -ne 0 ]; then
           # Never fails the handoff, but say so loudly: the trees are in place yet
           # the package manager may still refuse to run any script in the tree.
           rsha=""
           [ -n "$rout" ] && [ -s "$rout" ] && rsha="$(git -C "$wt" hash-object -w --stdin < "$rout" 2>/dev/null || true)"
           log "WARN: WARM-CACHE reconcile FAILED: '${rrunner}' exited rc=${rrc} in ${wt}; the package manager may still report the project as not installed, in which case every 'yarn run' (and so every local-verify step) fails with one usage error. log blob: ${rsha:-<none>}$([ -n "$rsha" ] && printf ' (inspect: git -C %s cat-file -p %s)' "$wt" "$rsha")"
+          fi
+          [ -n "$rout" ] && rm -f "$rout" 2>/dev/null
+        else
+          rrunner="(none: no usable package manager)"
         fi
-        [ -n "$rout" ] && rm -f "$rout" 2>/dev/null
-      else
-        rrunner="(none: no usable package manager)"
-      fi
 
-      t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
-      log "WARM-CACHE hit: ${slug}@${lockhash:0:12} [${dep_install_policy}] populated ${n} node_modules tree(s) into ${wt} in ${secs}s (of which ${rsecs}s link-state reconcile '${rrunner}' rc=${rrc}; ${coldnote})"
-      exit 0
+        t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
+        log "WARM-CACHE hit: ${slug}@${lockhash:0:12} [${dep_install_policy}, node ABI ${node_abi}] populated ${n} node_modules tree(s) into ${wt} in ${secs}s (of which ${rsecs}s link-state reconcile '${rrunner}' rc=${rrc}; ${coldnote})"
+        exit 0
+      fi
     fi
 
     # COLD: build the closure ONCE, here, under the lock.
@@ -338,7 +388,7 @@ provision_deps() {
     }
     local out rc=0 i0 i1 isecs
     out="$(mktemp "$GARDEN_SCRATCH/dep-install.XXXXXX" 2>/dev/null)" || out=""
-    log "dep-cache: cold build ${slug}@${lockhash:0:12} [${dep_install_policy}] — running '${runner}' in ${wt} (${dep_install_log_label})"
+    log "dep-cache: cold build ${slug}@${lockhash:0:12} [${dep_install_policy}, node ABI ${node_abi}] — running '${runner}' in ${wt} (${dep_install_log_label})"
     i0="$(date +%s 2>/dev/null || echo 0)"
     if [ -n "$out" ]; then
       ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$runner" ) >"$out" 2>&1 || rc=$?
@@ -348,8 +398,13 @@ provision_deps() {
     i1="$(date +%s 2>/dev/null || echo 0)"; isecs=$((i1 - i0))
 
     if [ "$rc" -eq 0 ]; then
+      if [ "$cache_enabled" -eq 0 ]; then
+        log "WARM-CACHE bypass: ${slug}@${lockhash:0:12} [${dep_install_policy}, node ABI ${node_abi}] installed uncached in ${isecs}s"
+        [ -n "$out" ] && rm -f "$out" 2>/dev/null
+        exit 0
+      fi
       # SUCCESS: snapshot every node_modules tree into the cache, then mark complete.
-      rm -rf "$cache_dir/trees" "$cache_dir/manifest" "$cache_dir/manifest.tmp" 2>/dev/null || true
+      rm -rf "$cache_dir/trees" "$cache_dir/manifest" "$cache_dir/manifest.tmp" "$abi_marker" "$abi_marker.tmp" 2>/dev/null || true
       mkdir -p "$cache_dir/trees" 2>/dev/null || true
       : > "$cache_dir/manifest.tmp" 2>/dev/null || true
       n=0; local fail=0
@@ -359,16 +414,19 @@ provision_deps() {
         if link_tree "$wt/$rel" "$cache_dir/trees/$rel"; then n=$((n+1)); else fail=1; fi
       done < <(list_node_modules "$wt")
       t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
-      if [ "$n" -gt 0 ] && [ "$fail" -eq 0 ]; then
-        mv -f "$cache_dir/manifest.tmp" "$cache_dir/manifest" 2>/dev/null
+      if [ "$n" -gt 0 ] && [ "$fail" -eq 0 ] \
+         && mv -f "$cache_dir/manifest.tmp" "$cache_dir/manifest" 2>/dev/null \
+         && printf '%s\n' "$node_abi" > "$abi_marker.tmp" 2>/dev/null \
+         && mv -f "$abi_marker.tmp" "$abi_marker" 2>/dev/null; then
         # Record the cold install's own duration so every later HIT can log the
         # cold-vs-warm delta (§ Link-state reconcile) rather than assert it.
         printf '%s\n' "$isecs" > "$cache_dir/install-secs" 2>/dev/null || true
         : > "$complete" 2>/dev/null || true
-        log "WARM-CACHE built: ${slug}@${lockhash:0:12} [${dep_install_policy}] installed + cached ${n} node_modules tree(s) in ${secs}s (install ${isecs}s)"
+        log "WARM-CACHE built: ${slug}@${lockhash:0:12} [${dep_install_policy}, node ABI ${node_abi}] installed + cached ${n} node_modules tree(s) in ${secs}s (install ${isecs}s)"
         dep_cache_prune "$slug" "$cache_key"
       else
-        rm -rf "$cache_dir/trees" "$cache_dir/manifest.tmp" 2>/dev/null || true
+        rm -rf "$cache_dir/trees" "$cache_dir/manifest" "$cache_dir/manifest.tmp" \
+          "$abi_marker" "$abi_marker.tmp" "$complete" 2>/dev/null || true
         log "WARN: dep-cache: install succeeded but snapshot captured ${n} tree(s) (fail=${fail}) for ${slug}; not caching"
       fi
       [ -n "$out" ] && rm -f "$out" 2>/dev/null
@@ -381,7 +439,9 @@ provision_deps() {
     # never existed — the fix moves to the image/entrypoint, which this line flags.
     local sha=""
     [ -n "$out" ] && [ -s "$out" ] && sha="$(git -C "$wt" hash-object -w --stdin < "$out" 2>/dev/null || true)"
-    rm -rf "$cache_dir/trees" "$cache_dir/manifest.tmp" 2>/dev/null || true
+    if [ "$cache_enabled" -eq 1 ]; then
+      rm -rf "$cache_dir/trees" "$cache_dir/manifest.tmp" 2>/dev/null || true
+    fi
     log "WARN: WARM-CACHE MISS+FAIL: ${slug}@${lockhash:0:12} '${runner}' exited rc=${rc} (a native-module toolchain gap — missing compiler/python — or a lockfile needing update). If this recurs on every host, the fix is build-essential+python in the container image/entrypoint, NOT this cache. install log blob: ${sha:-<none>}$([ -n "$sha" ] && printf ' (inspect: git -C %s cat-file -p %s)' "$wt" "$sha")"
     [ -n "$out" ] && rm -f "$out" 2>/dev/null
     exit 0

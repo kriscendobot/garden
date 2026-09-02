@@ -24,6 +24,8 @@
 #      resume stability and isolation without consuming UNIX-socket path space.
 #   9. A branch absent upstream resolves from the garden fork, and the fetched
 #      ref is verified before checkout.
+#  10. Warm dependency caches are keyed by, and revalidated against, the active
+#      Node native-module ABI before any cached tree is hardlinked.
 #
 # Hermetic: throwaway bare "fork" clones + a throwaway garden root, no network.
 
@@ -423,6 +425,85 @@ grep -q "WARM-CACHE hit:.*link-state reconcile.*cold install was" "$W4_ERR" \
   && ok "the HIT log line reports the reconcile cost and the cold-install baseline" \
   || bad "the HIT log line lost its cold-vs-warm timing delta"
 
+# Node native addons are ABI-specific. Two runtimes using the same lockfile must
+# not share a cache entry, and the persisted ABI marker must be checked before a
+# hit is hardlinked. Small `node -p` shims make both cases hermetic.
+EXECDIR="$(pick_exec_dir)" || EXECDIR=""
+if [ -z "$EXECDIR" ]; then
+  echo "  SKIP: no exec-capable directory for Node ABI shims; ABI assertions skipped"
+else
+  make_node_fork endojs abi-cache main
+  for abi in 111 222; do
+    mkdir -p "$EXECDIR/abi-$abi"
+    sed "s/ABI_VALUE/$abi/" > "$EXECDIR/abi-$abi/node" <<'STUBNODE'
+#!/bin/sh
+if [ "${1:-}" = -p ]; then
+  echo ABI_VALUE
+  exit 0
+fi
+exit 1
+STUBNODE
+    chmod +x "$EXECDIR/abi-$abi/node"
+  done
+  run_abi_helper() { # run_abi_helper <base> <abi> <artifact-label>
+    local base="$1" abi="$2" label="$3"
+    PATH="$EXECDIR/abi-$abi:$PATH" GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" \
+      GARDEN_DEP_INSTALL_CMD="mkdir -p node_modules; echo $label > node_modules/native.node" \
+      GARDEN_DEP_RECONCILE_CMD=: \
+      bash "$HELPER" "$base" endojs/abi-cache main
+  }
+
+  AW1="$(run_abi_helper garden-abi-111 111 ABI111)"
+  AW2="$(run_abi_helper garden-abi-222 222 ABI222)"
+  [ "$(cat "$AW1/node_modules/native.node" 2>/dev/null)" = ABI111 ] \
+    && [ "$(cat "$AW2/node_modules/native.node" 2>/dev/null)" = ABI222 ] \
+    && ok "different Node ABIs build distinct warm-cache entries" \
+    || bad "different Node ABIs reused one native dependency cache"
+  ABI_ROOT="$GROOT/.garden-state/dep-cache/endojs-abi-cache"
+  ABI111_DIR="$(find "$ABI_ROOT" -maxdepth 1 -type d -name '*-nodeabi-111' -print -quit)"
+  ABI222_DIR="$(find "$ABI_ROOT" -maxdepth 1 -type d -name '*-nodeabi-222' -print -quit)"
+  [ -n "$ABI111_DIR" ] && [ -n "$ABI222_DIR" ] \
+    && [ "$(cat "$ABI111_DIR/node-abi" 2>/dev/null)" = 111 ] \
+    && [ "$(cat "$ABI222_DIR/node-abi" 2>/dev/null)" = 222 ] \
+    && ok "cache identity and completion metadata record the resolved Node ABI" \
+    || bad "Node ABI is missing from cache identity or completion metadata"
+
+  # Corrupt the selected entry's marker. A valid implementation detects this
+  # before linking, discards it, and cold-builds a replacement for ABI 222.
+  printf '111\n' > "$ABI222_DIR/node-abi"
+  AW3_ERR="$TR/abi-marker-mismatch.stderr"
+  AW3="$(run_abi_helper garden-abi-marker-check 222 REBUILT 2>"$AW3_ERR")"
+  [ "$(cat "$AW3/node_modules/native.node" 2>/dev/null)" = REBUILT ] \
+    && [ ! "$AW2/node_modules/native.node" -ef "$AW3/node_modules/native.node" ] \
+    && ok "an incompatible ABI marker is rejected before hardlinking and rebuilt" \
+    || bad "an incompatible ABI marker was served as a warm-cache hit"
+  grep -q "dep-cache incompatible:.*active ABI is 222; discarding and rebuilding" "$AW3_ERR" \
+    && ok "ABI rejection emits a deterministic incompatibility diagnostic" \
+    || bad "ABI mismatch was not diagnosed"
+
+  mkdir -p "$EXECDIR/abi-invalid"
+  sed 's/ABI_VALUE/not-an-abi/' > "$EXECDIR/abi-invalid/node" <<'STUBNODE'
+#!/bin/sh
+if [ "${1:-}" = -p ]; then
+  echo ABI_VALUE
+  exit 0
+fi
+exit 1
+STUBNODE
+  chmod +x "$EXECDIR/abi-invalid/node"
+  AW4_ERR="$TR/abi-unresolved.stderr"
+  AW4="$(PATH="$EXECDIR/abi-invalid:$PATH" GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" \
+    GARDEN_DEP_INSTALL_CMD='mkdir -p node_modules; echo UNCACHED > node_modules/native.node' \
+    bash "$HELPER" garden-abi-unresolved endojs/abi-cache main 2>"$AW4_ERR")"
+  [ "$(cat "$AW4/node_modules/native.node" 2>/dev/null)" = UNCACHED ] \
+    && ! find "$ABI_ROOT" -maxdepth 1 -type d -name '*nodeabi-unresolved' | grep -q . \
+    && ok "an unresolved Node ABI installs dependencies but publishes no shared cache" \
+    || bad "an unresolved Node ABI was cached or left dependencies uninstalled"
+  grep -q "dep-cache bypass: could not resolve.*installing without cache" "$AW4_ERR" \
+    && ok "an unresolved Node ABI emits a deterministic bypass diagnostic" \
+    || bad "an unresolved Node ABI was not diagnosed"
+fi
+
 # Resume-reuse must NOT repopulate: re-run the first base, mutate its node_modules,
 # and confirm the requeue hands back the SAME tree untouched (resume stability).
 echo LOCAL_EDIT > "$W1/node_modules/marker"
@@ -454,7 +535,6 @@ grep -q "WARM-CACHE MISS+FAIL" "$WF_ERR" \
 # with it would throw away the very trees the hit just hardlinked in (and, since
 # they share inodes, is the one install that could reach back into the cache).
 # The additive `npm install` reconciles instead. Proven with a stub `npm` on PATH.
-EXECDIR="$(pick_exec_dir)" || EXECDIR=""
 if [ -z "$EXECDIR" ]; then
   echo "  SKIP: no exec-capable directory for the npm stub; npm-reconcile assertions skipped"
 else

@@ -28,9 +28,9 @@
 #      the native-build path is not broken).
 #   2. Botanist job (GARDEN_JOB_ROLE=botanist): install scripts DO NOT run (the
 #      regression — sentinel absent, proven against a real npm).
-#   3. The two policies keep DISJOINT caches: the botanist tree is keyed
-#      `<lockhash>-scripts-disabled`, the ordinary one `<lockhash>-native-builds`, and
-#      a later ordinary job on the SAME lockfile still runs scripts (no doom).
+#   3. The two policies keep DISJOINT caches: each key includes its install
+#      policy and the active Node native-module ABI, and a later ordinary job on
+#      the SAME lockfile still runs scripts (no doom).
 #
 # Needs a real `npm` (an independent authority on the scripts-disabled env); SKIPs
 # cleanly when absent. Hermetic otherwise: throwaway bare "fork" clone + throwaway
@@ -122,6 +122,7 @@ run() {  # run <base> [GARDEN_JOB_ROLE=botanist]  → echoes the worktree path
 }
 
 LOCKHASH="$(git hash-object "$SEED/package-lock.json")"
+NODE_ABI="$(node -p 'process.versions.modules')"
 CACHE="$GROOT/.garden-state/dep-cache/endojs-sentinel"
 
 # === 1: ordinary job → scripts RUN (positive control; native path intact) =====
@@ -145,12 +146,14 @@ P_BOT="$(run garden-botany-review GARDEN_JOB_ROLE=botanist)"
   || bad "botanist job RAN install scripts (sentinel present at $P_BOT/LIFECYCLE_RAN) — the supply-chain gap is OPEN"
 
 # === 3: the two policies keep DISJOINT caches (no dooming) ==================
-[ -d "$CACHE/$LOCKHASH-native-builds" ] \
-  && ok "the ordinary cache is keyed <lockhash>-native-builds" \
-  || bad "no native-builds cache dir at $CACHE/$LOCKHASH-native-builds"
-[ -d "$CACHE/$LOCKHASH-scripts-disabled" ] \
-  && ok "the botanist cache is keyed <lockhash>-scripts-disabled (disjoint namespace)" \
-  || bad "no scripts-disabled cache dir at $CACHE/$LOCKHASH-scripts-disabled"
+ORD_CACHE="$CACHE/$LOCKHASH-native-builds-nodeabi-$NODE_ABI"
+BOT_CACHE="$CACHE/$LOCKHASH-scripts-disabled-nodeabi-$NODE_ABI"
+[ -d "$ORD_CACHE" ] && [ "$(cat "$ORD_CACHE/node-abi" 2>/dev/null)" = "$NODE_ABI" ] \
+  && ok "the ordinary cache is keyed by install policy + Node ABI" \
+  || bad "no valid native-builds cache dir at $ORD_CACHE"
+[ -d "$BOT_CACHE" ] && [ "$(cat "$BOT_CACHE/node-abi" 2>/dev/null)" = "$NODE_ABI" ] \
+  && ok "the botanist cache is keyed by install policy + Node ABI (disjoint namespace)" \
+  || bad "no valid scripts-disabled cache dir at $BOT_CACHE"
 # A SECOND ordinary job on the SAME lockfile must still get scripts run — i.e. the
 # scripts-disabled cache did not doom the native-build key it shares a slug with.
 P_ORD2="$(run garden-ordinary-build-2)"
