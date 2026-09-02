@@ -36,6 +36,7 @@ Please dispatch a scholar to ingest https://zed.dev/blog/agentic-xanadu and prov
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=27 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
