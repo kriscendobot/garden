@@ -29,6 +29,7 @@ PR: https://github.com/kriscendobot/minion.town/pull/17
 Head: kriscendobot/minion.town (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no maintainer comment).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
