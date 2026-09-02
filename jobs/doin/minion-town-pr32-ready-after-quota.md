@@ -11,6 +11,8 @@ Repository: kriscendobot/minion.town. PR https://github.com/kriscendobot/minion.
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 <!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T08:50:00Z -->
+<!-- garden-elapsed-constancy: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
