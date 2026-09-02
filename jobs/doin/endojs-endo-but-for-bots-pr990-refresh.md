@@ -28,6 +28,7 @@ discipline. The excerpt below is for human context only:
 <!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=signature through=3 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T23:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
