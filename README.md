@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T19:53:14Z_
+_As of 2026-09-02T19:54:42Z_
 
 ## Latest
 
@@ -2683,18 +2683,17 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.7M | $1146.72 _(notional, rate-card)_ | 17% of 385.0M (ok) |
+| Claude | 65.0M | $1151.99 _(notional, rate-card)_ | 17% of 385.0M (ok) |
 | Codex | 42.9M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (5)
+### todo (4)
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #81
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #79
-- [`kriscendobot-minion.town-pr77-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr77-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #77
 - [`minion-town-pr32-ready-after-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr32-ready-after-quota.md) — ---
 - [`sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1013
 
-### doin (97)
+### doin (98)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1117
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
@@ -2781,6 +2780,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr62-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr62-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #62
 - [`kriscendobot-minion.town-pr64-conduct-review5072137157`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr64-conduct-review5072137157.md) — Conduct kriscendobot/minion.town PR 64
 - [`kriscendobot-minion.town-pr72-1785ef31`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr72-1785ef31.md) — attention directive on kriscendobot/minion.town PR #72
+- [`kriscendobot-minion.town-pr77-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr77-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #77
 - [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/vattr97 PR #1
 - [`minion-town-blind-discovery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-blind-discovery-eval.md) — ---
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
