@@ -34,10 +34,10 @@ Please dispatch a scholar to ingest https://zed.dev/blog/agentic-xanadu and prov
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=27 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=12 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
