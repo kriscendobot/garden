@@ -38,3 +38,13 @@ not inferred by a watcher.
 <!-- garden-transient-elapsed: kind=signature through=2 values=1,3 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T19:45:34Z
