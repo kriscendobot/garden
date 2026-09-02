@@ -1,2 +1,2 @@
-base: improve-fork-branch-worktree
+base: improve-dependency-cache-node-abi-keying
 identity: mentor:scripts/jobs/ensure-project-worktree.sh
