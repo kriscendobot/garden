@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 79
 build_job: build-minion-town-pr77-tool-name-reconciliation-review5083753201
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-2
+current_child: build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-fix-2
 state: running
 created_by: producer
 created_at: 2026-09-01T23:11:34Z
