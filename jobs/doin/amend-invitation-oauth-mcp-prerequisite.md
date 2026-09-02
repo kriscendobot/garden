@@ -89,10 +89,10 @@ direct commits where pre-deploy review isn't needed; use your judgment on
 whether this specific copy change warrants review given it's user-facing
 product text, not build/config.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=6 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
