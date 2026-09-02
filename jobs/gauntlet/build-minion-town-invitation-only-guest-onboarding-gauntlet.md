@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 81
 build_job: build-minion-town-invitation-only-guest-onboarding
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-1
+current_child: build-minion-town-invitation-only-guest-onboarding-gauntlet-fix-1
 state: running
 created_by: producer
 created_at: 2026-09-02T00:50:46Z
