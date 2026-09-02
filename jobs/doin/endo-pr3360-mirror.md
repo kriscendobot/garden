@@ -73,3 +73,13 @@ Do not run the panel, a gauntlet, or any fix-loop against the mirror once
 it's open — it reproduces someone else's in-progress, external draft work,
 and starting a review/fix machinery on it wasn't asked for and would be
 presumptuous. Report the mirror PR's URL and stop.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-02T17:55:48Z
