@@ -53,3 +53,13 @@ output.
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=80 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-02T09:35:37Z
