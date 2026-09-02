@@ -96,6 +96,7 @@ lands the PR; ferrying it upstream to the real `endojs/endo` afterward is a
 separate, maintainer-gated boatman job, not part of this one.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
