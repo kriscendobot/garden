@@ -19,6 +19,7 @@ panel. Do not create a second PR or change its frozen base.
 The prior panel attempt was blocked solely because every Claude seat exhausted its
 session quota before issuing a verdict. Re-run it with available review capacity.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=57 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
