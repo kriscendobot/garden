@@ -48,22 +48,13 @@ output.
 
 
 
+
+
+
+
+
+
+<!-- garden-transient-elapsed: kind=signature through=2 values=6,5 -->
 <!-- garden-elapsed-constancy: 1 -->
 
-
-
-
-
-<!-- garden-reaped: 2 -->
-
-<!-- garden-transient-elapsed: kind=signature through=2 values=7 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T14:25:55Z
+<!-- garden-reaped: 3 -->
