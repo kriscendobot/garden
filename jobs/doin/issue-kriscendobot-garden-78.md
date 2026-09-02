@@ -35,3 +35,13 @@ Please dispatch a scholar to ingest https://zed.dev/blog/agentic-xanadu and prov
 <!-- garden-transient-elapsed: kind=signature through=0 values=7 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-02T16:55:32Z
