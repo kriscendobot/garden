@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-02T23:46:32Z_
+_As of 2026-09-02T23:50:23Z_
 
 ## Latest
 
@@ -2989,8 +2989,8 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 42.9M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`xs2rust-endor-press-20260902-235005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260902-235005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
 ### doin (110)
 - [`amend-invitation-oauth-mcp-prerequisite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/amend-invitation-oauth-mcp-prerequisite.md) — What's actually true today versus what's designed for later — verify,
