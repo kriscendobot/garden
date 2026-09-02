@@ -27,6 +27,7 @@ Ground rules:
 Report back, in your completion report: the orchestration base name, the full child list with a one-line description of what each does, and which recommendation(s) (if any) you deliberately excluded and why.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-02T23:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
