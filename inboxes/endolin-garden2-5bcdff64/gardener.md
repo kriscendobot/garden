@@ -4872,3 +4872,14 @@ Inspect via `git -C journal cat-file -p b49617db0642f44c8b23805e6954492d6415b786
 
 Inspect via `git -C journal cat-file -p f3e72939820bcee0ebf434efce3149074e8e4967` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/f3e72939820bcee0ebf434efce3149074e8e4967`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-09-02T19:37:25Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: d539679c3491cb8e9411eea032319142a55fec27
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-4' exit-0-unsatisfying but elapsed near-constant (683,789s) over 2 cycles — likely a wedged child, not a working one
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/d539679c3491cb8e9411eea032319142a55fec27
+
+Inspect via `git -C journal cat-file -p d539679c3491cb8e9411eea032319142a55fec27` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/d539679c3491cb8e9411eea032319142a55fec27`) -- both work off-host after a plain `journal2` fetch.
