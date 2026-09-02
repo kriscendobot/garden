@@ -61,6 +61,7 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-reaped: 3 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=34,115 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
