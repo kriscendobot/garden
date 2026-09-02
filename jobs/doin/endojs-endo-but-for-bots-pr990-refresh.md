@@ -22,10 +22,10 @@ discipline. The excerpt below is for human context only:
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=6,2 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=2 values=78 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
