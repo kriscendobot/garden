@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-02T14:15:30Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-02T14:15:30Z
+---
+
+---
 tier: mentor
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-01T23:02:43Z cleared=deadline-overrun=1 -->
@@ -15,25 +33,3 @@ Verify the deployment path is actually runnable as it now stands, and close the 
 - Cross-check .env.example, config/policy.json, and src/config.ts against each other: b4f22e5 changed all three plus dev/client.ts, so confirm no config key was renamed in one place and left stale in another, and that dev/client.ts still speaks the same shape.
 - Confirm DEPLOYMENT.md at HEAD describes the deployment as it now works, including the daemon step and its ordering relative to minion-mcp.
 Land any corrections as a PR on the fork and run the gauntlet. If a lightweight smoke check (a dry-run or lint of the deploy script, or a unit-file validation) can be added cheaply to CI so this class of "landed but not runnable" regression is caught before merge, include it; if it is not cheap, say so in the PR description rather than building it.
-
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-transient-elapsed: kind=signature through=4 values=9,6 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-02T14:05:42Z
