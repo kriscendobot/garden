@@ -1,4 +1,5 @@
 ---
+child-cybernetics-rec123-budget-loop-host: endolin-garden2-5bcdff64
 child-cybernetics-rec10-deploy-sensor-alert-host: endolin-garden2-5bcdff64
 child-cybernetics-rec5-inode-loop-host: endolin-garden2-5bcdff64
 order: parallel
