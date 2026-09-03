@@ -6,3 +6,4 @@
 {"source":"none","ts":"2026-09-02T19:01:25Z","base":"issue-kriscendobot-garden-78","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":42,"provider":"local"}
 {"source":"none","ts":"2026-09-03T20:55:08Z","base":"issue-kriscendobot-garden-78","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":46,"provider":"local"}
 {"source":"none","ts":"2026-09-03T21:09:44Z","base":"issue-kriscendobot-garden-78","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":51,"provider":"local"}
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":109,"input_tokens":14,"output_tokens":5428,"cache_creation_tokens":47189,"cache_read_tokens":296086,"total_cost_usd":0.7656670000000001,"ts":"2026-09-03T21:19:47Z","base":"issue-kriscendobot-garden-78","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
