@@ -37,3 +37,13 @@ memory/incident record) whose failure suppressed its own alarm.
 Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 (the state-clone-keeper tests must pass); land bare on `main2` per CLAUDE.md
 § Conventions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T00:05:00Z
