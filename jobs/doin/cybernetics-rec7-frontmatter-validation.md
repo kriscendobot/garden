@@ -37,3 +37,13 @@ all (empty stays valid).
 Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 (post-job/post-plan tests must pass); land bare on `main2` per CLAUDE.md
 § Conventions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:20:46Z
