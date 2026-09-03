@@ -5,7 +5,7 @@ hand-edit. Edit a design by editing its record; this view recomputes. The
 per-design files are the single source of truth (design: garden#4,
 designs/plan-in-journal.md)._
 
-This roadmap aggregates **141** design record(s) across all plan repositories.
+This roadmap aggregates **142** design record(s) across all plan repositories.
 Milestone totals, completion, and the dependency graph are computed over the union
 of records, so a milestone spanning repositories rolls up as one.
 
@@ -14,6 +14,7 @@ of records, so a milestone spanning repositories rolls up as one.
 - `endo-but-for-bots` → https://github.com/endojs/endo-but-for-bots
 - `endo` → https://github.com/endojs/endo
 - `garden` → https://github.com/kriskowal/garden
+- `minion-town` → https://github.com/kriscendobot/minion.town
 
 ## Summary by milestone
 
@@ -21,7 +22,7 @@ of records, so a milestone spanning repositories rolls up as one.
 |---|---|---|---|---|
 | M1 | 8 | 8 | 100% | 0 |
 | M2 | 8 | 6 | 75% | 0 |
-| M3 | 28 | 6 | 21% | 59 |
+| M3 | 29 | 6 | 20% | 67 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
@@ -102,6 +103,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-mount | endo-but-for-bots | M3 | In Progress | L | — |
 | daemon-rename-to-manager | endo-but-for-bots | M3 | Not Started | S | — |
 | daemon-worker-import-from-mount | endo-but-for-bots | M3 | Proposed | M | — |
+| endo-claude | endo-but-for-bots | M3 | In Progress | L | endo-but-for-bots#1015 |
 | endo-fs-from-git | endo-but-for-bots | M3 | In Progress | — | — |
 | endo-gateway | endo-but-for-bots | M3 | Proposed | L | — |
 | endoclaw-network-fetch | endo-but-for-bots | M3 | Not Started | M | — |
@@ -179,4 +181,6 @@ of records, so a milestone spanning repositories rolls up as one.
 
 ## Dependency graph
 
-_No dependency edges recorded yet._
+```mermaid
+flowchart LR
+```
