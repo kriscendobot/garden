@@ -24,3 +24,13 @@ Forward-reference requirement: immediately after opening or identifying the impl
 <!-- garden-transient-elapsed: kind=exit0 through=3 values=30 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-03T00:06:42Z
