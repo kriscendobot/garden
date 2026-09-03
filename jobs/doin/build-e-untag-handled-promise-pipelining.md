@@ -103,3 +103,13 @@ separate, maintainer-gated boatman job, not part of this one.
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=51 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-03T00:16:44Z
