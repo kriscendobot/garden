@@ -1,7 +1,13 @@
 # Seed for journal config/budget-pools. PLACEHOLDER CAPS — NOT CALIBRATED.
 # Replace each weekly-token ceiling with the maintainer's account-specific
-# Claude Code /usage-derived figure (or the recurring calibration output).
+# Claude Code /usage-derived figure (or the recurring calibration output), and
+# set the provenance columns (calibrated-from, date) so the leveling controller
+# will actuate against the cap. While calibrated-from reads `placeholder` (or is
+# absent), budget-level.sh treats the cap as config-absent: it LEVELS NOTHING and
+# alerts once, rather than driving full-authority worker moves against a number
+# the config itself disclaims (cybernetics-audit.md § 2.3; designs/
+# recurring-budget-calibration.md; designs/live-budget-admission.md open q1).
 # Columns, tab-separated:
-# pool_id	provider	account/host	ceiling_kind	ceiling
-anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	5000000
-anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	5000000
+# pool_id	provider	account/host	ceiling_kind	ceiling	calibrated_from	calibrated_at
+anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	5000000	placeholder	-
+anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	5000000	placeholder	-

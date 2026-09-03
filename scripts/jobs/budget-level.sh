@@ -82,6 +82,19 @@ budget_level_dwell_reset() {
 [[ "$GARDEN_BUDGET_LEVEL_STEP" =~ ^[1-9][0-9]*$ ]] || GARDEN_BUDGET_LEVEL_STEP=1
 [[ "$GARDEN_BUDGET_LEVEL_UP_CONFIRM" =~ ^[1-9][0-9]*$ ]] || GARDEN_BUDGET_LEVEL_UP_CONFIRM=2
 [[ "$GARDEN_BUDGET_LEVEL_DOWN_CONFIRM" =~ ^[1-9][0-9]*$ ]] || GARDEN_BUDGET_LEVEL_DOWN_CONFIRM=1
+
+# budget_level_uncalibrated <calibrated-from> — true when a pool's cap carries no
+# usable provenance: an empty/absent field, or an explicit self-disclaiming marker
+# (the placeholder seed says "PLACEHOLDER CAPS — NOT CALIBRATED", and the 2026-09-01
+# config header does this by hand in prose). Do not actuate on a setpoint the config
+# disclaims (cybernetics-audit.md § 2.3, recommendation 2): the leader sat in
+# permanent backoff for days against the 5M placeholder cap. Case-insensitive.
+budget_level_uncalibrated() {
+  case "$(printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]')" in
+    ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 [[ "$GARDEN_BUDGET_LEVEL_MIN" =~ ^[1-9][0-9]*$ ]] || die "GARDEN_BUDGET_LEVEL_MIN must be positive"
 [[ "$GARDEN_BUDGET_LEVEL_MAX" =~ ^[1-9][0-9]*$ ]] || die "GARDEN_BUDGET_LEVEL_MAX must be positive"
 [ "$GARDEN_BUDGET_LEVEL_MIN" -le "$GARDEN_BUDGET_LEVEL_MAX" ] || die "budget-level min exceeds max"
@@ -113,13 +126,15 @@ rows_tsv="$(
   sync_clone "$DIR"
   file="$(budget_pool_file "$DIR" 2>/dev/null || true)"
   [ -n "$file" ] || exit 3
-  while IFS=$'\t ' read -r pool provider account kind cap _rest; do
+  while IFS=$'\t ' read -r pool provider account kind cap calibrated_from calibrated_at _rest; do
     case "$pool" in ''|'#'*) continue ;; esac
     # The current leveling actuator is per-host Anthropic worker capacity. Metered
     # API pools still participate in admission, but have no account-bound worker
     # count for this controller to change.
     [ "$provider" = anthropic ] && [ "$kind" = weekly-tokens ] || continue
-    printf '%s\t%s\t%s\t%s\n' "$pool" "$provider" "$account" "$cap"
+    # Columns 6-7 are the optional cap provenance (calibrated-from, date). Absent
+    # columns become empty strings, which the loop reads as "uncalibrated".
+    printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$pool" "$provider" "$account" "$cap" "${calibrated_from:-}" "${calibrated_at:-}"
   done < "$file"
   clone_unlock "$DIR"
 )" || preflight_rc=$?
@@ -152,8 +167,18 @@ pool_failure() { # pool host operation status
 }
 
 for row in "${rows[@]}"; do
-  IFS=$'\t' read -r pool provider host cap <<<"$row"
+  IFS=$'\t' read -r pool provider host cap calibrated_from calibrated_at <<<"$row"
   [[ "$cap" =~ ^[1-9][0-9]*$ ]] || { log "WARN: $pool has invalid cap '$cap'; leaving workers unchanged (fail-open)"; continue; }
+
+  # Treat an uncalibrated / placeholder-marked cap as config-absent for LEVELING:
+  # level nothing, and alert ONCE (a stable key so alert_maintainer deduplicates the
+  # repeated tick). A measured cap must precede full-authority actuation against it.
+  if budget_level_uncalibrated "$calibrated_from"; then
+    log "budget pool $pool cap=$cap is UNCALIBRATED (calibrated-from='${calibrated_from:-none}'); leveling nothing — config disclaims this setpoint"
+    alert_maintainer "budget-level-uncalibrated-$pool" \
+      "budget-level: pool $pool cap=$cap is UNCALIBRATED (provenance='${calibrated_from:-none}'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date)."
+    continue
+  fi
 
   if [ "$host" = "$GARDEN" ]; then
     if spend="$(meter_window_total anchor 2>/dev/null)"; then

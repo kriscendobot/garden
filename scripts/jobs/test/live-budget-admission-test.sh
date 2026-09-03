@@ -145,12 +145,14 @@ view_has "$FBARE" jobs/plan/deferred.md && ! view_has "$FBARE" jobs/todo/deferre
 # spend 900 of cap 1000 (over the 0.85 mark) → target the band floor (1).
 LBARE="$TR/level.git"; seed_board "$LBARE"
 LSEED="$LBARE-seed"
+# Columns 6-7 are cap provenance (calibrated-from, date); these rows are calibrated
+# so the controller actuates. An uncalibrated row is exercised separately below.
 printf '%s\n' \
-  'anthropic:testhost anthropic testhost weekly-tokens 1000' \
-  'anthropic:clamphost anthropic clamphost weekly-tokens 1000' \
-  'anthropic:missinghost anthropic missinghost weekly-tokens 1000' \
-  'anthropic:failhost anthropic failhost weekly-tokens 1000' \
-  'anthropic:monkhost anthropic monkhost weekly-tokens 1000' > "$LSEED/config/budget-pools"
+  'anthropic:testhost anthropic testhost weekly-tokens 1000 usage-panel 2026-09-01' \
+  'anthropic:clamphost anthropic clamphost weekly-tokens 1000 usage-panel 2026-09-01' \
+  'anthropic:missinghost anthropic missinghost weekly-tokens 1000 usage-panel 2026-09-01' \
+  'anthropic:failhost anthropic failhost weekly-tokens 1000 usage-panel 2026-09-01' \
+  'anthropic:monkhost anthropic monkhost weekly-tokens 1000 usage-panel 2026-09-01' > "$LSEED/config/budget-pools"
 printf 'gardeners: 4\n' > "$LSEED/hosts/clamphost"   # gap>1 exercises the step clamp
 printf 'gardeners: 2\n' > "$LSEED/hosts/failhost"
 printf 'monks: 2\n'     > "$LSEED/hosts/monkhost"     # cut-over host: the monk line
@@ -196,7 +198,7 @@ grep -q 'pool=anthropic:failhost host=failhost operation=send-host-set-workers f
 # ticks before it moves — a single low reading (possibly stale/noisy) never jumps the
 # count up. uphost spends ~0 of cap 1000 → target the band max (4).
 UBARE="$TR/up.git"; seed_board "$UBARE"; USEED="$UBARE-seed"
-printf '%s\n' 'anthropic:uphost anthropic uphost weekly-tokens 1000' > "$USEED/config/budget-pools"
+printf '%s\n' 'anthropic:uphost anthropic uphost weekly-tokens 1000 usage-panel 2026-09-01' > "$USEED/config/budget-pools"
 printf 'gardeners: 2\n' > "$USEED/hosts/uphost"
 mkdir -p "$USEED/usage"
 printf '{"host":"uphost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$USEED/usage/uphost.jsonl"
@@ -227,6 +229,34 @@ env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$LBARE"
 [ ! -s "$DACT" ] && grep -q 'fleet draining; budget leveling suspended' "$TR/drain.out" \
   && ok "leveling is suspended while the fleet is draining" \
   || bad "leveled on a draining host: act=$(tr '\n' ';' < "$DACT") log=$(tr '\n' ';' < "$TR/drain.out")"
+
+# Do not actuate on a setpoint the config disclaims (cybernetics-audit § 2.3, rec 2):
+# an uncalibrated / placeholder-marked cap levels NOTHING and alerts exactly ONCE (a
+# stable dedup key coalesces the repeated tick).
+UNBARE="$TR/uncal.git"; seed_board "$UNBARE"; UNSEED="$UNBARE-seed"
+printf '%s\n' 'anthropic:unchost anthropic unchost weekly-tokens 1000' > "$UNSEED/config/budget-pools"  # no provenance
+printf 'gardeners: 2\n' > "$UNSEED/hosts/unchost"
+git -C "$UNSEED" add config/budget-pools hosts/unchost; git -C "$UNSEED" "${git_id[@]}" commit -qm uncal; git -C "$UNSEED" push -q
+UNACT="$TR/uncal-act.log"; : > "$UNACT"
+printf '#!/bin/bash\nprintf "remote %%s\\n" "$1" >> "%s"\n' "$UNACT" > "$TR/uncalsend"; chmod +x "$TR/uncalsend"
+UNALERT="$TR/uncal-alerts.log"; : > "$UNALERT"
+uncal_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$UNBARE"
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_STATE="$TR/uncal-state"
+  GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh" GARDEN_ALERT_RECORD="$UNALERT"
+  GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/uncalsend")
+for tick in 1 2; do
+  env "${uncal_env[@]}" GARDEN_USAGE_NOW=$(( NOW + tick )) "$JOBS/budget-level.sh" >"$TR/uncal$tick.out" 2>&1
+done
+if [ ! -s "$UNACT" ] && grep -q 'anthropic:unchost cap=1000 is UNCALIBRATED' "$TR/uncal1.out"; then
+  ok "an uncalibrated cap levels nothing (config disclaims the setpoint)"
+else
+  bad "uncalibrated pool: act=$(tr '\n' ';' < "$UNACT") log=$(tr '\n' ';' < "$TR/uncal1.out")"
+fi
+if [ "$(grep -c '^KEY=budget-level-uncalibrated-anthropic:unchost$' "$UNALERT")" -eq 1 ]; then
+  ok "the uncalibrated-cap alert fires exactly once (deduplicated across ticks)"
+else
+  bad "uncalibrated alert not deduped: $(tr '\n' ';' < "$UNALERT")"
+fi
 
 set +e
 env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/level-state-scheduled" JOURNAL_REMOTE="$LBARE" \
