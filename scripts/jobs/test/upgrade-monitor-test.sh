@@ -118,6 +118,47 @@ run_mon
 have_signal && ok "no marker + origin ahead of tree → signal (HEAD fallback)" || bad "no signal on bootstrap-ahead"
 grep -qF "$(root_head)" "$(signal_file)" && ok "bootstrap signal uses the tree HEAD as deployed" || bad "bootstrap signal missing tree HEAD"
 
+# ============================================================================
+hr; echo "SILENT-SKIP WATCHDOG — a blind sensor is counted and alerted past a threshold"; hr
+# A tick that cannot fetch/resolve its sensors must not vanish silently (audit § 2.7):
+# it is counted, and one keyed alert fires once the run of blind ticks crosses the
+# threshold; a later readable tick clears the counter and closes the episode.
+setup_fixture
+set_marker "$(origin_head)"                                  # caught up (silent on a readable tick)
+ALERTS="$TR/alerts.log"; : > "$ALERTS"
+ASTUB="$TR/alert-stub.sh"
+printf '#!/bin/bash\nprintf "%%s\\t%%s\\n" "$1" "$2" >> "%s"\n' "$ALERTS" > "$ASTUB"; chmod +x "$ASTUB"
+export GARDEN_ALERT_CMD="$ASTUB"          # capture alerts instead of pushing to a journal
+export GARDEN_ALERT_THROTTLE_SECS=0       # deliver every past-threshold call (no per-key window)
+export GARDEN_UPGRADE_SILENT_SKIP_ALERT=3 # low threshold for a fast, deterministic test
+export GARDEN=upgrade-test-host
+SSC="$TR/state/upgrade-monitor/consecutive-silent-skips"
+
+# Break the sensor: point origin at a path that does not exist → the fetch fails.
+git -C "$TR/root" remote set-url origin "$TR/gone.git"
+
+run_mon
+[ "$RC" -eq 0 ] && ok "a blind tick still exits 0 (never marks the unit Failed)" || bad "exit $RC on a blind tick"
+[ "$(cat "$SSC" 2>/dev/null)" = 1 ] && ok "first blind tick counts (#1)" || bad "counter not 1 (got '$(cat "$SSC" 2>/dev/null)')"
+[ ! -s "$ALERTS" ] && ok "no alert below threshold (#1)" || bad "alerted too early: $(tr '\n' '|' < "$ALERTS")"
+
+run_mon
+[ "$(cat "$SSC" 2>/dev/null)" = 2 ] && ok "second blind tick counts (#2)" || bad "counter not 2 (got '$(cat "$SSC" 2>/dev/null)')"
+[ ! -s "$ALERTS" ] && ok "no alert below threshold (#2)" || bad "alerted too early at #2"
+
+run_mon
+[ "$(cat "$SSC" 2>/dev/null)" = 3 ] && ok "third blind tick counts (#3)" || bad "counter not 3 (got '$(cat "$SSC" 2>/dev/null)')"
+grep -q "upgrade-monitor-blind" "$ALERTS" && ok "one keyed alert raised at the threshold" || bad "no keyed alert at threshold: $(tr '\n' '|' < "$ALERTS")"
+
+# Recovery: restore the origin so fetch + both resolves succeed → counter clears + a recovery notice.
+: > "$ALERTS"
+git -C "$TR/root" remote set-url origin "$BARE"
+run_mon
+[ ! -f "$SSC" ] && ok "a readable tick clears the blindness counter" || bad "counter not cleared (got '$(cat "$SSC" 2>/dev/null)')"
+grep -qi "RECOVERED" "$ALERTS" && ok "recovery notice closes the episode" || bad "no recovery notice: $(tr '\n' '|' < "$ALERTS")"
+
+unset GARDEN_ALERT_CMD GARDEN_ALERT_THROTTLE_SECS GARDEN_UPGRADE_SILENT_SKIP_ALERT GARDEN
+
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]

@@ -44,6 +44,11 @@ MID="$(git -C "$SEED" rev-parse HEAD~1)"      # an older main2 ancestor (c2)
 
 # The environment every guard run shares.
 export GARDEN=testhost
+# Pin the leader marker (operator override read before any journal fetch) so
+# is_main_host — now consulted at source time to pick the per-class stall fuse — is
+# deterministic and fully offline for every case. Default: this host is the leader
+# (matching the historical 3-day fuse); CASE 6b varies it to exercise both classes.
+export GARDEN_LEADER="$GARDEN"
 export GARDEN_STATE="$TR/state"
 export GARDEN_ROOT="$TR/root"                 # deployed_sha() reads $GARDEN_ROOT, so pin it here
 export GARDEN_MAIN_BRANCH=main2
@@ -191,6 +196,35 @@ run_guard
 { [ ! -f "$GARDEN_STATE/root-repo-guard/behind-since" ] && [ ! -f "$GARDEN_STATE/root-repo-guard/stall-alerted" ]; } \
   && ok "catching up clears the stall window state" || bad "stall state not cleared after catch-up"
 unset GARDEN_DEPLOY_STALL_DAYS
+
+# ============================================================================
+hr; echo "CASE 6b — STALL WINDOW is per host class: a follower gets a shorter fuse than the leader"; hr
+# With no explicit GARDEN_DEPLOY_STALL_DAYS, the fuse defaults by host class: 3d on the
+# leader (which runs the ambient deploy-on-upgrade actuator), 1d on a follower (which
+# does not). At ~2 days behind, the follower alerts and the leader stays quiet.
+fresh_root
+printf '%s\n' "$MID" > "$GARDEN_STATE/deploy/deployed-sha"   # behind by 1 (c2 is an ancestor of c3)
+unset GARDEN_DEPLOY_STALL_DAYS                                # use the per-class default, not an override
+# FOLLOWER: leader marker names another host → 1d fuse → ~2d behind alerts.
+rm -f "$GARDEN_STATE/root-repo-guard/behind-since" "$GARDEN_STATE/root-repo-guard/stall-alerted"
+printf '%s\n' "$(( $(date -u +%s) - 2*86400 ))" > "$GARDEN_STATE/root-repo-guard/behind-since"
+export GARDEN_LEADER=some-other-host
+run_guard
+alerted "root-repo-deploy-stalled" && ok "follower alerts at ~2d behind (1d default fuse)" || bad "follower did not alert at ~2d"
+# LEADER: marker names THIS host → 3d fuse → ~2d behind stays quiet.
+rm -f "$GARDEN_STATE/root-repo-guard/behind-since" "$GARDEN_STATE/root-repo-guard/stall-alerted"
+printf '%s\n' "$(( $(date -u +%s) - 2*86400 ))" > "$GARDEN_STATE/root-repo-guard/behind-since"
+export GARDEN_LEADER="$GARDEN"
+run_guard
+! alerted "root-repo-deploy-stalled" && ok "leader stays quiet at ~2d behind (3d default fuse)" || bad "leader alerted too early at ~2d"
+# An explicit override beats the class default: 1d fuse on the leader → ~2d behind alerts.
+rm -f "$GARDEN_STATE/root-repo-guard/behind-since" "$GARDEN_STATE/root-repo-guard/stall-alerted"
+printf '%s\n' "$(( $(date -u +%s) - 2*86400 ))" > "$GARDEN_STATE/root-repo-guard/behind-since"
+export GARDEN_DEPLOY_STALL_DAYS=1
+run_guard
+alerted "root-repo-deploy-stalled" && ok "explicit GARDEN_DEPLOY_STALL_DAYS overrides the class default" || bad "explicit override ignored"
+unset GARDEN_DEPLOY_STALL_DAYS
+export GARDEN_LEADER="$GARDEN"   # restore the leader default for the remaining cases
 
 # ============================================================================
 hr; echo "CASE 7 — OBJECT STORE: tmp_pack garbage swept, gc.log cleared only on a gc that SUCCEEDS"; hr

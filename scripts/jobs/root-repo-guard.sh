@@ -128,7 +128,26 @@ ROOT="$GARDEN_ROOT_GUARD_REPO"
 
 # Stalled-deploy threshold + its per-host state (first-observed-behind stamp and a
 # once-per-window alerted flag), all under GARDEN_STATE so a reset/deploy resets them.
-: "${GARDEN_DEPLOY_STALL_DAYS:=3}"
+#
+# The threshold is configurable per HOST CLASS (audit rec 10, § 4.5). The deploy
+# actuator is a human/liaison session, and the ambient one — the liaison's
+# deploy-on-upgrade Monitor — is a LEADER-ONLY singleton (roles/liaison/AGENT.md:
+# a follower's liaison "watches no inbox and brings up the gardener pool only").
+# So a LEADER host has an ambient actuator watching its Upgrade-ready markers and
+# tolerates the historical 3-day lag; a FOLLOWER (bot-only for auto-deploy) has
+# none — its markers accumulate until a human or a sysop `deploy` op acts — so it
+# deserves a SHORTER fuse. An explicit GARDEN_DEPLOY_STALL_DAYS overrides the class
+# default in either direction (a follower that does get regular human deploys, or a
+# leader that is effectively bot-only, sets its own).
+: "${GARDEN_DEPLOY_STALL_DAYS_LEADER:=3}"
+: "${GARDEN_DEPLOY_STALL_DAYS_FOLLOWER:=1}"
+if [ -z "${GARDEN_DEPLOY_STALL_DAYS:-}" ]; then
+  if is_main_host; then
+    GARDEN_DEPLOY_STALL_DAYS="$GARDEN_DEPLOY_STALL_DAYS_LEADER"
+  else
+    GARDEN_DEPLOY_STALL_DAYS="$GARDEN_DEPLOY_STALL_DAYS_FOLLOWER"
+  fi
+fi
 GUARD_STATE="$GARDEN_STATE/root-repo-guard"
 BEHIND_SINCE="$GUARD_STATE/behind-since"
 STALL_ALERTED="$GUARD_STATE/stall-alerted"
