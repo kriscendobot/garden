@@ -993,6 +993,43 @@ board_has "$BARE_Y" "$SLUG-pr545-conduct" && bad "forced a conductor merge on a 
 board_has "$BARE_Y" "$SLUG-pr545-shepherd" && ok "dispatched the shepherd to drive green instead" || bad "no shepherd job for a not-green approval"
 
 # ============================================================================
+# YA/YB — an APPROVED review that is BOTH an approval AND a directive must NOT be
+# reduced to its approval half. The source prefixes a review body with "[APPROVED] ",
+# which pushes a bare imperative out of clause-initial position, so the directive
+# scan silently missed it and the whole review routed to finalize/conduct — dropping
+# the directive. This is the kriscendobot/minion.town#60 review 5072222392 gap
+# (2026-08-31, "Post a builder."): the watcher posted a conduct job and never posted
+# the builder the maintainer asked for. The fix strips the leading state markers
+# before the verb/imperative scan, so the directive is extracted ADDITIVELY — the
+# review routes as one whole-review job (which resolves the directive AND finalizes
+# via the bundled-approval note), never a bare conduct.
+hr; echo "YA — APPROVED body carrying a directive ('Post a builder.') → review job (directive not swallowed to finalize)"; hr
+BARE_YA="$TR/ya.git"; seed_bare "$BARE_YA"
+FIX_YA="$TR/fix-ya.tsv"; RLOG_YA="$TR/react-ya.log"; : > "$RLOG_YA"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-31T23:03:36Z pr-review-body 5072222392 60 kriskowal \
+  https://github.com/kriscendobot/minion.town/pull/60#pullrequestreview-5072222392 \
+  '[APPROVED] Post a builder.' > "$FIX_YA"
+run_approval "$TR/state-ya" "$BARE_YA" "$FIX_YA" "$RLOG_YA" "$MERGEABLE"
+board_has "$BARE_YA" "$SLUG-pr60-conduct" && bad "the directive was swallowed — approval routed to a bare conduct job" || ok "no bare conduct job (the directive is not swallowed by the approval)"
+[ "$(todo_glob "$BARE_YA" "^$SLUG-pr60-review-")" -eq 1 ] && ok "the approval+directive routed as exactly one whole-review job" || bad "directive not routed as a review job (todo=$(todo_count "$BARE_YA"))"
+YABODY="$(review_job_body "$BARE_YA" 60)"
+printf '%s' "$YABODY" | grep -qi 'APPROVAL bundled with asks' && ok "review job still notes the finalize-after step (approval handling is additive, not lost)" || bad "review job missing the finalize-after note"
+[ "$(cursor_seen "$TR/state-ya" "$BARE_YA")" = 2026-08-31T23:03:36Z ] && ok "cursor advanced past the actioned approval+directive" || bad "cursor not advanced"
+
+hr; echo "YB — APPROVED body with a bare imperative verb ('Rebase.') → review job with the verb as PRIMARY (not swallowed)"; hr
+BARE_YB="$TR/yb.git"; seed_bare "$BARE_YB"
+FIX_YB="$TR/fix-yb.tsv"; RLOG_YB="$TR/react-yb.log"; : > "$RLOG_YB"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-31T23:10:00Z pr-review-body 5072222500 61 kriskowal \
+  https://github.com/kriscendobot/minion.town/pull/61#pullrequestreview-5072222500 \
+  '[APPROVED] Rebase.' > "$FIX_YB"
+run_approval "$TR/state-yb" "$BARE_YB" "$FIX_YB" "$RLOG_YB" "$MERGEABLE"
+board_has "$BARE_YB" "$SLUG-pr61-conduct" && bad "a bare imperative under [APPROVED] was swallowed to a conduct job" || ok "bare imperative under an approval is not swallowed to finalize"
+[ "$(todo_glob "$BARE_YB" "^$SLUG-pr61-review-")" -eq 1 ] && ok "the bare imperative under [APPROVED] routed as one whole-review job" || bad "bare imperative not routed as a review job (todo=$(todo_count "$BARE_YB"))"
+printf '%s' "$(review_job_body "$BARE_YB" 61)" | grep -qi 'rebase' && ok "the review job records the rebase directive (verb extracted through the marker)" || bad "review job did not record the rebase directive"
+
+# ============================================================================
 # Z — SOURCE-level: comment-source-gh.sh must SURFACE a CLEAN APPROVED review even
 # when its body is empty AND it carries no inline comments (so the watcher can
 # notice the approval), prefixed [APPROVED]. A COMMENTED empty no-inline review is

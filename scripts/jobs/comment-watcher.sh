@@ -761,7 +761,7 @@ author_is_mention_only() {  # author_is_mention_only <pr-number>
 # (refactor/build/continue/…), so they route to attention/review rather than a fixed
 # verb. Both feed the imperative-position detector and the multi-part counter below.
 BRANCH_OP_VERBS="rebase retcon refresh shepherd conduct merge gauntlet"
-OPEN_DIRECTIVE_VERBS="refactor rebuild build continue implement reconstruct rewrite revise address resolve incorporate revisit split extract rename remove revert finish complete handle apply"
+OPEN_DIRECTIVE_VERBS="refactor rebuild build post continue implement reconstruct rewrite revise address resolve incorporate revisit split extract rename remove revert finish complete handle apply"
 
 # rc 0 if <verb> appears in IMPERATIVE (clause-initial) position in <lc-body> — the
 # signal that it is a directive ("Shepherd.", "But first, rebase.", "please merge
@@ -878,14 +878,30 @@ review_is_empty_approval() {  # review_is_empty_approval <body-text>
 # "no action needed") falls through to the ambiguous/none paths below so the body
 # is read (triager/claude) rather than mis-minted into a verb.
 classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VERB); rc 0=verb 2=ambiguous 1=none
-  local body lc; body="$(cat "$1")"; lc="$(printf '%s' "$body" | tr '[:upper:]' '[:lower:]')"
+  local body scan lc; body="$(cat "$1")"
   local surface="$2" author="${3:-}"
   VERB=""; PRIMARY_VERB=""
+  # Strip leading review STATE markers ([INLINE-REVIEW] [CHANGES_REQUESTED]
+  # [APPROVED], each "[WORD] ") BEFORE the directive/verb scan. The source
+  # (comment-source-gh.sh) prepends them to a review body, and they push a bare
+  # imperative out of CLAUSE-INITIAL position, so imperative_verb_present — which keys
+  # on the start of the body / a sentence boundary — silently misses it: "[APPROVED]
+  # Rebase." did NOT read as a rebase directive. That is exactly how an APPROVED review
+  # that is BOTH an approval AND a directive acted only on the approval half and
+  # SWALLOWED the directive — kriscendobot/minion.town#60 review 5072222392
+  # (2026-08-31, "Post a builder.") routed to finalize/conduct and never posted the
+  # builder the maintainer asked for. Scan the STRIPPED text for verbs exactly as a
+  # bare conversation comment is scanned; the approval-state detection below still
+  # reads the RAW body's markers, so verb extraction is ADDITIVE to (never instead of)
+  # the finalize handling. The pattern removes only a leading run of "[UPPER] "
+  # prefixes, mirroring comment-source-gh.sh's own marker strip.
+  scan="$(printf '%s' "$body" | sed -E 's/^(\[[A-Z_-]+\] )+//')"
+  lc="$(printf '%s' "$scan" | tr '[:upper:]' '[:lower:]')"
   # Compute the two directive signals once: an imperative reading (pure string,
   # no I/O) and an @-mention of the bot. Either one licenses the verb table.
   local mentions_bot="" imperative=""
   printf '%s' "$lc" | grep -qiF "@$GARDEN_BOT_LOGIN" && mentions_bot=y
-  reads_as_directive "$body" && imperative=y
+  reads_as_directive "$scan" && imperative=y
 
   # Detect a NAMED verb in the body (the fixed table), recorded in detected_verb.
   # "run the gauntlet" is an explicit unmistakable phrase, so it counts on any
