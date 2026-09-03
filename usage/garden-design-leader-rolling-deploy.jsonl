@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":34,"elapsed_s":556,"input_tokens":60,"output_tokens":38387,"cache_creation_tokens":91431,"cache_read_tokens":2232422,"total_cost_usd":2.994178,"ts":"2026-09-03T21:34:52Z","base":"garden-design-leader-rolling-deploy","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer","provider":"anthropic"}
