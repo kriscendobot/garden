@@ -36,3 +36,13 @@ Root the GC in the **daemon's own formula graph**, not a separate bookkeeping st
 ## Deliverable
 
 A draft PR against `main` (or the project's normal PR flow) implementing the dry-run GC, its tests, and — once the live dry-run evidence is in hand and clean — either real-deletion mode landed in the same PR or a clearly-scoped follow-up naming exactly what remains, per the builder role's normal draft-PR-then-gauntlet flow.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T06:27:47Z
