@@ -45,14 +45,6 @@ Defer to a genuinely live concurrent pusher; press by default otherwise. No
 bar is "green" without real-execution evidence — cite the command and its
 output.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T14:58:23Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-01T03:35:13Z
+<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
+
+<!-- garden-reaped: 1 -->
