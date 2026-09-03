@@ -18,3 +18,13 @@ Deliver as a draft PR on the fork and run the gauntlet per the usual build flow.
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,2 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:52:06Z
