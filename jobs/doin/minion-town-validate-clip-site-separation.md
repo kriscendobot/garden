@@ -27,10 +27,10 @@ Empirically validate, against the **live production** `minion.town` deployment, 
 
 A completion report with the concrete evidence (hashes/URLs/timestamps/transcript) and, if clean, the doc-update commit reference. If a real gap is found, the completion report names it precisely and points to the follow-up job you opened for it — do not attempt the fix in this job.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
