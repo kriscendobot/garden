@@ -74,3 +74,13 @@ the fix is small; otherwise propose it.
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T20:10:51Z
