@@ -41,19 +41,6 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 
 
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=1,2 -->
 
 <!-- garden-reaped: 2 -->
-
-<!-- garden-transient-elapsed: kind=signature through=2 values=2,2 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
-<!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T20:22:25Z

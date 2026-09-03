@@ -57,7 +57,7 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-551804865
 <!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=signature through=2 values=1,3 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T20:23:21Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
