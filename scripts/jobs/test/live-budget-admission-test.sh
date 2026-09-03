@@ -140,46 +140,93 @@ env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/foreman-state" JOURNAL_REMOT
 view_has "$FBARE" jobs/plan/deferred.md && ! view_has "$FBARE" jobs/todo/deferred.md \
   && ok "foreman fleet gate halts deferred batch promotion" || bad "foreman promoted during fleet backoff"
 
-# Leveling lowers the spent local pool and raises the empty remote pool. The
-# actuator seams record decisions without changing real worker units or the bus.
+# Leveling under restraint (cybernetics-audit § 5.1, rec 3): throttle promptly, one
+# step per tick; per-pool failures stay isolated and fully diagnosed. All hosts here
+# spend 900 of cap 1000 (over the 0.85 mark) → target the band floor (1).
 LBARE="$TR/level.git"; seed_board "$LBARE"
 LSEED="$LBARE-seed"
 printf '%s\n' \
   'anthropic:testhost anthropic testhost weekly-tokens 1000' \
+  'anthropic:clamphost anthropic clamphost weekly-tokens 1000' \
   'anthropic:missinghost anthropic missinghost weekly-tokens 1000' \
   'anthropic:failhost anthropic failhost weekly-tokens 1000' \
-  'anthropic:otherhost anthropic otherhost weekly-tokens 1000' > "$LSEED/config/budget-pools"
+  'anthropic:monkhost anthropic monkhost weekly-tokens 1000' > "$LSEED/config/budget-pools"
+printf 'gardeners: 4\n' > "$LSEED/hosts/clamphost"   # gap>1 exercises the step clamp
 printf 'gardeners: 2\n' > "$LSEED/hosts/failhost"
-printf 'gardeners: 2\n' > "$LSEED/hosts/otherhost"
-# otherhost/failhost are remote: no live snapshot, so leveling folds their spend from
-# the journal usage/ ledger. Seed a GENUINE low-spend row for each (post rec-1, an
-# EMPTY ledger reads unknown and would skip leveling — a proven-low reading is what
-# exercises the raise/throttle path). Both spend ~0 of cap 1000 → headroom → band max.
+printf 'monks: 2\n'     > "$LSEED/hosts/monkhost"     # cut-over host: the monk line
 mkdir -p "$LSEED/usage"
-printf '{"host":"otherhost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$LSEED/usage/otherhost.jsonl"
-printf '{"host":"failhost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$LSEED/usage/failhost.jsonl"
-git -C "$LSEED" add config/budget-pools hosts/failhost hosts/otherhost usage/otherhost.jsonl usage/failhost.jsonl; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
+for h in clamphost missinghost failhost monkhost; do
+  printf '{"host":"%s","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":900,"output_tokens":0,"cache_creation_tokens":0}\n' "$h" > "$LSEED/usage/$h.jsonl"
+done
+git -C "$LSEED" add config/budget-pools hosts usage; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
 ACT="$TR/act.log"; : > "$ACT"
 printf '#!/bin/bash\nprintf "local %%s %%s\\n" "$1" "$2" >> "$ACT"\nexit 17\n' > "$TR/set"
 printf '#!/bin/bash\nprintf "remote %%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "$ACT"\n[ "$1" != failhost ] || exit 23\n' > "$TR/send"
 chmod +x "$TR/set" "$TR/send"
 LOUT="$TR/level.out"
-env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/level-state" JOURNAL_REMOTE="$LBARE" \
-  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT" \
-  GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" \
-  "$JOBS/budget-level.sh" >"$LOUT" 2>&1
-grep -q '^local gardener 1$' "$ACT" && grep -q '^remote otherhost op=set-workers kind=gardener count=4$' "$ACT" \
-  && ok "failed local actuation does not prevent later pool actuation" \
-  || bad "leveling actions: $(tr '\n' ';' < "$ACT")"
+level_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$LBARE"
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT"
+  GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send")
+env "${level_env[@]}" GARDEN_STATE="$TR/level-state" "$JOBS/budget-level.sh" >"$LOUT" 2>&1
+if grep -q '^local gardener 1$' "$ACT" && grep -q '^remote clamphost op=set-workers' "$ACT"; then
+  ok "failed local actuation does not prevent later pool actuation"
+else
+  bad "leveling actions: $(tr '\n' ';' < "$ACT")"
+fi
+if grep -q '^remote monkhost op=set-workers kind=monk count=1$' "$ACT" \
+   && ! grep -q '^remote monkhost op=set-workers kind=gardener' "$ACT"; then
+  ok "cut-over host is steered via its active kind (monk), not the hardcoded gardeners line"
+else
+  bad "monkhost active-kind steering wrong: $(tr '\n' ';' < "$ACT")"
+fi
+grep -q '^remote clamphost op=set-workers kind=gardener count=3$' "$ACT" \
+  && ok "throttle moves at most one step per tick (4->3, not 4->1)" \
+  || bad "step clamp wrong: $(tr '\n' ';' < "$ACT")"
 grep -q 'pool=anthropic:testhost host=testhost operation=set-local-workers failed exit_status=17' "$LOUT" \
   && ok "actuation diagnostic identifies pool, host, operation, and exit status" \
   || bad "missing actuation diagnostic: $(tr '\n' ';' < "$LOUT")"
-grep -q 'pool=anthropic:missinghost host=missinghost operation=read-host-workers failed exit_status=2' "$LOUT" \
+grep -q 'pool=anthropic:missinghost host=missinghost operation=read-host-workers failed exit_status=1' "$LOUT" \
   && ok "read diagnostic identifies pool, host, operation, and exit status" \
   || bad "missing read diagnostic: $(tr '\n' ';' < "$LOUT")"
 grep -q 'pool=anthropic:failhost host=failhost operation=send-host-set-workers failed exit_status=23' "$LOUT" \
   && ok "failed remote actuation is isolated and fully diagnosed" \
   || bad "missing remote actuation diagnostic: $(tr '\n' ';' < "$LOUT")"
+
+# Dwell: a RAISE waits for GARDEN_BUDGET_LEVEL_UP_CONFIRM consecutive same-direction
+# ticks before it moves — a single low reading (possibly stale/noisy) never jumps the
+# count up. uphost spends ~0 of cap 1000 → target the band max (4).
+UBARE="$TR/up.git"; seed_board "$UBARE"; USEED="$UBARE-seed"
+printf '%s\n' 'anthropic:uphost anthropic uphost weekly-tokens 1000' > "$USEED/config/budget-pools"
+printf 'gardeners: 2\n' > "$USEED/hosts/uphost"
+mkdir -p "$USEED/usage"
+printf '{"host":"uphost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$USEED/usage/uphost.jsonl"
+git -C "$USEED" add config/budget-pools hosts/uphost usage/uphost.jsonl; git -C "$USEED" "${git_id[@]}" commit -qm up; git -C "$USEED" push -q
+UACT="$TR/up-act.log"; : > "$UACT"
+printf '#!/bin/bash\nprintf "remote %%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "%s"\n' "$UACT" > "$TR/upsend"; chmod +x "$TR/upsend"
+up_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$UBARE"
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1
+  GARDEN_STATE="$TR/up-state" GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/upsend")
+env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up1.out" 2>&1   # tick 1: confirm 1/2, hold
+[ ! -s "$UACT" ] && grep -q 'dwell uphost 2->4 (up 1/2)' "$TR/up1.out" \
+  && ok "a raise is held on the first tick (dwell confirms before moving up)" \
+  || bad "raise not held on tick 1: act=$(tr '\n' ';' < "$UACT") log=$(tr '\n' ';' < "$TR/up1.out")"
+env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up2.out" 2>&1   # tick 2: confirm 2/2, one step
+grep -q '^remote uphost op=set-workers kind=gardener count=3$' "$UACT" \
+  && ok "a confirmed raise moves exactly one step (2->3, not 2->4)" \
+  || bad "confirmed raise wrong: $(tr '\n' ';' < "$UACT")"
+
+# fleet_draining suspends leveling entirely (no actuation, no alert), and does not
+# fight the drain by re-asserting counts.
+DACT="$TR/drain-act.log"; : > "$DACT"
+printf '#!/bin/bash\nprintf "remote %%s\\n" "$1" >> "%s"\n' "$DACT" > "$TR/drainsend"; chmod +x "$TR/drainsend"
+mkdir -p "$TR/drain-state"; : > "$TR/drain-state/draining"
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$LBARE" \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 \
+  GARDEN_STATE="$TR/drain-state" GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/drainsend" \
+  "$JOBS/budget-level.sh" >"$TR/drain.out" 2>&1
+[ ! -s "$DACT" ] && grep -q 'fleet draining; budget leveling suspended' "$TR/drain.out" \
+  && ok "leveling is suspended while the fleet is draining" \
+  || bad "leveled on a draining host: act=$(tr '\n' ';' < "$DACT") log=$(tr '\n' ';' < "$TR/drain.out")"
 
 set +e
 env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost GARDEN_STATE="$TR/level-state-scheduled" JOURNAL_REMOTE="$LBARE" \
