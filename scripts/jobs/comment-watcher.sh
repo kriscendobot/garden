@@ -1152,7 +1152,18 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     return
   fi
   {
-    [ -n "$role" ] && printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
+    # Frontmatter. A fixed branch-op verb stamps `role:` so the canonical model
+    # policy applies without the gardener inferring a role from prose. The
+    # `attention` (triage) verb carries NO fixed role (verb_role is empty), but it
+    # re-fetches and ASSESSES substantive feedback exactly like a whole-review job,
+    # so it stamps `handler-budget-role: review` to earn the 7200s review budget
+    # instead of the generic 2400s wall that deterministically reaped PR #1059's
+    # attention routing on every requeue (timeout → reap → re-claim → timeout).
+    if [ "$verb" = attention ]; then
+      printf '%s\n%s\n%s\n\n' '---' 'handler-budget-role: review' '---'
+    elif [ -n "$role" ]; then
+      printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
+    fi
     printf '# %s directive on %s PR #%s\n\n' "$verb" "$repo" "$pr"
     # Shepherds and gauntlets BLOCK on CI, which overruns the default handler budget.
     # Stamp the shared CI-sized timeout so the gardener honors it in place of the
