@@ -80,3 +80,13 @@ lives on a review PR because it carries open questions.
   stage a merge panel.
 - Reply on the review thread / re-request review noting the revision addresses
   the leader-rolling-deploy directive.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:24:45Z
