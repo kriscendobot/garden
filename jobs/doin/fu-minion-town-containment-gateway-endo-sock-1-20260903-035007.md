@@ -57,6 +57,7 @@ Report no-change QUIETLY. Report any reappearance, any unexpected active
 dckc-owned record, or any inability to complete the recursive scan to the
 maintainer inbox — an inability to scan is itself a finding, not a quiet pass.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
