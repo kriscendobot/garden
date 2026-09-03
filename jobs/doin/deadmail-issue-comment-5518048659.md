@@ -56,3 +56,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-551804865
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T20:05:48Z
