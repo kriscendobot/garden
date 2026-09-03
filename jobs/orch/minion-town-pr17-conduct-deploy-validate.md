@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-pr17-conduct minion-town-pr17-deploy-validate
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-03T21:28:13Z
 ---
