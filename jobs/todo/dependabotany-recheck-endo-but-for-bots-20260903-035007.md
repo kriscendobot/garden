@@ -1,8 +1,3 @@
-cadence: daily
-last_dispatched: 2026-09-03T03:50:07Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots
-preflight: dependabotany-preflight.sh
----
 ---
 role: botanist
 tier: mentor
