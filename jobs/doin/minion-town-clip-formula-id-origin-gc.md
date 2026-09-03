@@ -57,7 +57,7 @@ The design must specify, at minimum:
 5. If GC implementation is scoped as a follow-on rather than landed in this job, the design must be complete enough that a later `build` job can implement it without further clarification (role norm: "implementable by a future builder without further clarification, OR the report flags the unresolved questions that block implementation").
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T19:51:09Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64

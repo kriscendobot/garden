@@ -58,7 +58,7 @@ dckc-owned record, or any inability to complete the recursive scan to the
 maintainer inbox — an inability to scan is itself a finding, not a quiet pass.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T19:51:09Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
