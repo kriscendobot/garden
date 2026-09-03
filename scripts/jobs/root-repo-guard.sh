@@ -261,10 +261,19 @@ guard_origin() {
   return 1
 }
 
-# --- INVARIANT B: HEAD detached at a main2 ancestor --------------------------
+# --- INVARIANT B: HEAD detached at the deployed main2 ancestor ---------------
 # <up> is origin/main2's resolved sha ("" when unresolvable). Repairs a drifted HEAD
 # by re-detaching onto the recorded deploy point (or origin/main2), backing the prior
 # HEAD up to a branch ref first. Skips (never fights) while the fleet is draining.
+#
+# Drift here is NOT only "on a branch" or "at a non-main2 commit". A detached HEAD that
+# is a valid-but-STALE main2 ancestor — an OLDER commit than the recorded deployed_sha —
+# is also drift: the live systemd units were rendered for the deployed sha and reference
+# files a stale tree lacks, so a stale tree fails units with rc=127 ("No such file or
+# directory"). Signature (incident 2026-09-03): a prior shared-repo corruption reset the
+# root's HEAD, then an out-of-band `git reset --hard <old-sha>` "fixed" it to an ARBITRARY
+# earlier commit — a genuine main2 ancestor, so the old ancestor-only check called it
+# healthy and never flagged the ~42-commit gap against what was deployed.
 guard_head() {
   local up="$1"
   local head_ref head_sha on_branch=0 ancestor=0
@@ -276,8 +285,23 @@ guard_head() {
     ancestor=1
   fi
 
-  # Healthy: detached AND a main2 ancestor.
-  if [ "$on_branch" -eq 0 ] && [ "$ancestor" -eq 1 ]; then
+  # The recorded deploy point, resolved to a commit and trusted only when it is itself a
+  # main2 ancestor (respects deliberate-deploy: restore to WHAT WAS DEPLOYED, never
+  # advance). "" when there is no usable deploy point (no marker, or one origin/main2
+  # cannot certify) — then a detached main2-ancestor HEAD is accepted as-is, since there
+  # is nothing better to compare it against and the repair fallback would be the tip.
+  local expected="" cand
+  cand="$(deployed_sha 2>/dev/null || true)"
+  cand="$(git -C "$ROOT" rev-parse --verify --quiet "${cand:-}^{commit}" 2>/dev/null || true)"
+  if [ -n "$cand" ] && [ -n "$up" ] \
+     && git -C "$ROOT" merge-base --is-ancestor "$cand" "$up" 2>/dev/null; then
+    expected="$cand"
+  fi
+
+  # Healthy: detached AND a main2 ancestor AND — when a usable deploy point exists —
+  # actually AT it. A stale main2 ancestor (HEAD != deployed_sha) falls through to drift.
+  if [ "$on_branch" -eq 0 ] && [ "$ancestor" -eq 1 ] \
+     && { [ -z "$expected" ] || [ "$head_sha" = "$expected" ]; }; then
     return 0
   fi
 
@@ -298,17 +322,9 @@ guard_head() {
     return 1
   fi
 
-  # Choose the safe re-detach target: the recorded deploy point if it is itself a
-  # main2 ancestor (respects deliberate-deploy — restore to what was deployed, do not
-  # advance), else the origin/main2 tip.
-  local cand safe
-  cand="$(deployed_sha 2>/dev/null || true)"
-  cand="$(git -C "$ROOT" rev-parse --verify --quiet "${cand:-}^{commit}" 2>/dev/null || true)"
-  if [ -n "$cand" ] && git -C "$ROOT" merge-base --is-ancestor "$cand" "$up" 2>/dev/null; then
-    safe="$cand"
-  else
-    safe="$up"
-  fi
+  # The safe re-detach target: the recorded deploy point when usable (computed above as
+  # $expected — respects deliberate-deploy), else the origin/main2 tip.
+  local safe="${expected:-$up}"
 
   # Preserve the pre-repair HEAD as a durable backup ref before we move it.
   local backup_ref; backup_ref="root-guard-backup/$(ts_utc)"
@@ -320,7 +336,13 @@ guard_head() {
   # $backup_ref above, so this is lossless.
   if git -C "$ROOT" checkout --detach --force "$safe" >/dev/null 2>&1; then
     local was="${head_ref:+branch ${head_ref#refs/heads/}}"; was="${was:-detached $head_sha}"
-    local msg="root repo $ROOT HEAD had DRIFTED ($was) off the deployed detached commit — the signature of a job that ran git with \$GARDEN_ROOT as its enclosing repo (incident 2026-07-17). Re-detached HEAD onto $safe (the recorded deploy point / origin/$GARDEN_MAIN_BRANCH). Prior HEAD preserved as branch $backup_ref. (host=$GARDEN)"
+    local why="off the deployed detached commit — the signature of a job that ran git with \$GARDEN_ROOT as its enclosing repo (incident 2026-07-17)"
+    # A detached, valid-but-STALE main2 ancestor is the distinct 2026-09-03 signature: an
+    # out-of-band reset to an arbitrary older commit, so name it precisely.
+    if [ "$on_branch" -eq 0 ] && [ "$ancestor" -eq 1 ]; then
+      why="to a STALE main2 ancestor ($head_sha) — an older commit than the recorded deploy point, so the live systemd units (rendered for the deployed sha) reference files this tree lacks (rc=127 unit failures); signature of an out-of-band 'git reset --hard <old-sha>' (incident 2026-09-03)"
+    fi
+    local msg="root repo $ROOT HEAD had DRIFTED ($was) $why. Re-detached HEAD onto $safe (the recorded deploy point / origin/$GARDEN_MAIN_BRANCH). Prior HEAD preserved as branch $backup_ref. (host=$GARDEN)"
     log "HEAD-REPAIRED: $msg"
     alert_maintainer "root-repo-head-repaired-$GARDEN" "$msg"
     return 0

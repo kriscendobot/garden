@@ -158,6 +158,24 @@ run_guard
 alerted "root-repo-head-repaired" && ok "non-ancestor HEAD repair alerted" || bad "no head-repaired alert for non-ancestor"
 
 # ============================================================================
+hr; echo "CASE 4b — HEAD detached at a valid-but-STALE main2 ancestor (not the deployed sha): re-detached to the deploy point"; hr
+# The 2026-09-03 signature: a prior shared-repo corruption reset the root's HEAD, then an
+# out-of-band 'git reset --hard <old-sha>' "fixed" it to an ARBITRARY earlier main2 commit
+# — a genuine main2 ancestor, so the old ancestor-only check called it healthy and never
+# flagged the gap against what was deployed (rendered units then fail rc=127). deployed-sha
+# is the tip (UP); detach the root at an OLDER main2 ancestor (MID/c2).
+fresh_root
+printf '%s\n' "$UP" > "$GARDEN_STATE/deploy/deployed-sha"
+git -C "$GARDEN_ROOT" checkout -q --detach "$MID"
+run_guard
+{ head_detached && [ "$(git -C "$GARDEN_ROOT" rev-parse HEAD)" = "$UP" ]; } \
+  && ok "stale-ancestor HEAD re-detached onto the deployed sha (not left at the older ancestor)" \
+  || bad "stale-ancestor HEAD not restored to the deploy point (at $(git -C "$GARDEN_ROOT" rev-parse HEAD), want $UP)"
+git -C "$GARDEN_ROOT" for-each-ref --format='%(refname)' 'refs/heads/root-guard-backup' | grep -q . \
+  && ok "prior (stale) HEAD preserved as a root-guard-backup/* branch" || bad "no backup ref for the stale HEAD"
+alerted "root-repo-head-repaired" && ok "stale-ancestor drift alerted the maintainer" || bad "no head-repaired alert for a stale ancestor"
+
+# ============================================================================
 hr; echo "CASE 5 — DRAINING defers the HEAD repair (never fight a deploy)"; hr
 fresh_root
 git -C "$GARDEN_ROOT" checkout -q -b feature2
@@ -225,6 +243,11 @@ run_guard
 alerted "root-repo-deploy-stalled" && ok "explicit GARDEN_DEPLOY_STALL_DAYS overrides the class default" || bad "explicit override ignored"
 unset GARDEN_DEPLOY_STALL_DAYS
 export GARDEN_LEADER="$GARDEN"   # restore the leader default for the remaining cases
+# Restore the deploy marker to the main2 tip, so the remaining cases' fresh_root (which
+# detaches at the tip) sees a HEAD that MATCHES the deployed sha — invariant B now treats
+# a detached-but-stale-ancestor HEAD as drift (CASE 4b), so a stale marker here would make
+# every subsequent healthy root read as drifted.
+printf '%s\n' "$UP" > "$GARDEN_STATE/deploy/deployed-sha"
 
 # ============================================================================
 hr; echo "CASE 7 — OBJECT STORE: tmp_pack garbage swept, gc.log cleared only on a gc that SUCCEEDS"; hr
