@@ -84,6 +84,7 @@ Target page: `https://claude.ai/chat/<account-identifier>#settings/usage` — sh
 - CLAUDE.md § Container guard, § Host environment (the identity/trust boundary this design must respect)
 - `scripts/jobs/common.sh` (`ensure_clone`, `sync_clone`, the CAS-push retry pattern the garden-side ingest half should match)
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
