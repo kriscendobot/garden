@@ -15,3 +15,13 @@ At dispatch time, `gh pr view` reported head `b7b2b730394f4186ba97d3c6309e0adb6e
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T16:27:43Z
