@@ -31,3 +31,13 @@ would have surfaced the silence in days, not weeks.
 
 Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`;
 land bare on `main2` per CLAUDE.md § Conventions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T00:19:54Z
