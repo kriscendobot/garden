@@ -45,3 +45,13 @@ This is a foundational architecture decision for the repo, and the project conve
 Out of scope for this job: real clip-authoring tooling, the MCP/OCapN self-description implementation for a live (non-placeholder) clip, any view beyond the shell itself. Flag these as named follow-ups in the completion report rather than attempting them here.
 
 Deliver as a draft PR on the fork and run the gauntlet per the usual build flow.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T20:37:56Z
