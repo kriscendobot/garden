@@ -80,3 +80,13 @@ Scope this as an **experiment**: a lane that can be tried and discarded, not a
 rewrite of the worker spine. If the pty enclosure turns out to require invasive
 changes to the spine, say so in the PR and stop at the smallest honest slice rather
 than widening.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:30:21Z
