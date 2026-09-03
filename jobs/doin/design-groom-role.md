@@ -36,3 +36,13 @@ This is the per-project analogue of the garden's own `journal/plan/` + `velocity
 - `README.md` § Planning (the garden's own analogous grooming pattern)
 - `journal/jobs/tada/groom-*`, `journal/jobs/tada/ebfb-llm-designs-groom-*` (the live, currently-unowned convention)
 - `endojs/endo-but-for-bots` `designs/README.md` (the concrete target document)
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T16:58:31Z
