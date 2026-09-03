@@ -40,3 +40,13 @@ and pipeline-op-only tests in `scripts/jobs/test/comment-watcher-test.sh`.
 
 Garden repo work on `main2` (normal worktree, push CAS, no PR). Report the
 confirmed root cause and the fix in your tada.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:01:32Z
