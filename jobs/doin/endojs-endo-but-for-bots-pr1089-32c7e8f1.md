@@ -46,3 +46,13 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T20:14:31Z
