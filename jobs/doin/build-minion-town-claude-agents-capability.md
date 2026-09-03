@@ -14,6 +14,7 @@ Deliver as a draft PR on the fork and run the gauntlet per the usual build flow.
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,2 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-03T19:40:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
