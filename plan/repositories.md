@@ -12,6 +12,7 @@ ignored (this prose included).
 endo-but-for-bots: https://github.com/endojs/endo-but-for-bots
 endo: https://github.com/endojs/endo
 garden: https://github.com/kriskowal/garden
+minion-town: https://github.com/kriscendobot/minion.town
 ```
 
 The allowed set is the repositories the garden actively develops. **`agoric-sdk`
