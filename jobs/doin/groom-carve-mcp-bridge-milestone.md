@@ -141,6 +141,7 @@ newly-inserted, and why), the PR you opened against `endo-but-for-bots` with
 its URL, the journal-side files you touched, and whether you verified the
 bulletin re-rendered with the new priorities on top.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
