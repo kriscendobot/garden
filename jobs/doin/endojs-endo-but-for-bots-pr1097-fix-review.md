@@ -74,11 +74,11 @@ leave the PR ready for re-review.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=4,4 -->
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=4,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
