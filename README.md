@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T22:32:08Z_
+_As of 2026-09-03T22:33:06Z_
 
 ## Latest
 
@@ -2705,6 +2705,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-changes-requested-kriscendobot_minion.town-56` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-changes-requested-kriscendobot_minion.town-56.md)
 
 > conductor merge BLOCKED for [kriscendobot/minion.town#56](https://github.com/kriscendobot/minion.town/issues/56): reviewDecision=CHANGES_REQUESTED. A reviewer requested changes; I will NOT merge over it even though GitHub reports the PR mergeable (no branch protection requiring approval). Address the review feedback (or dismiss/supersede the review) and the next tick merges cleanly. (#56 left claimable: not merged, not stranded.)
+
+- `watchdog-handler-budget-overrun-build-minion-town-claude-agents-capability` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-build-minion-town-claude-agents-capability.md)
+
+> gardener job 'build-minion-town-claude-agents-capability' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2402s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-exo-stream-drop-base64-stream-methods.md)
 
