@@ -1,0 +1,5 @@
+<6>12:50:11 [monk/3] job 'endojs-endo-but-for-bots-pr1103-ff1e7149' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>12:50:11 [monk/3] job 'endojs-endo-but-for-bots-pr1103-ff1e7149' resolved tier 'mentor' -> claude --model claude-opus-4-8
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
