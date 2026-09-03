@@ -1,0 +1,5 @@
+<6>12:51:17 [monk/1] job 'xs2rust-endor-press-20260903-125007' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>12:51:17 [monk/1] job 'xs2rust-endor-press-20260903-125007' resolved tier 'mentor' -> claude --model claude-opus-4-8
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
