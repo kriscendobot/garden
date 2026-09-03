@@ -14,6 +14,7 @@ Start by reconciling the current gateway/guest primitives and the open guest-CLI
 <!-- garden-reaped: 1 -->
 
 <!-- garden-outage-cycle -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-03T19:40:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
