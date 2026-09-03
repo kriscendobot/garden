@@ -2,7 +2,7 @@
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
-gauntlet: ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet
+gauntlet: ironhorse-fuzz-2276f4edebdcb3bb-repair-gauntlet
 gauntlet_stage: clean
 gauntlet_iteration: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/1088
@@ -13,7 +13,7 @@ dispatch: automatic
 
 # Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1088
 
-You are ONE stage of a staged gauntlet (ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet). Do ONLY the clean stage, then STOP.
+You are ONE stage of a staged gauntlet (ironhorse-fuzz-2276f4edebdcb3bb-repair-gauntlet). Do ONLY the clean stage, then STOP.
 
 Garden script names below are repo-relative. Resolve them against THIS claiming
 worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
@@ -23,7 +23,7 @@ posting host's garden root.
    PR is already the right shape (coverage already pushed, CI GREEN at the current
    head), this stage is a NO-OP: skip to the marker with clean=done.
 2. Get an ISOLATED project checkout of the PR head:
-   `scripts/jobs/ensure-project-worktree.sh ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-clean <pr-head-owner>/<repo-name> <pr-head-branch>`.
+   `scripts/jobs/ensure-project-worktree.sh ironhorse-fuzz-2276f4edebdcb3bb-repair-gauntlet-clean <pr-head-owner>/<repo-name> <pr-head-branch>`.
    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1088 --json headRepositoryOwner,headRefName`;
    do not pass the base repo when the PR head belongs to a fork.
 3. In that checkout: run the coverage pass on the touched packages
@@ -44,18 +44,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
-
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-transient-elapsed: kind=signature through=3 values=2,4 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T16:38:02Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-31T22:53:34Z
+<!-- garden-reaped: 1 -->
