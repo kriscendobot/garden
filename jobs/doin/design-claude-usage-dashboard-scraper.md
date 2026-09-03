@@ -85,6 +85,7 @@ Target page: `https://claude.ai/chat/<account-identifier>#settings/usage` — sh
 - `scripts/jobs/common.sh` (`ensure_clone`, `sync_clone`, the CAS-push retry pattern the garden-side ingest half should match)
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
