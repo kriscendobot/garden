@@ -66,3 +66,13 @@ Verify each commit with `skills/local-verify/SKILL.md` +
 usage-meter/budget-level must pass). Land bare on `main2` per CLAUDE.md
 § Conventions; if a change surfaces a genuine open maintainer question, use the
 design-with-open-questions PR carve-out instead of landing that part bare.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T00:32:16Z

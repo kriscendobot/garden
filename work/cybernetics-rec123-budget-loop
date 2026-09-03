@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-03T00:32:16Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-cybernetics-rec123-budget-loop
