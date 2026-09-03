@@ -221,8 +221,10 @@ meter_prune() {
 # Code session JSONL under <logdir>, deduped by message id (first occurrence
 # wins), counting only assistant turns whose timestamp epoch is >= <cutoff>.
 # Prints the integer sum on stdout. Returns:
-#   0 with <sum>  on a successful scan (sum may legitimately be 0),
-#   1             on a tooling error (no jq, find failed) → unknown upstream.
+#   0 with <sum>  on a successful scan (sum may legitimately be 0 for a GENUINELY
+#                 idle host — see the blindness distinction below),
+#   1             on a tooling error (no jq, find failed) OR a BLIND sensor with no
+#                 positive liveness marker → unknown upstream (fail-open: skip).
 # Resilient to individual malformed log lines (jq -R 'fromjson? // empty' skips
 # them) so one corrupt line never blinds the meter.
 _meter_session_total() {
@@ -238,7 +240,23 @@ _meter_session_total() {
   # if the dir is unreadable or -newermt is unsupported → treat as unknown.
   listing="$(find "$logdir" -maxdepth 6 -type f -name '*.jsonl' -newermt "@$cutoff" 2>/dev/null)"; rc=$?
   [ "$rc" -ne 0 ] && return 1
-  [ -z "$listing" ] && { printf '0\n'; return 0; }   # no in-window logs → genuine 0
+  if [ -z "$listing" ]; then
+    # No session file is newer than the cutoff. That is a GENUINE 0 for a host that
+    # has run Claude and is simply idle this window — but it is ALSO exactly what a
+    # BLIND sensor prints (a fresh host, a relocated $HOME, a wrong
+    # GARDEN_CCUSAGE_LOGDIR, restored-from-backup mtimes). A blind 0 is the most
+    # expensive failure this meter has: it drives budget-level to headroom 1, the band
+    # maximum — maximum workers on NO signal (cybernetics-audit.md § 2.2). So the 0 is
+    # trusted ONLY with a positive liveness marker: at least one session .jsonl exists
+    # under the logdir, proving Claude has written here and the path/config is right
+    # (the file just holds no in-window turn). With no session file at all the sensor
+    # is unproven → return unknown (rc 1) so the caller fails open and SKIPS, never
+    # maximizes (the safe skip path, e.g. budget-level.sh's pool_failure→continue).
+    if [ -n "$(find "$logdir" -maxdepth 6 -type f -name '*.jsonl' -print -quit 2>/dev/null)" ]; then
+      printf '0\n'; return 0   # session history present, none in-window → genuine idle
+    fi
+    return 1                    # no session files at all → sensor blind → unknown
+  fi
 
   # Per-line: parse (skipping malformed), keep assistant turns carrying usage,
   # emit  <message-id>\t<epoch>\t<billable-tokens>. Strip fractional seconds before
@@ -344,7 +362,14 @@ meter_journal_host_tokens() {
   local dir="$1" host="$2" cutoff="$3" files
   [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 1
   files=("$dir"/usage/*.jsonl)
-  [ -e "${files[0]}" ] || { printf '0\n'; return 0; }
+  # An EMPTY usage/ ledger is the sensor being blind (nothing recorded yet, or a
+  # journal clone that has not synced the rows), NOT proof the remote host spent
+  # zero. A confident 0 here would drive budget-level to the band maximum for that
+  # remote pool on no signal (cybernetics-audit.md § 2.2) — the same inverted failure
+  # as the session path. Treat the empty ledger as unknown (rc 1) so the caller fails
+  # open and skips. A POPULATED ledger with no rows for this host still folds to a
+  # genuine 0 below (that host is proven-idle, not blind).
+  [ -e "${files[0]}" ] || return 1
   jq -sre --arg host "$host" --argjson cutoff "$cutoff" '
     [ .[] | select(.host == $host)
       | select((.ts | fromdateiso8601? // -1) >= $cutoff) ] as $rows

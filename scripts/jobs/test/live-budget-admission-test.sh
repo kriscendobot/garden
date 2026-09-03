@@ -49,6 +49,38 @@ unknown="$(GARDEN=testhost GARDEN_STATE="$TR/state-u" GARDEN_USAGE_NOW="$NOW" \
   bash -c 'source "$1/common.sh"; pool_admits anthropic:testhost; echo rc=$?' _ "$JOBS")"
 [[ "$unknown" = $'unknown\nrc=0' ]] && ok "unreadable configured meter admits fail-open" || bad "fail-open result: $unknown"
 
+# --- Blindness holds, does not maximize (cybernetics-audit § 2.2, rec 1) ----------
+# A sensor with NO in-window logs is only a genuine 0 when it can prove it is not
+# blind. An existing logdir that holds session history but nothing in-window is a
+# GENUINE idle 0; an existing-but-empty logdir (fresh host / relocated $HOME / wrong
+# GARDEN_CCUSAGE_LOGDIR) is BLIND and must read unknown, not 0 (a 0 would drive
+# budget-level to the band maximum on no signal).
+mrc() { bash -c 'set -uo pipefail; source "$1/common.sh"; meter_window_total anchor >/dev/null 2>&1; echo $?' _ "$JOBS"; }
+BLIND="$TR/blind-logs"; mkdir -p "$BLIND"   # exists, contains NO *.jsonl
+brc="$(GARDEN=testhost GARDEN_STATE="$TR/state-blind" GARDEN_USAGE_NOW="$NOW" \
+  GARDEN_CCUSAGE_LOGDIR="$BLIND" GARDEN_USAGE_LEDGER="$TR/blind-no-ledger" mrc)"
+[ "$brc" = 1 ] && ok "blind sensor (existing logdir, no session files) reads unknown, not 0" \
+  || bad "blind sensor rc=$brc, expected 1 (unknown)"
+IDLE="$TR/idle-logs"; make_log "$IDLE" hist 2026-08-01T00:00:00Z 5000   # history, all pre-window
+# Backdate the file mtime below the cutoff so the meter's mtime pre-filter prunes it
+# to an EMPTY listing (the branch under test): a file exists, none is in-window.
+touch -d 2026-08-01T00:00:00Z "$IDLE/p/session.jsonl"
+irc="$(GARDEN=testhost GARDEN_STATE="$TR/state-idle" GARDEN_USAGE_NOW="$NOW" \
+  GARDEN_CCUSAGE_LOGDIR="$IDLE" GARDEN_USAGE_LEDGER="$TR/idle-no-ledger" \
+  bash -c 'set -uo pipefail; source "$1/common.sh"; meter_window_total anchor' _ "$JOBS")"
+[ "$irc" = 0 ] && ok "genuine idle (session history present, none in-window) still reads 0" \
+  || bad "genuine-idle read was '$irc', expected 0"
+# The journal remote fallback mirrors the same distinction: an empty usage/ ledger
+# is blind (unknown); a populated ledger with no rows for the host is a genuine 0.
+JD="$TR/journal-dir"; mkdir -p "$JD/usage"
+jempty="$(bash -c 'set -uo pipefail; source "$1/common.sh"; meter_journal_host_tokens "$2" somehost 0 >/dev/null 2>&1; echo $?' _ "$JOBS" "$JD")"
+[ "$jempty" = 1 ] && ok "empty journal usage/ ledger reads unknown, not 0" \
+  || bad "empty journal ledger rc=$jempty, expected 1 (unknown)"
+printf '{"host":"elsewhere","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":10,"output_tokens":0,"cache_creation_tokens":0}\n' > "$JD/usage/elsewhere.jsonl"
+jgen="$(bash -c 'set -uo pipefail; source "$1/common.sh"; meter_journal_host_tokens "$2" somehost 0' _ "$JOBS" "$JD")"
+[ "$jgen" = 0 ] && ok "populated journal ledger with no rows for the host reads a genuine 0" \
+  || bad "populated-no-host journal read was '$jgen', expected 0"
+
 seed_board() { # bare [plan]
   local bare="$1" seed="$1-seed"
   git init -q --bare "$bare"; git init -q "$seed"; git -C "$seed" checkout -q -b journal2
@@ -119,7 +151,14 @@ printf '%s\n' \
   'anthropic:otherhost anthropic otherhost weekly-tokens 1000' > "$LSEED/config/budget-pools"
 printf 'gardeners: 2\n' > "$LSEED/hosts/failhost"
 printf 'gardeners: 2\n' > "$LSEED/hosts/otherhost"
-git -C "$LSEED" add config/budget-pools hosts/failhost hosts/otherhost; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
+# otherhost/failhost are remote: no live snapshot, so leveling folds their spend from
+# the journal usage/ ledger. Seed a GENUINE low-spend row for each (post rec-1, an
+# EMPTY ledger reads unknown and would skip leveling — a proven-low reading is what
+# exercises the raise/throttle path). Both spend ~0 of cap 1000 → headroom → band max.
+mkdir -p "$LSEED/usage"
+printf '{"host":"otherhost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$LSEED/usage/otherhost.jsonl"
+printf '{"host":"failhost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$LSEED/usage/failhost.jsonl"
+git -C "$LSEED" add config/budget-pools hosts/failhost hosts/otherhost usage/otherhost.jsonl usage/failhost.jsonl; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
 ACT="$TR/act.log"; : > "$ACT"
 printf '#!/bin/bash\nprintf "local %%s %%s\\n" "$1" "$2" >> "$ACT"\nexit 17\n' > "$TR/set"
 printf '#!/bin/bash\nprintf "remote %%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "$ACT"\n[ "$1" != failhost ] || exit 23\n' > "$TR/send"
