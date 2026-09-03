@@ -45,3 +45,13 @@ stamp-and-post atomicity so a crash cannot double-dispatch or lose a period.
 Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 (scheduler tests must pass); land bare on `main2` per CLAUDE.md
 § Conventions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:21:47Z
