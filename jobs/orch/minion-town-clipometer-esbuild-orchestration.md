@@ -1,4 +1,5 @@
 ---
+child-minion-town-clipometer-esbuild-pipeline-reap-count: 0
 order: serial
 children: minion-town-clipometer-esbuild-pipeline minion-town-clipometer-esbuild-validate minion-town-clipometer-primer-esbuild-update minion-town-clipometer-esbuild-issue-report
 on-child-failure: halt
