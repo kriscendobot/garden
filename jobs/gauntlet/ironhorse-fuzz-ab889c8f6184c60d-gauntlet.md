@@ -1,15 +1,16 @@
 ---
+stage_retries: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/1088
 repo: endojs/endo-but-for-bots
 pr_number: 1088
 build_job: ironhorse-fuzz-ab889c8f6184c60d-repair
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ironhorse-fuzz-ab889c8f6184c60d-gauntlet-clean
+current_child: ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1
 state: running
 created_by: builder
 created_at: 2026-08-30T07:32:11Z
