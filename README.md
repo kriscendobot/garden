@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T22:05:33Z_
+_As of 2026-09-03T22:19:58Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 29m)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 46m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 2d)
@@ -314,6 +314,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
 > Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
+
+- `20260903T221908Z-ad7934` — from orchestrator:minion-town-pr17-conduct-deploy-validate-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T221908Z-ad7934.md)
+
+> Orchestration minion-town-pr17-conduct-deploy-validate HALTED: child minion-town-pr17-conduct stalled in flight for 2414s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: minion-town-pr17-deploy-validate
 
 - `doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-npm-registry-as-directory-tree-review5064787686-r2-deadline-overrun.md)
 
@@ -2921,13 +2925,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260903-140507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260903-140507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260903-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260903-163507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6824)
+### tada (6825)
+- [`minion-town-pr17-conduct-deploy-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr17-conduct-deploy-validate.md) — orchestration minion-town-pr17-conduct-deploy-validate — HALTED
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-1.md) — Cost
 - [`xs2rust-endor-press-20260903-210515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-210515.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260903-21...
 - [`xs2rust-endor-press-20260903-200506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-200506.md) — Ironhorse press — assessment (dispatch xs2rust-endor-press-20260903-200506)
 - [`xs2rust-endor-press-20260903-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-185006.md) — Ironhorse press — assessment (dispatch xs2rust-endor-press-20260903-185006, r...
-- [`xs2rust-endor-press-20260903-115005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-115005.md) — Front 1 — Fixture-parity walker campaign
-- … and 6819 more
+- … and 6820 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
