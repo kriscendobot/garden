@@ -102,6 +102,7 @@ separate, maintainer-gated boatman job, not part of this one.
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=51 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
