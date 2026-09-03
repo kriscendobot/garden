@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T06:44:34Z_
+_As of 2026-09-03T06:46:56Z_
 
 ## Latest
 
@@ -85,16 +85,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > seats). Dispatched: review-improve-merge-base-pinning (deferred builder). Full report in
 > the job completion.
 
-- `20260806T152927Z-e9108b` — from gardener:consolidate-test262-fixtures, reply_to `consolidate-test262-fixtures` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T152927Z-e9108b.md)
-
-> test262 fixture consolidation (job consolidate-test262-fixtures): opened DRAFT PR [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/issues/946) against `llm` with the design + rollout step 1 (parameterized expectation lists + two-directional ratchet, unit-tested and verified oracle-backed on a bounded slice).
->
-> One decision needs your call before the rest lands. The directive's sketch assumes the 1712 cases in `rust/engine/ironhorse-262/cases` duplicate upstream test262 and should fold into `packages/test262-runner/test262/test/**`. They are NOT duplicates: they're bespoke bit-exact metering micro-cases (tagged `ironhorse-meter-exact`/`-determinism`, feeding the byte-identity compile-diff gate), generated from the retired bring-up corpora. Upstream test262 has no cost model, and the parent design (ironhorse-test262-convergence.md) calls the metering corpus proprietary-forever. So folding them into the parity tree loses that coverage.
->
-> Recommendation (design § Open Decision, option A): keep the two case trees, unify only the EXPECTATION accounting across them (which is where the drift you want ratcheted actually lives). The mechanism I built works under either resolution. Option B (collapse to the upstream tree) needs an explicit call to accept losing, or re-homing, the metering/byte-identity coverage.
->
-> Full-corpus expectation baselines are a separate batched per-subtree oracle sweep (the whole-tree oracle run is the known OOM concern), to run on a toolchain host, not inline.
-
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -123,16 +113,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`: need a decision on `worktrees/kriskowal-garden.git` — remove it or re-point its origin.
 
-- `20260819T014222Z-357030` — from gardener:fu-xs2rust-endor-debugger-caught-vs-uncaught-2, reply_to `fu-xs2rust-endor-debugger-caught-vs-uncaught-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T014222Z-357030.md)
-
-> fu-xs2rust-endor-debugger-caught-vs-uncaught-2 done — GATED (not natively fixed), draft PR [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/issues/1038) vs llm.
->
-> Why gate, not fix: the native break-on-uncaught is Phase 5 of designs/ironhorse-debugger-recovery-and-uncaught.md and is BLOCKED — the ironhorse-debug crate isn't on llm yet (fu-...-1 "recover the debugger row", unbuilt) and needs engine-raise unwind (fu-...-3). The Ironhorse campaign is also paused for budget. The design explicitly forbids an interim C-XS fallback/negotiation/alias and wants the shipped client wire commands left byte-identical so the mode goes live automatically once Ironhorse lands the uncaughtExceptions pseudo-path. So a runtime fix now would either violate the design or break the forward-compat that debugger-captp.test.js line 352 pins.
->
-> What [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/issues/1038) does (zero wire/behavior change): removes only the *silent* property of the footgun — on C-XS, selecting 'uncaught' clears the real exceptions breakpoint and arms a never-hit phantom, i.e. it silently DISABLES exception breaking. It documents that at every client API site (debug-session.js, debugger.js, types.d.ts) and relabels the Chat panel option to "Exceptions: uncaught (engine support pending)" with an honest tooltip. 16 daemon debugger tests + chat panel tests pass unmodified; eslint/prettier clean.
->
-> If you'd rather have a HARD runtime gate (e.g. the client throws for 'uncaught' until an Ironhorse session is attached), that needs capability detection the design currently rules out — say the word and I'll take it up with a design amendment. Otherwise the real fix stays owned by fu-...-1 + fu-...-3 (both still todo) under the paused campaign.
-
 - `20260901T175244Z-931faa` — from gardener:minion-town-remove-mcp-tool-prefixes, reply_to `minion-town-remove-mcp-tool-prefixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T175244Z-931faa.md)
 
 > [kriscendobot/minion.town#75](https://github.com/kriscendobot/minion.town/issues/75) is merged and deployment run 33539977066 succeeded. The remaining required blind live discovery evaluation needs an authenticated minion.town MCP session. This worker container has no AWS CLI/credentials or minion.town OAuth connection, so it cannot read the sanctioned minion/test-cc-client secret or attach the live MCP to a context-free agent. Please either run a connected blind agent with only the directive "evaluate 2 + 2" and send the transcript/result, or make a short-lived sanctioned Bearer token available through this job inbox (do not paste a long-lived client secret).
@@ -148,10 +128,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
-
-- `20260901T234214Z-fc1f27` — from gardener:kriscendobot-minion.town-pr56-review-7d4dc95d, reply_to `kriscendobot-minion.town-pr56-review-7d4dc95d` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T234214Z-fc1f27.md)
-
-> [kriscendobot/minion.town#56](https://github.com/kriscendobot/minion.town/issues/56) review feedback is addressed and retconned at 5bf920d; local typecheck/tests and GitHub Actions are green. The conduct gate is blocked only because GitHub still records reviewDecision=CHANGES_REQUESTED from review 5083787697. Please approve the current head if you intend the explicit “conduct” directive to proceed. I am keeping this job active; after approval I will merge and dispatch the requested builder.
 
 - `20260902T011259Z-3a7487` — from gardener:build-minion-town-invitation-onboarding, reply_to `build-minion-town-invitation-onboarding` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260902T011259Z-3a7487.md)
 
@@ -171,52 +147,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Blocked on Endo builder job
 > `minion-town-remote-guest-endo-cli-endo-invite-primitive`, which owns the
 > guest-safe invitation primitive and its two-daemon guest round-trip test.
-
-- `20260902T185622Z-c82af0` — from gauntlet:build-kebab-case-lint-wildcard-test262-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260902T185622Z-c82af0.md)
-
-> Gauntlet build-kebab-case-lint-wildcard-test262-gauntlet HALTED: stage 'build-kebab-case-lint-wildcard-test262-gauntlet-clean' (clean) failed 1 times and was NOT retried: doom_signature=elapsed-constancy (failure_classification=deterministic) is not proven transient.
-
-- `20260902T185648Z-2d43a4` — from gauntlet:kriscendobot-minion.town-pr78-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260902T185648Z-2d43a4.md)
-
-> Gauntlet kriscendobot-minion.town-pr78-gauntlet HALTED: stage 'kriscendobot-minion.town-pr78-gauntlet-clean' (clean) failed 1 times and was NOT retried: doom_signature=elapsed-constancy (failure_classification=deterministic) is not proven transient.
-
-- `20260902T185802Z-cc9f48` — from gauntlet:kriscendobot-minion.town-pr80-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260902T185802Z-cc9f48.md)
-
-> Gauntlet kriscendobot-minion.town-pr80-gauntlet HALTED: stage 'kriscendobot-minion.town-pr80-gauntlet-clean' (clean) failed 1 times and was NOT retried: doom_signature=elapsed-constancy (failure_classification=deterministic) is not proven transient.
-
-- `20260903T010007Z-d6f543` — from gardener:cybernetics-rec123-budget-loop, reply_to `cybernetics-rec123-budget-loop` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T010007Z-d6f543.md)
-
-> Heads-up on a live-fleet behavior change from job cybernetics-rec123-budget-loop
-> (recs 1-3 of designs/cybernetics-audit.md § 7, now landed on main2):
->
-> Rec 2 gave config/budget-pools rows a provenance field (columns 6-7:
-> calibrated-from, date). budget-level.sh now treats any row WITHOUT a calibrated
-> provenance as config-absent for leveling: it levels nothing for that pool and
-> alerts once. After this deploys, your EXISTING live config/budget-pools rows
-> (5 columns, no provenance) will be read as uncalibrated, so budget-level will
-> STOP leveling and raise one "budget-level-uncalibrated-<pool>" notice per pool.
->
-> That is the intended rec-2 behavior (don't actuate full-authority worker leveling
-> against the disputed 5M-era placeholder caps). To RESUME leveling against a cap
-> you trust, append two columns to each live row, e.g.:
->   anthropic:endolin-garden-ece02cb4 anthropic endolin-garden-ece02cb4 weekly-tokens <cap> usage-panel 2026-09-03
-> (calibrated-from can be `usage-panel`, `weekly-capacity-calibration`, `manual`,
-> etc.; anything but empty/placeholder/uncalibrated/seed/none/-/tbd/todo counts as
-> calibrated.)
->
-> Also landed: weekly-capacity-calibration.sh (implements
-> recurring-budget-calibration.md) which MEASURES per-account weekly capacity into
-> budget/weekly-capacity/<host>.jsonl + budget/bucket.json. It is NOT yet armed —
-> wire it as the scheduler preflight when ready:
->   GARDEN_SCHEDULE_PREFLIGHT=weekly-capacity-calibration.sh scripts/jobs/set-schedule.sh \
->     weekly-capacity weekly-at-Fri-21:00-America/Los_Angeles ...
-> It deliberately does not auto-write config/budget-pools (promoting a measured
-> figure to an actuated cap stays your call — the open question in
-> live-budget-admission.md OQ1).
-
-- `20260903T010111Z-6deeae` — from orchestrator:cybernetics-audit-remediation-complete-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T010111Z-6deeae.md)
-
-> Orchestration cybernetics-audit-remediation complete WITH FAILURES (parallel): 4/7 failed: cybernetics-rec4-fuzz-triage-backpressure cybernetics-rec7-frontmatter-validation cybernetics-rec8-scheduler-admission cybernetics-rec9-inbox-coalescing
 
 - `doomed-amend-invitation-oauth-mcp-prerequisite-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-amend-invitation-oauth-mcp-prerequisite-requeue-exhausted.md)
 
@@ -3230,6 +3160,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
 > budget pool anthropic:endolin-garden-ece02cb4 changed zone ok -> backoff at spend=127879182 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
+
+- `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
+
+> budget pool anthropic:endolin-garden-ece02cb4 changed zone backoff -> ok at spend=31334979 of cap=149000000 (high-water 0.85; Friday 20:00 Pacific window).
 
 - `watchdog-changes-requested-kriscendobot_minion.town-56` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-changes-requested-kriscendobot_minion.town-56.md)
 
