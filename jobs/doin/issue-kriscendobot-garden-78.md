@@ -37,6 +37,7 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 Please dispatch a scholar to ingest https://zed.dev/blog/agentic-xanadu and provide commentary here. 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=50 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
