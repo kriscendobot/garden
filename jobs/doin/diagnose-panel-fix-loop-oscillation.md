@@ -69,10 +69,10 @@ conclusion is not.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=2 values=92,1 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=signature through=3 values=1,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
