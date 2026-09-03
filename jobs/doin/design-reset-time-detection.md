@@ -27,3 +27,13 @@ Design (garden's own repo) a deterministic way to detect and interpolate quota *
 - `journal/budget/manual-checkpoints/` — the sibling log this design's detector reads.
 - `journal/config/budget-pools` header — the pre-existing, still-unresolved account of the 2026-09-01 event.
 - `journal/jobs/` for `design-manual-quota-calibration`'s current state/outcome (check before drafting, per the note above).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:27:13Z
