@@ -60,6 +60,7 @@ propose the real alternative (e.g. a stable alias/pointer name that itself
 gets rewritten to point at successive immutable hashes) rather than silently
 declining the ask.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
