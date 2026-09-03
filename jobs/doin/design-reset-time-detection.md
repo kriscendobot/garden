@@ -28,6 +28,7 @@ Design (garden's own repo) a deterministic way to detect and interpolate quota *
 - `journal/config/budget-pools` header — the pre-existing, still-unresolved account of the 2026-09-01 event.
 - `journal/jobs/` for `design-manual-quota-calibration`'s current state/outcome (check before drafting, per the note above).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
