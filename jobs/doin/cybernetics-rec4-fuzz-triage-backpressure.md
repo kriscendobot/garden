@@ -54,6 +54,7 @@ land bare on `main2` per CLAUDE.md § Conventions unless a genuine open
 maintainer question surfaces (then the design-with-open-questions PR
 carve-out).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=1126 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
