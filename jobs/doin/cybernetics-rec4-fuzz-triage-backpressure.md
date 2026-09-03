@@ -53,3 +53,13 @@ Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`;
 land bare on `main2` per CLAUDE.md § Conventions unless a genuine open
 maintainer question surfaces (then the design-with-open-questions PR
 carve-out).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:01:04Z
