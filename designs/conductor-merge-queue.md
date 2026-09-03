@@ -64,6 +64,15 @@ moment of approval, authored by the bot on a bot-pushable head branch, is
   already fire on exactly this condition and mint `<slug>-pr<N>-conduct`. In the
   queue model they enqueue instead (mechanically: the queue re-derives membership
   each tick, so "enqueue" is just *the approval record existing* — see § 5).
+- **The botanist enqueues through the conductor too** (decided — kriskowal, PR #72
+  review, 2026-09-03). The Dependabot MERGE-NOW path does **not** keep a separate
+  direct `--dependabot-auto-merge` conduct dispatch outside the queue; the botanist
+  enqueues its Dependabot PRs into the same `(repo, trunk)` queue so they serialize
+  through the single trunk writer with every other change. Because a Dependabot
+  MERGE-NOW PR carries **no maintainer approval signature**, the triviality /
+  approval-preservation gate (§ 3) does not apply to it — it merges on the botanist's
+  auto-merge policy once green — but it still rides the shared serial rebase →
+  shepherd → retcon → merge spine (§ 2) rather than racing the queue's writer.
 - **The queue is per target trunk** — keyed `(repo, trunk)`, e.g.
   `(endojs/endo-but-for-bots, llm)`. This is the singleton unit: a merge queue is
   inherently one writer per branch, and nothing in the garden handles concurrent
@@ -73,8 +82,9 @@ moment of approval, authored by the bot on a bot-pushable head branch, is
 - **Ordering discipline:** stable **topological order** over the stacked-PR
   dependency graph ([pr-dependency-topo-sort](../skills/pr-dependency-topo-sort/SKILL.md)
   over the `journal2` dep registry), so a dependent never merges before its
-  dependency. Ties (independent PRs) break by **approval timestamp** (FIFO), then
-  by `(repo, number)`. A declared dependency **cycle** surfaces to the maintainer
+  dependency. Ties (independent PRs) break by **approval timestamp** (FIFO) —
+  decided (kriskowal, PR #72 review, 2026-09-03): age and sequence of approval is
+  the tie-break — then by `(repo, number)`. A declared dependency **cycle** surfaces to the maintainer
   and the affected members do not merge until it is resolved — the topo-sort skill
   already specifies this.
 
@@ -107,6 +117,17 @@ The per-change worker is the **existing conductor / `ci-wait-merge.sh` spine**,
 extended with the triviality gate (§ 3): it already unfreezes, rebases via
 `safe-rebase.sh`, waits for CI on the exact post-rebase head, and merges `--merge`.
 The only change to the spine is *when it demands a fresh approval*.
+
+**The conductor's operative scope** (decided — kriskowal, PR #72 review,
+2026-09-03): while landing a queued change the conductor is **free to weave, fix,
+shepherd, and retcon**. A **retcon is mandatory before merge** — the fixups a fix or
+shepherd introduced must be collapsed back into their reviewed commits (with the
+`chore: Update yarn.lock` kept as its own commit, [retcon](../skills/retcon/SKILL.md))
+so the merged history matches the reviewed shape rather than carrying loose
+fixup commits — and **CI must finally be green on the retconned head** before the
+merge lands. The mandatory retcon is what makes the lockfile exemption (§ 3) sound:
+the lockfile is regenerated and re-isolated as part of the collapse, so its
+per-rebase churn never rides into a reviewed commit.
 
 ## 3. The triviality boundary (load-bearing)
 
@@ -155,14 +176,18 @@ maintainer's decision:
   inner diff is context-only is still trivial. **Risk of lenient:** a base edit that
   changes the meaning of a line the reviewed hunk depends on rides an old signature.
   **Risk of strict:** more re-reviews of changes that are visually near-identical.
+  **Decided (kriskowal, PR #72 review, 2026-09-03): the strict default stands** —
+  any `!` is nontrivial (the #72 review overrode only the lockfile case below).
 - **Lockfile-only regeneration.** `safe-rebase.sh`'s one auto-recovery drops and
   regenerates `chore: Update yarn.lock`, changing *generated* (unreviewed) content.
   *Option A:* treat the regenerated lockfile as nontrivial (safe, may cost a
   re-approval on a purely mechanical lock bump). *Option B:* exempt a lockfile-only
   delta from the triviality check, since a lockfile is never reviewed line-by-line.
-  **Recommendation:** default to strict / Option A; the queue's whole value is that
-  *most* rebases are all-`=` and pay no re-review, so the conservative defaults cost
-  little while keeping the invariant airtight. Present both; the maintainer picks.
+  **Decided (kriskowal, PR #72 review, 2026-09-03): Option B — lockfile
+  regeneration is exempt.** A rebase whose only content change is a regenerated
+  `yarn.lock` rides the old approval; the generated lockfile is never a re-review
+  trigger. This composes with the conductor's mandatory pre-merge retcon (§ 2),
+  which regenerates and re-collapses the lockfile into its own commit anyway.
 
 ## 4. The return path (bounded, and legible)
 
@@ -194,6 +219,15 @@ A nontrivial rebase hands back on a defined cycle:
   (`merge-queue/<repo>/<pr>/rereview-count`, monotonic journal state) drives this and
   a maintainer alert ("returned N times — pin, split, or hold"), so a pathological
   change escalates to a human decision instead of spinning.
+
+**Per-PR run-time cap** (decided — kriskowal, PR #72 review, 2026-09-03): a
+conductor run for a **single PR** must not exceed **half an hour** (overridable via
+journal config, e.g. `merge-queue/<repo>/conduct-timeout`). If a run exceeds the cap
+or otherwise **fails**, the conductor **returns the PR to review and alerts the
+maintainer** — it steps the change aside (§ 2) and does not hold the queue head. This
+is the wall-clock backstop under the return-loop bounds above: a change that cannot be
+landed within the cap stops consuming a slot and becomes a human decision rather than
+an open-ended merge attempt.
 
 ## 5. Relationship to what exists
 
@@ -265,20 +299,32 @@ desync (the sole exceptions — the monotonic re-review counter and a frozen-bas
   range-diff gate, the exit-code meaning, the leader-only singleton discipline) that
   a builder implements from.
 
-## Open questions
+## Resolved decisions (kriskowal, PR #72 review, 2026-09-03)
 
-- The **trivial/nontrivial policy boundary** (strict all-`=` vs context-only-`!`
-  tolerance; lockfile-regeneration exempt or not) is the maintainer's call — § 3
-  presents both with their risk and recommends the strict defaults, but does not
-  decide it.
-- **Re-review return bound:** is pin-the-base-after-two-returns the right threshold,
-  and should repeated returns auto-pin a frozen base or only alert the maintainer?
-- **Tie-break within a topo rank:** approval-timestamp FIFO (proposed) vs
-  `(repo, number)` — does the maintainer want oldest-approved-first, or a stable
-  numeric order?
-- Should the daemon **also** enqueue the botanist Dependabot MERGE-NOW path, or does
-  that keep its own direct `--dependabot-auto-merge` conduct dispatch outside the
-  queue? (It omits only the approval signature, so the triviality gate does not
-  apply to it; leaning: keep it outside the queue.)
+The open questions this design raised were decided by the maintainer in the
+[PR #72 review](https://github.com/kriscendobot/garden/pull/72#pullrequestreview-5098622457).
+Each ruling is folded into the section noted; recorded here as the audit trail.
+
+- **Trivial/nontrivial policy boundary** (§ 3): **lockfile regeneration is exempt**
+  (Option B) — a rebase whose only content change is a regenerated `yarn.lock` rides
+  the old approval. The **strict** default stands for context-only `!` pairings (any
+  `!` is nontrivial); only the lockfile case was relaxed.
+- **Conductor operative scope** (§ 2): the conductor is **free to weave, fix,
+  shepherd, and retcon**; a **retcon is mandatory before merge** so fixups are
+  collapsed into their reviewed commits, and **CI must finally be green** on the
+  retconned head before the merge lands.
+- **Per-PR run-time cap** (§ 4): a conductor run for a single PR **must not exceed
+  half an hour** (journal-configurable); on failure or timeout it **returns the PR to
+  review and alerts the maintainer** rather than holding the queue head.
+- **Re-review return bound** (§ 4): the wall-clock cap above is the backstop; the
+  pin-after-two-returns threshold + re-review counter + maintainer alert stand as
+  designed. Repeated returns auto-pin a frozen base *and* alert.
+- **Tie-break within a topo rank** (§ 1): **approval-timestamp FIFO** — age and
+  sequence of approval — is the tie-break (oldest-approved-first), then `(repo,
+  number)`.
+- **Botanist Dependabot path** (§ 1): the **botanist enqueues through the conductor**
+  — no separate out-of-queue `--dependabot-auto-merge` dispatch. Dependabot MERGE-NOW
+  PRs serialize through the queue but skip the approval-preservation gate (they carry
+  no maintainer signature), merging on the botanist's auto-merge policy once green.
 </content>
 </invoke>
