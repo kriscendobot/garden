@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot rsvp > Let's advance and pin the merge base to current llm branch with hash and refresh. In particular, I want to expand the scope of this design to cover implementation in both the shim, ramifications for compartment mapper, and also the new IronHorse engine. We’
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T20:28:51Z
