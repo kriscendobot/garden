@@ -45,10 +45,10 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-elapsed-constancy: 1 -->
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=3 values=232 -->
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-transient-elapsed: kind=signature through=4 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
