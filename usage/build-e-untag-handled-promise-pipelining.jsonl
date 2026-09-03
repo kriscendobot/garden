@@ -2,3 +2,4 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":2,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-09-02T20:17:02Z","base":"build-e-untag-handled-promise-pipelining","host":"endolin-garden2-5bcdff64","outcome":"requeue","provider":"anthropic"}
 {"source":"none","ts":"2026-09-03T00:03:05Z","base":"build-e-untag-handled-promise-pipelining","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":45,"provider":"local"}
 {"source":"none","ts":"2026-09-03T00:18:36Z","base":"build-e-untag-handled-promise-pipelining","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":104,"provider":"local"}
+{"source":"none","ts":"2026-09-03T00:28:56Z","base":"build-e-untag-handled-promise-pipelining","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":133,"provider":"local"}
