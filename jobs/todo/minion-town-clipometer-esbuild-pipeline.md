@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-clipometer-esbuild-orchestration
-priority: normal
-posted_by: producer
-posted_at: 2026-09-03T06:51:54Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-03T06:55:03Z cleared=none -->
 
 ---
 tier: mentor
