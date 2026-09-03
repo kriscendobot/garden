@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-03T00:45:42Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-03T00:45:42Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -95,26 +113,3 @@ which may already be stale. This mirrors the same pattern already used
 elsewhere this session for master-targeted work on this repo. This job
 lands the PR; ferrying it upstream to the real `endojs/endo` afterward is a
 separate, maintainer-gated boatman job, not part of this one.
-
-
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=4 values=138,67 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-03T00:36:28Z
