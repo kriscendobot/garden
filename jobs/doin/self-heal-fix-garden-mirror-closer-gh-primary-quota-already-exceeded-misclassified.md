@@ -14,6 +14,7 @@ Two defects follow, fix both:
 Other `gh`-driven services on this host (ci-watcher, the comment/mention watchers) share these two helpers and were failing the same way during the window, so fix 1 is fleet-wide, not mirror-closer-specific.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
