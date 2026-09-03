@@ -61,10 +61,10 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=188 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=188,196 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
