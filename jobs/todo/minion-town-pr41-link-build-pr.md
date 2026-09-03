@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: minion-town-pr41-git-remote-build
-priority: normal
 role: proxy
-posted_by: kriscendobot-minion.town-pr41-dadbe275
-posted_at: 2026-09-03T21:29:07Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-03T21:51:09Z cleared=none -->
 
 ---
 tier: mentor
