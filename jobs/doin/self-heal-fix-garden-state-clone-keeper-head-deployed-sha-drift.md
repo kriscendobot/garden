@@ -10,3 +10,13 @@ Signature: root HEAD is at `252205765d`, but `.garden-state/deploy/deployed-sha`
 Root cause in `scripts/jobs/root-repo-guard.sh`'s `guard_head()` (invariant B, ~line 234): it treats HEAD as healthy whenever it is `detached AND an ancestor of origin/main2` — it never compares HEAD against `deployed_sha()`. `252205765d` satisfies that check (it genuinely is an older main2 ancestor), so the guard has never flagged or repaired this drift; there is no `root-repo-head-repaired`/`-deferred` alert for this host despite the tree being ~42 commits stale relative to what was deployed and what the live systemd units expect.
 
 Fix: tighten `guard_head()` so a detached HEAD that is a main2 ancestor but does NOT equal the current `deployed_sha()` (and is not on a draining deploy) is also treated as drift — re-detach to `deployed_sha()` (same repair path already used for the branch-drift case, backing up the pre-repair HEAD to `root-guard-backup/<ts>` as it does today) and alert. Add a case to `scripts/jobs/test/root-repo-guard-test.sh` for "HEAD detached at a valid-but-stale main2 ancestor, not the deployed sha" to lock in the repair. As immediate remediation this host's root also needs re-advancing to the current deployed sha (or a fresh `deploy-garden.sh` run) so the tree matches the already-rendered units.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T22:26:25Z
