@@ -71,6 +71,7 @@ Keep the PR a DRAFT; the design gauntlet/panel already running on #1102 owns the
 downstream review. Implementation stays out of scope — this is a design-only
 revision.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
