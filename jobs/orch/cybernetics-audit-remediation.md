@@ -1,4 +1,5 @@
 ---
+child-cybernetics-rec5-inode-loop-host: endolin-garden2-5bcdff64
 order: parallel
 children: cybernetics-rec123-budget-loop cybernetics-rec4-fuzz-triage-backpressure cybernetics-rec5-inode-loop cybernetics-rec7-frontmatter-validation cybernetics-rec8-scheduler-admission cybernetics-rec9-inbox-coalescing cybernetics-rec10-deploy-sensor-alert
 on-child-failure: halt
