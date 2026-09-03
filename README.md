@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T21:56:04Z_
+_As of 2026-09-03T22:05:33Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24m)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 29m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 2d)
@@ -2904,7 +2904,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr17-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #17
 - [`kriscendobot-minion.town-pr41-dadbe275`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-dadbe275.md) — attention directive on kriscendobot/minion.town PR #41
 - [`minion-town-clip-formula-id-origin-gc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-formula-id-origin-gc.md) — The reported concern
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #84
+- [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #84
 - [`minion-town-formula-graph-content-gc-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-formula-graph-content-gc-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #83
 - [`minion-town-guest-reminders-capability-experiment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment.md) — Experimentally inject an @reminders capability into new minion.town guests, v...
 - [`minion-town-pr17-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr17-conduct.md) — ---
@@ -2921,13 +2921,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260903-140507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260903-140507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260903-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260903-163507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6823)
+### tada (6824)
+- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-1.md) — Cost
 - [`xs2rust-endor-press-20260903-210515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-210515.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260903-21...
 - [`xs2rust-endor-press-20260903-200506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-200506.md) — Ironhorse press — assessment (dispatch xs2rust-endor-press-20260903-200506)
 - [`xs2rust-endor-press-20260903-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-185006.md) — Ironhorse press — assessment (dispatch xs2rust-endor-press-20260903-185006, r...
 - [`xs2rust-endor-press-20260903-115005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-115005.md) — Front 1 — Fixture-parity walker campaign
-- [`xs2rust-endor-press-20260903-175006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-175006.md) — Ironhorse press — assessment (dispatch xs2rust-endor-press-20260903-175006, r...
-- … and 6818 more
+- … and 6819 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
