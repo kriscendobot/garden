@@ -55,3 +55,13 @@ The design must specify, at minimum:
 3. A GC design with a concrete test plan (fakes) and a production ad hoc validation plan (dry-run against the real accumulated store), per the maintainer's explicit ask.
 4. If a real code gap is found on the identity side, propose (and, time permitting, implement) the fix in this same PR or a clearly-named follow-on `build` job — say which, and why, in the completion report.
 5. If GC implementation is scoped as a follow-on rather than landed in this job, the design must be complete enough that a later `build` job can implement it without further clarification (role norm: "implementable by a future builder without further clarification, OR the report flags the unresolved questions that block implementation").
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T06:19:40Z
