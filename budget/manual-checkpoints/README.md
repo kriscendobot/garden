@@ -74,3 +74,23 @@ different workload mixes, should let a future pass fit something better than a
 constant ratio (e.g. separate cache-read/cache-write coefficients) instead of
 re-deriving one brittle point estimate each time. That fitting work itself is
 not done here; see the follow-up job posted alongside this log.
+
+## A confound discovered 2026-09-03T21:31Z: a temporary plan-wide boost
+
+The 5th checkpoint (2026-09-03T21:31Z, the first sourced from an actual page
+HTML dump rather than a verbal report) surfaced a banner on the dashboard
+itself: *"Your limits are temporarily boosted. Your weekly Claude Code limit
+is 50% higher through September 13."* **Start time unknown** — the page names
+only the end date. If this boost only took effect partway through today, it
+alone could account for much or all of the ~3x spread described above,
+independent of (or on top of) the cache_read theory: any checkpoint taken
+*after* the boost started would show a genuinely higher true cap than one
+taken *before* it, with no measurement error involved at all. This is now the
+leading candidate explanation and should be checked before assuming a
+cache-read-weighting fix is the right model. Any future fitting pass MUST
+either confirm the boost was constant across all of today's checkpoints (in
+which case it doesn't explain the spread) or bound when it started (in which
+case pre- and post-boost checkpoints need separate ratios, and the ratio in
+effect right now will itself drop by roughly a third around 2026-09-13 when
+the boost expires — do not extrapolate today's calibration past that date
+without accounting for it).
