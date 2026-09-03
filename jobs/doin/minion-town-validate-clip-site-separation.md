@@ -26,3 +26,13 @@ Empirically validate, against the **live production** `minion.town` deployment, 
 ## Deliverable
 
 A completion report with the concrete evidence (hashes/URLs/timestamps/transcript) and, if clean, the doc-update commit reference. If a real gap is found, the completion report names it precisely and points to the follow-up job you opened for it — do not attempt the fix in this job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T06:26:45Z
