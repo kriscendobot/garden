@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T22:36:04Z_
+_As of 2026-09-03T23:24:20Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 56m)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5h)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 1h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 6h)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 2d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 2d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 2d)
@@ -2835,6 +2835,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 2bf8803996bd70d17c81abff3c16d127bbc89bb5 is 64 commit(s) behind origin/main2 (3cfbeb5ac433f64679608b13575d04962401a697) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
+
+- `watchdog-self-heal-garden-state-clone-keeper` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-state-clone-keeper.md)
+
+> self-heal: garden-state-clone-keeper exited rc=127 with no scoped fix. Capture: 0a32b360dd467b81b2e8634e26bb5dc955b62d17 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0a32b360dd467b81b2e8634e26bb5dc955b62d17). Diagnosis: ## Diagnosis
+>
+> This is a **repeat occurrence of an already-diagnosed issue**, not a new bug. `garden-state-clone-keeper` exits 127 because its `ExecStart` (`/home/kris/garden/scripts/jobs/self-heal-run.sh garden-state-clone-keeper -- /home/kris/garden/scripts/jobs/state-clone-keeper.sh`) points at a script that doesn't exist in this host's deployed root checkout — HEAD is pinned at `252205765d`, which predates the commit (`830a4b299b`) that introduced `state-clone-keeper.sh` at all. The rendered systemd unit (`~/.config/systemd/user/garden-state-clone-keeper.service`) was installed from a *later* checkout state than what's currently detached at `$GARDEN_ROOT`, so the unit and the tree are skewed.
+>
+> I confirmed the exact same signature was caught and fixed **52 minutes ago** by job `self-he
 
 
 ## Spend & quota
