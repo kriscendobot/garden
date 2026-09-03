@@ -42,11 +42,11 @@ Never state in your report that a peer did work you did not verify.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=2,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
