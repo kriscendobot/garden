@@ -29,6 +29,7 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 ----- issue body excerpt (untrusted, truncated) -----
 Please post a scholar job to ingest https://www.thestack.technology/cedar-the-access-control-building-block-thats-perfectly-timed-for-ai-agents/ and report back here on findings relevant to minion.town and Endo. 
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
