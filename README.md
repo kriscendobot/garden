@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T00:41:40Z_
+_As of 2026-09-03T00:46:19Z_
 
 ## Latest
 
@@ -283,6 +283,113 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > direct commits where pre-deploy review isn't needed; use your judgment on
 > whether this specific copy change warrants review given it's user-facing
 > product text, not build/config.
+
+- `doomed-build-e-untag-handled-promise-pipelining-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-e-untag-handled-promise-pipelining-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/build-e-untag-handled-promise-pipelining; it stays HELD until a human promotes it
+> (promote-plan.sh build-e-untag-handled-promise-pipelining) or removes it, so nothing is lost.
+> Original job base: build-e-untag-handled-promise-pipelining
+>
+> --- original job body ---
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> Build the remaining pieces needed for a pipelined `E.untag` /
+> `HandledPromise.untag`, based on upstream `endojs/endo`'s `master` (not the
+> fork's `llm` trunk — this is upstream-bound OCapN protocol work).
+>
+> ## What already exists (do not re-derive; verify against current master
+> ## rather than trusting these line numbers, which may have drifted)
+>
+> - The OCapN spec accepted `op:untag` as settled, not a live proposal:
+>   [https://github.com/ocapn/ocapn/pull/161](https://github.com/ocapn/ocapn/pull/161) and the follow-up spec-bug fix
+>   [https://github.com/ocapn/ocapn/pull/245](https://github.com/ocapn/ocapn/pull/245) are both merged.
+> - `endojs/endo` already has full **receive-side** wire support, merged via
+>   [https://github.com/endojs/endo/pull/3013](https://github.com/endojs/endo/pull/3013) ("OCapN: improve spec
+>   conformance"):
+>   - `packages/ocapn/src/codecs/operations.js` — `OpUntagCodec`, encoding/
+>     decoding `op:untag` on the wire.
+>   - `packages/ocapn/src/client/ocapn.js` — an `'op:untag'` handler (around
+>     line 893 as of this writing) that validates pass-style, checks the tag,
+>     and resolves the untagged value for an *incoming* untag request.
+>   - That same PR's body says explicitly: "needs means of sending
+>     `op:untag`" — the gap this job closes.
+>
+> ## What's missing (the actual "remaining needs")
+>
+> Three sites, following the exact pattern the codebase already uses for
+> `get`/`applyMethod`/`applyFunction`:
+>
+> 1. **`packages/eventual-send/src/handled-promise.js`** — `HandledPromise`
+>    has no `untag` trap today. Its trap surface (as of this writing) is
+>    `get`, `applyFunction`, `applyFunctionSendOnly`, `applyMethod`,
+>    `applyMethodSendOnly`, each with: (a) a `HandledPromise.<trap>(...)`
+>    static forwarding method around line 400-435, (b) participation in the
+>    internal `handle(target, op, args, returnedP)` dispatcher and its
+>    trap-composition fallback logic (e.g. a missing `applyMethod` is composed
+>    from `get` + `applyFunction` — see the composition block around line
+>    150-180), and (c) a listing in the `Handler` JSDoc typedef around line
+>    598-640. Add `untag` as a new trap through all three of these — it's
+>    closer in shape to `get` (a single value-producing dereference with no
+>    natural "SendOnly" variant) than to `applyMethod`; judge for yourself
+>    whether a `untagSendOnly` genuinely makes sense here or whether that's
+>    over-generalizing, and say which you picked and why.
+>    **This is the part that makes it pipelined**: correctly wiring into
+>    `handle()`'s existing machinery is what lets `E.untag(p)` work on a
+>    *promise* for a tagged value, not just an already-resolved one — the
+>    same way `E(p).method()` already pipelines through an unresolved `p`.
+>    Don't hand-roll a separate resolve-then-untag path that bypasses this;
+>    that would defeat the actual point of this job.
+> 2. **`packages/eventual-send/src/E.js`** — add the `E.untag(x)` sugar,
+>    calling through to `HandledPromise.untag`, mirroring how the existing
+>    `get` case is exposed (search the file for the current shape rather than
+>    assuming a specific line).
+> 3. **`packages/ocapn/src/client/ocapn.js`** — the *send*-side
+>    `RemoteKitHandler` built by `makeHandlerForRemoteReference` (around line
+>    302-447) implements `applyMethod`/`applyMethodSendOnly` (around line
+>    421-436) but has no `untag` trap — this is the piece that actually
+>    constructs and sends an outbound `op:untag` OCapN message for a remote
+>    tagged-value reference, closing the loop with the already-existing
+>    receive-side handler. Mirror `applyMethod`'s shape for wiring an
+>    `answerPosition`/promise resolution.
+>
+> ## Tests and scope
+>
+> Mirror the existing `get`/`applyMethod` test coverage in
+> `packages/eventual-send/test/` and `packages/ocapn/test/` for the new trap:
+> unit coverage on `HandledPromise.untag` (including a genuinely pipelined
+> case — untag a promise before it settles, not only a resolved presence),
+> and an end-to-end OCapN test sending a real `op:untag` over the loopback
+> client and asserting the untagged value comes back correctly, alongside a
+> rejection case (untagging a non-tagged value, and a tag mismatch) exercising
+> the existing receive-side error paths in `packages/ocapn/src/client/ocapn.js`.
+> A changeset is required per the packages' pre-1.0 convention (see
+> `endojs/endo-but-for-bots`#990's "Breaking change" section for the shape,
+> though this addition is unlikely to itself be breaking — judge that on its
+> own merits, don't assume).
+>
+> This job's own scope is `E.untag`/`HandledPromise.untag` plus the send-side
+> OCapN wiring above — it does **not** extend to the `op:get`/`op:index`
+> question that [https://github.com/endojs/endo-but-for-bots/pull/990](https://github.com/endojs/endo-but-for-bots/pull/990)
+> deliberately declined to promote to a distinct verb; that decision stands
+> and is out of scope here.
+>
+> ## Target and base
+>
+> Land this on `endojs/endo-but-for-bots`, based on a frozen `master-<sha>`
+> snapshot of upstream `endojs/endo`'s live `master` (per
+> `skills/frozen-base-branch/SKILL.md` and the "no live `master` trunk on this
+> fork" exception in `roles/conductor/AGENT.md`) — fetch upstream master's
+> current HEAD at build time rather than trusting any SHA from this brief,
+> which may already be stale. This mirrors the same pattern already used
+> elsewhere this session for master-targeted work on this repo. This job
+> lands the PR; ferrying it upstream to the real `endojs/endo` afterward is a
+> separate, maintainer-gated boatman job, not part of this one.
 
 - `doomed-build-kebab-case-lint-wildcard-test262-gauntlet-clean-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-kebab-case-lint-wildcard-test262-gauntlet-clean-elapsed-constancy.md)
 
@@ -3186,7 +3293,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $1334.91 _(notional, rate-card)_ | 20% of 385.0M (ok) |
+| Claude | 76.3M | $1348.97 _(notional, rate-card)_ | 20% of 385.0M (ok) |
 | Codex | 42.9M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -3215,8 +3322,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260902-215005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260902-215005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260902-225005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260902-225005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### doin (90)
-- [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-e-untag-handled-promise-pipelining.md) — What already exists (do not re-derive; verify against current master
+### doin (89)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #79
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
@@ -3319,6 +3425,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### awaiting go-ahead (maintainer authorization)
 - [`amend-invitation-oauth-mcp-prerequisite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/amend-invitation-oauth-mcp-prerequisite.md) — _normal_ · What's actually true today versus what's designed for later — verify,
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
+- [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-e-untag-handled-promise-pipelining.md) — _normal_ · What already exists (do not re-derive; verify against current master
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`build-kebab-case-lint-wildcard-test262-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #762
