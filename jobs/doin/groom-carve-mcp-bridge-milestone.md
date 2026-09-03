@@ -140,3 +140,13 @@ State plainly: which milestone you carved (existing-reworded vs.
 newly-inserted, and why), the PR you opened against `endo-but-for-bots` with
 its URL, the journal-side files you touched, and whether you verified the
 bulletin re-rendered with the new priorities on top.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:29:01Z
