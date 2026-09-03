@@ -41,3 +41,13 @@ incident-proven (§ 6); the raw path is what bypasses them.
 Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 (message-bus tests must pass); land bare on `main2` per CLAUDE.md
 § Conventions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:23:07Z
