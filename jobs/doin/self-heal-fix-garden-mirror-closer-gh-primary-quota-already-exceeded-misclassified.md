@@ -12,3 +12,13 @@ Two defects follow, fix both:
 2. **Tick-level degrade (scripts/jobs/mirror-closer.sh:149-213).** Even correctly classified, the closer counts a quota refusal as a plain per-mapping failure and exits 1 (line 210-213), failing the unit and spawning an LLM self-heal responder on every tick for the entire ~1h quota window. Honor the contract common.sh:3527-3529 already states ("let the caller freeze/degrade the tick"): track quota-refused mappings separately from genuine failures and, when every failure this tick was a primary-quota refusal, log a loud WARN and exit 0 — nothing was mis-stamped (no `closed_at` is written on a failed read, so the next tick re-handles), so this is a deferred tick, not a lost close. A tick with any non-quota failure must keep exiting 1 as it does now. Propagation needs a channel the current code lacks: scripts/jobs/handlers/mirror-pr-state-gh.sh uses `die` (rc 1, common.sh:410) for every failure, so the closer cannot tell quota from 404 by exit code — have the handler exit a distinct reserved code (e.g. 75/EX_TEMPFAIL) when `is_gh_primary_rate_limit_text` matches the failure, and branch on it at both handler call sites (mirror-closer.sh:162 upstream read and :178 mirror read). Precedent for the degrade shape: `fetch_primary_quota` in scripts/jobs/handlers/comment-source-gh.sh:221. Preserve "never guess a state" throughout — a quota-refused mapping is skipped and left unresolved, never assumed open or closed. Extend test/mirror-closer-test.sh with a stub handler returning the quota code to pin exit 0 + unresolved mapping, and a mixed quota-plus-404 tick to pin exit 1.
 
 Other `gh`-driven services on this host (ci-watcher, the comment/mention watchers) share these two helpers and were failing the same way during the window, so fix 1 is fleet-wide, not mirror-closer-specific.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:32:36Z
