@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T00:36:53Z_
+_As of 2026-09-03T00:38:40Z_
 
 ## Latest
 
@@ -3186,13 +3186,12 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.2M | $1329.61 _(notional, rate-card)_ | 20% of 385.0M (ok) |
+| Claude | 74.9M | $1325.64 _(notional, rate-card)_ | 19% of 385.0M (ok) |
 | Codex | 42.9M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (23)
+### todo (22)
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #81
-- [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #79
 - [`cybernetics-rec4-fuzz-triage-backpressure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec4-fuzz-triage-backpressure.md) — ---
 - [`cybernetics-rec7-frontmatter-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec7-frontmatter-validation.md) — ---
 - [`cybernetics-rec8-scheduler-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec8-scheduler-admission.md) — ---
@@ -3218,7 +3217,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (90)
 - [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-e-untag-handled-promise-pipelining.md) — What already exists (do not re-derive; verify against current master
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
-- [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1117
+- [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #79
 - [`build-ocapn-nonce-locator-endo-mechanism`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism.md) — Build the OCapN nonce locator — step 1: the Endo mechanism (both codecs)
 - [`cybernetics-rec123-budget-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec123-budget-loop.md) — ---
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -3307,13 +3306,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`xs2rust-endor-press-20260901-170506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260901-170506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (6727)
+### tada (6728)
+- [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-2.md) — Cost
 - [`cybernetics-rec10-deploy-sensor-alert`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-rec10-deploy-sensor-alert.md) — Completion report
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-fix-5.md) — Completion report
 - [`cybernetics-rec5-inode-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-rec5-inode-loop.md) — Completion report — cybernetics-rec5-inode-loop
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-5.md) — Completion report
-- [`cybernetics-audit-orchestrate-setup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-audit-orchestrate-setup.md) — Orchestration recorded: cybernetics-audit-remediation
-- … and 6722 more
+- … and 6723 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
