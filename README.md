@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T00:28:30Z_
+_As of 2026-09-03T00:29:54Z_
 
 ## Latest
 
@@ -3192,12 +3192,13 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.0M | $1328.06 _(notional, rate-card)_ | 19% of 385.0M (ok) |
+| Claude | 75.1M | $1329.57 _(notional, rate-card)_ | 20% of 385.0M (ok) |
 | Codex | 42.9M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (21)
+### todo (22)
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #81
+- [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #79
 - [`cybernetics-rec123-budget-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec123-budget-loop.md) — ---
 - [`cybernetics-rec4-fuzz-triage-backpressure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec4-fuzz-triage-backpressure.md) — ---
 - [`cybernetics-rec7-frontmatter-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec7-frontmatter-validation.md) — ---
