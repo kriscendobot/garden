@@ -38,6 +38,7 @@ Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 (post-job/post-plan tests must pass); land bare on `main2` per CLAUDE.md
 § Conventions.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
