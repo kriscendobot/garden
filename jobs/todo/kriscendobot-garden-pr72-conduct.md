@@ -40,13 +40,5 @@ Base: main2
 Posted by the review-handler after resolving the merge conflict.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T17:13:16Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T15:11:14Z
+
+<!-- garden-reaped: 1 -->
