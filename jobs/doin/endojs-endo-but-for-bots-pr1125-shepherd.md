@@ -25,6 +25,8 @@ this job was minted from a rollup read at post time.
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 <!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
+<!-- garden-elapsed-constancy: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
