@@ -65,6 +65,25 @@
 # count — a bounded sweep that reported "done" would read as "the host is clean"
 # when it is not.
 #
+# ── Inode-pressure aware (audit rec 5 / § 4.2) ───────────────────────────────
+# The inode-exhaustion class has both a SENSOR (root-repo-guard invariant D,
+# `df -Pi`, alert below 5% free) and this ACTUATOR — but they were unwired: the
+# keeper swept at a fixed hourly rate whether the filesystem was at 99% or 1%
+# free, and a fixed 200-per-tick cap cannot drain a host racing toward zero
+# inodes fast enough (two incidents did exactly that). So the keeper now reads
+# the SAME `df -Pi` free-inode measurement and, below the SAME threshold,
+# TIGHTENS: a shorter idle floor (GARDEN_STATE_CLONE_PRESSURE_MIN_IDLE, still
+# WITHIN the four liveness guards — a live doer, a live unit, a live process, or
+# a fresh journal.lock still keeps a clone), a higher per-tick cap
+# (GARDEN_STATE_CLONE_PRESSURE_MAX_SWEEP), and up to
+# GARDEN_STATE_CLONE_PRESSURE_MAX_ROUNDS re-sweep rounds in one tick so it does
+# not wait an hour for the next timer while inodes run out. And if, after
+# reclaiming everything its guards permit, headroom is STILL below the threshold,
+# it ALERTS the maintainer: the exhaustion is not (only) leaked clones, and this
+# loop cannot recover it alone. The lock-staleness guard keeps the FULL idle
+# floor even under pressure — a fresh journal.lock is a live-peer signal that
+# pressure must not override.
+#
 # USAGE
 #   state-clone-keeper.sh [--dry-run]
 #     --dry-run   report exactly what would be reclaimed, remove nothing.
@@ -73,6 +92,12 @@
 #   GARDEN_STATE_CLONE_MIN_IDLE   seconds a clone must be idle (default 21600)
 #   GARDEN_STATE_CLONE_MAX_SWEEP  max clones reclaimed per tick (default 200)
 #   GARDEN_STATE_CLONE_KINDS      override the swept kinds (testing only)
+#   GARDEN_STATE_CLONE_PRESSURE_MIN_IDLE   idle floor under inode pressure (default 1800)
+#   GARDEN_STATE_CLONE_PRESSURE_MAX_SWEEP  per-tick cap under pressure (default 2000)
+#   GARDEN_STATE_CLONE_PRESSURE_MAX_ROUNDS re-sweep rounds under pressure (default 5)
+#   GARDEN_STATE_CLONE_INODE_PATH          filesystem to measure (default $GARDEN_STATE)
+#   GARDEN_STATE_CLONE_INODE_MIN_FREE_PERCENT  pressure threshold (default: invariant D's 5)
+#   GARDEN_STATE_CLONE_DF_CMD              df command (default: invariant D's df)
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -90,6 +115,19 @@ esac
 : "${GARDEN_STATE_CLONE_MAX_SWEEP:=200}"
 # Closed list. inbox is keyed by job base; the rest by systemd instance id.
 : "${GARDEN_STATE_CLONE_KINDS:=inbox monitors gardeners clerics monks}"
+
+# Inode-pressure knobs (audit rec 5). Below the free-inode threshold the keeper
+# tightens to these. The measurement mirrors root-repo-guard invariant D; the
+# threshold and df command DEFAULT to that guard's own knobs so the two loops read
+# the SAME limit on the SAME filesystem, and the path defaults to $GARDEN_STATE
+# (where the clones this keeper reclaims actually live).
+: "${GARDEN_STATE_CLONE_PRESSURE_MIN_IDLE:=1800}"
+: "${GARDEN_STATE_CLONE_PRESSURE_MAX_SWEEP:=2000}"
+: "${GARDEN_STATE_CLONE_PRESSURE_MAX_ROUNDS:=5}"
+: "${GARDEN_STATE_CLONE_INODE_PATH:=$GARDEN_STATE}"
+: "${GARDEN_STATE_CLONE_DF_CMD:=${GARDEN_ROOT_GUARD_DF_CMD:-df}}"
+: "${GARDEN_STATE_CLONE_INODE_MIN_FREE_PERCENT:=${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT:-5}}"
+INODE_PRESSURE_ALERT_KEY="state-clone-inode-pressure-$GARDEN"
 
 CLONE="${GARDEN_STATE_CLONE_KEEPER_CLONE:-$GARDEN_STATE/state-clone-keeper/journal}"
 
@@ -172,17 +210,39 @@ kind_is_live() {  # kind_is_live <kind> <id>
 
 # --- universal guards ---------------------------------------------------------
 now="$(date +%s)"
+# The idle floor guard #2 reads through EFFECTIVE_MIN_IDLE, which inode-pressure
+# tightening below lowers from GARDEN_STATE_CLONE_MIN_IDLE to the pressure floor.
+# It starts at the standard floor so a non-pressure tick behaves exactly as before.
+EFFECTIVE_MIN_IDLE="$GARDEN_STATE_CLONE_MIN_IDLE"
+EFFECTIVE_MAX_SWEEP="$GARDEN_STATE_CLONE_MAX_SWEEP"
 
 idle_enough() {  # idle_enough <dir>
   local mt; mt="$(stat -c %Y "$1" 2>/dev/null || echo "$now")"
-  [ "$(( now - mt ))" -ge "$GARDEN_STATE_CLONE_MIN_IDLE" ]
+  [ "$(( now - mt ))" -ge "$EFFECTIVE_MIN_IDLE" ]
 }
 
 lock_is_stale() {  # lock_is_stale <clone-dir> — a fresh journal.lock means in-use
+  # Deliberately anchored to the FULL idle floor even under pressure: a fresh
+  # journal.lock is a live-peer signal, and inode pressure must not shorten it into
+  # deleting a clone a peer is mid-operation on.
   local lock="${1}.lock" mt
   [ -e "$lock" ] || return 0
   mt="$(stat -c %Y "$lock" 2>/dev/null || echo "$now")"
   [ "$(( now - mt ))" -ge "$GARDEN_STATE_CLONE_MIN_IDLE" ]
+}
+
+# --- inode-pressure sensor (mirrors root-repo-guard invariant D) --------------
+measure_free_inode_pct() {  # echo free-inode percent (float) on success; rc 1 if unparseable
+  local line total free
+  line="$("$GARDEN_STATE_CLONE_DF_CMD" -Pi -- "$GARDEN_STATE_CLONE_INODE_PATH" 2>/dev/null \
+    | awk 'NR > 1 { l=$0 } END { print l }' || true)"
+  # df -Pi columns: Filesystem Inodes IUsed IFree IUse% Mounted-on
+  read -r _ total _ free _ _ _ <<< "$line"
+  { [[ "${total:-}" =~ ^[0-9]+$ ]] && [ "${total:-0}" -gt 0 ] && [[ "${free:-}" =~ ^[0-9]+$ ]]; } || return 1
+  awk -v f="$free" -v t="$total" 'BEGIN { printf "%.2f", (f * 100) / t }'
+}
+below_inode_threshold() {  # below_inode_threshold <pct>
+  awk -v p="$1" -v m="$GARDEN_STATE_CLONE_INODE_MIN_FREE_PERCENT" 'BEGIN { exit !(p < m) }'
 }
 
 # Snapshot every live process cwd ONCE per tick rather than per candidate: with
@@ -210,34 +270,70 @@ fi
 snapshot_live_cwds
 
 state_abs="$(cd "$GARDEN_STATE" 2>/dev/null && pwd)" || die "no \$GARDEN_STATE at $GARDEN_STATE"
-swept=0; kept=0; deferred=0
 declare -A swept_by_kind=()
 
-for kind in $GARDEN_STATE_CLONE_KINDS; do
-  [ -d "$state_abs/$kind" ] || continue
-  # Fail safe: without systemd we cannot tell a live worker id from a dead one.
-  if [ "$systemd_reachable" != true ] && [ "$kind" != inbox ]; then
-    log "systemd unreachable; skipping unit-keyed kind '$kind' this tick (fail-safe: keeping its clones)"
-    continue
-  fi
-  for clone in "$state_abs/$kind"/*/journal; do
-    [ -d "$clone" ] || continue
-    iddir="$(dirname "$clone")"
-    id="$(basename "$iddir")"
-    if kind_is_live "$kind" "$id"; then kept=$((kept+1)); continue; fi
-    if ! idle_enough "$clone";  then kept=$((kept+1)); continue; fi
-    if ! lock_is_stale "$clone"; then kept=$((kept+1)); continue; fi
-    if has_live_process "$iddir"; then kept=$((kept+1)); continue; fi
-    if [ "$swept" -ge "$GARDEN_STATE_CLONE_MAX_SWEEP" ]; then deferred=$((deferred+1)); continue; fi
-    if [ "$DRY_RUN" = true ]; then
-      log "would reclaim $kind/$id"
-    else
-      state_cleanup "$iddir"
-      [ -e "$iddir" ] && { log "WARN: $kind/$id survived state_cleanup"; kept=$((kept+1)); continue; }
+# One sweep pass over every kind. Sets the per-pass globals swept/kept/deferred and
+# ACCUMULATES into swept_by_kind (so a multi-round pressure sweep sums correctly).
+# Honors EFFECTIVE_MIN_IDLE (via idle_enough) and EFFECTIVE_MAX_SWEEP.
+run_sweep_pass() {
+  local kind clone iddir id
+  swept=0; kept=0; deferred=0
+  for kind in $GARDEN_STATE_CLONE_KINDS; do
+    [ -d "$state_abs/$kind" ] || continue
+    # Fail safe: without systemd we cannot tell a live worker id from a dead one.
+    if [ "$systemd_reachable" != true ] && [ "$kind" != inbox ]; then
+      log "systemd unreachable; skipping unit-keyed kind '$kind' this tick (fail-safe: keeping its clones)"
+      continue
     fi
-    swept=$((swept+1))
-    swept_by_kind[$kind]=$(( ${swept_by_kind[$kind]:-0} + 1 ))
+    for clone in "$state_abs/$kind"/*/journal; do
+      [ -d "$clone" ] || continue
+      iddir="$(dirname "$clone")"
+      id="$(basename "$iddir")"
+      if kind_is_live "$kind" "$id"; then kept=$((kept+1)); continue; fi
+      if ! idle_enough "$clone";  then kept=$((kept+1)); continue; fi
+      if ! lock_is_stale "$clone"; then kept=$((kept+1)); continue; fi
+      if has_live_process "$iddir"; then kept=$((kept+1)); continue; fi
+      if [ "$swept" -ge "$EFFECTIVE_MAX_SWEEP" ]; then deferred=$((deferred+1)); continue; fi
+      if [ "$DRY_RUN" = true ]; then
+        log "would reclaim $kind/$id"
+      else
+        state_cleanup "$iddir"
+        [ -e "$iddir" ] && { log "WARN: $kind/$id survived state_cleanup"; kept=$((kept+1)); continue; }
+      fi
+      swept=$((swept+1))
+      swept_by_kind[$kind]=$(( ${swept_by_kind[$kind]:-0} + 1 ))
+    done
   done
+}
+
+# Sense inode pressure BEFORE the sweep, off the same df -Pi invariant D reads.
+under_pressure=false
+max_rounds=1
+free_pct="$(measure_free_inode_pct || true)"
+if [ -n "$free_pct" ] && below_inode_threshold "$free_pct"; then
+  under_pressure=true
+  EFFECTIVE_MIN_IDLE="$GARDEN_STATE_CLONE_PRESSURE_MIN_IDLE"
+  EFFECTIVE_MAX_SWEEP="$GARDEN_STATE_CLONE_PRESSURE_MAX_SWEEP"
+  max_rounds="$GARDEN_STATE_CLONE_PRESSURE_MAX_ROUNDS"
+  # Dry-run never deletes, so re-sweeping would re-"reclaim" the same clones each
+  # round and misreport; hold it to a single reporting pass.
+  [ "$DRY_RUN" = true ] && max_rounds=1
+  log "INODE PRESSURE: ${free_pct}% free inodes on $GARDEN_STATE_CLONE_INODE_PATH < ${GARDEN_STATE_CLONE_INODE_MIN_FREE_PERCENT}% threshold — tightening (idle floor ${EFFECTIVE_MIN_IDLE}s, cap ${EFFECTIVE_MAX_SWEEP}/tick, up to ${max_rounds} round(s))"
+fi
+
+total_swept=0; rounds=0
+while :; do
+  run_sweep_pass
+  total_swept=$(( total_swept + swept ))
+  rounds=$(( rounds + 1 ))
+  $under_pressure || break
+  [ "$rounds" -ge "$max_rounds" ] && break
+  # Recovered? Re-measure; stop as soon as headroom is back above the threshold.
+  free_pct="$(measure_free_inode_pct || true)"
+  { [ -n "$free_pct" ] && below_inode_threshold "$free_pct"; } || break
+  # Still low: only keep going if the last pass hit the cap (more remains) AND made
+  # progress; otherwise every remaining clone is live and another pass is futile.
+  { [ "$deferred" -gt 0 ] && [ "$swept" -gt 0 ]; } || break
 done
 
 summary=""
@@ -246,10 +342,28 @@ for kind in $GARDEN_STATE_CLONE_KINDS; do
   summary="$summary $kind=${swept_by_kind[$kind]}"
 done
 verb=reclaimed; [ "$DRY_RUN" = true ] && verb="would reclaim"
-log "$verb $swept clone(s)${summary:+ ($summary )}; kept $kept"
+rounds_note=""; $under_pressure && rounds_note=" over $rounds pressure round(s)"
+log "$verb $total_swept clone(s)${summary:+ ($summary )}$rounds_note; last-pass kept $kept"
 # Never a silent cap: a bounded sweep that reported plain success would read as
 # "this host is clean" when it demonstrably is not.
 if [ "$deferred" -gt 0 ]; then
-  log "CAP: $deferred further clone(s) left for the next tick (GARDEN_STATE_CLONE_MAX_SWEEP=$GARDEN_STATE_CLONE_MAX_SWEEP)"
+  log "CAP: $deferred further clone(s) left for the next tick (cap=$EFFECTIVE_MAX_SWEEP)"
+fi
+
+# Close the loop (audit § 4.2): if the keeper was under inode pressure and, after
+# reclaiming everything its guards permit, headroom is STILL below the threshold,
+# the exhaustion is not (only) leaked clones — page a human. Recovery clears it.
+# Skipped under --dry-run (nothing was actually reclaimed, so a re-measure is moot).
+if $under_pressure && [ "$DRY_RUN" != true ]; then
+  free_pct="$(measure_free_inode_pct || true)"
+  if [ -n "$free_pct" ] && below_inode_threshold "$free_pct"; then
+    defclause=""; [ "$deferred" -gt 0 ] && defclause=", with $deferred clone(s) still deferred"
+    alert_maintainer "$INODE_PRESSURE_ALERT_KEY" \
+      "state-clone-keeper reclaimed $total_swept leaked journal clone(s) over $rounds tightened round(s) on $GARDEN, but free-inode headroom on $GARDEN_STATE_CLONE_INODE_PATH is STILL ${free_pct}% (< ${GARDEN_STATE_CLONE_INODE_MIN_FREE_PERCENT}% threshold)${defclause}. The keeper reclaimed everything its four liveness guards permit and could not restore headroom, so this is NOT (only) leaked clones: the remaining clones are live, or another consumer is exhausting inodes. Investigate 'df -Pi $GARDEN_STATE_CLONE_INODE_PATH' by hand — this loop cannot recover it. (host=$GARDEN)"
+    log "INODE-PRESSURE-UNRECOVERED: swept $total_swept, still ${free_pct}% free (< ${GARDEN_STATE_CLONE_INODE_MIN_FREE_PERCENT}%)"
+  else
+    alert_maintainer_clear "$INODE_PRESSURE_ALERT_KEY" \
+      "state-clone-keeper restored inode headroom on $GARDEN_STATE_CLONE_INODE_PATH to ${free_pct:-unknown}% after reclaiming $total_swept clone(s) ($GARDEN)."
+  fi
 fi
 exit 0

@@ -413,6 +413,33 @@ logged "INODE-CHECK-UNKNOWN" && ok "malformed df output is classified unknown wi
 export TEST_DF_MODE=healthy
 
 # ============================================================================
+hr; echo "CASE 19 — BLIND df: a single unknown is quiet, N consecutive unknowns ALERT, a clean parse clears (audit § 2.7)"; hr
+fresh_root
+rm -f "$GARDEN_STATE/root-repo-guard/inode-unknown-count"
+export GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT=3
+export TEST_DF_MODE=malformed
+run_guard_log
+! alerted "root-repo-inode-check-unknown-testhost" && ok "1st unparseable df is a quiet transient (no alert)" || bad "alerted on the first unknown"
+run_guard_log
+! alerted "root-repo-inode-check-unknown-testhost" && ok "2nd unparseable df still quiet (below the streak threshold)" || bad "alerted on the second unknown"
+run_guard_log
+alerted "root-repo-inode-check-unknown-testhost" && ok "3rd consecutive unknown crosses the threshold and pages a human" || bad "no alert after the threshold of consecutive unknowns"
+grep -q "BLIND" "$ALERTS" && ok "blind-sensor alert explains the detector is blind" || bad "blind-sensor alert omits the BLIND explanation"
+# A clean parse ends the streak and closes the episode.
+export TEST_DF_MODE=healthy
+run_guard
+{ alerted "root-repo-inode-check-unknown-testhost" && grep -q "RECOVERED:" "$ALERTS"; } \
+  && ok "a clean df parse clears the blindness alert episode" || bad "blindness alert not cleared after a clean parse"
+[ ! -f "$GARDEN_STATE/root-repo-guard/inode-unknown-count" ] && ok "consecutive-unknown streak counter reset on a clean parse" || bad "streak counter survived a clean parse"
+# The streak restarts from zero: one unknown after recovery is quiet again.
+export TEST_DF_MODE=malformed
+run_guard_log
+! alerted "root-repo-inode-check-unknown-testhost" && ok "streak restarts from zero (one unknown after recovery is quiet)" || bad "a single post-recovery unknown alerted (streak not reset)"
+unset GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT
+rm -f "$GARDEN_STATE/root-repo-guard/inode-unknown-count"
+export TEST_DF_MODE=healthy
+
+# ============================================================================
 hr; echo "RESULT"; hr
 echo "  PASS=$PASS FAIL=$FAIL"
 rm -rf "$TR"

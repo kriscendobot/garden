@@ -100,6 +100,11 @@
 #      recovery. This guard deliberately does NOT delete anything: deciding whether a
 #      worktree is stale requires job-board + worktree-registration review, and a
 #      timer must never infer that from a directory name or age alone.
+#      A `df -Pi` line the guard cannot parse is a BLIND sensor, not a healthy host:
+#      it does not guess a headroom, but neither does it stay silent forever — it
+#      counts CONSECUTIVE unparseable reads and alerts once they cross
+#      GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT (audit § 2.7: a silent detector is
+#      indistinguishable from a missing one). The streak resets on the first clean parse.
 #
 # Plus a STALLED-DEPLOY watch: when the recorded deployed sha lags origin/main2 for
 # longer than GARDEN_DEPLOY_STALL_DAYS, alert ONCE per breakage window (the incident
@@ -157,6 +162,16 @@ OBJSTORE_ALERTED="$GUARD_STATE/objstore-alerted"
 : "${GARDEN_ROOT_GUARD_INODE_PATH:=$GARDEN_ROOT}"
 : "${GARDEN_ROOT_GUARD_DF_CMD:=df}"
 INODE_ALERT_KEY="root-repo-low-inodes-$GARDEN"
+# A `df -Pi` line this guard cannot parse leaves it BLIND to inode headroom — and a
+# silent detector is indistinguishable from a missing one (audit § 2.7). One
+# unparseable read is a transient hiccup and stays quiet; GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT
+# CONSECUTIVE unparseable reads mean the sensor is durably blind on exactly the axis
+# that twice let a host reach near-zero free inodes, so it pages a human. The streak
+# counter lives under GUARD_STATE (so a reset/deploy clears it) and is zeroed the
+# moment a df line parses cleanly again.
+: "${GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT:=3}"
+INODE_UNKNOWN_ALERT_KEY="root-repo-inode-check-unknown-$GARDEN"
+INODE_UNKNOWN_COUNT="$GUARD_STATE/inode-unknown-count"
 
 # --- authorized gc-lock escalation (the sysop `maintain` op) ------------------
 # By DEFAULT the guard never breaks a `gc.pid` lock: a lock that MIGHT belong to a live
@@ -586,9 +601,29 @@ guard_inode_headroom() {
   read -r fs total _used free _usep mount _ <<< "$line"
   if [[ ! "${total:-}" =~ ^[0-9]+$ ]] || [ "${total:-0}" -eq 0 ] \
      || [[ ! "${free:-}" =~ ^[0-9]+$ ]]; then
-    log "INODE-CHECK-UNKNOWN: could not classify inode headroom for $path from 'df -Pi' output; leaving alert state unchanged"
+    # A df we cannot parse is a BLIND sensor, not a healthy one. Do not guess a
+    # headroom from it — but do not stay silent forever either: count consecutive
+    # unknowns and alert once they cross the threshold (a durably blind detector on
+    # the inode axis is precisely the failure that suppressed its own alarm before).
+    mkdir -p "$GUARD_STATE" 2>/dev/null || true
+    local n
+    n="$(cat "$INODE_UNKNOWN_COUNT" 2>/dev/null || echo 0)"; [[ "$n" =~ ^[0-9]+$ ]] || n=0
+    n=$(( n + 1 )); printf '%s\n' "$n" > "$INODE_UNKNOWN_COUNT" 2>/dev/null || true
+    if [ "$n" -ge "$GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT" ]; then
+      local msg="host inode-headroom detector is BLIND: 'df -Pi $path' has returned output this guard cannot parse for $n consecutive tick(s) (>= the ${GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT}-tick threshold). While the sensor cannot read free-inode headroom it cannot warn before inode exhaustion — the failure mode that twice wedged a host at near-zero free inodes — so this silent detector is now indistinguishable from a missing one. Run 'df -Pi $path' by hand and check why its output changed shape (a df variant, a wrapper on \$GARDEN_ROOT_GUARD_DF_CMD, or the mount itself failing). (host=$GARDEN)"
+      log "INODE-CHECK-UNKNOWN: $msg"
+      alert_maintainer "$INODE_UNKNOWN_ALERT_KEY" "$msg"
+    else
+      log "INODE-CHECK-UNKNOWN: could not classify inode headroom for $path from 'df -Pi' output ($n/$GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT consecutive); leaving alert state unchanged"
+    fi
     return 1
   fi
+
+  # A clean parse means the detector is working: end any blindness streak and close its
+  # alert episode before classifying headroom below.
+  rm -f "$INODE_UNKNOWN_COUNT" 2>/dev/null || true
+  alert_maintainer_clear "$INODE_UNKNOWN_ALERT_KEY" \
+    "host inode-headroom detector for $path is readable again on $GARDEN; 'df -Pi' output parses."
 
   pct="$(awk -v f="$free" -v t="$total" 'BEGIN { printf "%.2f", (f * 100) / t }')"
   if awk -v p="$pct" -v minimum="$GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT" \
