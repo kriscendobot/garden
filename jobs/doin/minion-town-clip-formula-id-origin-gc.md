@@ -56,10 +56,10 @@ The design must specify, at minimum:
 4. If a real code gap is found on the identity side, propose (and, time permitting, implement) the fix in this same PR or a clearly-named follow-on `build` job — say which, and why, in the completion report.
 5. If GC implementation is scoped as a follow-on rather than landed in this job, the design must be complete enough that a later `build` job can implement it without further clarification (role norm: "implementable by a future builder without further clarification, OR the report flags the unresolved questions that block implementation").
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
