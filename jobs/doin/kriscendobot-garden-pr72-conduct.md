@@ -40,7 +40,7 @@ Base: main2
 Posted by the review-handler after resolving the merge conflict.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T17:13:16Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
