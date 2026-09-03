@@ -66,10 +66,10 @@ the fix is small; otherwise propose it.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=4,37 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=37,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
