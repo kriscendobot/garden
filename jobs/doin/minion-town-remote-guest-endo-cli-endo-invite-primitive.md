@@ -13,3 +13,13 @@ Hard gate — do NOT proceed past step 1: the design states sections 4–8 (the 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T16:30:27Z
