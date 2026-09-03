@@ -70,7 +70,7 @@ the fix is small; otherwise propose it.
 <!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=signature through=2 values=37,2 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-03T17:25:12Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
