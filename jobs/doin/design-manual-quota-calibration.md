@@ -30,3 +30,13 @@ The manual-checkpoint log's first day of data already surfaced something the aut
 - `designs/recurring-budget-calibration.md`
 - `journal/config/budget-pools` (current state, including today's manual recalibration and its own history of ad hoc single-point calibrations in its header comments)
 - `scripts/jobs/claim-job.sh` (`pool_admits` — the actual admission gate a bad cap silently starves, as happened today: 0 claims fleet-wide on `endolin-garden-ece02cb4` for 15+ minutes against a stale cap)
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:07:22Z
