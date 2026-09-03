@@ -37,10 +37,10 @@ This is the per-project analogue of the garden's own `journal/plan/` + `velocity
 - `journal/jobs/tada/groom-*`, `journal/jobs/tada/ebfb-llm-designs-groom-*` (the live, currently-unowned convention)
 - `endojs/endo-but-for-bots` `designs/README.md` (the concrete target document)
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=2,3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
