@@ -4927,3 +4927,14 @@ Inspect via `git -C journal cat-file -p 4e9b2366a936303b7a39460212836ecc2a32a957
 
 Inspect via `git -C journal cat-file -p d2131abd9a6f04fb0d749231825268b0dd70fda2` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/d2131abd9a6f04fb0d749231825268b0dd70fda2`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-09-03T00:29:23Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 97a5439babeb74e3e8cb10f2d5610f1dfc5b299e
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-e-untag-handled-promise-pipelining' exit-0-unsatisfying but elapsed near-constant (110,138s) over 2 cycles — likely a wedged child, not a working one
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/97a5439babeb74e3e8cb10f2d5610f1dfc5b299e
+
+Inspect via `git -C journal cat-file -p 97a5439babeb74e3e8cb10f2d5610f1dfc5b299e` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/97a5439babeb74e3e8cb10f2d5610f1dfc5b299e`) -- both work off-host after a plain `journal2` fetch.
