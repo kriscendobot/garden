@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-03T15:09:05Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-ocapn-nonce-locator-endo-mechanism
-pr_number: 1124
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1124
-pr_head: kriscendobot:build/ocapn-nonce-locator-mechanism
