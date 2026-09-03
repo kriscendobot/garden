@@ -16,6 +16,7 @@ Status at posting time: reviewDecision APPROVED, CI green (test: SUCCESS), merge
 
 This is child 1 of 2 in an orchestration; deploy and production validation are the second child, gated on this merge actually landing (state=MERGED).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
