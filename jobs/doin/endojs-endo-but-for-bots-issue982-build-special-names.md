@@ -21,10 +21,10 @@ Forward-reference requirement: immediately after opening or identifying the impl
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=3 values=30 -->
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=4 values=30,49 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
