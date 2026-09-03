@@ -1,4 +1,5 @@
 ---
+stage_retries: 0
 pr: https://github.com/kriscendobot/garden/pull/73
 repo: kriscendobot/garden
 pr_number: 73
@@ -9,8 +10,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: kriscendobot-garden-pr73-gauntlet-clean
+state: running
 created_by: producer
 created_at: 2026-09-03T21:23:55Z
 ---
