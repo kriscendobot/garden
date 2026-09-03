@@ -2,7 +2,7 @@
 order: parallel
 children: cybernetics-rec123-budget-loop cybernetics-rec4-fuzz-triage-backpressure cybernetics-rec5-inode-loop cybernetics-rec7-frontmatter-validation cybernetics-rec8-scheduler-admission cybernetics-rec9-inbox-coalescing cybernetics-rec10-deploy-sensor-alert
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-09-03T00:01:34Z
 ---
