@@ -20,6 +20,12 @@ The bot's own MCP-server deployment: [kriscendobot/minion.town](https://github.c
 
 `designs/mcp-oauth.md` (resource-server architecture and the Cognito deviations: no DCR, client_id-allowlist instead of RFC 8707 `aud`), `unified-login-page.md`, `siwe-onchain-authz.md`, `account-creation-open-signup.md`, `stripe-credits.md`, `mcp-endo-guest.md` (the gated Claude-then-Endo-guest chain, 2026-07-09).
 
+## Roadmap
+
+Minion Town has no in-repo numbered-milestone ledger; its Endo-touching work grows `@endo/gateway` / `@endo/mcp` **organically as part of the same endo direction** (maintainer directive closing endojs/endo-but-for-bots#134, 2026-07-09), so it is sequenced inside the **endo milestone ledger** (`designs/README.md` on `endojs/endo-but-for-bots@llm`, M1–M11).
+
+- **Client-side bridge, endo M3 top priority (carved 2026-09-03).** [`git-remote-capability`](https://github.com/kriscendobot/minion.town/pull/41) (the capability-addressed git remote — `git push` an artifact straight into an Endo directory, no MCP-tool-call byte marshaling) is one of the two client-side-bridge capabilities carved to the **head of the first unfinished endo milestone, M3**. Its endo-side follow-on is the M3 git trio (`daemon-git-capability`, `daemon-git-remotes`, `daemon-git-next-steps`) + the `daemon-agent-tools` `makeGitRemoteTool` push tier, with Rust smart-HTTP backing `endor-git-bindings` (M11). The other half is the confined in-guest agent `@endo/claude` (endo-but-for-bots#1015 + child-guest provisioning #1102). See the endo ledger and the carve PR endojs/endo-but-for-bots#1127. Journal record: [`../../plan/designs/minion-town/git-remote-capability.md`](../../plan/designs/minion-town/git-remote-capability.md).
+
 ## Topic notes
 
 - [ocap-mailbox-relative-routing](ocap-mailbox-relative-routing.md) — Mark Miller's [[relative-routing]] applied to the ocap-mailbox adapter: an email-backed synthetic guest and an in-daemon OCapN-over-Noise session are two *routes* (connection hints) to the same peer, not rival designs; short-circuit to the nearest reliable path (added 2026-08-14 by scholar-relative-routing-miller; grounds against PR #37).
