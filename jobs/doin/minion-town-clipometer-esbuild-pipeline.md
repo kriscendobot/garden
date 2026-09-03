@@ -38,10 +38,10 @@ A prior engagement hand-rolled a narrow CapTP client directly in a clip's `app.j
 
 A draft PR with: the esbuild pipeline, the rebuilt `app.js` (CLIPOMETER's exact existing `index.html`/`styles.css` unchanged — only the script changes), the programmatic build+publish script, and a short note on which `@endo/exo-stream` path (vendor vs. git dependency) you took and why. Do not publish anything from this job — that's child 2, so the live validation step is independently checkable against what this PR actually produced.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
