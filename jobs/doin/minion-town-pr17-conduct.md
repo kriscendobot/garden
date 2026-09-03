@@ -15,3 +15,13 @@ Maintainer directive (kriskowal, approving review): "Please conduct, deploy, and
 Status at posting time: reviewDecision APPROVED, CI green (test: SUCCESS), mergeStateStatus CLEAN. The PR's baseRefName is a frozen snapshot (`main-975a035`), not live `main` — unfreeze it per roles/conductor/AGENT.md step 2 (`gh pr edit 17 -R kriscendobot/minion.town --base main`) before rebasing/merging, so the merge lands on live `main` and not the snapshot.
 
 This is child 1 of 2 in an orchestration; deploy and production validation are the second child, gated on this merge actually landing (state=MERGED).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:38:48Z
