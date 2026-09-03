@@ -67,3 +67,13 @@ sections). Preserve that structure.
   on a 100k-token minion budget and produced no document change; the 2026-08-27
   attempt succeeded in ~506s and the 2026-08-31 one in ~1520s. Do not
   under-provision.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T01:29:17Z
