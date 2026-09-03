@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T00:55:58Z_
+_As of 2026-09-03T01:00:46Z_
 
 ## Latest
 
@@ -183,6 +183,36 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260902T185802Z-cc9f48` — from gauntlet:kriscendobot-minion.town-pr80-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260902T185802Z-cc9f48.md)
 
 > Gauntlet kriscendobot-minion.town-pr80-gauntlet HALTED: stage 'kriscendobot-minion.town-pr80-gauntlet-clean' (clean) failed 1 times and was NOT retried: doom_signature=elapsed-constancy (failure_classification=deterministic) is not proven transient.
+
+- `20260903T010007Z-d6f543` — from gardener:cybernetics-rec123-budget-loop, reply_to `cybernetics-rec123-budget-loop` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T010007Z-d6f543.md)
+
+> Heads-up on a live-fleet behavior change from job cybernetics-rec123-budget-loop
+> (recs 1-3 of designs/cybernetics-audit.md § 7, now landed on main2):
+>
+> Rec 2 gave config/budget-pools rows a provenance field (columns 6-7:
+> calibrated-from, date). budget-level.sh now treats any row WITHOUT a calibrated
+> provenance as config-absent for leveling: it levels nothing for that pool and
+> alerts once. After this deploys, your EXISTING live config/budget-pools rows
+> (5 columns, no provenance) will be read as uncalibrated, so budget-level will
+> STOP leveling and raise one "budget-level-uncalibrated-<pool>" notice per pool.
+>
+> That is the intended rec-2 behavior (don't actuate full-authority worker leveling
+> against the disputed 5M-era placeholder caps). To RESUME leveling against a cap
+> you trust, append two columns to each live row, e.g.:
+>   anthropic:endolin-garden-ece02cb4 anthropic endolin-garden-ece02cb4 weekly-tokens <cap> usage-panel 2026-09-03
+> (calibrated-from can be `usage-panel`, `weekly-capacity-calibration`, `manual`,
+> etc.; anything but empty/placeholder/uncalibrated/seed/none/-/tbd/todo counts as
+> calibrated.)
+>
+> Also landed: weekly-capacity-calibration.sh (implements
+> recurring-budget-calibration.md) which MEASURES per-account weekly capacity into
+> budget/weekly-capacity/<host>.jsonl + budget/bucket.json. It is NOT yet armed —
+> wire it as the scheduler preflight when ready:
+>   GARDEN_SCHEDULE_PREFLIGHT=weekly-capacity-calibration.sh scripts/jobs/set-schedule.sh \
+>     weekly-capacity weekly-at-Fri-21:00-America/Los_Angeles ...
+> It deliberately does not auto-write config/budget-pools (promoting a measured
+> figure to an actuated cap stays your call — the open question in
+> live-budget-admission.md OQ1).
 
 - `doomed-amend-invitation-oauth-mcp-prerequisite-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-amend-invitation-oauth-mcp-prerequisite-requeue-exhausted.md)
 
@@ -3293,7 +3323,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.1M | $1365.39 _(notional, rate-card)_ | 20% of 385.0M (ok) |
+| Claude | 77.2M | $1371.73 _(notional, rate-card)_ | 20% of 385.0M (ok) |
 | Codex | 42.9M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
