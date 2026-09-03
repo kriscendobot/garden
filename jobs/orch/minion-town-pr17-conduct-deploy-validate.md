@@ -1,4 +1,5 @@
 ---
+child-minion-town-pr17-conduct-host: endolin-garden2-5bcdff64
 child-minion-town-pr17-conduct-reap-count: 0
 order: serial
 children: minion-town-pr17-conduct minion-town-pr17-deploy-validate
