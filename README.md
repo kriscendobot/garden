@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-03T06:27:09Z_
+_As of 2026-09-03T06:29:40Z_
 
 ## Latest
 
@@ -3341,10 +3341,10 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 42.9M _(+1170.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`minion-town-formula-graph-content-gc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-formula-graph-content-gc.md) — The confirmed gap
+### todo (0)
+(none)
 
-### doin (124)
+### doin (126)
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #81
 - [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #79
@@ -3442,6 +3442,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`issue-kriscendobot-garden-76-deploy-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-76-deploy-report.md) — Verify deployment and report garden issue 76
 - [`kriscendobot-agoric-sdk-pr10-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #10
 - [`kriscendobot-agoric-sdk-pr18-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr18-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #18
+- [`kriscendobot-garden-pr77-review-13d229b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr77-review-13d229b9.md) — Review directive on kriscendobot/garden PR #77
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr17-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #17
 - [`kriscendobot-minion.town-pr17-review-72d9bc6d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-review-72d9bc6d.md) — Review directive on kriscendobot/minion.town PR #17
@@ -3452,6 +3453,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-blind-discovery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-blind-discovery-eval.md) — ---
 - [`minion-town-clip-formula-id-origin-gc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-formula-id-origin-gc.md) — The reported concern
 - [`minion-town-clip-upgrade-in-place`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-upgrade-in-place.md) — Confirmed, not hypothetical
+- [`minion-town-formula-graph-content-gc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-formula-graph-content-gc.md) — The confirmed gap
 - [`minion-town-oauth-guest-facet-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-oauth-guest-facet-default.md) — ---
 - [`minion-town-pr41-git-remote-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr41-git-remote-build.md) — ---
 - [`minion-town-remote-guest-endo-cli-endo-invite-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-endo-cli-endo-invite-primitive.md) — ---
@@ -3702,6 +3704,7 @@ _Since Friday 21:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1099-review-6694e2d7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1099-review-6694e2d7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1099 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr935-review-a285ce89-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr935-review-a285ce89-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #935 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1115-8bddd4d7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1115-8bddd4d7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1115 (primary: endojs-endo-but-...
+- [`kriscendobot-garden-pr77-review-13d229b9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr77-review-13d229b9-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #77 (primary: kriscendobot-garden-pr7...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
