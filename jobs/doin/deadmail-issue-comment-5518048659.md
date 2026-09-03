@@ -52,11 +52,11 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-551804865
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=1 values=1,1 -->
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=signature through=2 values=1,3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
