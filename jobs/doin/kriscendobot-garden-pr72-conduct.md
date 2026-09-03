@@ -38,3 +38,13 @@ PR: https://github.com/kriscendobot/garden/pull/72
 Head: kriscendobot/garden branch design/conductor-merge-queue (bot-pushable)
 Base: main2
 Posted by the review-handler after resolving the merge conflict.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T15:11:14Z
