@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-pr17-conduct-deploy-validate
-priority: normal
-posted_by: producer
-posted_at: 2026-09-02T22:22:37Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-03T21:31:04Z cleared=none -->
 
 ---
 tier: mentor
