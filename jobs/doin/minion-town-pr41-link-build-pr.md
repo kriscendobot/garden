@@ -35,3 +35,13 @@ Procedure:
    `#N`/URL) noting it implements the merged design from #41. Include a garden
    provenance footer; do NOT reuse the `garden-reply:5532154116` marker (the
    liaison already replied to that comment).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:52:37Z
