@@ -42,10 +42,10 @@ Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 (message-bus tests must pass); land bare on `main2` per CLAUDE.md
 § Conventions.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=2,3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
