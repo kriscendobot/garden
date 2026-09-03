@@ -70,3 +70,13 @@ as one component. Concretely:
 Keep the PR a DRAFT; the design gauntlet/panel already running on #1102 owns the
 downstream review. Implementation stays out of scope — this is a design-only
 revision.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T15:12:54Z
