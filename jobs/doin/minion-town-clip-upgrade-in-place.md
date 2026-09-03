@@ -59,3 +59,13 @@ every client and CDN in front of `*.ocap.site`), say so explicitly and
 propose the real alternative (e.g. a stable alias/pointer name that itself
 gets rewritten to point at successive immutable hashes) rather than silently
 declining the ask.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T03:29:24Z
