@@ -83,3 +83,13 @@ Target page: `https://claude.ai/chat/<account-identifier>#settings/usage` — sh
 - `design-manual-quota-calibration` and `design-reset-time-detection` (posted earlier the same day; this scraper is a *producer* feeding both of their inputs — check their state, don't duplicate their fitting/detection logic here)
 - CLAUDE.md § Container guard, § Host environment (the identity/trust boundary this design must respect)
 - `scripts/jobs/common.sh` (`ensure_clone`, `sync_clone`, the CAS-push retry pattern the garden-side ingest half should match)
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T21:33:52Z
