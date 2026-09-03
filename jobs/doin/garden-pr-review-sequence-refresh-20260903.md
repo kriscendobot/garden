@@ -68,6 +68,7 @@ sections). Preserve that structure.
   attempt succeeded in ~506s and the 2026-08-31 one in ~1520s. Do not
   under-provision.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
