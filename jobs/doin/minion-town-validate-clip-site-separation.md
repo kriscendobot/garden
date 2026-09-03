@@ -28,6 +28,7 @@ Empirically validate, against the **live production** `minion.town` deployment, 
 A completion report with the concrete evidence (hashes/URLs/timestamps/transcript) and, if clean, the doc-update commit reference. If a real gap is found, the completion report names it precisely and points to the follow-up job you opened for it — do not attempt the fix in this job.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
