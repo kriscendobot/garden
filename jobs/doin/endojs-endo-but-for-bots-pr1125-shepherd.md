@@ -20,10 +20,10 @@ shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
 
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
