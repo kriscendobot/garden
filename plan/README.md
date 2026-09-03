@@ -5,7 +5,7 @@ hand-edit. Edit a design by editing its record; this view recomputes. The
 per-design files are the single source of truth (design: garden#4,
 designs/plan-in-journal.md)._
 
-This roadmap aggregates **142** design record(s) across all plan repositories.
+This roadmap aggregates **144** design record(s) across all plan repositories.
 Milestone totals, completion, and the dependency graph are computed over the union
 of records, so a milestone spanning repositories rolls up as one.
 
@@ -22,7 +22,7 @@ of records, so a milestone spanning repositories rolls up as one.
 |---|---|---|---|---|
 | M1 | 8 | 8 | 100% | 0 |
 | M2 | 8 | 6 | 75% | 0 |
-| M3 | 29 | 6 | 20% | 67 |
+| M3 | 31 | 7 | 22% | 70 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
@@ -104,6 +104,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-rename-to-manager | endo-but-for-bots | M3 | Not Started | S | — |
 | daemon-worker-import-from-mount | endo-but-for-bots | M3 | Proposed | M | — |
 | endo-claude | endo-but-for-bots | M3 | In Progress | L | endo-but-for-bots#1015 |
+| endo-claude-agents-capability | endo-but-for-bots | M3 | Proposed | M | endo-but-for-bots#1102 |
 | endo-fs-from-git | endo-but-for-bots | M3 | In Progress | — | — |
 | endo-gateway | endo-but-for-bots | M3 | Proposed | L | — |
 | endoclaw-network-fetch | endo-but-for-bots | M3 | Not Started | M | — |
@@ -120,6 +121,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | platform-fs | endo-but-for-bots | M3 | Complete | M | — |
 | registry-capability | endo-but-for-bots | M3 | Proposed | M | — |
 | snapshot-mapper | endo-but-for-bots | M3 | Proposed | M | — |
+| git-remote-capability | minion-town | M3 | Complete | M | minion-town#41 |
 | cbors | endo-but-for-bots | M4 | Not Started | M | — |
 | daemon-agent-network-identity | endo-but-for-bots | M4 | Not Started | M | — |
 | ocapn-network-transport-separation | endo-but-for-bots | M4 | In Progress | L | — |
@@ -183,4 +185,7 @@ of records, so a milestone spanning repositories rolls up as one.
 
 ```mermaid
 flowchart LR
+  endo_claude --> endo_claude_agents_capability
+  daemon_git_remotes --> git_remote_capability
+  daemon_git_next_steps --> git_remote_capability
 ```
