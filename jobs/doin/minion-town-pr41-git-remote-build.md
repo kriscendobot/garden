@@ -13,6 +13,7 @@ Start by reconciling the current gateway/guest primitives and the open guest-CLI
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
