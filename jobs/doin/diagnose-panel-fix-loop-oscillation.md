@@ -70,3 +70,13 @@ conclusion is not.
 <!-- garden-transient-elapsed: kind=signature through=1 values=1,92 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T17:06:18Z
