@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: cybernetics-audit-remediation
-priority: normal
 role: builder
-posted_by: orchestrator
-posted_at: 2026-09-03T00:00:39Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-03T00:04:11Z cleared=none -->
 
 ---
 tier: mentor
