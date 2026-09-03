@@ -36,6 +36,7 @@ Procedure:
    provenance footer; do NOT reuse the `garden-reply:5532154116` marker (the
    liaison already replied to that comment).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
