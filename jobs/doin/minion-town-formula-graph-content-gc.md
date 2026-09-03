@@ -37,6 +37,7 @@ Root the GC in the **daemon's own formula graph**, not a separate bookkeeping st
 
 A draft PR against `main` (or the project's normal PR flow) implementing the dry-run GC, its tests, and — once the live dry-run evidence is in hand and clean — either real-deletion mode landed in the same PR or a clearly-scoped follow-up naming exactly what remains, per the builder role's normal draft-PR-then-gauntlet flow.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
