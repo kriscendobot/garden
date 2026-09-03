@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-03T01:32:13Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean
