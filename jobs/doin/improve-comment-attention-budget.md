@@ -9,3 +9,13 @@ Stamp non-mechanical attention directives with `handler-budget-role: review`, ma
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-03T15:05:49Z
