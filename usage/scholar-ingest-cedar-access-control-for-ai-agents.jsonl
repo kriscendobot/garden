@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":50,"elapsed_s":700,"input_tokens":92,"output_tokens":35919,"cache_creation_tokens":120804,"cache_read_tokens":4361929,"total_cost_usd":4.2908135,"ts":"2026-09-04T00:43:59Z","base":"scholar-ingest-cedar-access-control-for-ai-agents","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
