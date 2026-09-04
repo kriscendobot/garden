@@ -3,3 +3,7 @@ gardener: 7
 worker_kind: monk
 claimed_at: 2026-09-04T05:18:48Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-manual-quota-calibration
+pr_number: 80
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/80
+pr_head: design/manual-quota-calibration
