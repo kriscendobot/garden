@@ -1,15 +1,16 @@
 ---
+stage_retries: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/666
 repo: endojs/endo-but-for-bots
 pr_number: 666
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr666-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr666-gauntlet-fix-1
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-08-30T06:44:18Z
