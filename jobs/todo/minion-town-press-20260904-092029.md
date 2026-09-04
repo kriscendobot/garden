@@ -1,7 +1,3 @@
-cadence: hourly
-last_dispatched: 2026-09-04T09:20:29Z
-job_basename_prefix: minion-town-press
----
 ---
 tier: mentor
 fallback-tier: minion
