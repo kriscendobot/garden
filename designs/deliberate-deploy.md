@@ -226,6 +226,28 @@ A host with no liaison session present (a pure bot host) simply accumulates
 design: advancing the deployed version is the one garden action the maintainer
 wants on the human surface.
 
+> **Narrowed by [follower-self-deploy.md](follower-self-deploy.md), then reframed
+> to a fleet-wide rolling deploy (kriskowal, 2026-09-03, PR #73).** The sentence
+> above — "never autonomous-without-a-session" — now holds on **neither** tier.
+> The deployed version is advanced by an autonomous, **leader-orchestrated rolling
+> deploy**: the leader upgrades **followers first as canaries**, validates each
+> (unit health + a synthetic round-trip probe job + a job-processing regression
+> watch), and only then advances **itself**, last — and never advances itself on a
+> failed canary. What replaced the watching **session** as the safety gate is
+> **canary validation on a real host**, which that design argues is a *stronger*
+> guarantee than an unread notice. This narrows *only* the trigger and
+> orchestration: the deliberate-deploy machinery here (candidate gate, drain,
+> atomic per-file swap, no continuous fast-forward) is unchanged, and "nothing
+> fast-forwards the root tree except `deploy-garden.sh`" still holds — each host's
+> advance is a discrete, gated invocation of it, not a fast-forward loop. The
+> deploy **trigger** stays a host-local cryptographic `upgrade-ready` fact (never a
+> bus message), so the sysop `deploy` op's maintainer attestation is untouched; the
+> leader orchestrates ordering and validation via **benign** release/drain signals,
+> not a deploy op. Rationale: a host with no session on the critical path of its
+> deploy is the nine-day-stall failure (a follower stalled 30 commits / nine days
+> behind an unread inbox notice) — and the leader had the same residual one host
+> up.
+
 ## State summary
 
 All per-host, under `$GARDEN_STATE/deploy/` (host standing state, not `main2`):
