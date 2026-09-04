@@ -38,3 +38,13 @@ quietly with a one-line "still waiting on maintainer feedback on X", never
 manufacture busywork to look productive while blocked.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T16:34:38Z
