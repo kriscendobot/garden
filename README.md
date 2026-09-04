@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T19:33:32Z_
+_As of 2026-09-04T19:34:52Z_
 
 ## Latest
 
@@ -1074,6 +1074,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 
+- `20260904T193406Z-979089` — from orchestrator:ironhorse-1113-reweave-regauntlet-20260904b-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T193406Z-979089.md)
+
+> Orchestration ironhorse-1113-reweave-regauntlet-20260904b HALTED: child weave-endo-pr1113-20260904b stalled in flight for 2518s on host unknown (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: gauntlet-endo-pr1113-20260904b
+
 - `20260904T063018Z-6a1c2e` — from gardener:minion-town-reminders-daemon-redeploy-unblock, reply_to `minion-town-reminders-daemon-redeploy-unblock` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T063018Z-6a1c2e.md)
 
 > AUTHORIZATION REQUESTED — minion.town @endo/reminder daemon redeploy (job minion-town-reminders-daemon-redeploy-unblock)
@@ -1310,7 +1314,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.2M | $893.24 _(notional, rate-card)_ | 15% of 595.0M (ok) |
+| Claude | 89.6M | $895.43 _(notional, rate-card)_ | 15% of 595.0M (ok) |
 | Codex | 9.8M _(+389.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
@@ -1351,13 +1355,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
 - [`build-ironhorse-panic-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-panic-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1150
 
-### tada (7158)
+### tada (7159)
+- [`ironhorse-1113-reweave-regauntlet-20260904b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-1113-reweave-regauntlet-20260904b.md) — orchestration ironhorse-1113-reweave-regauntlet-20260904b — HALTED
 - [`weave-endo-pr1113-20260904`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-endo-pr1113-20260904.md) — Completion report — weave-endo-pr1113-20260904
 - [`endojs-endo-but-for-bots-pr715-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr715-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1102-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1102-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr715-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr715-gauntlet-fix-4.md) — Completion report
-- [`improve-stagger-watcher-timer-thundering-herd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-stagger-watcher-timer-thundering-herd.md) — Completion report
-- … and 7153 more
+- … and 7154 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
