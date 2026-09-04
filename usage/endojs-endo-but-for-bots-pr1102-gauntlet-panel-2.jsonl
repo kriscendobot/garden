@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":11,"elapsed_s":215,"input_tokens":22,"output_tokens":3825,"cache_creation_tokens":39646,"cache_read_tokens":431483,"total_cost_usd":0.562654,"ts":"2026-09-04T06:43:26Z","base":"endojs-endo-but-for-bots-pr1102-gauntlet-panel-2","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener","provider":"anthropic"}
