@@ -1,5 +1,5 @@
 ---
-stage_retries: 0
+stage_retries: 1
 pr: https://github.com/kriscendobot/agoric-sdk/pull/18
 repo: kriscendobot/agoric-sdk
 pr_number: 18

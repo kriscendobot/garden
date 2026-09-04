@@ -1,25 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-role: gardener
-tier: mentor
-handler-budget-role: shepherd
-handler-timeout: 7200
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 5
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-04T07:55:53Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-09-04T07:55:53Z
----
-
----
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
@@ -27,9 +6,6 @@ gauntlet: kriscendobot-agoric-sdk-pr18-gauntlet
 gauntlet_stage: fix
 gauntlet_iteration: 1
 pr: https://github.com/kriscendobot/agoric-sdk/pull/18
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: FIX round 1 — kriscendobot/agoric-sdk PR #18
