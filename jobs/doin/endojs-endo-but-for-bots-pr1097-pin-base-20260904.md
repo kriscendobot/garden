@@ -47,6 +47,7 @@ Leave the PR head rebased onto the new pinned base with conflicts resolved and C
 <!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=34,141 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
