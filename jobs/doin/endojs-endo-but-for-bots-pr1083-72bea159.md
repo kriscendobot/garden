@@ -45,6 +45,7 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-04T18:40:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
