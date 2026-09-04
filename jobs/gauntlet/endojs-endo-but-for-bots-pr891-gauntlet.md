@@ -1,15 +1,16 @@
 ---
+stage_retries: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/891
 repo: endojs/endo-but-for-bots
 pr_number: 891
 build_job: 
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
-resumes: 1
+resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr891-gauntlet-fix-1
+current_child: endojs-endo-but-for-bots-pr891-gauntlet-panel-2
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-08-30T06:39:26Z
