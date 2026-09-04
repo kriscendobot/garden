@@ -42,12 +42,4 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 9
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-04T08:00:00Z
+<!-- garden-reaped: 1 -->
