@@ -5433,3 +5433,14 @@ Inspect via `git -C journal cat-file -p e6d58488b160e4a18f614f8ff1cf893a1a5eaf33
 
 Inspect via `git -C journal cat-file -p 77aa5856a1ec1adac140490257ae5ac92e409070` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/77aa5856a1ec1adac140490257ae5ac92e409070`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-09-04T11:07:35Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5209c4257c911e62ff18d856ddc7031881b9093a
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-fix-4' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/5209c4257c911e62ff18d856ddc7031881b9093a
+
+Inspect via `git -C journal cat-file -p 5209c4257c911e62ff18d856ddc7031881b9093a` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/5209c4257c911e62ff18d856ddc7031881b9093a`) -- both work off-host after a plain `journal2` fetch.
