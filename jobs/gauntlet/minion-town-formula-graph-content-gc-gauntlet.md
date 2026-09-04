@@ -5,12 +5,12 @@ repo: kriscendobot/minion.town
 pr_number: 83
 build_job: minion-town-formula-graph-content-gc
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: minion-town-formula-graph-content-gc-gauntlet-panel-1
+current_child: minion-town-formula-graph-content-gc-gauntlet-fix-1
 state: running
 created_by: producer
 created_at: 2026-09-03T21:44:50Z
