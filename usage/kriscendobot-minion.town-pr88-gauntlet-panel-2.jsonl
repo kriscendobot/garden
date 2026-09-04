@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":27,"elapsed_s":261,"input_tokens":54,"output_tokens":7925,"cache_creation_tokens":45476,"cache_read_tokens":1204588,"total_cost_usd":1.088233,"ts":"2026-09-04T09:31:42Z","base":"kriscendobot-minion.town-pr88-gauntlet-panel-2","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener","provider":"anthropic"}
