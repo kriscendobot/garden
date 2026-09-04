@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-553608441
 @kriscendobot Please resume the hourly press and enable a Fable supervisor to approve changes that have undergone a full gauntlet, satisfied the release criteria, and been proven deployed to production.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T05:38:29Z
