@@ -75,3 +75,13 @@ Thread 3916282675 (help.md) asks to "post a follow-up design" to eliminate
 single-segment petname paths so a slash-delimited string errors. That is owned by
 a separate designer job `design-endo-but-for-bots-eliminate-single-segment-petname-paths`.
 Do not do it here beyond the one-line thread acknowledgment above.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T05:54:25Z
