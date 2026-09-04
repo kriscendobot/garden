@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T00:27:53Z_
+_As of 2026-09-04T00:29:25Z_
 
 ## Latest
 
@@ -58,6 +58,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003940Z-06bfa7` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003940Z-06bfa7.md)
 
 > From report `self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`: need a decision on `worktrees/kriskowal-garden.git` — remove it or re-point its origin.
+
+- `20260904T002822Z-4cfe53` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T002822Z-4cfe53.md)
+
+> Report `endojs-endo-but-for-bots-pr536-gauntlet-clean`: PR #536 (designs plan-in-journal redirect) gauntlet halted — CI can't go green. Note this matches the existing memory that #536 is already known-superseded/stale/conflicting. Please decide: close #536 as superseded, or have `designs/README.md` + `designs/CLAUDE.md` regenerated fresh against current `llm` + journal records and opened as a new PR.
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
@@ -965,7 +969,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.0M | $635.98 _(notional, rate-card)_ | 10% of 595.0M (ok) |
+| Claude | 61.0M | $636.69 _(notional, rate-card)_ | 10% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
