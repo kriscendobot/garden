@@ -49,6 +49,7 @@ review; a pure investigative report needs no PR. Do not comment on or otherwise
 touch any repo other than kriscendobot/minion.town.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=148 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-05T02:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
