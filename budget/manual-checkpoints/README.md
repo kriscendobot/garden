@@ -94,3 +94,26 @@ case pre- and post-boost checkpoints need separate ratios, and the ratio in
 effect right now will itself drop by roughly a third around 2026-09-13 when
 the boost expires — do not extrapolate today's calibration past that date
 without accounting for it).
+
+## Escalation 2026-09-04T00:49Z: window_start_epoch oscillates, not a one-time fix
+
+The 9th checkpoint caught `meter_window_start_epoch` flipping a **third**
+time — back from `1787976000` (the "corrected" anchor) to `1788286674` (the
+"contaminated" 2026-09-01 anchor), the exact same two values trading places
+again. What looked like a one-time self-correction earlier in this file is
+actually an **ongoing oscillation** between two fixed anchors, cause still
+unknown. Because the anchor moving *forward* shortens the summed window,
+`meter_spend_tokens` swings sharply with each flip (independent of real
+usage) — this checkpoint's spend (61.8M) is **not comparable** to the
+immediately preceding rows (~170-179M); they were computed over
+non-overlapping window definitions. Any fitting pass must treat rows on
+either side of a `meter_window_start_epoch` change as **separate series**,
+never diffed or ratio'd across the boundary, until the oscillation itself is
+diagnosed and fixed (candidate root cause, still unconfirmed: whatever
+process periodically re-derives this field from `/usage` — see
+`config/budget-pools`'s original 2026-08-27 investigation for the mechanism
+it already implicated once). By contrast, the **session**-scope tracking
+(the 5-hour rolling window) has now shown one clean, unambiguous reset
+(59%→4% at the same checkpoint) with no equivalent instability observed —
+the problem is specific to the weekly-scope local meter, not to Anthropic's
+own reset behavior on either timescale.
