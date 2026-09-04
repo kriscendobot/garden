@@ -27,3 +27,13 @@ This is the first child of the serial review-5118379171 orchestration. If the ga
 merge outcome genuinely cannot be achieved after completing the conductor work,
 emit the orchestration failure signal required by the worker prompt so the builder
 child remains parked.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-04T22:49:22Z
