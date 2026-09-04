@@ -22,3 +22,13 @@ You are the FINAL stage of a staged gauntlet (ironhorse-fuzz-6f0b586a80019097-re
 
 END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:07:34Z
