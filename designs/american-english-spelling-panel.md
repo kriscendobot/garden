@@ -2,7 +2,7 @@
 
 | Created | 2026-08-27 |
 | Author  | gardener   |
-| Status  | Proposed   |
+| Status  | Accepted — open questions resolved on PR #75 (kriskowal, 2026-09-04) |
 
 ## Origin
 
@@ -22,7 +22,7 @@ The spelling fix on PR 282 already landed; this design is the automation half.
 
 ## What we are building
 
-Three artifacts, with **one home for the word/pattern data** so the rule set is
+Three artifacts, with **one home for the word data** so the rule set is
 auditable and extensible from a single file:
 
 1. **A skill — `skills/american-english-normalization/SKILL.md`** — the single
@@ -32,13 +32,13 @@ auditable and extensible from a single file:
    and the fixing role consume. The word list lives here, not scattered across
    regexes in prose, exactly as the directive asks.
 
-2. **A jury seat — `roles/jurors/orthographer/AGENT.md`** — a code-panel (and,
-   pending an open question, design-panel) seat that reads a PR's changed prose
-   for divergences and reports each occurrence as a panel finding. It is
-   **mandatory but cost-gated at dispatch**, modelled exactly on the
-   `coverage-auditor`: a deterministic grep pre-pass runs first, in plain code
-   with no LLM, and the panel spends a `claude -p` on the seat **only when the
-   pre-pass finds at least one candidate divergence**.
+2. **A jury seat — `roles/jurors/orthographer/AGENT.md`** — a seat on **both the
+   code panel and the design panel** (decided on PR #75, "all documents") that
+   reads a PR's changed prose for divergences and reports each occurrence as a
+   panel finding. It is **mandatory but cost-gated at dispatch**, modelled
+   exactly on the `coverage-auditor`: a deterministic grep pre-pass runs first,
+   in plain code with no LLM, and the panel spends a `claude -p` on the seat
+   **only when the pre-pass finds at least one candidate divergence**.
 
 3. **A fixing role — `roles/americanizer/AGENT.md`** — a fixer variant whose
    definition of done is converting flagged British spellings to the
@@ -66,38 +66,47 @@ flowchart LR
 
 ## The shared skill and its data file
 
-`divergences.tsv` is the auditable rule set. It is primarily an **explicit,
-curated word-pair allow-list** (high precision), with a small set of
-**suffix heuristics marked flag-only** (never auto-applied — they only surface a
-candidate for the LLM seat to adjudicate). Columns:
+`divergences.tsv` is the auditable rule set: a **comprehensive, explicit,
+curated word-pair list** — every divergence is an enumerated literal token pair,
+never a suffix pattern or heuristic (maintainer decision, PR #75: "we should be
+able to make a comprehensive list and not simply patterns"). Every inflected form
+is its own row (`serialise`, `serialised`, `serialising`, `serialiser`,
+`serialisation` are five rows, not one `-ise` rule), so the rule set is a
+**closed set** a deterministic grep enumerates exhaustively — which is exactly
+what lets a dispatch "leave little room for cases to be forgotten" (§ Search-gated
+dispatch). Columns:
 
 | column      | meaning                                                                 |
 | ----------- | ----------------------------------------------------------------------- |
 | `category`  | `ise-verb`, `isation-noun`, `our-or`, `re-er`, `ll-doubling`, `irregular-plural`, `misc` |
-| `british`   | the token to detect (a literal word, or a suffix rule for `match=suffix`) |
+| `british`   | the literal whole word to detect                                        |
 | `american`  | the replacement                                                         |
-| `match`     | `word` (whole-word literal, auto-fixable) or `suffix` (flag-only, adjudicate) |
 | `notes`     | false-friend cautions and examples                                      |
 
-Seed rows the directive names (illustrative, not the closed set):
+Seed rows the directive names (illustrative of the shape; the shipped list is
+the comprehensive enumeration, not this excerpt):
 
-| category         | british      | american    | match  |
-| ---------------- | ------------ | ----------- | ------ |
-| ise-verb         | serialise    | serialize   | word   |
-| ise-verb         | canonicalise | canonicalize| word   |
-| ise-verb         | normalise    | normalize   | word   |
-| isation-noun     | serialisation| serialization| word  |
-| our-or           | colour       | color       | word   |
-| re-er            | centre       | center      | word   |
-| ll-doubling      | modelling    | modeling    | word   |
-| misc             | catalogue    | catalog     | word   |
-| irregular-plural | vertices     | vertexes    | word   |
-| irregular-plural | matrices     | matrixes    | word   |
-| irregular-plural | indices      | indexes     | word   |
-| misc             | thawn        | thawed      | word   |
+| category         | british      | american     |
+| ---------------- | ------------ | ------------ |
+| ise-verb         | serialise    | serialize    |
+| ise-verb         | canonicalise | canonicalize |
+| ise-verb         | normalise    | normalize    |
+| isation-noun     | serialisation| serialization|
+| our-or           | colour       | color        |
+| re-er            | centre       | center       |
+| ll-doubling      | modelling    | modeling     |
+| misc             | catalogue    | catalog      |
+| irregular-plural | vertices     | vertexes     |
+| irregular-plural | matrices     | matrixes     |
+| irregular-plural | indices      | indexes      |
+| misc             | thawn        | thawed       |
 
-Each `ise`/`isation` root expands to its `-ised`/`-ising`/`-isation`/`-iser`
-forms as their own rows (or one root row the pre-pass expands deterministically).
+`thawn -> thawed` is a plain row like the rest: the maintainer confirmed (PR #75)
+that **`thawed` is the wanted form and the poetic `thawn` does not belong in
+technical writing for an international audience**, so it carries no special
+"poetic exception" treatment. Each `-ise`/`-isation` root is enumerated as its
+own explicit rows for every inflected form (`-ise`/`-ised`/`-ising`/`-iser`/
+`-isation`) — comprehensive enumeration, not a root pattern the pre-pass expands.
 
 **Exclusion discipline the skill documents** (precision over recall — a false
 positive that rewrites a real word is worse than a missed divergence):
@@ -110,10 +119,14 @@ positive that rewrites a real word is worse than a missed divergence):
 - **`-re`/`-our` false friends** kept as-is: `genre`, `acre`, `massacre`,
   `mediocre`, `macabre`, `ogre`; `contour`, `velour`, `glamour` (often
   retained), `devour`, `four`, `hour`, `pour`, `tour`, `your`. These are why
-  `-re`/`-our` ship as curated word rows, not blanket suffix transforms.
-- **`match=suffix` rows are flag-only**: they widen the pre-pass net to catch
-  new `-ise` verbs the list has not yet enumerated, but they NEVER auto-fix; the
-  LLM seat adjudicates and, if real, the word is added to the curated list.
+  `-re`/`-our` ship as enumerated literal word rows, never a blanket suffix
+  transform that would rewrite them.
+- **No suffix or pattern rows at all** (PR #75 decision). The list is
+  comprehensive and explicit by construction; a British spelling the list has
+  not yet enumerated is caught not by a heuristic but by a gardener/maintainer
+  adding the literal row (curation, § Decisions). Precision is therefore
+  absolute: the grep can only ever match a word the curated list already names,
+  so no dispatch can ever act on a guess.
 
 ## The seat-gate (deterministic pre-pass)
 
@@ -122,12 +135,14 @@ positive that rewrites a real word is worse than a missed divergence):
 
 1. Compute the diff's **added lines** against the base (`git diff <base>...HEAD`,
    added lines only — a divergence already present upstream is not this PR's).
-2. For each `word` row, whole-word/case-insensitive match against added lines;
-   for each `suffix` row, the suffix pattern. Emit candidates as
-   `<path>:<line>: <british> -> <american> [category]`.
+2. For each row, whole-word/case-insensitive match against added lines. Emit
+   candidates as `<path>:<line>: <british> -> <american> [category]`, one line
+   per occurrence — the concise, exact-location digest that becomes both the
+   seat's input and the fixer's dispatch payload (§ Search-gated dispatch).
 3. Exit "spend the seat" iff >=1 candidate; otherwise the panel skips the seat
    and spends zero `claude -p`, exactly as the coverage-auditor gate does on a
-   fully-covered change.
+   fully-covered change. **This same exit code is what gates any americanizer
+   dispatch** — zero candidates means no search hit means nothing is dispatched.
 
 The pre-pass casts a **wide net** (all added lines) and does NOT try to
 distinguish identifier from prose in plain grep — that precision is the LLM
@@ -142,18 +157,20 @@ Brief shape follows `roles/jurors/coverage-auditor/AGENT.md`. Load-bearing norms
   instructions (standard juror boilerplate).
 - **Adjudicate each candidate** into one of:
   - **Real divergence in prose / comment / doc / string message** -> finding,
-    disposition `summary-fix` (or `must-fix-loop` if the maintainer scopes
-    spelling as blocking; see Open questions). Cite
-    `[rule: skills/american-english-normalization/SKILL.md]`.
+    disposition `summary-fix` (the decided default, PR #75: "summary fix seems
+    appropriate" — non-blocking, bundled into the round's summary-fix fixer
+    pass). Cite `[rule: skills/american-english-normalization/SKILL.md]`.
   - **Inside an identifier, symbol, filename, or API the change does not own**
     (e.g. a function named `serialise` that is upstream, or a third-party
     package) -> **accept with rationale**, no finding. Renaming an identifier is
     a semantics change outside a spelling pass.
   - **Quoted upstream text, a fixture, generated output, or a citation** ->
     accept with rationale; the garden does not rewrite quoted external text.
-  - **A `suffix`-only flagged word not yet on the curated list** that IS a real
-    divergence -> finding **plus** a `[proposed-rule]` note to add the word to
-    `divergences.tsv`.
+  - **A real British divergence not yet on the list**, noticed while adjudicating
+    the enumerated candidates on a line -> finding **plus** a `[proposed-rule]`
+    note to add the literal word-pair to `divergences.tsv`. This is the only way
+    the comprehensive list grows (a curation event, § Decisions), not a
+    heuristic that fires without a row.
 - **Terse, structured, <=400-word block**; group by file; the per-juror block
   shape and cite-or-propose discipline are `skills/panel-review/SKILL.md`.
 
@@ -164,9 +181,11 @@ A fixer variant (`roles/americanizer/AGENT.md`) that reuses the fixer's spine
 `worktree-per-pr`) and reads `skills/american-english-normalization/SKILL.md` for
 the list and the exclusion discipline. Definition of done:
 
-- Every flagged British spelling in prose/comments/docs/messages converted to
-  the American/Chicago form, in one atomic commit
-  (`chore: Americanize British spellings` or similar).
+- Every entry in the dispatched candidate digest (`path:line: british ->
+  american`) is either applied or recorded "left as-is: <reason>"; the role then
+  re-runs `seat-gate-orthographer.sh` and repeats until the grep returns zero
+  candidates (the deterministic loop, § Search-gated dispatch). Fixes land in one
+  atomic commit (`chore: Americanize British spellings` or similar).
 - **Never** touches: an identifier, symbol, filename, package name, or API the
   change does not own; quoted upstream text; a fixture or generated file. When a
   flagged token is one of these, the reply records "left as-is: <reason>".
@@ -183,10 +202,13 @@ spelling finding is bundled into the round's summary-fix fixer pass. The
 **dedicated `americanizer` role** is worn when spelling is dispatched
 *standalone*:
 
-- A maintainer **`americanize #N`** verb -> the triager posts an `americanize`
-  job -> a gardener wears the americanizer role. (Adds one row to the orchestrator
-  vocabulary table in `README.md` and `CLAUDE.md`, and one verb to the triager's
-  imperative map.)
+- A maintainer **`americanize #N`** verb -> the triager first runs
+  `seat-gate-orthographer.sh` on the PR and posts an `americanize` job **only if
+  the grep finds >=1 candidate**, carrying that candidate digest as the body and
+  `tier: myrmidon` (§ Search-gated dispatch) -> a myrmidon gardener wears the
+  americanizer role and runs the deterministic apply-then-re-grep loop to a clean
+  fixpoint. (Adds one row to the orchestrator vocabulary table in `README.md` and
+  `CLAUDE.md`, and one verb to the triager's imperative map.)
 - Optionally, when a round's ONLY findings are spelling and no other fixer work
   is pending, the orthographer's `summary-fix` disposition MAY post an
   `americanize` job rather than spin a full fixer round (a cheap specialization;
@@ -200,23 +222,75 @@ false-positive blast radius). Reason: the panel is already the choke point every
 source PR passes through; add the watcher only if PRs that skip the gauntlet turn
 out to need coverage.
 
-## Build plan (once the Open questions resolve)
+## Search-gated dispatch: concise, exhaustive, myrmidon-ready
+
+The review on PR #75 asked for **evidence** of four properties before this role
+ships. Each is a structural invariant of the design, not a hope:
+
+1. **The role deploys only on a search hit.** The americanizer is **never**
+   dispatched speculatively. The single thing that produces a dispatch is a
+   **non-empty candidate set from the deterministic `seat-gate-orthographer.sh`
+   grep** (no LLM). Zero candidates → the seat is skipped **and** no americanize
+   job is posted; the gate's exit code is the one gate for both. There is no code
+   path that dispatches the role without a concrete grep hit, so "this role only
+   runs when an automatic search finds candidates" is true by construction, the
+   same way `coverage-auditor` never spends on a fully-covered change.
+
+2. **The dispatch is a concise report of exactly where.** The payload handed to
+   the agent is precisely the gate's digest: **one line per aberration**,
+   `path:line: <british> -> <american> [category]`, and nothing else — no diff,
+   no prose, no repository tour. Every dispatched case names the exact file,
+   exact line, the exact British token, and its exact American replacement, so
+   the agent is told *exactly where the discrepancy occurs* and what to write.
+
+3. **A deterministic loop runs until all aberrations are addressed.** After the
+   americanizer applies its fixes, the loop **re-runs `seat-gate-orthographer.sh`
+   on the resulting tree**; if any candidate remains it re-dispatches with the
+   residual (still-concise) list; it terminates **only at the fixpoint — zero
+   candidates**. Because the rule set is a **closed, explicit list** (no
+   patterns, per the PR-#75 decision), the candidate set is decidable and
+   strictly shrinks each round, so the loop reaches zero in finite steps and
+   **no case can be silently forgotten**. This is the same converge-to-clean
+   shape the gauntlet's must-fix loop already uses; here the terminating oracle
+   is the deterministic grep itself, not a model's say-so.
+
+4. **The dispatch is narrow enough for `myrmidon` tier.** All judgment
+   (identifier vs. prose vs. quoted-text vs. owned-symbol) is done **once, by the
+   orthographer seat** (a `claude -p` at panel tier) and **baked into the
+   candidate list** as either an accepted-no-finding note or a
+   ready-to-apply row. What reaches the americanizer is therefore a
+   fully-enumerated, literal find-and-replace list with **zero search and zero
+   judgment left** — pure mechanical application. That is why the `americanize`
+   job carries `tier: myrmidon` (Sonnet/Haiku, `skills/model-selection/SKILL.md`
+   § tiers): the expensive discernment already happened upstream, and the cheap
+   tier only types the vetted replacements.
+
+## Build plan (open questions resolved; ready once the strengthened design is signed off)
 
 A single builder job (or a small orchestration) carves, in order:
 
-1. `skills/american-english-normalization/SKILL.md` + `divergences.tsv` (the
-   curated seed list + the exclusion discipline).
+1. `skills/american-english-normalization/SKILL.md` + `divergences.tsv` — the
+   **comprehensive, explicit** curated word-pair list (no suffix/pattern rows) +
+   the exclusion discipline. Document that curation is **maintainer-reviewed on
+   each extension** (§ Decisions), gardeners proposing rows via `[proposed-rule]`
+   findings.
 2. `scripts/jobs/gardening/seat-gate-orthographer.sh` + a test under
    `scripts/jobs/test/` (a fixture diff with one real divergence, one
    always-`-ise` word, one identifier, one quoted-text case; assert the gate
-   fires only on the real one).
-3. `roles/jurors/orthographer/AGENT.md`; wire the seat into
-   `panel.sh`'s `GARDEN_CODE_SEATS` (and `GARDEN_DESIGN_SEATS` iff the panel
-   open question resolves that way) and its cost-gate branch alongside the
-   coverage-auditor gate; update the seat counts in `skills/panel/SKILL.md` and
-   `skills/panel-review/SKILL.md` (§ Panel composition).
-4. `roles/americanizer/AGENT.md`; add the `americanize #N` verb to the triager
-   map and the orchestrator vocabulary tables in `README.md` and `CLAUDE.md`.
+   fires only on the real one) + a test of the **apply-then-re-grep loop**
+   reaching a zero-candidate fixpoint.
+3. `roles/jurors/orthographer/AGENT.md`; wire the seat into **both**
+   `panel.sh`'s `GARDEN_CODE_SEATS` **and** `GARDEN_DESIGN_SEATS` (decided: all
+   documents) and its cost-gate branch alongside the coverage-auditor gate;
+   update the seat counts in `skills/panel/SKILL.md` and
+   `skills/panel-review/SKILL.md` (§ Panel composition). Wire the **external-author
+   `drop` calibration** for the orthographer's findings in
+   `skills/panel-review/SKILL.md` § External-author calibration (decided: garden
+   convention scoped to maintainer-authored work; see § Decisions).
+4. `roles/americanizer/AGENT.md` (a `myrmidon`-tier fixer variant running the
+   deterministic loop); add the `americanize #N` verb to the triager map (which
+   runs the gate before posting, at `tier: myrmidon`) and the orchestrator
+   vocabulary tables in `README.md` and `CLAUDE.md`.
 
 ## Alternatives considered
 
@@ -228,39 +302,59 @@ A single builder job (or a small orchestration) carves, in order:
   typist-hostile-code-point probe). Rejected as the *primary* mechanism because
   the maintainer explicitly asked for a *jury seat* that *reports*, so a human
   sees the divergence in review; an auto-fixing probe hides it. A probe remains a
-  reasonable *later* addition once the curated list is trusted (see Open
-  questions on external-author scope).
+  reasonable *later* addition once the curated list is trusted (see Decisions on
+  external-author scope).
 
-## Open questions
+## Decisions (resolved by kriskowal on PR #75, 2026-09-04)
 
-- Does American-English normalization apply on **external-author** PRs, or only
-  on bot-authored ones? `skills/panel-review/SKILL.md` § External-author
-  calibration downgrades garden-only prose conventions (em-dash-style,
-  no-latin-shorthand) to `drop` on an external contributor's PR, so the garden
-  does not impose its house style on others. Chicago spelling reads as a
-  *project* standard the maintainer wants ("in general"), but the origin repo
-  (`endo-but-for-bots`) has external contributors (kumavis). Is this rule
-  universal, or a garden convention that drops on external-author PRs like the
-  others?
-- Should the orthographer sit on the **design panel** too, not just the code
-  panel? Design docs are prose and can carry `serialise`; the seat is cost-gated
-  so it is free when a design has no divergence. But the design panel is
-  deliberately curated at seven seats and the maintainer may not want spelling
-  nits in design review. Recommendation: add it to both (cost-gated), but this is
-  the maintainer's call.
-- How **conservative** should the seed rule set be, and **who curates** it? The
-  clean cases (`-ise` verbs, the named irregular plurals, `thawn`) are safe. The
-  `-re`/`-our`/`-ll-` categories carry false friends (`genre`, `glamour`,
-  `install`); shipping them risks rewriting real words. Ship only the
-  high-precision categories first and grow the list via `[proposed-rule]`
-  findings, or seed the ambiguous categories up front with the exclusion list
-  above? And is the curated `divergences.tsv` maintainer-reviewed on each
-  extension, or gardener-owned?
-- Is the **default disposition** for a spelling finding `summary-fix`
-  (non-blocking, bundled) or `must-fix-loop` (blocks un-draft)? The design
-  assumes `summary-fix`; the maintainer may want spelling to block.
-- Naming: `orthographer` (seat) / `americanizer` (role) /
-  `american-english-normalization` (skill). Confirm, or collapse toward one
-  family.
+The five open questions this review surface existed to answer are all decided.
+Each decision below quotes the maintainer's inline answer and states its effect
+on the design above.
+
+1. **External-author scope → "All maintainers."** American-English normalization
+   is a **garden/house convention scoped to maintainer-authored (bot + maintainer)
+   work**, not a universal rule imposed on external contributors. Like the other
+   garden-only prose conventions (em-dash-style, no-latin-shorthand), the
+   orthographer's findings are **downgraded to `drop` on an external-author PR**
+   via `skills/panel-review/SKILL.md` § External-author calibration. (Interpretation
+   note for re-review: "All maintainers" is read as *all maintainer-authored work
+   is held to the standard; external-author PRs drop like the other conventions*.
+   If the maintainer instead meant "universal, no external drop," say so and this
+   one line flips.)
+
+2. **Design panel too? → "All documents."** The orthographer sits on **both the
+   code panel and the design panel** — every prose document the garden reviews is
+   in scope. It is cost-gated, so a design with no divergence still costs zero
+   `claude -p`. Reflected in § What we are building (item 2) and the build plan
+   (both `GARDEN_CODE_SEATS` and `GARDEN_DESIGN_SEATS`).
+
+3a. **`thawn` vs `thawed` → "We want `thawed`."** `thawed` is the target form;
+   the poetic `thawn` "does not belong in technical writing for an international
+   audience." Carried as a plain `thawn -> thawed` row with no special-case
+   treatment.
+
+3b. **Comprehensive list vs patterns / who curates → "We should be able to make
+   a comprehensive list and not simply patterns."** The rule set is a
+   **comprehensive, explicit, enumerated word-pair list — no suffix or pattern
+   rows** (the `match=suffix` heuristic is removed throughout). The list grows
+   only by adding literal rows, and each extension is **maintainer-reviewed**
+   (consistent with decision 1's "all maintainers" ownership of the standard);
+   gardeners surface candidates via `[proposed-rule]` findings but do not
+   unilaterally widen the shipped list.
+
+4. **Default disposition → "Summary fix seems appropriate."** A spelling finding
+   is `summary-fix` (non-blocking, bundled into the round's summary-fix pass), not
+   `must-fix-loop`. Reflected in the orthographer seat and the finding→fix section.
+
+5. **Names → "These are fine."** Confirmed: `orthographer` (seat) /
+   `americanizer` (role) / `american-english-normalization` (skill). No collapse.
+
+**Review-body directive (top-level, `pullrequestreview-5098537395`).** The
+maintainer additionally required *evidence* that the role deploys only on an
+automatic search hit, dispatches a concise report of exactly where each
+discrepancy occurs, loops deterministically until all aberrations are addressed,
+and is narrow enough for **myrmidon-tier** agents. That evidence is the new
+**§ Search-gated dispatch** section, whose four invariants map one-to-one onto
+those four clauses.
 </content>
 </invoke>
