@@ -48,6 +48,7 @@ fix, open it as a PR against `main` rather than pushing directly, so it draws
 review; a pure investigative report needs no PR. Do not comment on or otherwise
 touch any repo other than kriscendobot/minion.town.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=148 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
