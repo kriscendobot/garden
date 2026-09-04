@@ -111,3 +111,13 @@ explicit maintainer directive; present the option.
   staged automatically at completion).
 - The PR reply / report surfaces the #85 supersession option with the deciding question
   named.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T04:15:40Z
