@@ -101,10 +101,10 @@ confirm with `list`/`has`.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=3 values=41,152 -->
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=4 values=152,37 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
