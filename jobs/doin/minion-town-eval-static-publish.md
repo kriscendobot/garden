@@ -94,3 +94,13 @@ whole campaign needs surfaced early and legibly.
 **Cleanup.** Unpublish the clip; `curl` again and record precisely what a
 de-published URL returns (status code, body). Remove any `ev1-` pet names;
 confirm with `list`/`has`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-04T06:49:35Z
