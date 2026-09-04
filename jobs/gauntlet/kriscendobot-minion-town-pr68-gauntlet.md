@@ -1,16 +1,16 @@
 ---
-stage_retries: 1
+stage_retries: 0
 pr: https://github.com/kriscendobot/minion.town/pull/68
 repo: kriscendobot/minion.town
 pr_number: 68
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion-town-pr68-gauntlet-panel-2
+current_child: kriscendobot-minion-town-pr68-gauntlet-fix-2
 state: running
 created_by: gardener
 created_at: 2026-09-01T23:16:50Z
