@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":46,"elapsed_s":1143,"input_tokens":90,"output_tokens":36086,"cache_creation_tokens":241440,"cache_read_tokens":4298065,"total_cost_usd":4.5639675,"ts":"2026-09-04T10:13:18Z","base":"kriscendobot-agoric-sdk-pr10-gauntlet-fix-2","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener","provider":"anthropic"}
