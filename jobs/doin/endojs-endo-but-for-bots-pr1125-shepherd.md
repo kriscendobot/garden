@@ -25,10 +25,10 @@ this job was minted from a rollup read at post time.
 <!-- garden-elapsed-constancy: 1 -->
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=2 values=194 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=3 values=194,30 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
