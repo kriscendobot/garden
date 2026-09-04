@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T16:18:57Z_
+_As of 2026-09-04T16:21:17Z_
 
 ## Latest
 
@@ -1302,12 +1302,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.6M | $852.49 _(notional, rate-card)_ | 14% of 595.0M (ok) |
+| Claude | 83.7M | $853.52 _(notional, rate-card)_ | 14% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (31)
+### todo (32)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
+- [`endojs-endo-but-for-bots-pr735-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr735-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #735
 - [`endojs-endo-but-for-bots-pr715-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr715-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #715
 - [`xs2rust-endor-press-20260904-152014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-152014.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`improve-stagger-watcher-timer-thundering-herd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-stagger-watcher-timer-thundering-herd.md) — ---
