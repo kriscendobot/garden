@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 9
+worker_kind: monk
+claimed_at: 2026-09-04T11:05:19Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-endojs-endo-but-for-bots-pr665-gauntlet-fix-1
