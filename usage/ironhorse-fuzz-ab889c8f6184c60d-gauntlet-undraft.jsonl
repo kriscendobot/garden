@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":2,"elapsed_s":11,"input_tokens":4,"output_tokens":526,"cache_creation_tokens":27259,"cache_read_tokens":47555,"total_cost_usd":0.21036625,"ts":"2026-09-04T06:10:02Z","base":"ironhorse-fuzz-ab889c8f6184c60d-gauntlet-undraft","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener","provider":"anthropic"}
