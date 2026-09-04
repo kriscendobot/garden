@@ -60,3 +60,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-551804865
 <!-- garden-transient-elapsed: kind=signature through=3 values=3,2 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T04:29:44Z
