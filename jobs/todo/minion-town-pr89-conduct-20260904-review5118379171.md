@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-pr89-review-5118379171-conduct-build
-priority: normal
-posted_by: gardener
-posted_at: 2026-09-04T22:46:36Z
+role: conductor
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-04T22:49:03Z cleared=none -->
 
 ---
 role: conductor
