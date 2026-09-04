@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: minion-town-remote-guest-endo-cli-endo-invite-primitive
-priority: normal
-posted_by: proxy
-posted_at: 2026-09-04T00:20:49Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-04T00:21:20Z cleared=none -->
 
 # Build invitation-only guest onboarding for minion.town
 
