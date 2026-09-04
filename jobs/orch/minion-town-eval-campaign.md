@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-eval-static-publish minion-town-eval-namestore-durability minion-town-eval-odometer-counter minion-town-eval-guestbook-tally minion-town-eval-sandbox-boundary minion-town-eval-site-lifecycle minion-town-eval-mail-pair minion-town-eval-error-probes
 on-child-failure: continue
-state: pending
+state: running
 budget_tokens: 12000000
 created_by: design-minion-town-eval-campaign
 created_at: 2026-09-01T19:38:13Z
