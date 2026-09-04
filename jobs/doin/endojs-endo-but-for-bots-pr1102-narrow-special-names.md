@@ -77,3 +77,13 @@ revision.
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T09:56:34Z
