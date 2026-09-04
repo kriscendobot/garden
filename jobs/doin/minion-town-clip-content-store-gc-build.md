@@ -35,3 +35,13 @@ unless it was actually executed and observed.
 
 This is the second child of the serial review-5118379171 orchestration and must begin
 only after the conductor child completed successfully.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-04T22:55:22Z
