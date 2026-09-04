@@ -5,12 +5,12 @@ repo: kriscendobot/agoric-sdk
 pr_number: 10
 build_job: 
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-agoric-sdk-pr10-gauntlet-fix-1
+current_child: kriscendobot-agoric-sdk-pr10-gauntlet-panel-2
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-08-30T07:39:42Z
