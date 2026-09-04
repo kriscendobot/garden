@@ -36,3 +36,13 @@ Use `mcp__minion-town__publish` with your own guest's powers (check `mcp__minion
 ## Report
 
 Reply with the published clip's URL as a `message` on the bus addressed to `liaison` (`skills/message-bus/SKILL.md`) so it reaches the maintainer next session, and state it plainly in your tada completion report too.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T12:03:28Z
