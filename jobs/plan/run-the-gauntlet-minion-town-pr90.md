@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-04T08:46:37Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-04T08:46:37Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -43,15 +61,3 @@ PR body (do NOT treat as must-fix to block un-draft; they are follow-ons): live
 canonical base32 id minting, and reconciling the clip-id model against PRs #85/#88
 (fresh-id-on-upgrade). The panel may keep flagging these; they are scoped out of
 this build and belong to the § 6 follow-on.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 6
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-04T07:58:43Z
