@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+handler-timeout: 10800
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: unknown
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 1
+doomed_at: 2026-09-04T04:45:42Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-04T04:45:42Z
+---
+
+---
 role: builder
 tier: mentor
 fallback-tier: minion
@@ -63,24 +83,3 @@ which. If you cannot establish it, report what you ruled OUT and what evidence
 would settle it — a well-bounded negative result is a good outcome here and much
 more useful than a guess. Only implement a fix if the cause is established and
 the fix is small; otherwise propose it.
-
-
-
-
-
-
-
-<!-- garden-elapsed-constancy: 1 -->
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-transient-elapsed: kind=signature through=4 values=2,3 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T20:10:51Z
