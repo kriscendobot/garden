@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":2,"elapsed_s":10,"input_tokens":4,"output_tokens":428,"cache_creation_tokens":27433,"cache_read_tokens":47678,"total_cost_usd":0.20891724999999997,"ts":"2026-09-04T09:06:11Z","base":"kriscendobot-garden-pr73-gauntlet-undraft","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener","provider":"anthropic"}
