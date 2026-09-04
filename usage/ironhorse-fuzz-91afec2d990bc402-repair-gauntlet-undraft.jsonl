@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":2,"elapsed_s":11,"input_tokens":4,"output_tokens":455,"cache_creation_tokens":27321,"cache_read_tokens":47559,"total_cost_usd":0.20898075,"ts":"2026-09-04T05:40:44Z","base":"ironhorse-fuzz-91afec2d990bc402-repair-gauntlet-undraft","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener","provider":"anthropic"}
