@@ -14,15 +14,7 @@ Two defects follow, fix both:
 Other `gh`-driven services on this host (ci-watcher, the comment/mention watchers) share these two helpers and were failing the same way during the window, so fix 1 is fleet-wide, not mirror-closer-specific.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,1 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T21:37:51Z
+
+<!-- garden-reaped: 2 -->

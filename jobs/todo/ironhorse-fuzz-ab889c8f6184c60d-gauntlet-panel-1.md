@@ -40,16 +40,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=must-fix -->
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,70 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-04T05:36:20Z
+
+<!-- garden-reaped: 2 -->
