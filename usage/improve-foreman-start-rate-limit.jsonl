@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":6,"elapsed_s":33,"input_tokens":10,"output_tokens":1796,"cache_creation_tokens":34306,"cache_read_tokens":182202,"total_cost_usd":0.48201399999999994,"ts":"2026-09-04T00:27:10Z","base":"improve-foreman-start-rate-limit","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
