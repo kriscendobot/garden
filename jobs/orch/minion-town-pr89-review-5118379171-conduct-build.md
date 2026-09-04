@@ -1,4 +1,5 @@
 ---
+child-minion-town-clip-content-store-gc-build-host: endolin-garden-ece02cb4
 child-minion-town-clip-content-store-gc-build-reap-count: 0
 child-minion-town-pr89-conduct-20260904-review5118379171-host: endolin-garden2-5bcdff64
 child-minion-town-pr89-conduct-20260904-review5118379171-reap-count: 0
