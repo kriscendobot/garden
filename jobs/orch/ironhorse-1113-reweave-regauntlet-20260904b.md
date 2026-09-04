@@ -1,4 +1,5 @@
 ---
+child-weave-endo-pr1113-20260904b-reap-count: 0
 order: serial
 children: weave-endo-pr1113-20260904b gauntlet-endo-pr1113-20260904b
 on-child-failure: halt
