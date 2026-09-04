@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T04:06:21Z_
+_As of 2026-09-04T04:08:51Z_
 
 ## Latest
 
@@ -1004,14 +1004,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.4M | $1373.45 _(notional, rate-card)_ | 20% of 385.0M (ok) |
+| Claude | 77.4M | $1373.87 _(notional, rate-card)_ | 20% of 385.0M (ok) |
 | Codex | 43.6M _(+1185.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (108)
+### doin (107)
 - [`design-pass-style-symbol-condition-variant`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-pass-style-symbol-condition-variant.md) — Motivation, as given
 - [`cybernetics-rec8-scheduler-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec8-scheduler-admission.md) — ---
 - [`kriscendobot-garden-pr73-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr73-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden PR #73
@@ -1119,15 +1119,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1127-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1127-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1127
 - [`endojs-endo-but-for-bots-pr1102-narrow-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-narrow-special-names.md) — Narrow design PR #1102 to the special-names-on-options-bag mechanism
 - [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
-- [`build-endo-but-for-bots-issue1128-omit-endo-child-hosts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-issue1128-omit-endo-child-hosts.md) — Build: withhold @endo from non-root (child) hosts — endojs/endo-but-for-bots#...
 
-### tada (6849)
+### tada (6850)
+- [`build-endo-but-for-bots-issue1128-omit-endo-child-hosts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-issue1128-omit-endo-child-hosts.md) — Completion report
 - [`xs2rust-endor-press-20260904-035015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-035015.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-03...
 - [`xs2rust-endor-press-20260904-023526`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-023526.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-02...
 - [`xs2rust-endor-press-20260904-013517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-013517.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-01...
 - [`xs2rust-endor-press-20260904-003511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-003511.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-00...
-- [`scholar-ingest-cedar-access-control-for-ai-agents`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cedar-access-control-for-ai-agents.md) — Completion report: scholar-ingest-cedar-access-control-for-ai-agents
-- … and 6844 more
+- … and 6845 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
