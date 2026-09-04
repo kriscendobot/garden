@@ -13,3 +13,13 @@ Implement the content-store garbage collector per that design:
 - Daemon-side footprint: on `unpublish`, drop the guest's own `clip-<n>-<rand>` directory entry so the formula becomes unreferenced for Endo's own GC (§ B.8).
 - Fakes-based test suite per house conventions (`test/*.test.ts`, § B.9) green in CI.
 - Full acceptance criteria enumerated at the end of the design; audit-mode production validation against the real accumulated store recorded before the first `--delete` run.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-04T22:56:08Z
