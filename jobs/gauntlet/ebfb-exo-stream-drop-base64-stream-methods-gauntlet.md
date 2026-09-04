@@ -5,12 +5,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1100
 build_job: ebfb-exo-stream-drop-base64-stream-methods
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-panel-1
+current_child: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-fix-1
 state: running
 created_by: producer
 created_at: 2026-08-31T21:16:00Z
