@@ -19,3 +19,13 @@ open question) it produced.
 Publish the report as a minion.town clip per
 `skills/minion-town-clip-publishing/SKILL.md`. Report the published clip URL back
 in your tada report on completion.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-04T22:13:47Z
