@@ -47,4 +47,4 @@ claim:
   tier: 
   provider: anthropic
   model: 
-  claimed_at: 2026-09-04T10:53:45Z
+  claimed_at: 2026-09-04T08:00:00Z
