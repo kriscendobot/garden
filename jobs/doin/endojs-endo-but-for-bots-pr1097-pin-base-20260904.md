@@ -41,6 +41,7 @@ force a large semantic reconstruction unattended.
 Do NOT do the base64-trim or the getInfo/type edits here — those are stages 2 and 3.
 Leave the PR head rebased onto the new pinned base with conflicts resolved and CI-clean.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=985 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
