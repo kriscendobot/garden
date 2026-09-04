@@ -32,12 +32,5 @@ The manual-checkpoint log's first day of data already surfaced something the aut
 - `scripts/jobs/claim-job.sh` (`pool_admits` — the actual admission gate a bad cap silently starves, as happened today: 0 claims fleet-wide on `endolin-garden-ece02cb4` for 15+ minutes against a stale cap)
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T21:07:22Z
+
+<!-- garden-reaped: 1 -->
