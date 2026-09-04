@@ -48,7 +48,6 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-reaped: 4 -->
 
 <!-- garden-transient-elapsed: kind=signature through=4 values=2,2 -->
-<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-09-05T03:00:00Z -->
 <!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 ---
