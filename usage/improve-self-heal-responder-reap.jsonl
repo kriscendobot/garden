@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":52,"elapsed_s":691,"input_tokens":102,"output_tokens":37912,"cache_creation_tokens":114261,"cache_read_tokens":4715953,"total_cost_usd":4.451502500000002,"ts":"2026-09-04T21:13:41Z","base":"improve-self-heal-responder-reap","host":"endolin-garden-ece02cb4","outcome":"requeue","provider":"anthropic"}
