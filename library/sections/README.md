@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6966 (530 parent indexes + 6436 children).
+Total section files: 6970 (530 parent indexes + 6440 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -636,6 +636,12 @@ Total section files: 6966 (530 parent indexes + 6436 children).
 
 - [cask--verbs--verb-catalog](cask--verbs--verb-catalog.md)
 - [cask--verbs--verb-dispatch-and-type-designators](cask--verbs--verb-dispatch-and-type-designators.md)
+
+### cedar-aws-announcement
+
+- [cedar-aws-announcement--overview](cedar-aws-announcement--overview.md)
+- [cedar-aws-announcement--verification-guided-development](cedar-aws-announcement--verification-guided-development.md)
+- [cedar-aws-announcement--verified-permissions-and-local-use](cedar-aws-announcement--verified-permissions-and-local-use.md)
 
 ### cloudflare-os--agents
 
@@ -9352,6 +9358,10 @@ Total section files: 6966 (530 parent indexes + 6436 children).
 - [tc39-module-harmony--source-phase-imports--abstract-module-source-and-module-source-objects](tc39-module-harmony--source-phase-imports--abstract-module-source-and-module-source-objects.md)
 - [tc39-module-harmony--source-phase-imports--cache-key-and-relationship-to-other-proposals](tc39-module-harmony--source-phase-imports--cache-key-and-relationship-to-other-proposals.md)
 - [tc39-module-harmony--source-phase-imports--overview-motivation-and-source-phase](tc39-module-harmony--source-phase-imports--overview-motivation-and-source-phase.md)
+
+### thestack-cedar-for-ai-agents
+
+- [thestack-cedar-for-ai-agents--overview](thestack-cedar-for-ai-agents--overview.md)
 
 ### typescript-website--packages-documentation-copy-en-declaration-files-publishing
 
