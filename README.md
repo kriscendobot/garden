@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T05:58:29Z_
+_As of 2026-09-04T06:01:27Z_
 
 ## Latest
 
@@ -2230,16 +2230,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.2M | $1762.74 _(notional, rate-card)_ | no quota set |
+| Claude | 100.4M | $1769.09 _(notional, rate-card)_ | no quota set |
 | Codex | 43.6M _(+1185.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (51)
+### todo (50)
 - [`design-pass-style-symbol-condition-variant`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-pass-style-symbol-condition-variant.md) — Motivation, as given
 - [`build-minion-town-clip-shell-framework`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-clip-shell-framework.md) — Borrow extensively from @endo/chat
 - [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1117
 - [`minion-town-pr17-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr17-conduct.md) — ---
-- [`endojs-endo-but-for-bots-pr666-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr666-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #666
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #84
 - [`ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1088
 - [`kriscendobot-garden-pr75-review-c4c627a3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr75-review-c4c627a3.md) — Review directive on kriscendobot/garden PR #75
@@ -2298,18 +2297,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr855-review-5ac73b99`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr855-review-5ac73b99.md) — Review directive on endojs/endo-but-for-bots PR #855
 - [`fix-endo-but-for-bots-pr897-review-5092213172`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pr897-review-5092213172.md) — fix endojs/endo-but-for-bots PR #897 — address review 5092213172 (CHANGES_REQ...
 - [`minion-town-formula-graph-content-gc-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-formula-graph-content-gc-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #83
-- [`xs2rust-endor-press-20260903-093506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260903-093506.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`endojs-endo-but-for-bots-pr996-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr996-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #996
+- [`endojs-endo-but-for-bots-pr666-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr666-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #666
 - [`endojs-endo-but-for-bots-pr735-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr735-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #735
 - [`design-reset-time-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-reset-time-detection.md) — What already exists
 
-### tada (6943)
+### tada (6944)
+- [`xs2rust-endor-press-20260903-093506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-093506.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260903-09...
 - [`design-fable-release-supervisor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-fable-release-supervisor.md) — Completion report
 - [`xs2rust-endor-press-20260903-140507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-140507.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260903-14...
 - [`ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1.md) — Completion report
 - [`ironhorse-fuzz-66facfd52ae8c673-repair-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-66facfd52ae8c673-repair-gauntlet.md) — gauntlet ironhorse-fuzz-66facfd52ae8c673-repair-gauntlet — complete
-- [`build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-pr77-tool-name-reconciliation-review5083753201-gauntlet.md) — gauntlet build-minion-town-pr77-tool-name-reconciliation-review5083753201-gau...
-- … and 6938 more
+- … and 6939 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
