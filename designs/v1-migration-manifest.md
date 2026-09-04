@@ -183,7 +183,7 @@ copy whose home is the reference shelf, not the active library.
 | scout | role | `references/`-adopted perf-tradeoff role; lives on the reference shelf, dispatched as a one-off job if needed — no active-library carry. |
 | investigator | role | `references/`-adopted hypothesis-investigation role; reference-shelf, one-off job if needed. |
 | major-general | role | `references/`-adopted major-version-upgrade scout; reference-shelf; its sensor maps to a triager/poller if revived. |
-| groom | role | `references/`-adopted roadmap-maintenance role; reference-shelf; roadmap upkeep is a posted job if revived. |
+| groom | role | **Materialized in v2** as [`roles/groom/AGENT.md`](groom-role.md) (a directly-postable role; the earlier "reference-shelf, file exists" note was stale — no `groom.md` was ever adopted under `references/`). Rationale, the role-vs-basename decision, and the fork-PR-not-journal-snapshot lane: [`designs/groom-role.md`](groom-role.md). |
 | timekeeper | role | Scheduler role superseded by v2 `skills/schedule` + the systemd timer fleet (scaler/reaper/repo-watcher/watchman). |
 
 ### Skills (44)
@@ -214,10 +214,10 @@ copy whose home is the reference shelf, not the active library.
 | ci-runtime-comparison | skill | `references/`-adopted perf-runtime comparison; reference-shelf. |
 | benchmark-comparative-report | skill | `references/`-adopted benchmark-report; reference-shelf (tied to scout/evaluator). |
 | garden-ab-evaluation | skill | A/B garden-evolution procedure tied to the retired evaluator/steward replay harness. |
-| velocity-recalibration | skill | `references/`-adopted roadmap-velocity skill; reference-shelf (tied to groom). |
-| roadmap-projection | skill | `references/`-adopted roadmap-projection; reference-shelf (tied to groom). |
-| dependency-graph-maintenance | skill | `references/`-adopted design-dep-graph upkeep; reference-shelf (tied to groom). |
-| groom-open-questions | skill | `references/`-adopted; reference-shelf (tied to groom). |
+| velocity-recalibration | skill | Never a file (manifest stub). **Folded** into [`roles/groom/AGENT.md`](groom-role.md) + the garden's own velocity machinery (README § Planning); may be minted as a v2 skill per [`designs/groom-role.md`](groom-role.md) § Open questions. |
+| roadmap-projection | skill | Never a file (manifest stub). **Folded** into [`roles/groom/AGENT.md`](groom-role.md); may be minted per [`designs/groom-role.md`](groom-role.md) § Open questions. |
+| dependency-graph-maintenance | skill | Never a file (manifest stub). **Covered** in v2 by `design-dependency-walk` + `pr-dependency-graph` + `pr-dependency-topo-sort` + `mermaid-validation`, referenced from [`roles/groom/AGENT.md`](groom-role.md). |
+| groom-open-questions | skill | Never a file (manifest stub). **Covered** in v2 by the designer's open-questions discipline + `message-bus` surfacing, referenced from [`roles/groom/AGENT.md`](groom-role.md). |
 | merged-pr-feedback-watch | skill | v1-gardener merged-PR-feedback procedure; superseded by the v2 watchman / a posted job. |
 | monitor-arming | skill | `Monitor`-tool-over-daemon arming tied to the steward/monitor model; v2 uses systemd timers + the liaison maintainer-watch Monitor. |
 | monitor-endo-but-for-bots | skill | Per-repo monitor reaction config for the v1 `monitor` role; re-authored as triager config in v2, not carried as-is. |
