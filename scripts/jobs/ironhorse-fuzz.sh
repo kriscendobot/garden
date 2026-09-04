@@ -276,9 +276,33 @@ project_sha="$("$GARDEN_IRONHORSE_FUZZ_SHA_CMD" 2>/dev/null | head -n1 | tr -d '
 # ─────────────────────────────────────────────────────────────────────────────
 ART_ROOT="$(mktemp -d)"
 cleanup() { rm -rf "$ART_ROOT" 2>/dev/null || true; }
+
+# Graceful drain propagation. self-heal-run.sh forwards a systemd stop SIGTERM to THIS
+# script, but the fuzz runner is spawned per target as a bounded child; a plain
+# FOREGROUND call would DEFER this trap until that (possibly build-length) child returned
+# on its own, so the cgroup-wide SIGKILL backstop fired at TimeoutStopSec every time. Run
+# each runner in the BACKGROUND and, on TERM/INT, forward the signal to it before exiting.
+# The runner has its own TERM trap that reaps its timeout'd git/cargo process group, so a
+# single TERM to the runner tears the whole tree down; `timeout` inside the runner still
+# bounds a stuck build even if no signal arrives. A bounded KILL backstop covers a runner
+# that somehow ignores TERM.
+: "${GARDEN_IRONHORSE_FUZZ_RUNNER_KILL_AFTER_SECS:=20}"
+case "$GARDEN_IRONHORSE_FUZZ_RUNNER_KILL_AFTER_SECS" in ''|*[!0-9]*) GARDEN_IRONHORSE_FUZZ_RUNNER_KILL_AFTER_SECS=20 ;; esac
+runner_pid=""
+drain_forward() {  # drain_forward <exit-code>
+  local code="$1"
+  if [ -n "$runner_pid" ]; then
+    kill -TERM "$runner_pid" 2>/dev/null || true
+    ( sleep "$GARDEN_IRONHORSE_FUZZ_RUNNER_KILL_AFTER_SECS"
+      kill -KILL "$runner_pid" 2>/dev/null || true ) &
+    wait "$runner_pid" 2>/dev/null || true
+  fi
+  cleanup
+  exit "$code"
+}
 trap 'cleanup' EXIT
-trap 'cleanup; exit 143' TERM
-trap 'cleanup; exit 130' INT
+trap 'drain_forward 143' TERM
+trap 'drain_forward 130' INT
 
 posted_this_tick=0
 
@@ -495,8 +519,13 @@ if [ -z "$cooldown_remaining" ]; then
   arts="$ART_ROOT/$target"; mkdir -p "$arts"
 
   rc=0
+  # Backgrounded so a drain SIGTERM (drain_forward) can reach the runner promptly, rather
+  # than the trap being deferred until a slow foreground runner returns on its own.
   "$GARDEN_IRONHORSE_FUZZ_RUNNER" "$target" "$corpus" "$arts" "$GARDEN_IRONHORSE_FUZZ_SECS" \
-    >"$LOGS_ROOT/$target.log" 2>&1 || rc=$?
+    >"$LOGS_ROOT/$target.log" 2>&1 &
+  runner_pid=$!
+  wait "$runner_pid" || rc=$?
+  runner_pid=""
   if [ "$rc" -ne 2 ]; then
     summarize_shared_recovery "$target"
   fi

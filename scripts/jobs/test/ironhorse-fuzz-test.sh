@@ -22,6 +22,7 @@
 #   M. shared runner outage — retries persist one episode, warn on its edge, and summarize recovery once
 #   N. runner exit contract — a target run's own rc=2 is remapped to target-specific rc=1
 #   O. corrupt checkout recovery — quarantine only the project cache and retry provisioning once
+#   P. unbounded-subprocess guard — a stuck cargo build+run is bounded by `timeout` and remapped to rc=1
 #
 # Usage: ironhorse-fuzz-test.sh
 set -euo pipefail
@@ -441,6 +442,49 @@ quarantine_o="$(find "$TR" -maxdepth 1 -type d -name 'project-o.corrupt-*' -prin
 grep -q 'Git object corruption detected' "$TR/runner-o.log" \
   && ok "corruption recovery is diagnosed in the runner log" \
   || bad "corruption recovery did not log its diagnosis"
+
+# ============================================================================
+hr; echo "P — a stuck cargo build+run is bounded by timeout and remapped to rc=1"; hr
+PROJ_P="$TR/project-p"; ORIGIN_P="$TR/project-p.git"; SEED_P="$TR/project-seed-p"
+git init -q --bare "$ORIGIN_P"
+git init -q "$SEED_P"; git -C "$SEED_P" checkout -q -b llm
+mkdir -p "$SEED_P/rust/engine/ironhorse-fuzz/fuzz"
+touch "$SEED_P/rust/engine/ironhorse-fuzz/fuzz/.gitkeep"
+git -C "$SEED_P" add -A; git -C "$SEED_P" "${git_id[@]}" commit -q -m seed
+git -C "$SEED_P" remote add origin "$ORIGIN_P"; git -C "$SEED_P" push -q -u origin llm
+git clone -q --single-branch --branch llm "$ORIGIN_P" "$PROJ_P"
+FAKEBIN_P="$TR/fakebin-p"; mkdir -p "$FAKEBIN_P"
+FAKECARGO_P="$FAKEBIN_P/cargo"
+# --help succeeds (cargo-fuzz "available"); `fuzz run` HANGS to model a stuck build.
+printf '%s\n' \
+  '#!/bin/bash' \
+  'case " $* " in' \
+  '  *" --help "*) exit 0 ;;' \
+  '  *" fuzz run "*) sleep 120 ;;' \
+  '  *) exit 0 ;;' \
+  'esac' > "$FAKECARGO_P"
+chmod +x "$FAKECARGO_P"
+mkdir -p "$TR/home-p"
+rc_p=0; t0="$(date +%s)"
+env HOME="$TR/home-p" GARDEN_TEST=1 GARDEN_STATE="$TR/state-p" GARDEN_ROOT="$TR/root-p" \
+  GARDEN_IRONHORSE_FUZZ_STATE="$TR/state-p/ihf" \
+  GARDEN_IRONHORSE_FUZZ_PROJECT_DIR="$PROJ_P" \
+  GARDEN_IRONHORSE_FUZZ_SUBMODULE=. \
+  GARDEN_IRONHORSE_FUZZ_BUILD_ALLOWANCE_SECS=1 \
+  GARDEN_IRONHORSE_FUZZ_KILL_AFTER_SECS=1 \
+  PATH="$FAKEBIN_P:$PATH" \
+  "$JOBS/handlers/ironhorse-fuzz-run-gh.sh" parser "$TR/corpus-p" "$TR/arts-p" 1 \
+  >"$TR/runner-p.log" 2>&1 || rc_p=$?
+t1="$(date +%s)"; elapsed_p=$((t1 - t0))
+[ "$rc_p" -eq 1 ] \
+  && ok "a stuck cargo run is bounded and remapped to target-specific rc=1" \
+  || { bad "stuck cargo run escaped as rc=$rc_p"; cat "$TR/runner-p.log"; }
+[ "$elapsed_p" -lt 30 ] \
+  && ok "the bounded run self-terminated in ${elapsed_p}s (well under the sleep 120 and the unit budget)" \
+  || bad "the bounded run took ${elapsed_p}s — timeout did not preempt the stuck subprocess"
+grep -q 'build+run budget' "$TR/runner-p.log" \
+  && ok "the timeout is diagnosed in the runner log" \
+  || { bad "the bounded run did not log its budget diagnosis"; cat "$TR/runner-p.log"; }
 
 # ============================================================================
 hr
