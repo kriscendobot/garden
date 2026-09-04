@@ -1,2 +1,2 @@
-base: improve-recover-corrupt-fuzz-checkout
+base: improve-ironhorse-fuzz-runner-unbounded-subprocess
 identity: mentor:scripts/jobs/handlers/ironhorse-fuzz-run-gh.sh
