@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-04T04:15:40Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-clip-immutable-nonce-locator-design
-pr_number: 88
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/88
-pr_head: design/clip-immutable-nonce-locator
