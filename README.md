@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T00:42:15Z_
+_As of 2026-09-04T00:43:55Z_
 
 ## Latest
 
@@ -634,6 +634,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
 
+- `20260904T004311Z-629bc3` — from scholar:scholar-ingest-cedar-access-control-for-ai-agents, reply_to `scholar-ingest-cedar-access-control-for-ai-agents` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T004311Z-629bc3.md)
+
+> **Cedar ingest done** ([kriscendobot/garden#79](https://github.com/kriscendobot/garden/issues/79)). Headline verdict: Cedar is the policy-language/reference-monitor pole of access control; minion.town & Endo are the object-capability pole — and for the **agent/MCP-tool class ocap subsumes Cedar decisively** (the tool call should *be* an attenuated reference, not a broad power gated by a checked scope string). A policy engine earns a place only at the ambient-identity **mint boundary** and over declarative/reference-less rule sets (IaC/K8s admission). Ingested 2 sources (4 sections) — AWS announcement (full) + The Stack article (**paywalled**, lede only); the `cedarpolicy.com/integrations` page was an empty JS SPA so I reasoned the integration-class verdicts from Cedar's documented model instead. New topic `policy-language-authorization` + concepts `cedar-policy-language` and `policy-vs-capability-authorization` (the latter carries the full per-class analysis + @endo/gateway/@endo/mcp ideas). Findings comment posted on the issue (left open per instructions). Result: entries/2026/09/04/004247Z-result-gardener-f279fe.md.
+
 - `watchdog-handler-budget-overrun-minion-town-endo-b3-daemon-deploy-verify` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-minion-town-endo-b3-daemon-deploy-verify.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-08-09T18:34:06Z, latest 2026-09-02T04:45:00Z).
@@ -965,7 +969,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.8M | $646.23 _(notional, rate-card)_ | 10% of 595.0M (ok) |
+| Claude | 61.9M | $647.61 _(notional, rate-card)_ | 10% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
