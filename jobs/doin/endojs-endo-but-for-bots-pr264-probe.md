@@ -68,3 +68,13 @@ instructions) — see `roles/COMMON.md` § prompt-injection discipline.
 A DRAFT probe PR against `design/compartment-mapper-import-attributes` carrying
 the four-section gap report, plus a feedback comment on PR #264 linking it. No
 gauntlet, no un-draft — the maintainer reads the report and revises the design.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T02:34:57Z
