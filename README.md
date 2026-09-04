@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T21:04:37Z_
+_As of 2026-09-04T21:06:57Z_
 
 ## Latest
 
@@ -133,6 +133,80 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `doomed-gauntlet-endo-pr1113-20260904c-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-gauntlet-endo-pr1113-20260904c-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/gauntlet-endo-pr1113-20260904c; it stays HELD until a human promotes it
+> (promote-plan.sh gauntlet-endo-pr1113-20260904c) or removes it.
+> Original job base: gauntlet-endo-pr1113-20260904c
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Run the gauntlet (clean -> panel review -> fix-loop -> un-draft) on
+> [https://github.com/endojs/endo-but-for-bots/pull/1113](https://github.com/endojs/endo-but-for-bots/pull/1113)
+> (head feat/ironhorse-test262-compliance-ratchet, base llm), per
+> skills/pr-creation-flow/SKILL.md. The PR is the completed round-2
+> Fable-supervised Ironhorse test262 compliance ratchet.
+>
+> STATE AS OF 2026-09-04T20:07Z (re-verify, don't trust): the weave/rebase is
+> ALREADY DONE. #1113 head is a958ef66ad85d86eed3399903037333504536cc6,
+> mergeable=MERGEABLE, mergeStateStatus=UNSTABLE (no conflict; the DIRTY/
+> CONFLICTING state the two prior reweave orchestrations were clearing is
+> resolved). This job is DELIBERATELY STANDALONE (not orchestrated behind a
+> weave): the prior two reweave-regauntlet orchestrations
+> (ironhorse-1113-reweave-regauntlet-20260904 and -20260904b) BOTH halted on
+> their weave child's 2400s handler-timeout even though the weave had already
+> pushed a mergeable head each time — the slow ironhorse rebase+build legitimately
+> exceeds the orchestration timeout. Do NOT re-post a weave-gated orchestration;
+> the head is already rebased and conflict-free.
+>
+> PRECONDITION: before starting, re-verify the head is still not CONFLICTING
+> (gh pr view 1113 --json mergeable,mergeStateStatus). If llm has moved and it is
+> DIRTY/CONFLICTING again, rebase the head onto current llm yourself as the first
+> step (you are the supervising gardener; do the rebase in-worktree rather than
+> posting a separate weave job that would re-trip the orchestration timeout),
+> preserving the ratchet's engine-fix waves and the refresh-20260901 ratchet-floor
+> snapshot (net intent unchanged), then proceed.
+>
+> KNOWN RED CI TO FIX (real, rebase-inherited regressions on the current head):
+> - test-ironhorse: ironhorse-vm/tests/typed_array_source_length.rs — 4 tests
+>   FAIL because `new Uint8Array(<array-like>)` halts with
+>   Unsupported("native-call:TypedArray:from-array-like"). This test file arrived
+>   on llm after #1113's original merge base; the TypedArray-from-array-like
+>   construction path (element read + valueOf coercion ordering, over-long-source
+>   length refusal reported as bad-length) is not yet implemented in this branch's
+>   engine. Implement it so these 4 tests pass:
+>   a_dense_array_and_a_source_view_still_copy,
+>   a_sparse_source_within_bounds_reads_its_holes_as_undefined,
+>   the_array_snapshot_precedes_element_coercion (snapshot must precede coercion),
+>   an_over_long_source_is_refused_before_it_is_materialized (must report length as
+>   the reason: Unsupported("native-call:TypedArray:bad-length")).
+> - test-ironhorse-oracle and test-xs also RED — triage from their logs; likely
+>   the same array-like construction gap or a downstream ratchet-floor delta.
+> - The weaver already repaired three other inherited ratchet-floor regressions
+>   (commit f34b7d993); these four typed-array tests remain.
+>
+> Local gates to run before pushing: cargo test --release -p ironhorse-vm
+> -p ironhorse-compile -p ironhorse-262 -p ironhorse-snapshot; hardened262 baseline
+> delta confined to xs/sesXs agents (local xst version artifact - do not bless;
+> CI's pinned xst adjudicates); the endo ironhorse_store_worker gate needs CI's
+> generated xsnap bundles (not runnable in a bare worktree). Do not un-draft or
+> bless the floor until CI (test-ironhorse, test-ironhorse-oracle, test-xs) is
+> green.
+>
+> ----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
+> issue_spine: issue-kriscendobot-garden-51
+> issue_url: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5463542954
+> submitter: kriscendobot
+> ----- END ISSUE NOTE -----
 
 - `watchdog-budget-level-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-3.md)
 
@@ -479,9 +553,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #78 (first seen 2026-09-04T00:20:48Z, latest 2026-09-04T19:50:18Z).
-> The SAME condition (`budget-level-uncalibrated-anthropic:endolin-garden-ece02cb4`) has now been observed 78 times; this is ONE
-> coalesced notice that updates in place, not 78 messages. Latest detail:
+> WATCHDOG notice — occurrence #83 (first seen 2026-09-04T00:20:48Z, latest 2026-09-04T21:05:14Z).
+> The SAME condition (`budget-level-uncalibrated-anthropic:endolin-garden-ece02cb4`) has now been observed 83 times; this is ONE
+> coalesced notice that updates in place, not 83 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
 
@@ -1341,13 +1415,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.3M | $936.58 _(notional, rate-card)_ | 16% of 595.0M (ok) |
+| Claude | 93.4M | $938.41 _(notional, rate-card)_ | 16% of 595.0M (ok) |
 | Codex | 9.9M _(+389.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
-### todo (27)
+### todo (28)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
-- [`endojs-endo-but-for-bots-pr715-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr715-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #715
+- [`endojs-endo-but-for-bots-pr717-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr717-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #717
 - [`endojs-endo-but-for-bots-pr695-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr695-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #695
 - [`endojs-endo-but-for-bots-pr735-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr735-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #735
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1156-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1156
@@ -1359,6 +1433,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1151-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1151-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1151
 - [`xs2rust-endor-press-20260904-130507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-130507.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`endojs-endo-but-for-bots-pr891-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr891-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #891
+- [`xs2rust-endor-press-20260904-210529`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-210529.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`kriscendobot-minion.town-pr89-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr89-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #89
 - [`build-ironhorse-panic-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ironhorse-panic-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1150
 - [`xs2rust-endor-press-20260904-115016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-115016.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -1376,8 +1451,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
-- [`gauntlet-endo-pr1113-20260904c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gauntlet-endo-pr1113-20260904c.md) — ---
 - [`improve-self-heal-responder-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-responder-reap.md) — ---
+- [`endojs-endo-but-for-bots-pr715-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr715-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #715
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #935
 
 ### tada (7169)
@@ -1429,6 +1504,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endo-claude-agent-sdk-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-claude-agent-sdk-probe.md) — _normal_ · Probe: measure the Agent SDK's confinement claims against a live run
 - [`ironhorse-fuzz-f83dc8932cd3b41a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-f83dc8932cd3b41a-repair.md) — _normal_ · Repair Ironhorse engine defect f83dc8932cd3b41a (target differential_regexp) ...
 - [`endojs-endo-but-for-bots-pr264-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr264-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #264
+- [`gauntlet-endo-pr1113-20260904c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/gauntlet-endo-pr1113-20260904c.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1085
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr879-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr879-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #879
