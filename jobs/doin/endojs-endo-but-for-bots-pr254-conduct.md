@@ -33,11 +33,11 @@ Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no 
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=2 values=860 -->
 
 <!-- garden-reaped: 3 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=3 values=860,88 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
