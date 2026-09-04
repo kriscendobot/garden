@@ -4,7 +4,7 @@
 | --- | --- |
 | Created | 2026-08-17 |
 | Author | researcher (gardener, job `garden-gauntlet-panel-fix-nonconvergence`) |
-| Status | Report — awaiting maintainer choice |
+| Status | Report — awaiting maintainer choice (extended 2026-09-04, see Follow-up) |
 | Scope | `scripts/jobs/gauntlet.sh`, `scripts/jobs/gardening/panel.sh`, the juror seats |
 
 ## The pattern
@@ -175,3 +175,159 @@ stricter is a budget/quality tradeoff only the maintainer should set.
 completed a round, not a non-convergence over six. A panel stage dooming is an
 infrastructure/flake concern (seat `claude -p` failures, handler budget), tracked
 separately from the loop-convergence question above.
+
+---
+
+## Follow-up (2026-09-04): item-level discrimination — is it a churning fixer or a nondeterministic panel?
+
+| | |
+| --- | --- |
+| Author | builder (gardener, job `diagnose-panel-fix-loop-oscillation`) |
+| Status | Report — refines the verdict above with per-item evidence |
+| Question | The `must_fix_total` **counts oscillate** (dip then bounce, never reach 0). Two explanations with opposite remedies: **(1) the fixer creates genuinely new must-fix material** each round (remedy: constrain the fixer's blast radius); **(2) the panel is nondeterministic** — the same items resurface against a barely-changed head because seat verdicts vary run to run (remedy: stabilise the seats; more rounds would never converge). |
+
+The measured trajectories the job posed, per-round `must_fix_total` from
+`journal2 panel-runs/` (both are **design** panels — prose docs, not code):
+
+    endojs/endo-but-for-bots#1018 (designs/ironhorse-panic.md):  14 -> 14 -> 17 -> 14 ->  3 ->  5
+    endojs/endo-but-for-bots#231  (designs/familiar-release.md): 17 -> 16 -> 16 ->  7 -> 14 ->  7
+
+(Heads #1018: `be17297e c06d614b 87e0d79a 87573751 6815f03f fd4c5a49`; #231:
+`e6912e4a 64eed591 07c19a83 5257f9fb f354fa99 09fb85c7`. The one extra record per
+PR is the `disposition: error` retried `panel-1`, confirmed and excluded.)
+
+### Verdict: explanation (2) dominates — nondeterminism — and the count itself lies
+
+The oscillation is driven by three mechanisms, **in decreasing order of contribution**, none of which is chiefly "the fixer creates new must-fix material":
+
+**A. `must_fix_total` is not a must-fix count (measurement artifact, code-confirmed).**
+`scripts/jobs/panel-run-record.sh` computes the total in `seat_titles()`: for any
+seat whose *overall* Verdict line reads `request-changes`/`must-fix`, it counts
+**every** bullet line in that seat's block — including that seat's own
+`[should-fix]` and `[comment-only]` bullets — and, via its `END { if (!found …) emit(fallback) }`
+branch, emits the seat's **first non-blank line as a title when the seat wrote no
+bullets**, which captures section headers and "None" lines. The raw item dumps
+show this directly: `- decomplector: ## Per-juror block: decomplector` (#1018 R1,R2),
+`- critic: ## Critic block — PR #1018` (#1018 R2), `- copyeditor: None — the mermaid diagrams…` (#1018 R3),
+`- critic: None — this is a design-only PR…` (#1018 R4), `- skeptic: ## Per-juror block: skeptic` (#1018 R5,R6),
+`- decomplector: None — the design's other modeling choices…` (#231 R2),
+`- skeptic: ## Per-juror block — skeptic` (#231 R6), plus many self-labeled
+`**[should-fix]**` / `**[comment-only]**` bullets counted as must-fix throughout.
+So the number the maintainer is staring at when deciding "raise `max_iterations`?"
+overcounts true must-fix findings by roughly a third, and a single seat crossing
+into a must-fix *verdict* injects that seat's **entire** bullet-set at once — a step
+change in the total unrelated to any real blocking finding. Much of the "bounce"
+is this. (Note: the loop's actual halt/continue decision keys off `decide_disposition`
+= "any must-fix seat blocks," **not** off this count — so this is an
+observability/decision-support defect, not a control-flow bug. But the job's whole
+premise, "the counts oscillate," is partly an artifact of this miscount.)
+
+**B. Seat verdicts are nondeterministic on a barely-changed surface (the discriminator, git-confirmed).**
+The job named category 3 — *reappearing after having been absent* — as the
+discriminator. The cleanest instance is objective and reproducible with `git grep`,
+needing no subjective item-matching. The `pedant` seat blocks on em-dashes (a hard
+project style override). Em-dash count in `designs/ironhorse-panic.md` versus the
+pedant's round verdict, #1018:
+
+| round | head | em-dashes in doc (`git show <h>:… | grep -o — | wc -l`) | pedant verdict |
+| --- | --- | --- | --- |
+| R2 | `c06d614b` | 17 | **must-fix** ("em-dash violated 17 times") ✓ |
+| R4 | `87573751` | **30** | comment — **not flagged** ✗ |
+| R5 | `6815f03f` | **53** | comment — **not flagged** ✗ |
+| R6 | `fd4c5a49` | 65 | **must-fix** ("em-dash … 63 times") ✓ |
+
+An objectively-countable, **monotonically worsening** violation (17→30→53→65) is
+blocked in R2 and R6 but silently passed in R4 and R5. Whether the seat's verdict
+lands `must-fix` vs `comment` on essentially the same (worse) condition is
+unstable — and because of mechanism **A**, that one verdict flip swings the total
+by the seat's whole bullet-set. This is explanation (2) in its purest form, proven
+without re-running anything. (Corroborating counterpoint, honestly reported: on
+**#231** the em-dash detection was *deterministic* — em-dashes present only at R3
+(10), flagged there, fixed to 0, and stayed 0. So the seat is not uniformly
+random; it is unreliable, which is worse for convergence than uniformly noisy.)
+
+Beyond the em-dash proof, the **thematic recurrence** is pervasive: substantially
+the same clusters are re-litigated round after round by *different seats at
+shifting severities*, not retired. Representative carried/reappearing clusters:
+
+- **#1018** — Formal `Panic` Category "never-match discipline" (critic/ergonomist, R4·R5·R6);
+  host-function classification vocabulary "mixes parts of speech" (ergonomist, R1 *comment-only* → R2 → *absent R3* → R4);
+  "CAS" used undefined (novice, R1 → *absent R2·R3* → R4);
+  WAL-transcript cost/complexity (critic, R1·R3·R6);
+  Verification section gaps (skeptic, R2·R3·R4).
+- **#231** — G4 Linux `chrome-sandbox` suid / severity understatement (critic·skeptic·ergonomist·decomplector, R1 → *absent R2* → R3·R4·R5);
+  `Severity`/`MVR-disposition` field complecting (decomplector·skeptic·pedant, R2·R3 → *absent R4* → R5);
+  credential flow "functional and user-tested, zero evidence" (skeptic, R1 → *absent R2* → R3);
+  Node-pin staleness (skeptic, R1·R2).
+
+Each `absent → present` transition above is a category-3 reappearance against a
+head that did **not** newly introduce the issue — the finding was equally true the
+round it went unraised.
+
+**C. Genuinely-new, fixer-attributable material exists but is the minority.**
+The largest single new block is **#231 R6**, where the `critic` pivoted from the
+design doc's gap analysis to reviewing **`model.js` code** (`resolveModelString:197-231`,
+`resolveModel:277-293`, `buildOllamaModel`) — three real findings the five prior
+rounds' doc-focused critique never looked for. This is real new must-fix material,
+but it is itself a symptom of nondeterministic **surface selection** (the seat chose
+a different part of the PR to scrutinise), not the fixer spraying new defects. The
+system also demonstrably *works* when a finding is objective and specific: #231's
+dead cross-references (`endo-gateway.md`, `skills/verify-upstream-state.md`,
+`daemon-node.js`, R1) were fixed and never returned; #231's em-dashes were fixed
+and stayed fixed.
+
+**Proportion (of the movement in `must_fix_total`, estimated from the item sets):**
+~30–40 % is measurement artifact (A); ~40–50 % is seat nondeterminism — verdict
+flips + surface-selection churn on recurring themes (B); ~15–20 % is genuinely-new
+material (C), most of it the #231 code-surface shift. **Explanation (2) dominates;
+explanation (1) is real but secondary.** Raising `max_iterations` therefore cannot
+converge the loop (it re-confirms the report above), and constraining the *fixer's*
+blast radius addresses only the ~15–20 %.
+
+### On the identical-head re-run
+
+The job offered a paid identical-head panel replicate as "the cleanest possible
+evidence." It was not run, deliberately: the em-dash table above is *stronger and
+cheaper* — an objective, `git`-reproducible condition whose seat verdict flips
+`must-fix → comment → comment → must-fix` while the condition only worsens, i.e. an
+identical-class comparison without the subjectivity of judging item-set
+equivalence. A full 7-seat design-panel replicate (≈$4–6, driving the gauntlet
+against a pinned head) remains the natural next step **only** if the maintainer
+wants to quantify the *subjective* seats' run-to-run variance numerically; it would
+not change this verdict.
+
+### Recommended remedy (proportionate to the cause; refines options above)
+
+Do **not** raise `max_iterations`. In priority order:
+
+1. **Make `must_fix_total` count only true must-fix findings (cheapest; fixes A).**
+   In `panel-run-record.sh`, parse each bullet's own severity tag
+   (`[must-fix]`/`[should-fix]`/`[comment-only]`) and count only must-fix bullets;
+   drop the header/`None` `fallback` emission. This alone removes a large share of
+   the *apparent* oscillation and makes any future convergence signal honest.
+2. **Route objectively-checkable finding classes to a deterministic gate, not an
+   LLM seat (sharpest fix for B).** Em-dashes, stray glyphs/arrows, and dead
+   intra-repo cross-references are mechanically decidable; a linter/`local-verify`
+   gate that either passes or fails them removes the single largest nondeterminism
+   source (the em-dash verdict flip) entirely, and stops style nits from
+   intermittently forcing a full re-panel round.
+3. **Reinforce the two structural fixes this report's parent already named** —
+   a **severity floor at the disposition boundary** (cause #4 above: don't let a
+   style/polish `request-changes` block as hard as a correctness one) and
+   **cross-round memory** (cause #2: carry the prior round's must-fix ledger so a
+   seat must mark each prior item resolved/unresolved rather than re-deriving from
+   scratch, which is where the verdict and surface-selection nondeterminism enter).
+   These are the antidote to the *subjective* recurrence (B) that a linter cannot
+   cover; both are policy changes for the maintainer to calibrate, not unilateral
+   edits.
+
+Commands cited (run from a `endojs/endo-but-for-bots` worktree and the
+`journal2` clone):
+
+    # per-round item sets and verdicts
+    for f in journal2 panel-runs/endojs-endo-but-for-bots-1018/*.md; do awk '/verdicts \(7\)|^- /' "$f"; done
+    # objective em-dash count per head (the discriminator)
+    for h in be17297e c06d614b 87e0d79a 87573751 6815f03f fd4c5a49; do \
+      printf '%s %s\n' "$h" "$(git show $h:designs/ironhorse-panic.md | grep -o — | wc -l)"; done
+    # the counting defect
+    sed -n '105,190p' scripts/jobs/panel-run-record.sh   # seat_titles(): counts all bullets of must-fix seats
