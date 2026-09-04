@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T03:10:53Z_
+_As of 2026-09-04T03:15:12Z_
 
 ## Latest
 
@@ -985,7 +985,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.7M | $649.54 _(notional, rate-card)_ | 11% of 595.0M (ok) |
+| Claude | 63.4M | $653.25 _(notional, rate-card)_ | 11% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -994,7 +994,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (107)
 - [`design-pass-style-symbol-condition-variant`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-pass-style-symbol-condition-variant.md) — Motivation, as given
-- [`endojs-endo-but-for-bots-pr1128-7ed93d90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1128-7ed93d90.md) — attention directive on endojs/endo-but-for-bots PR #1128
 - [`cybernetics-rec8-scheduler-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec8-scheduler-admission.md) — ---
 - [`kriscendobot-garden-pr73-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr73-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden PR #73
 - [`endojs-endo-but-for-bots-pr431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #431
@@ -1100,14 +1099,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1127-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1127-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1127
 - [`endojs-endo-but-for-bots-pr1102-narrow-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-narrow-special-names.md) — Narrow design PR #1102 to the special-names-on-options-bag mechanism
 - [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
+- [`build-endo-but-for-bots-issue1128-omit-endo-child-hosts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-issue1128-omit-endo-child-hosts.md) — Build: withhold @endo from non-root (child) hosts — endojs/endo-but-for-bots#...
 
-### tada (6845)
+### tada (6846)
+- [`endojs-endo-but-for-bots-pr1128-7ed93d90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1128-7ed93d90.md) — Completion report
 - [`endojs-endo-but-for-bots-pr264-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr264-probe.md) — Completion report — endojs-endo-but-for-bots-pr264-probe
 - [`xs2rust-endor-press-20260904-023526`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-023526.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-02...
 - [`endojs-endo-but-for-bots-pr264-68e3713b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr264-68e3713b.md) — Completion report — attention directive on endojs/endo-but-for-bots #264
 - [`improve-ironhorse-fuzz-runner-unbounded-subprocess`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ironhorse-fuzz-runner-unbounded-subprocess.md) — Completion report
-- [`xs2rust-endor-press-20260904-013517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-013517.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-01...
-- … and 6840 more
+- … and 6841 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
