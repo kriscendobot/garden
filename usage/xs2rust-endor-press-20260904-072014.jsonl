@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":22,"elapsed_s":280,"input_tokens":34,"output_tokens":18046,"cache_creation_tokens":61176,"cache_read_tokens":837777,"total_cost_usd":1.2558505,"ts":"2026-09-04T07:33:59Z","base":"xs2rust-endor-press-20260904-072014","host":"endolin-garden2-5bcdff64","outcome":"requeue","provider":"anthropic"}
