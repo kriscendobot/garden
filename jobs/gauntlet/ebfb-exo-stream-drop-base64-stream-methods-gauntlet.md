@@ -1,15 +1,16 @@
 ---
+stage_retries: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/1100
 repo: endojs/endo-but-for-bots
 pr_number: 1100
 build_job: ebfb-exo-stream-drop-base64-stream-methods
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean
+current_child: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-31T21:16:00Z
