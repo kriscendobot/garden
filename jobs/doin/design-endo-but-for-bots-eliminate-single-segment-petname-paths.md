@@ -46,3 +46,13 @@ treated as one literal segment. Cover:
 
 This is a DESIGN deliverable (a doc + the maintainer-facing review surface), not a
 code change. Do not implement the elimination here.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T07:59:18Z
