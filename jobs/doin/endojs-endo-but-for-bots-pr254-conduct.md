@@ -36,3 +36,13 @@ Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no 
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=860 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:08:57Z
