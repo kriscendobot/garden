@@ -88,6 +88,19 @@ printf '#!/bin/bash\necho "boom" >&2; exit 1\n' > "$FAILSTATE"; chmod +x "$FAILS
 # wording includes the adverb that previously escaped the primary classifier.
 QUOTASTATE="$TR/state-primary-quota.sh"
 printf '#!/bin/bash\necho "gh: API rate limit already exceeded for user ID 279080640." >&2; exit 1\n' > "$QUOTASTATE"; chmod +x "$QUOTASTATE"
+# A state stub that returns a PRIMARY-QUOTA refusal for MC_QUOTA_REF and a plain
+# non-quota (404) failure for every other ref. Proves a MIXED tick — one mapping
+# quota-blocked, one genuinely failing — still reports unhealthy (exit 1): the
+# degrade-to-zero path fires ONLY when every failure this tick was a quota refusal.
+MIXEDSTATE="$TR/state-mixed.sh"
+cat > "$MIXEDSTATE" <<'EOF'
+#!/bin/bash
+if [ "${1}#${2}" = "${MC_QUOTA_REF:?set MC_QUOTA_REF}" ]; then
+  echo "gh: API rate limit already exceeded for user ID 279080640." >&2; exit 1
+fi
+echo "gh api graphql ... failed: HTTP 404: Not Found (definitive)" >&2; exit 1
+EOF
+chmod +x "$MIXEDSTATE"
 # A state stub that FAILS only for a chosen "<repo>#<num>" (MC_FAIL_REF) and
 # otherwise behaves like STATESTUB. Proves per-mapping read isolation: one bad
 # mapping does not abort the tick or starve a healthy mapping behind it.
@@ -213,6 +226,24 @@ grep -q 'blocked only by GitHub primary quota' "$LOG_H1" \
   && ok "degraded WARN names GitHub primary quota" || bad "quota WARN missing: $(cat "$LOG_H1")"
 mapping_of "$BARE_H1" up-repo-160.md | grep -q '^closed_at:' \
   && bad "stamped a quota-blocked mapping" || ok "quota-blocked mapping left unresolved (never guessed a state)"
+
+hr; echo "H1b — MIXED tick: one quota-blocked + one non-quota failure → exit 1 (any real failure keeps the tick unhealthy)"; hr
+BARE_H1B="$TR/h1b.git"; seed_bare "$BARE_H1B"
+ST_H1B="$TR/states-h1b.tsv"; CL_H1B="$TR/close-h1b.log"; LOG_H1B="$TR/closer-h1b.log"; : > "$CL_H1B"; : > "$ST_H1B"
+record "$TR/state-h1b" "$BARE_H1B" "up/repo#161" "garden/mir#261"  # quota-blocked
+record "$TR/state-h1b" "$BARE_H1B" "up/repo#162" "garden/mir#262"  # non-quota 404
+env GARDEN_STATE="$TR/state-h1b" JOURNAL_REMOTE="$BARE_H1B" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_STATES="$ST_H1B" MC_CLOSE_LOG="$CL_H1B" \
+    MC_QUOTA_REF="up/repo#161" \
+    GARDEN_MIRROR_PR_STATE="$MIXEDSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_H1B" 2>&1; rch1b=$?
+[ "$rch1b" -ne 0 ] && ok "mixed tick exits nonzero when any failure is non-quota (rc=$rch1b)" || bad "mixed quota+404 tick masqueraded as healthy (exit 0)"
+grep -q 'non-quota mapping failure' "$LOG_H1B" \
+  && ok "final WARN counts the non-quota failure separately from the quota block" || bad "mixed WARN missing: $(cat "$LOG_H1B")"
+mapping_of "$BARE_H1B" up-repo-161.md | grep -q '^closed_at:' \
+  && bad "stamped a quota-blocked mapping in a mixed tick" || ok "quota-blocked mapping left unresolved (never guessed a state)"
+mapping_of "$BARE_H1B" up-repo-162.md | grep -q '^closed_at:' \
+  && bad "stamped a non-quota-failed mapping" || ok "non-quota-failed mapping left unresolved (will retry)"
 
 hr; echo "H2 — loud failure: a failed close aborts nonzero and leaves mapping unresolved"; hr
 BARE_H2="$TR/h2.git"; seed_bare "$BARE_H2"
