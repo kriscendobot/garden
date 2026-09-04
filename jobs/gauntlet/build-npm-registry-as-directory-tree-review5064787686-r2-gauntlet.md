@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1117
 build_job: build-npm-registry-as-directory-tree-review5064787686-r2
 kind: feature
-stage: panel
+stage: fix
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-4
+current_child: build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-fix-4
 state: running
 created_by: producer
 created_at: 2026-09-02T01:11:08Z
