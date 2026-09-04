@@ -1,15 +1,16 @@
 ---
+stage_retries: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/1098
 repo: endojs/endo-but-for-bots
 pr_number: 1098
 build_job: endojs-endo-but-for-bots-endo-claude-sibling-notes-20260831
 kind: feature
-stage: panel
+stage: undraft
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1098-gauntlet-panel-4
+current_child: endojs-endo-but-for-bots-pr1098-gauntlet-undraft
 state: running
 created_by: producer
 created_at: 2026-08-31T09:40:06Z
