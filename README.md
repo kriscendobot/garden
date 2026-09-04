@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T20:43:35Z_
+_As of 2026-09-04T20:45:09Z_
 
 ## Latest
 
@@ -29,6 +29,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
 > Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
+
+- `20260904T204407Z-b636df` — from gauntlet:endojs-endo-but-for-bots-pr1102-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T204407Z-b636df.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1102-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `20260904T131409Z-bc476b` — from gauntlet:ironhorse-test262-fable-supervisor-20260829-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T131409Z-bc476b.md)
 
@@ -1310,7 +1314,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.6M | $928.33 _(notional, rate-card)_ | 16% of 595.0M (ok) |
+| Claude | 93.1M | $931.70 _(notional, rate-card)_ | 16% of 595.0M (ok) |
 | Codex | 9.9M _(+389.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
@@ -1349,13 +1353,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`gauntlet-endo-pr1113-20260904c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gauntlet-endo-pr1113-20260904c.md) — ---
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #935
 
-### tada (7167)
+### tada (7168)
+- [`endojs-endo-but-for-bots-pr1102-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1102-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1102-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1102-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1102-gauntlet-fix-6.md) — What I did
 - [`minion-town-press-20260904-115016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-press-20260904-115016.md) — Cost
 - [`improve-ci-watcher-rate-limit-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ci-watcher-rate-limit-cooldown.md) — Completion report — improve-ci-watcher-rate-limit-cooldown
 - [`endojs-endo-but-for-bots-pr1102-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1102-gauntlet-panel-6.md) — Completion report
-- [`xs2rust-endor-press-20260904-195023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-195023.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-19...
-- … and 7162 more
+- … and 7163 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
