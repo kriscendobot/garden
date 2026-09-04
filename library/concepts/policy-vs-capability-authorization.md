@@ -1,0 +1,58 @@
+---
+id: policy-vs-capability-authorization
+aliases: ["policy vs capability", "policy language vs object capability", "ACL vs ocap", "reference monitor vs capability", "access control behind the tool call", "ocap behind the tool call", "Cedar vs ocap", "policy engine vs capability", "scope strings vs capabilities", "attenuation vs policy"]
+topics: [policy-language-authorization, capability-security, capability-theory]
+---
+
+# policy-vs-capability-authorization
+
+The two poles of access control, sharpened by placing **Cedar** ([[cedar-policy-language]]) next to the object-capability model Endo and minion.town pursue.
+
+**Policy-language / reference-monitor model (Cedar, ACLs, RBAC/ABAC, OAuth scopes).** The actor holds **ambient authority** — it *is* some principal (a user id, a role, a bearer token) — and a **central engine consults an external policy set** to decide, per request, whether that identity may perform an action on a *named* resource. Authorization is a *question asked at the door*: designation (the resource name in the request) and authority (the policy in the store) travel separately and are reconciled by the monitor. Strengths: policies are a single auditable surface, decisions are explainable ("permit, because rule R"), the engine can be formally verified (Cedar's headline), and administrators reason about the whole system in one place. Structural weakness: because the deputy carries broad ambient authority and is *told which resource to act on* by its caller, it is the natural home of the [[confused-deputy]] problem — 5 to 8 of the OWASP top 10 are confused-deputy problems in disguise. Every request must re-present identity, and the monitor must re-derive "should this identity, in this context, be allowed?" — a decision that grows with policy-set size and is only as sound as the entity/attribute data fed to it.
+
+**Object-capability model (Endo, minion.town's direction).** Authority *is* an **unforgeable reference** you were handed; possession is permission; there is **no ambient authority and no central policy to consult**. Designation and authority are *the same thing* — holding the capability both names the resource and authorizes the act — which is precisely why the confused deputy cannot arise: a deputy holds one capability from each master and cannot be tricked into using the wrong one because there is no "which resource?" argument separate from the authority. Authority is narrowed by **attenuation** (wrapping a capability in a [[caretaker-pattern]] facet that forwards only the permitted subset), delegated by **passing the reference** (over CapTP / [[ocapn]]), and **revoked** by severing the caretaker — no policy edit, no central store. Weakness relative to policy engines: there is no single place to read "what can X do?" (authority is diffuse by design), auditing requires instrumenting the grant graph rather than reading a policy file, and explaining a *denial* is "you were never handed that reference" rather than "rule R forbade it."
+
+## Access control *behind* the tool call, not *scope strings* in front of it
+
+minion.town's stated direction (memory: *minion.town access control → ocap*) is to move MCP access control **off OAuth scope strings and onto object capabilities behind the tool calls**. The contrast with Cedar is the crux of this concept:
+
+- A **scope-string / policy** model puts a *string* (`"repo:write"`, a Cedar policy on `Action::"push"`) in front of a broadly-powerful tool, and a monitor checks the string on every call. The tool still *can* do everything; it is *asked not to* each time. This is the confused-deputy shape: the tool holds ambient power and is told what to touch.
+- An **ocap-behind-the-tool-call** model hands the agent a **capability that already is exactly the narrowed authority** — a `git push` power scoped to one repository directory, an MCP tool whose closure *is* a reference to one guest's mailbox and nothing else. There is no scope string to check because there is no broader power to gate: the tool call *is* the invocation of an already-attenuated reference. minion.town's per-user Endo **guests** (formula-id-addressed, capability-bootstrapped over CapTP — see the minion-town project notes and memory *gateway powers containment*) are the substrate: each guest holds only the capabilities it was granted, and a tool call reaches only what the guest's references reach.
+
+The design payoff: **the authorization decision moves from request-time (ask the monitor every call) to grant-time (hand over the right capability once)**, and the "what may this agent do?" question is answered by *what references it holds*, not by a policy the engine must keep in sync with reality.
+
+## The dckc steer: for each integration class, would ocap subsume, complement, or lose to a Cedar policy?
+
+dckc's steer on issue #79 was that Cedar's *integrations* are the relevant surface: for each problem an integration solves, how would Endo / minion.town solve it — ideally with ocaps behind the tool call rather than a policy language? Cedar's integration classes and the ocap verdict for each:
+
+- **Application-level authorization** (the core Cedar case: gate `principal` doing `action` on `resource` inside an app). *Ocap subsumes* when the app is capability-structured: the user simply never gets a reference to what they may not touch, so there is no per-request check. *Complement* only at a trust boundary where you must admit an ambient identity (an inbound OAuth user) and *mint* the right capability from it — the mint point is where a Cedar-style policy legitimately lives.
+- **API-gateway / edge authorization** (check a token/policy at the gateway before proxying). *Ocap subsumes* the interior (the gateway hands the request a capability, not a validated token), but the **gateway edge itself is the ambient-to-ocap boundary** — this is exactly [[capability-mediated-integrations]]' Gatekeeper pattern, where a narrow capability is minted from an admitted request and deferred human approval gates side effects. Cedar could *complement* here as the policy that governs *what capability to mint* for an admitted principal.
+- **Infrastructure / Kubernetes admission control, IaC policy** (validate a declarative change against org policy). *Cedar is genuinely better* here or at least not worse: the subject is a *declarative document* against *org-wide rules*, there is no long-lived object graph to hold references into, and analyzability/auditability of the whole rule set is the point. Ocap has little to add; a verified policy engine is the right tool.
+- **Data-layer row/field filtering** (which rows/columns may this principal read?). *Mixed.* Fine-grained data filtering over a relational store maps awkwardly to references (you would need a capability per row/view). A capability that *is* a pre-filtered query/view is the ocap answer and is clean when views are few; a policy engine wins when the filter is high-cardinality and attribute-driven. This is the strongest case for *complement*: capabilities to *views*, policy to *define* the views.
+- **Agent / MCP tool authorization** (what may this agent's tool do?). *Ocap subsumes decisively* — this is minion.town's whole thesis. The tool call should *be* an attenuated reference, not a broad power gated by a checked scope. Cedar's PARC would re-introduce the ambient-authority tool and the confused-deputy exposure ocap is designed to remove.
+
+The through-line: **ocap subsumes the interior; a policy engine earns its place only at the ambient-identity trust boundary (mint-time) and over declarative, reference-less rule sets (IaC/admission).** Where the article says Cedar is "perfectly timed for AI agents," the ocap reading is the opposite for the *agent-tool* class: agents are exactly the actors you least want holding ambient authority gated by a checked string, and most want holding pre-attenuated references.
+
+## Concrete ideas for Endo / @endo/gateway / @endo/mcp
+
+- **Mint-at-the-edge, capability-in-the-interior.** Keep a small policy check (even a Cedar policy) *only* at the OAuth/identity edge where minion.town admits a user, whose sole job is deciding *which capabilities to bootstrap into that user's guest*. Everything past the mint is references, not scope checks. This is the honest place a policy language complements ocap.
+- **Attenuation as the tool-definition primitive.** An `@endo/mcp` tool should be *defined by the capability it closes over*, so that "narrower tool" = "attenuated capability" ([[caretaker-pattern]]), never "same tool + stricter policy string." Revocation = drop the caretaker; delegation = pass the reference; no policy store to edit.
+- **Delegation/attenuation/revocation are the three verbs Cedar has to express as policy edits and ocap gets structurally.** Where a Cedar deployment audits by reading the policy store, an Endo deployment should make the **grant graph** legible (who holds which reference, minted from what) — the auditability Cedar gets for free is the one thing ocap must deliberately instrument. A middle-ground worth noting is [[capability-chain]] / [[ucan-authorization]]: a *typed, offline-verifiable* attenuation token that carries its own delegation chain, giving some of the policy engine's auditability without a central monitor.
+
+## Sections that touch this concept
+
+| Section | One-line summary |
+|---|---|
+| [cedar-aws-announcement--overview](../sections/cedar-aws-announcement--overview.md) | Cedar's policy-as-code, RBAC/ABAC, decouple-from-app-logic model — the reference-monitor pole of this contrast. |
+| [cedar-aws-announcement--verified-permissions-and-local-use](../sections/cedar-aws-announcement--verified-permissions-and-local-use.md) | Central, auditable policy storage — the single-surface auditability ocap must instrument for by other means. |
+| [thestack-cedar-for-ai-agents--overview](../sections/thestack-cedar-for-ai-agents--overview.md) | The "perfectly timed for AI agents" thesis the ocap reading inverts for the agent-tool integration class. |
+
+## See also
+
+- [[cedar-policy-language]] — the policy-engine pole of this contrast in detail.
+- [[capability-security]] — the object-capability pole.
+- [[confused-deputy]] — the failure mode the two models handle oppositely.
+- [[capability-mediated-integrations]] — the garden's applied ocap answer (Gatekeepers, capability introductions) to the integration classes Cedar addresses.
+- [[caretaker-pattern]] — the attenuation/revocation mechanism that replaces policy edits.
+- [[capability-chain]] — a typed attenuation chain (UCAN-serializable) occupying the middle ground.
+- [[oauth-credentials]] — the scope-string model minion.town is moving off.
