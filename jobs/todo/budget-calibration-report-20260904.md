@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: budget-calibration-orch-20260904
-priority: normal
-posted_by: producer
-posted_at: 2026-09-04T22:04:08Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-04T22:13:25Z cleared=none -->
 
 ---
 tier: mentor
