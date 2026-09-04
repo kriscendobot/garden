@@ -42,3 +42,13 @@ This is the per-project analogue of the garden's own `journal/plan/` + `velocity
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,3 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T07:40:53Z
