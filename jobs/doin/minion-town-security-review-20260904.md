@@ -47,3 +47,13 @@ project's "design delivery is PR review" convention — if a finding needs a cod
 fix, open it as a PR against `main` rather than pushing directly, so it draws
 review; a pure investigative report needs no PR. Do not comment on or otherwise
 touch any repo other than kriscendobot/minion.town.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T22:51:37Z
