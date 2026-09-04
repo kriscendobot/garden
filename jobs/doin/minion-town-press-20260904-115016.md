@@ -41,3 +41,13 @@ manufacture busywork to look productive while blocked.
 <!-- garden-transient-elapsed: kind=signature through=1 values=2 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T20:23:25Z
