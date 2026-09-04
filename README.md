@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T04:40:04Z_
+_As of 2026-09-04T04:41:00Z_
 
 ## Latest
 
@@ -1707,13 +1707,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.8M | $1472.92 _(notional, rate-card)_ | no quota set |
+| Claude | 84.1M | $1479.39 _(notional, rate-card)_ | no quota set |
 | Codex | 43.6M _(+1185.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (21)
+### todo (20)
 - [`design-pass-style-symbol-condition-variant`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-pass-style-symbol-condition-variant.md) — Motivation, as given
-- [`cybernetics-rec8-scheduler-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec8-scheduler-admission.md) — ---
 - [`minion-town-validate-clip-site-separation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-validate-clip-site-separation.md) — Why this matters
 - [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1117
 - [`dependabotany-recheck-endo-but-for-bots-20260903-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260903-035007.md) — Daily dependabotany backstop for endo-but-for-bots
@@ -1734,7 +1733,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1102-narrow-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1102-narrow-special-names.md) — Narrow design PR #1102 to the special-names-on-options-bag mechanism
 - [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
 
-### doin (70)
+### doin (71)
+- [`cybernetics-rec8-scheduler-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec8-scheduler-admission.md) — ---
 - [`kriscendobot-garden-pr73-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr73-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden PR #73
 - [`endojs-endo-but-for-bots-pr431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #431
 - [`xs2rust-endor-press-20260903-005005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260903-005005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
