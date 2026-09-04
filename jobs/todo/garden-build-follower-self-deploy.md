@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-garden-pr73-conduct
-priority: normal
-posted_by: builder
-posted_at: 2026-09-04T04:21:41Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-04T04:26:47Z cleared=none -->
 
 ---
 tier: mentor
