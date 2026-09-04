@@ -1,0 +1,7 @@
+<6>11:06:19 [monk/2] resuming session 5cc1bf08-b60c-5869-b577-04a6562f8d7c for requeued job 'kriscendobot-agoric-sdk-pr10-gauntlet-fix-2' in worktree /home/kris/garden2/scratch/gardener-wt-kriscendobot-agoric-sdk-pr10-gauntlet-fix-2
+<6>11:06:19 [monk/2] job 'kriscendobot-agoric-sdk-pr10-gauntlet-fix-2' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>11:06:19 [monk/2] job 'kriscendobot-agoric-sdk-pr10-gauntlet-fix-2' resolved tier 'mentor' -> claude --model claude-opus-4-8
+⚠ claude.ai connectors are disabled because ANTHROPIC_API_KEY or another auth source is set and takes precedence over your claude.ai login · Unset it to load your organization's connectors
+
+--- handler report (partial) ---
+Credit balance is too low

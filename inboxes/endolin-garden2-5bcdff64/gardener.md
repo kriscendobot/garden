@@ -5422,3 +5422,14 @@ Inspect via `git -C journal cat-file -p 6c5378166001024d1c2f20aafbd35b89e3a6a8f7
 
 Inspect via `git -C journal cat-file -p e6d58488b160e4a18f614f8ff1cf893a1a5eaf33` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/e6d58488b160e4a18f614f8ff1cf893a1a5eaf33`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-09-04T11:06:28Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 77aa5856a1ec1adac140490257ae5ac92e409070
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'kriscendobot-agoric-sdk-pr10-gauntlet-fix-2' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/77aa5856a1ec1adac140490257ae5ac92e409070
+
+Inspect via `git -C journal cat-file -p 77aa5856a1ec1adac140490257ae5ac92e409070` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/77aa5856a1ec1adac140490257ae5ac92e409070`) -- both work off-host after a plain `journal2` fetch.
