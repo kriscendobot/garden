@@ -55,15 +55,7 @@ maintainer question surfaces (then the design-with-open-questions PR
 carve-out).
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=1126,3 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T20:01:40Z
+
+<!-- garden-reaped: 2 -->

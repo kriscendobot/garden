@@ -129,15 +129,7 @@ answer, per this repo's normal design-PR review process.
 
 
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-transient-elapsed: kind=signature through=2 values=2,1 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T20:09:12Z
+
+<!-- garden-reaped: 3 -->
