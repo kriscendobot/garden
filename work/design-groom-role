@@ -3,3 +3,7 @@ gardener: 9
 worker_kind: monk
 claimed_at: 2026-09-04T07:40:53Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-groom-role
+pr_number: 84
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/84
+pr_head: groom-role-open-questions
