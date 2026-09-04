@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:budget-level
-sent_at: 2026-09-04T01:35:13Z
+sent_at: 2026-09-04T02:35:19Z
 watchdog_key: budget-level-uncalibrated-anthropic:endolin-garden2-5bcdff64
-notice_count: 5
+notice_count: 9
 first_seen: 2026-09-04T00:20:58Z
-last_seen: 2026-09-04T01:35:13Z
+last_seen: 2026-09-04T02:35:19Z
 ---
-WATCHDOG notice — occurrence #5 (first seen 2026-09-04T00:20:58Z, latest 2026-09-04T01:35:13Z).
-The SAME condition (`budget-level-uncalibrated-anthropic:endolin-garden2-5bcdff64`) has now been observed 5 times; this is ONE
-coalesced notice that updates in place, not 5 messages. Latest detail:
+WATCHDOG notice — occurrence #9 (first seen 2026-09-04T00:20:58Z, latest 2026-09-04T02:35:19Z).
+The SAME condition (`budget-level-uncalibrated-anthropic:endolin-garden2-5bcdff64`) has now been observed 9 times; this is ONE
+coalesced notice that updates in place, not 9 messages. Latest detail:
 
 budget-level: pool anthropic:endolin-garden2-5bcdff64 cap=385000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
