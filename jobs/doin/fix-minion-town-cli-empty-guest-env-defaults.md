@@ -15,3 +15,13 @@ At tip d827af8, `dev/client.ts:21-22` still reads:
 and `guestName` is passed as the `name` argument to `writeText`/`readText`/`remove`, whose schemas in `src/endo/guest-tools.ts` (lines 238, 258, 278) are `z.string().min(1)`. So `GUEST_NAME= npm run client` fails the tool call on a schema error instead of using the documented default — the exact defect the panel flagged, surviving in the one place an operator actually runs.
 
 Do: flip both to `||` in `dev/client.ts`, with a brief comment matching the one already written at `dev/oauth-client.ts` explaining why `||` (not `??`) is correct here, so the choice does not read as an unreconciled flip-flop and get reverted again. Check for any sibling env-default site in `dev/` with the same shape and fix it the same way. Verify `npm test` stays green and that `GUEST_NAME= npm run client` now uses the default rather than erroring.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:31:44Z
