@@ -29,22 +29,4 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/254
 Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no maintainer comment).
 
-
-
-
-
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=3 values=860,88 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-04T06:08:57Z
+<!-- garden-reaped: 0 -->
