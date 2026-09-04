@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T14:57:14Z_
+_As of 2026-09-04T14:58:35Z_
 
 ## Latest
 
@@ -1049,10 +1049,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > facts above does NOT hold when you check it, stop and report back rather than
 > proceeding — this change forecloses rollback to the legacy pool.
 
-- `20260904T145509Z-c48be3` — from orchestrator:ironhorse-1113-reweave-regauntlet-20260904-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T145509Z-c48be3.md)
-
-> Orchestration ironhorse-1113-reweave-regauntlet-20260904 HALTED: child weave-endo-pr1113-20260904 stalled in flight for 2514s on host unknown (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: gauntlet-endo-pr1113-20260904
-
 - `20260904T134107Z-777400` — from gauntlet:ebfb-exo-stream-drop-base64-stream-methods-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T134107Z-777400.md)
 
 > Gauntlet ebfb-exo-stream-drop-base64-stream-methods-gauntlet HALTED: stage 'ebfb-exo-stream-drop-base64-stream-methods-gauntlet-fix-2' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -1306,7 +1302,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.6M | $776.03 _(notional, rate-card)_ | 13% of 595.0M (ok) |
+| Claude | 76.6M | $776.98 _(notional, rate-card)_ | 13% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
