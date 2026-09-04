@@ -12,6 +12,13 @@ Unit=garden-approval-reconciler@%i.service
 # tick reads ~2 API calls per approved PR. Mirrors garden-ci-watcher@.timer's anchor.
 OnBootSec=2min
 OnUnitActiveSec=15min
+# Spread the ~15 per-repo template instances across the cadence instead of firing
+# every one in the same second. Without this, all instances anchor to the same
+# boundary and hit `gh api` simultaneously every cadence — a self-inflicted
+# thundering herd GitHub answers with 5xx/HTML/rate-limit blips the watchers then
+# correctly but wastefully skip. Scaled up from garden-ci-watcher's 30s spread to
+# this timer's slow 15min cadence.
+RandomizedDelaySec=5min
 # Default accuracy is 1min, which is fine for a 15min cadence; leave it batched.
 
 [Install]

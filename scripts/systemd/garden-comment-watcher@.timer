@@ -16,6 +16,13 @@ Unit=garden-comment-watcher@%i.service
 # fired" state. OnUnitActiveSec drives the steady 90s cadence after the first run.
 OnBootSec=30s
 OnUnitActiveSec=90s
+# Spread the ~15 per-repo template instances across the cadence instead of firing
+# every one in the same second. Without this, all instances anchor to the same
+# OnBootSec/OnUnitActiveSec boundary and hit `gh api` simultaneously every cadence
+# — a self-inflicted thundering herd GitHub answers with 5xx/HTML/rate-limit blips
+# that the watchers then correctly but wastefully skip. Matches garden-triager's
+# 30s spread for the same 90s-class cadence.
+RandomizedDelaySec=30s
 # Default accuracy is 1min; tighten so a 90s cadence does not get batched late.
 AccuracySec=1s
 
