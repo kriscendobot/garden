@@ -63,3 +63,13 @@ changed), THEN stop and surface it.
 Merging arms the campaign: the leader's `garden-orchestrate` timer (~3 min)
 promotes the first child and the run begins. There is no second confirmation
 step — the maintainer's approval IS the go signal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:44:44Z
