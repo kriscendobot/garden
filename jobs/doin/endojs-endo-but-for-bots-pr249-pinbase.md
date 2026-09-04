@@ -19,10 +19,10 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot rsvp > Let's advance and pin the merge base to current llm branch with hash and refresh. In particular, I want to expand the scope of this design to cover implementation in both the shim, ramifications for compartment mapper, and also the new IronHorse engine. We’
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=1,260 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
