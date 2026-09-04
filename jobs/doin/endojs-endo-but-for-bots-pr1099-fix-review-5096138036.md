@@ -119,3 +119,13 @@ inconsistency." Known adjacent sites to check and reconcile:
   hex, harden, ses, test262-runner as applicable); changes pushed to the head
   branch; each of the 4 review threads gets an inline reply naming the commit that
   resolves it, and is resolved.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T05:13:22Z
