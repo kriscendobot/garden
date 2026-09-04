@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T18:56:55Z_
+_As of 2026-09-04T19:01:12Z_
 
 ## Latest
 
@@ -453,6 +453,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 74 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
+
+- `20260904T185932Z-800679` — from gardener:endojs-endo-but-for-bots-pr735-gauntlet-fix-5, reply_to `endojs-endo-but-for-bots-pr735-gauntlet-fix-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T185932Z-800679.md)
+
+> Gauntlet defect on [endojs/endo-but-for-bots#735](https://github.com/endojs/endo-but-for-bots/issues/735) (design/chat-http-controller-ui): the panel-5 request-changes review (posted 2026-09-04T18:50Z) is STALE — it reviewed an old version of the design, not the current head 13d4529bf.
+>
+> Every concrete panel-5 must-fix item is already fixed in the current head:
+> - em-dashes: panel claims 38; current file has 0
+> - typist-hostile glyphs (arrow / ballot-x / cmd / ellipsis): panel claims several; current file has 0 of each
+> - "missing Test Plan section": current file HAS a ## Test Plan (line 661)
+> - "broken inline code span for the getMethodNames probe": current span is unbroken
+> - dominant grounding finding (design built on provideHttpClient/getHttpClientControl daemon formula from [endojs/endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/issues/661)): the design was ALREADY re-grounded on the landed @endo/fetch unconfined plugin in fix round 1 (commit 80746e03f) and refined through rounds 2-4; it explicitly states that packaging is "not present in this branch" and superseded.
+> - ergonomist "kill-switch overstates durability": obsolete — under @endo/fetch policy is now DURABLE, so "no further requests will succeed" is accurate.
+>
+> CI is fully green on 13d4529bf. There was nothing to fix, so I pushed no new commit.
+>
+> RISK: the driver will re-post panel-6. If the panel keeps reviewing stale content, this loops forever. Please check why the panel is dispatching against a stale checkout of this PR before spending another round. The PR looks ready to un-draft/approve on its merits.
 
 - `20260904T073302Z-cd6ed2` — from gardener:xs2rust-endor-press-20260904-072014, reply_to `xs2rust-endor-press-20260904-072014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T073302Z-cd6ed2.md)
 
@@ -1310,15 +1326,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.3M | $860.24 _(notional, rate-card)_ | 14% of 595.0M (ok) |
+| Claude | 85.3M | $858.54 _(notional, rate-card)_ | 14% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (33)
+### todo (31)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
-- [`build-ironhorse-panic-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ironhorse-panic-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1150
-- [`endojs-endo-but-for-bots-pr1102-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1102-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1102
-- [`xs2rust-endor-press-20260904-152014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-152014.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+- [`endojs-endo-but-for-bots-pr715-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr715-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #715
 - [`improve-stagger-watcher-timer-thundering-herd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-stagger-watcher-timer-thundering-herd.md) — ---
 - [`weave-endo-pr1113-20260904`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-endo-pr1113-20260904.md) — ---
 - [`minion-town-press-20260904-115016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-press-20260904-115016.md) — Press minion.town (kriscendobot/minion.town) forward off the merged #52
@@ -1351,16 +1365,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
-- [`endojs-endo-but-for-bots-pr735-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr735-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #735
-- [`endojs-endo-but-for-bots-pr715-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr715-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #715
+- [`build-ironhorse-panic-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-panic-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1150
+- [`xs2rust-endor-press-20260904-152014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260904-152014.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 
-### tada (7149)
+### tada (7152)
+- [`endojs-endo-but-for-bots-pr735-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr735-gauntlet-fix-5.md) — Cost
+- [`endojs-endo-but-for-bots-pr1102-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1102-gauntlet-fix-4.md) — Completion report
+- [`endojs-endo-but-for-bots-pr715-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr715-gauntlet-panel-4.md) — Completion report
 - [`xs2rust-endor-press-20260904-185016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-185016.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-18...
 - [`build-ironhorse-panic-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-ironhorse-panic-gauntlet-fix-2.md) — Completion report
-- [`xs2rust-endor-press-20260904-175013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-175013.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-17...
-- [`endojs-endo-but-for-bots-pr735-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr735-gauntlet-panel-5.md) — Completion report
-- [`endojs-endo-but-for-bots-pr933-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr933-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr933-gauntlet — HALTED
-- … and 7144 more
+- … and 7147 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
