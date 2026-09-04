@@ -71,3 +71,13 @@ when re-realized as a non-root host, still does not expose `@endo`.
 - The draft PR auto-runs the gauntlet; no separate "run the gauntlet" is needed.
 - Reference `designs/` if a trust-model note belongs somewhere load-bearing, but the
   code+test fix is the deliverable, not a design doc.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T03:13:45Z
