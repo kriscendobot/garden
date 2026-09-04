@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T21:06:57Z_
+_As of 2026-09-04T21:08:56Z_
 
 ## Latest
 
@@ -37,37 +37,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003825Z-b548b6` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003825Z-b548b6.md)
 
 > From report `issue-kriskowal-garden-67`: next steps are (1) turning "phase 0" (structural shapes + explicit membership checks, no registry/new authority) into an actual PR on the fork, and (2) drilling into the two-phase attestation mechanism against the resolver's existing invitation-based reporting path. This touches the `kriscendobot/agoric-sdk` fork, which per standing scope needs your call rather than an autonomous job.
-
-- `20260904T205116Z-010aa1` — from gardener:gauntlet-endo-pr1113-20260904c, reply_to `gauntlet-endo-pr1113-20260904c` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T205116Z-010aa1.md)
-
-> Gauntlet [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113) status (issue-kriscendobot-garden-51):
->
-> Rebase already done (head a958ef66a, no conflict — confirmed). Root cause of the
-> 3 red CI checks (test-ironhorse, test-ironhorse-oracle, test-xs) was a single
-> bug in the round-2 `from-array-like` gate (commit 8b1b3a73a): it used a
-> whole-chain `instance_has` for @@iterator, but boot installs the default
-> `Array.prototype[@@iterator]` as an ordinary property, so the gate fired for
-> EVERY plain array and halted every `new TA([...])` with
-> Unsupported("native-call:TypedArray:from-array-like").
->
-> Fix (commit e5614dd51, ironhorse-vm/interp.rs, ~1 line + comment): detect the
-> override via an OWN-property test on the receiver (ordinary_get_own_descriptor),
-> matching the engine's own for..of / IterableToList intrinsic-iterator detection.
-> Still skips a genuine own override (incl. `= undefined`); intrinsic snapshot
-> path for ordinary arrays.
->
-> Result: all 4 typed_array_source_length tests pass; local gates green
-> (ironhorse-vm/compile/262-incl-oracle/snapshot); ALL PR CI now green
-> (one viable-release 24.x Yarn-4.13 install flake retried to pass).
->
-> Two follow-on notes before un-draft: (1) my fix turns some TypedArray-from-array
-> skips back into covered, so the round-2 floor snapshot refresh-20260904
-> (measured at a958ef66a, before this fix) may be understated — no
-> ratchet-invariant violation (skips->covered, no new failures), but the
-> "describes the tree that would merge" claim wants re-measurement at HEAD.
-> (2) round-2 verdict was must-fix; fixes landed but no re-panel since — a round-3
-> panel is owed. Proceeding to run the round-3 panel now; it will adjudicate the
-> floor-at-HEAD question and either un-draft or drive a fix-loop.
 
 - `20260904T104543Z-7c71bf` — from gardener:minion-town-press-20260904-103515, reply_to `minion-town-press-20260904-103515` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T104543Z-7c71bf.md)
 
@@ -133,80 +102,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `doomed-gauntlet-endo-pr1113-20260904c-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-gauntlet-endo-pr1113-20260904c-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/gauntlet-endo-pr1113-20260904c; it stays HELD until a human promotes it
-> (promote-plan.sh gauntlet-endo-pr1113-20260904c) or removes it.
-> Original job base: gauntlet-endo-pr1113-20260904c
->
-> --- original job body ---
-> ---
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
-> Run the gauntlet (clean -> panel review -> fix-loop -> un-draft) on
-> [https://github.com/endojs/endo-but-for-bots/pull/1113](https://github.com/endojs/endo-but-for-bots/pull/1113)
-> (head feat/ironhorse-test262-compliance-ratchet, base llm), per
-> skills/pr-creation-flow/SKILL.md. The PR is the completed round-2
-> Fable-supervised Ironhorse test262 compliance ratchet.
->
-> STATE AS OF 2026-09-04T20:07Z (re-verify, don't trust): the weave/rebase is
-> ALREADY DONE. #1113 head is a958ef66ad85d86eed3399903037333504536cc6,
-> mergeable=MERGEABLE, mergeStateStatus=UNSTABLE (no conflict; the DIRTY/
-> CONFLICTING state the two prior reweave orchestrations were clearing is
-> resolved). This job is DELIBERATELY STANDALONE (not orchestrated behind a
-> weave): the prior two reweave-regauntlet orchestrations
-> (ironhorse-1113-reweave-regauntlet-20260904 and -20260904b) BOTH halted on
-> their weave child's 2400s handler-timeout even though the weave had already
-> pushed a mergeable head each time — the slow ironhorse rebase+build legitimately
-> exceeds the orchestration timeout. Do NOT re-post a weave-gated orchestration;
-> the head is already rebased and conflict-free.
->
-> PRECONDITION: before starting, re-verify the head is still not CONFLICTING
-> (gh pr view 1113 --json mergeable,mergeStateStatus). If llm has moved and it is
-> DIRTY/CONFLICTING again, rebase the head onto current llm yourself as the first
-> step (you are the supervising gardener; do the rebase in-worktree rather than
-> posting a separate weave job that would re-trip the orchestration timeout),
-> preserving the ratchet's engine-fix waves and the refresh-20260901 ratchet-floor
-> snapshot (net intent unchanged), then proceed.
->
-> KNOWN RED CI TO FIX (real, rebase-inherited regressions on the current head):
-> - test-ironhorse: ironhorse-vm/tests/typed_array_source_length.rs — 4 tests
->   FAIL because `new Uint8Array(<array-like>)` halts with
->   Unsupported("native-call:TypedArray:from-array-like"). This test file arrived
->   on llm after #1113's original merge base; the TypedArray-from-array-like
->   construction path (element read + valueOf coercion ordering, over-long-source
->   length refusal reported as bad-length) is not yet implemented in this branch's
->   engine. Implement it so these 4 tests pass:
->   a_dense_array_and_a_source_view_still_copy,
->   a_sparse_source_within_bounds_reads_its_holes_as_undefined,
->   the_array_snapshot_precedes_element_coercion (snapshot must precede coercion),
->   an_over_long_source_is_refused_before_it_is_materialized (must report length as
->   the reason: Unsupported("native-call:TypedArray:bad-length")).
-> - test-ironhorse-oracle and test-xs also RED — triage from their logs; likely
->   the same array-like construction gap or a downstream ratchet-floor delta.
-> - The weaver already repaired three other inherited ratchet-floor regressions
->   (commit f34b7d993); these four typed-array tests remain.
->
-> Local gates to run before pushing: cargo test --release -p ironhorse-vm
-> -p ironhorse-compile -p ironhorse-262 -p ironhorse-snapshot; hardened262 baseline
-> delta confined to xs/sesXs agents (local xst version artifact - do not bless;
-> CI's pinned xst adjudicates); the endo ironhorse_store_worker gate needs CI's
-> generated xsnap bundles (not runnable in a bare worktree). Do not un-draft or
-> bless the floor until CI (test-ironhorse, test-ironhorse-oracle, test-xs) is
-> green.
->
-> ----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
-> issue_spine: issue-kriscendobot-garden-51
-> issue_url: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5463542954
-> submitter: kriscendobot
-> ----- END ISSUE NOTE -----
 
 - `watchdog-budget-level-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-3.md)
 
@@ -1415,7 +1310,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.4M | $938.41 _(notional, rate-card)_ | 16% of 595.0M (ok) |
+| Claude | 93.9M | $941.88 _(notional, rate-card)_ | 16% of 595.0M (ok) |
 | Codex | 9.9M _(+389.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
