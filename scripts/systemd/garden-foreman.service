@@ -1,5 +1,14 @@
 [Unit]
 Description=Garden foreman (keep the board topped up to the active-job target)
+# common.sh's foreman_kick() fires `start --no-block` on EVERY gardener job
+# completion fleet-wide (deliberately: "safe to kick FREQUENTLY"), so a burst of
+# near-simultaneous completions trips systemd's default StartLimitBurst=5 /
+# StartLimitIntervalSec=10s and produces "Start request repeated too quickly"
+# refusals (60+ in a single day, 2026-09-01). StartLimitIntervalSec=0 disables the
+# start-rate limiter for exactly this class of edge-triggered oneshot (mirroring
+# garden-gardener-scaler.service). A spurious extra tick is a cheap no-op: the
+# foreman's idle-detection, settle-debounce, and cost-gate already absorb it.
+StartLimitIntervalSec=0
 
 [Service]
 Type=oneshot
