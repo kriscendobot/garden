@@ -69,6 +69,7 @@ makes the streaming pipeline moot in the walk phase.
 - If the grep-stream-order-change needs maintainer sign-off before merge, flag it
   on the PR rather than blocking the code (the draft can carry it for review).
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=1237 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
