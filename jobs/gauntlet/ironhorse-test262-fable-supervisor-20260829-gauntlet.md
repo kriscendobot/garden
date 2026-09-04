@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1113
 build_job: ironhorse-test262-fable-supervisor-20260829
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: ironhorse-test262-fable-supervisor-20260829-gauntlet-panel-2
+current_child: ironhorse-test262-fable-supervisor-20260829-gauntlet-fix-2
 state: running
 created_by: producer
 created_at: 2026-09-02T04:28:27Z
