@@ -68,3 +68,13 @@ makes the streaming pipeline moot in the walk phase.
   reply on the triggering thread citing the SHA.
 - If the grep-stream-order-change needs maintainer sign-off before merge, flag it
   on the PR rather than blocking the code (the draft can carry it for review).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:14:36Z
