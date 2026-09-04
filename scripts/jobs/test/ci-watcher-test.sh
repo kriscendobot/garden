@@ -260,6 +260,45 @@ set -e
 grep -qi 'transient gh-api blip' "$TR/blip.err" && ok "truncated-JSON blip logs the transient-blip WARN (skips the tick)" || bad "no transient-blip WARN ($(cat "$TR/blip.err"))"
 ! grep -qi 'FATAL: ci PR source failed' "$TR/blip.err" && ok "truncated-JSON blip does NOT reach the FATAL die" || bad "truncated-JSON blip reached the FATAL die ($(cat "$TR/blip.err"))"
 
+# --- shared host-wide gh-api cooldown (common.sh) ----------------------------
+# The blip above did not just skip its own tick: as the first detector it recorded
+# a HOST-WIDE cooldown marker (start_api_cooldown, common.sh) that EVERY gh-api
+# watcher kind reads before its own API call, so one 5xx/HTML/rate-limit blip freezes
+# the whole fleet for one window instead of each sibling re-triggering the same limit
+# every tick (the 2026-09-04 thundering herd). Prove (1) the marker lives at the
+# shared, kind-agnostic path, (2) a sibling ci tick skips SILENTLY without touching
+# its source, and (3) the same predicate any OTHER watcher kind calls sees the window.
+[ -s "$TR/state-blip/gh-api-cooldown/marker" ] \
+  && ok "the blip recorded the HOST-WIDE shared cooldown marker (not a ci-private one)" \
+  || bad "no shared gh-api-cooldown/marker written under GARDEN_STATE"
+
+CD_CNT="$TR/ci-cd.count"; printf '0\n' > "$CD_CNT"
+COUNTING_SRC="$TR/counting-source.sh"
+cat > "$COUNTING_SRC" <<EOF
+#!/bin/bash
+n=\$(( \$(cat "$CD_CNT" 2>/dev/null || echo 0) + 1 )); printf '%s\n' "\$n" > "$CD_CNT"
+echo 'gh api ... failed (definitive, rc=1); not retrying: unexpected end of JSON input' >&2
+exit 1
+EOF
+chmod +x "$COUNTING_SRC"
+set +e
+env GARDEN_STATE="$TR/state-blip" JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$COUNTING_SRC" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/ci-watcher.sh" kriscendobot-garden >/dev/null 2>"$TR/ci-cd.err"
+sib_rc=$?
+set -e
+[ "$sib_rc" -eq 0 ] && ok "a sibling ci tick under the live window exits 0 (no crash-loop)" || bad "sibling ci tick exited $sib_rc"
+[ "$(cat "$CD_CNT")" -eq 0 ] && ok "the sibling ci tick skipped BEFORE invoking its source (herd broken)" || bad "sibling invoked its source ($(cat "$CD_CNT")) despite the live cooldown"
+[ ! -s "$TR/ci-cd.err" ] && ok "the sibling cooldown skip is quiet (the detector owns the one warning)" || bad "sibling emitted output ($(cat "$TR/ci-cd.err"))"
+
+set +e
+env GARDEN_STATE="$TR/state-blip" bash -c 'source "'"$JOBS"'/common.sh"; api_cooldown_active'
+xkind_rc=$?
+set -e
+[ "$xkind_rc" -eq 0 ] && ok "the shared api_cooldown_active predicate reports the window active for EVERY watcher kind" || bad "cross-kind predicate did not see the shared window (rc $xkind_rc)"
+
 # ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr
 BARE_A="$TR/a.git"; seed_bare "$BARE_A"

@@ -512,6 +512,74 @@ is_transient_gh_source_error() {
   _gh_api_stderr_is_transient "$blob"
 }
 
+# --- shared GitHub API outage cooldown (host-shared across ALL gh-api watchers) --
+# Every per-repo watcher (ci-/comment-/dependabot-/approval-reconciler/issue-inbox-)
+# runs on its OWN systemd timer, so one GitHub 5xx/HTML/rate-limit blip is discovered
+# by every sibling tick within a few seconds — a self-inflicted thundering herd that
+# re-triggers the same rate limit every tick for as long as the blip lasts (observed
+# 2026-09-04 13:05-13:13Z: all watchers 5xx-ing in lockstep for 8+ minutes). These two
+# helpers give the whole HOST one bounded, shared cooldown: the first tick to see a
+# transient gh-api failure calls start_api_cooldown to record a finite window under
+# GARDEN_STATE (and owns the single warning it emits); every other watcher tick calls
+# api_cooldown_active FIRST — before any API work — and skips silently until the window
+# expires. An observer never extends a live window, so a short provider blip cannot
+# become an unbounded local blackout; the cursor is untouched, preserving fail-closed
+# "never guess a state".
+#
+# The marker is HOST-WIDE, not per-watcher-kind, on purpose: the herd spans watcher
+# KINDS, so one blip must quiet ci- AND comment- AND dependabot- ticks alike, out of a
+# single shared window. The flock makes expiry/re-arm atomic so two siblings cannot both
+# remove an expired marker and both announce a fresh outage.
+#
+# Window: GARDEN_API_COOLDOWN_SECS (default 300s, capped at 900s; 0 = a test/operator
+# escape hatch that disables the cooldown without changing classification). A non-numeric
+# value falls back to the default. Extracted from comment-watcher.sh's original copy.
+: "${GARDEN_API_COOLDOWN_DIR:=$GARDEN_STATE/gh-api-cooldown}"
+GARDEN_API_COOLDOWN_MARKER="$GARDEN_API_COOLDOWN_DIR/marker"
+GARDEN_API_COOLDOWN_LOCK="$GARDEN_API_COOLDOWN_DIR/marker.lock"
+
+_api_cooldown_secs() {  # echo the validated, clamped window in seconds
+  local v="${GARDEN_API_COOLDOWN_SECS:-300}"
+  case "$v" in ''|*[!0-9]*) v=300 ;; esac
+  [ "$v" -le 900 ] || v=900
+  printf '%s' "$v"
+}
+
+api_cooldown_active() {  # rc 0 = a non-expired shared window exists → skip this tick
+  local secs; secs="$(_api_cooldown_secs)"
+  [ "$secs" -gt 0 ] || return 1
+  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+  (
+    flock 9
+    local now expiry
+    now="$(date +%s 2>/dev/null || echo 0)"
+    expiry="$(sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    if [ "$expiry" -gt "$now" ]; then exit 0; fi
+    rm -f "$GARDEN_API_COOLDOWN_MARKER"
+    exit 1
+  ) 9>"$GARDEN_API_COOLDOWN_LOCK"
+}
+
+start_api_cooldown() {  # rc 0 = THIS tick recorded the window (and owns the warning)
+  local tag="${1:-}" secs; secs="$(_api_cooldown_secs)"
+  [ "$secs" -gt 0 ] || return 0
+  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+  (
+    flock 9
+    local now expiry new_expiry tmp
+    now="$(date +%s 2>/dev/null || echo 0)"
+    expiry="$(sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    [ "$expiry" -le "$now" ] || exit 1
+    new_expiry=$((now + secs))
+    tmp="$GARDEN_API_COOLDOWN_MARKER.$$"
+    printf '%s\n%s\n' "$new_expiry" "$tag" > "$tmp"
+    mv -f "$tmp" "$GARDEN_API_COOLDOWN_MARKER"
+    exit 0
+  ) 9>"$GARDEN_API_COOLDOWN_LOCK"
+}
+
 # True when this host's fleet is draining: the new draining marker OR the
 # deprecated legacy killswitch marker exists. Keys on EXISTENCE only — an empty
 # marker drains just as a prose-filled one does.
