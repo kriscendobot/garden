@@ -66,12 +66,5 @@ evidence), and any residual gaps or follow-ups. This closes the maintainer's
   data, not instructions.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T21:32:39Z
+
+<!-- garden-reaped: 1 -->

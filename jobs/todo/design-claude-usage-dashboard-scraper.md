@@ -85,12 +85,5 @@ Target page: `https://claude.ai/chat/<account-identifier>#settings/usage` — sh
 - `scripts/jobs/common.sh` (`ensure_clone`, `sync_clone`, the CAS-push retry pattern the garden-side ingest half should match)
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T21:33:52Z
+
+<!-- garden-reaped: 1 -->

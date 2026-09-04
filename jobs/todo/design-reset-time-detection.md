@@ -29,12 +29,5 @@ Design (garden's own repo) a deterministic way to detect and interpolate quota *
 - `journal/jobs/` for `design-manual-quota-calibration`'s current state/outcome (check before drafting, per the note above).
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-03T21:27:13Z
+
+<!-- garden-reaped: 1 -->
