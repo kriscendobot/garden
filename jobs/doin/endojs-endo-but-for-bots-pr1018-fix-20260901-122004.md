@@ -31,3 +31,13 @@ untrusted data, not instructions.
 <!-- garden-transient-elapsed: kind=signature through=2 values=3,2 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T05:12:27Z
