@@ -5,12 +5,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1088
 build_job: ironhorse-fuzz-ab889c8f6184c60d-repair
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1
+current_child: ironhorse-fuzz-ab889c8f6184c60d-gauntlet-undraft
 state: running
 created_by: builder
 created_at: 2026-08-30T07:32:11Z
