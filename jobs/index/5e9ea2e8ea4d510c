@@ -1,0 +1,2 @@
+base: improve-stagger-watcher-timer-thundering-herd
+identity: mentor:scripts/systemd/garden-ci-watcher@.timer
