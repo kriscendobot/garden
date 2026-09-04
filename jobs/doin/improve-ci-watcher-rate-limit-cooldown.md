@@ -19,3 +19,13 @@ affected in this log), then port it to dependabot-watcher.sh,
 approval-reconciler.sh, and issue-inbox-watcher.sh so all gh-api-calling
 watchers share one cooldown window instead of each carrying its own copy or
 none at all.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T16:36:16Z
