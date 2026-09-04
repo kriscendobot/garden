@@ -28,3 +28,13 @@ this job was minted from a rollup read at post time.
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=194 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T04:35:59Z
