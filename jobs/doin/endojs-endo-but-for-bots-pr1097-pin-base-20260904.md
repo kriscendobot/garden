@@ -44,3 +44,13 @@ Leave the PR head rebased onto the new pinned base with conflicts resolved and C
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=985 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T09:25:15Z
