@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T00:23:41Z_
+_As of 2026-09-04T00:24:41Z_
 
 ## Latest
 
@@ -980,14 +980,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.9M | $634.63 _(notional, rate-card)_ | 10% of 595.0M (ok) |
+| Claude | 60.9M | $635.14 _(notional, rate-card)_ | 10% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (112)
+### doin (111)
 - [`design-pass-style-symbol-condition-variant`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-pass-style-symbol-condition-variant.md) — Motivation, as given
 - [`cybernetics-rec8-scheduler-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec8-scheduler-admission.md) — ---
 - [`kriscendobot-garden-pr73-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr73-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden PR #73
@@ -1035,7 +1035,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1125-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1125
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
-- [`endojs-endo-but-for-bots-pr1127-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1127-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1127
 - [`endojs-endo-but-for-bots-pr891-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr891-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #891
 - [`minion-town-pr17-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr17-conduct.md) — ---
 - [`build-ocapn-nonce-locator-endo-mechanism-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-nonce-locator-endo-mechanism-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1124
@@ -1101,13 +1100,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1102-narrow-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-narrow-special-names.md) — Narrow design PR #1102 to the special-names-on-options-bag mechanism
 - [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
 
-### tada (6828)
+### tada (6829)
+- [`endojs-endo-but-for-bots-pr1127-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1127-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1127-dd008d4e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1127-dd008d4e.md) — Report
 - [`xs2rust-endor-press-20260903-222019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-222019.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260903-22...
 - [`xs2rust-endor-press-20260903-210515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-210515.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260903-21...
 - [`xs2rust-endor-press-20260903-200506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-200506.md) — Ironhorse press — assessment (dispatch xs2rust-endor-press-20260903-200506)
-- [`xs2rust-endor-press-20260903-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260903-185006.md) — Ironhorse press — assessment (dispatch xs2rust-endor-press-20260903-185006, r...
-- … and 6823 more
+- … and 6824 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
