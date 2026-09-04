@@ -32,3 +32,13 @@ Please post a scholar job to ingest https://www.thestack.technology/cedar-the-ac
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T00:28:45Z
