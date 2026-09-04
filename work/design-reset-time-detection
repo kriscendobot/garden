@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 10
-worker_kind: monk
-claimed_at: 2026-09-04T05:53:35Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-reset-time-detection
-pr_number: 83
-pr_repo: kriscendobot/garden
-pr_url: https://github.com/kriscendobot/garden/pull/83
-pr_head: design/reset-time-detection
