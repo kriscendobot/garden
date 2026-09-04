@@ -97,10 +97,10 @@ confirm with `list`/`has`.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=224,117 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=2 values=117,41 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
