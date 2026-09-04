@@ -20,6 +20,7 @@ approval-reconciler.sh, and issue-inbox-watcher.sh so all gh-api-calling
 watchers share one cooldown window instead of each carrying its own copy or
 none at all.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
