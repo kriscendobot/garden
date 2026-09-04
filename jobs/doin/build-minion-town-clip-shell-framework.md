@@ -47,11 +47,11 @@ Out of scope for this job: real clip-authoring tooling, the MCP/OCapN self-descr
 Deliver as a draft PR on the fork and run the gauntlet per the usual build flow.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=117 -->
 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=117,689 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
