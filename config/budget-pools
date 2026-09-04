@@ -43,5 +43,5 @@
 #     the pre-existing 385M/wk was itself an uncalibrated low-end estimate.
 # Columns, tab-separated:
 # pool_id	provider	account/host	ceiling_kind	ceiling	calibrated_from	calibrated_at
-anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	595000000
+anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	143000000	manual-regression-fresh-contiguous-cluster	2026-09-04T22:10:57Z
 anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	unmetered	-	temporary-api-key	2026-09-04
