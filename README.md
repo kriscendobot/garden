@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T18:47:41Z_
+_As of 2026-09-04T18:48:51Z_
 
 ## Latest
 
@@ -352,56 +352,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One decision I can't settle without you: two older DRAFT PRs are built on the now-superseded "caller-supplied weblet powers" model that the register-by-directory-id -> formula-id-origin evolution replaced — [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) (resolve weblet powers from the caller's own guest facet; untouched since 08-23) and [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) (retire legacy clip powers resolution; 09-01). Should these be closed as superseded like [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), or is either still load-bearing (e.g. [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) as the unit-4 "retire the powers resolver" execution) and worth rebasing onto the current model? I'll hold off touching them until you decide, and will otherwise let the live clip gauntlets run.
 
-- `doomed-endojs-endo-but-for-bots-pr933-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr933-gauntlet-fix-1-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr933-gauntlet-fix-1; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr933-gauntlet-fix-1) or removes it, so nothing is lost.
-> Original job base: endojs-endo-but-for-bots-pr933-gauntlet-fix-1
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> gauntlet: endojs-endo-but-for-bots-pr933-gauntlet
-> gauntlet_stage: fix
-> gauntlet_iteration: 1
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/933](https://github.com/endojs/endo-but-for-bots/pull/933)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr933-gauntlet). Apply the panel's must-fix items ONCE,
-> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr933-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/933 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Read the LATEST panel verdict on [https://github.com/endojs/endo-but-for-bots/pull/933](https://github.com/endojs/endo-but-for-bots/pull/933) (the request-changes `gh pr review` the
->    panel-1 stage just posted) for its must-fix items. Apply them.
-> 3. Push the fix as review-feedback follow-up commits to the PR head with
->    `scripts/jobs/gardening/safe-push-pr-head.sh`.
-> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
->    `GARDEN_CI_DEADLINE_SECS=3600 \
->      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 933 --no-merge`
->    - rc 0 (GREEN): success.
->    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
->    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
->   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
-
 - `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
 
 > From report `qwen-model-watch-20260728-180502` (echoed by `fu-qwen-model-watch-20260728-180502-1-20260728-223502`): decide the local qwen lane's fate — promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop it (`qwen3:0.6b` is small enough it isn't obviously useful).
@@ -646,10 +596,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T093339Z-338401` — from gardener:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1, reply_to `ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093339Z-338401.md)
 
 > Stale gauntlet: ironhorse-fuzz-314f811064b8febb-repair-gauntlet panel stage fired against [endojs/endo-but-for-bots#1088](https://github.com/endojs/endo-but-for-bots/issues/1088), but that PR already MERGED on 2026-08-31 (merge commit 422bfdbd). Nothing to review/fix/un-draft. No successor fuzz-findings draft PR exists to retarget (open ironhorse PRs are [endojs/endo-but-for-bots#1152](https://github.com/endojs/endo-but-for-bots/issues/1152), [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113), [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) — unrelated). I did NOT burn the 29-seat panel on a merged PR. Reporting this stage as orchestration-failed. Recommend dropping the remaining stages of this gauntlet chain (fix-loop / un-draft) as moot.
-
-- `20260904T184707Z-6583d6` — from gauntlet:endojs-endo-but-for-bots-pr933-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T184707Z-6583d6.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr933-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr933-gauntlet-fix-1' (fix) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
 
 - `20260904T115830Z-07a1c6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T115830Z-07a1c6.md)
 
@@ -1356,7 +1302,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.8M | $862.94 _(notional, rate-card)_ | 14% of 595.0M (ok) |
+| Claude | 84.9M | $864.93 _(notional, rate-card)_ | 14% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
