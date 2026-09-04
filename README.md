@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T16:06:07Z_
+_As of 2026-09-04T16:08:40Z_
 
 ## Latest
 
@@ -377,10 +377,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 2bf8803996bd70d17c81abff3c16d127bbc89bb5 is 64 commit(s) behind origin/main2 (3cfbeb5ac433f64679608b13575d04962401a697) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
-
-- `20260904T160506Z-1c9dfe` — from gauntlet:endojs-endo-but-for-bots-pr322-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T160506Z-1c9dfe.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr322-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1306,7 +1302,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.5M | $848.40 _(notional, rate-card)_ | 14% of 595.0M (ok) |
+| Claude | 83.6M | $851.28 _(notional, rate-card)_ | 14% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
