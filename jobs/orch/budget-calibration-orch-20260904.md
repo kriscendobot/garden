@@ -1,4 +1,5 @@
 ---
+child-budget-calibration-20260904-host: endolin-garden2-5bcdff64
 child-budget-calibration-20260904-reap-count: 0
 order: serial
 children: budget-calibration-20260904 budget-calibration-report-20260904
