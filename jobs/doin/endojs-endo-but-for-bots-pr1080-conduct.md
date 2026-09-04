@@ -29,10 +29,10 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1080
 Head: kriscendobot/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no maintainer comment).
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=1 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=460 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
