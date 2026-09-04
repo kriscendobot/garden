@@ -96,16 +96,7 @@ de-published URL returns (status code, body). Remove any `ev1-` pet names;
 confirm with `list`/`has`.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=224,117 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-04T07:08:25Z
+
+<!-- garden-reaped: 2 -->
