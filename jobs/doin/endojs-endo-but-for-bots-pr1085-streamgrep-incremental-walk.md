@@ -70,6 +70,7 @@ makes the streaming pipeline moot in the walk phase.
   on the PR rather than blocking the code (the draft can carry it for review).
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1237 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
