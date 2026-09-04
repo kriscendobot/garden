@@ -12,3 +12,13 @@ Refresh `pr-review-sequence.md` on `journal2` (https://github.com/kriscendobot/g
 - Land as a single commit touching only `pr-review-sequence.md`, via the isolated-clone fetch/rebase/push CAS pattern the prior refreshes used.
 
 Read-only upstream throughout: no comments, reviews, reactions, or state changes on any tracked repo.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-04T22:38:30Z
