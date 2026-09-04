@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T21:48:11Z_
+_As of 2026-09-04T21:51:32Z_
 
 ## Latest
 
@@ -933,6 +933,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
 
+- `20260904T215027Z-9194a4` — from gauntlet:endojs-endo-but-for-bots-pr717-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T215027Z-9194a4.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr717-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
 - `20260904T004311Z-629bc3` — from scholar:scholar-ingest-cedar-access-control-for-ai-agents, reply_to `scholar-ingest-cedar-access-control-for-ai-agents` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T004311Z-629bc3.md)
 
 > **Cedar ingest done** ([kriscendobot/garden#79](https://github.com/kriscendobot/garden/issues/79)). Headline verdict: Cedar is the policy-language/reference-monitor pole of access control; minion.town & Endo are the object-capability pole — and for the **agent/MCP-tool class ocap subsumes Cedar decisively** (the tool call should *be* an attenuated reference, not a broad power gated by a checked scope string). A policy engine earns a place only at the ambient-identity **mint boundary** and over declarative/reference-less rule sets (IaC/K8s admission). Ingested 2 sources (4 sections) — AWS announcement (full) + The Stack article (**paywalled**, lede only); the `cedarpolicy.com/integrations` page was an empty JS SPA so I reasoned the integration-class verdicts from Cedar's documented model instead. New topic `policy-language-authorization` + concepts `cedar-policy-language` and `policy-vs-capability-authorization` (the latter carries the full per-class analysis + @endo/gateway/@endo/mcp ideas). Findings comment posted on the issue (left open per instructions). Result: entries/2026/09/04/004247Z-result-gardener-f279fe.md.
@@ -1310,13 +1314,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.0M | $957.03 _(notional, rate-card)_ | 16% of 595.0M (ok) |
-| Codex | 10.0M _(+390.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 96.1M | $957.91 _(notional, rate-card)_ | 16% of 595.0M (ok) |
+| Codex | 10.0M _(+390.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (27)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
-- [`deadmail-issue-comment-5546789119`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5546789119.md) — Issue follow-up — fold a late comment into the issue work
+- [`endojs-endo-but-for-bots-pr695-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr695-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #695
 - [`endojs-endo-but-for-bots-pr735-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr735-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #735
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1156-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1156
 - [`xs2rust-endor-press-20260904-163526`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-163526.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -1344,17 +1348,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr935-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr935-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 
 ### doin (3)
+- [`deadmail-issue-comment-5546789119`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5546789119.md) — Issue follow-up — fold a late comment into the issue work
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #935
-- [`endojs-endo-but-for-bots-pr695-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #695
 
-### tada (7178)
+### tada (7180)
+- [`endojs-endo-but-for-bots-pr717-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr717-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr717-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr695-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr717-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr717-gauntlet-fix-6.md) — Completion report
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-reminders-capability-experiment-gauntlet-panel-2.md) — Panel round 2 — endojs/endo-but-for-bots #935
 - [`endojs-endo-but-for-bots-pr715-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr715-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr715-gauntlet — HALTED
-- [`improve-self-heal-responder-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-self-heal-responder-reap.md) — Completion report
-- [`endojs-endo-but-for-bots-pr715-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr715-gauntlet-fix-6.md) — Completion report
-- … and 7173 more
+- … and 7175 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
