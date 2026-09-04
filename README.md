@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T04:18:24Z_
+_As of 2026-09-04T04:22:57Z_
 
 ## Latest
 
@@ -996,7 +996,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.6M | $1378.80 _(notional, rate-card)_ | 20% of 385.0M (ok) |
+| Claude | 77.6M | $1380.55 _(notional, rate-card)_ | no quota set |
 | Codex | 43.6M _(+1185.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1044,8 +1044,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`cybernetics-rec7-frontmatter-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec7-frontmatter-validation.md) — ---
 - [`xs2rust-endor-press-20260902-225005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260902-225005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`endojs-endo-but-for-bots-pr1098-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1098-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1098
-- [`kriscendobot-garden-pr73-review-af4b21fd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr73-review-af4b21fd.md) — Review directive on kriscendobot/garden PR #73
 - [`minion-town-formula-graph-content-gc-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-formula-graph-content-gc-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #83
+- [`kriscendobot-garden-pr73-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr73-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr1125-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1125
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 - [`diagnose-panel-fix-loop-oscillation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-fix-loop-oscillation.md) — Why do panel must-fix counts oscillate instead of descending?
@@ -1114,13 +1114,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1102-narrow-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-narrow-special-names.md) — Narrow design PR #1102 to the special-names-on-options-bag mechanism
 - [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
 
-### tada (6851)
+### tada (6852)
+- [`kriscendobot-garden-pr73-review-af4b21fd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr73-review-af4b21fd.md) — Completion report — review directive on kriscendobot/garden PR #73
 - [`kriscendobot-minion.town-pr85-review-ca62c58f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr85-review-ca62c58f.md) — Completion report: kriscendobot-minion.town-pr85-review-ca62c58f
 - [`build-endo-but-for-bots-issue1128-omit-endo-child-hosts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-issue1128-omit-endo-child-hosts.md) — Completion report
 - [`xs2rust-endor-press-20260904-035015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-035015.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-03...
 - [`xs2rust-endor-press-20260904-023526`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-023526.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-02...
-- [`xs2rust-endor-press-20260904-013517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-013517.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-01...
-- … and 6846 more
+- … and 6847 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1389,6 +1389,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 - [`build-minion-town-invitation-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-invitation-onboarding.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1125` · Build invitation-only guest onboarding for minion.town
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
+- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-build-follower-self-deploy.md) — awaiting `kriscendobot-garden-pr73-conduct` · Implement — the design's recommended path
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/69` · Refresh kriscendobot/minion.town PR #54 after §9 cleanup lands
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
