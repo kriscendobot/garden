@@ -234,6 +234,41 @@ export GARDEN
 : "${GARDEN_DEPLOYED_SHA_MARKER:=$GARDEN_DEPLOY_STATE/deployed-sha}"
 : "${GARDEN_UPGRADE_READY_MARKER:=$GARDEN_DEPLOY_STATE/upgrade-ready}"
 
+# --- rolling deploy (designs/follower-self-deploy.md) ------------------------
+# The fleet advances through a leader-orchestrated rolling deploy: followers roll
+# first as canaries, the leader advances itself last. The per-host deploy trigger
+# stays a host-local cryptographic `upgrade-ready` fact (never a bus message), so
+# the sysop `deploy` op's maintainer attestation is untouched; the leader
+# orchestrates ordering via a BENIGN journal release token + benign drain ops.
+#
+# Journal (journal2) state, all leader-written except the health/deployed records:
+#   deploy/roll/<GARDEN>    — the sha the leader has cleared THIS host to advance to
+#                             (a gate on the follower's own upgrade-ready trigger,
+#                             NOT a deploy op — a forged token can only ever permit
+#                             the canonical origin/main2 tip the host reaches anyway).
+#   fleet/deployed/<GARDEN> — the host's currently-deployed sha (written on deploy).
+#   fleet/health/<GARDEN>   — post-deploy health record (deployed sha + per-unit
+#                             is-active + a roll-status), read by the leader's canary
+#                             validation.
+#   deploy/leader-sha       — the leader's deployed sha (the leaderless fallback's
+#                             last-known-good gate).
+: "${GARDEN_DEPLOY_ROLL_PATH:=deploy/roll}"          # deploy/roll/<GARDEN> release token dir
+: "${GARDEN_FLEET_HEALTH_PATH:=fleet/health}"        # fleet/health/<GARDEN>
+: "${GARDEN_FLEET_DEPLOYED_PATH:=fleet/deployed}"    # fleet/deployed/<GARDEN>
+: "${GARDEN_DEPLOY_LEADER_SHA_PATH:=deploy/leader-sha}"
+# A sha becomes eligible to deploy only after it has been the observed upgrade
+# target for >= this many seconds (a FLOOR on tip age, not a periodic gate): a
+# freshly-pushed tip can be mid-stack or reverted seconds later, and the candidate
+# gate catches a tip that fails tests, not one that is syntactically fine yet
+# semantically premature. The upgrade-monitor rewrites the signal each tick with the
+# current tip, so a superseded tip never becomes eligible and the clock restarts.
+: "${GARDEN_SELF_DEPLOY_SETTLE:=600}"                # 10 min
+: "${GARDEN_ROLL_CANARY_BATCH:=1}"                   # followers rolled per wave (1 = one canary at a time)
+: "${GARDEN_CANARY_PROBE_DEADLINE:=600}"             # 10 min: max for the probe job to reach tada/
+: "${GARDEN_CANARY_WATCH:=900}"                      # 15 min: post-probe regression-watch window
+: "${GARDEN_ROLL_LEADERLESS_GRACE:=3600}"            # 60 min a follower waits for a leader release before the headless fallback
+: "${GARDEN_SELF_DEPLOY_RETRY_BACKOFF:=1800}"        # 30 min between headless-fallback retries
+
 # Fleet draining marker. If present, this host's workers finish their in-flight
 # claims but take no new ones — a graceful, mundane pause, not a kill. The marker
 # is a FILE whose EXISTENCE is the signal; its CONTENTS are a short prose note for
@@ -935,6 +970,83 @@ record_deployed_sha() {
   local sha="${1:?record_deployed_sha: sha}"
   mkdir -p "$(dirname "$GARDEN_DEPLOYED_SHA_MARKER")" 2>/dev/null || true
   printf '%s\n' "$sha" > "$GARDEN_DEPLOYED_SHA_MARKER"
+}
+
+# --- post-deploy fleet health publish (designs/follower-self-deploy.md) -------
+#
+# fleet_unit_health — echo "<n_failed> <n_total> <first-failed-unit-or-'-'>" for this
+# host's garden-* units. The canary-validation signal is "NONE FAILED" (a crash-loop
+# or a unit dead-after-restart), NOT "all active": most garden units are timer-driven
+# ONESHOTS that are legitimately INACTIVE between firings (reaper, orchestrate, the
+# conductor itself on a follower), so requiring "all active" would spuriously fail
+# every canary. `systemctl list-units --all` reports ACTIVE=failed for a genuinely
+# failed unit; we count exactly those. Routed through unit_ctl so a test stubs it.
+fleet_unit_health() {
+  local total=0 failed=0 first_bad="-" line unit
+  # Parse each line by TOKEN, not by column position: `systemctl list-units` prepends
+  # a status-dot column ("● " for a bad unit) that would shift a positional read and
+  # hide exactly the failed unit we look for. Extract the garden-* unit token, then
+  # detect failure by the presence of the `failed` state word on the line.
+  while IFS= read -r line; do
+    unit="$(printf '%s' "$line" | grep -oE 'garden-[A-Za-z0-9@._-]+\.(service|timer)' | head -1 || true)"
+    [ -n "$unit" ] || continue
+    total=$((total+1))
+    if printf '%s' "$line" | grep -qw failed; then
+      failed=$((failed+1)); [ "$first_bad" = "-" ] && first_bad="$unit"
+    fi
+  done < <(unit_ctl_bounded list-units --all 'garden-*' --no-legend 2>/dev/null || true)
+  printf '%s %s %s\n' "$failed" "$total" "$first_bad"
+}
+
+# publish_fleet_health <deployed-sha> [roll-status] — write this host's deployed +
+# health records to journal2 (fleet/deployed/<GARDEN>, fleet/health/<GARDEN>) via
+# the producer clone with a CAS loop, and — on the leader — deploy/leader-sha. This
+# is the canary-validation input the leader reads AND the leaderless fallback's
+# last-known-good source. Best-effort: an unreachable journal never fails a deploy.
+# roll-status defaults to `deployed` (a normal post-deploy publish); a follower that
+# declined to deploy (operator-drained) publishes `operator-drained` with its
+# CURRENT (un-advanced) deployed sha, so the leader can tell "skipped" from "done".
+publish_fleet_health() {
+  local sha="${1:?publish_fleet_health: sha}" status="${2:-deployed}"
+  local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+  local health; health="$(fleet_unit_health 2>/dev/null || echo '? ? -')"
+  local unit_failures; unit_failures="$(printf '%s' "$health" | awk '{print $1}')"
+  local unit_total; unit_total="$(printf '%s' "$health" | awk '{print $2}')"
+  local first_bad; first_bad="$(printf '%s' "$health" | awk '{print $3}')"
+  local am_leader=0; is_main_host 2>/dev/null && am_leader=1
+  local attempt rc
+  # Contain ensure_clone/sync_clone in SUBSHELLS: both can `die`/exit (an
+  # unresolvable journal_remote, an offline EX_TEMPFAIL), and this function is called
+  # on the deploy success path — a bare exit there would fail an already-completed
+  # deploy. The subshell converts any such exit into a non-zero status this function
+  # absorbs (the filesystem writes a subshell makes still persist). Best-effort by
+  # contract: an unreachable journal never fails a deploy.
+  ( ensure_clone "$DIR" ) >/dev/null 2>&1 || return 1
+  for attempt in $(seq 1 15); do
+    ( sync_clone "$DIR" ) >/dev/null 2>&1 || return 1
+    mkdir -p "$DIR/$GARDEN_FLEET_DEPLOYED_PATH" "$DIR/$GARDEN_FLEET_HEALTH_PATH" 2>/dev/null || true
+    printf '%s\n' "$sha" > "$DIR/$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN"
+    {
+      printf 'host: %s\n'          "$GARDEN"
+      printf 'deployed_sha: %s\n'  "$sha"
+      printf 'roll_status: %s\n'   "$status"
+      printf 'unit_failures: %s\n' "$unit_failures"
+      printf 'unit_total: %s\n'    "$unit_total"
+      printf 'first_bad_unit: %s\n' "$first_bad"
+      printf 'at: %s\n'            "$(date -u +%FT%TZ)"
+    } > "$DIR/$GARDEN_FLEET_HEALTH_PATH/$GARDEN"
+    git -C "$DIR" add "$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN" "$GARDEN_FLEET_HEALTH_PATH/$GARDEN"
+    if [ "$am_leader" -eq 1 ] && [ "$status" = deployed ]; then
+      mkdir -p "$(dirname "$DIR/$GARDEN_DEPLOY_LEADER_SHA_PATH")" 2>/dev/null || true
+      printf '%s\n' "$sha" > "$DIR/$GARDEN_DEPLOY_LEADER_SHA_PATH"
+      git -C "$DIR" add "$GARDEN_DEPLOY_LEADER_SHA_PATH"
+    fi
+    rc=0; commit_and_push "$DIR" "fleet/health($GARDEN) $status @ ${sha:0:12}" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # nothing to commit → already current
+    backoff "$attempt"
+  done
+  return 1
 }
 
 # --- deterministic weekly token meter (the foreman back-off signal) -----------
@@ -5616,7 +5728,14 @@ job_requirements() { # <job-file> — one normalized token per line
 job_requirements_valid() { # <job-file>
   local token
   while IFS= read -r token; do
-    [[ "$token" =~ ^[a-z][a-z0-9-]*$ ]] || return 1
+    case "$token" in
+      # host=<GARDEN> pins a job to one host's workers (the rolling-deploy canary
+      # probe, designs/follower-self-deploy.md). The value is a GARDEN identity, so
+      # it admits the same character class set-main-host.sh validates ([A-Za-z0-9._-]),
+      # NOT the plain lowercase-capability shape (which forbids '=' and uppercase).
+      host=*) [[ "${token#host=}" =~ ^[A-Za-z0-9._-]+$ ]] || return 1 ;;
+      *)      [[ "$token" =~ ^[a-z][a-z0-9-]*$ ]] || return 1 ;;
+    esac
   done < <(job_requirements "$1")
 }
 
@@ -5630,6 +5749,9 @@ job_requirements_valid() { # <job-file>
 
 host_capability_probe() { # <token> — one authoritative, uncached probe
   case "$1" in
+    # host=<GARDEN> is satisfied iff this IS that host. A pure string compare against
+    # the host's own identity — no external probe, no credential, no journal read.
+    host=*) [ "${1#host=}" = "$GARDEN" ] ;;
     aws) "$GARDEN_AWS_VERIFY" "$GARDEN_ROOT" >/dev/null 2>&1 ;;
     *) return 1 ;;
   esac
@@ -5637,6 +5759,10 @@ host_capability_probe() { # <token> — one authoritative, uncached probe
 
 host_capability_available() { # <token> [fresh]
   local token="$1" fresh="${2:-cached}" boot marker
+  # host=<GARDEN> is a deterministic, host-fixed identity compare: never cached (the
+  # answer cannot lapse between claim and run the way an AWS session can), so short-
+  # circuit before the boot-id cache path below.
+  case "$token" in host=*) [ "${token#host=}" = "$GARDEN" ]; return $? ;; esac
   case "$token" in aws) ;; *) return 1 ;; esac
   if [ "$fresh" != fresh ]; then
     boot="$(tr -dc 'A-Za-z0-9' < /proc/sys/kernel/random/boot_id 2>/dev/null || true)"

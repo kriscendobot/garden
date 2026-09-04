@@ -399,6 +399,32 @@ while :; do
     rm -f "$report"
     continue
   fi
+  # --- rolling-deploy CANARY PROBE (designs/follower-self-deploy.md) ----------
+  # A `canary-probe: true` job is the leader's synthetic no-op round-trip probe,
+  # pinned to this host via `requires: host=<GARDEN>`. It deliberately runs NO LLM:
+  # completing it here still exercises the REAL upgraded spine the maintainer named —
+  # the claim CAS, the doer inbox drain, complete-job.sh, and the doin→tada report
+  # path — on the freshly-deployed code, which is exactly what a canary must prove.
+  # Short-circuit like the blocked-requirements path above: deterministic report,
+  # complete, continue — no busy marker, no handler, no `claude -p`.
+  if [ "$(plan_field "$jobfile" canary-probe)" = "true" ]; then
+    "$HERE/inbox-read.sh" "$base" || true
+    {
+      printf 'canary-probe: ok\n'
+      printf 'host: %s\n' "$GARDEN"
+      printf 'gardener: %s\n' "$id"
+      printf 'deployed_sha: %s\n' "$(deployed_sha 2>/dev/null || true)"
+      printf 'at: %s\n\n' "$(date -u +%FT%TZ)"
+      printf '# rolling-deploy canary probe — round trip OK\n\n'
+      printf 'This host claimed and completed the synthetic probe on the freshly\n'
+      printf 'deployed code: the claim CAS, the doer inbox, and the report path all work.\n'
+    } > "$report"
+    log "completed canary probe '$base' on $GARDEN (no-LLM round trip)"
+    "$HERE/complete-job.sh" "$id" "$base" "$report" || die "could not complete canary probe '$base'"
+    rm -f "$report"
+    continue
+  fi
+
   # divert the handler's combined stdout+stderr here so a failure can be captured
   # by hash instead of vanishing into this gardener's systemd journal.
   capture="$(mktemp "${TMPDIR:-/tmp}/garden-capture-$base.XXXXXX")"

@@ -2,12 +2,13 @@
 
 How a running instance takes up a new version of the garden library. The root
 checkout is a **deployed version**, not a development tree, and it advances only
-by the deliberate, drained `deploy-garden.sh` — triggered by an upgrade-ready
-signal the liaison acts on. This page is the operator procedure and the mental
-model behind it; the rationale (why deliberate and not continuous
-fast-forward) is `designs/deliberate-deploy.md`. If your question is "an upgrade
-is ready — what do I do" or "why isn't the root checkout tracking `main2`," you
-are here.
+by the deliberate, drained `deploy-garden.sh` — now triggered **autonomously** by
+each host's own host-local `upgrade-ready` fact, orchestrated fleet-wide by a
+leader-run rolling deploy (`designs/follower-self-deploy.md`). This page is the
+operator procedure and the mental model behind it; the rationale (why deliberate
+and not continuous fast-forward) is `designs/deliberate-deploy.md`. If your
+question is "an upgrade is ready — what do I do" or "why isn't the root checkout
+tracking `main2`," you are here.
 
 ## What the root checkout is
 
@@ -22,14 +23,26 @@ keeping only its post-deploy reread broadcast).
 
 The deterministic `garden-upgrade-monitor` service (per-host local infra) emits
 an **"Upgrade ready"** signal when `origin/main2` is ahead of this host's
-deployed sha. The liaison arms a **deploy-on-upgrade Monitor** whose command is:
+deployed sha. That signal is the host-local, cryptographic **deploy trigger** —
+never a bus message — read by two autonomous daemons:
+
+- **`garden-self-deploy`** (every host): the follower trigger. It deploys this
+  host when its own `upgrade-ready` fact is joined by the leader's per-host
+  **release token** (`deploy/roll/<GARDEN>`), with a headless leaderless-grace
+  fallback if there is no live leader to orchestrate.
+- **`garden-rolling-deploy`** (leader only): the conductor. It rolls followers
+  first as canaries, validates each, and advances the leader **itself last**.
+
+The liaison's **deploy-on-upgrade Monitor** is now an **observer/override** (a
+human kill-switch on the leader), not the trigger — a host with no session still
+advances on its own. Its command is unchanged:
 
 ```sh
 cat "$GARDEN_STATE/deploy/upgrade-ready" 2>/dev/null   # silent when up to date
 ```
 
-On a signal, the liaison acts on it automatically (this Monitor is leader-facing;
-arm it as part of leader stand-up, [starting.md](starting.md)).
+To deploy or halt **by hand** as an override, run `deploy-garden.sh` (below) or
+`drain-fleet.sh on` on the host in question.
 
 ## Deploying
 

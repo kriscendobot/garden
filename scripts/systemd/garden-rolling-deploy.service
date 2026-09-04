@@ -1,0 +1,20 @@
+[Unit]
+Description=Garden rolling-deploy conductor (leader orchestrates a fleet upgrade with followers as canaries)
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit,
+# not a failure. The self-heal wrapper normalizes 143/130 to 0; this is the belt.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Leader-only singleton: the conductor advances the fleet from ONE host (it writes
+# release tokens, posts canary probes, and pages on a failed canary; two conductors
+# would double-release and double-page). On a follower the timer still fires but this
+# ExecCondition fails, so the tick is SKIPPED CLEANLY (condition-failed, never Failed).
+# Each firing re-evaluates, so a leader change is picked up next tick with no restart.
+# See designs/follower-self-deploy.md and designs/multibot-leader-follower.md.
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-rolling-deploy -- @GARDEN_ROOT@/scripts/jobs/rolling-deploy.sh
+# Headroom beyond the implicit 90s oneshot start timeout for the self-heal responder
+# on a failed tick (bounded itself by SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900

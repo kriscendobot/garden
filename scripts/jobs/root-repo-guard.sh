@@ -106,6 +106,17 @@
 #      GARDEN_ROOT_GUARD_INODE_UNKNOWN_ALERTS_AT (audit § 2.7: a silent detector is
 #      indistinguishable from a missing one). The streak resets on the first clean parse.
 #
+#   E. The root WORKING TREE is clean. deploy-garden.sh aborts on a dirty TRACKED
+#      worktree (never clobber); in the autonomous rolling deploy that abort would
+#      wedge a host behind an unread notice (the nine-day stall). So a stray tracked
+#      edit is PRESERVED (a `git stash create` commit → a root-guard-backup/<ts> ref
+#      AND a patch under $GARDEN_STATE/deploy/dirty-tree-backups) and the tree restored
+#      to clean, with an after-the-fact FYI — the fleet keeps moving. The invariant it
+#      rests on is unchanged (no development in the root tree, so any tracked edit is an
+#      escape). Only an un-preservable state (the stash create itself fails) escalates
+#      as a hard, blocking alert. Deferred while draining (a deploy owns the tree).
+#      See designs/follower-self-deploy.md § The dirty-tree case.
+#
 # Plus a STALLED-DEPLOY watch: when the recorded deployed sha lags origin/main2 for
 # longer than GARDEN_DEPLOY_STALL_DAYS, alert ONCE per breakage window (the incident
 # also noted deploys silently stalled since 07-17). Cleared automatically when the
@@ -350,6 +361,70 @@ guard_head() {
   local msg="root repo $ROOT HEAD drift detected but the re-detach to $safe FAILED; left as-is. Prior HEAD at branch $backup_ref. Reconcile by hand: 'git -C $ROOT checkout --detach --force $safe'. (host=$GARDEN)"
   log "HEAD-REPAIR-FAILED: $msg"
   alert_maintainer "root-repo-head-repairfail-$GARDEN" "$msg"
+  return 1
+}
+
+# --- INVARIANT E: the root WORKING TREE is clean ------------------------------
+# deploy-garden.sh aborts on a dirty TRACKED worktree — never clobber — and stray
+# edits in deployed roots have been observed on both hosts. In the autonomous rolling
+# deploy those aborts would silently wedge a host behind an unread notice (the
+# original nine-day stall), so the guard preserves-then-cleans a stray tracked edit
+# lossless-ly BEFORE the roll ever sees it (designs/follower-self-deploy.md § The
+# dirty-tree case): capture the edit durably (a `git stash create` commit → a
+# root-guard-backup/<ts> ref AND a patch under $GARDEN_STATE/deploy/dirty-tree-backups),
+# restore the tracked paths to clean, and raise a distinct AFTER-THE-FACT FYI (the
+# fleet is already moving; this is "we found and preserved a stray edit," not "come
+# fix this or nothing advances"). The invariant it rests on is unchanged: NO
+# development ever happens in the root tree, so any tracked edit there is an escape.
+# Only a genuinely un-preservable state (the `git stash create` itself fails) escalates
+# as a hard, blocking alert. Skipped while draining (a deploy owns the tree).
+: "${GARDEN_ROOT_GUARD_CLEAN_TREE:=1}"
+: "${GARDEN_ROOT_GUARD_DIRTY_BACKUP_DIR:=$GARDEN_DEPLOY_STATE/dirty-tree-backups}"
+guard_clean_tree() {
+  [ "$GARDEN_ROOT_GUARD_CLEAN_TREE" = "1" ] || return 0
+  local dirty
+  dirty="$(git -C "$ROOT" status --porcelain --untracked-files=no 2>/dev/null)"
+  [ -n "$dirty" ] || return 0   # clean — the healthy path
+
+  # Never fight a deploy: it advances the root tree under the draining marker, so a
+  # transient "dirty" mid-swap is expected. Defer; the next tick heals once it lifts.
+  if fleet_draining; then
+    log "CLEAN-TREE-DEFERRED: root worktree has tracked changes but the fleet is DRAINING (deploy in progress owns the tree); deferring"
+    return 1
+  fi
+
+  local ts stash_sha backup_ref patch
+  ts="$(ts_utc)"
+  # Capture the stray edit as a stash COMMIT (index + worktree) without touching the
+  # tree. A failure here means the state is un-preservable — escalate hard, do NOT clean.
+  stash_sha="$(git -C "$ROOT" stash create "root-repo-guard: stray tracked edit $ts" 2>/dev/null || true)"
+  if [ -z "$stash_sha" ]; then
+    local msg="root repo $ROOT has TRACKED working-tree changes but 'git stash create' produced nothing to preserve them (un-preservable state). NOT cleaning the tree (never clobber unpreserved work). This will BLOCK a deploy of this host until resolved by hand: inspect 'git -C $ROOT status' and 'git -C $ROOT diff'. Blocking paths: $(printf '%s' "$dirty" | tr '\n' ';'). (host=$GARDEN)"
+    log "CLEAN-TREE-UNPRESERVABLE: $msg"
+    alert_maintainer "root-repo-dirty-tree-unpreservable-$GARDEN" "$msg"
+    return 1
+  fi
+
+  # Durable belt #1: a backup ref (root-repo-guard's lossless-backup discipline).
+  backup_ref="root-guard-backup/$ts"
+  git -C "$ROOT" update-ref "refs/heads/$backup_ref" "$stash_sha" >/dev/null 2>&1 \
+    || git -C "$ROOT" branch -f "$backup_ref" "$stash_sha" >/dev/null 2>&1 || true
+  # Durable belt #2: a patch file outside the repo (survives a later ref gc).
+  mkdir -p "$GARDEN_ROOT_GUARD_DIRTY_BACKUP_DIR" 2>/dev/null || true
+  patch="$GARDEN_ROOT_GUARD_DIRTY_BACKUP_DIR/$ts.patch"
+  git -C "$ROOT" stash show -p "$stash_sha" > "$patch" 2>/dev/null \
+    || git -C "$ROOT" diff "HEAD" "$stash_sha" > "$patch" 2>/dev/null || true
+
+  # Restore the tracked paths to clean (leaves untracked debris for a separate sweep).
+  if git -C "$ROOT" reset -q --hard HEAD 2>/dev/null; then
+    local msg="root repo $ROOT had a STRAY TRACKED EDIT (the no-development-in-the-root invariant was violated). It was PRESERVED (branch $backup_ref + patch $patch) and the tracked tree restored to clean so the rolling deploy is never wedged behind a dirty-tree abort. This is an after-the-fact FYI — the fleet keeps moving. Preserved paths: $(printf '%s' "$dirty" | tr '\n' ';'). (host=$GARDEN)"
+    log "CLEAN-TREE-REPAIRED: $msg"
+    alert_maintainer "root-repo-dirty-tree-repaired-$GARDEN" "$msg"
+    return 0
+  fi
+  local msg="root repo $ROOT has tracked changes; they were preserved (branch $backup_ref + patch $patch) but 'git reset --hard HEAD' to restore a clean tree FAILED; left as-is. Reconcile by hand. (host=$GARDEN)"
+  log "CLEAN-TREE-REPAIR-FAILED: $msg"
+  alert_maintainer "root-repo-dirty-tree-repairfail-$GARDEN" "$msg"
   return 1
 }
 
@@ -747,6 +822,12 @@ guard_root_repo() {
   local head_ok=0
   guard_head "$up" && head_ok=1
 
+  # E — the root WORKING TREE is clean (preserve-and-clean a stray tracked edit so the
+  # autonomous rolling deploy is never wedged behind a dirty-tree abort). After B (a
+  # HEAD repair may itself have discarded a corrupt tree) and before C.
+  local tree_ok=0
+  guard_clean_tree && tree_ok=1
+
   # C — object store healthy and maintainable (gc can still run). Last of the three:
   # it is the slowest, and a drifted HEAD or origin is the more urgent repair.
   local obj_ok=0
@@ -756,8 +837,8 @@ guard_root_repo() {
   guard_deploy_lag "$up"
 
   if [ "$origin_ok" -eq 1 ] && [ "$head_ok" -eq 1 ] && [ "$obj_ok" -eq 1 ] \
-     && [ "$inode_ok" -eq 1 ]; then
-    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor, object store maintainable, host inode headroom above ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}%"
+     && [ "$inode_ok" -eq 1 ] && [ "$tree_ok" -eq 1 ]; then
+    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor, working tree clean, object store maintainable, host inode headroom above ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}%"
   fi
   return 0
 }

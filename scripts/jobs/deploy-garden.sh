@@ -608,6 +608,16 @@ if ! verify_coherent_release "$new_sha" "$(cat "$GARDEN_DEPLOYED_SHA_MARKER" 2>/
   log "WARN: coherent-release verification found stragglers (see above); the deploy advanced the tree but a unit did not come back — a later reconcile tick retries it."
 fi
 
+# Publish this host's post-deploy health to the journal (fleet/deployed + fleet/health,
+# plus deploy/leader-sha on the leader) so the rolling deploy's canary validation can
+# read it (designs/follower-self-deploy.md § Post-deploy validation). Best-effort: an
+# unreachable journal never turns a completed deploy into a failure.
+if [ "${GARDEN_DEPLOY_NO_HEALTH_PUBLISH:-0}" != "1" ]; then
+  publish_fleet_health "$new_sha" deployed \
+    && log "published fleet health record for $GARDEN @ $new_sha" \
+    || log "WARN: could not publish fleet health record (no journal?); canary validation will fall back to a live probe"
+fi
+
 # Best-effort post-deploy reread broadcast (the watchman also broadcasts on the
 # tree change; this makes the deploy itself announce). Guardable for tests.
 if [ "$GARDEN_DEPLOY_NO_BROADCAST" != "1" ]; then

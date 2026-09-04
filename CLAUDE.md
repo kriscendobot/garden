@@ -250,9 +250,19 @@ brakes. It takes effect on the next foreman tick with **no deploy or units recon
 
 The root checkout (`<garden-root>`) is a **deployed version** of the garden, not a
 development tree; it is advanced only by the deliberate, drained
-`scripts/jobs/deploy-garden.sh`, signal-triggered by the `garden-upgrade-monitor`
-service and supervised by the liaison's deploy-on-upgrade Monitor — never by a
-continuous fast-forward. Procedure:
+`scripts/jobs/deploy-garden.sh`, triggered by each host's own host-local
+`upgrade-ready` cryptographic fact (from the `garden-upgrade-monitor` service) —
+never by a continuous fast-forward. The fleet advances through an autonomous,
+**leader-orchestrated rolling deploy** (`scripts/jobs/rolling-deploy.sh` +
+`scripts/jobs/self-deploy.sh`, [`designs/follower-self-deploy.md`](designs/follower-self-deploy.md)):
+the leader rolls **followers first as canaries**, validates each (unit health + a
+host-pinned round-trip probe job + a job-processing regression watch), and advances
+**itself last**, never on a failed canary. The leader's deploy decision reads **no
+bus message** — its trigger is `upgrade-ready` + git ancestry + canary-pass state —
+so the sysop `deploy` op's maintainer attestation is untouched; the leader
+orchestrates ordering via **benign** journal release tokens and benign `drain` ops.
+The liaison's deploy-on-upgrade Monitor is demoted to an **observer/override** on
+the leader (a human kill-switch), no longer the trigger. Procedure:
 [context/operations/deploy.md](context/operations/deploy.md); rationale:
 [`designs/deliberate-deploy.md`](designs/deliberate-deploy.md).
 

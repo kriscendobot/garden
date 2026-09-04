@@ -1,0 +1,12 @@
+[Unit]
+Description=Garden follower self-deploy trigger timer
+
+[Timer]
+# Absolute wall-clock schedule (every 3 minutes at :00 past). Persistent=true catches
+# up a run missed across downtime. Enabled on EVERY host (WantedBy=timers.target,
+# no leader gate on the paired service), so an unattended follower advances on its own.
+OnCalendar=*:00/3
+Persistent=true
+
+[Install]
+WantedBy=timers.target

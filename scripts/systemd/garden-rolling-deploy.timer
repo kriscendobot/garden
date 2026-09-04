@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden rolling-deploy conductor timer
+
+[Timer]
+# Absolute wall-clock schedule (every 3 minutes at :02 past), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair whose first elapse can be deferred indefinitely
+# by the fleet's ~1-minute daemon-reload cadence (see garden-orchestrate.timer's
+# note). Persistent=true catches up a run missed across downtime. The conductor is
+# event-driven and idempotent, so a slightly coarse cadence only slows a roll.
+OnCalendar=*:02/3
+Persistent=true
+
+[Install]
+WantedBy=timers.target

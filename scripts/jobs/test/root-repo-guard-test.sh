@@ -120,6 +120,32 @@ after="$(git -C "$GARDEN_ROOT" rev-parse HEAD)"
 [ ! -s "$ALERTS" ] && ok "no alert on the healthy path" || bad "spurious alert(s): $(tr '\n' '|' < "$ALERTS")"
 
 # ============================================================================
+hr; echo "CASE 1e — INVARIANT E: a stray TRACKED edit is preserved and the tree cleaned"; hr
+# The rolling-deploy dirty-tree self-heal (designs/follower-self-deploy.md): a tracked
+# edit in the deployed root would wedge a deploy behind its never-clobber abort, so the
+# guard PRESERVES it (backup ref + patch) and restores a clean tree, with an FYI alert.
+fresh_root
+echo "a stray hot-patch line" >> "$GARDEN_ROOT/a.md"   # dirty a TRACKED file
+run_guard
+[ -z "$(git -C "$GARDEN_ROOT" status --porcelain --untracked-files=no 2>/dev/null)" ] \
+  && ok "tracked tree restored to clean after the guard tick" || bad "tree still dirty after invariant E"
+alerted "root-repo-dirty-tree-repaired" && ok "dirty-tree self-heal alerted the maintainer (after-the-fact FYI)" || bad "no dirty-tree-repaired alert"
+git -C "$GARDEN_ROOT" for-each-ref --format='%(refname)' 'refs/heads/root-guard-backup' | grep -q . \
+  && ok "stray edit preserved as a root-guard-backup/* ref" || bad "no backup ref for the stray edit"
+ls "$GARDEN_STATE/deploy/dirty-tree-backups"/*.patch >/dev/null 2>&1 \
+  && ok "stray edit also preserved as a patch under \$GARDEN_STATE/deploy/dirty-tree-backups" || bad "no dirty-tree patch written"
+# A DRAINING host defers invariant E (a deploy owns the tree) — never fight the deploy.
+fresh_root
+echo "another stray line" >> "$GARDEN_ROOT/a.md"
+: > "$GARDEN_STATE/draining"
+run_guard
+[ -n "$(git -C "$GARDEN_ROOT" status --porcelain --untracked-files=no 2>/dev/null)" ] \
+  && ok "invariant E DEFERS while draining (tree left for the deploy)" || bad "invariant E cleaned the tree during a drain"
+rm -f "$GARDEN_STATE/draining"
+git -C "$GARDEN_ROOT" reset -q --hard HEAD   # tidy for the next case
+rm -f "$GARDEN_STATE/deploy/dirty-tree-backups"/*.patch 2>/dev/null || true
+
+# ============================================================================
 hr; echo "CASE 2 — ORIGIN DRIFT: origin rewritten to an unrelated remote → repaired"; hr
 fresh_root
 git -C "$GARDEN_ROOT" remote set-url origin "ssh://git@github.com/endojs/endo-but-for-bots.git"

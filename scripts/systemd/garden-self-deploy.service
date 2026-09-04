@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden follower self-deploy trigger (deploy this host on its own upgrade-ready + a leader roll-release)
+
+[Service]
+Type=oneshot
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# NOT leader-gated (deliberately no ExecCondition=is-main-host): this is the per-host
+# deploy trigger and must run on EVERY host — the whole point is to advance an
+# unattended follower without a human. It fires deploy-garden.sh only on this host's
+# own host-local upgrade-ready fact gated by a leader release token (primary) or the
+# leaderless-grace headless fallback (degraded). See designs/follower-self-deploy.md.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-self-deploy -- @GARDEN_ROOT@/scripts/jobs/self-deploy.sh
+# The trigger tick is cheap, but the deploy it may invoke drains + swaps the tree, so
+# give it headroom (deploy-garden.sh bounds its own drain/quiesce internally).
+TimeoutStartSec=900
