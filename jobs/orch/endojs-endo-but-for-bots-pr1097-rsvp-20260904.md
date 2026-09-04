@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1097-pin-base-20260904 endojs-endo-but-for-bots-pr1097-drop-base64-20260904 endojs-endo-but-for-bots-pr1097-rename-info-types-20260904
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-04T08:53:24Z
 ---
