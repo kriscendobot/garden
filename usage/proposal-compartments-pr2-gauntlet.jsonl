@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":36,"elapsed_s":527,"input_tokens":72,"output_tokens":30367,"cache_creation_tokens":85250,"cache_read_tokens":2457471,"total_cost_usd":2.8437455000000003,"ts":"2026-09-04T00:34:58Z","base":"proposal-compartments-pr2-gauntlet","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
