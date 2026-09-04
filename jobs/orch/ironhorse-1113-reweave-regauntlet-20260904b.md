@@ -2,7 +2,7 @@
 order: serial
 children: weave-endo-pr1113-20260904b gauntlet-endo-pr1113-20260904b
 on-child-failure: halt
-state: pending
+state: running
 created_by: xs2rust-endor-press-20260904-175013
 created_at: 2026-09-04T18:50:43Z
 ---
