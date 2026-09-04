@@ -1,5 +1,5 @@
 cadence: hourly
-last_dispatched: 2026-09-04T11:50:16Z
+last_dispatched: 2026-09-11T11:01:12Z
 job_basename_prefix: minion-town-press
 ---
 ---
