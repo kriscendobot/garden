@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":20,"elapsed_s":582,"input_tokens":34,"output_tokens":30490,"cache_creation_tokens":92032,"cache_read_tokens":1117037,"total_cost_usd":2.2450865,"ts":"2026-09-04T12:13:47Z","base":"publish-overnight-chronicle-clip","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
