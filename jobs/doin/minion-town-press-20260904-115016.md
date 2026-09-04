@@ -36,3 +36,13 @@ later dispatch should just check whether that feedback has arrived
 (a maintainer inbox reply, a PR comment, a new commit) — if not, complete
 quietly with a one-line "still waiting on maintainer feedback on X", never
 manufacture busywork to look productive while blocked.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T11:50:31Z
