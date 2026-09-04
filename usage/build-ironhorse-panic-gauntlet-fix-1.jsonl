@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":85,"elapsed_s":1015,"input_tokens":164,"output_tokens":52837,"cache_creation_tokens":145995,"cache_read_tokens":8706467,"total_cost_usd":6.590736249999999,"ts":"2026-09-04T11:00:48Z","base":"build-ironhorse-panic-gauntlet-fix-1","host":"endolin-garden2-5bcdff64","outcome":"fail","role":"gardener","provider":"anthropic"}
