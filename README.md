@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T21:44:07Z_
+_As of 2026-09-04T21:48:11Z_
 
 ## Latest
 
@@ -1310,12 +1310,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.6M | $956.61 _(notional, rate-card)_ | 16% of 595.0M (ok) |
+| Claude | 96.0M | $957.03 _(notional, rate-card)_ | 16% of 595.0M (ok) |
 | Codex | 10.0M _(+390.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
-### todo (26)
+### todo (27)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
+- [`deadmail-issue-comment-5546789119`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5546789119.md) — Issue follow-up — fold a late comment into the issue work
 - [`endojs-endo-but-for-bots-pr735-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr735-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #735
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1156-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1156
 - [`xs2rust-endor-press-20260904-163526`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-163526.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -1344,16 +1345,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
+- [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #935
 - [`endojs-endo-but-for-bots-pr695-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #695
-- [`endojs-endo-but-for-bots-pr717-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr717-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #717
 
-### tada (7177)
+### tada (7178)
+- [`endojs-endo-but-for-bots-pr717-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr717-gauntlet-fix-6.md) — Completion report
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-reminders-capability-experiment-gauntlet-panel-2.md) — Panel round 2 — endojs/endo-but-for-bots #935
 - [`endojs-endo-but-for-bots-pr715-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr715-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr715-gauntlet — HALTED
 - [`improve-self-heal-responder-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-self-heal-responder-reap.md) — Completion report
 - [`endojs-endo-but-for-bots-pr715-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr715-gauntlet-fix-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr695-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-fix-3.md) — Completion report
-- … and 7172 more
+- … and 7173 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
