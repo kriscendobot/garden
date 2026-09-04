@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":30,"elapsed_s":415,"input_tokens":48,"output_tokens":25594,"cache_creation_tokens":111455,"cache_read_tokens":2316826,"total_cost_usd":2.49861975,"ts":"2026-09-04T05:57:18Z","base":"design-fable-release-supervisor","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer","provider":"anthropic"}

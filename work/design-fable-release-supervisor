@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 7
-worker_kind: monk
-claimed_at: 2026-09-04T05:49:33Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-fable-release-supervisor
-pr_number: 82
-pr_repo: kriscendobot/garden
-pr_url: https://github.com/kriscendobot/garden/pull/82
-pr_head: design/fable-release-supervisor
