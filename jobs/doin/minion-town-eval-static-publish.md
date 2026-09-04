@@ -102,3 +102,13 @@ confirm with `list`/`has`.
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=117,41 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-04T07:26:16Z
