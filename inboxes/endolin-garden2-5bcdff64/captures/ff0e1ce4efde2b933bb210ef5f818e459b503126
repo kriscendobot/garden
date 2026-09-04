@@ -1,0 +1,6 @@
+<6>10:48:48 [monk/9] job 'minion-town-guest-reminders-capability-experiment-gauntlet-panel-2' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>10:48:48 [monk/9] job 'minion-town-guest-reminders-capability-experiment-gauntlet-panel-2' resolved tier 'mentor' -> claude --model claude-opus-4-8
+⚠ claude.ai connectors are disabled because ANTHROPIC_API_KEY or another auth source is set and takes precedence over your claude.ai login · Unset it to load your organization's connectors
+
+--- handler report (partial) ---
+Credit balance is too low
