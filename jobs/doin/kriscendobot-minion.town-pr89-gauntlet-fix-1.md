@@ -36,6 +36,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=203 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
