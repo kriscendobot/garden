@@ -1,0 +1,120 @@
+# Experimental pty lane with context-usage introspection
+
+Status: **experimental**, opt-in, defaults off. Landed as a reviewable PR (not bare on
+`main2`) at the maintainer's explicit request — this is a lane worth reviewing before it is
+trusted, not settled documentation.
+
+## The problem
+
+Claude Code hands a session's runtime a **real context-window measurement** in exactly one
+place: the JSON blob it pipes to the configured `statusLine` command on stdin, carrying
+`.context_window.{used_percentage,total_input_tokens,total_output_tokens,context_window_size}`
+and `.session_id`. That channel is normally write-only to the terminal, and it is **absent
+entirely under `claude -p`** — which is precisely the population we care about: the gardener
+fleet runs every job as a headless `claude -p`, and a long job that silently approaches
+context exhaustion has no way to know it. Enclosing the session in a pseudo-terminal is what
+makes the measurement exist at all; persisting it to a state file is what makes it readable
+by a skill or hook.
+
+Prior art / the trick, from FUDCo (Chip Morningstar):
+https://gist.github.com/FUDCo/8aeb2b0c60bd871c2e3b1d5f99b89631
+
+## What this ships
+
+An **opt-in alternate execution lane** for a single job, gated by `lane: pty` in the job
+frontmatter (defaults off). A job that opts in runs the SAME prompt in an **interactive
+session enclosed in a pty** instead of a headless `claude -p`, so the status line fires; a
+`statusLine` command persists the live figure to a per-job state file; a reader skill reads
+it back.
+
+Files:
+
+- `scripts/jobs/pty-lane/statusline.sh` — the `statusLine` command. Prints the status line to
+  the terminal AND atomically writes `$GARDEN_STATE/pty-context/<GARDEN_JOB_BASE>.env` with a
+  timestamp, session id, and the context-window figures. Defensive: never fails the host
+  session; works without `jq` (python fallback).
+- `scripts/jobs/pty-lane/run.py` — the pty enclosure. Forks `claude` under a pty, answers the
+  one-time workspace-trust dialog, injects the prompt, waits for the completion marker (from a
+  signal file the worker writes; the transcript and screen are fallbacks), extracts the report,
+  and exits the session.
+- `scripts/jobs/pty-lane/run.sh` — the opt-in handler shim. Resolves the deployed paths,
+  writes the per-session `--settings` file that turns on the statusLine, pre-accepts workspace
+  trust, sets the lane env, and hands off to run.py.
+- `scripts/jobs/pty-context-read.sh` + `skills/pty-context-introspection/SKILL.md` — the
+  **reader** half: read this job's figure back, with a strict freshness contract.
+- `handlers/monk-claude.sh` — a single opt-in branch: `lane: pty` (anthropic only) runs the
+  pty lane in place of `claude -p`; every other job is byte-for-byte unchanged. The state file
+  is pruned on completion in the existing teardown.
+
+## Why the statusLine did not fire until four gates were cleared
+
+Making a `statusLine` command execute in a headless-**driven** interactive session required
+clearing four separate, separately-diagnosed gates. This is the load-bearing knowledge of the
+lane; each was a real wall (see the PR for the diagnosis trail):
+
+1. **Interactive mode in a real pty.** `claude -p` never fires the status line, even inside a
+   pty. Only the interactive TUI does. run.py uses `pty.fork` and sets a window size.
+2. **Workspace trust accepted.** The statusLine executor early-returns with the debug line
+   `Skipping StatusLine command execution - workspace trust not accepted` unless the cwd is
+   trusted. Interactive sessions do NOT get the `-p` auto-trust, so the lane pre-writes
+   `projects.<worktree>.hasTrustDialogAccepted=true` into the config's `.claude.json` (and
+   run.py answers the dialog as a fallback — its default option is "No, exit", so the driver
+   must arrow DOWN to "Yes, I trust this folder"). Note: ordinary hooks fire regardless of
+   trust; the statusLine has this EXTRA gate.
+3. **noexec-safe invocation.** Garden `/tmp` (and any noexec mount a state dir might land on)
+   makes a bare-path exec fail with rc=126. The settings command is `bash <statusline.sh>`,
+   not the bare path.
+4. **Non-nested, remote-control-free session.** A claude spawned inside another claude inherits
+   `CLAUDE_CODE_CHILD_SESSION` etc., which disable transcript persistence; run.sh clears those
+   defensively (the real fleet spawns from bash/systemd, not nested) and sets
+   `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` so remote-control cannot hijack the driven TUI.
+
+## Settings propagation — the trap, and how the lane avoids it
+
+`statusLine` lives in `.claude/settings.json`, which is **gitignored and masked by the
+container bind mount**, so the image cannot seed it (the same reason the container guard
+propagates via CLAUDE.md instead of a SessionStart hook). This lane does **not** depend on any
+human hand-editing that file. The statusLine SCRIPT is tracked in-repo; the settings file that
+references it is **generated by code** (`run.sh`) at launch and passed with `--settings`, which
+Claude Code honors as a settings layer even under `--dangerously-skip-permissions`. Nothing
+under `$HOME` is touched except the per-project trust flag. (A managed-settings file at
+`/etc/claude-code/managed-settings.json`, or `CLAUDE_CODE_MANAGED_SETTINGS_PATH`, would be an
+alternative host-level vehicle outside the bind mount — noted as future work, not used here.)
+
+## Per-job state, keyed and cleaned up
+
+The state file is `$GARDEN_STATE/pty-context/<GARDEN_JOB_BASE>.env`. Keyed on the job base (the
+lane discriminator the spine already exports) so the ~20 concurrent gardeners never clobber one
+another. Sited under `$GARDEN_STATE`, never the repo (an in-tree file rewritten several times a
+second would dirty `git status` continuously). **Pruned on job completion** in
+`monk-claude.sh`'s teardown — an unpruned per-job file rewritten on every refresh is the same
+unbounded-growth shape that wedged a host at zero free inodes twice (the per-id journal-clone
+leak), so the lane must not reintroduce it.
+
+## Freshness / staleness
+
+The file carries `epoch=` (unix seconds of the last refresh), `job_base=`, and `session_id=`.
+The reader (`pty-context-read.sh`) returns a figure (exit 0) **only** if the owner matches AND
+the epoch is within `GARDEN_PTY_CONTEXT_MAX_AGE` (default 120s); otherwise it reports the figure
+STALE (exit 3) or ABSENT (exit 2). A reader that cannot prove freshness treats the figure as
+absent — a leftover from a session that ended yesterday is never mistaken for "now".
+
+## Honest limitations (this is an experiment)
+
+- **Completion contract.** Interactive mode has no `--output-format json` cost envelope, so
+  usage accounting deliberately degrades to the spine's existing session-snapshot fallback.
+  Completion is detected from a signal file the worker is instructed (by an appended lane
+  protocol) to write; the transcript and screen are fallbacks. This is less robust than the
+  headless `.result` contract and is the reason the lane is opt-in.
+- **Prompt injection.** Single-line prompts inject and submit reliably; robust submission of an
+  arbitrary MULTI-LINE job prompt through the TUI (bracketed paste + submit) is not yet solid.
+  Left as the smallest honest slice rather than widening into a spine rewrite.
+- **`used_percentage`** reads null/0 until a session has accrued real context (the status line
+  fires at session start before the turn's tokens land) — which is exactly the long-job
+  population the lane targets.
+- The lane is **anthropic-only**; a `lane: pty` request on any other provider falls back to
+  headless rather than failing the job.
+
+If the lane proves its worth, the natural next steps are robust multi-line injection, a
+first-class interactive completion/usage contract, and (optionally) host-level managed-settings
+propagation.
