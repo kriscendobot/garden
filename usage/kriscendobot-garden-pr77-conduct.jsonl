@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":178,"input_tokens":28,"output_tokens":5625,"cache_creation_tokens":36057,"cache_read_tokens":552587,"total_cost_usd":0.6459827499999999,"ts":"2026-09-04T06:48:15Z","base":"kriscendobot-garden-pr77-conduct","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
