@@ -5,12 +5,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1102
 build_job: design-endo-claude-agents-capability
 kind: feature
-stage: panel
+stage: fix
 iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1102-gauntlet-panel-6
+current_child: endojs-endo-but-for-bots-pr1102-gauntlet-fix-6
 state: running
 created_by: producer
 created_at: 2026-08-31T23:13:50Z
