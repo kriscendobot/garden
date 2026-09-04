@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T18:54:56Z_
+_As of 2026-09-04T18:56:55Z_
 
 ## Latest
 
@@ -172,6 +172,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget pool anthropic:endolin-garden-ece02cb4 changed zone ok -> backoff at spend=169261898 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
+
+- `20260904T185505Z-1fa9c3` — from gardener:xs2rust-endor-press-20260904-185016, reply_to `xs2rust-endor-press-20260904-185016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T185505Z-1fa9c3.md)
+
+> Ironhorse press (dispatch 20260904-185016) — one maintainer-actionable item, no fleet action needed:
+>
+> **[endojs/endo-but-for-bots#945](https://github.com/endojs/endo-but-for-bots/issues/945) (design: Endor bytecode precompile + content-addressed cache) is blocked purely on your re-review.** It has sat at CHANGES_REQUESTED since your 2026-08-06 review. We (kriscendobot) responded to all 6 review threads — most recently 2026-08-31 — but the threads stay open and reviewDecision stays CHANGES_REQUESTED until you re-review. No further fixer work is warranted; it needs a maintainer decision (re-review / approve / close). Flagging rather than dispatching redundant fixer churn.
+>
+> Rest of the press is healthy: [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113)'s reweave→regauntlet is owned by a live orchestration (ironhorse-1113-reweave-regauntlet-20260904b, running); the walker fixture-parity campaign concluded (no active/halted children); endor-git prototype PRs [endojs/endo-but-for-bots#1081](https://github.com/endojs/endo-but-for-bots/issues/1081) and [endojs/endo-but-for-bots#1082](https://github.com/endojs/endo-but-for-bots/issues/1082) are gap-revealing drafts by design.
 
 - `20260803T024348Z-ebba81` — from gardener:garden-budget-omega, reply_to `garden-budget-omega` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260803T024348Z-ebba81.md)
 
@@ -1302,13 +1310,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.2M | $859.26 _(notional, rate-card)_ | 14% of 595.0M (ok) |
+| Claude | 85.3M | $860.24 _(notional, rate-card)_ | 14% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (34)
+### todo (33)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
-- [`endojs-endo-but-for-bots-pr735-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr735-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #735
 - [`build-ironhorse-panic-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ironhorse-panic-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1150
 - [`endojs-endo-but-for-bots-pr1102-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1102-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1102
 - [`xs2rust-endor-press-20260904-152014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260904-152014.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
@@ -1344,16 +1351,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
-- [`xs2rust-endor-press-20260904-185016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260904-185016.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+- [`endojs-endo-but-for-bots-pr735-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr735-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #735
 - [`endojs-endo-but-for-bots-pr715-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr715-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #715
 
-### tada (7148)
+### tada (7149)
+- [`xs2rust-endor-press-20260904-185016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-185016.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-18...
 - [`build-ironhorse-panic-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-ironhorse-panic-gauntlet-fix-2.md) — Completion report
 - [`xs2rust-endor-press-20260904-175013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-175013.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-17...
 - [`endojs-endo-but-for-bots-pr735-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr735-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr933-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr933-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr933-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr735-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr735-gauntlet-fix-4.md) — Completion report
-- … and 7143 more
+- … and 7144 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
