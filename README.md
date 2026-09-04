@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T01:36:15Z_
+_As of 2026-09-04T01:37:41Z_
 
 ## Latest
 
@@ -992,14 +992,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (107)
+### doin (106)
 - [`design-pass-style-symbol-condition-variant`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-pass-style-symbol-condition-variant.md) — Motivation, as given
 - [`cybernetics-rec8-scheduler-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec8-scheduler-admission.md) — ---
 - [`kriscendobot-garden-pr73-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr73-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden PR #73
 - [`endojs-endo-but-for-bots-pr431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #431
 - [`xs2rust-endor-press-20260903-005005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260903-005005.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`design-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-usage-dashboard-scraper.md) — Starting brief (from the liaison's inline proposal; revise freely, this is a ...
-- [`xs2rust-endor-press-20260904-013517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260904-013517.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`minion-town-validate-clip-site-separation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-validate-clip-site-separation.md) — Why this matters
 - [`kriscendobot-agoric-sdk-pr10-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/agoric-sdk PR #10
 - [`ironhorse-fuzz-91afec2d990bc402-repair-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-91afec2d990bc402-repair-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1088
@@ -1101,13 +1100,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1102-narrow-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-narrow-special-names.md) — Narrow design PR #1102 to the special-names-on-options-bag mechanism
 - [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
 
-### tada (6840)
+### tada (6841)
+- [`xs2rust-endor-press-20260904-013517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260904-013517.md) — Ironhorse press — completion report (dispatch xs2rust-endor-press-20260904-01...
 - [`kriscendobot-minion.town-pr41-dadbe275`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-dadbe275.md) — What I found
 - [`kriscendobot-garden-pr73-review-6e23fb68`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr73-review-6e23fb68.md) — Completion report
 - [`proposal-compartments-pr4-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/proposal-compartments-pr4-gauntlet.md) — Completion report — proposal-compartments-pr4-gauntlet
 - [`endojs-endo-but-for-bots-pr264-2f0d1c07`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr264-2f0d1c07.md) — What I did
-- [`scholar-ingest-cedar-access-control-for-ai-agents`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cedar-access-control-for-ai-agents.md) — Completion report: scholar-ingest-cedar-access-control-for-ai-agents
-- … and 6835 more
+- … and 6836 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
