@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1097-pin-base-20260904-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1097-pin-base-20260904 endojs-endo-but-for-bots-pr1097-drop-base64-20260904 endojs-endo-but-for-bots-pr1097-rename-info-types-20260904
 on-child-failure: halt
