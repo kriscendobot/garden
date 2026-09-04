@@ -3,3 +3,7 @@ gardener: 9
 worker_kind: monk
 claimed_at: 2026-09-04T04:29:11Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-garden-pty-lane-context-introspection
+pr_number: 81
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/81
+pr_head: feat/pty-context-introspection-lane
