@@ -42,13 +42,5 @@ Do NOT do the base64-trim or the getInfo/type edits here — those are stages 2 
 Leave the PR head rebased onto the new pinned base with conflicts resolved and CI-clean.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=985 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 7
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-04T08:55:29Z
+
+<!-- garden-reaped: 1 -->
