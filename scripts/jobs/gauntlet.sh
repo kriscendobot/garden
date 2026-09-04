@@ -185,6 +185,10 @@ finish_gauntlet() {  # <base> <summary-file>
 # wedge the tick). Body on stdin. Mirrors orchestrate.sh's orch_notify.
 gauntlet_notify() {  # <subject> ; body on stdin
   local subject="$1"
+  # Subject is a stable (base, condition) key — the episode — so a halt re-surfaced
+  # tick after tick AMENDS one maintainer entry instead of a new file per tick
+  # (audit rec 9 / § 3.3). Mirrors orchestrate.sh's orch_notify.
+  GARDEN_MSG_COALESCE=1 GARDEN_MSG_ID="$subject" \
   GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="gauntlet:${subject}" "$HERE/inbox-send.sh" maintainer >/dev/null 2>&1 || \
     log "gauntlet notify to maintainer failed (non-fatal): $subject"
 }

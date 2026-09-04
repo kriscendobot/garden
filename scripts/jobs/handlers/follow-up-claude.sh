@@ -146,16 +146,28 @@ if [ "$model_needed" -eq 1 ]; then
   fi
 fi
 
+# Short content digest for a coalescing episode key: identical liaison messages
+# (a deterministic rejection re-produced every re-roll before the seen-marker
+# advances) fold into ONE maintainer entry, while genuinely distinct content keeps
+# a distinct key — (sender, episode), not sender alone (audit rec 9 / § 3.3).
+fu_digest() {  # fu_digest ; content on stdin
+  { sha1sum 2>/dev/null || shasum 2>/dev/null; } | cut -c1-12 | grep . || printf 'nodigest'
+}
+
 # Route a rejected/dropped block to the maintainer inbox so a deterministic
 # rejection (or a genuine inner-claude failure) is visible to a human rather than
 # silently discarded. Best-effort: never fails the tick (a failure here is itself
 # logged, not propagated). Defined ahead of the claude invocation so the
-# inner-agent-failure path below can reuse it.
+# inner-agent-failure path below can reuse it. Coalesces on message content so a
+# re-rolled digest re-producing the SAME rejection amends one entry, not many.
 route_rejected() {
-  local label="$1" detail="$2"
-  printf 'A garden-follow-up action block was REJECTED and dropped (not retried):\n  %s\n\nProducer output:\n%s\n' \
-    "$label" "$detail" \
-    | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer >/dev/null 2>&1 \
+  local label="$1" detail="$2" msg md
+  msg="$(printf 'A garden-follow-up action block was REJECTED and dropped (not retried):\n  %s\n\nProducer output:\n%s\n' \
+    "$label" "$detail")"
+  md="$(printf '%s' "$msg" | fu_digest)"
+  printf '%s\n' "$msg" \
+    | GARDEN_MSG_COALESCE=1 GARDEN_MSG_ID="liaison-followup-rejected-$md" \
+      GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer >/dev/null 2>&1 \
     || log "route_rejected: could not deliver rejected '$label' to maintainer (dropped)"
 }
 
@@ -395,7 +407,11 @@ while IFS= read -r line; do
       state="";;
     "ENDMAINTAINER")
       if [ "$state" = MAINT ]; then
-        run_producer "MAINTAINER" env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$INBOX_SEND" maintainer
+        # Coalesce on the directive's content: an identical liaison MAINTAINER
+        # message re-emitted by a re-rolled digest amends one entry (audit rec 9).
+        maint_md="$(printf '%s' "$body" | fu_digest)"
+        run_producer "MAINTAINER" env GARDEN_MSG_COALESCE=1 GARDEN_MSG_ID="liaison-followup-$maint_md" \
+          GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="liaison:follow-up" "$INBOX_SEND" maintainer
       fi
       state="";;
     "END-DESIGN-BUILD-RECHECK")

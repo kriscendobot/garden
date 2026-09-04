@@ -423,6 +423,11 @@ finish_orch() {  # <base> <summary-file>
 # a notify failure must never wedge the tick). Body on stdin.
 orch_notify() {  # <subject> ; body on stdin
   local subject="$1"
+  # The subject is already a stable (base, condition) key — the episode — so a
+  # re-notified condition (a serial halt re-surfaced tick after tick, an exhausted
+  # budget re-reported) AMENDS one maintainer entry instead of piling a new file
+  # per tick (audit rec 9 / § 3.3).
+  GARDEN_MSG_COALESCE=1 GARDEN_MSG_ID="$subject" \
   GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="orchestrator:${subject}" "$HERE/inbox-send.sh" maintainer >/dev/null 2>&1 || \
     log "orchestration notify to maintainer failed (non-fatal): $subject"
 }

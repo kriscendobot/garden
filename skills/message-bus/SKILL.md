@@ -41,6 +41,37 @@ stay extensionless — they are keyed by the job's spine basename.
   message that needs no answer.
 - The still-working gardener receives the reply through its own `inbox-read.sh`.
 
+## Coalescing repeats (stable ids + amend-while-unread)
+
+`inbox-send.sh` mints a **fresh random id per call** unless the caller supplies a
+stable one via `GARDEN_MSG_ID`. A stable id alone is the **idempotent-skip**
+contract (a re-polled GitHub comment must not double-deliver): a re-send of the
+same id is a no-op while the entry is present.
+
+Autonomous notify paths want the **other** discipline — the one
+`watchdog-notice.sh`/`doom-notice.sh` already prove — so a *repeat* AMENDS one
+entry instead of piling a file per send (the 2026-07-28 flood shape; audit rec 9 /
+[cybernetics-audit](../../designs/cybernetics-audit.md) § 3.3). Opt in with
+`GARDEN_MSG_COALESCE=1` **plus** a stable `GARDEN_MSG_ID` (the **episode** key):
+
+- A re-send whose episode entry is still **unread** amends it in place —
+  `notice_count` bumps, `first_seen` is preserved, `last_seen` and the body
+  refresh — under a **1 h per-key delivery throttle**
+  (`GARDEN_MSG_COALESCE_THROTTLE_SECS`): occurrences inside the window are
+  **counted, never dropped**, and fold into the next past-window amend.
+- Once the recipient **drains** the entry (`unread → read`), the next occurrence
+  posts a **fresh** episode — a re-occurrence after it was handled deserves to be
+  seen again (same archive rule as `watchdog-notice.sh`).
+- Key on **(sender, episode)**, never sender alone: distinct messages carry
+  distinct ids, so genuinely different notices still get their own entry.
+
+Callers wired this way: `orchestrate.sh`/`gauntlet.sh` (episode = the `<base>`-
+condition subject), the follow-up liaison handler (episode = message content
+digest), and `message-user.sh`, which **defaults** a per-job, per-content episode
+key (`msg-<doer>-<body-digest>`) so a gardener re-reporting the same status folds
+while a distinct message does not — pin your own `GARDEN_MSG_ID`, or set
+`GARDEN_MSG_COALESCE=0`, to override.
+
 ## Fully-qualify issue/PR references
 
 Issue/PR references in a message **body** must be **fully-qualified**:

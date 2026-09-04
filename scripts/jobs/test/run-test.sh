@@ -1994,7 +1994,11 @@ valid_unread="$(grep -rl '^reply_to: px-valid-after$' "$MR/inbox/maintainer/unre
 valid_delivered="$(grep -rl 'reversible experiment' "$MR/inbox/px-valid-after/unread" 2>/dev/null | grep -c . || true)"
 notice_count="$(grep -rl 'proxy quarantined a gating question after deterministic reply validation failed' "$MR/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)"
 seen_malformed=0; [ -n "$malformed_id" ] && grep -qxF "$malformed_id" "$GARDEN_STATE/proxy/seen" && seen_malformed=1
-valid_id="$(grep '^20.*\.md$' "$MRCALLS" | while IFS= read -r id; do [ "$id" != "$malformed_id" ] && { printf '%s\n' "$id"; break; }; done)"
+# The stub records the message-id basenames it was called with. message-user.sh
+# now derives a content-keyed episode id (`msg-<doer>-<digest>.md`, audit rec 9),
+# so match any `.md` id rather than the legacy `20*` timestamp format; `|| true`
+# keeps a no-match from aborting the suite under `set -o pipefail`.
+valid_id="$( { grep -E '\.md$' "$MRCALLS" || true; } | while IFS= read -r id; do [ "$id" != "$malformed_id" ] && { printf '%s\n' "$id"; break; }; done)"
 seen_valid=0; [ -n "$valid_id" ] && grep -qxF "$valid_id" "$GARDEN_STATE/proxy/seen" && seen_valid=1
 { [ "$mrrc" -eq 0 ] && [ "$seen_malformed" -eq 1 ] && [ "$seen_valid" -eq 1 ]; } \
   && ok "reference rejection is terminal for its question: tick succeeds and both markers advance" \
