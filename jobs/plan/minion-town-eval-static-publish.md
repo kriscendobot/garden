@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+handler-timeout: 10800
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-04T07:45:50Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-04T07:45:50Z
+---
+
+---
 handler-timeout: 10800
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-04T06:49:08Z cleared=none -->
@@ -94,24 +112,3 @@ whole campaign needs surfaced early and legibly.
 **Cleanup.** Unpublish the clip; `curl` again and record precisely what a
 de-published URL returns (status code, body). Remove any `ev1-` pet names;
 confirm with `list`/`has`.
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=4 values=152,37 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-04T07:37:00Z
