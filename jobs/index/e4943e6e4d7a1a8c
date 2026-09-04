@@ -1,2 +1,2 @@
-base: improve-deduplicate-ci-journal-outage
+base: improve-ci-watcher-rate-limit-cooldown
 identity: mentor:scripts/jobs/ci-watcher.sh
