@@ -60,7 +60,8 @@
 # Exit codes ARE the contract (also echoes a single terminal status line):
 #   0  merged (or already MERGED on entry)         → done
 #   2  already CLOSED on entry                      → nothing to finalize
-#   3  CI red (terminal failure)                    → stall: needs shepherd
+#   3  CI red (terminal failure), OR a CONFLICTING head whose rollup is empty
+#      (CI can never run until the head is rebased)  → stall: needs shepherd
 #   4  timed out with CI still pending              → re-enqueue, still unmerged
 #   1  hard error / merge or rebase blocked (`needs weave`) / not mergeable /
 #      frozen base shared by a sibling stack / reviewDecision=CHANGES_REQUESTED (maintainer
@@ -183,13 +184,13 @@ poll_max="${GARDEN_CI_POLL_MAX_SECS:-60}"
 start="$(date +%s)"
 
 # One rollup read. Echoes
-# "<state>|<pending>|<failed>|<total>|<reviewDecision>|<headRefOid>"
+# "<state>|<pending>|<failed>|<total>|<reviewDecision>|<headRefOid>|<mergeable>"
 # on stdout, or returns non-zero (never a fabricated green) when the read itself
 # fails. reviewDecision is GitHub's review rollup (CHANGES_REQUESTED / APPROVED /
 # REVIEW_REQUIRED / ""); the green-and-terminal block below refuses to merge over
 # a CHANGES_REQUESTED so a maintainer review landing mid-wait is never merged over.
 read_rollup() {
-  local json state pending failed total review head_oid
+  local json state pending failed total review head_oid mergeable
   json="$("$GH" pr view "$pr" -R "$repo" --json state,mergeable,statusCheckRollup,reviewDecision,headRefOid 2>/dev/null)" \
     || { log "gh pr view $repo#$pr failed — aborting this tick (never fabricate green)"; return 1; }
   [ -n "$json" ] || { log "empty PR state for $repo#$pr"; return 1; }
@@ -214,7 +215,10 @@ read_rollup() {
   total="$(printf '%s' "$json" | jq -r '[ .statusCheckRollup[]? ] | length')"
   review="$(printf '%s' "$json" | jq -r '.reviewDecision // ""')"
   head_oid="$(printf '%s' "$json" | jq -r '.headRefOid // ""')"
-  printf '%s|%s|%s|%s|%s|%s\n' "$state" "${pending:-0}" "${failed:-0}" "${total:-0}" "$review" "$head_oid"
+  # MERGEABLE / CONFLICTING / UNKNOWN. Only CONFLICTING is a computed answer we
+  # act on; UNKNOWN is GitHub still thinking and must never be treated as a fact.
+  mergeable="$(printf '%s' "$json" | jq -r '.mergeable // ""')"
+  printf '%s|%s|%s|%s|%s|%s|%s\n' "$state" "${pending:-0}" "${failed:-0}" "${total:-0}" "$review" "$head_oid" "$mergeable"
 }
 
 print_failures() {
@@ -315,7 +319,7 @@ while :; do
     fi
     sleep "$poll_secs"; continue
   fi
-  IFS='|' read -r state pending failed total review observed_head <<<"$rollup"
+  IFS='|' read -r state pending failed total review observed_head mergeable <<<"$rollup"
 
   case "$state" in
     MERGED) echo "terminal repo=$repo pr=$pr state=MERGED (already merged)"; exit 0 ;;
@@ -341,6 +345,25 @@ while :; do
   # (re-enqueue) covers a repo that never attaches checks. A genuinely
   # checkless repo opts in via GARDEN_CI_ALLOW_NO_CHECKS=1.
   if [ "${total:-0}" -eq 0 ] && [ "${GARDEN_CI_ALLOW_NO_CHECKS:-0}" != 1 ]; then
+    # A CONFLICTING PR attaches NO checks at all, ever: GitHub cannot compute
+    # refs/pull/N/merge, so `pull_request` workflows never dispatch and the
+    # rollup stays [] until a human rebases. Waiting the full deadline and
+    # reporting "still pending" re-posts the same stage forever (PR #891's fix
+    # stage burned two reaper cycles that way — 13 hours with zero runs on a
+    # head whose mergeable_state was `dirty`). Two consecutive CONFLICTING reads
+    # (never one: `mergeable` is computed asynchronously and reads UNKNOWN right
+    # after a push) make this terminal, not pending — exit 3, the same
+    # needs-a-human code as CI red.
+    if [ "$mergeable" = CONFLICTING ]; then
+      if [ "${prev_conflicting:-0}" -eq 1 ]; then
+        echo "rollup-terminal repo=$repo pr=$pr mergeable=CONFLICTING with an EMPTY rollup → CI CANNOT RUN (rebase the head onto its base to resolve conflicts)"
+        exit 3
+      fi
+      prev_conflicting=1
+      log "waiting: $repo#$pr reads mergeable=CONFLICTING with an empty rollup; confirming on the next tick"
+      sleep "$poll_secs"; continue
+    fi
+    prev_conflicting=0
     now="$(date +%s)"
     if [ $(( now - start )) -ge "$deadline_secs" ]; then
       echo "ci-wait-timeout repo=$repo pr=$pr rollup stayed EMPTY after ${deadline_secs}s — STILL UNMERGED, re-enqueue (set GARDEN_CI_ALLOW_NO_CHECKS=1 for a checkless repo)"

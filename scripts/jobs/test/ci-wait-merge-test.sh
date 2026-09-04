@@ -42,6 +42,8 @@
 #   T23 base moves during CI → old green invalidated; new-head red → shepherd
 #   T24 safe-rebase conflict refusal → needs-weave, no CI merge
 #   T25 explicit dependabot mode + gh 'app/dependabot' rendering → merge
+#   T26 CONFLICTING head + empty rollup (twice) → exit 3 terminal, no merge
+#   T27 one transient CONFLICTING read then green → still merges
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -128,6 +130,9 @@ HEAD='123abc123abc123abc123abc123abc123abc123a'
 PEND="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"IN_PROGRESS\",\"conclusion\":null}]}"
 GREEN="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
 RED="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"FAILURE\"}]}"
+# A CONFLICTING head: GitHub cannot compute refs/pull/N/merge, so `pull_request`
+# workflows never dispatch and the rollup stays [] forever, not just briefly.
+CONFLICT_EMPTY="{\"state\":\"OPEN\",\"mergeable\":\"CONFLICTING\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[]}"
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"reviewDecision\":\"CHANGES_REQUESTED\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
 
@@ -300,6 +305,20 @@ reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
 printf '{"author":{"login":"app/dependabot"}}' > "$STUBDIR/author"
 printf '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head123"}' > "$STUBDIR/approvalmeta"
 run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 0 T25; merged T25
+
+echo "T26 CONFLICTING head + empty rollup → terminal exit 3, no merge (not a re-enqueue)"
+# endojs/endo-but-for-bots#891: a conflicted head attaches NO checks at all, so
+# the empty-rollup branch used to spin to the deadline and exit 4, re-posting the
+# same gauntlet stage forever (two reaper cycles, 13 hours, zero runs). Two
+# consecutive CONFLICTING reads make it terminal.
+reset_seq; seq_add "$CONFLICT_EMPTY"; seq_add "$CONFLICT_EMPTY"
+run o/r 891; chk "$rc" 3 T26; nomerge T26
+
+echo "T27 one transient CONFLICTING read, then checks attach green → merges"
+# `mergeable` is computed asynchronously and reads UNKNOWN/CONFLICTING right after
+# a push; a SINGLE such read must never be terminal.
+reset_seq; seq_add "$CONFLICT_EMPTY"; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+run o/r 178; chk "$rc" 0 T27; merged T27
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
