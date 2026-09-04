@@ -1,4 +1,5 @@
 ---
+child-minion-town-eval-static-publish-host: endolin-garden2-5bcdff64
 child-minion-town-eval-static-publish-reap-count: 0
 order: serial
 children: minion-town-eval-static-publish minion-town-eval-namestore-durability minion-town-eval-odometer-counter minion-town-eval-guestbook-tally minion-town-eval-sandbox-boundary minion-town-eval-site-lifecycle minion-town-eval-mail-pair minion-town-eval-error-probes
