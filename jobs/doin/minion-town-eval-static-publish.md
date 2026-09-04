@@ -95,10 +95,10 @@ whole campaign needs surfaced early and legibly.
 de-published URL returns (status code, body). Remove any `ev1-` pet names;
 confirm with `list`/`has`.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=224 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=224,117 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
