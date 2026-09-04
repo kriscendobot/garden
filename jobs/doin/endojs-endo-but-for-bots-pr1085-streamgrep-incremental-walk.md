@@ -72,3 +72,13 @@ makes the streaming pipeline moot in the walk phase.
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1237 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:55:13Z
