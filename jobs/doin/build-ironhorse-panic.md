@@ -72,3 +72,13 @@ that the embargo/transcript and Coda are deliberately deferred follow-ons.
 Treat the merged design text as the spec; if a claimed code path (file/line) has
 drifted since the design was written, verify against the live tree and report the
 drift rather than building against a stale citation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T07:35:45Z
