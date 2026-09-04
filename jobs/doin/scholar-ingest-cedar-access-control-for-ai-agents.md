@@ -33,3 +33,13 @@ submitter: kriskowal
 
 Re-fetch the issue verbatim:  gh issue view 79 -R kriscendobot/garden --comments
 Reply when done:              gh issue comment https://github.com/kriscendobot/garden/issues/79 --body "…"
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T00:31:40Z
