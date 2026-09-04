@@ -47,3 +47,13 @@ Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,3 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T04:44:45Z

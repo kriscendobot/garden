@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 6
+worker_kind: monk
+claimed_at: 2026-09-04T04:44:45Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-cybernetics-rec9-inbox-coalescing
