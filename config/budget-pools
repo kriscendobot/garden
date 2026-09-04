@@ -28,7 +28,20 @@
 #   EXCLUDES cache_read (see usage-meter.sh), while /usage reports Anthropic's own
 #   weighted limit. Each calibration is a ratio over one shared window, so it
 #   holds only while the workload mix stays broadly similar.
+#   endolin-garden2-5bcdff64 : UNMETERED as of 2026-09-04. kriskowal reports this
+#     host now runs on a TEMPORARY API key rather than a subscription quota, so no
+#     weekly ceiling applies to it and the 385M/wk figure below is superseded, not
+#     merely stale. Its ceiling_kind is `unmetered`, which budget_fleet_status skips
+#     outright and budget-level.sh does not level against (it only processes
+#     provider=anthropic kind=weekly-tokens rows), so this host's worker count is
+#     the operator's declared figure in hosts/<host>, not a controller output.
+#     meter_quota_status returns `unknown` for the kind, so pool_admits fails open
+#     and claim-job.sh keeps admitting; expect a per-tick "budget pool unreadable"
+#     WARN in the claim log, which is the honest reading of an unmetered pool.
+#     WHEN THE TEMPORARY KEY LAPSES: restore ceiling_kind to weekly-tokens and
+#     re-derive the cap (weekly-capacity-calibration.sh, or a /usage sample), since
+#     the pre-existing 385M/wk was itself an uncalibrated low-end estimate.
 # Columns, tab-separated:
-# pool_id	provider	account/host	ceiling_kind	ceiling
+# pool_id	provider	account/host	ceiling_kind	ceiling	calibrated_from	calibrated_at
 anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	595000000
-anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	385000000
+anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	unmetered	-	temporary-api-key	2026-09-04
