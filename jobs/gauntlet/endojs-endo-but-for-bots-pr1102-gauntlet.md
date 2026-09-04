@@ -1,15 +1,16 @@
 ---
+stage_retries: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/1102
 repo: endojs/endo-but-for-bots
 pr_number: 1102
 build_job: design-endo-claude-agents-capability
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1102-gauntlet-clean
+current_child: endojs-endo-but-for-bots-pr1102-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-31T23:13:50Z
