@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-04T21:22:25Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-improve-paused-unit-reconciliation
