@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 3
+worker_kind: monk
+claimed_at: 2026-09-04T22:10:08Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-fix-4
