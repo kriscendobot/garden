@@ -109,3 +109,13 @@ already largely on the PR HEAD). This restructure REMOVES `streamGrep`'s interna
   — see skills/pr-review-thread-replies. No un-draft/merge is implied by this job.
 - Body/comment text passed to `gh` MUST go via `--field body=@file`, never on the
   command line (roles/COMMON.md).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:51:02Z
