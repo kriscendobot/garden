@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":79,"elapsed_s":1636,"input_tokens":158,"output_tokens":107947,"cache_creation_tokens":196687,"cache_read_tokens":10579662,"total_cost_usd":9.959361000000003,"ts":"2026-09-04T02:20:07Z","base":"improve-ironhorse-fuzz-runner-unbounded-subprocess","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
