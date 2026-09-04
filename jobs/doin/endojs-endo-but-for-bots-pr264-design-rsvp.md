@@ -70,3 +70,13 @@ Definition of done:
   mechanism (skills/pr-review-thread-replies).
 - Keep the doc's em-dash / house style; this is a Proposed design, so unresolved
   points stay as refined Open Questions rather than forced decisions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T00:33:58Z
