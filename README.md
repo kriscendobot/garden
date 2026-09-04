@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T21:16:49Z_
+_As of 2026-09-04T21:23:02Z_
 
 ## Latest
 
@@ -1310,8 +1310,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.8M | $950.46 _(notional, rate-card)_ | 16% of 595.0M (ok) |
-| Codex | 9.9M _(+389.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 95.4M | $958.00 _(notional, rate-card)_ | 16% of 595.0M (ok) |
+| Codex | 10.0M _(+390.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (28)
@@ -1344,10 +1344,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr814-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr814-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #814
 - [`endojs-endo-but-for-bots-pr935-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr935-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
 - [`endojs-endo-but-for-bots-pr717-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr717-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #717
 - [`improve-self-heal-responder-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-responder-reap.md) — ---
+- [`improve-paused-unit-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-paused-unit-reconciliation.md) — ---
 - [`endojs-endo-but-for-bots-pr695-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #695
 
 ### tada (7170)
