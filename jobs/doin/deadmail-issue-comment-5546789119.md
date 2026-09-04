@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/79#issuecomment-554678911
 @kriscendobot My impression of this is that Endo could learn to use Cedar to drive the creation of belt-and-suspenders attenuations: one’s where authority is narrowed both by the synthesis of policy expressed in code using capabilities, and also by expressing policy for an iden
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T21:49:05Z
