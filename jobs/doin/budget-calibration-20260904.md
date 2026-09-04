@@ -51,3 +51,13 @@ not skip addressing it.
 Write your findings (the regression, the chosen caps and why, the session-cap
 design decision or open question) clearly into your tada report — a follow-up job
 turns it into a maintainer-facing report published as a minion.town clip.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-04T22:07:24Z
