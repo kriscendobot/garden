@@ -5813,7 +5813,18 @@ job_tier() {
   local f="$1" tier model p m t
   tier="$(plan_field "$f" tier)"
   case "$tier" in mentat|mentor|minion|myrmidon) printf '%s\n' "$tier"; return 0;; esac
-  [ -n "$tier" ] && return 1
+  # A NON-EMPTY tier outside the dispatch vocabulary is the mis-specification class
+  # from the cybernetics audit (§ 2.6: `tier: builder` silently read as "no tier",
+  # costing the intended budget). Historically this returned rc 1 SILENTLY, so the
+  # only symptom was a far-downstream budget the producer never chose. Log ONE WARN
+  # on the way out so the wrong sensor is visible at the read, not just inferable
+  # from an overrun. (Empty tier is NOT a mis-spec — it falls through to the model
+  # migration vocabulary below — so the WARN fires only on a real closed-vocabulary
+  # violation. The write-side guard validate_job_frontmatter catches it earlier.)
+  if [ -n "$tier" ]; then
+    log "WARN: tier '$tier' is not one of mentat|mentor|minion|myrmidon; failing closed (read as NO tier). The job runs at its role/default budget, not the tier named. Source: $f"
+    return 1
+  fi
   model="$(plan_field "$f" model)"; [ -n "$model" ] || return 1
   # Previous releases accepted these selector aliases. Keep this finite migration
   # vocabulary only; arbitrary provider/model strings never default.
@@ -5832,6 +5843,44 @@ job_tier() {
     [ "$m" = "$model" ] && { printf '%s\n' "$t"; return 0; }
   done < "$(_model_tier_inventory_file)"
   return 1
+}
+
+# validate_job_frontmatter <job-file> — WRITE-side frontmatter validation for the
+# producer primitives (post-job.sh / post-plan.sh). Cybernetics audit § 7 [wrong
+# sensor]: job frontmatter is an interface with a CLOSED vocabulary on the READ
+# side (job_tier accepts exactly mentat|mentor|minion|myrmidon and fails closed on
+# anything else; gardener.sh honors handler-timeout only when it matches
+# ^[1-9][0-9]*$) but historically NO validation on the WRITE side. So a `tier:
+# builder` mis-spelling (§ 2.6) was ADMITTED silently, then read as "no tier",
+# and the job ran at its role/default budget (2400 s) rather than the tier the
+# producer meant to name — the overrun doom was correct on its own terms while the
+# real defect sat upstream at admission, with no diagnostic anywhere near the typo.
+#
+# This is the write-side guard, mirroring set-schedule.sh's validate_handler_timeout
+# (validate at the moment of the write, not silently at the far-away read). It WARNs
+# by default; with GARDEN_JOB_FRONTMATTER_STRICT=1 it additionally returns non-zero
+# so the caller can REFUSE the post. It reads the SAME fields the readers read (via
+# plan_field, first occurrence wins — identical to job_tier / gardener.sh), so what
+# it validates is exactly what will be honored downstream.
+#
+# An ABSENT field is always fine: empty stays valid, so existing producers whose
+# bodies carry no tier / no handler-timeout at all are unaffected.
+validate_job_frontmatter() {
+  local f="$1" tier ht bad=0
+  tier="$(plan_field "$f" tier)"
+  case "$tier" in
+    ''|mentat|mentor|minion|myrmidon) : ;;
+    *) log "WARN: tier '$tier' is not one of mentat|mentor|minion|myrmidon; it will be read as NO tier (job_tier fails closed) and the job runs at its role/default budget, not the tier you named"; bad=1 ;;
+  esac
+  ht="$(plan_field "$f" handler-timeout)"
+  if [ -n "$ht" ] && ! [[ "$ht" =~ ^[1-9][0-9]*$ ]]; then
+    log "WARN: handler-timeout '$ht' is not a positive integer; it will be SILENTLY IGNORED at claim time (gardener.sh honors only ^[1-9][0-9]*\$) and the job runs at its default budget"
+    bad=1
+  fi
+  if [ "$bad" -ne 0 ] && [ "${GARDEN_JOB_FRONTMATTER_STRICT:-}" = 1 ]; then
+    return 1
+  fi
+  return 0
 }
 
 # job_provider_constraint <job-file> -> a known provider, or non-zero when the

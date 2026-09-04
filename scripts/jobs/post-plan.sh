@@ -217,6 +217,22 @@ read_body() {
 }
 BODY="$(read_body)"
 
+# Write-side frontmatter validation (cybernetics audit § 7 [wrong sensor]): a
+# `tier:` outside the closed dispatch vocabulary or a non-integer
+# `handler-timeout:` is read downstream as "unset" and silently costs the budget
+# the producer meant to name (§ 2.6, the `tier: builder` overrun) — and a parked
+# body is promoted to todo/ later, so the same mis-spec must be caught at park
+# time. Validate the supplied body HERE. WARN-first; refuse only under
+# GARDEN_JOB_FRONTMATTER_STRICT=1. The body lands in a throwaway temp file because
+# the readers (plan_field/job_tier) take a FILE.
+_fm_tmp="$(mktemp "${TMPDIR:-/tmp}/garden-post-plan-fm.XXXXXX")"
+printf '%s\n' "$BODY" > "$_fm_tmp"
+if ! validate_job_frontmatter "$_fm_tmp"; then
+  rm -f "$_fm_tmp"
+  die "refusing to park '$base': job frontmatter failed validation (unset GARDEN_JOB_FRONTMATTER_STRICT to WARN and park anyway)"
+fi
+rm -f "$_fm_tmp"
+
 # Parked work is still automatically produced; normalize before it can later be
 # promoted without revisiting its model header.
 BODY="$(printf '%s\n' "$BODY" | automatic_route_body)"

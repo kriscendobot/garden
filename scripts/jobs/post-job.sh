@@ -123,6 +123,21 @@ read_body() {
 }
 BODY="$(read_body)"
 
+# Write-side frontmatter validation (cybernetics audit § 7 [wrong sensor]): a
+# `tier:` outside the closed dispatch vocabulary or a non-integer
+# `handler-timeout:` is read downstream as "unset" and silently costs the budget
+# the producer meant to name (§ 2.6, the `tier: builder` overrun). Validate the
+# supplied body HERE, at the write, not far away at the read. WARN-first; refuse
+# only under GARDEN_JOB_FRONTMATTER_STRICT=1. The body lands in a throwaway temp
+# file because the readers (plan_field/job_tier) take a FILE.
+_fm_tmp="$(mktemp "${TMPDIR:-/tmp}/garden-post-job-fm.XXXXXX")"
+printf '%s\n' "$BODY" > "$_fm_tmp"
+if ! validate_job_frontmatter "$_fm_tmp"; then
+  rm -f "$_fm_tmp"
+  die "refusing to post '$base': job frontmatter failed validation (unset GARDEN_JOB_FRONTMATTER_STRICT to WARN and post anyway)"
+fi
+rm -f "$_fm_tmp"
+
 # This is the automatic producer choke point.  No watcher, scheduler, follow-up,
 # auction, or role-generated job can retain a Claude pin during the quota route.
 if [ -n "$canary_provider" ]; then
