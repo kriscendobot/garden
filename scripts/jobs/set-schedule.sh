@@ -26,6 +26,11 @@
 # a `handler-timeout:` line for the scheduler to stamp into every dispatched job.
 # An existing value is preserved when the env var is unset.
 #
+# Optional occupancy dedup (env GARDEN_SCHEDULE_OCCUPANCY=skip|carry-forward): writes
+# an `occupancy:` line so the scheduler suppresses a per-period dispatch while a prior
+# instance of this schedule is still live (skip advances the clock; carry-forward
+# leaves it due). An existing value is preserved when the env var is unset.
+#
 # Writes schedules/<name>; the scheduler service dispatches it on its cadence
 # and stamps last_dispatched. Add-only-ish (overwrites one file), so a rejected
 # push just re-syncs and retries.
@@ -81,9 +86,18 @@ validate_handler_timeout() {
     || die "handler timeout '${value}s' exceeds claim budget max ${budget_max}s"
 }
 
+# Occupancy dedup for a recurring schedule whose job can outlive its cadence
+# (scheduler.sh: skip = advance the clock, post nothing while a prior instance is
+# live; carry-forward = stay due until the slot frees). Only these two values plus
+# empty are meaningful.
+validate_occupancy() {
+  case "$1" in skip|carry-forward|carry_forward) : ;; *) die "occupancy '$1' must be skip or carry-forward" ;; esac
+}
+
 # Validate a gate supplied via the env var up front, before we touch the clone.
 [ -n "${GARDEN_SCHEDULE_PREFLIGHT:-}" ] && validate_preflight "$GARDEN_SCHEDULE_PREFLIGHT" "env GARDEN_SCHEDULE_PREFLIGHT"
 [ -n "${GARDEN_SCHEDULE_HANDLER_TIMEOUT:-}" ] && validate_handler_timeout "$GARDEN_SCHEDULE_HANDLER_TIMEOUT"
+[ -n "${GARDEN_SCHEDULE_OCCUPANCY:-}" ] && validate_occupancy "$GARDEN_SCHEDULE_OCCUPANCY"
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
@@ -95,11 +109,13 @@ for attempt in $(seq 1 50); do
   last=""
   preflight="${GARDEN_SCHEDULE_PREFLIGHT:-}"
   handler_timeout="${GARDEN_SCHEDULE_HANDLER_TIMEOUT:-}"
+  occupancy="${GARDEN_SCHEDULE_OCCUPANCY:-}"
   if [ -f "$DIR/schedules/$name.md" ]; then
     last="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
     # preserve an existing preflight when no new one is supplied via the env var
     [ -n "$preflight" ] || preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
     [ -n "$handler_timeout" ] || handler_timeout="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
+    [ -n "$occupancy" ] || occupancy="$(sed -n 's/^occupancy:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
   fi
   # The recurring Dependabot ledger backstop must never depend on every botanist
   # remembering an environment variable. Preserve an explicit/existing gate, but
@@ -115,10 +131,14 @@ for attempt in $(seq 1 50); do
   if [ -z "${GARDEN_SCHEDULE_HANDLER_TIMEOUT:-}" ] && [ -n "$handler_timeout" ]; then
     validate_handler_timeout "$handler_timeout"
   fi
+  if [ -z "${GARDEN_SCHEDULE_OCCUPANCY:-}" ] && [ -n "$occupancy" ]; then
+    validate_occupancy "$occupancy"
+  fi
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cadence" "$last" "$prefix"
     [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
     [ -n "$handler_timeout" ] && printf 'handler-timeout: %s\n' "$handler_timeout"
+    [ -n "$occupancy" ] && printf 'occupancy: %s\n' "$occupancy"
     printf -- '---\n'
     printf '%s\n' "$BODY"
   } > "$DIR/schedules/$name.md"

@@ -23,6 +23,7 @@ last_dispatched: <ISO>     # stamped by the scheduler; the dispatch note
 job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
 preflight: <script>        # OPTIONAL deterministic gate (see below)
 handler-timeout: <seconds> # OPTIONAL positive per-job handler budget (see below)
+occupancy: skip            # OPTIONAL dedup when a prior instance is still live (see below)
 ---
 <the task body to duplicate each period>
 ```
@@ -91,6 +92,44 @@ An invalid or over-limit value remains visible in the schedule but is logged and
 ignored for that dispatch. Set it with
 `GARDEN_SCHEDULE_HANDLER_TIMEOUT=<seconds> set-schedule.sh ...`; an existing
 value is preserved on later schedule edits when the environment variable is
+unset.
+
+**Admission gate (budget-hold + drain).** Scheduled dispatch goes through the same
+fleet-wide admission gate a direct `post-job.sh` post does (cybernetics-audit § 3.4,
+rec 8). When every configured bounded budget pool is at high water
+(`budget_fleet_status` = `backoff`), the due dispatch is **parked in `plan/` under the
+shared budget-hold envelope** (`budget_hold: true`, `gate: go-ahead`) instead of
+landing in `todo/`, and is promoted automatically when quota recovers — the work is
+preserved, never dropped, and never floods `todo/` during an exhausted window. The
+routing is done inline, in the **same CAS commit** as the `last_dispatched` stamp, so
+dispatch stays exactly-once per cadence (`unknown`/`off` budget state routes to
+`todo/`, fail-open, exactly like `post-job.sh`). Separately, under a **fleet drain**
+the scheduler dispatches **nothing** and advances **no** clock: a drain is the
+operator's moratorium on new work and a scheduled dispatch is new work, so the tick is
+a whole no-op and each due schedule fires exactly once for the then-current period when
+the drain lifts (intra-drain periods are coalesced away; the cadence is not
+permanently broken and there is no backlog flood on lift). Budget-hold (park, promote
+later) and drain (skip) are orthogonal responses to two different signals.
+
+**Occupancy dedup (`occupancy:`).** The recurring basename is timestamped per period
+(`<prefix>-<YYYYMMDD-HHMMSS>`), so a schedule whose job **outlives its cadence** would
+otherwise accumulate one live instance per period (the `endo-*-press-*` families ran
+four generations concurrently on 2026-09-01). The optional `occupancy:` field opts a
+schedule into the board check the `once:` path already performs — keyed on the
+timestamped **family** in `plan/`, `todo/`, and `doin/` (a completed prior period in
+`tada/` is the normal case and never counts):
+- `occupancy: skip` — a due tick whose previous instance is still live **advances the
+  clock and posts nothing** (this period is served by the still-running instance; the
+  next period fires fresh once the slot frees). Best for periodicals where a missed
+  period is subsumed by the next.
+- `occupancy: carry-forward` — a due tick whose previous instance is still live posts
+  nothing **and leaves the clock unadvanced**, so the schedule stays due and fires the
+  instant the slot frees (back-to-back rather than dropping the period).
+- unset — current behavior: always dispatch a fresh timestamped instance.
+
+It is preserved across later cadence edits exactly like `last_dispatched`. Set it with
+`GARDEN_SCHEDULE_OCCUPANCY=skip set-schedule.sh …` (validated to `skip`/`carry-forward`
+at set time), and an existing value is preserved on later edits when the env var is
 unset.
 
 **Carry-forward from a dead-lettered tick reply.** A recurring driver dispatches

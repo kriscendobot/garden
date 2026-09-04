@@ -229,21 +229,9 @@ route_budget_hold=false
 POST_BODY="$BODY"
 if [ "$fleet_budget_status" = backoff ]; then
   route_budget_hold=true
-  reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
-  reset_iso=""
-  [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ)"
-  POST_BODY="$(
-    printf -- '---\n'
-    printf 'gate: go-ahead\n'
-    printf 'budget_hold: true\n'
-    printf 'park_reason: over-token-budget\n'
-    printf 'parked_for_budget_at: %s\n' "$(date -u +%FT%TZ)"
-    printf 'budget_window_seconds: %s\n' "$GARDEN_TOKEN_WINDOW_SECS"
-    [ -n "$reset_iso" ] && printf 'budget_resets_at: %s\n' "$reset_iso"
-    printf 'posted_by: %s\n' "${GARDEN_SENDER:-producer}"
-    printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"
-    printf -- '---\n\n%s\n' "$BODY"
-  )"
+  # The budget-hold envelope is the shared budget_hold_wrap (usage-meter.sh), so the
+  # direct-post path and the scheduler's dispatch path cannot drift on its fields.
+  POST_BODY="$(budget_hold_wrap "$BODY" "${GARDEN_SENDER:-producer}")"
   log "all configured budget pools are at high water; routing '$base' to plan/ --budget-hold"
 elif [ "$fleet_budget_status" = unknown ]; then
   log "WARN: fleet budget state unreadable; posting '$base' to todo/ (fail-open)"

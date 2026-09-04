@@ -118,6 +118,7 @@ meter_week_anchor_epoch() {
   printf '%s\n' "$anchor"
 }
 
+# shellcheck disable=SC2120 # Public helper deliberately accepts an optional now-epoch; most callers pass none.
 meter_next_reset_epoch() {
   local now="${1:-$(meter_now)}" anchor day
   anchor="$(meter_week_anchor_epoch "$now")" || return 1
@@ -618,6 +619,33 @@ budget_fleet_status() {
     [ "$status" = backoff ] || { printf '%s\n' "$status"; return 0; }
   done < "$file"
   [ "$seen" -eq 1 ] && printf 'backoff\n' || printf 'off\n'
+}
+
+# budget_hold_wrap <body> [posted_by] — wrap a job body in the plan/ budget-hold
+# envelope a producer writes when budget_fleet_status is `backoff` (every bounded
+# pool confirmed at high water). This is the SINGLE source of that envelope, shared
+# by post-job.sh's direct-post path and scheduler.sh's scheduled-dispatch path, so
+# the two admission producers cannot drift on the fields promote-plan.sh and the
+# gardener read back. posted_by defaults to ${GARDEN_SENDER:-producer}; the caller
+# names itself (the scheduler passes `scheduler`). One timestamp is used for both
+# parked_for_budget_at and posted_at so a re-read sees a coherent instant.
+budget_hold_wrap() {
+  local body="$1" posted_by="${2:-${GARDEN_SENDER:-producer}}"
+  local reset_epoch reset_iso now
+  now="$(date -u +%FT%TZ)"
+  reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
+  reset_iso=""
+  [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ)"
+  printf -- '---\n'
+  printf 'gate: go-ahead\n'
+  printf 'budget_hold: true\n'
+  printf 'park_reason: over-token-budget\n'
+  printf 'parked_for_budget_at: %s\n' "$now"
+  printf 'budget_window_seconds: %s\n' "$GARDEN_TOKEN_WINDOW_SECS"
+  [ -n "$reset_iso" ] && printf 'budget_resets_at: %s\n' "$reset_iso"
+  printf 'posted_by: %s\n' "$posted_by"
+  printf 'posted_at: %s\n' "$now"
+  printf -- '---\n\n%s\n' "$body"
 }
 
 # meter_claude [<claude-args>...] — run `claude` in print mode, RECORD the call's

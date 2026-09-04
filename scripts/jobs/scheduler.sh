@@ -197,20 +197,40 @@ anchored_window() {  # $1=cadence $2=anchor-stamp-iso
 }
 
 # Rewrite a recurring schedule's frontmatter with a fresh last_dispatched stamp,
-# PRESERVING the optional preflight and handler-timeout fields. Both the dispatch
-# path and the gated (no-work) path go through this so either line is never
-# dropped when the scheduler re-stamps the file.
+# PRESERVING the optional preflight, handler-timeout, and occupancy fields. Every
+# path that re-stamps the file (dispatch, preflight no-work, occupancy-gated) goes
+# through this so no optional line is ever dropped on a re-stamp.
 # $1=dest, $2=cadence, $3=stamp, $4=prefix, $5=preflight (may be empty),
-# $6=handler-timeout (may be empty), $7=body.
+# $6=handler-timeout (may be empty), $7=body, $8=occupancy (may be empty).
 write_schedule() {
-  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" handler_timeout="$6" body="$7"
+  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" handler_timeout="$6" body="$7" occupancy="${8:-}"
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cad" "$stamp" "$prefix"
     [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
     [ -n "$handler_timeout" ] && printf 'handler-timeout: %s\n' "$handler_timeout"
+    [ -n "$occupancy" ] && printf 'occupancy: %s\n' "$occupancy"
     printf -- '---\n'
     printf '%s\n' "$body"
   } > "$dest"
+}
+
+# schedule_instance_live <clone-dir> <family-prefix>: echo the first still-live
+# instance of this recurring schedule's family (base <family-prefix>-<timestamp>)
+# found in plan/todo/doin and return 0; return 1 if none. This is the occupancy
+# signal — a prior period's job that has outlived its cadence. tada/ (COMPLETED
+# prior periods) is deliberately NOT counted: a finished instance is the normal
+# case and must never block the next period. Mirrors the board check the `once:`
+# path performs, but keyed on the timestamped family rather than one fixed base.
+schedule_instance_live() {
+  local dir="$1" fam="$2" d f b
+  for d in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
+    for f in "$dir/$d/$fam"-[0-9]*.md; do
+      [ -e "$f" ] || continue
+      b="$(basename "$f" .md)"
+      printf '%s\n' "$b"; return 0
+    done
+  done
+  return 1
 }
 
 # Echo a schedule's usable handler timeout, or return nonzero after logging why
@@ -374,6 +394,28 @@ Action: run the controller directly on $GARDEN, then repair the reported configu
 fi
 
 now="$(scheduler_now)"
+
+# Drain posture — DECIDED EXPLICITLY (cybernetics-audit § 1.3 / § 3.4, rec 8).
+# The scheduler is a producer, and a scheduled dispatch is NEW work; a fleet drain
+# is the operator's explicit moratorium on undertaking further work. So under drain
+# the scheduler DISPATCHES NOTHING and ADVANCES NO schedule's clock: the tick is a
+# whole no-op. Because no last_dispatched is stamped, when the drain lifts each due
+# schedule fires exactly ONCE for the then-current period and the cadence resumes —
+# there is no todo/ backlog flood on lift, and no permanently-broken cadence (only
+# the periods entirely inside the drain are coalesced away, which is precisely what
+# a moratorium should do). This makes the scheduler consistent with every other
+# producer; the audit named it one of only two that kept producing under drain. NOTE
+# this is ORTHOGONAL to the budget-hold routing below: budget backoff PARKS a
+# dispatch in plan/ (work preserved, promoted when quota recovers), whereas a drain
+# SKIPS the dispatch (the operator wants the fleet quiet). The budget-level
+# controller above already self-suspends under drain (budget-level.sh), so gating
+# only the dispatch loop here is sufficient.
+if fleet_draining; then
+  log "fleet draining; scheduled dispatch suspended (no dispatch, clocks not advanced; resumes on drain lift)"
+  log "dispatched 0 scheduled job(s)"
+  exit 0
+fi
+
 dispatched=0
 for name in $(list_jobs "$DIR" schedules); do
   f="$DIR/schedules/$name"
@@ -416,6 +458,7 @@ for name in $(list_jobs "$DIR" schedules); do
   prefix="$(sed -n 's/^job_basename_prefix:[[:space:]]*//p' "$f" | head -1)"
   preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$f" | head -1)"
   handler_timeout_raw="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$f" | head -1)"
+  occupancy="$(sed -n 's/^occupancy:[[:space:]]*//p' "$f" | head -1)"
   last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
   # Due-ness + the stamp to write come from schedule_due_stamp: interval cadences
   # stamp `now`; anchored `daily-at-HH:MM-TZ` cadences stamp the anchor instant so
@@ -434,6 +477,46 @@ for name in $(list_jobs "$DIR" schedules); do
     handler_timeout_raw="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
     handler_timeout=""
     handler_timeout="$(schedule_handler_timeout "$name" "$handler_timeout_raw")" || handler_timeout=""
+    occupancy="$(sed -n 's/^occupancy:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
+
+    # Occupancy gate for RECURRING schedules (cybernetics-audit § 3.4, rec 8). The
+    # basename is timestamped per period, so a schedule whose job outlives its
+    # cadence would otherwise accumulate one live instance per period (the
+    # `endo-*-press-*` families ran four generations concurrently on 2026-09-01).
+    # An optional `occupancy:` field opts a schedule into the board check the `once:`
+    # path already performs, but keyed on the timestamped family (plan/todo/doin;
+    # NOT tada — a completed prior period is the normal case and must not block):
+    #   skip           previous instance still live → advance the clock, post nothing
+    #                  (this period is served by the still-running instance; the next
+    #                  period fires fresh once the slot frees).
+    #   carry-forward  previous instance still live → post nothing AND do NOT advance
+    #                  the clock, so the schedule stays due and fires the instant the
+    #                  slot frees (back-to-back rather than dropping the period).
+    #   (unset)        current behavior — always dispatch a fresh instance.
+    if [ -n "$occupancy" ]; then
+      live_base="$(schedule_instance_live "$DIR" "${prefix:-$name}" || true)"
+      if [ -n "$live_base" ]; then
+        case "$occupancy" in
+          skip)
+            write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy"
+            git -C "$DIR" add "schedules/$name"
+            rc=0; commit_and_push "$DIR" "schedule($name) occupancy=skip: '$live_base' still live; advanced clock" || rc=$?
+            if [ "$rc" -eq 0 ]; then
+              log "occupancy gated ($name): '$live_base' still live; advanced clock, posted nothing"; break
+            fi
+            [ "$rc" -eq 2 ] && break   # already current; nothing to stamp
+            backoff "$attempt"; continue
+            ;;
+          carry-forward|carry_forward)
+            log "occupancy gated ($name): '$live_base' still live; occupancy=carry-forward, staying due (no dispatch, clock not advanced)"
+            break
+            ;;
+          *)
+            log "WARN schedule $name has unknown occupancy '$occupancy' (expected skip|carry-forward); dispatching normally"
+            ;;
+        esac
+      fi
+    fi
 
     # Optional deterministic preflight gate (designs/job-board.md; skills/schedule).
     # A `preflight:` script proves in plain code whether this schedule has any work,
@@ -466,7 +549,7 @@ for name in $(list_jobs "$DIR" schedules); do
       fi
       if [ "$pf_rc" -eq 2 ]; then
         # No work: advance the clock so the cadence keeps marching, post nothing.
-        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body"
+        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy"
         git -C "$DIR" add "schedules/$name"
         # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
         # swallow commit_and_push's rc=2 "nothing to stamp" on an already-current clock).
@@ -479,7 +562,6 @@ for name in $(list_jobs "$DIR" schedules); do
       fi
     fi
 
-    mkdir -p "$DIR/$JOBS_TODO"
     # Drain any per-schedule carry-forward reports deadmail.sh deposited for this
     # schedule (structural dead-letters of prior ticks' sub-jobs — their spawning
     # tick had already completed, so its reply was routed here to the next tick as
@@ -501,7 +583,7 @@ for name in $(list_jobs "$DIR" schedules); do
     # (possibly late) claim time. Interval cadences post the body verbatim. The
     # carry-forward block (if any) precedes both — mirroring this context-injection.
     win="$(anchored_window "$cad" "$stamp")"
-    {
+    composed="$(
       # Place the schedule-owned setting in a real job frontmatter block, before
       # any carry-forward or anchored-window prose, so gardener.sh sees it as
       # ordinary per-job configuration.
@@ -530,21 +612,47 @@ for name in $(list_jobs "$DIR" schedules); do
         printf -- '- output: %s\n\n---\n\n' "$w_out"
       fi
       printf '%s\n' "$body"
-    } > "$DIR/$JOBS_TODO/$base.md"
+    )"
+
+    # Route through the fleet's ONE admission gate (cybernetics-audit § 3.4, rec 8):
+    # when budget_fleet_status is `backoff` (every bounded pool at high water) the
+    # dispatch is PARKED in plan/ under the shared budget-hold envelope instead of
+    # landing in todo/ — the identical routing post-job.sh applies to a direct post,
+    # via the shared budget_hold_wrap so the two producers cannot drift. It is done
+    # INLINE here, in the SAME CAS commit as the last_dispatched stamp (below), rather
+    # than by shelling out to post-job.sh, because that atomicity is load-bearing:
+    # stamp-and-post in one commit is what keeps dispatch exactly-once per cadence and
+    # keeps the carry-forward drain (its `git rm` rides this same commit) consumed
+    # exactly once. A scheduled job carries no cross-producer directive identity (one
+    # producer, no external comment), so post-job.sh's identity index is a no-op here;
+    # the occupancy gate above is the scheduler's own dedup. `unknown`/`off` budget
+    # state routes to todo/ (fail-open), matching post-job.sh.
+    budget_status="$(budget_fleet_status "$DIR")"
+    if [ "$budget_status" = backoff ]; then
+      target_dir="$JOBS_PLAN"
+      job_content="$(budget_hold_wrap "$composed" scheduler)"
+      log "all configured budget pools are at high water; routing scheduled '$base' to plan/ --budget-hold"
+    else
+      target_dir="$JOBS_TODO"
+      job_content="$composed"
+    fi
+    mkdir -p "$DIR/$target_dir"
+    printf '%s\n' "$job_content" > "$DIR/$target_dir/$base.md"
     # Stamp last_dispatched in the same commit, preserving optional schedule config.
-    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body"
-    git -C "$DIR" add "$JOBS_TODO/$base.md" "schedules/$name"
+    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy"
+    git -C "$DIR" add "$target_dir/$base.md" "schedules/$name"
     # Retire the drained carry-forward files in this same CAS commit.
     if [ "${#cf_files[@]}" -gt 0 ]; then
       for cff in "${cf_files[@]}"; do
         git -C "$DIR" rm -q "$cfdir/$cff"
       done
     fi
-    if commit_and_push "$DIR" "schedule($name) dispatched $base"; then
+    if commit_and_push "$DIR" "schedule($name) dispatched $base -> ${target_dir##*/}"; then
+      held=""; [ "$target_dir" = "$JOBS_PLAN" ] && held=" (budget-held in plan/)"
       if [ "${#cf_files[@]}" -gt 0 ]; then
-        log "dispatched $base from schedule $name (with ${#cf_files[@]} carried-forward report(s))"
+        log "dispatched $base from schedule $name$held (with ${#cf_files[@]} carried-forward report(s))"
       else
-        log "dispatched $base from schedule $name"
+        log "dispatched $base from schedule $name$held"
       fi
       dispatched=$((dispatched+1))
       break
