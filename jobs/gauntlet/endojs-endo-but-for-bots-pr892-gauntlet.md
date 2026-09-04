@@ -1,4 +1,5 @@
 ---
+stage_retries: 1
 pr: https://github.com/endojs/endo-but-for-bots/pull/892
 repo: endojs/endo-but-for-bots
 pr_number: 892
