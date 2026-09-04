@@ -5,7 +5,8 @@
 # so an operator can see exactly what a live finding produces:
 #
 #   capture (runner drops a synthetic crash) → reproduce → minimize → durable metadata
-#   + journal dedup marker → one posted repair job → idempotent replay (no duplicate).
+#   + journal dedup marker → one posted TRIAGE job (triage-and-batch lane) →
+#   idempotent replay (no duplicate).
 #
 # This is the "without requiring an actual long fuzz wait" acceptance rehearsal: the
 # heavy fuzz seam is a synthetic-crash stub; everything downstream is the production code
@@ -85,8 +86,10 @@ printf '  %s  (%s bytes)\n' "$STATE/ihf/findings/$FID/input.bin" "$(wc -c < "$ST
 say "Journal dedup marker (ironhorse-fuzz/findings/$FID.md) — note inert base64, NO host-path dependence"
 jfile "ironhorse-fuzz/findings/$FID.md" | sed 's/^/  /'
 
-say "Posted repair job (frontmatter + heading)"
-jfile "jobs/todo/ironhorse-fuzz-${FID}-repair.md" | sed -n '1,14p' | sed 's/^/  /'
+triage_job() { local w b; w="$(mktemp -d "$TR/tj.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$w" 2>/dev/null
+  b=""; for f in "$w"/jobs/todo/ironhorse-fuzz-triage-*.md; do [ -e "$f" ] && b="$(basename "$f")"; done; printf '%s' "$b"; rm -rf "$w"; }
+say "Posted triage job (frontmatter + heading) — capture funnels to bounded triage, not a per-finding repair"
+jfile "jobs/todo/$(triage_job)" | sed -n '1,16p' | sed 's/^/  /'
 
 say "Jobs in todo after tick 1: $(todo_n)"
 
@@ -95,7 +98,7 @@ run_tick 2>&1 | sed 's/^/  [svc] /'
 N="$(todo_n)"
 say "Jobs in todo after tick 2: $N"
 if [ "$N" -eq 1 ]; then
-  printf '\n\033[1;32mREHEARSAL PASSED\033[0m: one finding → one durable record → one repair job → idempotent on replay.\n'
+  printf '\n\033[1;32mREHEARSAL PASSED\033[0m: one finding → one durable record → one triage job → idempotent on replay.\n'
   exit 0
 else
   printf '\n\033[1;31mREHEARSAL FAILED\033[0m: expected 1 job, got %s\n' "$N"
