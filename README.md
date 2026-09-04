@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T04:37:46Z_
+_As of 2026-09-04T04:40:04Z_
 
 ## Latest
 
@@ -108,6 +108,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > dispatch: automatic
 > ---
 > Garden repo (main2): `run-test.sh` currently has ~30 pre-existing failures (environmental — sandbox lacks network for `github.com:kriskowal/garden.git`, a shellcheck-wrapper subtest, a foreman fill-batch block), leaving the suite red by default so it can't gate anything. Fix or properly skip the environmental failures.
+
+- `20260904T043754Z-6ae1cc` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260903-035007, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260903-035007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T043754Z-6ae1cc.md)
+
+> Containment drift check (minion.town gateway records) — recursive scan of /var/lib/endo-gateway/store/vhosts/ on i-0380cd68b90020fad, 49 active records.
+>
+> CLEAN on the core property: the three de-registered records remain ABSENT —
+>   f1d754fc… , fe0a8e60… , 09201a316203e9d99e3c906b12c9466d8f0ae8dc8baf8db484c918d6698f657f
+> (none present as filename or content; whitespace-tolerant match). No EndoHost-escape (@agent) powers record is active. Did NOT re-arm containment — the powers plane is authorized-open per [kriscendobot/minion.town#58](https://github.com/kriscendobot/minion.town/issues/58).
+>
+> FYI — surfaced per the retune's "report any unexpected active dckc-owned record":
+> dckc (sub 8929a9ae-b001-709d-02ea-e94df6225c0a) owns 20 active records — 18 content-only (safe), plus 2 POWERS weblets I had not previously catalogued:
+>   • 806fc2ea… powers:"counter"  (label qbx4f2xd… .ocap.site)
+>   • c016601e… powers:"@none"    (label yalgahxp… .ocap.site)
+> Both resolve to attenuated/powerless caps, NOT @agent/EndoHost. Public bootstrap returns HTTP 404 for both (/.well-known/ocapn-bootstrap 404, / 404, /.well-known/endo-captp 426). Daemon top-host carries counter/counter-tree/scratch-counter — consistent with dckc's authorized weblet-powers experimentation under [kriscendobot/minion.town#58](https://github.com/kriscendobot/minion.town/issues/58).
+>
+> They share the "powers value + 404 bootstrap" signature of the 08-31 record that was de-registered, so I'm flagging rather than quiet-passing. I did NOT de-register them (they're new records, not the named ones reappearing, and de-registration under the deliberately-open powers plane could be wrong). Decide whether these two are expected; if not, say so and I (or a follow-up) can de-register exactly as before.
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
@@ -1493,6 +1509,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `20260904T043811Z-05eb2a` — from gauntlet:build-minion-town-invitation-only-guest-onboarding-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T043811Z-05eb2a.md)
+
+> Gauntlet build-minion-town-invitation-only-guest-onboarding-gauntlet HALTED: stage 'build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
+
 - `doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -1687,7 +1707,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.7M | $1457.24 _(notional, rate-card)_ | no quota set |
+| Claude | 83.8M | $1472.92 _(notional, rate-card)_ | no quota set |
 | Codex | 43.6M _(+1185.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1699,8 +1719,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`dependabotany-recheck-endo-but-for-bots-20260903-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260903-035007.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr717-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr717-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #717
 - [`cybernetics-rec9-inbox-coalescing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec9-inbox-coalescing.md) — ---
-- [`cybernetics-rec4-fuzz-triage-backpressure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cybernetics-rec4-fuzz-triage-backpressure.md) — ---
 - [`ironhorse-fuzz-2276f4edebdcb3bb-repair-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2276f4edebdcb3bb-repair-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1088
+- [`ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1088
 - [`build-ocapn-nonce-locator-endo-mechanism-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ocapn-nonce-locator-endo-mechanism-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1124
 - [`xs2rust-endor-press-20260901-033503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260901-033503.md) — Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`endojs-endo-but-for-bots-pr938-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr938-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #938
@@ -1730,6 +1750,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1115-8bddd4d7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1115-8bddd4d7.md) — attention directive on endojs/endo-but-for-bots PR #1115
 - [`endojs-endo-but-for-bots-pr1072-review-e10c72d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-e10c72d0.md) — Review directive on endojs/endo-but-for-bots PR #1072
 - [`ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1088
+- [`cybernetics-rec4-fuzz-triage-backpressure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec4-fuzz-triage-backpressure.md) — ---
 - [`ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-6f0b586a80019097-repair-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1088
 - [`endojs-endo-but-for-bots-pr897-a478f53a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-a478f53a.md) — attention directive on endojs/endo-but-for-bots PR #897
 - [`endojs-endo-but-for-bots-pr322-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr322-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #322
@@ -1761,7 +1782,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-garden-pr75-review-c4c627a3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr75-review-c4c627a3.md) — Review directive on kriscendobot/garden PR #75
 - [`endojs-endo-but-for-bots-pr1116-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1116-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1116
 - [`endojs-endo-but-for-bots-pr254-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr254-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #254
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260903-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260903-035007.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`endojs-endo-but-for-bots-pr1099-review-6694e2d7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1099-review-6694e2d7.md) — Review directive on endojs/endo-but-for-bots PR #1099
 - [`endojs-endo-but-for-bots-pr1013-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1013-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1013
 - [`kriscendobot-garden-pr77-review-13d229b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr77-review-13d229b9.md) — Review directive on kriscendobot/garden PR #77
@@ -1786,13 +1806,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1099-51e0345a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1099-51e0345a.md) — attention directive on endojs/endo-but-for-bots PR #1099
 - [`endojs-endo-but-for-bots-pr1127-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1127-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1127
 
-### tada (6873)
+### tada (6875)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260903-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260903-035007.md) — Cost
+- [`build-minion-town-invitation-only-guest-onboarding-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-invitation-only-guest-onboarding-gauntlet.md) — gauntlet build-minion-town-invitation-only-guest-onboarding-gauntlet — HALTED
 - [`cybernetics-rec7-frontmatter-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-rec7-frontmatter-validation.md) — Cost
 - [`ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-1898f584e9bf841a-repair-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr741-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr741-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr741-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr717-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr717-gauntlet-panel-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr741-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr741-gauntlet-fix-1.md) — Completion report — FIX round 1, endojs/endo-but-for-bots PR #741
-- … and 6868 more
+- … and 6870 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
