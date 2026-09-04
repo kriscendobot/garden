@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1124
 build_job: build-ocapn-nonce-locator-endo-mechanism
 kind: feature
-stage: panel
+stage: fix
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-ocapn-nonce-locator-endo-mechanism-gauntlet-panel-4
+current_child: build-ocapn-nonce-locator-endo-mechanism-gauntlet-fix-4
 state: running
 created_by: producer
 created_at: 2026-09-03T15:44:15Z
