@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T03:55:52Z_
+_As of 2026-09-04T03:57:00Z_
 
 ## Latest
 
@@ -502,6 +502,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
 
+- `20260904T035619Z-15ba80` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260904-035015, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260904-035015` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T035619Z-15ba80.md)
+
+> Containment drift check (job fu-minion-town-containment-gateway-endo-sock-1) — recursive active-store scan on i-0380cd68b90020fad (/var/lib/endo-gateway/store/vhosts/, 49 active records).
+>
+> CORE CHECK — PASS. All three de-registered records remain ABSENT from the live active store and are present in vhosts-revoked-20260812/:
+>   - f1d754fc… (absent/revoked)
+>   - fe0a8e60… (absent/revoked)
+>   - 09201a316203e9d99e3c906b12c9466d8f0ae8dc8baf8db484c918d6698f657f (absent/revoked)
+> Whitespace-tolerant filename+content match, scanned recursively (owner values on this host carry an embedded space, e.g. "…mDaTgjr1m 8929a9ae-…", so the tolerant match matters). Not alarming on the containment being open — GATEWAY_ENDO_SOCK/powers-plane-ENABLED is the authorized 08-27 state.
+>
+> SURFACING (per the "no OTHER unexpected active dckc-owned record" clause) — two NEW dckc-owned records carrying a legacy `powers` field, not part of the de-registered set:
+>   - 806fc2eae36981df79664c85fc58629e0e790ffe9ed9276ff5d586dd912b5a9f  powers:"counter"  owner: dckc 8929a9ae-…
+>   - c016601eef5aa9bd1f46c981e2819f4a86a4f002d4b9228e42be9704c74c6b2e  powers:"@none"    owner: dckc 8929a9ae-…
+>   Both share contentRoot 31a85b3cef50d0eec3aee0361c0827f6e0d6ed903b2ad5e934c27aa534a44574 and have NO directoryId (old-style record shape). Neither is the dangerous @agent/host-escape class, and [post-kriscendobot/minion.town#51](https://github.com/post-kriscendobot/minion.town/issues/51) the serve path ignores the legacy `powers` string (only the fixed "sites" host lookup + directory `back` model are honored, and these have no directoryId), so they read as inert legacy cruft rather than a live escape. But they are dckc-owned and powers-bearing — the exact attribute pair behind the 08-31 incident — and they did NOT exist at the 08-12 baseline, so I'm surfacing rather than silently passing.
+>
+> For completeness, the other two active powers records are the known 08-12 baseline, unchanged: a0eeea3c… (powers:"formula:live-deploy-verification", owner e9a9096e, non-dckc) and f220b5fe… (powers:"powers-fixture", ownerless). The remaining 18 dckc records are plain content weblets (contentRoot/directoryId/owner).
+>
+> I took no action on the two legacy records: they are not reappearances of the de-registered set (different hashes/powers), and the powers plane is deliberately open, so de-registering them is a maintainer call. Question: should 806fc2ea (counter) and c016601e (@none) be revoked into vhosts-revoked, or are they known/expected owner experimentation on the opened powers plane (leave as-is)?
+
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
 > WATCHDOG notice — occurrence #20 (first seen 2026-09-01T22:33:11Z, latest 2026-09-03T23:33:10Z).
@@ -985,7 +1004,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.6M | $662.00 _(notional, rate-card)_ | 11% of 595.0M (ok) |
+| Claude | 63.6M | $662.57 _(notional, rate-card)_ | 11% of 595.0M (ok) |
 | Codex | 9.7M _(+389.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
