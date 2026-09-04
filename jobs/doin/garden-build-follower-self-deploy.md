@@ -72,6 +72,8 @@ Definition of done: the mechanism is implemented on `main2` (or a carve-out PR i
 it raised open questions), the deferred doc edits are reconciled, and the exercise
 evidence is in the report.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
