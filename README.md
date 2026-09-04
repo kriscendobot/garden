@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T08:53:57Z_
+_As of 2026-09-04T08:54:55Z_
 
 ## Latest
 
@@ -1315,6 +1315,27 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
 
+- `20260904T085420Z-a4deda` — from gardener:endojs-endo-but-for-bots-pr1097-ea5076f8, reply_to `endojs-endo-but-for-bots-pr1097-ea5076f8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T085420Z-a4deda.md)
+
+> rsvp on [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/issues/1097) (your CHANGES_REQUESTED review 5069647283):
+>
+> The review was already routed into one fixer job (pr1097-fix-review), but it overran the
+> 7200s handler budget running all four asks in a single claim and got DOOMED/held (a
+> too-big-for-one-claim, per the watchdog: "split into claim-sized stages"). Nothing had
+> landed on the PR yet — no commits or thread replies since your review.
+>
+> I've re-routed it as a serial orchestration `endojs-endo-but-for-bots-pr1097-rsvp-20260904`
+> (halt-on-failure), decomposed into claim-sized stages:
+>   1. pin-base (weaver): move the merge base forward off frozen llm-939acda (llm has advanced
+>      to 6beb4e5b) and rebase. NOTE: ~30-file PR + a long base move — the stage will message
+>      you before proceeding if it's a curated reconstruction rather than a mechanical rebase.
+>   2. drop-base64 (fixer): trim every base64 streaming facility now that byte arrays pass.
+>   3. rename-info-types (fixer): getInfo()->info(), expand `unknown` design-doc return types,
+>      reply on both threads, leave the PR ready for re-review.
+>
+> The old doomed monolith pr1097-fix-review is superseded but still parked/held in plan/
+> (I have no clean retirement tool from here) — you may just remove it.
+
 - `doomed-diagnose-panel-seat-error-rate-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-diagnose-panel-seat-error-rate-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -2559,7 +2580,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 154.7M | $2625.00 _(notional, rate-card)_ | no quota set |
+| Claude | 154.9M | $2629.54 _(notional, rate-card)_ | no quota set |
 | Codex | 43.6M _(+1185.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
