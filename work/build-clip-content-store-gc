@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: cleric
 claimed_at: 2026-09-04T22:56:08Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-clip-content-store-gc
+pr_number: 92
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/92
+pr_head: build/clip-content-store-gc
