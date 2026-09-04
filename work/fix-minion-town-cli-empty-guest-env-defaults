@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 8
-worker_kind: monk
-claimed_at: 2026-09-04T06:31:44Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-fix-minion-town-cli-empty-guest-env-defaults
-pr_number: 91
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/91
-pr_head: fix/cli-empty-guest-env-defaults
