@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-04T10:10:42Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-exo-stream-drop-base64-stream-methods-gauntlet-fix-1
