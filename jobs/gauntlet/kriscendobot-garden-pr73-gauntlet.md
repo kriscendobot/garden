@@ -5,12 +5,12 @@ repo: kriscendobot/garden
 pr_number: 73
 build_job: kriscendobot-garden-pr73-review-6e23fb68
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-garden-pr73-gauntlet-clean
+current_child: kriscendobot-garden-pr73-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-09-03T21:23:55Z
