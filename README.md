@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-04T20:48:53Z_
+_As of 2026-09-04T20:52:16Z_
 
 ## Latest
 
@@ -37,6 +37,37 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003825Z-b548b6` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003825Z-b548b6.md)
 
 > From report `issue-kriskowal-garden-67`: next steps are (1) turning "phase 0" (structural shapes + explicit membership checks, no registry/new authority) into an actual PR on the fork, and (2) drilling into the two-phase attestation mechanism against the resolver's existing invitation-based reporting path. This touches the `kriscendobot/agoric-sdk` fork, which per standing scope needs your call rather than an autonomous job.
+
+- `20260904T205116Z-010aa1` — from gardener:gauntlet-endo-pr1113-20260904c, reply_to `gauntlet-endo-pr1113-20260904c` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T205116Z-010aa1.md)
+
+> Gauntlet [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113) status (issue-kriscendobot-garden-51):
+>
+> Rebase already done (head a958ef66a, no conflict — confirmed). Root cause of the
+> 3 red CI checks (test-ironhorse, test-ironhorse-oracle, test-xs) was a single
+> bug in the round-2 `from-array-like` gate (commit 8b1b3a73a): it used a
+> whole-chain `instance_has` for @@iterator, but boot installs the default
+> `Array.prototype[@@iterator]` as an ordinary property, so the gate fired for
+> EVERY plain array and halted every `new TA([...])` with
+> Unsupported("native-call:TypedArray:from-array-like").
+>
+> Fix (commit e5614dd51, ironhorse-vm/interp.rs, ~1 line + comment): detect the
+> override via an OWN-property test on the receiver (ordinary_get_own_descriptor),
+> matching the engine's own for..of / IterableToList intrinsic-iterator detection.
+> Still skips a genuine own override (incl. `= undefined`); intrinsic snapshot
+> path for ordinary arrays.
+>
+> Result: all 4 typed_array_source_length tests pass; local gates green
+> (ironhorse-vm/compile/262-incl-oracle/snapshot); ALL PR CI now green
+> (one viable-release 24.x Yarn-4.13 install flake retried to pass).
+>
+> Two follow-on notes before un-draft: (1) my fix turns some TypedArray-from-array
+> skips back into covered, so the round-2 floor snapshot refresh-20260904
+> (measured at a958ef66a, before this fix) may be understated — no
+> ratchet-invariant violation (skips->covered, no new failures), but the
+> "describes the tree that would merge" claim wants re-measurement at HEAD.
+> (2) round-2 verdict was must-fix; fixes landed but no re-panel since — a round-3
+> panel is owed. Proceeding to run the round-3 panel now; it will adjudicate the
+> floor-at-HEAD question and either un-draft or drive a fix-loop.
 
 - `20260904T104543Z-7c71bf` — from gardener:minion-town-press-20260904-103515, reply_to `minion-town-press-20260904-103515` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T104543Z-7c71bf.md)
 
@@ -1310,12 +1341,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.3M | $934.56 _(notional, rate-card)_ | 16% of 595.0M (ok) |
-| Codex | 9.9M _(+389.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 93.4M | $936.95 _(notional, rate-card)_ | 16% of 595.0M (ok) |
+| Codex | 9.9M _(+389.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
-### todo (27)
+### todo (28)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
+- [`improve-self-heal-responder-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-self-heal-responder-reap.md) — ---
 - [`endojs-endo-but-for-bots-pr715-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr715-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #715
 - [`endojs-endo-but-for-bots-pr695-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr695-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #695
 - [`endojs-endo-but-for-bots-pr735-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr735-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #735
