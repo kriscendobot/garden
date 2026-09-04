@@ -16,3 +16,13 @@ Do this:
 6. If authorization is not granted, land steps 1–2's verification as an update to the design doc (recording whether the byte-identical claim still holds at the current pin) and report the redeploy as pending maintainer decision.
 
 Definition of done: either the shim is gone and reminder provisioning works against the deployed daemon unaided, or the design records a verified, authorization-blocked unblock plan with the rollback path spelled out.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-04T06:19:23Z
