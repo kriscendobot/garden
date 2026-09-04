@@ -61,6 +61,8 @@ issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5463542
 submitter: kriscendobot
 ----- END ISSUE NOTE -----
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
