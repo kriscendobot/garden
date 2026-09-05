@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T04:26:50Z_
+_As of 2026-09-05T04:33:09Z_
 
 ## Latest
 
@@ -164,10 +164,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-handler-budget-overrun-fix-usage-meter-unbound-var-and-widen-shellcheck-ci` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md)
 
 > gardener job 'fix-usage-meter-unbound-var-and-widen-shellcheck-ci' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2407s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260905T042623Z-631c4c` — from gauntlet:endojs-endo-but-for-bots-pr695-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T042623Z-631c4c.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr695-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `watchdog-budget-level-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-1.md)
 
@@ -1332,34 +1328,35 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.4M | $243.47 _(notional, rate-card)_ | 18% of 143.0M (ok) |
-| Codex | 877.3k _(+49.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 26.8M | $248.20 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Codex | 911.8k _(+51.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
-### todo (13)
+### todo (7)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
-- [`endojs-endo-but-for-bots-pr666-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr666-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #666
-- [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
-- [`endojs-endo-but-for-bots-pr1158-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1158-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1158
-- [`build-ironhorse-panic-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ironhorse-panic-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1150
-- [`minion-town-clip-content-store-gc-build-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clip-content-store-gc-build-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #93
 - [`endojs-endo-but-for-bots-pr1157-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1157-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1157
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #68
-- [`endojs-endo-but-for-bots-pr1151-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1151-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1151
 - [`build-ocapn-nonce-locator-endo-mechanism-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ocapn-nonce-locator-endo-mechanism-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr938-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr938-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #938
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 - [`kriscendobot-minion.town-pr58-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr58-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #58
 
-### doin (8)
+### doin (15)
+- [`endojs-endo-but-for-bots-pr666-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr666-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #666
 - [`endojs-endo-but-for-bots-pr891-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr891-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #891
+- [`endojs-endo-but-for-bots-pr1085-review-518814b7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-review-518814b7.md) — Review directive on endojs/endo-but-for-bots PR #1085
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset.md) — Finish and land minion.town OCap synthesis units 4-5 after the weekly panel r...
+- [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
+- [`endojs-endo-but-for-bots-pr1158-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1158-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1158
 - [`minion-town-formula-graph-content-gc-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-formula-graph-content-gc-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #83
+- [`build-ironhorse-panic-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-panic-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1150
 - [`endojs-endo-but-for-bots-pr935-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #935
+- [`minion-town-clip-content-store-gc-build-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-content-store-gc-build-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #93
 - [`endojs-endo-but-for-bots-pr996-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr996-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #996
 - [`endojs-endo-but-for-bots-pr665-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr665-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #665
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1156
 - [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1117
+- [`endojs-endo-but-for-bots-pr1151-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1151-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1151
 
 ### tada (7288)
 - [`endojs-endo-but-for-bots-pr695-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr695-gauntlet — HALTED
@@ -1662,6 +1659,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr32-review-93782d28-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr32-review-93782d28-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #32 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr45-review-70f2f356-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr45-review-70f2f356-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #45 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr59-review-0aebcb48-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr59-review-0aebcb48-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #59 (primary: kriscendobot-minio...
+- [`endojs-endo-but-for-bots-pr1085-review-518814b7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1085-review-518814b7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1085 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
