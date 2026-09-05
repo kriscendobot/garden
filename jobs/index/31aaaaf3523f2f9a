@@ -1,0 +1,2 @@
+base: improve-gauntlet-followup-gate
+identity: mentor:scripts/jobs/assert-followup-posted.sh
