@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T18:16:37Z_
+_As of 2026-09-05T18:17:47Z_
 
 ## Latest
 
@@ -1370,6 +1370,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > [kriscendobot/minion.town#75](https://github.com/kriscendobot/minion.town/issues/75) is merged and deployment run 33539977066 succeeded. The remaining required blind live discovery evaluation needs an authenticated minion.town MCP session. This worker container has no AWS CLI/credentials or minion.town OAuth connection, so it cannot read the sanctioned minion/test-cc-client secret or attach the live MCP to a context-free agent. Please either run a connected blind agent with only the directive "evaluate 2 + 2" and send the transcript/result, or make a short-lived sanctioned Bearer token available through this job inbox (do not paste a long-lived client secret).
 
+- `endojs-endo-but-for-bots-pr666-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr666-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr666-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr666-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
 - `20260904T093531Z-3fb90f` — from gauntlet:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093531Z-3fb90f.md)
 
 > Gauntlet ironhorse-fuzz-314f811064b8febb-repair-gauntlet HALTED: stage 'ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1' (panel) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -1444,7 +1448,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $497.70 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 56.8M | $500.25 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 3.7M _(+123.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
@@ -1463,13 +1467,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1156
 
-### tada (7395)
+### tada (7396)
+- [`endojs-endo-but-for-bots-pr666-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr666-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr666-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr666-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr666-gauntlet-fix-6.md) — Completion report
 - [`kriscendobot-garden-pr80-validation-setup-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-validation-setup-20260905.md) — Completion report
 - [`minion-town-clip-content-store-gc-build-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clip-content-store-gc-build-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-garden-pr80-approved-calibration-campaign-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-approved-calibration-campaign-20260905.md) — orchestration kriscendobot-garden-pr80-approved-calibration-campaign-20260905...
-- [`kriscendobot-garden-pr80-deploy-verify-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-deploy-verify-20260905.md) — Completion report — Verify fleet deployment of merged kriscendobot/garden#80
-- … and 7390 more
+- … and 7391 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
