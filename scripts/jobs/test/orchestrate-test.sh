@@ -15,8 +15,9 @@
 #                   promote); the next tick flips the record to
 #                   `halted-superseded` and appends a dated addendum so no reader
 #                   mistakes the stale halt narrative for live state (idempotent).
-#   4. CONTINUE   - a child that reaches tada with a declared failure proceeds to
-#                   the next child rather than halting under policy=continue.
+#   4. CONTINUE   - children that fail by declared tada outcome or doom-parking
+#                   proceed under policy=continue; later successful predecessors
+#                   still gate subsequent serial promotion.
 #   5. STALL       — a NON-PRODUCTIVE requeue streak that EXCEEDS
 #                   GARDEN_ORCH_STALL_REQUEUE_LIMIT, or an expired handler budget, is
 #                   a deterministic failed child; a requeue within the limit, or one
@@ -33,8 +34,9 @@
 #                   checkout models the delete/add gap of a hard reset.
 #  10. INCONSISTENT — a commit containing the child in two board directories
 #                   retries instead of inventing a terminal disposition.
-#  11. SERIAL CAS   - a stale watcher snapshot cannot promote N+1 when the
-#                   promotion primitive's fresh snapshot still has N parked.
+#  11. SERIAL CAS   - stale watcher snapshots cannot promote N+1 when the
+#                   promotion primitive's fresh snapshot contradicts either a
+#                   successful or continued-failure predecessor outcome.
 #
 # Usage: orchestrate-test.sh
 
@@ -410,6 +412,27 @@ grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-doom.md" 2>/dev/null
   && ok "doomed-child halt summary marks orchestration-status: halted" \
   || bad "doom-park halt summary missing status marker"
 
+# A continue-policy run must omit the doomed predecessor from its tada requirements,
+# while still carrying the next successful predecessor into the promotion CAS.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont dc-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont dc-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont dc-c >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure continue orch-doom-cont dc-a dc-b dc-c >/dev/null
+tick
+doom_park_child dc-a
+tick
+doom_cont_ok=1
+in_dir jobs/todo dc-b || { doom_cont_ok=0; echo "    dc-b stayed parked behind doomed dc-a"; }
+in_dir jobs/plan dc-a || { doom_cont_ok=0; echo "    doomed dc-a was not preserved in plan"; }
+in_dir jobs/todo dc-c && { doom_cont_ok=0; echo "    dc-c promoted before dc-b completed"; }
+complete_child dc-b
+tick
+in_dir jobs/todo dc-c || { doom_cont_ok=0; echo "    dc-c stayed parked after dc-b completed"; }
+in_dir jobs/plan dc-a || { doom_cont_ok=0; echo "    doomed dc-a was consumed during later promotion"; }
+[ "$doom_cont_ok" -eq 1 ] \
+  && ok "continue skipped doomed dc-a's tada requirement, promoted dc-b, then required dc-b completion before dc-c" \
+  || bad "doom-park continue chain stalled or violated serial ordering (todo=$(board jobs/todo), plan=$(board jobs/plan))"
+
 # ============================================================================
 hr; echo "SUBTEST 6 — STALL: a requeue rise across ticks halts with host-specific reason"; hr
 claim_child() {  # claim_child <base> <claimed-at>
@@ -674,10 +697,10 @@ in_dir jobs/todo g-b && { gate_ok=0; echo "    g-b PROMOTED while g-a still in f
 [ "$gate_ok" -eq 1 ] && ok "serial run held g-b parked while g-a still occupied doin (no concurrent promotion)" \
   || bad "serial gate breached (doin=$(board jobs/doin) todo=$(board jobs/todo))"
 fail_child g-a                    # g-a genuinely vanishes from the board
-tick                              # disappearance is NOT completion evidence
-{ in_dir jobs/plan g-b && ! in_dir jobs/todo g-b; } \
-  && ok "a vanished predecessor did not satisfy the tada precondition; g-b stayed parked" \
-  || bad "g-b promoted without predecessor tada evidence (todo=$(board jobs/todo))"
+tick                              # disappearance is terminal failure evidence
+{ in_dir jobs/todo g-b && ! in_dir jobs/plan g-b; } \
+  && ok "after the in-flight sibling vanished, continue revalidated its failure and promoted g-b" \
+  || bad "g-b did not advance after g-a became terminally failed (todo=$(board jobs/todo))"
 
 # ============================================================================
 hr; echo "SUBTEST 17 — GATED TADA: report the declared failure, never 'vanished'"; hr
@@ -844,6 +867,18 @@ rm -rf "$cas_view"
 [ "$cas_ok" -eq 1 ] \
   && ok "stale watcher view could not move child 2; both children stayed parked and the record stayed pending" \
   || bad "serial CAS gate breached (todo=$(board jobs/todo), plan=$(board jobs/plan))"
+
+# The continue-policy counterpart at the critical primitive: an ordinary parked
+# predecessor contradicts a stale failed verdict, so --require-failed must reject
+# the target move from its own fresh snapshot.
+"$JOBS/post-plan.sh" --deferred 00-fcas-a >/dev/null
+"$JOBS/post-plan.sh" --deferred 00-fcas-b >/dev/null
+failed_cas_rc=0
+"$JOBS/promote-plan.sh" --require-failed 00-fcas-a 00-fcas-b >/dev/null 2>&1 || failed_cas_rc=$?
+{ [ "$failed_cas_rc" -eq 3 ] && in_dir jobs/plan 00-fcas-a \
+  && in_dir jobs/plan 00-fcas-b && ! in_dir jobs/todo 00-fcas-b; } \
+  && ok "--require-failed revalidated an ordinary parked predecessor and refused the target move" \
+  || bad "continued-failure CAS gate breached (rc=$failed_cas_rc todo=$(board jobs/todo), plan=$(board jobs/plan))"
 
 # ============================================================================
 hr; echo "SUBTEST 23 — ADOPT GO-AHEAD: gate=go-ahead children are retagged atomically with the record"; hr

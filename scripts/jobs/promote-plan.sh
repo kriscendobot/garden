@@ -2,7 +2,8 @@
 # promote-plan.sh — move a parked plan job into the live queue: plan/<base> →
 # todo/<base>, so a gardener can claim it normally.
 #
-# Usage: promote-plan.sh [--require-tada <predecessor>]... <basename>
+# Usage: promote-plan.sh [--require-tada <predecessor>]...
+#                        [--require-failed <predecessor>]... <basename>
 #
 # Two promotion paths feed this one primitive:
 #   1. MAINTAINER GO-AHEAD — the liaison (or the proxy within its bounds) runs this
@@ -40,13 +41,15 @@
 # PARKING side, so a producer that re-parks a live job body cannot smuggle a stale
 # counter into plan/ in the first place; the two share common.sh's strip helpers.
 #
-# For serial orchestration, each `--require-tada <predecessor>` is checked after
-# the promotion clone's fresh sync and again after every rejected-push retry. The
-# move and its dependency check therefore share one CAS critical section: if the
-# board changes after the check, the push loses and the next attempt revalidates.
-# A predecessor absent from tada/ (or ambiguously still present in plan/todo/doin)
-# refuses the move with exit 3. A recoverable stalled chain is safer than an early
-# destructive stage.
+# For serial orchestration, each predecessor condition is checked after the
+# promotion clone's fresh sync and again after every rejected-push retry. The move
+# and its dependency check therefore share one CAS critical section: if the board
+# changes after the check, the push loses and the next attempt revalidates.
+# `--require-tada` accepts only unambiguous successful completion. `--require-failed`
+# accepts only a terminal failure: a failed tada report, a doomed/poisoned plan, or
+# absence from every lifecycle directory. A live or ordinary parked predecessor,
+# and every ambiguous duplicate, refuses the move with exit 3. A recoverable
+# stalled chain is safer than an early destructive stage.
 #
 # ORCHESTRATED SHEPHERD CHILDREN carry one additional promotion invariant. A child
 # whose basename matches `*-shepherd-*` is a named long-running stage, even when its
@@ -68,10 +71,15 @@ source "$HERE/common.sh"
 export GARDEN_TAG="promote-plan"
 
 required_tada=()
+required_failed=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --require-tada)
       required_tada+=("${2:?--require-tada needs a predecessor basename}")
+      shift 2
+      ;;
+    --require-failed)
+      required_failed+=("${2:?--require-failed needs a predecessor basename}")
       shift 2
       ;;
     --) shift; break;;
@@ -80,13 +88,13 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-base="${1:?usage: promote-plan.sh [--require-tada <predecessor>]... <basename>}"
+base="${1:?usage: promote-plan.sh [--require-tada <predecessor>]... [--require-failed <predecessor>]... <basename>}"
 case "$base" in
   -*)        die "illegal basename: '$base'";;
   */*|.*|'') die "illegal basename: '$base'";;
 esac
 base="${base%.md}"
-for predecessor in "${required_tada[@]}"; do
+for predecessor in "${required_tada[@]}" "${required_failed[@]}"; do
   case "$predecessor" in
     -*)        die "illegal predecessor basename: '$predecessor'";;
     */*|.*|'') die "illegal predecessor basename: '$predecessor'";;
@@ -140,6 +148,20 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
        || [ -e "$DIR/$JOBS_DOIN/$predecessor.md" ] \
        || ! tada_exists "$DIR" "$predecessor"; then
       log "refusing to promote '$base': required predecessor '$predecessor' is not unambiguously complete in tada/"
+      exit 3
+    fi
+  done
+
+  for predecessor in "${required_failed[@]}"; do
+    predecessor="${predecessor%.md}"
+    predecessor_tada="$(tada_find "$DIR" "$predecessor" || true)"
+    predecessor_plan="$DIR/$JOBS_PLAN/$predecessor.md"
+    if [ -e "$DIR/$JOBS_TODO/$predecessor.md" ] \
+       || [ -e "$DIR/$JOBS_DOIN/$predecessor.md" ] \
+       || { [ -e "$predecessor_plan" ] && [ -n "$predecessor_tada" ]; } \
+       || { [ -e "$predecessor_plan" ] && ! grep -qxE 'doomed: true|poisoned: true' "$predecessor_plan"; } \
+       || { [ -n "$predecessor_tada" ] && ! tada_failed "$DIR/$predecessor_tada"; }; then
+      log "refusing to promote '$base': required predecessor '$predecessor' is not unambiguously failed/terminal"
       exit 3
     fi
   done
