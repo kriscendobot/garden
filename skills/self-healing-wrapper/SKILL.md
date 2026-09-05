@@ -226,6 +226,15 @@ self-heal-run.sh <context> [--work-id <id>] [--role <brief>] [--expect <code>] -
   central-mentor layers still see the failure — the wrapper *diagnoses*, systemd
   *restarts*. A SIGTERM/SIGINT (a systemd stop) is forwarded to the child and
   treated as a CLEAN shutdown, never diagnosed.
+- **Reaps the responder's process group.** The `claude -p` responder runs in its
+  OWN process group (`set -m` + `timeout --foreground`, pgid captured from `$!`);
+  the wrapper sweeps that whole group — the handler AND its `claude` grandchild —
+  with `reap_process_group` (SIGTERM → grace → SIGKILL) on every outcome: a fired
+  responder timeout, a clean return, and a stop signal to the wrapper
+  mid-diagnosis (a TERM/INT trap reaps, then still exits the child's rc). Without
+  this a watcher/unit restart killed the wrapper but left its `claude` alive in
+  the unit cgroup, producing repeated "left-over process" warnings and failed
+  starts.
 - **Hard throttle (the token-burn guard):** the responder fires at most once per
   `(context, exit-code)` signature per `SELF_HEAL_THROTTLE_SECS` (default 30m),
   capped at `SELF_HEAL_DAILY_CAP` (default 12) per UTC day. Throttle state lives

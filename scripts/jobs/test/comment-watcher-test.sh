@@ -1903,7 +1903,7 @@ run_cd kriscendobot-garden "$CD_LOG2"
 
 # Expire the marker deterministically (no sleep); the next tick must probe again and
 # own a fresh warning, demonstrating that sibling observations never extend a window.
-printf '0\nexpired-test\n' > "$TR/state-cd/comment-watcher/api-cooldown"
+printf '0\nexpired-test\n' > "$TR/state-cd/gh-api-cooldown/marker"
 run_cd kriscendobot-garden "$CD_LOG3"
 [ "$(cat "$CD_COUNT")" -eq 2 ] && ok "expired cooldown re-enabled source polling" || bad "expired window did not re-arm (count $(cat "$CD_COUNT"))"
 [ "$(grep -c 'WARN: comment source hit a transient gh-api blip' "$CD_LOG3" || true)" -eq 1 ] \

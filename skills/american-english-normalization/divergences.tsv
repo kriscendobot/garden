@@ -1,0 +1,302 @@
+# divergences.tsv — the single auditable home for the British->American word list
+# the orthographer seat-gate greps and the americanizer role applies.
+#
+# FORMAT: four TAB-separated columns, one divergence per row. Lines beginning with
+# '#' and blank lines are ignored. Every row is an ENUMERATED LITERAL whole-word
+# pair — never a suffix pattern or heuristic (PR #75 decision: "we should be able
+# to make a comprehensive list and not simply patterns"). Every inflected form is
+# its OWN row (serialise / serialised / serialising / serialiser / serialisation
+# are five rows, not one -ise rule), so the set is CLOSED and a deterministic grep
+# enumerates it exhaustively.
+#
+# CURATION: maintainer-reviewed on each extension (PR #75, decision 3b). A gardener
+# proposes a new row through an orthographer [proposed-rule] finding; a human vets
+# it before it lands. NEVER add an always-`-ise` word (surprise, advertise,
+# exercise, comprise, advise, arise, compromise, disguise, franchise, improvise,
+# merchandise, supervise, televise, ...) or a `-re`/`-our` false friend (genre,
+# acre, massacre, mediocre, macabre, ogre; contour, velour, glamour, devour, four,
+# hour, pour, tour, your): the list is an allow-list precisely so these are
+# excluded by construction. Precision over recall — a false positive that rewrites
+# a real word is worse than a missed divergence.
+#
+# category	british	american	notes
+ise-verb	serialise	serialize	origin nit, endojs/endo-but-for-bots PR 282
+ise-verb	serialised	serialized
+ise-verb	serialises	serializes
+ise-verb	serialising	serializing
+ise-verb	serialiser	serializer
+ise-verb	deserialise	deserialize
+ise-verb	deserialised	deserialized
+ise-verb	deserialising	deserializing
+ise-verb	canonicalise	canonicalize
+ise-verb	canonicalised	canonicalized
+ise-verb	canonicalises	canonicalizes
+ise-verb	canonicalising	canonicalizing
+ise-verb	normalise	normalize
+ise-verb	normalised	normalized
+ise-verb	normalises	normalizes
+ise-verb	normalising	normalizing
+ise-verb	normaliser	normalizer
+ise-verb	initialise	initialize
+ise-verb	initialised	initialized
+ise-verb	initialises	initializes
+ise-verb	initialising	initializing
+ise-verb	initialiser	initializer
+ise-verb	finalise	finalize
+ise-verb	finalised	finalized
+ise-verb	finalises	finalizes
+ise-verb	finalising	finalizing
+ise-verb	organise	organize
+ise-verb	organised	organized
+ise-verb	organises	organizes
+ise-verb	organising	organizing
+ise-verb	recognise	recognize
+ise-verb	recognised	recognized
+ise-verb	recognises	recognizes
+ise-verb	recognising	recognizing
+ise-verb	realise	realize
+ise-verb	realised	realized
+ise-verb	realises	realizes
+ise-verb	realising	realizing
+ise-verb	optimise	optimize
+ise-verb	optimised	optimized
+ise-verb	optimises	optimizes
+ise-verb	optimising	optimizing
+ise-verb	optimiser	optimizer
+ise-verb	minimise	minimize
+ise-verb	minimised	minimized
+ise-verb	minimises	minimizes
+ise-verb	minimising	minimizing
+ise-verb	maximise	maximize
+ise-verb	maximised	maximized
+ise-verb	maximises	maximizes
+ise-verb	maximising	maximizing
+ise-verb	customise	customize
+ise-verb	customised	customized
+ise-verb	customises	customizes
+ise-verb	customising	customizing
+ise-verb	synchronise	synchronize
+ise-verb	synchronised	synchronized
+ise-verb	synchronises	synchronizes
+ise-verb	synchronising	synchronizing
+ise-verb	authorise	authorize
+ise-verb	authorised	authorized
+ise-verb	authorises	authorizes
+ise-verb	authorising	authorizing
+ise-verb	categorise	categorize
+ise-verb	categorised	categorized
+ise-verb	categorises	categorizes
+ise-verb	categorising	categorizing
+ise-verb	prioritise	prioritize
+ise-verb	prioritised	prioritized
+ise-verb	prioritises	prioritizes
+ise-verb	prioritising	prioritizing
+ise-verb	summarise	summarize
+ise-verb	summarised	summarized
+ise-verb	summarises	summarizes
+ise-verb	summarising	summarizing
+ise-verb	utilise	utilize
+ise-verb	utilised	utilized
+ise-verb	utilises	utilizes
+ise-verb	utilising	utilizing
+ise-verb	standardise	standardize
+ise-verb	standardised	standardized
+ise-verb	standardises	standardizes
+ise-verb	standardising	standardizing
+ise-verb	generalise	generalize
+ise-verb	generalised	generalized
+ise-verb	generalises	generalizes
+ise-verb	generalising	generalizing
+ise-verb	specialise	specialize
+ise-verb	specialised	specialized
+ise-verb	specialises	specializes
+ise-verb	specialising	specializing
+ise-verb	visualise	visualize
+ise-verb	visualised	visualized
+ise-verb	visualises	visualizes
+ise-verb	visualising	visualizing
+ise-verb	stabilise	stabilize
+ise-verb	stabilised	stabilized
+ise-verb	stabilises	stabilizes
+ise-verb	stabilising	stabilizing
+ise-verb	modularise	modularize
+ise-verb	modularised	modularized
+ise-verb	parameterise	parameterize
+ise-verb	parameterised	parameterized
+ise-verb	parameterising	parameterizing
+ise-verb	itemise	itemize
+ise-verb	itemised	itemized
+ise-verb	tokenise	tokenize
+ise-verb	tokenised	tokenized
+ise-verb	tokenises	tokenizes
+ise-verb	tokenising	tokenizing
+ise-verb	tokeniser	tokenizer
+ise-verb	sanitise	sanitize
+ise-verb	sanitised	sanitized
+ise-verb	sanitises	sanitizes
+ise-verb	sanitising	sanitizing
+ise-verb	randomise	randomize
+ise-verb	randomised	randomized
+ise-verb	randomises	randomizes
+ise-verb	randomising	randomizing
+ise-verb	factorise	factorize
+ise-verb	factorised	factorized
+ise-verb	memorise	memorize
+ise-verb	memorised	memorized
+ise-verb	emphasise	emphasize
+ise-verb	emphasised	emphasized
+ise-verb	emphasises	emphasizes
+ise-verb	emphasising	emphasizing
+ise-verb	analyse	analyze	analyse is analyze in American English (not an -ize root, enumerated literally)
+ise-verb	analysed	analyzed
+ise-verb	analyses	analyzes	only when a VERB; the noun plural "analyses" is identical in both — seat adjudicates
+ise-verb	analysing	analyzing
+ise-verb	catalyse	catalyze
+ise-verb	catalysed	catalyzed
+isation-noun	serialisation	serialization
+isation-noun	deserialisation	deserialization
+isation-noun	canonicalisation	canonicalization
+isation-noun	normalisation	normalization
+isation-noun	initialisation	initialization
+isation-noun	organisation	organization
+isation-noun	optimisation	optimization
+isation-noun	authorisation	authorization
+isation-noun	categorisation	categorization
+isation-noun	prioritisation	prioritization
+isation-noun	synchronisation	synchronization
+isation-noun	customisation	customization
+isation-noun	visualisation	visualization
+isation-noun	modularisation	modularization
+isation-noun	tokenisation	tokenization
+isation-noun	sanitisation	sanitization
+isation-noun	randomisation	randomization
+isation-noun	standardisation	standardization
+isation-noun	generalisation	generalization
+isation-noun	parameterisation	parameterization
+isation-noun	factorisation	factorization
+our-or	colour	color
+our-or	coloured	colored
+our-or	colours	colors
+our-or	colouring	coloring
+our-or	colourful	colorful
+our-or	colourless	colorless
+our-or	behaviour	behavior
+our-or	behaviours	behaviors
+our-or	behavioural	behavioral
+our-or	flavour	flavor
+our-or	flavours	flavors
+our-or	flavoured	flavored
+our-or	favour	favor
+our-or	favours	favors
+our-or	favoured	favored
+our-or	favourite	favorite
+our-or	favourites	favorites
+our-or	favourable	favorable
+our-or	neighbour	neighbor
+our-or	neighbours	neighbors
+our-or	neighbouring	neighboring
+our-or	neighbourhood	neighborhood
+our-or	honour	honor
+our-or	honoured	honored
+our-or	labour	labor
+our-or	rumour	rumor
+our-or	humour	humor
+our-or	harbour	harbor
+our-or	endeavour	endeavor
+our-or	vapour	vapor
+our-or	vigour	vigor
+our-or	odour	odor
+our-or	savour	savor
+our-or	saviour	savior
+re-er	centre	center
+re-er	centred	centered
+re-er	centres	centers
+re-er	centring	centering
+re-er	theatre	theater
+re-er	fibre	fiber
+re-er	fibres	fibers
+re-er	calibre	caliber
+re-er	spectre	specter
+re-er	sombre	somber
+re-er	lustre	luster
+re-er	meagre	meager
+ll-doubling	modelling	modeling
+ll-doubling	modelled	modeled
+ll-doubling	modeller	modeler
+ll-doubling	labelling	labeling
+ll-doubling	labelled	labeled
+ll-doubling	signalling	signaling
+ll-doubling	signalled	signaled
+ll-doubling	cancelling	canceling
+ll-doubling	cancelled	canceled
+ll-doubling	travelling	traveling
+ll-doubling	travelled	traveled
+ll-doubling	traveller	traveler
+ll-doubling	levelling	leveling
+ll-doubling	levelled	leveled
+ll-doubling	fuelling	fueling
+ll-doubling	fuelled	fueled
+ll-doubling	counselling	counseling
+ll-doubling	counselled	counseled
+ll-doubling	counsellor	counselor
+ll-doubling	marvelling	marveling
+ll-doubling	marvelled	marveled
+ll-single	fulfil	fulfill
+ll-single	fulfils	fulfills
+ll-single	fulfilment	fulfillment
+ll-single	enrol	enroll
+ll-single	enrols	enrolls
+ll-single	enrolment	enrollment
+ll-single	instil	instill
+ll-single	distil	distill
+ll-single	skilful	skillful
+ll-single	wilful	willful
+ll-single	instalment	installment
+ce-se	defence	defense
+ce-se	offence	offense
+ce-se	licence	license	the NOUN (BrE licence / license); American English uses license for both
+ce-se	pretence	pretense
+ce-se	practise	practice	the VERB (BrE practise / practice); American English uses practice for both
+ogue-og	catalogue	catalog
+ogue-og	catalogued	cataloged
+ogue-og	catalogues	catalogs
+ogue-og	cataloguing	cataloging
+ogue-og	analogue	analog
+ogue-og	analogues	analogs
+ae-oe-e	encyclopaedia	encyclopedia
+ae-oe-e	paediatric	pediatric
+ae-oe-e	foetus	fetus
+ae-oe-e	manoeuvre	maneuver
+ae-oe-e	manoeuvred	maneuvered
+ae-oe-e	manoeuvring	maneuvering
+ae-oe-e	manoeuvres	maneuvers
+irregular-plural	vertices	vertexes	directive-named; vertexes over vertices for an international audience
+irregular-plural	matrices	matrixes	directive-named; matrixes over matrices
+irregular-plural	indices	indexes	directive-named; indexes over indices
+misc	grey	gray
+misc	greyed	grayed
+misc	mould	mold
+misc	moulded	molded
+misc	smoulder	smolder
+misc	plough	plow
+misc	draught	draft
+misc	kerb	curb
+misc	tyre	tire
+misc	aluminium	aluminum
+misc	sulphur	sulfur
+misc	programme	program	BrE programme (schedule/broadcast) / program (computer); American English uses program throughout
+misc	storey	story
+misc	storeys	stories
+misc	artefact	artifact
+misc	artefacts	artifacts
+misc	cosy	cozy
+misc	judgement	judgment
+misc	acknowledgement	acknowledgment
+misc	acknowledgements	acknowledgments
+misc	ageing	aging
+misc	dependant	dependent	the NOUN (BrE dependant / American English dependent)
+misc	thawn	thawed	directive-named; thawed is the wanted form (the poetic thawn does not belong in technical writing for an international audience)
+briticism	whilst	while
+briticism	amongst	among
+briticism	learnt	learned
+briticism	spelt	spelled

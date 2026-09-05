@@ -52,6 +52,8 @@ export GARDEN_TAG="self-heal"
 : "${SELF_HEAL_DAILY_CAP:=12}"         # max responders per signature per UTC day
 : "${SELF_HEAL_CAPTURE_BYTES:=262144}" # tail bytes of the run hashed on failure
 : "${SELF_HEAL_RESPONDER_TIMEOUT:=300}" # hard cap on the responder (a hung claude never wedges restart)
+: "${SELF_HEAL_RESPONDER_KILL_AFTER:=10}" # grace before timeout SIGKILLs a TERM-ignoring responder at its wall
+: "${SELF_HEAL_REAP_GRACE:=5}"          # grace before reap_process_group SIGKILLs the responder's process group
 : "${SELF_HEAL_RESTART_BACKOFF:=0}"    # optional sleep before returning rc (systemd RestartSec usually suffices)
 : "${SELF_HEAL_CAPTURE_ONLY:=0}"       # 1 → capture+escalate-by-inbox only, never invoke a responder
 : "${SELF_HEAL_CLONE:=$GARDEN_STATE/self-heal/journal}"  # the local clone the blob is hashed into
@@ -85,7 +87,14 @@ ctx_key="$(printf '%s' "$context" | tr -c 'A-Za-z0-9._-' '_')"
 # --- run the wrapped command, capturing a bounded tail ----------------------
 capture="$(mktemp "${TMPDIR:-/tmp}/self-heal-${ctx_key}.XXXXXX")"
 got_signal=0
-cleanup() { rm -f "$capture" 2>/dev/null || true; }
+# Set once the responder is launched into its own process group (below); the EXIT
+# handler sweeps that group so a `claude` responder can never outlive this wrapper
+# in the unit cgroup — even if we exit by an untrapped path.
+responder_pgid=""
+cleanup() {
+  [ -n "$responder_pgid" ] && reap_process_group "$responder_pgid" "$SELF_HEAL_REAP_GRACE"
+  rm -f "$capture" 2>/dev/null || true
+}
 trap cleanup EXIT
 
 # Run as a child so we can forward a stop signal (clean shutdown, not a failure).
@@ -220,19 +229,42 @@ if throttle_allows; then
 fi
 
 # --- Parts 2 & 3: hand the SHA to the responder; it diagnoses + escalates ----
-# Synchronous but hard-bounded by timeout: systemd may KILL the cgroup (and any
-# backgrounded child) the instant the wrapper returns, so we cannot background
-# the responder the way the now-removed long-lived driver loop did. Best-effort: a failed,
-# missing, or hung responder never blocks the restart and never crashes us.
+# Run the responder in its OWN process group and REAP the whole group — the
+# handler AND its `claude` grandchild — on our own exit or a stop signal. The bug
+# this closes: a watcher/unit restart lands SIGTERM on the wrapper, but the
+# synchronous `timeout handler` left its detached `claude` alive in the unit
+# cgroup, so systemd's next start reported "left-over process" and could FAIL;
+# and a fired responder timeout that TERMs only the direct handler orphaned that
+# `claude` the same way. `set -m` (job control) puts the backgrounded responder
+# in a group whose pgid == the launched pid ($!); `timeout --foreground` stops
+# timeout from splitting off a second inner group, so the whole tree lands in the
+# group we capture and reap_process_group (common.sh: SIGTERM → grace → SIGKILL,
+# guarded to only ever signal THIS group, never a peer's or our own) sweeps it.
+# Still hard-bounded by timeout; still best-effort — a failed, missing, or hung
+# responder never blocks the restart and never crashes us.
 log "diagnosing '$context' failure via responder (blob $sha, role $(basename "$role_brief"))"
+responder_cmd=("$SELF_HEAL_HANDLER" "$sha" "$SELF_HEAL_CLONE" "$context" "$rc" "$work_id" "$role_brief")
 if command -v timeout >/dev/null 2>&1; then
-  timeout "$SELF_HEAL_RESPONDER_TIMEOUT" \
-    "$SELF_HEAL_HANDLER" "$sha" "$SELF_HEAL_CLONE" "$context" "$rc" "$work_id" "$role_brief" \
-    >/dev/null 2>&1 || log "responder for '$context' failed or timed out (best-effort; ignored)"
-else
-  "$SELF_HEAL_HANDLER" "$sha" "$SELF_HEAL_CLONE" "$context" "$rc" "$work_id" "$role_brief" \
-    >/dev/null 2>&1 || log "responder for '$context' failed (best-effort; ignored)"
+  responder_cmd=(timeout --foreground --signal=TERM \
+    --kill-after="$SELF_HEAL_RESPONDER_KILL_AFTER" "$SELF_HEAL_RESPONDER_TIMEOUT" \
+    "${responder_cmd[@]}")
 fi
+set -m
+"${responder_cmd[@]}" >/dev/null 2>&1 &
+responder_pgid=$!
+set +m
+# A stop signal DURING diagnosis must reap the group (never orphan `claude`),
+# then still preserve the wrapped service's rc so systemd sees its failure.
+trap 'reap_process_group "$responder_pgid" "$SELF_HEAL_REAP_GRACE"; exit "$rc"' TERM INT
+rrc=0
+wait "$responder_pgid" || rrc=$?
+trap - TERM INT
+[ "$rrc" -eq 0 ] || log "responder for '$context' failed or timed out (best-effort; ignored)"
+# Reap UNCONDITIONALLY, for every outcome: on a fired timeout `claude` is still
+# alive in the group; on a clean return the group is empty and this is a fast
+# no-op. ZERO orphans outlive the responder either way.
+reap_process_group "$responder_pgid" "$SELF_HEAL_REAP_GRACE"
+responder_pgid=""
 
 [ "$SELF_HEAL_RESTART_BACKOFF" -gt 0 ] 2>/dev/null && sleep "$SELF_HEAL_RESTART_BACKOFF"
 exit "$rc"

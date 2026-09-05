@@ -2660,6 +2660,52 @@ set +e; SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-net -- \
 { [ "$rreal" -eq 128 ] && [ "$(shcalls)" -eq 1 ]; } \
   && ok "genuine rc=128 failure (no outage signature) STILL diagnoses (rc preserved)" \
   || bad "real failure wrongly treated as outage (rc=$rreal calls=$(shcalls))"
+
+# (9) RESPONDER PROCESS-GROUP REAP — a fired responder timeout. The responder runs
+# in its OWN process group; a `claude` responder that OVERRUNS its wall (or is
+# stopped) would leave its spawned subprocess tree alive in the unit cgroup —
+# repeated "left-over process" warnings and failed watcher starts — unless the
+# wrapper sweeps the whole group. Point SELF_HEAL_HANDLER at a stub that spawns a
+# descendant tree then hangs, drive it past a tiny SELF_HEAL_RESPONDER_TIMEOUT, and
+# assert ZERO of the recorded descendants survive after the wrapper returns.
+any_alive_sh() { local p; for p in "$@"; do kill -0 "$p" 2>/dev/null && return 0; done; return 1; }
+REAPPIDS="$TR/selfheal-reap-a.pids"; : > "$REAPPIDS"
+set +e
+SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_RESPONDER_TIMEOUT=2 SELF_HEAL_RESPONDER_KILL_AFTER=1 \
+  SELF_HEAL_REAP_GRACE=2 SELF_HEAL_HANDLER="$HERE/self-heal-reap-stub.sh" \
+  SELF_HEAL_REAP_PIDFILE="$REAPPIDS" \
+  "$SHRUN" garden-reap-a -- bash -c 'echo boom >&2; exit 4' >/dev/null 2>&1
+rreapa=$?
+set -e
+mapfile -t reap_pids_a < <(grep -E '^[0-9]+$' "$REAPPIDS" 2>/dev/null || true)
+sleep 0.5
+{ [ "${#reap_pids_a[@]}" -ge 3 ] && ! any_alive_sh "${reap_pids_a[@]}"; } \
+  && ok "responder timeout overrun → whole responder group reaped (ZERO orphaned descendants)" \
+  || { bad "responder overrun left orphans (recorded=${#reap_pids_a[@]} alive=$(any_alive_sh "${reap_pids_a[@]:-}" && echo y || echo n))"; for p in "${reap_pids_a[@]:-}"; do kill -KILL "$p" 2>/dev/null || true; done; }
+[ "$rreapa" -eq 4 ] && ok "responder-overrun path preserves the wrapped rc (4)" \
+  || bad "wrapped rc not preserved on responder overrun (rc=$rreapa)"
+
+# (10) RESPONDER PROCESS-GROUP REAP — a STOP SIGNAL to the wrapper mid-diagnosis.
+# The reported bug: a watcher/unit restart SIGTERMs the wrapper while its `claude`
+# responder still runs; the responder tree must be reaped (never left headless in
+# the cgroup) AND the wrapped service's rc still preserved so systemd sees the
+# failure. Long responder timeout so it does NOT self-fire; TERM the wrapper once it
+# is mid-diagnosis (the stub has recorded its tree).
+REAPPIDB="$TR/selfheal-reap-b.pids"; : > "$REAPPIDB"
+SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_RESPONDER_TIMEOUT=60 SELF_HEAL_REAP_GRACE=2 \
+  SELF_HEAL_HANDLER="$HERE/self-heal-reap-stub.sh" SELF_HEAL_REAP_PIDFILE="$REAPPIDB" \
+  "$SHRUN" garden-reap-b -- bash -c 'echo boom >&2; exit 5' >/dev/null 2>&1 & shrpid=$!
+for _ in $(seq 1 50); do [ "$(grep -c . "$REAPPIDB" 2>/dev/null || echo 0)" -ge 3 ] && break; sleep 0.1; done
+kill -TERM "$shrpid" 2>/dev/null || true
+set +e; wait "$shrpid"; rreapb=$?; set -e
+mapfile -t reap_pids_b < <(grep -E '^[0-9]+$' "$REAPPIDB" 2>/dev/null || true)
+sleep 0.5
+{ [ "${#reap_pids_b[@]}" -ge 3 ] && ! any_alive_sh "${reap_pids_b[@]}"; } \
+  && ok "SIGTERM to the wrapper mid-diagnosis → responder group reaped (no left-over process in the cgroup)" \
+  || { bad "stop-signal path left orphaned responder descendants (recorded=${#reap_pids_b[@]})"; for p in "${reap_pids_b[@]:-}"; do kill -KILL "$p" 2>/dev/null || true; done; }
+[ "$rreapb" -eq 5 ] && ok "stop-during-diagnosis preserves the wrapped rc (5) so systemd still sees the failure" \
+  || bad "wrapped rc not preserved on stop-during-diagnosis (rc=$rreapb)"
+
 unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER JOURNAL_REMOTE
 
 # ============================================================================

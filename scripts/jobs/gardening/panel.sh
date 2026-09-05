@@ -105,18 +105,22 @@ fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 # from the diff (design-only when every changed path is under designs/), then
 # iterates the matching seat list. A project can override either list via env.
 
-# Code panel (29 seats): source-touching PRs. The coverage-auditor is a MANDATORY
-# seat (every builder/fixer gauntlet runs the code panel), but it is COST-GATED at
-# dispatch: its co-located seat-gate runs a deterministic c8 coverage pre-pass and
-# only spends a `claude -p` when the change has uncovered new lines (see
-# seat-gate-coverage-auditor.sh and the seat_review gate below).
+# Code panel (30 seats): source-touching PRs. The coverage-auditor and the
+# orthographer are MANDATORY seats (every builder/fixer gauntlet runs the code
+# panel), but both are COST-GATED at dispatch: each ships a co-located seat-gate
+# that runs a deterministic pre-pass (c8 coverage of new lines; grep for British
+# spellings) and only spends a `claude -p` when there is something to judge (see
+# seat-gate-coverage-auditor.sh, seat-gate-orthographer.sh, and the seat_review
+# gate below).
 : "${GARDEN_CODE_SEATS:=assessor typist stylist packager archivist prover curator \
 migrator locksmith warden saboteur breaker purist spec-keeper wire-watcher \
 engine-realist integrator duality-auditor benchmarker changeset-auditor surfacer scribe pruner \
-gateway corner-prober fast-checker releaser transplanter coverage-auditor}"
+gateway corner-prober fast-checker releaser transplanter coverage-auditor orthographer}"
 
-# Design panel (7 seats) — design-only PRs (paths under designs/).
-: "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice}"
+# Design panel (8 seats) — design-only PRs (paths under designs/). The orthographer
+# sits here too ("all documents", PR #75); cost-gated, so a design with no British
+# spelling costs zero claude -p.
+: "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice orthographer}"
 
 # --- stage: sense the panel kind from the diff ------------------------------
 # Design panel iff there is at least one change AND every changed path is under a
@@ -224,6 +228,94 @@ emit_panel_record() {
 }
 # shellcheck disable=SC2154   # rc IS assigned (rc=$?) inside the trap string
 trap 'rc=$?; emit_panel_record || true; exit $rc' EXIT
+
+# --- SINGLE-ROUND RESUME: reuse a durable panel-run record for THIS head -----
+# The staged gauntlet's panel stage is agent-supervised: the gardener runs this
+# script (a 29-seat fan-out that can take 20-45+ minutes) and then posts the
+# aggregate as a `gh pr review`. If the gardener dies AFTER the seats aggregated
+# and emit_panel_record pushed the durable `panel-runs/<slug>/<run-id>.md` record
+# but BEFORE the review posted (a mid-post GitHub rate-limit, an exit-0-unsatisfying
+# cut, a reap), the stage requeues — and a fresh claim re-runs the ENTIRE 29-seat
+# panel from scratch, re-spending ~45 min of `claude -p`, only to risk dying at the
+# same post step again. That is the non-convergent reap loop this block breaks
+# (grounding: endojs/endo-but-for-bots#1113 panel round 2, reaped 4x with a full
+# 29-seat verdict already recorded at panel-runs/endojs-endo-but-for-bots-1113/
+# f9a07b3dee97.md but no review ever posted).
+#
+# RESUME CONTRACT (single-round mode only; classic mode is untouched): before the
+# fan-out, look in the durable panel-runs store for a record whose LAST round's
+# head sha equals the CURRENT worktree HEAD. When one is found, DO NOT re-run the
+# seats — reconstruct a review-ready aggregate into the rundir from the record's
+# recorded disposition + must-fix titles, print the same single-round terminal
+# contract, and exit 0. The supervising gardener then only has to (re)post the
+# review, the cheap idempotent-retryable step.
+#
+# FAIL-OPEN, deliberately narrow: resume fires ONLY on an EXACT head match with a
+# parseable disposition. A missing store, a stale clone, a moved head, or an
+# unparseable record all fall through to the normal panel — worst case is the
+# pre-existing recompute, never a wrong verdict. The record's must-fix titles are
+# LLM-authored text ABOUT a third-party diff: they are DATA, written to a file for
+# the gardener to post, never interpolated into a prompt as instruction.
+# Disable with GARDEN_PANEL_RESUME=0.
+resume_slug() { printf '%s' "${1:-}" | tr -c 'A-Za-z0-9._-' '-'; }
+
+maybe_resume_single_round() {
+  [ "${GARDEN_PANEL_SINGLE_ROUND:-0}" = 1 ] || return 1
+  [ "${GARDEN_PANEL_RESUME:-1}" = 1 ] || return 1
+  local store slug dir head hsha rec best="" best_mtime=0 disp
+  store="${GARDEN_PANEL_RECORD_STORE:-${GARDEN_PRODUCER_CLONE:-${GARDEN_STATE:-$GARDEN_ROOT/.garden-state}/producer/journal}/panel-runs}"
+  [ -d "$store" ] || return 1
+  head="$(git -C "$wt" rev-parse HEAD 2>/dev/null | tr -dc 'A-Za-z0-9')"
+  [ -n "$head" ] || return 1
+  hsha="${head:0:8}"
+  slug="$(resume_slug "$PANEL_RECORD_REPO-$pr")"
+  dir="$store/$slug"
+  [ -d "$dir" ] || return 1
+  # Pick the most-recently-written record whose LAST `## Round N — head ...` line
+  # names the current head. A single-round stage record has exactly one round, but
+  # matching the LAST round header keeps this correct for a multi-round classic
+  # record that happens to share the store.
+  for rec in "$dir"/*.md; do
+    [ -e "$rec" ] || continue
+    local rec_head
+    rec_head="$(grep -oE '^## Round [0-9]+ — head `[0-9a-f]+`' "$rec" 2>/dev/null \
+      | tail -1 | grep -oE '`[0-9a-f]+`' | tr -d '`')"
+    [ -n "$rec_head" ] || continue
+    [ "$rec_head" = "$hsha" ] || continue
+    local m; m="$(stat -c %Y "$rec" 2>/dev/null || echo 0)"
+    if [ "$m" -ge "$best_mtime" ]; then best="$rec"; best_mtime="$m"; fi
+  done
+  [ -n "$best" ] || return 1
+  disp="$(sed -n 's/^disposition:[[:space:]]*//p' "$best" 2>/dev/null | head -1 \
+    | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
+  case "$disp" in must-fix|passed|pass) ;; *) return 1 ;; esac
+  # Reconstruct a review-ready aggregate for the gardener's post step. The record's
+  # "must-fix items (N):" bullet list is the recovered content; the header names the
+  # provenance so a human reading the posted review knows it was resumed.
+  {
+    printf '### resumed panel verdict (from durable record %s)\n\n' "$(basename "$best" .md)"
+    printf 'This aggregate was reconstructed from the recorded panel run for head `%s`\n' "$hsha"
+    printf 'because the seats had already run; the gardener re-posts it without re-fanning.\n\n'
+    # Recover the matched (last) round's `must-fix items (N):` line + its bullets:
+    # buffer the whole record and replay from the LAST such header to EOF.
+    awk '/^must-fix items \(/{start=NR} {a[NR]=$0} END{if(start)for(i=start;i<=NR;i++)print a[i]}' "$best" 2>/dev/null || true
+  } > "$GARDEN_PANEL_RUNDIR/round-1.md" 2>/dev/null || return 1
+  # Do NOT re-emit a degenerate record from the EXIT trap (this run dispatched no
+  # seats and has no per-round head file; a re-emit would key a bogus run-id).
+  PANEL_RECORD_WRITER=":"
+  # The terminal line MUST end in the BARE disposition token (`pass`/`must-fix`) —
+  # the same last-token contract the classic single-round exit and the gauntlet's
+  # panel-stage checklist read. The provenance note is a SEPARATE preceding line so
+  # it never pollutes the last token.
+  echo "panel #$pr: $panel_kind single-round — RESUMED from durable record $(basename "$best" .md) (seats not re-run)" >&2
+  case "$disp" in
+    must-fix) PANEL_DISPOSITION="must-fix"; echo "panel #$pr: $panel_kind single-round — must-fix" ;;
+    *)        PANEL_DISPOSITION="passed";   echo "panel #$pr: $panel_kind single-round — pass" ;;
+  esac
+  return 0
+}
+
+if maybe_resume_single_round; then exit 0; fi
 
 # --- DECISION HOOK: a single juror seat's review ----------------------------
 # Shells one `claude -p` per seat, briefing it with the seat's AGENT.md and the

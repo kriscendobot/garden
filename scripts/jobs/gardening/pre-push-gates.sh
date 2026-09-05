@@ -48,13 +48,82 @@ if [ -n "$base_ref" ]; then
   export PRE_PUSH_BASE_REF="$base_ref"
 fi
 
-if [ -n "${GARDEN_YARN:-}" ]; then
-  yarn_command="$GARDEN_YARN"
-elif command -v yarn >/dev/null 2>&1; then
-  yarn_command=yarn
-else
-  yarn_command="npx corepack yarn"
-fi
+declared_package_manager() {
+  local specification=""
+  [ -f "$project_root/package.json" ] || return 1
+  if command -v jq >/dev/null 2>&1; then
+    specification=$(jq -r '.packageManager // empty' \
+      "$project_root/package.json" 2>/dev/null) || return 1
+  else
+    specification=$(sed -nE \
+      's/.*"packageManager"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' \
+      "$project_root/package.json" | head -n 1)
+  fi
+  [ -n "$specification" ] || return 1
+  printf '%s\n' "${specification%%@*}"
+}
+
+select_package_runner() {
+  # GARDEN_YARN is retained as the test/escape hatch used by older callers.
+  if [ -n "${GARDEN_YARN:-}" ]; then
+    package_manager=yarn
+    package_runner="$GARDEN_YARN"
+    return
+  fi
+
+  package_manager="${GARDEN_PACKAGE_MANAGER:-}"
+  [ -n "$package_manager" ] \
+    || package_manager=$(declared_package_manager || true)
+  if [ -z "$package_manager" ]; then
+    if [ -f "$project_root/yarn.lock" ]; then
+      package_manager=yarn
+    elif [ -f "$project_root/pnpm-lock.yaml" ]; then
+      package_manager=pnpm
+    elif [ -f "$project_root/package-lock.json" ] \
+      || [ -f "$project_root/npm-shrinkwrap.json" ]; then
+      package_manager=npm
+    else
+      # Preserve the historical default for projects without a declaration or
+      # lockfile. New npm/pnpm projects should declare packageManager.
+      package_manager=yarn
+    fi
+  fi
+
+  if [ -n "${GARDEN_PACKAGE_RUNNER:-}" ]; then
+    package_runner="$GARDEN_PACKAGE_RUNNER"
+    return
+  fi
+
+  case "$package_manager" in
+    npm)
+      command -v npm >/dev/null 2>&1 || {
+        echo "pre-push-gates: package.json declares npm, but npm is unavailable" >&2
+        exit 2
+      }
+      package_runner=npm
+      ;;
+    yarn|pnpm)
+      if command -v "$package_manager" >/dev/null 2>&1; then
+        package_runner="$package_manager"
+      else
+        package_runner="npx corepack $package_manager"
+      fi
+      ;;
+    bun)
+      command -v bun >/dev/null 2>&1 || {
+        echo "pre-push-gates: package.json declares bun, but bun is unavailable" >&2
+        exit 2
+      }
+      package_runner=bun
+      ;;
+    *)
+      echo "pre-push-gates: unsupported package manager '$package_manager' in package.json" >&2
+      exit 2
+      ;;
+  esac
+}
+
+select_package_runner
 
 has_script() {
   local name="$1"
@@ -95,24 +164,36 @@ run_command_stage() { # run_command_stage <label> <command-string>
   return 0
 }
 
+package_script_command() { # package_script_command <script> [arguments]
+  local script="$1" arguments="${2:-}"
+  if [ -n "$arguments" ] && [ "$package_manager" = npm ]; then
+    printf '%s run %s -- %s\n' "$package_runner" "$script" "$arguments"
+  elif [ -n "$arguments" ]; then
+    printf '%s run %s %s\n' "$package_runner" "$script" "$arguments"
+  else
+    printf '%s run %s\n' "$package_runner" "$script"
+  fi
+}
+
 if [ "$probes_only" -eq 0 ] && [ "$auto_fix" -eq 1 ]; then
   if has_script format; then
-    run_command_stage "yarn format" "$yarn_command run format"
+    run_command_stage "$package_manager format" "$(package_script_command format)"
     git -C "$project_root" add -A
   fi
-  # Prefer a dedicated fix script over appending `--fix` to `lint`: yarn
-  # appends extra args to the END of the script string, so on a chained
+  # Prefer a dedicated fix script over appending `--fix` to `lint`: package
+  # runners append extra args to the END of the script string, so on a chained
   # script (`lint:a && lint:b && lint:sh`) the flag lands on the last leg
   # only — and a leg that does not know `--fix` (shellcheck) hard-fails the
   # stage even though every real linter passed.
   if has_script lint-fix; then
-    run_command_stage "yarn lint-fix" "$yarn_command run lint-fix"
+    run_command_stage "$package_manager lint-fix" "$(package_script_command lint-fix)"
     git -C "$project_root" add -A
   elif has_script lint:fix; then
-    run_command_stage "yarn lint:fix" "$yarn_command run lint:fix"
+    run_command_stage "$package_manager lint:fix" "$(package_script_command lint:fix)"
     git -C "$project_root" add -A
   elif has_script lint; then
-    run_command_stage "yarn lint --fix" "$yarn_command run lint --fix"
+    run_command_stage "$package_manager lint --fix" \
+      "$(package_script_command lint --fix)"
     git -C "$project_root" add -A
   fi
 fi
@@ -136,12 +217,12 @@ done
 if [ "$probes_only" -eq 0 ] && has_script typecheck; then
   output_file="$temporary_directory/stage-$stage_count"
   exit_code=0
-  (cd "$project_root" && bash -c "$yarn_command run typecheck") \
+  (cd "$project_root" && bash -c "$(package_script_command typecheck)") \
     >"$output_file" 2>&1 || exit_code=$?
   # Typecheck is the terminal, non-auto-fixable stage. Reserve exit 2 for it so
   # callers can distinguish it from a deterministic probe finding.
   [ "$exit_code" -eq 0 ] || exit_code=2
-  record_stage "yarn typecheck" "$exit_code" "$output_file"
+  record_stage "$package_manager typecheck" "$exit_code" "$output_file"
 fi
 
 if [ "$failures" -eq 0 ]; then

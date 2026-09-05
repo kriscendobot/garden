@@ -85,6 +85,7 @@ deterministically. `#N` is a pull-request number.
 | **weave #N** | rebase and resolve conflicts |
 | **pin the merge base #N** ★ | repoint the PR's base onto a pinned `llm-<sha>` branch, then rebase the head onto it and resolve conflicts. A stronger op than *rebase*: it changes the **base**, not just the head. The rebase and conflict resolution are implicit in the verb ([frozen-base-branch](skills/frozen-base-branch/SKILL.md), [verify-upstream-state-before-pinning](skills/verify-upstream-state-before-pinning/SKILL.md)) |
 | **retcon #N** ★ | reset and restage the branch per-package, separate `chore: Update yarn.lock` commit; net diff unchanged |
+| **americanize #N** ★ | convert flagged British spellings to the American/Chicago form (a `myrmidon`-tier americanizer running the deterministic apply-then-re-grep loop). Search-gated: posted only when `orthographer-divergence-grep.sh` finds a candidate ([american-english-normalization](skills/american-english-normalization/SKILL.md)) |
 | **refresh #N** ★ | re-sync the branch, regenerate derived artifacts |
 | **shepherd #N** ★ | drive CI back to green |
 | **fix #N** | address review feedback with commits and thread replies |

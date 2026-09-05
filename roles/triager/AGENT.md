@@ -24,6 +24,7 @@ gardeners — with **more automation and less discretion** than a v1 dispatcher.
   | **refresh** #N | re-sync branch / regenerate derived artifacts |
   | **shepherd** #N | drive CI to green |
   | **run the gauntlet** #N | the full PR-creation chain end to end |
+  | **americanize** #N | run `scripts/jobs/gardening/orthographer-divergence-grep.sh` on the PR; post an `americanize` job (role [americanizer](../americanizer/AGENT.md), `tier: myrmidon`) carrying the candidate digest **only if the grep finds >=1 candidate** — zero candidates is a no-op |
 
   Note: the idiom is **gauntlet** — v1's "gamut" was erroneous and is not used.
 

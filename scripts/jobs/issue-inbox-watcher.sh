@@ -105,6 +105,11 @@ export GARDEN_TAG="issue-inbox"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
+# A sibling watcher already proved GitHub's API transiently unreadable this window.
+# Do no API work and emit no per-repo log line; the detector's single warning owns it.
+# (Shared host-wide across every gh-api watcher — see api_cooldown_active in common.sh.)
+api_cooldown_active && exit 0
+
 VERIFY="$GARDEN_ISSUE_VERIFY_CLONE"
 
 # --- shared VERIFY-clone fetch (per-tick latency reduction) -----------------
@@ -483,7 +488,9 @@ if [ "$src_rc" -ne 0 ]; then
     exit 0
   fi
   if is_transient_gh_source_error "$ERRF"; then
-    log "WARN: issue source hit a transient gh-api blip (5xx/HTML/rate-limit) — skipping tick (never guess)"
+    if start_api_cooldown "issue-inbox:$slug"; then
+      log "WARN: issue source hit a transient gh-api blip (5xx/HTML/rate-limit) — cooling all gh-api watchers for $(_api_cooldown_secs)s (never guess)"
+    fi
     exit 0
   fi
   die "issue source failed for $REPO (rc=$src_rc; see source stderr above)"

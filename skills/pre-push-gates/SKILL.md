@@ -1,12 +1,12 @@
 ---
 created: 2026-05-20
-updated: 2026-08-29
+updated: 2026-09-05
 author: gardener
 ---
 
 # Skill: pre-push-gates
 
-The deterministic gate the gardening state machine runs before every push to a PR branch. The gate runs auto-fixers (Prettier, eslint `--fix`), re-stages their effects silently, runs a small set of garden-specific deterministic probes, and runs the non-auto-fixable check (`yarn typecheck`). Auto-fixable findings produce no separate commit and no surface noise; the fix lands in whatever commit was about to be pushed. Non-auto-fixable findings exit non-zero with a one-line per-finding summary the calling step addresses before retrying.
+The deterministic gate the gardening state machine runs before every push to a PR branch. The gate runs the project's package scripts for auto-fixers (Prettier, eslint `--fix`), re-stages their effects silently, runs a small set of garden-specific deterministic probes, and runs the non-auto-fixable `typecheck` script. Auto-fixable findings produce no separate commit and no surface noise; the fix lands in whatever commit was about to be pushed. Non-auto-fixable findings exit non-zero with a one-line per-finding summary the calling step addresses before retrying.
 
 The skill began after a PR (#75) surfaced recurring maintainer complaints that could be checked mechanically. The executable gate now guarantees the format/lint/typecheck stages and the probes that actually ship in its probe directory. Other deterministic-looking conventions remain checklist or panel responsibilities until they acquire an executable probe; the inventory below is authoritative.
 
@@ -40,30 +40,40 @@ The gate is **not** an orchestrator concern. The liaison and the panel do not ru
 
 Each stage's exit code is captured; the script exits with the highest non-zero code at the end. Auto-fixable stages do not contribute to the exit code unless their fixer itself fails.
 
-### 1. Auto-fix stage: `yarn format`
+### 1. Package-manager selection
+
+The driver reads the root `package.json` `packageManager` declaration and uses
+that runner for every project-script stage. It supports npm, Yarn, pnpm, and Bun.
+When the declaration is absent it detects Yarn, pnpm, or npm from the root
+lockfile, then retains Yarn as the compatibility default for a project with no
+declaration or lockfile. npm's extra script arguments use the required `--`
+separator (`npm run lint -- --fix`). `GARDEN_PACKAGE_RUNNER` is the general test
+or escape-hatch override; the older `GARDEN_YARN` override remains supported.
+
+### 2. Auto-fix stage: `format`
 
 ```sh
 cd "$PROJECT_ROOT"
 if jq -e '.scripts.format' package.json >/dev/null 2>&1; then
-  yarn run format
+  "$PACKAGE_RUNNER" run format
   git add -A   # re-stage whatever yarn format changed
 fi
 ```
 
 A project without a `format` script in its `package.json` skips this stage. The garden's primary repos (`endojs/endo-but-for-bots`, `endojs/endo`, `Agoric/agoric-sdk`) all carry the script.
 
-### 2. Auto-fix stage: `yarn lint --fix`
+### 3. Auto-fix stage: `lint --fix`
 
 ```sh
 if jq -e '.scripts.lint' package.json >/dev/null 2>&1; then
-  yarn run lint --fix
+  "$PACKAGE_RUNNER" run lint --fix # npm uses: npm run lint -- --fix
   git add -A
 fi
 ```
 
 If a project's `lint` script does not accept `--fix`, the stage fails loudly. Such a project can invoke the driver with `--probes-only` after running its own format and lint pipeline.
 
-### 3. Garden-specific deterministic probes
+### 4. Garden-specific deterministic probes
 
 The probes live in `scripts/jobs/gardening/pre-push-gates/probes/<rule>.sh`, one script per rule. Each script reads `<base>...HEAD` when the driver supplies `--base-ref`; otherwise it reads the staged diff, falling back to the unstaged working-tree diff when nothing is staged. It prints `pass` or `fail: <reason>` and exits 0 or 1. The driver discovers every executable `probes/*.sh`, so adding a probe requires no driver edit.
 
@@ -89,17 +99,17 @@ One probe doubles as an auto-fixer: `typist-friendly-code-points.sh --fix` runs 
 
 A probe's first finding is enough to fail it; the driver runs every probe so the final report enumerates all findings rather than just the first.
 
-### 4. Non-auto-fixable stage: `yarn typecheck`
+### 5. Non-auto-fixable stage: `typecheck`
 
 ```sh
 if jq -e '.scripts.typecheck' package.json >/dev/null 2>&1; then
-  yarn typecheck
+  "$PACKAGE_RUNNER" run typecheck
 fi
 ```
 
 A typecheck failure is the gate's terminal failure. The calling step addresses the underlying type error and re-runs.
 
-### 5. Summary
+### 6. Summary
 
 ```
 yarn format     pass (auto-fixed 3 files; re-staged)
@@ -163,3 +173,4 @@ The driver does not need to know about the new probe; it walks `probes/*.sh` at 
 - _2026-08-05_: mechanized the consolidated retrospective's two recurring findings. `prefer-endo-primitives` now fails on the narrow hand-roll signatures observed across six misses, names the corresponding `@endo/{sha256,bytes,base64,hex,ascii,errors}` package, and abstains when the file already imports that provider; the purist panel hint carries a broader matching catalog, including Rust base64, so ambiguous cross-language cases receive review instead of a hard failure. `spell-out-identifiers` now includes `addr` -> `address`, closing the PR 684 recurrence; its existing `idx` entry covers PR 806's `pendingIdx`. Regression coverage: `scripts/jobs/test/review-convention-probes-test.sh`.
 - _2026-07-11_: added `typist-friendly-code-points` probe (`scripts/jobs/gardening/pre-push-gates/probes/typist-friendly-code-points.sh`), the gate tier of the standing instruction from kriskowal's review on `endojs/endo-but-for-bots#124` (`r3548802060`): "Avoid code points that are difficult for a typist to maintain." First probe with a paired `--fix` mode: the auto-fix stage rewrites the mechanical set (arrows, ellipsis, curly quotes, comparison signs, multiplication/minus signs, no-break space) across each changed `.md` file and re-stages; probe mode then fails only on the judgment-only glyphs (`•`, check/ballot marks) plus anything `--fix` did not run on. Skips fenced blocks and glyph-quoting inline spans; treats a glyph inside a longer span (a signature like `stmt.get(...) -> object`) as content. Verified: fires on the precipitating `designs/daemon-endor-pet-store-sqlite.md` (`slot-machine` branch, U+2192 arrows in both prose and signature spans) and `--fix` clears all five arrows while leaving the em dash to [em-dash-style]; abstains on glyph-quoting spans, fences, vendored `references/`, and `typist-code-points-exempt`-marked files. Rule text and seat wiring: [typist-friendly-code-points](../typist-friendly-code-points/SKILL.md) (typist + copyeditor seats, pedant layered rules).
 - _2026-06-25_: widened `no-ascii-banners` to also catch banner horizontal-rule comments (a comment line whose body is four or more repeated `-=*~_` characters, e.g. `// ---------`). Provenance: PR `endojs/endo-but-for-bots#503` review `4573212313`, where the maintainer flagged a `// ----` banner in a test comment and asked the garden to anticipate the feedback going forward. The reconstructed passable-byte-arrays PR carried roughly forty such rules across six files; the old box-only definition missed them. The rule now has a single citeable home at [no-comment-banners](../no-comment-banners/SKILL.md), which the `archivist` (code panel) and `pedant` (design panel) seats reference as the review backstop. When the executable probe is implemented, broaden its match accordingly: a comment-only line (`//`, `#`, ` * `, or `/* … */`) whose stripped body is `^[-=*~_]{4,}$`.
+- _2026-09-05_: project-script stages select npm, Yarn, pnpm, or Bun from the root `packageManager` declaration, with lockfile detection when it is absent. This removes the need for an agent-created Yarn compatibility shim in npm projects; regression coverage proves npm owns format, lint-fix/lint, and typecheck invocation, including npm's `--` separator for forwarded lint arguments.

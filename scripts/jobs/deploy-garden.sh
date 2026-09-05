@@ -99,7 +99,7 @@ export GARDEN_TAG="deploy-garden"
 # timing, so they belong to the full suite rather than this deploy-window tier.
 # Keep the narrowing explicit; a test-only override lets deploy-garden-test.sh
 # supply its tiny hermetic probe without weakening the production default.
-: "${GARDEN_DEPLOY_TEST_SUITES:=scripts/jobs/test/empty-output-classifier-test.sh scripts/jobs/test/signal-kill-classifier-test.sh scripts/jobs/test/policy-refusal-quarantine-test.sh scripts/jobs/test/codex-policy-refusal-resume-test.sh}"
+: "${GARDEN_DEPLOY_TEST_SUITES:=scripts/jobs/test/empty-output-classifier-test.sh scripts/jobs/test/signal-kill-classifier-test.sh scripts/jobs/test/policy-refusal-quarantine-test.sh scripts/jobs/test/codex-policy-refusal-resume-test.sh scripts/jobs/test/install-units-paused-disable-test.sh}"
 # A gardener already mid-job longer than this (its busy marker's age) is treated as
 # a long job that would not quiesce within the drain budget: the deploy DEFERS
 # rather than pause the fleet over it. Default is half the drain timeout — long

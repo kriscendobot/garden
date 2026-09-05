@@ -255,10 +255,10 @@ if [ -d "$PROJECTS" ]; then
   while IFS= read -r -d '' jsonl; do
     enc="$(basename "$(dirname "$jsonl")")"
     sid="$(basename "$jsonl" .jsonl)"
-    mtime="$(stat -c %Y "$jsonl" 2>/dev/null || echo 0)"
+    mtime="$(stat -c %Y "$jsonl" 2>/dev/null)" || continue
     # idle gate: skip a session still being written (mtime within the window).
     [ $(( NOW_EPOCH - mtime )) -ge "$IDLE" ] 2>/dev/null || continue
-    raw="$(stat -c %s "$jsonl" 2>/dev/null || echo 0)"
+    raw="$(stat -c %s "$jsonl" 2>/dev/null)" || continue
     key="$enc/$sid"
     # new-or-changed gate: skip if the ledger already has this exact size+mtime.
     if [ "${LEDGER_BYTES[$key]:-}" = "$raw" ] && [ "${LEDGER_MTIME[$key]:-}" = "$mtime" ]; then
@@ -270,7 +270,10 @@ if [ -d "$PROJECTS" ]; then
       *) base="-" ;;
     esac
     redact_in="$jsonl"
-    stage "$enc" "$sid" "$base" "$raw" "$mtime" "" "" < "$redact_in"
+    stage "$enc" "$sid" "$base" "$raw" "$mtime" "" "" < "$redact_in" || {
+      log "WARN: live sweep: $jsonl vanished mid-tick (job completion race); skipping"
+      continue
+    }
     # record the ledger update for AFTER a verified push.
     ST_LEDGERKEY[$((n-1))]="$key"
     ST_LEDGERVAL[$((n-1))]="$(printf '%s\t%s' "$raw" "$mtime")"

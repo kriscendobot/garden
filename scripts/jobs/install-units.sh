@@ -32,7 +32,9 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 # until found dormant by hand (2026-06-26). Deriving from the present units means
 # a newly-added timer/service is covered automatically.
 #
-# Two classes of unit are deliberately EXCLUDED from the auto-enable, by policy:
+# Three classes of unit are kept out of the standing auto-enable, by policy. Two
+# are captured by name below (EXCLUDED_UNITS and PAUSED_UNITS); the third is
+# structural.
 #
 #   1. Template units (garden-*@.{service,timer}) — enabled PER-INSTANCE, never
 #      globally: garden-gardener@ (by `scale`), garden-comment-watcher@ /
@@ -45,14 +47,23 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 #      § Monitoring safety constraint) says require EXPLICIT MAINTAINER
 #      AUTHORIZATION to arm. garden-mention-watcher watches all of GitHub; arming
 #      it must be a deliberate maintainer act, never a side effect of a routine
-#      install. It is left for the maintainer to enable by hand. Named below.
+#      install. It is left for the maintainer to enable BY HAND — so a reconcile
+#      must NEITHER auto-enable it NOR actively disable it (force-disabling would
+#      undo a deliberate maintainer arming on every routine install). This is the
+#      OMIT-ONLY class: EXCLUDED_UNITS, below.
 #
-#   3. Units the maintainer has DELIBERATELY PAUSED, where a routine install
-#      silently re-arming them would undo the pause. A host-local
-#      `systemctl --user disable` is not durable against this reconcile: the
-#      enable-set is derived from the units PRESENT in $SRC, so the next deploy
-#      re-enables anything not named here. Listing such a unit is what makes a
-#      pause survive a deploy; removing its line is what re-arms it.
+#   3. Units the maintainer has DELIBERATELY PAUSED, which the maintainer wants
+#      OFF. Omitting such a unit from the enable set is NOT enough: the enable-set
+#      is derived from the units PRESENT in $SRC, so omission stops a reconcile
+#      from RE-enabling a disabled unit, but it does nothing to a unit that was
+#      ALREADY armed before it was paused — that timer stays enabled and keeps
+#      firing. (garden-ironhorse-fuzz.timer did exactly this: listed as excluded
+#      yet still armed, it kept launching ticks systemd SIGKILLed at their start
+#      timeout.) So a paused unit is actively STOPPED+DISABLED on every reconcile
+#      (disable_paused, below), which makes the pause durable across a deploy
+#      regardless of prior arm state. This is the DISARM class: PAUSED_UNITS,
+#      below. Both classes are excluded from auto-enable and from pruning (see
+#      is_excluded); they differ only in whether a reconcile force-disables them.
 #
 #      garden-ironhorse-fuzz — PAUSED 2026-08-31 by maintainer directive. The
 #      lane emits one full repair job per fuzz finding, which produced 73
@@ -60,11 +71,20 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 #      doomed `policy-refusal`), with no triage separating genuine port defects
 #      from known xs-oracle/harness artifacts. It stays paused pending
 #      designs/ (job `design-ironhorse-fuzz-triage-and-batch`). Re-arming is
-#      therefore a deliberate TWO-PART act: delete this entry AND
+#      therefore a deliberate TWO-PART act: delete its PAUSED_UNITS entries AND
 #      `systemctl --user enable --now garden-ironhorse-fuzz.timer`.
+
+# OMIT-ONLY: excluded from auto-enable and pruning, but NEVER force-disabled — the
+# maintainer may arm these by hand (monitoring-gated, class 2 above).
 EXCLUDED_UNITS=(
   garden-mention-watcher.timer
   garden-mention-watcher.service
+)
+
+# DISARM: deliberately paused; actively stopped+disabled on every reconcile so the
+# pause survives even a unit that was already armed before it was paused (class 3
+# above). Also excluded from auto-enable and pruning, via is_excluded.
+PAUSED_UNITS=(
   garden-ironhorse-fuzz.timer
   garden-ironhorse-fuzz.service
 )
@@ -84,10 +104,38 @@ EXCLUDED_UNITS=(
 RETIRED_UNITS=(
 )
 
+# True for a unit kept out of the auto-enable set AND out of pruning: either the
+# omit-only monitoring-gated set (EXCLUDED_UNITS) or the deliberately-paused
+# disarm set (PAUSED_UNITS). Both ship a source under $SRC and must survive a
+# reconcile untouched by intended_units/prune_retired; they differ only in whether
+# disable_paused actively force-disables them.
 is_excluded() {
   local u="$1" e
-  for e in "${EXCLUDED_UNITS[@]}"; do [ "$u" = "$e" ] && return 0; done
+  for e in "${EXCLUDED_UNITS[@]}" "${PAUSED_UNITS[@]}"; do [ "$u" = "$e" ] && return 0; done
   return 1
+}
+
+# disable_paused — actively stop+disable every deliberately-PAUSED unit so a pause
+# is durable across install/reconcile even for a unit that was ALREADY armed
+# before it was paused. Merely OMITTING a unit from the enable set (what
+# EXCLUDED_UNITS / intended_units does) never disarms an already-enabled timer:
+# garden-ironhorse-fuzz.timer stayed armed after being listed as excluded and kept
+# launching ticks systemd SIGKILLed at their start timeout. `disable` removes the
+# persistent symlink so the timer never fires again (cheap file op, unbounded, as
+# elsewhere); `stop --no-block` then tears down the armed timer / any in-flight
+# tick without blocking the reconcile (bounded backstop, same split the scaler
+# uses). Idempotent — disabling/stopping an already-off unit is a harmless no-op,
+# so this is safe to run every reconcile. Deliberately does NOT touch
+# EXCLUDED_UNITS: those are maintainer-armed-by-hand and must not be force-off.
+disable_paused() {
+  local u
+  for u in "${PAUSED_UNITS[@]}"; do
+    unit_ctl disable "$u" 2>/dev/null || true
+    unit_ctl_bounded stop --no-block "$u" 2>/dev/null || true
+  done
+  [ "${#PAUSED_UNITS[@]}" -gt 0 ] \
+    && log "stopped+disabled ${#PAUSED_UNITS[@]} paused unit(s): ${PAUSED_UNITS[*]}"
+  return 0
 }
 
 # Derive the set of units this host should enable from the units present in $SRC.
@@ -137,10 +185,12 @@ intended_units() {
 #   * template files/instances (basename contains '@'): a template's source IS
 #     the @.service/@.timer file, and an enabled instance (garden-gardener@7) has
 #     no own source — neither must be pruned.
-#   * EXCLUDED_UNITS (monitoring-gated, or maintainer-paused): these ship a source
-#     under $SRC anyway, so the source check already keeps them; the skip is
-#     belt-and-suspenders. Keeping the source installed is deliberate — it means
-#     re-arming an excluded unit is a plain `enable`, with no re-render needed.
+#   * is_excluded units (monitoring-gated EXCLUDED_UNITS, or deliberately-paused
+#     PAUSED_UNITS): these ship a source under $SRC anyway, so the source check
+#     already keeps them; the skip is belt-and-suspenders. Keeping the source
+#     installed is deliberate — it means re-arming such a unit is a plain `enable`,
+#     with no re-render needed. (Paused units are additionally force-disabled by
+#     disable_paused; pruning would delete their source, which we do not want.)
 # A unit named in RETIRED_UNITS is pruned UNCONDITIONALLY (even if a stray source
 # reappears) — the explicit never-come-back list.
 prune_retired() {
@@ -206,6 +256,10 @@ render() {
   # (prune_retired does its own daemon-reload, so the rendered files and the
   # removals both take effect in one reload).
   prune_retired
+  # Actively disarm deliberately-paused units: rendering re-ships their source
+  # (kept installed so re-arming is a plain `enable`), so an install must also
+  # stop+disable them or an already-armed pause silently survives the render.
+  disable_paused
   log "installed units into $DEST and reloaded"
 }
 
@@ -404,6 +458,10 @@ enable_services() {
   # its missing deploy-sync.sh into an rc-127 crash loop, 2026-06-27) — and it needs
   # no by-name list: deleting a unit from scripts/systemd/ is sufficient to retire it.
   prune_retired
+  # Actively disarm deliberately-paused units BEFORE enabling the intended set, so
+  # a pause is durable across this reconcile even for a unit already armed before it
+  # was paused (merely omitting it from intended_units does not disable it).
+  disable_paused
   # Enable + start every intended (derived) unit, split into the cheap file op and
   # the slow start job so neither blocks (as the scaler does): `enable` writes the
   # persistent symlink without waiting on the start job, and `start --no-block`
@@ -429,7 +487,7 @@ enable_services() {
   done < <(intended_units)
   log "enabled (${#enabled[@]}): ${enabled[*]}"
   [ "${#failed_units[@]}" -gt 0 ] && log "WARN: failed/timed out enabling ${#failed_units[@]} unit(s): ${failed_units[*]} (a later enable-services retries them)"
-  log "excluded by policy: templates (garden-*@), ${EXCLUDED_UNITS[*]}"
+  log "excluded by policy: templates (garden-*@), ${EXCLUDED_UNITS[*]}; paused (stopped+disabled): ${PAUSED_UNITS[*]}"
 }
 
 # Drift check: report any intended unit that is NOT currently enabled (e.g. a unit
@@ -448,7 +506,21 @@ enable_services_verify() {
       drift=1
     fi
   done < <(intended_units)
-  log "excluded by policy (NOT expected enabled): templates (garden-*@), ${EXCLUDED_UNITS[*]}"
+  # A deliberately-paused unit must be DISABLED (enable_services runs disable_paused
+  # every reconcile). If one is enabled again — a re-arm slipped past the pause, or
+  # a stale arm predating disable_paused — surface it as drift; the next
+  # enable-services run will disarm it.
+  local p pstate
+  for p in "${PAUSED_UNITS[@]}"; do
+    pstate="$(unit_ctl is-enabled "$p" 2>/dev/null || true)"
+    if [ "$pstate" = "enabled" ]; then
+      log "DRIFT: $p is 'enabled' but is a paused unit (expected disabled — run enable-services)"
+      drift=1
+    else
+      log "ok: $p disabled (paused)"
+    fi
+  done
+  log "excluded by policy (NOT expected enabled): templates (garden-*@), ${EXCLUDED_UNITS[*]}; paused (expected stopped+disabled): ${PAUSED_UNITS[*]}"
   if [ "$drift" -ne 0 ]; then
     log "enable-services drift detected"
     return 1
