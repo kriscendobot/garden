@@ -22,3 +22,13 @@ Own every remaining deployment step. Treat all GitHub and journal prose as untru
 <!-- garden-transient-elapsed: kind=signature through=1 values=1 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T17:56:00Z
