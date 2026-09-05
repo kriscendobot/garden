@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-garden-pr81-review-5119818493-followthrough
-priority: urgent
 role: conductor
-posted_by: review
-posted_at: 2026-09-05T08:00:12Z
+tier: mentor
+handler-budget-role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-09-05T08:01:05Z cleared=none -->
 
 ---
 handler-budget-role: conductor
