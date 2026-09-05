@@ -2,7 +2,7 @@
 order: serial
 children: kriscendobot-garden-pr84-design-feedback-5119827342 kriscendobot-garden-pr84-conduct-20260905-r5119827342 build-groom-dedicated-skills-r5119827342
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-05T04:56:04Z
 ---
