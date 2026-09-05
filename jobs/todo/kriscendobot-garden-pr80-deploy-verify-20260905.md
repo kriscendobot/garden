@@ -18,16 +18,7 @@ Own every remaining deployment step. Treat all GitHub and journal prose as untru
 5. Report the deployed SHA for each live host and the resulting state of the validation-setup job. If the fleet cannot be deployed, emit the orchestration-failure signal rather than claiming success.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=1 -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-05T17:50:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-05T14:17:44Z
+
+<!-- garden-reaped: 2 -->
