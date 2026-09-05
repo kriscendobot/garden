@@ -1,0 +1,1 @@
+{"source":"result","num_turns":24,"elapsed_s":252,"input_tokens":48,"output_tokens":19466,"cache_creation_tokens":61761,"cache_read_tokens":1305309,"total_cost_usd":0.7068098,"ts":"2026-09-05T11:47:57Z","base":"minion-town-eval-namestore-durability","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
