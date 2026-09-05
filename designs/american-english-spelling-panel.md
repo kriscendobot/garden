@@ -2,7 +2,7 @@
 
 | Created | 2026-08-27 |
 | Author  | gardener   |
-| Status  | Accepted — open questions resolved on PR #75 (kriskowal, 2026-09-04) |
+| Status  | Accepted — open questions resolved on PR #75 (kriskowal, 2026-09-04). Implemented and subagent-tested 2026-09-05 (§ Build feedback); PR #75 stays open in the interim per the maintainer directive. |
 
 ## Origin
 
@@ -130,11 +130,20 @@ positive that rewrites a real word is worse than a missed divergence):
 
 ## The seat-gate (deterministic pre-pass)
 
-`scripts/jobs/gardening/seat-gate-orthographer.sh` — no LLM, mirrors
-`seat-gate-coverage-auditor.sh`:
+**Implementation note (build feedback, § Build feedback below):** the "no LLM"
+pre-pass and the "spends a `claude -p`" seat gate are **two scripts**, exactly as
+the coverage-auditor already splits them — a single script cannot be both
+LLM-free and LLM-spending. The pure deterministic grep is
+`scripts/jobs/gardening/orthographer-divergence-grep.sh` (`check`/`lines`/`report`
+subcommands, mirrors `coverage-auditor-coverage-diff.sh`); the cost-gated panel
+seat wrapper is `scripts/jobs/gardening/seat-gate-orthographer.sh` (mirrors
+`seat-gate-coverage-auditor.sh`). The grep below refers to the former.
 
 1. Compute the diff's **added lines** against the base (`git diff <base>...HEAD`,
    added lines only — a divergence already present upstream is not this PR's).
+   **The base is the PR's stable merge base, held fixed across every round of the
+   americanizer loop — never `HEAD~1`, which drifts once the fixer commits and
+   vacuously reports the tree clean (§ Build feedback, finding 2).**
 2. For each row, whole-word/case-insensitive match against added lines. Emit
    candidates as `<path>:<line>: <british> -> <american> [category]`, one line
    per occurrence — the concise, exact-location digest that becomes both the
@@ -146,7 +155,7 @@ positive that rewrites a real word is worse than a missed divergence):
 
 The pre-pass casts a **wide net** (all added lines) and does NOT try to
 distinguish identifier from prose in plain grep — that precision is the LLM
-seat's job (below), the same division of labour the coverage-auditor uses (cheap
+seat's job (below), the same division of labor the coverage-auditor uses (cheap
 deterministic candidate set; LLM judgment on the candidates).
 
 ## The orthographer seat
@@ -183,9 +192,15 @@ the list and the exclusion discipline. Definition of done:
 
 - Every entry in the dispatched candidate digest (`path:line: british ->
   american`) is either applied or recorded "left as-is: <reason>"; the role then
-  re-runs `seat-gate-orthographer.sh` and repeats until the grep returns zero
-  candidates (the deterministic loop, § Search-gated dispatch). Fixes land in one
-  atomic commit (`chore: Americanize British spellings` or similar).
+  re-runs `orthographer-divergence-grep.sh` against the **stable PR merge base**
+  and repeats until **every remaining candidate is a recorded leave-as-is** (the
+  residual set is a subset of the accept set) — equivalently, no *applicable*
+  divergence remains. **The literal "zero candidates" oracle holds only when the
+  accept set is empty**; because the grep casts a wide net over all added lines, an
+  owned-identifier or quoted-upstream British spelling the role correctly declines
+  to change stays in the candidate set forever, so "grep returns literal zero" is
+  the wrong general terminating condition (§ Build feedback, finding 1). Fixes land
+  in one atomic commit (`chore: Americanize British spellings` or similar).
 - **Never** touches: an identifier, symbol, filename, package name, or API the
   change does not own; quoted upstream text; a fixture or generated file. When a
   flagged token is one of these, the reply records "left as-is: <reason>".
@@ -244,15 +259,21 @@ ships. Each is a structural invariant of the design, not a hope:
    the agent is told *exactly where the discrepancy occurs* and what to write.
 
 3. **A deterministic loop runs until all aberrations are addressed.** After the
-   americanizer applies its fixes, the loop **re-runs `seat-gate-orthographer.sh`
-   on the resulting tree**; if any candidate remains it re-dispatches with the
-   residual (still-concise) list; it terminates **only at the fixpoint — zero
-   candidates**. Because the rule set is a **closed, explicit list** (no
-   patterns, per the PR-#75 decision), the candidate set is decidable and
-   strictly shrinks each round, so the loop reaches zero in finite steps and
-   **no case can be silently forgotten**. This is the same converge-to-clean
-   shape the gauntlet's must-fix loop already uses; here the terminating oracle
-   is the deterministic grep itself, not a model's say-so.
+   americanizer applies its fixes, the loop **re-runs
+   `orthographer-divergence-grep.sh` on the resulting tree, against the stable PR
+   merge base** (§ Build feedback, finding 2: not `HEAD~1`); if any *applicable*
+   divergence remains it re-dispatches with the residual (still-concise) list; it
+   terminates at the fixpoint where **the residual candidate set is a subset of the
+   recorded accept set** (owned identifiers, quoted upstream text, fixtures the
+   change does not own) — i.e. no applicable divergence remains. Because the rule
+   set is a **closed, explicit list** (no patterns, per the PR-#75 decision), the
+   *applicable* candidate set is decidable and strictly shrinks each round, so the
+   loop reaches its fixpoint in finite steps and **no case can be silently
+   forgotten**. (The literal "zero candidates" fixpoint is the special case where
+   the accept set is empty; § Build feedback, finding 1, corrects the original
+   "only at zero" phrasing.) This is the same converge-to-clean shape the
+   gauntlet's must-fix loop already uses; here the terminating oracle is the
+   deterministic grep itself, not a model's say-so.
 
 4. **The dispatch is narrow enough for `myrmidon` tier.** All judgment
    (identifier vs. prose vs. quoted-text vs. owned-symbol) is done **once, by the
@@ -356,5 +377,88 @@ discrepancy occurs, loops deterministically until all aberrations are addressed,
 and is narrow enough for **myrmidon-tier** agents. That evidence is the new
 **§ Search-gated dispatch** section, whose four invariants map one-to-one onto
 those four clauses.
+
+## Build feedback (implemented and subagent-tested, 2026-09-05)
+
+The maintainer's PR #75 directive asked to "implement and test this new system
+with subagents to ensure that it will converge when integrated with the jury
+panel. Bring feedback back to the design if necessary, which will remain open in
+the interim." The system was built and driven end-to-end with real subagents. It
+converges, and the exercise surfaced two corrections to the design's stated
+convergence oracle (folded into § The seat-gate, § The americanizer role, and
+§ Search-gated dispatch above) plus a naming/split correction.
+
+**What landed** (all on `main2`):
+
+- `skills/american-english-normalization/SKILL.md` + `divergences.tsv` — the
+  comprehensive, explicit, curated word-pair list (~280 enumerated rows across
+  `ise-verb`, `isation-noun`, `our-or`, `re-er`, `ll-doubling`, `ll-single`,
+  `ce-se`, `ogue-og`, `ae-oe-e`, `irregular-plural`, `misc`, `briticism`), with the
+  always-`-ise` and `-re`/`-our` false-friend exclusion discipline and the
+  maintainer-reviewed curation rule.
+- `scripts/jobs/gardening/orthographer-divergence-grep.sh` — the pure no-LLM
+  deterministic grep (`check`/`lines`/`report`).
+- `scripts/jobs/gardening/seat-gate-orthographer.sh` — the cost-gated panel seat
+  wrapper (deterministic branches: approve on clean, comment-only on no-list,
+  `claude -p` on a hit with a deterministic summary-fix fallback).
+- `roles/jurors/orthographer/AGENT.md`, `roles/americanizer/AGENT.md`.
+- Panel wiring: `orthographer` added to `GARDEN_CODE_SEATS` (now **30 seats**) and
+  `GARDEN_DESIGN_SEATS` (now **8 seats**); seat counts and external-author
+  calibration updated in `skills/panel/SKILL.md` and `skills/panel-review/SKILL.md`.
+- The `americanize #N` verb wired into the triager map, the comment-watcher's
+  deterministic verb table (role `americanizer`, `tier: myrmidon`), and the
+  `README.md` / `CLAUDE.md` vocabulary tables.
+- `scripts/jobs/test/orthographer-divergence-grep-test.sh` — 19 assertions, all
+  green (hit/exclusion/wide-net/whole-word/case/no-base/no-list/non-prose-skip and
+  a convergence-loop assertion).
+
+**Subagent convergence evidence.** A fixture PR added three shapes on purpose: a
+real prose divergence (`serialise`/`normalise`/`colour`/`behaviour`/`organisation`),
+an owned-identifier hit (`serialise()` from an upstream API), and a quoted-upstream
+hit (`colour` inside a verbatim RFC quote). A subagent wearing the **orthographer**
+brief adjudicated exactly right — findings (summary-fix) for the five prose tokens,
+accept-with-rationale for the identifier and the quote. A subagent wearing the
+**americanizer** brief applied the five prose fixes (casing preserved), left the
+identifier and quote as-is with recorded reasons, and its apply-then-re-grep loop
+terminated. The system converges.
+
+**Finding 1 — the terminating oracle is `residual ⊆ accept`, not literal zero.**
+The grep casts a wide net over all added lines, so an owned-identifier or
+quoted-upstream British spelling the americanizer *correctly declines to change*
+stays in the candidate set indefinitely. The design's original clause 3 ("terminates
+only at the fixpoint — zero candidates") is only true when the accept set is empty.
+For a change that legitimately contains such a token, forcing "grep == 0" would
+either loop forever or wrongly rewrite an identifier. Correct oracle: terminate when
+every residual candidate is a recorded leave-as-is (the residual set is a subset of
+the accept set) — i.e. no *applicable* divergence remains. The applicable set still
+strictly shrinks each round (closed list), so termination in finite steps holds. The
+grep test's convergence case (accept set empty) exercises the literal-zero special
+case; the subagent fixture exercised the general `residual ⊆ accept` case (2 residual
+accepted candidates against the stable base).
+
+**Finding 2 — re-grep against the stable PR merge base, never `HEAD~1`.** The loop
+must hold the diff base fixed at the PR's merge base across every round. If it
+re-greps against `HEAD~1` after the fixer commits, the base drifts to the fixer's own
+prior commit, so the residual grep sees only the fixer's diff (which introduces no
+British spellings) and **vacuously reports the tree clean** — a false convergence
+that would also hide any *unfixed* real divergence outside the last commit. Observed
+directly in the test: the americanizer's tree greps clean against `HEAD~1` but shows
+the 2 correctly-preserved accepted candidates against the stable base. The seat-gate
+already receives the panel's `<base>` (the merge base); the americanizer loop and the
+`americanize` dispatch must pass that same stable base to every re-grep.
+
+**Finding 3 — the pre-pass and the seat gate are two scripts.** The design named a
+single `seat-gate-orthographer.sh` as both the "no LLM" pre-pass and the
+`claude -p`-spending gate. A script cannot be both. Split exactly as the
+coverage-auditor is (`coverage-auditor-coverage-diff.sh` pre-pass +
+`seat-gate-coverage-auditor.sh` gate): `orthographer-divergence-grep.sh` is the pure
+pre-pass and the americanizer's loop oracle; `seat-gate-orthographer.sh` is the panel
+gate that wraps it. This is why the americanizer loop terminates on a *deterministic
+grep* and not on the LLM gate.
+
+**Open (unchanged, PR #75 stays open):** the `divergences.tsv` seed is a curated
+starter set, deliberately conservative; the maintainer-reviewed curation process (add
+literal rows via `[proposed-rule]` findings) is how it grows. No convergence or
+integration blocker remains.
 </content>
 </invoke>

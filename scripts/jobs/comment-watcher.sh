@@ -717,7 +717,7 @@ author_is_mention_only() {  # author_is_mention_only <pr-number>
 # gauntlet). OPEN_DIRECTIVE verbs need the gardener to READ the comment to act
 # (refactor/build/continue/…), so they route to attention/review rather than a fixed
 # verb. Both feed the imperative-position detector and the multi-part counter below.
-BRANCH_OP_VERBS="rebase retcon refresh shepherd conduct merge gauntlet"
+BRANCH_OP_VERBS="rebase retcon refresh shepherd conduct merge gauntlet americanize"
 OPEN_DIRECTIVE_VERBS="refactor rebuild build post continue implement reconstruct rewrite revise address resolve incorporate revisit split extract rename remove revert finish complete handle apply"
 
 # rc 0 if <verb> appears in IMPERATIVE (clause-initial) position in <lc-body> — the
@@ -883,7 +883,7 @@ classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VER
   fi
   if [ -z "$detected_verb" ] && { [ -n "$imperative" ] || [ -n "$mentions_bot" ]; }; then
     local v
-    for v in rebase retcon refresh shepherd; do
+    for v in rebase retcon refresh shepherd americanize; do
       if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then detected_verb="$v"; break; fi
     done
     # conduct/merge → the finalization (conductor) path, but ONLY in IMPERATIVE
@@ -1003,6 +1003,7 @@ verb_action() {  # human-readable mapping for the job body
     retcon)   echo "reset + restage per-package, separate 'chore: Update yarn.lock'";;
     refresh)  echo "re-sync branch / regenerate derived artifacts";;
     shepherd) echo "drive CI to green";;
+    americanize) echo "run scripts/jobs/gardening/orthographer-divergence-grep.sh on the PR; if it finds British spellings, americanize them (apply-then-re-grep loop to a zero-candidate fixpoint, leaving identifiers/upstream APIs/quoted text/fixtures as-is); if the grep is clean, complete as a no-op";;
     pinbase)  echo "repoint the PR base onto the pinned llm-<sha> branch, then rebase the head onto it and resolve conflicts (rebase + conflict resolution implicit)";;
     conduct|merge) echo "dispatch the conductor to un-draft (if draft) and merge";;
     gauntlet) echo "run the full PR-creation chain end to end";;
@@ -1021,6 +1022,7 @@ verb_role() {
     rebase)  printf '%s\n' weaver ;;
     pinbase) printf '%s\n' weaver ;;
     retcon)  printf '%s\n' retcon ;;
+    americanize) printf '%s\n' americanizer ;;
     conduct|merge|finalize) printf '%s\n' conductor ;;
     *) printf '%s\n' "" ;;
   esac
@@ -1134,6 +1136,13 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     # attention routing on every requeue (timeout → reap → re-claim → timeout).
     if [ "$verb" = attention ]; then
       printf '%s\n%s\n%s\n\n' '---' 'handler-budget-role: review' '---'
+    elif [ "$verb" = americanize ]; then
+      # The americanizer runs the deterministic apply-then-re-grep loop over a vetted,
+      # fully-enumerated find-and-replace list — zero search, zero judgment left — so it
+      # rides the expedient `myrmidon` tier (skills/model-selection/SKILL.md). The grep
+      # search-gate is enforced by the claiming gardener (which has a project worktree),
+      # so a clean grep is a cheap no-op, never speculative work.
+      printf '%s\n%s\n%s\n%s\n\n' '---' "role: $role" 'tier: myrmidon' '---'
     elif [ -n "$role" ]; then
       printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
     fi
@@ -1158,7 +1167,7 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     # verbs (rebase/retcon/refresh/shepherd/gauntlet/pinbase) are branch operations, not
     # comment-citing edits, so they skip the recheck; everything else gets it.
     case "$verb" in
-      rebase|retcon|refresh|shepherd|gauntlet|pinbase) ;;
+      rebase|retcon|refresh|shepherd|gauntlet|pinbase|americanize) ;;
       *) preflight_instruction "$pr" "$cid" "$author" ;;
     esac
   } > "$out"

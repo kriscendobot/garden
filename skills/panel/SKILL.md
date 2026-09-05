@@ -49,8 +49,8 @@ runnable non-interactively):
 | Variable | Purpose |
 |---|---|
 | `GARDEN_ROOT` / `JURORS_DIR` | where the seat briefs live (`roles/jurors/<seat>/AGENT.md`). |
-| `GARDEN_CODE_SEATS` | the 29-seat code-panel list (override for a reduced panel); includes the cost-gated `coverage-auditor`. |
-| `GARDEN_DESIGN_SEATS` | the 7-seat design-panel list. |
+| `GARDEN_CODE_SEATS` | the 30-seat code-panel list (override for a reduced panel); includes the cost-gated `coverage-auditor` and `orthographer`. |
+| `GARDEN_DESIGN_SEATS` | the 8-seat design-panel list (includes the cost-gated `orthographer`). |
 | `GARDEN_PANEL_SEAT` | hook: run one seat's review (default shells `claude -p` with the seat brief). |
 | `GARDEN_PANEL_DECIDE` | hook: aggregate verdicts → `must-fix` \| `pass` (default `claude -p`). |
 | `GARDEN_PANEL_APPELLATE` | hook: the terminating-round appellate pass (default `claude -p`; set `:` to skip). |
@@ -59,7 +59,7 @@ runnable non-interactively):
 | `GARDEN_PANEL_RUNDIR` | on-disk scratch for per-seat blocks + aggregates (kept OUT of the supervisor's context). |
 | `GARDEN_PANEL_RECORD` | the durable-record writer (default `scripts/jobs/panel-run-record.sh`; set `:` to skip the journal push). |
 | `GARDEN_PANEL_REPO` | `<owner>/<repo>` for the record's store key (default: derived from the worktree's `origin`, else the worktree basename). Every remote-URL form git accepts reduces to the same key (`scripts/jobs/test/panel-repo-slug-test.sh`), so a run is keyed the same whether or not a caller passes this. |
-| `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); this is what makes the 29-seat panel fit a handler budget. |
+| `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); this is what makes the 30-seat panel fit a handler budget. |
 | `GARDEN_PANEL_SEAT_ATTEMPTS` / `_BACKOFF` | per-seat retry-on-empty attempts (default 3) and backoff step in seconds (default 5). |
 | `GARDEN_PANEL_SEAT_TIMEOUT` / `_KILL_AFTER` | wall-clock bound for each seat attempt (default 1200s) and TERM grace (default 30s). The bound is clamped below the enclosing handler budget. |
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
@@ -107,8 +107,8 @@ was previously deleted with the worktree.
 
 1. **Sense the panel kind.** The script diffs `<base>...HEAD`. If every changed
    path is under a design directory (`designs/*.md`, `*/designs/*.md`) or matches
-   `DESIGN*.md`, the panel is the **design panel** (7 seats); otherwise the
-   **code panel** (29 seats). Any ambiguity (no base, git error, no changed
+   `DESIGN*.md`, the panel is the **design panel** (8 seats); otherwise the
+   **code panel** (30 seats). Any ambiguity (no base, git error, no changed
    files) falls to the code panel — the broader, safer panel, consistent with
    `sense.sh`'s bias toward over-reviewing.
 2. **Short-circuit when there is no review surface.** Before any seat is
@@ -178,7 +178,7 @@ was previously deleted with the worktree.
 | v1 role | v1 surface | v2 stage in `panel.sh` |
 |---|---|---|
 | **judge** (retired redirect) | panel-kind discrimination; foreperson | the `sense_panel_kind` step + the aggregate-and-decide control flow |
-| **solicitor** | design-only PR; 7-seat design panel | the design-panel branch of seat selection |
+| **solicitor** | design-only PR; 8-seat design panel | the design-panel branch of seat selection |
 | **barrister** | first code-panel round on a source PR | the first iteration of the loop on the code panel |
 | **justice** | code-panel re-runs after a fixer push | the loop's subsequent iterations (re-review of the delta) |
 | **appellate** | promote small-and-in-context deferrals before un-draft | the `appellate_pass` hook on the terminating round |

@@ -105,18 +105,22 @@ fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 # from the diff (design-only when every changed path is under designs/), then
 # iterates the matching seat list. A project can override either list via env.
 
-# Code panel (29 seats): source-touching PRs. The coverage-auditor is a MANDATORY
-# seat (every builder/fixer gauntlet runs the code panel), but it is COST-GATED at
-# dispatch: its co-located seat-gate runs a deterministic c8 coverage pre-pass and
-# only spends a `claude -p` when the change has uncovered new lines (see
-# seat-gate-coverage-auditor.sh and the seat_review gate below).
+# Code panel (30 seats): source-touching PRs. The coverage-auditor and the
+# orthographer are MANDATORY seats (every builder/fixer gauntlet runs the code
+# panel), but both are COST-GATED at dispatch: each ships a co-located seat-gate
+# that runs a deterministic pre-pass (c8 coverage of new lines; grep for British
+# spellings) and only spends a `claude -p` when there is something to judge (see
+# seat-gate-coverage-auditor.sh, seat-gate-orthographer.sh, and the seat_review
+# gate below).
 : "${GARDEN_CODE_SEATS:=assessor typist stylist packager archivist prover curator \
 migrator locksmith warden saboteur breaker purist spec-keeper wire-watcher \
 engine-realist integrator duality-auditor benchmarker changeset-auditor surfacer scribe pruner \
-gateway corner-prober fast-checker releaser transplanter coverage-auditor}"
+gateway corner-prober fast-checker releaser transplanter coverage-auditor orthographer}"
 
-# Design panel (7 seats) — design-only PRs (paths under designs/).
-: "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice}"
+# Design panel (8 seats) — design-only PRs (paths under designs/). The orthographer
+# sits here too ("all documents", PR #75); cost-gated, so a design with no British
+# spelling costs zero claude -p.
+: "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice orthographer}"
 
 # --- stage: sense the panel kind from the diff ------------------------------
 # Design panel iff there is at least one change AND every changed path is under a
