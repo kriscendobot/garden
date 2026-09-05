@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T05:25:33Z_
+_As of 2026-09-05T05:29:06Z_
 
 ## Latest
 
@@ -110,10 +110,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003940Z-06bfa7` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003940Z-06bfa7.md)
 
 > From report `self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`: need a decision on `worktrees/kriskowal-garden.git` — remove it or re-point its origin.
-
-- `20260905T052506Z-f9ee95` — from orchestrator:orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T052506Z-f9ee95.md)
-
-> Orchestration orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721 HALTED: child endojs-endo-but-for-bots-pr1085-native-stream-search-design-5119774721 stalled in flight for 2511s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: endojs-endo-but-for-bots-pr1085-native-stream-search-fix-5119774721
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
