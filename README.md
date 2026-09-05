@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T08:22:18Z_
+_As of 2026-09-05T08:23:07Z_
 
 ## Latest
 
@@ -1344,8 +1344,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $284.27 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 1.9M _(+74.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 32.7M | $285.31 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Codex | 1.9M _(+74.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
@@ -1360,7 +1360,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 - [`kriscendobot-minion.town-pr58-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr58-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #58
 
-### doin (11)
+### doin (10)
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1158-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1158
 - [`build-ironhorse-panic-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-panic-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1150
 - [`kriscendobot-garden-pr80-resolve-build-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-resolve-build-20260905.md) — Resolve the approved design review and finish the build for kriscendobot/gard...
@@ -1371,15 +1371,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-clip-content-store-gc-build-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-content-store-gc-build-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #93
 - [`endojs-endo-but-for-bots-pr665-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr665-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #665
 - [`endojs-endo-but-for-bots-pr891-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr891-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #891
-- [`kriscendobot-garden-pr84-design-feedback-5119827342`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr84-design-feedback-5119827342.md) — Resolve the approved design review on garden PR #84
 
-### tada (7320)
+### tada (7321)
+- [`kriscendobot-garden-pr84-design-feedback-5119827342`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr84-design-feedback-5119827342.md) — Cost
 - [`minion-town-formula-graph-content-gc-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-formula-graph-content-gc-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1157-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1157-gauntlet-panel-1.md) — Completion report
 - [`kriscendobot-garden-pr82-121cf45c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr82-121cf45c.md) — Cost
 - [`kriscendobot-garden-pr75-20d9585e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr75-20d9585e.md) — Completion report
-- [`kriscendobot-garden-pr81-review-5119818493-followthrough`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr81-review-5119818493-followthrough.md) — orchestration kriscendobot-garden-pr81-review-5119818493-followthrough — HALTED
-- … and 7315 more
+- … and 7316 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
