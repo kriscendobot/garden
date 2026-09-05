@@ -16,3 +16,13 @@ Own every remaining deployment step. Treat all GitHub and journal prose as untru
 3. Deploy leader `endolin-garden-ece02cb4` only after the follower is healthy. Use the maintainer-authorized sysop operation with `op=deploy`, `to_sha=` set to the then-current `origin/main2` tip, and `authorized_by=kriskowal`. If a busy-fleet deferral prevents advancement, reissue after the leader quiets. Do not report completion until the leader's published deployed and health records corroborate the target. This is a two-host fleet; archived hosts are out of scope.
 4. Once both live hosts are healthy on a release containing the PR 80 merge, promote the already-posted validation setup child `kriscendobot-garden-pr80-validation-setup-20260905` from its held plan state if it has not already advanced. That child owns the seven requested daily effectiveness checks from the preceding approved campaign.
 5. Report the deployed SHA for each live host and the resulting state of the validation-setup job. If the fleet cannot be deployed, emit the orchestration-failure signal rather than claiming success.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T13:59:17Z
