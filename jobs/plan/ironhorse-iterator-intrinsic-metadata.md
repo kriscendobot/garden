@@ -1,5 +1,5 @@
 ---
-gate: deferred
+gate: go-ahead
 priority: normal
 posted_by: producer
 posted_at: 2026-08-28T04:09:36Z

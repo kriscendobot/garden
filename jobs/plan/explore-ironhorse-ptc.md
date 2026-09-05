@@ -1,5 +1,5 @@
 ---
-gate: deferred
+gate: go-ahead
 priority: low
 role: designer
 posted_by: producer
