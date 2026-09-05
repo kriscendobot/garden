@@ -48,6 +48,7 @@ Do not conduct or implement the dedicated skill files in this child. If the
 review data has changed materially, follow the live maintainer direction and
 report the reconciliation for the later children.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
