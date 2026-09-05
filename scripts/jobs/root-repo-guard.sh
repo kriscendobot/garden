@@ -399,7 +399,8 @@ guard_clean_tree() {
   # tree. A failure here means the state is un-preservable — escalate hard, do NOT clean.
   stash_sha="$(git -C "$ROOT" stash create "root-repo-guard: stray tracked edit $ts" 2>/dev/null || true)"
   if [ -z "$stash_sha" ]; then
-    local msg="root repo $ROOT has TRACKED working-tree changes but 'git stash create' produced nothing to preserve them (un-preservable state). NOT cleaning the tree (never clobber unpreserved work). This will BLOCK a deploy of this host until resolved by hand: inspect 'git -C $ROOT status' and 'git -C $ROOT diff'. Blocking paths: $(printf '%s' "$dirty" | tr '\n' ';'). (host=$GARDEN)"
+    local msg
+    msg="root repo $ROOT has TRACKED working-tree changes but 'git stash create' produced nothing to preserve them (un-preservable state). NOT cleaning the tree (never clobber unpreserved work). This will BLOCK a deploy of this host until resolved by hand: inspect 'git -C $ROOT status' and 'git -C $ROOT diff'. Blocking paths: $(printf '%s' "$dirty" | tr '\n' ';'). (host=$GARDEN)"
     log "CLEAN-TREE-UNPRESERVABLE: $msg"
     alert_maintainer "root-repo-dirty-tree-unpreservable-$GARDEN" "$msg"
     return 1
@@ -417,7 +418,8 @@ guard_clean_tree() {
 
   # Restore the tracked paths to clean (leaves untracked debris for a separate sweep).
   if git -C "$ROOT" reset -q --hard HEAD 2>/dev/null; then
-    local msg="root repo $ROOT had a STRAY TRACKED EDIT (the no-development-in-the-root invariant was violated). It was PRESERVED (branch $backup_ref + patch $patch) and the tracked tree restored to clean so the rolling deploy is never wedged behind a dirty-tree abort. This is an after-the-fact FYI — the fleet keeps moving. Preserved paths: $(printf '%s' "$dirty" | tr '\n' ';'). (host=$GARDEN)"
+    local msg
+    msg="root repo $ROOT had a STRAY TRACKED EDIT (the no-development-in-the-root invariant was violated). It was PRESERVED (branch $backup_ref + patch $patch) and the tracked tree restored to clean so the rolling deploy is never wedged behind a dirty-tree abort. This is an after-the-fact FYI — the fleet keeps moving. Preserved paths: $(printf '%s' "$dirty" | tr '\n' ';'). (host=$GARDEN)"
     log "CLEAN-TREE-REPAIRED: $msg"
     alert_maintainer "root-repo-dirty-tree-repaired-$GARDEN" "$msg"
     return 0
