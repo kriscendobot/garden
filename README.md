@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T08:02:51Z_
+_As of 2026-09-05T08:04:41Z_
 
 ## Latest
 
@@ -37,6 +37,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
 > Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
+
+- `20260905T080403Z-d2be70` — from gardener:minion-town-clip-content-store-gc-build-gauntlet-fix-3, reply_to `minion-town-clip-content-store-gc-build-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T080403Z-d2be70.md)
+
+> minion.town [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) (clip content-store GC, Part B) gauntlet fix-3: I applied all code must-fix items and pushed; CI is being watched. One panel must-fix is a MAINTAINER DECISION I can't make:
+>
+> [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) near-duplicates open sibling [kriscendobot/minion.town#92](https://github.com/kriscendobot/minion.town/issues/92) (created ~7 min earlier, same base b83741a) — both implement the identical Part-B slice, diverging only in naming/grouping. [kriscendobot/minion.town#92](https://github.com/kriscendobot/minion.town/issues/92)'s body claims a COMPLETED production audit (243,300 orphan bytes, zero removals); [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93)'s DEPLOYMENT.md says the audit is not yet executed. [kriscendobot/minion.town#83](https://github.com/kriscendobot/minion.town/issues/83) attacks the same unbounded-CAS-growth gap from the older designs/clip-content-gc.md and has stalled must-fix. Merging any one strands the others with a near-total conflict.
+>
+> Please pick one authoritative strand, close/supersede the others, and note it in the surviving PR body. Until then this stays a blocking panel finding no code change can clear.
 
 - `20260904T131409Z-bc476b` — from gauntlet:ironhorse-test262-fable-supervisor-20260829-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T131409Z-bc476b.md)
 
@@ -632,10 +640,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T093339Z-338401` — from gardener:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1, reply_to `ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093339Z-338401.md)
 
 > Stale gauntlet: ironhorse-fuzz-314f811064b8febb-repair-gauntlet panel stage fired against [endojs/endo-but-for-bots#1088](https://github.com/endojs/endo-but-for-bots/issues/1088), but that PR already MERGED on 2026-08-31 (merge commit 422bfdbd). Nothing to review/fix/un-draft. No successor fuzz-findings draft PR exists to retarget (open ironhorse PRs are [endojs/endo-but-for-bots#1152](https://github.com/endojs/endo-but-for-bots/issues/1152), [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113), [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) — unrelated). I did NOT burn the 29-seat panel on a merged PR. Reporting this stage as orchestration-failed. Recommend dropping the remaining stages of this gauntlet chain (fix-loop / un-draft) as moot.
-
-- `20260905T075949Z-9f1f9f` — from gauntlet:endojs-endo-but-for-bots-pr996-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T075949Z-9f1f9f.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr996-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `20260904T115830Z-07a1c6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T115830Z-07a1c6.md)
 
@@ -1340,8 +1344,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.3M | $243.46 _(notional, rate-card)_ | 19% of 143.0M (ok) |
-| Codex | 1.7M _(+61.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 27.4M | $245.79 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Codex | 1.7M _(+62.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
