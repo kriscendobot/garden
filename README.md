@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T21:53:29Z_
+_As of 2026-09-05T22:48:01Z_
 
 ## Latest
 
@@ -1455,16 +1455,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
+### doin (0)
+(none)
 
-### tada (7441)
+### tada (7442)
+- [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr990-review-8896f456`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr990-review-8896f456.md) — Cost
 - [`endojs-endo-but-for-bots-pr1085-native-stream-search-fix-5119774721`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1085-native-stream-search-fix-5119774721.md) — Cost
 - [`endojs-endo-but-for-bots-pr858-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr858-review-86d198da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-86d198da.md) — Completion report
-- [`kriscendobot-minion.town-pr95-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet.md) — gauntlet kriscendobot-minion.town-pr95-gauntlet — HALTED
-- … and 7436 more
+- … and 7437 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
