@@ -19,7 +19,9 @@
 #      aged past the idle window, IS.
 #   F. CHANGED-SESSION RE-CAPTURE: an unchanged idle session is not re-captured; a
 #      grown one is captured again.
-#   G. CAS RETRY: a racing peer commit landing between our fetch and push is
+#   G. LIVE-SWEEP VANISH: one of two idle sessions disappearing after stat does
+#      not abort the tick or corrupt the surviving session's index entry.
+#   H. CAS RETRY: a racing peer commit landing between our fetch and push is
 #      absorbed by the fetch/reset/reapply retry; both files end up on the branch.
 #
 # Usage: transcript-capture-test.sh
@@ -200,22 +202,70 @@ rows2=$(grep -c $'\tsid-live\t' "$TR/tv/index/testhost.tsv" 2>/dev/null || echo 
 [ "$rows2" -eq 2 ] && ok "grown idle session re-captured (second index row)" || bad "grown session not re-captured (rows=$rows2)"
 
 # ============================================================================
-hr; echo "SCENARIO G — CAS RETRY against a racing peer commit"; hr
+hr; echo "SCENARIO G — LIVE SESSION VANISHES DURING SWEEP"; hr
 fresh g
+SURVIVOR="$FHOME/.claude/projects/-scratch-gardener-wt-survivor/sid-survivor.jsonl"
+VANISH="$FHOME/.claude/projects/-scratch-gardener-wt-vanished/sid-vanished.jsonl"
+mk_session "$SURVIVOR"
+mk_session "$VANISH"
+touch -d '3 hours ago' "$SURVIVOR" "$VANISH"
+# A stat shim removes VANISH only after returning its size. find has therefore
+# enumerated it and both fail-open stat gates have passed when the stage stdin
+# redirect observes the job-completion race.
+REAL_STAT="$(command -v stat)"
+mkdir -p "$TR/g/bin"
+STAT_STUB="$TR/g/bin/stat"
+cat > "$STAT_STUB" <<'STATEOF'
+#!/bin/bash
+if [ "$1" = -c ] && [ "$2" = %s ] && [ "$3" = "$TRANSCRIPT_CAPTURE_TEST_VANISH" ]; then
+  "$TRANSCRIPT_CAPTURE_TEST_REAL_STAT" "$@"
+  rc=$?
+  [ "$rc" -eq 0 ] && rm -f -- "$3"
+  exit "$rc"
+fi
+exec "$TRANSCRIPT_CAPTURE_TEST_REAL_STAT" "$@"
+STATEOF
+chmod +x "$STAT_STUB"
+run_capture GARDEN_TRANSCRIPTS_REMOTE="$TBARE" GARDEN_TRANSCRIPT_IDLE_SECS=3600 \
+            PATH="$TR/g/bin:$PATH" TRANSCRIPT_CAPTURE_TEST_REAL_STAT="$REAL_STAT" \
+            TRANSCRIPT_CAPTURE_TEST_VANISH="$VANISH"; rcG=$?
+[ "$rcG" -eq 0 ] \
+  && ok "capture skips a live session that vanishes during the sweep (exits 0)" \
+  || bad "capture rc=$rcG after a live session vanished ($(tail -1 "$TR/last.err"))"
+if tview; then
+  survivor_archive="$TR/tv/transcripts/testhost/-scratch-gardener-wt-survivor/sid-survivor.jsonl.gz"
+  vanished_archive="$TR/tv/transcripts/testhost/-scratch-gardener-wt-vanished/sid-vanished.jsonl.gz"
+  { [ -f "$survivor_archive" ] && [ ! -f "$vanished_archive" ]; } \
+    && ok "surviving session archived and vanished session skipped" \
+    || bad "live-sweep archive set is wrong"
+  survivor_rows=$(grep -c $'\tsid-survivor\t' "$TR/tv/index/testhost.tsv" 2>/dev/null || true)
+  vanished_rows=$(grep -c $'\tsid-vanished\t' "$TR/tv/index/testhost.tsv" 2>/dev/null || true)
+  total_rows=$(wc -l < "$TR/tv/index/testhost.tsv" | tr -d ' ')
+  { [ "$survivor_rows" -eq 1 ] && [ "$vanished_rows" -eq 0 ] && [ "$total_rows" -eq 1 ]; } \
+    && ok "index contains one row for the surviving session only" \
+    || bad "live-sweep index rows wrong (survivor=$survivor_rows vanished=$vanished_rows total=$total_rows)"
+else bad "transcripts2 unreadable after live-sweep vanish race"; fi
+grep -q 'vanished mid-tick (job completion race); skipping' "$TR/last.err" \
+  && ok "live-sweep vanish race logged as a warning" \
+  || bad "live-sweep vanish warning missing"
+
+# ============================================================================
+hr; echo "SCENARIO H — CAS RETRY against a racing peer commit"; hr
+fresh h
 # seed transcripts2 with an initial commit so the clone resets to a real tip.
-gs="$TR/g/tseed"; git init -q "$gs"; git -C "$gs" checkout -q -b transcripts2
+gs="$TR/h/tseed"; git init -q "$gs"; git -C "$gs" checkout -q -b transcripts2
 mkdir -p "$gs/index"; echo seed > "$gs/index/.gitkeep"
 git -C "$gs" add -A; git -C "$gs" "${git_id[@]}" commit -q -m seed
 git -C "$gs" remote add origin "$TBARE"; git -C "$gs" push -q -u origin transcripts2
 # a racing push seam: on its FIRST call, a peer lands a commit on transcripts2 and
 # we report the push as rejected (exit 1); subsequent calls do the real push.
-PUSHCMD="$TR/g/pushcmd.sh"
+PUSHCMD="$TR/h/pushcmd.sh"
 cat > "$PUSHCMD" <<PUSHEOF
 #!/bin/bash
 set -u
-cnt="$TR/g/pushcnt"; n=\$(cat "\$cnt" 2>/dev/null || echo 0); echo \$((n+1)) > "\$cnt"
+cnt="$TR/h/pushcnt"; n=\$(cat "\$cnt" 2>/dev/null || echo 0); echo \$((n+1)) > "\$cnt"
 if [ "\$n" -eq 0 ]; then
-  pw="$TR/g/peerwt"; rm -rf "\$pw"
+  pw="$TR/h/peerwt"; rm -rf "\$pw"
   git clone -q --branch transcripts2 "$TBARE" "\$pw" 2>/dev/null
   mkdir -p "\$pw/transcripts/peerhost/-p"; echo peer | gzip -n > "\$pw/transcripts/peerhost/-p/sid-peer.jsonl.gz"
   git -C "\$pw" add -A; git -C "\$pw" ${git_id[*]} commit -q -m 'peer race'
@@ -225,15 +275,15 @@ fi
 git -C "\$GARDEN_TRANSCRIPTS_PUSH_DIR" push -q origin "HEAD:\$GARDEN_TRANSCRIPTS_PUSH_BRANCH"
 PUSHEOF
 chmod +x "$PUSHCMD"
-GSESS="$FHOME/.claude/projects/-home-user-g/sid-g.jsonl"
+GSESS="$FHOME/.claude/projects/-home-user-h/sid-h.jsonl"
 mk_session "$GSESS"; touch -d '3 hours ago' "$GSESS"
 run_capture GARDEN_TRANSCRIPTS_REMOTE="$TBARE" GARDEN_TRANSCRIPT_IDLE_SECS=3600 \
             GARDEN_TRANSCRIPTS_PUSH_CMD="$PUSHCMD"; rcG=$?
 [ "$rcG" -eq 0 ] && ok "capture survives a racing peer push (exits 0)" || bad "capture rc=$rcG under race ($(tail -1 "$TR/last.err"))"
-[ "$(cat "$TR/g/pushcnt" 2>/dev/null || echo 0)" -ge 2 ] && ok "push retried after the CAS race" || bad "push not retried"
+[ "$(cat "$TR/h/pushcnt" 2>/dev/null || echo 0)" -ge 2 ] && ok "push retried after the CAS race" || bad "push not retried"
 if tview; then
   { [ -f "$TR/tv/transcripts/peerhost/-p/sid-peer.jsonl.gz" ] \
-    && find "$TR/tv/transcripts/testhost" -name 'sid-g.jsonl.gz' | grep -q .; } \
+    && find "$TR/tv/transcripts/testhost" -name 'sid-h.jsonl.gz' | grep -q .; } \
     && ok "both the peer's and our transcript are on transcripts2 (reapply preserved the peer)" \
     || bad "CAS reapply lost a side (peer or ours missing)"
 else bad "transcripts2 unreadable after the race"; fi
