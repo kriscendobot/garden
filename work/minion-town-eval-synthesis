@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-05T14:56:20Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-eval-synthesis
+pr_number: 95
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/95
+pr_head: design/minion-town-guest-surface-documentation
