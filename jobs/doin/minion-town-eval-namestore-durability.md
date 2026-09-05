@@ -98,3 +98,13 @@ literal call arguments (minus any secrets), the literal observed result, and
 a pass/fail against what the schema text led you to expect.
 
 **Cleanup.** `remove` every `ev2-` name; confirm with `has`/`list`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T11:42:57Z
