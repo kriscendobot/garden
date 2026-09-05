@@ -165,6 +165,39 @@ grep -q "rejected temporary location '$TR/simulated-noexec'.*noexec" <<<"$OUT" \
 grep -q "unpack directory is exec-capable: $TR/root/scratch/tmpexec/" <<<"$OUT" \
   && ok "candidate gate falls back to the exec-capable garden scratch filesystem" \
   || bad "exec-capable scratch fallback not selected: $OUT"
+[ "$(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)" = "$TR/root/scratch/tmpexec" ] \
+  && ok "the exec-capable fallback base is remembered for later ticks" \
+  || bad "candidate-gate-base cache not written: $(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)"
+
+# SECOND tick, same host state: the remembered scratch base is reused directly, so
+# the noexec TMPDIR is NOT re-probed and its per-tick WARN never fires again.
+run_deploy TMPDIR="$TR/simulated-noexec" \
+  GARDEN_DEPLOY_TEST_EXEC_PROBE="$EXEC_PROBE_RUNNER" \
+  GARDEN_DEPLOY_TEST_NOEXEC_PREFIX="$TR/simulated-noexec"
+[ "$RC" -eq 0 ] && ok "second tick deploys with the remembered base" || bad "cached-base tick exit $RC: $OUT"
+grep -q "remembered base $TR/root/scratch/tmpexec" <<<"$OUT" \
+  && ok "the remembered exec-capable base is reused on later ticks" \
+  || bad "remembered base not reused: $OUT"
+grep -q "rejected temporary location '$TR/simulated-noexec'" <<<"$OUT" \
+  && bad "noexec TMPDIR re-probed despite a remembered base (routine warning noise)" \
+  || ok "previously rejected noexec TMPDIR is skipped on later ticks"
+
+# If the remembered base later fails its probe, the full ordered re-probe runs
+# again (fallback retained) rather than the gate wedging on a stale cache.
+printf '%s\n' "$TR/simulated-noexec/stale" > "$TR/state/deploy/candidate-gate-base"
+run_deploy TMPDIR="$TR/simulated-noexec" \
+  GARDEN_DEPLOY_TEST_EXEC_PROBE="$EXEC_PROBE_RUNNER" \
+  GARDEN_DEPLOY_TEST_NOEXEC_PREFIX="$TR/simulated-noexec"
+[ "$RC" -eq 0 ] && ok "stale-cache tick recovers by re-probing" || bad "stale-cache tick exit $RC: $OUT"
+grep -q "remembered candidate gate base '$TR/simulated-noexec/stale' no longer usable" <<<"$OUT" \
+  && ok "a failed remembered base triggers a full re-probe" \
+  || bad "stale-cache re-probe not logged: $OUT"
+grep -q "unpack directory is exec-capable: $TR/root/scratch/tmpexec/" <<<"$OUT" \
+  && ok "re-probe re-selects the exec-capable scratch fallback" \
+  || bad "re-probe did not recover the scratch fallback: $OUT"
+[ "$(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)" = "$TR/root/scratch/tmpexec" ] \
+  && ok "the recovered base replaces the stale cache" \
+  || bad "stale cache not refreshed after re-probe: $(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)"
 
 # If every candidate location rejects direct execution, fail BEFORE running a
 # suite or engaging the drain, with the environmental cause in the diagnostic.

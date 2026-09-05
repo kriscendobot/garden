@@ -113,6 +113,14 @@ export GARDEN_TAG="deploy-garden"
 # for the strict posture: abort the deploy rather than advance the tree with the
 # timers still live. See deploy-release-boundary.sh § RECOVERY.
 : "${GARDEN_DEPLOY_REQUIRE_BOUNDARY:=0}"
+# Host-standing remembered exec-capable candidate-gate base. Lives under
+# GARDEN_DEPLOY_STATE (per-host, uncommitted) like deployed-sha. Once a base
+# probes exec-capable it is cached here so later ticks go straight to it and do
+# NOT re-probe (and re-WARN about) a base already known noexec on this host — the
+# routine "`/tmp` is noexec" warning that fired every deploy tick despite a usable
+# scratch fallback. The cache is advisory: if the remembered base later fails its
+# probe, the full ordered re-probe of every base still runs (fallback intact).
+: "${GARDEN_DEPLOY_GATE_BASE_CACHE:=$GARDEN_DEPLOY_STATE/candidate-gate-base}"
 
 # Exit status for a deliberate deferral (a long mid-job gardener; the fleet was
 # never paused). Distinct from the abort path (exit 1) and from a real deploy:
@@ -227,40 +235,75 @@ run_candidate_gate_exec_probe() { # <executable-probe>
   fi
 }
 
+remember_candidate_gate_base() { # <base>
+  local base="$1" prev
+  prev="$(cat "$GARDEN_DEPLOY_GATE_BASE_CACHE" 2>/dev/null || true)"
+  [ "$prev" = "$base" ] && return 0   # already remembered; avoid a redundant write
+  mkdir -p "$(dirname "$GARDEN_DEPLOY_GATE_BASE_CACHE")" 2>/dev/null || return 0
+  printf '%s\n' "$base" >"$GARDEN_DEPLOY_GATE_BASE_CACHE" 2>/dev/null || true
+}
+
+# Try to establish an exec-capable private gate root under <base>. On success sets
+# candidate_gate_root to the new directory and returns 0; on any failure logs a
+# WARN naming the cause, leaves candidate_gate_root cleared, and returns 1.
+# Factored out so both the cached-base fast path and the full ordered probe share
+# one implementation.
+try_candidate_gate_base() { # <base>
+  local base="$1" root probe probe_rc
+  if ! mkdir -p "$base" 2>/dev/null; then
+    log "WARN: candidate gate rejected temporary location '$base': cannot create it"
+    return 1
+  fi
+  root="$(mktemp -d "$base/garden-deploy-gate.XXXXXXXX" 2>/dev/null)" || {
+    log "WARN: candidate gate rejected temporary location '$base': cannot create a private directory"
+    return 1
+  }
+  # Arm the EXIT cleanup before writing or executing anything in the new root;
+  # a TERM during the probe must not strand it.
+  candidate_gate_root="$root"
+  probe="$root/.garden-exec-probe"
+  probe_rc=1
+  if printf '#!/bin/sh\nexit 0\n' >"$probe" 2>/dev/null \
+    && chmod +x "$probe" 2>/dev/null \
+    && run_candidate_gate_exec_probe "$probe" >/dev/null 2>&1; then
+    probe_rc=0
+  fi
+  rm -f "$probe" 2>/dev/null || true
+  [ "$probe_rc" -eq 0 ] && return 0
+  cleanup_candidate_gate_root
+  log "WARN: candidate gate rejected temporary location '$base': executable probe failed (possible noexec mount)"
+  return 1
+}
+
 prepare_candidate_gate_root() {
   local preferred_base="${TMPDIR:-/tmp}" scratch_base="$GARDEN_SCRATCH/tmpexec"
-  local base root probe checked="" probe_rc
+  local base cached checked=""
   local -a candidate_bases=("$preferred_base")
   [ "$scratch_base" = "$preferred_base" ] || candidate_bases+=("$scratch_base")
 
   cleanup_candidate_gate_root
+
+  # Fast path: reuse a base this host already proved exec-capable. Trying it alone
+  # skips re-probing (and re-WARNing about) any base already known noexec — the
+  # routine per-tick "`/tmp` is noexec" noise when a later base is the real home.
+  # If the remembered base no longer probes exec-capable (unmounted, remounted
+  # noexec, or GC'd), fall through to the full ordered re-probe below.
+  cached="$(cat "$GARDEN_DEPLOY_GATE_BASE_CACHE" 2>/dev/null || true)"
+  if [ -n "$cached" ]; then
+    if try_candidate_gate_base "$cached"; then
+      log "candidate gate unpack directory is exec-capable (remembered base $cached): $candidate_gate_root"
+      return 0
+    fi
+    log "WARN: remembered candidate gate base '$cached' no longer usable; re-probing all locations"
+  fi
+
   for base in "${candidate_bases[@]}"; do
     checked="${checked:+$checked, }$base"
-    if ! mkdir -p "$base" 2>/dev/null; then
-      log "WARN: candidate gate rejected temporary location '$base': cannot create it"
-      continue
-    fi
-    root="$(mktemp -d "$base/garden-deploy-gate.XXXXXXXX" 2>/dev/null)" || {
-      log "WARN: candidate gate rejected temporary location '$base': cannot create a private directory"
-      continue
-    }
-    # Arm the EXIT cleanup before writing or executing anything in the new root;
-    # a TERM during the probe must not strand it.
-    candidate_gate_root="$root"
-    probe="$root/.garden-exec-probe"
-    probe_rc=1
-    if printf '#!/bin/sh\nexit 0\n' >"$probe" 2>/dev/null \
-      && chmod +x "$probe" 2>/dev/null \
-      && run_candidate_gate_exec_probe "$probe" >/dev/null 2>&1; then
-      probe_rc=0
-    fi
-    rm -f "$probe" 2>/dev/null || true
-    if [ "$probe_rc" -eq 0 ]; then
+    if try_candidate_gate_base "$base"; then
+      remember_candidate_gate_base "$base"
       log "candidate gate unpack directory is exec-capable: $candidate_gate_root"
       return 0
     fi
-    cleanup_candidate_gate_root
-    log "WARN: candidate gate rejected temporary location '$base': executable probe failed (possible noexec mount)"
   done
 
   log "FATAL: no exec-capable candidate gate location found (possible noexec mounts or permissions); checked: $checked"
