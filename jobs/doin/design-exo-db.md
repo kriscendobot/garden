@@ -62,3 +62,13 @@ Maintainer prompt (kriskowal, 2026-09-05), to be expanded — not narrowed:
 - Where a real fork in the design exists that only the maintainer can settle, put it in
   `## Open questions`. Per the garden's carve-out, a design landing with a non-empty
   open-questions section is presented as a review PR rather than landed bare.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T04:02:46Z
