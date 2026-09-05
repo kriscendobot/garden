@@ -27,3 +27,13 @@ Work in an isolated project worktree for branch `feat/mount-stream-glob-grep`. I
 Run regression-evidence bite checks for new tests, the affected JavaScript/type/lint suites, the Rust suites, the real XS and Ironhorse parity matrix, and the benchmark harness. Push one-concern follow-up commits without rewriting reviewed history. Update the PR body to describe the final implementation accurately. Reply to inline comment 3939436362 with the addressing SHA(s), post the required top-level completion summary, drive CI green, and re-request review from kriskowal. Do not declare completion if either engine is mocked, skipped, or otherwise not genuinely exercised; emit the orchestration-failure signal if the gated real-engine parity outcome cannot be achieved.
 
 Definition of done: every ask in review 5119774721 is mapped to a pushed artifact, the inline thread and top-level PR conversation are closed out, real Node/XS/Ironhorse evidence and the benchmark report are named, CI is green, and maintainer review is re-requested.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T20:26:31Z
