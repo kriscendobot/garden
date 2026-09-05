@@ -24,7 +24,7 @@ The rationale for landing groom as a directly-postable role (rather than an impr
 - [mermaid-validation](../../skills/mermaid-validation/SKILL.md): the `### Dependency Graph` is a mermaid block; validate it after any edit so a groom pass never lands a diagram that fails to render.
 - [library-lookup](../../skills/library-lookup/SKILL.md): before renaming or re-slugging any design in the ledger, look the term up so the roadmap keeps naming things the way the corpus already names them.
 - [frozen-base-branch](../../skills/frozen-base-branch/SKILL.md): the ledger is a fork file, and a groom pass lands as a **draft PR** on the fork (designer convention), so its review thread is the interactive surface for milestone resequencing the maintainer must sign off. Where the fork has a roadmap branch (`llm`), the PR targets it; where it does not, target a frozen base.
-- [job-board](../../skills/job-board/SKILL.md), [message-bus](../../skills/message-bus/SKILL.md): complete the job with the pass summary; surface a resequencing question or an un-owned merged workstream to the maintainer via the liaison rather than deciding it silently.
+- [job-board](../../skills/job-board/SKILL.md): complete the job with the pass summary. Put a resequencing question or an un-owned merged workstream on the fork PR's review surface rather than deciding it silently; when commenting is not authorized, put the same account in the completion report for the orchestrator to relay.
 
 ## Two flavors of pass
 

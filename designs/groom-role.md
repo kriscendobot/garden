@@ -112,7 +112,7 @@ that already exists:
 | `velocity-recalibration` | Select an explicit evidence window, measure completed work and elapsed delivery time in the roadmap's existing size units, identify the binding delivery constraint, and produce a sustainable velocity estimate with its evidence and uncertainty. It owns the rate input, not milestone dates. It runs during a full pass, not a targeted status correction. |
 | `roadmap-projection` | Consume remaining work, the recalibrated velocity range, and dependency constraints to recompute milestone windows, the aggregate timeline, and the assumptions that make them auditable. It preserves actual dates, distinguishes estimates from commitments, and does not hide uncertainty behind a single invented date. |
 | `dependency-graph-maintenance` | Reconcile design-declared and PR-declared edges into the roadmap's canonical acyclic graph; report missing targets and cycles; keep milestone numbering dependency-valid; preserve Strategic Early Items as an explicit sequencing carve-out; update the mermaid view and validate it. The existing [design-dependency-walk](../skills/design-dependency-walk/SKILL.md), [pr-dependency-graph](../skills/pr-dependency-graph/SKILL.md), [pr-dependency-topo-sort](../skills/pr-dependency-topo-sort/SKILL.md), and [mermaid-validation](../skills/mermaid-validation/SKILL.md) remain its substrate. |
-| `groom-open-questions` | Collect uncertainties exposed by status, velocity, projection, and graph work; close questions that current evidence answers; and route genuine policy, scope, or resequencing choices to the maintainer with alternatives, consequences, and affected roadmap sections. It owns a reviewable question ledger, not the authority to choose silently. It composes the designer's open-question discipline and [message-bus](../skills/message-bus/SKILL.md) for escalation. |
+| `groom-open-questions` | Collect uncertainties exposed by status, velocity, projection, and graph work; close questions that current evidence answers; and put genuine policy, scope, or resequencing choices on the scoped PR review surface with alternatives, consequences, and affected roadmap sections. It owns a reviewable question ledger, not the authority to choose silently. When direct commenting is not authorized, its output goes in the completion report for the orchestrator to relay. |
 
 The four contracts are separate because each has a stable input and output that
 other roles can cite. They remain coordinated by `groom`: status evidence feeds
@@ -143,7 +143,10 @@ The serial builder that follows this accepted design must:
 5. Leave the model-routing and project-versus-garden scope questions below open.
    The skill implementation does not authorize a fleet-spend decision or a scope
    expansion.
-6. Run the applicable garden pre-push and local-verification gates, plus a
+6. Preserve scoped-role information hiding: `groom` and the skills it loads must
+   keep maintainer questions on the PR or in the completion report and must not
+   load the maintainer-inbox-bearing `message-bus` skill.
+7. Run the applicable garden pre-push and local-verification gates, plus a
    repository-wide reference scan proving all four role links resolve and the
    superseded disposition language is gone.
 
