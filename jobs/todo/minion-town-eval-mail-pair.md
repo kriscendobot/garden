@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-eval-campaign
-priority: normal
 handler-timeout: 14000
-posted_by: design-minion-town-eval-campaign
-posted_at: 2026-09-01T19:38:13Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-05T14:31:03Z cleared=none -->
 
 # Evaluation 7/8: ocap mail between two distinct guests
 
