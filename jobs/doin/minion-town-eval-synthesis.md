@@ -59,3 +59,13 @@ repo(s) are OPEN (not merged) and your completion report links them. If the
 campaign's evidence genuinely supports no change — every finding already
 clear, every gap already known — say so explicitly with the citations, and
 complete without a design PR; that conclusion also requires the evidence.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T14:41:11Z
