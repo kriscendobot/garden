@@ -60,8 +60,6 @@ field() { printf '%s\n' "$1" | sed -n "s/^$2: *//p" | head -n1; }
 jshow() { git -C "$CLONE" show "origin/$JOURNAL_BRANCH:$1" 2>/dev/null || true; }
 exists() { git -C "$CLONE" cat-file -e "origin/$JOURNAL_BRANCH:$1" 2>/dev/null; }
 
-MANIFEST="ironhorse-fuzz/migrations/triage-batch-v1.md"
-
 # --- 1. Enumerate the legacy backlog and validate before mutating anything -----
 # Old-shape repair basename: ironhorse-fuzz-<exactly 16 lowercase hex>-repair.
 legacy_in_state() {  # legacy_in_state <state-subdir> -> "base<TAB>fid" lines
