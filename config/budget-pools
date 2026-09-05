@@ -28,27 +28,18 @@
 #   EXCLUDES cache_read (see usage-meter.sh), while /usage reports Anthropic's own
 #   weighted limit. Each calibration is a ratio over one shared window, so it
 #   holds only while the workload mix stays broadly similar.
-#   endolin-garden2-5bcdff64 : was UNMETERED 2026-09-04 (temporary API key). RESTORED
-#     to weekly-tokens 2026-09-05T03:43Z: kriskowal reports the temporary key lapsed
-#     and this host is back on a subscription, reading 5% weekly / 30% session
-#     (session resets ~2026-09-05T07:50Z -- coincidentally the same clock time as
-#     ece02cb4's session reset the same morning). No fresh (spend, percent) pair
-#     exists to calibrate from: budget/live/endolin-garden2-5bcdff64 is still the
-#     stale unmetered-era sample (sampled_at 2026-09-04T04:01:07Z, since nothing
-#     refreshes the meter while a pool is marked unmetered), and this host's own
-#     checkpoint log has never held a clean paired point (manual-checkpoints/
-#     endolin-garden2-5bcdff64.jsonl: one qualitative-only row, one 0%-with-no-meter
-#     row). Deliberately left `calibrated_from: uncalibrated` rather than guessing a
-#     number from the stale 385M-derived figure against a live meter it no longer
-#     matches (cybernetics-audit.md § 2.3: do not actuate on a setpoint the config
-#     itself disclaims) -- budget-level.sh will log this pool UNCALIBRATED and leave
-#     this host's worker count exactly where set-workers.sh last put it until a real
-#     calibration lands. NEXT STEP: once usage-meter.sh resumes sampling this host
-#     (now that it is metered again), pair a fresh sample with a dashboard percent
-#     ASAP and derive a real cap the way budget-calibration-20260904 did for
-#     ece02cb4 (see that job's tada report and designs/session-budget-pace.md for
-#     the method and the still-open session-vs-weekly question).
+#   endolin-garden2-5bcdff64 : was UNMETERED 2026-09-04 (temporary API key), RESTORED
+#     to weekly-tokens 2026-09-05T03:43Z (subscription back), left `uncalibrated`
+#     pending a fresh paired sample (see prior revision of this comment). CALIBRATED
+#     2026-09-05T11:44Z from the first clean (spend, percent) pair since restoration:
+#     19,759,739 tokens at 30% weekly (sampled 11:30:29Z, window_start_epoch
+#     1788577200 = the confirmed 2026-09-05T03:00Z reset) => point estimate 65.9M,
+#     band 64.8M-67.0M across 29.5-30.5%. The LOW end is taken deliberately (cannot
+#     over-grant), rounded down to 64M. This SUPERSEDES the never-real 385M
+#     placeholder. Single-point calibration -- re-derive from a second (spend,
+#     percent) pair for a tighter figure, same caveat every first-point calibration
+#     in this file has carried.
 # Columns, tab-separated:
 # pool_id	provider	account/host	ceiling_kind	ceiling	calibrated_from	calibrated_at
 anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	143000000	manual-regression-fresh-contiguous-cluster	2026-09-04T22:10:57Z
-anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	385000000	uncalibrated	2026-09-05
+anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	64000000	manual-single-point-first-fresh-pair	2026-09-05T11:44:00Z
