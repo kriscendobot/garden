@@ -1,2 +1,2 @@
-base: improve-stale-worker-cgroup-reap
+base: improve-ignore-vanished-cgroup-members
 identity: mentor:scripts/jobs/common.sh
