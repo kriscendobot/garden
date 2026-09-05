@@ -295,23 +295,54 @@ fi
 # commands, and must not be able to author or erase its own cost record.
 envelope="$(mktemp "${TMPDIR:-/tmp}/garden-claude-envelope-$base.XXXXXX")"
 rusage="$(mktemp "${TMPDIR:-/tmp}/garden-claude-rusage-$base.XXXXXX")"
-set +e
-if [ -x /usr/bin/time ]; then
-  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+
+# --- EXPERIMENTAL opt-in pty lane (`lane: pty`) -------------------------------
+#
+# Default OFF: a job with no `lane:` header, or any value other than `pty`, takes the
+# byte-for-byte-unchanged headless `claude -p` path below. A job that opts in with
+# `lane: pty` runs the SAME prompt in an interactive session ENCLOSED IN A PSEUDO-TERMINAL
+# (pty-lane/run.sh → run.py) so Claude Code's statusLine fires and persists the live
+# context-window figure to a per-job state file a skill/hook can read
+# (skills/pty-context-introspection, designs/pty-context-introspection-lane.md). The lane
+# is anthropic-only (the interactive-auth story for the ollama-cloud friar is unverified);
+# a pty request on any other provider falls back to headless rather than failing the job.
+#
+# run.py writes the completion report (extracted from the session transcript, not the ANSI
+# TUI) to $report and returns 0 iff the worker emitted the completion marker — so the SAME
+# downstream sentinel/teardown contract applies to both lanes. There is no `--output-format
+# json` cost envelope in interactive mode, so usage accounting DELIBERATELY degrades to the
+# spine's existing session-snapshot fallback (gardener.sh: absent GARDEN_USAGE_FILE →
+# meter_job_session_usage delta), an honest experimental limitation stated in the PR.
+lane="$(plan_field "$jobfile" lane 2>/dev/null || true)"
+if [ "$lane" = pty ] && [ "$provider" = anthropic ]; then
+  log "job '$base' opts into the EXPERIMENTAL pty lane (lane: pty); running an interactive pty-enclosed session for statusLine context introspection"
+  prompt_file="$(mktemp "${TMPDIR:-/tmp}/garden-pty-prompt-$base.XXXXXX")"
+  printf '%s' "$prompt" > "$prompt_file"
+  set +e
+  "$HERE/../pty-lane/run.sh" "$base" "$worktree" "$session_id" "$resuming" "$report" \
+    "$prompt_file" "$claude_cli" -- "${session_args[@]}" "${model_args[@]}" --dangerously-skip-permissions
+  rc=$?
+  set -e
+  rm -f "$prompt_file" 2>/dev/null || true
 else
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
-fi
-rc=$?
-set -e
-# A malformed/truncated envelope is an accounting miss, never a handler failure.
-# Preserve a useful report on provider errors, and otherwise extract .result
-# byte-for-byte enough for the existing completion-marker contract.
-if command -v jq >/dev/null 2>&1 && jq -er '.result' "$envelope" > "$report" 2>/dev/null; then
-  resolved_for_usage="${resolved_model:-}"
-  usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "$resolved_for_usage" "$(cat "$envelope")" || true
-  usage_capture_rusage "${GARDEN_USAGE_FILE:-/dev/null}" "$rusage" || true
-else
-  cp "$envelope" "$report" 2>/dev/null || : > "$report"
+  set +e
+  if [ -x /usr/bin/time ]; then
+    ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  else
+    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  fi
+  rc=$?
+  set -e
+  # A malformed/truncated envelope is an accounting miss, never a handler failure.
+  # Preserve a useful report on provider errors, and otherwise extract .result
+  # byte-for-byte enough for the existing completion-marker contract.
+  if command -v jq >/dev/null 2>&1 && jq -er '.result' "$envelope" > "$report" 2>/dev/null; then
+    resolved_for_usage="${resolved_model:-}"
+    usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "$resolved_for_usage" "$(cat "$envelope")" || true
+    usage_capture_rusage "${GARDEN_USAGE_FILE:-/dev/null}" "$rusage" || true
+  else
+    cp "$envelope" "$report" 2>/dev/null || : > "$report"
+  fi
 fi
 
 # --- deterministic completion signal -----------------------------------------
@@ -354,5 +385,13 @@ if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL
   # fresh session against its fresh worktree.
   rm -f "$proj_dir/$session_id.jsonl" "$proj_dir_alt/$session_id.jsonl" 2>/dev/null || true
 fi
+# Prune the pty lane's per-job context state file on completion, whether or not this job
+# used the lane (a no-op when absent). An unpruned per-job file rewritten on every status
+# refresh is the same unbounded-growth shape that wedged a host at zero free inodes twice
+# (per-id journal clones under GARDEN_STATE); the lane must not reintroduce it. A dead
+# job's leftover is separately detectable as STALE by pty-context-read.sh, and the
+# reaper's scratch janitor is the long-stop.
+rm -f "${GARDEN_STATE:-$GARDEN_ROOT/.garden-state}/pty-context/$base.env" \
+      "${GARDEN_STATE:-$GARDEN_ROOT/.garden-state}/pty-context/$base.settings.json" 2>/dev/null || true
 rm -f "$envelope" "$rusage" 2>/dev/null || true
 exit "$rc"
