@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T15:29:52Z_
+_As of 2026-09-05T15:43:33Z_
 
 ## Latest
 
@@ -134,6 +134,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 4): budget pool anthropic:endolin-garden-ece02cb4 spend=6839972 cap=143000000 high-water=0.85 target=4 step=2->3
+
+- `msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a` — from gardener:mentat-endolin-garden2-credit-investigation-20260905, reply_to `mentat-endolin-garden2-credit-investigation-20260905` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a.md)
+
+> Credit investigation for endolin-garden2-5bcdff64 (2026-09-04/05) is complete and committed to journal2.
+>
+> Report: https://github.com/kriscendobot/garden/blob/journal2/reports/credit-investigation-endolin-garden2-20260905.md
+> (permalink: https://github.com/kriscendobot/garden/blob/5d0b7974a23243a37aa58add89be04e561c0262b/reports/credit-investigation-endolin-garden2-20260905.md)
+>
+> TLDR: all liaison numbers reproduce exactly ($1,257.19 recorded, no dedup/cumulative defects). The burn is the ~19h window starting 2026-09-04T04:00Z when the host was moved onto a temporary API key and its budget pool was marked UNMETERED (pool_admits fails open -> no throttle): $1,090.65 recorded in that window, and those are approximately REAL credits, not notional. Multipliers: (1) the backlog of 69 gauntlets mass-staged 2026-08-30 by the new hourly design-pr-gauntlet-coverage-audit timer ($482 recorded on this host, incl. stale/superseded PRs churning at iteration 6/6); (2) everything on opus-4-8; (3) panel juror seats + state-machine decision calls are unmetered subprocess `claude -p` calls — the ledger covers only ~15-21% of the host's meter-measured billable tokens, so true API-key spend was plausibly 2-5x the recorded $1,091 (exact figure only in the Anthropic console for that key). Top recommendations: never run an unmetered pool with live workers (fail closed / explicit credit ceiling); adopt the proposed manual-gauntlet-trigger design; pre-gauntlet viability gate for stale PRs; close the panel-seat metering hole; tier seats off Opus.
 
 - `doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted.md)
 
@@ -1383,14 +1392,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.7M | $479.93 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 53.8M | $483.76 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 3.5M _(+122.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
 - [`endojs-endo-but-for-bots-pr665-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr665-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #665
 - [`endojs-endo-but-for-bots-pr1157-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1157-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1157
@@ -1405,18 +1414,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr95-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr95-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #95
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`endojs-endo-but-for-bots-pr666-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr666-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #666
-- [`mentat-endolin-garden2-credit-investigation-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-endolin-garden2-credit-investigation-20260905.md) — ---
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1156
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 
-### tada (7382)
+### tada (7383)
+- [`mentat-endolin-garden2-credit-investigation-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mentat-endolin-garden2-credit-investigation-20260905.md) — Completion report — mentat-endolin-garden2-credit-investigation-20260905
 - [`improve-deploy-candidate-exec-root`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-candidate-exec-root.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-fix-4.md) — Completion report
 - [`kriscendobot-minion.town-pr95-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-clean.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-1c3cbbc1fa79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1c3cbbc1fa79.md) — rolling-deploy canary probe — round trip OK
-- … and 7377 more
+- … and 7378 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
