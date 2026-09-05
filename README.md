@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T20:14:57Z_
+_As of 2026-09-05T20:17:58Z_
 
 ## Latest
 
@@ -1355,6 +1355,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
 
+- `endojs-endo-but-for-bots-pr1156-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1156-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1156-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1156-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
 - `20260905T145952Z-12d950` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T145952Z-12d950.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1456,17 +1460,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (3)
+- [`kriscendobot-minion.town-pr95-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr95-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #95
 - [`endojs-endo-but-for-bots-pr990-review-8896f456`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr990-review-8896f456.md) — Review directive on endojs/endo-but-for-bots PR #990
-- [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1156
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 
-### tada (7432)
+### tada (7434)
+- [`endojs-endo-but-for-bots-pr1156-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1156-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1156-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1156-gauntlet-fix-6.md) — Completion report
 - [`kriscendobot-minion.town-pr95-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-panel-6.md) — Cost
 - [`kriscendobot-minion.town-pr95-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1156-gauntlet-panel-6.md) — Completion report
-- [`kriscendobot-minion.town-pr95-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-panel-5.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1156-gauntlet-fix-5.md) — Completion report
-- … and 7427 more
+- … and 7429 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
