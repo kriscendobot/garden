@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T05:39:11Z_
+_As of 2026-09-05T05:40:33Z_
 
 ## Latest
 
@@ -409,6 +409,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 2bf8803996bd70d17c81abff3c16d127bbc89bb5 is 64 commit(s) behind origin/main2 (3cfbeb5ac433f64679608b13575d04962401a697) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
+
+- `20260905T054006Z-579cfa` — from orchestrator:orch-kriscendobot-garden-pr84-review-5119827342-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T054006Z-579cfa.md)
+
+> Orchestration orch-kriscendobot-garden-pr84-review-5119827342 HALTED: child kriscendobot-garden-pr84-design-feedback-5119827342 stalled in flight for 2511s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: kriscendobot-garden-pr84-conduct-20260905-r5119827342 build-groom-dedicated-skills-r5119827342
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1372,13 +1376,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 - [`kriscendobot-minion.town-pr58-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr58-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #58
 
-### tada (7300)
+### tada (7301)
+- [`orch-kriscendobot-garden-pr84-review-5119827342`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/orch-kriscendobot-garden-pr84-review-5119827342.md) — orchestration orch-kriscendobot-garden-pr84-review-5119827342 — HALTED
 - [`kriscendobot-garden-pr80-approved-calibration-campaign-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-approved-calibration-campaign-20260905.md) — orchestration kriscendobot-garden-pr80-approved-calibration-campaign-20260905...
 - [`orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721.md) — orchestration orch-endojs-endo-but-for-bots-pr1085-native-stream-search-51197...
 - [`kriscendobot-garden-pr83-conduct-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr83-conduct-20260905.md) — Cost
 - [`kriscendobot-garden-pr83-review-f6162506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr83-review-f6162506.md) — Cost
-- [`kriscendobot-garden-pr84-review-89b0eda7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr84-review-89b0eda7.md) — Cost
-- … and 7295 more
+- … and 7296 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
