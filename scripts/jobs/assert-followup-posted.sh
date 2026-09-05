@@ -95,6 +95,14 @@ if ! followups_actionable "$section"; then
   exit 0
 fi
 
+# A completed gauntlet clean/fix stage does not post its next panel stage. The
+# durable gauntlet record and deterministic driver own that transition. Treat a
+# section that says only that as informational, while leaving any additional
+# successor work subject to the dispositions below.
+if gauntlet_driver_owns_followups "$report" "$section"; then
+  exit 0
+fi
+
 # 3. OVERRIDE — an explicit, named safety valve, checked from the report text
 #    alone (no clone needed) so a false positive can never wedge even during an
 #    outage.

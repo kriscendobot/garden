@@ -214,6 +214,49 @@ reset_clone
   || fail 'gate wrongly blocked a "Nothing this time." section (singular heading)'
 echo '   gate is a no-op for a null-signal section'
 
+echo '== (f2) PASS: a completed gauntlet fix stage leaves its next panel to the driver =='
+cat >"$TR/r6c.md" <<'EOF'
+Fixed the panel findings, pushed, and observed green CI.
+
+## Follow-ups / notes
+- The gauntlet driver posts the next panel stage.
+
+<!-- gauntlet-stage-result: fix=done -->
+EOF
+reset_clone
+"$GATE" example-gauntlet-fix-1 "$JOB" "$TR/r6c.md" \
+  || fail 'gate wrongly blocked the deterministic gauntlet driver from owning the next panel stage'
+echo '   gate passed on the driver-owned gauntlet continuation'
+
+echo '== (f3) BLOCK: driver-owned continuation does not hide other unposted work =='
+cat >"$TR/r6d.md" <<'EOF'
+Fixed the panel findings, pushed, and observed green CI.
+
+## Follow-ups / notes
+- The gauntlet driver posts the next panel stage.
+- Post a conductor job after that panel finishes.
+
+<!-- gauntlet-stage-result: fix=done -->
+EOF
+reset_clone
+if "$GATE" example-gauntlet-fix-1-extra "$JOB" "$TR/r6d.md"; then
+  fail 'gate accepted actual unposted successor work beside a driver-owned transition'
+fi
+echo '   gate correctly blocked additional unposted successor work (rc 1)'
+
+echo '== (f4) BLOCK: driver prose without a completed stage marker remains actionable =='
+cat >"$TR/r6e.md" <<'EOF'
+Work stopped before the stage completed.
+
+## Follow-ups / notes
+- The gauntlet driver posts the next panel stage.
+EOF
+reset_clone
+if "$GATE" incomplete-gauntlet-fix "$JOB" "$TR/r6e.md"; then
+  fail 'gate accepted driver prose without the fix=done stage marker'
+fi
+echo '   gate correctly required the completed gauntlet-stage marker (rc 1)'
+
 echo '== (g) NO-OP: a report with NO follow-up section, and a bold-prose header, never gates =='
 printf 'All done. Clean completion.\n' >"$TR/r7.md"
 reset_clone
@@ -228,4 +271,4 @@ reset_clone
   || fail 'gate unexpectedly reacted to a bold-prose header (it anchors ONLY on the canonical heading)'
 echo '   gate anchors only on the canonical `## Follow-ups` heading (house-style rule closes the bold-prose gap)'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups and passes verified handoffs, real inbox messages, overrides, and null sections'
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups and passes verified handoffs, real inbox messages, overrides, null sections, and driver-owned gauntlet continuation'

@@ -145,7 +145,8 @@ actionable=0
 for f in "${new[@]}"; do
   base="$(basename "$f" .md)"
   section="$(report_followups_section "$f")"
-  if followups_actionable "$section"; then
+  if followups_actionable "$section" \
+    && ! gauntlet_driver_owns_followups "$f" "$section"; then
     actionable=$((actionable+1))
     {
       printf '===== REPORT %s =====\n' "$base"

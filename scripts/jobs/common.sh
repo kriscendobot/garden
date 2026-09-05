@@ -4368,6 +4368,32 @@ followups_actionable() {
   return 0
 }
 
+# gauntlet_driver_owns_followups <report-file> <section-text> — 0 iff a completed
+# clean/fix stage's entire follow-up section only names the deterministic
+# gauntlet driver's already-owned transition to the next panel stage. That
+# transition is not successor work for the stage worker to post: gauntlet.sh
+# derives it from the stage marker and the durable jobs/gauntlet record. Keep
+# this deliberately narrow. Any additional prose in the section, or the same
+# prose without the marker, remains actionable and is caught by the normal
+# posted-follow-up gate.
+gauntlet_driver_owns_followups() {
+  local report="${1:-}" section="${2:-}" normalized marker_count
+  [ -f "$report" ] || return 1
+
+  marker_count="$(grep -Ec '^[[:space:]]*<!--[[:space:]]*gauntlet-stage-result:[[:space:]]*(clean|fix)=done[[:space:]]*-->[[:space:]]*$' "$report" || true)"
+  [ "$marker_count" -eq 1 ] || return 1
+
+  normalized="$(
+    printf '%s\n' "$section" \
+      | sed -E '/^[[:space:]]*<!--[[:space:]]*gauntlet-stage-result:/d; /^[[:space:]]*$/d' \
+      | tr '\n' ' ' \
+      | sed -E 's/^[[:space:]]*[-*][[:space:]]*//; s/[[:space:]]+/ /g; s/[[:space:]]+$//' \
+      | tr '[:upper:]' '[:lower:]'
+  )"
+
+  [[ "$normalized" =~ ^(the[[:space:]]+)?(gauntlet[[:space:]]+)?driver[[:space:]]+(will[[:space:]]+)?(re-)?posts?[[:space:]]+(the[[:space:]]+)?next[[:space:]]+panel([[:space:]]+stage|[[:space:]]+round|-[0-9]+)?([[:space:]]+next)?[.]?$ ]]
+}
+
 # handoff_successor_posted <clone-dir> <successor-base> — 0 iff <successor-base> is
 # durably posted on the board in <clone-dir>: alive in the plan|todo|doin|tada
 # lifecycle, an orchestration record, or an active staged-gauntlet record. A
