@@ -132,12 +132,20 @@ build_fixture() {
 # test isolates the elapsed-CONSTANCY axis: the stub's ~3s elapsed would otherwise
 # trip the floor and be reclassified a real failure before the constancy window is
 # even consulted. The floor is exercised by its own subtest in this file (below).
+# GARDEN_PROVIDER_COOLDOWN_SECS=0 likewise DISABLES the per-provider health cooldown
+# (common.sh) for the same isolation reason: the stub emits a genuine provider-outage
+# signature ("overloaded_error (529)"), so a live cooldown would (correctly, in
+# production) pause the SECOND gardener invocation this test uses to simulate a
+# consecutive confirming cycle — and the constancy axis under test here is orthogonal
+# to the cooldown's claim-cadence routing. The cooldown has its own suite
+# (test/provider-cooldown-test.sh).
 run_gardener() {
   local BARE="$1" host="$2" TR="$3"; shift 3
   env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
       GARDEN="$host" GARDEN_STATE="$TR/state" \
       GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 GARDEN_STUB_SLEEP=3 \
       GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 \
+      GARDEN_PROVIDER_COOLDOWN_SECS=0 \
       GARDEN_ELAPSED_CONSTANCY_TOLERANCE_PCT=60 \
       GARDEN_JOB_HANDLER="$HERE/elapsed-constancy-handler-stub.sh" \
       "$@" \

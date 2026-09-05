@@ -43,6 +43,12 @@ KIND="$GARDEN_WORKER_KIND"
 export GARDEN_WORKER_KIND
 STATE_NS="$(worker_kind_field "$KIND" state_ns)" || die "unknown worker kind '$KIND'"
 export GARDEN_TAG="$KIND/$id"
+# The model provider this kind's default handler routes to (anthropic|openai|local|
+# moonshot|…). Used by the per-provider health cooldown (common.sh) both to publish a
+# bounded cooldown when THIS worker observes its provider unavailable and to pause
+# claiming when that route is in cooldown. Best-effort: an unknown kind yields empty,
+# which disables the cooldown for this worker (fail-open).
+WORKER_PROVIDER="$(worker_kind_field "$KIND" provider 2>/dev/null || true)"
 
 # --- git-escape ceiling (the root-repo-corruption backstop) ------------------
 # The root checkout ($GARDEN_ROOT) and the journal/ worktree SHARE ONE repo
@@ -346,6 +352,33 @@ while :; do
   # above) so a stop or deploy still preempts a braked gardener promptly.
   if fleet_brake_engaged; then
     log "fleet brake ENGAGED (transient-failure density $(transient_failure_density) ≥ threshold ${GARDEN_FLEET_BRAKE_THRESHOLD} over ${GARDEN_FLEET_BRAKE_WINDOW_SECS}s); pausing claims so the quota storm drains instead of being fed"
+    fleet_brake_pause
+    continue
+  fi
+
+  # --- per-provider health cooldown (the exit-0 provider-outage router) --------
+  # A worker whose OWN provider was observed unavailable (a deterministic quota/usage/
+  # API-outage signature published a BOUNDED cooldown for this route — common.sh §
+  # per-provider health cooldown) must not claim during the window: reap-now-requeued
+  # work (notably panel seats) would otherwise re-land on THIS exhausted route and
+  # exit-0/fail again, cycle after cycle, toward the doom threshold. Pause instead so
+  # the requeued job waits out the bounded window here while a worker on a DIFFERENT,
+  # healthy provider (a mystic/openrouter on a mixed host) keeps claiming and can
+  # carry it. Cadence only — the reaper stays the sole requeue owner and a paused
+  # worker touches no board state. Fail-open: an unreadable/missing marker reads as
+  # not-in-cooldown. Checked AFTER the density brake so both circuit breakers apply.
+  if [ -n "${WORKER_PROVIDER:-}" ] && provider_cooldown_active "$WORKER_PROVIDER"; then
+    cd_rem="$(provider_cooldown_remaining "$WORKER_PROVIDER")"
+    if [ "$GARDEN_ONESHOT" = "1" ]; then
+      # A ONESHOT worker is timer-rearmed and short-lived by contract; pause-looping
+      # here would hold the slot for the whole (bounded) window — and worse, a worker
+      # that JUST published this cooldown would then block on its own marker. Exit
+      # CLEAN (like the health gate's oneshot path) — the next timer tick re-checks
+      # the window and self-heals once the route recovers.
+      log "provider '$WORKER_PROVIDER' in health cooldown (${cd_rem}s remaining); oneshot worker claiming nothing and exiting cleanly (the next timer tick re-checks the route)"
+      exit 0
+    fi
+    log "provider '$WORKER_PROVIDER' in health cooldown (${cd_rem}s remaining); pausing claims so immediately-requeued work does not re-land on this unavailable route"
     fleet_brake_pause
     continue
   fi
@@ -883,6 +916,39 @@ while :; do
       fi
     fi
 
+    # --- classify the exit-0 from CAPTURED provider signatures -----------------
+    # An exit-0-without-completion is one of two very different things: a PROVIDER
+    # OUTAGE (a `claude`/`codex` that clean-exited after a quota/usage cut or a
+    # swallowed API error) or a genuinely clean-but-unfinished run (no provider
+    # fault). The branch above treats both identically as a bounded requeue, which is
+    # right for the requeue — but a provider outage additionally warrants ROUTING:
+    # publish a bounded per-provider health cooldown so this route's workers pause
+    # (pre-claim, above) rather than re-claiming reap-now-requeued work straight back
+    # onto the exhausted provider. Classify DETERMINISTICALLY from the captured
+    # handler output (tail-bounded) with the same provider-signature helpers the
+    # rc!=0 path uses — quota/usage cap OR transient provider/API failure. When the
+    # capture even names a concrete reset time, align the window to it (still capped);
+    # otherwise the default window. An observer never extends a live window, so a
+    # clean-but-unfinished exit publishes nothing and a short blip cannot become an
+    # unbounded route blackout. Best-effort/subshell-isolated so a marker-write
+    # failure cannot abort the gardener loop; the fleet brake below still backstops.
+    if [ -n "${WORKER_PROVIDER:-}" ]; then
+      outage_text="$(tail -c 65536 "$capture" 2>/dev/null || true)"
+      if is_provider_outage_signature "$outage_text"; then
+        cd_secs=""
+        quota_reset_epoch="$(provider_quota_reset_epoch "$outage_text" 2>/dev/null || true)"
+        if [[ "$quota_reset_epoch" =~ ^[0-9]+$ ]]; then
+          now_epoch="$(date -u +%s 2>/dev/null || echo 0)"
+          [ "$quota_reset_epoch" -gt "$now_epoch" ] && cd_secs=$(( quota_reset_epoch - now_epoch ))
+        fi
+        if ( start_provider_cooldown "$WORKER_PROVIDER" "exit0-provider-outage:$base" "$cd_secs" ); then
+          log "exit-0 for '$base' carries a provider-outage signature (provider=$WORKER_PROVIDER); published a bounded health cooldown ($(provider_cooldown_remaining "$WORKER_PROVIDER")s) — this route's workers will pause claims so requeued work does not re-land on the unavailable provider"
+        else
+          log "exit-0 for '$base' carries a provider-outage signature (provider=$WORKER_PROVIDER); a health cooldown for this route was already live ($(provider_cooldown_remaining "$WORKER_PROVIDER")s remaining), not extended (observers never extend a live window)"
+        fi
+      fi
+    fi
+
     rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
     # Transient (quota/API/clean-but-unfinished): feed the SHARED fleet brake and
     # apply the PER-WORKER failure backoff so this just-failed worker does not
@@ -1223,6 +1289,24 @@ while :; do
         quota_text="$(tail -c 65536 "$capture" 2>/dev/null || true)"
         quota_type="$(provider_quota_limit_type "$quota_text" 2>/dev/null || true)"
         quota_reset_epoch="$(provider_quota_reset_epoch "$quota_text" 2>/dev/null || true)"
+        # ROUTE around an unavailable provider, same as the exit-0 path: whenever a
+        # transient rc!=0 carries a deterministic provider-outage signature (quota/
+        # usage cap OR transient provider/API failure), publish a bounded per-provider
+        # health cooldown so this route's workers pause claims rather than re-claiming
+        # requeued work onto the exhausted provider. Independent of the per-job
+        # quota-backoff hint below (which holds THIS claim to a named reset); the
+        # cooldown governs the whole route's CLAIM CADENCE. Reset-aligned window when a
+        # concrete reset is parsed, else the default; always capped, never extended.
+        if [ -n "${WORKER_PROVIDER:-}" ] && is_provider_outage_signature "$quota_text"; then
+          cd_secs=""
+          if [[ "$quota_reset_epoch" =~ ^[0-9]+$ ]]; then
+            now_epoch="$(date -u +%s 2>/dev/null || echo 0)"
+            [ "$quota_reset_epoch" -gt "$now_epoch" ] && cd_secs=$(( quota_reset_epoch - now_epoch ))
+          fi
+          if ( start_provider_cooldown "$WORKER_PROVIDER" "transient-provider-outage:$base" "$cd_secs" ); then
+            log "transient rc=$rc for '$base' carries a provider-outage signature (provider=$WORKER_PROVIDER); published a bounded health cooldown ($(provider_cooldown_remaining "$WORKER_PROVIDER")s) so this route's workers pause claims"
+          fi
+        fi
         if [ -n "$quota_type" ] && [ -n "$quota_reset_epoch" ]; then
           quota_reset_at="$(date -u -d "@$quota_reset_epoch" +%FT%TZ)"
           if ( stamp_provider_quota_backoff_hint "$CLONE" "$JOBS_DOIN/$base.md" "$quota_type" "$quota_reset_epoch" ); then

@@ -2269,6 +2269,161 @@ fleet_brake_pause() {
   sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
 }
 
+# --- per-provider health cooldown (the exit-0 provider-outage router) ---------
+# The fleet brake (above) is DENSITY-triggered and PROVIDER-BLIND: it engages only
+# once GARDEN_FLEET_BRAKE_THRESHOLD transient failures pile up in the window, and it
+# pauses EVERY worker kind regardless of which backend actually died. That leaves a
+# gap the exit-0-provider-outage-routing directive closes: a `claude`/`codex` that
+# exits 0 (or fails transiently) with an EXPLICIT provider quota/usage/API-outage
+# signature is DETERMINISTIC proof that ONE provider is unavailable RIGHT NOW — long
+# before the density brake trips. Without a targeted response, the reaper's reap-now
+# requeue puts the job straight back on the board and the SAME provider's workers
+# re-claim it and re-fail it, cycle after cycle (the immediately-requeued panel-work
+# thrash: a panel seat that exit-0s on a quota cut is reap-now'd, re-claimed by another
+# monk on the same exhausted Anthropic route, exit-0s again, up to the doom threshold).
+#
+# The provider-health cooldown is the router: when a worker OBSERVES a provider-outage
+# signature it publishes a BOUNDED, per-provider cooldown window (host-local state,
+# like the brake ledger), and before every claim a worker whose OWN provider is in
+# cooldown PAUSES (fleet_brake_pause) instead of claiming — so requeued work waits out
+# the bounded window on this route rather than thrashing, and a worker on a DIFFERENT,
+# healthy provider (a mystic/openrouter on a mixed host) keeps claiming and can carry
+# the work. It changes only claim CADENCE — never the requeue, never board state — and
+# is fail-open (an unreadable/missing marker reads as not-in-cooldown), so a broken
+# cooldown can never wedge the pool.
+#
+# BOUNDED is the load-bearing property: the window is CAPPED
+# (GARDEN_PROVIDER_COOLDOWN_MAX_SECS) so a single provider blip can never become an
+# unbounded local blackout of a route, and an OBSERVER never EXTENDS a live window
+# (mirrors start_api_cooldown) — the first observation sets the window and it expires
+# on its own. A caller that has parsed a concrete reset time (provider_quota_reset_epoch)
+# may request a window that reaches that reset, still clamped to the cap.
+#
+# Host-local (under $GARDEN_STATE, never committed), per-provider: a quota storm is
+# observed per-host and per-backend, and a cross-host cooldown would need journal
+# coordination the storm-response path must not depend on.
+
+# is_provider_outage_signature <text> — 0 (outage) iff the text carries a
+# DETERMINISTIC provider-unavailable signature: an account-level quota/usage cap
+# (is_provider_quota_text — "hit your weekly limit", "resets 4pm (utc)", "quota
+# exceeded") OR a transient provider/API failure (is_transient_claude_signature —
+# overload, rate-limit, 429/5xx, api-error, econnreset/etimedout). This is the
+# classifier that separates an exit-0/transient caused by the PROVIDER being
+# unavailable (publish a cooldown, route around it) from a clean-but-unfinished run
+# (no provider fault — requeue only). 1 on no signature or empty text. Never fails.
+is_provider_outage_signature() {
+  local text="${1:-}"
+  [ -n "$text" ] || return 1
+  is_provider_quota_text "$text" && return 0
+  is_transient_claude_signature "$text" && return 0
+  return 1
+}
+
+# Cooldown window knobs. GARDEN_PROVIDER_COOLDOWN_SECS is the default window a fresh
+# observation opens; GARDEN_PROVIDER_COOLDOWN_MAX_SECS is the hard cap that bounds
+# EVERY window (including a reset-aligned request). 0 for the default DISABLES the
+# cooldown (a test/operator escape hatch that changes cadence only, never
+# classification). A non-numeric value falls back to the default/cap.
+: "${GARDEN_PROVIDER_COOLDOWN_SECS:=300}"
+: "${GARDEN_PROVIDER_COOLDOWN_MAX_SECS:=1800}"
+: "${GARDEN_PROVIDER_COOLDOWN_DIR:=$GARDEN_STATE/provider-cooldown}"
+
+# _provider_cooldown_now — wall clock in epoch seconds, overridable for
+# deterministic tests (mirrors _fleet_brake_now / the api cooldown's date use).
+_provider_cooldown_now() { printf '%s\n' "${GARDEN_PROVIDER_COOLDOWN_NOW:-$(date +%s 2>/dev/null || echo 0)}"; }
+
+_provider_cooldown_max() {  # echo the validated, positive hard cap in seconds
+  local v="${GARDEN_PROVIDER_COOLDOWN_MAX_SECS:-1800}"
+  case "$v" in ''|*[!0-9]*) v=1800 ;; esac
+  [ "$v" -ge 1 ] || v=1800
+  printf '%s' "$v"
+}
+
+_provider_cooldown_default_secs() {  # echo the validated default window (0 = disabled)
+  local v="${GARDEN_PROVIDER_COOLDOWN_SECS:-300}" cap; cap="$(_provider_cooldown_max)"
+  case "$v" in ''|*[!0-9]*) v=300 ;; esac
+  [ "$v" -le "$cap" ] || v="$cap"
+  printf '%s' "$v"
+}
+
+# _provider_cooldown_slug <provider> — filesystem-safe marker leaf for a provider.
+_provider_cooldown_slug() {
+  local p="${1:-unknown}"
+  p="${p//[^A-Za-z0-9._-]/_}"
+  printf '%s' "${p:-unknown}"
+}
+
+# provider_cooldown_active <provider> — rc 0 iff a NON-expired cooldown window exists
+# for <provider>. Removes an expired marker atomically (under flock) so an aged-out
+# window releases cleanly and two workers cannot both re-arm on the same tick.
+# Fail-open: a disabled default (0), missing $GARDEN_STATE, or unreadable marker all
+# read as NOT active. Never fails the caller.
+provider_cooldown_active() {
+  local provider="${1:?provider_cooldown_active: provider required}" slug marker lock
+  [ "$(_provider_cooldown_default_secs)" -gt 0 ] || return 1
+  slug="$(_provider_cooldown_slug "$provider")"
+  marker="$GARDEN_PROVIDER_COOLDOWN_DIR/$slug"
+  lock="$marker.lock"
+  mkdir -p "$GARDEN_PROVIDER_COOLDOWN_DIR" 2>/dev/null || return 1
+  (
+    flock 9 || exit 1
+    local now expiry
+    now="$(_provider_cooldown_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
+    expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0 ;; esac
+    if [ "$expiry" -gt "$now" ]; then exit 0; fi
+    rm -f "$marker" 2>/dev/null || true
+    exit 1
+  ) 9>"$lock"
+}
+
+# provider_cooldown_remaining <provider> — echo the seconds left on a live window
+# (0 when none/expired). Read-only; for log/diagnostic use only. Never fails.
+provider_cooldown_remaining() {
+  local provider="${1:?provider_cooldown_remaining: provider required}" slug marker now expiry
+  slug="$(_provider_cooldown_slug "$provider")"
+  marker="$GARDEN_PROVIDER_COOLDOWN_DIR/$slug"
+  now="$(_provider_cooldown_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
+  expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+  case "$expiry" in ''|*[!0-9]*) expiry=0 ;; esac
+  if [ "$expiry" -gt "$now" ]; then printf '%s\n' "$(( expiry - now ))"; else printf '0\n'; fi
+}
+
+# start_provider_cooldown <provider> [tag] [requested-secs] — publish a BOUNDED
+# cooldown window for <provider>. rc 0 = THIS call opened a fresh window (and owns
+# the single warning a caller emits); rc 1 = a live window already exists (an
+# observer NEVER extends it — a short blip cannot snowball into an unbounded
+# blackout). The window length is: <requested-secs> when given and valid (a
+# reset-aligned request), else the default; ALWAYS clamped to
+# GARDEN_PROVIDER_COOLDOWN_MAX_SECS and floored at 1s. A disabled default (0) makes
+# this a no-op returning rc 1. Never fails the caller (callers run under set -e).
+start_provider_cooldown() {
+  local provider="${1:?start_provider_cooldown: provider required}" tag="${2:-}" req="${3:-}"
+  local dflt cap secs slug marker lock
+  dflt="$(_provider_cooldown_default_secs)"; cap="$(_provider_cooldown_max)"
+  [ "$dflt" -gt 0 ] || return 1
+  case "$req" in ''|*[!0-9]*) secs="$dflt" ;; *) secs="$req" ;; esac
+  [ "$secs" -ge 1 ] || secs=1
+  [ "$secs" -le "$cap" ] || secs="$cap"
+  slug="$(_provider_cooldown_slug "$provider")"
+  marker="$GARDEN_PROVIDER_COOLDOWN_DIR/$slug"
+  lock="$marker.lock"
+  mkdir -p "$GARDEN_PROVIDER_COOLDOWN_DIR" 2>/dev/null || return 1
+  (
+    flock 9 || exit 1
+    local now expiry new_expiry tmp
+    now="$(_provider_cooldown_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
+    expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0 ;; esac
+    [ "$expiry" -le "$now" ] || exit 1   # a live window stands; observers never extend it
+    new_expiry=$(( now + secs ))
+    tmp="$marker.$$"
+    printf '%s\n%s\n' "$new_expiry" "$tag" > "$tmp" 2>/dev/null || { rm -f "$tmp" 2>/dev/null; exit 1; }
+    mv -f "$tmp" "$marker" 2>/dev/null || { rm -f "$tmp" 2>/dev/null; exit 1; }
+    exit 0
+  ) 9>"$lock"
+}
+
 # --- job scratch (the live-tree-root clutter fix) ----------------------------
 #
 # Jobs that need a private scratch directory or an ad-hoc worktree MUST place it
