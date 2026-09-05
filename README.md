@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T23:17:35Z_
+_As of 2026-09-05T23:20:14Z_
 
 ## Latest
 
@@ -478,10 +478,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > hermit/1 on endolin-garden2-5bcdff64 no longer has stale cgroup residue.
-
-- `endojs-endo-but-for-bots-pr935-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr935-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr935-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr935-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
