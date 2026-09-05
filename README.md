@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T14:29:59Z_
+_As of 2026-09-05T14:31:44Z_
 
 ## Latest
 
@@ -1352,7 +1352,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.7M | $466.50 _(notional, rate-card)_ | 36% of 143.0M (ok) |
+| Claude | 51.7M | $466.57 _(notional, rate-card)_ | 36% of 143.0M (ok) |
 | Codex | 3.3M _(+120.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
@@ -1372,20 +1372,20 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`improve-exit-zero-provider-outage-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-exit-zero-provider-outage-routing.md) — ---
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1085
 - [`improve-stale-worker-cgroup-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-stale-worker-cgroup-reap.md) — ---
+- [`minion-town-eval-mail-pair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-eval-mail-pair.md) — Evaluation 7/8: ocap mail between two distinct guests
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
-- [`endojs-endo-but-for-bots-pr1158-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1158-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1158
 - [`endojs-endo-but-for-bots-pr666-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr666-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #666
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1156
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 
-### tada (7368)
+### tada (7369)
+- [`endojs-endo-but-for-bots-pr1158-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-panel-3.md) — Completion report
 - [`minion-town-eval-site-lifecycle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-site-lifecycle.md) — Cost
 - [`minion-town-eval-sandbox-boundary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-sandbox-boundary.md) — Cost
 - [`kriscendobot-minion.town-pr58-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr58-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1157-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1157-gauntlet-fix-3.md) — Completion report
-- … and 7363 more
+- … and 7364 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
