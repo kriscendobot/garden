@@ -2,7 +2,7 @@
 order: serial
 children: kriscendobot-garden-pr81-conduct-5119818493 kriscendobot-garden-pr81-postdeploy-pty-5119818493
 on-child-failure: halt
-state: pending
+state: running
 created_by: review
 created_at: 2026-09-05T08:00:30Z
 ---
