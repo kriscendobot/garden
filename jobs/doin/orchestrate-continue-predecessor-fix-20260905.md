@@ -68,6 +68,7 @@ This is the garden's own repo (`scripts/jobs/orchestrate.sh`) — land directly 
 `main2` per the garden's own conventions (no PR for the garden's own repo; see
 CLAUDE.md § Conventions), with tests proving the fix.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
