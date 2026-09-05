@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T16:06:57Z_
+_As of 2026-09-05T16:08:55Z_
 
 ## Latest
 
@@ -403,6 +403,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > 3. Confirm the retargeted workflow (now triggering on `main2`) actually
 >    runs green on your PR-equivalent push and report the run URL.
+
+- `endojs-endo-but-for-bots-pr1158-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1158-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1158-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1158-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
 
@@ -1432,7 +1436,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $485.75 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.5M | $486.07 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 3.7M _(+123.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
@@ -1458,13 +1462,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1156
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 
-### tada (7387)
+### tada (7388)
+- [`endojs-endo-but-for-bots-pr1158-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1158-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-fix-6.md) — Completion report
 - [`improve-ignore-vanished-cgroup-members`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ignore-vanished-cgroup-members.md) — Cost
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-fix-5.md) — Completion report
-- [`mentat-endolin-garden2-credit-investigation-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mentat-endolin-garden2-credit-investigation-20260905.md) — Completion report — mentat-endolin-garden2-credit-investigation-20260905
-- … and 7382 more
+- … and 7383 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
