@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T14:33:17Z_
+_As of 2026-09-05T14:34:44Z_
 
 ## Latest
 
@@ -29,6 +29,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 32 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden2-5bcdff64 cap=385000000 is UNCALIBRATED (provenance='uncalibrated'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
+
+- `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
+
+> Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
 
 - `20260904T053715Z-4eb5bc` — from gardener:ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1, reply_to `ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T053715Z-4eb5bc.md)
 
@@ -1356,8 +1360,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.8M | $467.15 _(notional, rate-card)_ | 36% of 143.0M (ok) |
-| Codex | 3.4M _(+121.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 51.8M | $467.71 _(notional, rate-card)_ | 36% of 143.0M (ok) |
+| Codex | 3.4M _(+121.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
