@@ -61,13 +61,5 @@ clear, every gap already known — say so explicitly with the citations, and
 complete without a design PR; that conclusion also requires the evidence.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=96 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-05T14:41:11Z
+
+<!-- garden-reaped: 1 -->
