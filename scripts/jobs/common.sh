@@ -4108,16 +4108,30 @@ reap_process_group() {
 # process groups because a detached stale process may share a group with a live
 # process from the current invocation.
 #
+# A zombie cannot respond to either signal: only its parent (or PID 1 after the
+# parent dies) can wait(2) it away. Treating one as a live survivor made every
+# worker restart send SIGKILL to the same pid forever. We now classify residue,
+# signal only live members, and give the owning parent/systemd time to reap
+# zombies. Residue is remembered outside the unit cgroup: an unchanged set is
+# not signalled again until the retry window expires, and is escalated through
+# the coalescing maintainer-alert path instead of producing one notice per
+# restart.
+#
 # GARDEN_PROC_ROOT and GARDEN_CGROUP_ROOT are test seams. Production leaves them
 # at /proc and /sys/fs/cgroup.
 : "${GARDEN_WORKER_STARTUP_REAP_GRACE:=2}"
 : "${GARDEN_WORKER_STARTUP_REAP_KILL_WAIT:=2}"
+: "${GARDEN_WORKER_STARTUP_REAP_RETRY_SECS:=300}"
+: "${GARDEN_WORKER_STARTUP_REAP_STATE_DIR:=$GARDEN_STATE/worker-cgroup-reap}"
 reap_stale_worker_cgroup() {
   local kind="${1:-}" id="${2:-}" grace="${3:-$GARDEN_WORKER_STARTUP_REAP_GRACE}"
   local proc_root="${GARDEN_PROC_ROOT:-/proc}"
   local cgroup_root="${GARDEN_CGROUP_ROOT:-/sys/fs/cgroup}"
-  local line cgpath leaf unit_prefix expected procs root p parent
-  local -a members=() stale=()
+  local line cgpath leaf unit_prefix expected procs root p parent state
+  local state_file now retry prior_identity prior_at prior_count identity signature tmp
+  local live_count zombie_count unknown_count wait_left count
+  local -a members=() stale=() live=() zombies=()
+  local -A killed=()
 
   [ -n "$kind" ] && [ -n "$id" ] || return 0
   unit_prefix="$(worker_kind_field "$kind" unit 2>/dev/null)" || return 0
@@ -4158,52 +4172,139 @@ reap_stale_worker_cgroup() {
     return 1
   }
 
-  for p in "${members[@]}"; do
-    _worker_pid_is_current "$p" || stale+=("$p")
-  done
-  [ "${#stale[@]}" -gt 0 ] || { unset -f _worker_pid_is_current; return 0; }
+  _worker_pid_state() { # <pid>; echo Linux state letter, or ? when it vanished/is unreadable
+    local s
+    s="$(awk '/^State:/{print $2; exit}' "$proc_root/$1/status" 2>/dev/null || true)"
+    case "$s" in [A-Za-z]) printf '%s\n' "$s" ;; *) printf '?\n' ;; esac
+  }
 
-  log "startup cgroup cleanup: terminating ${#stale[@]} stale process(es) from a prior $kind/$id run (pids: ${stale[*]})"
-  for p in "${stale[@]}"; do kill -TERM "$p" 2>/dev/null || true; done
+  _worker_pid_starttime() { # <pid>; field 22 from /proc/<pid>/stat, robust to spaces in comm
+    local stat stat_tail
+    local -a stat_fields=()
+    stat="$(cat "$proc_root/$1/stat" 2>/dev/null || true)"
+    stat_tail="${stat##*) }"
+    read -r -a stat_fields <<< "$stat_tail"
+    case "${stat_fields[19]:-}" in
+      ''|*[!0-9]*) printf '?\n' ;;
+      *) printf '%s\n' "${stat_fields[19]}" ;;
+    esac
+  }
+
+  _worker_collect_stale() {
+    stale=(); live=(); zombies=()
+    mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
+    for p in "${members[@]}"; do
+      if ! _worker_pid_is_current "$p"; then
+        stale+=("$p")
+        state="$(_worker_pid_state "$p")"
+        if [ "$state" = Z ]; then zombies+=("$p"); else live+=("$p"); fi
+      fi
+    done
+  }
+
+  _worker_residue_signature() {
+    for p in "${stale[@]}"; do
+      state="$(_worker_pid_state "$p")"
+      parent="$(awk '/^PPid:/{print $2; exit}' "$proc_root/$p/status" 2>/dev/null || true)"
+      printf '%s:%s:%s\n' "$p" "$state" "${parent:-?}"
+    done | sort | paste -sd, -
+  }
+
+  _worker_residue_identity() {
+    for p in "${stale[@]}"; do
+      printf '%s:%s\n' "$p" "$(_worker_pid_starttime "$p")"
+    done | sort | paste -sd, -
+  }
+
+  state_file="$GARDEN_WORKER_STARTUP_REAP_STATE_DIR/${kind}-${id}.state"
+  retry="$GARDEN_WORKER_STARTUP_REAP_RETRY_SECS"
+  case "$retry" in ''|*[!0-9]*) retry=300 ;; esac
+  now="$(date +%s 2>/dev/null || echo 0)"
+  case "$now" in ''|*[!0-9]*) now=0 ;; esac
+
+  _worker_collect_stale
+  if [ "${#stale[@]}" -eq 0 ]; then
+    rm -f "$state_file" 2>/dev/null || true
+    alert_maintainer_clear "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
+      "$kind/$id on $GARDEN no longer has stale cgroup residue." || true
+    unset -f _worker_pid_is_current _worker_pid_state _worker_pid_starttime _worker_collect_stale _worker_residue_signature _worker_residue_identity
+    return 0
+  fi
+
+  # A restart into exactly the residue we already failed to remove gets a quiet
+  # cooldown, not another TERM/KILL storm. PID + kernel start time distinguishes
+  # a reused pid; state + parent remain in the diagnostic signature. State-file
+  # lines are: identity, last cleanup-attempt epoch, observation count, detail.
+  identity="$(_worker_residue_identity)"
+  signature="$(_worker_residue_signature)"
+  prior_identity="$(sed -n '1p' "$state_file" 2>/dev/null || true)"
+  prior_at="$(sed -n '2p' "$state_file" 2>/dev/null || echo 0)"
+  prior_count="$(sed -n '3p' "$state_file" 2>/dev/null || echo 0)"
+  case "$prior_at" in ''|*[!0-9]*) prior_at=0 ;; esac
+  case "$prior_count" in ''|*[!0-9]*) prior_count=0 ;; esac
+  if [ -n "$identity" ] && [ "$identity" = "$prior_identity" ] \
+      && [ $((now - prior_at)) -lt "$retry" ]; then
+    count=$((prior_count + 1))
+    mkdir -p "$(dirname "$state_file")" 2>/dev/null || true
+    tmp="$state_file.$$"
+    if printf '%s\n%s\n%s\n%s\n' "$identity" "$prior_at" "$count" "$signature" > "$tmp" 2>/dev/null; then
+      mv -f "$tmp" "$state_file" 2>/dev/null || true
+    fi
+    log "WARN: startup cgroup cleanup: unchanged residue is in retry cooldown (${retry}s; observation $count; members: $signature)"
+    alert_maintainer "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
+      "$kind/$id on $GARDEN retains the same stale cgroup members across worker starts ($signature). Cleanup is rate-limited to once per ${retry}s; zombies must be waited by their owning parent/systemd, while a live D-state survivor may be kernel-unreapable. Inspect the unit and its cgroup rather than repeatedly restarting it." || true
+    unset -f _worker_pid_is_current _worker_pid_state _worker_pid_starttime _worker_collect_stale _worker_residue_signature _worker_residue_identity
+    return 0
+  fi
+
+  log "startup cgroup cleanup: terminating ${#live[@]} live stale process(es) from a prior $kind/$id run (pids: ${live[*]:-none}); waiting for ${#zombies[@]} zombie(s) to be reaped (pids: ${zombies[*]:-none})"
+  for p in "${live[@]}"; do kill -TERM "$p" 2>/dev/null || true; done
   case "$grace" in ''|*[!0-9]*) grace=2 ;; esac
   [ "$grace" -gt 0 ] && sleep "$grace"
 
-  # Re-read after the grace. This catches both TERM-ignoring survivors and a
-  # child forked by a stale process while the first pass was in progress.
-  stale=()
-  mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
-  for p in "${members[@]}"; do
-    _worker_pid_is_current "$p" || stale+=("$p")
-  done
-  for p in "${stale[@]}"; do kill -KILL "$p" 2>/dev/null || true; done
+  # Re-read after TERM. KILL only live survivors (and late live children); a
+  # zombie is already dead and another signal cannot help its parent wait it.
+  _worker_collect_stale
+  for p in "${live[@]}"; do kill -KILL "$p" 2>/dev/null || true; killed["$p"]=1; done
 
-  local wait_left="$GARDEN_WORKER_STARTUP_REAP_KILL_WAIT"
+  wait_left="$GARDEN_WORKER_STARTUP_REAP_KILL_WAIT"
   case "$wait_left" in ''|*[!0-9]*) wait_left=2 ;; esac
   while :; do
-    stale=()
-    mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
-    for p in "${members[@]}"; do
-      _worker_pid_is_current "$p" || stale+=("$p")
-    done
+    _worker_collect_stale
     [ "${#stale[@]}" -gt 0 ] || break
-    # Repeat the signal after every scan so a child forked between the prior
-    # scan and SIGKILL cannot escape merely by acquiring a new pid.
-    for p in "${stale[@]}"; do kill -KILL "$p" 2>/dev/null || true; done
+    # Close the fork race, but never re-signal an unchanged live survivor.
+    for p in "${live[@]}"; do
+      [ -n "${killed[$p]:-}" ] || { kill -KILL "$p" 2>/dev/null || true; killed["$p"]=1; }
+    done
     [ "$wait_left" -gt 0 ] || break
     sleep 1
     wait_left=$((wait_left - 1))
   done
-  # The loop's final KILL may not have disappeared from cgroup.procs yet. Take
-  # one last snapshot for an accurate warning without extending startup again.
-  stale=()
-  mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
-  for p in "${members[@]}"; do
-    _worker_pid_is_current "$p" || stale+=("$p")
-  done
+
+  # Take one final snapshot. Persist and escalate residue; clear a prior episode
+  # after the owning parent/systemd has finally reaped it.
+  _worker_collect_stale
   if [ "${#stale[@]}" -gt 0 ]; then
-    log "WARN: startup cgroup cleanup: ${#stale[@]} stale process(es) still listed after SIGKILL (pids: ${stale[*]})"
+    signature="$(_worker_residue_signature)"
+    identity="$(_worker_residue_identity)"
+    count=1
+    [ "$identity" = "$prior_identity" ] && count=$((prior_count + 1))
+    mkdir -p "$(dirname "$state_file")" 2>/dev/null || true
+    tmp="$state_file.$$"
+    if printf '%s\n%s\n%s\n%s\n' "$identity" "$now" "$count" "$signature" > "$tmp" 2>/dev/null; then
+      mv -f "$tmp" "$state_file" 2>/dev/null || true
+    fi
+    live_count="${#live[@]}"; zombie_count="${#zombies[@]}"; unknown_count=0
+    for p in "${live[@]}"; do [ "$(_worker_pid_state "$p")" = '?' ] && unknown_count=$((unknown_count + 1)); done
+    log "WARN: startup cgroup cleanup: persistent residue after cleanup (live=$live_count zombies=$zombie_count unknown=$unknown_count; members: $signature)"
+    alert_maintainer "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
+      "$kind/$id on $GARDEN retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd ($signature). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per ${retry}s." || true
+  else
+    rm -f "$state_file" 2>/dev/null || true
+    alert_maintainer_clear "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
+      "$kind/$id on $GARDEN cleared its stale cgroup residue." || true
   fi
-  unset -f _worker_pid_is_current
+  unset -f _worker_pid_is_current _worker_pid_state _worker_pid_starttime _worker_collect_stale _worker_residue_signature _worker_residue_identity
   return 0
 }
 
