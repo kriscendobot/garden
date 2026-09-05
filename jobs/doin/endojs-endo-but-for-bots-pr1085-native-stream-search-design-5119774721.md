@@ -27,3 +27,13 @@ Work in an isolated project worktree for branch `feat/mount-stream-glob-grep`. R
 Resolve the host-function, batching, cancellation, confinement, regexp-semantics, virtual-tree, and engine-availability seams explicitly. Inspect the current Ironhorse worker/host-function implementation and put every prerequisite needed for runnable Ironhorse parity inside the subsequent fixer scope; do not paper over an absent engine path with a mock. Keep the design and `designs/README.md` synchronized. Post the required SHA-citing PR summary for the design commit, but leave the original inline thread open for the implementation job.
 
 Definition of done: a pushed, decision-complete design commit on PR #1085 whose report names the exact implementation and test seams the fixer must build.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T04:43:11Z
