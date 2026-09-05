@@ -1,2 +1,2 @@
-base: improve-cleric-stale-cgroup-cleanup
+base: improve-exit-zero-provider-outage-routing
 identity: mentor:scripts/jobs/gardener.sh
