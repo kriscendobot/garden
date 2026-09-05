@@ -11,6 +11,8 @@
 #   GARDEN_STUB_CAPTURE     text emitted to stdout+stderr (folded into $capture by
 #                           gardener.sh) so the non-zero classifier can see an API/
 #                           rate-limit/quota transient signature.
+#   GARDEN_STUB_REPORT      exact report body, used to model a provider envelope
+#                           written to the report while captured stdout stays empty.
 #   GARDEN_STUB_ADVANCE_HEAD 1 → make a commit in this job's garden worktree
 #                           ($GARDEN_SCRATCH/gardener-wt-<base>) to model a handler
 #                           that pushed real work this cycle (the productive-cycle
@@ -25,7 +27,11 @@
 set -uo pipefail
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report}"
 
-printf '# report for %s\nstub handler ran\n' "$base" > "$report"
+if [ -n "${GARDEN_STUB_REPORT:-}" ]; then
+  printf '%s\n' "$GARDEN_STUB_REPORT" > "$report"
+else
+  printf '# report for %s\nstub handler ran\n' "$base" > "$report"
+fi
 [ "${GARDEN_STUB_ORCHESTRATION_FAILED:-0}" = "1" ] \
   && printf '%s\n' '<<<GARDEN-ORCHESTRATION-FAILED>>>' >> "$report"
 [ -n "${GARDEN_STUB_HANDOFF_SUCCESSOR:-}" ] \

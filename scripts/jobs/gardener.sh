@@ -926,14 +926,25 @@ while :; do
     # (pre-claim, above) rather than re-claiming reap-now-requeued work straight back
     # onto the exhausted provider. Classify DETERMINISTICALLY from the captured
     # handler output (tail-bounded) with the same provider-signature helpers the
-    # rc!=0 path uses — quota/usage cap OR transient provider/API failure. When the
-    # capture even names a concrete reset time, align the window to it (still capped);
+    # rc!=0 path uses — quota/usage cap OR transient provider/API failure. The
+    # Anthropic handler has a second diagnostic channel: when Claude clean-exits
+    # with an error envelope whose `.result` cannot be extracted, monk-claude.sh
+    # copies that JSON envelope to the report while stdout stays empty. Include the
+    # report tail for that provider so the quota evidence is not discarded before
+    # routing. Other providers retain the capture-only classifier: an ordinary
+    # unfinished report can legitimately discuss quota/API failures and must not
+    # manufacture a cooldown for its route. When the combined evidence names a
+    # concrete reset time, align the window to it (still capped);
     # otherwise the default window. An observer never extends a live window, so a
     # clean-but-unfinished exit publishes nothing and a short blip cannot become an
     # unbounded route blackout. Best-effort/subshell-isolated so a marker-write
     # failure cannot abort the gardener loop; the fleet brake below still backstops.
     if [ -n "${WORKER_PROVIDER:-}" ]; then
       outage_text="$(tail -c 65536 "$capture" 2>/dev/null || true)"
+      if [ "$WORKER_PROVIDER" = anthropic ]; then
+        report_outage_text="$(tail -c 65536 "$report" 2>/dev/null || true)"
+        outage_text="$(printf '%s\n%s' "$outage_text" "$report_outage_text")"
+      fi
       if is_provider_outage_signature "$outage_text"; then
         cd_secs=""
         quota_reset_epoch="$(provider_quota_reset_epoch "$outage_text" 2>/dev/null || true)"

@@ -13,8 +13,8 @@
 #   (b) a BOUNDED per-provider health cooldown (start_provider_cooldown /
 #       provider_cooldown_active / provider_cooldown_remaining) a worker publishes on
 #       observing its provider unavailable and reads pre-claim to pause claiming.
-# This test drives the pure helpers directly with a frozen clock
-# (GARDEN_PROVIDER_COOLDOWN_NOW) so it needs no sleeps.
+# The helper cases use a frozen clock (GARDEN_PROVIDER_COOLDOWN_NOW), and the final
+# case drives the real gardener spine with an exit-0 Anthropic quota envelope.
 #
 # Usage: provider-cooldown-test.sh
 set -euo pipefail
@@ -89,6 +89,48 @@ hr; echo "SUBTEST 8 — a non-integer requested window falls back to the default
 if start_provider_cooldown local "bad-req" "notanumber"; then ok "local window opened with a bad request" || true; else bad "local window not opened"; fi
 rem="$(provider_cooldown_remaining local)"
 [ "$rem" = 300 ] && ok "non-integer request → default 300s" || bad "remaining='$rem' expected 300"
+
+hr; echo "SUBTEST 9 — exit-0 Anthropic quota envelope in report publishes cooldown"; hr
+# monk-claude.sh copies Claude's terminal diagnostic JSON to the report when it
+# cannot extract `.result`; the handler itself emits nothing to stdout/stderr and
+# exits 0. Exercise that exact split through gardener.sh, not just the pure text
+# classifier, so a capture-only regression cannot pass this test.
+T9="$TR/exit0-envelope"
+BARE9="$T9/journal.git"
+SEED9="$T9/seed"
+mkdir -p "$T9"
+git init -q --bare "$BARE9"
+git init -q "$SEED9"
+git -C "$SEED9" checkout -q -b journal2
+(
+  cd "$SEED9"
+  mkdir -p jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors
+  for d in jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+  printf '# panel-envelope\n\nrun the panel seat\n' > jobs/todo/panel-envelope.md
+)
+git -C "$SEED9" add -A
+git -C "$SEED9" -c user.name=test -c user.email=test@localhost commit -q -m 'seed exit-0 envelope job'
+git -C "$SEED9" remote add origin "$BARE9"
+git -C "$SEED9" push -q -u origin journal2
+
+STATE9="$T9/state"
+COOLDOWN9="$STATE9/provider-cooldown"
+ENVELOPE9='{"type":"result","subtype":"error","is_error":true,"error":"You have hit your weekly limit; quota exceeded"}'
+env GARDEN=envelopehost GARDEN_STATE="$STATE9" JOURNAL_REMOTE="$BARE9" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_PROVIDER_COOLDOWN_DIR="$COOLDOWN9" \
+    GARDEN_PROVIDER_COOLDOWN_NOW=1000000000 GARDEN_PROVIDER_COOLDOWN_SECS=300 \
+    GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=0 GARDEN_STUB_REPORT="$ENVELOPE9" \
+    GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
+    "$JOBS/gardener.sh" 1 > "$T9/gardener.log" 2>&1 || true
+
+if [ -f "$COOLDOWN9/anthropic" ] \
+   && [ "$(sed -n '1p' "$COOLDOWN9/anthropic")" = 1000000300 ] \
+   && [ "$(sed -n '2p' "$COOLDOWN9/anthropic")" = exit0-provider-outage:panel-envelope ] \
+   && grep -q "published a bounded health cooldown" "$T9/gardener.log"; then
+  ok "report-only exit-0 quota envelope → Anthropic cooldown published"
+else
+  bad "report-only exit-0 quota envelope missed cooldown ($(tr '\n' '|' < "$T9/gardener.log" | tail -c 500))"
+fi
 
 hr
 echo "RESULT: $PASS passed, $FAIL failed"
