@@ -101,3 +101,13 @@ twice with differently-phrased probes so the report does not rest on one
 misread error.
 
 **Cleanup.** Remove all `ev5-` names created for endowment probes.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-09-05T14:13:18Z
