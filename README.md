@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T07:05:47Z_
+_As of 2026-09-05T07:12:48Z_
 
 ## Latest
 
@@ -1337,15 +1337,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 26.8M | $248.20 _(notional, rate-card)_ | 19% of 143.0M (ok) |
-| Codex | 1.3M _(+55.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 1.5M _(+58.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (28)
+### doin (27)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
-- [`daily-progress-summary-20260905-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260905-070505.md) — Daily midnight Pacific progress summary
 - [`kriscendobot-garden-pr75-20d9585e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr75-20d9585e.md) — attention directive on kriscendobot/garden PR #75
 - [`endojs-endo-but-for-bots-pr666-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr666-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #666
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
@@ -1373,13 +1372,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 - [`kriscendobot-minion.town-pr58-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr58-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #58
 
-### tada (7301)
+### tada (7302)
+- [`daily-progress-summary-20260905-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260905-070505.md) — Cost
 - [`orch-kriscendobot-garden-pr84-review-5119827342`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/orch-kriscendobot-garden-pr84-review-5119827342.md) — orchestration orch-kriscendobot-garden-pr84-review-5119827342 — HALTED
 - [`kriscendobot-garden-pr80-approved-calibration-campaign-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-approved-calibration-campaign-20260905.md) — orchestration kriscendobot-garden-pr80-approved-calibration-campaign-20260905...
 - [`orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721.md) — orchestration orch-endojs-endo-but-for-bots-pr1085-native-stream-search-51197...
 - [`kriscendobot-garden-pr83-conduct-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr83-conduct-20260905.md) — Cost
-- [`kriscendobot-garden-pr83-review-f6162506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr83-review-f6162506.md) — Cost
-- … and 7296 more
+- … and 7297 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
