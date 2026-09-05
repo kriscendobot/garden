@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":63,"elapsed_s":1108,"input_tokens":126,"output_tokens":44435,"cache_creation_tokens":158726,"cache_read_tokens":7995969,"total_cost_usd":6.699348499999999,"ts":"2026-09-05T14:41:30Z","base":"improve-exit-zero-provider-outage-routing","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
