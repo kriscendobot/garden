@@ -42,6 +42,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-reaped: 0 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=629 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
