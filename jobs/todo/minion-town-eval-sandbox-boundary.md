@@ -103,13 +103,5 @@ misread error.
 **Cleanup.** Remove all `ev5-` names created for endowment probes.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=122 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-09-05T14:13:18Z
+
+<!-- garden-reaped: 1 -->
