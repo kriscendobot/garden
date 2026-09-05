@@ -1,4 +1,5 @@
 ---
+child-minion-town-eval-error-probes-reap-count: 0
 child-minion-town-eval-mail-pair-host: endolin-garden-ece02cb4
 child-minion-town-eval-mail-pair-reap-count: 0
 child-minion-town-eval-site-lifecycle-reap-count: 0
