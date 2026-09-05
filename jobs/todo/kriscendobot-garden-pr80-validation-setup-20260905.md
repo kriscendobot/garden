@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-garden-pr80-approved-calibration-campaign-20260905
-priority: normal
-posted_by: producer
-posted_at: 2026-09-05T04:49:21Z
+role: gardener
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-05T18:04:25Z cleared=none -->
 
 ---
 role: gardener
