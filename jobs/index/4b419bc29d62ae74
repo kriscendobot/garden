@@ -1,2 +1,2 @@
-base: improve-journal-clone-outage-classification
+base: improve-stale-worker-cgroup-reap
 identity: mentor:scripts/jobs/common.sh
