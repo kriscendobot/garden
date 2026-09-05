@@ -28,20 +28,27 @@
 #   EXCLUDES cache_read (see usage-meter.sh), while /usage reports Anthropic's own
 #   weighted limit. Each calibration is a ratio over one shared window, so it
 #   holds only while the workload mix stays broadly similar.
-#   endolin-garden2-5bcdff64 : UNMETERED as of 2026-09-04. kriskowal reports this
-#     host now runs on a TEMPORARY API key rather than a subscription quota, so no
-#     weekly ceiling applies to it and the 385M/wk figure below is superseded, not
-#     merely stale. Its ceiling_kind is `unmetered`, which budget_fleet_status skips
-#     outright and budget-level.sh does not level against (it only processes
-#     provider=anthropic kind=weekly-tokens rows), so this host's worker count is
-#     the operator's declared figure in hosts/<host>, not a controller output.
-#     meter_quota_status returns `unknown` for the kind, so pool_admits fails open
-#     and claim-job.sh keeps admitting; expect a per-tick "budget pool unreadable"
-#     WARN in the claim log, which is the honest reading of an unmetered pool.
-#     WHEN THE TEMPORARY KEY LAPSES: restore ceiling_kind to weekly-tokens and
-#     re-derive the cap (weekly-capacity-calibration.sh, or a /usage sample), since
-#     the pre-existing 385M/wk was itself an uncalibrated low-end estimate.
+#   endolin-garden2-5bcdff64 : was UNMETERED 2026-09-04 (temporary API key). RESTORED
+#     to weekly-tokens 2026-09-05T03:43Z: kriskowal reports the temporary key lapsed
+#     and this host is back on a subscription, reading 5% weekly / 30% session
+#     (session resets ~2026-09-05T07:50Z -- coincidentally the same clock time as
+#     ece02cb4's session reset the same morning). No fresh (spend, percent) pair
+#     exists to calibrate from: budget/live/endolin-garden2-5bcdff64 is still the
+#     stale unmetered-era sample (sampled_at 2026-09-04T04:01:07Z, since nothing
+#     refreshes the meter while a pool is marked unmetered), and this host's own
+#     checkpoint log has never held a clean paired point (manual-checkpoints/
+#     endolin-garden2-5bcdff64.jsonl: one qualitative-only row, one 0%-with-no-meter
+#     row). Deliberately left `calibrated_from: uncalibrated` rather than guessing a
+#     number from the stale 385M-derived figure against a live meter it no longer
+#     matches (cybernetics-audit.md § 2.3: do not actuate on a setpoint the config
+#     itself disclaims) -- budget-level.sh will log this pool UNCALIBRATED and leave
+#     this host's worker count exactly where set-workers.sh last put it until a real
+#     calibration lands. NEXT STEP: once usage-meter.sh resumes sampling this host
+#     (now that it is metered again), pair a fresh sample with a dashboard percent
+#     ASAP and derive a real cap the way budget-calibration-20260904 did for
+#     ece02cb4 (see that job's tada report and designs/session-budget-pace.md for
+#     the method and the still-open session-vs-weekly question).
 # Columns, tab-separated:
 # pool_id	provider	account/host	ceiling_kind	ceiling	calibrated_from	calibrated_at
 anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	143000000	manual-regression-fresh-contiguous-cluster	2026-09-04T22:10:57Z
-anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	unmetered	-	temporary-api-key	2026-09-04
+anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	385000000	uncalibrated	2026-09-05
