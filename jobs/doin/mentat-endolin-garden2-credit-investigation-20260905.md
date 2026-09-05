@@ -11,3 +11,13 @@ Preliminary liaison leads, NOT established billing facts: journal/usage rows fil
 Operational context: target drained at 2026-09-05T15:23:50Z; no worker services or busy markers remained by 15:25 UTC. Configured pools: gardeners 3, monks 2, clerics 2, hermits 1. Anthropic workers were in provider health cooldown before draining; clerics were idle-polling or skipping incompatible pins. Target checkout was clean at 1c3cbbc1fa79e183f585afd7674c9f8dc10b9091 with no commits behind fetched origin/main2. Target is a follower; leader marker named endolin-garden-ece02cb4. Preliminary local report exists only on target at .garden-state/reports/credit-investigation-20260905.md; all material findings from it are included above.
 
 Deliverable: persist a standalone Markdown investigation report on journal2 with reproducible queries, evidence references, limitations, prioritized recommendations and a concise executive summary. Put a stable GitHub link to the committed report in the job completion report and send that link to the maintainer through the normal completion channel so the liaison can return it here. Do not mark the deliverable complete merely for posting follow-up work.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T15:28:24Z
