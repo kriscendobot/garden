@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T06:35:26Z_
+_As of 2026-09-05T07:05:47Z_
 
 ## Latest
 
@@ -1343,8 +1343,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (27)
+### doin (28)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
+- [`daily-progress-summary-20260905-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260905-070505.md) — Daily midnight Pacific progress summary
 - [`kriscendobot-garden-pr75-20d9585e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr75-20d9585e.md) — attention directive on kriscendobot/garden PR #75
 - [`endojs-endo-but-for-bots-pr666-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr666-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #666
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
