@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T16:08:55Z_
+_As of 2026-09-05T16:09:44Z_
 
 ## Latest
 
@@ -403,10 +403,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > 3. Confirm the retargeted workflow (now triggering on `main2`) actually
 >    runs green on your PR-equivalent push and report the run URL.
-
-- `endojs-endo-but-for-bots-pr1158-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1158-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1158-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1158-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
 
@@ -1436,7 +1432,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $486.07 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.5M | $486.68 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 3.7M _(+123.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
