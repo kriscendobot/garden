@@ -101,3 +101,13 @@ residue (and that the reserved-path publishes did not partially land).
 
 **Cleanup.** Dismiss the self-sent message; remove any `ev8-` names;
 unpublish anything that unexpectedly published.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T14:37:14Z
