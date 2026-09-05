@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T20:17:58Z_
+_As of 2026-09-05T20:20:04Z_
 
 ## Latest
 
@@ -1354,10 +1354,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
-
-- `endojs-endo-but-for-bots-pr1156-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1156-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1156-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1156-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `20260905T145952Z-12d950` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T145952Z-12d950.md)
 
