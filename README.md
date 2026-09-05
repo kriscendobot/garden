@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T14:39:23Z_
+_As of 2026-09-05T14:40:46Z_
 
 ## Latest
 
@@ -739,6 +739,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > more useful than a guess. Only implement a fix if the cause is established and
 > the fix is small; otherwise propose it.
 
+- `minion-town-eval-campaign-budget-complete` — from orchestrator:minion-town-eval-campaign-budget-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-eval-campaign-budget-complete.md)
+
+> Orchestration minion-town-eval-campaign completed within its 12000000-token campaign budget after 81275 recorded tokens. 11918725 token(s) remain unused.
+
 - `doomed-local-verify-endo-test-xs-cargo-parity-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-local-verify-endo-test-xs-cargo-parity-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -1154,6 +1158,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Absent a reply I am completing this job now under the design's second definition-of-done branch (verified, authorization-blocked plan recorded). A reply here dead-letters into a fresh job that resumes execution, or you can re-post the job once you decide.
 
+- `minion-town-eval-campaign-complete-failures` — from orchestrator:minion-town-eval-campaign-complete-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-eval-campaign-complete-failures.md)
+
+> Orchestration minion-town-eval-campaign complete WITH FAILURES (serial): 7/8 failed: minion-town-eval-static-publish minion-town-eval-odometer-counter minion-town-eval-guestbook-tally minion-town-eval-sandbox-boundary minion-town-eval-site-lifecycle minion-town-eval-mail-pair minion-town-eval-error-probes
+
 - `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -1360,7 +1368,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.9M | $469.86 _(notional, rate-card)_ | 36% of 143.0M (ok) |
+| Claude | 51.9M | $471.85 _(notional, rate-card)_ | 36% of 143.0M (ok) |
 | Codex | 3.4M _(+121.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
@@ -1386,13 +1394,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1156
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 
-### tada (7372)
+### tada (7373)
+- [`minion-town-eval-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-campaign.md) — orchestration minion-town-eval-campaign — complete
 - [`minion-town-eval-error-probes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-error-probes.md) — Cost
 - [`minion-town-eval-mail-pair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-mail-pair.md) — Cost
 - [`improve-stale-worker-cgroup-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-stale-worker-cgroup-reap.md) — Cost
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-panel-3.md) — Completion report
-- [`minion-town-eval-site-lifecycle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-site-lifecycle.md) — Cost
-- … and 7367 more
+- … and 7368 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
