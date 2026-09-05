@@ -2,18 +2,18 @@
 role: gardener
 handler-budget-role: panel
 handler-timeout: 10800
-gauntlet: minion-town-clipometer-esbuild-pipeline-gauntlet
+gauntlet: build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet
 gauntlet_stage: panel
-gauntlet_iteration: 3
-pr: https://github.com/kriscendobot/minion.town/pull/84
+gauntlet_iteration: 5
+pr: https://github.com/endojs/endo-but-for-bots/pull/1117
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
 
-# Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
+# Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1117
 
-You are ONE stage of a staged gauntlet (minion-town-clipometer-esbuild-pipeline-gauntlet). Run EXACTLY ONE panel round, post the
+You are ONE stage of a staged gauntlet (build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet). Run EXACTLY ONE panel round, post the
 verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 
 Garden script names below are repo-relative. Resolve them against THIS claiming
@@ -21,15 +21,15 @@ worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
 posting host's garden root.
 
 1. Get an ISOLATED project checkout of the PR head:
-   `scripts/jobs/ensure-project-worktree.sh minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3 <pr-head-owner>/<repo-name> <pr-head-branch>`.
-   Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/84 --json headRepositoryOwner,headRefName`;
+   `scripts/jobs/ensure-project-worktree.sh build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-5 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+   Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1117 --json headRepositoryOwner,headRefName`;
    do not pass the base repo when the PR head belongs to a fork.
 2. Run the panel in SINGLE-ROUND mode against that worktree:
    `GARDEN_PANEL_SINGLE_ROUND=1 \
-     scripts/jobs/gardening/panel.sh <worktree> 84 <base-ref>`
+     scripts/jobs/gardening/panel.sh <worktree> 1117 <base-ref>`
    It fans the seats, aggregates, and prints its disposition as the terminal line's
    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
-3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on https://github.com/kriscendobot/minion.town/pull/84 — the
+3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on https://github.com/endojs/endo-but-for-bots/pull/1117 — the
    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
    review on must-fix, a comment/approve on pass).
 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
@@ -51,22 +51,6 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 
 
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=95,30 -->
 
-
-
-
-
-
-<!-- garden-reaped: 0 -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=160 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-05T18:41:10Z
+<!-- garden-reaped: 2 -->
