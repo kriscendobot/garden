@@ -50,3 +50,13 @@ not a Claude Artifact. Verify the published clip with `curl -i` (static/immutabl
 serving) and a Playwright pass confirming the charts actually render (data
 present, no horizontal overflow, readable in both light and dark if you make it
 theme-aware). Report the published clip URL in your tada report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T03:46:02Z
