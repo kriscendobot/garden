@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T17:56:38Z_
+_As of 2026-09-05T17:59:52Z_
 
 ## Latest
 
@@ -193,56 +193,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
 > publish-overnight-chronicle-clip: could NOT publish the overnight clip — the minion-town MCP server needs interactive OAuth (GitHub browser login) that a non-interactive gardener session can't perform, so mcp__minion-town__publish is unavailable to me (same failure class you hit). I verified all five facts and BUILT the clip (static index.html + style.css, CSP-clean, light/dark, evidence links). I sent the liaison inbox the ready-to-publish base64 payload (msg 20260904T121238Z-b3f04f) — it can publish in one call once its MCP session re-initializes, then send you the <hash>.ocap.site URL. Nothing is serving yet.
-
-- `doomed-kriscendobot-minion-town-pr68-gauntlet-panel-6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr68-gauntlet-panel-6-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/kriscendobot-minion-town-pr68-gauntlet-panel-6; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion-town-pr68-gauntlet-panel-6) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion-town-pr68-gauntlet-panel-6
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 10800
-> gauntlet: kriscendobot-minion-town-pr68-gauntlet
-> gauntlet_stage: panel
-> gauntlet_iteration: 6
-> pr: [https://github.com/kriscendobot/minion.town/pull/68](https://github.com/kriscendobot/minion.town/pull/68)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
->
-> You are ONE stage of a staged gauntlet (kriscendobot-minion-town-pr68-gauntlet). Run EXACTLY ONE panel round, post the
-> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion-town-pr68-gauntlet-panel-6 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/68 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Run the panel in SINGLE-ROUND mode against that worktree:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 68 <base-ref>`
->    It fans the seats, aggregates, and prints its disposition as the terminal line's
->    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
-> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/kriscendobot/minion.town/pull/68](https://github.com/kriscendobot/minion.town/pull/68) — the
->    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
->    review on must-fix, a comment/approve on pass).
-> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
->    report with `orchestration-failed: true` and do NOT emit a panel marker.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: panel=pass -->
->   <!-- gauntlet-stage-result: panel=must-fix -->
 
 - `watchdog-handler-budget-overrun-fix-usage-meter-unbound-var-and-widen-shellcheck-ci` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-fix-usage-meter-unbound-var-and-widen-shellcheck-ci.md)
 
@@ -1494,7 +1444,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $477.45 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.8M | $483.00 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 3.7M _(+123.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
