@@ -1,0 +1,23 @@
+<6>03:19:20 [monk/1] job 'endojs-endo-but-for-bots-pr996-gauntlet-fix-6' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>03:19:20 [monk/1] job 'endojs-endo-but-for-bots-pr996-gauntlet-fix-6' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>03:35:53 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr996-gauntlet-fix-6' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Fix round 6 complete. Summary of what I did:
+
+## What I did
+Applied the panel round-6 must-fix/should-fix items to PR #996 (design-only: `designs/worker-constraint-model.md`) in an isolated project worktree, pushed as a follow-up commit (`f94615159`), and watched CI to **GREEN** (5/5 checks, 0 failed).
+
+## What changed
+- **novice (must-fix):** Added a forward-pointer note that `Open Question N` references are provisional and enumerated in the final § Open Questions, so a top-to-bottom reader can weigh claims that cite them.
+- **copyeditor / pedant (typist-hostile code points, em-dash style):** Swept ~34 prose em-dashes to periods/colons/parens/commas; replaced the ring operator `∘` with `encode(canonicalize(...))`; replaced prose arrows `→` with `->` (both in the doc and the README M11 cell `6->7`); title-cased the two sentence-case `##` headings (`Passability and Rejection`, `Caller Surface and Type Home`) and all their cross-references; rewrote the tangled doubled-"so" sentence opening § Passability. The verbatim generating-prompt blockquote is deliberately left intact (its em-dashes are the maintainer's own quoted words).
+- **ergonomist:** Doc-commented the `runtime` field's confinement consequence and the two-lifecycles split inside `WorkerPersistence` (persisted substrate vs never-persisted policy).
+- **decomplector:** Doc-commented the deliberate engine+supervision merge on `WorkerRuntime` as an additive future split (OQ6).
+- **critic / skeptic:** Added a reciprocal note in `daemon-endor-architecture.md` (§ Summary of renames) pointing back to the constraint model and Open Question 8 — the `kind`-vs-`platform` on-disk collision was previously discoverable only from the constraint model's side.
+- **skeptic:** Stated the non-seed reuse mint-vs-reject rule by discriminant (substrate-changing → reject, identity-selecting → mint) and added the named reuse-path test the seed-only fixtures never exercised.
+
+## Follow-ups / notes
+- Left unaddressed by design (lower-value, higher-churn, and this is a fix stage not a re-panel): novice #2/#3 (an ocap glossary and a step-by-step `Exclude`-distribution walkthrough) and #4 (Axis-2 density). These are comment-only readability suggestions on an already-dense design doc.
+- Per the job brief I did **not** re-run the panel; the driver re-posts panel-7.
+
+<!-- gauntlet-stage-result: fix=done -->
