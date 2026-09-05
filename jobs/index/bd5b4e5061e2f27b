@@ -1,0 +1,2 @@
+base: improve-pre-push-gates-package-manager
+identity: mentor:scripts/jobs/gardening/pre-push-gates.sh
