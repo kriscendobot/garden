@@ -42,3 +42,13 @@ that PR, or the `## Cost` blocks on that PR's own `jobs/tada/*.md` reports)
 before treating all 10 as done.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T16:56:08Z
