@@ -1,7 +1,7 @@
 ---
 created: 2026-09-04
-updated: 2026-09-04
-author: gardener
+updated: 2026-09-05
+author: designer, gardener
 ---
 
 # Role: groom
@@ -10,10 +10,14 @@ Keep a consuming project's **roadmap** honest: reconcile its `designs/README.md`
 
 A gardener claims a `groom` job off the board and wears this role. The canonical target today is `designs/README.md` on `endojs/endo-but-for-bots`' `llm` branch (a ~2000-line ranked roadmap); the role generalizes to any project whose `designs/` tree carries a ranked, milestone-binned roadmap of the same shape. This is the per-project analogue of the garden's own `journal/plan/` + `velocity.md` recalibration (README § Planning) — same shape, different repo.
 
-The rationale for landing groom as a directly-postable role (rather than an ad-hoc job basename), the two-surface lane discipline, and the open questions this design left for the maintainer live in [`designs/groom-role.md`](../../designs/groom-role.md).
+The rationale for landing groom as a directly-postable role (rather than an improvised job basename), the two-surface lane discipline, and the open questions this design left for the maintainer live in [`designs/groom-role.md`](../../designs/groom-role.md).
 
 ## Skills
 
+- [velocity-recalibration](../../skills/velocity-recalibration/SKILL.md): on a full pass, derive a sustainable delivery-rate range from an explicit evidence window before changing any estimates. Keep rate evidence separate from projected dates.
+- [roadmap-projection](../../skills/roadmap-projection/SKILL.md): reproject remaining work into milestone windows and an aggregate timeline from the calibrated velocity and dependency order, preserving actual dates and exposing uncertainty.
+- [dependency-graph-maintenance](../../skills/dependency-graph-maintenance/SKILL.md): reconcile the roadmap's canonical dependency graph, detect invalid edges and cycles, preserve dependency-valid milestone numbering and Strategic Early Items, and validate the rendered mermaid graph.
+- [groom-open-questions](../../skills/groom-open-questions/SKILL.md): turn unresolved policy, scope, and resequencing choices into a reviewable question ledger with alternatives and consequences; close only questions that current evidence answers.
 - [schedule](../../skills/schedule/SKILL.md): a groom pass is recurring, not one-shot. When the maintainer asks for a standing cadence ("groom the endo roadmap weekly"), set it with `set-schedule.sh` so the sole `garden-scheduler` dispatches it; a scheduled groom job posts with an ISO-date disambiguator so this month's pass is not swallowed by last month's completed one (below, § Operating norms).
 - [github-activity-poll](../../skills/github-activity-poll/SKILL.md), [review-queue-poll](../../skills/review-queue-poll/SKILL.md), [pr-ci-watch](../../skills/pr-ci-watch/SKILL.md): the status-verification substrate. A `| Design | Status | Notes |` row is only as true as the merged/open-PR reality behind it; verify each claimed status against real PR state and the branch git log before flipping it.
 - [design-dependency-walk](../../skills/design-dependency-walk/SKILL.md), [pr-dependency-graph](../../skills/pr-dependency-graph/SKILL.md), [pr-dependency-topo-sort](../../skills/pr-dependency-topo-sort/SKILL.md): the dependency-graph substrate. The roadmap's milestone numbering **encodes** a dependency invariant (below); these skills recover the actual dependency edges the numbering must satisfy, and drive the mermaid `### Dependency Graph` upkeep.
@@ -37,7 +41,7 @@ Groom passes come in two sizes; pick the one the directive asks for and say whic
 - **Preserve the Strategic Early Items carve-out.** Some designs are surfaced before their natural milestone because they are foundational rather than features (currently `endo-reminder` and `endo-fetch`, both pulled into M3). Keep that carve-out's `| Design | Milestone | Rationale |` table intact; a design's presence there is a deliberate sequencing decision, not drift to be "corrected" back into its numbered slot.
 - **Estimates are computed from measured velocity, not vibes.** Delivery dates are a projection of observed velocity against remaining size; when a date looks wrong, fix the velocity input, not the number (README § Planning). Ground the re-fit in real signal — for a fleet-built project, the binding constraint is human-review latency and token-budget admission, not machine cost, so calibrate against actual merge cadence, not raw job wall-clock (the 2026-08-17 calibration note is the model). Extend the ledger's existing calibration discipline; do not replace it.
 - **A groom verb is recurring — disambiguate the basename.** `groom-<project>` against the same target is different work each month, so a scheduled or re-issued pass carries an ISO-date suffix (`groom-endo-roadmap-YYYYMMDD`) per [job-board](../../skills/job-board/SKILL.md) § Basename shape; a bare recurring basename is silently swallowed by the earlier completed pass.
-- **Additive-and-honest, not aggressive.** A groom pass corrects drift and records evidence (a *Verification drift* table with claimed→verified + PR citations makes the correction auditable); it does not rewrite settled design content, invent dates, or mass-edit rows it did not verify. Flag the next archive candidate and post a scoped follow-on job for anything left rather than silently half-doing it (the `groom-endo-stale-design-docs` follow-on is the model).
+- **Additive-and-honest, not aggressive.** A groom pass corrects drift and records evidence (a *Verification drift* table with claimed->verified + PR citations makes the correction auditable); it does not rewrite settled design content, invent dates, or mass-edit rows it did not verify. Flag the next archive candidate and post a scoped follow-on job for anything left rather than silently half-doing it (the `groom-endo-stale-design-docs` follow-on is the model).
 
 ## External-repo etiquette
 

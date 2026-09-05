@@ -1,15 +1,15 @@
 ---
 created: 2026-09-04
-updated: 2026-09-04
-author: gardener
+updated: 2026-09-05
+author: designer, gardener
 ---
 
 # Formalizing the groom role
 
 `groom` is a v1 role the maintainer asked to be captured formally in v2. This
 document records what grooming actually is, why it lands as a directly-postable
-role rather than an ad-hoc job convention, how its four v1 skills translate, and
-the two forward-commitment questions left for the maintainer. The normative brief
+role rather than an improvised job convention, how its four v1 skills translate,
+and the two forward-commitment questions left for the maintainer. The normative brief
 is [`roles/groom/AGENT.md`](../roles/groom/AGENT.md); this is its reasoning.
 
 ## The problem: a live verb with no owner
@@ -26,7 +26,7 @@ files.
 Yet the *verb* is doing real, un-owned work today. The journal's completed-job log
 carries `groom-endo-designs-readme`, `groom-refine-endo-roadmap`,
 `groom-endo-stale-design-docs`, `groom-parked-job-queue-*`,
-`ebfb-llm-designs-groom-*` — all ad hoc, basename-convention-only, with no role
+`ebfb-llm-designs-groom-*` — all improvised, basename-convention-only, with no role
 brief behind them. Two of those passes teach opposite lessons:
 
 - `groom-endo-designs-readme` (2026-08-17) is the model of a **full pass done
@@ -42,7 +42,7 @@ brief behind them. Two of those passes teach opposite lessons:
   diverging roadmap the fork never saw. Its own completion report flagged the gap
   and asked for exactly this formalization.
 
-The "the ad-hoc jobs already run successfully without a role" premise is therefore
+The "the improvised jobs already run successfully without a role" premise is therefore
 only half true: they run, but without a brief one of them silently diverged.
 
 ## What grooming maintains
@@ -50,7 +50,7 @@ only half true: they run, but without a brief one of them silently diverged.
 The concrete target is `designs/README.md` on `endojs/endo-but-for-bots`' `llm`
 branch — a ~2000-line living, ranked roadmap with a fixed shape:
 
-- `## Roadmap` → `### Milestones` (M1…M11), each with a goal, a
+- `## Roadmap` -> `### Milestones` (M1...M11), each with a goal, a
   `| Design | Status | Notes |` table, an exit criterion, and actual/estimated
   duration. **Milestones are numbered in approach order: M1 first, M11 last; each
   milestone's dependencies all live in earlier milestones** — the numbering
@@ -75,7 +75,7 @@ different repo.
 Groom lands as a first-class role in `roles/groom/AGENT.md` and is added to the
 CLAUDE.md § Current inventory roles list. The case:
 
-1. **It carries operating norms no existing role owns.** The M1→M11 dependency-
+1. **It carries operating norms no existing role owns.** The M1->M11 dependency-
    encoding invariant, the ARCHIVE.md append-don't-prepend split, the Strategic
    Early Items carve-out, velocity re-fit against measured cadence, and the
    fork-PR-not-journal-snapshot lane are all specific, load-bearing, and easy to get
@@ -98,25 +98,54 @@ refinement nor a generic gardener task. It is closest to `designer` (it lands a
 draft PR on the fork and reasons about the same `designs/` corpus), and the brief
 leans on the designer's own PR-and-frozen-base machinery rather than reinventing it.
 
-## The four v1 skills: fold, don't mint (for now)
+## Decision: materialize all four capabilities as dedicated skills
 
-The four v1 skills never existed as files, so there is nothing to "translate"
-verbatim. Rather than mint four new `SKILL.md` files speculatively, this design
-**folds their intent into the role brief and reuses the v2 skills that already
-cover the ground** — matching how the successful ad-hoc passes actually ran (with
-no bespoke skills at all):
+The maintainer resolved the skill-shape question in review: fold all four named v1
+capabilities into the active garden as dedicated, self-contained skills. They never
+existed as v1 files, so the builder derives their contracts from the responsibilities
+below rather than translating text verbatim. The skills divide one groom pass into
+four independently citeable operations while composing the narrower v2 substrate
+that already exists:
 
-| v1 skill | v2 disposition |
+| Dedicated skill | Responsibility and boundary |
 |---|---|
-| `velocity-recalibration` | Folded into the role's *Estimates are computed from measured velocity* norm and the full-vs-targeted-pass split. The garden's own velocity machinery (README § Planning, `journal/velocity.md`) is the reference implementation; a project's re-fit is prose calibration against real merge cadence, not a distinct tool. |
-| `roadmap-projection` | Folded into the *reproject milestones and timeline* norm. The projection is arithmetic over measured velocity and remaining size, done inline; no standalone skill earns its keep yet. |
-| `dependency-graph-maintenance` | Covered by the existing [design-dependency-walk](../skills/design-dependency-walk/SKILL.md), [pr-dependency-graph](../skills/pr-dependency-graph/SKILL.md), [pr-dependency-topo-sort](../skills/pr-dependency-topo-sort/SKILL.md), and [mermaid-validation](../skills/mermaid-validation/SKILL.md). The role references these directly. |
-| `groom-open-questions` | Covered by the designer's existing open-questions discipline ([designer](../roles/designer/AGENT.md) § Operating norms) plus [message-bus](../skills/message-bus/SKILL.md) surfacing; the role instructs surfacing resequencing questions to the maintainer rather than deciding them. |
+| `velocity-recalibration` | Select an explicit evidence window, measure completed work and elapsed delivery time in the roadmap's existing size units, identify the binding delivery constraint, and produce a sustainable velocity estimate with its evidence and uncertainty. It owns the rate input, not milestone dates. It runs during a full pass, not a targeted status correction. |
+| `roadmap-projection` | Consume remaining work, the recalibrated velocity range, and dependency constraints to recompute milestone windows, the aggregate timeline, and the assumptions that make them auditable. It preserves actual dates, distinguishes estimates from commitments, and does not hide uncertainty behind a single invented date. |
+| `dependency-graph-maintenance` | Reconcile design-declared and PR-declared edges into the roadmap's canonical acyclic graph; report missing targets and cycles; keep milestone numbering dependency-valid; preserve Strategic Early Items as an explicit sequencing carve-out; update the mermaid view and validate it. The existing [design-dependency-walk](../skills/design-dependency-walk/SKILL.md), [pr-dependency-graph](../skills/pr-dependency-graph/SKILL.md), [pr-dependency-topo-sort](../skills/pr-dependency-topo-sort/SKILL.md), and [mermaid-validation](../skills/mermaid-validation/SKILL.md) remain its substrate. |
+| `groom-open-questions` | Collect uncertainties exposed by status, velocity, projection, and graph work; close questions that current evidence answers; and route genuine policy, scope, or resequencing choices to the maintainer with alternatives, consequences, and affected roadmap sections. It owns a reviewable question ledger, not the authority to choose silently. It composes the designer's open-question discipline and [message-bus](../skills/message-bus/SKILL.md) for escalation. |
 
-The YAGNI call: mint a dedicated `SKILL.md` only when a specific groom procedure
-proves reusable and long enough to be worth extracting — not preemptively. This
-keeps the library from re-accreting the four empty stubs the manifest already
-mis-recorded as real. (See Open questions for the maintainer's chance to overrule.)
+The four contracts are separate because each has a stable input and output that
+other roles can cite. They remain coordinated by `groom`: status evidence feeds
+velocity, velocity and dependency order feed projection, and unresolved decisions
+from every stage feed the open-question ledger. A dedicated skill may reference
+an existing lower-level skill, but must not copy that skill's procedure.
+
+### Builder acceptance criteria
+
+The serial builder that follows this accepted design must:
+
+1. Materialize `skills/velocity-recalibration/SKILL.md`,
+   `skills/roadmap-projection/SKILL.md`,
+   `skills/dependency-graph-maintenance/SKILL.md`, and
+   `skills/groom-open-questions/SKILL.md` as self-contained contracts with the
+   garden's standard frontmatter, purpose, inputs, procedure, output shape, state
+   where needed, composition links, and notes.
+2. Encode the responsibility and boundary in the table above. In particular,
+   preserve evidence provenance and uncertainty, enforce acyclic dependency order,
+   validate changed mermaid graphs, and escalate maintainer choices instead of
+   silently resolving them.
+3. Make [`roles/groom/AGENT.md`](../roles/groom/AGENT.md) consume all four skills
+   directly, while retaining the lower-level verification, scheduling, PR, and
+   communication skills that the role still needs.
+4. Reconcile [`designs/v1-migration-manifest.md`](v1-migration-manifest.md) and the
+   garden skill inventory so no active surface still calls the four capabilities
+   folded, covered, absent, or manifest-only stubs.
+5. Leave the model-routing and project-versus-garden scope questions below open.
+   The skill implementation does not authorize a fleet-spend decision or a scope
+   expansion.
+6. Run the applicable garden pre-push and local-verification gates, plus a
+   repository-wide reference scan proving all four role links resolve and the
+   superseded disposition language is gone.
 
 ## The two-surface lane, stated once
 
@@ -135,14 +164,6 @@ the deliverable. This is the durable fix for the 2026-07-02 divergence.
 
 ## Open questions
 
-- **Should the four v1 skills be minted as dedicated `SKILL.md` files, or is
-  folding-plus-reuse (this design's choice) the right long-term shape?** Minting
-  them would give velocity-recalibration and roadmap-projection a citable,
-  independently-improvable home and match the manifest's original intent; folding
-  keeps the library lean and matches how the successful passes actually ran. This
-  design folds; the maintainer may prefer to mint `velocity-recalibration` and
-  `roadmap-projection` specifically (the two with no existing v2 cover) while
-  leaving dependency-graph and open-questions folded.
 - **Should `groom` be pinned in the fleet's per-role model policy
   (`role_default_model` / `role_tier_floor` / `role_default_effort` in
   `scripts/jobs/common.sh`, and the [model-selection](../skills/model-selection/SKILL.md)
@@ -156,18 +177,18 @@ the deliverable. This is the durable fix for the 2026-07-02 divergence.
   change once the maintainer confirms the spend.
 - **Is groom scoped to project roadmaps only, or does it also formally own the
   garden's own `journal/plan/` + `velocity.md` recalibration** (README § Planning),
-  which some ad-hoc passes touched (`groom-parked-job-queue-*`)? This design scopes
+  which some improvised passes touched (`groom-parked-job-queue-*`)? This design scopes
   the brief to "any ranked roadmap, project or garden-own" and leans the garden-own
   case on the existing planning machinery, but does not claim that machinery for the
   role; the maintainer may want an explicit boundary.
 
 ## Follow-ups
 
-- Correct the stale `groom` + four-skill rows in
-  [`designs/v1-migration-manifest.md`](v1-migration-manifest.md) (done in this
-  change: they now point here rather than implying a reference-shelf file exists).
+- Materialize the four dedicated skill files and reconcile the four stale skill
+  rows in [`designs/v1-migration-manifest.md`](v1-migration-manifest.md), the role,
+  and the inventory per the builder acceptance criteria above. The role row itself
+  is already corrected and points here rather than implying a reference-shelf file
+  exists.
 - If the maintainer answers the model-tier open question affirmatively, a one-line
   pin per role in `role_default_model`/`role_tier_floor`/`role_default_effort` plus a
   `model-selection` table row.
-- If the maintainer prefers minting `velocity-recalibration` / `roadmap-projection`,
-  post a design/build job for each.
