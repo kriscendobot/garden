@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T19:55:27Z_
+_As of 2026-09-05T19:56:53Z_
 
 ## Latest
 
@@ -1455,8 +1455,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion.town-pr95-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr95-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #95
+- [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1156
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 
 ### tada (7430)
