@@ -1,0 +1,39 @@
+# Completion report — minion-town-security-review-20260904
+
+Whole-project security review of kriscendobot/minion.town (live at https://minion.town), performed as static/code + deploy-config review from an isolated worktree at `main` (2e63b45), with a handful of read-only live probes (no accounts touched, no state changed). Depth came from direct review of the auth, account, ocap/gateway, and tool layers plus three delegated deep-dives (billing, custom IdP thunks, AWS deploy surface) whose load-bearing claims I re-verified against source before reporting.
+
+## Fixes landed as PR
+
+**[PR #94](https://github.com/kriscendobot/minion.town/pull/94)** (`security/token-client-auth-and-secret-umask`, ready for review, carries the job marker) fixes the low-risk code-fixable subset; nothing auto-deploys on merge (thunks deploy only via their operator-run scripts):
+
+1. **HIGH — GitHub OIDC thunk `/token` had no client authentication** (`deploy/aws/lambda/github-oidc-thunk/index.js:91-99`). Discovery advertised `client_secret_basic/post` but the handler accepted a bare `code` from any internet caller; since the thunk holds the GitHub OAuth secret, a leaked/intercepted GitHub authorization code was redeemable by anyone for the victim's GitHub access token **and** a signed, Cognito-acceptable id_token. Fixed: both auth methods parsed, timing-safe compare against the same Secrets Manager credentials Cognito is configured to present (verified in `deploy-cognito-github-idp.sh:44`), so the live flow is unaffected. The SIWE thunk already enforced this — the gap was inconsistency between the two.
+2. **MEDIUM — SIWE thunk secret compare was `!==`** (`deploy/thunks/siwe/src/openid.js:162`, a latency oracle, plus a prototype-chain `in` lookup). Now `timingSafeEqual` + own-property. 19/19 thunk tests pass.
+3. **MEDIUM — deploy scripts left secrets world-readable in `/tmp`** during SSM deploys (`deploy-oauth2-proxy.sh` fetched the raw env — including the **oauth2-proxy cookie-signing secret**, theft of which forges web-gate sessions — *before* its `umask 077`; `deploy-billing-secrets.sh`/`deploy-account-endpoint-secret.sh` had none). `umask 077` now precedes the first fetch; dirs use `install -d -m 0755` so `/etc/caddy` stays traversable by the caddy user.
+
+## Open findings (need operator/infra action, not a code PR)
+
+- **MEDIUM: IdP signing private keys + SIWE RP secret live in plaintext Lambda env vars** (`deploy-thunk.sh:94`, `deploy-siwe-thunk.sh:144`). Anyone with `lambda:GetFunctionConfiguration` can read the id_token signing key and forge federated identity for any user; values also traverse CLI args and CloudTrail. Move to runtime Secrets Manager reads like the GitHub OAuth secret already does (`src/secret.js` is the pattern).
+- **MEDIUM: `endo-ocapn-daemon.service` runs as root with zero hardening** (`deploy/aws/daemon/endo-ocapn-daemon.service:19`) while network-reachable via `wss://minion.town/ocapn*`. A protocol-parse bug is instant root on a box whose four other units are carefully user-separated and sandboxed. Needs a dedicated user + the sibling units' hardening set.
+- **MEDIUM: gate-token defense fails open when the shared secret renders empty.** The billing router, `/account`, and `/account/guest-formula-id` all skip identity-header verification when the secret is `""`, and both EnvironmentFiles are optional (`EnvironmentFile=-`, `minion-mcp.service`). A failed secret render silently re-opens loopback identity forgery (`X-Auth-Request-Sub`) to any co-resident process on this multi-tenant box. Recommend refusing to serve those routes (or logging loudly) when `NODE_ENV=production` and the secret is empty.
+- **MEDIUM: shared `garden-ec2-ssm` instance role blast radius** — accounts/billing DynamoDB and Route53 `_acme-challenge` write policies are layered onto what appears to be the fleet-wide SSM role; any other host with that role inherits them, and vice versa. Worth a dedicated instance role for this box.
+- **LOW/MEDIUM: powers-plane containment posture is unauditable from the repo.** The repo's `endo-gateway.service` *arms* `GATEWAY_ENDO_SOCK`; the containment drop-in `zz-containment-20260812.conf` exists only on-box, is created by no script, and DEPLOYMENT.md references it once while also describing live powers-plane validation (2026-09-04). Mitigating: I verified the *current* powers plane serves only the registered directory's `back` (publisher-bound in the guest's own authority; `powers-plane.ts:187`, `site-registry.ts:68` uses only the fixed `sites` name + validated 64-hex ids), so the pre-5d931c7 full-EndoHost class is closed by construction — but the intended posture should be committed, not folklore.
+- **LOW: no storage quota on the guest surface.** Open self-signup + `publish`/`writeText` with the charge stubbed at `0n` (`clip-payment.ts`) lets any signed-up user grow the CAS store/daemon state without bound (~100KB per call via body limit, unbounded across calls); MCP session maps are also unbounded per authenticated caller. The metered-credits design is the planned fix — worth sequencing.
+- **LOW (latent):** webhook handler never checks `event.livemode` (relevant only when `assertTestKey` is relaxed); `index.html` renders billing values via `innerHTML` where `shell.js` deliberately uses `textContent`; no API-Gateway throttle on the GitHub thunk; `provision-guest-reminders.sh` splices operator args without the `printf '%q'` discipline its siblings use; verbatim daemon error text reaches MCP callers.
+- **INFO/action:** whether the Cognito pool email-auto-links federated identities (`AliasAttributes`) is unverifiable from the repo — if enabled it would undercut the otherwise-sound `iss`+`sub` keying; confirm with `describe-user-pool`. Caddy doesn't explicitly strip client-supplied `X-Auth-Request-*` on gated routes (currently safe because oauth2-proxy injects all consumed headers + the gate tokens are `header_up`-overwritten; a `header_up -X-Auth-Request-*` would make it structural).
+
+## Verified sound (highlights)
+
+The RFC 8707 deviation is a sound substitute as deployed (single AS; jose signature/iss/exp + `token_use` gate + client_id allowlist; ID/refresh tokens rejected). Session-identity pinning at initialize with per-call re-validation; guest names derived by SHA-256 from verified `iss`+`sub`, never caller input; pet-name/eval-source injection closed (JSON-baked source, canonical base32 fail-closed incl. pad-bit aliases and Unicode case-folding, cross-owner takeover check); clip isolation floor strong (cookie-free separate origin, `connect-src 'self'`, no CORS, CT-log-free wildcard cert); billing webhook idempotency is genuinely atomic (TransactWriteItems, amount from Stripe's `amount_total`, buyer identity header-bound), Stripe test-mode enforced at load and at deploy; CD IAM role is genuinely least-privilege with the serving path's DynamoDB `UpdateItem` attribute-fenced away from `role`/`status`; the four main systemd units are hardened and user-separated; `src/` portable path carries only lazy AWS SDK imports. Live probes: default/billing/account routes all gate (302), `/mcp` 401s correctly, webhook GET 404s, forged identity headers blocked at forward_auth, garbage clip labels fail closed.
+
+Follow-ups: shepherd PR #94 through review; the seven open findings above are operator decisions I deliberately did not act on unilaterally (IAM, on-box units, Cognito pool config, quota policy). A memory record (`minion-town-security-review-20260904`) indexes the findings for future sessions.
+<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/minion-town-security-review-20260904.jsonl; not agent-authored — do not edit -->
+
+## Cost
+- Engagements: 2 on 1 host(s)
+- Input: 48 tokens (6273864 cached reads)
+- Output: 24023 tokens
+- Cost: $25.90048165
+- Wall-clock: 1104s
+- Model(s): claude-fable-5 ×2
+
+<!-- garden-usage-end -->
