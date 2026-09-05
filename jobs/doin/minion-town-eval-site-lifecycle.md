@@ -94,3 +94,13 @@ grades at each transition. Concretely:
 grep for the sentinel), plus the enumeration output before/after unpublish.
 
 **Cleanup.** Unpublish the final clip; verify unserved; remove `ev6-` names.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T14:28:13Z
