@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721
-priority: normal
-posted_by: producer
-posted_at: 2026-09-05T04:40:19Z
+role: fixer
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-05T20:26:26Z cleared=none -->
 
 ---
 role: fixer
