@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T03:11:30Z_
+_As of 2026-09-05T03:18:03Z_
 
 ## Latest
 
@@ -1318,13 +1318,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.9M | $15.36 _(notional, rate-card)_ | 1% of 143.0M (ok) |
-| Codex | 263.0k _(+9.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 3.4M | $26.87 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Codex | 298.7k _(+12.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
-### todo (19)
+### todo (18)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
-- [`minion-town-formula-graph-content-gc-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-formula-graph-content-gc-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #83
 - [`endojs-endo-but-for-bots-pr996-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr996-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #996
 - [`kriscendobot-minion.town-pr88-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr88-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #88
 - [`endojs-endo-but-for-bots-pr1157-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1157-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1157
@@ -1345,17 +1344,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (4)
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset.md) — Finish and land minion.town OCap synthesis units 4-5 after the weekly panel r...
-- [`minion-town-clip-content-store-gc-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-content-store-gc-build-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #93
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1085
+- [`minion-town-formula-graph-content-gc-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-formula-graph-content-gc-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #83
 - [`minion-town-security-review-20260904`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-security-review-20260904.md) — ---
 
-### tada (7254)
+### tada (7255)
+- [`minion-town-clip-content-store-gc-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clip-content-store-gc-build-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr32-review-93782d28`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr32-review-93782d28.md) — Cost
 - [`kriscendobot-minion.town-pr45-review-70f2f356`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr45-review-70f2f356.md) — Cost
 - [`kriscendobot-minion.town-pr89-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr89-gauntlet.md) — gauntlet kriscendobot-minion.town-pr89-gauntlet — complete
 - [`minion-town-formula-graph-content-gc-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-formula-graph-content-gc-gauntlet-panel-2.md) — Cost
-- [`xs2rust-endor-press-20260905-002017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260905-002017.md) — Cost
-- … and 7249 more
+- … and 7250 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
