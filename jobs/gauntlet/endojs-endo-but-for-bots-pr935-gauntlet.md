@@ -5,12 +5,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 935
 build_job: 
 kind: feature
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr935-gauntlet-fix-5
+current_child: endojs-endo-but-for-bots-pr935-gauntlet-panel-6
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-08-30T06:39:07Z
