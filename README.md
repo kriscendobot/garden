@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T17:59:52Z_
+_As of 2026-09-05T18:04:10Z_
 
 ## Latest
 
@@ -220,11 +220,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1.md)
 
-> WATCHDOG notice — occurrence #97 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T17:02:47Z).
-> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1`) has now been observed 97 times; this is ONE
-> coalesced notice that updates in place, not 97 messages. Latest detail:
+> WATCHDOG notice — occurrence #156 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T18:03:11Z).
+> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1`) has now been observed 156 times; this is ONE
+> coalesced notice that updates in place, not 156 messages. Latest detail:
 >
-> monk/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (2675922:?:?,2675923:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
+> monk/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (3140153:?:?,3140154:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
@@ -443,11 +443,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1.md)
 
-> WATCHDOG notice — occurrence #97 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T17:02:52Z).
-> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1`) has now been observed 97 times; this is ONE
-> coalesced notice that updates in place, not 97 messages. Latest detail:
+> WATCHDOG notice — occurrence #156 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T18:03:15Z).
+> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1`) has now been observed 156 times; this is ONE
+> coalesced notice that updates in place, not 156 messages. Latest detail:
 >
-> cleric/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (2676175:?:?,2676176:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
+> cleric/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (3140406:?:?,3140407:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `20260819T003451Z-370a6d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003451Z-370a6d.md)
 
@@ -473,11 +473,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1.md)
 
-> WATCHDOG notice — occurrence #97 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T17:02:52Z).
-> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1`) has now been observed 97 times; this is ONE
-> coalesced notice that updates in place, not 97 messages. Latest detail:
+> WATCHDOG notice — occurrence #156 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T18:03:15Z).
+> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1`) has now been observed 156 times; this is ONE
+> coalesced notice that updates in place, not 156 messages. Latest detail:
 >
-> hermit/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (2676397:?:?,2676398:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
+> hermit/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (3140628:?:?,3140629:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -665,11 +665,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2.md)
 
-> WATCHDOG notice — occurrence #97 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T17:02:52Z).
-> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2`) has now been observed 97 times; this is ONE
-> coalesced notice that updates in place, not 97 messages. Latest detail:
+> WATCHDOG notice — occurrence #156 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T18:03:15Z).
+> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2`) has now been observed 156 times; this is ONE
+> coalesced notice that updates in place, not 156 messages. Latest detail:
 >
-> monk/2 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (2676065:?:?,2676066:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
+> monk/2 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (3140296:?:?,3140297:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
@@ -1042,11 +1042,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2.md)
 
-> WATCHDOG notice — occurrence #97 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T17:02:52Z).
-> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2`) has now been observed 97 times; this is ONE
-> coalesced notice that updates in place, not 97 messages. Latest detail:
+> WATCHDOG notice — occurrence #156 (first seen 2026-09-05T15:01:35Z, latest 2026-09-05T18:03:15Z).
+> The SAME condition (`worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2`) has now been observed 156 times; this is ONE
+> coalesced notice that updates in place, not 156 messages. Latest detail:
 >
-> cleric/2 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (2676287:?:?,2676288:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
+> cleric/2 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (3140516:?:?,3140517:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `20260904T004311Z-629bc3` — from scholar:scholar-ingest-cedar-access-control-for-ai-agents, reply_to `scholar-ingest-cedar-access-control-for-ai-agents` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T004311Z-629bc3.md)
 
@@ -1444,7 +1444,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.8M | $483.00 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 55.1M | $487.72 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 3.7M _(+123.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
