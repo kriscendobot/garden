@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-05T03:04:55Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-security-review-20260904
+pr_number: 94
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/94
+pr_head: security/token-client-auth-and-secret-umask
