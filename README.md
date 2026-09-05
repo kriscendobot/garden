@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T20:31:53Z_
+_As of 2026-09-05T20:35:37Z_
 
 ## Latest
 
@@ -1449,24 +1449,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 68.9M | $602.17 _(notional, rate-card)_ | 48% of 143.0M (ok) |
-| Codex | 4.1M _(+128.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Codex | 4.1M _(+130.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1085-native-stream-search-fix-5119774721`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-native-stream-search-fix-5119774721.md) — Implement the complete native streaming-search review on endojs/endo-but-for-...
+### doin (2)
 - [`endojs-endo-but-for-bots-pr990-review-8896f456`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr990-review-8896f456.md) — Review directive on endojs/endo-but-for-bots PR #990
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 
-### tada (7439)
+### tada (7440)
+- [`endojs-endo-but-for-bots-pr1085-native-stream-search-fix-5119774721`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1085-native-stream-search-fix-5119774721.md) — Cost
 - [`endojs-endo-but-for-bots-pr858-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr858-review-86d198da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-86d198da.md) — Completion report
 - [`kriscendobot-minion.town-pr95-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet.md) — gauntlet kriscendobot-minion.town-pr95-gauntlet — HALTED
 - [`orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/orch-endojs-endo-but-for-bots-pr1085-native-stream-search-5119774721.md) — orchestration orch-endojs-endo-but-for-bots-pr1085-native-stream-search-51197...
-- [`endojs-endo-but-for-bots-pr1085-review-2e93eed1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1085-review-2e93eed1.md) — Cost
-- … and 7434 more
+- … and 7435 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
