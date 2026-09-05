@@ -61,6 +61,7 @@ clear, every gap already known — say so explicitly with the citations, and
 complete without a design PR; that conclusion also requires the evidence.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=96 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
