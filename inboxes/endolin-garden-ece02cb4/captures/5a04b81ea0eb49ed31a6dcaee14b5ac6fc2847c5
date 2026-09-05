@@ -1,0 +1,24 @@
+<6>18:44:49 [monk/3] requeued job 'endojs-endo-but-for-bots-pr935-gauntlet-panel-6' has no local transcript on endolin-garden-ece02cb4; prior session and worktree were lost — starting FRESH session 1f6c60bc-e561-5851-a559-b14a99c153b9 with lost-state framing
+<6>18:44:49 [monk/3] job 'endojs-endo-but-for-bots-pr935-gauntlet-panel-6' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>18:44:49 [monk/3] job 'endojs-endo-but-for-bots-pr935-gauntlet-panel-6' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>18:46:26 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr935-gauntlet-panel-6' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Panel round 6 complete for PR #935.
+
+## What I did
+
+1. **Re-derived job state** (fresh worktree after reaper requeue): PR #935 (`design(reminder): integrate @endo/reminder into Chat`) is an open draft, head `kriscendobot:design/reminder-integration-chat` @ `fe5937d4e`, base `llm` @ `e84a4c83...`. Head already carries applied fixes through round-5.
+2. **Isolated project checkout** via `ensure-project-worktree.sh` (keyed to this job's base).
+3. **Ran the panel single-round** (`GARDEN_PANEL_SINGLE_ROUND=1 panel.sh <wt> 935 <base-sha>`). It **resumed from the durable panel-run record `3f75e5b99017`** for head `fe5937d4` — the seats had already fanned in a prior attempt, so it reconstructed the review-ready aggregate rather than re-running the seats. Disposition: **must-fix** (20 items across archivist, assessor, breaker, changeset-auditor, …).
+4. **Posted the aggregate** to PR #935. `--request-changes` is rejected by GitHub ("cannot request changes on your own pull request" — the bot authors the PR), so I posted it as a **comment review** (same shape every prior round used), carrying the full must-fix aggregate.
+
+## Result
+
+Panel decided cleanly (exit 0), disposition **must-fix**. This stage stops here — no fix, no un-draft, no loop.
+
+## Follow-ups
+
+- The gauntlet's next stage (fixer) owns applying the 20 must-fix items; this stage does not.
+
+<!-- gauntlet-stage-result: panel=must-fix -->
