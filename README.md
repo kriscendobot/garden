@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T05:36:23Z_
+_As of 2026-09-05T05:39:11Z_
 
 ## Latest
 
@@ -122,10 +122,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 4): budget pool anthropic:endolin-garden-ece02cb4 spend=6839972 cap=143000000 high-water=0.85 target=4 step=2->3
-
-- `20260905T053606Z-f991ab` — from unblock:kriscendobot-garden-pr83-reset-calibration-followup-blocked-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T053606Z-f991ab.md)
-
-> Blocked job 'kriscendobot-garden-pr83-reset-calibration-followup' will NOT be promoted: its blocker 'kriscendobot-garden-pr80-approved-calibration-campaign-20260905' completed but DECLINED its gated outcome (e.g. a conductor that refused to merge a red / frozen-base / ferry-required PR). Promoting it would run downstream work against a base that never landed. It is HELD in plan/ under gate=blocked-failed for you: run promote-plan.sh 'kriscendobot-garden-pr83-reset-calibration-followup' to override if the decline is acceptable, or discard it.
 
 - `doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted.md)
 
@@ -366,10 +362,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > 3. Confirm the retargeted workflow (now triggering on `main2`) actually
 >    runs green on your PR-equivalent push and report the run URL.
-
-- `20260905T053407Z-a248e2` — from orchestrator:kriscendobot-garden-pr80-approved-calibration-campaign-20260905-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T053407Z-a248e2.md)
-
-> Orchestration kriscendobot-garden-pr80-approved-calibration-campaign-20260905 HALTED: child kriscendobot-garden-pr80-resolve-build-20260905 stalled in flight for 2500s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: kriscendobot-garden-pr80-conduct-20260905 kriscendobot-garden-pr80-validation-setup-20260905
 
 - `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
 
