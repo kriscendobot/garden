@@ -21,3 +21,13 @@ mergeable MERGEABLE, mergeStateStatus CLEAN, and every check green
 Finalize: un-draft if it has since gone back to draft, re-confirm mergeable +
 checks green, and MERGE. You own the merge method. Bot repo — merging is
 permitted.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T20:29:40Z
