@@ -93,6 +93,60 @@ git -C "$REPOSITORY" diff --staged -- example.js | grep -Fq formattedName || {
 }
 echo "ok - full driver runs project stages, re-stages fixes, and passes silently"
 
+# Regression: npm projects must not need an agent-created `yarn` compatibility
+# shim. The packageManager declaration wins and npm receives its required `--`
+# separator when the driver appends --fix to a plain lint script.
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+printf '%s\n' \
+  '{"packageManager":"npm@10.8.2","scripts":{"format":"x","lint-fix":"x","typecheck":"x"}}' \
+  >"$REPOSITORY/package.json"
+git -C "$REPOSITORY" add package.json
+FAKE_BIN="$TEMPORARY_DIRECTORY/npm-bin"
+mkdir -p "$FAKE_BIN"
+cat >"$FAKE_BIN/npm" <<'EOF'
+#!/bin/bash
+printf '%s\n' "$*" >>"$FAKE_NPM_LOG"
+EOF
+cat >"$FAKE_BIN/yarn" <<'EOF'
+#!/bin/bash
+echo "yarn must not run for an npm project" >&2
+exit 99
+EOF
+chmod +x "$FAKE_BIN/npm" "$FAKE_BIN/yarn"
+export FAKE_NPM_LOG="$TEMPORARY_DIRECTORY/npm.log"
+output=$(GARDEN_PACKAGE_RUNNER="bash $FAKE_BIN/npm" "$DRIVER" --summary "$REPOSITORY") || {
+  echo "not ok - driver rejected a declared npm project"
+  printf '%s\n' "$output"
+  exit 1
+}
+if ! { grep -Fxq 'run format' "$FAKE_NPM_LOG" \
+  && grep -Fxq 'run lint-fix' "$FAKE_NPM_LOG" \
+  && grep -Fxq 'run typecheck' "$FAKE_NPM_LOG"; }; then
+    echo "not ok - driver did not run every project stage with npm"
+    cat "$FAKE_NPM_LOG"
+    exit 1
+fi
+printf '%s\n' "$output" | grep -Fq 'npm typecheck' || {
+  echo "not ok - summary did not name the selected npm runner"
+  exit 1
+}
+
+printf '%s\n' \
+  '{"packageManager":"npm@10.8.2","scripts":{"lint":"x"}}' \
+  >"$REPOSITORY/package.json"
+rm -f "$FAKE_NPM_LOG"
+GARDEN_PACKAGE_RUNNER="bash $FAKE_BIN/npm" "$DRIVER" "$REPOSITORY" || {
+  echo "not ok - driver rejected npm lint argument forwarding"
+  exit 1
+}
+grep -Fxq 'run lint -- --fix' "$FAKE_NPM_LOG" || {
+  echo "not ok - driver did not use npm's separator for lint --fix"
+  cat "$FAKE_NPM_LOG"
+  exit 1
+}
+echo "ok - packageManager selects npm for format, lint-fix, lint, and typecheck"
+
 # Regression (endojs/endo-but-for-bots#1014): a file whose `spell-out-exempt`
 # marker sits in the first five lines must stay exempt even when the file is far
 # longer than the head window. The old exemption check piped the whole file
