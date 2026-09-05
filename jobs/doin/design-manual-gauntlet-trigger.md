@@ -83,3 +83,13 @@ carries a non-empty `## Open questions` section gets a review PR, not a bare
 landing) — this almost certainly belongs in that category: state the trade-off
 explicitly, name what guardrail (if any) replaces the sensor's hard-fail
 property, and let the maintainer decide before it's load-bearing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T12:16:33Z
