@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T19:48:21Z_
+_As of 2026-09-05T19:55:27Z_
 
 ## Latest
 
@@ -1455,18 +1455,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion.town-pr95-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr95-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #95
-- [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1156
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 
-### tada (7429)
+### tada (7430)
+- [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1156-gauntlet-panel-6.md) — Completion report
 - [`kriscendobot-minion.town-pr95-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1156-gauntlet-fix-5.md) — Completion report
 - [`kriscendobot-minion.town-pr95-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-3.md) — Completion report — FIX round 3, endojs/endo-but-for-bots PR #1085
-- [`kriscendobot-minion.town-pr95-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-panel-4.md) — Completion report
-- … and 7424 more
+- … and 7425 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
