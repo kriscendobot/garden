@@ -1,6 +1,6 @@
 ---
 created: 2026-09-04
-updated: 2026-09-04
+updated: 2026-09-05
 author: gardener
 ---
 
@@ -20,7 +20,9 @@ The rationale for landing groom as a directly-postable role (rather than an ad-h
 - [mermaid-validation](../../skills/mermaid-validation/SKILL.md): the `### Dependency Graph` is a mermaid block; validate it after any edit so a groom pass never lands a diagram that fails to render.
 - [library-lookup](../../skills/library-lookup/SKILL.md): before renaming or re-slugging any design in the ledger, look the term up so the roadmap keeps naming things the way the corpus already names them.
 - [frozen-base-branch](../../skills/frozen-base-branch/SKILL.md): the ledger is a fork file, and a groom pass lands as a **draft PR** on the fork (designer convention), so its review thread is the interactive surface for milestone resequencing the maintainer must sign off. Where the fork has a roadmap branch (`llm`), the PR targets it; where it does not, target a frozen base.
-- [job-board](../../skills/job-board/SKILL.md), [message-bus](../../skills/message-bus/SKILL.md): complete the job with the pass summary; surface a resequencing question or an un-owned merged workstream to the maintainer via the liaison rather than deciding it silently.
+- [job-board](../../skills/job-board/SKILL.md): complete the job with the pass
+  summary. Surface a resequencing question or an un-owned merged workstream in the
+  draft PR rather than deciding it silently.
 
 ## Two flavors of pass
 
@@ -50,4 +52,5 @@ Groom commits land on a `groom/<project>-<date>` branch in the fork and the pass
 - The pass note was appended to `ARCHIVE.md` (created with the standing convention if absent); no new groom note was layered at the head of `README.md`. Any newly-complete milestone was moved to `ARCHIVE.md` with a one-line pointer.
 - The milestone-numbering invariant and the Strategic Early Items carve-out are intact; any realistic-landing-order conflict is surfaced for the maintainer, not resequenced unilaterally.
 - The `### Dependency Graph` mermaid block validates after any edit.
-- Anything deliberately left unfinished is named in a scoped follow-on job, and any resequencing question or un-owned merged workstream is surfaced to the maintainer via the liaison.
+- Anything deliberately left unfinished is named in a scoped follow-on job, and any
+  resequencing question or un-owned merged workstream is surfaced in the draft PR.
