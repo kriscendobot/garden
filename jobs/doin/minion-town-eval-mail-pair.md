@@ -119,3 +119,13 @@ skill's own flow.
 
 **Cleanup.** Dismiss every message this evaluation produced on BOTH sides;
 remove `ev7-` names from both guests.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T14:31:19Z
