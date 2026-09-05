@@ -51,3 +51,13 @@ touch any repo other than kriscendobot/minion.town.
 <!-- garden-transient-elapsed: kind=signature through=0 values=148 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T03:04:55Z
