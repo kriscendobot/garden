@@ -16,3 +16,13 @@ Produce a design at `designs/cybernetics-economic-resilience.md` that improves t
 - durable journal visibility for each cybernetic input and output, with clear provenance and outcome tracking.
 
 If any of these behaviors already exist, say so explicitly and keep the design focused on the missing pieces. Keep unresolved choices in an open-questions section rather than guessing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T16:03:31Z
