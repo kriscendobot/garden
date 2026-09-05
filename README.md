@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T15:56:03Z_
+_As of 2026-09-05T15:57:02Z_
 
 ## Latest
 
@@ -1393,17 +1393,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.3M | $483.92 _(notional, rate-card)_ | 38% of 143.0M (ok) |
-| Codex | 3.6M _(+123.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 3.7M _(+123.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (18)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
 - [`endojs-endo-but-for-bots-pr665-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr665-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #665
 - [`endojs-endo-but-for-bots-pr1157-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1157-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1157
 - [`kriscendobot-garden-pr80-deploy-verify-20260905`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-deploy-verify-20260905.md) — Verify fleet deployment of merged kriscendobot/garden#80
+- [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1158-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1158
 - [`build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-registry-as-directory-tree-review5064787686-r2-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1117
 - [`pr-completion-receipts-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-completion-receipts-build.md) — ---
 - [`endojs-endo-but-for-bots-pr1151-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1151-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1151
