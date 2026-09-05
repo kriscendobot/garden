@@ -90,3 +90,13 @@ all, demonstrate the nearest expressible shape, and report the boundary with
 the schema language that defined it.
 
 **Cleanup.** Unpublish; verify unserved; remove all `ev4-` names.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T14:10:14Z
