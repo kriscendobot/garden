@@ -69,6 +69,7 @@ This is the garden's own repo (`scripts/jobs/orchestrate.sh`) — land directly 
 CLAUDE.md § Conventions), with tests proving the fix.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-05T12:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
