@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: design-pr-completion-receipts
-priority: normal
-posted_by: producer
-posted_at: 2026-09-05T12:36:04Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-05T12:46:03Z cleared=none -->
 
 ---
 tier: mentor
