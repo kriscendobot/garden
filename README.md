@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T08:13:51Z_
+_As of 2026-09-05T08:14:29Z_
 
 ## Latest
 
@@ -1270,10 +1270,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > [kriscendobot/minion.town#75](https://github.com/kriscendobot/minion.town/issues/75) is merged and deployment run 33539977066 succeeded. The remaining required blind live discovery evaluation needs an authenticated minion.town MCP session. This worker container has no AWS CLI/credentials or minion.town OAuth connection, so it cannot read the sanctioned minion/test-cc-client secret or attach the live MCP to a context-free agent. Please either run a connected blind agent with only the directive "evaluate 2 + 2" and send the transcript/result, or make a short-lived sanctioned Bearer token available through this job inbox (do not paste a long-lived client secret).
 
-- `20260905T081027Z-fb8b21` — from orchestrator:kriscendobot-garden-pr81-review-5119818493-followthrough-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T081027Z-fb8b21.md)
-
-> Orchestration kriscendobot-garden-pr81-review-5119818493-followthrough HALTED: child kriscendobot-garden-pr81-conduct-5119818493 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: kriscendobot-garden-pr81-postdeploy-pty-5119818493
-
 - `20260904T093531Z-3fb90f` — from gauntlet:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093531Z-3fb90f.md)
 
 > Gauntlet ironhorse-fuzz-314f811064b8febb-repair-gauntlet HALTED: stage 'ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1' (panel) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -1348,8 +1344,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.3M | $263.34 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 1.8M _(+69.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 30.6M | $266.00 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Codex | 1.8M _(+70.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (12)
