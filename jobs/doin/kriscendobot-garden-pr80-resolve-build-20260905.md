@@ -28,6 +28,7 @@ Resolve all four open questions in `designs/manual-quota-calibration.md` and rep
 The original build is commit `d5a2071faf` (ingestion, fit, deliberate setter); inspect and validate all three scripts, not only the new contiguity change. Preserve the measure/actuate boundary. Run the repository's full local verification, fix any in-scope failures, push safely to `design/manual-quota-calibration`, and wait for current-head CI to become green. The old failed check at run 33840703075 was ShellCheck noise on the frozen base; do not misreport it as this feature's validation. Complete only when the review asks are all mapped to artifacts and the PR is mergeable with green current-head checks; otherwise emit the orchestration-failure signal so the campaign halts.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-05T07:50:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
