@@ -85,5 +85,7 @@ jobs:
             exit 1
           fi
 
-      - name: Run pre-dispatch grep-gate tests
-        run: bash tests/checks/run.sh
+      - name: Run focused tests
+        run: |
+          bash tests/checks/run.sh
+          bash scripts/jobs/test/quota-calibration-test.sh
