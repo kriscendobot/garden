@@ -41,12 +41,4 @@ cross-check by hand (e.g. against `cost-by-pr.sh`'s own existing output for
 that PR, or the `## Cost` blocks on that PR's own `jobs/tada/*.md` reports)
 before treating all 10 as done.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-05T12:46:12Z
+<!-- garden-reaped: 1 -->
