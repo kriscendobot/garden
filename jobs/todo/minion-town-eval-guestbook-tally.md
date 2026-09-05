@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-eval-campaign
-priority: normal
 handler-timeout: 10800
-posted_by: design-minion-town-eval-campaign
-posted_at: 2026-09-01T19:38:13Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-05T14:10:04Z cleared=none -->
 
 # Evaluation 4/8: dynamic durable state — guestbook shared tally
 
