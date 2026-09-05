@@ -4286,7 +4286,7 @@ reap_stale_worker_cgroup() {
   local state_file now retry prior_identity prior_at prior_count identity signature tmp
   local live_count zombie_count unknown_count wait_left count
   local -a members=() stale=() live=() zombies=()
-  local -A killed=()
+  local -A killed=() observed_states=()
 
   [ -n "$kind" ] && [ -n "$id" ] || return 0
   unit_prefix="$(worker_kind_field "$kind" unit 2>/dev/null)" || return 0
@@ -4346,12 +4346,18 @@ reap_stale_worker_cgroup() {
   }
 
   _worker_collect_stale() {
-    stale=(); live=(); zombies=()
+    stale=(); live=(); zombies=(); observed_states=()
     mapfile -t members < <(grep -E '^[1-9][0-9]*$' "$procs" 2>/dev/null || true)
     for p in "${members[@]}"; do
       if ! _worker_pid_is_current "$p"; then
-        stale+=("$p")
         state="$(_worker_pid_state "$p")"
+        # cgroup.procs and /proc are not an atomic snapshot. A process can exit
+        # after the former is read, leaving a pid with no record to classify.
+        # Discard that stale observation; a still-present but unreadable record
+        # remains unknown so cleanup continues to fail closed.
+        [ "$state" != '?' ] || [ -e "$proc_root/$p/status" ] || continue
+        stale+=("$p")
+        observed_states["$p"]="$state"
         if [ "$state" = Z ]; then zombies+=("$p"); else live+=("$p"); fi
       fi
     done
@@ -4359,7 +4365,7 @@ reap_stale_worker_cgroup() {
 
   _worker_residue_signature() {
     for p in "${stale[@]}"; do
-      state="$(_worker_pid_state "$p")"
+      state="${observed_states[$p]:-?}"
       parent="$(awk '/^PPid:/{print $2; exit}' "$proc_root/$p/status" 2>/dev/null || true)"
       printf '%s:%s:%s\n' "$p" "$state" "${parent:-?}"
     done | sort | paste -sd, -
@@ -4450,7 +4456,7 @@ reap_stale_worker_cgroup() {
       mv -f "$tmp" "$state_file" 2>/dev/null || true
     fi
     live_count="${#live[@]}"; zombie_count="${#zombies[@]}"; unknown_count=0
-    for p in "${live[@]}"; do [ "$(_worker_pid_state "$p")" = '?' ] && unknown_count=$((unknown_count + 1)); done
+    for p in "${live[@]}"; do [ "${observed_states[$p]:-?}" = '?' ] && unknown_count=$((unknown_count + 1)); done
     log "WARN: startup cgroup cleanup: persistent residue after cleanup (live=$live_count zombies=$zombie_count unknown=$unknown_count; members: $signature)"
     alert_maintainer "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
       "$kind/$id on $GARDEN retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd ($signature). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per ${retry}s." || true

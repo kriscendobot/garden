@@ -48,6 +48,8 @@ export GARDEN_WORKER_STARTUP_REAP_RETRY_SECS=300
 ALERTS="$TR/alerts"
 alert_maintainer() { printf 'open %s\n' "$1" >> "$ALERTS"; }
 alert_maintainer_clear() { printf 'clear %s\n' "$1" >> "$ALERTS"; }
+LOGS="$TR/logs"
+log() { printf '%s\n' "$*" >> "$LOGS"; }
 KILLS="$TR/kills"
 kill() {
   printf '%s %s\n' "$1" "$2" >> "$KILLS"
@@ -78,6 +80,20 @@ else
   ok "startup sweep preserves gardener, self-heal wrapper, and tee sibling"
 fi
 
+# A pid can disappear from /proc after cgroup.procs was read. It is no longer a
+# signalable member or actionable residue, so do not kill it or open an alert.
+: > "$KILLS"
+open_before="$(grep -c '^open ' "$ALERTS" 2>/dev/null || true)"
+printf '%s\n' "$$" 500 501 699 > "$PROCS"
+reap_stale_worker_cgroup cleric 1 0
+open_after="$(grep -c '^open ' "$ALERTS" 2>/dev/null || true)"
+if [ ! -s "$KILLS" ] && [ "$open_after" -eq "$open_before" ] \
+    && [ ! -e "$GARDEN_WORKER_STARTUP_REAP_STATE_DIR/cleric-1.state" ]; then
+  ok "vanished proc records are neither signalled nor alerted as residue"
+else
+  bad "vanished proc record was treated as actionable cgroup residue"
+fi
+
 # A zombie whose owner reaps it during the bounded wait clears without either a
 # signal or a persisted residue episode.
 : > "$KILLS"
@@ -97,13 +113,14 @@ fi
 
 # An unreaped zombie cannot respond to signals. A live D-state survivor gets one
 # TERM/KILL attempt, but an immediate restart into the identical residue must
-# rate-limit the whole set rather than SIGKILLing the same pid again.
+# rate-limit the whole set rather than SIGKILLing the same pid again. PID 702 is
+# the cgroup.procs side of a cgroup/proc race: its /proc record has vanished.
 : > "$KILLS"
 write_status 700 1 Z
 write_status 701 1 D
 write_stat 700 7000
 write_stat 701 7010
-printf '%s\n' "$$" 500 501 700 701 > "$PROCS"
+printf '%s\n' "$$" 500 501 700 701 702 > "$PROCS"
 kill() { printf '%s %s\n' "$1" "$2" >> "$KILLS"; return 0; }
 reap_stale_worker_cgroup cleric 1 0
 first_kills="$(wc -l < "$KILLS")"
@@ -124,10 +141,12 @@ else
   bad "persistent live residue was signalled repeatedly ($(tr '\n' ';' < "$KILLS"))"
 fi
 STATE="$GARDEN_WORKER_STARTUP_REAP_STATE_DIR/cleric-1.state"
-if grep -q '^700:Z:1,701:S:1$' <(sed -n '4p' "$STATE") && [ "$(sed -n '3p' "$STATE")" -eq 2 ]; then
-  ok "persistent residue records states, parents, and repeated observations"
+if grep -q '^700:Z:1,701:S:1$' <(sed -n '4p' "$STATE") \
+    && [ "$(sed -n '3p' "$STATE")" -eq 2 ] \
+    && grep -q 'persistent residue after cleanup (live=1 zombies=1 unknown=0;' "$LOGS"; then
+  ok "persistent residue discards vanished proc records before classification"
 else
-  bad "persistent residue state was not recorded accurately ($(tr '\n' ';' < "$STATE" 2>/dev/null || true))"
+  bad "persistent residue retained a vanished proc record ($(tr '\n' ';' < "$STATE" 2>/dev/null || true))"
 fi
 if grep -Eq '^open worker-cgroup-residue-.+-cleric-1$' "$ALERTS"; then
   ok "persistent residue escalates through the coalescing maintainer-alert key"
