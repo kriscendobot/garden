@@ -119,3 +119,13 @@ Land per the garden's own conventions (no PR for the garden's own repo, unless
 this design surfaces real open questions worth a maintainer decision — e.g.
 the exact review-feedback heuristic formula seems like exactly that kind of
 judgment call worth flagging explicitly rather than silently picking one).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T12:36:11Z
