@@ -11,3 +11,13 @@ Fix in the § 4b live sweep of `scripts/jobs/transcript-capture.sh` (around line
 - Keep the tick's exit status 0 for this case; it is expected steady-state behavior on a host running gardeners, and the session was already captured by `transcript_spool` on the monk-claude side, so nothing is lost.
 
 Add a regression scenario to `scripts/jobs/test/transcript-capture-test.sh` (it already has `mk_session`/`spool_hook`/`run_capture` and an rm-after-spool case at line 152): create two live idle sessions, delete one after arming but in a way that reaches the sweep, and assert the capture still exits 0, archives the surviving session, and writes an index row for it only.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T03:24:03Z
