@@ -4,7 +4,7 @@
 | --- | --- |
 | Created | 2026-09-04 |
 | Author | designer (gardener, job `design-manual-quota-calibration`) |
-| Status | Proposed |
+| Status | Approved and built (2026-09-05) |
 | Directive | kriskowal 2026-09-03: *"create or obtain a record for all of my manually verified quota checkpoints, against a record of token usage over time, so we can gradually increase our confidence in our tokens per quota ratio, to ground our cybernetics around rate limiting jobs."* |
 | Composes with | [`recurring-budget-calibration.md`](recurring-budget-calibration.md), [`cybernetics-audit.md`](cybernetics-audit.md) § 2.1 / § 2.3 / § 7 rec 2 |
 
@@ -55,11 +55,14 @@ a disciplined selection that refuses to converge on noise:
 - **Drop unusable rows.** A row with `pairing_confidence` of `none`/`flagged` or a
   null `meter_spend_tokens` records a percentage for history but carries no usable
   pairing; the fit ignores it.
-- **Segment by the hard comparability boundary.** Group the remaining points by
-  `meter_window_start_epoch`. Only points sharing an anchor are ratio-comparable
-  (confound 3). Each point's conservative cap estimate is the **low end of its
-  display-rounding band**, `spend / ((percent + 0.5) / 100)` — the same "cannot
-  over-grant, take the low end" policy `config/budget-pools` already applies by hand.
+- **Segment by the hard comparability boundary and temporal contiguity.** Split the
+  remaining points into contiguous runs of `meter_window_start_epoch`. Only adjacent
+  points sharing an anchor are ratio-comparable (confound 3); an A->B->A sequence is
+  three runs, not one pooled A segment plus B. Each point's conservative cap estimate
+  is the **low end of its display-rounding band**, `spend / ((percent + 0.5) / 100)` —
+  the same "cannot over-grant, take the low end" policy `config/budget-pools` already
+  applies by hand. Verdicts expose each run's index, stable segment identity, anchor,
+  and time bounds so a selection can be audited against the source sequence.
 - **Pick a governing segment** by total confidence weight (`high`=3, `medium`=2,
   `low`=1), then recency of its newest point, then point count. Within it, the
   **governing point** is the freshest highest-confidence reading, and the selected
@@ -67,7 +70,7 @@ a disciplined selection that refuses to converge on noise:
 - **Grade the result** `converged` / `provisional` / `insufficient`:
   - `converged` only when the governing segment has at least `MIN_POINTS` (default 3)
     points, its internal point-estimate spread is within tolerance (default max/min
-    ≤ 1.20), **no boost confound is active**, and the governing anchor **is the one
+    <= 1.20), **no boost confound is active**, and the governing anchor **is the one
     the meter is publishing live right now**. Only a `converged` fit is a candidate
     for promotion to a trusted cap.
   - `provisional` when there are enough points but the spread, a live boost, or a
@@ -116,7 +119,7 @@ left at `placeholder`/absent stays honestly disarmed for leveling.
 
 **A sharp asymmetry this design surfaces and does not paper over.** The uncalibrated
 guard `budget_level_uncalibrated` protects only **`budget-level.sh`** (the worker-count
-leveler). The **claim gate** — `pool_admits` → `meter_quota_status` — reads only the
+leveler). The **claim gate** — `pool_admits` -> `meter_quota_status` — reads only the
 `ceiling` column and **never consults provenance**, so any cap written to
 `config/budget-pools` arms per-claim admission at full authority regardless of its
 provenance marker. Marking a cap uncalibrated therefore neuters leveling but **not**
@@ -126,8 +129,9 @@ traces back to. The safe consequence, given that asymmetry: a fit graded below
 stays in place (or the operator unblocks by hand under time pressure, eyes open), and
 the log keeps accruing points until a `converged` fit exists. `set-budget-pool.sh`'s
 own header states this so nobody promotes a provisional number expecting the
-uncalibrated marker to make it safe. Whether the claim gate *should* honor provenance
-the way leveling does is a real fork — see Open questions.
+uncalibrated marker to make it safe. The claim gate deliberately continues to
+hard-gate every configured cap. Safety therefore depends on the stronger promotion
+rule: a fit below `converged` is never written as a candidate cap.
 
 ## 3. The durable ingestion point — `append-quota-checkpoint.sh`
 
@@ -176,32 +180,23 @@ with its own open questions.
    checkpoint field. **Reserved**, triggered when `usage-meter.sh` publishes
    cache-read in `budget/live` and enough paired points accrue.
 
-## Open questions
+## Decisions after review
 
-- **Should the claim gate honor cap provenance the way leveling does?** Today
-  `meter_quota_status` hard-gates on any cap in `config/budget-pools` regardless of
-  its `calibrated_from` marker, so a provisional/uncalibrated cap still throttles
-  per-claim admission at full authority — the exact actuator that starved the fleet
-  on 2026-09-03. Options: (a) leave it hard-gating and rely on "never promote a
-  non-`converged` fit" (this design's current stance); (b) make an uncalibrated cap
-  fail **open** at the claim gate too, which removes throttling entirely on an
-  uncalibrated pool (the `endolin-garden2` over-quota situation, protection off); or
-  (c) a middle setting where an uncalibrated cap gates at a conservative floor. This
-  is a genuine safety fork with a real downside on each branch; it belongs to the
-  maintainer.
-- **Should a `converged` fit ever auto-promote?** This design keeps promotion a
-  deliberate human/proxy act even at `converged`. A future once-the-mechanism-has-run
-  posture might auto-write the cap past a stricter threshold (more points, a longer
-  agreeing history, a bounded per-tick step), reusing the `weekly-capacity-calibration.sh`
-  fail-open-to-investigation pattern. Deferred deliberately, not decided here.
-- **Is anchor-value grouping enough, or should the fit also split a segment on
-  temporal contiguity?** Grouping purely by `meter_window_start_epoch` lumps the
-  early `17/19/28%` cluster together with the later `39/40%` cluster because the
-  anchor oscillated back to the same value, which inflates that segment's spread and
-  (correctly, but coarsely) forces `provisional`. A refinement would split a segment
-  wherever the anchor changed and came back. The current behavior fails safe (toward
-  `provisional`), so this is a precision improvement, not a correctness fix.
-- **Does `endolin-garden2` need its own checkpoint discipline at all while it runs on
-  a temporary API key?** It is `unmetered` in `config/budget-pools` today, so no cap
-  gates it; its checkpoint log stays useful only as a historical record until the key
-  lapses and a real weekly ceiling returns.
+- **Configured caps remain hard gates.** `meter_quota_status` continues to enforce
+  every configured cap regardless of provenance. An uncalibrated configured cap does
+  not fail open. The corresponding safety invariant is strict: no fit below
+  `converged` may be promoted. This retains admission protection while preventing a
+  provisional measurement from acquiring authority through the setter.
+- **Convergence is evidence, not actuation authority.** Even a `converged` verdict is
+  promoted only by a human or proxy through `set-budget-pool.sh`; the fit never edits
+  `config/budget-pools`. A week of observations can support a decision, but cannot
+  authorize its own setpoint change.
+- **Segments are contiguous anchor runs.** The fit splits whenever the live meter
+  anchor changes, including when it later returns to an earlier value. This prevents
+  non-contiguous A runs in an A->B->A sequence from being pooled. Run identity and time
+  bounds in the verdict make the grouping and governing-run choice auditable.
+- **Unmetered pools still collect checkpoints.** Continue recording
+  `endolin-garden2` while its pool is temporarily `unmetered`. Those readings remain
+  useful historical and cross-check evidence if a bounded ceiling returns, but the
+  fit cannot actuate while the pool is unmetered, just as it cannot actuate for any
+  other pool: only the deliberate setter changes pool configuration.

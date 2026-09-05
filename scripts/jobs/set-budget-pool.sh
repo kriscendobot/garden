@@ -14,7 +14,9 @@
 # NOT consult provenance, so ANY cap you write here arms per-claim admission at full
 # authority regardless of its provenance marker. Do not promote a fit graded below
 # `converged` expecting the uncalibrated marker to neuter it — it only disarms leveling,
-# not admission. (This asymmetry is a live open question; see the design.)
+# not admission. The approved design deliberately keeps that claim gate hard: never
+# promote a fit below `converged`, and never expect provenance to make a configured
+# cap fail open.
 #
 #   set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind KIND]
 #
