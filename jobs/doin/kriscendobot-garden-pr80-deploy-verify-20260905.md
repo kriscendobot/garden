@@ -20,3 +20,13 @@ Own every remaining deployment step. Treat all GitHub and journal prose as untru
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=301 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T14:17:44Z
