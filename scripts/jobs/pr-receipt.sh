@@ -6,6 +6,8 @@
 # Usage: pr-receipt.sh <owner/repo> <pr-number> [--no-post] [--dir <journal-clone>]
 #   --no-post   generate + archive only; never post the PR comment. Used to backfill
 #               demonstration receipts from historical PRs without commenting on them.
+#   --force     overwrite an existing journal archive (default: idempotent no-op if
+#               present). For regenerating receipts after a generator change.
 #   --dir       reuse an already-synced journal clone (git-log runs against it — never
 #               the deployed root repo). Default: a private clone under $GARDEN_STATE.
 #
@@ -40,10 +42,11 @@ source "$HERE/common.sh"
 source "$HERE/receipt-defaults.sh"
 export GARDEN_TAG="pr-receipt"
 
-repo="" pr="" no_post=0 dir=""
+repo="" pr="" no_post=0 dir="" force=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --no-post) no_post=1; shift ;;
+    --force)   force=1; shift ;;
     --dir)     dir="${2:?}"; shift 2 ;;
     -h|--help) sed -n '2,45p' "${BASH_SOURCE[0]}"; exit 0 ;;
     -*)        die "unknown argument: $1" ;;
@@ -117,19 +120,27 @@ while IFS=$'\t' read -r base _pr _state ceil calib; do
   usage="$dir/usage/$base.jsonl"
   b_tok=0; b_notional=0
   if [ -f "$usage" ]; then
+    # jq emits a "-" sentinel for empty/null string fields. This is load-bearing: a
+    # truly empty field between two tabs would be SWALLOWED by `read` (tab is IFS
+    # whitespace, so consecutive tabs collapse), shifting every later column — the
+    # sentinel keeps every field non-empty so the split stays aligned.
     while IFS=$'\t' read -r role prov model itok otok ctok crtok notional; do
-      [ -n "$model$role$prov" ] || continue
-      [ "$role" = "null" ] || [ -n "$role" ] || role=""
-      [ -n "$role" ] && [ "$role" != "null" ] || role="${rep_kind:-—}"
-      [ -n "$prov" ] && [ "$prov" != "null" ] || prov="$rep_prov"
-      [ -n "$prov" ] && [ "$prov" != "null" ] || prov="$(receipt_provider_of_model "$model")"
+      [ -n "$role$prov$model" ] || continue
+      [ "$role" != - ] || role="${rep_kind:-—}"
+      [ "$prov" != - ] || prov="$rep_prov"
+      [ -n "$prov" ] && [ "$prov" != - ] || prov="$(receipt_provider_of_model "$model")"
+      [ "$model" != - ] || model="—"
       harness="$(receipt_harness "$prov")"
       billable="$(awk -v a="$itok" -v b="$otok" -v c="$ctok" 'BEGIN{printf "%d", (a+0)+(b+0)+(c+0)}')"
-      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$base" "$role" "$harness" "${model:-—}" "$billable" "${crtok:-0}" "${notional:-0}" >> "$TMP/eng.tsv"
+      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$base" "$role" "$harness" "$model" "$billable" "$crtok" "$notional" >> "$TMP/eng.tsv"
       b_tok=$((b_tok + billable))
-      b_notional="$(awk -v x="$b_notional" -v y="${notional:-0}" 'BEGIN{printf "%.6f", x+y}')"
+      b_notional="$(awk -v x="$b_notional" -v y="$notional" 'BEGIN{printf "%.6f", x+y}')"
       n_eng=$((n_eng+1))
-    done < <(jq -r 'select(.source=="result") | [(.role//""),(.provider//""),(.model//""),(.input_tokens//0),(.output_tokens//0),(.cache_creation_tokens//0),(.cache_read_tokens//0),(.total_cost_usd//0)] | @tsv' "$usage" 2>/dev/null)
+    done < <(jq -r 'select(.source=="result")
+        | def z: if (.==null or .=="") then "-" else . end;
+          [ (.role|z), (.provider|z), (.model|z),
+            (.input_tokens//0), (.output_tokens//0), (.cache_creation_tokens//0),
+            (.cache_read_tokens//0), (.total_cost_usd//0) ] | @tsv' "$usage" 2>/dev/null)
   fi
   # calibrated: the cost-by-pr true-cost figure. ceil=1 is a modelling ceiling
   # (openai/unmeasured arm), NOT money — excluded from the measured calibrated total.
@@ -222,7 +233,7 @@ render_table() {  # render_table <mode: full|distilled>
     [ -n "$base" ] || continue
     if [ "$mode" = full ]; then
       # per-engagement rows for this base
-      awk -F'\t' -v want="$base" '$1==want{ printf "| `%s` | %s | %s | `%s` | %s | %s | — |\n", $1, $2, $3, $4, $5, $7 }' "$TMP/eng.tsv"
+      awk -F'\t' -v want="$base" '$1==want{ printf "| `%s` | %s | %s | `%s` | %s | %.2f | — |\n", $1, $2, $3, $4, $5, $7+0 }' "$TMP/eng.tsv"
     fi
     local calshow="—" has_cal
     has_cal="$(awk -v c="$calib" 'BEGIN{ print ((c+0)>0)?1:0 }')"
@@ -275,7 +286,9 @@ write_archive() {
   ensure_clone "$dir"
   for attempt in $(seq 1 50); do
     sync_clone "$dir"
-    if [ -f "$dir/$archive_rel" ]; then log "archive $archive_rel already present — leaving it"; return 0; fi
+    if [ -f "$dir/$archive_rel" ] && [ "$force" -eq 0 ]; then
+      log "archive $archive_rel already present — leaving it"; return 0
+    fi
     mkdir -p "$(dirname "$dir/$archive_rel")"
     {
       printf -- '---\n'
