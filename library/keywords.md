@@ -96,3 +96,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - Cedar, Cedar policy language, Cedar authorization engine, cedar-policy, Amazon Verified Permissions, Verified Permissions, AVP, PARC, principal action resource context, policy-as-code, verification-guided development -> cedar-policy-language
 - policy vs capability, policy language vs object capability, ACL vs ocap, reference monitor vs capability, access control behind the tool call, ocap behind the tool call, scope strings vs capabilities, Cedar vs ocap, attenuation vs policy -> policy-vs-capability-authorization
 - garbage collection, mark-and-sweep, mark and sweep, GC quarantine -> gc-quarantine-store
+- ordered key encoding, passable key encoding, lexicographic passable key -> rank-order-preserving-encoding
