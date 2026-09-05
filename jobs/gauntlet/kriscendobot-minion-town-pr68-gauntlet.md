@@ -5,12 +5,12 @@ repo: kriscendobot/minion.town
 pr_number: 68
 build_job: 
 kind: feature
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion-town-pr68-gauntlet-fix-5
+current_child: kriscendobot-minion-town-pr68-gauntlet-panel-6
 state: running
 created_by: gardener
 created_at: 2026-09-01T23:16:50Z
