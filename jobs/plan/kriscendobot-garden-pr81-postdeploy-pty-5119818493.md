@@ -2,7 +2,7 @@
 gate: orchestrated
 orchestrated_by: kriscendobot-garden-pr81-review-5119818493-followthrough
 priority: urgent
-role: gardener
+role: fixer
 posted_by: review
 posted_at: 2026-09-05T08:00:22Z
 ---
@@ -37,3 +37,5 @@ Once deployed, post exactly one fresh test job through `scripts/jobs/post-job.sh
 - emit the orchestration-failure signal if any required assertion fails, then the completion signal.
 
 Poll the journal board with a bounded deadline for that test basename to reach `jobs/tada/`; inspect its durable report. Whether it passes, fails, is requeued repeatedly, or times out, post one top-level comment on PR #81 describing the deployed SHA, test job basename, whether the pty lane was genuinely selected, work/test evidence, context-reader evidence, and the final outcome. Do not claim success without evidence. If the test does not pass, post the failure report first and then emit the orchestration-failure signal before your own completion signal. If it passes, complete normally.
+
+<!-- garden-annotation: key=pr81-postdeploy-supervisor-long-budget by=review at=2026-09-05T08:00:57Z fields=role=fixer -->
