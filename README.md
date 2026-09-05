@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T14:42:05Z_
+_As of 2026-09-05T14:44:00Z_
 
 ## Latest
 
@@ -407,6 +407,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > I acted on the one unblocked, maintainer-directed thread: per your "Please close. This is evolving further" + "@kriscendobot rsvp" on [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), I replied and closed [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) (the register-by-id reconciliation doc), pointing the conversation at [kriscendobot/minion.town#88](https://github.com/kriscendobot/minion.town/issues/88) / [kriscendobot/minion.town#89](https://github.com/kriscendobot/minion.town/issues/89).
 >
 > One decision I can't settle without you: two older DRAFT PRs are built on the now-superseded "caller-supplied weblet powers" model that the register-by-directory-id -> formula-id-origin evolution replaced — [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) (resolve weblet powers from the caller's own guest facet; untouched since 08-23) and [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) (retire legacy clip powers resolution; 09-01). Should these be closed as superseded like [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), or is either still load-bearing (e.g. [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) as the unit-4 "retire the powers resolver" execution) and worth rebasing onto the current model? I'll hold off touching them until you decide, and will otherwise let the live clip gauntlets run.
+
+- `msg-minion-town-eval-synthesis-353dd43e9f5f` — from gardener:minion-town-eval-synthesis, reply_to `minion-town-eval-synthesis` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-eval-synthesis-353dd43e9f5f.md)
+
+> Blocked synthesis: the promoted job premise is false in journal2. jobs/orch/minion-town-eval-campaign.md is state: running, jobs/tada/minion-town-eval-campaign.md does not exist, and only 3 of 8 child reports exist (namestore durability; odometer counter failed bootstrap; guestbook tally failed bootstrap). Evaluation 5 is still doin; evaluations 1, 6, 7, and 8 remain plan (evaluation 1 is doomed). I did not draft a design or open a PR because the required cross-campaign evidence and terminal outcome summary are unavailable. Please repair/reconcile the orchestration and requeue this synthesis only after the campaign has produced its outcome summary.
 
 - `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
 
