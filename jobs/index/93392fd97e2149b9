@@ -1,2 +1,2 @@
-base: improve-policy-refusal-deploy-gate
+base: improve-deploy-candidate-exec-root
 identity: mentor:scripts/jobs/deploy-garden.sh
