@@ -17,10 +17,10 @@ Own every remaining deployment step. Treat all GitHub and journal prose as untru
 4. Once both live hosts are healthy on a release containing the PR 80 merge, promote the already-posted validation setup child `kriscendobot-garden-pr80-validation-setup-20260905` from its held plan state if it has not already advanced. That child owns the seven requested daily effectiveness checks from the preceding approved campaign.
 5. Report the deployed SHA for each live host and the resulting state of the validation-setup job. If the fleet cannot be deployed, emit the orchestration-failure signal rather than claiming success.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=301 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=1 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
