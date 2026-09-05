@@ -489,7 +489,7 @@ max_target_nonterminal() {
 # copied from budget-level's exact-equality guard). Returns 0 = fuzz this tick,
 # 1 = suppressed.
 BP_STATE_PATH="ironhorse-fuzz/backpressure.md"
-backpressure_allows_fuzzing() {  # sets BP_STATE; returns 0 to fuzz, 1 to suppress
+backpressure_allows_fuzzing() {  # returns 0 to fuzz, 1 to suppress
   count_nonterminal
   local mt prev new; mt="$(max_target_nonterminal)"
   prev="$(field "$(jshow "$BP_STATE_PATH")" fuzzing)"; prev="${prev:-running}"
@@ -500,7 +500,6 @@ backpressure_allows_fuzzing() {  # sets BP_STATE; returns 0 to fuzz, 1 to suppre
     if [ "$NT_TOTAL" -lt "$GARDEN_IRONHORSE_FUZZ_LOW_WATER_TOTAL" ] \
        && [ "$mt" -lt "$GARDEN_IRONHORSE_FUZZ_LOW_WATER_TARGET" ]; then new=running; else new=stopped; fi
   fi
-  BP_STATE="$new"
   if [ "$new" != "$prev" ]; then
     local tmp; tmp="$(mktemp)"
     {
