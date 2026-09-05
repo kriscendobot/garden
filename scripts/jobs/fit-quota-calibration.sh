@@ -13,8 +13,9 @@
 #   2. a temporary +50% weekly boost (through 2026-09-13) with an unknown start;
 #   3. the local meter's window_start_epoch OSCILLATES between two anchors, so
 #      meter_spend_tokens across a window change is not comparable at all.
-# The deterministic response is to (a) SEGMENT the checkpoints into comparable
-# series keyed on meter_window_start_epoch (the hard comparability boundary), (b)
+# The deterministic response is to (a) SEGMENT the checkpoints into contiguous,
+# comparable runs keyed on meter_window_start_epoch (the hard comparability
+# boundary), (b)
 # pick a GOVERNING segment by confidence+recency+count, (c) take the LOW end of the
 # freshest highest-confidence point's rounding band as the conservative cap (cannot
 # over-grant — the same policy config/budget-pools already uses), and (d) grade the
@@ -89,9 +90,10 @@ fi
 
 # The whole fit is one jq pass over the usable rows. Usable = numeric spend, a
 # pairing_confidence of high|medium|low, and weekly_percent > 0. Rows tagged none /
-# flagged (no usable pairing) and null-spend rows are dropped. Points are grouped by
-# meter_window_start_epoch (the comparability key). Per point we take the LOW end of
-# the display-rounding band, spend / ((percent+0.5)/100), as the conservative cap.
+# flagged (no usable pairing) and null-spend rows are dropped. A segment is one
+# contiguous run of a meter_window_start_epoch: A,B,A produces three segments, not
+# two pooled anchor buckets. Per point we take the LOW end of the display-rounding
+# band, spend / ((percent+0.5)/100), as the conservative cap.
 verdict="$(jq -s \
   --arg host "$host" --arg now "$now_iso" \
   --arg live_win "$live_win" \
@@ -100,25 +102,47 @@ verdict="$(jq -s \
   --argjson boost_active "$boost_active" \
   --argjson boost_unknown "$boost_unknown_start" '
   def cw: {"high":3,"medium":2,"low":1}[.] // 0;
-  # usable points
-  [ .[]
-    | select((.meter_spend_tokens // null) != null)
-    | select((.weekly_percent // 0) > 0)
-    | select((.pairing_confidence // "none") as $c | ($c=="high" or $c=="medium" or $c=="low"))
-    | { win: (.meter_window_start_epoch // null),
-        percent: .weekly_percent,
-        spend: .meter_spend_tokens,
-        confidence: .pairing_confidence,
-        cw: (.pairing_confidence | cw),
-        checked_at: .checked_at,
-        t: (.checked_at // "" | fromdateiso8601? // 0),
-        # conservative low-end cap over the +-0.5 display-rounding band
-        cap_low:  (.meter_spend_tokens / ((.weekly_percent + 0.5) / 100)),
-        cap_point:(.meter_spend_tokens / (.weekly_percent / 100)),
-        cap_high: (.meter_spend_tokens / ((.weekly_percent - 0.5) / 100)) }
-  ] as $pts
-  | ($pts | group_by(.win) | map({
-        window_start_epoch: .[0].win,
+  def usable:
+    ((.meter_window_start_epoch | type) == "number") and
+    ((.meter_spend_tokens | type) == "number") and
+    ((.weekly_percent // 0) > 0) and
+    ((.pairing_confidence // "none") as $c | ($c=="high" or $c=="medium" or $c=="low"));
+  def fit_point:
+    { win: .meter_window_start_epoch,
+      percent: .weekly_percent,
+      spend: .meter_spend_tokens,
+      confidence: .pairing_confidence,
+      cw: (.pairing_confidence | cw),
+      checked_at: .checked_at,
+      t: (.checked_at // "" | fromdateiso8601? // 0),
+      # conservative low-end cap over the +-0.5 display-rounding band
+      cap_low:  (.meter_spend_tokens / ((.weekly_percent + 0.5) / 100)),
+      cap_point:(.meter_spend_tokens / (.weekly_percent / 100)),
+      cap_high: (.meter_spend_tokens / ((.weekly_percent - 0.5) / 100)) };
+  # Observe every valid anchor transition before dropping unusable pairings. A
+  # flagged B row in an A,B,A sequence still proves that the two A runs are not
+  # temporally contiguous.
+  (reduce .[] as $row
+      ({runs:[], have_previous:false, previous_window:null, next_run_index:0};
+       if (($row.meter_window_start_epoch | type) != "number") then .
+       else
+         if (.have_previous and ($row.meter_window_start_epoch == .previous_window)) then .
+         else
+           .runs += [{run_index:.next_run_index, window_start_epoch:$row.meter_window_start_epoch, points:[]}]
+           | .next_run_index += 1
+         end
+         | .have_previous = true
+         | .previous_window = $row.meter_window_start_epoch
+         | if ($row | usable) then .runs[-1].points += [($row | fit_point)] else . end
+       end)
+    | .runs
+    | map(select(.points | length > 0))
+    | map(. as $run | $run.points | {
+        segment_id: ("run-\($run.run_index)-anchor-\($run.window_start_epoch // "null")"),
+        run_index: $run.run_index,
+        window_start_epoch: $run.window_start_epoch,
+        first_checked_at: .[0].checked_at,
+        last_checked_at: .[-1].checked_at,
         n_points: length,
         total_weight: (map(.cw) | add),
         newest_t: (map(.t) | max),
@@ -131,7 +155,7 @@ verdict="$(jq -s \
         best: (sort_by([.cw, .t]) | last)
       })) as $segs
   | ($segs | sort_by([.total_weight, .newest_t, .n_points]) | last) as $gov
-  | if ($pts | length) == 0 then
+  | if ($segs | length) == 0 then
       { host:$host, generated_at:$now, confidence:"insufficient",
         selected_cap_tokens:null, method:"segment-low-band",
         note:"no usable paired checkpoints (all rows none/flagged or null-spend)",
@@ -146,13 +170,13 @@ verdict="$(jq -s \
          else "insufficient" end) as $grade
       | { host:$host, generated_at:$now,
           confidence:$grade,
-          method:"segment-low-band (governing = max total-confidence-weight window, best = freshest highest-confidence point, cap = its low-end rounding band)",
+          method:"contiguous-segment-low-band (governing = max total-confidence-weight run, best = freshest highest-confidence point, cap = its low-end rounding band)",
           selected_cap_tokens: ($bp.cap_low | floor),
           selected_cap_band: { low: ($bp.cap_low|floor), point: ($bp.cap_point|floor), high: ($bp.cap_high|floor) },
           governing_point: { checked_at: $bp.checked_at, weekly_percent: $bp.percent, meter_spend_tokens: $bp.spend, pairing_confidence: $bp.confidence, window_start_epoch: $bp.win },
-          governing_segment: { window_start_epoch: $gov.window_start_epoch, n_points: $gov.n_points, total_confidence_weight: $gov.total_weight, percent_range: [$gov.percent_min, $gov.percent_max], cap_point_spread: [$gov.cap_point_min|floor, $gov.cap_point_max|floor], spread_ratio: ($gov.spread_ratio*1000|round/1000), is_live_window: $is_live_window },
+          governing_segment: { segment_id: $gov.segment_id, run_index: $gov.run_index, window_start_epoch: $gov.window_start_epoch, first_checked_at: $gov.first_checked_at, last_checked_at: $gov.last_checked_at, n_points: $gov.n_points, total_confidence_weight: $gov.total_weight, percent_range: [$gov.percent_min, $gov.percent_max], cap_point_spread: [$gov.cap_point_min|floor, $gov.cap_point_max|floor], spread_ratio: ($gov.spread_ratio*1000|round/1000), is_live_window: $is_live_window },
           checks: { enough_points: $enough, min_points: $min_points, spread_within_tolerance: $tight, tolerance: $tol, boost_active: $boost_active, boost_unknown_start: $boost_unknown, live_window_matches: $is_live_window, live_window_start_epoch: (if $live_win=="" then null else ($live_win|tonumber) end) },
-          segments: ($segs | map({window_start_epoch, n_points, total_weight, percent_range:[.percent_min,.percent_max], cap_point_low:(.cap_point_min|floor), cap_point_high:(.cap_point_max|floor), spread_ratio:(.spread_ratio*1000|round/1000)})),
+          segments: ($segs | map({segment_id, run_index, window_start_epoch, first_checked_at, last_checked_at, n_points, total_weight, percent_range:[.percent_min,.percent_max], cap_point_low:(.cap_point_min|floor), cap_point_high:(.cap_point_max|floor), spread_ratio:(.spread_ratio*1000|round/1000)})),
           boost_active:$boost_active }
     end
 ' "$cp_file")" || { echo "fit failed" >&2; exit 1; }
@@ -163,7 +187,7 @@ if [ "$json_only" = false ]; then
   grade="$(printf '%s' "$verdict" | jq -r '.confidence')"
   cap="$(printf '%s' "$verdict" | jq -r '.selected_cap_tokens // "none"')"
   case "$grade" in
-    converged)   echo "RECOMMENDATION [$host]: cap=$cap is CONVERGED — promote with set-budget-pool.sh '$host' $cap manual-fit $(date -u +%F)." >&2 ;;
+    converged)   echo "RECOMMENDATION [$host]: cap=$cap is CONVERGED — promote with set-budget-pool.sh 'anthropic:$host' $cap manual-fit $(date -u +%F)." >&2 ;;
     provisional) echo "RECOMMENDATION [$host]: cap=$cap is PROVISIONAL — do NOT promote to a trusted cap; keep the current conservative cap or unblock by hand, and keep appending checkpoints. See .checks for what failed." >&2 ;;
     insufficient)echo "RECOMMENDATION [$host]: INSUFFICIENT data for a trustworthy fit — keep appending checkpoints; do not actuate on this." >&2 ;;
   esac
