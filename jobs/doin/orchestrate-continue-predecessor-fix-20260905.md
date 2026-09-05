@@ -67,3 +67,13 @@ Confirm the existing halt-policy tests still pass unchanged.
 This is the garden's own repo (`scripts/jobs/orchestrate.sh`) — land directly to
 `main2` per the garden's own conventions (no PR for the garden's own repo; see
 CLAUDE.md § Conventions), with tests proving the fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T11:44:31Z
