@@ -55,3 +55,13 @@ calibration chart report — don't just assert "N jobs are autonomous," show the
 breakdown). Clip CSP is same-origin only (`script-src`/`style-src`/`connect-src
 'self'`, `img-src 'self' data:` — no CDN); inline SVG or same-origin JS/CSS only.
 Report the published clip URL in your tada report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T03:48:40Z
