@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1151
 build_job: 
 kind: feature
-stage: fix
-iteration: 3
+stage: panel
+iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1151-gauntlet-fix-3
+current_child: endojs-endo-but-for-bots-pr1151-gauntlet-panel-4
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-09-05T12:37:24Z
