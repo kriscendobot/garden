@@ -1,4 +1,5 @@
 ---
+child-minion-town-eval-namestore-durability-host: endolin-garden-ece02cb4
 child-minion-town-eval-static-publish-host: endolin-garden2-5bcdff64
 child-minion-town-eval-static-publish-reap-count: 0
 order: serial
