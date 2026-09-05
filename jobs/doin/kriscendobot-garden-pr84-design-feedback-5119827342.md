@@ -49,6 +49,7 @@ review data has changed materially, follow the live maintainer direction and
 report the reconciliation for the later children.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-05T07:50:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
