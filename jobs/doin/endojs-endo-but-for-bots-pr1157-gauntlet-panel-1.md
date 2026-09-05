@@ -46,3 +46,13 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-transient-elapsed: kind=exit0 through=2 values=87,200 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T04:03:58Z
