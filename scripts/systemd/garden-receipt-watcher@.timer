@@ -1,0 +1,22 @@
+[Unit]
+Description=Garden PR-completion-receipt watcher timer for repo %i
+
+[Timer]
+# Bind the instance timer explicitly to its same-instance service.
+Unit=garden-receipt-watcher@%i.service
+# OnBootSec anchors the first elapse to a FIXED monotonic reference (boot), so the
+# timer always has a concrete next-trigger and fires promptly on arming;
+# OnUnitActiveSec drives the steady cadence after the first run. A PR completion is
+# not time-critical (the receipt is a ledger, not an alert), so a slower cadence than
+# the CI watcher's 90s is fine and keeps the closed-PR reads cheap.
+OnBootSec=90s
+OnUnitActiveSec=300s
+# Spread the per-repo template instances across the cadence instead of firing every
+# one in the same second (a self-inflicted thundering herd on gh api). Matches the
+# other per-repo watchers' spread.
+RandomizedDelaySec=60s
+# Default accuracy is 1min; tighten so the cadence does not get batched late.
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

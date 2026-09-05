@@ -9,12 +9,13 @@
 #                  → garden-ci-watcher@<slug>         (CI-STATUS watch; auto-shepherd)
 #                  → garden-dependabot-watcher@<slug> (dependabot-PR watch; auto-botanist)
 #                  → garden-approval-reconciler@<slug> (APPROVAL sweep; auto-conductor)
-# The CI-status, dependabot-PR, and approval-reconciler watchers ride the SAME
-# cleared comment-repos/ set: a repo cleared for comment surveillance is also cleared
-# for those by-construction-safe watches (each reads only PR status/authorship/review
-# metadata, feeds no external text to an LLM), so none needs a third set nor widens
-# the surveillance surface. See ci-watcher.sh / dependabot-watcher.sh /
-# approval-reconciler.sh headers
+#                  → garden-receipt-watcher@<slug>    (PR-TERMINAL-STATE watch; auto-receipt)
+# The CI-status, dependabot-PR, approval-reconciler, and receipt watchers ride the
+# SAME cleared comment-repos/ set: a repo cleared for comment surveillance is also
+# cleared for those by-construction-safe watches (each reads only PR status/authorship/
+# review metadata or terminal state, feeds no external text to an LLM), so none needs a
+# third set nor widens the surveillance surface. See ci-watcher.sh / dependabot-watcher.sh /
+# approval-reconciler.sh / receipt-watcher.sh headers
 # § Monitoring safety. A commit that adds a file is a watch, one that removes it an
 # unwatch. This
 # service's primary input is therefore the JOURNAL, not the repos themselves.
@@ -220,9 +221,11 @@ unit_ctl daemon-reload 2>/dev/null || log "WARN: daemon-reload failed (continuin
 # monitoring-safety bar, widened only after journal-recorded maintainer auth) AND
 # the CI-status watcher (auto-shepherd on red) AND the dependabot-PR watcher
 # (auto-botanist on a new dependabot PR) AND the approval reconciler (auto-conductor
-# for a missed maintainer approval); all ride the same cleared set.
+# for a missed maintainer approval) AND the receipt watcher (auto-receipt on a
+# completed PR); all ride the same cleared set.
 reconcile_set repos         garden-triager
 reconcile_set comment-repos garden-comment-watcher
 reconcile_set comment-repos garden-ci-watcher
 reconcile_set comment-repos garden-dependabot-watcher
 reconcile_set comment-repos garden-approval-reconciler
+reconcile_set comment-repos garden-receipt-watcher

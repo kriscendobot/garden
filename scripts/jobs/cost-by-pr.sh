@@ -42,6 +42,12 @@
 #                 the PR set). Deterministic + offline.
 #   --top N       show the top N merged PRs by measured cost (default 30).
 #   --merged-only restrict the PR table to merged PRs (the escrow-oracle view).
+#   --base-map    emit the raw per-base join (TSV `base pr state ceil calibrated_usd`,
+#                 pr=__UNATTRIBUTED__ for unjoined bases) and exit. Covers ALL PR
+#                 states (merged AND closed-without-merge), unaffected by --merged-only
+#                 — the join carries state already; only the human/escrow view filters
+#                 to merged. This is the pr-receipt.sh generator's entry point: it
+#                 reuses this join rather than duplicating it. No LLM.
 #   --json        machine output (full per-PR + buckets + coverage).
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -50,7 +56,7 @@ source "$HERE/common.sh"
 # shellcheck source=reputation.sh
 source "$HERE/reputation.sh"   # rep_wallclock_index / rep_proxy_secs / rep_rate_per_second
 
-dir='' prcache='' fetch=1 top=30 merged_only=0 json=0
+dir='' prcache='' fetch=1 top=30 merged_only=0 json=0 basemap=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --dir)         dir="${2:?}"; shift 2 ;;
@@ -58,8 +64,9 @@ while [ $# -gt 0 ]; do
     --no-fetch)    fetch=0; shift ;;
     --top)         top="${2:?}"; shift 2 ;;
     --merged-only) merged_only=1; shift ;;
+    --base-map)    basemap=1; shift ;;
     --json)        json=1; shift ;;
-    -h|--help)     sed -n '2,60p' "${BASH_SOURCE[0]}"; exit 0 ;;
+    -h|--help)     sed -n '2,51p' "${BASH_SOURCE[0]}"; exit 0 ;;
     *) die "unknown argument: $1" ;;
   esac
 done
@@ -204,6 +211,15 @@ while IFS=$'\t' read -r base prov psecs rate cost; do
   state=''; [ -n "$pr" ] && state="${PRSTATE[$pr]:-unknown}"
   printf '%s\t%s\t%s\t%d\t%s\n' "${pr:-__UNATTRIBUTED__}" "$state" "$base" "$ceil" "$cost" >> "$TMP/joined.tsv"
 done < "$TMP/base_cost.tsv"
+
+# --base-map: emit the raw per-base join (base pr state ceil calibrated_usd) and stop.
+# This is the deterministic entry point pr-receipt.sh consumes to resolve the bases of
+# one PR (merged OR closed) without duplicating the join above. Includes unjoined bases
+# as pr=__UNATTRIBUTED__ so a caller can see coverage; the generator simply greps its PR.
+if [ "$basemap" -eq 1 ]; then
+  awk -F'\t' '{ printf "%s\t%s\t%s\t%s\t%s\n", $3, $1, $2, $4, $5 }' "$TMP/joined.tsv"
+  exit 0
+fi
 
 # fold in awk: per-PR measured/ceiling/jobs, unattributed bucket, coverage counters.
 summary="$(awk -F'\t' '
