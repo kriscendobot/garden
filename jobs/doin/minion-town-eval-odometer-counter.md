@@ -101,3 +101,13 @@ leave it alone and note the sighting.
 
 **Cleanup.** Unpublish the clip and verify it stops being served; remove all
 `ev3-` pet names.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T14:04:15Z
