@@ -1,19 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:self-heal-claude
-sent_at: 2026-09-03T23:33:10Z
+sent_at: 2026-09-05T03:22:26Z
 watchdog_key: provider-quota
 notice_count: 20
 first_seen: 2026-09-01T22:33:11Z
-last_seen: 2026-09-03T23:33:10Z
+last_seen: 2026-09-05T03:22:26Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #20 (first seen 2026-09-01T22:33:11Z, latest 2026-09-03T23:33:10Z).
-The SAME condition (`provider-quota`) has now been observed 20 times; this is ONE
-coalesced notice that updates in place, not 20 messages. Latest detail:
+RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-09-01T22:33:11Z, cleared 2026-09-05T03:22:26Z).
+It was observed 20 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-provider weekly limit reached: the API is refusing calls fleet-wide (resets Sep 5, 3am (UTC) — the responder could NOT diagnose garden-mirror-closer (rc=1); its capture is blob 5973c8b843864ea1aede70b64c43587b13e13f2f (git -C /home/kris/garden2/).
-limit_type: weekly
-This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
-resumes on its own once the window resets (see skills/restore/SKILL.md for the
-post-outage restore). Every unit that trips the limit folds into THIS one notice
-rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
-provider quota exceeded while running garden-mirror-closer. Observed: You've hit your weekly limit · resets Sep 5, 3am (UTC) — the responder could NOT diagnose garden-mirror-closer (rc=1); its capture is blob 5973c8b843864ea1aede70b64c43587b13e13f2f (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5973c8b843864ea1aede70b64c43587b13e13f2f).
+provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-transcript-capture). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
