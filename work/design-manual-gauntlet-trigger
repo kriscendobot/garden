@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: cleric
 claimed_at: 2026-09-05T12:16:33Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-manual-gauntlet-trigger
+pr_number: 85
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/85
+pr_head: design/manual-gauntlet-trigger
