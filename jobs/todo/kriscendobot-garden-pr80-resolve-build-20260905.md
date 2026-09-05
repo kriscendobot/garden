@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-garden-pr80-approved-calibration-campaign-20260905
-priority: normal
-posted_by: producer
-posted_at: 2026-09-05T04:48:56Z
+role: fixer
+tier: mentor
+handler-budget-role: fixer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-05T04:52:13Z cleared=none -->
 
 ---
 role: fixer
