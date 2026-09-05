@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T10:35:34Z_
+_As of 2026-09-05T11:35:32Z_
 
 ## Latest
 
@@ -24,9 +24,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #28 (first seen 2026-09-04T00:20:58Z, latest 2026-09-05T10:35:10Z).
-> The SAME condition (`budget-level-uncalibrated-anthropic:endolin-garden2-5bcdff64`) has now been observed 28 times; this is ONE
-> coalesced notice that updates in place, not 28 messages. Latest detail:
+> WATCHDOG notice — occurrence #32 (first seen 2026-09-04T00:20:58Z, latest 2026-09-05T11:35:10Z).
+> The SAME condition (`budget-level-uncalibrated-anthropic:endolin-garden2-5bcdff64`) has now been observed 32 times; this is ONE
+> coalesced notice that updates in place, not 32 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden2-5bcdff64 cap=385000000 is UNCALIBRATED (provenance='uncalibrated'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
 
@@ -1345,7 +1345,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 46.6M | $404.16 _(notional, rate-card)_ | 33% of 143.0M (ok) |
-| Codex | 2.4M _(+96.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Codex | 2.4M _(+96.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
