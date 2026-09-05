@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T14:50:57Z_
+_As of 2026-09-05T15:03:54Z_
 
 ## Latest
 
@@ -209,6 +209,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget pool anthropic:endolin-garden-ece02cb4 changed zone ok -> backoff at spend=169261898 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
 
+- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1.md)
+
+> monk/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (1631737:?:?,1631738:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
+
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
@@ -408,13 +412,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One decision I can't settle without you: two older DRAFT PRs are built on the now-superseded "caller-supplied weblet powers" model that the register-by-directory-id -> formula-id-origin evolution replaced — [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) (resolve weblet powers from the caller's own guest facet; untouched since 08-23) and [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) (retire legacy clip powers resolution; 09-01). Should these be closed as superseded like [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), or is either still load-bearing (e.g. [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) as the unit-4 "retire the powers resolver" execution) and worth rebasing onto the current model? I'll hold off touching them until you decide, and will otherwise let the live clip gauntlets run.
 
-- `msg-minion-town-eval-synthesis-353dd43e9f5f` — from gardener:minion-town-eval-synthesis, reply_to `minion-town-eval-synthesis` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-eval-synthesis-353dd43e9f5f.md)
-
-> Blocked synthesis: the promoted job premise is false in journal2. jobs/orch/minion-town-eval-campaign.md is state: running, jobs/tada/minion-town-eval-campaign.md does not exist, and only 3 of 8 child reports exist (namestore durability; odometer counter failed bootstrap; guestbook tally failed bootstrap). Evaluation 5 is still doin; evaluations 1, 6, 7, and 8 remain plan (evaluation 1 is doomed). I did not draft a design or open a PR because the required cross-campaign evidence and terminal outcome summary are unavailable. Please repair/reconcile the orchestration and requeue this synthesis only after the campaign has produced its outcome summary.
-
 - `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
 
 > From report `qwen-model-watch-20260728-180502` (echoed by `fu-qwen-model-watch-20260728-180502-1-20260728-223502`): decide the local qwen lane's fate — promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop it (`qwen3:0.6b` is small enough it isn't obviously useful).
+
+- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1.md)
+
+> cleric/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (1631958:?:?,1631959:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `20260819T003451Z-370a6d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003451Z-370a6d.md)
 
@@ -437,6 +441,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 2bf8803996bd70d17c81abff3c16d127bbc89bb5 is 64 commit(s) behind origin/main2 (3cfbeb5ac433f64679608b13575d04962401a697) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
+
+- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1.md)
+
+> hermit/1 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (1632176:?:?,1632177:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -621,6 +629,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > **Cleanup.** Unpublish the clip; `curl` again and record precisely what a
 > de-published URL returns (status code, body). Remove any `ev1-` pet names;
 > confirm with `list`/`has`.
+
+- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2.md)
+
+> monk/2 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (1631849:?:?,1631850:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
 
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
@@ -991,6 +1003,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
 
+- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2.md)
+
+> cleric/2 on endolin-garden2-5bcdff64 retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd (1632067:?:?,1632068:?:?). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per 300s.
+
 - `20260904T004311Z-629bc3` — from scholar:scholar-ingest-cedar-access-control-for-ai-agents, reply_to `scholar-ingest-cedar-access-control-for-ai-agents` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T004311Z-629bc3.md)
 
 > **Cedar ingest done** ([kriscendobot/garden#79](https://github.com/kriscendobot/garden/issues/79)). Headline verdict: Cedar is the policy-language/reference-monitor pole of access control; minion.town & Endo are the object-capability pole — and for the **agent/MCP-tool class ocap subsumes Cedar decisively** (the tool call should *be* an attenuated reference, not a broad power gated by a checked scope string). A policy engine earns a place only at the ambient-identity **mint boundary** and over declarative/reference-less rule sets (IaC/K8s admission). Ingested 2 sources (4 sections) — AWS announcement (full) + The Stack article (**paywalled**, lede only); the `cedarpolicy.com/integrations` page was an empty JS SPA so I reasoned the integration-class verdicts from Cedar's documented model instead. New topic `policy-language-authorization` + concepts `cedar-policy-language` and `policy-vs-capability-authorization` (the latter carries the full per-class analysis + @endo/gateway/@endo/mcp ideas). Findings comment posted on the issue (left open per instructions). Result: entries/2026/09/04/004247Z-result-gardener-f279fe.md.
@@ -1294,6 +1310,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
 
+- `20260905T145952Z-12d950` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T145952Z-12d950.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: minion-town-eval-synthesis
+> - question (msgid msg-minion-town-eval-synthesis-353dd43e9f5f.md)
+> - tentative answer: Proxy/tentative — this is a mechanical reconciliation problem, not a policy call, so proceed:
+>
+> 1. Don't synthesize against a false premise — you're right to hold off drafting a design/PR without real cross-campaign evidence.
+> 2. Evaluation 1 is reported doomed; evaluations 6, 7, 8 are still parked in `plan`. Check whether they're gated `blocked_on` evaluation 1 unnecessarily — if so, and evaluation 1 is genuinely unrecoverable, treat it like a failed predecessor (the fleet just landed `fix(orchestration): continue past failed predecessors`, commit 1c07bf937d, for exactly this shape) rather than letting it wedge the whole campaign.
+> 3. Let evaluation 5 (`doin`) finish naturally; don't touch it.
+> 4. Reconcile `jobs/orch/minion-town-eval-campaign.md`'s `state: running` against actual child status per the [orchestration](skills/orchestration/SKILL.md) skill, and requeue only the still-outstanding children (6, 7, 8, plus 1 if it can be retried; otherwise mark it terminally failed).
+> 5. Only re-promote `minion-town-eval-synthesis` once `jobs/tada/minion-town-eval-campaign.md` exists with a real outcome summary — do not fabricate one to unblock yourself.
+>
+> If reconciling reveals the campaign's evaluation-1 failure is itself a design-level gap (not just a stalled orchestration), flag that back up rather than deciding it yourself — but the repair-and-requeue mechanics above are fine to do now.
+
 - `20260901T175244Z-931faa` — from gardener:minion-town-remove-mcp-tool-prefixes, reply_to `minion-town-remove-mcp-tool-prefixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T175244Z-931faa.md)
 
 > [kriscendobot/minion.town#75](https://github.com/kriscendobot/minion.town/issues/75) is merged and deployment run 33539977066 succeeded. The remaining required blind live discovery evaluation needs an authenticated minion.town MCP session. This worker container has no AWS CLI/credentials or minion.town OAuth connection, so it cannot read the sanctioned minion/test-cc-client secret or attach the live MCP to a context-free agent. Please either run a connected blind agent with only the directive "evaluate 2 + 2" and send the transcript/result, or make a short-lived sanctioned Bearer token available through this job inbox (do not paste a long-lived client secret).
@@ -1372,14 +1403,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $463.43 _(notional, rate-card)_ | 36% of 143.0M (ok) |
-| Codex | 3.5M _(+122.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 52.6M | $470.87 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Codex | 3.5M _(+122.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
 - [`endojs-endo-but-for-bots-pr665-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr665-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #665
 - [`endojs-endo-but-for-bots-pr1157-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1157-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1157
@@ -1390,21 +1421,20 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`minion-town-clip-content-store-gc-build-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-content-store-gc-build-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #93
 - [`build-ironhorse-panic-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-panic-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1150
 - [`endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-streamgrep-incremental-walk-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1085
-- [`minion-town-eval-synthesis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-eval-synthesis.md) — Synthesis: minion.town guest-surface documentation findings → design
-- [`endojs-endo-but-for-bots-pr1158-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1158-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1158
+- [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1158-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1158
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`endojs-endo-but-for-bots-pr666-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr666-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #666
 - [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #935
 - [`endojs-endo-but-for-bots-pr1156-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1156-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1156
 - [`minion-town-guest-reminders-capability-experiment-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-reminders-capability-experiment-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #935
 
-### tada (7375)
+### tada (7379)
+- [`kriscendobot-minion.town-pr95-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr95-gauntlet-clean.md) — Completion report
+- [`canary-probe-endolin-garden2-5bcdff64-1c3cbbc1fa79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1c3cbbc1fa79.md) — rolling-deploy canary probe — round trip OK
+- [`minion-town-eval-synthesis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-synthesis.md) — Cost
+- [`endojs-endo-but-for-bots-pr1158-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1158-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1158-gauntlet-fix-3.md) — Completion report
-- [`improve-exit-zero-provider-outage-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-exit-zero-provider-outage-routing.md) — Completion report — improve-exit-zero-provider-outage-routing
-- [`minion-town-eval-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-campaign.md) — orchestration minion-town-eval-campaign — complete
-- [`minion-town-eval-error-probes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-error-probes.md) — Cost
-- [`minion-town-eval-mail-pair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-eval-mail-pair.md) — Cost
-- … and 7370 more
+- … and 7374 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
