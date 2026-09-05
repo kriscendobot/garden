@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: kriscendobot-minion.town-pr58-gauntlet-clean
+state: running
 created_by: comment-watcher
 created_at: 2026-09-05T01:08:11Z
 ---
