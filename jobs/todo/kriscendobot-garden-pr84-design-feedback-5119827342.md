@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-kriscendobot-garden-pr84-review-5119827342
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-09-05T04:55:39Z
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-05T04:58:03Z cleared=none -->
 
 ---
 handler-budget-role: review
