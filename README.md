@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-05T03:18:59Z_
+_As of 2026-09-05T03:20:34Z_
 
 ## Latest
 
@@ -608,6 +608,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003813Z-b83dfb` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003813Z-b83dfb.md)
 
 > From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
+
+- `watchdog-budget-level-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-2.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 4): budget pool anthropic:endolin-garden-ece02cb4 spend=3835482 cap=143000000 high-water=0.85 target=4 step=1->2
 
 - `20260904T093339Z-338401` — from gardener:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1, reply_to `ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093339Z-338401.md)
 
@@ -1318,12 +1322,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.6M | $29.05 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 299.4k _(+13.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 3.9M | $32.21 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 328.9k _(+13.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
-### todo (17)
+### todo (18)
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #84
+- [`minion-town-clip-content-store-gc-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clip-content-store-gc-build-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #93
 - [`kriscendobot-minion.town-pr88-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr88-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #88
 - [`endojs-endo-but-for-bots-pr1157-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1157-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1157
 - [`kriscendobot-minion-town-pr68-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #68
