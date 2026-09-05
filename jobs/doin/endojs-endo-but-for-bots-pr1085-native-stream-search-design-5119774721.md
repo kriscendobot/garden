@@ -29,6 +29,7 @@ Resolve the host-function, batching, cancellation, confinement, regexp-semantics
 Definition of done: a pushed, decision-complete design commit on PR #1085 whose report names the exact implementation and test seams the fixer must build.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-09-05T07:50:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
