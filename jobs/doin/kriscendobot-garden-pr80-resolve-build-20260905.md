@@ -26,3 +26,13 @@ Resolve all four open questions in `designs/manual-quota-calibration.md` and rep
 4. Keep collecting checkpoints for `endolin-garden2` while its pool is temporarily `unmetered`; the record remains useful historical/cross-check evidence for when a bounded ceiling returns, but it must not actuate while unmetered.
 
 The original build is commit `d5a2071faf` (ingestion, fit, deliberate setter); inspect and validate all three scripts, not only the new contiguity change. Preserve the measure/actuate boundary. Run the repository's full local verification, fix any in-scope failures, push safely to `design/manual-quota-calibration`, and wait for current-head CI to become green. The old failed check at run 33840703075 was ShellCheck noise on the frozen base; do not misreport it as this feature's validation. Complete only when the review asks are all mapped to artifacts and the PR is mergeable with green current-head checks; otherwise emit the orchestration-failure signal so the campaign halts.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-05T04:52:22Z
