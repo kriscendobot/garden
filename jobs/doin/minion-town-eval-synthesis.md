@@ -63,3 +63,13 @@ complete without a design PR; that conclusion also requires the evidence.
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=96 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-05T14:56:20Z
