@@ -1,4 +1,5 @@
 ---
+child-minion-town-eval-mail-pair-reap-count: 0
 child-minion-town-eval-site-lifecycle-reap-count: 0
 child-minion-town-eval-sandbox-boundary-host: endolin-garden2-5bcdff64
 child-minion-town-eval-sandbox-boundary-reap-count: 0
