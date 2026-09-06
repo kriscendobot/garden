@@ -196,10 +196,35 @@ find_duplicate() {
   return 1
 }
 
+# validate_projects — refuse a body that names a project absent from the
+# authoritative journal. Project tags are an indexing contract: consumers grep
+# them to find every entry for a project, so a typo silently files the entry in
+# a ledger no consumer reads. Validate against the just-synced remote ref, not a
+# potentially stale working tree.
+validate_projects() {
+  local line slug object_type ref="origin/$JOURNAL_BRANCH"
+  while IFS= read -r line || [ -n "$line" ]; do
+    [[ "$line" =~ ^project:[[:space:]]*([^[:space:]]+)[[:space:]]*$ ]] || continue
+    slug="${BASH_REMATCH[1]}"
+    case "$slug" in
+      [a-z0-9]*[a-z0-9]) : ;;
+      [a-z0-9]) : ;;
+      *) die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal" ;;
+    esac
+    case "$slug" in
+      *[!a-z0-9-]*) die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal" ;;
+    esac
+    object_type="$(git -C "$DIR" cat-file -t "$ref:projects/$slug" 2>/dev/null || true)"
+    [ "$object_type" = tree ] \
+      || die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal"
+  done <<< "$BODY"
+}
+
 ensure_clone "$DIR"
 
 for attempt in $(seq 1 50); do
   sync_clone "$DIR"
+  validate_projects
   # Suppression runs on every attempt, against the just-synced tip: the freshest
   # possible view, and on a retry it also catches the silent-loss case where our
   # own previous push landed after we judged it failed.

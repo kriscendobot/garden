@@ -88,4 +88,5 @@ jobs:
       - name: Run focused tests
         run: |
           bash tests/checks/run.sh
+          bash scripts/jobs/test/journal-entry-project-test.sh
           bash scripts/jobs/test/quota-calibration-test.sh
