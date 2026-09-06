@@ -62,6 +62,7 @@ the reviewed PR lock and reconciled only the base's Electron Packager addition.
 Re-census every direct and transitive version if the lockfile changes again.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=146 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
