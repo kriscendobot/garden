@@ -1,6 +1,3 @@
-once: 2026-09-06T19:00:00Z
-job_basename_prefix: kriscendobot-garden-pr80-quota-validation-20260906
----
 ---
 role: gardener
 tier: mentor
