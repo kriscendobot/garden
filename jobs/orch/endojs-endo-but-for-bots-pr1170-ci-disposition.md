@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1170-stabilize-ci-20260906-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1170-stabilize-ci-20260906 endojs-endo-but-for-bots-pr1170-botanist-finish-20260906
 on-child-failure: halt
