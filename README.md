@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T06:16:50Z_
+_As of 2026-09-06T06:20:26Z_
 
 ## Latest
 
@@ -1480,27 +1480,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.5M | $608.29 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 4.2M _(+131.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
+| Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Codex | 4.2M _(+131.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`endojs-endo-but-for-bots-pr1115-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1115-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1115 (me...
-- [`kriscendobot-garden-pr80-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-receipt.md) — receipt (auto) — completion receipt for kriscendobot/garden PR #80 (merged)
-- [`kriscendobot-garden-pr77-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr77-receipt.md) — receipt (auto) — completion receipt for kriscendobot/garden PR #77 (merged)
-- [`endojs-endo-but-for-bots-pr858-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr858-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #858 (mer...
-- [`endojs-endo-but-for-bots-pr1018-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1018 (me...
+### doin (3)
+- [`kriscendobot-minion.town-pr90-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr90-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #90 (merged)
+- [`kriscendobot-minion.town-pr63-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr63-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #63 (closed)
+- [`kriscendobot-minion.town-pr89-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr89-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #89 (merged)
 
-### tada (7449)
-- [`endojs-endo-but-for-bots-pr892-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr892-receipt.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1103-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1103-receipt.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-c5f89c869458`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c5f89c869458.md) — rolling-deploy canary probe — round trip OK
-- [`investigate-scaffolding-cache-and-reaper-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/investigate-scaffolding-cache-and-reaper-handoff.md) — Completion report
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260906-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260906-040508.md) — What I did
-- … and 7444 more
+### tada (7454)
+- [`kriscendobot-garden-pr80-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-receipt.md) — Completion report
+- [`endojs-endo-but-for-bots-pr858-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-receipt.md) — Cost
+- [`endojs-endo-but-for-bots-pr1018-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-receipt.md) — Cost
+- [`kriscendobot-garden-pr77-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr77-receipt.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1115-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1115-receipt.md) — Cost
+- … and 7449 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
