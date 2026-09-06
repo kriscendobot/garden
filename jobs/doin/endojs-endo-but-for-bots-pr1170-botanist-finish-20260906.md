@@ -60,3 +60,13 @@ and running Yarn silently widened several unlocked ranges beyond the reviewed
 Dependabot targets. That result was discarded. The safe resolution started from
 the reviewed PR lock and reconciled only the base's Electron Packager addition.
 Re-census every direct and transitive version if the lockfile changes again.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-06T22:16:16Z
