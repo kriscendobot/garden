@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T20:41:13Z_
+_As of 2026-09-06T20:47:34Z_
 
 ## Latest
 
@@ -1480,16 +1480,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.6M | $609.94 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 5.2M _(+160.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 69.6M | $610.17 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Codex | 5.2M _(+163.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1170-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1170-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1170
 - [`endojs-endo-but-for-bots-pr1174-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1174-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1174
+- [`canary-probe-endolin-garden2-5bcdff64-e6aeb2f9abe0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-e6aeb2f9abe0.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ e6aeb2f9abe0
 
 ### tada (7469)
 - [`endojs-endo-but-for-bots-pr1171-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1171-dependabot.md) — Botanist report — endojs/endo-but-for-bots PR #1171
