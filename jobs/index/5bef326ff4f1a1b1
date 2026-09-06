@@ -1,2 +1,2 @@
-base: improve-journal-entry-role-attribution
+base: improve-journal-entry-project-tag
 identity: mentor:scripts/jobs/journal-entry.sh
