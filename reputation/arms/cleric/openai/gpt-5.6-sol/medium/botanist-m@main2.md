@@ -4,10 +4,10 @@ model: gpt-5.6-sol
 thoughtfulness: medium
 work_class: botanist:m
 target: main2
-attempts: 7
-accepts: 7
-censored: 5
-estimated: 5
-mean_dollars: 4.526383
-m2: 65.205864
+attempts: 8
+accepts: 8
+censored: 6
+estimated: 6
+mean_dollars: 8.558597
+m2: 975.696043
 acceptance_rate: 1.0000
