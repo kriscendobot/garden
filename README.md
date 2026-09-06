@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T06:48:19Z_
+_As of 2026-09-06T07:06:08Z_
 
 ## Latest
 
@@ -1481,14 +1481,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 4.4M _(+135.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Codex | 4.4M _(+136.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`daily-progress-summary-20260906-070511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260906-070511.md) — Daily midnight Pacific progress summary
 
 ### tada (7459)
 - [`canary-probe-endolin-garden2-5bcdff64-61156b71419b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-61156b71419b.md) — rolling-deploy canary probe — round trip OK
