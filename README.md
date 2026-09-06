@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T06:06:32Z_
+_As of 2026-09-06T06:12:47Z_
 
 ## Latest
 
@@ -1481,14 +1481,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 4.1M _(+130.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Codex | 4.1M _(+131.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (5)
+- [`endojs-endo-but-for-bots-pr1103-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1103-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1103 (cl...
+- [`endojs-endo-but-for-bots-pr1115-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1115-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1115 (me...
+- [`endojs-endo-but-for-bots-pr892-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr892-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #892 (mer...
+- [`endojs-endo-but-for-bots-pr858-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr858-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #858 (mer...
+- [`endojs-endo-but-for-bots-pr1018-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1018 (me...
 
 ### tada (7447)
 - [`canary-probe-endolin-garden2-5bcdff64-c5f89c869458`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c5f89c869458.md) — rolling-deploy canary probe — round trip OK
