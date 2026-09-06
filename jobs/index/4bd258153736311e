@@ -1,0 +1,2 @@
+base: improve-receipt-watcher-shared-failure-containment
+identity: mentor:scripts/jobs/receipt-watcher.sh
