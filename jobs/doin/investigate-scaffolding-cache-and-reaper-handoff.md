@@ -112,3 +112,13 @@ conversation, don't rediscover it)
 
 Land per the garden's own conventions; this is investigation + design, no
 build in this job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-06T05:37:58Z
