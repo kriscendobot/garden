@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T21:52:12Z_
+_As of 2026-09-06T21:56:10Z_
 
 ## Latest
 
@@ -1481,24 +1481,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 5.8M _(+201.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
+| Codex | 5.8M _(+205.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1170-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1170-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1170
 - [`fix-endo-daemon-better-sqlite3-v13-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-daemon-better-sqlite3-v13-ci.md) — Investigate & repair CI red on endojs/endo-but-for-bots PR #1174 (better-sqli...
-- [`improve-journal-entry-project-tag`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-entry-project-tag.md) — ---
 
-### tada (7471)
+### tada (7472)
+- [`improve-journal-entry-project-tag`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-entry-project-tag.md) — Cost
 - [`endojs-endo-but-for-bots-pr1174-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1174-dependabot.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-e6aeb2f9abe0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-e6aeb2f9abe0.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1171-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1171-dependabot.md) — Botanist report — endojs/endo-but-for-bots PR #1171
 - [`improve-dependabot-compatibility-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabot-compatibility-preflight.md) — Cost
-- [`endojs-endo-but-for-bots-pr1172-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1172-dependabot.md) — Cost
-- … and 7466 more
+- … and 7467 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
