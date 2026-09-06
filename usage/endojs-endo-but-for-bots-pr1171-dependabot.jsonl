@@ -1,1 +1,2 @@
 {"ts":"2026-09-06T20:10:46Z","base":"endojs-endo-but-for-bots-pr1171-dependabot","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":354}
+{"source":"result","model":"claude-opus-4-8","num_turns":32,"elapsed_s":1527,"input_tokens":62,"output_tokens":19471,"cache_creation_tokens":79871,"cache_read_tokens":2203715,"total_cost_usd":2.3909645,"ts":"2026-09-06T20:40:41Z","base":"endojs-endo-but-for-bots-pr1171-dependabot","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"botanist","provider":"anthropic"}
