@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T19:45:15Z_
+_As of 2026-09-06T19:54:34Z_
 
 ## Latest
 
@@ -1487,8 +1487,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1169-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1169-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1169
+- [`endojs-endo-but-for-bots-pr1168-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1168-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1168
 
 ### tada (7463)
 - [`canary-probe-endolin-garden2-5bcdff64-7d4339485085`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-7d4339485085.md) — rolling-deploy canary probe — round trip OK
