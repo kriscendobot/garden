@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1170-ci-disposition
-priority: urgent
 role: botanist
-posted_by: botanist
-posted_at: 2026-09-06T22:02:59Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-09-06T22:16:07Z cleared=none -->
 
 ---
 role: botanist
