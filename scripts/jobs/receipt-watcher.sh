@@ -50,6 +50,23 @@ export GARDEN_TAG="receipt-watcher/$slug"
 : "${GARDEN_RECEIPT_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_RECEIPT_KILL_AFTER:=10s}"
 
+# A journal/GitHub outage is shared by every per-repo instance of this watcher.
+# Collapse it onto common.sh's host-wide gh-api cooldown: the first observer opens
+# one bounded window and warns; siblings exit 0 without each becoming a failed
+# systemd unit. Structural errors deliberately return false so the caller prints
+# the captured diagnostic and fails loud on every later tick until repaired.
+shared_availability_failure() {  # shared_availability_failure <stage> <rc> <stderr-file>
+  local stage="$1" rc="$2" errf="$3"
+  if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] || [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || \
+     is_transient_net_error "$errf" || is_transient_gh_source_error "$errf"; then
+    if start_api_cooldown "receipt:$slug:$stage"; then
+      log "WARN: receipt $stage unavailable (transient, rc=$rc) — cooling all receipt/gh-api watchers for $(_api_cooldown_secs)s (never guess)"
+    fi
+    return 0
+  fi
+  return 1
+}
+
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 api_cooldown_active && exit 0
 
@@ -58,8 +75,23 @@ repo="$owner/$name"
 [ "$owner" != "$slug" ] && [ -n "$name" ] || die "cannot derive owner/name from slug '$slug'"
 
 DIR="$GARDEN_RECEIPT_WATCH_CLONE"
-ensure_clone "$DIR"
-sync_clone "$DIR" || { log "WARN: journal sync failed — skipping tick (never guess board state)"; exit 0; }
+PREREQ_ERR="$(mktemp)"
+prereq_rc=0
+# Contain both helpers in a subshell: ensure_clone and sync_clone intentionally use
+# die/exit for structural and EX_TEMPFAIL outcomes, which a same-shell `||` cannot
+# catch. The subshell turns either exit into data we can classify here.
+( ensure_clone "$DIR"; sync_clone "$DIR" ) 2>"$PREREQ_ERR" || prereq_rc=$?
+if [ "$prereq_rc" -ne 0 ]; then
+  if shared_availability_failure "journal prerequisite" "$prereq_rc" "$PREREQ_ERR"; then
+    rm -f "$PREREQ_ERR"
+    exit 0
+  fi
+  sed 's/^/  prerequisite: /' "$PREREQ_ERR" >&2 || true
+  rm -f "$PREREQ_ERR"
+  die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; see prerequisite stderr above)"
+fi
+cat "$PREREQ_ERR" >&2
+rm -f "$PREREQ_ERR"
 
 # --- garden_worked_pr <n> : cheap "did the garden touch this PR" gate ---------
 # True when a jobs/index identity names repo#n, OR a panel-runs / gauntlet-archived
@@ -128,12 +160,10 @@ else
   "$GARDEN_RECEIPT_PR_SOURCE" "$repo" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
-  if is_transient_net_error "$ERRF" || is_transient_gh_source_error "$ERRF"; then
-    start_api_cooldown "receipt:$slug" >/dev/null 2>&1 || true
-    log "WARN: receipt PR source hit a transient network/gh blip — skipping tick (never guess)"
+  if shared_availability_failure "PR source" "$src_rc" "$ERRF"; then
     exit 0
   fi
+  sed 's/^/  source: /' "$ERRF" >&2 || true
   die "receipt PR source failed for $repo (rc=$src_rc; see source stderr above)"
 fi
 
