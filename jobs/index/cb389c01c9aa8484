@@ -1,2 +1,2 @@
-base: improve-dependabot-supersession-preflight
+base: improve-dependabot-compatibility-preflight
 identity: mentor:scripts/jobs/dependabot-watcher.sh
