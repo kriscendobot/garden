@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T04:59:29Z_
+_As of 2026-09-06T05:38:46Z_
 
 ## Latest
 
@@ -1448,15 +1448,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.9M | $602.17 _(notional, rate-card)_ | 48% of 143.0M (ok) |
+| Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
 | Codex | 4.1M _(+130.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`investigate-scaffolding-cache-and-reaper-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-scaffolding-cache-and-reaper-handoff.md) — Background (read before starting — this was already worked out in
 
 ### tada (7445)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260906-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260906-040508.md) — What I did
