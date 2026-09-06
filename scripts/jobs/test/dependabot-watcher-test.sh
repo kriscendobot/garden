@@ -33,6 +33,9 @@
 #   L. two PRs on DIFFERENT packages → never grouped, both full
 #   M. injection safety: no fragment of a PR title ever reaches a job body — only
 #      the validated package/version captures do
+#   N. an empty peer-dependency range intersection → cheap incompatible close job
+#   O. a target Node engine excluding the project floor → cheap incompatible job
+#   P. no compatibility proof → fall open to the full review
 #
 # Usage: dependabot-watcher-test.sh
 set -euo pipefail
@@ -100,6 +103,17 @@ exit 1
 EOF
 chmod +x "$CMPSTUB"
 
+# Declaration compatibility oracle. COMP_FIXTURE lines are
+#   pr \t verdict \t kind \t subject/floor \t project-range \t required-range \t path
+COMPSTUB="$TR/compat-stub.sh"
+cat > "$COMPSTUB" <<'EOF'
+#!/bin/bash
+[ -n "${COMP_LOG:-}" ] && printf '%s %s %s %s\n' "$1" "$2" "$3" "$4" >> "$COMP_LOG"
+[ -n "${COMP_FIXTURE:-}" ] && [ -f "$COMP_FIXTURE" ] || exit 1
+awk -F'\t' -v OFS='\t' -v pr="$2" '$1 == pr {$1=""; sub(/^\t/, ""); print; found=1; exit} END {if (!found) exit 1}' "$COMP_FIXTURE"
+EOF
+chmod +x "$COMPSTUB"
+
 board_has() {  # board_has <bare> <base>  -> 0 if job present in plan/todo/doin/tada
   local v; v="$(mktemp -d "$TR/bv.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
@@ -138,6 +152,7 @@ run_dep() {  # run_dep <state> <bare> <fixture> [slug]
       GARDEN_BOT_LOGIN=kriscendobot \
       GARDEN_DEP_PR_SOURCE="$SRCSTUB" DEP_FIXTURE="$3" \
       GARDEN_DEP_COMPARE="$CMPSTUB" CMP_FIXTURE="${CMP_FIXTURE:-}" CMP_LOG="${CMP_LOG:-}" \
+      GARDEN_DEP_COMPAT="$COMPSTUB" COMP_FIXTURE="${COMP_FIXTURE:-}" COMP_LOG="${COMP_LOG:-}" \
       GARDEN_DEP_POST="$JOBS/post-job.sh" \
       "$JOBS/dependabot-watcher.sh" "${4:-$SLUG}" >/dev/null 2>&1
 }
@@ -335,6 +350,42 @@ has_in_body "$BARE_M" "$SLUG-pr700-dependabot" 'evil-pkg' \
 has_in_body "$BARE_M" "$SLUG-pr702-dependabot" 'could not be grouped' \
   && ok "#702 (package name outside the charset) is ungrouped" \
   || bad "#702 was not rejected by the charset validation"
+
+# ============================================================================
+hr; echo "N — empty peer range intersection → cheap incompatible close job"; hr
+BARE_N="$TR/n.git"; seed_bare "$BARE_N"
+FIX_N="$TR/fix-n.tsv"; depline 800 'Bump @vitejs/plugin-react from 5.1.1 to 6.0.0' > "$FIX_N"
+COMP_N="$TR/comp-n.tsv"
+printf '800\tincompatible\tpeer\tvite\t^6.0.0\t^7.0.0\tpackage.json\n' > "$COMP_N"
+COMP_FIXTURE="$COMP_N" run_dep "$TR/state-n" "$BARE_N" "$FIX_N"
+has_in_body "$BARE_N" "$SLUG-pr800-dependabot" 'INCOMPATIBLE by preflight' \
+  && ok "peer conflict got the cheap incompatible body" || bad "peer conflict did not get the cheap body"
+has_in_body "$BARE_N" "$SLUG-pr800-dependabot" 'EMPTY intersection' \
+  && ok "peer body carries the empty-intersection proof" || bad "peer proof missing"
+has_in_body "$BARE_N" "$SLUG-pr800-dependabot" 'Do NOT run the lockfile/source/advisory/test' \
+  && ok "peer body avoids the full review" || bad "peer body did not avoid full review"
+
+# ============================================================================
+hr; echo "O — target Node engine excludes project floor → cheap incompatible close job"; hr
+BARE_O="$TR/o.git"; seed_bare "$BARE_O"
+FIX_O="$TR/fix-o.tsv"; depline 801 'Bump @babel/core from 7.28.0 to 8.0.0' > "$FIX_O"
+COMP_O="$TR/comp-o.tsv"
+printf '801\tincompatible\tnode\t18.0.0\t>=18\t^20.19.0 || >=22.12.0\tpackage.json\n' > "$COMP_O"
+COMP_FIXTURE="$COMP_O" run_dep "$TR/state-o" "$BARE_O" "$FIX_O"
+has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'INCOMPATIBLE by preflight' \
+  && ok "Node-floor conflict got the cheap incompatible body" || bad "Node conflict did not get the cheap body"
+has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'excludes the project-supported floor' \
+  && ok "Node body carries the floor proof" || bad "Node floor proof missing"
+
+# ============================================================================
+hr; echo "P — no declaration-level proof → fall open to full review"; hr
+BARE_P="$TR/p.git"; seed_bare "$BARE_P"
+FIX_P="$TR/fix-p.tsv"; depline 802 'Bump compatible-pkg from 1.0.0 to 1.1.0' > "$FIX_P"
+COMP_FIXTURE="" run_dep "$TR/state-p" "$BARE_P" "$FIX_P"
+has_in_body "$BARE_P" "$SLUG-pr802-dependabot" 'read the lockfile transitive set' \
+  && ok "absence of proof fell open to the FULL review" || bad "no-proof bump did not fall open"
+has_in_body "$BARE_P" "$SLUG-pr802-dependabot" 'INCOMPATIBLE by preflight' \
+  && bad "no-proof bump was marked incompatible" || ok "no-proof bump was NOT rejected"
 
 # ============================================================================
 hr
