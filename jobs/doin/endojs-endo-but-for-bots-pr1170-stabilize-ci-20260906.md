@@ -51,3 +51,13 @@ and push it to the PR head with a compare-and-swap/force-with-lease discipline.
 If the failures cannot responsibly be fixed in this PR, document the exact
 blocker and finish with the orchestration-failure signal so the campaign halts
 instead of advancing under false confidence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-06T22:04:18Z
