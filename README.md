@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T20:48:09Z_
+_As of 2026-09-06T21:23:58Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 5d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 5d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 4d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 5d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 6d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 8d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 10d)
@@ -1480,15 +1480,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.6M | $610.17 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 5.2M _(+163.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Claude | 69.7M | $613.37 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Codex | 5.3M _(+178.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1170-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1170-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1170
+- [`fix-endo-daemon-better-sqlite3-v13-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-daemon-better-sqlite3-v13-ci.md) — Investigate & repair CI red on endojs/endo-but-for-bots PR #1174 (better-sqli...
 - [`endojs-endo-but-for-bots-pr1174-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1174-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1174
 
 ### tada (7470)
