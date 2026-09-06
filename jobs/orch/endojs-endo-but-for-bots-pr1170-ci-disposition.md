@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1170-stabilize-ci-20260906 endojs-endo-but-for-bots-pr1170-botanist-finish-20260906
 on-child-failure: halt
-state: pending
+state: running
 created_by: botanist
 created_at: 2026-09-06T22:03:04Z
 ---
