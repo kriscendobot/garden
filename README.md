@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T05:47:11Z_
+_As of 2026-09-06T06:03:17Z_
 
 ## Latest
 
@@ -1458,13 +1458,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (0)
 (none)
 
-### tada (7446)
+### tada (7447)
+- [`canary-probe-endolin-garden2-5bcdff64-c5f89c869458`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c5f89c869458.md) — rolling-deploy canary probe — round trip OK
 - [`investigate-scaffolding-cache-and-reaper-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/investigate-scaffolding-cache-and-reaper-handoff.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260906-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260906-040508.md) — What I did
 - [`endojs-endo-but-for-bots-pr935-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr935-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr935-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr935-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr935-gauntlet-fix-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr935-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr935-gauntlet-panel-6.md) — Cost
-- … and 7441 more
+- … and 7442 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
