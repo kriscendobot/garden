@@ -67,11 +67,40 @@ _set_once() {
   mkdir -p "$dir/config" || return 1
   [ -f "$file" ] || : > "$file"
   tmp="$(mktemp)" || return 1
-  # Preserve every comment and blank line verbatim; replace the matching pool row in
-  # place, or append a new row (after the last existing row) if absent.
+  # Preserve unrelated comments and blank lines verbatim, but remove any
+  # host-specific calibration block for this pool. Those narrative blocks duplicate
+  # mutable cap state and cannot be updated safely from the setter's structured
+  # inputs; git history retains their rationale while the row below remains the
+  # authoritative current value. Replace the matching pool row in place, or append a
+  # new row (after the last existing row) if absent.
   awk -v pool="$pool" -v provider="$provider" -v host="$host" -v kind="$kind" \
       -v ceiling="$ceiling" -v cf="$calibrated_from" -v ca="$calibrated_at" '
     BEGIN { newrow = pool "\t" provider "\t" host "\t" kind "\t" ceiling "\t" cf "\t" ca }
+    function comment_indent(line, tail) {
+      sub(/^[[:space:]]*#/, "", line)
+      match(line, /^[[:space:]]*/)
+      return RLENGTH
+    }
+    function target_header(line, value, text, rest) {
+      text = line
+      sub(/^[[:space:]]*#[[:space:]]*/, "", text)
+      if (substr(text, 1, length(value)) != value) return 0
+      rest = substr(text, length(value) + 1)
+      return rest ~ /^[[:space:]]*:/
+    }
+    {
+      is_comment = ($0 ~ /^[[:space:]]*#/)
+      if (dropping_header) {
+        if ($0 ~ /^[[:space:]]*$/) { print; next }
+        if (is_comment && comment_indent($0) > header_indent) next
+        dropping_header = 0
+      }
+      if (is_comment && (target_header($0, host) || target_header($0, pool))) {
+        header_indent = comment_indent($0)
+        dropping_header = 1
+        next
+      }
+    }
     /^[[:space:]]*#/ || /^[[:space:]]*$/ { print; next }
     { if ($1 == pool) { print newrow; found=1 } else { print; last=NR } }
     END { if (!found) print newrow }

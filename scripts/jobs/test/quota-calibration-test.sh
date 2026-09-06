@@ -148,14 +148,33 @@ else
   bad "unmetered ingestion or pool configuration was incorrect"
 fi
 
-# Promotion remains an explicit setter action with complete provenance.
-"$JOBS/set-budget-pool.sh" "anthropic:$HOST" 1000 manual-fit 2026-09-05 >/dev/null 2>&1
+# Promotion remains an explicit setter action with complete provenance. A mutable
+# narrative calibration for the promoted host must not survive beside the new row;
+# unrelated header comments remain verbatim.
+{
+  printf '%s\n' \
+    '# Journal config/budget-pools.' \
+    '#   unmetered-host : 595M/wk, calibrated from a superseded sample' \
+    '#     stale calculation details must leave with their claim.' \
+    '#   anthropic:unmetered-host : 385M/wk, an even older calibration' \
+    '#     this duplicate target block must also leave.' \
+    '#   peer-host : 200M/wk, calibrated independently' \
+    '#     preserve this unrelated calibration verbatim.' \
+    '# Columns, tab-separated:'
+  cat "$WORK/config/budget-pools"
+} > "$WORK/config/budget-pools.next"
+mv "$WORK/config/budget-pools.next" "$WORK/config/budget-pools"
+commit_fixture
+"$JOBS/set-budget-pool.sh" "anthropic:$HOST" 143000000 manual-fit 2026-09-05 >/dev/null 2>&1
 git -C "$WORK" fetch -q origin journal2
 git -C "$WORK" reset -q --hard origin/journal2
-if awk '$1 == "anthropic:unmetered-host" { found=($4 == "weekly-tokens" && $5 == 1000 && $6 == "manual-fit" && $7 == "2026-09-05") } END { exit !found }' "$WORK/config/budget-pools"; then
-  ok "deliberate setter is the sole tested promotion path and records provenance"
+if awk '$1 == "anthropic:unmetered-host" { found=($4 == "weekly-tokens" && $5 == 143000000 && $6 == "manual-fit" && $7 == "2026-09-05") } END { exit !found }' "$WORK/config/budget-pools" \
+   && ! grep -qE '595M|385M|stale calculation|duplicate target' "$WORK/config/budget-pools" \
+   && grep -qF '#   peer-host : 200M/wk, calibrated independently' "$WORK/config/budget-pools" \
+   && grep -qF '#     preserve this unrelated calibration verbatim.' "$WORK/config/budget-pools"; then
+  ok "deliberate setter records provenance and removes superseded target calibration comments"
 else
-  bad "explicit promotion row was incorrect"
+  bad "explicit promotion row or synchronized calibration header was incorrect"
 fi
 
 set +e
