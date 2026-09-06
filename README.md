@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T19:59:18Z_
+_As of 2026-09-06T20:05:08Z_
 
 ## Latest
 
@@ -1481,14 +1481,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 4.5M _(+136.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Codex | 4.5M _(+136.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1171-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1171-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1171
+- [`endojs-endo-but-for-bots-pr1170-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1170-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1170
 - [`endojs-endo-but-for-bots-pr1169-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1169-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1169
+- [`endojs-endo-but-for-bots-pr1172-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1172-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1172
 
 ### tada (7464)
 - [`endojs-endo-but-for-bots-pr1168-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1168-dependabot.md) — Cost
