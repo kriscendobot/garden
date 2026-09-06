@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T19:21:40Z_
+_As of 2026-09-06T19:25:23Z_
 
 ## Latest
 
@@ -1487,16 +1487,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-budget-pools-header-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-pools-header-drift.md) — ---
+### doin (0)
+(none)
 
-### tada (7461)
+### tada (7462)
+- [`improve-budget-pools-header-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-pools-header-drift.md) — Cost
 - [`kriscendobot-garden-pr80-quota-validation-20260906`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260906.md) — Completion report — [pr80-quota-validation] day 20260906
 - [`daily-progress-summary-20260906-070511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260906-070511.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-61156b71419b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-61156b71419b.md) — rolling-deploy canary probe — round trip OK
 - [`improve-receipt-watcher-shared-failure-containment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-receipt-watcher-shared-failure-containment.md) — Cost
-- [`kriscendobot-minion.town-pr90-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr90-receipt.md) — Cost
-- … and 7456 more
+- … and 7457 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
