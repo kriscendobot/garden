@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T03:56:33Z_
+_As of 2026-09-06T04:06:10Z_
 
 ## Latest
 
@@ -1455,8 +1455,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260906-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260906-040508.md) — Containment drift check for kriscendobot/minion.town gateway records
 
 ### tada (7444)
 - [`endojs-endo-but-for-bots-pr935-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr935-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr935-gauntlet — HALTED
