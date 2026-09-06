@@ -45,6 +45,7 @@ mkdir -p "$(dirname "$WATCH_CLONE")"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$WATCH_CLONE"
 
 mkdir -p "$TR/bin"
+mkdir -p "$TR/gitbin"
 cat > "$TR/bin/offline-fetch" <<'EOF'
 #!/bin/bash
 echo 'fatal: unable to access remote: Could not resolve host: github.com' >&2
@@ -68,12 +69,23 @@ cat > "$TR/bin/structural-source" <<'EOF'
 echo 'jq: parse error: invalid schema returned by source' >&2
 exit 2
 EOF
+cat > "$TR/gitbin/git" <<'EOF'
+#!/bin/bash
+if [ "${FAIL_GIT_CLONE:-0}" = 1 ] && [ "${1:-}" = clone ]; then
+  echo 'fatal: unable to access remote: Could not resolve host: github.com' >&2
+  exit 128
+fi
+exec /usr/bin/git "$@"
+EOF
 chmod +x "$TR/bin/"*
+chmod +x "$TR/gitbin/git"
 
-run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command]
+run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command] [fail-clone] [watch-clone]
   local slug="$1" err="$2" fetch="${3:-}" source="${4:-$TR/bin/empty-source}"
+  local fail_clone="${5:-0}" watch_clone="${6:-$WATCH_CLONE}"
   local -a runenv=(env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$STATE"
-    GARDEN_RECEIPT_WATCH_CLONE="$WATCH_CLONE" GARDEN_CURSOR_CLONE="$CURSOR_CLONE"
+    PATH="$TR/gitbin:$PATH" FAIL_GIT_CLONE="$fail_clone"
+    GARDEN_RECEIPT_WATCH_CLONE="$watch_clone" GARDEN_CURSOR_CLONE="$CURSOR_CLONE"
     GARDEN_RECEIPT_PR_SOURCE="$source" GARDEN_RECEIPT_POST="$TR/bin/empty-source"
     GARDEN_FETCH_RETRIES=1 GARDEN_BACKOFF_BASE=0 GARDEN_BACKOFF_CAP=0
     GARDEN_API_COOLDOWN_SECS=120)
@@ -107,6 +119,20 @@ if [ -s "$STATE/gh-api-cooldown/marker" ]; then
   fi
 else
   bad "journal outage did not create a shared cooldown marker"
+fi
+
+# A first-ever tick has no receipt clone yet. ensure_clone reports a network clone
+# failure as rc=1 today, so classification must use the captured signature too, not
+# only sync_clone's EX_TEMPFAIL code.
+rm -f "$STATE/gh-api-cooldown/marker"
+FRESH_CLONE="$STATE/receipt-watcher/fresh-journal"
+if run_watch kriscendobot-source "$TR/fresh-clone.err" "" "$TR/bin/empty-source" 1 "$FRESH_CLONE"; then
+  grep -q 'receipt journal prerequisite unavailable (transient, rc=1)' "$TR/fresh-clone.err" \
+    && [ -s "$STATE/gh-api-cooldown/marker" ] \
+    && ok "fresh-clone network outage is signature-classified and skipped with cooldown" \
+    || bad "fresh-clone outage lost its warning/cooldown"
+else
+  bad "fresh-clone network outage escaped as a failure"
 fi
 
 # Source-level wall-clock timeout is availability, even with empty stderr. It must
