@@ -20,3 +20,13 @@ so a re-run never double-posts. Report the archive path and the posted comment
 URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/kriscendobot/minion.town/pull/63
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-06T06:19:20Z
