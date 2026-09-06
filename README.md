@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T06:03:17Z_
+_As of 2026-09-06T06:06:32Z_
 
 ## Latest
 
@@ -10,10 +10,10 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 2d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 2d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 4d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 4d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 4d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 4d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 5d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 7d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 9d)
@@ -425,6 +425,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One decision I can't settle without you: two older DRAFT PRs are built on the now-superseded "caller-supplied weblet powers" model that the register-by-directory-id -> formula-id-origin evolution replaced — [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) (resolve weblet powers from the caller's own guest facet; untouched since 08-23) and [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) (retire legacy clip powers resolution; 09-01). Should these be closed as superseded like [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), or is either still load-bearing (e.g. [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) as the unit-4 "retire the powers resolver" execution) and worth rebasing onto the current model? I'll hold off touching them until you decide, and will otherwise let the live clip gauntlets run.
 
+- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-1` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-1.md)
+
+> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-cleric-1` has CLEARED (first seen 2026-09-05T15:20:21Z, cleared 2026-09-06T06:05:26Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> cleric/1 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
+
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #243 (first seen 2026-09-05T15:44:01Z, latest 2026-09-06T04:59:01Z).
@@ -546,6 +554,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 87 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
+
+- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-1` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-1.md)
+
+> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-monk-1` has CLEARED (first seen 2026-09-05T15:21:15Z, cleared 2026-09-06T06:05:45Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> monk/1 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
 
 - `20260904T073302Z-cd6ed2` — from gardener:xs2rust-endor-press-20260904-072014, reply_to `xs2rust-endor-press-20260904-072014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T073302Z-cd6ed2.md)
 
@@ -910,6 +926,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-transcript-capture). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
 
+- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-2` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-2.md)
+
+> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-cleric-2` has CLEARED (first seen 2026-09-05T15:20:19Z, cleared 2026-09-06T06:05:26Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> cleric/2 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
+
 - `doomed-openrouter-zdr-policy-and-stealth-lane-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-openrouter-zdr-policy-and-stealth-lane-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -1063,6 +1087,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > gardener job 'minion-town-endo-b3-daemon-deploy-verify' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2419s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-2` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-2.md)
+
+> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-monk-2` has CLEARED (first seen 2026-09-05T15:20:18Z, cleared 2026-09-06T06:05:22Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> monk/2 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
 
 - `doomed-retire-gardener-worker-kind-alias-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-retire-gardener-worker-kind-alias-deadline-overrun.md)
 
