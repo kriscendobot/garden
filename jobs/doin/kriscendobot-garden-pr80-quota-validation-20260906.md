@@ -62,3 +62,13 @@ writes despite --dry-run, mis-segments, or the boundary was broken by some other
 actor), post a NARROWLY scoped fixer job with
 `scripts/jobs/post-job.sh <base> <body>` and name that job's base in your
 completion report. A merely "insufficient" verdict from thin data is NOT a defect.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-06T19:05:22Z
