@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-06T06:24:11Z_
+_As of 2026-09-06T06:31:27Z_
 
 ## Latest
 
@@ -1481,22 +1481,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 4.3M _(+133.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
+| Codex | 4.4M _(+135.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-receipt-watcher-shared-failure-containment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-receipt-watcher-shared-failure-containment.md) — ---
+### doin (0)
+(none)
 
-### tada (7457)
+### tada (7458)
+- [`improve-receipt-watcher-shared-failure-containment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-receipt-watcher-shared-failure-containment.md) — Cost
 - [`kriscendobot-minion.town-pr90-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr90-receipt.md) — Cost
 - [`kriscendobot-minion.town-pr89-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr89-receipt.md) — Completion report
 - [`kriscendobot-minion.town-pr63-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr63-receipt.md) — Cost
 - [`kriscendobot-garden-pr80-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-receipt.md) — Completion report
-- [`endojs-endo-but-for-bots-pr858-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-receipt.md) — Cost
-- … and 7452 more
+- … and 7453 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
