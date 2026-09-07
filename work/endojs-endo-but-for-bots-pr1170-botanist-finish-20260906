@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-06T22:24:28Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endojs-endo-but-for-bots-pr1170-botanist-finish-20260906
-pr_number: 1170
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1170
-pr_head: dependabot/npm_and_yarn/all-minor-patch-c170e989f4
