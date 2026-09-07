@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":13,"elapsed_s":124,"input_tokens":26,"output_tokens":7532,"cache_creation_tokens":45576,"cache_read_tokens":576094,"total_cost_usd":0.93579,"ts":"2026-09-07T19:07:51Z","base":"kriscendobot-garden-pr80-quota-validation-20260907","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener","provider":"anthropic"}
