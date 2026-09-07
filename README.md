@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-07T00:07:31Z_
+_As of 2026-09-07T04:06:33Z_
 
 ## Latest
 
@@ -1480,15 +1480,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.5M | $608.03 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 6.5M _(+236.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 69.5M | $608.29 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Codex | 6.5M _(+236.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`dependabotany-recheck-endo-but-for-bots-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260907-040508.md) — Carried-forward report(s) from prior ticks of this schedule, delivered
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260907-040508.md) — Containment drift check for kriscendobot/minion.town gateway records
 
 ### tada (7479)
 - [`endojs-endo-but-for-bots-pr1170-ci-disposition`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-ci-disposition.md) — orchestration endojs-endo-but-for-bots-pr1170-ci-disposition — complete
