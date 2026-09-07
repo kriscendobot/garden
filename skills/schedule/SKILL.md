@@ -83,6 +83,15 @@ variable. Example:
 `scholar-preflight.sh` gates `scholar-library-cycle` on a non-empty scholar inbox,
 a claimable `scholar-*` job, or a fresh `role/scholar` broadcast.
 
+The scheduler also gives the gate a fresh path in
+`GARDEN_PREFLIGHT_CONTEXT_FILE`. A successful gate may write deterministic routing
+context there; the scheduler prepends non-empty context to the dispatched job in
+the same commit as the job and clock stamp. A gate that returns `2` never dispatches
+that context, and an error still follows the fail-open path with the ordinary body.
+`dependabotany-preflight.sh` uses this channel to hand a proven live-PR Node-engine
+conflict to the botanist's cheap reverify-and-close path without replacing the
+schedule body for other due ledger rows.
+
 The optional `handler-timeout:` field gives an inherently-long recurring driver a
 per-dispatch wall-clock budget instead of the gardener's default. It must be a
 positive integer no greater than `GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER -

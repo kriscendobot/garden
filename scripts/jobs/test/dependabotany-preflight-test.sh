@@ -55,6 +55,17 @@ chmod +x "$SRCSTUB"
 FAILSTUB="$TR/pr-source-fail.sh"
 printf '#!/bin/bash\necho "boom: 404" >&2\nexit 22\n' > "$FAILSTUB"; chmod +x "$FAILSTUB"
 
+# Declaration-compatibility oracle stub. Fixture rows carry the PR number before
+# the real oracle's six-field result so one fixture can model several open PRs.
+COMPSTUB="$TR/compat-stub.sh"
+cat > "$COMPSTUB" <<'EOF'
+#!/bin/bash
+[ -n "${COMP_LOG:-}" ] && printf '%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "$4" >> "$COMP_LOG"
+[ -n "${COMP_FIXTURE:-}" ] && [ -f "$COMP_FIXTURE" ] || exit 1
+awk -F '\t' -v pr="$2" '$1 == pr { $1=""; sub(/^\t/, ""); print; found=1; exit } END { exit(found ? 0 : 1) }' OFS='\t' "$COMP_FIXTURE"
+EOF
+chmod +x "$COMPSTUB"
+
 TS='2026-08-13T00:00:00Z'
 prline() { printf '%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$REPO" "$TS" "${3:-}"; }
 
@@ -88,8 +99,9 @@ add_entry() {  # add_entry <relpath> <body>
   rm -rf "$wt"
 }
 
-run_pre() {  # run_pre [pr-fixture] [src-stub]  → fills $OUT/$RC
+run_pre() {  # run_pre [pr-fixture] [src-stub]  -> fills $OUT/$RC/$CONTEXT
   rm -rf "$TR/clone"
+  CONTEXT_FILE="$TR/preflight-context"; rm -f "$CONTEXT_FILE"
   set +e
   OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
              GARDEN=testhost GARDEN_STATE="$TR/state" \
@@ -97,9 +109,13 @@ run_pre() {  # run_pre [pr-fixture] [src-stub]  → fills $OUT/$RC
              GARDEN_DEPB_TODAY="$TODAY" \
              GARDEN_BOT_LOGIN=kriscendobot \
              GARDEN_DEPB_PR_SOURCE="${2:-$SRCSTUB}" PR_FIXTURE="${1:-}" \
+             GARDEN_DEPB_COMPAT="$COMPSTUB" \
+             GARDEN_PREFLIGHT_CONTEXT_FILE="$CONTEXT_FILE" \
+             COMP_FIXTURE="${COMP_FIXTURE:-}" COMP_LOG="${COMP_LOG:-}" \
              bash "$PRE" "$SCHED" 2>&1)"
   RC=$?
   set -e
+  CONTEXT=""; [ ! -f "$CONTEXT_FILE" ] || CONTEXT="$(cat "$CONTEXT_FILE")"
 }
 
 # Ledger-entry bodies -----------------------------------------------------------
@@ -177,6 +193,42 @@ FIX="$TR/prs-open.tsv"; prline 950 "$DEP" 'Bump ses from 1.10.0 to 1.11.0' > "$F
 run_pre "$FIX"
 [ "$RC" -eq 0 ] && ok "open dependabot PR → exit 0" || bad "exit $RC (want 0); OUT=$OUT"
 grep -qi 'open dependabot\[bot\] PR' <<<"$OUT" && ok "logged the open-PR dispatch" || bad "no open-PR log; OUT=$OUT"
+
+# ============================================================================
+hr; echo "ROUTE: live target excludes Node floor; attach cheap reverify-and-close context"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 1174 2026-08-05)"
+FIX_COMPAT="$TR/prs-compat.tsv"
+prline 1174 "$DEP" 'Bump better-sqlite3 from 12.4.1 to 13.0.0' > "$FIX_COMPAT"
+COMP_FIXTURE="$TR/compat.tsv"
+printf '1174\tincompatible\tnode\t20.0.0\t>=20\t20.19.0 || 22.12.0 || >=23\tpackage.json\n' > "$COMP_FIXTURE"
+COMP_LOG="$TR/compat.log"; : > "$COMP_LOG"
+run_pre "$FIX_COMPAT"
+[ "$RC" -eq 0 ] && ok "runtime-engine conflict still dispatches the due recheck" || bad "exit $RC (want 0); OUT=$OUT"
+grep -q $'^endojs/endo-but-for-bots\t1174\tbetter-sqlite3\t13.0.0$' "$COMP_LOG" \
+  && ok "existing oracle ran against the live PR and exact proposed package version" \
+  || bad "oracle arguments were wrong: $(cat "$COMP_LOG")"
+grep -q 'cheap reverify-and-close' <<<"$OUT" \
+  && ok "log names the cheap route" || bad "cheap-route log missing; OUT=$OUT"
+grep -qi 'do NOT run the lockfile/source/advisory/test chain' <<<"$CONTEXT" \
+  && ok "scheduler context suppresses expensive diligence while the proof stays live" \
+  || bad "cheap-route context missing; CONTEXT=$CONTEXT"
+grep -q 'https://github.com/endojs/endo-but-for-bots/pull/1174' <<<"$CONTEXT" \
+  && grep -q 'better-sqlite3.*12.4.1 -> 13.0.0' <<<"$CONTEXT" \
+  && grep -q 'floor 20.0.0' <<<"$CONTEXT" \
+  && ok "context carries the PR, bump, and runtime-engine proof" \
+  || bad "context omitted proof detail; CONTEXT=$CONTEXT"
+
+# ============================================================================
+hr; echo "FALL OPEN: oracle has no proof; ordinary scheduled review, no routing context"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 1175 2026-08-05)"
+FIX_NOPROOF="$TR/prs-no-proof.tsv"
+prline 1175 "$DEP" 'Bump compatible-pkg from 1.0.0 to 1.1.0' > "$FIX_NOPROOF"
+COMP_FIXTURE=""; COMP_LOG="$TR/compat-no-proof.log"; : > "$COMP_LOG"
+run_pre "$FIX_NOPROOF"
+[ "$RC" -eq 0 ] && ok "missing proof falls open to the ordinary recheck" || bad "exit $RC (want 0); OUT=$OUT"
+[ -z "$CONTEXT" ] && ok "missing proof emits no routing context" || bad "unexpected routing context: $CONTEXT"
 
 # ============================================================================
 hr; echo "AUTHOR GATE — only NON-dependabot open PRs (drained ledger): exit 2"; hr

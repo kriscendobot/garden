@@ -48,6 +48,8 @@
 # The two external I/O legs are indirected so the test substitutes deterministic
 # stubs, exactly like dependabot-watcher.sh:
 #   GARDEN_DEPB_PR_SOURCE <owner/name> <bot-login> -> TSV: number author head updated title
+#   GARDEN_DEPB_COMPAT   <repo> <pr> <pkg> <new-ver> -> TSV declaration proof
+#   GARDEN_PREFLIGHT_CONTEXT_FILE                  -> scheduler-owned routing context
 #   GARDEN_DEPB_ENTRIES_DIR                        -> the ledger entries/ tree to grep
 #   GARDEN_DEPB_REPO                               -> owner/name override (else derived from the ledger)
 #   GARDEN_DEPB_TODAY                              -> UTC YYYY-MM-DD override for the due comparison
@@ -63,8 +65,11 @@ export GARDEN_TAG="dependabotany-preflight"
 : "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_DEPB_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
+: "${GARDEN_DEPB_COMPAT:=$HERE/handlers/dep-compat-gh.sh}"
 : "${GARDEN_DEPB_PREFLIGHT_CLONE:=$GARDEN_STATE/dependabotany-preflight/journal}"
 : "${GARDEN_DEPB_SOURCE_TIMEOUT_SECS:=180}"
+: "${GARDEN_DEPB_COMPAT_TIMEOUT_SECS:=45}"
+: "${GARDEN_DEPB_COMPAT_MAX_CHECKS:=8}"
 : "${GARDEN_DEPB_KILL_AFTER:=10s}"
 
 name="${1:-}"
@@ -167,13 +172,6 @@ else
   log "ledger: no dependabotany entries recovered for project '$project' — no due row"
 fi
 
-# A due ledger row alone is reason enough to sweep; short-circuit before spending a
-# GitHub round-trip.
-if [ "$ledger_due" -eq 1 ]; then
-  log "preflight: DISPATCH — due dependabotany ledger row for '$project'"
-  exit 0
-fi
-
 # --- (A) does the repo have any open dependabot[bot] PR? ----------------------
 # Determine owner/name: an explicit override, else the most recent `repo:` line in
 # the recovered ledger (the authoritative project→repo binding a botanist writes on
@@ -193,8 +191,8 @@ fi
 # Enumerate open PRs through the shared source, bounded so a hung gh cannot outlive
 # the tick. A source failure is NOT "no open PRs": fail OPEN so a GitHub blip never
 # masquerades as an empty repo (dependabot-watcher.sh's "never guess" discipline).
-SRC="$(mktemp)"; ERRF="$(mktemp)"
-trap 'rm -f "$SRC" "$ERRF"' EXIT
+SRC="$(mktemp)"; ERRF="$(mktemp)"; DEPS="$(mktemp)"; ROUTES="$(mktemp)"
+trap 'rm -f "$SRC" "$ERRF" "$DEPS" "$ROUTES"' EXIT
 src_rc=0
 if command -v timeout >/dev/null 2>&1; then
   timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" "${GARDEN_DEPB_SOURCE_TIMEOUT_SECS}s" \
@@ -210,11 +208,96 @@ fi
 
 dep_lc="$(printf '%s' "$GARDEN_DEPENDABOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
 open_dep=0
-while IFS=$'\t' read -r pr author _head _updated _title; do
+
+# Parse only Dependabot's narrow single-package title form. The captures are
+# validated before they may reach the oracle or the scheduled job body, matching
+# dependabot-watcher.sh's prompt-injection boundary.
+BUMP_PKG=""; BUMP_OLD=""; BUMP_NEW=""
+parse_bump_title() {
+  BUMP_PKG=""; BUMP_OLD=""; BUMP_NEW=""
+  local t="${1:-}" pkg old new
+  [ -n "$t" ] || return 1
+  if [[ "$t" =~ ^[A-Za-z]+(\([A-Za-z0-9_./-]*\))?!?:[[:space:]]+(.*)$ ]]; then
+    t="${BASH_REMATCH[2]}"
+  fi
+  [[ "$t" =~ ^[Bb]ump[[:space:]]+([^[:space:]]+)[[:space:]]+from[[:space:]]+([^[:space:]]+)[[:space:]]+to[[:space:]]+([^[:space:]]+)([[:space:]].*)?$ ]] || return 1
+  pkg="${BASH_REMATCH[1]}"; old="${BASH_REMATCH[2]}"; new="${BASH_REMATCH[3]}"
+  case "$pkg" in *[!A-Za-z0-9._@/-]*|"") return 1;; esac
+  case "$old" in *[!A-Za-z0-9.+_-]*|"") return 1;; esac
+  case "$new" in *[!A-Za-z0-9.+_-]*|"") return 1;; esac
+  [ "$pkg" != the ] || return 1
+  BUMP_PKG="$pkg"; BUMP_OLD="$old"; BUMP_NEW="$new"
+}
+
+while IFS=$'\t' read -r pr author _head _updated title; do
   [ -n "$pr" ] || continue
   [ "$(printf '%s' "$author" | tr '[:upper:]' '[:lower:]')" = "$dep_lc" ] || continue
+  case "$pr" in ''|*[!0-9]*) log "WARN: PR source emitted a non-numeric PR number; skipping that row"; continue;; esac
   open_dep=$((open_dep+1))
+  if parse_bump_title "${title:-}"; then
+    printf '%s\t%s\t%s\t%s\n' "$pr" "$BUMP_PKG" "$BUMP_OLD" "$BUMP_NEW" >> "$DEPS"
+  fi
 done < "$SRC"
+
+# A daily recheck may be the first run after the target package changed its Node
+# declaration. Ask the same bounded live-head oracle as dependabot-watcher.sh
+# before buying the full botanist sweep. Only a validated Node-engine proof is a
+# terminal route here; absent, malformed, unsupported, or failed proofs fall open
+# to the ordinary scheduled body.
+case "$GARDEN_DEPB_COMPAT_MAX_CHECKS" in
+  ''|*[!0-9]*) log "WARN: invalid compatibility-check cap; falling open to the full recheck";;
+  *)
+    checked=0
+    while IFS=$'\t' read -r pr pkg old new; do
+      [ "$checked" -lt "$GARDEN_DEPB_COMPAT_MAX_CHECKS" ] || break
+      checked=$((checked+1))
+      proof=""; compat_rc=0
+      if command -v timeout >/dev/null 2>&1; then
+        proof="$(timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" \
+          "${GARDEN_DEPB_COMPAT_TIMEOUT_SECS}s" \
+          "$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new")" || compat_rc=$?
+      else
+        proof="$("$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new")" || compat_rc=$?
+      fi
+      if [ "$compat_rc" -ne 0 ] || [ -z "$proof" ]; then continue; fi
+      IFS=$'\t' read -r verdict kind floor declared required path _extra <<< "$(printf '%s' "$proof" | head -1)"
+      if [ "$verdict" != incompatible ] || [ "$kind" != node ]; then continue; fi
+      case "$floor" in *[!A-Za-z0-9@/._+-]*|'') continue;; esac
+      case "$declared" in *[!A-Za-z0-9.*+\<\>=~^\|\ -]*|'') continue;; esac
+      case "$required" in *[!A-Za-z0-9.*+\<\>=~^\|\ -]*|'') continue;; esac
+      case "$path" in *[!A-Za-z0-9._/-]*|'') continue;; esac
+      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+        "$pr" "$pkg" "$old" "$new" "$floor" "$declared" "$required" "$path" >> "$ROUTES"
+      log "preflight: PR $pr ($pkg -> $new) has a proven Node-engine incompatibility; routing to cheap reverify-and-close"
+    done < "$DEPS"
+  ;;
+esac
+
+if [ -s "$ROUTES" ] && [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
+  {
+    printf 'Dependabotany declaration-compatibility preflight routing:\n\n'
+    printf 'The deterministic live-PR oracle proved the following runtime-engine conflict(s).\n'
+    printf 'For each listed PR, do NOT run the lockfile/source/advisory/test chain unless\n'
+    printf 'the live declarations no longer match the proof. Re-fetch the live PR head and\n'
+    printf 're-verify ONLY the named package version and declarations. If they still match,\n'
+    printf 'render REJECT (incompatible) and, on a bot-owned repo, execute the close. If a\n'
+    printf 'proof no longer holds, fall back to the full scheduled botanist review. Process\n'
+    printf 'every other due ledger row using the ordinary schedule body below.\n\n'
+    while IFS=$'\t' read -r pr pkg old new floor declared required path; do
+      printf -- '- PR: https://github.com/%s/pull/%s\n' "$repo" "$pr"
+      printf '  Package: `%s` %s -> %s\n' "$pkg" "$old" "$new"
+      printf '  Proof: `%s` declares Node `%s` (floor %s), but `%s` %s requires Node `%s`; the dependency excludes the project-supported floor.\n' \
+        "$path" "$declared" "$floor" "$pkg" "$new" "$required"
+    done < "$ROUTES"
+  } > "$GARDEN_PREFLIGHT_CONTEXT_FILE"
+fi
+
+# A due ledger row still dispatches even when the live PR roster is empty, so the
+# botanist can reconcile a row whose PR was closed externally.
+if [ "$ledger_due" -eq 1 ]; then
+  log "preflight: DISPATCH — due dependabotany ledger row for '$project'"
+  exit 0
+fi
 
 if [ "$open_dep" -gt 0 ]; then
   log "preflight: DISPATCH — $repo has $open_dep open dependabot[bot] PR(s)"

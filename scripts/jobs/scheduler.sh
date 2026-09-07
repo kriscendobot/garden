@@ -536,12 +536,18 @@ for name in $(list_jobs "$DIR" schedules); do
     # (deduped on the schedule name) so the config gap is surfaced and fixed. A
     # gate that is merely erroring is transient — it exists, so a deploy-lag/typo
     # is not the cause and no escalation fires.
+    preflight_context=""
     if [ -n "$preflight" ]; then
       pf="$preflight"; case "$pf" in /*) :;; *) pf="$HERE/$pf";; esac
       pf_rc=0
       if [ -x "$pf" ]; then
         clear_missing_preflight "$name"   # re-arm the one-shot WARN + escalation
-        if "$pf" "$name"; then pf_rc=0; else pf_rc=$?; fi
+        pf_context_file="$(mktemp)"
+        if GARDEN_PREFLIGHT_CONTEXT_FILE="$pf_context_file" "$pf" "$name"; then pf_rc=0; else pf_rc=$?; fi
+        if [ "$pf_rc" -eq 0 ] && [ -s "$pf_context_file" ]; then
+          preflight_context="$(cat "$pf_context_file")"
+        fi
+        rm -f "$pf_context_file"
       else
         # WARN ONCE per breakage (not every tick) and escalate ONCE on the first
         # tick. Idempotent across CAS retries and cadences via its marker.
@@ -602,6 +608,9 @@ for name in $(list_jobs "$DIR" schedules); do
           printf '\n----- END CARRIED-FORWARD REPORT -----\n\n'
         done
         printf -- '---\n\n'
+      fi
+      if [ -n "$preflight_context" ]; then
+        printf '%s\n\n---\n\n' "$preflight_context"
       fi
       if [ -n "$win" ]; then
         read -r w_start w_end w_pdate w_out <<<"$win"

@@ -172,6 +172,27 @@ tt="$(count_in todo nopools-sched)"; tp="$(count_in plan nopools-sched)"
   && ok "with no configured pools the dispatch lands in todo/ (todo=$tt plan=$tp)" \
   || bad "expected todo=1 plan=0, got todo=$tt plan=$tp"
 
+hr; echo "1d. preflight context is atomically prepended to the dispatched job"
+setup_root
+PF="$ROOT/scripts/jobs/context-preflight.sh"
+printf '#!/bin/bash\nprintf "oracle-routed context for %%s\\n" "$1" > "$GARDEN_PREFLIGHT_CONTEXT_FILE"\n' > "$PF"
+chmod +x "$PF"
+setup_journal context-sched "" "preflight: context-preflight.sh" ""
+run_tick "$NOW" "$TR/log-context"
+JOB="$(jobs_in todo context-sched | head -1)"
+if [ -n "$JOB" ]; then
+  grep -q 'oracle-routed context for context-sched.md' "$JOB" \
+    && ok "preflight-produced context reached the scheduled job" \
+    || bad "scheduled job omitted preflight context"
+  context_line="$(grep -n 'oracle-routed context' "$JOB" | cut -d: -f1)"
+  body_line="$(grep -n 'Do the scheduled thing' "$JOB" | cut -d: -f1)"
+  [ -n "$context_line" ] && [ -n "$body_line" ] && [ "$context_line" -lt "$body_line" ] \
+    && ok "preflight context precedes the ordinary schedule body" \
+    || bad "preflight context was not prepended before the schedule body"
+else
+  bad "context-producing preflight did not dispatch a job"
+fi
+
 # =============================================================================
 hr; echo "2. OCCUPANCY skip: a still-live prior instance advances the clock, posts nothing"
 setup_root
