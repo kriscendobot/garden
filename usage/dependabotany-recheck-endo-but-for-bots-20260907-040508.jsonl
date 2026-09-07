@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":30,"elapsed_s":436,"input_tokens":58,"output_tokens":23719,"cache_creation_tokens":100064,"cache_read_tokens":2489820,"total_cost_usd":2.8419849999999998,"ts":"2026-09-07T04:13:31Z","base":"dependabotany-recheck-endo-but-for-bots-20260907-040508","host":"endolin-garden-ece02cb4","outcome":"requeue","provider":"anthropic"}
