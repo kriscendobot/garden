@@ -1,2 +1,2 @@
-base: improve-dependabotany-preflight-terminal-active-due-rows
+base: improve-dependabotany-runtime-compat
 identity: mentor:scripts/jobs/dependabotany-preflight.sh
