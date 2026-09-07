@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-07T04:06:33Z_
+_As of 2026-09-07T04:12:33Z_
 
 ## Latest
 
@@ -1480,24 +1480,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.5M | $608.29 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Claude | 69.6M | $610.02 _(notional, rate-card)_ | 49% of 143.0M (ok) |
 | Codex | 6.5M _(+236.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`dependabotany-recheck-endo-but-for-bots-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260907-040508.md) — Carried-forward report(s) from prior ticks of this schedule, delivered
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260907-040508.md) — Containment drift check for kriscendobot/minion.town gateway records
 
-### tada (7479)
+### tada (7480)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260907-040508.md) — Completion Report — containment drift check (2026-09-07 tick)
 - [`endojs-endo-but-for-bots-pr1170-ci-disposition`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-ci-disposition.md) — orchestration endojs-endo-but-for-bots-pr1170-ci-disposition — complete
 - [`endojs-endo-but-for-bots-pr1170-botanist-finish-20260906`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-botanist-finish-20260906.md) — Cost
 - [`fix-endo-daemon-better-sqlite3-v13-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-endo-daemon-better-sqlite3-v13-ci.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1168`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1168.md) — Cost
-- [`endojs-endo-but-for-bots-pr1170-stabilize-ci-20260906`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-stabilize-ci-20260906.md) — Completion report
-- … and 7474 more
+- … and 7475 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
