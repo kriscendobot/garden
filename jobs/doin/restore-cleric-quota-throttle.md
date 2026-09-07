@@ -26,3 +26,13 @@ indefinitely.
 Context: the maintainer asked (2026-09-02, liaison session) to throttle codex to
 zero "until the quota reset in five days and an hour" from 2026-09-02T21:19 UTC;
 this one-time scheduled job is that restore.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-07T22:35:18Z
