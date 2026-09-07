@@ -1,9 +1,9 @@
 pool: anthropic:endolin-garden2-5bcdff64
 host: endolin-garden2-5bcdff64
 window_start_epoch: 1788577200
-spend: 38317368
+spend: 38356045
 cap: 64000000
 status: ok
-sampled_at_epoch: 1788756308
-sampled_at: 2026-09-07T04:45:08Z
-sample_bucket: 1987507
+sampled_at_epoch: 1788757229
+sampled_at: 2026-09-07T05:00:29Z
+sample_bucket: 1987508
