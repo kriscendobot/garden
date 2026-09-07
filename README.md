@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-07T07:08:19Z_
+_As of 2026-09-07T07:11:50Z_
 
 ## Latest
 
@@ -1481,23 +1481,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.6M | $610.50 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 6.8M _(+240.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Codex | 6.9M _(+241.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1039-3e7af7e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1039-3e7af7e0.md) — attention directive on endojs/endo-but-for-bots PR #1039
-- [`daily-progress-summary-20260907-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260907-070508.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
-### tada (7483)
+### tada (7485)
+- [`daily-progress-summary-20260907-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260907-070508.md) — Cost
+- [`endojs-endo-but-for-bots-pr1039-3e7af7e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1039-3e7af7e0.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-d6de577a021d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d6de577a021d.md) — rolling-deploy canary probe — round trip OK
 - [`improve-dependabotany-runtime-compat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-runtime-compat.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260907-040508.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260907-040508.md) — Completion Report — containment drift check (2026-09-07 tick)
-- [`endojs-endo-but-for-bots-pr1170-ci-disposition`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-ci-disposition.md) — orchestration endojs-endo-but-for-bots-pr1170-ci-disposition — complete
-- … and 7478 more
+- … and 7480 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
