@@ -28,3 +28,13 @@ Wear `roles/botanist/AGENT.md` and re-evaluate every due Dependabot embargo row 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=441 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-07T04:24:24Z
