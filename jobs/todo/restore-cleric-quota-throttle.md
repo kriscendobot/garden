@@ -1,8 +1,5 @@
-once: 2026-09-07T22:24:14Z
-job_basename_prefix: restore-cleric-quota-throttle
 ---
----
-tier: minion
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
