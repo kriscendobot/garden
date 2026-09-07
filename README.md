@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-07T07:18:59Z_
+_As of 2026-09-07T07:20:18Z_
 
 ## Latest
 
@@ -1487,17 +1487,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1150-4b322bd5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1150-4b322bd5.md) — attention directive on endojs/endo-but-for-bots PR #1150
-- [`endojs-endo-but-for-bots-pr1113-e089a4ee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1113-e089a4ee.md) — attention directive on endojs/endo-but-for-bots PR #1113
+### doin (0)
+(none)
 
-### tada (7485)
+### tada (7487)
+- [`endojs-endo-but-for-bots-pr1150-4b322bd5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1150-4b322bd5.md) — Cost
+- [`endojs-endo-but-for-bots-pr1113-e089a4ee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1113-e089a4ee.md) — Cost
 - [`daily-progress-summary-20260907-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260907-070508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1039-3e7af7e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1039-3e7af7e0.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-d6de577a021d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d6de577a021d.md) — rolling-deploy canary probe — round trip OK
-- [`improve-dependabotany-runtime-compat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-runtime-compat.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260907-040508.md) — Cost
-- … and 7480 more
+- … and 7482 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
