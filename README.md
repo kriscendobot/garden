@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-07T00:05:09Z_
+_As of 2026-09-07T00:07:31Z_
 
 ## Latest
 
@@ -1490,13 +1490,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (0)
 (none)
 
-### tada (7478)
+### tada (7479)
+- [`endojs-endo-but-for-bots-pr1170-ci-disposition`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-ci-disposition.md) — orchestration endojs-endo-but-for-bots-pr1170-ci-disposition — complete
 - [`endojs-endo-but-for-bots-pr1170-botanist-finish-20260906`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-botanist-finish-20260906.md) — Cost
 - [`fix-endo-daemon-better-sqlite3-v13-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-endo-daemon-better-sqlite3-v13-ci.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1168`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr1168.md) — Cost
 - [`endojs-endo-but-for-bots-pr1170-stabilize-ci-20260906`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-stabilize-ci-20260906.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-3cc1ad831221`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-3cc1ad831221.md) — rolling-deploy canary probe — round trip OK
-- … and 7473 more
+- … and 7474 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
