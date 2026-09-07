@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-07T04:31:53Z_
+_As of 2026-09-07T04:51:55Z_
 
 ## Latest
 
@@ -1481,14 +1481,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.6M | $610.50 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 6.7M _(+239.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Codex | 6.7M _(+239.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-dependabotany-runtime-compat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-runtime-compat.md) — ---
 
 ### tada (7481)
 - [`dependabotany-recheck-endo-but-for-bots-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260907-040508.md) — Cost
