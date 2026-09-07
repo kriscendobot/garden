@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-07T05:01:31Z_
+_As of 2026-09-07T05:18:23Z_
 
 ## Latest
 
@@ -1490,13 +1490,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (0)
 (none)
 
-### tada (7482)
+### tada (7483)
+- [`canary-probe-endolin-garden2-5bcdff64-d6de577a021d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d6de577a021d.md) — rolling-deploy canary probe — round trip OK
 - [`improve-dependabotany-runtime-compat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-runtime-compat.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260907-040508.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260907-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260907-040508.md) — Completion Report — containment drift check (2026-09-07 tick)
 - [`endojs-endo-but-for-bots-pr1170-ci-disposition`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-ci-disposition.md) — orchestration endojs-endo-but-for-bots-pr1170-ci-disposition — complete
-- [`endojs-endo-but-for-bots-pr1170-botanist-finish-20260906`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1170-botanist-finish-20260906.md) — Cost
-- … and 7477 more
+- … and 7478 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
