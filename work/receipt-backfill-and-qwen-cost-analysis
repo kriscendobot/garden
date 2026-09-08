@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 1
+worker_kind: cleric
+claimed_at: 2026-09-08T23:45:27Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-receipt-backfill-and-qwen-cost-analysis

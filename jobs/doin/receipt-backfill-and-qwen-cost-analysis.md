@@ -100,3 +100,13 @@ your call on the right home for it) with the real numbers and PR citations,
 not just a verdict. This feeds directly into the separate mentor-tier trial
 job (`qwen-mentor-tier-trial`) — don't duplicate that job's scope, but flag
 anything here that trial should account for.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T23:45:27Z
