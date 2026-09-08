@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T23:55:04Z_
+_As of 2026-09-08T23:56:02Z_
 
 ## Latest
 
@@ -33,10 +33,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
-
-- `20260904T053715Z-4eb5bc` — from gardener:ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1, reply_to `ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T053715Z-4eb5bc.md)
-
-> Gauntlet stage ironhorse-fuzz-ab889c8f6184c60d-gauntlet-panel-1 (PANEL round 1) is moot: its target PR [endojs/endo-but-for-bots#1088](https://github.com/endojs/endo-but-for-bots/issues/1088) was already MERGED on 2026-08-31 (merged=true), 4 days before this stage was dispatched (2026-09-04). A panel gate only makes sense on a live/draft PR; there is nothing left to review, fix, or un-draft. I did not run the seat fan-out or post a review on merged history. Declaring this stage an orchestration failure so the stale gauntlet does not advance downstream stages against merged code. If the whole ironhorse-fuzz-ab889c8f6184c60d-gauntlet is stale, it can be dropped.
 
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
@@ -155,38 +151,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > **[endojs/endo-but-for-bots#945](https://github.com/endojs/endo-but-for-bots/issues/945) (design: Endor bytecode precompile + content-addressed cache) is blocked purely on your re-review.** It has sat at CHANGES_REQUESTED since your 2026-08-06 review. We (kriscendobot) responded to all 6 review threads — most recently 2026-08-31 — but the threads stay open and reviewDecision stays CHANGES_REQUESTED until you re-review. No further fixer work is warranted; it needs a maintainer decision (re-review / approve / close). Flagging rather than dispatching redundant fixer churn.
 >
 > Rest of the press is healthy: [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113)'s reweave→regauntlet is owned by a live orchestration (ironhorse-1113-reweave-regauntlet-20260904b, running); the walker fixture-parity campaign concluded (no active/halted children); endor-git prototype PRs [endojs/endo-but-for-bots#1081](https://github.com/endojs/endo-but-for-bots/issues/1081) and [endojs/endo-but-for-bots#1082](https://github.com/endojs/endo-but-for-bots/issues/1082) are gap-revealing drafts by design.
-
-- `20260803T024348Z-ebba81` — from gardener:garden-budget-omega, reply_to `garden-budget-omega` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260803T024348Z-ebba81.md)
-
-> Budget 5/5 (omega) — one grounding question before this design can be acted on.
->
-> You asked me to "look at what Josh Corbin's Unum is doing to classify tasks by
-> their omega notation ... the task's rank in a tree of plans." I read all 15
-> `library/sections/unum--*` sections, grepped the whole library, and fetched the
-> live unum repo overview + a web search. **No omega notation, task-rank scheme, or
-> "tree of plans" ranking exists in anything I can reach.** The ingested unum
-> material is pinned to early-July commits (per-persona-model-tiers, vigil-charge,
-> claim-lifecycle, the cost ledger) and predates whatever you saw. The only `omega`
-> hits in the garden are econometrics (Diebold-Mariano, HAR-RV).
->
-> So I have written the design with a *reconstructed* interpretation, clearly
-> labelled as MINE and provisional — omega as a lower-bound rank = depth in a plan
-> tree; lowest rank (leaves) worked first; a task too big for its time window
-> creates a plan and promotes its own rank (which the garden's orchestration jobs
-> already half-implement). I did NOT invent priorities or reorder anything.
->
-> Two asks for @jcorbin (on the maintainers allowlist), whenever convenient — an
-> unanswered question is fine, I have flagged the gap in the design rather than
-> guessing:
->
-> 1. Point me at unum's actual omega/rank definition (a PLAN/ or LORE/ doc, or a
->    commit) so I can ground the scheme instead of reconstructing it.
-> 2. Confirm or correct the reconstruction: is "lowest omega" the leaf (do-first)
->    or the root, and is "promote itself in the tree" the same move as the garden
->    posting an orchestration job with parked children?
->
-> Design landed at `designs/omega-task-rank-and-foreman-retirement.md` (Status:
-> Proposed, changes no dispatch behavior). No rush.
 
 - `20260903T170508Z-e9b44e` — from gardener:minion-town-remote-guest-endo-cli-endo-invite-primitive, reply_to `minion-town-remote-guest-endo-cli-endo-invite-primitive` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T170508Z-e9b44e.md)
 
@@ -358,16 +322,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003451Z-370a6d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003451Z-370a6d.md)
 
 > From report `deadmail-20260728T074423Z-6bee53`: the new dead-letter anti-pattern documents that a botanist rendering MERGE-NOW and exiting while the approval gate blocks leaves no living addressee for a later correction, but doesn't fix the delivery gap itself. Worth deciding whether/how to close it (e.g. a standing re-addressee) — flagging for your call rather than guessing at the mechanism.
-
-- `20260904T060251Z-ea7679` — from gardener:minion-town-press-20260904-055030, reply_to `minion-town-press-20260904-055030` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T060251Z-ea7679.md)
-
-> minion.town press — one maintainer decision needed on [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) (ocap-mailboxes design)
->
-> [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) is un-drafted, MERGEABLE/CLEAN, CI-green, and you APPROVED it on 2026-08-21 with "Conduct and dispatch builder." The doc requests are done (open questions folded into the body). But the merge is blocked by the garden's exact-head approval invariant: your approval signature sits on commit 926612b4, and the conductor's mandatory pre-merge rebase moved the head to 7e50eb2a (unchanged since 2026-08-22). A rebase can't inherit a human signature, so two conductor runs correctly refused to merge a head you never signed and asked for re-approval on 08-22 — that request has gone unanswered for 13 days (it fell off across the clip-design refactor).
->
-> Decision needed: re-approve [kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37) at head 7e50eb2a7d3282b9cf3101f48d731988648ca4a9 so the conductor can merge it — which auto-promotes the parked builder job build-minion-town-ocap-mailboxes (blocked on that PR) and dispatches the v1 implementation. Or tell me to defer/close it if ocap-mailboxes is deprioritized behind the clip/@sites work.
->
-> Nothing else on the minion.town frontier needs you right now: the clip thread ([kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69), and [kriscendobot/minion.town#83](https://github.com/kriscendobot/minion.town/issues/83) through [kriscendobot/minion.town#90](https://github.com/kriscendobot/minion.town/issues/90)) is being actively pushed by live gardeners and you're already reviewing it (fresh changes-requested on [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) today). This is the sole stalled item gated purely on your call.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -592,10 +546,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
 
-- `20260904T093339Z-338401` — from gardener:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1, reply_to `ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093339Z-338401.md)
-
-> Stale gauntlet: ironhorse-fuzz-314f811064b8febb-repair-gauntlet panel stage fired against [endojs/endo-but-for-bots#1088](https://github.com/endojs/endo-but-for-bots/issues/1088), but that PR already MERGED on 2026-08-31 (merge commit 422bfdbd). Nothing to review/fix/un-draft. No successor fuzz-findings draft PR exists to retarget (open ironhorse PRs are [endojs/endo-but-for-bots#1152](https://github.com/endojs/endo-but-for-bots/issues/1152), [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113), [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) — unrelated). I did NOT burn the 29-seat panel on a merged PR. Reporting this stage as orchestration-failed. Recommend dropping the remaining stages of this gauntlet chain (fix-loop / un-draft) as moot.
-
 - `20260904T115830Z-07a1c6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T115830Z-07a1c6.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -677,10 +627,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > would settle it — a well-bounded negative result is a good outcome here and much
 > more useful than a guess. Only implement a fix if the cause is established and
 > the fix is small; otherwise propose it.
-
-- `minion-town-eval-campaign-budget-complete` — from orchestrator:minion-town-eval-campaign-budget-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-eval-campaign-budget-complete.md)
-
-> Orchestration minion-town-eval-campaign completed within its 12000000-token campaign budget after 81275 recorded tokens. 11918725 token(s) remain unused.
 
 - `doomed-local-verify-endo-test-xs-cargo-parity-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-local-verify-endo-test-xs-cargo-parity-deadline-overrun.md)
 
@@ -1176,10 +1122,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > [kriscendobot/minion.town#75](https://github.com/kriscendobot/minion.town/issues/75) is merged and deployment run 33539977066 succeeded. The remaining required blind live discovery evaluation needs an authenticated minion.town MCP session. This worker container has no AWS CLI/credentials or minion.town OAuth connection, so it cannot read the sanctioned minion/test-cc-client secret or attach the live MCP to a context-free agent. Please either run a connected blind agent with only the directive "evaluate 2 + 2" and send the transcript/result, or make a short-lived sanctioned Bearer token available through this job inbox (do not paste a long-lived client secret).
 
-- `20260904T093531Z-3fb90f` — from gauntlet:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093531Z-3fb90f.md)
-
-> Gauntlet ironhorse-fuzz-314f811064b8febb-repair-gauntlet HALTED: stage 'ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1' (panel) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
-
 - `20260903T223114Z-7b9785` — from gardener:self-heal-fix-garden-state-clone-keeper-head-deployed-sha-drift, reply_to `self-heal-fix-garden-state-clone-keeper-head-deployed-sha-drift` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T223114Z-7b9785.md)
 
 > root-repo-guard fix landed on main2 (c2ea79b117): guard_head() now treats a detached HEAD that is a main2 ancestor but != deployed_sha as drift and re-detaches to the deploy point. This is the bug that let garden-state-clone-keeper.service fail rc=127.
@@ -1250,21 +1192,20 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.4M | $748.77 _(notional, rate-card)_ | 62% of 143.0M (ok) |
-| Codex | 8.7M _(+305.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 88.6M | $750.78 _(notional, rate-card)_ | 62% of 143.0M (ok) |
+| Codex | 8.8M _(+307.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1227
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1125-review-b4f3aac8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b4f3aac8.md) — Review directive on endojs/endo-but-for-bots PR #1125
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #97
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #99
 - [`receipt-backfill-and-qwen-cost-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/receipt-backfill-and-qwen-cost-analysis.md) — What already exists (read designs/pr-completion-receipts.md and
 - [`qwen-mentor-tier-trial`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/qwen-mentor-tier-trial.md) — Why this is a trial, not a reclassification
 - [`kriscendobot-minion.town-pr96-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #96
-- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1227
 
 ### tada (7582)
 - [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1228-gauntlet-fix-5.md) — Completion report
