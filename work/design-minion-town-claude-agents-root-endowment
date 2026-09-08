@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-08T18:55:22Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-minion-town-claude-agents-root-endowment
+pr_number: 97
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/97
+pr_head: design/claude-agents-root-endowment
