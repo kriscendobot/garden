@@ -42,3 +42,13 @@ Cover at least:
 Deliverable: one design document landed per the garden's design conventions, with an
 `## Open questions` section only if there are genuinely maintainer-facing forks. Do not
 build anything.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T18:55:12Z
