@@ -38,6 +38,7 @@ export GARDEN_STATE="$TR/state" GARDEN=followup-gate-test
 export GARDEN_PRODUCER_CLONE="$TR/producer"
 
 GATE="$JOBS/assert-followup-posted.sh"
+FORWARD="$JOBS/forward-gauntlet-followups.sh"
 fail() { echo "FAIL: $*" >&2; exit 1; }
 
 # Post a job/board artifact directly onto origin/journal2 so the gate's producer
@@ -244,6 +245,71 @@ if "$GATE" example-gauntlet-fix-1-extra "$JOB" "$TR/r6d.md"; then
 fi
 echo '   gate correctly blocked additional unposted successor work (rc 1)'
 
+echo '== (f3a) PASS: gardener forwards a completed gauntlet stage decision before gating =='
+cat >"$TR/gauntlet-job.md" <<'EOF'
+---
+role: gardener
+gauntlet: example-gauntlet
+gauntlet_stage: fix
+gauntlet_iteration: 1
+---
+One staged-gauntlet child.
+EOF
+reset_clone
+"$FORWARD" example-gauntlet-fix-1-extra "$TR/gauntlet-job.md" "$TR/r6d.md" \
+  || fail 'completed gauntlet follow-up forwarding failed'
+forwarded="$(git --git-dir="$TR/journal.git" show journal2:inbox/maintainer/unread/gauntlet-followups-example-gauntlet-fix-1-extra.md)"
+grep -q '^reply_to: example-gauntlet-fix-1-extra$' <<<"$forwarded" \
+  || fail 'forwarded decision did not route replies to the child job'
+grep -q '^msg_key: gauntlet-followups-example-gauntlet-fix-1-extra$' <<<"$forwarded" \
+  || fail 'forwarded decision did not carry the stable coalescing key'
+grep -q 'Post a conductor job after that panel finishes' <<<"$forwarded" \
+  || fail 'forwarded decision omitted the actionable non-driver follow-up'
+"$FORWARD" example-gauntlet-fix-1-extra "$TR/gauntlet-job.md" "$TR/r6d.md" \
+  || fail 'coalesced gauntlet follow-up retry failed'
+count="$(git --git-dir="$TR/journal.git" ls-tree -r --name-only journal2 inbox/maintainer/unread \
+  | grep -c 'gauntlet-followups-example-gauntlet-fix-1-extra.md')"
+[ "$count" -eq 1 ] || fail "stable gauntlet follow-up retry created $count inbox entries"
+reset_clone
+"$GATE" example-gauntlet-fix-1-extra "$TR/gauntlet-job.md" "$TR/r6d.md" \
+  || fail 'gate did not observe the deterministic pre-gate maintainer escalation'
+echo '   forwarder set reply_to + stable key, coalesced retry, and satisfied the gate'
+
+echo '== (f3b) RETRY: terminal delivery failure is propagated, then succeeds on retry =='
+sed 's/example-gauntlet-fix-1-extra/example-gauntlet-fix-1-retry/g' "$TR/r6d.md" >"$TR/r6d-retry.md"
+if GARDEN_GAUNTLET_FOLLOWUP_MESSAGE_USER=/bin/false \
+  "$FORWARD" example-gauntlet-fix-1-retry "$TR/gauntlet-job.md" "$TR/r6d-retry.md"; then
+  fail 'forwarder swallowed a terminal maintainer-inbox delivery failure'
+fi
+"$FORWARD" example-gauntlet-fix-1-retry "$TR/gauntlet-job.md" "$TR/r6d-retry.md" \
+  || fail 'forwarder did not succeed when the delivery was retried'
+git --git-dir="$TR/journal.git" cat-file -e \
+  journal2:inbox/maintainer/unread/gauntlet-followups-example-gauntlet-fix-1-retry.md \
+  || fail 'delivery retry produced no durable maintainer-inbox message'
+echo '   delivery failure propagated and the same stable episode succeeded on retry'
+
+echo '== (f3c) PASS: completed clean stages use the same deterministic forwarding path =='
+sed 's/gauntlet_stage: fix/gauntlet_stage: clean/' "$TR/gauntlet-job.md" >"$TR/gauntlet-clean-job.md"
+cat >"$TR/r6-clean.md" <<'EOF'
+Coverage cleanup is complete and CI is green.
+
+## Follow-ups
+- The maintainer must decide whether the compatibility alias remains public.
+
+<!-- gauntlet-stage-result: clean=done -->
+EOF
+"$FORWARD" example-gauntlet-clean "$TR/gauntlet-clean-job.md" "$TR/r6-clean.md" \
+  || fail 'completed clean-stage follow-up forwarding failed'
+clean_forwarded="$(git --git-dir="$TR/journal.git" show journal2:inbox/maintainer/unread/gauntlet-followups-example-gauntlet-clean.md)"
+grep -q '^reply_to: example-gauntlet-clean$' <<<"$clean_forwarded" \
+  || fail 'clean-stage forwarding did not route replies to the child'
+grep -q 'compatibility alias remains public' <<<"$clean_forwarded" \
+  || fail 'clean-stage forwarding omitted the maintainer decision'
+if grep -q 'gauntlet-stage-result' <<<"$clean_forwarded"; then
+  fail 'forwarded follow-up leaked the gauntlet protocol marker into the maintainer message'
+fi
+echo '   clean-stage decision was forwarded without leaking its protocol marker'
+
 echo '== (f4) BLOCK: driver prose without a completed stage marker remains actionable =='
 cat >"$TR/r6e.md" <<'EOF'
 Work stopped before the stage completed.
@@ -271,4 +337,4 @@ reset_clone
   || fail 'gate unexpectedly reacted to a bold-prose header (it anchors ONLY on the canonical heading)'
 echo '   gate anchors only on the canonical `## Follow-ups` heading (house-style rule closes the bold-prose gap)'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups and passes verified handoffs, real inbox messages, overrides, null sections, and driver-owned gauntlet continuation'
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; completed gauntlet clean/fix decisions are pre-forwarded with retry-safe routing and coalescing'

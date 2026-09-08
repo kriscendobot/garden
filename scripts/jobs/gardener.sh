@@ -716,6 +716,23 @@ while :; do
     fi
   fi
 
+  # A completed staged-gauntlet clean/fix child may identify a genuine
+  # maintainer decision in addition to the next-panel transition the driver
+  # already owns. Surface that decision deterministically BEFORE the generic
+  # follow-up gate checks for an inbox disposition. A delivery failure is a
+  # normal retryable claim failure: leave the child in doin so the next claim
+  # retries with the same coalescing key instead of recurring at gate rc=1.
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    set +e
+    "$HERE/forward-gauntlet-followups.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
+    gauntlet_followup_rc=$?
+    set -e
+    if [ "$gauntlet_followup_rc" -ne 0 ]; then
+      hrc=$gauntlet_followup_rc
+      log "gauntlet follow-up forwarding FAILED for '$base' (rc=$hrc); leaving child in doin for retry"
+    fi
+  fi
+
   # GATE the completion on POSTED follow-ups, not described ones. INDEPENDENTLY of
   # everything above: if the report carries a substantive `## Follow-ups` section
   # with no checkable disposition (a verified handoff, a maintainer-inbox message,
