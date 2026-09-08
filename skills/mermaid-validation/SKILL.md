@@ -1,6 +1,6 @@
 ---
 created: 2026-07-10
-updated: 2026-07-10
+updated: 2026-09-08
 author: gardener
 ---
 
@@ -75,3 +75,4 @@ One line per block: `OK <diagramType>` or `PARSE-FAIL: <message>`; nonzero exit 
 - `globalThis.navigator` is getter-only on recent Node; assign it with `Object.defineProperty` (a bare assignment throws).
 - Parse-only does not catch layout-level problems (label overflow, giant graphs), only grammar. Grammar is what breaks GitHub rendering.
 - Do not reach for `mmdc`/puppeteer inside the container first; it fails on the sandbox and then on missing system libraries, and parse-only answers the actual question.
+- In a `sequenceDiagram`, an ASCII arrow (`->`) inside a message's text (after the colon) is lexed as an arrow token and fails the parse, even though `->` is fine everywhere else and the typist-friendly style rule prefers it in prose. Rephrase the message text ("A then B", "A to B") rather than writing `A -> B` in it. This bites designers who carry a prose arrow into a diagram label.
