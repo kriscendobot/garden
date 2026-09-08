@@ -1,4 +1,5 @@
 ---
+child-design-minion-town-claude-agents-root-endowment-host: endolin-garden2-5bcdff64
 child-design-minion-town-claude-harness-provisioning-host: endolin-garden-ece02cb4
 order: parallel
 children: design-minion-town-claude-harness-provisioning design-minion-town-claude-agents-root-endowment design-claude-agent-credential-reauth design-endo-claude-bare-caplet design-endo-guest-stdio-mcp design-endo-daemon-guest-bot-incarnation design-claude-on-minion-town-evaluation
