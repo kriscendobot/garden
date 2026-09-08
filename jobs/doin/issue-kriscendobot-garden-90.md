@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please let a scholar study the following work and report on its relationship to the garden and to the use of endo for AI safety. 1) https://www.mdpi.com/2227-7390/13/20/3320 -- this is for finding the topology of closed models 2) https://arxiv.org/abs/2410.08993 -- basic topology
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T21:46:33Z
