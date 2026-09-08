@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T23:40:38Z_
+_As of 2026-09-08T23:41:55Z_
 
 ## Latest
 
@@ -1484,12 +1484,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.5M | $742.32 _(notional, rate-card)_ | 61% of 143.0M (ok) |
-| Codex | 8.4M _(+291.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 87.6M | $743.03 _(notional, rate-card)_ | 61% of 143.0M (ok) |
+| Codex | 8.4M _(+292.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-claude-harness-provisioning-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #99
+- [`kriscendobot-minion.town-pr96-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr96-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #96
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr1125-review-b4f3aac8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b4f3aac8.md) — Review directive on endojs/endo-but-for-bots PR #1125
