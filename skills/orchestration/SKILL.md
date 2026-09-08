@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-08-13
+updated: 2026-09-08
 author: gardener, builder
 ---
 
@@ -107,7 +107,10 @@ progress, and applies a failure policy rather than silently stalling.
      unreadable tree or a child present in multiple board directories is `retry`,
      never evidence of failure. Reading the commit tree also makes a hard-reset
      delete/add working-tree gap harmless.
-   - **on a child failure** it applies the policy — **halt** stops a serial run at
+   - **on a child failure** it emits a structured maintainer notice directly
+     (`orchestration-event`, `orchestration`, `orchestration-status`, `child`, and
+     `failure-kind`; handler-budget expiry is explicitly
+     `orchestration-child-timeout`) and applies the policy — **halt** stops a serial run at
      the first failure, leaves not-yet-run downstream children parked under their
      held `orchestrated` gate, and **surfaces the failure to the maintainer
      inbox**; **continue** proceeds to the next child only when the failed child
@@ -132,8 +135,11 @@ progress, and applies a failure policy rather than silently stalling.
 5. **Completion.** When every child is terminal the watcher writes
    `jobs/tada/<orch-base>.md` (an outcome summary carrying an
    `orchestration-status:` marker) and removes the record, so the orchestration
-   shows as done on the board and stops being scanned. Any failures surface to the
-   maintainer. Budgeted completion includes budget, spend, non-negative unspent,
+   shows as done on the board and stops being scanned. It also emits a structured
+   `orchestration-terminal` maintainer notice for success, failure-bearing
+   completion, halt, and budget stops. Merely observing freshly active children is
+   silent: routine agent status presses should not duplicate facts this watcher
+   derives. Budgeted completion includes budget, spend, non-negative unspent,
    and overshoot quantities in the report and sends the unused remainder to the
    maintainer inbox as a visible permission-not-exercised event.
 

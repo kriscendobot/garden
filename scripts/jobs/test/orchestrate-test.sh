@@ -37,6 +37,8 @@
 #  11. SERIAL CAS   - stale watcher snapshots cannot promote N+1 when the
 #                   promotion primitive's fresh snapshot contradicts either a
 #                   successful or continued-failure predecessor outcome.
+#  12. NOTICES      - fresh active state is silent; child failure/timeout and
+#                   every terminal completion emit deterministic structured fields.
 #
 # Usage: orchestrate-test.sh
 
@@ -91,6 +93,18 @@ board() {  # board <subdir> → basenames present (no .gitkeep, no .md)
   ls -1 "$V/$1" 2>/dev/null | grep -v -x '.gitkeep' | sed 's/\.md$//' | sort | tr '\n' ' '
 }
 in_dir() { board "$1" | tr ' ' '\n' | grep -qx "$2"; }   # in_dir <subdir> <base>
+notice_with_fields() {  # <literal-field>... — true when one unread notice has all fields
+  local f field found
+  for f in "$V/inbox/maintainer/unread"/*.md; do
+    [ -f "$f" ] || continue
+    found=1
+    for field in "$@"; do
+      grep -qxF "$field" "$f" || { found=0; break; }
+    done
+    [ "$found" -eq 0 ] || return 0
+  done
+  return 1
+}
 
 # Simulate a gardener COMPLETING a child: remove it from todo/doin and write a
 # tada report under the same base.
@@ -227,6 +241,9 @@ tick   # should promote s-a only
 tick   # s-a still in flight (active) → no advance
 { ! in_dir jobs/todo s-b; } && ok "tick 2: s-b NOT promoted while s-a in flight" \
   || bad "tick 2: s-b promoted early (todo=[$(board jobs/todo)])"
+[ ! -s "$TR/tick.log" ] \
+  && ok "freshly active serial orchestration is silent" \
+  || bad "freshly active serial orchestration emitted routine status: $(tr '\n' ' ' < "$TR/tick.log")"
 
 complete_child s-a
 tick   # s-a done → promote s-b
@@ -249,6 +266,10 @@ tick   # all done → orchestration completes
   && ! grep -q '^All children succeeded\.$' "$V/jobs/tada/orch-serial.md"; } \
   && ok "completion report restates scoped child dispositions instead of blanket success" \
   || bad "completion report retained a confident blanket-success assertion"
+notice_with_fields 'orchestration-event: orchestration-terminal' \
+  'orchestration: orch-serial' 'orchestration-status: complete' \
+  && ok "successful unbudgeted completion emits a structured terminal notice" \
+  || bad "successful unbudgeted completion did not emit its structured terminal notice"
 
 # ============================================================================
 hr; echo "SUBTEST 2 — PARALLEL: promote all children at once"; hr
@@ -267,12 +288,45 @@ tick   # none done yet → still waiting, not complete
 { ! in_dir jobs/tada orch-par && in_dir jobs/orch orch-par; } \
   && ok "tick 2: orchestration still running (no child done yet)" \
   || bad "tick 2: orch completed prematurely"
+[ ! -s "$TR/tick.log" ] \
+  && ok "freshly active parallel orchestration is silent" \
+  || bad "freshly active parallel orchestration emitted routine status: $(tr '\n' ' ' < "$TR/tick.log")"
 
 complete_child p-a; complete_child p-b; complete_child p-c
 tick   # all done → complete
 { in_dir jobs/tada orch-par && ! in_dir jobs/orch orch-par; } \
   && ok "tick 3: all children done → orchestration completed" \
   || bad "tick 3: orch not completed (tada=[$(board jobs/tada)] orch=[$(board jobs/orch)])"
+
+# A parallel failure is announced as soon as it appears, while another child is
+# still active. The persisted emission marker prevents routine ticks from
+# re-announcing the same unchanged failure after the inbox entry is drained.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par-fail pf-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par-fail pf-b >/dev/null
+"$JOBS/post-orchestration.sh" --parallel --on-child-failure continue orch-par-fail pf-a pf-b >/dev/null
+tick
+complete_failed_child pf-a
+tick
+board jobs/orch >/dev/null
+notice_with_fields 'orchestration: orch-par-fail' \
+  'orchestration-event: orchestration-child-failure' 'child: pf-a' \
+  'failure-kind: gated-outcome-unsatisfied' \
+  && ok "parallel child failure emits a structured notice while siblings remain active" \
+  || bad "parallel child failure did not emit its structured notice promptly"
+pf_notice="$(grep -rl '^orchestration: orch-par-fail$' "$V/inbox/maintainer/unread" 2>/dev/null | head -1)"
+tick
+board jobs/orch >/dev/null
+{ [ -n "$pf_notice" ] && ! grep -q '^notice_count: 2$' "$pf_notice"; } \
+  && ok "unchanged parallel child failure is not re-emitted on a routine tick" \
+  || bad "unchanged parallel child failure was re-emitted"
+complete_child pf-b
+tick
+in_dir jobs/tada orch-par-fail \
+  && notice_with_fields 'orchestration: orch-par-fail' \
+    'orchestration-event: orchestration-terminal' \
+    'orchestration-status: complete-with-failures' \
+  && ok "parallel run emits a structured failure-bearing terminal completion" \
+  || bad "parallel run lacks its structured failure-bearing terminal completion"
 
 # ============================================================================
 hr; echo "SUBTEST 3 — HALT: a serial child failure halts the run (policy=halt)"; hr
@@ -300,6 +354,10 @@ in_dir jobs/tada orch-halt || halt_ok=0    # halt summary written
 note_ok=0; grep -rqi 'halt' "$V/inbox/maintainer/unread" 2>/dev/null && note_ok=1
 [ "$note_ok" -eq 1 ] && ok "halt surfaced to the maintainer inbox" \
   || bad "halt did not surface a maintainer note (inbox: $(ls "$V/inbox/maintainer/unread" 2>/dev/null))"
+notice_with_fields 'orchestration: orch-halt' 'orchestration-status: halted' \
+  'failure-kind: vanished' \
+  && ok "halt notice identifies its terminal status and failure kind structurally" \
+  || bad "halt notice lacks structured terminal/failure fields"
 
 # the halt summary carries the failure marker
 grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
@@ -533,6 +591,10 @@ in_dir jobs/todo t-b && time_ok=0
 grep -q 'stalled in flight' "$V/jobs/tada/orch-time.md" 2>/dev/null || time_ok=0
 [ "$time_ok" -eq 1 ] && ok "expired handler-timeout is a deterministic stalled child" \
   || bad "handler-timeout stall not detected (tada=$(board jobs/tada), todo=$(board jobs/todo))"
+notice_with_fields 'orchestration: orch-time' \
+  'orchestration-event: orchestration-child-timeout' 'failure-kind: handler-timeout' \
+  && ok "expired handler budget emits a structured child-timeout notice" \
+  || bad "handler-timeout notice lacks structured timeout fields"
 
 # ============================================================================
 hr; echo "SUBTEST 8 — BUDGET VALIDATION: positive integers and serial-only"; hr

@@ -59,8 +59,11 @@
 # promotion of its children, so it can also express parallelism, an active progress
 # report, and a failure policy that unblock's pure edge-following cannot.
 #
-# Part of the garden's autonomous posture: SILENT until an error; only promotions,
-# completions, failures, and the watcher's own failures surface. Leader-only
+# Part of the garden's autonomous posture: SILENT while the board merely says that
+# freshly claimed/queued children remain active. Only promotions, terminal
+# transitions, failures/timeouts, and the watcher's own failures surface. Every
+# failure/timeout and terminal transition also emits a structured maintainer notice
+# directly; an agent does not need to poll the same board facts. Leader-only
 # singleton (its unit's ExecCondition) so a child failure surfaces to the
 # maintainer exactly once.
 #
@@ -432,6 +435,52 @@ orch_notify() {  # <subject> ; body on stdin
     log "orchestration notify to maintainer failed (non-fatal): $subject"
 }
 
+# Prefix every orchestration notice with the same small machine-readable envelope.
+# The prose beneath it is for the maintainer; these column-zero fields are for any
+# deterministic consumer that needs to distinguish a child failure/timeout from an
+# orchestration's terminal transition without interpreting prose.
+orch_notice() {  # <subject> <base> <event> <status>; body on stdin
+  local subject="$1" base="$2" event="$3" status="$4"
+  {
+    printf 'orchestration-event: %s\n' "$event"
+    printf 'orchestration: %s\n' "$base"
+    printf 'orchestration-status: %s\n' "$status"
+    cat
+  } | orch_notify "$subject"
+}
+
+child_failure_kind() {  # <failure-detail>
+  case "$1" in
+    vanished\ from\ the\ board*) printf 'vanished\n' ;;
+    completed\ but\ declared*) printf 'gated-outcome-unsatisfied\n' ;;
+    doomed\ and\ held*) printf 'doomed\n' ;;
+    stalled\ after*) printf 'requeue-timeout\n' ;;
+    stalled\ in\ flight*) printf 'handler-timeout\n' ;;
+    *) printf 'child-failure\n' ;;
+  esac
+}
+
+notify_child_failure() {  # <base> <order> <policy> <child> <detail>
+  local base="$1" order="$2" policy="$3" child="$4" detail="$5" kind event record
+  record="$DIR/$JOBS_ORCH/$base.md"
+  # A continued failure remains visible on every later tick. Persist the emission
+  # fact in the orchestration record so draining the maintainer inbox cannot turn
+  # that unchanged board fact into a fresh notice on the next tick.
+  [ "$(plan_field "$record" "child-$child-failure-notified")" = true ] && return 0
+  kind="$(child_failure_kind "$detail")"
+  event=orchestration-child-failure
+  [ "$kind" = handler-timeout ] && event=orchestration-child-timeout
+  {
+    printf 'child: %s\n' "$child"
+    printf 'failure-kind: %s\n' "$kind"
+    printf 'order: %s\n' "$order"
+    printf 'on-child-failure: %s\n' "$policy"
+    printf 'detail: %s\n\n' "$detail"
+    printf 'Orchestration %s observed child %s: %s.\n' "$base" "$child" "$detail"
+  } | orch_notice "$base-child-$child-failed" "$base" "$event" running
+  set_orch_field "$base" "child-$child-failure-notified" true || true
+}
+
 # --- budgeted-campaign reporting and terminal transitions ------------------
 campaign_spend() {  # <base> — one JSON object, from this tick's synced checkout
   "$HERE/campaign-spend.sh" --dir "$DIR" "$1"
@@ -492,8 +541,13 @@ finish_budget_meter_incomplete() {  # <base> <reason> <position> <total> <child>
     printf 'Meter failure: %s\n' "$reason"
   } > "$sf"
   if finish_orch "$base" "$sf"; then
-    printf 'Orchestration %s stopped with budget-meter-incomplete. Budget: %s. Parked remainder: %s. Reason: %s\n' \
-      "$base" "${budget:-unknown}" "${parked[*]:-none}" "$reason" | orch_notify "$base-budget-meter-incomplete"
+    {
+      printf 'campaign-budget-tokens: %s\n' "${budget:-unknown}"
+      printf 'campaign-parked-children: %s\n' "${parked[*]}"
+      printf 'meter-failure: %s\n\n' "$reason"
+      printf 'Orchestration %s stopped with budget-meter-incomplete. Budget: %s. Parked remainder: %s. Reason: %s\n' \
+        "$base" "${budget:-unknown}" "${parked[*]:-none}" "$reason"
+    } | orch_notice "$base-budget-meter-incomplete" "$base" orchestration-terminal budget-meter-incomplete
     log "orchestration '$base': BUDGET METER INCOMPLETE; ${#parked[@]} child(ren) remain parked"
   else
     log "orchestration '$base': budget-meter-incomplete finish failed; retrying next tick"
@@ -519,10 +573,14 @@ finish_budget_exhausted() {  # <base> <snapshot> <position> <done-count> <child>
     print_campaign_price_snapshot "$snapshot"
   } > "$sf"
   if finish_orch "$base" "$sf"; then
-    printf 'Orchestration %s exhausted its %s-token campaign budget after %s recorded tokens (%s overshoot). Unspent: %s. Parked remainder: %s\n' \
-      "$base" "$(jq -r '.budget_tokens' <<<"$snapshot")" "$(jq -r '.spend_tokens' <<<"$snapshot")" \
-      "$(jq -r '.overshoot_tokens' <<<"$snapshot")" "$(jq -r '.unspent_tokens' <<<"$snapshot")" \
-      "${parked[*]:-none}" | orch_notify "$base-budget-exhausted"
+    {
+      print_campaign_quantities "$snapshot"
+      printf 'campaign-parked-children: %s\n\n' "${parked[*]}"
+      printf 'Orchestration %s exhausted its %s-token campaign budget after %s recorded tokens (%s overshoot). Unspent: %s. Parked remainder: %s\n' \
+        "$base" "$(jq -r '.budget_tokens' <<<"$snapshot")" "$(jq -r '.spend_tokens' <<<"$snapshot")" \
+        "$(jq -r '.overshoot_tokens' <<<"$snapshot")" "$(jq -r '.unspent_tokens' <<<"$snapshot")" \
+        "${parked[*]:-none}"
+    } | orch_notice "$base-budget-exhausted" "$base" orchestration-terminal budget-exhausted
     log "orchestration '$base': BUDGET EXHAUSTED; ${#parked[@]} child(ren) remain parked"
   else
     log "orchestration '$base': budget-exhausted finish failed; retrying next tick"
@@ -553,8 +611,6 @@ advance_serial() {  # <base> <policy> <child>...
           # tick compares against the new floor, and keep waiting on it.
           set_orch_reap_baseline "$base" "$c" || true
           log "orchestration '$base': child $((i+1))/$total '$c' requeued but PROGRESSING (advanced a worktree HEAD); baseline advanced, still in flight"
-        else
-          log "orchestration '$base': waiting on child $((i+1))/$total '$c' (in flight)"
         fi
         return 0;;
       retry)
@@ -616,6 +672,7 @@ advance_serial() {  # <base> <policy> <child>...
       failed)
         failed+=("$c")
         local detail; detail="$(child_failure_detail "$c" "$DIR/$JOBS_ORCH/$base.md")"
+        notify_child_failure "$base" serial "$policy" "$c" "$detail"
         if [ "$policy" = "halt" ]; then
           # HALT the serial run at the first failure. Downstream children remain
           # parked under their orchestrated gate for a human to inspect or resume.
@@ -643,8 +700,15 @@ advance_serial() {  # <base> <policy> <child>...
             printf '\non-child-failure policy: halt.\n'
           } > "$sf"
           finish_orch "$base" "$sf" || log "orchestration '$base': halt-finish failed; retrying next tick"
-          printf 'Orchestration %s HALTED: child %s %s (serial, on-child-failure=halt). %d/%d done before halt; parked remainder: %s\n' \
-            "$base" "$c" "$detail" "$done_count" "$total" "${parked_remainder[*]:-none}" | orch_notify "$base-halted"
+          {
+            printf 'child: %s\n' "$c"
+            printf 'failure-kind: %s\n' "$(child_failure_kind "$detail")"
+            printf 'children-completed: %s\n' "$done_count"
+            printf 'children-total: %s\n' "$total"
+            printf 'halt-parked-remainder: %s\n\n' "${parked_remainder[*]}"
+            printf 'Orchestration %s HALTED: child %s %s (serial, on-child-failure=halt). %d/%d done before halt; parked remainder: %s\n' \
+              "$base" "$c" "$detail" "$done_count" "$total" "${parked_remainder[*]:-none}"
+          } | orch_notice "$base-halted" "$base" orchestration-terminal halted
           log "orchestration '$base': HALTED at failed child '$c' (policy=halt); left ${#parked_remainder[@]} downstream parked"
           rm -f "$sf"
           return 0
@@ -691,7 +755,10 @@ advance_parallel() {  # <base> <policy> <child>...
     st="$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")"
     case "$st" in
       done)   done_count=$((done_count+1));;
-      failed) failed+=("$c");;
+      failed)
+        failed+=("$c")
+        notify_child_failure "$base" parallel "$policy" "$c" \
+          "$(child_failure_detail "$c" "$DIR/$JOBS_ORCH/$base.md")";;
       active|progressing)
         active=$((active+1)); set_orch_claim_host "$base" "$c" || true
         [ "$st" = progressing ] && { set_orch_reap_baseline "$base" "$c" || true; };;
@@ -702,8 +769,6 @@ advance_parallel() {  # <base> <policy> <child>...
   local terminal=$(( done_count + ${#failed[@]} ))
   if [ "$terminal" -eq "$total" ]; then
     complete_done "$base" "$total" "parallel" "${failed[@]}"
-  else
-    log "orchestration '$base': $done_count/$total done, ${#failed[@]} failed, $active in flight, $parked_count parked (parallel)"
   fi
 }
 
@@ -755,17 +820,31 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
     rm -f "$sf"
     return 0
   fi
+  local terminal_status=complete
+  [ "${#failed[@]}" -gt 0 ] && terminal_status=complete-with-failures
+  {
+    printf 'order: %s\n' "$order"
+    printf 'children-total: %s\n' "$total"
+    printf 'children-failed: %s\n' "${#failed[@]}"
+    printf 'failed-children: %s\n' "${failed[*]}"
+    [ -z "$budget" ] || print_campaign_quantities "$snapshot"
+    printf '\n'
+    if [ "${#failed[@]}" -gt 0 ]; then
+      printf 'Orchestration %s complete WITH FAILURES (%s): %d/%d failed: %s\n' \
+        "$base" "$order" "${#failed[@]}" "$total" "${failed[*]}"
+    else
+      printf 'Orchestration %s complete (%s): all %d children reached tada without a machine-readable failure declaration.\n' \
+        "$base" "$order" "$total"
+    fi
+    if [ -n "$budget" ]; then
+      printf 'Campaign budget: %s tokens; %s recorded tokens spent; %s token(s) remain unused.\n' \
+        "$budget" "$(jq -r '.spend_tokens' <<<"$snapshot")" "$(jq -r '.unspent_tokens' <<<"$snapshot")"
+    fi
+  } | orch_notice "$base-terminal-$terminal_status" "$base" orchestration-terminal "$terminal_status"
   if [ "${#failed[@]}" -gt 0 ]; then
-    printf 'Orchestration %s complete WITH FAILURES (%s): %d/%d failed: %s\n' \
-      "$base" "$order" "${#failed[@]}" "$total" "${failed[*]}" | orch_notify "$base-complete-failures"
     log "orchestration '$base': complete with ${#failed[@]} failure(s)"
   else
     log "orchestration '$base': complete — all $total children done"
-  fi
-  if [ -n "$budget" ]; then
-    printf 'Orchestration %s completed within its %s-token campaign budget after %s recorded tokens. %s token(s) remain unused.\n' \
-      "$base" "$budget" "$(jq -r '.spend_tokens' <<<"$snapshot")" \
-      "$(jq -r '.unspent_tokens' <<<"$snapshot")" | orch_notify "$base-budget-complete"
   fi
   rm -f "$sf"
 }
@@ -832,7 +911,6 @@ supersede_stale_halts() {
 }
 
 # --- the tick ---------------------------------------------------------------
-advanced=0
 for j in $(list_jobs "$DIR" "$JOBS_ORCH"); do
   case "$j" in *.md) ;; *) continue;; esac
   f="$DIR/$JOBS_ORCH/$j"; [ -f "$f" ] || continue
@@ -846,17 +924,13 @@ for j in $(list_jobs "$DIR" "$JOBS_ORCH"); do
   fi
   if [ "$order" = parallel ] && orch_has_budget "$f"; then
     finish_budget_meter_incomplete "$base" "budget_tokens is invalid with parallel order" 1 "${#kids[@]}" "${kids[@]}"
-    advanced=$((advanced+1))
     continue
   fi
   case "$order" in
     parallel) advance_parallel "$base" "$policy" "${kids[@]}";;
     *)        advance_serial   "$base" "$policy" "${kids[@]}";;
   esac
-  advanced=$((advanced+1))
 done
-
-[ "$advanced" -gt 0 ] && log "advanced $advanced orchestration(s)"
 
 # After driving live orchestrations, correct any halt record whose parked
 # remainder subsequently ran on another path (see supersede_stale_halts above).
