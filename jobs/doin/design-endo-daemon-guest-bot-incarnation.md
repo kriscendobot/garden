@@ -48,3 +48,13 @@ Cover at least:
   what is in scope for a first increment and what is deliberately deferred.
 
 Deliverable: one design document. Do not build.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T18:56:16Z
