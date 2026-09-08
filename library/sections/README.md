@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6970 (530 parent indexes + 6440 children).
+Total section files: 6976 (530 parent indexes + 6446 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9106,6 +9106,18 @@ Total section files: 6970 (530 parent indexes + 6440 children).
 - [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--noisy-proxies-can-reverse-rankings](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--noisy-proxies-can-reverse-rankings.md)
 - [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--overview](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--overview.md)
 - [papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike](papers--patton-volatility-forecast-comparison-imperfect-proxies-2011--robust-loss-functions-and-qlike.md)
+
+### papers--robinson-probing-token-topology-2025
+
+- [papers--robinson-probing-token-topology-2025--closed-model-limits](papers--robinson-probing-token-topology-2025--closed-model-limits.md)
+- [papers--robinson-probing-token-topology-2025--structured-prompt-recovery](papers--robinson-probing-token-topology-2025--structured-prompt-recovery.md)
+- [papers--robinson-probing-token-topology-2025--theorem-and-validation](papers--robinson-probing-token-topology-2025--theorem-and-validation.md)
+
+### papers--robinson-structure-token-space-2024
+
+- [papers--robinson-structure-token-space-2024--empirical-findings](papers--robinson-structure-token-space-2024--empirical-findings.md)
+- [papers--robinson-structure-token-space-2024--estimators](papers--robinson-structure-token-space-2024--estimators.md)
+- [papers--robinson-structure-token-space-2024--safety-interpretation](papers--robinson-structure-token-space-2024--safety-interpretation.md)
 
 ### papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005
 
