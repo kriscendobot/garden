@@ -56,3 +56,13 @@ Design the evaluation, covering at least:
 
 Deliverable: one design document plus a concrete, reviewable sketch of the Flow B shell
 script. Do not build the evaluation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T18:56:39Z
