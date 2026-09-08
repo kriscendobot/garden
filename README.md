@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T15:31:22Z_
+_As of 2026-09-08T15:34:11Z_
 
 ## Latest
 
@@ -1481,22 +1481,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 69.6M | $610.50 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 7.0M _(+242.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 7.0M _(+243.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-5587592625`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5587592625.md) — Issue follow-up — fold a late comment into the issue work
+### doin (0)
+(none)
 
-### tada (7495)
+### tada (7496)
+- [`deadmail-issue-comment-5587592625`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5587592625.md) — Cost
 - [`daily-progress-summary-20260908-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260908-070508.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260908-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260908-040509.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260908-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260908-040509.md) — Completion Report — containment drift check (2026-09-08 tick)
 - [`restore-cleric-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/restore-cleric-quota-throttle.md) — Cost
-- [`kriscendobot-garden-pr80-quota-validation-20260907`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260907.md) — Report
-- … and 7490 more
+- … and 7491 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
