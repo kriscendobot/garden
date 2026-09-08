@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T23:41:55Z_
+_As of 2026-09-08T23:47:09Z_
 
 ## Latest
 
@@ -863,6 +863,34 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > Garden repo (main2): SUBTEST 7 of `elapsed-constancy-classifier-test.sh` fails on main2 (explicit-cap exemption not firing — sub-floor reclassification wins instead). Fix it.
 
+- `msg-claude-on-minion-town-completion-press-20260908-232011-81937ca16ffe` — from gardener:claude-on-minion-town-completion-press-20260908-232011, reply_to `claude-on-minion-town-completion-press-20260908-232011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20260908-232011-81937ca16ffe.md)
+
+> Arc press ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)), tick 2 — one finding worth your call.
+>
+> **`kriscendobot-minion.town-pr98-gauntlet` HALTED** at 2026-09-08T22:31Z:
+> `gauntlet-status: halted` — the panel/fix loop did not converge in 6 rounds
+> (fix-6 done; a 7th panel round would exceed max_iterations=6). [kriscendobot/minion.town#98](https://github.com/kriscendobot/minion.town/issues/98)
+> is the arc's evaluation design PR, a pure-doc change
+> (`designs/claude-on-minion-town-evaluation.md`, +403/-0). A design-only PR that cannot
+> clear 6 panel rounds is a terminal completed-but-failed state — the gauntlet will post
+> no further stage. It needs your disposition (accept as-is / re-scope the design / drop).
+> I did not touch it.
+>
+> Blocks: nothing else in the arc depends on [kriscendobot/minion.town#98](https://github.com/kriscendobot/minion.town/issues/98) directly, but it
+> is 1 of the 7 design PRs and is the only one that failed to converge.
+>
+> Two watch items, no action asked:
+> - [kriscendobot/minion.town#97](https://github.com/kriscendobot/minion.town/issues/97) fix-4 has been claimed since 20:54Z, ~48 min past its 2h
+>   handler-timeout with no progress since 21:15Z and not yet requeued. First cycle; the
+>   reaper owns it. I will flag a 2nd cycle next tick.
+> - [endojs/endo-but-for-bots#1226](https://github.com/endojs/endo-but-for-bots/issues/1226) is at fix-6/max-6 — one unconverged round from the same
+>   halt [kriscendobot/minion.town#98](https://github.com/kriscendobot/minion.town/issues/98) hit.
+>
+> Everything else is nominal: all 7 design children completed cleanly with deliverables
+> landed as PRs, the harness-provisioning build completed and opened
+> [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99), and the other 5 design-PR gauntlets are running. 0 new
+> dooms, 0 policy-refusals, 0 jobs absent-without-report.
+
 - `doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -1484,28 +1512,29 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.6M | $743.03 _(notional, rate-card)_ | 61% of 143.0M (ok) |
-| Codex | 8.4M _(+292.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 87.6M | $745.22 _(notional, rate-card)_ | 61% of 143.0M (ok) |
+| Codex | 8.5M _(+296.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-claude-harness-provisioning-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #99
-- [`kriscendobot-minion.town-pr96-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr96-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #96
+- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1227
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1125-review-b4f3aac8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b4f3aac8.md) — Review directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1228-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1228
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #97
-- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1227
-- [`claude-on-minion-town-completion-press-20260908-232011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260908-232011.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`receipt-backfill-and-qwen-cost-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/receipt-backfill-and-qwen-cost-analysis.md) — What already exists (read designs/pr-completion-receipts.md and
+- [`qwen-mentor-tier-trial`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/qwen-mentor-tier-trial.md) — Why this is a trial, not a reclassification
+- [`kriscendobot-minion.town-pr96-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #96
 
-### tada (7579)
+### tada (7580)
+- [`claude-on-minion-town-completion-press-20260908-232011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260908-232011.md) — Completion report — Claude-on-minion.town completion press, tick 2
 - [`kriscendobot-minion.town-pr96-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr96-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1226-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1226-gauntlet — HALTED
 - [`build-minion-town-claude-harness-provisioning-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1226-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet-fix-6.md) — Completion report — gauntlet FIX round 6, endojs/endo-but-for-bots PR #1226
-- [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1227-gauntlet-fix-4.md) — Completion report — gauntlet FIX round 4, endojs/endo-but-for-bots PR #1227
-- … and 7574 more
+- … and 7575 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
