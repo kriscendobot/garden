@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T23:40:04Z_
+_As of 2026-09-08T23:40:38Z_
 
 ## Latest
 
@@ -1331,10 +1331,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet build-minion-town-invitation-only-guest-onboarding-gauntlet HALTED: stage 'build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
 
-- `endojs-endo-but-for-bots-pr1226-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1226-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1226-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1226-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
-
 - `doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
@@ -1488,8 +1484,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.5M | $741.90 _(notional, rate-card)_ | 61% of 143.0M (ok) |
-| Codex | 8.4M _(+291.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 87.5M | $742.32 _(notional, rate-card)_ | 61% of 143.0M (ok) |
+| Codex | 8.4M _(+291.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
