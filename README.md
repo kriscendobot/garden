@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T19:16:15Z_
+_As of 2026-09-08T19:17:03Z_
 
 ## Latest
 
@@ -1480,25 +1480,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.4M | $620.94 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Claude | 71.4M | $620.43 _(notional, rate-card)_ | 50% of 143.0M (ok) |
 | Codex | 7.5M _(+254.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1227
-- [`kriscendobot-minion.town-pr97-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #97
 - [`design-endo-claude-bare-caplet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-bare-caplet.md) — Design: finish the unconfined caplet that shells out to claude -p --bare
 
-### tada (7506)
+### tada (7507)
+- [`kriscendobot-minion.town-pr97-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-panel-1.md) — Cost
 - [`design-claude-on-minion-town-evaluation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-claude-on-minion-town-evaluation.md) — Cost
 - [`design-endo-daemon-guest-bot-incarnation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-guest-bot-incarnation.md) — Cost
 - [`design-minion-town-claude-harness-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-claude-harness-provisioning.md) — Cost
 - [`claude-on-minion-town-completion-press-20260908-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260908-190509.md) — Completion report — Claude-on-minion.town completion press, tick 1
-- [`kriscendobot-minion.town-pr97-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-clean.md) — Completion report
-- … and 7501 more
+- … and 7502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
