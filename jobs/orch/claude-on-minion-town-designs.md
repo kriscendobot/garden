@@ -1,4 +1,5 @@
 ---
+child-design-claude-on-minion-town-evaluation-host: endolin-garden2-5bcdff64
 child-design-endo-daemon-guest-bot-incarnation-host: endolin-garden-ece02cb4
 child-design-endo-guest-stdio-mcp-host: endolin-garden-ece02cb4
 child-design-endo-claude-bare-caplet-host: endolin-garden2-5bcdff64
