@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T21:44:53Z_
+_As of 2026-09-08T21:48:42Z_
 
 ## Latest
 
@@ -435,12 +435,12 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #243 (first seen 2026-09-05T15:44:01Z, latest 2026-09-06T04:59:01Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 243 times; this is ONE
-> coalesced notice that updates in place, not 243 messages. Latest detail:
+> WATCHDOG notice — occurrence #259 (first seen 2026-09-05T15:44:01Z, latest 2026-09-08T21:47:02Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 259 times; this is ONE
+> coalesced notice that updates in place, not 259 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
-> is no available canary to validate 28de1891afed. Per designs/follower-self-deploy.md
+> is no available canary to validate 92431e9dbf3d. Per designs/follower-self-deploy.md
 > this is treated as a signal to wait for you, not to advance the leader unvalidated.
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
@@ -1480,27 +1480,27 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.2M | $695.61 _(notional, rate-card)_ | 57% of 143.0M (ok) |
-| Codex | 7.7M _(+256.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 81.2M | $695.83 _(notional, rate-card)_ | 57% of 143.0M (ok) |
+| Codex | 7.7M _(+257.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr1226-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1226-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1226
-- [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1227
 - [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1228-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1228
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1227
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #97
-- [`kriscendobot-minion.town-pr98-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr98-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #98
+- [`issue-kriscendobot-garden-90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-90.md) — Issue from dckc on kriscendobot/garden #90
 - [`kriscendobot-minion.town-pr96-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #96
 
-### tada (7553)
+### tada (7554)
+- [`kriscendobot-minion.town-pr98-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr98-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1227-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1226-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1228-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1228-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr98-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr98-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr96-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr96-gauntlet-panel-3.md) — Completion report
-- … and 7548 more
+- … and 7549 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
