@@ -46,3 +46,13 @@ Note the parallel Agent-SDK track (parked jobs `endo-claude-agent-sdk-{design,pr
 It runs alongside this and must not block or supersede it; the CLI path stays the default.
 
 Deliverable: the evolved design plus a written assessment of PR #1015's remaining work. Do not build.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T18:55:47Z
