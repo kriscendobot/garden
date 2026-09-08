@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T20:16:44Z_
+_As of 2026-09-08T20:17:55Z_
 
 ## Latest
 
@@ -572,6 +572,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > - Not a fixer target (approved, no CHANGES_REQUESTED). It needs a **re-glance of the rebuilt head, then merge to `llm`** — a maintainer call, since I won't auto-merge a feature whose approval predates a full rebuild. Want me to dispatch a conductor (merge) or a re-review first?
 >
 > Everything else is owned/deferred: campaign concluded; [endojs/endo-but-for-bots#1138](https://github.com/endojs/endo-but-for-bots/issues/1138) (general-JS-compat part 1) merged 06:18Z by kumavis and [endojs/endo-but-for-bots#1103](https://github.com/endojs/endo-but-for-bots/issues/1103) closed unmerged (external codex work); [endojs/endo-but-for-bots#855](https://github.com/endojs/endo-but-for-bots/issues/855) and [endojs/endo-but-for-bots#945](https://github.com/endojs/endo-but-for-bots/issues/945) addressed and awaiting your re-review; [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113) test262 ratchet has a live supervisor.
+
+- `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
+
+> Rolling deploy HALTED on a failed canary.
+> canary host: endolin-garden2-5bcdff64
+> target sha:  171dd3c1bc21556e1275880fc49ba3456324cae1
+> failing signal: released 1500s ago but never advanced to the target sha (deploy stuck/failed on the canary)
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign drain op) pending your decision; auto-rollback is deliberately not performed
+> (designs/follower-self-deploy.md § Failure handling). Investigate the target on endolin-garden2-5bcdff64,
+> then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `doomed-minion-town-eval-static-publish-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-minion-town-eval-static-publish-requeue-exhausted.md)
 
@@ -1480,7 +1492,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.1M | $645.86 _(notional, rate-card)_ | 52% of 143.0M (ok) |
+| Claude | 74.1M | $646.36 _(notional, rate-card)_ | 52% of 143.0M (ok) |
 | Codex | 7.5M _(+254.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
@@ -1488,19 +1500,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr96-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr96-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #96
 - [`endojs-endo-but-for-bots-pr1226-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1226-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1226
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1227
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #97
 - [`kriscendobot-minion.town-pr98-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr98-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #98
-- [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1228-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1228
 
-### tada (7532)
+### tada (7533)
+- [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1228-gauntlet-fix-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1226-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet-fix-1.md) — Completion report
 - [`kriscendobot-minion.town-pr96-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr96-gauntlet-fix-1.md) — Completion report
 - [`kriscendobot-minion.town-pr97-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-panel-3.md) — Completion report — gauntlet PANEL round 3, kriscendobot/minion.town PR #97
 - [`kriscendobot-minion.town-pr98-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr98-gauntlet-panel-3.md) — Completion report
-- [`kriscendobot-minion.town-pr97-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-fix-2.md) — Completion report
-- … and 7527 more
+- … and 7528 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
