@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T22:02:47Z_
+_As of 2026-09-08T22:05:13Z_
 
 ## Latest
 
@@ -1484,17 +1484,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.1M | $702.42 _(notional, rate-card)_ | 57% of 143.0M (ok) |
+| Claude | 82.2M | $704.21 _(notional, rate-card)_ | 57% of 143.0M (ok) |
 | Codex | 7.9M _(+261.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (3)
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1227
+- [`kriscendobot-minion.town-pr96-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr96-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #96
 - [`kriscendobot-minion.town-pr98-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr98-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #98
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1226-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1226
-- [`kriscendobot-minion.town-pr96-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #96
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #97
 - [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1228-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1228
 
