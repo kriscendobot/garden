@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T15:34:11Z_
+_As of 2026-09-08T18:57:00Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 ## Parked for maintainer feedback
 
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 4d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 6d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 6d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 6d)
@@ -1480,15 +1480,21 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.6M | $610.50 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 7.0M _(+243.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 70.2M | $613.33 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Codex | 7.1M _(+243.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (7)
+- [`design-minion-town-claude-agents-root-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-claude-agents-root-endowment.md) — Design: reconcile @claude-agents to the root-only endowment amendment
+- [`design-claude-on-minion-town-evaluation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-on-minion-town-evaluation.md) — Design: the end-to-end evaluation, both the MCP flow and the CapTP flow
+- [`design-endo-daemon-guest-bot-incarnation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-guest-bot-incarnation.md) — Design: a bot property on the guest formula, and incarnation on message arrival
+- [`design-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-agent-credential-reauth.md) — Design: credential expiry detection and operator-mediated reauthentication
+- [`design-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-guest-stdio-mcp.md) — Design: a stdio MCP server exposing one guest's tool-call surface
+- [`design-endo-claude-bare-caplet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-bare-caplet.md) — Design: finish the unconfined caplet that shells out to claude -p --bare
+- [`design-minion-town-claude-harness-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-claude-harness-provisioning.md) — Design: provisioning and upgrading the Claude Code harness inside minion.town...
 
 ### tada (7496)
 - [`deadmail-issue-comment-5587592625`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5587592625.md) — Cost
