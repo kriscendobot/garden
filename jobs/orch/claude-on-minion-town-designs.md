@@ -1,4 +1,5 @@
 ---
+child-design-endo-guest-stdio-mcp-host: endolin-garden-ece02cb4
 child-design-endo-claude-bare-caplet-host: endolin-garden2-5bcdff64
 child-design-claude-agent-credential-reauth-host: endolin-garden2-5bcdff64
 child-design-minion-town-claude-agents-root-endowment-host: endolin-garden2-5bcdff64
