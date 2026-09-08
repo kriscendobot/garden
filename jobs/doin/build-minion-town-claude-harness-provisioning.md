@@ -16,3 +16,13 @@ Task: build the harness provisioning per the design. In broad strokes (the desig
 - Wire the weekly Dependabot proposal → botanist gate → conduct upgrade path and the rollback receipt the design specifies, to the extent buildable here.
 
 This is a mergeable-feature build: the draft PR auto-runs the gauntlet (clean → panel → fix-loop → un-draft). Do NOT reconcile or touch the `@claude-agents` capability wiring (#87) or its root-endowment amendment — that is arc item 2, a separate build.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T22:36:10Z
