@@ -92,3 +92,13 @@ This changes real fleet routing/measurement infrastructure — land per the
 garden's own conventions, with the trial's cap, exit condition, and reasoning
 written up clearly enough that anyone reading the journal later understands
 it was a deliberate, bounded experiment, not an accidental promotion.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T23:45:50Z
