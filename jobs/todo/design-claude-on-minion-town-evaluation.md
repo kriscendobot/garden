@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: claude-on-minion-town-designs
-priority: normal
-posted_by: producer
-posted_at: 2026-09-08T18:53:24Z
+role: designer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-08T18:56:11Z cleared=none -->
 
 ---
 role: designer
