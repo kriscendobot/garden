@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T18:57:00Z_
+_As of 2026-09-08T19:07:14Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 6d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 6d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 6d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 7d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 8d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 10d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 12d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 12d)
@@ -1480,29 +1480,29 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.2M | $613.33 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 7.1M _(+243.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 70.8M | $616.15 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 7.4M _(+247.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (7)
-- [`design-minion-town-claude-agents-root-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-claude-agents-root-endowment.md) — Design: reconcile @claude-agents to the root-only endowment amendment
 - [`design-claude-on-minion-town-evaluation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-on-minion-town-evaluation.md) — Design: the end-to-end evaluation, both the MCP flow and the CapTP flow
+- [`claude-on-minion-town-press-20260908-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260908-190509.md) — Press the Claude-on-minion.town arc forward
 - [`design-endo-daemon-guest-bot-incarnation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-guest-bot-incarnation.md) — Design: a bot property on the guest formula, and incarnation on message arrival
-- [`design-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-agent-credential-reauth.md) — Design: credential expiry detection and operator-mediated reauthentication
-- [`design-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-guest-stdio-mcp.md) — Design: a stdio MCP server exposing one guest's tool-call surface
 - [`design-endo-claude-bare-caplet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-bare-caplet.md) — Design: finish the unconfined caplet that shells out to claude -p --bare
+- [`claude-on-minion-town-completion-press-20260908-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260908-190509.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`design-minion-town-claude-harness-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-claude-harness-provisioning.md) — Design: provisioning and upgrading the Claude Code harness inside minion.town...
+- [`kriscendobot-garden-pr80-quota-validation-20260908`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-quota-validation-20260908.md) — PR-80 quota-calibration effectiveness observation — UTC day 20260908
 
-### tada (7496)
+### tada (7499)
+- [`design-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-guest-stdio-mcp.md) — Cost
+- [`design-minion-town-claude-agents-root-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-claude-agents-root-endowment.md) — Completion report
+- [`design-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-claude-agent-credential-reauth.md) — Completion report
 - [`deadmail-issue-comment-5587592625`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5587592625.md) — Cost
 - [`daily-progress-summary-20260908-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260908-070508.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20260908-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260908-040509.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260908-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260908-040509.md) — Completion Report — containment drift check (2026-09-08 tick)
-- [`restore-cleric-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/restore-cleric-quota-throttle.md) — Cost
-- … and 7491 more
+- … and 7494 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
