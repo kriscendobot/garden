@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T19:35:58Z_
+_As of 2026-09-08T19:39:42Z_
 
 ## Latest
 
@@ -1480,26 +1480,27 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.5M | $629.63 _(notional, rate-card)_ | 51% of 143.0M (ok) |
+| Claude | 73.1M | $634.35 _(notional, rate-card)_ | 51% of 143.0M (ok) |
 | Codex | 7.5M _(+254.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`kriscendobot-minion.town-pr98-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr98-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #98
-- [`improve-orchestration-status-silent`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-orchestration-status-silent.md) — ---
+### doin (5)
+- [`endojs-endo-but-for-bots-pr1226-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1226
+- [`endojs-endo-but-for-bots-pr1228-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1228-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1228
+- [`kriscendobot-minion.town-pr98-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr98-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #98
 - [`kriscendobot-minion.town-pr97-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #97
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1227
 
-### tada (7514)
+### tada (7516)
+- [`improve-orchestration-status-silent`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-orchestration-status-silent.md) — Cost
+- [`kriscendobot-minion.town-pr98-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr98-gauntlet-fix-1.md) — Completion report — gauntlet FIX round 1, kriscendobot/minion.town PR #98
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-fix-1.md) — What I did
 - [`claude-on-minion-town-designs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-designs.md) — orchestration claude-on-minion-town-designs — complete
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1227-gauntlet-panel-1.md) — Report
-- [`kriscendobot-minion.town-pr98-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr98-gauntlet-panel-1.md) — Completion report
-- [`design-endo-claude-bare-caplet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-claude-bare-caplet.md) — Cost
-- … and 7509 more
+- … and 7511 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
