@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T19:17:03Z_
+_As of 2026-09-08T19:18:37Z_
 
 ## Latest
 
@@ -1487,9 +1487,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1227
+- [`kriscendobot-minion.town-pr98-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr98-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #98
 - [`design-endo-claude-bare-caplet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-bare-caplet.md) — Design: finish the unconfined caplet that shells out to claude -p --bare
+- [`kriscendobot-minion.town-pr97-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #97
 
 ### tada (7507)
 - [`kriscendobot-minion.town-pr97-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-panel-1.md) — Cost
