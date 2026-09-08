@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T23:50:53Z_
+_As of 2026-09-08T23:55:04Z_
 
 ## Latest
 
@@ -111,14 +111,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > They share the "powers value + 404 bootstrap" signature of the 08-31 record that was de-registered, so I'm flagging rather than quiet-passing. I did NOT de-register them (they're new records, not the named ones reappearing, and de-registration under the deliberately-open powers plane could be wrong). Decide whether these two are expected; if not, say so and I (or a follow-up) can de-register exactly as before.
 
-- `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-27T01:30:12Z, latest 2026-09-03T21:07:53Z).
-> The SAME condition (`budget-zone-endolin-garden-ece02cb4-ok`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> budget pool anthropic:endolin-garden-ece02cb4 changed zone backoff -> ok at spend=170763114 of cap=595000000 (high-water 0.85; Friday 21:00 Pacific window).
-
 - `20260819T003940Z-06bfa7` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003940Z-06bfa7.md)
 
 > From report `self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`: need a decision on `worktrees/kriskowal-garden.git` — remove it or re-point its origin.
@@ -131,14 +123,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `watchdog-budget-level-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-3.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-01T19:17:40Z, latest 2026-09-05T03:35:15Z).
-> The SAME condition (`budget-level-endolin-garden-ece02cb4-3`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 4): budget pool anthropic:endolin-garden-ece02cb4 spend=6839972 cap=143000000 high-water=0.85 target=4 step=2->3
-
 - `msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a` — from gardener:mentat-endolin-garden2-credit-investigation-20260905, reply_to `mentat-endolin-garden2-credit-investigation-20260905` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a.md)
 
 > Credit investigation for endolin-garden2-5bcdff64 (2026-09-04/05) is complete and committed to journal2.
@@ -148,52 +132,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > TLDR: all liaison numbers reproduce exactly ($1,257.19 recorded, no dedup/cumulative defects). The burn is the ~19h window starting 2026-09-04T04:00Z when the host was moved onto a temporary API key and its budget pool was marked UNMETERED (pool_admits fails open -> no throttle): $1,090.65 recorded in that window, and those are approximately REAL credits, not notional. Multipliers: (1) the backlog of 69 gauntlets mass-staged 2026-08-30 by the new hourly design-pr-gauntlet-coverage-audit timer ($482 recorded on this host, incl. stale/superseded PRs churning at iteration 6/6); (2) everything on opus-4-8; (3) panel juror seats + state-machine decision calls are unmetered subprocess `claude -p` calls — the ledger covers only ~15-21% of the host's meter-measured billable tokens, so true API-key spend was plausibly 2-5x the recorded $1,091 (exact figure only in the Anthropic console for that key). Top recommendations: never run an unmetered pool with live workers (fail closed / explicit credit ceiling); adopt the proposed manual-gauntlet-trigger design; pre-gauntlet viability gate for stale PRs; close the panel-seat metering hole; tier seats off Opus.
 
-- `doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr946-conduct-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr946-conduct; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr946-conduct) or removes it, so nothing is lost.
-> Original job base: endojs-endo-but-for-bots-pr946-conduct
->
-> --- original job body ---
-> ---
-> role: conductor
-> tier: minion
-> token-budget: 250000
-> ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:58:28Z cleared=none -->
->
-> ---
-> role: conductor
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
->
-> # Finalize (curate → merge) endojs/endo-but-for-bots PR #946
->
-> A trusted maintainer APPROVED this PR and the watcher confirmed it is
-> OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
-> **conductor** to un-draft (if the PR is still draft) and merge. Do NOT name
-> a merge method — the conductor owns that choice (roles/conductor/AGENT.md).
->
-> Guards (the watcher already enforced these; re-verify before merging):
->   - Bot repo only (endojs/endo-but-for-bots). NEVER merge agoric-sdk or the endojs/endo
->     upstream — those are the maintainers / boatmans call.
->   - The PR must still be OPEN, mergeable, and checks green. If it has
->     regressed (conflicts, red CI), dispatch the shepherd/fixer instead of
->     forcing the merge.
->   - Idempotent: if the PR is already merging/merged/closed, do nothing.
->
-> Source: pr-review-body by kriskowal
-> Approval: [https://github.com/endojs/endo-but-for-bots/pull/946](https://github.com/endojs/endo-but-for-bots/pull/946)#pullrequestreview-4941598685
-
-- `watchdog-budget-level-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-2.md)
-
-> budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 2): budget pool anthropic:endolin-garden2-5bcdff64 spend=32079754 cap=64000000 high-water=0.85 target=2 step=3->2
-
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
 > publish-overnight-chronicle-clip: could NOT publish the overnight clip — the minion-town MCP server needs interactive OAuth (GitHub browser login) that a non-interactive gardener session can't perform, so mcp__minion-town__publish is unavailable to me (same failure class you hit). I verified all five facts and BUILT the clip (static index.html + style.css, CSP-clean, light/dark, evidence links). I sent the liaison inbox the ready-to-publish base64 payload (msg 20260904T121238Z-b3f04f) — it can publish in one call once its MCP session re-initializes, then send you the <hash>.ocap.site URL. Nothing is serving yet.
@@ -202,33 +140,9 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'fix-usage-meter-unbound-var-and-widen-shellcheck-ci' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2407s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `watchdog-budget-level-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-1.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-31T19:50:08Z, latest 2026-09-04T22:50:25Z).
-> The SAME condition (`budget-level-endolin-garden-ece02cb4-1`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): budget pool anthropic:endolin-garden-ece02cb4 spend=101694763 cap=143000000 high-water=0.85 target=1 step=2->1
-
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
 
 > Report `build-exo-google-sheets-facets` ([endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/issues/881), with #874) flags the design's thin follow-on layers `SheetsService` and `SpreadsheetStructure` as still unbuilt, "a natural next job once #874 and this land." Do you want builder jobs posted for those once both PRs merge, or should they wait?
-
-- `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-23T02:43:12Z, latest 2026-09-03T19:51:57Z).
-> The SAME condition (`budget-zone-endolin-garden-ece02cb4-backoff`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> budget pool anthropic:endolin-garden-ece02cb4 changed zone ok -> backoff at spend=169261898 of cap=149000000 (high-water 0.85; Friday 21:00 Pacific window).
-
-- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden2-5bcdff64-monk-1` has CLEARED (first seen 2026-09-05T15:01:35Z, cleared 2026-09-05T19:42:45Z).
-> It was observed 169 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> monk/1 on endolin-garden2-5bcdff64 no longer has stale cgroup residue.
 
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
@@ -329,10 +243,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Evaluation 7 needs a human GitHub federation login checkpoint to create the required distinct identity B. Please reply when you are ready to complete the browser GitHub login; I will continue identity-A bootstrap and schema discovery meanwhile.
 
-- `watchdog-budget-level-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-3.md)
-
-> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 3 (target 3): budget pool anthropic:endolin-garden2-5bcdff64 spend=19759739 cap=64000000 high-water=0.85 target=3 step=2->3
-
 - `doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -429,14 +339,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One decision I can't settle without you: two older DRAFT PRs are built on the now-superseded "caller-supplied weblet powers" model that the register-by-directory-id -> formula-id-origin evolution replaced — [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) (resolve weblet powers from the caller's own guest facet; untouched since 08-23) and [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) (retire legacy clip powers resolution; 09-01). Should these be closed as superseded like [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), or is either still load-bearing (e.g. [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) as the unit-4 "retire the powers resolver" execution) and worth rebasing onto the current model? I'll hold off touching them until you decide, and will otherwise let the live clip gauntlets run.
 
-- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-1` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-1.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-cleric-1` has CLEARED (first seen 2026-09-05T15:20:21Z, cleared 2026-09-06T06:05:26Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> cleric/1 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
-
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #300 (first seen 2026-09-05T15:44:01Z, latest 2026-09-08T23:50:04Z).
@@ -452,14 +354,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
 
 > From report `qwen-model-watch-20260728-180502` (echoed by `fu-qwen-model-watch-20260728-180502-1-20260728-223502`): decide the local qwen lane's fate — promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop it (`qwen3:0.6b` is small enough it isn't obviously useful).
-
-- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-1` has CLEARED (first seen 2026-09-05T15:01:35Z, cleared 2026-09-05T19:42:22Z).
-> It was observed 175 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> cleric/1 on endolin-garden2-5bcdff64 no longer has stale cgroup residue.
 
 - `20260819T003451Z-370a6d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003451Z-370a6d.md)
 
@@ -482,14 +376,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 2bf8803996bd70d17c81abff3c16d127bbc89bb5 is 64 commit(s) behind origin/main2 (3cfbeb5ac433f64679608b13575d04962401a697) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
-
-- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden2-5bcdff64-hermit-1` has CLEARED (first seen 2026-09-05T15:01:35Z, cleared 2026-09-05T19:42:40Z).
-> It was observed 176 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> hermit/1 on endolin-garden2-5bcdff64 no longer has stale cgroup residue.
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -558,14 +444,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 87 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
-
-- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-1` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-1.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-monk-1` has CLEARED (first seen 2026-09-05T15:21:15Z, cleared 2026-09-06T06:05:45Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> monk/1 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
 
 - `20260904T073302Z-cd6ed2` — from gardener:xs2rust-endor-press-20260904-072014, reply_to `xs2rust-endor-press-20260904-072014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T073302Z-cd6ed2.md)
 
@@ -683,14 +561,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > de-published URL returns (status code, body). Remove any `ev1-` pet names;
 > confirm with `list`/`has`.
 
-- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden2-5bcdff64-monk-2` has CLEARED (first seen 2026-09-05T15:01:35Z, cleared 2026-09-05T19:42:16Z).
-> It was observed 164 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> monk/2 on endolin-garden2-5bcdff64 no longer has stale cgroup residue.
-
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
 > Consolidated review-retrospective pass (85 events) — done. Two escalations that
@@ -721,14 +591,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003813Z-b83dfb` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003813Z-b83dfb.md)
 
 > From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
-
-- `watchdog-budget-level-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-2.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-27T01:35:10Z, latest 2026-09-05T18:50:13Z).
-> The SAME condition (`budget-level-endolin-garden-ece02cb4-2`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): budget pool anthropic:endolin-garden-ece02cb4 spend=66440489 cap=143000000 high-water=0.85 target=2 step=3->2
 
 - `20260904T093339Z-338401` — from gardener:ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1, reply_to `ironhorse-fuzz-314f811064b8febb-repair-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T093339Z-338401.md)
 
@@ -840,10 +702,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Close the remaining local-verify environment parity exposed after `test:xs` coverage landed in commit 4c1c39ee15. A real run against endojs/endo-but-for-bots@llm used the CI-pinned Moddable 5.0.0 xst successfully, then `@endo/hardened262` failed before exercising Ironhorse because the garden image has no `cargo`; the isolated worktree also has the CI-required `c/moddable` submodule uninitialized. Mirror the `test-xs` workflow prerequisites generically, preserve silent-on-success, and add regression coverage. Evidence blob in project worktree at the originating job was deeb55ea4c940dbbd69335b23b48ed8cac441563.
 
-- `watchdog-budget-level-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-4.md)
-
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): budget pool anthropic:endolin-garden-ece02cb4 spend=12969213 cap=143000000 high-water=0.85 target=4 step=3->4
-
 - `doomed-fu-requeue-ps23-stranded-claims-4-elapsed-constancy` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-requeue-ps23-stranded-claims-4-elapsed-constancy.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden-ece02cb4.
@@ -921,22 +779,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > For completeness, the other two active powers records are the known 08-12 baseline, unchanged: a0eeea3c… (powers:"formula:live-deploy-verification", owner e9a9096e, non-dckc) and f220b5fe… (powers:"powers-fixture", ownerless). The remaining 18 dckc records are plain content weblets (contentRoot/directoryId/owner).
 >
 > I took no action on the two legacy records: they are not reappearances of the de-registered set (different hashes/powers), and the powers plane is deliberately open, so de-registering them is a maintainer call. Question: should 806fc2ea (counter) and c016601e (@none) be revoked into vhosts-revoked, or are they known/expected owner experimentation on the opened powers plane (leave as-is)?
-
-- `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
-
-> RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-09-01T22:33:11Z, cleared 2026-09-05T03:22:26Z).
-> It was observed 20 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-transcript-capture). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
-
-- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-2` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-cleric-2.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-cleric-2` has CLEARED (first seen 2026-09-05T15:20:19Z, cleared 2026-09-06T06:05:26Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> cleric/2 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
 
 - `doomed-openrouter-zdr-policy-and-stealth-lane-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-openrouter-zdr-policy-and-stealth-lane-deadline-overrun.md)
 
@@ -1072,14 +914,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
 
-- `watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden2-5bcdff64-cleric-2` has CLEARED (first seen 2026-09-05T15:01:35Z, cleared 2026-09-05T19:42:49Z).
-> It was observed 175 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> cleric/2 on endolin-garden2-5bcdff64 no longer has stale cgroup residue.
-
 - `20260904T004311Z-629bc3` — from scholar:scholar-ingest-cedar-access-control-for-ai-agents, reply_to `scholar-ingest-cedar-access-control-for-ai-agents` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T004311Z-629bc3.md)
 
 > **Cedar ingest done** ([kriscendobot/garden#79](https://github.com/kriscendobot/garden/issues/79)). Headline verdict: Cedar is the policy-language/reference-monitor pole of access control; minion.town & Endo are the object-capability pole — and for the **agent/MCP-tool class ocap subsumes Cedar decisively** (the tool call should *be* an attenuated reference, not a broad power gated by a checked scope string). A policy engine earns a place only at the ambient-identity **mint boundary** and over declarative/reference-less rule sets (IaC/K8s admission). Ingested 2 sources (4 sections) — AWS announcement (full) + The Stack article (**paywalled**, lede only); the `cedarpolicy.com/integrations` page was an empty JS SPA so I reasoned the integration-class verdicts from Cedar's documented model instead. New topic `policy-language-authorization` + concepts `cedar-policy-language` and `policy-vs-capability-authorization` (the latter carries the full per-class analysis + @endo/gateway/@endo/mcp ideas). Findings comment posted on the issue (left open per instructions). Result: entries/2026/09/04/004247Z-result-gardener-f279fe.md.
@@ -1091,14 +925,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > gardener job 'minion-town-endo-b3-daemon-deploy-verify' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2419s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-2` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-2.md)
-
-> RECOVERED — the watchdog condition `worker-cgroup-residue-endolin-garden-ece02cb4-monk-2` has CLEARED (first seen 2026-09-05T15:20:18Z, cleared 2026-09-06T06:05:22Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> monk/2 on endolin-garden-ece02cb4 no longer has stale cgroup residue.
 
 - `doomed-retire-gardener-worker-kind-alias-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-retire-gardener-worker-kind-alias-deadline-overrun.md)
 
@@ -1331,66 +1157,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet build-minion-town-invitation-only-guest-onboarding-gauntlet HALTED: stage 'build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
 
-- `doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr37-gauntlet-panel-6-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/kriscendobot-minion.town-pr37-gauntlet-panel-6; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion.town-pr37-gauntlet-panel-6) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion.town-pr37-gauntlet-panel-6
->
-> --- original job body ---
-> ---
-> role: gardener
-> tier: minion
-> handler-budget-role: panel
-> handler-timeout: 7200
-> token-budget: 250000
-> ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:58:49Z cleared=none -->
->
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 7200
-> gauntlet: kriscendobot-minion.town-pr37-gauntlet
-> gauntlet_stage: panel
-> gauntlet_iteration: 6
-> pr: [https://github.com/kriscendobot/minion.town/pull/37](https://github.com/kriscendobot/minion.town/pull/37)
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #37
->
-> You are ONE stage of a staged gauntlet (kriscendobot-minion.town-pr37-gauntlet). Run EXACTLY ONE panel round, post the
-> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion.town-pr37-gauntlet-panel-6 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/37 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Run the panel in SINGLE-ROUND mode against that worktree:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 37 <base-ref>`
->    It fans the seats, aggregates, and prints its disposition as the terminal line's
->    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
-> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/kriscendobot/minion.town/pull/37](https://github.com/kriscendobot/minion.town/pull/37) — the
->    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
->    review on must-fix, a comment/approve on pass).
-> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
->    report with `orchestration-failed: true` and do NOT emit a panel marker.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: panel=pass -->
->   <!-- gauntlet-stage-result: panel=must-fix -->
-
 - `20260905T145952Z-12d950` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T145952Z-12d950.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1484,29 +1250,29 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.2M | $749.19 _(notional, rate-card)_ | 62% of 143.0M (ok) |
-| Codex | 8.7M _(+300.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 88.4M | $748.77 _(notional, rate-card)_ | 62% of 143.0M (ok) |
+| Codex | 8.7M _(+305.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
-- [`build-minion-town-claude-harness-provisioning-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-claude-harness-provisioning-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #99
-- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1227
+### todo (0)
+(none)
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1125-review-b4f3aac8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b4f3aac8.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1228-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1228
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #97
+- [`build-minion-town-claude-harness-provisioning-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #99
 - [`receipt-backfill-and-qwen-cost-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/receipt-backfill-and-qwen-cost-analysis.md) — What already exists (read designs/pr-completion-receipts.md and
 - [`qwen-mentor-tier-trial`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/qwen-mentor-tier-trial.md) — Why this is a trial, not a reclassification
-- [`kriscendobot-minion.town-pr96-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #96
+- [`kriscendobot-minion.town-pr96-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #96
+- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1227
 
-### tada (7580)
+### tada (7582)
+- [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1228-gauntlet-fix-5.md) — Completion report
+- [`kriscendobot-minion.town-pr96-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr96-gauntlet-panel-6.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260908-232011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260908-232011.md) — Completion report — Claude-on-minion.town completion press, tick 2
 - [`kriscendobot-minion.town-pr96-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr96-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1226-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1226-gauntlet — HALTED
-- [`build-minion-town-claude-harness-provisioning-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-clean.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1226-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet-fix-6.md) — Completion report — gauntlet FIX round 6, endojs/endo-but-for-bots PR #1226
-- … and 7575 more
+- … and 7577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
