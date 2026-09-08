@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T19:08:54Z_
+_As of 2026-09-08T19:10:39Z_
 
 ## Latest
 
@@ -1480,30 +1480,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.8M | $616.56 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 7.4M _(+248.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 70.7M | $615.81 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Codex | 7.4M _(+251.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (4)
 - [`design-claude-on-minion-town-evaluation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-on-minion-town-evaluation.md) — Design: the end-to-end evaluation, both the MCP flow and the CapTP flow
-- [`claude-on-minion-town-press-20260908-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260908-190509.md) — Press the Claude-on-minion.town arc forward
 - [`design-endo-daemon-guest-bot-incarnation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-guest-bot-incarnation.md) — Design: a bot property on the guest formula, and incarnation on message arrival
 - [`design-endo-claude-bare-caplet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-bare-caplet.md) — Design: finish the unconfined caplet that shells out to claude -p --bare
-- [`claude-on-minion-town-completion-press-20260908-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260908-190509.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`design-minion-town-claude-harness-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-claude-harness-provisioning.md) — Design: provisioning and upgrading the Claude Code harness inside minion.town...
-- [`kriscendobot-garden-pr80-quota-validation-20260908`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-quota-validation-20260908.md) — PR-80 quota-calibration effectiveness observation — UTC day 20260908
-- [`kriscendobot-minion.town-pr97-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #97
 
-### tada (7499)
+### tada (7503)
+- [`claude-on-minion-town-completion-press-20260908-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260908-190509.md) — Completion report — Claude-on-minion.town completion press, tick 1
+- [`kriscendobot-minion.town-pr97-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-clean.md) — Completion report
+- [`claude-on-minion-town-press-20260908-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260908-190509.md) — Completion report
+- [`kriscendobot-garden-pr80-quota-validation-20260908`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260908.md) — Completion report
 - [`design-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-guest-stdio-mcp.md) — Cost
-- [`design-minion-town-claude-agents-root-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-minion-town-claude-agents-root-endowment.md) — Completion report
-- [`design-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-claude-agent-credential-reauth.md) — Completion report
-- [`deadmail-issue-comment-5587592625`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5587592625.md) — Cost
-- [`daily-progress-summary-20260908-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260908-070508.md) — Cost
-- … and 7494 more
+- … and 7498 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
