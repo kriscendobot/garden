@@ -8,7 +8,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | Topic | Abstract | Sections |
 |-------|----------|----------|
-| [llm-token-space-geometry](llm-token-space-geometry.md) | Topological and geometric study of learned LLM token subspaces: local dimension, stratification, curvature, behavioral correlations, and black-box reconstruction from systematic prompts. A model-characterization topic, distinct from context engineering and capability-security enforcement. | 0 |
+| [llm-token-space-geometry](llm-token-space-geometry.md) | Topological and geometric study of learned LLM token subspaces: local dimension, stratification, curvature, behavioral correlations, and black-box reconstruction from systematic prompts. A model-characterization topic, distinct from context engineering and capability-security enforcement. | 6 |
 | [personal-computing](personal-computing.md) | The computer as a medium owned, shaped, and carried by its user rather than an institution's remote terminal or a fixed-purpose appliance; joins local persistence, programmability, portability, readable presentation, and optional network services. | 3 |
 | [learning-environments](learning-environments.md) | Responsive settings in which a learner constructs, tests, and revises meaningful models; active agency, safe experimentation, satisfying intermediate artifacts, immediate feedback, and timely human guidance. | 3 |
 | [programming-language-design](programming-language-design.md) | Semantic models and surface mechanisms for naming, composing, executing, inspecting, and redefining computation; broader than any one language. | 2 |
