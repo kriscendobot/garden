@@ -114,6 +114,30 @@ ledgers and the PR's human review threads. Archived at
 The trailing `<!-- garden-receipt: <repo>#<n> -->` marker is the **idempotency
 key** (§ Idempotency).
 
+### Closed-without-merge cost outcome
+
+A close event alone does not establish that the work failed. Every closed receipt
+therefore carries `closed_outcome`, with one of four values:
+
+| Value | Evidence required | Cost interpretation |
+| --- | --- | --- |
+| `roll-forward` | A closing/successor citation shows that a later attempt repeated or rebuilt substantially the same approach, and records no finding from this attempt that changed the successor. | This PR's cost bought no distinct information and rolls into the successor's delivery cost. |
+| `productive-redirect` | The later successful PR explicitly cites this attempt (or the closing record links them), identifies a finding learned here, **and** its implementation/design differs materially in response. | The cost bought information; report it as unsuccessful delivery but productive discovery. |
+| `administrative-continuation` | The same effective change moved to another PR/repository solely because of base deletion, an unreopenable force-push, mirror/ferry mechanics, or another documented administrative reason. | Neither a design failure nor a redirect. Keep the receipt with the lineage, without calling it failed work. |
+| `unresolved` | The closing reason, an explicit successor link, or evidence of material difference is missing. | No attribution may be inferred. This is the generator default. |
+
+The generator accepts `--closed-outcome`, `--outcome-evidence`, `--outcome-note`,
+and optional `--successor` for a researched backfill. Every non-`unresolved`
+classification requires both a durable GitHub evidence URL and an explanatory note;
+the generator rejects an unsupported label. It never reads prose and guesses. The
+receipt archives those fields and renders a qualitative section next to the numeric
+cost. Reclassification uses `--force` with new evidence.
+
+This test intentionally distinguishes *material redirection* from merely moving the
+same patch. A successor citation by itself is not productive learning: same-patch
+retries are `roll-forward`, while branch/mirror-only moves are
+`administrative-continuation`.
+
 ## The maintainer-review-effort (MRE) heuristic
 
 A defined, reproducible formula — not an ad-hoc guess. All inputs come from

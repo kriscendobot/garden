@@ -4,6 +4,8 @@
 # Design: designs/pr-completion-receipts.md.
 #
 # Usage: pr-receipt.sh <owner/repo> <pr-number> [--no-post] [--dir <journal-clone>]
+#                      [--closed-outcome <class> --outcome-evidence <url>
+#                       --outcome-note <text> [--successor <owner/repo#N>]]
 #   --no-post   generate + archive only; never post the PR comment. Used to backfill
 #               demonstration receipts from historical PRs without commenting on them.
 #   --force     overwrite an existing journal archive (default: idempotent no-op if
@@ -43,11 +45,16 @@ source "$HERE/receipt-defaults.sh"
 export GARDEN_TAG="pr-receipt"
 
 repo="" pr="" no_post=0 dir="" force=0
+closed_outcome="" outcome_evidence="" outcome_note="" successor=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --no-post) no_post=1; shift ;;
     --force)   force=1; shift ;;
     --dir)     dir="${2:?}"; shift 2 ;;
+    --closed-outcome) closed_outcome="${2:?}"; shift 2 ;;
+    --outcome-evidence) outcome_evidence="${2:?}"; shift 2 ;;
+    --outcome-note) outcome_note="${2:?}"; shift 2 ;;
+    --successor) successor="${2:?}"; shift 2 ;;
     -h|--help) sed -n '2,45p' "${BASH_SOURCE[0]}"; exit 0 ;;
     -*)        die "unknown argument: $1" ;;
     *) if [ -z "$repo" ]; then repo="$1"; elif [ -z "$pr" ]; then pr="$1"; else die "extra argument: $1"; fi; shift ;;
@@ -87,6 +94,26 @@ else
 fi
 comp_year="${completed_at:0:4}"; comp_month="${completed_at:5:2}"
 archive_rel="receipts/$slug/$comp_year/$comp_month/pr$pr.md"
+
+# A closed PR is not automatically a failed design.  Classification is deliberately
+# evidence-gated: the generator never infers causality from a title or a close event.
+# Backfills (or a future classifier) may provide the result after reading the closing
+# reason, successor citation, and material approach.  Absent that evidence we say
+# unresolved instead of manufacturing a verdict.
+if [ "$disposition" = closed ]; then
+  closed_outcome="${closed_outcome:-unresolved}"
+  case "$closed_outcome" in
+    roll-forward|productive-redirect|administrative-continuation|unresolved) ;;
+    *) die "invalid --closed-outcome '$closed_outcome'" ;;
+  esac
+  if [ "$closed_outcome" != unresolved ]; then
+    [ -n "$outcome_evidence" ] || die "$closed_outcome requires --outcome-evidence"
+    [ -n "$outcome_note" ] || die "$closed_outcome requires --outcome-note"
+  fi
+else
+  [ -z "$closed_outcome$outcome_evidence$outcome_note$successor" ] || \
+    die "closed-outcome fields apply only to closed-without-merge PRs"
+fi
 
 # --- 2. resolve the bases joined to this PR (reuse cost-by-pr.sh's join) ------
 # A one-line pr-cache lets cost-by-pr.sh validate base-name edges for THIS PR without
@@ -206,6 +233,7 @@ mre_min="$(awk -v s="$S" -v c="$C" -v l="$L" -v a="$a" -v b="$b" -v r="$r" \
   'BEGIN{ if (r<=0) r=750; printf "%.0f", s*a + c*b + l/r }')"
 mre_usd="$(awk -v m="$mre_min" -v h="$H" 'BEGIN{ printf "%.2f", (m/60.0)*h }')"
 ratio="$(awk -v mu="$mre_usd" -v cc="$pr_calib" 'BEGIN{ if ((cc+0)>0) printf "%.0f", mu/cc; else printf "n/a" }')"
+total_usd="$(awk -v m="$mre_usd" -v c="$pr_calib" 'BEGIN{ printf "%.2f", m+c }')"
 
 # machine review context (panel rounds for this PR), best-effort. Never clobbers the
 # MRE `r` constant — uses its own locals. fix_iters is left 0 (no per-PR fix-loop
@@ -261,6 +289,18 @@ render_body() {  # render_body <mode>
   else
     printf 'That is **≈ %s×** the machine calibrated cost ($%s).\n' "$ratio" "$(usd "$pr_calib")"
   fi
+  printf '**Total measured cost: $%s** (machine calibrated $%s + MRE $%s).\n' \
+    "$total_usd" "$(usd "$pr_calib")" "$mre_usd"
+  if [ "$disposition" = closed ]; then
+    printf '\n**Closed-without-merge outcome: `%s`.**' "$closed_outcome"
+    if [ "$closed_outcome" = unresolved ]; then
+      printf ' No evidence-backed attribution has been recorded; do not treat this as either rolled-forward cost or productive learning.\n'
+    else
+      printf ' %s' "$outcome_note"
+      [ -n "$successor" ] && printf ' Successor: `%s`.' "$successor"
+      printf ' Evidence: %s\n' "$outcome_evidence"
+    fi
+  fi
   [ "$(awk -v c="$pr_ceil" 'BEGIN{print ((c+0)>0)?1:0}')" = 1 ] && \
     printf '\n<sub>Ceiling (unmeasured openai/unknown arms, a modelling bound not money): $%s.</sub>\n' "$(usd "$pr_ceil")"
   printf '\nMachine review context: %s panel round(s), %s fix iteration(s).\n\n' "$panel_rounds" "$fix_iters"
@@ -302,9 +342,19 @@ write_archive() {
       printf 'tokens_billable: %s\n' "$pr_tok"
       printf 'notional_usd: %s\n' "$(usd "$pr_notional")"
       printf 'calibrated_usd: %s\n' "$(usd "$pr_calib")"
+      printf 'total_usd: %s\n' "$total_usd"
+      printf 'maintainer_review_sittings: %s\n' "$S"
+      printf 'maintainer_comments: %s\n' "$C"
+      printf 'maintainer_comment_chars: %s\n' "$L"
       printf 'maintainer_review_minutes: %s\n' "$mre_min"
       printf 'maintainer_review_usd: %s\n' "$mre_usd"
       printf 'maintainer_dominance_ratio: %s\n' "$ratio"
+      printf 'panel_rounds: %s\n' "$panel_rounds"
+      if [ "$disposition" = closed ]; then
+        printf 'closed_outcome: %s\n' "$closed_outcome"
+        [ -z "$successor" ] || printf 'successor: %s\n' "$successor"
+        [ -z "$outcome_evidence" ] || printf 'outcome_evidence: %s\n' "$outcome_evidence"
+      fi
       printf 'generated_at: %s\n' "$(date -u +%FT%TZ)"
       printf 'generated_by: %s\n' "${GARDEN:-unknown}"
       printf -- '---\n\n'
