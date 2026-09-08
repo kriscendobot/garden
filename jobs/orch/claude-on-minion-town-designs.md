@@ -1,4 +1,5 @@
 ---
+child-design-claude-agent-credential-reauth-host: endolin-garden2-5bcdff64
 child-design-minion-town-claude-agents-root-endowment-host: endolin-garden2-5bcdff64
 child-design-minion-town-claude-harness-provisioning-host: endolin-garden-ece02cb4
 order: parallel
