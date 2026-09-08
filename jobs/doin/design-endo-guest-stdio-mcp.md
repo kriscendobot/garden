@@ -47,3 +47,13 @@ Cover at least:
   https://github.com/kriscendobot/minion.town/pull/79.
 
 Deliverable: one design document, created or evolved. Do not build.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-08T18:56:21Z
