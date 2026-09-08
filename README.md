@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T14:00:44Z_
+_As of 2026-09-08T14:13:16Z_
 
 ## Latest
 
@@ -19,7 +19,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 12d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 12d)
 
-_Showing top 10 of 23 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64.md)
