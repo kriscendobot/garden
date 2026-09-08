@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/79#issuecomment-558759262
 @kriscendobot does the formula graph provide [horton](https://www.usenix.org/conference/hotsec-07/delegating-responsibility-digital-systems-hortons-who-done-it)-like attribution? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-08T15:30:17Z
