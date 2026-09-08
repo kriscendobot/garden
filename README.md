@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T21:25:44Z_
+_As of 2026-09-08T21:27:46Z_
 
 ## Latest
 
@@ -1480,27 +1480,27 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.2M | $675.22 _(notional, rate-card)_ | 55% of 143.0M (ok) |
-| Codex | 7.6M _(+255.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 78.6M | $676.05 _(notional, rate-card)_ | 55% of 143.0M (ok) |
+| Codex | 7.7M _(+256.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
 - [`endojs-endo-but-for-bots-pr1228-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1228-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1228
-- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1227
+- [`kriscendobot-minion.town-pr98-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr98-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #98
 
 ### doin (4)
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #97
+- [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1227
 - [`improve-gauntlet-followup-escalation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-followup-escalation.md) — ---
 - [`kriscendobot-minion.town-pr96-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #96
-- [`endojs-endo-but-for-bots-pr1226-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1226
 
-### tada (7546)
+### tada (7547)
+- [`endojs-endo-but-for-bots-pr1226-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet-fix-3.md) — Completion report
 - [`kriscendobot-minion.town-pr98-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr98-gauntlet-fix-4.md) — Completion report
 - [`kriscendobot-minion.town-pr96-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr96-gauntlet-fix-2.md) — Completion report — gauntlet FIX round 2, kriscendobot/minion.town PR #96
 - [`kriscendobot-minion.town-pr98-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr98-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1226-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-gauntlet-panel-3.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1228-gauntlet-fix-2.md) — Completion report
-- … and 7541 more
+- … and 7542 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
