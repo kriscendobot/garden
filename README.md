@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-08T04:06:10Z_
+_As of 2026-09-08T04:08:58Z_
 
 ## Latest
 
@@ -1487,17 +1487,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`dependabotany-recheck-endo-but-for-bots-20260908-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260908-040509.md) — ---
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260908-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260908-040509.md) — Containment drift check for kriscendobot/minion.town gateway records
 
-### tada (7492)
+### tada (7493)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260908-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260908-040509.md) — Completion Report — containment drift check (2026-09-08 tick)
 - [`restore-cleric-quota-throttle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/restore-cleric-quota-throttle.md) — Cost
 - [`kriscendobot-garden-pr80-quota-validation-20260907`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260907.md) — Report
 - [`endojs-endo-but-for-bots-pr1113-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1113-receipt.md) — Cost
 - [`endojs-endo-but-for-bots-pr1150-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1150-receipt.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1039-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1039-receipt.md) — Cost
-- … and 7487 more
+- … and 7488 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
