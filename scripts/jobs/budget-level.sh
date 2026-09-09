@@ -67,10 +67,17 @@ case "$rc" in 0);;3)log "budget pool config absent; leveling is off";finish;;4)l
 declare -a pools=() phosts=() pcaps=() pprov=() hosts=()
 declare -A mcap=() ccap=() mceil=() active=() active_ids=() demand=() ctarget=()
 mf=""; cf=""; bad=""
-while IFS=$'\t' read -r r a b c d; do case "$r" in P)pools+=("$a");phosts+=("$b");pcaps+=("$c");pprov+=("$d");;C)[ "$a" = monk-fleet-ceiling ]&&mf="$b"||cf="$b";;H)hosts+=("$a");mcap["$a"]="$b";ccap["$a"]="$c";;X)bad="unknown row '$a'";;esac;done <<<"$snapshot"
+while IFS=$'\t' read -r r a b c d; do case "$r" in
+ P)pools+=("$a");phosts+=("$b");pcaps+=("$c");pprov+=("$d");;
+ C)if [ "$a" = monk-fleet-ceiling ];then [ -z "$mf" ]||bad="duplicate monk-fleet-ceiling";mf="$b";else [ -z "$cf" ]||bad="duplicate cleric-fleet-ceiling";cf="$b";fi;;
+ H)[[ "${mcap[$a]+set}" ]]&&bad="duplicate host row '$a'";hosts+=("$a");mcap["$a"]="$b";ccap["$a"]="$c";;
+ X)bad="unknown row '$a'";;
+esac;done <<<"$snapshot"
+schema_bad="$bad"
 mf="${GARDEN_MONK_FLEET_CEILING:-$mf}"; cf="${GARDEN_CLERIC_FLEET_CEILING:-$cf}"
 
 mv=1; n=${#pools[@]}; sum=0
+if [ -n "$schema_bad" ];then mv=0;bad="$schema_bad";fi
 [[ "$mf" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="invalid monk fleet ceiling '$mf'"; }; [ "$n" -gt 0 ]||{ mv=0;bad="no enabled Anthropic weekly pools"; }
 for((i=0;i<n;i++));do h="${phosts[i]}";c="${pcaps[i]}";p="${pprov[i]}"; [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}; uncalibrated "$p"&&{ mv=0;bad="${pools[i]} uncalibrated provenance '${p:-none}'";}; [[ "${mcap[$h]:-}" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} missing/invalid monk physical cap";continue;}; sum=$((sum+mcap[$h]));done
 if [[ "$mf" =~ ^[1-9][0-9]*$ ]];then [ "$mf" -ge $((n*GARDEN_BUDGET_LEVEL_MIN)) ]||{ mv=0;bad="monk fleet ceiling below aggregate floor";};[ "$sum" -ge "$mf" ]||{ mv=0;bad="monk fleet ceiling exceeds physical capacity";};fi
@@ -109,7 +116,7 @@ cleric_eligible(){ local jf="$1" h="$2" p pin tier req
  while IFS= read -r req;do case "$req" in host=*)[ "${req#host=}" = "$h" ]||return 1;;*)return 1;;esac;done < <(job_requirements "$jf")
 }
 
-cv=1;[[ "$cf" =~ ^[0-9]+$ ]]||{ cv=0;bad="invalid cleric fleet ceiling '$cf'";}; eligible=()
+cv=1;if [ -n "$schema_bad" ];then cv=0;bad="$schema_bad";fi;[[ "$cf" =~ ^[0-9]+$ ]]||{ cv=0;bad="invalid cleric fleet ceiling '$cf'";}; eligible=()
 for h in "${hosts[@]}";do [[ "${ccap[$h]:-}" =~ ^[0-9]+$ ]]||{ cv=0;bad="$h invalid cleric physical cap";continue;};[ "${ccap[$h]}" -gt 0 ]&&[ -f "$DIR/hosts/$h" ]&&eligible+=("$h");active["$h"]=0;active_ids["$h"]="";demand["$h"]=0;done
 [ "${#eligible[@]}" -gt 0 ]||{ cv=0;bad="no reachable cleric-capable hosts"; }
 
