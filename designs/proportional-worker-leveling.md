@@ -2,7 +2,7 @@
 | --- | --- |
 | Created | 2026-09-09 |
 | Author | mentor (gardener, job `design-proportional-worker-leveling`) |
-| Status | Proposed |
+| Status | Reviewed — approved for build with amendments (mentat review, 2026-09-09) |
 
 # Proportional worker leveling across hosts
 
@@ -85,11 +85,13 @@ R = 4
 x_ece02cb4 = 4 * 143/207 = 2.763...
 x_garden2  = 4 *  64/207 = 1.237...
 
-U_ece02cb4 = 1 + 3 = 4
-U_garden2  = 1 + 1 = 2
+U_ece02cb4 = 1 + floor(2.763) = 3
+U_garden2  = 1 + floor(1.237) = 2
 ```
 
-The leftover slot goes to `ece02cb4`, which has the larger remainder. Thus
+The leftover slot (`F - sum(U_h) = 6 - 5 = 1`) goes to `ece02cb4`, which has
+the larger fractional remainder (0.763 vs 0.237), for final ceilings of 4 and
+2. Thus
 garden2 cannot climb to four merely because its own fractional headroom is
 high. Its calibrated cap gives it a ceiling of two while the present fleet
 envelope and caps remain unchanged.
@@ -142,6 +144,19 @@ empty, `seed`, and other self-disclaiming provenance exactly as today. A pool
 must be deliberately disabled or removed from the enabled fleet set before it
 may be excluded from the denominator. Mere sensor failure is not removal.
 
+One denominator-independent exception keeps the throttle direction prompt
+during a frozen tick. At or above a host's own high-water mark, `H_h = 0`
+makes `T_weekly_h = L` for **every** possible ceiling — the target does not
+depend on `U_h` or on any other pool's cap. A host whose own row is calibrated
+and whose own spend reading is valid may therefore still be leveled
+**downward toward `L`** while the fleet gate is failing, through the same
+dwell, confirmation, and one-step path. This is not a partial apportionment:
+no share is computed and no count is ever raised on a frozen tick. Without
+this carve-out, one uncalibrated pool would freeze every *other* host at its
+current count even while that host burns past its own high-water mark — a
+regression from today's per-row isolation, and not hypothetical: the garden2
+pool sat uncalibrated for roughly a day across 2026-09-04/05.
+
 After ceilings are valid, a missing or invalid spend reading remains isolated
 to that host and leaves its count unchanged, matching the current fail-open
 sensor posture. It must never be reinterpreted as zero spend.
@@ -160,6 +175,14 @@ initialize it to the sum of the two currently declared cleric counts, making
 the first tick redistribution-only. Changing that value is an operator policy
 decision based on the shared account and host capacity. It is not derived from
 `config/budget-pools`.
+
+`K_max` (with the fleet drain) is also the operator's throttle lever. Once
+this allocator exists it is the designated writer for cleric count lines and
+will restore a raw `set-workers.sh` edit on its next tick, exactly as the monk
+leveler already does for monk counts (cybernetics-audit.md § 4.1). The
+2026-09-02 codex quota shutdown, performed then by zeroing counts directly,
+would under this design be expressed as `K_max = 0` (active claims grandfather
+and drain off as they complete, per § 2.2).
 
 ### 2.2 Demand and total count
 
@@ -210,12 +233,15 @@ distribute any remaining idle-reserve slots one at a time to the host with the
 lowest target count, breaking ties by bytewise host id. This keeps idle capacity
 spread across reachable hosts instead of piling all warm spares behind one
 pinned job. If a host reaches its physical cap, leave it out and re-apportion
-among the remaining eligible hosts. The resulting integer target
-`T_cleric_h` satisfies:
+among the remaining eligible hosts. If every eligible host is at its physical
+cap before all slots are placed (a `K_max` larger than the fleet's physical
+cleric capacity), allocate to the caps, warn once, and stop — mirroring the
+monk preflight, unallocatable envelope is a configuration error to surface,
+not capacity to invent. The resulting integer target `T_cleric_h` satisfies:
 
 ```
 T_cleric_h >= A_h
-sum(T_cleric_h) = K
+sum(T_cleric_h) = min(K, sum over E of physical cleric caps)
 ```
 
 Before a downward command, the implementation must also map active claims to
@@ -226,7 +252,10 @@ numbers.
 Apply the existing confirm-before-move dwell and one-step clamp to each cleric
 host target too. Queue depth changes faster than weekly spend, so this reuse is
 important: an arriving or completing job changes demand, but does not justify
-oscillating systemd units in the same tick.
+oscillating systemd units in the same tick. Key the cleric dwell record by
+host **and worker kind**: the existing record (`budget-level.sh`'s
+`_dwell_file`) is keyed by host alone, and sharing one streak file would let a
+monk direction change reset a cleric confirmation count, and vice versa.
 
 This first rule deliberately does not weight hosts by historical completion
 speed. The current queue has mixed job classes, making raw completions per hour
@@ -278,7 +307,9 @@ Every implementation and test must preserve these invariants:
 2. **Drain means no actuation.** If `fleet_draining` is true, skip monk and
    cleric leveling for the entire tick.
 3. **Calibrated authority only.** Any invalid or uncalibrated enabled Anthropic
-   cap freezes the fleet-wide monk allocation. Never compute around it.
+   cap freezes the fleet-wide monk allocation. Never compute around it. Raising
+   is frozen absolutely; the sole permitted motion is the denominator-free
+   § 1.4 exhaustion-floor move downward toward `L`.
 4. **No signal is not zero.** An unreadable spend or board sensor leaves the
    affected controller unchanged; it never maximizes a target.
 5. **Bounded targets.** Monk targets stay in `[L, U_h]`, cleric targets stay
@@ -294,21 +325,34 @@ Every implementation and test must preserve these invariants:
    the local host or an authenticated host-scoped sysop operation remotely.
 9. **Failure isolation.** A failed host operation is reported and does not
    prevent safe evaluation of other already-validated targets. A failed fleet
-   preflight causes no partial allocation.
+   preflight causes no partial allocation (the § 1.4 exhaustion-floor down-move
+   is not an allocation: it uses no denominator and never raises a count).
 
 ## 5. Implementation boundary and acceptance cases
 
 This document changes no runtime behavior. The follow-on build should keep
 apportionment in deterministic plain code, expose the two fleet envelopes and
 per-host physical caps as validated configuration, and extend the existing
-`budget-level.sh` tests with at least these cases:
+`budget-level.sh` tests with at least the cases below.
+
+**Configuration surface (settled by the mentat review).** The fleet envelopes
+(`F`, `K_max`) and the per-host physical caps are **journal-backed
+configuration** (a `config/` file on `journal2`, alongside
+`config/budget-pools`), with the environment variables above serving as test
+and operator overrides only. The allocator is a leader-only singleton, and the
+foreman brake already established the precedent for exactly this shape:
+journal state follows the `leader` marker across a handoff and is auditable in
+git, where a per-host environment default would be left behind on the old
+leader. Validate the file on read and fail closed (freeze, warn once) on a
+malformed row, the same posture as an uncalibrated cap.
 
 - 143M and 64M caps with `F=6` produce monk ceilings 4 and 2;
 - swapping row order produces identical allocations;
 - equal remainders use pool-id ordering;
 - a physical cap causes bounded re-apportionment without losing a slot;
 - an invalid or uncalibrated Anthropic row causes zero monk operations across
-  the fleet;
+  the fleet, EXCEPT that a calibrated host at or above its own high-water mark
+  is still stepped downward toward the floor (and never upward);
 - valid caps plus one missing spend reading do not treat that host as zero;
 - headroom targets use each apportioned ceiling, then require the existing
   upward dwell and step clamp;
@@ -317,10 +361,17 @@ per-host physical caps as validated configuration, and extend the existing
 - a two-host-eligible cleric job contributes half to each;
 - shared cleric demand never changes the configured fleet envelope;
 - active cleric claims are grandfathered and sparse active unit ids are not
-  stopped by a shrink; and
+  stopped by a shrink;
+- monk and cleric dwell streaks on the same host are independent;
+- a `K_max` above the fleet's physical cleric capacity allocates to the caps
+  and warns instead of looping or inventing capacity; and
 - adding a session target can only hold or lower the weekly monk target, never
   raise it or alter the proportional ceilings.
 
 No script, unit, host count, or journal configuration is changed by this design
-job. A mentat review should settle the configuration surface and adversarially
-check the apportionment and active-unit shrink rules before implementation.
+job. The mentat review (job `review-proportional-worker-leveling-mentat`,
+2026-09-09) adversarially checked the apportionment and shrink rules, settled
+the configuration surface (journal-backed, above), and amended the design in
+place: the § 1.4 exhaustion-floor carve-out, the cleric physical-capacity
+clamp, the dwell-record keying, the `K_max`-as-throttle-lever note, and the
+worked-example arithmetic. Approved for build as amended.
