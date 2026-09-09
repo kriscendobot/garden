@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 99
 build_job: build-minion-town-claude-harness-provisioning
 kind: feature
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-minion-town-claude-harness-provisioning-gauntlet-fix-5
+current_child: build-minion-town-claude-harness-provisioning-gauntlet-panel-6
 state: running
 created_by: producer
 created_at: 2026-09-08T23:10:08Z
