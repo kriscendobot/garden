@@ -6375,6 +6375,13 @@ validate_job_frontmatter() {
 QWEN_MENTOR_TRIAL_ID=qwen3.6-mentor-v1
 QWEN_MENTOR_TRIAL_MODEL=qwen3.6
 QWEN_MENTOR_TRIAL_CAP=6
+# Human attention, not inference, is the scarce trial budget.  These thresholds
+# are deliberately expressed in the same receipt counters as pr-receipt.sh.
+QWEN_MENTOR_TRIAL_SITTINGS_CAP=40
+QWEN_MENTOR_TRIAL_COMMENTS_CAP=90
+QWEN_MENTOR_TRIAL_CASE_SITTINGS_CAP=10
+QWEN_MENTOR_TRIAL_CASE_COMMENTS_CAP=30
+QWEN_MENTOR_TRIAL_CLEAN_CASE_MIN=4
 
 qwen_mentor_trial_job() {
   local jf="${1:?qwen_mentor_trial_job: job file required}" slot
@@ -6454,6 +6461,87 @@ qwen_mentor_trial_score() {
   printf '%s %s\n' "$finals" "$demerits"
 }
 
+# Resolve a trial base through the durable jobs/index edge stamped when it was
+# posted.  Trial work without that edge cannot be costed and therefore cannot
+# unlock the next permit.
+qwen_mentor_trial_pr_for_base() {
+  local dir="${1:?}" base="${2:?}" f indexed identity
+  for f in "$dir"/jobs/index/*; do
+    [ -f "$f" ] || continue
+    indexed="$(sed -n 's/^base:[[:space:]]*//p' "$f" | head -1)"
+    [ "$indexed" = "$base" ] || continue
+    identity="$(sed -n 's/^identity:[[:space:]]*//p' "$f" | head -1)"
+    printf '%s\n' "$identity" | sed -nE 's|^([A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+):.*$|\1|p'
+    return 0
+  done
+  return 1
+}
+
+qwen_mentor_trial_receipt_for_pr() {
+  local dir="${1:?}" ref="${2:?}" repo number slug f
+  repo="${ref%#*}"; number="${ref##*#}"; slug="${repo//\//-}"
+  for f in "$dir/receipts/$slug"/*/*/"pr$number.md"; do
+    [ -f "$f" ] || continue
+    printf '%s\n' "$f"
+    return 0
+  done
+  return 1
+}
+
+# Print: measured sittings comments max-sittings max-comments breached clean
+# balanced-classes.  A clean primary-carrier case is an accepted trial event
+# whose indexed PR has a receipt with exactly one joined base, and that base is
+# the trial base.  This excludes multi-arm PRs such as the historical 22-base
+# outlier instead of pretending their aggregate cost belongs to Qwen.
+qwen_mentor_trial_measurement() {
+  local dir="${1:?}" f base slot pr receipt s c bases
+  local measured=0 sittings=0 comments=0 max_s=0 max_c=0 breached=0 clean=0 balanced=0 wc
+  local -A seen_slot=() clean_by_class=()
+  for f in "$dir"/reputation/events/*.md; do
+    [ -f "$f" ] || continue
+    [ "$(plan_field "$f" kind)" = hermit-mentor-trial ] || continue
+    [ "$(plan_field "$f" provider)" = local ] || continue
+    [ "$(plan_field "$f" model)" = "$QWEN_MENTOR_TRIAL_MODEL" ] || continue
+    [ "$(plan_field "$f" accepted)" = true ] || continue
+    slot="$(plan_field "$f" trial-slot)"
+    [[ "$slot" =~ ^[1-9][0-9]*$ ]] || continue
+    [ -z "${seen_slot[$slot]:-}" ] || continue
+    seen_slot["$slot"]=1
+    base="$(plan_field "$f" base)"; [ -n "$base" ] || continue
+    pr="$(qwen_mentor_trial_pr_for_base "$dir" "$base" 2>/dev/null || true)"
+    [ -n "$pr" ] || continue
+    receipt="$(qwen_mentor_trial_receipt_for_pr "$dir" "$pr" 2>/dev/null || true)"
+    [ -n "$receipt" ] || continue
+    s="$(plan_field "$receipt" maintainer_review_sittings)"
+    c="$(plan_field "$receipt" maintainer_comments)"
+    [[ "$s" =~ ^[0-9]+$ && "$c" =~ ^[0-9]+$ ]] || continue
+    measured=$((measured + 1)); sittings=$((sittings + s)); comments=$((comments + c))
+    [ "$s" -le "$max_s" ] || max_s="$s"
+    [ "$c" -le "$max_c" ] || max_c="$c"
+    if [ "$s" -gt "$QWEN_MENTOR_TRIAL_CASE_SITTINGS_CAP" ] \
+       || [ "$c" -gt "$QWEN_MENTOR_TRIAL_CASE_COMMENTS_CAP" ]; then breached=1; fi
+    bases="$(plan_field "$receipt" bases)"
+    if [ "$bases" = 1 ] && grep -Fq "| \`$base\`" "$receipt"; then
+      clean=$((clean + 1)); wc="$(plan_field "$f" work_class)"
+      clean_by_class["${wc:-unknown}"]=$(( ${clean_by_class["${wc:-unknown}"]:-0} + 1 ))
+    fi
+  done
+  for wc in "${!clean_by_class[@]}"; do
+    [ "${clean_by_class[$wc]}" -lt 2 ] || balanced=$((balanced + 1))
+  done
+  [ "$sittings" -lt "$QWEN_MENTOR_TRIAL_SITTINGS_CAP" ] || breached=1
+  [ "$comments" -lt "$QWEN_MENTOR_TRIAL_COMMENTS_CAP" ] || breached=1
+  printf '%s %s %s %s %s %s %s %s\n' \
+    "$measured" "$sittings" "$comments" "$max_s" "$max_c" "$breached" "$clean" "$balanced"
+}
+
+qwen_mentor_trial_promotion_reviewable() {
+  local dir="${1:?}" measured sittings comments max_s max_c breached clean balanced
+  read -r measured sittings comments max_s max_c breached clean balanced \
+    < <(qwen_mentor_trial_measurement "$dir")
+  [ "$clean" -ge "$QWEN_MENTOR_TRIAL_CLEAN_CASE_MIN" ] && [ "$balanced" -ge 2 ]
+}
+
 # At most one trial job may be live.  The board push CAS serializes competing
 # hermits: after one todo->doin push lands, a loser re-syncs and sees this gate.
 qwen_mentor_trial_no_inflight() {
@@ -6470,11 +6558,24 @@ qwen_mentor_trial_no_inflight() {
 # outcomes when the verified-demerit rate reaches 25%.  In-flight work is not
 # cancelled; the supported one-worker trial cadence bounds overshoot to zero.
 qwen_mentor_trial_admits() {
-  local dir="${1:?}" finals demerits attempts
+  local dir="${1:?}" finals demerits attempts measured sittings comments max_s max_c breached clean balanced f
   read -r finals demerits < <(qwen_mentor_trial_score "$dir")
   attempts="$(qwen_mentor_trial_attempts "$dir")"
+  read -r measured sittings comments max_s max_c breached clean balanced \
+    < <(qwen_mentor_trial_measurement "$dir")
   [ "$attempts" -lt "$QWEN_MENTOR_TRIAL_CAP" ] || return 1
   [ "$demerits" -lt 2 ] || return 1
+  [ "$breached" -eq 0 ] || return 1
+  # One-at-a-time means one measured decision at a time, not merely one active
+  # process. Do not spend another permit while an outcome is pending, or while
+  # an accepted outcome lacks its terminal PR receipt; otherwise several jobs
+  # could outrun the human budget while their PRs remain open.
+  for f in "$dir"/reputation/pending/*.md; do
+    [ -f "$f" ] || continue
+    [ "$(plan_field "$f" trial)" = "$QWEN_MENTOR_TRIAL_ID" ] || continue
+    return 1
+  done
+  [ $((measured + demerits)) -ge "$finals" ] || return 1
   if [ "$finals" -ge 3 ] && [ $((100 * demerits)) -ge $((25 * finals)) ]; then
     return 1
   fi

@@ -66,7 +66,8 @@ Usage: post-job.sh [--identity <key>] <basename> [<body-file>]
                name a concrete `model:`. Ordinary automatic jobs stay minion.
   --qwen-mentor-trial <slot>
                admit one curated mentor-shaped job to the six-slot qwen3.6
-               canary trial; qwen3.6 remains classified local/minion.
+               canary trial; requires --identity owner/repo#N:<stable-suffix>
+               so the result can be joined to its human-review receipt.
 EOF
 }
 
@@ -147,6 +148,8 @@ rm -f "$_fm_tmp"
 # auction, or role-generated job can retain a Claude pin during the quota route.
 if [ -n "$qwen_trial_slot" ]; then
   [ -z "$canary_provider" ] || die "--qwen-mentor-trial and --provider-canary are mutually exclusive"
+  [[ "$identity" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+:.+ ]] \
+    || die "qwen mentor-trial jobs require --identity owner/repo#N:<stable-suffix> for receipt attribution"
   [[ "$qwen_trial_slot" =~ ^[1-9][0-9]*$ ]] && [ "$qwen_trial_slot" -le "$QWEN_MENTOR_TRIAL_CAP" ] \
     || die "qwen mentor-trial slot must be 1..$QWEN_MENTOR_TRIAL_CAP"
   if printf '%s\n' "$BODY" | sed -n '2,/^---$/p' | grep -qE '^(trial|trial-tier|trial-slot|provider|model|tier|dispatch):'; then

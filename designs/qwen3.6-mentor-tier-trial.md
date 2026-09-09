@@ -12,13 +12,13 @@ Admit local `qwen3.6` to at most **six distinct, curated mentor-shaped jobs** th
 explicit canary pins. Do not change its reviewed `local / qwen3.6 / minion` row in
 `model-tier-inventory.tsv`, and do not make it eligible for ordinary mentor-tier
 auctions. Six jobs are enough to expose repeated failure while limiting substantive
-work, maintainer review, and the capable-reference probe to a small batch. The sibling
-receipt/cost work landed while this trial was being built. Its
-[`pr-completion-receipts.md`](pr-completion-receipts.md) records the existing finding
-that human review dominates machine cost by roughly 50–190× at the median, and its
-three-PR validation estimates $20–$68 of maintainer attention against sub-$5 machine
-cost. That evidence supports the conservative cap and serial cadence: cheap inference
-does not make a failed or review-heavy mentor attempt cheap overall.
+work and the capable-reference probe to a small batch. The completed
+[`qwen-pr-cost-analysis.md`](qwen-pr-cost-analysis.md) found only three clean-enough
+historical primary-carrier cases among 22 terminal PRs with any Qwen engagement. Their
+aggregate mean is badly confounded; MRE accounts for 99.7% of Qwen total cost, and the
+Qwen `fix:s` case consumed 14 sitting-days and 45 comments versus comparison means of
+9.25 and 26. The trial therefore budgets human attention directly and does not use raw
+tokens or the aggregate historical mean as a promotion signal.
 
 This follows the OpenRouter promo lane's safety shape without copying its rotating-model
 inventory: explicit admission only, a separate reputation namespace, deterministic
@@ -31,15 +31,18 @@ model inventory.
 An authorized curator posts each real job with:
 
 ```sh
-scripts/jobs/post-job.sh --qwen-mentor-trial <slot-1-through-6> \
+scripts/jobs/post-job.sh --identity owner/repo#N:qwen-trial:<slot> \
+  --qwen-mentor-trial <slot-1-through-6> \
   --role <role> <base> <body-file>
 ```
 
 The producer stamps `trial: qwen3.6-mentor-v1`, `trial-tier: mentor`, the numbered
 `trial-slot`, `provider: local`, `model: qwen3.6`, and `dispatch: canary`. The body should describe real
 mentor-difficulty work: a substantive build or fix, infrastructure change, or
-panel-adjacent analysis with an independently judgeable outcome. The curator, not the
-router, decides that the work is mentor-shaped.
+panel-adjacent analysis with an independently judgeable outcome. It must target one
+already-known PR so the identity index creates a durable base-to-PR edge at posting;
+unindexed work is refused. The curator, not the router, decides that the work is
+mentor-shaped.
 
 Claim-time admission requires the exact marker, model, canary dispatch, mentor-shaped
 label, and slot 1–6. Exactly one lifecycle record may use each slot; a duplicate fails
@@ -66,12 +69,22 @@ continues to use `hermit/local/qwen3.6`. Since kind is part of the arm key, neit
 population can pool with the other, while claims and execution still truthfully record
 the actual `hermit` worker kind.
 
+The claim gate waits after every accepted outcome until its terminal PR receipt exists.
+It then reads `maintainer_review_sittings` and `maintainer_comments`, the same counters
+used by the completion-cost analysis. Admission stops at a batch total of 40 sittings or
+90 comments, or when one case exceeds 10 sittings or 30 comments. These thresholds sit
+just above the matched `fix:s` comparison means while flagging the historical Qwen
+outlier; the batch limits round the matched all-class means (6.5 sittings and 14
+comments) across the six permits. The serial receipt barrier prevents multiple
+completed jobs from outrunning the human budget while their PRs remain open.
+
 ## Stop and review
 
 Admission stops before the next claim when either:
 
 - two verified demerits exist; or
-- at least three attributable outcomes exist and verified demerits are at least 25%.
+- at least three attributable outcomes exist and verified demerits are at least 25%; or
+- the cumulative or per-case human-attention cap is reached.
 
 The fixed six slots are the hard stop even with zero demerits. In-flight work is never
 cancelled. Operators inspect the ledger with
@@ -87,6 +100,10 @@ At the stop or six-job cap, a maintainer explicitly chooses one of three outcome
 3. promote it through a reviewed `model-tier-inventory.tsv` change whose justification
    cites the `hermit-mentor-trial` arm data.
 
-There is no automatic promotion and no unattended continuation. A reference probe is
+Promotion is not evidence-supported until at least four accepted receipts are clean
+primary-carrier cases: the receipt has exactly one joined base, that base is the trial
+job, and at least two work classes contribute two such cases apiece. A multi-arm PR is
+still useful operational evidence but cannot satisfy this promotion floor. There is no
+automatic promotion and no unattended continuation. A reference probe is
 spent only on a real deterministic failure, but each admitted job consumes local compute
 and potentially maintainer review, so unused slots are not a target to fill blindly.
