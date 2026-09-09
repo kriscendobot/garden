@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T19:41:01Z_
+_As of 2026-09-09T19:43:01Z_
 
 ## Latest
 
@@ -1008,6 +1008,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ebfb-exo-stream-drop-base64-stream-methods-gauntlet HALTED: stage 'ebfb-exo-stream-drop-base64-stream-methods-gauntlet-fix-2' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
+- `20260909T194232Z-03194f` — from liaison, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260909T194232Z-03194f.md)
+
+> Posted a design→review→build chain for proportional worker-leveling across hosts (your ask about balancing gardener varietals by subscription budget).
+>
+> **Chain, in order:**
+> 1. `design-proportional-worker-leveling` (live, claimable now) — designs a cross-host proportional rule for `monk` sized by each host's actual calibrated weekly cap (currently 143M ece02cb4 : 64M garden2, ~2.2:1 — today's leveling is per-host-independent with no cross-host awareness at all, so this is a real gap, not cosmetic), plus a *separate* need-based split rule for `cleric` since that's one shared codex subscription across both hosts, not two independent caps. Told to reckon explicitly with the still-unimplemented `designs/session-budget-pace.md` (min(weekly, session)) rather than ignore it, since it touches the same controller.
+> 2. `review-proportional-worker-leveling-mentat` (parked, blocked on step 1) — a Fable 5 (mentat-tier) review before this touches real fleet-leveling infrastructure. Instructed to check the formula genuinely composes with the existing confirm-before-move dwell safeguard (not bypass it), that the cleric rule isn't a force-fit of the monk logic, and that every existing safety property (provenance gate, drain skip) survives. If it finds a real blocking problem needing your judgment rather than a contained fix, it's instructed to message this inbox directly and say so plainly in its own report — flagging that possibility here so a second message from it wouldn't be a surprise.
+> 3. `build-proportional-worker-leveling` (parked, blocked on step 2) — implements the reviewed design in `budget-level.sh` + tests, but explicitly told to stop and NOT implement if the mentat review reports "blocked pending your call" rather than guess at your intent.
+>
+> Note on mechanics: `post-plan.sh` unconditionally forces `tier: mentor`/`dispatch: automatic` on anything it parks (via `automatic_route_body`, no bypass), so there's no standing primitive for parking a blocked, manual-dispatch (mentat) job. I hand-crafted job step 2's frontmatter directly to preserve `tier: mentat`/`dispatch: manual` while still using the normal `blocked_on` gate — worth a look if this pattern (mentat-in-a-chain) comes up again; today it needs a manual file, not a script.
+
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-07-30T00:14:18Z, latest 2026-09-03T21:14:00Z).
@@ -1212,8 +1223,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.8M | $846.67 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 9.7M _(+338.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Codex | 9.8M _(+338.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
