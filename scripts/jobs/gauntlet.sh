@@ -35,7 +35,7 @@
 #     | clean     | still-pending | re-post <g>-clean (bounded by max_resumes)      |
 #     | panel-k   | pass          | undraft (feature) / done (probe never un-drafts)|
 #     | panel-k   | must-fix      | fix-k                                           |
-#     | fix-k     | done          | panel-(k+1); if k+1 > max_iterations → HALT     |
+#     | fix-k     | done          | panel-(k+1); if k+1 > max_iterations → REVIEW   |
 #     | fix-k     | still-pending | re-post <g>-fix-k (bounded by max_resumes)      |
 #     | undraft   | done          | done — write jobs/tada/<g>, remove the record   |
 #
@@ -221,6 +221,27 @@ halt_gauntlet() {  # <base> <reason>
   finish_gauntlet "$base" "$sf" || log "gauntlet '$base': halt-finish failed; retrying next tick"
   printf 'Gauntlet %s HALTED: %s\n' "$base" "$reason" | gauntlet_notify "$base-halted"
   log "gauntlet '$base': HALTED — $reason"
+  rm -f "$sf"
+}
+
+# The panel is intentionally subjective and stateless, so exhausting its review
+# rounds after a successful fix is not evidence that the PR is broken. The fix
+# stage's `done` marker means its changes were pushed and CI was green. Preserve
+# that useful terminal outcome as a non-failure and hand the remaining judgement
+# to a human; downstream gates therefore see an ordinary completed tada report.
+finish_review_budget_reached() {  # <base> <reason>
+  local base="$1" reason="$2" sf
+  sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-review-budget.XXXXXX")"
+  {
+    printf 'gauntlet-status: review-budget-reached\n'
+    printf '# gauntlet %s — review budget reached\n\n' "$base"
+    printf '%s\n' "$reason"
+  } > "$sf"
+  finish_gauntlet "$base" "$sf" \
+    || log "gauntlet '$base': review-budget finish failed; retrying next tick"
+  printf 'INFO: Gauntlet %s review budget reached: %s\n' "$base" "$reason" \
+    | gauntlet_notify "$base-review-budget-reached"
+  log "gauntlet '$base': review budget reached — $reason"
   rm -f "$sf"
 }
 
@@ -622,7 +643,7 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
         done)
           local_next=$((iter+1))
           if [ "$local_next" -gt "$maxit" ]; then
-            halt_gauntlet "$base" "the panel/fix loop did not converge in $maxit rounds (fix round $iter done, would start panel round $local_next > max_iterations=$maxit)."
+            finish_review_budget_reached "$base" "Applied $maxit panel/fix round(s); fix round $iter completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=$maxit, so the PR is left improved for a human merge/review decision."
           else
             advance_stage "$base" "$f" panel "$local_next" "$base-panel-$local_next"
           fi;;

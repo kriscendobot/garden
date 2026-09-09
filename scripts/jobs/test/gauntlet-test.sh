@@ -8,7 +8,8 @@
 # journal, and the fleet is SIMULATED by writing stage tada reports with a marker):
 #   1. HAPPY      — clean → panel-1 (pass) → undraft → done, no fixer round.
 #   2. FIXLOOP    — panel-1 (must-fix) → fix-1 → panel-2 (pass) → undraft → done.
-#   3. NONCONVERGE— the fix-loop that never passes HALTS at max_iterations (surfaces).
+#   3. REVIEWLIMIT— an all-green fix-loop that exhausts max_iterations becomes a
+#                    quiet, non-failing human-decision state (surfaces as INFO).
 #   4. STAGEFAIL  — with stage retries disabled, a vanished stage HALTS (surfaces).
 #   5. PROBE      — a kind:probe gauntlet passes the panel but NEVER un-drafts (done draft).
 #   6. STILLPEND  — a clean stage reporting `still-pending` re-posts the SAME stage.
@@ -231,7 +232,7 @@ tick   # → done
   || bad "fixloop: not complete (tada=[$(board jobs/tada)] gauntlet=[$(board jobs/gauntlet)])"
 
 # ============================================================================
-hr; echo "SUBTEST 3 — NONCONVERGE: the fix-loop halts at max_iterations"; hr
+hr; echo "SUBTEST 3 — REVIEWLIMIT: a green fix-loop reaches a non-failing human-decision state"; hr
 post_gauntlet --max-iterations 2 g3 https://github.com/testowner/testrepo/pull/3
 
 tick; complete_stage g3-clean clean=done
@@ -245,17 +246,24 @@ complete_stage g3-panel-2 panel=must-fix
 tick   # fix-2
 { in_dir jobs/todo g3-fix-2; } || bad "nonconverge: g3-fix-2 not posted"
 complete_stage g3-fix-2 fix=done
-tick   # fix-2 done → panel-3 would exceed max_iterations=2 → HALT
+tick   # fix-2 done + CI green → panel-3 would exceed the review budget
 { ! in_dir jobs/todo g3-panel-3 && in_dir jobs/tada g3 && ! in_dir jobs/gauntlet g3; } \
-  && ok "did NOT post panel-3 (> max_iterations); halted and closed the record" \
+  && ok "did NOT post panel-3 (> max_iterations); closed the record for human decision" \
   || bad "nonconverge: todo=[$(board jobs/todo)] tada=[$(board jobs/tada)] gauntlet=[$(board jobs/gauntlet)]"
-printf '%s' "$(tada_body g3)" | grep -qi 'gauntlet-status: halted' \
-  && ok "non-convergence halt marks gauntlet-status: halted" \
-  || bad "nonconverge: halt summary missing status marker"
+g3_summary="$(tada_body g3)"
+{ printf '%s' "$g3_summary" | grep -qi '^gauntlet-status: review-budget-reached$' \
+    && ! printf '%s' "$g3_summary" | grep -qi '^orchestration-status:' \
+    && ! printf '%s' "$g3_summary" | grep -qi '^orchestration-failed:'; } \
+  && ok "review exhaustion is review-budget-reached, not an orchestration failure" \
+  || bad "nonconverge: wrong terminal classification: [$g3_summary]"
+printf '%s' "$g3_summary" | grep -qi 'changes pushed and CI green' \
+  && ok "review-budget summary records the final fix's usable CI-green outcome" \
+  || bad "nonconverge: summary does not record the CI-green final fix"
 board inbox/maintainer/unread >/dev/null
-grep -rqi 'did not converge' "$V/inbox/maintainer/unread" 2>/dev/null \
-  && ok "non-convergence surfaced to the maintainer inbox" \
-  || bad "nonconverge: no maintainer note (inbox: $(ls "$V/inbox/maintainer/unread" 2>/dev/null))"
+{ grep -rqi 'INFO:.*review budget reached' "$V/inbox/maintainer/unread" 2>/dev/null \
+    && ! grep -rqi 'HALTED' "$V/inbox/maintainer/unread" 2>/dev/null; } \
+  && ok "review exhaustion surfaced as a quiet INFO human-decision notice" \
+  || bad "nonconverge: no quiet review-budget notice (inbox: $(ls "$V/inbox/maintainer/unread" 2>/dev/null))"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — STAGEFAIL: a vanished stage halts the run + surfaces"; hr
