@@ -1,0 +1,6 @@
+# Fleet envelopes and per-host physical caps. Tab-separated.
+# kind/value or host/host-id/monk-cap/cleric-cap
+monk-fleet-ceiling	6
+cleric-fleet-ceiling	5
+host	endolin-garden-ece02cb4	4	4
+host	endolin-garden2-5bcdff64	4	4
