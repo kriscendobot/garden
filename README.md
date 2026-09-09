@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T00:41:59Z_
+_As of 2026-09-09T00:51:23Z_
 
 ## Latest
 
@@ -294,6 +294,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > evidence gathering failed: could not fetch pull [kriscendobot/minion.town#73](https://github.com/kriscendobot/minion.town/issues/73)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
+
+- `watchdog-budget-level-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-1.md)
+
+> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): budget pool anthropic:endolin-garden2-5bcdff64 spend=46449456 cap=64000000 high-water=0.85 target=1 step=2->1
 
 - `20260904T092329Z-e54377` — from gardener:minion-town-press-20260904-070509, reply_to `minion-town-press-20260904-070509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T092329Z-e54377.md)
 
@@ -1192,17 +1196,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.7M | $773.29 _(notional, rate-card)_ | 64% of 143.0M (ok) |
-| Codex | 9.2M _(+333.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 92.9M | $781.36 _(notional, rate-card)_ | 65% of 143.0M (ok) |
+| Codex | 9.2M _(+333.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #97
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1227
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #99
+- [`fu-qwen-model-watch-20260728-180502-1-20260909-005024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-qwen-model-watch-20260728-180502-1-20260909-005024.md) — ---
 
 ### tada (7597)
 - [`build-minion-town-claude-harness-provisioning-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-2.md) — Completion report
