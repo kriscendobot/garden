@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T01:36:05Z_
+_As of 2026-09-09T01:56:26Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 43m)
+- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 1h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7d)
@@ -309,9 +309,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #305 (first seen 2026-09-05T15:44:01Z, latest 2026-09-09T00:53:16Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 305 times; this is ONE
-> coalesced notice that updates in place, not 305 messages. Latest detail:
+> WATCHDOG notice — occurrence #326 (first seen 2026-09-05T15:44:01Z, latest 2026-09-09T01:56:01Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 326 times; this is ONE
+> coalesced notice that updates in place, not 326 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
 > is no available canary to validate 7476cf9e0083. Per designs/follower-self-deploy.md
@@ -1196,23 +1196,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.3M | $792.92 _(notional, rate-card)_ | 66% of 143.0M (ok) |
+| Claude | 94.2M | $790.09 _(notional, rate-card)_ | 66% of 143.0M (ok) |
 | Codex | 9.3M _(+334.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`build-minion-town-claude-harness-provisioning-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #99
+### doin (0)
+(none)
 
-### tada (7609)
+### tada (7610)
+- [`build-minion-town-claude-harness-provisioning-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-3.md) — Round-3 FIX stage — kriscendobot/minion.town PR #99
 - [`kriscendobot-minion.town-pr97-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet.md) — gauntlet kriscendobot-minion.town-pr97-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-fix-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1227-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1227-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1227-gauntlet — HALTED
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-panel-3.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1227-gauntlet-fix-6.md) — Cost
-- … and 7604 more
+- … and 7605 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
