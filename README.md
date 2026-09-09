@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T22:51:20Z_
+_As of 2026-09-09T22:53:03Z_
 
 ## Latest
 
@@ -1230,16 +1230,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260909-225015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260909-225015.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (7639)
+### tada (7640)
+- [`claude-on-minion-town-press-20260909-225015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-225015.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-1110195c4fd1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1110195c4fd1.md) — rolling-deploy canary probe — round trip OK
 - [`build-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-proportional-worker-leveling.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-c9eb1fc368f5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c9eb1fc368f5.md) — rolling-deploy canary probe — round trip OK
 - [`review-proportional-worker-leveling-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-proportional-worker-leveling-mentat.md) — What I reviewed
-- [`claude-on-minion-town-press-20260909-195010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-195010.md) — What I checked
-- … and 7634 more
+- … and 7635 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
