@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T01:30:05Z_
+_As of 2026-09-09T01:30:43Z_
 
 ## Latest
 
@@ -33,10 +33,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
-
-- `endojs-endo-but-for-bots-pr1227-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1227-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1227-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1227-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
@@ -1200,7 +1196,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.3M | $793.05 _(notional, rate-card)_ | 66% of 143.0M (ok) |
+| Claude | 94.4M | $793.79 _(notional, rate-card)_ | 66% of 143.0M (ok) |
 | Codex | 9.3M _(+334.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
