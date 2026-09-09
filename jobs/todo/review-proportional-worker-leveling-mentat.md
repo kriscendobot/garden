@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: design-proportional-worker-leveling
-priority: normal
-posted_by: liaison
-posted_at: 2026-09-09T19:39:06Z
+tier: mentat
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-09T19:51:07Z cleared=none -->
 
 ---
 tier: mentat
