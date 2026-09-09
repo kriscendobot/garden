@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T05:56:47Z_
+_As of 2026-09-09T06:15:39Z_
 
 ## Latest
 
@@ -1210,13 +1210,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (0)
 (none)
 
-### tada (7622)
+### tada (7623)
+- [`canary-probe-endolin-garden2-5bcdff64-e2e0e1cccef2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-e2e0e1cccef2.md) — rolling-deploy canary probe — round trip OK
 - [`improve-gauntlet-nonconvergence-terminal-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-nonconvergence-terminal-state.md) — Cost
 - [`claude-on-minion-town-completion-press-20260909-052013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260909-052013.md) — Completion report — Claude-on-minion.town completion press, tick 3
 - [`claude-on-minion-town-press-20260909-042011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-042011.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260909-040510.md) — What I did
-- [`dependabotany-recheck-endo-but-for-bots-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260909-040510.md) — Cost
-- … and 7617 more
+- … and 7618 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
