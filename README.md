@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T19:47:42Z_
+_As of 2026-09-09T19:52:14Z_
 
 ## Latest
 
@@ -1230,8 +1230,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`claude-on-minion-town-press-20260909-195010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260909-195010.md) — Press the Claude-on-minion.town arc forward
+- [`review-proportional-worker-leveling-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-proportional-worker-leveling-mentat.md) — ---
 
 ### tada (7634)
 - [`design-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-proportional-worker-leveling.md) — Cost
@@ -1560,7 +1561,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/69` · Refresh kriscendobot/minion.town PR #54 after §9 cleanup lands
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
-- [`review-proportional-worker-leveling-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-proportional-worker-leveling-mentat.md) — awaiting `design-proportional-worker-leveling` · ---
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`cybernetics-rec6-panel-error-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cybernetics-rec6-panel-error-retry.md) — awaiting `diagnose-panel-seat-error-rate` · ---
 
