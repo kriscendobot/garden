@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T19:06:10Z_
+_As of 2026-09-09T19:11:29Z_
 
 ## Latest
 
@@ -1215,16 +1215,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-garden-pr80-quota-validation-20260909`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-quota-validation-20260909.md) — PR-80 quota-calibration effectiveness observation — UTC day 20260909
+### doin (0)
+(none)
 
-### tada (7632)
+### tada (7633)
+- [`kriscendobot-garden-pr80-quota-validation-20260909`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260909.md) — Completion report — PR-80 quota-calibration validation, day 20260909 (day 4 o...
 - [`claude-on-minion-town-completion-press-20260909-173510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260909-173510.md) — Completion report — Claude-on-minion.town completion press, tick 5
 - [`claude-on-minion-town-press-20260909-165010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-165010.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-dfd07a2e9dcd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-dfd07a2e9dcd.md) — rolling-deploy canary probe — round trip OK
 - [`issue-kriscendobot-garden-91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-91.md) — Cost
-- [`claude-on-minion-town-press-20260909-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-135010.md) — Cost
-- … and 7627 more
+- … and 7628 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
