@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T13:15:57Z_
+_As of 2026-09-09T13:31:26Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 5h)
+- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 6h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7d)
@@ -19,7 +19,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 10d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 13d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64.md)
