@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T02:12:03Z_
+_As of 2026-09-09T02:27:07Z_
 
 ## Latest
 
@@ -1204,15 +1204,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (1)
-- [`build-minion-town-claude-harness-provisioning-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #99
+- [`build-minion-town-claude-harness-provisioning-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #99
 
-### tada (7611)
+### tada (7612)
+- [`build-minion-town-claude-harness-provisioning-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-4.md) — Completion report
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-panel-4.md) — Completion report
 - [`build-minion-town-claude-harness-provisioning-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-3.md) — Round-3 FIX stage — kriscendobot/minion.town PR #99
 - [`kriscendobot-minion.town-pr97-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet.md) — gauntlet kriscendobot-minion.town-pr97-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr97-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-fix-6.md) — Cost
-- [`endojs-endo-but-for-bots-pr1227-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1227-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1227-gauntlet — HALTED
-- … and 7606 more
+- … and 7607 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
