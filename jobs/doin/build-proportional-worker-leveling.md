@@ -33,3 +33,13 @@ the proportional monk ceiling across two differently-capped hosts, the
 distinct cleric-split rule, and confirmation that the existing safety
 properties (provenance gate, drain skip, confirm-before-move dwell) still hold
 under the new rule. Land per the garden's own conventions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-09T20:01:14Z
