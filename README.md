@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T20:52:20Z_
+_As of 2026-09-09T21:06:11Z_
 
 ## Latest
 
@@ -13,7 +13,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 8d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 8d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 8d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 7d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 8d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 9d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 11d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 13d)
@@ -210,6 +210,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-second-identity-checkpoint` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-second-identity-checkpoint.md)
 
 > Evaluation 7 needs a human GitHub federation login checkpoint to create the required distinct identity B. Please reply when you are ready to complete the browser GitHub login; I will continue identity-A bootstrap and schema discovery meanwhile.
+
+- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared cleric demand active=0 queue=0 fleet-envelope=5 target=1
 
 - `doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun.md)
 
