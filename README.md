@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T04:06:21Z_
+_As of 2026-09-09T04:09:10Z_
 
 ## Latest
 
@@ -1200,24 +1200,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.5M | $836.10 _(notional, rate-card)_ | 70% of 143.0M (ok) |
+| Claude | 101.2M | $839.81 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 9.4M _(+334.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`dependabotany-recheck-endo-but-for-bots-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260909-040510.md) — ---
+### doin (1)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260909-040510.md) — Containment drift check for kriscendobot/minion.town gateway records
 
-### tada (7617)
+### tada (7618)
+- [`dependabotany-recheck-endo-but-for-bots-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260909-040510.md) — Cost
 - [`build-minion-town-claude-harness-provisioning-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet.md) — gauntlet build-minion-town-claude-harness-provisioning-gauntlet — HALTED
 - [`build-minion-town-claude-harness-provisioning-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-6.md) — Completion report — gauntlet FIX round 6, kriscendobot/minion.town PR #99
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-panel-6.md) — Completion report
 - [`build-minion-town-claude-harness-provisioning-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-5.md) — Completion report
-- [`build-minion-town-claude-harness-provisioning-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-panel-5.md) — Cost
-- … and 7612 more
+- … and 7613 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
