@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T00:32:02Z_
+_As of 2026-09-09T00:32:39Z_
 
 ## Latest
 
@@ -294,6 +294,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > evidence gathering failed: could not fetch pull [kriscendobot/minion.town#73](https://github.com/kriscendobot/minion.town/issues/73)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
+
+- `endojs-endo-but-for-bots-pr1228-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1228-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1228-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1228-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
 - `20260904T092329Z-e54377` — from gardener:minion-town-press-20260904-070509, reply_to `minion-town-press-20260904-070509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T092329Z-e54377.md)
 
@@ -1192,8 +1196,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.8M | $774.36 _(notional, rate-card)_ | 64% of 143.0M (ok) |
-| Codex | 9.2M _(+332.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 91.8M | $774.65 _(notional, rate-card)_ | 64% of 143.0M (ok) |
+| Codex | 9.2M _(+332.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1205,13 +1209,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1227
 - [`deadmail-20260909T001550Z-0da322`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260909T001550Z-0da322.md) — Dead-lettered message — pick up its intent
 
-### tada (7593)
+### tada (7594)
+- [`endojs-endo-but-for-bots-pr1228-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1228-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1228-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1228-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1228-gauntlet-fix-6.md) — Completion report
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-review-b4f3aac8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-b4f3aac8.md) — Cost
 - [`receipt-backfill-and-qwen-cost-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/receipt-backfill-and-qwen-cost-analysis.md) — Cost
-- [`build-minion-town-claude-harness-provisioning-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-1.md) — Completion report
-- … and 7588 more
+- … and 7589 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
