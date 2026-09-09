@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T01:07:44Z_
+_As of 2026-09-09T01:09:00Z_
 
 ## Latest
 
@@ -1196,16 +1196,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.7M | $789.99 _(notional, rate-card)_ | 66% of 143.0M (ok) |
+| Claude | 93.8M | $791.32 _(notional, rate-card)_ | 66% of 143.0M (ok) |
 | Codex | 9.3M _(+333.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`claude-on-minion-town-press-20260909-010511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260909-010511.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1227-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1227
+- [`kriscendobot-minion.town-pr97-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #97
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #99
 
 ### tada (7601)
