@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T04:10:23Z_
+_As of 2026-09-09T04:21:12Z_
 
 ## Latest
 
@@ -1201,14 +1201,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.2M | $839.38 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 9.4M _(+334.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 9.4M _(+334.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260909-042011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260909-042011.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (7619)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260909-040510.md) — What I did
