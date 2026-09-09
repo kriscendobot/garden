@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T02:51:23Z_
+_As of 2026-09-09T02:54:01Z_
 
 ## Latest
 
@@ -1203,8 +1203,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-minion-town-claude-harness-provisioning-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #99
 
 ### tada (7614)
 - [`build-minion-town-claude-harness-provisioning-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-5.md) — Completion report
