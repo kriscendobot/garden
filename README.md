@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T20:16:31Z_
+_As of 2026-09-09T20:23:47Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 12h)
+- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 5m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 6d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 8d)
@@ -1224,22 +1224,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 10.0M _(+341.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Codex | 10.1M _(+345.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`build-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-proportional-worker-leveling.md) — ---
+### doin (0)
+(none)
 
-### tada (7637)
+### tada (7638)
+- [`build-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-proportional-worker-leveling.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-c9eb1fc368f5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c9eb1fc368f5.md) — rolling-deploy canary probe — round trip OK
 - [`review-proportional-worker-leveling-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-proportional-worker-leveling-mentat.md) — What I reviewed
 - [`claude-on-minion-town-press-20260909-195010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-195010.md) — What I checked
 - [`design-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-proportional-worker-leveling.md) — Cost
-- [`kriscendobot-garden-pr80-quota-validation-20260909`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260909.md) — Completion report — PR-80 quota-calibration validation, day 20260909 (day 4 o...
-- … and 7632 more
+- … and 7633 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
