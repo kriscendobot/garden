@@ -13,8 +13,12 @@ explicit canary pins. Do not change its reviewed `local / qwen3.6 / minion` row 
 `model-tier-inventory.tsv`, and do not make it eligible for ordinary mentor-tier
 auctions. Six jobs are enough to expose repeated failure while limiting substantive
 work, maintainer review, and the capable-reference probe to a small batch. The sibling
-receipt/cost study was still in progress when this bound was chosen, so the conservative
-cap does not assume local work is cheap after review cost.
+receipt/cost work landed while this trial was being built. Its
+[`pr-completion-receipts.md`](pr-completion-receipts.md) records the existing finding
+that human review dominates machine cost by roughly 50–190× at the median, and its
+three-PR validation estimates $20–$68 of maintainer attention against sub-$5 machine
+cost. That evidence supports the conservative cap and serial cadence: cheap inference
+does not make a failed or review-heavy mentor attempt cheap overall.
 
 This follows the OpenRouter promo lane's safety shape without copying its rotating-model
 inventory: explicit admission only, a separate reputation namespace, deterministic

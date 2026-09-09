@@ -18,7 +18,7 @@ scripts/jobs/qwen-mentor-trial-status.sh
 ```
 
 Use slots 1 through 6 once each. Duplicate, malformed, and out-of-range slots fail
-closed. The status command reports lifecycle owners, finalized outcomes, verified
+closed. The claim gate permits only one trial job in flight across the fleet. The status command reports lifecycle owners, finalized outcomes, verified
 demerits, the rate, and whether admission remains open.
 
 Stop posting immediately when status says `admission: stopped`. The read-side claim
