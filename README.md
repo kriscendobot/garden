@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T20:01:41Z_
+_As of 2026-09-09T20:16:31Z_
 
 ## Latest
 
@@ -1224,7 +1224,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 9.8M _(+338.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Codex | 10.0M _(+341.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1233,13 +1233,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (1)
 - [`build-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-proportional-worker-leveling.md) — ---
 
-### tada (7636)
+### tada (7637)
+- [`canary-probe-endolin-garden2-5bcdff64-c9eb1fc368f5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c9eb1fc368f5.md) — rolling-deploy canary probe — round trip OK
 - [`review-proportional-worker-leveling-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-proportional-worker-leveling-mentat.md) — What I reviewed
 - [`claude-on-minion-town-press-20260909-195010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-195010.md) — What I checked
 - [`design-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-proportional-worker-leveling.md) — Cost
 - [`kriscendobot-garden-pr80-quota-validation-20260909`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260909.md) — Completion report — PR-80 quota-calibration validation, day 20260909 (day 4 o...
-- [`claude-on-minion-town-completion-press-20260909-173510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260909-173510.md) — Completion report — Claude-on-minion.town completion press, tick 5
-- … and 7631 more
+- … and 7632 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
