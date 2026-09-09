@@ -65,13 +65,12 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 #      below. Both classes are excluded from auto-enable and from pruning (see
 #      is_excluded); they differ only in whether a reconcile force-disables them.
 #
-#      garden-ironhorse-fuzz — PAUSED 2026-08-31 by maintainer directive. The
-#      lane emits one full repair job per fuzz finding, which produced 73
-#      quarantined jobs in jobs/plan/ across only three targets (66 of them
-#      doomed `policy-refusal`), with no triage separating genuine port defects
-#      from known xs-oracle/harness artifacts. It stays paused pending
-#      designs/ (job `design-ironhorse-fuzz-triage-and-batch`). Re-arming is
-#      therefore a deliberate TWO-PART act: delete its PAUSED_UNITS entries AND
+#      garden-ironhorse-fuzz — PAUSED 2026-08-31 by maintainer directive, then
+#      subsumed by the 2026-09-09 all-IronHorse zero-priority pause while the
+#      engine undergoes an external refactor (garden issue #91). Re-arming now
+#      requires an explicit maintainer lift of that broader pause, completion of
+#      the backlog/triage prerequisites in context/operations/ironhorse-fuzz.md,
+#      removal of both PAUSED_UNITS entries, AND
 #      `systemctl --user enable --now garden-ironhorse-fuzz.timer`.
 
 # OMIT-ONLY: excluded from auto-enable and pruning, but NEVER force-disabled — the

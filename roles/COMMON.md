@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-08-06
+updated: 2026-09-09
 author: gardener, liaison
 ---
 
@@ -103,6 +103,8 @@ Do not rely on `-f body="$(cat reply.md)"` as your safety story: command-substit
 
 **Project scope: `agoric/agoric-sdk` — ARCHIVED, this garden does not engage (2026-09-04).** A dedicated garden instance now owns `agoric-sdk` (and its sibling `agoric-3-proposals`); this garden does not claim, post, or watch work on either, to avoid two gardens racing the same fork. Maintainer directive, 2026-09-04 (kriskowal, liaison session): "archive all engagements on agoric-sdk. They have a dedicated garden." The fork watches were de-provisioned (`repos/`, `comment-repos/`, durable `watch-optout/` tombstones for both repos) and the one in-flight gauntlet (`kriscendobot/agoric-sdk#10`) was halted after its already-claimed stage finished. Do not re-arm a watch or accept a directive naming either repo without fresh maintainer confirmation that the scope has changed back.
   - *Prior posture, kept for history:* from 2026-06-28 to 2026-09-04, experimentation with `agoric/agoric-sdk` was permitted on the `kriscendobot/agoric-sdk` fork only (clone, branch, build, test, run, read-only analysis, and pushes to the fork), with upstream `agoric/agoric-sdk` interaction always forbidden (no comments, reviews, reactjis, review-comments, issue/PR opens/edits/closes/merges, or any cross-reference/`@`-mention linking to it, even from the fork). That upstream-untouched rule is now moot for this garden's purposes (it does the fork work at all), but nothing above ever authorized an autonomous identity switch or upstream ferry, which remain maintainer-gated regardless. Original directive: 2026-06-28 (kriskowal, garden issue [#9](https://github.com/kriskowal/garden/issues/9)).
+
+**Project scope: IronHorse work is PAUSED at zero priority (2026-09-09).** IronHorse is undergoing a large external refactor, so this garden does not claim, post, promote, orchestrate, or run IronHorse implementation, review, test262, fuzz, optimization, or follow-up work. Leave every existing IronHorse plan item parked, and do not advance an IronHorse pull request as incidental work inside a broader Endo task. Read-only inspection needed to classify an unrelated task remains allowed. The continuous fuzz timer and service remain disabled. Resume only after a trusted maintainer explicitly lifts this pause; a new IronHorse request that does not explicitly lift it stays parked. Maintainer directive: kumavis, 2026-09-09, garden issue [#91](https://github.com/kriscendobot/garden/issues/91). Operational detail lives in [`context/operations/ironhorse-fuzz.md`](../context/operations/ironhorse-fuzz.md).
 
 ## Communicating with the maintainer
 

@@ -1,3 +1,9 @@
+---
+created: 2026-08-31
+updated: 2026-09-09
+author: gardener, designer
+---
+
 # The continuous Ironhorse fuzz service
 
 The garden drives the Ironhorse libFuzzer campaign **continuously in the
@@ -10,11 +16,13 @@ fix). This page is the operator's entry point; the mechanics live in
 [`designs/ironhorse-fuzz-triage-and-batch.md`](../../designs/ironhorse-fuzz-triage-and-batch.md)
 (the triage/batch/backpressure contract), and `scripts/jobs/ironhorse-fuzz.sh`.
 
-> **PAUSED (2026-08-31).** `garden-ironhorse-fuzz.{timer,service}` are in
-> `EXCLUDED_UNITS` (`scripts/jobs/install-units.sh`), so a deploy cannot re-arm the
-> lane. The triage-and-batch backpressure is now implemented (below); re-arming is
-> still the deliberate maintainer act described under **Re-arming** at the end of
-> this page.
+> **PAUSED AT ZERO PRIORITY (2026-09-09).** IronHorse is undergoing a large
+> external refactor. The garden does not run or advance any IronHorse work until a
+> trusted maintainer explicitly lifts the pause. `garden-ironhorse-fuzz.{timer,service}`
+> are in `PAUSED_UNITS` (`scripts/jobs/install-units.sh`), so every service reconcile
+> stops and disables them. The narrower 2026-08-31 fuzz-lane pause and the re-arming
+> checklist below remain historical prerequisites, not authority to resume. Source:
+> [garden issue #91](https://github.com/kriscendobot/garden/issues/91).
 
 Directive: kriskowal on endojs/endo-but-for-bots#1046 — *"move the fuzzer out of
 CI and drive it continuously in the background from a new garden service; we should
@@ -134,9 +142,10 @@ scripts/jobs/test/ironhorse-fuzz-test.sh        # hermetic: 70 assertions, no Gi
 scripts/jobs/test/ironhorse-fuzz-rehearsal.sh   # narrated synthetic-crash rehearsal end to end
 ```
 
-## Re-arming (a deliberate two-part maintainer act)
+## Re-arming (requires an explicit lift of the IronHorse pause)
 
-The lane stays paused until **all** of the following, in order (per
+The lane stays paused until a trusted maintainer **explicitly lifts the
+2026-09-09 all-IronHorse pause** and all of the following are satisfied, in order (per
 [`designs/ironhorse-fuzz-triage-and-batch.md`](../../designs/ironhorse-fuzz-triage-and-batch.md)
 § Implementation and re-arming):
 
