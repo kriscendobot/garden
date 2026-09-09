@@ -62,3 +62,13 @@ Write this as a `designs/*.md` doc naming the exact formula, the cleric-split
 rule, and the interaction with `session-budget-pace.md`. This job is design
 only — a mentat-tier review follows, then a build job implements it; do not
 implement here.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-09T19:38:43Z
