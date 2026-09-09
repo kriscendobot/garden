@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T19:52:14Z_
+_As of 2026-09-09T19:53:52Z_
 
 ## Latest
 
@@ -1223,24 +1223,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 101.9M | $849.48 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 9.8M _(+338.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-press-20260909-195010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260909-195010.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`review-proportional-worker-leveling-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-proportional-worker-leveling-mentat.md) — ---
 
-### tada (7634)
+### tada (7635)
+- [`claude-on-minion-town-press-20260909-195010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-195010.md) — What I checked
 - [`design-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-proportional-worker-leveling.md) — Cost
 - [`kriscendobot-garden-pr80-quota-validation-20260909`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260909.md) — Completion report — PR-80 quota-calibration validation, day 20260909 (day 4 o...
 - [`claude-on-minion-town-completion-press-20260909-173510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260909-173510.md) — Completion report — Claude-on-minion.town completion press, tick 5
 - [`claude-on-minion-town-press-20260909-165010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-165010.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-dfd07a2e9dcd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-dfd07a2e9dcd.md) — rolling-deploy canary probe — round trip OK
-- … and 7629 more
+- … and 7630 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
