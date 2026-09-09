@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T06:17:49Z_
+_As of 2026-09-09T07:06:12Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 5h)
+- [endojs/endo#3362](https://github.com/endojs/endo/pull/3362) — fix(compartment-mapper): avoid special package names when mapping (waiting 6h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 5d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7d)
@@ -1215,8 +1215,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`daily-progress-summary-20260909-070513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260909-070513.md) — Daily midnight Pacific progress summary
 
 ### tada (7623)
 - [`canary-probe-endolin-garden2-5bcdff64-e2e0e1cccef2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-e2e0e1cccef2.md) — rolling-deploy canary probe — round trip OK
