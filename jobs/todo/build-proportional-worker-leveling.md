@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: review-proportional-worker-leveling-mentat
-priority: normal
-posted_by: producer
-posted_at: 2026-09-09T19:40:00Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-09T20:01:03Z cleared=none -->
 
 ---
 tier: mentor
