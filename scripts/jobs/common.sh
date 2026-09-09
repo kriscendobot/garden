@@ -6365,6 +6365,122 @@ validate_job_frontmatter() {
   return 0
 }
 
+# --- bounded qwen3.6 mentor-shaped trial -------------------------------------
+#
+# qwen3.6 remains classified `local/minion` in the closed inventory.  These
+# helpers recognize the deliberately narrower experiment described in
+# designs/qwen3.6-mentor-tier-trial.md: six explicitly numbered, curator-posted
+# jobs, never ordinary mentor auction traffic.  The slot is the durable permit;
+# completion/demerit events make a used slot impossible to reuse.
+QWEN_MENTOR_TRIAL_ID=qwen3.6-mentor-v1
+QWEN_MENTOR_TRIAL_MODEL=qwen3.6
+QWEN_MENTOR_TRIAL_CAP=6
+
+qwen_mentor_trial_job() {
+  local jf="${1:?qwen_mentor_trial_job: job file required}" slot
+  [ "$(plan_field "$jf" trial)" = "$QWEN_MENTOR_TRIAL_ID" ] || return 1
+  [ "$(plan_field "$jf" trial-tier)" = mentor ] || return 1
+  [ "$(plan_field "$jf" provider)" = local ] || return 1
+  [ "$(plan_field "$jf" model)" = "$QWEN_MENTOR_TRIAL_MODEL" ] || return 1
+  [ "$(plan_field "$jf" dispatch)" = canary ] || return 1
+  slot="$(plan_field "$jf" trial-slot)"
+  [[ "$slot" =~ ^[1-9][0-9]*$ ]] || return 1
+  [ "$slot" -le "$QWEN_MENTOR_TRIAL_CAP" ]
+}
+
+# Exactly one lifecycle record may own a permit.  Duplicate slot posts fail
+# closed at claim time, including when the first owner is already in tada/.
+qwen_mentor_trial_slot_unique() {
+  local dir="${1:?}" jf="${2:?}" slot count=0 f
+  qwen_mentor_trial_job "$jf" || return 1
+  slot="$(plan_field "$jf" trial-slot)"
+  for f in "$dir"/jobs/{plan,todo,doin,tada}/*.md; do
+    [ -f "$f" ] || continue
+    [ "$(plan_field "$f" trial)" = "$QWEN_MENTOR_TRIAL_ID" ] || continue
+    [ "$(plan_field "$f" trial-slot)" = "$slot" ] || continue
+    count=$((count + 1))
+  done
+  # A successful completion replaces the job body with its report, so the
+  # reputation event is the durable permit tombstone after doin -> tada.  A
+  # verified demerit also consumes the slot: one admitted job gets one measured
+  # local attempt, never a chain of retries disguised as one permit.
+  for f in "$dir"/reputation/{events,pending,probes}/*.md; do
+    [ -f "$f" ] || continue
+    [ "$(plan_field "$f" trial)" = "$QWEN_MENTOR_TRIAL_ID" ] || continue
+    [ "$(plan_field "$f" trial-slot)" = "$slot" ] || continue
+    count=$((count + 1))
+  done
+  [ "$count" -eq 1 ]
+}
+
+# Count distinct consumed permits.  A completion (including pending PR verdict)
+# or any completed capability probe means the local attempt happened.  Events and
+# probe records may describe the same slot, so deduplicate by slot.
+qwen_mentor_trial_attempts() {
+  local dir="${1:?}" f slot
+  local -A seen=()
+  for f in "$dir"/reputation/{events,pending,probes}/*.md; do
+    [ -f "$f" ] || continue
+    [ "$(plan_field "$f" trial)" = "$QWEN_MENTOR_TRIAL_ID" ] || continue
+    slot="$(plan_field "$f" trial-slot)"
+    [[ "$slot" =~ ^[1-9][0-9]*$ ]] || continue
+    [ "$slot" -le "$QWEN_MENTOR_TRIAL_CAP" ] || continue
+    seen["$slot"]=1
+  done
+  printf '%s\n' "${#seen[@]}"
+}
+
+# Print "<finalized> <verified-demerits>" from the raw event ledger.  The
+# synthetic arm kind is intentional: trial outcomes never pool with the proven
+# hermit/local/qwen3.6 minion arm.
+qwen_mentor_trial_score() {
+  local dir="${1:?}" f accepted finals=0 demerits=0
+  for f in "$dir"/reputation/events/*.md; do
+    [ -f "$f" ] || continue
+    [ "$(plan_field "$f" kind)" = hermit-mentor-trial ] || continue
+    [ "$(plan_field "$f" provider)" = local ] || continue
+    [ "$(plan_field "$f" model)" = "$QWEN_MENTOR_TRIAL_MODEL" ] || continue
+    accepted="$(plan_field "$f" accepted)"
+    case "$accepted" in
+      true) finals=$((finals + 1)) ;;
+      false)
+        # Only the capable-reference counterfactual is a verified demerit.
+        # A later PR verdict of accepted:false is useful reputation evidence,
+        # but it is not this trial's stop signal unless the probe verified it.
+        [ "$(plan_field "$f" demerit)" = true ] || continue
+        finals=$((finals + 1)); demerits=$((demerits + 1)) ;;
+    esac
+  done
+  printf '%s %s\n' "$finals" "$demerits"
+}
+
+# At most one trial job may be live.  The board push CAS serializes competing
+# hermits: after one todo->doin push lands, a loser re-syncs and sees this gate.
+qwen_mentor_trial_no_inflight() {
+  local dir="${1:?}" f
+  for f in "$dir"/jobs/doin/*.md; do
+    [ -f "$f" ] || continue
+    [ "$(plan_field "$f" trial)" = "$QWEN_MENTOR_TRIAL_ID" ] || continue
+    return 1
+  done
+  return 0
+}
+
+# Fail closed after two verified demerits, or after at least three attributable
+# outcomes when the verified-demerit rate reaches 25%.  In-flight work is not
+# cancelled; the supported one-worker trial cadence bounds overshoot to zero.
+qwen_mentor_trial_admits() {
+  local dir="${1:?}" finals demerits attempts
+  read -r finals demerits < <(qwen_mentor_trial_score "$dir")
+  attempts="$(qwen_mentor_trial_attempts "$dir")"
+  [ "$attempts" -lt "$QWEN_MENTOR_TRIAL_CAP" ] || return 1
+  [ "$demerits" -lt 2 ] || return 1
+  if [ "$finals" -ge 3 ] && [ $((100 * demerits)) -ge $((25 * finals)) ]; then
+    return 1
+  fi
+  return 0
+}
+
 # job_provider_constraint <job-file> -> a known provider, or non-zero when the
 # optional leading `provider:` field is absent/unknown.  A provider constraint is
 # a routing boundary for a tier-pinned canary, not a concrete model selector.

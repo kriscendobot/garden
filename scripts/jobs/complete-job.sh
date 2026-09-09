@@ -53,7 +53,7 @@ ensure_clone "$DIR"
 # <base>) always wins. Human-review dollars are 0 at record time; the reducer fills
 # them from the review data when it finalizes a PR-target event.
 record_reputation_event() {
-  local jf="$DIR/$JOBS_DOIN/$base.md" tada_path provider model tht wc tgt agentic
+  local jf="$DIR/$JOBS_DOIN/$base.md" tada_path provider model tht wc tgt agentic event_kind
   local attempts duration awarded nbidders accepted human aggregate dest
   local cost_source estimated
   if [ ! -f "$jf" ]; then
@@ -61,6 +61,7 @@ record_reputation_event() {
     [ -z "$tada_path" ] || jf="$DIR/$tada_path"   # fall back to the just-copied report/tada
   fi
   { read -r provider; read -r model; read -r tht; } < <(rep_resolve_arm "$KIND" "$jf")
+  event_kind="$(rep_kind_for_job "$KIND" "$jf")"
   wc="$(rep_work_class "$jf")"; tgt="$(rep_target "$jf")"
   agentic="$(rep_agentic_dollars "$DIR" "$base")"
   # attempts = requeue cycles + 1 (a reaped/resumed job's sunk cost is real cost).
@@ -109,9 +110,14 @@ record_reputation_event() {
   {
     printf -- '---\n'
     printf 'base: %s\n' "$base"
-    printf 'kind: %s\n' "$KIND"
+    printf 'kind: %s\n' "$event_kind"
     printf 'provider: %s\n' "$provider"
     printf 'model: %s\n' "$model"
+    if qwen_mentor_trial_job "$jf"; then
+      printf 'trial: %s\n' "$(plan_field "$jf" trial)"
+      printf 'trial-tier: mentor\n'
+      printf 'trial-slot: %s\n' "$(plan_field "$jf" trial-slot)"
+    fi
     printf 'thoughtfulness: %s\n' "$tht"
     printf 'work_class: %s\n' "$wc"
     printf 'target: %s\n' "$tgt"

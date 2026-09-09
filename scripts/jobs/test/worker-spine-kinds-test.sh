@@ -429,6 +429,11 @@ elig_case hermit   pinnedqwen2  "model: qwen3.6"   claimed
 elig_case hermit   pinnedcodex3 "model: terra"        left
 elig_case hermit   pinnedclaude3 "model: opus"        left
 elig_case hermit   unpinnedjob2 ""                    claimed
+trial_front=$'trial: qwen3.6-mentor-v1\ntrial-tier: mentor\ntrial-slot: 1\nprovider: local\nmodel: qwen3.6\ndispatch: canary\nrole: builder'
+elig_case hermit   qwenmentortrial "$trial_front" claimed
+elig_case cleric   qwenmentorforeign "$trial_front" left
+elig_case monk     qwenmentorforeign2 "$trial_front" left
+elig_case hermit   qwenmentorbadslot $'trial: qwen3.6-mentor-v1\ntrial-tier: mentor\ntrial-slot: 7\nprovider: local\nmodel: qwen3.6\ndispatch: canary\nrole: builder' left
 elig_case cleric   pinnedqwen3  "model: qwen3.6"   left
 elig_case gardener pinnedqwen4  "model: qwen3.6"   left
 elig_case mystic   pinnedkimi   "model: kimi-k3"      claimed

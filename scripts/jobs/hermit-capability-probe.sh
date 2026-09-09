@@ -75,6 +75,7 @@ clone_unlock "$DIR" 2>/dev/null || true
 # --- the LOCAL arm this failure demerits ------------------------------------
 # Resolve the arm the hermit ACTUALLY ran, exactly as claim/complete resolve it.
 { read -r arm_provider; read -r arm_model; read -r arm_tht; } < <(rep_resolve_arm "$KIND" "$jobfile")
+arm_kind="$(rep_kind_for_job "$KIND" "$jobfile")"
 work_class="$(rep_work_class "$jobfile")"
 target="$(rep_target "$jobfile")"
 
@@ -212,8 +213,14 @@ for attempt in $(seq 1 20); do
     printf -- '---\n'
     printf 'base: %s\n' "$base"
     printf 'kind: %s\n' "$KIND"
+    printf 'reputation_kind: %s\n' "$arm_kind"
     printf 'provider: %s\n' "$arm_provider"
     printf 'model: %s\n' "$arm_model"
+    if qwen_mentor_trial_job "$jobfile"; then
+      printf 'trial: %s\n' "$(plan_field "$jobfile" trial)"
+      printf 'trial-tier: mentor\n'
+      printf 'trial-slot: %s\n' "$(plan_field "$jobfile" trial-slot)"
+    fi
     printf 'thoughtfulness: %s\n' "$arm_tht"
     printf 'work_class: %s\n' "$work_class"
     printf 'target: %s\n' "$target"
@@ -234,8 +241,9 @@ for attempt in $(seq 1 20); do
   git -C "$DIR" add "$probe_marker"
 
   if [ "$capable_succeeded" -eq 1 ]; then
-    rep_record_demerit "$DIR" "$base" "$KIND" "$arm_provider" "$arm_model" "$arm_tht" \
-      "$work_class" "$target" "$local_dollars" "$probe_agent" "$probe_model"
+    rep_record_demerit "$DIR" "$base" "$arm_kind" "$arm_provider" "$arm_model" "$arm_tht" \
+      "$work_class" "$target" "$local_dollars" "$probe_agent" "$probe_model" \
+      "$(plan_field "$jobfile" trial)" "$(plan_field "$jobfile" trial-slot)"
   fi
 
   rc=0; commit_and_push "$DIR" "hermit-probe($base): capable_succeeded=$capable_succeeded ($GARDEN)" || rc=$?

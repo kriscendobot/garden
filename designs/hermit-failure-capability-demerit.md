@@ -145,3 +145,10 @@ classes — becomes a reading of the arm projections rather than a guess.
 - `GARDEN_HERMIT_PROBE_AGENTS` (default `claude`) — capable reference agents to try.
 - `GARDEN_HERMIT_PROBE_TIMEOUT` (default 1200s) — per-attempt wall-clock bound.
 - `GARDEN_REP_DEMERIT_SUFFIX` (default `hermit-demerit`) — demerit event basename suffix.
+
+## Bounded mentor-shaped trial
+
+The same probe also measures the explicit six-job qwen3.6 mentor-shaped experiment.
+Its guards and counterfactual mechanism are unchanged; only event attribution differs:
+recognized trial jobs project into `hermit-mentor-trial/local/qwen3.6`, never the
+ordinary minion arm. See [`qwen3.6-mentor-tier-trial.md`](qwen3.6-mentor-tier-trial.md).

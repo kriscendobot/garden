@@ -291,6 +291,19 @@ rep_resolve_arm() {
   printf '%s\n%s\n%s\n' "$provider" "$model" "$effort"
 }
 
+# rep_kind_for_job <worker-kind> <jobfile> — reputation namespace for a live
+# attempt.  Normally this is the actual worker kind.  The sole exception is the
+# bounded qwen mentor trial: it deliberately projects into a synthetic kind so
+# mentor-shaped evidence cannot contaminate the established minion arm.
+rep_kind_for_job() {
+  local kind="${1:?}" jf="${2:?}"
+  if [ "$kind" = hermit ] && qwen_mentor_trial_job "$jf"; then
+    printf '%s\n' hermit-mentor-trial
+  else
+    printf '%s\n' "$kind"
+  fi
+}
+
 # rep_arm_relpath <kind> <provider> <model> <thoughtfulness> <work_class> <target>
 # The journal-relative projection path for one arm × work-class × target. Each path
 # component is sanitized to a safe single segment.
@@ -588,7 +601,7 @@ rep_demerit_event_relpath() {
 }
 
 # rep_record_demerit <dir> <base> <kind> <provider> <model> <tht> <wc> <tgt> \
-#                    <dollars> [probe_agent] [probe_model]
+#                    <dollars> [probe_agent] [probe_model] [trial] [trial_slot]
 # Write (and git-add, in the journal clone <dir>) a demerit reputation event for the
 # (kind,provider,model,thoughtfulness) arm × <wc> × <tgt>, attributing the failure of
 # <base> that a capable probe DID complete. Deterministic and fail-open; the caller
@@ -597,6 +610,7 @@ rep_demerit_event_relpath() {
 rep_record_demerit() {
   local dir="${1:?}" base="${2:?}" kind="${3:?}" provider="${4:?}" model="${5:?}"
   local tht="${6:?}" wc="${7:?}" tgt="${8:?}" dollars="${9:?}" pagent="${10:-unknown}" pmodel="${11:-unknown}"
+  local trial="${12:-}" trial_slot="${13:-}"
   local rel; rel="$(rep_demerit_event_relpath "$base")"
   case "$dollars" in ''|censored|*[!0-9.]*) dollars="${GARDEN_REP_COLD_MEAN:-10}" ;; esac
   mkdir -p "$dir/$(dirname "$rel")"
@@ -606,6 +620,11 @@ rep_record_demerit() {
     printf 'kind: %s\n' "$kind"
     printf 'provider: %s\n' "$provider"
     printf 'model: %s\n' "$model"
+    if [ -n "$trial" ] && [ -n "$trial_slot" ]; then
+      printf 'trial: %s\n' "$trial"
+      printf 'trial-tier: mentor\n'
+      printf 'trial-slot: %s\n' "$trial_slot"
+    fi
     printf 'thoughtfulness: %s\n' "$tht"
     printf 'work_class: %s\n' "$wc"
     printf 'target: %s\n' "$tgt"

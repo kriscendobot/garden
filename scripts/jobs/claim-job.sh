@@ -62,7 +62,7 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" tier pin constrained_provider role routed_model
+  local jf="$1" tier pin constrained_provider role routed_model trial
   # ROLE backend-fit: a job whose `role:` demands the full Claude-agent posture (the
   # self-directed `gardener` loop the codex/local handlers cannot honor) is claimable
   # only by an anthropic kind — the role analogue of the provider filter below, fencing
@@ -76,6 +76,18 @@ job_eligible_for_kind() {
     return 1
   fi
   pin="$(plan_field "$jf" model)"
+  trial="$(plan_field "$jf" trial)"
+  if [ -n "$trial" ]; then
+    # The only experimental widening is an explicit, numbered qwen mentor-trial
+    # permit.  Every other kind and every malformed/unknown trial marker leaves
+    # the job untouched.  The closed inventory continues to classify qwen3.6 as
+    # minion; `trial-tier` records the difficulty being tested, not a new tier.
+    [ "$KIND" = hermit ] || return 1
+    qwen_mentor_trial_job "$jf" || return 1
+    qwen_mentor_trial_slot_unique "$DIR" "$jf" || return 1
+    qwen_mentor_trial_admits "$DIR" || return 1
+    qwen_mentor_trial_no_inflight "$DIR" || return 1
+  fi
   # A shared provider id cannot by itself select a harness: without this routing
   # namespace, monk and OpenCode would both be eligible for the same Anthropic pin.
   # The namespace is garden-only; the handler/reputation resolver strip it back to

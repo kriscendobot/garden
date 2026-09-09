@@ -155,6 +155,35 @@ fi
 rm -rf "$TR"
 
 # ============================================================================
+hr; echo "MENTOR TRIAL — same probe, separately attributed arm"; hr
+TR="$(mktemp -d "$EXEC_BASE/hcp-mentor-trial.XXXXXX")"
+BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"
+FC="$TR/fake-claude.sh"; make_fake_claude "$FC"
+JF="$TR/job.md"
+printf -- '---\ntrial: qwen3.6-mentor-v1\ntrial-tier: mentor\ntrial-slot: 1\nprovider: local\nmodel: qwen3.6\ndispatch: canary\nrole: builder\ntarget: main2\n---\n# trial\n\nmentor-shaped work\n' > "$JF"
+FAKE_MARKER=1 run_probe "$BARE" "$GR" "$FC" "$JF" mentor-trial-job > "$TR/probe.log" 2>&1 || true
+V="$TR/v"; verify_clone "$BARE" "$V"
+DEM="$V/reputation/events/mentor-trial-job.hermit-demerit.md"
+if [ -f "$DEM" ] && [ "$(plan_field "$DEM" kind)" = hermit-mentor-trial ] \
+   && [ "$(plan_field "$DEM" trial-slot)" = 1 ]; then
+  ok "trial reuses the probe and records hermit-mentor-trial slot 1"
+else
+  bad "trial demerit did not enter its separate arm"
+fi
+env -i PATH="$PATH" HOME="$HOME" \
+  GARDEN=hp GARDEN_TEST=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+  GARDEN_ROOT="$GR" GARDEN_STATE="$GR/.garden-state" GARDEN_SCRATCH="$GR/scratch" \
+  JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+  "$JOBS/reputation-reduce.sh" > "$TR/reduce.log" 2>&1 || true
+V2="$TR/v2"; verify_clone "$BARE" "$V2"
+trial_arm="$(find "$V2/reputation/arms/hermit-mentor-trial/local/qwen3.6" -name '*.md' 2>/dev/null | head -1)"
+[ -n "$trial_arm" ] && ok "reducer projects a distinct hermit-mentor-trial arm" \
+  || bad "reducer did not project the trial arm"
+[ ! -d "$V2/reputation/arms/hermit/local" ] \
+  && ok "trial event does not populate the ordinary hermit arm" || bad "trial event contaminated the minion arm"
+rm -rf "$TR"
+
+# ============================================================================
 hr; echo "FAIL — capable probe does NOT complete -> probe record, NO demerit"; hr
 TR="$(mktemp -d "$EXEC_BASE/hcp-fail.XXXXXX")"
 BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"

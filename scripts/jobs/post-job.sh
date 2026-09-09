@@ -1,7 +1,7 @@
 #!/bin/bash
 # post-job.sh — producer primitive: put a job onto the board's todo/.
 #
-# Usage: post-job.sh [--identity <key>] [--provider-canary <provider> <tier>] <basename> [<body-file>]
+# Usage: post-job.sh [--identity <key>] [--provider-canary <provider> <tier>] [--qwen-mentor-trial <slot>] <basename> [<body-file>]
 #   <basename>   reserved job name; the spine that ties todo↔doin↔tada↔worktree.
 #                Must be filesystem- and git-ref-safe; keep it short.
 #   <body-file>  optional file whose contents become the job body. If omitted,
@@ -64,6 +64,9 @@ Usage: post-job.sh [--identity <key>] <basename> [<body-file>]
                post a bounded, provider-constrained tier canary. It writes
                `provider:`, `tier:`, and `dispatch: canary`; its body must not
                name a concrete `model:`. Ordinary automatic jobs stay minion.
+  --qwen-mentor-trial <slot>
+               admit one curated mentor-shaped job to the six-slot qwen3.6
+               canary trial; qwen3.6 remains classified local/minion.
 EOF
 }
 
@@ -80,6 +83,7 @@ identity="${GARDEN_JOB_IDENTITY:-}"
 role=""
 canary_provider=""
 canary_tier=""
+qwen_trial_slot=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --identity)   identity="${2:?--identity needs a value}"; shift 2;;
@@ -87,6 +91,7 @@ while [ $# -gt 0 ]; do
     --role)       role="${2:?--role needs a value}"; shift 2;;
     --role=*)     role="${1#--role=}"; shift;;
     --provider-canary) canary_provider="${2:?--provider-canary needs a provider}"; canary_tier="${3:?--provider-canary needs a tier}"; shift 3;;
+    --qwen-mentor-trial) qwen_trial_slot="${2:?--qwen-mentor-trial needs a slot}"; shift 2;;
     --)           shift; break;;
     -*)           die "unknown option: '$1' (usage: post-job.sh [--identity <key>] [--role <role>] <basename> [body-file])";;
     *)            break;;
@@ -140,7 +145,27 @@ rm -f "$_fm_tmp"
 
 # This is the automatic producer choke point.  No watcher, scheduler, follow-up,
 # auction, or role-generated job can retain a Claude pin during the quota route.
-if [ -n "$canary_provider" ]; then
+if [ -n "$qwen_trial_slot" ]; then
+  [ -z "$canary_provider" ] || die "--qwen-mentor-trial and --provider-canary are mutually exclusive"
+  [[ "$qwen_trial_slot" =~ ^[1-9][0-9]*$ ]] && [ "$qwen_trial_slot" -le "$QWEN_MENTOR_TRIAL_CAP" ] \
+    || die "qwen mentor-trial slot must be 1..$QWEN_MENTOR_TRIAL_CAP"
+  if printf '%s\n' "$BODY" | sed -n '2,/^---$/p' | grep -qE '^(trial|trial-tier|trial-slot|provider|model|tier|dispatch):'; then
+    die "qwen mentor-trial metadata is stamped by --qwen-mentor-trial; remove trial/provider/model/tier/dispatch fields from the body"
+  fi
+  BODY="$(printf '%s\n' "$BODY" | awk -v trial="$QWEN_MENTOR_TRIAL_ID" -v slot="$qwen_trial_slot" -v model="$QWEN_MENTOR_TRIAL_MODEL" '
+    { line[++n]=$0 }
+    END {
+      if (n && line[1]=="---") for(i=2;i<=n;i++) if(line[i]=="---"){end=i;break}
+      if (!end) {
+        print "---"; print "trial: " trial; print "trial-tier: mentor"; print "trial-slot: " slot
+        print "provider: local"; print "model: " model; print "dispatch: canary"; print "---"
+        for(i=1;i<=n;i++) print line[i]; exit
+      }
+      print line[1]; print "trial: " trial; print "trial-tier: mentor"; print "trial-slot: " slot
+      print "provider: local"; print "model: " model; print "dispatch: canary"
+      for(i=2;i<=n;i++) print line[i]
+    }')"
+elif [ -n "$canary_provider" ]; then
   case "$canary_provider" in anthropic|openai|local|moonshot|fireworks|openrouter|openrouter-promo|ollama-cloud) ;; *) die "unknown canary provider '$canary_provider'";; esac
   case "$canary_tier" in mentat|mentor|minion|myrmidon) ;; *) die "unknown canary tier '$canary_tier'";; esac
   [ -n "$(tier_model_for_provider "$canary_tier" "$canary_provider")" ] \
