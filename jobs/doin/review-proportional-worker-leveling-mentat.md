@@ -56,3 +56,13 @@ unresolved — do NOT let it proceed to build silently. Instead:
 Write your verdict plainly in your completion report: approved as-is, approved
 with the corrections you made, or blocked pending the maintainer's call (and
 what on).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-09T19:51:23Z
