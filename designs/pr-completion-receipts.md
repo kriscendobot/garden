@@ -267,6 +267,18 @@ day-level directory is needed for uniqueness; the full ISO completion date lives
 in the file's frontmatter. The directory tree alone is browsable, so no separate
 index/manifest is required.
 
+Historical jobs from before watcher identities sometimes have no deterministic join,
+or name an earlier PR while doing work on its reconstruction. The journal file
+`receipts/base-pr-overrides.tsv` records the researched correction as
+`base<TAB>owner/repo#N<TAB>evidence-URL`. `cost-by-pr.sh` treats this as the strongest
+edge; the third evidence column is only for auditability and is ignored by the parser.
+
+Historical jobs from before watcher identities sometimes have no deterministic join,
+or name an earlier PR while doing work on its reconstruction. The journal file
+`receipts/base-pr-overrides.tsv` records the researched correction as
+`base<TAB>owner/repo#N<TAB>evidence-URL`. `cost-by-pr.sh` treats this as the strongest
+edge; the third evidence column is for auditability and is ignored by the parser.
+
 The archived file is the **full** receipt (frontmatter + the complete,
 un-distilled table even when the posted comment was distilled for size):
 

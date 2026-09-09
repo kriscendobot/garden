@@ -12,7 +12,7 @@ bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 command -v jq >/dev/null 2>&1 || { echo "SKIP: jq unavailable"; exit 0; }
 
 TR="$(mktemp -d "${TMPDIR:-/tmp}/cost-by-pr.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
-J="$TR/journal"; mkdir -p "$J"/{reputation/events,jobs/index,jobs/tada}
+J="$TR/journal"; mkdir -p "$J"/{reputation/events,jobs/index,jobs/tada,receipts}
 git init -q "$J"; git -C "$J" checkout -q -b journal2
 
 # --- a rate card the test fully controls (journal card outranks the tracked seed) ---
@@ -64,9 +64,14 @@ mkev codex-audit-endo-but-for-bots-42 openai gpt-5 high 400
 #   PR-shaped (no pr/#/pull-request prefix) nor slug-adjacent, so it must NOT join
 #   (this is the real xs2rust-endor-stage10 -> endo#10 bug in miniature).
 mkev tune-endo-but-for-bots-retry-to-10 anthropic claude-default low 100
+# A misleading historical base says #42, but evidence records that the work actually
+# happened on its reconstruction, #10. The journal override must beat the basename.
+mkev reconstruct-endo-but-for-bots-pr42 anthropic claude-default low 200
 
 # jobs/index: the authoritative comment-directive -> base edge for feat-a.
 printf 'base: feat-a\nidentity: endojs/endo-but-for-bots#10:comment:111\n' > "$J/jobs/index/aaaa1111"
+printf 'reconstruct-endo-but-for-bots-pr42\tendojs/endo-but-for-bots#10\thttps://example.test/evidence\n' \
+  > "$J/receipts/base-pr-overrides.tsv"
 
 git -C "$J" add -A; git -C "$J" -c user.name=t -c user.email=t@localhost commit -qm seed
 
@@ -79,17 +84,17 @@ EOF
 out="$(GARDEN_STATE="$TR/state" bash "$JOBS/cost-by-pr.sh" --dir "$J" --pr-cache "$TR/prcache.tsv" --json)"
 echo "$out" | jq . >/dev/null 2>&1 && ok "emits valid JSON" || { bad "invalid JSON: $out"; echo "cost-by-pr-test: $PASS passed, $((FAIL)) failed"; exit 1; }
 
-# join coverage: 3 of 5 priced bases map to a PR (feat-a, endo-42, codex-42; the press
-# and the stray-"10" base do not).
+# join coverage: 4 of 6 priced bases map to a PR (feat-a, endo-42, codex-42, and the
+# override; the press and the stray-"10" base do not).
 jc="$(echo "$out" | jq -r '.coverage.joined_bases')"; pc="$(echo "$out" | jq -r '.coverage.priced_bases')"
-[ "$pc" = 5 ] && ok "priced all 5 events" || bad "priced=$pc (want 5)"
-[ "$jc" = 3 ] && ok "joined 3 of 5 bases to a PR" || bad "joined=$jc (want 3)"
+[ "$pc" = 6 ] && ok "priced all 6 events" || bad "priced=$pc (want 6)"
+[ "$jc" = 4 ] && ok "joined 4 of 6 bases to a PR" || bad "joined=$jc (want 4)"
 
 # feat-a -> #10 via jobs/index, measured 1000*0.000069 = 0.069. If the stray-"10" base
 # had false-joined, #10 would read 0.069 + 100*0.000069 = 0.0759 — so this also guards
 # the false-join regression.
 m10="$(echo "$out" | jq -r '.prs[] | select(.pr=="endojs/endo-but-for-bots#10") | .measured_usd')"
-awk -v v="$m10" 'BEGIN{exit !(v>0.0689 && v<0.0691)}' && ok "#10 measured \$0.069 — only feat-a, the stray-10 base did NOT false-join" || bad "#10 measured=$m10 (want ~0.069)"
+awk -v v="$m10" 'BEGIN{exit !(v>0.0827 && v<0.0829)}' && ok "#10 includes the evidence override; stray-10 still does not false-join" || bad "#10 measured=$m10 (want ~0.0828)"
 
 # #42 gets BOTH a measured moonshot contribution (base-name edge) AND a ceiling openai one.
 m42="$(echo "$out" | jq -r '.prs[] | select(.pr=="endojs/endo-but-for-bots#42") | .measured_usd')"
@@ -116,8 +121,8 @@ nf="$(GARDEN_STATE="$TR/state" bash "$JOBS/cost-by-pr.sh" --dir "$J" --no-fetch 
   && ok "--no-fetch without --pr-cache does not trap on empty PRSTATE" \
   || bad "--no-fetch trapped or emitted invalid JSON: $nf"
 nfj="$(echo "$nf" | jq -r '.coverage.joined_bases' 2>/dev/null)"
-[ "$nfj" = 1 ] && ok "--no-fetch joins only the jobs/index edge (feat-a -> #10)" \
-  || bad "--no-fetch joined=$nfj (want 1: jobs/index only)"
+[ "$nfj" = 2 ] && ok "--no-fetch joins jobs/index plus the evidence override" \
+  || bad "--no-fetch joined=$nfj (want 2: index + override)"
 
 echo "cost-by-pr-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

@@ -20,6 +20,9 @@
 #   2. the job BASE NAME's embedded number, VALIDATED against the real PR set for the
 #      repo the base names (gh, cached). Validation kills false positives (a date, an
 #      issue number, a gate id that merely looks like a PR).
+# Historical jobs that predate watcher identities and whose base does not encode the
+# actual PR may be corrected by journal data `receipts/base-pr-overrides.tsv`
+# (`base<TAB>owner/repo#N`). This is an auditable evidence-backed edge, not a heuristic.
 # Join coverage is MEASURED and always printed. A base that joins to no PR is real cost
 # too (scholar cycles, presses, watchdogs, garden-internal main2 builds) and goes to an
 # explicit UNATTRIBUTED bucket — never silently dropped, which would understate every
@@ -127,6 +130,19 @@ if [ -d "$dir/jobs/index" ]; then
     [ -n "$b" ] && [ -n "$pr" ] && B2PR["$b"]="$pr"
   done
 fi
+# 3a.2. Evidence-backed historical overrides. These outrank both the index and the
+# basename heuristic because they exist specifically to correct an absent or misleading
+# old edge (for example, a reconstruction base naming the original rather than the new
+# PR it actually opened).
+override_file="$dir/receipts/base-pr-overrides.tsv"
+if [ -f "$override_file" ]; then
+  while IFS=$'\t' read -r b pr evidence rest; do
+    case "$b" in ''|'#'*) continue ;; esac
+    [[ "$pr" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+$ ]] || \
+      die "invalid receipt base-PR override for '$b': '$pr'"
+    B2PR["$b"]="$pr"
+  done < "$override_file"
+fi
 
 # 3b. the known-PR + merged-state oracle. From --pr-cache, else gh over the repos the
 # jobs/index identities name. state: merged|open|closed. PRSTATE[repo#num]=state.
@@ -137,7 +153,8 @@ if [ -n "$prcache" ]; then
   load_prcache "$prcache"
 elif [ "$fetch" -eq 1 ] && command -v gh >/dev/null 2>&1; then
   # repos named by any jobs/index identity, plus any repo a base name implies.
-  { for f in "$dir/jobs/index"/*; do sed -n 's/^identity:[[:space:]]*//p' "$f" 2>/dev/null; done; } \
+  { for f in "$dir/jobs/index"/*; do sed -n 's/^identity:[[:space:]]*//p' "$f" 2>/dev/null; done
+    [ ! -f "$override_file" ] || cut -f2 "$override_file"; } \
     | grep -oE '^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+' | sort -u > "$TMP/repos.txt" || true
   : > "$TMP/prcache.tsv"
   while read -r repo; do
