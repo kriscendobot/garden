@@ -2,7 +2,7 @@
 | --- | --- |
 | Created | 2026-09-09 |
 | Author | mentor (gardener, job `design-proportional-worker-leveling`) |
-| Status | Reviewed — approved for build with amendments (mentat review, 2026-09-09) |
+| Status | Implemented (2026-09-09) |
 
 # Proportional worker leveling across hosts
 
@@ -345,6 +345,18 @@ journal state follows the `leader` marker across a handoff and is auditable in
 git, where a per-host environment default would be left behind on the old
 leader. Validate the file on read and fail closed (freeze, warn once) on a
 malformed row, the same posture as an uncalibrated cap.
+
+The implemented `config/worker-leveling` schema is tab-separated:
+
+```
+monk-fleet-ceiling  6
+cleric-fleet-ceiling  5
+host  <host-id>  <monk-physical-cap>  <cleric-physical-cap>
+```
+
+`scripts/jobs/set-worker-leveling.sh` validates and replaces this journal-backed
+file. `GARDEN_MONK_FLEET_CEILING`, `GARDEN_CLERIC_FLEET_CEILING`, and
+`GARDEN_WORKER_LEVELING_FILE` remain test/operator overrides.
 
 - 143M and 64M caps with `F=6` produce monk ceilings 4 and 2;
 - swapping row order produces identical allocations;

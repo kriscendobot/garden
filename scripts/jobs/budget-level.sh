@@ -1,10 +1,6 @@
 #!/bin/bash
-# budget-level.sh — deterministic leader-only worker leveling from live pool headroom.
-#
-# Run directly for an operator tick, or name it as a scheduler preflight. The
-# scheduler passes the schedule name as argv[1]; after doing the plain-code work
-# this script returns 2 so the schedule advances without dispatching an LLM job.
-
+# budget-level.sh — deterministic leader-only fleet worker leveling.
+# Monks share an apportioned fleet ceiling; clerics share a demand-sized envelope.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -12,276 +8,135 @@ source "$HERE/common.sh"
 export GARDEN_TAG=budget-level
 
 : "${GARDEN_BUDGET_LEVEL_MIN:=1}"
-: "${GARDEN_BUDGET_LEVEL_MAX:=4}"
-# Empty means DERIVE the Anthropic worker spelling per host (monk on a cut-over host,
-# else legacy gardener) from the host's own count line. A non-empty value forces one
-# kind for every pool (operators/tests). See the per-host resolution in the loop.
 : "${GARDEN_BUDGET_LEVEL_KIND:=}"
-: "${GARDEN_BUDGET_LEVEL_SET_WORKERS:=$HERE/set-workers.sh}"
-: "${GARDEN_BUDGET_LEVEL_SEND_HOST_OP:=$HERE/send-host-op.sh}"
-# Restraint (cybernetics-audit.md § 5.1, recommendation 3): a memoryless proportional
-# controller that jumps 1<->4 in a single tick on a sensor up to 45 min stale thrashes
-# at band boundaries. Give it the confirm-before-move dwell and one-step-per-tick clamp
-# the design already claims (live-budget-admission.md:296-298) and the house pattern
-# backend_effective_count uses (common.sh confirm-before-move). Move at most STEP per
-# tick; raise (more workers, more spend — the § 2.2 hazard direction) only after
-# UP_CONFIRM consecutive same-direction ticks; throttle (the safe action) promptly.
 : "${GARDEN_BUDGET_LEVEL_STEP:=1}"
 : "${GARDEN_BUDGET_LEVEL_UP_CONFIRM:=2}"
 : "${GARDEN_BUDGET_LEVEL_DOWN_CONFIRM:=1}"
 : "${GARDEN_BUDGET_LEVEL_DWELL_DIR:=$GARDEN_STATE/budget-level/dwell}"
-
-scheduled=false
-[ "$#" -gt 0 ] && scheduled=true
+: "${GARDEN_BUDGET_LEVEL_SET_WORKERS:=$HERE/set-workers.sh}"
+: "${GARDEN_BUDGET_LEVEL_SEND_HOST_OP:=$HERE/send-host-op.sh}"
+: "${GARDEN_WORKER_LEVELING_PATH:=config/worker-leveling}"
+scheduled=false; [ "$#" -gt 0 ] && scheduled=true
 finish() { if $scheduled; then exit 2; else exit 0; fi; }
-
-if ! is_main_host; then
-  log "follower host; budget leveling is leader-only"
-  finish
-fi
-
-# Skip leveling entirely while the fleet is draining: a drain stops every worker, so
-# re-asserting counts (and raising a per-change maintainer alert) on a drained host is
-# noise that also fights the drain (cybernetics-audit.md § 4.1). The sysop still ticks
-# under drain to receive `drain off`; leveling has no such reason to run.
-if fleet_draining; then
-  log "fleet draining; budget leveling suspended this tick"
-  finish
-fi
-
-# Per-host dwell record (host-local, no journal write — like backend_effective_count's
-# runtime record). Tracks the last move direction and its consecutive-tick streak so a
-# move only fires once the direction has been confirmed, and a boundary flip resets it.
-_dwell_file() { printf '%s\n' "$GARDEN_BUDGET_LEVEL_DWELL_DIR/${1//[^A-Za-z0-9._-]/_}"; }
-# budget_level_dwell_bump <host> <dir> — increment the streak if <dir> matches the
-# recorded direction, else restart it at 1. Prints the new streak. Best-effort persist.
-budget_level_dwell_bump() {
-  local host="$1" dir="$2" f prev_dir="" prev_streak=0 streak
-  f="$(_dwell_file "$host")"
-  if [ -f "$f" ]; then
-    prev_dir="$(sed -n 's/^dir=//p' "$f" | head -1)"
-    prev_streak="$(sed -n 's/^streak=//p' "$f" | head -1)"
-    [[ "$prev_streak" =~ ^[0-9]+$ ]] || prev_streak=0
-  fi
-  if [ "$dir" = "$prev_dir" ]; then streak=$((prev_streak + 1)); else streak=1; fi
-  mkdir -p "$(dirname "$f")" 2>/dev/null || true
-  if { printf 'dir=%s\n' "$dir"; printf 'streak=%s\n' "$streak"; } > "$f.tmp" 2>/dev/null; then
-    mv "$f.tmp" "$f" 2>/dev/null || true
-  fi
-  printf '%s\n' "$streak"
-}
-# budget_level_dwell_reset <host> — clear the streak (host is at target). A subsequent
-# move must re-confirm from scratch.
-budget_level_dwell_reset() {
-  local f; f="$(_dwell_file "$1")"
-  mkdir -p "$(dirname "$f")" 2>/dev/null || true
-  if { printf 'dir=none\n'; printf 'streak=0\n'; } > "$f.tmp" 2>/dev/null; then
-    mv "$f.tmp" "$f" 2>/dev/null || true
-  fi
-}
+is_main_host || { log "follower host; budget leveling is leader-only"; finish; }
+fleet_draining && { log "fleet draining; budget leveling suspended this tick"; finish; }
+[[ "$GARDEN_BUDGET_LEVEL_MIN" =~ ^[1-9][0-9]*$ ]] || die "GARDEN_BUDGET_LEVEL_MIN must be positive"
 [[ "$GARDEN_BUDGET_LEVEL_STEP" =~ ^[1-9][0-9]*$ ]] || GARDEN_BUDGET_LEVEL_STEP=1
 [[ "$GARDEN_BUDGET_LEVEL_UP_CONFIRM" =~ ^[1-9][0-9]*$ ]] || GARDEN_BUDGET_LEVEL_UP_CONFIRM=2
 [[ "$GARDEN_BUDGET_LEVEL_DOWN_CONFIRM" =~ ^[1-9][0-9]*$ ]] || GARDEN_BUDGET_LEVEL_DOWN_CONFIRM=1
 
-# budget_level_uncalibrated <calibrated-from> — true when a pool's cap carries no
-# usable provenance: an empty/absent field, or an explicit self-disclaiming marker
-# (the placeholder seed says "PLACEHOLDER CAPS — NOT CALIBRATED", and the 2026-09-01
-# config header does this by hand in prose). Do not actuate on a setpoint the config
-# disclaims (cybernetics-audit.md § 2.3, recommendation 2): the leader sat in
-# permanent backoff for days against the 5M placeholder cap. Case-insensitive.
-budget_level_uncalibrated() {
-  case "$(printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]')" in
-    ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0 ;;
-    *) return 1 ;;
-  esac
+_dwell_file() { printf '%s/%s-%s\n' "$GARDEN_BUDGET_LEVEL_DWELL_DIR" "${1//[^A-Za-z0-9._-]/_}" "${2//[^A-Za-z0-9._-]/_}"; }
+dwell_bump() { # host kind direction
+  local f pd="" ps=0 s; f="$(_dwell_file "$1" "$2")"
+  [ ! -f "$f" ] || { pd="$(sed -n 's/^dir=//p' "$f" | head -1)"; ps="$(sed -n 's/^streak=//p' "$f" | head -1)"; [[ "$ps" =~ ^[0-9]+$ ]] || ps=0; }
+  [ "$3" = "$pd" ] && s=$((ps+1)) || s=1
+  mkdir -p "$(dirname "$f")" 2>/dev/null || true
+  if printf 'dir=%s\nstreak=%s\n' "$3" "$s" >"$f.tmp" 2>/dev/null; then mv "$f.tmp" "$f" 2>/dev/null || true; fi
+  printf '%s\n' "$s"
 }
-[[ "$GARDEN_BUDGET_LEVEL_MIN" =~ ^[1-9][0-9]*$ ]] || die "GARDEN_BUDGET_LEVEL_MIN must be positive"
-[[ "$GARDEN_BUDGET_LEVEL_MAX" =~ ^[1-9][0-9]*$ ]] || die "GARDEN_BUDGET_LEVEL_MAX must be positive"
-[ "$GARDEN_BUDGET_LEVEL_MIN" -le "$GARDEN_BUDGET_LEVEL_MAX" ] || die "budget-level min exceeds max"
+dwell_reset() { local f; f="$(_dwell_file "$1" "$2")"; mkdir -p "$(dirname "$f")" 2>/dev/null || true; printf 'dir=none\nstreak=0\n' >"$f.tmp" 2>/dev/null && mv "$f.tmp" "$f" 2>/dev/null || true; }
+uncalibrated() { case "$(printf %s "${1:-}" | tr '[:upper:]' '[:lower:]')" in ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0;; *) return 1;; esac; }
+pool_failure() { log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4; failure isolated (fail-open)"; }
+
+# Input rows: id, weight, floor, cap. Implements bounded Hamilton apportionment.
+apportion() { awk -F '\t' -v total="$1" '
+ {id[++n]=$1;w[n]=$2+0;a[n]=$3+0;cap[n]=$4+0;left-=a[n]}
+ END { left+=total
+  while(left>0){ sw=0; na=0; for(i=1;i<=n;i++)if(a[i]<cap[i]){sw+=w[i];na++} if(!na)break
+   if(sw<=0){p=0;for(i=1;i<=n;i++)if(a[i]<cap[i]&&(!p||a[i]<a[p]||(a[i]==a[p]&&id[i]<id[p])))p=i;a[p]++;left--;continue}
+   hit=0;for(i=1;i<=n;i++)if(a[i]<cap[i]){q=left*w[i]/sw;x=int(q);room=cap[i]-a[i];if(x>=room&&room>0){a[i]+=room;left-=room;hit=1}}
+   if(hit)continue
+   gave=0;for(i=1;i<=n;i++)if(a[i]<cap[i]){q=left*w[i]/sw;add[i]=int(q);rem[i]=q-int(q);gave+=add[i]}
+   for(i=1;i<=n;i++){a[i]+=add[i];add[i]=0} left-=gave
+   while(left>0){p=0;for(i=1;i<=n;i++)if(a[i]<cap[i]&&(!p||rem[i]>rem[p]+1e-12||((rem[i]-rem[p]<1e-12&&rem[p]-rem[i]<1e-12)&&id[i]<id[p])))p=i;if(!p)break;a[p]++;rem[p]=-1;left--}
+  } for(i=1;i<=n;i++)print id[i] "\t" a[i]
+ }'; }
 
 DIR="${GARDEN_BUDGET_LEVEL_CLONE:-$GARDEN_STATE/budget-level/journal}"
+rc=0
+snapshot="$({
+ ensure_clone "$DIR"; sync_clone "$DIR"
+ pools="$(budget_pool_file "$DIR" 2>/dev/null || true)"; [ -n "$pools" ] || exit 3
+ cfg="${GARDEN_WORKER_LEVELING_FILE:-$DIR/$GARDEN_WORKER_LEVELING_PATH}"; [ -f "$cfg" ] || exit 4
+ while IFS=$'\t ' read -r pool provider host kind cap prov _at _; do case "$pool" in ''|'#'*)continue;;esac; [ "$provider" = anthropic ]&&[ "$kind" = weekly-tokens ]||continue; printf 'P\t%s\t%s\t%s\t%s\n' "$pool" "$host" "$cap" "${prov:-}"; done <"$pools"
+ while IFS=$'\t ' read -r type a b c _; do case "$type" in ''|'#'*)continue;; monk-fleet-ceiling|cleric-fleet-ceiling)printf 'C\t%s\t%s\n' "$type" "$a";; host)printf 'H\t%s\t%s\t%s\n' "$a" "$b" "$c";; *)printf 'X\t%s\n' "$type";;esac; done <"$cfg"
+ clone_unlock "$DIR"
+})" || rc=$?
+case "$rc" in 0);;3)log "budget pool config absent; leveling is off";finish;;4)log "WARN: $GARDEN_WORKER_LEVELING_PATH absent; leveling frozen";finish;;"$GARDEN_OFFLINE_RC")log "WARN: budget-level preflight offline (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;*)log "WARN: budget-level preflight failed (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;esac
 
-# Preflight: bring the journal clone current and read the budget-pool rows, ALL
-# inside one subshell that holds the clone lock. The two preflight controllers can
-# each abort hard: ensure_clone `die`s on a clone/lock failure, and sync_clone
-# either `exit`s GARDEN_OFFLINE_RC on a transient network/resolver outage or `die`s
-# on a hard fetch / unrecoverable-corruption failure. Under this script's `set -e`
-# any of those would crash the whole tick with a RAW journal-controller exit code —
-# the contextless failure this controller must not produce:
-#   * Run as the scheduler's budget-level controller, that raw code pages the
-#     maintainer as a budget-ACCOUNTING failure (an exit_status=75 "offline;
-#     skipping tick" tells no one it was merely journal weather, not a pool bug).
-#   * Run as a scheduler `preflight:` gate, any non-2 exit makes the scheduler fail
-#     OPEN and spuriously dispatch the leveling schedule as an LLM job.
-# Isolating clone+sync+read in a subshell contains the exit/die, lets us classify
-# it, and fails OPEN into finish (skip this leveling tick; retry next cadence) with
-# an explicit, isolated diagnostic. The subshell owns the entire locked read, so the
-# clone lock is acquired and released within it — nothing leaks to the parent, and
-# the read still sees a point-in-time-consistent clone. Exit-code contract of the
-# subshell: 0 rows-read (rows on stdout, possibly none), 3 config-absent,
-# GARDEN_OFFLINE_RC transient-outage, any other a hard clone/sync failure.
-preflight_rc=0
-rows_tsv="$(
-  ensure_clone "$DIR"
-  sync_clone "$DIR"
-  file="$(budget_pool_file "$DIR" 2>/dev/null || true)"
-  [ -n "$file" ] || exit 3
-  while IFS=$'\t ' read -r pool provider account kind cap calibrated_from calibrated_at _rest; do
-    case "$pool" in ''|'#'*) continue ;; esac
-    # The current leveling actuator is per-host Anthropic worker capacity. Metered
-    # API pools still participate in admission, but have no account-bound worker
-    # count for this controller to change.
-    [ "$provider" = anthropic ] && [ "$kind" = weekly-tokens ] || continue
-    # Columns 6-7 are the optional cap provenance (calibrated-from, date). Absent
-    # columns become empty strings, which the loop reads as "uncalibrated".
-    printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$pool" "$provider" "$account" "$cap" "${calibrated_from:-}" "${calibrated_at:-}"
-  done < "$file"
-  clone_unlock "$DIR"
-)" || preflight_rc=$?
+declare -a pools=() phosts=() pcaps=() pprov=() hosts=()
+declare -A mcap=() ccap=() mceil=() active=() active_ids=() demand=() ctarget=()
+mf=""; cf=""; bad=""
+while IFS=$'\t' read -r r a b c d; do case "$r" in P)pools+=("$a");phosts+=("$b");pcaps+=("$c");pprov+=("$d");;C)[ "$a" = monk-fleet-ceiling ]&&mf="$b"||cf="$b";;H)hosts+=("$a");mcap["$a"]="$b";ccap["$a"]="$c";;X)bad="unknown row '$a'";;esac;done <<<"$snapshot"
+mf="${GARDEN_MONK_FLEET_CEILING:-$mf}"; cf="${GARDEN_CLERIC_FLEET_CEILING:-$cf}"
 
-if [ "$preflight_rc" -eq 3 ]; then
-  log "budget pool config absent; leveling is off"
-  finish
-elif [ "$preflight_rc" -eq "$GARDEN_OFFLINE_RC" ]; then
-  log "WARN: budget-level preflight offline (journal clone/sync, rc=$preflight_rc); skipping this leveling tick, retry next cadence (fail-open)"
-  finish
-elif [ "$preflight_rc" -ne 0 ]; then
-  log "WARN: budget-level preflight failed (journal clone/sync, rc=$preflight_rc); skipping this leveling tick, retry next cadence (fail-open)"
-  finish
-fi
+mv=1; n=${#pools[@]}; sum=0
+[[ "$mf" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="invalid monk fleet ceiling '$mf'"; }; [ "$n" -gt 0 ]||{ mv=0;bad="no enabled Anthropic weekly pools"; }
+for((i=0;i<n;i++));do h="${phosts[i]}";c="${pcaps[i]}";p="${pprov[i]}"; [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}; uncalibrated "$p"&&{ mv=0;bad="${pools[i]} uncalibrated provenance '${p:-none}'";}; [[ "${mcap[$h]:-}" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} missing/invalid monk physical cap";continue;}; sum=$((sum+mcap[$h]));done
+if [[ "$mf" =~ ^[1-9][0-9]*$ ]];then [ "$mf" -ge $((n*GARDEN_BUDGET_LEVEL_MIN)) ]||{ mv=0;bad="monk fleet ceiling below aggregate floor";};[ "$sum" -ge "$mf" ]||{ mv=0;bad="monk fleet ceiling exceeds physical capacity";};fi
+if [ "$mv" -eq 1 ];then rows="";for((i=0;i<n;i++));do h="${phosts[i]}";rows+="$h"$'\t'"${pcaps[i]}"$'\t'"$GARDEN_BUDGET_LEVEL_MIN"$'\t'"${mcap[$h]}"$'\n';done;while IFS=$'\t' read -r h x;do mceil["$h"]="$x";done < <(printf %s "$rows"|apportion "$mf");else log "WARN: fleet monk allocation frozen: $bad";alert_maintainer budget-level-monk-preflight "budget-level: fleet monk allocation frozen: $bad. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.";fi
 
-rows=()
-while IFS= read -r row; do
-  [ -n "$row" ] && rows+=("$row")
-done <<<"$rows_tsv"
-
-if cutoff="$(meter_window_cutoff anchor 2>/dev/null)"; then
-  cutoff_rc=0
-else
-  cutoff_rc=$?
-  cutoff=""
-fi
-[[ "$cutoff" =~ ^[0-9]+$ ]] || [ "$cutoff_rc" -ne 0 ] || cutoff_rc=1
-pool_failure() { # pool host operation status
-  log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4; failure isolated (fail-open)"
+cutoff="$(meter_window_cutoff anchor 2>/dev/null)"&&cutrc=0||{ cutrc=$?;cutoff=""; }
+apply_target(){ # pool host kind current target reason
+ local pool="$1" h="$2" kind="$3" cur="$4" target="$5" reason="$6" dir conf streak next id
+ [ "$cur" -ne "$target" ]||{ dwell_reset "$h" "$kind";return; }
+ if [ "$target" -gt "$cur" ];then dir=up;conf="$GARDEN_BUDGET_LEVEL_UP_CONFIRM";else dir=down;conf="$GARDEN_BUDGET_LEVEL_DOWN_CONFIRM";fi
+ streak="$(dwell_bump "$h" "$kind" "$dir")";[ "$streak" -ge "$conf" ]||{ log "budget-level dwell $h $kind $cur->$target ($dir $streak/$conf); holding this tick";return; }
+ if [ "$dir" = up ];then next=$((cur+GARDEN_BUDGET_LEVEL_STEP));[ "$next" -le "$target" ]||next="$target";else next=$((cur-GARDEN_BUDGET_LEVEL_STEP));[ "$next" -ge "$target" ]||next="$target";fi
+ if [ "$kind" = cleric ]&&[ "$dir" = down ];then for id in ${active_ids[$h]:-};do [ "$id" -le "$next" ]||{ log "cleric shrink deferred on $h: active garden-cleric@$id would be stopped by count=$next";return;};done;fi
+ if [ "$h" = "$GARDEN" ];then /bin/bash "$GARDEN_BUDGET_LEVEL_SET_WORKERS" "$kind" "$next"||{ pool_failure "$pool" "$h" set-local-workers "$?";return;};else /bin/bash "$GARDEN_BUDGET_LEVEL_SEND_HOST_OP" "$h" op=set-workers kind="$kind" count="$next" reason="$reason"||{ pool_failure "$pool" "$h" send-host-set-workers "$?";return;};fi
+ log "leveled $h $kind $cur->$next (target $target; $reason)";alert_maintainer "budget-level-$kind-$h-$next" "budget-level changed $h $kind workers $cur -> $next (target $target): $reason"
 }
 
-for row in "${rows[@]}"; do
-  IFS=$'\t' read -r pool provider host cap calibrated_from calibrated_at <<<"$row"
-  [[ "$cap" =~ ^[1-9][0-9]*$ ]] || { log "WARN: $pool has invalid cap '$cap'; leaving workers unchanged (fail-open)"; continue; }
-
-  # Treat an uncalibrated / placeholder-marked cap as config-absent for LEVELING:
-  # level nothing, and alert ONCE (a stable key so alert_maintainer deduplicates the
-  # repeated tick). A measured cap must precede full-authority actuation against it.
-  if budget_level_uncalibrated "$calibrated_from"; then
-    log "budget pool $pool cap=$cap is UNCALIBRATED (calibrated-from='${calibrated_from:-none}'); leveling nothing — config disclaims this setpoint"
-    alert_maintainer "budget-level-uncalibrated-$pool" \
-      "budget-level: pool $pool cap=$cap is UNCALIBRATED (provenance='${calibrated_from:-none}'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date)."
-    continue
-  fi
-
-  if [ "$host" = "$GARDEN" ]; then
-    if spend="$(meter_window_total anchor 2>/dev/null)"; then
-      :
-    else
-      rc=$?
-      pool_failure "$pool" "$host" read-local-spend "$rc"
-      continue
-    fi
-  elif [[ "$cutoff" =~ ^[0-9]+$ ]]; then
-    if spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>/dev/null)"; then
-      :
-    else
-      rc=$?
-      pool_failure "$pool" "$host" read-remote-snapshot "$rc"
-      if spend="$(meter_journal_host_tokens "$DIR" "$host" "$cutoff" 2>/dev/null)"; then
-        :
-      else
-        rc=$?
-        pool_failure "$pool" "$host" read-journal-spend "$rc"
-        continue
-      fi
-    fi
-  else
-    pool_failure "$pool" "$host" read-window-cutoff "$cutoff_rc"
-    continue
-  fi
-  [[ "$spend" =~ ^[0-9]+$ ]] || { pool_failure "$pool" "$host" validate-spend 1; continue; }
-
-  if target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" \
-                    -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$GARDEN_BUDGET_LEVEL_MAX" '
-    BEGIN {
-      mark=q*f
-      if (mark <= 0 || t >= mark) n=lo
-      else {
-        headroom=1-(t/mark)
-        n=lo+int(headroom*(hi-lo)+0.5)
-      }
-      if (n<lo) n=lo; if (n>hi) n=hi; printf "%d\n", n
-    }')"; then
-    :
-  else
-    rc=$?
-    pool_failure "$pool" "$host" compute-target "$rc"
-    continue
-  fi
-  host_file="$DIR/hosts/$host"
-  # Which Anthropic worker spelling this host arms (monk on a cut-over host, else the
-  # legacy gardener) — steer the line the scaler actually reads. A non-empty override
-  # forces one kind for every pool (cybernetics-audit.md § 4.1: the hardcoded
-  # `gardeners:` awk steered a line nothing reads on a cut-over host).
-  if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ]; then
-    active_kind="$GARDEN_BUDGET_LEVEL_KIND"
-  else
-    active_kind="$(anthropic_active_kind "$host_file")"
-  fi
-  count_key="$(worker_kind_field "$active_kind" count_key 2>/dev/null)" || count_key=gardeners
-  if current="$(read_desired_count "$host_file" "$count_key" 2>/dev/null)"; then
-    :
-  else
-    rc=$?
-    pool_failure "$pool" "$host" read-host-workers "$rc"
-    continue
-  fi
-  [[ "$current" =~ ^[0-9]+$ ]] || { pool_failure "$pool" "$host" validate-host-workers 1; continue; }
-  if [ "$current" -eq "$target" ]; then budget_level_dwell_reset "$host"; continue; fi
-
-  # Confirm-before-move dwell + one-step-per-tick clamp. Raise cautiously (the § 2.2
-  # maximize-on-noise direction); throttle promptly. The move only ever narrows the gap.
-  if [ "$target" -gt "$current" ]; then dir=up; confirm="$GARDEN_BUDGET_LEVEL_UP_CONFIRM"
-  else dir=down; confirm="$GARDEN_BUDGET_LEVEL_DOWN_CONFIRM"; fi
-  streak="$(budget_level_dwell_bump "$host" "$dir")"
-  if [ "$streak" -lt "$confirm" ]; then
-    log "budget-level dwell $host $current->$target ($dir $streak/$confirm); holding this tick"
-    continue
-  fi
-  if [ "$dir" = up ]; then
-    next=$((current + GARDEN_BUDGET_LEVEL_STEP)); [ "$next" -gt "$target" ] && next="$target"
-  else
-    next=$((current - GARDEN_BUDGET_LEVEL_STEP)); [ "$next" -lt "$target" ] && next="$target"
-  fi
-
-  reason="budget pool $pool spend=$spend cap=$cap high-water=$GARDEN_TOKEN_BACKOFF_FRACTION target=$target step=$current->$next"
-  if [ "$host" = "$GARDEN" ]; then
-    if /bin/bash "$GARDEN_BUDGET_LEVEL_SET_WORKERS" "$active_kind" "$next"; then
-      :
-    else
-      rc=$?
-      pool_failure "$pool" "$host" set-local-workers "$rc"
-      continue
-    fi
-  else
-    if /bin/bash "$GARDEN_BUDGET_LEVEL_SEND_HOST_OP" "$host" op=set-workers kind="$active_kind" count="$next" reason="$reason"; then
-      :
-    else
-      rc=$?
-      pool_failure "$pool" "$host" send-host-set-workers "$rc"
-      continue
-    fi
-  fi
-  log "leveled $host $active_kind $current->$next (target $target; $reason)"
-  alert_maintainer "budget-level-$host-$next" \
-    "budget-level changed $host $active_kind workers $current -> $next (target $target): $reason"
+for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov="${pprov[i]}";[[ "$cap" =~ ^[1-9][0-9]*$ ]]||continue
+ [ "$mv" -eq 1 ]||! uncalibrated "$prov"||continue
+ if [ "$h" = "$GARDEN" ];then spend="$(meter_window_total anchor 2>/dev/null)"||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$cutoff" =~ ^[0-9]+$ ]];then spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>/dev/null)"||spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-window-cutoff "$cutrc";continue;fi
+ [[ "$spend" =~ ^[0-9]+$ ]]||{ pool_failure "$pool" "$h" validate-spend 1;continue;};hf="$DIR/hosts/$h";if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ];then kind="$GARDEN_BUDGET_LEVEL_KIND";else kind="$(anthropic_active_kind "$hf")";fi;key="$(worker_kind_field "$kind" count_key 2>/dev/null||echo gardeners)";cur="$(read_desired_count "$hf" "$key" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-host-workers "$?";continue;}
+ if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";fi
+ apply_target "$pool" "$h" "$kind" "$cur" "$target" "budget pool $pool spend=$spend cap=$cap ceiling=${mceil[$h]:-frozen} target=$target"
 done
+
+# A cleric job is counted only on hosts that pass the same static provider/model,
+# role, explicit-host, and capability constraints as claim admission. Capability
+# facts are intentionally not published; a non-host requirement is therefore
+# conservatively ineligible in this leader-side snapshot instead of being guessed.
+cleric_eligible(){ local jf="$1" h="$2" p pin tier req
+ role_requires_anthropic_posture "$(plan_field "$jf" role)"&&return 1
+ if job_provider_is_constrained "$jf";then p="$(job_provider_constraint "$jf" 2>/dev/null)"||return 1;[ "$p" = openai ]||return 1;fi
+ tier="$(job_tier "$jf" 2>/dev/null)"||{ [ -z "$(plan_field "$jf" model)" ]&&! job_provider_is_constrained "$jf";return; }
+ [ "$tier" != mentat ]||return 1;pin="$(plan_field "$jf" model)"
+ if [ -n "$pin" ];then resolve_model_tier openai "$pin" >/dev/null 2>&1||return 1;else tier_model_for_provider "$tier" openai >/dev/null 2>&1||return 1;fi
+ while IFS= read -r req;do case "$req" in host=*)[ "${req#host=}" = "$h" ]||return 1;;*)return 1;;esac;done < <(job_requirements "$jf")
+}
+
+cv=1;[[ "$cf" =~ ^[0-9]+$ ]]||{ cv=0;bad="invalid cleric fleet ceiling '$cf'";}; eligible=()
+for h in "${hosts[@]}";do [[ "${ccap[$h]:-}" =~ ^[0-9]+$ ]]||{ cv=0;bad="$h invalid cleric physical cap";continue;};[ "${ccap[$h]}" -gt 0 ]&&[ -f "$DIR/hosts/$h" ]&&eligible+=("$h");active["$h"]=0;active_ids["$h"]="";demand["$h"]=0;done
+[ "${#eligible[@]}" -gt 0 ]||{ cv=0;bad="no reachable cleric-capable hosts"; }
+
+# Reserve live claims and retain their instance ids. Since scaling removes the
+# highest-numbered units first, a sparse active id above the proposed count blocks
+# that shrink even when the simple active-count lower bound would look sufficient.
+for jf in "$DIR"/jobs/doin/*.md;do [ -f "$jf" ]||continue
+ kind="$(awk '/^claim:/{x=1;next}x&&/^  worker_kind:/{v=$2}END{print v}' "$jf")";[ "$kind" = cleric ]||continue
+ h="$(awk '/^claim:/{x=1;next}x&&/^  host:/{v=$2}END{print v}' "$jf")";id="$(awk '/^claim:/{x=1;next}x&&/^  gardener:/{v=$2}END{print v}' "$jf")"
+ [[ "${active[$h]+yes}" ]]||continue;active["$h"]=$((active[$h]+1));[[ "$id" =~ ^[1-9][0-9]*$ ]]&&active_ids["$h"]+=" $id"
+done
+
+Q=0
+if [ "$cv" -eq 1 ];then
+ for h in "${eligible[@]}";do [ "${active[$h]}" -le "${ccap[$h]}" ]||{ cv=0;bad="$h has ${active[$h]} active clerics above physical cap ${ccap[$h]}";};done
+ if [ "$cv" -eq 1 ]&&! provider_cooldown_active openai;then
+  for jf in "$DIR"/jobs/todo/*.md;do [ -f "$jf" ]||continue;eh=();for h in "${eligible[@]}";do cleric_eligible "$jf" "$h"&&eh+=("$h");done;[ "${#eh[@]}" -gt 0 ]||continue;Q=$((Q+1));frac="$(awk -v n="${#eh[@]}" 'BEGIN{printf "%.12f",1/n}')";for h in "${eh[@]}";do demand["$h"]="$(awk -v a="${demand[$h]}" -v b="$frac" 'BEGIN{printf "%.12f",a+b}')";done;done
+ fi
+ [ "$cv" -eq 1 ]||{ log "WARN: cleric allocation frozen: $bad";finish; }
+ A=0;capacity=0;for h in "${eligible[@]}";do A=$((A+active[$h]));capacity=$((capacity+ccap[$h]));done
+ N=${#eligible[@]};idle=$N;[ "$idle" -le "$cf" ]||idle="$cf";kd=$((A+Q));[ "$kd" -le "$cf" ]||kd="$cf";K="$idle";[ "$K" -ge "$kd" ]||K="$kd";[ "$K" -ge "$A" ]||K="$A";alloc="$K"
+ [ "$alloc" -le "$capacity" ]||{ alloc="$capacity";log "WARN: cleric fleet target $K exceeds physical capacity $capacity; allocating to caps";alert_maintainer budget-level-cleric-capacity "budget-level: cleric fleet target $K exceeds physical capacity $capacity; allocated only to physical caps.";}
+ slots=$((alloc-A));[ "$slots" -le "$Q" ]||slots="$Q";[ "$slots" -ge 0 ]||slots=0;dt=$((A+slots));rows=""
+ for h in "${eligible[@]}";do rows+="$h"$'\t'"${demand[$h]}"$'\t'"${active[$h]}"$'\t'"${ccap[$h]}"$'\n';done
+ while IFS=$'\t' read -r h x;do ctarget["$h"]="$x";done < <(printf %s "$rows"|apportion "$dt")
+ left=$((alloc-dt));while [ "$left" -gt 0 ];do pick="";for h in "${eligible[@]}";do [ "${ctarget[$h]}" -lt "${ccap[$h]}" ]||continue;if [ -z "$pick" ]||[ "${ctarget[$h]}" -lt "${ctarget[$pick]}" ]||{ [ "${ctarget[$h]}" -eq "${ctarget[$pick]}" ]&&[[ "$h" < "$pick" ]];};then pick="$h";fi;done;[ -n "$pick" ]||break;ctarget["$pick"]=$((ctarget[$pick]+1));left=$((left-1));done
+ for h in "${eligible[@]}";do cur="$(read_desired_count "$DIR/hosts/$h" clerics 2>/dev/null)"||{ pool_failure openai-codex-shared "$h" read-host-clerics "$?";continue;};target="${ctarget[$h]}";apply_target openai-codex-shared "$h" cleric "$cur" "$target" "shared cleric demand active=$A queue=$Q fleet-envelope=$cf target=$target";done
+else log "WARN: cleric allocation frozen: $bad";fi
 
 finish

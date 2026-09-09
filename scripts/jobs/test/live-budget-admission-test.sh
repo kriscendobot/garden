@@ -87,6 +87,7 @@ seed_board() { # bare [plan]
   mkdir -p "$seed"/{jobs/{plan,todo,doin,tada},inbox/maintainer/{unread,read},config,hosts,usage}
   touch "$seed"/jobs/{plan,todo,doin,tada}/.gitkeep "$seed"/inbox/maintainer/{unread,read}/.gitkeep "$seed"/usage/.gitkeep
   cp "$CFG" "$seed/config/budget-pools"
+  printf 'monk-fleet-ceiling\t4\ncleric-fleet-ceiling\t0\nhost\ttesthost\t4\t0\n' > "$seed/config/worker-leveling"
   printf 'gardeners: 2\n' > "$seed/hosts/testhost"
   git -C "$seed" add -A; git -C "$seed" "${git_id[@]}" commit -qm seed
   git -C "$seed" remote add origin "$bare"; git -C "$seed" push -q -u origin journal2
@@ -153,6 +154,8 @@ printf '%s\n' \
   'anthropic:missinghost anthropic missinghost weekly-tokens 1000 usage-panel 2026-09-01' \
   'anthropic:failhost anthropic failhost weekly-tokens 1000 usage-panel 2026-09-01' \
   'anthropic:monkhost anthropic monkhost weekly-tokens 1000 usage-panel 2026-09-01' > "$LSEED/config/budget-pools"
+printf 'monk-fleet-ceiling\t20\ncleric-fleet-ceiling\t0\n' > "$LSEED/config/worker-leveling"
+for h in testhost clamphost missinghost failhost monkhost; do printf 'host\t%s\t4\t0\n' "$h" >> "$LSEED/config/worker-leveling"; done
 printf 'gardeners: 4\n' > "$LSEED/hosts/clamphost"   # gap>1 exercises the step clamp
 printf 'gardeners: 2\n' > "$LSEED/hosts/failhost"
 printf 'monks: 2\n'     > "$LSEED/hosts/monkhost"     # cut-over host: the monk line
@@ -160,7 +163,7 @@ mkdir -p "$LSEED/usage"
 for h in clamphost missinghost failhost monkhost; do
   printf '{"host":"%s","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":900,"output_tokens":0,"cache_creation_tokens":0}\n' "$h" > "$LSEED/usage/$h.jsonl"
 done
-git -C "$LSEED" add config/budget-pools hosts usage; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
+git -C "$LSEED" add config/budget-pools config/worker-leveling hosts usage; git -C "$LSEED" "${git_id[@]}" commit -qm pools; git -C "$LSEED" push -q
 ACT="$TR/act.log"; : > "$ACT"
 printf '#!/bin/bash\nprintf "local %%s %%s\\n" "$1" "$2" >> "$ACT"\nexit 17\n' > "$TR/set"
 printf '#!/bin/bash\nprintf "remote %%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "$ACT"\n[ "$1" != failhost ] || exit 23\n' > "$TR/send"
@@ -199,17 +202,18 @@ grep -q 'pool=anthropic:failhost host=failhost operation=send-host-set-workers f
 # count up. uphost spends ~0 of cap 1000 → target the band max (4).
 UBARE="$TR/up.git"; seed_board "$UBARE"; USEED="$UBARE-seed"
 printf '%s\n' 'anthropic:uphost anthropic uphost weekly-tokens 1000 usage-panel 2026-09-01' > "$USEED/config/budget-pools"
+printf 'monk-fleet-ceiling\t4\ncleric-fleet-ceiling\t0\nhost\tuphost\t4\t0\n' > "$USEED/config/worker-leveling"
 printf 'gardeners: 2\n' > "$USEED/hosts/uphost"
 mkdir -p "$USEED/usage"
 printf '{"host":"uphost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$USEED/usage/uphost.jsonl"
-git -C "$USEED" add config/budget-pools hosts/uphost usage/uphost.jsonl; git -C "$USEED" "${git_id[@]}" commit -qm up; git -C "$USEED" push -q
+git -C "$USEED" add config/budget-pools config/worker-leveling hosts/uphost usage/uphost.jsonl; git -C "$USEED" "${git_id[@]}" commit -qm up; git -C "$USEED" push -q
 UACT="$TR/up-act.log"; : > "$UACT"
 printf '#!/bin/bash\nprintf "remote %%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "%s"\n' "$UACT" > "$TR/upsend"; chmod +x "$TR/upsend"
 up_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$UBARE"
   GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1
   GARDEN_STATE="$TR/up-state" GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/upsend")
 env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up1.out" 2>&1   # tick 1: confirm 1/2, hold
-[ ! -s "$UACT" ] && grep -q 'dwell uphost 2->4 (up 1/2)' "$TR/up1.out" \
+[ ! -s "$UACT" ] && grep -q 'dwell uphost gardener 2->4 (up 1/2)' "$TR/up1.out" \
   && ok "a raise is held on the first tick (dwell confirms before moving up)" \
   || bad "raise not held on tick 1: act=$(tr '\n' ';' < "$UACT") log=$(tr '\n' ';' < "$TR/up1.out")"
 env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up2.out" 2>&1   # tick 2: confirm 2/2, one step
@@ -235,8 +239,9 @@ env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$LBARE"
 # stable dedup key coalesces the repeated tick).
 UNBARE="$TR/uncal.git"; seed_board "$UNBARE"; UNSEED="$UNBARE-seed"
 printf '%s\n' 'anthropic:unchost anthropic unchost weekly-tokens 1000' > "$UNSEED/config/budget-pools"  # no provenance
+printf 'monk-fleet-ceiling\t4\ncleric-fleet-ceiling\t0\nhost\tunchost\t4\t0\n' > "$UNSEED/config/worker-leveling"
 printf 'gardeners: 2\n' > "$UNSEED/hosts/unchost"
-git -C "$UNSEED" add config/budget-pools hosts/unchost; git -C "$UNSEED" "${git_id[@]}" commit -qm uncal; git -C "$UNSEED" push -q
+git -C "$UNSEED" add config/budget-pools config/worker-leveling hosts/unchost; git -C "$UNSEED" "${git_id[@]}" commit -qm uncal; git -C "$UNSEED" push -q
 UNACT="$TR/uncal-act.log"; : > "$UNACT"
 printf '#!/bin/bash\nprintf "remote %%s\\n" "$1" >> "%s"\n' "$UNACT" > "$TR/uncalsend"; chmod +x "$TR/uncalsend"
 UNALERT="$TR/uncal-alerts.log"; : > "$UNALERT"
@@ -247,12 +252,12 @@ uncal_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="
 for tick in 1 2; do
   env "${uncal_env[@]}" GARDEN_USAGE_NOW=$(( NOW + tick )) "$JOBS/budget-level.sh" >"$TR/uncal$tick.out" 2>&1
 done
-if [ ! -s "$UNACT" ] && grep -q 'anthropic:unchost cap=1000 is UNCALIBRATED' "$TR/uncal1.out"; then
+if [ ! -s "$UNACT" ] && grep -q 'fleet monk allocation frozen: anthropic:unchost uncalibrated' "$TR/uncal1.out"; then
   ok "an uncalibrated cap levels nothing (config disclaims the setpoint)"
 else
   bad "uncalibrated pool: act=$(tr '\n' ';' < "$UNACT") log=$(tr '\n' ';' < "$TR/uncal1.out")"
 fi
-if [ "$(grep -c '^KEY=budget-level-uncalibrated-anthropic:unchost$' "$UNALERT")" -eq 1 ]; then
+if [ "$(grep -c '^KEY=budget-level-monk-preflight$' "$UNALERT")" -eq 1 ]; then
   ok "the uncalibrated-cap alert fires exactly once (deduplicated across ticks)"
 else
   bad "uncalibrated alert not deduped: $(tr '\n' ';' < "$UNALERT")"
