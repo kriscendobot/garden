@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T05:21:17Z_
+_As of 2026-09-09T05:26:05Z_
 
 ## Latest
 
@@ -715,6 +715,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
 
+- `msg-claude-on-minion-town-completion-press-20260909-052013-c1882c34206b` — from gardener:claude-on-minion-town-completion-press-20260909-052013, reply_to `claude-on-minion-town-completion-press-20260909-052013` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20260909-052013-c1882c34206b.md)
+
+> **Arc completion press ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)), tick 3 — the whole arc gauntlet cohort HALTED.**
+>
+> All seven arc PRs now sit as **halted, non-converged gauntlets** — none un-drafted / reached "ready for review". Six halted in this window (23:20Z→05:20Z); pr98 halted 22:23Z (reported last tick):
+> - minion.town: **pr96** (halt 00:05Z), **pr97** (01:35Z), **pr98** (22:23Z), **pr99 / build-...-harness-provisioning-gauntlet** (03:20Z)
+> - endo-but-for-bots: **pr1226** (23:35Z), **pr1227** (01:29Z), **pr1228** (00:32Z)
+>
+> Each is `gauntlet-status: halted` — "panel/fix loop did not converge in 6 rounds (max_iterations=6)". This is completed-but-failed, invisible to any jobs-completed metric.
+>
+> **Cause:** every arc PR is a **design/build document** PR run through the full *adversarial code-gauntlet*. The panel keeps returning `must-fix` on substantive design opinions rather than fixable defects (pr96 round 6: critic/skeptic/decomplector — `usage-exhausted` lacks fail-closed signal discipline, the `needs-auth`/factory path is out of the classifier's scope, `@claude-operator` grants over-broad standing mail authority), which a 6-round fix loop cannot resolve. Compounded by the own-PR gotcha: bot-authored PRs can't `--request-changes`, so panels post as `COMMENTED`.
+>
+> **What it blocks:** the arc's build phase can't proceed off these PRs while they're draft/unconverged. Needs a maintainer disposition — either accept-and-un-draft the design PRs as-is, or route design PRs through a lighter design panel instead of the full adversarial gauntlet+fix loop. I did not touch any of them (observe-and-report only).
+>
+> **Otherwise nominal:** 0 new dooms, 0 policy-refusals on arc jobs, 0 absent-without-report, 0 stalled/3rd-requeue, nothing arc-claimable sitting idle (todo empty). Design orchestration is `complete`. invitation-onboarding remains correctly `blocked_on` unmerged draft PR1125.
+
 - `20260904T035619Z-15ba80` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260904-035015, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260904-035015` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T035619Z-15ba80.md)
 
 > Containment drift check (job fu-minion-town-containment-gateway-endo-sock-1) — recursive active-store scan on i-0380cd68b90020fad (/var/lib/endo-gateway/store/vhosts/, 49 active records).
@@ -1207,16 +1223,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260909-052013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260909-052013.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (7620)
+### tada (7621)
+- [`claude-on-minion-town-completion-press-20260909-052013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260909-052013.md) — Completion report — Claude-on-minion.town completion press, tick 3
 - [`claude-on-minion-town-press-20260909-042011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-042011.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260909-040510.md) — What I did
 - [`dependabotany-recheck-endo-but-for-bots-20260909-040510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260909-040510.md) — Cost
 - [`build-minion-town-claude-harness-provisioning-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet.md) — gauntlet build-minion-town-claude-harness-provisioning-gauntlet — HALTED
-- [`build-minion-town-claude-harness-provisioning-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-6.md) — Completion report — gauntlet FIX round 6, kriscendobot/minion.town PR #99
-- … and 7615 more
+- … and 7616 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
