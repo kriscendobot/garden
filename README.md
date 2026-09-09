@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-09T02:27:07Z_
+_As of 2026-09-09T02:37:52Z_
 
 ## Latest
 
@@ -1196,23 +1196,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $805.69 _(notional, rate-card)_ | 67% of 143.0M (ok) |
+| Claude | 98.5M | $821.52 _(notional, rate-card)_ | 69% of 143.0M (ok) |
 | Codex | 9.3M _(+334.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`build-minion-town-claude-harness-provisioning-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-harness-provisioning-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #99
+### doin (0)
+(none)
 
-### tada (7612)
+### tada (7613)
+- [`build-minion-town-claude-harness-provisioning-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-panel-5.md) — Cost
 - [`build-minion-town-claude-harness-provisioning-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-4.md) — Completion report
 - [`build-minion-town-claude-harness-provisioning-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-panel-4.md) — Completion report
 - [`build-minion-town-claude-harness-provisioning-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-claude-harness-provisioning-gauntlet-fix-3.md) — Round-3 FIX stage — kriscendobot/minion.town PR #99
 - [`kriscendobot-minion.town-pr97-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet.md) — gauntlet kriscendobot-minion.town-pr97-gauntlet — HALTED
-- [`kriscendobot-minion.town-pr97-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr97-gauntlet-fix-6.md) — Cost
-- … and 7607 more
+- … and 7608 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
