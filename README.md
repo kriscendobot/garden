@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-10T19:08:59Z_
+_As of 2026-09-10T19:22:12Z_
 
 ## Latest
 
@@ -1224,14 +1224,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 10.5M _(+349.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 10.5M _(+350.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-budget-pool-prose-sync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-pool-prose-sync.md) — ---
 
 ### tada (7656)
 - [`kriscendobot-garden-pr80-quota-validation-20260910`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260910.md) — Completion report — pr80-quota-validation day 20260910 (day 5 of 7)
