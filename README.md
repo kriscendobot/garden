@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-10T13:54:17Z_
+_As of 2026-09-10T14:06:16Z_
 
 ## Latest
 
@@ -19,7 +19,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 14d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 14d)
 
-_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64.md)
@@ -1230,8 +1230,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260910-140515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260910-140515.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (7652)
 - [`endojs-endo-but-for-bots-pr1260-7b98578c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1260-7b98578c.md) — Cost
