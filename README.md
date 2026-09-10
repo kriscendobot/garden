@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-10T19:48:37Z_
+_As of 2026-09-10T20:21:20Z_
 
 ## Latest
 
@@ -1230,8 +1230,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260910-202011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260910-202011.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (7658)
 - [`canary-probe-endolin-garden2-5bcdff64-7ec4e057a976`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-7ec4e057a976.md) — rolling-deploy canary probe — round trip OK
