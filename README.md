@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-10T17:20:47Z_
+_As of 2026-09-10T17:21:23Z_
 
 ## Latest
 
@@ -1227,11 +1227,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 10.5M _(+349.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`claude-on-minion-town-press-20260910-172011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260910-172011.md) — Press the Claude-on-minion.town arc forward
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`claude-on-minion-town-press-20260910-172011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260910-172011.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (7653)
 - [`claude-on-minion-town-press-20260910-140515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260910-140515.md) — Cost
