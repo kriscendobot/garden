@@ -1,2 +1,2 @@
-base: improve-budget-pools-header-drift
+base: improve-budget-pool-prose-sync
 identity: mentor:scripts/jobs/set-budget-pool.sh
