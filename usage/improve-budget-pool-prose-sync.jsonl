@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":29,"elapsed_s":394,"input_tokens":58,"output_tokens":24401,"cache_creation_tokens":68007,"cache_read_tokens":1635144,"total_cost_usd":2.11054,"ts":"2026-09-10T19:28:35Z","base":"improve-budget-pool-prose-sync","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
