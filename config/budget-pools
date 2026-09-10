@@ -1,21 +1,6 @@
 # Journal config/budget-pools. Both Anthropic pools are calibrated from
 # account-specific Claude Code /usage samples; re-derive whenever a subscription
 # or promotion changes the weekly ceiling.
-#   endolin-garden-ece02cb4  : 595M/wk, calibrated 2026-09-03T21:00Z from a
-#     simultaneous meter=/usage pair (kriskowal read live dashboard): 169,775,794
-#     billable tokens at 28% weekly => band 595.7M-617.4M across the display
-#     rounding of "28%". The LOW end is taken deliberately (cannot over-grant),
-#     rounded down to 595M. SUPERSEDES the prior 149M/wk (calibrated 2026-08-27)
-#     that this same instance's own claim-job.sh admission gate had been
-#     silently self-throttling against since ~20:45Z despite the account having
-#     real headroom the whole time (0 claims fleet-wide on this host for ~15min;
-#     see msgs/ around 2026-09-03T20:56Z) -- the prior calibration was stale, not
-#     merely imprecise. Separately, kriskowal also reported a SESSION-scoped
-#     (5-hour rolling window) limit at 3% used, resetting ~2026-09-04T00:40Z --
-#     this budget-pools mechanism has no column for that dimension yet (only
-#     weekly-tokens ceilings); it is not currently a binding constraint (3% is
-#     nowhere near saturating) but a future contributor should not assume the
-#     weekly figure is the only cap in play.
 #   endolin-garden2-5bcdff64 : 385M/wk, calibrated 2026-09-01. Derived from
 #     /usage reporting 3% of the weekly limit consumed at a metered window spend
 #     of 13,437,641 tokens => ~448M point estimate, band 385M-538M across the
