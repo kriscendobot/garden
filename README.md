@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-10T04:06:54Z_
+_As of 2026-09-10T04:09:30Z_
 
 ## Latest
 
@@ -1224,23 +1224,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 10.1M _(+345.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Codex | 10.2M _(+346.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`dependabotany-recheck-endo-but-for-bots-20260910-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260910-040511.md) — ---
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260910-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260910-040511.md) — Containment drift check for kriscendobot/minion.town gateway records
 
-### tada (7642)
+### tada (7643)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260910-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260910-040511.md) — Containment drift check — 2026-09-10
 - [`claude-on-minion-town-press-20260910-015016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260910-015016.md) — Cost
 - [`claude-on-minion-town-completion-press-20260909-233510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260909-233510.md) — Completion report — Claude-on-minion.town completion press, tick 6
 - [`claude-on-minion-town-press-20260909-225015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260909-225015.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-1110195c4fd1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1110195c4fd1.md) — rolling-deploy canary probe — round trip OK
-- [`build-proportional-worker-leveling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-proportional-worker-leveling.md) — Cost
-- … and 7637 more
+- … and 7638 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
