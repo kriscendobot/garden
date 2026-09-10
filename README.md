@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-10T05:36:16Z_
+_As of 2026-09-10T05:39:36Z_
 
 ## Latest
 
@@ -1230,16 +1230,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260910-053510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260910-053510.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (7645)
+### tada (7646)
+- [`claude-on-minion-town-completion-press-20260910-053510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260910-053510.md) — Completion report — Claude-on-minion.town completion press, tick 7
 - [`claude-on-minion-town-press-20260910-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260910-050510.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260910-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260910-040511.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260910-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260910-040511.md) — Containment drift check — 2026-09-10
 - [`claude-on-minion-town-press-20260910-015016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260910-015016.md) — Cost
-- [`claude-on-minion-town-completion-press-20260909-233510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260909-233510.md) — Completion report — Claude-on-minion.town completion press, tick 6
-- … and 7640 more
+- … and 7641 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
