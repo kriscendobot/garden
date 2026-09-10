@@ -177,6 +177,44 @@ else
   bad "explicit promotion row or synchronized calibration header was incorrect"
 fi
 
+# Regression for the live-journal legacy header shape (the 2026-09 config that
+# motivated prose synchronization): a general intro with no colon, a target host
+# whose header is aligned with padding spaces before its colon, the SAME host
+# carried in TWO separate superseded calibration blocks, and an unrelated
+# indent-matched NOTE block interleaved between them. Promotion must strip every
+# superseded block for the promoted host while leaving the intro, the interleaved
+# NOTE, and the columns legend verbatim. This exercises the multi-block / same-host
+# / interleaved-unrelated structure the single-block fixture above does not.
+HOST=legacy-host
+{
+  printf '%s\n' \
+    '# Journal config/budget-pools. Both Anthropic pools are calibrated from' \
+    '# account-specific /usage samples; re-derive whenever a promotion changes the cap.' \
+    '#   legacy-host  : 595M/wk, calibrated from a superseded simultaneous sample.' \
+    '#     rounded down to 595M. SUPERSEDES the prior 149M/wk stale calibration.' \
+    '#   NOTE the bases differ: this meter excludes cache_read while /usage does not;' \
+    '#     each calibration is a ratio over one shared window. Preserve this verbatim.' \
+    '#   legacy-host  : was 385M/wk, an even older calibration on the same host that' \
+    '#     must also leave with its claim when the authoritative row is refreshed.' \
+    '# Columns, tab-separated:'
+  cat "$WORK/config/budget-pools"
+} > "$WORK/config/budget-pools.next"
+mv "$WORK/config/budget-pools.next" "$WORK/config/budget-pools"
+commit_fixture
+"$JOBS/set-budget-pool.sh" "anthropic:$HOST" 143000000 manual-fit 2026-09-10 >/dev/null 2>&1
+git -C "$WORK" fetch -q origin journal2
+git -C "$WORK" reset -q --hard origin/journal2
+if awk '$1 == "anthropic:legacy-host" { found=($4 == "weekly-tokens" && $5 == 143000000 && $6 == "manual-fit" && $7 == "2026-09-10") } END { exit !found }' "$WORK/config/budget-pools" \
+   && ! grep -qE '595M|385M|149M|even older calibration|superseded simultaneous' "$WORK/config/budget-pools" \
+   && grep -qF '# Journal config/budget-pools. Both Anthropic pools are calibrated from' "$WORK/config/budget-pools" \
+   && grep -qF '#   NOTE the bases differ: this meter excludes cache_read while /usage does not;' "$WORK/config/budget-pools" \
+   && grep -qF '#     each calibration is a ratio over one shared window. Preserve this verbatim.' "$WORK/config/budget-pools" \
+   && grep -qF '# Columns, tab-separated:' "$WORK/config/budget-pools"; then
+  ok "promotion strips both legacy header blocks for a host while preserving intro, interleaved NOTE, and columns legend"
+else
+  bad "legacy multi-block header shape was not reconciled correctly"
+fi
+
 set +e
 "$JOBS/set-budget-pool.sh" "anthropic:$HOST" provisional manual-fit >/dev/null 2>&1
 invalid_rc=$?
