@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please ingest https://www.cloudflare.com/products/artifacts/ I am interested in a comparative analysis to the Git’s ongoing design and implementation toward representation of Git repositories in the Endo virtual filesystem. I am also interested in whether we could adapt the Clo
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-10T22:24:42Z
