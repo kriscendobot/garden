@@ -152,6 +152,9 @@
 | [Plumbing-only GitStore and the fs shim](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os git-store.ts | GitStore as pure plumbing over a virtual fs shim, presenting commits as flat path-to-text maps and diffing by oid. |
 | [Three-way file-map merge](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os git-store.ts | The never-throwing 3-way merge over file maps that replaces Yjs and isomorphic-git merging, with lossless line splitting. |
 | [Operational-transform code-change representation](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os code-change.ts | Base-free revisioned CodeChanges over committed code, and why per-gadget files are lists not __proto__-losing objects. |
+| [Cloudflare Artifacts repository model and durability](../sections/web--cloudflare-artifacts-docs--product-scope-repository-unit-and-durability.md) | agent-workspaces, cloudflare-workers-agent-hosting, content-addressed-storage | Artifacts makes an isolated, durably replicated Git repository the unit of agent work and lifecycle. |
+| [Artifacts Git, REST, and Worker surfaces](../sections/web--cloudflare-artifacts-docs--git-compatibility-and-programmatic-surfaces.md) | cloudflare-workers-agent-hosting, content-addressed-storage, capability-security | Git-over-HTTPS is the full repository data path; REST and the Worker binding expose different control and read subsets. |
+| [Worker-side Artifacts mutation with isomorphic-git](../sections/web--cloudflare-artifacts-docs--worker-side-mutation-with-isomorphic-git.md) | cloudflare-workers-agent-hosting, agent-workspaces, content-addressed-storage | Workers edit an ephemeral filesystem through isomorphic-git, then commit and push durable state to Artifacts. |
 
 ## See also
 
