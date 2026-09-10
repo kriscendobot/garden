@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6976 (530 parent indexes + 6446 children).
+Total section files: 6981 (530 parent indexes + 6451 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9550,6 +9550,14 @@ Total section files: 6976 (530 parent indexes + 6446 children).
 - [web--brandon-against-sql--inexpressive](web--brandon-against-sql--inexpressive.md)
 - [web--brandon-against-sql--non-porous](web--brandon-against-sql--non-porous.md)
 - [web--brandon-against-sql--overview](web--brandon-against-sql--overview.md)
+
+### web--cloudflare-artifacts-docs
+
+- [web--cloudflare-artifacts-docs--agent-isolation-and-scoped-authority](web--cloudflare-artifacts-docs--agent-isolation-and-scoped-authority.md)
+- [web--cloudflare-artifacts-docs--git-compatibility-and-programmatic-surfaces](web--cloudflare-artifacts-docs--git-compatibility-and-programmatic-surfaces.md)
+- [web--cloudflare-artifacts-docs--lazy-mounts-limits-and-lifecycle-economics](web--cloudflare-artifacts-docs--lazy-mounts-limits-and-lifecycle-economics.md)
+- [web--cloudflare-artifacts-docs--product-scope-repository-unit-and-durability](web--cloudflare-artifacts-docs--product-scope-repository-unit-and-durability.md)
+- [web--cloudflare-artifacts-docs--worker-side-mutation-with-isomorphic-git](web--cloudflare-artifacts-docs--worker-side-mutation-with-isomorphic-git.md)
 
 ### web--cloudflare-monetization-gateway-x402
 
