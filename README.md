@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T21:08:10Z_
+_As of 2026-09-11T22:48:49Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 7d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 17m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 10d)
@@ -57,22 +57,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
 
 > root repo /home/kris/garden2 deploy has been STALLED for ~1d: deployed sha 8b7f56d5f0210db6e9e7745245b46f673072d166 is 30 commit(s) behind origin/main2 (bc3270551fb755d3b73338119d0c4db433d6b196) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
-
-- `20260904T104543Z-7c71bf` — from gardener:minion-town-press-20260904-103515, reply_to `minion-town-press-20260904-103515` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T104543Z-7c71bf.md)
-
-> **minion.town press-driver — one lifecycle decision needed (PR [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) disposition)**
->
-> Standing press-driver tick for `kriscendobot/minion.town`, weblet→clip publish thread. What I assessed this tick:
->
-> 1. **The register-by-id deviation is already settled — no decision needed.** The job asked me to judge whether `register(directoryId, owner)` (vs the design's literal `register(directory)` by introduction, §§ 2.2/3.1) is a fork only you can settle. It is not: it was ratified when units 1–3 landed and is documented as the register-by-id boundary in **[kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63)**; **[kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69)** explicitly "does not reopen the settled register-by-id decision." So it is fine to build on.
->
-> 2. **The live clip thread is fully staffed by concurrent pushers — I'm deferring, not colliding.** [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) (units 4–5, retire legacy powers resolver), [kriscendobot/minion.town#83](https://github.com/kriscendobot/minion.town/issues/83) and [kriscendobot/minion.town#89](https://github.com/kriscendobot/minion.town/issues/89) (content-store GC), [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) (clipometer), [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/issues/85) and [kriscendobot/minion.town#88](https://github.com/kriscendobot/minion.town/issues/88) (upgrade model), [kriscendobot/minion.town#90](https://github.com/kriscendobot/minion.town/issues/90) (clip shell) are all in flight. The one nearby fork — [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/issues/85)'s in-place-upgrade premise vs **[kriscendobot/minion.town#88](https://github.com/kriscendobot/minion.town/issues/88)**'s immutable-content + fresh-id-on-upgrade redesign, including [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/issues/85)'s own disposition — is **already surfaced to you by [kriscendobot/minion.town#88](https://github.com/kriscendobot/minion.town/issues/88)**, so I am not re-raising it.
->
-> 3. **The one unsurfaced decision I'm bringing you: dispose of PR [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33).** `kriscendobot/minion.town#33` (`feat/weblet-user-powers-reference`, draft, unreviewed, last pushed 2026-08-23) implements the guest-facet **powers-pet-name resolver** for the old `weblet_publish` tool. That mechanism is exactly what the landed clip model retired — publishing is now `E(sites).register(directoryId, owner)` serving the directory's `back` directly, and **[kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69)** ("retire legacy clip powers resolution") removes the host-side resolver with "no compatibility resolver." [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33)'s premise is overtaken.
->
->    **Decision:** close [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) as superseded, or is any part worth salvaging under the clip model (e.g. its guest-scoped `identify` / private-retention negative-isolation tests)?
->
-> I'll hold here and just check for your reply / a [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) comment / a new commit on later ticks rather than manufacture further work while the clip thread is already being pressed.
 
 - `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
 
@@ -306,14 +290,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-1.md)
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): budget pool anthropic:endolin-garden2-5bcdff64 spend=46449456 cap=64000000 high-water=0.85 target=1 step=2->1
-
-- `20260904T092329Z-e54377` — from gardener:minion-town-press-20260904-070509, reply_to `minion-town-press-20260904-070509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T092329Z-e54377.md)
-
-> Pressing kriscendobot/minion.town off the clip (ex-weblet) synthesis thread. Assessment: the active clip work is under live concurrent development — design PRs [kriscendobot/minion.town#88](https://github.com/kriscendobot/minion.town/issues/88) (immutable content, nonce-locator session, fresh-id-on-upgrade) and [kriscendobot/minion.town#89](https://github.com/kriscendobot/minion.town/issues/89) (clip origin is a formula id + content-store GC) are both in gauntlet review, and [kriscendobot/minion.town#83](https://github.com/kriscendobot/minion.town/issues/83) / [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) (content GC, CLIPOMETER) have live gauntlet jobs running. I deferred to those.
->
-> I acted on the one unblocked, maintainer-directed thread: per your "Please close. This is evolving further" + "@kriscendobot rsvp" on [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), I replied and closed [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63) (the register-by-id reconciliation doc), pointing the conversation at [kriscendobot/minion.town#88](https://github.com/kriscendobot/minion.town/issues/88) / [kriscendobot/minion.town#89](https://github.com/kriscendobot/minion.town/issues/89).
->
-> One decision I can't settle without you: two older DRAFT PRs are built on the now-superseded "caller-supplied weblet powers" model that the register-by-directory-id -> formula-id-origin evolution replaced — [kriscendobot/minion.town#33](https://github.com/kriscendobot/minion.town/issues/33) (resolve weblet powers from the caller's own guest facet; untouched since 08-23) and [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) (retire legacy clip powers resolution; 09-01). Should these be closed as superseded like [kriscendobot/minion.town#63](https://github.com/kriscendobot/minion.town/issues/63), or is either still load-bearing (e.g. [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) as the unit-4 "retire the powers resolver" execution) and worth rebasing onto the current model? I'll hold off touching them until you decide, and will otherwise let the live clip gauntlets run.
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
@@ -1227,15 +1203,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 102.5M | $851.38 _(notional, rate-card)_ | 72% of 143.0M (ok) |
 | Codex | 11.4M _(+365.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-weblet-powers-drafts-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-powers-drafts-reconcile.md) — ---
 
 ### tada (7686)
 - [`claude-on-minion-town-press-20260911-210511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-210511.md) — Cost
