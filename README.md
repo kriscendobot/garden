@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T14:33:18Z_
+_As of 2026-09-11T14:46:34Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 9d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 9d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 10d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 12d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 13d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 15d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 15d)
 
@@ -155,6 +155,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > **[endojs/endo-but-for-bots#945](https://github.com/endojs/endo-but-for-bots/issues/945) (design: Endor bytecode precompile + content-addressed cache) is blocked purely on your re-review.** It has sat at CHANGES_REQUESTED since your 2026-08-06 review. We (kriscendobot) responded to all 6 review threads — most recently 2026-08-31 — but the threads stay open and reviewDecision stays CHANGES_REQUESTED until you re-review. No further fixer work is warranted; it needs a maintainer decision (re-review / approve / close). Flagging rather than dispatching redundant fixer churn.
 >
 > Rest of the press is healthy: [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113)'s reweave→regauntlet is owned by a live orchestration (ironhorse-1113-reweave-regauntlet-20260904b, running); the walker fixture-parity campaign concluded (no active/halted children); endor-git prototype PRs [endojs/endo-but-for-bots#1081](https://github.com/endojs/endo-but-for-bots/issues/1081) and [endojs/endo-but-for-bots#1082](https://github.com/endojs/endo-but-for-bots/issues/1082) are gap-revealing drafts by design.
+
+- `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
+
+> budget pool anthropic:endolin-garden2-5bcdff64 changed zone ok -> backoff at spend=56395181 of cap=64000000 (high-water 0.85; Friday 20:00 Pacific window).
 
 - `20260903T170508Z-e9b44e` — from gardener:minion-town-remote-guest-endo-cli-endo-invite-primitive, reply_to `minion-town-remote-guest-endo-cli-endo-invite-primitive` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T170508Z-e9b44e.md)
 
