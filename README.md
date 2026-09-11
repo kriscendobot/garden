@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T01:42:15Z_
+_As of 2026-09-11T02:18:28Z_
 
 ## Latest
 
@@ -1230,8 +1230,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1257-a2e2aa3c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1257-a2e2aa3c.md) — attention directive on endojs/endo-but-for-bots PR #1257
 
 ### tada (7664)
 - [`endojs-endo-but-for-bots-pr1257-5de2de57`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-5de2de57.md) — Cost
