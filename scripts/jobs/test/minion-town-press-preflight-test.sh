@@ -9,7 +9,9 @@
 #   exit 2 = PARKED       → advance the clock only, dispatch nothing
 # It parks ONLY on a positively-observed condition (BUDGET: half the weekly quota
 # spent on the press over the trailing window; or IDLE: the two most-recent press
-# ticks both marked `press-status: no-next-step`). Everything ambiguous fails OPEN.
+# ticks both positively idle, either by `press-status: no-next-step` or by the
+# canonical unmarked "still waiting on unchanged maintainer review" report shape).
+# Everything ambiguous fails OPEN.
 #
 # Hermetic: a throwaway bare journal stands in for origin/journal2 (the gate's
 # ensure_clone/sync_clone clone from it); usage ledgers and tada reports are
@@ -79,6 +81,10 @@ tada_report() {  # tada_report <ts:YYYYMMDD-HHMMSS> <advanced|no-next-step|none>
   seed_file "jobs/tada/$PREFIX-$ts.md" "$(printf "$body")"
 }
 
+unmarked_report() {  # unmarked_report <ts:YYYYMMDD-HHMMSS> <body>
+  seed_file "jobs/tada/$PREFIX-$1.md" "$2"
+}
+
 # A usage ledger for one press tick with a single billable result row.
 usage_ledger() {  # usage_ledger <ts:YYYYMMDD-HHMMSS> <iso-ts> <billable-tokens>
   local ts="$1" iso="$2" tok="$3"
@@ -145,6 +151,36 @@ run_pre
 [ "$RC" -eq 0 ] && ok "unmarked newest → dispatch (never park on history)" || bad "exit $RC (want 0); OUT=$OUT"
 
 # ============================================================================
+hr; echo "PARK (LEGACY IDLE) — repeated unmarked unchanged maintainer-review waits: exit 2"; hr
+reset_bare
+unmarked_report 20260828-213506 \
+  'Still waiting on maintainer review of kriscendobot/minion.town#63; no reply, PR comment, or new commit has arrived.'
+unmarked_report 20260828-233506 \
+  'Still waiting on maintainer review of kriscendobot/minion.town#63; no reply, PR comment, or new commit has arrived. Self-improvement: nothing this time.'
+run_pre
+[ "$RC" -eq 2 ] && ok "two unmarked unchanged-review waits → park" || bad "exit $RC (want 2); OUT=$OUT"
+
+# ============================================================================
+hr; echo "DISPATCH — an unmarked review mention without positive unchanged state is ambiguous"; hr
+reset_bare
+unmarked_report 20260828-213506 \
+  'Follow-up: wait for maintainer review of kriscendobot/minion.town#63.'
+unmarked_report 20260828-233506 \
+  'The maintainer review is pending while other work advanced this tick.'
+run_pre
+[ "$RC" -eq 0 ] && ok "ambiguous unmarked review prose → dispatch" || bad "exit $RC (want 0); OUT=$OUT"
+
+# ============================================================================
+hr; echo "DISPATCH — explicit advanced overrides unchanged-review prose"; hr
+reset_bare
+unmarked_report 20260828-213506 \
+  $'Still waiting on maintainer review; no reply or new commit has arrived.\npress-status: advanced\n'
+unmarked_report 20260828-233506 \
+  $'Still waiting on maintainer review; no reply or new commit has arrived.\npress-status: advanced\n'
+run_pre
+[ "$RC" -eq 0 ] && ok "explicit advanced reports → dispatch" || bad "exit $RC (want 0); OUT=$OUT"
+
+# ============================================================================
 hr; echo "RESUME — watermark makes the gate ignore the two stale idle reports: exit 0"; hr
 reset_bare
 tada_report 20260821-100000 no-next-step
@@ -153,7 +189,8 @@ tada_report 20260821-120000 no-next-step
 run_pre
 [ "$RC" -eq 2 ] && ok "pre-resume: parked" || bad "pre-resume exit $RC (want 2); OUT=$OUT"
 # Run the resume helper against the SAME per-host state, then re-evaluate.
-env GARDEN=testhost GARDEN_STATE="$TR/state" bash "$RESUME" >/dev/null 2>&1
+env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN=testhost GARDEN_STATE="$TR/state" bash "$RESUME" >/dev/null 2>&1
 run_pre
 [ "$RC" -eq 0 ] && ok "post-resume: stale idle reports ignored → dispatch" || bad "post-resume exit $RC (want 0); OUT=$OUT"
 

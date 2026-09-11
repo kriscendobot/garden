@@ -33,13 +33,15 @@
 #            park. STICKY: while parked no new tick runs, so the two frozen reports
 #            keep it parked until a human RESUMES (resume-minion-town-press.sh writes
 #            a per-host resume watermark this gate honours — reports at/older than the
-#            watermark are ignored for the streak). Pre-existing reports with NO
-#            marker read as "advanced" (unmarked), so the gate never parks on the
-#            deploy-transition history — only on two freshly-marked idle ticks.
+#            watermark are ignored for the streak). An unmarked report also counts
+#            as idle when it explicitly says it is still waiting on maintainer
+#            review and positively says that no reply, review, or commit changed.
+#            Other unmarked reports still read as "advanced", so deploy-transition
+#            history and ambiguous prose never stop the press.
 #
 # FAIL OPEN on ambiguity: an unreadable/offline journal, an unset quota (BUDGET
-# inert), a missing jq, a malformed usage row, or fewer than two markered reports
-# all fall through to exit 0 (dispatch). The gate parks ONLY on a positively
+# inert), a missing jq, a malformed usage row, or fewer than two positively idle
+# reports all fall through to exit 0 (dispatch). The gate parks ONLY on a positively
 # observed condition, never on uncertainty — a park stops real work, so the safe
 # default is to keep running.
 #
@@ -159,6 +161,32 @@ base_ts_epoch() {  # $1=YYYYMMDD-HHMMSS
   date -u -d "${d:0:4}-${d:4:2}-${d:6:2} ${hms:0:2}:${hms:2:2}:${hms:4:2}" +%s 2>/dev/null || echo 0
 }
 
+# Legacy press reports predate the machine-readable status marker. Treat only the
+# narrow, canonical quiet-wait shape as idle: it must name maintainer review (or
+# feedback/re-approval) as the wait AND positively state that the relevant reply,
+# review, PR head, or commit has not changed. Either half alone is ambiguous. An
+# explicit status always wins, including `advanced` on a report that happens to
+# discuss a pending review among other work.
+report_status() {  # $1=completed report path
+  local report="$1"
+  if grep -qiE '^press-status:[[:space:]]*no-next-step([[:space:]]|$)' "$report" 2>/dev/null; then
+    printf '%s\n' idle
+    return
+  fi
+  if grep -qiE '^press-status:[[:space:]]*advanced([[:space:]]|$)' "$report" 2>/dev/null; then
+    printf '%s\n' advanced
+    return
+  fi
+
+  if grep -qiE '(still[[:space:]]+waiting|awaiting|wait(ing)?).*(maintainer.*(review|re-review|re-approval|feedback|decision)|(review|re-review|re-approval|feedback|decision).*maintainer)' "$report" 2>/dev/null \
+    && grep -qiE '(no (maintainer )?(reply|feedback|review|re-review|re-approval|new commit).*(arrived|landed)|no reply.*(new commit|head change).*(arrived|landed)|head.*unchanged|pr.*untouched|nothing.*changed|no changes? (made|since))' "$report" 2>/dev/null; then
+    printf '%s\n' idle
+    return
+  fi
+
+  printf '%s\n' advanced
+}
+
 # Collect the press tada reports newest-first. base = <prefix>-YYYYMMDD-HHMMSS, so
 # lexical sort is chronological; sort -r puts the newest first.
 statuses=()
@@ -171,13 +199,7 @@ if [ -d "$DIR/$JOBS_TADA" ]; then
       rep_epoch="$(base_ts_epoch "$ts")"
       [ "$rep_epoch" -gt "$resume_epoch" ] || continue   # older than resume → ignore
     fi
-    if grep -qiE '^press-status:[[:space:]]*no-next-step' "$rf" 2>/dev/null; then
-      statuses+=("idle")
-    else
-      # `press-status: advanced` OR any legacy/unmarked report both BREAK the
-      # idle streak — only an explicit no-next-step marker counts as idle.
-      statuses+=("advanced")
-    fi
+    statuses+=("$(report_status "$rf")")
   done < <(find "$DIR/$JOBS_TADA" -type f -name "${GARDEN_MT_PRESS_PREFIX}-*.md" 2>/dev/null | sort -r)
 fi
 
