@@ -215,6 +215,33 @@ else
   bad "legacy multi-block header shape was not reconciled correctly"
 fi
 
+# Pool-specific figures can also be embedded in shared prose rather than heading a
+# target-only block. Refresh figures on either side of the target name and across a
+# wrapped line, without disturbing another pool's figure in the same sentences.
+peer_caps_before="$(grep -o '200M/wk' "$WORK/config/budget-pools" | wc -l)"
+{
+  printf '%s\n' \
+    '# Shared summary: legacy-host is capped at 595M/wk; peer-host stays at 200M/wk.' \
+    '# Historical order: 385M/wk for legacy-host; 200M/wk for peer-host.' \
+    '# Wrapped summary: legacy-host has a deliberate ceiling of' \
+    '#   149M/wk while peer-host remains at 200M/wk.' \
+    '# Mixed metrics: anthropic:legacy-host has 16G RAM and a 595M/wk cap; peer-host stays at 200M/wk.'
+  cat "$WORK/config/budget-pools"
+} > "$WORK/config/budget-pools.next"
+mv "$WORK/config/budget-pools.next" "$WORK/config/budget-pools"
+commit_fixture
+"$JOBS/set-budget-pool.sh" "anthropic:$HOST" 143000000 manual-fit 2026-09-10 >/dev/null 2>&1
+git -C "$WORK" fetch -q origin journal2
+git -C "$WORK" reset -q --hard origin/journal2
+if ! grep -qE '595M|385M|149M' "$WORK/config/budget-pools" \
+   && grep -qF 'anthropic:legacy-host has 16G RAM and a 143M/wk cap' "$WORK/config/budget-pools" \
+   && [ "$(grep -o '143M/wk' "$WORK/config/budget-pools" | wc -l)" -eq 4 ] \
+   && [ "$(grep -o '200M/wk' "$WORK/config/budget-pools" | wc -l)" -eq "$((peer_caps_before + 4))" ]; then
+  ok "promotion refreshes target cap figures embedded in shared prose"
+else
+  bad "shared prose retained a stale target cap or changed an unrelated pool cap"
+fi
+
 set +e
 "$JOBS/set-budget-pool.sh" "anthropic:$HOST" provisional manual-fit >/dev/null 2>&1
 invalid_rc=$?

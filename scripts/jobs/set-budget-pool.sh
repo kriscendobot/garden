@@ -68,14 +68,16 @@ _set_once() {
   [ -f "$file" ] || : > "$file"
   tmp="$(mktemp)" || return 1
   # Preserve unrelated comments and blank lines verbatim, but remove any
-  # host-specific calibration block for this pool. Those narrative blocks duplicate
-  # mutable cap state and cannot be updated safely from the setter's structured
-  # inputs; git history retains their rationale while the row below remains the
-  # authoritative current value. Replace the matching pool row in place, or append a
-  # new row (after the last existing row) if absent.
+  # host-specific calibration block for this pool. Refresh cap figures that name the
+  # pool inside shared prose instead of heading their own block; otherwise a summary
+  # can keep advertising an old cap after the authoritative row changes. Replace the
+  # matching pool row in place, or append a new row if absent.
   awk -v pool="$pool" -v provider="$provider" -v host="$host" -v kind="$kind" \
       -v ceiling="$ceiling" -v cf="$calibrated_from" -v ca="$calibrated_at" '
-    BEGIN { newrow = pool "\t" provider "\t" host "\t" kind "\t" ceiling "\t" cf "\t" ca }
+    BEGIN {
+      newrow = pool "\t" provider "\t" host "\t" kind "\t" ceiling "\t" cf "\t" ca
+      cap_re = "([$][0-9]+([.][0-9]+)?|[0-9]+([.][0-9]+)?[[:space:]]*[kKmMgGtT]([[:space:]]*(tokens?|token-cap))?|[0-9]+[[:space:]]+tokens?)[[:space:]]*(/[[:space:]]*(w|wk|week)|per[[:space:]]+week|weekly)"
+    }
     function comment_indent(line, tail) {
       sub(/^[[:space:]]*#/, "", line)
       match(line, /^[[:space:]]*/)
@@ -88,6 +90,80 @@ _set_once() {
       rest = substr(text, length(value) + 1)
       return rest ~ /^[[:space:]]*:/
     }
+    function target_position(line, p, q) {
+      p = index(line, pool)
+      q = index(line, host)
+      if (p && (!q || p <= q)) {
+        target_len = length(pool)
+        return p
+      }
+      target_len = length(host)
+      return q
+    }
+    function other_pool_before(text, limit, id, p) {
+      for (id in pool_ids) {
+        if (id == pool || id == host) continue
+        p = index(text, id)
+        if (p && p < limit) return 1
+      }
+      return 0
+    }
+    function cap_display(value, short) {
+      if (kind == "unmetered") return "unmetered"
+      if (kind == "weekly-usd") return "$" value "/wk"
+      short = value
+      if (value ~ /^[0-9]+000000000$/) short = substr(value, 1, length(value) - 9) "G"
+      else if (value ~ /^[0-9]+000000$/) short = substr(value, 1, length(value) - 6) "M"
+      else if (value ~ /^[0-9]+000$/) short = substr(value, 1, length(value) - 3) "K"
+      else short = value " tokens"
+      return short "/wk"
+    }
+    function refresh_cap_after(line, start, tail, before, after) {
+      cap_replaced = 0
+      tail = substr(line, start)
+      if (!match(tail, cap_re) || other_pool_before(tail, RSTART)) return line
+      if (substr(tail, 1, RSTART - 1) ~ /;/) return line
+      before = substr(line, 1, start + RSTART - 2)
+      after = substr(tail, RSTART + RLENGTH)
+      cap_replaced = 1
+      return before cap_display(ceiling) after
+    }
+    function refresh_cap_before(line, stop, head, scan, offset, base, semi, last_start, last_len, other, id, p) {
+      cap_replaced = 0
+      head = substr(line, 1, stop - 1)
+      base = 0
+      scan = head
+      while ((semi = index(scan, ";"))) {
+        base += semi
+        scan = substr(scan, semi + 1)
+      }
+      head = substr(head, base + 1)
+      scan = head
+      offset = base
+      while (match(scan, cap_re)) {
+        last_start = offset + RSTART
+        last_len = RLENGTH
+        offset += RSTART + RLENGTH - 1
+        scan = substr(scan, RSTART + RLENGTH)
+      }
+      if (!last_start) return line
+      other = 0
+      for (id in pool_ids) {
+        if (id == pool || id == host) continue
+        p = index(head, id)
+        if (p > other) other = p
+      }
+      if (other > last_start) return line
+      cap_replaced = 1
+      return substr(line, 1, last_start - 1) cap_display(ceiling) substr(line, last_start + last_len)
+    }
+    NR == FNR {
+      if ($0 !~ /^[[:space:]]*#/ && $0 !~ /^[[:space:]]*$/) {
+        pool_ids[$1] = 1
+        pool_ids[$3] = 1
+      }
+      next
+    }
     {
       is_comment = ($0 ~ /^[[:space:]]*#/)
       if (dropping_header) {
@@ -98,13 +174,34 @@ _set_once() {
       if (is_comment && (target_header($0, host) || target_header($0, pool))) {
         header_indent = comment_indent($0)
         dropping_header = 1
+        pending_embedded = 0
         next
       }
+      if (is_comment) {
+        line = $0
+        target_at = target_position($0)
+        if (target_at) {
+          line = refresh_cap_after(line, target_at + target_len)
+          changed = cap_replaced
+          if (!changed) {
+            line = refresh_cap_before(line, target_at)
+            changed = cap_replaced
+          }
+          pending_embedded = !changed
+        } else if (pending_embedded) {
+          line = refresh_cap_after(line, 1)
+          if (cap_replaced) pending_embedded = 0
+          else if (other_pool_before(line, length(line) + 1)) pending_embedded = 0
+        }
+        print line
+        next
+      }
+      pending_embedded = 0
+      if ($0 ~ /^[[:space:]]*$/) { print; next }
+      if ($1 == pool) { print newrow; found=1 } else print
     }
-    /^[[:space:]]*#/ || /^[[:space:]]*$/ { print; next }
-    { if ($1 == pool) { print newrow; found=1 } else { print; last=NR } }
     END { if (!found) print newrow }
-  ' "$file" > "$tmp" || { rm -f "$tmp"; return 1; }
+  ' "$file" "$file" > "$tmp" || { rm -f "$tmp"; return 1; }
   mv "$tmp" "$file" || return 1
   git -C "$dir" add "config/budget-pools" || return 1
   log "budget-pool $pool <- kind=$kind ceiling=$ceiling calibrated_from=$calibrated_from calibrated_at=$calibrated_at"
