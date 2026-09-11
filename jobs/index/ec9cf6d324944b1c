@@ -1,2 +1,2 @@
-base: improve-budget-pool-prose-sync
+base: improve-budget-pool-comment-synchronization
 identity: mentor:scripts/jobs/set-budget-pool.sh
