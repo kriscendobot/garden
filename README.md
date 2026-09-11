@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T19:05:39Z_
+_As of 2026-09-11T19:06:16Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 9d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 9d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 9d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 10d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 11d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 13d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 15d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 15d)
@@ -1231,11 +1231,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 11.3M _(+363.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`kriscendobot-garden-pr80-quota-validation-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr80-quota-validation-20260911.md) — PR-80 quota-calibration effectiveness observation — UTC day 20260911
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`kriscendobot-garden-pr80-quota-validation-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-quota-validation-20260911.md) — PR-80 quota-calibration effectiveness observation — UTC day 20260911
 
 ### tada (7682)
 - [`canary-probe-endolin-garden2-5bcdff64-d90227d8344e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d90227d8344e.md) — rolling-deploy canary probe — round trip OK
