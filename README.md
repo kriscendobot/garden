@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T14:46:34Z_
+_As of 2026-09-11T14:51:13Z_
 
 ## Latest
 
@@ -1234,7 +1234,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`claude-on-minion-town-press-20260911-145012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260911-145012.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1262-233a2e81`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1262-233a2e81.md) — attention directive on endojs/endo-but-for-bots PR #1262
 
 ### tada (7676)
