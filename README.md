@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T23:51:18Z_
+_As of 2026-09-11T23:54:07Z_
 
 ## Latest
 
@@ -1210,16 +1210,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260911-235011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260911-235011.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (7688)
+### tada (7689)
+- [`claude-on-minion-town-completion-press-20260911-235011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260911-235011.md) — Cost
 - [`kriscendobot-minion.town-pr33-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr33-receipt.md) — Cost
 - [`minion-town-weblet-powers-drafts-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-powers-drafts-reconcile.md) — Cost
 - [`claude-on-minion-town-press-20260911-210511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-210511.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-d24f8862e85c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d24f8862e85c.md) — rolling-deploy canary probe — round trip OK
-- [`improve-budget-pool-comment-synchronization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-pool-comment-synchronization.md) — Cost
-- … and 7683 more
+- … and 7684 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
