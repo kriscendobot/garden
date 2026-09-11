@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T04:06:22Z_
+_As of 2026-09-11T04:09:26Z_
 
 ## Latest
 
@@ -1230,17 +1230,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260911-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260911-040511.md) — Containment drift check for kriscendobot/minion.town gateway records
-- [`dependabotany-recheck-endo-but-for-bots-20260911-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260911-040511.md) — ---
+### doin (0)
+(none)
 
-### tada (7668)
+### tada (7670)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260911-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260911-040511.md) — Completion report
+- [`dependabotany-recheck-endo-but-for-bots-20260911-040511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260911-040511.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1257-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-receipt.md) — Cost
 - [`endojs-endo-but-for-bots-pr1257-review-after-pause-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-review-after-pause-20260911.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1257-a2e2aa3c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-a2e2aa3c.md) — Cost
-- [`claude-on-minion-town-press-20260911-022014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-022014.md) — Press report — Claude-on-minion.town arc (issue #89)
-- [`endojs-endo-but-for-bots-pr1257-5de2de57`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-5de2de57.md) — Cost
-- … and 7663 more
+- … and 7665 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
