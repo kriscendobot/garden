@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T22:48:49Z_
+_As of 2026-09-11T22:56:37Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 17m)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 26m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 10d)
@@ -1204,22 +1204,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 102.5M | $851.38 _(notional, rate-card)_ | 72% of 143.0M (ok) |
-| Codex | 11.4M _(+365.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 11.5M _(+365.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`minion-town-weblet-powers-drafts-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-powers-drafts-reconcile.md) — ---
+- [`kriscendobot-minion.town-pr33-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr33-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #33 (closed)
 
-### tada (7686)
+### tada (7687)
+- [`minion-town-weblet-powers-drafts-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-powers-drafts-reconcile.md) — Cost
 - [`claude-on-minion-town-press-20260911-210511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-210511.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-d24f8862e85c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d24f8862e85c.md) — rolling-deploy canary probe — round trip OK
 - [`improve-budget-pool-comment-synchronization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-budget-pool-comment-synchronization.md) — Cost
 - [`kriscendobot-garden-pr80-quota-validation-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260911.md) — What I did (measure-only, no actuation)
-- [`canary-probe-endolin-garden2-5bcdff64-d90227d8344e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d90227d8344e.md) — rolling-deploy canary probe — round trip OK
-- … and 7681 more
+- … and 7682 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
