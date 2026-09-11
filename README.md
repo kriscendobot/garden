@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T02:38:26Z_
+_As of 2026-09-11T02:49:35Z_
 
 ## Latest
 
@@ -1230,16 +1230,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1257-review-after-pause-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1257-review-after-pause-20260911.md) — Review endojs/endo-but-for-bots PR #1257 after the IronHorse pause is lifted
+### doin (0)
+(none)
 
-### tada (7666)
+### tada (7667)
+- [`endojs-endo-but-for-bots-pr1257-review-after-pause-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-review-after-pause-20260911.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1257-a2e2aa3c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-a2e2aa3c.md) — Cost
 - [`claude-on-minion-town-press-20260911-022014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-022014.md) — Press report — Claude-on-minion.town arc (issue #89)
 - [`endojs-endo-but-for-bots-pr1257-5de2de57`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-5de2de57.md) — Cost
 - [`claude-on-minion-town-completion-press-20260910-233511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260910-233511.md) — Completion report
-- [`claude-on-minion-town-press-20260910-232011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260910-232011.md) — Press report — Claude-on-minion.town arc (issue #89)
-- … and 7661 more
+- … and 7662 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
