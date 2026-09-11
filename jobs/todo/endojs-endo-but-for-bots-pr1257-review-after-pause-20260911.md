@@ -1,9 +1,8 @@
 ---
-gate: go-ahead
-priority: high
-posted_by: gardener
-posted_at: 2026-09-11T01:40:10Z
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=high at=2026-09-11T02:36:18Z cleared=none -->
 
 ---
 handler-budget-role: review
