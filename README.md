@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T18:46:47Z_
+_As of 2026-09-11T19:05:39Z_
 
 ## Latest
 
@@ -1231,8 +1231,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 11.3M _(+363.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-garden-pr80-quota-validation-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr80-quota-validation-20260911.md) — PR-80 quota-calibration effectiveness observation — UTC day 20260911
 
 ### doin (0)
 (none)
