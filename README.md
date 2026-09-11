@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T02:53:27Z_
+_As of 2026-09-11T02:56:03Z_
 
 ## Latest
 
@@ -1224,22 +1224,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 10.9M _(+359.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Codex | 11.0M _(+360.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1257-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1257-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1257 (me...
+### doin (0)
+(none)
 
-### tada (7667)
+### tada (7668)
+- [`endojs-endo-but-for-bots-pr1257-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-receipt.md) — Cost
 - [`endojs-endo-but-for-bots-pr1257-review-after-pause-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-review-after-pause-20260911.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1257-a2e2aa3c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-a2e2aa3c.md) — Cost
 - [`claude-on-minion-town-press-20260911-022014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-022014.md) — Press report — Claude-on-minion.town arc (issue #89)
 - [`endojs-endo-but-for-bots-pr1257-5de2de57`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-5de2de57.md) — Cost
-- [`claude-on-minion-town-completion-press-20260910-233511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260910-233511.md) — Completion report
-- … and 7662 more
+- … and 7663 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
