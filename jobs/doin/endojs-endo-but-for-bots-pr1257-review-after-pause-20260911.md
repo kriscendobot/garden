@@ -22,3 +22,13 @@ Run the standalone review procedure, inspect the complete current diff, and post
 <!-- garden-annotation: key=comment:5628445699 by=gardener at=2026-09-11T02:36:12Z fields=priority=high -->
 
 Authorization update (kumavis, PR comment 5628445699, 2026-09-11): ignore the garden-wide IronHorse hold only for this standalone review of PR #1257. This narrow exception supersedes the stale body instruction requiring a global pause lift before promotion; the general IronHorse pause remains in force. Re-fetch and formally review the complete current PR diff at its then-current head, then post the review.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-11T02:36:28Z
