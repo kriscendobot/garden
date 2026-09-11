@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T17:55:10Z_
+_As of 2026-09-11T18:06:16Z_
 
 ## Latest
 
@@ -1234,8 +1234,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260911-180511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260911-180511.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (7679)
 - [`claude-on-minion-town-completion-press-20260911-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260911-175011.md) — Completion report
