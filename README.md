@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T18:21:59Z_
+_As of 2026-09-11T18:27:05Z_
 
 ## Latest
 
@@ -1228,22 +1228,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 11.2M _(+361.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Codex | 11.3M _(+363.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-minion-town-press-idle-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-minion-town-press-idle-gate.md) — ---
+### doin (0)
+(none)
 
-### tada (7680)
+### tada (7681)
+- [`improve-minion-town-press-idle-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-minion-town-press-idle-gate.md) — Cost
 - [`claude-on-minion-town-press-20260911-180511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-180511.md) — Cost
 - [`claude-on-minion-town-completion-press-20260911-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260911-175011.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1262-233a2e81`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1262-233a2e81.md) — Cost
 - [`claude-on-minion-town-press-20260911-145012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-145012.md) — Cost
-- [`claude-on-minion-town-completion-press-20260911-115011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260911-115011.md) — Completion report
-- … and 7675 more
+- … and 7676 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
