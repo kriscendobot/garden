@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-11T02:49:35Z_
+_As of 2026-09-11T02:53:27Z_
 
 ## Latest
 
@@ -1224,14 +1224,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.8M | $847.89 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 10.9M _(+359.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Codex | 10.9M _(+359.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1257-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1257-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1257 (me...
 
 ### tada (7667)
 - [`endojs-endo-but-for-bots-pr1257-review-after-pause-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1257-review-after-pause-20260911.md) — Completion report
