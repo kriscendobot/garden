@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:15:59Z_
+_As of 2026-09-12T16:20:08Z_
 
 ## Latest
 
@@ -1223,17 +1223,19 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.8M | $46.45 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 922.3k _(+29.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 3.9M | $49.36 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 1.0M _(+31.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1125-aff3b059`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-aff3b059.md) — attention directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-2576c388`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-2576c388.md) — attention directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-review-35c43da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-35c43da7.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`design-endo-daemon-storage-capability-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-storage-capability-matrix.md) — ---
+- [`design-endo-daemon-mutable-blob-block-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-mutable-blob-block-storage.md) — ---
 
 ### tada (7713)
 - [`claude-on-minion-town-press-20260912-160504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-160504.md) — Cost
