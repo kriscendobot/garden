@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-12T19:21:43Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-design-endo-guest-owned-attenuated-diagnostics
+pr_number: 1266
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1266
+pr_head: design/guest-owned-attenuated-diagnostics
