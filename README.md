@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T04:09:07Z_
+_As of 2026-09-12T04:20:52Z_
 
 ## Latest
 
@@ -1232,7 +1232,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`dependabotany-recheck-endo-but-for-bots-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260912-042007.md) — ---
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260912-042007.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
 
 ### tada (7697)
