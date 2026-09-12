@@ -35,3 +35,13 @@ This is the sequential successor to `minion-town-weblet-ocap-synthesis-units-4-5
 5. Post the required design-tracking comment on PR #47. Be accurate about scope drift: PR #54 actually landed while #69 remained draft, so #69 was refreshed atop its clip rename; the intended cleanup-before-rename ordering was overtaken. PR #88 supersedes the stable-origin/ambient-back direction; #63 is closed and #89 records the current boundary.
 
 Panel artifacts from the latest attempts are under `/home/kris/garden/scratch/panel-minion-town-69-weekly-reset-{4,5,6}` but are not durable; the facts above and pushed commit are the handoff record.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T03:02:10Z
