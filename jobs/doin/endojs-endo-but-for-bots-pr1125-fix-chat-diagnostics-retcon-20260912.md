@@ -65,3 +65,13 @@ re-requested from kriskowal. Report the new head SHA.
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=725 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T19:34:54Z
