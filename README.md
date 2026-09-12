@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T10:58:51Z_
+_As of 2026-09-12T11:17:15Z_
 
 ## Latest
 
@@ -301,12 +301,12 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #406 (first seen 2026-09-05T15:44:01Z, latest 2026-09-09T05:56:14Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 406 times; this is ONE
-> coalesced notice that updates in place, not 406 messages. Latest detail:
+> WATCHDOG notice — occurrence #407 (first seen 2026-09-05T15:44:01Z, latest 2026-09-12T11:17:02Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 407 times; this is ONE
+> coalesced notice that updates in place, not 407 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
-> is no available canary to validate 7476cf9e0083. Per designs/follower-self-deploy.md
+> is no available canary to validate 95dce3223e5c. Per designs/follower-self-deploy.md
 > this is treated as a signal to wait for you, not to advance the leader unvalidated.
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
@@ -1223,7 +1223,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.0M | $55.20 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Claude | 4.0M | $55.68 _(notional, rate-card)_ | 3% of 143.0M (ok) |
 | Codex | 886.9k _(+29.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
