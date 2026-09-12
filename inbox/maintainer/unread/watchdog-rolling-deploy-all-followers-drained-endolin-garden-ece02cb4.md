@@ -1,17 +1,17 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:rolling-deploy
-sent_at: 2026-09-12T12:20:01Z
+sent_at: 2026-09-12T13:20:02Z
 watchdog_key: rolling-deploy-all-followers-drained-endolin-garden-ece02cb4
-notice_count: 428
+notice_count: 443
 first_seen: 2026-09-05T15:44:01Z
-last_seen: 2026-09-12T12:20:01Z
+last_seen: 2026-09-12T13:20:02Z
 ---
-WATCHDOG notice — occurrence #428 (first seen 2026-09-05T15:44:01Z, latest 2026-09-12T12:20:01Z).
-The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 428 times; this is ONE
-coalesced notice that updates in place, not 428 messages. Latest detail:
+WATCHDOG notice — occurrence #443 (first seen 2026-09-05T15:44:01Z, latest 2026-09-12T13:20:02Z).
+The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 443 times; this is ONE
+coalesced notice that updates in place, not 443 messages. Latest detail:
 
 Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
-is no available canary to validate 95dce3223e5c. Per designs/follower-self-deploy.md
+is no available canary to validate 421473a9331a. Per designs/follower-self-deploy.md
 this is treated as a signal to wait for you, not to advance the leader unvalidated.
 Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
