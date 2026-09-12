@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:28:14Z_
+_As of 2026-09-12T16:29:45Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 17h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 18h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 9d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 10d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 10d)
@@ -1223,8 +1223,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.9M | $48.93 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 1.1M _(+37.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 3.7M | $45.39 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 1.1M _(+38.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1232,15 +1232,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-review-35c43da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-35c43da7.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`design-endo-daemon-mutable-blob-block-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-mutable-blob-block-storage.md) — ---
+- [`endojs-endo-but-for-bots-pr1265-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1265
 
-### tada (7716)
+### tada (7717)
+- [`design-endo-daemon-mutable-blob-block-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-mutable-blob-block-storage.md) — Cost
 - [`design-endo-daemon-storage-capability-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-storage-capability-matrix.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-aff3b059`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-aff3b059.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-2576c388`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-2576c388.md) — Cost
 - [`claude-on-minion-town-press-20260912-160504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-160504.md) — Cost
-- [`improve-normalize-fix-handler-budget-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-normalize-fix-handler-budget-role.md) — Completion report
-- … and 7711 more
+- … and 7712 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
