@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T07:11:31Z_
+_As of 2026-09-12T08:22:23Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 8h)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 9h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 10d)
@@ -1227,13 +1227,23 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
 >   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
+- `msg-minion-town-pr69-followup-hardening-530b05694bfd` — from gardener:minion-town-pr69-followup-hardening, reply_to `minion-town-pr69-followup-hardening` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-pr69-followup-hardening-530b05694bfd.md)
+
+> minion.town [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) follow-up hardening (job minion-town-pr69-followup-hardening) — maintainer decision needed before I can act on it.
+>
+> The round-7 panel (stylist seat) flagged that the PUBLIC MCP tool parameter `confirmPublicBuiltIn` (src/endo/gateway/publish.ts, the acknowledgement gate for publishing an `@`-special name) contradicts the repo's "special name" convention and its own error text ("...requires confirmPublicBuiltIn=true because its full authority becomes public" — but the value being published is a special name). Stylist proposed renaming it to `confirmPublicSpecialName`.
+>
+> Because it is a maintainer-named, public, caller-facing tool parameter, renaming it is your call, not mine. I am NOT renaming it — I'm preserving the `confirmPublicBuiltIn` gate exactly as-is in this hardening pass (all other deferred findings addressed). If you want the rename, say so and I (or a follow-up) will do it as a separate, clearly-flagged public-API change (tool schema + error text + callers + tests).
+>
+> No action needed to unblock the rest of the hardening; this is the one item held for your decision.
+
 
 ## Spend & quota
 _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 811.6k | $4.59 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 978.5k | $7.45 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 673.7k _(+24.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
