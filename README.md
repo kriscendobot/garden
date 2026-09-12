@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T01:18:51Z_
+_As of 2026-09-12T03:00:41Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 2h)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 10d)
@@ -984,6 +984,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > facts above does NOT hold when you check it, stop and report back rather than
 > proceeding — this change forecloses rollback to the legacy pool.
 
+- `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
+
+> budget pool anthropic:endolin-garden2-5bcdff64 changed zone backoff -> ok at spend=0 of cap=64000000 (high-water 0.85; Friday 20:00 Pacific window).
+
 - `20260904T134107Z-777400` — from gauntlet:ebfb-exo-stream-drop-base64-stream-methods-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T134107Z-777400.md)
 
 > Gauntlet ebfb-exo-stream-drop-base64-stream-methods-gauntlet HALTED: stage 'ebfb-exo-stream-drop-base64-stream-methods-gauntlet-fix-2' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -1203,8 +1207,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.5M | $851.38 _(notional, rate-card)_ | 72% of 143.0M (ok) |
-| Codex | 11.5M _(+365.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 0 | $0.00 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
