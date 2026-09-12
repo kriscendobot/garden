@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T13:22:21Z_
+_As of 2026-09-12T13:27:27Z_
 
 ## Latest
 
@@ -1065,10 +1065,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `minion-town-eval-campaign-complete-failures` — from orchestrator:minion-town-eval-campaign-complete-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-eval-campaign-complete-failures.md)
 
 > Orchestration minion-town-eval-campaign complete WITH FAILURES (serial): 7/8 failed: minion-town-eval-static-publish minion-town-eval-odometer-counter minion-town-eval-guestbook-tally minion-town-eval-sandbox-boundary minion-town-eval-site-lifecycle minion-town-eval-mail-pair minion-town-eval-error-probes
-
-- `watchdog-root-repo-dirty-tree-repaired-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-dirty-tree-repaired-endolin-garden-ece02cb4.md)
-
-> root repo /home/kris/garden had a STRAY TRACKED EDIT (the no-development-in-the-root invariant was violated). It was PRESERVED (branch root-guard-backup/20260912T132202Z + patch /home/kris/garden/.garden-state/deploy/dirty-tree-backups/20260912T132202Z.patch) and the tracked tree restored to clean so the rolling deploy is never wedged behind a dirty-tree abort. This is an after-the-fact FYI — the fleet keeps moving. Preserved paths:  M scripts/jobs/common.sh; M scripts/jobs/test/build-handler-budget-test.sh. (host=endolin-garden-ece02cb4)
 
 - `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
 
