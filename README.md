@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T17:29:01Z_
+_As of 2026-09-12T17:31:39Z_
 
 ## Latest
 
@@ -49,23 +49,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
 
 > root repo /home/kris/garden2 deploy has been STALLED for ~1d: deployed sha 8b7f56d5f0210db6e9e7745245b46f673072d166 is 30 commit(s) behind origin/main2 (bc3270551fb755d3b73338119d0c4db433d6b196) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
-
-- `doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-guard-worker-self-disqualify-missing-agent-bin-1-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/fu-guard-worker-self-disqualify-missing-agent-bin-1; it stays HELD until a human promotes it
-> (promote-plan.sh fu-guard-worker-self-disqualify-missing-agent-bin-1) or removes it, so nothing is lost.
-> Original job base: fu-guard-worker-self-disqualify-missing-agent-bin-1
->
-> --- original job body ---
-> ---
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> Garden repo (main2): `run-test.sh` currently has ~30 pre-existing failures (environmental — sandbox lacks network for `github.com:kriskowal/garden.git`, a shellcheck-wrapper subtest, a foreman fill-batch block), leaving the suite red by default so it can't gate anything. Fix or properly skip the environmental failures.
 
 - `watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-3` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-cgroup-residue-endolin-garden-ece02cb4-monk-3.md)
 
@@ -199,81 +182,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Evaluation 7 needs a human GitHub federation login checkpoint to create the required distinct identity B. Please reply when you are ready to complete the browser GitHub login; I will continue identity-A bootstrap and schema discovery meanwhile.
 
-- `doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-usage-meter-unbound-var-and-widen-shellcheck-ci-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/fix-usage-meter-unbound-var-and-widen-shellcheck-ci; it stays HELD until a human promotes it
-> (promote-plan.sh fix-usage-meter-unbound-var-and-widen-shellcheck-ci) or removes it.
-> Original job base: fix-usage-meter-unbound-var-and-widen-shellcheck-ci
->
-> --- original job body ---
-> ---
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> ## Grounding incident
-> While filing a fix job on 2026-08-23, `scripts/jobs/post-job.sh` printed:
->
->     scripts/jobs/usage-meter.sh: line 302: cutoff: unbound variable
->
-> a live `set -u` failure in the fleet budget-state read path (the WARN text
-> confirms it fell back fail-open: "fleet budget state unreadable; posting ...
-> to todo/"). This is exactly the class of bug `shellcheck` catches
-> (`SC2154`/unset-variable-under-`set -u` patterns) — but `usage-meter.sh` is
-> not in `.github/workflows/checks.yml`'s shellcheck file list, which is a
-> curated allowlist (daemons, watcher stub, checks gates, per-test scripts),
-> not the full `scripts/jobs/` tree. The workflow's own comment already
-> concedes the gap: "Pre-existing scripts outside this scope have known
-> issues; widening the lint surface is a separate effort."
->
-> Separately (already fixed directly, not part of this job): `checks.yml`'s
-> `on: push/pull_request: branches: [main]` pointed at the abandoned `main`
-> branch (last touched 2026-07-05, since diverged from `main2`) instead of
-> `main2`, the actual development branch — so shellcheck/bash-n/gate-tests
-> have not run on a real commit in weeks; only `pages-build-deployment` was
-> firing. That trigger fix landed separately; this job is the file-scope
-> widening plus the specific bug.
->
-> ## Ask
->
-> 1. **Fix the specific bug**: `scripts/jobs/usage-meter.sh:302` references
->    `$cutoff` unset under some code path. Trace the call graph, fix the
->    unbound reference (declare/default it, or guard the read), and add or
->    extend a regression test if the file has one (check
->    `scripts/jobs/test/` for a usage-meter test harness first).
->
-> 2. **Widen `checks.yml`'s shellcheck step to mandatory, broad coverage.**
->    The maintainer wants shellcheck genuinely in the mandatory pre-commit/CI
->    testing, not a narrow allowlist that happens to exclude the very file
->    that broke. Concretely:
->    - Add `scripts/jobs/*.sh` (at minimum) to the shellcheck file list,
->      ideally the same broad `find scripts skills -name '*.sh'` sweep the
->      `bash -n` step already uses, so newly added scripts are covered by
->      construction rather than requiring a per-file allowlist edit forever.
->    - `shellcheck -S warning` across the full `scripts/jobs/` tree will
->      likely surface real pre-existing warnings beyond the one bug above
->      (the workflow comment already anticipates this) — triage and fix each
->      one rather than silently loosening the severity or excluding files
->      wholesale. Where a finding is a deliberate/false-positive pattern
->      (e.g. an intentionally-unbound variable a caller is expected to set),
->      use a scoped `# shellcheck disable=SCxxxx` with a one-line reason,
->      not a file-level exclusion.
->    - If the full sweep is too large for one pass, land it in the widest
->      scope you can clear in this job and note remaining excluded paths
->      explicitly in the workflow comment (mirroring the existing "known
->      issues" note) rather than leaving the gap implicit.
->    - Keep the check genuinely mandatory: it should fail the workflow (not
->      just warn) on any finding at `-S warning` or above, matching the
->      existing step's behavior.
->
-> 3. Confirm the retargeted workflow (now triggering on `main2`) actually
->    runs green on your PR-equivalent push and report the run URL.
-
 - `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-08-10T23:05:19Z, latest 2026-09-01T04:59:18Z).
@@ -323,66 +231,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet build-minion-town-claude-harness-provisioning-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
-- `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1023-gauntlet-panel-2; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr1023-gauntlet-panel-2) or removes it, so nothing is lost.
-> Original job base: endojs-endo-but-for-bots-pr1023-gauntlet-panel-2
->
-> --- original job body ---
-> ---
-> role: gardener
-> tier: minion
-> handler-budget-role: panel
-> handler-timeout: 7200
-> token-budget: 250000
-> ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:56:16Z cleared=none -->
->
-> ---
-> role: gardener
-> handler-budget-role: panel
-> handler-timeout: 7200
-> gauntlet: endojs-endo-but-for-bots-pr1023-gauntlet
-> gauntlet_stage: panel
-> gauntlet_iteration: 2
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/1023](https://github.com/endojs/endo-but-for-bots/pull/1023)
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1023
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1023-gauntlet). Run EXACTLY ONE panel round, post the
-> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1023-gauntlet-panel-2 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1023 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Run the panel in SINGLE-ROUND mode against that worktree:
->    `GARDEN_PANEL_SINGLE_ROUND=1 \
->      scripts/jobs/gardening/panel.sh <worktree> 1023 <base-ref>`
->    It fans the seats, aggregates, and prints its disposition as the terminal line's
->    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
-> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/1023](https://github.com/endojs/endo-but-for-bots/pull/1023) — the
->    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
->    review on must-fix, a comment/approve on pass).
-> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
->    report with `orchestration-failed: true` and do NOT emit a panel marker.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: panel=pass -->
->   <!-- gauntlet-stage-result: panel=must-fix -->
-
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #87 (first seen 2026-09-04T00:20:48Z, latest 2026-09-04T22:05:22Z).
@@ -416,112 +264,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > (benign drain op) pending your decision; auto-rollback is deliberately not performed
 > (designs/follower-self-deploy.md § Failure handling). Investigate the target on endolin-garden2-5bcdff64,
 > then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
-
-- `doomed-minion-town-eval-static-publish-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-minion-town-eval-static-publish-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/minion-town-eval-static-publish; it stays HELD until a human promotes it
-> (promote-plan.sh minion-town-eval-static-publish) or removes it, so nothing is lost.
-> Original job base: minion-town-eval-static-publish
->
-> --- original job body ---
-> ---
-> handler-timeout: 10800
-> ---
-> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-04T06:49:08Z cleared=none -->
->
-> # Evaluation 1/8: static publish (baseline/control)
->
-> ## Campaign context (identical preamble in every `minion-town-eval-*` child)
->
-> You are running one evaluation in a campaign probing the minion.town MCP
-> guest tool surface AS DOCUMENTATION: can a fresh agent, armed with nothing
-> but the tools' own names, descriptions, and input schemas, accomplish a
-> non-trivial task against the live daemon guest? The endpoint is real, live
-> infrastructure — real spend, real pages served to the public internet. Work
-> carefully, keep probes bounded, and clean up after yourself.
->
-> ### Bootstrap (environment setup — NOT part of the evaluated surface)
->
-> 1. Mint a client-credentials token: read the Cognito client secret from AWS
->    Secrets Manager secret `minion/test-cc-client` (region `us-west-1`;
->    client id `52ivub038n2dnvnk134s6vkqp1`, client name `minion-mcp-test-cc`),
->    then POST to
->    `https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/token` with
->    `grant_type=client_credentials` and `scope=mcp/tools mcp/guest`. NEVER
->    print, log, or commit the secret or the token; hold both only in
->    environment variables. If this host has no AWS credentials, or the token
->    comes back without the `mcp/guest` scope, report that as an
->    environment/deployment gap and finish with the failure contract below —
->    do not work around it via any admin or break-glass path.
-> 2. Configure an MCP client against `https://minion.town/mcp` (streamable
->    HTTP) with the token as a Bearer `Authorization` header — e.g. a scratch
->    MCP config in your job worktree for a `claude -p` sub-invocation, or any
->    MCP client with a bearer-token hook. Confirm the minion-town tools
->    (`status`, `list`, `listSites`, `publish`, `upgrade`, `unpublish`,
->    `adopt`, `dismiss`, `resolve`, `send`, `listMessages`, `evaluate`,
->    `writeText`, `readText`, `has`, `remove`) appear in `tools/list`.
->
-> ### Ground rules
->
-> - From bootstrap onward, your ONLY documentation is the tool names,
->   descriptions, and input schemas themselves. Do not read minion.town or
->   endo source, deployment docs, garden designs, or other evaluations'
->   reports. Trial and error against the live surface is the point.
-> - Namespace every pet name and content path you create with the prefix
->   given below. Touch nothing outside your prefix: the guest identity behind
->   the test client is SHARED; names you did not create are not yours to
->   remove, unpublish, or dismiss.
-> - Clean up on exit: remove your pet names, unpublish your sites (verify the
->   page actually stops being served), dismiss only messages you produced.
->
-> ### Required report shape
->
-> 1. **Deliverable + verification evidence** — what you built, the exact
->    verification commands/scripts, and their observed output.
-> 2. **Documentation-quality findings**, three subsections:
->    - *Clear from the schema alone* — what worked first try, as described.
->    - *Needed trial and error* — what the descriptions under- or
->      mis-specified; quote the description text against observed behavior.
->    - *What a future skill should tell the next agent* — concrete,
->      imperative sentences.
-> 3. **Call transcript summary** — tools called, call counts, notable errors.
->
-> If the deliverable is not achieved, still write the full report (a failed
-> evaluation is itself a documentation finding) and end it with these exact
-> two lines, in this order:
->
-> ```text
-> <<<GARDEN-ORCHESTRATION-FAILED>>>
-> <<<GARDEN-JOB-COMPLETE>>>
-> ```
->
-> ## This evaluation (prefix: `ev1-`)
->
-> **Deliverable.** Publish a brand-new clip (site) with purely static content:
-> one HTML page titled "Garden Static Baseline" whose body contains a fixed
-> sentinel string of your choosing beginning `ev1-sentinel-`. No scripts, no
-> dynamic behavior. This is the campaign's control: the simplest possible
-> publish, so later evaluations' friction can be attributed to their added
-> complexity rather than to the basic publish path.
->
-> **Additional duty (campaign bootstrap verification).** Before any guest tool
-> call, decode the access token's payload (base64, locally — do not print the
-> signature or the raw token) and record in the report which scopes were
-> actually granted. A missing `mcp/guest` scope is a deployment regression the
-> whole campaign needs surfaced early and legibly.
->
-> **Required verification.**
-> - `curl` the served URL: HTTP 200, sentinel present in the body, a sensible
->   `Content-Type`. Curl a second time to confirm the response is stable.
-> - `listSites` (or whatever enumeration the schema offers) reflects the new
->   site; record how the tool output names/addresses it and whether the served
->   URL was discoverable from tool output alone (versus guessed).
->
-> **Cleanup.** Unpublish the clip; `curl` again and record precisely what a
-> de-published URL returns (status code, body). Remove any `ev1-` pet names;
-> confirm with `list`/`has`.
 
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
@@ -561,156 +303,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > - question (msgid 20260904T101556Z-fe2695.md)
 > - tentative answer: proxy/tentative: Yes, go ahead and post a weave job — specifically "pin the merge base" for [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113), per skills/frozen-base-branch and skills/verify-upstream-state-before-pinning. Given llm has moved ~18k lines in interp.rs since ba236d722d, blind-rebasing your fix-2 head (24faeff1bc) risks silently losing or misapplying the must-fix edits, so the weaver should diff your fix-2 commits against the new interp.rs before reapplying rather than trusting a mechanical merge. This is a routine conflict-resolution/weave dispatch (not a merge, ferry, or scope change), so it's within normal gardener-fleet authority — no maintainer sign-off needed to proceed. Report fix=still-pending is correct until the weave lands and CI can actually run.
 
-- `doomed-diagnose-panel-seat-error-rate-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-diagnose-panel-seat-error-rate-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/diagnose-panel-seat-error-rate; it stays HELD until a human promotes it
-> (promote-plan.sh diagnose-panel-seat-error-rate) or removes it, so nothing is lost.
-> Original job base: diagnose-panel-seat-error-rate
->
-> --- original job body ---
-> ---
-> role: builder
-> tier: mentor
-> fallback-tier: minion
-> handler-timeout: 10800
-> dispatch: automatic
-> ---
-> # Diagnose why all seven panel seats error together (~20% of panel runs)
->
-> This is the ROOT CAUSE of the largest gauntlet failure class. Diagnosis first —
-> do NOT ship a speculative fix.
->
-> ## The evidence already gathered (do not re-derive)
->
-> Across `journal2` `panel-runs/`: **87 of 444 recorded panel runs (19.6%)
-> terminate with `disposition: error`, `must_fix_total: 0`, and ALL SEVEN seats
-> reporting `error`** — e.g. `panel-runs/endojs-endo-but-for-bots-1018/fe4630bc00e2.md`:
->
->     seat verdicts (7): copyeditor=error critic=error decomplector=error \
->       ergonomist=error novice=error pedant=error skeptic=error
->
-> These are **spread thinly across the whole month** (2-4 per hour-bucket on many
-> different days, 2026-07-29 through 2026-08-31), so this is a PERSISTENT
-> BACKGROUND RATE, not a single provider outage. That is the key constraint on any
-> explanation: whatever you propose must explain a steady ~20%, not one incident.
->
-> ## Why it matters
->
-> Gauntlet halts since 2026-07-29 number 89. **70 are STRANDED** — a stage job
-> doomed or vanished — and 40 of those are at the `panel` stage. Of 37 doomed
-> gauntlet stage jobs, **26 are `requeue-exhausted`** (15 at panel): "its handler
-> appears to fail every time; the reaper stopped requeueing it" after 5 cycles.
->
-> The plausible chain is: all seats error -> the panel produces no verdict -> the
-> stage cannot emit a `gauntlet-stage-result` marker -> the handler fails ->
-> identical failure 5x -> reaper dooms it -> `gauntlet.sh` sees `child_state`
-> `failed` and halts the whole gauntlet.
->
-> **Verify or refute that chain before fixing anything.** It is inference from
-> records, not an established fact. In particular, confirm whether an all-seats-error
-> run actually fails its stage handler, or whether the panel retries internally and
-> recovers (a retried `panel-1` is why #1018 has 7 panel-run records for 6 panel
-> stages — do not mistake a successful retry for a failure).
->
-> ## What to find out
->
-> 1. What is the actual error each seat reports? Seat dispatch is in
->    `scripts/jobs/gardening/panel.sh`. Get at the underlying per-seat failure —
->    provider error, timeout, empty output, policy refusal, a malformed prompt, a
->    missing input file.
-> 2. Why do all seven fail TOGETHER? Seven independent dispatches failing at once
->    points at something shared: a common input (the PR diff/base ref), a shared
->    setup step before fan-out, a concurrency/rate limit, or a single guard that
->    aborts the whole round.
-> 3. Is it correlated with anything observable — PR size, `panel_kind` (`design`
->    vs code), host, provider, time of day, a specific base ref?
->
-> ## Definition of done
->
-> A written root cause with real evidence (cite the runs, logs and commands), plus
-> a recommended fix. If the cause is a shared input or setup step, say exactly
-> which. If you cannot establish it, report what you ruled OUT and what evidence
-> would settle it — a well-bounded negative result is a good outcome here and much
-> more useful than a guess. Only implement a fix if the cause is established and
-> the fix is small; otherwise propose it.
-
-- `doomed-local-verify-endo-test-xs-cargo-parity-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-local-verify-endo-test-xs-cargo-parity-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 7200s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/local-verify-endo-test-xs-cargo-parity; it stays HELD until a human promotes it
-> (promote-plan.sh local-verify-endo-test-xs-cargo-parity) or removes it.
-> Original job base: local-verify-endo-test-xs-cargo-parity
->
-> --- original job body ---
-> ---
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
-> role: builder
->
-> Close the remaining local-verify environment parity exposed after `test:xs` coverage landed in commit 4c1c39ee15. A real run against endojs/endo-but-for-bots@llm used the CI-pinned Moddable 5.0.0 xst successfully, then `@endo/hardened262` failed before exercising Ironhorse because the garden image has no `cargo`; the isolated worktree also has the CI-required `c/moddable` submodule uninitialized. Mirror the `test-xs` workflow prerequisites generically, preserve silent-on-success, and add regression coverage. Evidence blob in project worktree at the originating job was deeb55ea4c940dbbd69335b23b48ed8cac441563.
-
-- `doomed-fu-requeue-ps23-stranded-claims-4-elapsed-constancy` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fu-requeue-ps23-stranded-claims-4-elapsed-constancy.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden-ece02cb4.
-> The handler repeatedly failed at a near-constant elapsed below its wall-clock budget.
-> The first confirmation was requeued; the reaper parked only after the 2-confirmation threshold.
-> Read the handler log for the fast failure cause. Raising the handler budget will not help.
-> The work is preserved at jobs/plan/fu-requeue-ps23-stranded-claims-4; it stays HELD until a human promotes it
-> (promote-plan.sh fu-requeue-ps23-stranded-claims-4) or removes it.
-> Original job base: fu-requeue-ps23-stranded-claims-4
->
-> --- original job body ---
-> ---
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> Garden repo (main2): SUBTEST 7 of `elapsed-constancy-classifier-test.sh` fails on main2 (explicit-cap exemption not firing — sub-floor reclassification wins instead). Fix it.
-
-- `doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-mtown-git-remote-followup-notice-recheck-20260818-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/mtown-git-remote-followup-notice-recheck-20260818; it stays HELD until a human promotes it
-> (promote-plan.sh mtown-git-remote-followup-notice-recheck-20260818) or removes it, so nothing is lost.
-> Original job base: mtown-git-remote-followup-notice-recheck-20260818
->
-> --- original job body ---
-> ---
-> role: gardener
-> tier: minion
-> token-budget: 100000
-> ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-21T22:18:56Z cleared=none -->
->
-> ---
-> role: gardener
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> # Notice: recheck the minion.town git-remote follow-up on the daemon commit-formula design
->
-> This is the notice (sentinel) job of the D->N->F chained follow-up in skills/chained-followup/SKILL.md, re-armed on a short once: schedule because the design had not yet advanced to a build at the last check.
->
-> D is ebfb-daemon-commit-formula-design. Its design PR is [https://github.com/endojs/endo-but-for-bots/pull/988](https://github.com/endojs/endo-but-for-bots/pull/988).
->
-> Use gh read-only metadata, not comment prose, to determine whether PR #988 has advanced to a build: a build PR referencing or implementing the design has opened, or the design merged and a build is underway. Cross-reference timeline metadata is the preferred mechanical link check (gh api repos/endojs/endo-but-for-bots/issues/988/timeline).
->
-> If advanced to build, post F with post-job.sh using base mtown-git-remote-commit-formula-act and this exact body:
-> Act on the daemon-native commit formula in minion.town's capability-addressed git remote (design/git-remote-capability). Name the endo-but-for-bots build PR/commit that landed. Update designs/git-remote-capability.md §4 (Strategy B) to reflect git commit/tree/tag identity through the new daemon commit formula — synthetic refs tree rooted at a formula identifier, name-hub lookup paths ending in a readable-tree, synthetic orphan commits enveloping the readable-tree — and carry the design to the implementation increment. Origin review: [https://github.com/kriscendobot/minion.town/pull/41](https://github.com/kriscendobot/minion.town/pull/41)#pullrequestreview-4939454650
->
-> If not yet built, re-arm this notice again on a short once: schedule (scripts/jobs/set-schedule-once.sh). If the design was declined (PR #988 closed unmerged), end the chain, message the maintainer through message-user.sh, and do not post F.
-
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -733,136 +325,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > For completeness, the other two active powers records are the known 08-12 baseline, unchanged: a0eeea3c… (powers:"formula:live-deploy-verification", owner e9a9096e, non-dckc) and f220b5fe… (powers:"powers-fixture", ownerless). The remaining 18 dckc records are plain content weblets (contentRoot/directoryId/owner).
 >
 > I took no action on the two legacy records: they are not reappearances of the de-registered set (different hashes/powers), and the powers plane is deliberately open, so de-registering them is a maintainer call. Question: should 806fc2ea (counter) and c016601e (@none) be revoked into vhosts-revoked, or are they known/expected owner experimentation on the opened powers plane (leave as-is)?
-
-- `doomed-openrouter-zdr-policy-and-stealth-lane-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-openrouter-zdr-policy-and-stealth-lane-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/openrouter-zdr-policy-and-stealth-lane; it stays HELD until a human promotes it
-> (promote-plan.sh openrouter-zdr-policy-and-stealth-lane) or removes it.
-> Original job base: openrouter-zdr-policy-and-stealth-lane
->
-> --- original job body ---
-> ---
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
-> Follow-up to `design-openrouter-provider` (`designs/openrouter-provider.md`,
-> commit `9790c4f4db`), which left two maintainer decisions as open questions.
-> The maintainer (kriskowal) has now answered both — this job builds what they
-> authorized, not a re-ask.
->
-> ## Decision 1 — reject logging/training-use by default (answers Open question 1)
->
-> The garden's default OpenRouter posture is: **no prompt/response logging, no
-> training on inputs.** Enforce this as a real, code-auditable constraint, not
-> an account-page setting someone could forget or reset:
->
-> - Investigate OpenRouter's actual current mechanism for this — most likely a
->   per-request `provider: { data_collection: "deny" }` field (routes only to
->   zero-data-retention-capable providers, whatever they don't serve is simply
->   excluded from routing) alongside/instead of the account-level privacy
->   toggle at openrouter.ai/settings/privacy. Confirm current behavior against
->   OpenRouter's own docs rather than assuming; this is a request I have not
->   verified against a live account.
-> - Wire the `openrouter`/`cleric-codex.sh` `$custom_openai_compat` request
->   path to send that deny-collection constraint on **every** OpenRouter
->   request, unconditionally — not opt-in per job, not toggleable by a job
->   body. This is a fleet posture, not a per-request choice.
-> - **Re-review the two seed inventory rows against this constraint.** The
->   design doc already noted free `:free` variants commonly *require*
->   logging/training to be enabled as the price of the free tier — if that's
->   still true, a deny-collection request to those ids may simply return no
->   eligible provider (empty routing) rather than an error, or may 404/402.
->   Determine empirically (status-only probe, no key exists yet so this may
->   need to wait for §3 below, or can be reasoned from OpenRouter's docs) and
->   either (a) drop the two named-free rows and replace with providers that
->   demonstrably support zero retention even on `:free`, if any exist, or (b)
->   document plainly that under this policy the free lane is currently empty
->   and the garden's OpenRouter reach starts at zero usable named models until
->   a compliant one is found or a paid ZDR-capable route is reviewed and
->   authorized separately. Do not silently keep a non-compliant row enabled.
-> - Update `designs/openrouter-provider.md` § Open questions (mark question 1
->   Resolved: with the decision and what it costs) and
->   `context/operations/openrouter.md` to state the enforced policy plainly
->   and reflect the reviewed row set.
->
-> ## Decision 2 — admit stealth/cloaked models via a second kind (answers Open question 2)
->
-> The maintainer wants to use OpenRouter's rotating cloaked "stealth" models
-> (e.g. `openrouter/stealth/ox-alpha`-shaped ids) *while cloaked*, accepting
-> the design's stated risk (undisclosed provenance, no reviewed stable id).
-> Build the design's already-sketched policy (b):
->
-> - A second kind, `openrouter-promo` (or a better name if one occurs to
->   you — say why if you rename it), same handler/provider, same
->   explicit-model-only fencing as `openrouter`, but with its OWN registry
->   namespace so its arms never pool with the stable named lane's
->   (`opencode-alternate-harness.md`'s option-C reasoning applies again here:
->   a distinct kind keeps distinct risk profiles distinctly scored).
-> - A **short mandatory re-review cadence** for whatever cloaked ids are
->   enabled (the design flagged this as required but undesigned) — pick a
->   concrete cadence (daily is a reasonable default for something that can
->   vanish or silently become a different model at any time) and a mechanism
->   to enforce it: a scheduled check (skill: [schedule]) that re-probes each
->   enabled stealth id's `/models` listing and a live tool-using canary, and
->   **automatically disables** (not just warns about) an id that 404s or that
->   the maintainer has not re-attested within the cadence window.
-> - A documented **rip-cord**: how to immediately zero the pool and drop a
->   specific stealth id's row (`set-openrouter-promos.sh 0` plus removing its
->   inventory row) — mirror the shape of `set-openrouters.sh`.
-> - This lane inherits the deny-logging/deny-training constraint from Decision
->   1 unconditionally, same as the stable lane — "we accept not knowing which
->   model this is" is a different risk than "we accept our prompts being
->   logged", and the maintainer has only authorized the former.
->
-> ## Decision 2b — reputation continuity on unmask (net-new, not in the prior design)
->
-> When a stealth id's identity is later revealed (OpenRouter publishes what it
-> was, or the maintainer otherwise learns it), the garden should be able to
-> **carry the accumulated reputation forward** onto the now-named model's
-> arm(s) rather than discarding it and starting that model at zero history.
-> This is genuinely new — the prior design didn't address it. Design and build
-> a maintainer-triggered (never automatic — an unmask is an external fact only
-> a human confirms) reputation-arm migration:
->
-> - Read `reputation.sh` / the reducer (`reputation-reduce.sh`, described
->   elsewhere as the sole writer of arm projections) before proposing a
->   mechanism — the migration must go through whatever the reducer considers
->   its single source of truth, not hand-edit a projection file.
-> - Shape: an operator script, `rerecord-reputation-arm.sh <old-arm-key>
->   <new-arm-key> --authorized-by <maintainer>` (or fold into an existing
->   attested-op pattern if one already fits better — the sysop's
->   `authorized_by:` attestation gate on destructive ops is the precedent to
->   follow for who may trigger this and how it's recorded) that relabels the
->   stealth arm's history onto the real model's arm, idempotently, with a
->   journal record of the migration (what was renamed, when, by whom) so it's
->   auditable and never silently double-applied.
-> - If a full merge (combining history if the target arm already has some) is
->   materially harder than a clean rename (target arm didn't exist before),
->   it's fine to build the rename case now and leave merge-on-collision as an
->   explicit open question rather than guessing at reducer semantics you
->   haven't verified.
->
-> ## Out of scope for this job
->
-> Actually supplying `OPENROUTER_API_KEY` or enabling any worker. The pool
-> (both `openrouter` and the new `openrouter-promo`) stays at zero. Container
-> recreation with the key is a separate, host-side, maintainer-run step
-> (cannot be done from inside a garden container — no docker socket there) —
-> the liaison is handling that directly with the maintainer, not asking this
-> job to do it.
->
-> ## Precedents to read first
->
-> - `designs/openrouter-provider.md` (this job's predecessor) and
->   `context/operations/openrouter.md`.
-> - `skills/schedule/SKILL.md` for the re-review cadence mechanism.
-> - `roles/sysop`/`designs/sysop.md` § attestation, as the precedent for a
->   maintainer-attested, auditable, idempotent operator action.
 
 - `20260819T003456Z-bdaa62` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003456Z-bdaa62.md)
 
@@ -1054,70 +516,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Absent a reply I am completing this job now under the design's second definition-of-done branch (verified, authorization-blocked plan recorded). A reply here dead-letters into a fresh job that resumes execution, or you can re-post the job once you decide.
 
-- `minion-town-eval-campaign-complete-failures` — from orchestrator:minion-town-eval-campaign-complete-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-eval-campaign-complete-failures.md)
-
-> Orchestration minion-town-eval-campaign complete WITH FAILURES (serial): 7/8 failed: minion-town-eval-static-publish minion-town-eval-odometer-counter minion-town-eval-guestbook-tally minion-town-eval-sandbox-boundary minion-town-eval-site-lifecycle minion-town-eval-mail-pair minion-town-eval-error-probes
-
-- `doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr807-gauntlet-fix-1-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr807-gauntlet-fix-1; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr807-gauntlet-fix-1) or removes it, so nothing is lost.
-> Original job base: endojs-endo-but-for-bots-pr807-gauntlet-fix-1
->
-> --- original job body ---
-> ---
-> role: gardener
-> tier: minion
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> token-budget: 250000
-> ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:57:49Z cleared=none -->
->
-> ---
-> role: gardener
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> gauntlet: endojs-endo-but-for-bots-pr807-gauntlet
-> gauntlet_stage: fix
-> gauntlet_iteration: 1
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/807](https://github.com/endojs/endo-but-for-bots/pull/807)
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #807
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr807-gauntlet). Apply the panel's must-fix items ONCE,
-> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr807-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/807 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Read the LATEST panel verdict on [https://github.com/endojs/endo-but-for-bots/pull/807](https://github.com/endojs/endo-but-for-bots/pull/807) (the request-changes `gh pr review` the
->    panel-1 stage just posted) for its must-fix items. Apply them.
-> 3. Push the fix as review-feedback follow-up commits to the PR head with
->    `scripts/jobs/gardening/safe-push-pr-head.sh`.
-> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
->    `GARDEN_CI_DEADLINE_SECS=3600 \
->      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 807 --no-merge`
->    - rc 0 (GREEN): success.
->    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
->    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
->   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
-
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -1151,88 +549,33 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > IMMEDIATE REMEDIATION still needed on host endolin-garden-ece02cb4: its root checkout HEAD is at 252205765d (an old ancestor) while deployed-sha and the rendered units expect 3cfbeb5ac4. I did NOT touch $GARDEN_ROOT (git-in-root is forbidden — corrupts journal sync). Please run a deliberate, drained `deploy-garden.sh` on that host: it re-advances the root to the current deployed sha AND deploys this guard fix, after which the guard self-heals this drift class on every future tick. (Once deployed, the newly-deployed guard would also re-detach the stale HEAD to deployed_sha on its next tick even without a full deploy — but a deploy is the clean fix since the running code is itself stale.)
 
-- `doomed-endojs-endo-but-for-bots-pr909-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr909-gauntlet-fix-1-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr909-gauntlet-fix-1; it stays HELD until a human promotes it
-> (promote-plan.sh endojs-endo-but-for-bots-pr909-gauntlet-fix-1) or removes it, so nothing is lost.
-> Original job base: endojs-endo-but-for-bots-pr909-gauntlet-fix-1
->
-> --- original job body ---
-> ---
-> role: gardener
-> tier: minion
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> token-budget: 250000
-> ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:58:22Z cleared=none -->
->
-> ---
-> role: gardener
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> gauntlet: endojs-endo-but-for-bots-pr909-gauntlet
-> gauntlet_stage: fix
-> gauntlet_iteration: 1
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/909](https://github.com/endojs/endo-but-for-bots/pull/909)
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
->
-> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr909-gauntlet). Apply the panel's must-fix items ONCE,
-> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr909-gauntlet-fix-1 endojs/endo-but-for-bots <pr-head-branch>`.
-> 2. Read the LATEST panel verdict on [https://github.com/endojs/endo-but-for-bots/pull/909](https://github.com/endojs/endo-but-for-bots/pull/909) (the request-changes `gh pr review` the
->    panel-1 stage just posted) for its must-fix items. Apply them.
-> 3. Push the fix as review-feedback follow-up commits to the PR head with
->    `scripts/jobs/gardening/safe-push-pr-head.sh`.
-> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
->    `GARDEN_CI_DEADLINE_SECS=3600 \
->      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 909 --no-merge`
->    - rc 0 (GREEN): success.
->    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
->    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
->   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
-
 
 ## Spend & quota
 _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.8M | $63.77 _(notional, rate-card)_ | 4% of 143.0M (ok) |
+| Claude | 6.0M | $65.40 _(notional, rate-card)_ | 4% of 143.0M (ok) |
 | Codex | 1.4M _(+50.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (2)
+- [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr909-gauntlet-20260912-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #909
+- [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1265-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1265
 
-### doin (2)
+### doin (4)
+- [`mtown-git-remote-credential-recheck-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-credential-recheck-20260912.md) — ---
+- [`endojs-endo-but-for-bots-pr807-gauntlet-20260912-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-gauntlet-20260912-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #807
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1264
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 
-### tada (7729)
+### tada (7730)
+- [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-panel-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-fix-1.md) — Cost
-- … and 7724 more
+- … and 7725 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1367,7 +710,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr711-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr711-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #711
 - [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fd8517d5f3071227-repair.md) — _normal_ · Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
 - [`ironhorse-fuzz-557805e944888b5a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-557805e944888b5a-repair.md) — _normal_ · Repair Ironhorse engine defect 557805e944888b5a (target differential_regexp_s...
-- [`minion-town-eval-static-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-eval-static-publish.md) — _normal_ · Evaluation 1/8: static publish (baseline/control)
 - [`endojs-endo-but-for-bots-pr511-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr511-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #511
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-284de587e16bce32-repair.md) — _normal_ · Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 - [`ironhorse-fuzz-repromote-quarantined`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-repromote-quarantined.md) — _normal_ · Re-promote the quarantined ironhorse fuzz-repair jobs
