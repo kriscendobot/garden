@@ -1,1 +1,2 @@
 {"ts":"2026-09-12T05:45:57Z","base":"endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2401}
+{"source":"result","model":"claude-opus-4-8","num_turns":114,"elapsed_s":5289,"input_tokens":228,"output_tokens":69195,"cache_creation_tokens":202555,"cache_read_tokens":16358090,"total_cost_usd":12.048626,"ts":"2026-09-12T11:23:32Z","base":"endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
