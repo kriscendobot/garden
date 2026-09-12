@@ -64,3 +64,13 @@ a maintainer-named, public tool parameter, so renaming it is a maintainer
 decision — surface it, do not rename unilaterally.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T09:04:27Z
