@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: https://github.com/kriscendobot/minion.town/pull/69
-priority: high
 role: weaver
-posted_by: gardener
-posted_at: 2026-08-31T13:19:52Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-09-12T03:46:05Z cleared=none -->
 
 ---
 role: weaver
