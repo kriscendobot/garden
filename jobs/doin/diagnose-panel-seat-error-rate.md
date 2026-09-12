@@ -75,3 +75,13 @@ the fix is small; otherwise propose it.
 <!-- garden-transient-elapsed: kind=signature through=0 values=778 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T17:44:53Z
