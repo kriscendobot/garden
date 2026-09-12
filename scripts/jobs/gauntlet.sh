@@ -54,6 +54,10 @@
 # unclassified `requeue-exhausted` are never retried. The reaper records
 # `failure_classification: transient` only when its final generic doom cycle carried
 # the gardener's reap-now proof; without that proof, fail closed.
+# A panel round that COMPLETES yet reports `panel=panel-error` rides the same
+# `max_stage_retries` axis: a seat/decider error or a supervisor interruption made
+# panel.sh exit non-zero, which is a SENSOR failure, not a review verdict, so it is
+# retried rather than declining the whole gauntlet (cybernetics-audit.md § 7 rec 6).
 #
 # SELF-HEALING: a dead stage is simply requeued by the reaper; the driver re-observes
 # board state next tick and re-posts nothing it already posted (basename idempotence).
@@ -337,12 +341,19 @@ posting host's garden root.
 3. Post the aggregate (in \$GARDEN_PANEL_RUNDIR) as a \`gh pr review\` on $pr — the
    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
    review on must-fix, a comment/approve on pass).
-4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
-   report with \`orchestration-failed: true\` and do NOT emit a panel marker.
+4. If panel.sh exits NON-ZERO it did NOT return a review verdict. A seat error, a
+   decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
+   failure, not a pass/must-fix decision. Do NOT report \`orchestration-failed:
+   true\` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
+   and emit the \`panel=panel-error\` marker: the driver then re-posts this panel
+   round under its bounded stage-retry budget, exactly as it retries a doomed
+   transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
+   its own marker below — never panel-error.
 
 END your completion report with EXACTLY ONE of these marker lines (last line):
-  <!-- gauntlet-stage-result: panel=pass -->
-  <!-- gauntlet-stage-result: panel=must-fix -->
+  <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
+  <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
+  <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 EOF
       ;;
     fix)
@@ -636,6 +647,19 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
             advance_stage "$base" "$f" undraft "$iter" "$base-undraft"
           fi;;
         must-fix)      advance_stage "$base" "$f" fix "$iter" "$base-fix-$iter";;
+        panel-error)
+          # A panel that could not return a verdict — a seat error, a decider
+          # error, or a supervisor interruption (panel.sh exited non-zero) — is a
+          # SENSOR failure, not a review decline (cybernetics-audit.md § 7 rec 6,
+          # designs/panel-seat-error-rate-diagnosis.md). Route it into the SAME
+          # bounded stage-retry budget d28a2d5f76 gives a doomed transient stage,
+          # so a transient provider blip re-runs the round instead of halting the
+          # whole gauntlet on first occurrence. Exhausting max_stage_retries halts
+          # loudly, naming the sensor error. A real pass/must-fix verdict never
+          # reaches here; the disposition/convergence question is untouched.
+          retry_failed_stage "$base" "$f" "$stage" "$iter" "$child" \
+            "$stage_retries" "$max_stage_retries" \
+            "panel stage reported panel-error (seat/decider error or interruption — a sensor failure, not a review verdict)";;
         *)             halt_gauntlet "$base" "panel stage reported unexpected result '$mresult'";;
       esac;;
     fix)

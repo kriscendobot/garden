@@ -16,6 +16,11 @@
 #   7. NOMARKER   — a `done` stage with NO parseable marker HALTS (fail-closed).
 #   8. IDEMPOTENT — a re-tick while a stage is in flight promotes nothing new.
 #   9. RESUMEBOUND— endless `still-pending` HALTS at max_resumes (a checkless repo).
+#  10. SHARDED    — a stage completed into a date-sharded tada/ path advances.
+#  11. PANELERROR RECOVERY — a `panel=panel-error` (sensor failure, not a verdict)
+#                    re-posts the SAME panel round under the stage-retry budget;
+#                    a following real verdict then proceeds (rec 6, no gauntlet halt).
+#  12. PANELERROR EXHAUSTION — repeated `panel=panel-error` HALTS at max_stage_retries.
 #
 # Usage: gauntlet-test.sh
 
@@ -399,6 +404,63 @@ tick
 in_dir jobs/todo g11-panel-1 \
   && ok "a stage completed into a date shard read as done and advanced to panel" \
   || bad "sharded stage completion did not advance (todo=[$(board jobs/todo)])"
+
+# ============================================================================
+hr; echo "SUBTEST 11 — PANELERROR RECOVERY: a panel-error retries the round, then a real verdict proceeds"; hr
+# A seat/decider error or an interruption makes panel.sh exit non-zero; the panel
+# stage reports panel=panel-error (a SENSOR failure, NOT a review verdict). The
+# driver must re-post the SAME panel round under the stage-retry budget — a
+# transient blip must not halt the whole gauntlet (cybernetics-audit.md § 7 rec 6).
+post_gauntlet g12 https://github.com/testowner/testrepo/pull/12
+tick; complete_stage g12-clean clean=done
+tick   # → panel-1
+in_dir jobs/todo g12-panel-1 || bad "panelerror: g12-panel-1 not posted"
+complete_stage g12-panel-1 panel=panel-error
+tick   # panel-error → re-post the SAME panel round under the stage budget
+{ in_dir jobs/todo g12-panel-1 && ! in_dir jobs/tada g12-panel-1 \
+    && [ "$(record_field g12 stage)" = panel ] && [ "$(record_field g12 iteration)" = 1 ] \
+    && [ "$(record_field g12 stage_retries)" = 1 ]; } \
+  && ok "panel-error re-posted g12-panel-1 under the stage budget (stage_retries=1), did NOT halt" \
+  || bad "panelerror: todo=[$(board jobs/todo)] tada=[$(board jobs/tada)] stage=$(record_field g12 stage) retries=$(record_field g12 stage_retries)"
+{ in_dir jobs/gauntlet g12 && [ "$(record_field g12 state)" != halted ]; } \
+  && ok "the gauntlet record survived the panel-error (not halted)" \
+  || bad "panelerror: record halted or removed on a transient sensor error"
+# the retry now returns a real verdict → the gauntlet proceeds normally
+complete_stage g12-panel-1 panel=pass
+tick   # panel pass → undraft
+in_dir jobs/todo g12-undraft \
+  && ok "after the retry a real panel=pass advanced to undraft (recovered)" \
+  || bad "panelerror: g12-undraft not posted after recovery (todo=[$(board jobs/todo)])"
+complete_stage g12-undraft undraft=done; tick
+in_dir jobs/tada g12 || bad "panelerror: g12 did not complete after recovery"
+
+# ============================================================================
+hr; echo "SUBTEST 12 — PANELERROR EXHAUSTION: repeated panel-error halts at max_stage_retries"; hr
+post_gauntlet --max-stage-retries 2 g13 https://github.com/testowner/testrepo/pull/13
+tick; complete_stage g13-clean clean=done
+tick   # → panel-1
+in_dir jobs/todo g13-panel-1 || bad "panelerror-exhaust: g13-panel-1 not posted"
+complete_stage g13-panel-1 panel=panel-error
+tick   # retry 1/2
+{ [ "$(record_field g13 stage_retries)" = 1 ] && in_dir jobs/todo g13-panel-1; } \
+  && ok "panel-error #1 → retry 1/2 (stage_retries=1)" \
+  || bad "panelerror-exhaust: retries=$(record_field g13 stage_retries) todo=[$(board jobs/todo)]"
+complete_stage g13-panel-1 panel=panel-error
+tick   # retry 2/2
+{ [ "$(record_field g13 stage_retries)" = 2 ] && in_dir jobs/todo g13-panel-1; } \
+  && ok "panel-error #2 → retry 2/2 (stage_retries=2)" \
+  || bad "panelerror-exhaust: retries=$(record_field g13 stage_retries) todo=[$(board jobs/todo)]"
+complete_stage g13-panel-1 panel=panel-error
+tick   # budget spent → HALT
+{ in_dir jobs/tada g13 && ! in_dir jobs/gauntlet g13 && ! in_dir jobs/todo g13-panel-1; } \
+  && ok "a third panel-error exhausted max_stage_retries=2 → halt (not an infinite retry)" \
+  || bad "panelerror-exhaust: tada=[$(board jobs/tada)] gauntlet=[$(board jobs/gauntlet)] todo=[$(board jobs/todo)]"
+g13_halt="$(tada_body g13)"
+{ printf '%s' "$g13_halt" | grep -qi 'gauntlet-status: halted' \
+    && printf '%s' "$g13_halt" | grep -qi 'stage retry budget is exhausted' \
+    && printf '%s' "$g13_halt" | grep -qi 'panel-error'; } \
+  && ok "the exhaustion halt names the spent stage budget and the panel-error sensor failure" \
+  || bad "panelerror-exhaust: halt summary does not name the budget/sensor failure: [$g13_halt]"
 
 # ============================================================================
 hr
