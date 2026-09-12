@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:29:45Z_
+_As of 2026-09-12T16:37:38Z_
 
 ## Latest
 
@@ -1223,24 +1223,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.7M | $45.39 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 1.1M _(+38.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 3.7M | $46.01 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 1.1M _(+42.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1125-review-35c43da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-35c43da7.md) — Review directive on endojs/endo-but-for-bots PR #1125
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1265
 
-### tada (7717)
+### tada (7718)
+- [`endojs-endo-but-for-bots-pr1125-review-35c43da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-35c43da7.md) — Cost
 - [`design-endo-daemon-mutable-blob-block-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-mutable-blob-block-storage.md) — Cost
 - [`design-endo-daemon-storage-capability-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-storage-capability-matrix.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-aff3b059`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-aff3b059.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-2576c388`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-2576c388.md) — Cost
-- [`claude-on-minion-town-press-20260912-160504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-160504.md) — Cost
-- … and 7712 more
+- … and 7713 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
