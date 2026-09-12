@@ -9,3 +9,13 @@ dispatch: automatic
 Design and name the daemon capability matrix spanning readable views, immutable snapshots, and mutable forms of files/blobs and trees/directories. Make the distinct guarantees explicit: a read-only view attenuates write authority but may observe changes behind it, while a snapshot guarantees immutable captured content. Reconcile the terminology with existing `readable-blob`, `readable-tree`, and `readable-directory` formula names and identify an implementable migration path.
 
 Source: trusted maintainer review comment https://github.com/endojs/endo-but-for-bots/pull/1125#discussion_r3996792043
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T16:19:47Z
