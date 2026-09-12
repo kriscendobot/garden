@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T06:46:57Z_
+_As of 2026-09-12T07:05:40Z_
 
 ## Latest
 
@@ -1240,8 +1240,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
+- [`daily-progress-summary-20260912-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260912-070505.md) — Daily midnight Pacific progress summary
 
 ### tada (7704)
 - [`claude-on-minion-town-press-20260912-063507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-063507.md) — Cost
