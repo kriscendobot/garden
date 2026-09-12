@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:53:30Z_
+_As of 2026-09-12T16:56:34Z_
 
 ## Latest
 
@@ -1215,15 +1215,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.8M | $54.57 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 1.3M _(+43.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 4.8M | $55.87 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 1.3M _(+45.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1264
+- [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1265
 - [`minion-town-clip-gc-strand-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-gc-strand-reconcile.md) — ---
 
 ### tada (7722)
