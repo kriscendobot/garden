@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T07:05:40Z_
+_As of 2026-09-12T07:11:31Z_
 
 ## Latest
 
@@ -1234,23 +1234,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 811.6k | $4.59 _(notional, rate-card)_ | 1% of 143.0M (ok) |
-| Codex | 470.0k _(+22.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 673.7k _(+24.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
-- [`daily-progress-summary-20260912-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260912-070505.md) — Daily midnight Pacific progress summary
 
-### tada (7704)
+### tada (7705)
+- [`daily-progress-summary-20260912-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260912-070505.md) — Cost
 - [`claude-on-minion-town-press-20260912-063507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-063507.md) — Cost
 - [`claude-on-minion-town-completion-press-20260912-060507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260912-060507.md) — Completion report
 - [`improve-reject-nul-in-source-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reject-nul-in-source-diffs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-review-4e1469ed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-4e1469ed.md) — Completion report
-- [`improve-block-nul-pr-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-block-nul-pr-diffs.md) — Completion report
-- … and 7699 more
+- … and 7700 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
