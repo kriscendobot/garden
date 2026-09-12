@@ -11,3 +11,13 @@ scripts/jobs/brake-foreman.sh on 'maintainer: re-engage before Friday 8pm Pacifi
 ```
 
 Confirm the brake is actually set afterward (`scripts/jobs/brake-foreman.sh status`) and report the result.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T03:05:12Z
