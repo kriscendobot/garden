@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T00:31:04Z_
+_As of 2026-09-12T01:18:51Z_
 
 ## Latest
 
@@ -1210,16 +1210,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911.md) — Address kriskowal's 2026-09-11 re-review on endo #1125 (guest-owned invitatio...
+### doin (0)
+(none)
 
-### tada (7690)
+### tada (7691)
+- [`endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911.md) — Cost
 - [`claude-on-minion-town-press-20260912-000511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-000511.md) — Cost
 - [`claude-on-minion-town-completion-press-20260911-235011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260911-235011.md) — Cost
 - [`kriscendobot-minion.town-pr33-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr33-receipt.md) — Cost
 - [`minion-town-weblet-powers-drafts-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-powers-drafts-reconcile.md) — Cost
-- [`claude-on-minion-town-press-20260911-210511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260911-210511.md) — Cost
-- … and 7685 more
+- … and 7686 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
