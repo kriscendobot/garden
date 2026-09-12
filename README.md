@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T19:27:04Z_
+_As of 2026-09-12T19:31:41Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 20h)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 21h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 9d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 10d)
@@ -559,26 +559,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.1M | $106.50 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Claude | 11.6M | $110.44 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 2.1M _(+68.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test.md) — Integration test: restart-durable guest response (endojs/endo-but-for-bots#1125)
-- [`design-endo-guest-owned-attenuated-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-guest-owned-attenuated-diagnostics.md) — Design: guest-owned, creator-attenuated diagnostics
 - [`endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912.md) — Address kriskowal's 2026-09-12 16:41Z re-review of endojs/endo-but-for-bots#1125
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1264
 
-### tada (7761)
+### tada (7762)
+- [`design-endo-guest-owned-attenuated-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-guest-owned-attenuated-diagnostics.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1265-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-fix-6.md) — Completion report
 - [`claude-on-minion-town-press-20260912-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-190509.md) — Completion report — Claude-on-minion.town press (arc kriscendobot/garden#89)
-- [`kriscendobot-garden-pr80-quota-validation-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260912.md) — Completion report
-- … and 7756 more
+- … and 7757 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
