@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:rolling-deploy
-sent_at: 2026-09-12T13:20:02Z
+sent_at: 2026-09-12T14:20:02Z
 watchdog_key: rolling-deploy-all-followers-drained-endolin-garden-ece02cb4
-notice_count: 443
+notice_count: 463
 first_seen: 2026-09-05T15:44:01Z
-last_seen: 2026-09-12T13:20:02Z
+last_seen: 2026-09-12T14:20:02Z
 ---
-WATCHDOG notice — occurrence #443 (first seen 2026-09-05T15:44:01Z, latest 2026-09-12T13:20:02Z).
-The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 443 times; this is ONE
-coalesced notice that updates in place, not 443 messages. Latest detail:
+WATCHDOG notice — occurrence #463 (first seen 2026-09-05T15:44:01Z, latest 2026-09-12T14:20:02Z).
+The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 463 times; this is ONE
+coalesced notice that updates in place, not 463 messages. Latest detail:
 
 Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
 is no available canary to validate 421473a9331a. Per designs/follower-self-deploy.md
