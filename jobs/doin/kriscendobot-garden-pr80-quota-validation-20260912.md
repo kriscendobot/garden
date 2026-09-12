@@ -85,3 +85,13 @@ E. If the week reveals a required follow-up (a defect to fix, or the mechanism i
    ineffective and needs a design/fixer change), post that follow-up job with
    `scripts/jobs/post-job.sh` and name it in your completion report. If no
    follow-up is warranted, say so explicitly.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T19:05:29Z
