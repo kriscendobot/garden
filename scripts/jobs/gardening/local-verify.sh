@@ -4,7 +4,7 @@
 # Runs the project's real verification steps, IN ORDER, before a change is
 # pushed for a pull request:
 #
-#   format -> build -> lint -> package-uniformity -> codegen -> test -> test-xs -> docgen
+#   format -> build -> lint -> package-uniformity -> root-types -> codegen -> test -> test-xs -> docgen
 #
 # then a codegen-then-clean gate: if any step (a generator, typically) left the
 # worktree dirty, a checked-in generated artifact was stale — fail loud.
@@ -71,6 +71,23 @@
 # project's `yarn lint`. Grounding: endojs/endo-but-for-bots#1015, where a tracked
 # `src/types.d.ts` was rejected by `node scripts/check-package-uniformity.mjs`
 # while the generic root-`lint` gate stayed silent.
+#
+# `root-types` is another additive check CI runs in its lint job OUTSIDE
+# `yarn lint`: the "Check the root TypeScript program" step, `corepack yarn tsc
+# -p tsconfig.json --noEmit`. The repo-root tsconfig.json extends a checkJs:true
+# eslint base and includes `packages/**/*.js`, so it is the config that actually
+# type-checks `.js` test bodies — while a package whose OWN tsconfig sets
+# `checkJs: false` (endo's `daemon` does) never type-checks its `.js` tests under
+# its per-package `lint:types`. A new `.js` test with ill-typed hand-built fakes
+# therefore passes per-package `tsc` locally yet reddens CI's lint. No package.json
+# script wraps the root command, so discovery reconstructs it (§ discover_root_
+# types below), gated on the root program actually type-checking JS (checkJs:true,
+# resolved authoritatively via `tsc --showConfig`) so it is inert where it does not
+# apply. The whole-repo program OOMs at Node's ~2GB default heap (exit 134), so the
+# reconstructed command runs with an overrideable, larger `--max-old-space-size`.
+# Grounding: endojs/endo-but-for-bots#1125 (`packages/daemon/test/mail-pins.test.js`
+# passed per-package `tsc` but failed CI's root program with six TS2322 errors).
+# Same shape as the package-uniformity repo-root gap (#1015).
 #
 # A project with no package.json and no overrides verifies nothing and exits 0;
 # wire the real commands per project via package.json scripts or the overrides.
@@ -175,7 +192,7 @@ fi
 # after the build reports zero errors. Ordering costs nothing here: the harness
 # runs every step regardless (it does not stop at the first failure), so this
 # only changes whether the lint result is trustworthy.
-STEPS="format build lint package-uniformity codegen test test-xs docs"
+STEPS="format build lint package-uniformity root-types codegen test test-xs docs"
 candidates() {
   case "$1" in
     format)  echo "format:check check:format format-check format" ;;
@@ -272,9 +289,63 @@ discover_package_uniformity() {  # print the compound command, or nothing (skip)
   printf '%s\n' "$joined"
 }
 
+# Discovery for the additive `root-types` step. CI runs, in its lint job and
+# OUTSIDE `yarn lint`, a repo-root whole-program type check:
+#   corepack yarn tsc -p tsconfig.json --noEmit
+# The root tsconfig.json extends a checkJs:true base and includes the packages'
+# `.js` files, so it is what actually type-checks `.js` test bodies. A package
+# whose own tsconfig sets `checkJs: false` never type-checks its `.js` tests under
+# its per-package `lint:types`, so an ill-typed `.js` test passes locally yet
+# reddens CI's lint. NO package.json script wraps the root command, so this
+# composer reconstructs it from the parts present:
+#   1. Override LOCAL_VERIFY_ROOT_TYPES wins verbatim (or "-"/"" skips).
+#   2. A project that wraps the whole check in ONE package.json script (the ideal
+#      durable form — specialization belongs in the project's scripts, incl. its
+#      own heap) is used as-is. Extend RT_WRAP_SCRIPTS for a project's chosen name.
+#   3. Otherwise, when a repo-root tsconfig (RT_TSCONFIG, override GARDEN_ROOT_TYPES
+#      _TSCONFIG) exists AND its RESOLVED program type-checks JS (`checkJs: true`,
+#      determined authoritatively via `tsc --showConfig` so the extends chain is
+#      honored without hand-rolled JSON parsing), run `<yarn> tsc -p <cfg> --noEmit`
+#      under a larger, overrideable Node heap (GARDEN_ROOT_TYPES_HEAP_MB, default
+#      8192): the whole-repo program OOMs at Node's ~2GB default (exit 134), which
+#      would be a spurious local failure, not a type error.
+#   4. Else the step is skipped silently — inert on any project whose root program
+#      does not check JS (running `tsc -p` blindly there risks a local-FAIL/CI-pass
+#      divergence, the very defect § Parity is the contract forbids), or that has no
+#      root tsconfig / no resolvable tsc at all.
+RT_WRAP_SCRIPTS="lint:types:root check:types:root types:root lint:root-types check:root-types root-types tsc:root"
+RT_TSCONFIG="tsconfig.json"
+discover_root_types() {  # print the root type-check command, or nothing (skip)
+  local override name heap cfg
+  override="$(override_name root-types)"
+  if [ -n "${!override+x}" ]; then         # override is SET (even if empty)
+    case "${!override}" in
+      -|"") return 0 ;;                     # explicit skip
+      *)    printf '%s\n' "${!override}" ; return 0 ;;
+    esac
+  fi
+  for name in $RT_WRAP_SCRIPTS; do
+    if has_script_in "$pkg" "$name"; then printf '%s run %s\n' "$YARN" "$name"; return 0; fi
+  done
+  cfg="${GARDEN_ROOT_TYPES_TSCONFIG:-$RT_TSCONFIG}"
+  [ -f "$wt/$cfg" ] || return 0            # no repo-root program — skip, silent
+  # Only worth running when the resolved root program actually type-checks JS.
+  # `tsc --showConfig` resolves the whole extends chain, so this is exact rather
+  # than a fragile text grep of one config file. A missing/unresolvable tsc (deps
+  # not installed) yields no match and the step skips — an unhealthy tree is caught
+  # by the build/test steps, not misreported here.
+  if ! ( cd "$wt" && $YARN tsc --showConfig -p "$cfg" ) 2>/dev/null \
+        | grep -Eq '"checkJs"[[:space:]]*:[[:space:]]*true'; then
+    return 0                               # root program does not check JS — skip
+  fi
+  heap="${GARDEN_ROOT_TYPES_HEAP_MB:-8192}"
+  printf 'NODE_OPTIONS=--max-old-space-size=%s %s tsc -p %s --noEmit\n' "$heap" "$YARN" "$cfg"
+}
+
 discover() {
   case "$1" in
     package-uniformity) discover_package_uniformity ;;
+    root-types)         discover_root_types ;;
     *)                  discover_in "$pkg" "$1" ;;
   esac
 }

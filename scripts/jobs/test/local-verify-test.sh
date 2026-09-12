@@ -743,6 +743,149 @@ opun="$(GARDEN_YARN="bash $RPUN/yarn-stub.sh" "$LV" "$RPUN" 2>&1)"; rcpun=$?
   && ok "package-uniformity is inert where the project has no uniformity check" \
   || bad "package-uniformity false-fired on an unrelated project (rc=$rcpun out=[$opun])"
 
+# --- 19: additive repo-root TypeScript-program check ------------------------
+# endo CI runs, in its lint job and OUTSIDE `yarn lint`, a repo-root whole-program
+# type check: `corepack yarn tsc -p tsconfig.json --noEmit`. The root tsconfig
+# extends a checkJs:true base and includes the packages' `.js` files, so it is the
+# config that actually type-checks `.js` test bodies — while a package whose own
+# tsconfig sets `checkJs: false` never type-checks its `.js` tests under its
+# per-package `lint:types`. No package.json script wraps the root command, so the
+# `root-types` step reconstructs it, gated on the resolved program checking JS
+# (via `tsc --showConfig`) and run under a larger Node heap (the whole-repo program
+# OOMs at the ~2GB default -> exit 134). Regression for job
+# `improve-local-verify-root-types` (endojs/endo-but-for-bots#1125: a `.js` test
+# passed per-package `tsc` but failed CI's root program with TS2322 errors).
+RT_TRACE="$TR/rt-trace"
+make_rt_repo() {  # make_rt_repo <dir> <checkJs true|false> <tsc-noEmit exit>
+  local dir="$1" checkjs="$2" rc="$3"
+  mkdir -p "$dir"; git -C "$dir" init -q
+  git -C "$dir" config user.email t@localhost; git -C "$dir" config user.name test
+  echo '{ "name": "fixture", "scripts": { "lint": "lint" } }' > "$dir/package.json"
+  echo '{ "compilerOptions": { "checkJs": '"$checkjs"' } }' > "$dir/tsconfig.json"
+  # A stub `yarn`: `tsc --showConfig` echoes the resolved checkJs; `tsc -p ...
+  # --noEmit` traces the effective NODE_OPTIONS heap then exits <rc>.
+  cat > "$dir/yarn-stub.sh" <<STUB
+#!/bin/bash
+if [ "\$1" = tsc ] && [ "\$2" = --showConfig ]; then
+  echo '{ "compilerOptions": { "checkJs": $checkjs } }'
+  exit 0
+fi
+if [ "\$1" = tsc ]; then
+  [ -n "\$RT_TRACE" ] && echo "rootcheck NODE_OPTIONS=\$NODE_OPTIONS" >> "\$RT_TRACE"
+  exit $rc
+fi
+exit 0
+STUB
+  chmod +x "$dir/yarn-stub.sh"
+  git -C "$dir" add -A; git -C "$dir" commit -qm init >/dev/null
+}
+
+# (a) checkJs:true + a clean root program -> the step runs (with the heap) and is
+# silent; the trace proves the larger --max-old-space-size was applied.
+RRT="$TR/rt-checkjs"; make_rt_repo "$RRT" true 0
+: > "$RT_TRACE"
+ort="$(RT_TRACE="$RT_TRACE" GARDEN_YARN="bash $RRT/yarn-stub.sh" "$LV" "$RRT" 2>&1)"; rcrt=$?
+[ "$rcrt" -eq 0 ] && [ -z "$ort" ] \
+  && ok "root-types clean program: silent, exit 0" \
+  || bad "clean root-types not silent/zero (rc=$rcrt out=[$ort])"
+grep -q 'rootcheck NODE_OPTIONS=--max-old-space-size=8192' "$RT_TRACE" \
+  && ok "the root program runs with a sufficient (default 8192) Node heap" \
+  || bad "root-types heap not applied (trace=[$(tr '\n' '|' <"$RT_TRACE")])"
+
+# (b) checkJs:true + an ill-typed `.js` test (tsc -p exits non-zero) -> the step
+# fails loud and the blob holds the type error. This is the #1125 gap it closes.
+RRTF="$TR/rt-fail"; make_rt_repo "$RRTF" true 1
+# Make the failing tsc emit the representative TS2322 error into its output.
+cat > "$RRTF/yarn-stub.sh" <<'STUB'
+#!/bin/bash
+if [ "$1" = tsc ] && [ "$2" = --showConfig ]; then
+  echo '{ "compilerOptions": { "checkJs": true } }'; exit 0
+fi
+if [ "$1" = tsc ]; then
+  echo "packages/daemon/test/mail-pins.test.js(42,7): error TS2322: Type is not assignable"
+  exit 2
+fi
+exit 0
+STUB
+chmod +x "$RRTF/yarn-stub.sh"
+git -C "$RRTF" add -A; git -C "$RRTF" commit -qm err >/dev/null
+ortf="$(GARDEN_YARN="bash $RRTF/yarn-stub.sh" "$LV" "$RRTF" 2>&1)"; rcrtf=$?
+[ "$rcrtf" -ne 0 ] && ok "an ill-typed root program fails the gate" || bad "root-types type error did not fail the gate"
+printf '%s' "$ortf" | grep -q 'STEP root-types FAILED' \
+  && ok "emits STEP root-types FAILED" || bad "missing STEP root-types FAILED (out=[$ortf])"
+srt="$(printf '%s' "$ortf" | sed -nE 's/.*STEP root-types FAILED: output blob ([0-9a-f]{40}).*/\1/p' | head -1)"
+git -C "$RRTF" cat-file -p "$srt" 2>/dev/null | grep -q 'error TS2322' \
+  && ok "blob holds the root program's type error" || bad "blob missing the TS2322 error"
+
+# (c) checkJs:false root program -> INERT (running tsc -p there would only
+# duplicate the per-package lint:types and risk a local-FAIL/CI-pass divergence).
+RRTN="$TR/rt-nocheckjs"; make_rt_repo "$RRTN" false 1  # would fail if it ran
+: > "$RT_TRACE"
+ortn="$(RT_TRACE="$RT_TRACE" GARDEN_YARN="bash $RRTN/yarn-stub.sh" "$LV" "$RRTN" 2>&1)"; rcrtn=$?
+[ "$rcrtn" -eq 0 ] && [ -z "$ortn" ] \
+  && ok "root-types is inert when the root program does not check JS" \
+  || bad "root-types fired on a checkJs:false root program (rc=$rcrtn out=[$ortn])"
+[ ! -s "$RT_TRACE" ] && ok "the root type check never ran on a checkJs:false program" \
+  || bad "root type check ran despite checkJs:false (trace=[$(tr '\n' '|' <"$RT_TRACE")])"
+
+# (d) no root tsconfig -> inert (nothing to reconstruct).
+RRTE="$TR/rt-none"; mkdir -p "$RRTE"; git -C "$RRTE" init -q
+git -C "$RRTE" config user.email t@localhost; git -C "$RRTE" config user.name test
+echo '{ "name": "plain", "scripts": { "lint": "lint" } }' > "$RRTE/package.json"
+printf '#!/bin/bash\nexit 0\n' > "$RRTE/yarn-stub.sh"
+git -C "$RRTE" add -A; git -C "$RRTE" commit -qm init >/dev/null
+orte="$(GARDEN_YARN="bash $RRTE/yarn-stub.sh" "$LV" "$RRTE" 2>&1)"; rcrte=$?
+[ "$rcrte" -eq 0 ] && [ -z "$orte" ] \
+  && ok "root-types is inert with no repo-root tsconfig" \
+  || bad "root-types false-fired without a root tsconfig (rc=$rcrte out=[$orte])"
+
+# (e) LOCAL_VERIFY_ROOT_TYPES=- skips the step even on a checkJs:true program.
+orts="$(LOCAL_VERIFY_ROOT_TYPES=- RT_TRACE="$RT_TRACE" \
+        GARDEN_YARN="bash $RRT/yarn-stub.sh" "$LV" "$RRT" 2>&1)"; rcrts=$?
+[ "$rcrts" -eq 0 ] && [ -z "$orts" ] \
+  && ok "LOCAL_VERIFY_ROOT_TYPES=- skips the step" \
+  || bad "root-types override skip not honored (rc=$rcrts out=[$orts])"
+
+# (f) LOCAL_VERIFY_ROOT_TYPES=<cmd> replaces the reconstructed command verbatim.
+ortr="$(LOCAL_VERIFY_ROOT_TYPES='echo custom-root-check; exit 3' \
+        GARDEN_YARN="bash $RRT/yarn-stub.sh" "$LV" "$RRT" 2>&1)"; rcrtr=$?
+[ "$rcrtr" -ne 0 ] && ok "root-types override command runs and can fail" || bad "root-types override command did not fail"
+srtr="$(printf '%s' "$ortr" | sed -nE 's/.*STEP root-types FAILED: output blob ([0-9a-f]{40}).*/\1/p' | head -1)"
+git -C "$RRT" cat-file -p "$srtr" 2>/dev/null | grep -q 'custom-root-check' \
+  && ok "LOCAL_VERIFY_ROOT_TYPES override command runs verbatim" || bad "root-types override not honored"
+
+# (g) GARDEN_ROOT_TYPES_HEAP_MB overrides the heap the reconstructed command uses.
+: > "$RT_TRACE"
+GARDEN_ROOT_TYPES_HEAP_MB=4096 RT_TRACE="$RT_TRACE" \
+  GARDEN_YARN="bash $RRT/yarn-stub.sh" "$LV" "$RRT" >/dev/null 2>&1
+grep -q 'rootcheck NODE_OPTIONS=--max-old-space-size=4096' "$RT_TRACE" \
+  && ok "GARDEN_ROOT_TYPES_HEAP_MB overrides the Node heap" \
+  || bad "heap override not honored (trace=[$(tr '\n' '|' <"$RT_TRACE")])"
+
+# (h) a single wrap script is used VERBATIM (its own heap), and tsc --showConfig /
+# the reconstructed command are NOT separately invoked.
+RRTW="$TR/rt-wrap"; make_rt_repo "$RRTW" true 1  # reconstructed form would fail if it ran
+# Add a wrap script to package.json and teach the stub to trace it.
+echo '{ "name": "fixture", "scripts": { "lint": "lint", "check:types:root": "ctr" } }' > "$RRTW/package.json"
+cat > "$RRTW/yarn-stub.sh" <<'STUB'
+#!/bin/bash
+if [ "$1" = tsc ]; then echo "reconstructed tsc ran"; exit 1; fi
+case "$1:$2" in
+  run:check:types:root) [ -n "$RT_TRACE" ] && echo wrap >> "$RT_TRACE"; echo "root types: ok"; exit 0 ;;
+  *) exit 0 ;;
+esac
+STUB
+chmod +x "$RRTW/yarn-stub.sh"
+git -C "$RRTW" add -A; git -C "$RRTW" commit -qm wrap >/dev/null
+: > "$RT_TRACE"
+ortw="$(RT_TRACE="$RT_TRACE" GARDEN_YARN="bash $RRTW/yarn-stub.sh" "$LV" "$RRTW" 2>&1)"; rcrtw=$?
+[ "$rcrtw" -eq 0 ] && [ -z "$ortw" ] \
+  && ok "a root-types wrap script is used and passes (reconstructed form not run)" \
+  || bad "root-types wrap-script form not honored (rc=$rcrtw out=[$ortw])"
+[ "$(tr '\n' ' ' <"$RT_TRACE")" = "wrap " ] \
+  && ok "the wrap script alone runs — no separate showConfig/tsc reconstruction" \
+  || bad "root-types wrap form did not subsume the reconstruction (trace=[$(tr '\n' '|' <"$RT_TRACE")])"
+
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

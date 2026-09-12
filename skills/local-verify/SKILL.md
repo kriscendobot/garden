@@ -119,8 +119,8 @@ green while the `.node-version=lts/*` -> Node 24.18.0 CI leg failed type-aware l
 
 ## The steps (in order)
 
-`format -> build -> lint -> package-uniformity -> codegen -> test -> test-xs ->
-docgen`, then a **codegen-then-clean gate**.
+`format -> build -> lint -> package-uniformity -> root-types -> codegen -> test ->
+test-xs -> docgen`, then a **codegen-then-clean gate**.
 
 Run in that order against the project worktree. The harness errs toward running
 the project's **full** suite: false positives (a wasted check) are fine, false
@@ -181,6 +181,33 @@ was rejected by `node scripts/check-package-uniformity.mjs` while the generic
 root-`lint` gate stayed silent — a coverage gap of exactly the class
 [Parity is the contract](#parity-is-the-contract) requires closing.
 
+The `root-types` step is likewise additive: it covers the other check CI runs in
+its lint job **outside** `yarn lint` — the "Check the root TypeScript program"
+step, `corepack yarn tsc -p tsconfig.json --noEmit`. A package whose own
+`tsconfig.json` sets `checkJs: false` (endo's `daemon` does) does **not**
+type-check its `.js` test bodies under its per-package `lint:types` (= `tsc`), so
+a new `.js` test with ill-typed hand-built fakes passes per-package `tsc` locally
+yet reddens CI. The repo-root `tsconfig.json` extends a `checkJs: true` eslint base
+and includes `packages/**/*.js`, so it is the config that actually type-checks
+those `.js` files — but it is a repo-root command **no package.json script wraps**,
+so first-match discovery cannot reach it and folding it into `yarn lint` would
+duplicate it in CI's lint leg. So this step has its own discovery (see
+[Inputs](#inputs)): an override wins; else a single project-declared wrap script
+is used verbatim (the preferred durable form); else — when a repo-root
+`tsconfig.json` exists **and** its resolved program actually type-checks JS
+(`checkJs: true`, determined authoritatively via `tsc --showConfig` so the extends
+chain is honored) — the harness runs `<yarn> tsc -p tsconfig.json --noEmit` under a
+larger, overrideable Node heap. The heap matters: the whole-repo program **OOMs at
+Node's ~2 GB default** (exit 134), which would be a spurious local failure rather
+than a type error, so the reconstructed command sets
+`NODE_OPTIONS=--max-old-space-size=<GARDEN_ROOT_TYPES_HEAP_MB>` (default `8192`). A
+project whose root program does not check JS, or that has no root `tsconfig.json`
+(or no resolvable `tsc`), skips the step silently, so it is inert where it does not
+apply. This closes the gap exposed by endojs/endo-but-for-bots#1125, where
+`packages/daemon/test/mail-pins.test.js` passed per-package `tsc` but failed CI's
+root program with six `TS2322` errors — the same repo-root coverage-gap class as
+#1015.
+
 ### XS runtime parity (the Moddable release)
 
 A discovered `test:xs` suite runs only with the Moddable release the project
@@ -239,8 +266,8 @@ Per-step command discovery (each step, in order, first match wins):
 1. An explicit override env var `LOCAL_VERIFY_<STEP>` (uppercased step name, with
    `-` mapped to `_`: `LOCAL_VERIFY_FORMAT`, `LOCAL_VERIFY_LINT`,
    `LOCAL_VERIFY_BUILD`, `LOCAL_VERIFY_PACKAGE_UNIFORMITY`,
-   `LOCAL_VERIFY_CODEGEN`, `LOCAL_VERIFY_TEST`, `LOCAL_VERIFY_TEST_XS`,
-   `LOCAL_VERIFY_DOCS`):
+   `LOCAL_VERIFY_ROOT_TYPES`, `LOCAL_VERIFY_CODEGEN`, `LOCAL_VERIFY_TEST`,
+   `LOCAL_VERIFY_TEST_XS`, `LOCAL_VERIFY_DOCS`):
    - set to a command string: run that command in the worktree;
    - set to `-` (or empty): skip the step.
 2. A `package.json` `scripts` entry matching the step's candidate names, run as
@@ -276,6 +303,28 @@ With none present the step is skipped silently. Extend `PU_WRAP_SCRIPTS` /
 `PU_SELFTEST_SCRIPTS` / `PU_CHECKERS` in `local-verify.sh` to teach it another
 project's uniformity check.
 
+The `root-types` step is the other exception, for the same reason: CI's repo-root
+type check runs a command no package.json script wraps. After honoring a
+`LOCAL_VERIFY_ROOT_TYPES` override, its discovery is:
+
+- a **single wrap script** if the project declares one — candidates
+  `lint:types:root`, `check:types:root`, `types:root`, `lint:root-types`,
+  `check:root-types`, `root-types`, `tsc:root` — used verbatim (the preferred
+  durable form, and the place a project's own heap belongs);
+- otherwise, when a repo-root `tsconfig.json` exists (path overridable with
+  `GARDEN_ROOT_TYPES_TSCONFIG`) **and** its resolved program type-checks JS
+  (`checkJs: true`, read from `tsc --showConfig` so the `extends` chain is honored
+  rather than a fragile text grep), the reconstructed
+  `NODE_OPTIONS=--max-old-space-size=<mb> <yarn> tsc -p <cfg> --noEmit`, where
+  `<mb>` is `GARDEN_ROOT_TYPES_HEAP_MB` (default `8192`);
+- otherwise the step is skipped silently — inert on a project whose root program
+  does not check JS (running `tsc -p` there would only duplicate the per-package
+  `lint:types` and risk a local-fail/CI-pass divergence), that has no root
+  `tsconfig.json`, or where `tsc` is not resolvable.
+
+Extend `RT_WRAP_SCRIPTS` / `RT_TSCONFIG` in `local-verify.sh` to teach it another
+project's root type check.
+
 For a Yarn workspace tree, the `test` and `test-xs` steps deliberately do not
 delegate to root aggregators. They list every workspace and run each workspace's
 matching primary (`test` / `test:unit`) and additive XS (`test:xs`) scripts
@@ -284,6 +333,12 @@ failures in later packages. Each suite accumulates workspace output into its own
 SHA-captured failure report, and every workspace in that suite runs even after
 an earlier one fails. A project that is not a discoverable Yarn workspace tree
 retains the ordinary root-script behavior.
+
+Root-types knobs: `GARDEN_ROOT_TYPES_HEAP_MB` sets the Node old-space heap the
+reconstructed root type check runs under (default `8192`);
+`GARDEN_ROOT_TYPES_TSCONFIG` overrides the repo-root config path (default
+`tsconfig.json`); `LOCAL_VERIFY_ROOT_TYPES` overrides the whole command (`-`/empty
+skips).
 
 Runtime-parity knobs (see [Runtime parity](#runtime-parity-the-node-version)):
 `GARDEN_SKIP_NODE_PARITY=1` bypasses the Node guard; `GARDEN_NODE=<dir|binary>`
@@ -452,7 +507,15 @@ scan, in CI's order — that a tracked-file rejection by the repo scan (which no
 package.json script wraps) fails the step with both halves' output in the blob,
 that a single wrap script subsumes the parts without a duplicate self-test/scan,
 that `LOCAL_VERIFY_PACKAGE_UNIFORMITY=-` skips it, and that it is inert on a
-project with no uniformity check. `bash -n` and `shellcheck` clean.
+project with no uniformity check. A `root-types` group proves the additive
+repo-root TypeScript-program check: a `checkJs: true` root program runs (silently
+on a clean tree, with the larger `--max-old-space-size` heap proven applied) and
+fails loud with the `tsc` type error in its blob on an ill-typed `.js` test; a
+`checkJs: false` root program and a project with no root `tsconfig.json` are both
+inert (the check never executes); `LOCAL_VERIFY_ROOT_TYPES=-` skips it while
+`LOCAL_VERIFY_ROOT_TYPES=<cmd>` and `GARDEN_ROOT_TYPES_HEAP_MB` are honored; and a
+single wrap script subsumes the reconstruction without a separate
+`showConfig`/`tsc` run. `bash -n` and `shellcheck` clean.
 
 ## Pitfalls
 
