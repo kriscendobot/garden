@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T06:35:55Z_
+_As of 2026-09-12T06:41:40Z_
 
 ## Latest
 
@@ -131,6 +131,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-1.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): budget pool anthropic:endolin-garden-ece02cb4 spend=101799056 cap=143000000 high-water=0.85 target=1 step=2->1
+
+- `msg-claude-on-minion-town-press-20260912-063507-2139f5007807` — from gardener:claude-on-minion-town-press-20260912-063507, reply_to `claude-on-minion-town-press-20260912-063507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20260912-063507-2139f5007807.md)
+
+> Arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89) (Claude on minion.town) — one go-ahead decision, no design fork.
+>
+> The arc's only artifact-level blocker, [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/issues/1125), got a fresh re-review from kriskowal (2026-09-12 05:00Z, CHANGES_REQUESTED, head 3bca7724) with three asks: mailbox reincarnates host+guest pins on receipt before notify; rename heldPins to hostPins + guestPins and add a makeGuest `pins` option; add a makeGuest `nets` option with attenuation policies A–D.
+>
+> A fixer job covering all three already exists — `endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912` — but it is parked in plan/ (gate: go-ahead) after the reaper doomed it on a deadline overrun. Root cause: its frontmatter says `handler-budget-role: fix`, which falls through to the 2400s (40-min) fleet default because role_default_handler_timeout only matches `fixer`, not `fix`. A 3-ask daemon fix can't finish in 40 min.
+>
+> Decision needed: authorize promoting that parked job with a corrected budget (add `handler-timeout: 7200`). That is the whole next step; landing it unblocks item 7's CapTP half and the parked build-minion-town-invitation-onboarding. I'm not self-promoting because it's go-ahead-gated (maintainer authorization only). Everything else in the arc is quiet (builds [kriscendobot/minion.town#87](https://github.com/kriscendobot/minion.town/issues/87) and [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) draft, seven design PRs still in gauntlet).
 
 - `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
 
@@ -1233,7 +1243,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 811.6k | $4.59 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 902.3k | $6.22 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 470.0k _(+22.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
