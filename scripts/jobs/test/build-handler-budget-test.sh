@@ -66,6 +66,28 @@ mk shepherd    'role: shepherd'
 [ "$(job_handler_budget_base "$TMP/shepherd.md")" = 7200 ] \
   && ok "shepherd defaults to 7200s" || bad "shepherd base wrong"
 
+hr; echo "handler-budget-role ALIAS CANONICALIZATION"; hr
+# `fix` is the common stage-name alias a producer writes for a fixer job; left
+# uncanonicalized it matches no budget arm and falls through to the 2400s fleet
+# default — a deterministic overrun for work that needs the 7200s fixer budget.
+mk fixalias   'handler-budget-role: fix'
+mk fixertoken 'handler-budget-role: fix'
+mk fixerplain 'role: fixer'
+[ "$(canonical_budget_role fix)" = fixer ] \
+  && ok "canonical_budget_role maps fix -> fixer" || bad "canonical_budget_role fix = $(canonical_budget_role fix)"
+[ "$(canonical_budget_role fixer)" = fixer ] \
+  && ok "canonical_budget_role leaves fixer unchanged" || bad "canonical_budget_role fixer changed"
+[ "$(canonical_budget_role designer)" = designer ] \
+  && ok "canonical_budget_role passes an unrelated role through" || bad "canonical_budget_role designer changed"
+[ -z "$(canonical_budget_role "")" ] \
+  && ok "canonical_budget_role passes empty through" || bad "canonical_budget_role empty changed"
+[ "$(job_handler_budget_base "$TMP/fixalias.md")" = 7200 ] \
+  && ok "handler-budget-role: fix resolves to the 7200s fixer budget" \
+  || bad "handler-budget-role: fix base = $(job_handler_budget_base "$TMP/fixalias.md") (expected 7200)"
+[ "$(applied_token_budget "$TMP/fixertoken.md")" = "$(applied_token_budget "$TMP/fixerplain.md")" ] \
+  && ok "handler-budget-role: fix resolves to the same token budget as role: fixer" \
+  || bad "handler-budget-role: fix token budget = $(applied_token_budget "$TMP/fixertoken.md") != role: fixer $(applied_token_budget "$TMP/fixerplain.md")"
+
 hr; echo "GARDENER / REAPER AGREEMENT — the duplicate-execution guard"; hr
 # Assert every deadline-sensitive consumer calls the same applied calculation.
 grep -q 'applied_handler_budget "\$jobfile"' "$JOBS/gardener.sh" \

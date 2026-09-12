@@ -7036,6 +7036,22 @@ role_default_effort() {
 # retire the distinction entirely.
 : "${GARDEN_BUILD_HANDLER_TIMEOUT:=7200}"
 
+# canonical_budget_role <role> -> the canonical runtime-role name for budget
+# resolution. A producer (or a human) commonly writes the stage-name alias `fix`
+# for a fixer job's `handler-budget-role:`; left as-is it matches no arm of
+# role_default_handler_timeout/role_default_token_budget and silently falls
+# through to the 2400s fleet default -- a deterministic deadline overrun for work
+# that needs the 7200s fixer budget. Canonicalize the known aliases here, at the
+# single point every budget read passes through, so the alias can never decay to
+# the wrong budget. Unknown values pass through untouched (role-less jobs and
+# genuine role names must reach their own arms, or the fleet default, unchanged).
+canonical_budget_role() {
+  case "${1:-}" in
+    fix) printf '%s\n' fixer ;;
+    *)   printf '%s\n' "${1:-}" ;;
+  esac
+}
+
 # role_default_handler_timeout <runtime-role> -> default handler budget in seconds.
 # Empty/unknown roles yield the fleet default. `review` and `panel` are runtime
 # budget roles used through handler-budget-role; they are not performing roles.
@@ -7070,7 +7086,7 @@ job_handler_budget_base() {
     # handler-budget-role names the runtime shape without lying about the role the
     # gardener wears. Review directives are general routing jobs (not a fictional
     # `review` performing role), while staged panels deliberately run as `gardener`.
-    role="$(plan_field "$jf" handler-budget-role)"
+    role="$(canonical_budget_role "$(plan_field "$jf" handler-budget-role)")"
     if [ -z "$role" ]; then
       stage="$(plan_field "$jf" gauntlet_stage)"
       case "$stage" in
@@ -7134,7 +7150,7 @@ role_default_token_budget() {
 
 applied_token_budget() {
   local jf="${1:-}" role requested
-  role="$(plan_field "$jf" handler-budget-role)"
+  role="$(canonical_budget_role "$(plan_field "$jf" handler-budget-role)")"
   [ -n "$role" ] || role="$(plan_role "$jf" 2>/dev/null || true)"
   requested="$(plan_field "$jf" token-budget)"
   if [[ "$requested" =~ ^[1-9][0-9]*$ ]]; then
