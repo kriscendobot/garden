@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T09:55:40Z_
+_As of 2026-09-12T09:57:57Z_
 
 ## Latest
 
@@ -1223,24 +1223,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.8M | $47.05 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Claude | 3.8M | $46.97 _(notional, rate-card)_ | 3% of 143.0M (ok) |
 | Codex | 861.7k _(+29.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-press-20260912-095003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260912-095003.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Fix directive: address kriskowal's CHANGES_REQUESTED review on endojs/endo-bu...
 
-### tada (7706)
+### tada (7707)
+- [`claude-on-minion-town-press-20260912-095003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-095003.md) — Completion report
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr69-followup-hardening.md) — Cost
 - [`daily-progress-summary-20260912-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260912-070505.md) — Cost
 - [`claude-on-minion-town-press-20260912-063507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-063507.md) — Cost
 - [`claude-on-minion-town-completion-press-20260912-060507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260912-060507.md) — Completion report
-- [`improve-reject-nul-in-source-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reject-nul-in-source-diffs.md) — Completion report
-- … and 7701 more
+- … and 7702 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
