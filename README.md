@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T18:20:20Z_
+_As of 2026-09-12T18:20:42Z_
 
 ## Latest
 
@@ -555,16 +555,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.6M | $91.15 _(notional, rate-card)_ | 7% of 143.0M (ok) |
-| Codex | 1.9M _(+66.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 9.7M | $91.64 _(notional, rate-card)_ | 7% of 143.0M (ok) |
+| Codex | 1.9M _(+66.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`claude-on-minion-town-completion-press-20260912-182005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20260912-182005.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### todo (0)
+(none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1265
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1264
+- [`claude-on-minion-town-completion-press-20260912-182005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260912-182005.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`cybernetics-rec6-panel-error-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec6-panel-error-retry.md) — ---
 
 ### tada (7747)
