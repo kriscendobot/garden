@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T18:10:59Z_
+_As of 2026-09-12T18:12:36Z_
 
 ## Latest
 
@@ -556,24 +556,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 8.8M | $89.17 _(notional, rate-card)_ | 6% of 143.0M (ok) |
-| Codex | 1.9M _(+64.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Codex | 1.9M _(+66.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1264
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1265
-- [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 
-### tada (7744)
+### tada (7745)
+- [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-panel-seat-error-rate.md) — Cost
 - [`endojs-endo-but-for-bots-pr909-gauntlet-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912.md) — gauntlet endojs-endo-but-for-bots-pr909-gauntlet-20260912 — HALTED
 - [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912-fix-1.md) — Fix stage (round 1) — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-20260912.md) — gauntlet endojs-endo-but-for-bots-pr1023-gauntlet-20260912 — HALTED
-- [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-fix-1.md) — Fix stage report — endojs/endo-but-for-bots PR #1023 (gauntlet fix round 1)
-- … and 7739 more
+- … and 7740 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
