@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":90,"elapsed_s":1114,"input_tokens":158,"output_tokens":70858,"cache_creation_tokens":210280,"cache_read_tokens":11980759,"total_cost_usd":9.869079499999998,"ts":"2026-09-12T03:59:04Z","base":"minion-town-pr69-followup-hardening","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"fixer","provider":"anthropic"}
