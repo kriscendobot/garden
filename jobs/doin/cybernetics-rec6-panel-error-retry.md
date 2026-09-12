@@ -47,3 +47,13 @@ Hard boundaries (all three are explicit in the audit):
 Verify with `skills/local-verify/SKILL.md` + `skills/pre-push-gates/SKILL.md`
 (panel/gauntlet tests must pass); land bare on `main2` per CLAUDE.md
 § Conventions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T18:16:12Z
