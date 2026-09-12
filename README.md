@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T11:17:15Z_
+_As of 2026-09-12T11:23:49Z_
 
 ## Latest
 
@@ -1223,23 +1223,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.0M | $55.68 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Claude | 3.7M | $45.39 _(notional, rate-card)_ | 3% of 143.0M (ok) |
 | Codex | 886.9k _(+29.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Fix directive: address kriskowal's CHANGES_REQUESTED review on endojs/endo-bu...
+### doin (0)
+(none)
 
-### tada (7708)
+### tada (7709)
+- [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Completion report
 - [`improve-local-verify-root-types`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-local-verify-root-types.md) — Completion report
 - [`claude-on-minion-town-press-20260912-095003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-095003.md) — Completion report
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr69-followup-hardening.md) — Cost
 - [`daily-progress-summary-20260912-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260912-070505.md) — Cost
-- [`claude-on-minion-town-press-20260912-063507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-063507.md) — Cost
-- … and 7703 more
+- … and 7704 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
