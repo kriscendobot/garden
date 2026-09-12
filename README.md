@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T05:06:14Z_
+_As of 2026-09-12T05:09:26Z_
 
 ## Latest
 
@@ -522,6 +522,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > **Cleanup.** Unpublish the clip; `curl` again and record precisely what a
 > de-published URL returns (status code, body). Remove any `ev1-` pet names;
 > confirm with `list`/`has`.
+
+- `msg-endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912-149adf097ecc` — from gardener:endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912, reply_to `endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912-149adf097ecc.md)
+
+> I can wire `provideGuest(..., { nets })` to reuse a daemon-minted `EndoDirectory`, but the current daemon has no `EndoDirectory.readOnly()` method or durable read-only-directory formula. Mapping a read-only facet back to the same directory identifier would accidentally restore mutation authority when the guest reincarnates. Should this change introduce a durable read-only directory/view formula, or is accepting mutable daemon-minted directories now (with read-only views following separately) the intended scope? I am proceeding with the other two review concerns while awaiting guidance.
 
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
@@ -1226,7 +1230,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.3k | $0.47 _(notional, rate-card)_ | 0% of 143.0M (ok) |
-| Codex | 64.6k _(+232.8k cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 142.8k _(+1.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
