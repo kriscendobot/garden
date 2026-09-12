@@ -98,6 +98,8 @@ the fixer to, on PR #1125 only: push follow-up commits to the head branch, reply
 the review threads, post the top-level completion-summary comment, and re-request
 review from `kriskowal`. No other upstream interaction is authorized.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
