@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-12T08:14:27Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-pr69-followup-hardening
+pr_number: 100
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/100
+pr_head: fix/clip-publish-pr69-hardening
