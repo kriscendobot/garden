@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T03:44:37Z_
+_As of 2026-09-12T03:46:20Z_
 
 ## Latest
 
@@ -1232,8 +1232,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
+- [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — Refresh kriscendobot/minion.town PR #54 after §9 cleanup lands
 
 ### tada (7694)
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Completion report — minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-r...
@@ -1560,7 +1561,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-minion-town-invitation-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-invitation-onboarding.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1125` · Build invitation-only guest onboarding for minion.town
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
-- [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/69` · Refresh kriscendobot/minion.town PR #54 after §9 cleanup lands
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`cybernetics-rec6-panel-error-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cybernetics-rec6-panel-error-retry.md) — awaiting `diagnose-panel-seat-error-rate` · ---
