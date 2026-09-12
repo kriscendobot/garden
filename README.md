@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T08:46:55Z_
+_As of 2026-09-12T09:08:35Z_
 
 ## Latest
 
@@ -398,6 +398,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 87 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
+
+- `msg-minion-town-pr69-followup-hardening-3e9cba2228a1` — from gardener:minion-town-pr69-followup-hardening, reply_to `minion-town-pr69-followup-hardening` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-pr69-followup-hardening-3e9cba2228a1.md)
+
+> Maintainer decision needed: the public MCP parameter is currently confirmPublicBuiltIn. A stylist noted that this conflicts with the repository special-name terminology and proposed confirmPublicSpecialName. I preserved confirmPublicBuiltIn as directed; please say whether you want the public parameter renamed in a separate follow-up.
 
 - `20260904T073302Z-cd6ed2` — from gardener:xs2rust-endor-press-20260904-072014, reply_to `xs2rust-endor-press-20260904-072014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T073302Z-cd6ed2.md)
 
@@ -1243,8 +1247,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.5M | $39.27 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 673.7k _(+24.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 3.7M | $45.39 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 786.6k _(+26.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
