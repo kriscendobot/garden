@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T04:01:50Z_
+_As of 2026-09-12T04:06:38Z_
 
 ## Latest
 
@@ -398,10 +398,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 87 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
-
-- `20260912T040131Z-60048f` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260912T040131Z-60048f.md)
-
-> awaiting maintainer — beyond proxy authority: gardener minion-town-pr69-followup-hardening, msgid msg-minion-town-pr69-followup-hardening-6a04ef086ece.md — Renaming a public, maintainer-named, client-facing MCP tool parameter is a breaking API surface change reserved to the maintainer, not a proxyable progress question.
 
 - `20260904T073302Z-cd6ed2` — from gardener:xs2rust-endor-press-20260904-072014, reply_to `xs2rust-endor-press-20260904-072014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T073302Z-cd6ed2.md)
 
@@ -1229,7 +1225,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.3k | $0.47 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 199.3k | $2.08 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
