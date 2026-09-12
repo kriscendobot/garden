@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T18:21:40Z_
+_As of 2026-09-12T18:22:46Z_
 
 ## Latest
 
@@ -516,6 +516,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Absent a reply I am completing this job now under the design's second definition-of-done branch (verified, authorization-blocked plan recorded). A reply here dead-letters into a fresh job that resumes execution, or you can re-post the job once you decide.
 
+- `watchdog-root-repo-dirty-tree-repaired-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-dirty-tree-repaired-endolin-garden-ece02cb4.md)
+
+> root repo /home/kris/garden had a STRAY TRACKED EDIT (the no-development-in-the-root invariant was violated). It was PRESERVED (branch root-guard-backup/20260912T182202Z + patch /home/kris/garden/.garden-state/deploy/dirty-tree-backups/20260912T182202Z.patch) and the tracked tree restored to clean so the rolling deploy is never wedged behind a dirty-tree abort. This is an after-the-fact FYI — the fleet keeps moving. Preserved paths:  M scripts/jobs/gauntlet.sh; M scripts/jobs/test/gauntlet-test.sh. (host=endolin-garden-ece02cb4)
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -555,27 +559,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.8M | $93.10 _(notional, rate-card)_ | 7% of 143.0M (ok) |
-| Codex | 1.9M _(+66.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 9.8M | $93.71 _(notional, rate-card)_ | 7% of 143.0M (ok) |
+| Codex | 2.0M _(+66.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`improve-gardener-silent-exit0-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-silent-exit0-retries.md) — ---
-- [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1265
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1264
 - [`claude-on-minion-town-completion-press-20260912-182005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260912-182005.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`cybernetics-rec6-panel-error-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec6-panel-error-retry.md) — ---
 
-### tada (7747)
+### tada (7748)
+- [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-fix-3.md) — Completion report
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-panel-seat-error-rate.md) — Cost
 - [`endojs-endo-but-for-bots-pr909-gauntlet-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912.md) — gauntlet endojs-endo-but-for-bots-pr909-gauntlet-20260912 — HALTED
-- [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912-fix-1.md) — Fix stage (round 1) — endojs/endo-but-for-bots PR #909
-- … and 7742 more
+- … and 7743 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
