@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T18:43:17Z_
+_As of 2026-09-12T18:45:17Z_
 
 ## Latest
 
@@ -201,12 +201,12 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #524 (first seen 2026-09-05T15:44:01Z, latest 2026-09-12T17:23:02Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 524 times; this is ONE
-> coalesced notice that updates in place, not 524 messages. Latest detail:
+> WATCHDOG notice — occurrence #536 (first seen 2026-09-05T15:44:01Z, latest 2026-09-12T18:44:02Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 536 times; this is ONE
+> coalesced notice that updates in place, not 536 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
-> is no available canary to validate 421473a9331a. Per designs/follower-self-deploy.md
+> is no available canary to validate f5e91b662553. Per designs/follower-self-deploy.md
 > this is treated as a signal to wait for you, not to advance the leader unvalidated.
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
@@ -559,15 +559,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.7M | $93.55 _(notional, rate-card)_ | 7% of 143.0M (ok) |
+| Claude | 9.8M | $93.90 _(notional, rate-card)_ | 7% of 143.0M (ok) |
 | Codex | 2.0M _(+68.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1265
+- [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1264
 
 ### tada (7753)
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-fix-4.md) — Completion report
