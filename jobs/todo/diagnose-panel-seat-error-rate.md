@@ -73,13 +73,5 @@ more useful than a guess. Only implement a fix if the cause is established and
 the fix is small; otherwise propose it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=778 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-12T17:28:48Z
+
+<!-- garden-reaped: 1 -->
