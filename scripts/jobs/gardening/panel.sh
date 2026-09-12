@@ -658,13 +658,27 @@ while :; do
   # guess.
   disposition=""
   for _decide_attempt in 1 2; do
-    raw="$(decide_disposition "$agg")"
+    # decide_disposition shells the foreperson `claude -p`. A TRANSIENT non-zero
+    # exit (provider overload / rate-limit / 5xx / a stub that fails) must NOT be
+    # allowed to trip `set -e` here: a bare `raw="$(decide_disposition ...)"` gives
+    # the assignment the substitution's non-zero status and aborts the WHOLE panel
+    # before this retry loop can re-ask — silently discarding the very retry the
+    # loop exists to perform, leaving PANEL_DISPOSITION at its default `error`, and
+    # failing the gauntlet's panel stage on one blip (the seat path's own lesson,
+    # applied here: this was the dominant `disposition: error` cluster, seats that
+    # had already produced verdicts yet the run recorded `error`). Tolerate the
+    # non-zero exit with `|| _decide_rc=$?`, capture the decider's stderr to the run
+    # dir for diagnosis, and let the loop retry; only genuinely-exhausted attempts
+    # fall through to the loud, correctly-attributed `decider-error` fail below.
+    raw=""; _decide_rc=0
+    raw="$(decide_disposition "$agg" 2>>"$GARDEN_PANEL_RUNDIR/round-$round.decider.stderr")" || _decide_rc=$?
     tok="$(printf '%s\n' "$raw" | awk 'NF{l=$0} END{print l}' | tr -d '\r' \
            | sed "s/[\"'.\!]//g; s/^[[:space:]]*//; s/[[:space:]]*\$//" \
            | tr '[:upper:]' '[:lower:]')"
     case "$tok" in
       must-fix|pass) disposition="$tok"; break ;;
-      *) echo "panel #$pr: unparseable disposition '$tok' (attempt $_decide_attempt); re-asking" >&2 ;;
+      *) echo "panel #$pr: decider returned no usable disposition (attempt $_decide_attempt/2, rc=$_decide_rc, token='$tok'); re-asking" >&2
+         [ "$_decide_attempt" -lt 2 ] && sleep "${GARDEN_PANEL_DECIDE_BACKOFF:-5}" ;;
     esac
   done
   # SINGLE-ROUND MODE (the staged gauntlet). Run EXACTLY ONE round, emit the
