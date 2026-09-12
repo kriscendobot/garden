@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T19:32:56Z_
+_As of 2026-09-12T19:35:34Z_
 
 ## Latest
 
@@ -559,14 +559,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.6M | $110.78 _(notional, rate-card)_ | 8% of 143.0M (ok) |
-| Codex | 2.1M _(+68.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 11.6M | $111.99 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Codex | 2.1M _(+68.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1264
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test.md) — Integration test: restart-durable guest response (endojs/endo-but-for-bots#1125)
 - [`endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912.md) — Address kriskowal's 2026-09-12 16:41Z re-review of endojs/endo-but-for-bots#1125
 
