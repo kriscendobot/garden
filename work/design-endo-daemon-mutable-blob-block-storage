@@ -3,3 +3,7 @@ gardener: 3
 worker_kind: monk
 claimed_at: 2026-09-12T16:19:30Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-design-endo-daemon-mutable-blob-block-storage
+pr_number: 1265
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1265
+pr_head: design/daemon-mutable-block-storage
