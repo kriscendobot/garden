@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T04:51:18Z_
+_As of 2026-09-12T04:55:28Z_
 
 ## Latest
 
@@ -1232,17 +1232,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-block-nul-pr-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-block-nul-pr-diffs.md) — ---
+### doin (1)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
 
-### tada (7699)
+### tada (7700)
+- [`improve-block-nul-pr-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-block-nul-pr-diffs.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260912-042007.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260912-042007.md) — Completion report
 - [`kriscendobot-minion.town-pr100-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr100-shepherd.md) — Completion report
 - [`kriscendobot-minion.town-pr69-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr69-receipt.md) — Completion report
-- [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — Cost
-- … and 7694 more
+- … and 7695 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
