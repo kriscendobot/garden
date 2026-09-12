@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T03:35:45Z_
+_As of 2026-09-12T03:36:30Z_
 
 ## Latest
 
@@ -522,10 +522,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > **Cleanup.** Unpublish the clip; `curl` again and record precisely what a
 > de-published URL returns (status code, body). Remove any `ev1-` pet names;
 > confirm with `list`/`has`.
-
-- `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
-
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 4): budget pool anthropic:endolin-garden-ece02cb4 spend=0 cap=143000000 ceiling=4 target=4
 
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
