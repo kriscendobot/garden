@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T21:33:30Z_
+_As of 2026-09-12T21:34:05Z_
 
 ## Latest
 
@@ -559,23 +559,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.1M | $151.47 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 15.9M | $145.74 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 2.3M _(+79.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1125
+### doin (0)
+(none)
 
-### tada (7778)
+### tada (7779)
+- [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1.md) — Completion report — FIX round 1, endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-panel-3.md) — Report
-- [`endojs-endo-but-for-bots-pr1266-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-fix-2.md) — Completion report
-- … and 7773 more
+- … and 7774 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
