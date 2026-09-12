@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: diagnose-panel-seat-error-rate
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-09-03T00:01:29Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-12T18:16:05Z cleared=none -->
 
 ---
 tier: mentor
