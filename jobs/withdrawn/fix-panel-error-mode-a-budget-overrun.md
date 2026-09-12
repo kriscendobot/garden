@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Diagnosis refuted budget overrun; recorder fix landed and remaining work is supervisor lifetime ownership
+withdrawn_by: builder
+withdrawn_at: 2026-09-12T18:10:30Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 posted_by: builder
