@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T03:40:14Z_
+_As of 2026-09-12T03:44:37Z_
 
 ## Latest
 
@@ -553,6 +553,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003813Z-b83dfb` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003813Z-b83dfb.md)
 
 > From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
+
+- `msg-minion-town-pr69-followup-hardening-6a04ef086ece` — from gardener:minion-town-pr69-followup-hardening, reply_to `minion-town-pr69-followup-hardening` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-pr69-followup-hardening-6a04ef086ece.md)
+
+> [minion.town PR [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) follow-up hardening] Maintainer decision needed (does NOT block the rest of the job).
+>
+> The round-7 stylist flagged that the public MCP tool parameter `confirmPublicBuiltIn` contradicts the repo's "special name" convention and its own error text ("special reference"/"pet name"), and proposed renaming it to `confirmPublicSpecialName`.
+>
+> Because it's a maintainer-named, PUBLIC tool parameter (a breaking rename of a client-facing MCP surface), I will NOT rename it unilaterally. The maintainer-required `confirmPublicBuiltIn` acknowledgement GATE stays intact either way; this is purely a name question.
+>
+> Reply with: keep `confirmPublicBuiltIn`, or rename to `confirmPublicSpecialName` (or another name). I'm proceeding with the rest of the hardening (type soundness, property/boundary tests, live-suite coverage, falsy-back guard) meanwhile and will apply a rename in a follow-up if you want one.
 
 - `20260904T115830Z-07a1c6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T115830Z-07a1c6.md)
 
@@ -1215,24 +1225,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 0 | $0.00 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 78.4k | $0.36 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
-- [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Finish PR #69 after the next Claude weekly panel reset
 
-### tada (7693)
+### tada (7694)
+- [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Completion report — minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-r...
 - [`claude-on-minion-town-press-20260912-032026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-032026.md) — Completion report
 - [`rebrake-foreman-before-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/rebrake-foreman-before-reset.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911.md) — Cost
 - [`claude-on-minion-town-press-20260912-000511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-000511.md) — Cost
-- [`claude-on-minion-town-completion-press-20260911-235011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260911-235011.md) — Cost
-- … and 7688 more
+- … and 7689 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
