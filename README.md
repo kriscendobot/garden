@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:48:17Z_
+_As of 2026-09-12T16:51:18Z_
 
 ## Latest
 
@@ -37,14 +37,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
 > Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
-
-- `20260905T080403Z-d2be70` — from gardener:minion-town-clip-content-store-gc-build-gauntlet-fix-3, reply_to `minion-town-clip-content-store-gc-build-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260905T080403Z-d2be70.md)
-
-> minion.town [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) (clip content-store GC, Part B) gauntlet fix-3: I applied all code must-fix items and pushed; CI is being watched. One panel must-fix is a MAINTAINER DECISION I can't make:
->
-> [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) near-duplicates open sibling [kriscendobot/minion.town#92](https://github.com/kriscendobot/minion.town/issues/92) (created ~7 min earlier, same base b83741a) — both implement the identical Part-B slice, diverging only in naming/grouping. [kriscendobot/minion.town#92](https://github.com/kriscendobot/minion.town/issues/92)'s body claims a COMPLETED production audit (243,300 orphan bytes, zero removals); [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93)'s DEPLOYMENT.md says the audit is not yet executed. [kriscendobot/minion.town#83](https://github.com/kriscendobot/minion.town/issues/83) attacks the same unbounded-CAS-growth gap from the older designs/clip-content-gc.md and has stalled must-fix. Merging any one strands the others with a near-total conflict.
->
-> Please pick one authoritative strand, close/supersede the others, and note it in the surviving PR body. Until then this stays a blocking panel finding no code change can clear.
 
 - `20260904T131409Z-bc476b` — from gauntlet:ironhorse-test262-fable-supervisor-20260829-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T131409Z-bc476b.md)
 
@@ -1223,16 +1215,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.2M | $49.65 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 1.1M _(+42.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 4.7M | $53.85 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 1.2M _(+42.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1265
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1264
+- [`minion-town-clip-gc-strand-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clip-gc-strand-reconcile.md) — ---
 
 ### tada (7721)
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-panel-1.md) — Completion report: PANEL round 1 — endojs/endo-but-for-bots PR #1264
