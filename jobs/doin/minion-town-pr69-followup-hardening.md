@@ -63,10 +63,10 @@ convention and its own error text, and proposed `confirmPublicSpecialName`. It i
 a maintainer-named, public tool parameter, so renaming it is a maintainer
 decision — surface it, do not rename unilaterally.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=1120 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=1277 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
