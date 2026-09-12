@@ -65,3 +65,13 @@ decision — surface it, do not rename unilaterally.
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1120 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T04:04:28Z
