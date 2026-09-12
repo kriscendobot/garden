@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T23:02:38Z_
+_As of 2026-09-12T23:20:26Z_
 
 ## Latest
 
@@ -264,6 +264,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > (benign drain op) pending your decision; auto-rollback is deliberately not performed
 > (designs/follower-self-deploy.md § Failure handling). Investigate the target on endolin-garden2-5bcdff64,
 > then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 4 -> 3 (target 3): budget pool anthropic:endolin-garden-ece02cb4 spend=21779424 cap=143000000 ceiling=4 target=3
 
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
@@ -559,7 +563,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.4M | $174.42 _(notional, rate-card)_ | 14% of 143.0M (ok) |
+| Claude | 21.8M | $196.38 _(notional, rate-card)_ | 15% of 143.0M (ok) |
 | Codex | 2.4M _(+79.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
