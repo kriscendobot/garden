@@ -37,6 +37,7 @@ This is the sequential successor to `minion-town-weblet-ocap-synthesis-units-4-5
 Panel artifacts from the latest attempts are under `/home/kris/garden/scratch/panel-minion-town-69-weekly-reset-{4,5,6}` but are not durable; the facts above and pushed commit are the handoff record.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=743 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
