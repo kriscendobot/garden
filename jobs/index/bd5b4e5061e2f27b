@@ -1,2 +1,2 @@
-base: improve-pre-push-gates-package-manager
+base: improve-block-nul-pr-diffs
 identity: mentor:scripts/jobs/gardening/pre-push-gates.sh
