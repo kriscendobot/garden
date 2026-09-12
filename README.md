@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T18:25:33Z_
+_As of 2026-09-12T18:26:43Z_
 
 ## Latest
 
@@ -559,15 +559,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.8M | $94.45 _(notional, rate-card)_ | 7% of 143.0M (ok) |
+| Claude | 9.8M | $94.92 _(notional, rate-card)_ | 7% of 143.0M (ok) |
 | Codex | 2.0M _(+68.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1265
+- [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1264
 - [`cybernetics-rec6-panel-error-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cybernetics-rec6-panel-error-retry.md) — ---
 
 ### tada (7751)
