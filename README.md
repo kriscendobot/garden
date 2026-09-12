@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T17:41:00Z_
+_As of 2026-09-12T17:42:45Z_
 
 ## Latest
 
@@ -555,25 +555,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 7.0M | $72.51 _(notional, rate-card)_ | 5% of 143.0M (ok) |
+| Claude | 7.0M | $71.14 _(notional, rate-card)_ | 5% of 143.0M (ok) |
 | Codex | 1.4M _(+50.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr909-gauntlet-20260912-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #909
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1264
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
-- [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1265
+- [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1265
+- [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1023
 
-### tada (7736)
+### tada (7737)
+- [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912-clean.md) — Completion report
 - [`mtown-git-remote-credential-recheck-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-credential-recheck-20260912.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr807-gauntlet-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet-20260912.md) — gauntlet endojs-endo-but-for-bots-pr807-gauntlet-20260912 — HALTED
-- … and 7731 more
+- … and 7732 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -707,6 +708,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr631-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr631-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #631
 - [`endojs-endo-but-for-bots-pr711-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr711-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #711
 - [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fd8517d5f3071227-repair.md) — _normal_ · Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
+- [`fix-panel-error-mode-a-budget-overrun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-panel-error-mode-a-budget-overrun.md) — _normal_ · Fix Mode A of the panel disposition: error rate: all-seats-error is a budget-...
 - [`ironhorse-fuzz-557805e944888b5a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-557805e944888b5a-repair.md) — _normal_ · Repair Ironhorse engine defect 557805e944888b5a (target differential_regexp_s...
 - [`endojs-endo-but-for-bots-pr511-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr511-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #511
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-284de587e16bce32-repair.md) — _normal_ · Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
