@@ -25,3 +25,13 @@ missing and on which host.
 Do NOT run git in $GARDEN_ROOT.
 
 Skills: skills/self-healing-wrapper, skills/gardener-inbox-error-reporting.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T17:29:25Z
