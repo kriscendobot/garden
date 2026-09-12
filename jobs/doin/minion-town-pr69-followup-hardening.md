@@ -65,11 +65,11 @@ decision — surface it, do not rename unilaterally.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=1277 -->
 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=1277,570 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
