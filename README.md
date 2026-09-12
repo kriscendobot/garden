@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T17:38:27Z_
+_As of 2026-09-12T17:39:04Z_
 
 ## Latest
 
@@ -555,12 +555,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.6M | $69.19 _(notional, rate-card)_ | 5% of 143.0M (ok) |
+| Claude | 6.7M | $70.27 _(notional, rate-card)_ | 5% of 143.0M (ok) |
 | Codex | 1.4M _(+50.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1264-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1264
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1023
