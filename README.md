@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T19:10:51Z_
+_As of 2026-09-12T19:11:13Z_
 
 ## Latest
 
@@ -587,17 +587,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.1M | $105.37 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Claude | 11.1M | $105.57 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 2.1M _(+68.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912.md) — Address kriskowal's 2026-09-12 16:41Z re-review of endojs/endo-but-for-bots#1125
+### todo (0)
+(none)
 
-### doin (3)
+### doin (4)
 - [`claude-on-minion-town-press-20260912-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260912-190509.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1264
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1265
+- [`endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912.md) — Address kriskowal's 2026-09-12 16:41Z re-review of endojs/endo-but-for-bots#1125
 
 ### tada (7757)
 - [`kriscendobot-garden-pr80-quota-validation-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260912.md) — Completion report
