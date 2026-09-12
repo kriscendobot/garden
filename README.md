@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T18:04:43Z_
+_As of 2026-09-12T18:05:26Z_
 
 ## Latest
 
@@ -516,6 +516,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Absent a reply I am completing this job now under the design's second definition-of-done branch (verified, authorization-blocked plan recorded). A reply here dead-letters into a fresh job that resumes execution, or you can re-post the job once you decide.
 
+- `endojs-endo-but-for-bots-pr909-gauntlet-20260912-halted` — from gauntlet:endojs-endo-but-for-bots-pr909-gauntlet-20260912-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr909-gauntlet-20260912-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr909-gauntlet-20260912 HALTED: stage 'endojs-endo-but-for-bots-pr909-gauntlet-20260912-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -555,8 +559,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 8.8M | $88.41 _(notional, rate-card)_ | 6% of 143.0M (ok) |
-| Codex | 1.8M _(+61.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 8.8M | $88.50 _(notional, rate-card)_ | 6% of 143.0M (ok) |
+| Codex | 1.8M _(+61.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -567,13 +571,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1265
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 
-### tada (7743)
+### tada (7744)
+- [`endojs-endo-but-for-bots-pr909-gauntlet-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912.md) — gauntlet endojs-endo-but-for-bots-pr909-gauntlet-20260912 — HALTED
 - [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912-fix-1.md) — Fix stage (round 1) — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr909-gauntlet-20260912-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-20260912-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-20260912.md) — gauntlet endojs-endo-but-for-bots-pr1023-gauntlet-20260912 — HALTED
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-fix-1.md) — Fix stage report — endojs/endo-but-for-bots PR #1023 (gauntlet fix round 1)
-- [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-panel-4.md) — Completion report
-- … and 7738 more
+- … and 7739 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
