@@ -61,3 +61,13 @@ And a follow-up PR comment (2026-09-12 18:06Z): "@kriscendobot rsvp and shepherd
 Chat-diagnostics/formula-inspector changes landed with tests, the PR is retconned
 to clean per-package commits, all review threads answered, CI green, and re-review
 re-requested from kriskowal. Report the new head SHA.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T19:10:57Z
