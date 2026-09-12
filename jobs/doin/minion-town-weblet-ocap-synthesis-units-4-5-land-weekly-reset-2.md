@@ -39,3 +39,13 @@ Panel artifacts from the latest attempts are under `/home/kris/garden/scratch/pa
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=743 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T03:24:26Z
