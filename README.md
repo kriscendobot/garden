@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T17:34:06Z_
+_As of 2026-09-12T17:35:31Z_
 
 ## Latest
 
@@ -81,6 +81,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-issue-kriscendobot-garden-90-057fad80de71` — from scholar:issue-kriscendobot-garden-90, reply_to `issue-kriscendobot-garden-90` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-issue-kriscendobot-garden-90-057fad80de71.md)
 
 > The topology work is useful to Garden as a future model-characterization and regression signal, but not as a safety gate. I ingested both Robinson et al. papers as six sections: the 2024 paper measures stratified, negatively curved token spaces in three open models; the 2025 sequel reconstructs token topology from structured responses and validates local dimension on one model. The Endo relationship is complementary: topology may indicate where model behavior is unstable, while SES/object capabilities limit what that unreliable behavior is authorized to affect. The full result is in the journal entry for `issue-kriscendobot-garden-90`.
+
+- `endojs-endo-but-for-bots-pr807-gauntlet-20260912-halted` — from gauntlet:endojs-endo-but-for-bots-pr807-gauntlet-20260912-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr807-gauntlet-20260912-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr807-gauntlet-20260912 HALTED: stage 'endojs-endo-but-for-bots-pr807-gauntlet-20260912-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
@@ -555,7 +559,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.0M | $66.35 _(notional, rate-card)_ | 4% of 143.0M (ok) |
+| Claude | 6.5M | $69.65 _(notional, rate-card)_ | 5% of 143.0M (ok) |
 | Codex | 1.4M _(+50.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
@@ -569,13 +573,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1264
 - [`diagnose-panel-seat-error-rate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-panel-seat-error-rate.md) — Diagnose why all seven panel seats error together (~20% of panel runs)
 
-### tada (7731)
+### tada (7732)
+- [`endojs-endo-but-for-bots-pr807-gauntlet-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet-20260912.md) — gauntlet endojs-endo-but-for-bots-pr807-gauntlet-20260912 — HALTED
 - [`endojs-endo-but-for-bots-pr807-gauntlet-20260912-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-gauntlet-20260912-clean.md) — Clean stage — endojs/endo-but-for-bots PR #807
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-20260912-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-panel-2.md) — Completion report
-- … and 7726 more
+- … and 7727 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
