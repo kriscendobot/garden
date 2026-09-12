@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T22:06:22Z_
+_As of 2026-09-12T22:08:37Z_
 
 ## Latest
 
@@ -559,7 +559,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.1M | $179.73 _(notional, rate-card)_ | 13% of 143.0M (ok) |
+| Claude | 19.1M | $180.42 _(notional, rate-card)_ | 13% of 143.0M (ok) |
 | Codex | 2.3M _(+79.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
@@ -567,16 +567,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (2)
-- [`claude-on-minion-town-press-20260912-220510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260912-220510.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1125
+- [`endojs-endo-but-for-bots-pr1266-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1266-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1266
 
-### tada (7782)
+### tada (7783)
+- [`claude-on-minion-town-press-20260912-220510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-220510.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1.md) — Completion report — FIX round 1, endojs/endo-but-for-bots PR #1125
-- [`endojs-endo-but-for-bots-pr1266-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-fix-4.md) — Completion report
-- … and 7777 more
+- … and 7778 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
