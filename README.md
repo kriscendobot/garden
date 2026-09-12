@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T12:20:33Z_
+_As of 2026-09-12T12:24:27Z_
 
 ## Latest
 
@@ -1230,16 +1230,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260912-122004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260912-122004.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (7709)
+### tada (7710)
+- [`claude-on-minion-town-completion-press-20260912-122004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260912-122004.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Completion report
 - [`improve-local-verify-root-types`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-local-verify-root-types.md) — Completion report
 - [`claude-on-minion-town-press-20260912-095003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-095003.md) — Completion report
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr69-followup-hardening.md) — Cost
-- [`daily-progress-summary-20260912-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260912-070505.md) — Cost
-- … and 7704 more
+- … and 7705 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
