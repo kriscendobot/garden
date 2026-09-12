@@ -1,2 +1,2 @@
-base: improve-block-nul-pr-diffs
+base: improve-reject-nul-in-source-diffs
 identity: mentor:scripts/jobs/gardening/pre-push-gates.sh
