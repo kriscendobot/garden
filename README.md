@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T21:06:29Z_
+_As of 2026-09-12T21:08:39Z_
 
 ## Latest
 
@@ -559,15 +559,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.5M | $145.41 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 15.5M | $146.50 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 2.3M _(+79.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1125
+- [`endojs-endo-but-for-bots-pr1266-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1266-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1266
 
 ### tada (7776)
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-fix-3.md) — Completion report
