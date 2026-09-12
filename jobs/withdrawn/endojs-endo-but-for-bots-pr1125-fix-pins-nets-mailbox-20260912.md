@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Doomed for deterministic deadline-overrun caused by a mislabeled budget (handler-budget-role: fix -> falls through to 2400s instead of the 7200s fixer budget). Re-posting to todo/ with a corrected budget (handler-budget-role: fixer + explicit handler-timeout: 7200); the review asks are unchanged and well-specified maintainer requests, so this is mechanical self-healing, not a maintainer go-ahead decision.
+withdrawn_by: claude-on-minion-town-press-20260912-095003
+withdrawn_at: 2026-09-12T09:54:56Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
