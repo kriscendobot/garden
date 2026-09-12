@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T03:02:20Z_
+_As of 2026-09-12T03:05:30Z_
 
 ## Latest
 
@@ -1214,7 +1214,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`rebrake-foreman-before-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/rebrake-foreman-before-reset.md) — ---
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Finish PR #69 after the next Claude weekly panel reset
 
 ### tada (7691)
