@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T03:46:20Z_
+_As of 2026-09-12T03:47:48Z_
 
 ## Latest
 
@@ -1225,16 +1225,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.4k | $0.36 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 116.2k | $0.75 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
 - [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — Refresh kriscendobot/minion.town PR #54 after §9 cleanup lands
+- [`kriscendobot-minion.town-pr69-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr69-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #69 (merged)
 
 ### tada (7694)
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Completion report — minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-r...
