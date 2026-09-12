@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T19:56:14Z_
+_As of 2026-09-12T19:59:34Z_
 
 ## Latest
 
@@ -230,6 +230,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `build-minion-town-claude-harness-provisioning-gauntlet-halted` — from gauntlet:build-minion-town-claude-harness-provisioning-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-minion-town-claude-harness-provisioning-gauntlet-halted.md)
 
 > Gauntlet build-minion-town-claude-harness-provisioning-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `endojs-endo-but-for-bots-pr1264-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1264-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1264-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet endojs-endo-but-for-bots-pr1264-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
@@ -559,8 +563,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.1M | $113.93 _(notional, rate-card)_ | 8% of 143.0M (ok) |
-| Codex | 2.2M _(+74.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 12.1M | $113.99 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Codex | 2.2M _(+74.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -571,13 +575,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-chat-diagnostics-retcon-20260912.md) — Address kriskowal's 2026-09-12 16:41Z re-review of endojs/endo-but-for-bots#1125
 
-### tada (7767)
+### tada (7768)
+- [`endojs-endo-but-for-bots-pr1264-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1264-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-panel-6.md) — Completion report
-- … and 7762 more
+- … and 7763 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
