@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:05:41Z_
+_As of 2026-09-12T16:07:13Z_
 
 ## Latest
 
@@ -1230,16 +1230,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260912-160504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260912-160504.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (7712)
+### tada (7713)
+- [`claude-on-minion-town-press-20260912-160504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-160504.md) — Cost
 - [`improve-normalize-fix-handler-budget-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-normalize-fix-handler-budget-role.md) — Completion report
 - [`claude-on-minion-town-press-20260912-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-125007.md) — What I found
 - [`claude-on-minion-town-completion-press-20260912-122004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260912-122004.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Completion report
-- [`improve-local-verify-root-types`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-local-verify-root-types.md) — Completion report
-- … and 7707 more
+- … and 7708 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
