@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T04:20:52Z_
+_As of 2026-09-12T04:23:21Z_
 
 ## Latest
 
@@ -1225,25 +1225,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.3k | $0.47 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 167.5k | $1.31 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`dependabotany-recheck-endo-but-for-bots-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260912-042007.md) — ---
+### doin (2)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260912-042007.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
 
-### tada (7697)
+### tada (7698)
+- [`dependabotany-recheck-endo-but-for-bots-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260912-042007.md) — Completion report
 - [`kriscendobot-minion.town-pr100-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr100-shepherd.md) — Completion report
 - [`kriscendobot-minion.town-pr69-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr69-receipt.md) — Completion report
 - [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — Cost
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Completion report — minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-r...
-- [`claude-on-minion-town-press-20260912-032026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-032026.md) — Completion report
-- … and 7692 more
+- … and 7693 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
