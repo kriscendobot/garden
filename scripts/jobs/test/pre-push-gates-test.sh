@@ -175,3 +175,64 @@ printf '%s\n' "$output" | grep -Fq 'result: pass' || {
 echo "ok - a long spell-out-exempt file stays exempt under pipefail"
 git -C "$REPOSITORY" reset -q --hard HEAD
 git -C "$REPOSITORY" clean -qfd
+
+# Regression: a literal NUL byte makes a file binary, so git and GitHub suppress
+# its line-level diff and hide the substantive change from review. The
+# no-nul-bytes probe must reject a changed text file that carries a NUL, in the
+# staged diff and in the committed --base-ref diff, and must leave a genuinely
+# binary asset alone. `git add` / `printf` route the NUL through a file, never a
+# shell variable (which would strip it).
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+printf 'const value = "\0";\n' >"$REPOSITORY/smuggled.js"
+git -C "$REPOSITORY" add smuggled.js
+output=$($DRIVER --no-auto-fix --probes-only "$REPOSITORY" 2>&1) && {
+  echo "not ok - driver accepted a staged file carrying a NUL byte"
+  exit 1
+}
+printf '%s\n' "$output" | grep -Fq 'probe no-nul-bytes' || {
+  echo "not ok - driver did not identify the failing NUL probe"
+  printf '%s\n' "$output"
+  exit 1
+}
+printf '%s\n' "$output" | grep -Fq 'smuggled.js carries 1 NUL byte' || {
+  echo "not ok - NUL probe did not report the offending file"
+  printf '%s\n' "$output"
+  exit 1
+}
+echo "ok - a staged NUL byte is rejected with a textual-escape suggestion"
+
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+nul_base=$(git -C "$REPOSITORY" rev-parse HEAD)
+printf 'const value = "\0";\n' >"$REPOSITORY/committed-nul.js"
+git -C "$REPOSITORY" add committed-nul.js
+git -C "$REPOSITORY" commit -qm committed-nul
+output=$($DRIVER --no-auto-fix --probes-only --base-ref "$nul_base" "$REPOSITORY" 2>&1) && {
+  echo "not ok - driver accepted a committed NUL byte in --base-ref mode"
+  exit 1
+}
+printf '%s\n' "$output" | grep -Fq 'committed-nul.js carries 1 NUL byte' || {
+  echo "not ok - base-ref NUL probe did not inspect the committed diff"
+  printf '%s\n' "$output"
+  exit 1
+}
+echo "ok - base-ref mode rejects a committed NUL byte before push"
+git -C "$REPOSITORY" reset -q --hard "$nul_base"
+
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+printf 'PNG\0\0raw' >"$REPOSITORY/asset.png"
+git -C "$REPOSITORY" add asset.png
+output=$($DRIVER --no-auto-fix --probes-only --summary "$REPOSITORY") || {
+  echo "not ok - NUL probe rejected a genuinely binary asset"
+  printf '%s\n' "$output"
+  exit 1
+}
+printf '%s\n' "$output" | grep -Fq 'result: pass' || {
+  echo "not ok - a known-binary extension did not pass the NUL probe"
+  exit 1
+}
+echo "ok - a known-binary asset is left alone by the NUL probe"
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
