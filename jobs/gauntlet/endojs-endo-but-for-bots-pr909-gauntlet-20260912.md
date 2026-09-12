@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr909-gauntlet-20260912-clean
+state: running
 created_by: liaison
 created_at: 2026-09-12T17:28:21Z
 ---
