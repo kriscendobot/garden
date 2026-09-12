@@ -97,3 +97,13 @@ endojs/endo-but-for-bots is the garden's actively-watched fork. This job authori
 the fixer to, on PR #1125 only: push follow-up commits to the head branch, reply on
 the review threads, post the top-level completion-summary comment, and re-request
 review from `kriskowal`. No other upstream interaction is authorized.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T05:05:15Z
