@@ -1,15 +1,9 @@
 ---
-gate: go-ahead
-budget_hold: true
-park_reason: over-token-budget
-parked_for_budget_at: 2026-09-05T04:33:34Z
-budget_window_seconds: 604800
-budget_resets_at: 2026-09-12T03:00:00Z
-priority: high
 role: shepherd
-posted_by: producer
-posted_at: 2026-09-05T04:33:34Z
+tier: mentor
+token-budget-epoch: 2026-09-12T03:02:04Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=high at=2026-09-12T03:02:04Z cleared=none -->
 
 ---
 tier: mentor
