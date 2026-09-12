@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T03:05:30Z_
+_As of 2026-09-12T03:07:05Z_
 
 ## Latest
 
@@ -1214,17 +1214,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
-- [`rebrake-foreman-before-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/rebrake-foreman-before-reset.md) — ---
+### doin (1)
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Finish PR #69 after the next Claude weekly panel reset
 
-### tada (7691)
+### tada (7692)
+- [`rebrake-foreman-before-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/rebrake-foreman-before-reset.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-formula-held-pins-20260911.md) — Cost
 - [`claude-on-minion-town-press-20260912-000511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-000511.md) — Cost
 - [`claude-on-minion-town-completion-press-20260911-235011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260911-235011.md) — Cost
 - [`kriscendobot-minion.town-pr33-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr33-receipt.md) — Cost
-- [`minion-town-weblet-powers-drafts-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-powers-drafts-reconcile.md) — Cost
-- … and 7686 more
+- … and 7687 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
