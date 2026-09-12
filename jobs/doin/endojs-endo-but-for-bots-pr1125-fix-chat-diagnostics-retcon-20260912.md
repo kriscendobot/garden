@@ -63,6 +63,7 @@ to clean per-package commits, all review threads answered, CI green, and re-revi
 re-requested from kriskowal. Report the new head SHA.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=725 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
