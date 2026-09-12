@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T12:53:13Z_
+_As of 2026-09-12T12:55:54Z_
 
 ## Latest
 
@@ -1223,23 +1223,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.8M | $46.29 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Claude | 3.7M | $45.39 _(notional, rate-card)_ | 3% of 143.0M (ok) |
 | Codex | 922.3k _(+29.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-normalize-fix-handler-budget-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-normalize-fix-handler-budget-role.md) — ---
+### doin (0)
+(none)
 
-### tada (7711)
+### tada (7712)
+- [`improve-normalize-fix-handler-budget-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-normalize-fix-handler-budget-role.md) — Completion report
 - [`claude-on-minion-town-press-20260912-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-125007.md) — What I found
 - [`claude-on-minion-town-completion-press-20260912-122004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260912-122004.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Completion report
 - [`improve-local-verify-root-types`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-local-verify-root-types.md) — Completion report
-- [`claude-on-minion-town-press-20260912-095003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-095003.md) — Completion report
-- … and 7706 more
+- … and 7707 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
