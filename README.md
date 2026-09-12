@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:44:42Z_
+_As of 2026-09-12T16:46:02Z_
 
 ## Latest
 
@@ -1223,23 +1223,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.2M | $49.97 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Claude | 4.3M | $50.02 _(notional, rate-card)_ | 3% of 143.0M (ok) |
 | Codex | 1.1M _(+42.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1265-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1265-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1265
+### todo (0)
+(none)
 
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1264
 
-### tada (7719)
+### tada (7720)
+- [`endojs-endo-but-for-bots-pr1265-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-review-35c43da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-35c43da7.md) — Cost
 - [`design-endo-daemon-mutable-blob-block-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-mutable-blob-block-storage.md) — Cost
 - [`design-endo-daemon-storage-capability-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-storage-capability-matrix.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1125-aff3b059`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-aff3b059.md) — Completion report
-- … and 7714 more
+- … and 7715 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
