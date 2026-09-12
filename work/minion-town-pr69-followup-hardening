@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-12T04:04:28Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-pr69-followup-hardening
-pr_number: 100
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/100
-pr_head: minion-town-pr69-followup-hardening
