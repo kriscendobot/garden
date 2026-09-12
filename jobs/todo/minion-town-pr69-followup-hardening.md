@@ -63,20 +63,4 @@ convention and its own error text, and proposed `confirmPublicSpecialName`. It i
 a maintainer-named, public tool parameter, so renaming it is a maintainer
 decision — surface it, do not rename unilaterally.
 
-
-
-
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=1277,570 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-12T08:44:32Z
+<!-- garden-reaped: 0 -->
