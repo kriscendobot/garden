@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T05:21:38Z_
+_As of 2026-09-12T05:22:52Z_
 
 ## Latest
 
@@ -1230,24 +1230,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 780.7k | $4.46 _(notional, rate-card)_ | 1% of 143.0M (ok) |
-| Codex | 337.3k _(+13.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 353.4k _(+16.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
-- [`improve-reject-nul-in-source-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-reject-nul-in-source-diffs.md) — ---
 - [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Fix directive: address kriskowal's CHANGES_REQUESTED review on endojs/endo-bu...
 
-### tada (7701)
+### tada (7702)
+- [`improve-reject-nul-in-source-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reject-nul-in-source-diffs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-review-4e1469ed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-4e1469ed.md) — Completion report
 - [`improve-block-nul-pr-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-block-nul-pr-diffs.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260912-042007.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260912-042007.md) — Completion report
-- [`kriscendobot-minion.town-pr100-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr100-shepherd.md) — Completion report
-- … and 7696 more
+- … and 7697 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
