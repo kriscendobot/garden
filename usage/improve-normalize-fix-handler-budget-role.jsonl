@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":37,"elapsed_s":249,"input_tokens":74,"output_tokens":15015,"cache_creation_tokens":59052,"cache_read_tokens":2077205,"total_cost_usd":2.0074734999999997,"ts":"2026-09-12T12:55:40Z","base":"improve-normalize-fix-handler-budget-role","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
