@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T19:59:34Z_
+_As of 2026-09-12T20:02:50Z_
 
 ## Latest
 
@@ -230,10 +230,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `build-minion-town-claude-harness-provisioning-gauntlet-halted` — from gauntlet:build-minion-town-claude-harness-provisioning-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-minion-town-claude-harness-provisioning-gauntlet-halted.md)
 
 > Gauntlet build-minion-town-claude-harness-provisioning-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
-
-- `endojs-endo-but-for-bots-pr1264-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1264-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1264-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet endojs-endo-but-for-bots-pr1264-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
@@ -563,8 +559,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.1M | $113.99 _(notional, rate-card)_ | 8% of 143.0M (ok) |
-| Codex | 2.2M _(+74.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 12.1M | $114.03 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Codex | 2.2M _(+75.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
