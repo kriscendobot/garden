@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T19:06:05Z_
+_As of 2026-09-12T19:09:48Z_
 
 ## Latest
 
@@ -230,6 +230,34 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `build-minion-town-claude-harness-provisioning-gauntlet-halted` — from gauntlet:build-minion-town-claude-harness-provisioning-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-minion-town-claude-harness-provisioning-gauntlet-halted.md)
 
 > Gauntlet build-minion-town-claude-harness-provisioning-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `msg-kriscendobot-garden-pr80-quota-validation-20260912-7874aba1ef31` — from gardener:kriscendobot-garden-pr80-quota-validation-20260912, reply_to `kriscendobot-garden-pr80-quota-validation-20260912` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-garden-pr80-quota-validation-20260912-7874aba1ef31.md)
+
+> [pr80-quota-validation] SEVEN-DAY CAMPAIGN VERDICT
+>
+> PR-80's manual quota-calibration mechanism is EFFECTIVE and sound. Over all 7
+> days (09-06..09-12, no gaps, 3 hosts each day) the measure/actuate boundary HELD
+> every day: fit-quota-calibration.sh --dry-run never crashed (exit 0), never wrote
+> budget/quota-fit/, never touched config/budget-pools. Fits were deterministic and
+> honestly graded — both anthropic hosts CONVERGED days 1-6, correctly dropping to
+> PROVISIONAL on day 7 when the 2026-09-12T03:00Z weekly reset made the best
+> segment stale; codex stayed INSUFFICIENT on thin/flagged data rather than
+> inventing a cap.
+>
+> Two OPERATIONAL gaps (not code defects, no fixer job posted):
+> 1. Checkpoint feeding stopped after 2026-09-09T19:23Z — the new post-reset weekly
+>    window has ZERO checkpoints, which is the only reason day-7 fits are
+>    PROVISIONAL not CONVERGED. The machinery is only as good as your dashboard
+>    feeding; please resume.
+> 2. Promotion was NEVER exercised — budget/quota-fit/ was never created and
+>    config/budget-pools never changed all week, so the measure->promote leg
+>    (set-budget-pool.sh) is still untested end-to-end despite converged fits
+>    sitting above the actuated caps.
+> Also still open: the codex "85% remaining" dimension (daily vs weekly) I flagged
+> for your clarification on day 1.
+>
+> Full detail: journal entries [pr80-quota-validation] day 20260912 and
+> [pr80-quota-validation] SUMMARY.
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
@@ -559,26 +587,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.0M | $104.27 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Claude | 11.0M | $105.15 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 2.1M _(+68.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`kriscendobot-garden-pr80-quota-validation-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr80-quota-validation-20260912.md) — PR-80 quota-calibration effectiveness observation — UTC day 20260912
+### doin (3)
 - [`claude-on-minion-town-press-20260912-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260912-190509.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1264-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1264
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1265-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1265
 
-### tada (7756)
+### tada (7757)
+- [`kriscendobot-garden-pr80-quota-validation-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-quota-validation-20260912.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1265-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1265-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1264-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1264-gauntlet-fix-4.md) — Completion report
-- [`cybernetics-rec6-panel-error-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-rec6-panel-error-retry.md) — Completion report
-- … and 7751 more
+- … and 7752 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
