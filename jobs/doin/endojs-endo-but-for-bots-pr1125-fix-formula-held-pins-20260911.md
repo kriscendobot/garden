@@ -45,3 +45,13 @@ If, on inspecting the code, ask #2 turns out to require a design decision the ma
 must settle (e.g. Endo's pins/formula model has no place to hold agent-invisible pins
 without a spec change), do NOT guess: post one precise question to the maintainer inbox and
 stop, rather than inventing a mechanism.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T00:08:49Z
