@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T17:56:27Z_
+_As of 2026-09-12T17:57:51Z_
 
 ## Latest
 
@@ -85,10 +85,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr881-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7207s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `endojs-endo-but-for-bots-pr1023-gauntlet-20260912-halted` — from gauntlet:endojs-endo-but-for-bots-pr1023-gauntlet-20260912-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1023-gauntlet-20260912-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1023-gauntlet-20260912 HALTED: stage 'endojs-endo-but-for-bots-pr1023-gauntlet-20260912-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
 - `msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a` — from gardener:mentat-endolin-garden2-credit-investigation-20260905, reply_to `mentat-endolin-garden2-credit-investigation-20260905` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a.md)
 
@@ -559,8 +555,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 8.9M | $88.86 _(notional, rate-card)_ | 6% of 143.0M (ok) |
-| Codex | 1.7M _(+59.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 8.9M | $89.70 _(notional, rate-card)_ | 6% of 143.0M (ok) |
+| Codex | 1.7M _(+59.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
