@@ -65,6 +65,7 @@ jobs:
             tests/checks/test_identity_drift_guard.sh \
             tests/checks/test_state_clone_keeper.sh \
             scripts/jobs/test/identity-drift-guard-test.sh \
+            scripts/jobs/test/gh-credential-guard-test.sh \
             scripts/jobs/test/report-error-reachable-test.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
@@ -90,3 +91,4 @@ jobs:
           bash tests/checks/run.sh
           bash scripts/jobs/test/journal-entry-project-test.sh
           bash scripts/jobs/test/quota-calibration-test.sh
+          bash scripts/jobs/test/gh-credential-guard-test.sh

@@ -49,6 +49,18 @@ fi
 # regression) instead of silently mislabeling the whole pool. Never fails the tick.
 "$HERE/identity-drift-guard.sh" || true
 
+# gh-credential health guard — a deterministic preflight that runs EVERY tick,
+# host-level, on every host. The gh identity wrapper resolves the bot's live token
+# per write and FAILS CLOSED when it cannot, which is correct but purely reactive: a
+# host whose kriscendobot login has lapsed looks healthy until a gardener finally
+# needs to push/open-a-PR, at which point the write dies and the job stalls (the
+# 2026-09-04 minion-town-clip-content-store-gc-build stall on this host). This guard
+# checks the same resolution path proactively and, on a genuine gap (missing token,
+# or a persistently-401 revoked one), posts ONE loud kind:error maintainer-inbox
+# report naming the `gh auth login` remedy — deduped per failure state. Never fails
+# the tick. See scripts/jobs/gh-credential-guard.sh and designs/fleet-gh-identity.md.
+"$HERE/gh-credential-guard.sh" || true
+
 # Identity reconciliation runs EVERY tick, independent of the desired-count read
 # below: a worker whose in-process GARDEN has drifted from this host's identity
 # (a long-lived instance that inherited a since-corrected value at spawn — e.g. a
