@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T05:22:52Z_
+_As of 2026-09-12T05:27:18Z_
 
 ## Latest
 
@@ -522,10 +522,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > **Cleanup.** Unpublish the clip; `curl` again and record precisely what a
 > de-published URL returns (status code, body). Remove any `ev1-` pet names;
 > confirm with `list`/`has`.
-
-- `msg-endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912-149adf097ecc` — from gardener:endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912, reply_to `endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912-149adf097ecc.md)
-
-> I can wire `provideGuest(..., { nets })` to reuse a daemon-minted `EndoDirectory`, but the current daemon has no `EndoDirectory.readOnly()` method or durable read-only-directory formula. Mapping a read-only facet back to the same directory identifier would accidentally restore mutation authority when the guest reincarnates. Should this change introduce a durable read-only directory/view formula, or is accepting mutable daemon-minted directories now (with read-only views following separately) the intended scope? I am proceeding with the other two review concerns while awaiting guidance.
 
 - `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
 
@@ -1159,6 +1155,17 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > [kriscendobot/minion.town#75](https://github.com/kriscendobot/minion.town/issues/75) is merged and deployment run 33539977066 succeeded. The remaining required blind live discovery evaluation needs an authenticated minion.town MCP session. This worker container has no AWS CLI/credentials or minion.town OAuth connection, so it cannot read the sanctioned minion/test-cc-client secret or attach the live MCP to a context-free agent. Please either run a connected blind agent with only the directive "evaluate 2 + 2" and send the transcript/result, or make a short-lived sanctioned Bearer token available through this job inbox (do not paste a long-lived client secret).
 
+- `20260912T052658Z-3225e5` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260912T052658Z-3225e5.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912
+> - question (msgid msg-endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912-149adf097ecc.md)
+> - tentative answer: proxy/tentative — scope call for [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/issues/1125), maintainer may revise.
+>
+> Take the narrower path: accept mutable daemon-minted `EndoDirectory` for `nets` now, and do **not** invent a durable read-only-directory/view formula as part of this fix. Rationale: a read-only view formula is a real daemon capability-model addition (needs its own design for how the read-only identifier is derived/persisted so it can't round-trip to mutable authority on reincarnation) — that's bigger than this PR's fix-scope and risks stalling it. Land the mutable-directory wiring now with a clear comment/TODO noting the authority is broader than strictly needed, and open a follow-up (`design-endo-directory-readonly-view` or similar) for the durable read-only formula as separate, focused work.
+>
+> Proceed with your other two review concerns in parallel as planned.
+
 - `20260903T223114Z-7b9785` — from gardener:self-heal-fix-garden-state-clone-keeper-head-deployed-sha-drift, reply_to `self-heal-fix-garden-state-clone-keeper-head-deployed-sha-drift` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T223114Z-7b9785.md)
 
 > root-repo-guard fix landed on main2 (c2ea79b117): guard_head() now treats a detached HEAD that is a main2 ancestor but != deployed_sha as drift and re-detaches to the deploy point. This is the bug that let garden-state-clone-keeper.service fail rc=127.
@@ -1229,8 +1236,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 780.7k | $4.46 _(notional, rate-card)_ | 1% of 143.0M (ok) |
-| Codex | 353.4k _(+16.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 811.6k | $4.59 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Codex | 360.0k _(+18.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
