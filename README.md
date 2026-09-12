@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T09:13:46Z_
+_As of 2026-09-12T09:17:00Z_
 
 ## Latest
 
@@ -399,10 +399,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
 
-- `msg-minion-town-pr69-followup-hardening-3e9cba2228a1` — from gardener:minion-town-pr69-followup-hardening, reply_to `minion-town-pr69-followup-hardening` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-pr69-followup-hardening-3e9cba2228a1.md)
-
-> Maintainer decision needed: the public MCP parameter is currently confirmPublicBuiltIn. A stylist noted that this conflicts with the repository special-name terminology and proposed confirmPublicSpecialName. I preserved confirmPublicBuiltIn as directed; please say whether you want the public parameter renamed in a separate follow-up.
-
 - `20260904T073302Z-cd6ed2` — from gardener:xs2rust-endor-press-20260904-072014, reply_to `xs2rust-endor-press-20260904-072014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T073302Z-cd6ed2.md)
 
 > Ironhorse press (hourly): one newly-actionable item — **[endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877)** `feat(endor): execute dual-build npm packages`.
@@ -565,16 +561,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260819T003813Z-b83dfb` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003813Z-b83dfb.md)
 
 > From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
-
-- `msg-minion-town-pr69-followup-hardening-6a04ef086ece` — from gardener:minion-town-pr69-followup-hardening, reply_to `minion-town-pr69-followup-hardening` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-pr69-followup-hardening-6a04ef086ece.md)
-
-> [minion.town PR [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) follow-up hardening] Maintainer decision needed (does NOT block the rest of the job).
->
-> The round-7 stylist flagged that the public MCP tool parameter `confirmPublicBuiltIn` contradicts the repo's "special name" convention and its own error text ("special reference"/"pet name"), and proposed renaming it to `confirmPublicSpecialName`.
->
-> Because it's a maintainer-named, PUBLIC tool parameter (a breaking rename of a client-facing MCP surface), I will NOT rename it unilaterally. The maintainer-required `confirmPublicBuiltIn` acknowledgement GATE stays intact either way; this is purely a name question.
->
-> Reply with: keep `confirmPublicBuiltIn`, or rename to `confirmPublicSpecialName` (or another name). I'm proceeding with the rest of the hardening (type soundness, property/boundary tests, live-suite coverage, falsy-back guard) meanwhile and will apply a rename in a follow-up if you want one.
 
 - `20260904T115830Z-07a1c6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T115830Z-07a1c6.md)
 
@@ -1230,16 +1216,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
 >   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
-
-- `msg-minion-town-pr69-followup-hardening-530b05694bfd` — from gardener:minion-town-pr69-followup-hardening, reply_to `minion-town-pr69-followup-hardening` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-pr69-followup-hardening-530b05694bfd.md)
-
-> minion.town [kriscendobot/minion.town#69](https://github.com/kriscendobot/minion.town/issues/69) follow-up hardening (job minion-town-pr69-followup-hardening) — maintainer decision needed before I can act on it.
->
-> The round-7 panel (stylist seat) flagged that the PUBLIC MCP tool parameter `confirmPublicBuiltIn` (src/endo/gateway/publish.ts, the acknowledgement gate for publishing an `@`-special name) contradicts the repo's "special name" convention and its own error text ("...requires confirmPublicBuiltIn=true because its full authority becomes public" — but the value being published is a special name). Stylist proposed renaming it to `confirmPublicSpecialName`.
->
-> Because it is a maintainer-named, public, caller-facing tool parameter, renaming it is your call, not mine. I am NOT renaming it — I'm preserving the `confirmPublicBuiltIn` gate exactly as-is in this hardening pass (all other deferred findings addressed). If you want the rename, say so and I (or a follow-up) will do it as a separate, clearly-flagged public-API change (tool schema + error text + callers + tests).
->
-> No action needed to unblock the rest of the hardening; this is the one item held for your decision.
 
 
 ## Spend & quota
