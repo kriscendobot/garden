@@ -63,6 +63,7 @@ a maintainer-named, public tool parameter, so renaming it is a maintainer
 decision — surface it, do not rename unilaterally.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1120 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
