@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+handler-budget-role: fix
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-12T05:54:24Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-12T05:54:24Z
+---
+
+---
 handler-budget-role: fix
 dispatch: automatic
 tier: mentor
@@ -97,15 +116,3 @@ endojs/endo-but-for-bots is the garden's actively-watched fork. This job authori
 the fixer to, on PR #1125 only: push follow-up commits to the head branch, reply on
 the review threads, post the top-level completion-summary comment, and re-request
 review from `kriskowal`. No other upstream interaction is authorized.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-12T05:05:15Z
