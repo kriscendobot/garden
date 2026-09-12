@@ -46,3 +46,13 @@ Procedure:
 
 Skills: skills/conflict-resolution, skills/review-feedback-followup-commits,
 skills/rebase-before-followup, skills/fully-qualified-github-urls.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-12T16:50:44Z
