@@ -26,3 +26,13 @@ rename. Once #69 is merged, re-fetch PR #54, rebase its head onto the resulting
 `main`, resolve conflicts semantically, regenerate any affected derived artifacts,
 run the relevant project verification, force-push with lease protection, and post
 the authorized completion summary on PR #54. Do not merge PR #54.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T03:46:09Z
