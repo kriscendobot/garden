@@ -61,3 +61,13 @@ public MCP parameter `confirmPublicBuiltIn` contradicts the repo's "special name
 convention and its own error text, and proposed `confirmPublicSpecialName`. It is
 a maintainer-named, public tool parameter, so renaming it is a maintainer
 decision — surface it, do not rename unilaterally.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-12T03:40:00Z
