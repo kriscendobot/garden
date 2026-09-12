@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T06:41:40Z_
+_As of 2026-09-12T06:42:43Z_
 
 ## Latest
 
@@ -1243,24 +1243,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 902.3k | $6.22 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 811.6k | $4.59 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 470.0k _(+22.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-press-20260912-063507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260912-063507.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
 
-### tada (7703)
+### tada (7704)
+- [`claude-on-minion-town-press-20260912-063507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-063507.md) — Cost
 - [`claude-on-minion-town-completion-press-20260912-060507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260912-060507.md) — Completion report
 - [`improve-reject-nul-in-source-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reject-nul-in-source-diffs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-review-4e1469ed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-4e1469ed.md) — Completion report
 - [`improve-block-nul-pr-diffs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-block-nul-pr-diffs.md) — Completion report
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260912-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260912-042007.md) — Completion report
-- … and 7698 more
+- … and 7699 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
