@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T16:20:08Z_
+_As of 2026-09-12T16:22:04Z_
 
 ## Latest
 
@@ -1223,27 +1223,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.9M | $49.36 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 1.0M _(+31.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 4.0M | $50.26 _(notional, rate-card)_ | 3% of 143.0M (ok) |
+| Codex | 1.1M _(+32.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1125-aff3b059`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-aff3b059.md) — attention directive on endojs/endo-but-for-bots PR #1125
-- [`endojs-endo-but-for-bots-pr1125-2576c388`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-2576c388.md) — attention directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-review-35c43da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-35c43da7.md) — Review directive on endojs/endo-but-for-bots PR #1125
 - [`design-endo-daemon-storage-capability-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-storage-capability-matrix.md) — ---
 - [`design-endo-daemon-mutable-blob-block-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-mutable-blob-block-storage.md) — ---
 
-### tada (7713)
+### tada (7714)
+- [`endojs-endo-but-for-bots-pr1125-2576c388`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-2576c388.md) — Cost
 - [`claude-on-minion-town-press-20260912-160504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-160504.md) — Cost
 - [`improve-normalize-fix-handler-budget-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-normalize-fix-handler-budget-role.md) — Completion report
 - [`claude-on-minion-town-press-20260912-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-125007.md) — What I found
 - [`claude-on-minion-town-completion-press-20260912-122004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260912-122004.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-pins-nets-mailbox-20260912.md) — Completion report
-- … and 7708 more
+- … and 7709 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
