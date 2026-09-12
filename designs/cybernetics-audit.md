@@ -189,19 +189,22 @@ does not exist).
   presumptive outside it, and its automated trigger (the SessionStart hook)
   cannot propagate by deploy because `.claude/settings.json` is gitignored.
 
-### 2.5 A review sensor that is noise one time in five
+### 2.5 Panel interruption was recorded as review failure
 
-87 of 444 panel runs ended `disposition: error` in the directive's measurement;
-re-measured 2026-09-01: 88 of 465 records (18.9%) under journal `panel-runs/`.
-An all-seats-erroring panel is not a disposition the loop reasons about: the
-run dies at the first non-ok seat in the join (`panel.sh:545-554`), before any
-aggregation. The gauntlet's stage brief then instructs the supervising gardener
-to complete with `orchestration-failed: true` when `panel.sh` exits non-zero
-(`gauntlet.sh:315-316`), and a tada carrying that marker takes the explicit
-decline branch, which never retries (`gauntlet.sh:569-570`). Net effect: a
-transient provider blip inside a panel halts the whole gauntlet on first
-occurrence, while a panel job that dies outright gets two retries. The sensor
-noise is being routed into the one branch the retry budget cannot reach.
+The follow-up diagnosis in `designs/panel-seat-error-rate-diagnosis.md` corrects
+the directive's measurement. At the exact 444-record snapshot, 87 runs had the
+default `disposition: error`, but only 14 had every seat classified as `error`.
+Twelve of those 14 were a 2026-08-31 interruption burst: the supervising agent
+session ended first, process teardown interrupted the panel, and the EXIT recorder
+mapped its empty `pending` files to seat errors. The record was an effect of the
+stage interruption, not its cause. One separate shared-quota incident is preserved
+for PR #893; PR #867 lacks enough retained detail to classify.
+
+The recorder now distinguishes `interrupted` seats and panel disposition and
+preserves the exit code. A separate decider retry bug was also fixed, but discarded
+historical stderr cannot establish how many old default-error records took that
+path. Genuine seat and decider failures still need a bounded retry route rather
+than being interpreted as review verdicts.
 
 ### 2.6 Specification errors pass silently and succeed by luck
 
@@ -430,8 +433,11 @@ count, not a convergence measure, so it halts without converging at
 `designs/gauntlet-panel-fix-nonconvergence.md` (Report, awaiting maintainer
 choice): a single-blocker disposition over a 7-seat jury with no severity
 floor, no cross-round memory of what was previously raised or deferred, and
-panel-kind flips from stale base refs; on top of that sits the 19% seat-error
-noise floor (§ 2.5), so roughly one round in five measures nothing at all.
+panel-kind flips from stale base refs. The earlier claimed 19% seat-error noise
+floor was a query error (section 2.5): generic unexpected-exit records were
+counted as simultaneous seat failures. Interruption records still must be excluded
+from convergence measurements, but there is no evidence that one completed panel
+round in five measured seven provider errors.
 This is a sensor-quality and plant-model problem, not a gain problem: raising
 `max_iterations` would spend more without converging (the nonconvergence
 report's cost figure: roughly $51 per gauntlet). The halt itself is
@@ -518,17 +524,14 @@ already exists.
    `INODE-CHECK-UNKNOWN` branch to alert after consecutive failures
    (§ 2.7). Evidence: § 4.2, two near-zero-inode incidents whose failure
    suppressed its own alarm.
-6. **Route panel seat-error into the retry budget, not the decline branch.**
-   [wrong sensor] A `panel.sh` non-zero exit caused by seat/decider error is a
-   sensor failure, not a review verdict: have the panel stage report it
-   distinctly (a `panel-error` stage result rather than
-   `orchestration-failed: true`) so the gauntlet's existing
-   `max_stage_retries` covers it, exactly as it now covers a doomed transient
-   stage. Do not touch `max_iterations` or the disposition rule here; the
-   convergence question is already on the maintainer's desk
-   (`gauntlet-panel-fix-nonconvergence.md`, `evaluation-epochs-panel-calibration.md`)
-   and the seat-error root cause belongs to `diagnose-panel-seat-error-rate`.
-   Evidence: § 2.5, 19% error rate reaching a non-retryable branch.
+6. **Route panel infrastructure outcomes into the retry budget, not the decline
+   branch.** [wrong sensor] An `interrupted`, `seat-error`, or `decider-error`
+   result is not a review verdict. Have the panel stage report it distinctly so
+   the gauntlet's existing `max_stage_retries` covers it. Do not touch
+   `max_iterations` or the disposition rule here; the convergence question is
+   already on the maintainer's desk (`gauntlet-panel-fix-nonconvergence.md`,
+   `evaluation-epochs-panel-calibration.md`). Evidence: section 2.5 and
+   `panel-seat-error-rate-diagnosis.md`.
 7. **Validate job frontmatter at the write side.** [wrong sensor]
    `post-job.sh` and `post-plan.sh` warn (or refuse, behind a flag) on a
    `tier:` outside `job_tier`'s vocabulary and on a non-integer

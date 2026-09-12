@@ -12,12 +12,12 @@
 # `claude -p` overloaded / rate-limited / 5xx) gives the assignment that non-zero
 # status and ABORTS the whole panel — BEFORE the loop can retry. PANEL_DISPOSITION
 # is left at its default `error`, panel.sh exits non-zero, and the gauntlet's panel
-# stage fails and halts. This was the dominant `disposition: error` cluster on
-# journal2 `panel-runs/`: runs whose SEATS had already produced verdicts, yet the
-# run recorded `error` with the decider never retried. It is the SAME transient-
-# provider-failure class the per-seat path was hardened against, missed at the
-# decision hook. The fix tolerates the non-zero exit (`|| _decide_rc=$?`) so the
-# existing retry loop actually runs.
+# stage fails and halts. Historical `disposition: error` records with completed
+# seats are consistent with this path, but their discarded decider stderr cannot
+# establish which one took it. This test establishes the control-flow bug itself.
+# It is the same transient-provider-failure class the per-seat path was hardened
+# against, missed at the decision hook. The fix tolerates the non-zero exit
+# (`|| _decide_rc=$?`) so the existing retry loop actually runs.
 #
 # SUBTEST 1 — RECOVERS: a decider that exits non-zero ONCE then succeeds. The panel
 #             must reach a real disposition (exit 0, terminal token `pass`), and the

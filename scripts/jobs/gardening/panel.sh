@@ -207,27 +207,52 @@ fi
 PANEL_DISPOSITION=error            # overwritten at each terminal path (default: unexpected exit)
 PANEL_APPELLATE_RAN=0
 PANEL_APPELLATE_COUNT=0
+PANEL_MAIN_BASHPID="$BASHPID"
 
-# emit_panel_record — assemble record-meta from the accumulated facts and invoke
+# emit_panel_record <exit-code>: assemble record-meta from the accumulated facts and invoke
 # the writer. Fully defensive: every step is guarded so this can never fail the
 # panel (it runs from an EXIT trap that restores the real exit code).
 emit_panel_record() {
+  local exit_code="${1:-0}" recorded_disposition="$PANEL_DISPOSITION"
+  # An EXIT trap is inherited by the background seat subshells on some Bash
+  # paths. Only the panel process owns the terminal run record.
+  [ "$BASHPID" = "$PANEL_MAIN_BASHPID" ] || return 0
   [ -n "$PANEL_RECORD_WRITER" ] && [ "$PANEL_RECORD_WRITER" != ":" ] || return 0
   [ -e "$PANEL_RECORD_WRITER" ] || return 0
+  # A supervising session teardown signals the panel process group while seats
+  # are still in flight. Bash reports signal termination as 128 + signal number.
+  # The old default `error` erased that distinction, making every empty pending
+  # seat look like an independent provider failure. Preserve explicit terminal
+  # dispositions, but identify a signal that reached the default exit path.
+  case "$exit_code" in
+    ''|*[!0-9]*) ;;
+    *) if [ "$recorded_disposition" = error ] \
+         && [ "$exit_code" -ge 129 ] && [ "$exit_code" -le 192 ]; then
+         recorded_disposition=interrupted
+       fi ;;
+  esac
   {
     echo "repo=$PANEL_RECORD_REPO"
     echo "pr=$pr"
     echo "panel_kind=${panel_kind%-panel}"
     echo "base_ref=$base"
-    echo "disposition=$PANEL_DISPOSITION"
+    echo "disposition=$recorded_disposition"
+    echo "exit_code=$exit_code"
     echo "appellate_ran=$PANEL_APPELLATE_RAN"
     echo "appellate_count=$PANEL_APPELLATE_COUNT"
   } > "$GARDEN_PANEL_RUNDIR/record-meta" 2>/dev/null || return 0
   bash "$PANEL_RECORD_WRITER" emit "$GARDEN_PANEL_RUNDIR" >/dev/null 2>>"$GARDEN_PANEL_RUNDIR/record.log" || true
   return 0
 }
+panel_signal_exit() {
+  PANEL_DISPOSITION=interrupted
+  exit "$1"
+}
 # shellcheck disable=SC2154   # rc IS assigned (rc=$?) inside the trap string
-trap 'rc=$?; emit_panel_record || true; exit $rc' EXIT
+trap 'rc=$?; emit_panel_record "$rc" || true; exit $rc' EXIT
+trap 'panel_signal_exit 129' HUP
+trap 'panel_signal_exit 130' INT
+trap 'panel_signal_exit 143' TERM
 
 # --- SINGLE-ROUND RESUME: reuse a durable panel-run record for THIS head -----
 # The staged gauntlet's panel stage is agent-supervised: the gardener runs this
@@ -665,8 +690,7 @@ while :; do
     # before this retry loop can re-ask — silently discarding the very retry the
     # loop exists to perform, leaving PANEL_DISPOSITION at its default `error`, and
     # failing the gauntlet's panel stage on one blip (the seat path's own lesson,
-    # applied here: this was the dominant `disposition: error` cluster, seats that
-    # had already produced verdicts yet the run recorded `error`). Tolerate the
+    # applied to the equivalent decider path). Tolerate the
     # non-zero exit with `|| _decide_rc=$?`, capture the decider's stderr to the run
     # dir for diagnosis, and let the loop retry; only genuinely-exhausted attempts
     # fall through to the loud, correctly-attributed `decider-error` fail below.

@@ -86,13 +86,17 @@ sanitize() { printf '%s' "${1:-}" | tr -c 'A-Za-z0-9._-' '-'; }
 # meta <key> — read `key=value` from the rundir's record-meta file (first match).
 meta() { sed -n "s/^$2=//p" "$1/record-meta" 2>/dev/null | head -1; }
 
-# classify_seat <block-file> -> pass | must-fix | comment | error
+# classify_seat <block-file> -> pass | must-fix | comment | interrupted | error
 # The seat's own Verdict line is the signal (approve / request-changes /
 # comment-only). An unrecognized-but-non-empty block is a non-blocking `comment`;
-# an empty block is an `error` (panel.sh fails such a seat loudly before we get
-# here, but the classifier stays defensive).
+# an empty completed block is an `error`. A `pending` status means the panel was
+# interrupted before the seat could finish, not that the seat returned an error.
 classify_seat() {
   local v
+  if [ "$(cat "$1.status" 2>/dev/null || true)" = pending ]; then
+    printf 'interrupted'
+    return
+  fi
   v="$(grep -iE 'verdict' "$1" 2>/dev/null | head -1 | tr '[:upper:]' '[:lower:]')"
   case "$v" in
     *request-change*|*'request change'*|*must-fix*|*'must fix'*) printf 'must-fix' ;;
@@ -133,15 +137,17 @@ cmd_emit() {
   local rundir="${1:?usage: panel-run-record.sh emit <rundir>}"
   [ -d "$rundir" ] || { log "WARN: rundir '$rundir' absent; nothing to record"; return 0; }
 
-  local repo pr panel_kind base disp app_ran app_count
+  local repo pr panel_kind base disp exit_code app_ran app_count
   repo="$(meta "$rundir" repo)";           pr="$(meta "$rundir" pr)"
   panel_kind="$(meta "$rundir" panel_kind)"; base="$(meta "$rundir" base_ref)"
   disp="$(meta "$rundir" disposition)"
+  exit_code="$(meta "$rundir" exit_code)"
   app_ran="$(meta "$rundir" appellate_ran)"; app_count="$(meta "$rundir" appellate_count)"
   [ -n "$repo" ] || repo="$(basename "$rundir")"
   [ -n "$pr" ]   || pr="0"
   [ -n "$panel_kind" ] || panel_kind="code"
   [ -n "$disp" ] || disp="error"
+  [ -n "$exit_code" ] || exit_code="unknown"
 
   # Round count + per-round head shas from the rundir (authoritative — panel.sh
   # writes round-<r>.md aggregates and round-<r>.head as it runs). Globbing avoids
@@ -228,6 +234,7 @@ panel_kind: $panel_kind
 base_ref: $base
 rounds: $rounds
 disposition: $disp
+exit_code: $exit_code
 must_fix_total: $mf_total
 appellate_ran: $appellate_field
 appellate_proposals: $appellate_n

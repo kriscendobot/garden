@@ -25,6 +25,8 @@
 #   SUBTEST 4 — re-emitting the SAME run is idempotent (one file, byte-identical).
 #   SUBTEST 5 — a simulated push failure (journal remote unreachable) WARNs and
 #               NEVER fails the panel (a clean pass still exits 0 + un-drafts).
+#   SUBTEST 6: SIGTERM during fan-out records the panel and pending seats as
+#               interrupted, with exit code 143, rather than provider errors.
 #
 # Hermetic: every judgment hook is env-stubbed (no live `claude -p`, no network to
 # GitHub) and the journal is a throwaway bare repo. Backoff is zeroed.
@@ -182,6 +184,66 @@ printf '%s' "$out5" | grep -q 'PASSED' && ok "the panel still un-drafted / annou
   || bad "panel did not complete its terminal step on a record-push failure"
 grep -qi 'WARN' "$S5/rundir/record.log" 2>/dev/null && ok "the push failure is a diagnosable WARN (not a silent swallow)" \
   || bad "no WARN captured for the failed push; record.log: $(cat "$S5/rundir/record.log" 2>/dev/null)"
+
+# ============================================================================
+hr; echo "SUBTEST 6: SIGTERM during fan-out is recorded as interruption, not seat errors"; hr
+scenario_six="$TR/s6"; bare_remote_six="$(seed_board "$scenario_six")"
+mkdir -p "$scenario_six/wt" "$scenario_six/fan"
+setsid env \
+  GARDEN=trh GARDEN_STATE="$scenario_six/state" \
+  JOURNAL_REMOTE="$bare_remote_six" JOURNAL_BRANCH=journal2 \
+  GARDEN_PRODUCER_CLONE="$scenario_six/state/producer/journal" \
+  GARDEN_CODE_SEATS="assessor typist" \
+  GARDEN_PANEL_CONCURRENCY=2 \
+  GARDEN_PANEL_SEAT="$HERE/panel-parallel-fanout-stub.sh" \
+  GARDEN_PANEL_DECIDE="$STUB_DECIDE" \
+  GARDEN_PANEL_APPELLATE=":" \
+  GARDEN_PANEL_UNDRAFT="true" \
+  GARDEN_PANEL_SEAT_BACKOFF=0 \
+  GARDEN_PANEL_RECORD="$JOBS/panel-run-record.sh" \
+  GARDEN_PANEL_RELATED_DESIGN=":" \
+  GARDEN_PANEL_REPO=acme/widget \
+  GARDEN_PANEL_RUNDIR="$scenario_six/rundir" \
+  GARDEN_POST_ATTEMPTS=3 \
+  FAN_DIR="$scenario_six/fan" FAN_SLEEP=30 \
+  bash "$PANEL" "$scenario_six/wt" 606 HEAD~1 >"$scenario_six/out" 2>"$scenario_six/err" &
+panel_process=$!
+statuses_ready=0
+for poll_attempt in $(seq 1 200); do
+  status_count="$(find "$scenario_six/rundir" -type f -name '*.status' 2>/dev/null | wc -l)"
+  if [ "$status_count" -eq 2 ]; then statuses_ready=1; break; fi
+  sleep 0.05
+done
+if [ "$statuses_ready" -eq 1 ]; then
+  kill -TERM -- "-$panel_process" 2>/dev/null || true
+else
+  kill -TERM -- "-$panel_process" 2>/dev/null || true
+  bad "the two seats did not enter pending state before the test deadline"
+fi
+wait "$panel_process"; interrupted_exit_code=$?
+[ "$interrupted_exit_code" -eq 143 ] \
+  && ok "SIGTERM reached panel.sh (exit 143)" \
+  || bad "interrupted panel exited $interrupted_exit_code (want 143); err: $(tail -5 "$scenario_six/err")"
+verification_clone_six="$TR/v6"; verify_clone "$bare_remote_six" "$verification_clone_six"
+record_six="$(record_path "$verification_clone_six")"
+if [ -n "$record_six" ]; then
+  grep -qE '^disposition: interrupted$' "$record_six" \
+    && ok "terminal disposition records the interruption" \
+    || bad "wrong interruption disposition: $(grep '^disposition:' "$record_six")"
+  grep -qE '^exit_code: 143$' "$record_six" \
+    && ok "record preserves exit code 143" \
+    || bad "wrong or absent exit code: $(grep '^exit_code:' "$record_six")"
+  verdict_line="$(grep '^seat verdicts' "$record_six")"
+  printf '%s\n' "$verdict_line" | grep -q 'assessor=interrupted' \
+    && printf '%s\n' "$verdict_line" | grep -q 'typist=interrupted' \
+    && ok "both in-flight seats record as interrupted" \
+    || bad "pending seats were misclassified: $verdict_line"
+  printf '%s\n' "$verdict_line" | grep -q '=error' \
+    && bad "an interrupted seat was recorded as a provider error: $verdict_line" \
+    || ok "no interrupted seat is labeled error"
+else
+  bad "no record landed for the interrupted panel"
+fi
 
 hr
 echo "panel-run-record-test: $PASS passed, $FAIL failed"
