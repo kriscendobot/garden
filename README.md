@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-12T04:06:38Z_
+_As of 2026-09-12T04:09:07Z_
 
 ## Latest
 
@@ -1225,24 +1225,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 199.3k | $2.08 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 107.3k | $0.47 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-minion.town-pr100-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr100-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #100
+### doin (1)
 - [`minion-town-pr69-followup-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr69-followup-hardening.md) — Harden minion.town @sites clip publish: deferred PR #69 panel findings
 
-### tada (7696)
+### tada (7697)
+- [`kriscendobot-minion.town-pr100-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr100-shepherd.md) — Completion report
 - [`kriscendobot-minion.town-pr69-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr69-receipt.md) — Completion report
 - [`kriscendobot-minion.town-pr54-refresh-after-pr69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr54-refresh-after-pr69.md) — Cost
 - [`minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-reset-2.md) — Completion report — minion-town-weblet-ocap-synthesis-units-4-5-land-weekly-r...
 - [`claude-on-minion-town-press-20260912-032026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260912-032026.md) — Completion report
-- [`rebrake-foreman-before-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/rebrake-foreman-before-reset.md) — Cost
-- … and 7691 more
+- … and 7692 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
