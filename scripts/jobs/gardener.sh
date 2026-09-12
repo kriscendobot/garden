@@ -822,8 +822,10 @@ while :; do
     # job fix-stale-bulletin-leader-singleton). FIRST-PASS TRANSIENTS
     # THEREFORE LOG LOCALLY ONLY: the local `log` above stays UNCONDITIONAL
     # (stderr/systemd/journalctl operator visibility), but the SHARED-journal note
-    # fires only on a REPEAT (cycle >= 1) — a second attempt indicates a
-    # deterministic, non-transient cut worth a note, distinct from a one-off blip.
+    # fires only after the first requeued attempt also fails (cycle >= 2), or on
+    # the last pre-doom cycle when a deliberately small threshold makes that
+    # earlier. A job carrying cycle=1 has only been requeued once; publishing that
+    # routine first self-healing retry is the noise this policy is meant to avoid.
     # The reaper — the single writer of the requeue AND the `<!-- garden-reaped:
     # N -->` doom counter — still owns the authoritative escalation; as a repeat
     # nears it (the reaper computes count=cycle+1 and dooms at count>=threshold,
@@ -848,7 +850,7 @@ while :; do
         log "could not persist transient elapsed metadata on '$base' (rc=$?); constancy history may restart next cycle"
       fi
     fi
-    if [ "$cycle" -ge 1 ]; then
+    if [ "$cycle" -ge 2 ] || [ "$cycle" -ge "$(( doom_threshold - 1 ))" ]; then
       near_doom=""
       [ "$cycle" -ge "$(( doom_threshold - 1 ))" ] && near_doom=" — ABOUT TO ESCALATE as doom"
       printf 'gardener-%s on %s: job %s handler exited 0 but never emitted the completion signal (exit-0-unsatisfying — claude quota/usage cut, swallowed API error, or unfinished run); requeueing doin→todo (requeue cycle %s of doom threshold %s, elapsed=%ss), left in doin for reaper requeue%s\n' \
