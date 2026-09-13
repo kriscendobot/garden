@@ -33,3 +33,13 @@ Do NOT run git in $GARDEN_ROOT. This is a garden-library change: main2 direct, n
 PR, per CLAUDE.md conventions.
 
 Skills: skills/model-selection, skills/rename-discipline, skills/local-verify.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-13T14:16:45Z
