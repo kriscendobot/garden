@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T07:00:44Z_
+_As of 2026-09-13T07:05:44Z_
 
 ## Latest
 
@@ -574,8 +574,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`daily-progress-summary-20260913-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260913-070506.md) — Daily midnight Pacific progress summary
 
 ### tada (7803)
 - [`improve-gauntlet-transient-doom`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-transient-doom.md) — Completion report
