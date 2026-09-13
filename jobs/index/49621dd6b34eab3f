@@ -1,2 +1,2 @@
-base: improve-reaper-poison-notice-alert-not-silently-dropped
+base: improve-gauntlet-transient-doom
 identity: mentor:scripts/jobs/reaper.sh
