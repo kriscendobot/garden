@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1125
 build_job: endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test
 kind: feature
-stage: fix
-iteration: 4
+stage: panel
+iteration: 5
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-4
+current_child: endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-panel-5
 state: running
 created_by: producer
 created_at: 2026-09-12T19:40:16Z
