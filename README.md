@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T19:54:42Z_
+_As of 2026-09-13T20:05:58Z_
 
 ## Latest
 
@@ -525,14 +525,19 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 3.6M _(+104.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 29.4M | $267.56 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Codex | 3.7M _(+108.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (3)
+- [`endojs-endo-but-for-bots-pr1270-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1270-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
+- [`claude-on-minion-town-press-20260913-200513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260913-200513.md) — Press the Claude-on-minion.town arc forward
+- [`endojs-endo-but-for-bots-pr1268-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1268-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1268
 
-### doin (1)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1271-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1271-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
+- [`endojs-endo-but-for-bots-pr1272-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1272-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
+- [`endojs-endo-but-for-bots-pr1269-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1269-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1269
 - [`endojs-endo-but-for-bots-pr1267-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1267-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1267
 
 ### tada (7818)
