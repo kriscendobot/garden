@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-09-13T04:20:08Z
-job_basename_prefix: fu-minion-town-containment-gateway-endo-sock-1
----
 ---
 role: gardener
 tier: mentor
