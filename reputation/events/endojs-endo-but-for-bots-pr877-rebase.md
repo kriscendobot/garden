@@ -4,20 +4,20 @@ kind: cleric
 provider: openai
 model: gpt-5.6-sol
 thoughtfulness: medium
-work_class: weave:m
+work_class: weave:s
 target: main2
 accepted: true
 agentic_dollars: censored
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 3.726342
+estimated_dollars: 3.623262
 attempts: 1
-duration_secs: 723
+duration_secs: 703
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-3
-recorded_at: 2026-08-06T06:51:33Z
+recorded_by: endolin-garden-ece02cb4/cleric-1
+recorded_at: 2026-09-13T14:08:18Z
 ---
-reputation event for endojs-endo-but-for-bots-pr877-rebase: arm openai/gpt-5.6-sol/medium work_class weave:m target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr877-rebase: arm openai/gpt-5.6-sol/medium work_class weave:s target main2 accepted true
