@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T20:05:58Z_
+_As of 2026-09-13T20:07:55Z_
 
 ## Latest
 
@@ -525,28 +525,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.4M | $267.56 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 3.7M _(+108.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 29.4M | $267.80 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Codex | 3.7M _(+109.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
-- [`endojs-endo-but-for-bots-pr1270-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1270-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
-- [`claude-on-minion-town-press-20260913-200513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260913-200513.md) — Press the Claude-on-minion.town arc forward
-- [`endojs-endo-but-for-bots-pr1268-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1268-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1268
+### todo (0)
+(none)
 
 ### doin (4)
-- [`endojs-endo-but-for-bots-pr1271-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1271-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
-- [`endojs-endo-but-for-bots-pr1272-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1272-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
+- [`endojs-endo-but-for-bots-pr1270-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1270-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
+- [`claude-on-minion-town-press-20260913-200513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260913-200513.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1269-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1269-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1269
-- [`endojs-endo-but-for-bots-pr1267-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1267-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1267
+- [`endojs-endo-but-for-bots-pr1268-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1268-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1268
 
-### tada (7818)
+### tada (7821)
+- [`endojs-endo-but-for-bots-pr1272-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1272-dependabot.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1267-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1267-dependabot.md) — Cost
+- [`endojs-endo-but-for-bots-pr1271-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1271-dependabot.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260913-183506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260913-183506.md) — Completion report — Claude-on-minion.town completion press, tick 21 (20260913...
 - [`claude-on-minion-town-press-20260913-165011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-165011.md) — What I verified
-- [`endojs-endo-but-for-bots-pr877-weave-20260913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-weave-20260913.md) — Completion report: weave endojs/endo-but-for-bots#877 onto current llm (resumed)
-- [`design-ironhorse-js26-map-set-gap-sequencing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-js26-map-set-gap-sequencing.md) — Cost
-- [`retire-local-qwen-hermit-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/retire-local-qwen-hermit-lane.md) — Completion report — retire-local-qwen-hermit-lane
-- … and 7813 more
+- … and 7816 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
