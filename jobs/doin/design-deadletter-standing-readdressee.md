@@ -35,3 +35,13 @@ present it as a review PR per CLAUDE.md's open-questions carve-out.
 
 Skills: skills/message-bus, skills/design-dependency-walk,
 skills/gardener-inbox-error-reporting.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-13T14:08:26Z
