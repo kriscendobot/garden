@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T23:20:45Z_
+_As of 2026-09-13T23:22:36Z_
 
 ## Latest
 
@@ -526,23 +526,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.2M _(+118.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 4.2M _(+118.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`dependabotany-recheck-endo-but-for-bots-pr1268`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr1268.md) — botanist recheck: endojs/endo-but-for-bots PR #1268 (re-conduct after rebase)
-- [`claude-on-minion-town-press-20260913-232006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260913-232006.md) — Press the Claude-on-minion.town arc forward
 
-### tada (7827)
+### tada (7828)
+- [`claude-on-minion-town-press-20260913-232006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-232006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1268-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1268-dependabot.md) — Botanist completion report — endojs/endo-but-for-bots PR #1268
 - [`endojs-endo-but-for-bots-pr1269-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1269-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots PR #1269
 - [`endojs-endo-but-for-bots-pr1274-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1274-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1273-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1273-dependabot.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1270-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1270-dependabot.md) — Cost
-- … and 7822 more
+- … and 7823 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
