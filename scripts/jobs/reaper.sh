@@ -56,6 +56,14 @@
 #      PAUSES it (holds it steady). The outage exemption is what stops a correlated
 #      outage from mass-dooming a dozen unrelated jobs (the 2026-07-01 incident);
 #      see common.sh § outage-cycle hint and the has_outage_cycle_hint branch below.
+#      One further doom-NOTICE refinement: when the doomed job is a `gauntlet:` STAGE
+#      doomed transient-`requeue-exhausted`, the staged-gauntlet driver (gauntlet.sh)
+#      will consume that held plan entry and re-post the stage under its own bounded
+#      stage-retry budget — so its notice is DEFERRED through the gauntlet-handoff spool
+#      and surfaced only if the supervisor does not consume the entry within
+#      GARDEN_GAUNTLET_HANDOFF_TIMEOUT, preventing self-healed exit-0 churn from making
+#      transient maintainer noise. See the deferred gauntlet-handoff spool below and
+#      gauntlet.sh § failed → retry_failed_stage.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -157,6 +165,36 @@ export GARDEN_TAG="reaper"
 # (idempotent) rather than accreting, and a successful delivery clears it.
 : "${GARDEN_DOOM_SPOOL:=$GARDEN_STATE/reaper/doom-spool}"
 
+# --- deferred gauntlet-handoff spool (self-healed-doom noise suppression) ----
+#
+# A doomed job that is a `gauntlet:` STAGE (a `<g>-clean`/`<g>-panel-k`/`<g>-fix-k`/
+# `<g>-undraft` stage job) and was doomed with sig `requeue-exhausted` +
+# `failure_classification: transient` is NOT a dead end: the staged-gauntlet driver
+# (gauntlet.sh) reads that exact held plan entry, atomically CONSUMES it, and re-posts
+# the stage under its own bounded `max_stage_retries` budget (gauntlet.sh § failed →
+# retry_failed_stage/repost_failed_stage). Surfacing a maintainer doom notice the
+# instant the reaper parks such a stage therefore floods the inbox with alerts for a
+# condition the supervisor is about to self-heal to exit 0 — transient noise for a
+# retry that succeeds on the next gauntlet tick.
+#
+# So a gauntlet-stage transient-requeue-exhausted doom notice is DEFERRED through this
+# spool rather than surfaced immediately: the reaper spools it with a `deferred_at`
+# stamp and lets the gauntlet supervisor race to consume the held plan entry.
+# drain_gauntlet_handoff_spool (top of every tick) then decides, purely from board
+# state in the reaper's own synced clone:
+#   - the held `jobs/plan/<stage>.md` is GONE  → the supervisor consumed it (stage
+#     retried) → DROP the deferred notice silently; the doom self-healed.
+#   - it is still parked past GARDEN_GAUNTLET_HANDOFF_TIMEOUT → the handoff was NOT
+#     consumed in time (the supervisor stalled, or its own stage-retry budget is
+#     exhausted and it halted leaving the plan entry parked) → surface the notice now.
+# The bound must comfortably exceed the gauntlet timer cadence (garden-gauntlet.timer
+# fires every ~3 minutes) so the supervisor gets several ticks to consume the entry
+# before the reaper concludes the handoff failed. A re-doom of the same stage on a
+# later cycle re-spools (overwriting, resetting the timer), so the self-healing loop
+# only surfaces once the gauntlet genuinely gives up.
+: "${GARDEN_GAUNTLET_HANDOFF_SPOOL:=$GARDEN_STATE/reaper/gauntlet-handoff-spool}"
+: "${GARDEN_GAUNTLET_HANDOFF_TIMEOUT:=1800}" # seconds a deferred gauntlet-stage doom notice waits for the supervisor to consume the held plan entry before surfacing
+
 # doom_key <base> <signature> — the deterministic dedup/filesystem key, computed
 # the SAME way doom-notice.sh derives its maintainer-inbox filename, so the spool
 # entry and the notice it recovers share one identity.
@@ -248,6 +286,90 @@ drain_doom_spool() {
     fi
     [ -n "$sender" ] || sender="reaper:$GARDEN"
     surface_doom "$base" "$signature" "$sender" "$body" || true
+  done
+}
+
+# spool_gauntlet_handoff <base> <signature> <sender> <body> <gauntlet-base> — DEFER a
+# gauntlet-stage doom notice instead of surfacing it, so the gauntlet supervisor gets
+# a bounded window to consume the held plan entry and retry the stage. Keyed by the
+# SAME doom_key so a re-doom of the same stage overwrites the prior entry (resetting
+# the deferral timer) rather than accreting — mirroring spool_doom's idempotence. The
+# `deferred_at` stamp is what drain_gauntlet_handoff_spool ages against the bound.
+spool_gauntlet_handoff() {
+  local base="$1" signature="$2" sender="$3" body="$4" gbase="$5" key dest
+  key="$(doom_key "$base" "$signature")"
+  if ! mkdir -p "$GARDEN_GAUNTLET_HANDOFF_SPOOL" 2>/dev/null; then
+    log "WARNING: cannot create gauntlet-handoff spool dir '$GARDEN_GAUNTLET_HANDOFF_SPOOL'; surfacing doom for '$base' immediately instead of deferring"
+    surface_doom "$base" "$signature" "$sender" "$body" || true
+    return 1
+  fi
+  dest="$GARDEN_GAUNTLET_HANDOFF_SPOOL/$key.md"
+  {
+    printf 'base: %s\n'        "$base"
+    printf 'signature: %s\n'   "$signature"
+    printf 'sender: %s\n'      "$sender"
+    printf 'gauntlet: %s\n'    "$gbase"
+    printf 'deferred_at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '---\n'
+    printf '%s\n' "$body"
+  } > "$dest" 2>/dev/null \
+    || { log "WARNING: could not write gauntlet-handoff spool entry '$dest' for '$base'; surfacing doom immediately"; surface_doom "$base" "$signature" "$sender" "$body" || true; return 1; }
+  log "gauntlet-handoff: deferring doom notice for gauntlet stage '$base' (gauntlet '$gbase'); the supervisor may consume its held plan entry and retry within ${GARDEN_GAUNTLET_HANDOFF_TIMEOUT}s"
+  return 0
+}
+
+# drain_gauntlet_handoff_spool — at the top of every tick, resolve every DEFERRED
+# gauntlet-stage doom notice against current board state in the reaper's synced clone:
+#   - held plan entry GONE     → the gauntlet supervisor consumed it (the stage was
+#                                re-posted under its stage-retry budget) → drop silently.
+#   - still parked, within bound → leave it for a later tick.
+#   - still parked, past bound  → the handoff was not consumed in time (a stalled
+#                                supervisor, or an exhausted stage-retry budget that
+#                                halted leaving the entry) → surface the notice now.
+# Runs AFTER sync_clone "$DIR" so the plan/ read is fresh. Never aborts the requeue
+# path (best-effort throughout).
+drain_gauntlet_handoff_spool() {
+  local f base signature sender body gbase deferred_at deferred_epoch age nowsec plan bound
+  [ -d "$GARDEN_GAUNTLET_HANDOFF_SPOOL" ] || return 0
+  local entries=()
+  local e; for e in "$GARDEN_GAUNTLET_HANDOFF_SPOOL"/*.md; do [ -e "$e" ] && entries+=("$e"); done
+  [ "${#entries[@]}" -gt 0 ] || return 0
+  bound="$GARDEN_GAUNTLET_HANDOFF_TIMEOUT"
+  if ! [ "$bound" -ge 1 ] 2>/dev/null; then
+    log "WARNING: GARDEN_GAUNTLET_HANDOFF_TIMEOUT='$bound' is not a positive integer; using 1800"
+    bound=1800
+  fi
+  nowsec="$(date -u +%s)"
+  log "resolving ${#entries[@]} deferred gauntlet-handoff doom notice(s)"
+  for f in "${entries[@]}"; do
+    [ -f "$f" ] || continue
+    base="$(sed -n 's/^base: *//p' "$f" | head -1)"
+    signature="$(sed -n 's/^signature: *//p' "$f" | head -1)"
+    sender="$(sed -n 's/^sender: *//p' "$f" | head -1)"
+    gbase="$(sed -n 's/^gauntlet: *//p' "$f" | head -1)"
+    deferred_at="$(sed -n 's/^deferred_at: *//p' "$f" | head -1)"
+    # Body is everything after the FIRST `---` line (the body may itself contain `---`).
+    body="$(awk 'seen{print} /^---$/{if(!seen){seen=1}}' "$f")"
+    if [ -z "$base" ] || [ -z "$signature" ]; then
+      log "WARNING: malformed gauntlet-handoff spool entry '$f' (missing base/signature); leaving in place for inspection"
+      continue
+    fi
+    [ -n "$sender" ] || sender="reaper:$GARDEN"
+    plan="$DIR/$JOBS_PLAN/$base.md"
+    if [ ! -e "$plan" ]; then
+      log "gauntlet-handoff: '$base' held plan entry was consumed by the gauntlet supervisor (stage retried); dropping the deferred doom notice — self-healed, no maintainer noise"
+      rm -f "$f" 2>/dev/null || true
+      continue
+    fi
+    deferred_epoch=0
+    [ -n "$deferred_at" ] && deferred_epoch="$(date -u -d "$deferred_at" +%s 2>/dev/null || echo 0)"
+    age=$(( nowsec - deferred_epoch ))
+    if [ "$deferred_epoch" -gt 0 ] && [ "$age" -lt "$bound" ]; then
+      continue   # still within the bound — the supervisor may yet consume it
+    fi
+    log "gauntlet-handoff: '$base' held plan entry still parked after ${age}s (>= ${bound}s bound); the gauntlet supervisor did not consume it (stalled or stage-retry budget exhausted) — surfacing the deferred doom notice now"
+    surface_doom "$base" "$signature" "$sender" "$body" || true
+    rm -f "$f" 2>/dev/null || true
   done
 }
 
@@ -561,6 +683,12 @@ gc_scratch
 # clone (doom-notice.sh uses the producer clone), so this never blocks the requeue.
 drain_doom_spool
 
+# Resolve any DEFERRED gauntlet-stage doom notices a prior tick spooled: drop the ones
+# the gauntlet supervisor has since consumed (held plan entry gone → self-healed) and
+# surface only those still parked past the handoff bound. Runs AFTER sync_clone "$DIR"
+# above so the plan/ read is fresh; best-effort, never blocks the requeue path.
+drain_gauntlet_handoff_spool
+
 # --- 1. detect the stale set -------------------------------------------------
 now="${GARDEN_REAPER_NOW:-$(date -u +%s)}"
 case "$now" in
@@ -747,11 +875,16 @@ doomed=0
 staged=0
 declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_CONSTANCY=() DOOM_SIG=() DOOM_BUDGET=()
 declare -a DOOM_TOKEN_BUDGET=() DOOM_TOKEN_SPEND=() DOOM_PROGRESS=()
+# Parallel to DOOM_BASE: the `gauntlet:` base the doomed stage belongs to (empty for a
+# non-gauntlet job) and whether this cycle carried transient proof — together they gate
+# the deferred gauntlet-handoff at flush time.
+declare -a DOOM_GAUNTLET=() DOOM_TRANSIENT=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
   DOOM_BASE=(); DOOM_BODY=(); DOOM_COUNT=(); DOOM_OVERRUN=(); DOOM_CONSTANCY=(); DOOM_SIG=(); DOOM_BUDGET=()
   DOOM_TOKEN_BUDGET=(); DOOM_TOKEN_SPEND=(); DOOM_PROGRESS=()
+  DOOM_GAUNTLET=(); DOOM_TRANSIENT=()
   mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
     spine="${base%.md}"
@@ -941,6 +1074,13 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       exec_model="$(plan_field "$f" model)"
       exec_budget_role="$(plan_field "$f" handler-budget-role)"
       exec_timeout="$(plan_field "$f" handler-timeout)"
+      # Whether this doomed job is a gauntlet STAGE (carries a `gauntlet:` header naming
+      # its driver record). Captured BEFORE git rm removes the doin file, and gated with
+      # the transient flag below so the flush loop can DEFER a self-healable stage doom
+      # to gauntlet.sh's bounded stage-retry handoff instead of surfacing it at once.
+      doom_gauntlet="$(plan_field "$f" gauntlet)"
+      doom_transient=0
+      [ "$sig" = requeue-exhausted ] && [ "$last_cycle_transient" -eq 1 ] && doom_transient=1
       # The reason counts live in plan frontmatter below. Strip their cycle markers,
       # along with every other per-cycle hint, so a parked body is inert even before
       # the promotion-side reset runs.
@@ -1001,6 +1141,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       DOOM_BUDGET+=("$doomed_budget")
       DOOM_TOKEN_BUDGET+=("$token_budget"); DOOM_TOKEN_SPEND+=("$token_spend")
       DOOM_PROGRESS+=("$progress")
+      DOOM_GAUNTLET+=("$doom_gauntlet"); DOOM_TRANSIENT+=("$doom_transient")
     else
       # A stale Moonshot claim is an already-running automatic job, not a new
       # dispatch. Never touch a live doin claim before it reaches this reaper path;
@@ -1172,7 +1313,21 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
                  "$pbase" "${DOOM_BODY[$i]}"
         )"
-        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+        # A gauntlet STAGE doomed transient-requeue-exhausted is about to be self-healed
+        # by the staged-gauntlet supervisor: it reads this held plan entry, atomically
+        # consumes it, and re-posts the stage under its own bounded stage-retry budget.
+        # DEFER the maintainer notice through the bounded handoff spool rather than
+        # surfacing it now, so a retry that exits 0 next gauntlet tick makes no inbox
+        # noise. drain_gauntlet_handoff_spool surfaces it only if the supervisor does not
+        # consume the entry within GARDEN_GAUNTLET_HANDOFF_TIMEOUT (a stalled supervisor,
+        # or an exhausted stage-retry budget that halted leaving the entry parked).
+        if [ "$psig" = requeue-exhausted ] \
+          && [ -n "${DOOM_GAUNTLET[$i]:-}" ] \
+          && [ "${DOOM_TRANSIENT[$i]:-0}" -eq 1 ]; then
+          spool_gauntlet_handoff "$pbase" "$psig" "reaper:$GARDEN" "$pbody" "${DOOM_GAUNTLET[$i]}" || true
+        else
+          surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+        fi
       fi
     done
     break
