@@ -1,6 +1,3 @@
-once: 2026-09-13T23:00:53Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots-pr1268
----
 ---
 tier: mentor
 fallback-tier: minion
