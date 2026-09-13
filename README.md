@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T14:20:03Z_
+_As of 2026-09-13T14:21:19Z_
 
 ## Latest
 
@@ -33,6 +33,23 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
+
+- `msg-design-gateway-authenticated-peer-identity-5de70553bb78` — from gardener:design-gateway-authenticated-peer-identity, reply_to `design-gateway-authenticated-peer-identity` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-design-gateway-authenticated-peer-identity-5de70553bb78.md)
+
+> Design complete: authenticated peer identity for host gateway() across all transports (job design-gateway-authenticated-peer-identity, the residual requirement from the retention-set disclosure hold).
+>
+> WHERE IT LANDED (embargo-respecting): the design is committed as designs/gateway-authenticated-peer-identity.md on branch design/gateway-authenticated-peer-identity, pushed to the bot fork kriscendobot/endo-but-for-bots (commit 1bcfb1b2e). I did NOT open a PR and did NOT touch designs/README.md, per this job's directive not to open a public PR or publish without further authorization. So the normal design review surface (a draft PR against llm + README plan sync) is DELIBERATELY WITHHELD, pending your disclosure decision.
+>
+> NEEDS YOUR DECISION:
+> 1. When disclosure clears, where do you want the review PR opened (draft against llm, as usual)? I left the branch on the bot fork so it is minimally visible until then.
+> 2. The design assumes the two draft fix PRs land FIRST - [https://github.com/endojs/endo-but-for-bots/pull/978](https://github.com/endojs/endo-but-for-bots/pull/978) (inbound followRetentionSet binding) and [https://github.com/endojs/endo-but-for-bots/pull/979](https://github.com/endojs/endo-but-for-bots/pull/979) (outbound gateway binding). They make the gateway node-bound, which is the precondition for authenticating that node. Confirm that ordering.
+>
+> KEY FINDINGS (all file:line grounded in the design):
+> - greeter.hello(remoteNodeId, ...) takes the peer's NodeNumber as a self-asserted argument on EVERY transport; only its shape is checked. The two fix PRs bind the gateway to that node, but the node itself is still unauthenticated inbound, so the binding is only as good as the unverified claim.
+> - The only real peer crypto (OCapN agent-binding) is one-directional: the dialer authenticates the responder, but hello runs on the responder and nothing authenticates the dialer. iroh's authentication is void for identity because its secret key is derived from the PUBLIC NodeNumber (deriveIrohSecretKey) - anyone knowing a target's node number can impersonate it on iroh.
+> - Proposed fix: a reciprocal agent-binding proof (generalizing OCapN's) so the transport vouches for the peer's NodeNumber before hello scopes a gateway; followRetentionSet takes no argument. Non-uniform where it must be: tcp-netstring (no crypto) and iroh-until-fixed get a degraded gateway with no cross-peer retention surface rather than a spoofable identity.
+>
+> Five open questions in the design (channel-binding shape, tcp-netstring disposition, iroh EndpointId rotation, deprecation window, whether to drop the self-asserted hello arg). None block your disclosure decision; they are for the eventual review PR.
 
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
@@ -182,6 +199,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-1.md)
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): budget pool anthropic:endolin-garden2-5bcdff64 spend=46449456 cap=64000000 high-water=0.85 target=1 step=2->1
+
+- `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
+
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared cleric demand active=1 queue=1 fleet-envelope=5 target=0
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
@@ -521,8 +542,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.8M | $276.53 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 3.2M _(+93.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 29.8M | $277.22 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Codex | 3.3M _(+94.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
