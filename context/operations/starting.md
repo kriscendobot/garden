@@ -79,7 +79,8 @@ proceed on a cross-host hostname collision.
    ```sh
    # only after: codex installed + `codex login` (cleric), MOONSHOT_API_KEY exported
    # (mystic), FIREWORKS_API_KEY exported (fireworker), OPENROUTER_API_KEY exported
-   # (openrouter), OLLAMA_CLOUD_API_KEY exported (friar), ollama + a pulled model (hermit)
+   # (openrouter), OLLAMA_CLOUD_API_KEY exported (friar). NOTE: the `hermit` local-qwen
+   # lane is RETIRED (2026-09-13) — pinned to 0, do not arm it.
    scripts/jobs/set-workers.sh cleric 4 "$(hostname -s)"
    ```
 

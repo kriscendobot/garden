@@ -586,7 +586,9 @@ gr=$(grep -c '^garden-friar@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gm" -eq 2 ] && ok "scale monk 2 -> garden-monk@{1,2} armed (canonical Anthropic pool renders + scales)" || bad "monk scale (@1-2=$gm)"
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
-[ "$gh" -eq 2 ] && ok "scale hermit 2 → garden-hermit@{1,2} armed (new kind scalable, no arg-parse edit)" || bad "hermit scale (@1-2=$gh)"
+# RETIRED LANE (2026-09-13): scale() clamps hermit to 0, so a requested count of 2
+# arms NOTHING — the local-qwen lane is pinned inert (job retire-local-qwen-hermit-lane).
+[ "$gh" -eq 0 ] && ok "scale hermit 2 → 0 hermit units armed (RETIRED lane, count clamped to 0)" || bad "hermit retirement clamp (@1-2=$gh, expected 0)"
 [ "$gk" -eq 1 ] && ok "scale mystic 1 -> garden-mystic@1 armed (hosted pool independently scalable)" || bad "mystic scale (@1=$gk)"
 [ "$gf" -eq 1 ] && ok "scale fireworker 1 -> garden-fireworker@1 armed (Fireworks pool independently scalable)" || bad "fireworker scale (@1=$gf)"
 [ "$go" -eq 1 ] && ok "scale openrouter 1 -> garden-openrouter@1 armed (OpenRouter pool independently scalable)" || bad "openrouter scale (@1=$go)"

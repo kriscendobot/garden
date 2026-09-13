@@ -321,6 +321,16 @@ scale() {
   else
     kind="gardener"; n="${1:?usage: install-units.sh scale [<kind>] <N>}"
   fi
+  # RETIRED LANE pin (2026-09-13 maintainer decision, job
+  # retire-local-qwen-hermit-lane): the local-qwen `hermit` lane is dropped. Clamp its
+  # count to 0 here — the single point every scaler tick flows through — so no host
+  # can arm a hermit pool regardless of a stale `hermits: N` line in a journal host
+  # file, and reconcile_ollama_unit(0) below tears the local endpoint down. The kind
+  # stays registered (shared `local` provider machinery + old records still resolve).
+  if [ "$kind" = hermit ] && [ "${n:-0}" -ne 0 ]; then
+    log "hermit lane retired 2026-09-13; pinning count 0 (requested $n ignored)"
+    n=0
+  fi
   local unit_base; unit_base="$(worker_kind_field "$kind" unit)"   # garden-gardener@ / garden-cleric@ / garden-hermit@
   # Enable + start each intended worker, split into the cheap synchronous file op
   # and the slow start job so neither blocks the reconcile loop. `enable` just

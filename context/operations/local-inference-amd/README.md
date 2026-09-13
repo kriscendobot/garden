@@ -1,5 +1,13 @@
 # Local LLM inference on the AMD Ryzen (Strix Halo) host
 
+> **RETIRED (2026-09-13).** The `hermit` local-qwen worker lane this guide arms is
+> dropped by maintainer decision (muster; job `retire-local-qwen-hermit-lane`): the
+> served default is too small to be useful and a larger MoE would cost tens of GiB of
+> watched disk. `hermits` is pinned to 0 (the scaler clamps it; `set-hermits.sh`
+> refuses a nonzero count), so **do not stand up a hermit pool.** The GPU/ROCm/Ollama
+> host-setup material below is retained for reference and for the still-live sysop
+> `local-model` provisioning op, but the fleet no longer arms a `hermit` worker.
+
 Host-setup and integration guide for running a local, OpenAI-compatible LLM
 endpoint on this garden's AMD Ryzen host (AI Max+ 395 / Radeon 8060S, gfx1151),
 so the fleet can add a **third worker backend** — a `hermit` worker that

@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-08-22
+updated: 2026-09-13
 author: gardener
 ---
 
@@ -16,7 +16,7 @@ unclassified and cannot acquire an automatic route.
 | --- | --- | --- |
 | mentat | Claude Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. |
 | mentor | Anthropic Opus 5 (`claude-opus-5`), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Highest tier automatic producers may emit. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
-| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen, Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`), Ollama Cloud Qwen 3.5 (`qwen3.5:cloud`) | The tier below mentor; the automatic fallback tier. |
+| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen (`hermit` lane RETIRED 2026-09-13 — pool pinned 0, no worker claims it), Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`), Ollama Cloud Qwen 3.5 (`qwen3.5:cloud`) | The tier below mentor; the automatic fallback tier. |
 | myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
 
 **Fireworks mentor collision (GLM 5.2 vs Kimi K3).** Both Fireworks mentor models
@@ -54,6 +54,16 @@ are **cadence-gated**: a row not re-attested within 24h **fails closed automatic
 Explicit-model-only like the stable lane. Attest/rip-cord tooling and the recheck
 schedule: [`context/operations/openrouter.md`](../../context/operations/openrouter.md)
 § The promo (stealth) lane.
+
+**Local Qwen (`hermit`) — RETIRED (2026-09-13).** The on-box Ollama lane (`hermit`
+worker, provider `local`, e.g. `qwen3.6`) is dropped by maintainer decision: the
+served default is too small to be useful and a larger MoE would cost tens of GiB of
+watched disk. The kind stays registered (the shared `local` provider machinery, the
+qwen3.6 mentor-shaped trial, and old journal records still resolve) but is pinned
+inert — the scaler clamps its count to 0 and `set-hermits.sh` refuses a nonzero
+count, so no host arms it and the `local qwen3.6` inventory row never earns a claim.
+The friar (Ollama Cloud) lane below is unaffected — a separate, paid, external
+provider.
 
 **Ollama Cloud (`friar`, explicit-model-only, disabled by default).** The `friar`
 kind runs **Claude Code** (`claude`) against **Ollama Cloud** (ollama.com's

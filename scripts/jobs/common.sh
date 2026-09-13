@@ -676,6 +676,16 @@ worker_kind_field() {
         *) return 1 ;;
       esac ;;
     hermit)
+      # RETIRED LANE (2026-09-13 maintainer decision, muster; job
+      # retire-local-qwen-hermit-lane). The local-qwen `hermit` lane is DROPPED —
+      # accepted at `hermits: 0`: the served default (qwen3:0.6b) is too small to be
+      # useful and promoting to the 35B-A3B MoE would cost tens of GiB of watched
+      # disk. The kind stays REGISTERED (not deleted) so the shared `local` provider
+      # machinery, the qwen3.6 mentor-shaped trial, and old journal records still
+      # resolve; it is pinned INERT — the scaler clamps its count to 0
+      # (install-units.sh scale(), reconcile_ollama_unit(0) then keeps the endpoint
+      # down), and set-hermits.sh refuses a nonzero count. No host arms it.
+      #
       # The provider: local codex-cleric (guide §4, cleric-worker-bid-auction-
       # reputation.md §2.2 "Adding a third backend"). It REUSES the codex handler
       # verbatim — the handler is provider-parameterized and, seeing provider=local,

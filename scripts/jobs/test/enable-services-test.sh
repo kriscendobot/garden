@@ -254,13 +254,12 @@ grep -q 'disable garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
   && ok "@2's cheap disable ran (only its non-blocking stop hit the bound)" || bad "@2's disable not issued"
 
 # ============================================================================
-hr; echo "HERMIT-GATE — garden-ollama tracks the hermit count, off on zero-hermit"; hr
-# The supervised local-inference endpoint (garden-ollama.service) is needed ONLY where
-# hermit (provider: local) workers run. It is EXCLUDED from the standing enable set
-# (asserted below via the derived-set diff already run) and instead armed by the
-# hermit scale path: `scale hermit N>0` enables+starts it, `scale hermit 0` disables+
-# stops it, and a gardener/cleric scale never touches it. A zero-hermit host (no
-# `hermits:` line → the scaler never calls `scale hermit`) thus never enables it.
+hr; echo "HERMIT-GATE — RETIRED lane: hermit clamps to 0, garden-ollama stays down"; hr
+# RETIRED LANE (2026-09-13, job retire-local-qwen-hermit-lane). The local-qwen hermit
+# lane is dropped: scale() clamps the hermit count to 0, so the supervised endpoint
+# (garden-ollama.service) is NEVER enabled by a hermit scale — reconcile_ollama_unit(0)
+# keeps it disabled/stopped for any requested count. It remains EXCLUDED from the
+# standing enable set, and a gardener/cleric scale still never touches it.
 reset_mock
 # It must NOT be in the standing enable set (enable-services never enables it).
 populate_dest
@@ -268,14 +267,15 @@ populate_dest
 grep -qxF 'garden-ollama.service' "$GARDEN_MOCK_STATE" \
   && bad "garden-ollama was auto-enabled by enable-services (should be hermit-gated)" \
   || ok "garden-ollama NOT in the standing enable set (hermit-count-gated)"
-# scale hermit 2 → enable+start garden-ollama.
+# scale hermit 2 → clamped to 0 → garden-ollama DISABLED (retired lane, endpoint down).
 reset_mock
 HG="$TR/hermit-gate"; rm -rf "$HG"
 GARDEN_STATE="$HG" "$INSTALL" scale hermit 2 >/dev/null 2>&1
 grep -qxF 'garden-ollama.service' "$GARDEN_MOCK_STATE" \
-  && ok "scale hermit 2 → garden-ollama enabled (endpoint up)" || bad "scale hermit 2 did NOT enable garden-ollama"
-grep -q 'start --no-block garden-ollama.service' "$GARDEN_MOCK_LOG" \
-  && ok "scale hermit 2 → garden-ollama started (non-blocking)" || bad "scale hermit 2 did NOT start garden-ollama"
+  && bad "scale hermit 2 enabled garden-ollama (RETIRED lane must clamp to 0, endpoint down)" \
+  || ok "scale hermit 2 → garden-ollama NOT enabled (retired lane, count clamped to 0)"
+grep -q 'disable garden-ollama.service' "$GARDEN_MOCK_LOG" \
+  && ok "scale hermit 2 → garden-ollama disabled (clamped to 0, endpoint down)" || bad "scale hermit 2 did NOT disable garden-ollama"
 # scale gardener 3 must NOT touch garden-ollama.
 reset_mock
 GARDEN_STATE="$HG" "$INSTALL" scale gardener 3 >/dev/null 2>&1

@@ -6,6 +6,13 @@ author: gardener
 
 # Operating the qwen3.6 mentor-shaped trial
 
+> **ON HOLD (2026-09-13).** This trial runs `provider: local` jobs that only a
+> `hermit` worker can claim, and the local-qwen `hermit` lane is now RETIRED
+> (maintainer decision; job `retire-local-qwen-hermit-lane`, pool pinned to 0). With
+> no hermit armed, trial jobs cannot be claimed — do not post new slots. The trial's
+> machinery stays in the tree so records resolve; reviving it needs the maintainer to
+> un-retire the local lane first.
+
 This is a six-job canary experiment, not a promotion. `qwen3.6` remains
 `local/minion` in the closed inventory and never joins ordinary mentor auctions.
 
