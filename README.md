@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T14:08:56Z_
+_As of 2026-09-13T14:10:07Z_
 
 ## Latest
 
@@ -42,10 +42,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ironhorse-test262-fable-supervisor-20260829-gauntlet HALTED: stage 'ironhorse-test262-fable-supervisor-20260829-gauntlet-fix-2' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
-- `20260819T003825Z-b548b6` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003825Z-b548b6.md)
-
-> From report `issue-kriskowal-garden-67`: next steps are (1) turning "phase 0" (structural shapes + explicit membership checks, no registry/new authority) into an actual PR on the fork, and (2) drilling into the two-phase attestation mechanism against the resolver's existing invitation-based reporting path. This touches the `kriscendobot/agoric-sdk` fork, which per standing scope needs your call rather than an autonomous job.
-
 - `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-08-04T10:22:02Z, latest 2026-09-13T05:22:02Z).
@@ -78,10 +74,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > They share the "powers value + 404 bootstrap" signature of the 08-31 record that was de-registered, so I'm flagging rather than quiet-passing. I did NOT de-register them (they're new records, not the named ones reappearing, and de-registration under the deliberately-open powers plane could be wrong). Decide whether these two are expected; if not, say so and I (or a follow-up) can de-register exactly as before.
 
-- `20260819T003940Z-06bfa7` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003940Z-06bfa7.md)
-
-> From report `self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`: need a decision on `worktrees/kriskowal-garden.git` — remove it or re-point its origin.
-
 - `msg-issue-kriscendobot-garden-90-057fad80de71` — from scholar:issue-kriscendobot-garden-90, reply_to `issue-kriscendobot-garden-90` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-issue-kriscendobot-garden-90-057fad80de71.md)
 
 > The topology work is useful to Garden as a future model-characterization and regression signal, but not as a safety gate. I ingested both Robinson et al. papers as six sections: the 2024 paper measures stratified, negatively curved token spaces in three open models; the 2025 sequel reconstructs token topology from structured responses and validates local dimension on one model. The Endo relationship is complementary: topology may indicate where model behavior is unstable, while SES/object capabilities limit what that unreliable behavior is authorized to affect. The full result is in the journal entry for `issue-kriscendobot-garden-90`.
@@ -110,10 +102,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden-ece02cb4-1.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): budget pool anthropic:endolin-garden-ece02cb4 spend=101799056 cap=143000000 high-water=0.85 target=1 step=2->1
-
-- `20260728T173844Z-cfda47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T173844Z-cfda47.md)
-
-> Report `build-exo-google-sheets-facets` ([endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/issues/881), with #874) flags the design's thin follow-on layers `SheetsService` and `SpreadsheetStructure` as still unbuilt, "a natural next job once #874 and this land." Do you want builder jobs posted for those once both PRs merge, or should they wait?
 
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
@@ -207,14 +195,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
 
-- `20260819T003849Z-3a1d32` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003849Z-3a1d32.md)
-
-> From report `qwen-model-watch-20260728-180502` (echoed by `fu-qwen-model-watch-20260728-180502-1-20260728-223502`): decide the local qwen lane's fate — promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop it (`qwen3:0.6b` is small enough it isn't obviously useful).
-
-- `20260819T003451Z-370a6d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003451Z-370a6d.md)
-
-> From report `deadmail-20260728T074423Z-6bee53`: the new dead-letter anti-pattern documents that a botanist rendering MERGE-NOW and exiting while the approval gate blocks leaves no living addressee for a later correction, but doesn't fix the delivery gap itself. Worth deciding whether/how to close it (e.g. a standing re-addressee) — flagging for your call rather than guessing at the mechanism.
-
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-08-08T15:52:01Z, latest 2026-09-03T02:22:02Z).
@@ -282,10 +262,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > seats). Dispatched: review-improve-merge-base-pinning (deferred builder). Full report in
 > the job completion.
 
-- `20260819T003813Z-b83dfb` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003813Z-b83dfb.md)
-
-> From report `ironhorse-js-26-map-methods`: four cross-cutting engine-wide gaps (each would close residuals across the whole js-26 Map/Set-methods proposal) each warrant their own feature increment. Worth your prioritization call on sequencing before I queue them.
-
 - `20260904T115830Z-07a1c6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T115830Z-07a1c6.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -315,10 +291,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > For completeness, the other two active powers records are the known 08-12 baseline, unchanged: a0eeea3c… (powers:"formula:live-deploy-verification", owner e9a9096e, non-dckc) and f220b5fe… (powers:"powers-fixture", ownerless). The remaining 18 dckc records are plain content weblets (contentRoot/directoryId/owner).
 >
 > I took no action on the two legacy records: they are not reappearances of the de-registered set (different hashes/powers), and the powers plane is deliberately open, so de-registering them is a maintainer call. Question: should 806fc2ea (counter) and c016601e (@none) be revoked into vhosts-revoked, or are they known/expected owner experimentation on the opened powers plane (leave as-is)?
-
-- `20260819T003456Z-bdaa62` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260819T003456Z-bdaa62.md)
-
-> From report `deadmail-20260812T232828Z-4f1d09`: need a decision on disclosure timing before any public fork PR goes up for the pushed branch (no PR exists yet). Separately, the same report flags a real gap worth tracking — authenticated peer identity in host `gateway()` is missing across all transports, which is what lets the cross-peer retained-formula-number following gap stay open. Given the security-sensitive framing, routing both to you rather than autonomously spawning work.
 
 - `20260904T004311Z-629bc3` — from scholar:scholar-ingest-cedar-access-control-for-ai-agents, reply_to `scholar-ingest-cedar-access-control-for-ai-agents` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T004311Z-629bc3.md)
 
@@ -549,8 +521,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.5M | $270.32 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 3.0M _(+89.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 29.5M | $271.23 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Codex | 3.1M _(+89.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
