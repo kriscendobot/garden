@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T23:49:43Z_
+_As of 2026-09-13T23:51:35Z_
 
 ## Latest
 
@@ -526,14 +526,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.2M _(+124.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 4.2M _(+124.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`dependabotany-recheck-endo-but-for-bots-pr1268`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr1268.md) — botanist recheck: endojs/endo-but-for-bots PR #1268 (re-conduct after rebase)
+- [`improve-dependabotany-schedule-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-schedule-budget.md) — ---
 
 ### tada (7828)
 - [`claude-on-minion-town-press-20260913-232006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-232006.md) — Cost
