@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T22:03:39Z_
+_As of 2026-09-13T22:11:17Z_
 
 ## Latest
 
@@ -185,9 +185,9 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #1049 (first seen 2026-09-05T15:44:01Z, latest 2026-09-13T21:08:02Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 1049 times; this is ONE
-> coalesced notice that updates in place, not 1049 messages. Latest detail:
+> WATCHDOG notice — occurrence #1070 (first seen 2026-09-05T15:44:01Z, latest 2026-09-13T22:11:01Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 1070 times; this is ONE
+> coalesced notice that updates in place, not 1070 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
 > is no available canary to validate 6ce1c61ab13b. Per designs/follower-self-deploy.md
