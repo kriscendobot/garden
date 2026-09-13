@@ -33,13 +33,5 @@ Skills: skills/conflict-resolution, skills/rebase-hygiene-audit,
 skills/pr-ci-watch, skills/fully-qualified-github-urls.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=2298 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-13T14:00:10Z
+
+<!-- garden-reaped: 1 -->
