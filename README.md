@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T06:53:20Z_
+_As of 2026-09-13T07:00:44Z_
 
 ## Latest
 
@@ -567,23 +567,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $266.76 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.3M | $266.19 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 2.7M _(+81.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-gauntlet-transient-doom`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-transient-doom.md) — ---
+### doin (0)
+(none)
 
-### tada (7802)
+### tada (7803)
+- [`improve-gauntlet-transient-doom`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-transient-doom.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260913-062006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260913-062006.md) — Completion report — Claude-on-minion.town completion press, tick 19
 - [`claude-on-minion-town-press-20260913-042008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-042008.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260913-042008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260913-042008.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-te...
-- [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-6.md) — Completion report — Gauntlet FIX round 6, endojs/endo-but-for-bots PR #1125
-- … and 7797 more
+- … and 7798 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
