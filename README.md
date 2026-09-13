@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T09:39:22Z_
+_As of 2026-09-13T09:53:19Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 11d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 12d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 14d)
-- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 16d)
-- [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 16d)
+- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 17d)
+- [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 17d)
 
 _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -205,9 +205,9 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #814 (first seen 2026-09-05T15:44:01Z, latest 2026-09-13T08:53:02Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 814 times; this is ONE
-> coalesced notice that updates in place, not 814 messages. Latest detail:
+> WATCHDOG notice — occurrence #834 (first seen 2026-09-05T15:44:01Z, latest 2026-09-13T09:53:02Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 834 times; this is ONE
+> coalesced notice that updates in place, not 834 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
 > is no available canary to validate fcd9ed24d509. Per designs/follower-self-deploy.md
