@@ -32,3 +32,13 @@ questions, present it as a review PR per CLAUDE.md's open-questions carve-out.
 
 Skills: skills/design-dependency-walk, skills/pr-dependency-topo-sort,
 skills/test262-independent-assertions, skills/regression-evidence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-13T14:22:46Z
