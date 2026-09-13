@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T13:56:35Z_
+_As of 2026-09-13T14:01:10Z_
 
 ## Latest
 
@@ -119,14 +119,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
 
-- `20260904T185505Z-1fa9c3` — from gardener:xs2rust-endor-press-20260904-185016, reply_to `xs2rust-endor-press-20260904-185016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T185505Z-1fa9c3.md)
-
-> Ironhorse press (dispatch 20260904-185016) — one maintainer-actionable item, no fleet action needed:
->
-> **[endojs/endo-but-for-bots#945](https://github.com/endojs/endo-but-for-bots/issues/945) (design: Endor bytecode precompile + content-addressed cache) is blocked purely on your re-review.** It has sat at CHANGES_REQUESTED since your 2026-08-06 review. We (kriscendobot) responded to all 6 review threads — most recently 2026-08-31 — but the threads stay open and reviewDecision stays CHANGES_REQUESTED until you re-review. No further fixer work is warranted; it needs a maintainer decision (re-review / approve / close). Flagging rather than dispatching redundant fixer churn.
->
-> Rest of the press is healthy: [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113)'s reweave→regauntlet is owned by a live orchestration (ironhorse-1113-reweave-regauntlet-20260904b, running); the walker fixture-parity campaign concluded (no active/halted children); endor-git prototype PRs [endojs/endo-but-for-bots#1081](https://github.com/endojs/endo-but-for-bots/issues/1081) and [endojs/endo-but-for-bots#1082](https://github.com/endojs/endo-but-for-bots/issues/1082) are gap-revealing drafts by design.
-
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
 > budget pool anthropic:endolin-garden2-5bcdff64 changed zone ok -> backoff at spend=56395181 of cap=64000000 (high-water 0.85; Friday 20:00 Pacific window).
@@ -242,16 +234,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 87 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
-
-- `20260904T073302Z-cd6ed2` — from gardener:xs2rust-endor-press-20260904-072014, reply_to `xs2rust-endor-press-20260904-072014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T073302Z-cd6ed2.md)
-
-> Ironhorse press (hourly): one newly-actionable item — **[endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877)** `feat(endor): execute dual-build npm packages`.
->
-> - CI is now **green (28/28 checks success)** on head `1199cbe4`. The floating-Node-24.x/better-sqlite3 infra bug that gated its cluster has cleared: siblings **[endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) merged 08-25** and **[endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) merged 08-30**.
-> - But [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877)'s **approval is stale**: kriskowal APPROVED on 08-16, then the branch was **fully rebuilt on 08-26** (4 new commits, incl. a re-authored `feat(endor): execute dual-build npm packages` + shared fixtures + base64 refactor). It has sat idle 8 days with no live worker.
-> - Not a fixer target (approved, no CHANGES_REQUESTED). It needs a **re-glance of the rebuilt head, then merge to `llm`** — a maintainer call, since I won't auto-merge a feature whose approval predates a full rebuild. Want me to dispatch a conductor (merge) or a re-review first?
->
-> Everything else is owned/deferred: campaign concluded; [endojs/endo-but-for-bots#1138](https://github.com/endojs/endo-but-for-bots/issues/1138) (general-JS-compat part 1) merged 06:18Z by kumavis and [endojs/endo-but-for-bots#1103](https://github.com/endojs/endo-but-for-bots/issues/1103) closed unmerged (external codex work); [endojs/endo-but-for-bots#855](https://github.com/endojs/endo-but-for-bots/issues/855) and [endojs/endo-but-for-bots#945](https://github.com/endojs/endo-but-for-bots/issues/945) addressed and awaiting your re-review; [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113) test262 ratchet has a live supervisor.
 
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
@@ -567,15 +549,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $266.19 _(notional, rate-card)_ | 20% of 143.0M (ok) |
-| Codex | 2.8M _(+81.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 29.3M | $266.40 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Codex | 2.9M _(+84.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr877-weave-20260913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave-20260913.md) — ---
+- [`endojs-endo-but-for-bots-pr945-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr877-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #877
+- [`endojs-endo-but-for-bots-pr945-review-e4e7a891`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-review-e4e7a891.md) — Review directive on endojs/endo-but-for-bots PR #945
 
 ### tada (7808)
 - [`claude-on-minion-town-press-20260913-133509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-133509.md) — Cost
@@ -898,6 +883,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1125-review-4e1469ed-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-review-4e1469ed-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1125-review-35c43da7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-review-35c43da7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr945-review-e4e7a891-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr945-review-e4e7a891-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #945 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
