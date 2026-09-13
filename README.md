@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T14:31:57Z_
+_As of 2026-09-13T14:34:56Z_
 
 ## Latest
 
@@ -521,24 +521,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.5M | $271.48 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 3.5M _(+101.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 29.5M | $271.64 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Codex | 3.5M _(+104.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr877-weave-20260913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave-20260913.md) — ---
-- [`design-ironhorse-js26-map-set-gap-sequencing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-js26-map-set-gap-sequencing.md) — ---
 
-### tada (7814)
+### tada (7815)
+- [`design-ironhorse-js26-map-set-gap-sequencing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-js26-map-set-gap-sequencing.md) — Cost
 - [`retire-local-qwen-hermit-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/retire-local-qwen-hermit-lane.md) — Completion report — retire-local-qwen-hermit-lane
 - [`design-gateway-authenticated-peer-identity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-gateway-authenticated-peer-identity.md) — Completion report — design-gateway-authenticated-peer-identity
 - [`endojs-endo-but-for-bots-pr945-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-receipt.md) — Cost
 - [`design-deadletter-standing-readdressee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-deadletter-standing-readdressee.md) — Cost
-- [`endojs-endo-but-for-bots-pr945-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-conduct.md) — Completion report
-- … and 7809 more
+- … and 7810 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
