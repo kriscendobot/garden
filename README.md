@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T07:05:44Z_
+_As of 2026-09-13T07:11:17Z_
 
 ## Latest
 
@@ -574,16 +574,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`daily-progress-summary-20260913-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260913-070506.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
-### tada (7803)
+### tada (7804)
+- [`daily-progress-summary-20260913-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260913-070506.md) — Completion report
 - [`improve-gauntlet-transient-doom`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-transient-doom.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260913-062006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260913-062006.md) — Completion report — Claude-on-minion.town completion press, tick 19
 - [`claude-on-minion-town-press-20260913-042008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-042008.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260913-042008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260913-042008.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-te...
-- … and 7798 more
+- … and 7799 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
