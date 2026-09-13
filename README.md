@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T13:37:18Z_
+_As of 2026-09-13T13:56:35Z_
 
 ## Latest
 
@@ -574,8 +574,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr877-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #877
 
 ### tada (7808)
 - [`claude-on-minion-town-press-20260913-133509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-133509.md) — Cost
