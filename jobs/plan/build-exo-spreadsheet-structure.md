@@ -16,7 +16,7 @@ Repo: endojs/endo-but-for-bots
 
 Build the `SpreadsheetStructure` follow-on layer from the exo Google Sheets design.
 
-Origin: report `build-exo-google-sheets-facets` flagged `SpreadsheetStructure` and
+Origin: report `build-exo-google-sheets-facets` flagged `SheetsService` and
 `SpreadsheetStructure` as the design's thin follow-on layers, still unbuilt, and
 "a natural next job once #874 and this land." Maintainer decision 2026-09-13
 (muster): park the follow-on builds so they fire when the precondition is met
