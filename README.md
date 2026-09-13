@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T01:44:43Z_
+_As of 2026-09-13T01:50:19Z_
 
 ## Latest
 
@@ -201,9 +201,9 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #658 (first seen 2026-09-05T15:44:01Z, latest 2026-09-13T00:50:01Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 658 times; this is ONE
-> coalesced notice that updates in place, not 658 messages. Latest detail:
+> WATCHDOG notice — occurrence #678 (first seen 2026-09-05T15:44:01Z, latest 2026-09-13T01:50:01Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 678 times; this is ONE
+> coalesced notice that updates in place, not 678 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
 > is no available canary to validate f5e91b662553. Per designs/follower-self-deploy.md
@@ -563,7 +563,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.7M | $242.25 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Claude | 26.8M | $244.52 _(notional, rate-card)_ | 19% of 143.0M (ok) |
 | Codex | 2.4M _(+80.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
