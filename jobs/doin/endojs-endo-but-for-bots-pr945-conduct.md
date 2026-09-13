@@ -25,3 +25,13 @@ it rather than forcing.
 
 Skills: skills/pr-creation-flow, skills/rebase-before-followup,
 skills/pr-completion-summary-comment, skills/fully-qualified-github-urls.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-13T13:59:39Z
