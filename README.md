@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T14:34:56Z_
+_As of 2026-09-13T14:46:30Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 11d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 11d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 12d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 14d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 15d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 17d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 17d)
 
@@ -521,23 +521,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.5M | $271.64 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 3.5M _(+104.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr877-weave-20260913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave-20260913.md) — ---
+### doin (0)
+(none)
 
-### tada (7815)
+### tada (7816)
+- [`endojs-endo-but-for-bots-pr877-weave-20260913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-weave-20260913.md) — Completion report: weave endojs/endo-but-for-bots#877 onto current llm (resumed)
 - [`design-ironhorse-js26-map-set-gap-sequencing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-js26-map-set-gap-sequencing.md) — Cost
 - [`retire-local-qwen-hermit-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/retire-local-qwen-hermit-lane.md) — Completion report — retire-local-qwen-hermit-lane
 - [`design-gateway-authenticated-peer-identity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-gateway-authenticated-peer-identity.md) — Completion report — design-gateway-authenticated-peer-identity
 - [`endojs-endo-but-for-bots-pr945-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-receipt.md) — Cost
-- [`design-deadletter-standing-readdressee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-deadletter-standing-readdressee.md) — Cost
-- … and 7810 more
+- … and 7811 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
