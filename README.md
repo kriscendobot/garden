@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T16:50:48Z_
+_As of 2026-09-13T16:52:58Z_
 
 ## Latest
 
@@ -532,16 +532,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260913-165011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260913-165011.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (7816)
+### tada (7817)
+- [`claude-on-minion-town-press-20260913-165011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-165011.md) — What I verified
 - [`endojs-endo-but-for-bots-pr877-weave-20260913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-weave-20260913.md) — Completion report: weave endojs/endo-but-for-bots#877 onto current llm (resumed)
 - [`design-ironhorse-js26-map-set-gap-sequencing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-js26-map-set-gap-sequencing.md) — Cost
 - [`retire-local-qwen-hermit-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/retire-local-qwen-hermit-lane.md) — Completion report — retire-local-qwen-hermit-lane
 - [`design-gateway-authenticated-peer-identity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-gateway-authenticated-peer-identity.md) — Completion report — design-gateway-authenticated-peer-identity
-- [`endojs-endo-but-for-bots-pr945-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-receipt.md) — Cost
-- … and 7811 more
+- … and 7812 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
