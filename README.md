@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T06:20:46Z_
+_As of 2026-09-13T06:25:19Z_
 
 ## Latest
 
@@ -574,16 +574,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260913-062006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260913-062006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (7801)
+### tada (7802)
+- [`claude-on-minion-town-completion-press-20260913-062006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260913-062006.md) — Completion report — Claude-on-minion.town completion press, tick 19
 - [`claude-on-minion-town-press-20260913-042008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-042008.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260913-042008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260913-042008.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-te...
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-6.md) — Completion report — Gauntlet FIX round 6, endojs/endo-but-for-bots PR #1125
-- [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-panel-6.md) — Cost
-- … and 7796 more
+- … and 7797 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
