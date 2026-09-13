@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-13T00:20:43Z_
+_As of 2026-09-13T00:25:54Z_
 
 ## Latest
 
@@ -563,24 +563,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.0M | $207.28 _(notional, rate-card)_ | 15% of 143.0M (ok) |
-| Codex | 2.4M _(+79.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 22.0M | $207.55 _(notional, rate-card)_ | 15% of 143.0M (ok) |
+| Codex | 2.4M _(+79.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1125
-- [`claude-on-minion-town-completion-press-20260913-002005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260913-002005.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### tada (7789)
+### tada (7790)
+- [`claude-on-minion-town-completion-press-20260913-002005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260913-002005.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-guest-restart-durable-integration-test-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1266-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1266-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1266-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1266-gauntlet-fix-6.md) — Completion report
-- [`context-graph-size-audit-focused-20260912-222006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused-20260912-222006.md) — Cost
-- … and 7784 more
+- … and 7785 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
