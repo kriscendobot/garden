@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T22:35:36Z_
+_As of 2026-09-14T22:52:32Z_
 
 ## Latest
 
@@ -37,6 +37,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
 > Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
+
+- `watchdog-root-repo-head-repaired-oros-studio-garden-ce242c49` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-head-repaired-oros-studio-garden-ce242c49.md)
+
+> root repo /Users/dom/garden HEAD had DRIFTED (branch main2) off the deployed detached commit — the signature of a job that ran git with $GARDEN_ROOT as its enclosing repo (incident 2026-07-17). Re-detached HEAD onto 1110195c4fd1acef353ad933c9a9c741c6db0ebf (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20260914T225201Z. (host=oros-studio-garden-ce242c49)
 
 - `20260904T131409Z-bc476b` — from gauntlet:ironhorse-test262-fable-supervisor-20260829-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T131409Z-bc476b.md)
 
@@ -268,6 +272,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > - gardener: ironhorse-test262-fable-supervisor-20260829-gauntlet-fix-2
 > - question (msgid 20260904T101556Z-fe2695.md)
 > - tentative answer: proxy/tentative: Yes, go ahead and post a weave job — specifically "pin the merge base" for [endojs/endo-but-for-bots#1113](https://github.com/endojs/endo-but-for-bots/issues/1113), per skills/frozen-base-branch and skills/verify-upstream-state-before-pinning. Given llm has moved ~18k lines in interp.rs since ba236d722d, blind-rebasing your fix-2 head (24faeff1bc) risks silently losing or misapplying the must-fix edits, so the weaver should diff your fix-2 commits against the new interp.rs before reapplying rather than trusting a mechanical merge. This is a routine conflict-resolution/weave dispatch (not a merge, ferry, or scope change), so it's within normal gardener-fleet authority — no maintainer sign-off needed to proceed. Report fix=still-pending is correct until the weave lands and CI can actually run.
+
+- `20260914T225146Z-ad5bd4` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260914T225146Z-ad5bd4.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `4d51ea7f4375ee42d1428dbbb0786cbe3683d3ea`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
@@ -525,7 +541,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.8M | $280.88 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.0M | $286.61 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
