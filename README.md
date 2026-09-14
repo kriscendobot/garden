@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T21:26:43Z_
+_As of 2026-09-14T21:34:50Z_
 
 ## Latest
 
@@ -525,24 +525,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.1M | $273.35 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.6M | $277.67 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1277
+### doin (1)
 - [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-port-xs-frame-locals-limit.md) — Port the XS 65535-locals-per-frame limit check to Iron Horse
 
-### tada (7856)
+### tada (7857)
+- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-1.md) — Completion report
 - [`xs-locals-limit-check-20260914-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs-locals-limit-check-20260914-212007.md) — Report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-1.md) — Completion report
 - [`claude-on-minion-town-press-20260914-205006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-205006.md) — Completion report — claude-on-minion-town-press
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-clean.md) — Completion report
-- … and 7851 more
+- … and 7852 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
