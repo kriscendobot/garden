@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T23:52:14Z_
+_As of 2026-09-14T23:54:46Z_
 
 ## Latest
 
@@ -585,23 +585,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $292.25 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.0M | $289.26 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.9M _(+133.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1277
+### doin (0)
+(none)
 
-### tada (7868)
+### tada (7869)
+- [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-6.md) — Completion report
 - [`claude-on-minion-town-press-20260914-235006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-235006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-5.md) — Completion report — Gauntlet FIX round 5, endojs/endo-but-for-bots PR #1277
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-5.md) — Completion report
-- [`canary-probe-oros-studio-garden-ce242c49-liaison-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-liaison-check.md) — rolling-deploy canary probe — round trip OK
-- … and 7863 more
+- … and 7864 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
