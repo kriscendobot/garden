@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T00:38:49Z_
+_As of 2026-09-14T01:14:25Z_
 
 ## Latest
 
@@ -185,12 +185,12 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #1110 (first seen 2026-09-05T15:44:01Z, latest 2026-09-14T00:11:02Z).
-> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 1110 times; this is ONE
-> coalesced notice that updates in place, not 1110 messages. Latest detail:
+> WATCHDOG notice — occurrence #1126 (first seen 2026-09-05T15:44:01Z, latest 2026-09-14T01:14:01Z).
+> The SAME condition (`rolling-deploy-all-followers-drained-endolin-garden-ece02cb4`) has now been observed 1126 times; this is ONE
+> coalesced notice that updates in place, not 1126 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
-> is no available canary to validate 6ce1c61ab13b. Per designs/follower-self-deploy.md
+> is no available canary to validate 12fcaa50c440. Per designs/follower-self-deploy.md
 > this is treated as a signal to wait for you, not to advance the leader unvalidated.
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
@@ -526,7 +526,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.2M _(+124.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 4.2M _(+124.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
