@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T22:54:44Z_
+_As of 2026-09-14T22:56:16Z_
 
 ## Latest
 
@@ -37,10 +37,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
 > Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
-
-- `watchdog-root-repo-head-repaired-oros-studio-garden-ce242c49` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-head-repaired-oros-studio-garden-ce242c49.md)
-
-> root repo /Users/dom/garden HEAD had DRIFTED (branch main2) off the deployed detached commit — the signature of a job that ran git with $GARDEN_ROOT as its enclosing repo (incident 2026-07-17). Re-detached HEAD onto 1110195c4fd1acef353ad933c9a9c741c6db0ebf (the recorded deploy point / origin/main2). Prior HEAD preserved as branch root-guard-backup/20260914T225201Z. (host=oros-studio-garden-ce242c49)
 
 - `20260904T131409Z-bc476b` — from gauntlet:ironhorse-test262-fable-supervisor-20260829-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T131409Z-bc476b.md)
 
@@ -553,7 +549,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.8M | $278.66 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.2M | $281.34 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
