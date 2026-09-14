@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T21:39:19Z_
+_As of 2026-09-14T21:41:41Z_
 
 ## Latest
 
@@ -532,7 +532,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1277
 - [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-port-xs-frame-locals-limit.md) — Port the XS 65535-locals-per-frame limit check to Iron Horse
 
 ### tada (7858)
