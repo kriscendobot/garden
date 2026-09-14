@@ -61,6 +61,7 @@ why.
 - A fresh worktree needs the `c/moddable` submodule and generated JS bundles before
   the engine builds. Budget for that.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=1979 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
