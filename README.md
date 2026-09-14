@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T21:35:46Z_
+_As of 2026-09-14T21:39:19Z_
 
 ## Latest
 
@@ -532,17 +532,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1277
+### doin (1)
 - [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-port-xs-frame-locals-limit.md) — Port the XS 65535-locals-per-frame limit check to Iron Horse
 
-### tada (7857)
+### tada (7858)
+- [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-2.md) — Completion report — FIX round 2, endojs/endo-but-for-bots PR #1277
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-1.md) — Completion report
 - [`xs-locals-limit-check-20260914-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs-locals-limit-check-20260914-212007.md) — Report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-1.md) — Completion report
-- [`claude-on-minion-town-press-20260914-205006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-205006.md) — Completion report — claude-on-minion-town-press
-- … and 7852 more
+- … and 7853 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
