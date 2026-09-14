@@ -1,9 +1,7 @@
-cadence: weekly
-last_dispatched: 2026-09-14T21:20:07Z
-job_basename_prefix: xs-locals-limit-check
-handler-timeout: 7200
-occupancy: skip
 ---
+handler-timeout: 7200
+---
+
 ---
 role: gardener
 tier: mentor
