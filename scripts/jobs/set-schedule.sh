@@ -24,7 +24,10 @@
 #
 # Optional handler budget (env GARDEN_SCHEDULE_HANDLER_TIMEOUT=<seconds>): writes
 # a `handler-timeout:` line for the scheduler to stamp into every dispatched job.
-# An existing value is preserved when the env var is unset.
+# An existing value is preserved when the env var is unset. Schedules named
+# dependabotany-recheck-* default to 7200s (alongside their preflight default)
+# when neither an explicit nor preserved budget exists, because a recheck fans
+# out into botanist review + CI shepherding + merge and outlives the generic wall.
 #
 # Optional occupancy dedup (env GARDEN_SCHEDULE_OCCUPANCY=skip|carry-forward): writes
 # an `occupancy:` line so the scheduler suppresses a per-period dispatch while a prior
@@ -119,9 +122,15 @@ for attempt in $(seq 1 50); do
   fi
   # The recurring Dependabot ledger backstop must never depend on every botanist
   # remembering an environment variable. Preserve an explicit/existing gate, but
-  # attach the family default whenever this schedule has none.
+  # attach the family defaults whenever this schedule has none: the idle preflight
+  # gate, and a handler-timeout generous enough for a recheck that fans out into
+  # botanist review, CI shepherding, and merge handling — the generic 2400s wall
+  # deterministically killed the PR #1268 recheck mid-flight.
   case "$name" in
-    dependabotany-recheck-*) [ -n "$preflight" ] || preflight="dependabotany-preflight.sh" ;;
+    dependabotany-recheck-*)
+      [ -n "$preflight" ] || preflight="dependabotany-preflight.sh"
+      [ -n "$handler_timeout" ] || handler_timeout="7200"
+      ;;
   esac
   # Validate a PRESERVED gate too (the env-supplied case was checked up front),
   # so re-running to change cadence can never carry a dangling gate forward.

@@ -101,7 +101,11 @@ An invalid or over-limit value remains visible in the schedule but is logged and
 ignored for that dispatch. Set it with
 `GARDEN_SCHEDULE_HANDLER_TIMEOUT=<seconds> set-schedule.sh ...`; an existing
 value is preserved on later schedule edits when the environment variable is
-unset.
+unset. The `dependabotany-recheck-*` family additionally defaults to `7200`
+(alongside its preflight default) when it has no explicit or preserved budget,
+because a recheck fans out into botanist review, CI shepherding, and merge
+handling and outlives the generic gardener wall — the PR #1268 recheck
+deterministically hit the 2400s default mid-flight.
 
 **Admission gate (budget-hold + drain).** Scheduled dispatch goes through the same
 fleet-wide admission gate a direct `post-job.sh` post does (cybernetics-audit § 3.4,

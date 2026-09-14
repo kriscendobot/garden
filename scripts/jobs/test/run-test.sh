@@ -607,6 +607,16 @@ else bad "dependabotany schedule is missing its automatic preflight"; fi
 if grep -q '^preflight:' "$PFCHK/schedules/ordinary-recheck.md"
 then bad "ordinary schedule unexpectedly received a dependabotany preflight"
 else ok "dependabotany preflight default is confined to its schedule family"; fi
+# Family handler-budget default: a recheck fans out into review + CI + merge and
+# must outlive the generic 2400s wall, so the family defaults to 7200s and a later
+# ordinary edit preserves it; unrelated schedules stay unbudgeted.
+if grep -qx 'handler-timeout: 7200' \
+     "$PFCHK/schedules/dependabotany-recheck-test-project.md"
+then ok "dependabotany schedule automatically attaches and preserves its handler budget"
+else bad "dependabotany schedule is missing its automatic 7200s handler budget"; fi
+if grep -q '^handler-timeout:' "$PFCHK/schedules/ordinary-recheck.md"
+then bad "ordinary schedule unexpectedly received a dependabotany handler budget"
+else ok "dependabotany handler budget default is confined to its schedule family"; fi
 rm -rf "$PFCHK"
 
 # (0) set-time GUARD: set-schedule.sh rejects a nonexistent/typo'd preflight gate
