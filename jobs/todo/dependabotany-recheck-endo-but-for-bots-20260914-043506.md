@@ -1,8 +1,3 @@
-cadence: daily
-last_dispatched: 2026-09-14T04:35:06Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots
-preflight: dependabotany-preflight.sh
----
 ---
 tier: mentor
 fallback-tier: minion
