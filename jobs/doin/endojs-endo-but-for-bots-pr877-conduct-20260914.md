@@ -27,10 +27,10 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/877#pullrequestreview
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=237,63 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=2 values=63,177 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
