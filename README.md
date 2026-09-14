@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T20:42:36Z_
+_As of 2026-09-14T20:44:41Z_
 
 ## Latest
 
@@ -525,15 +525,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.5M | $268.36 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.6M | $268.77 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.8M _(+132.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1277-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1277
 
 ### tada (7851)
 - [`design-endo-daemon-retention-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-retention-labels.md) — Cost
