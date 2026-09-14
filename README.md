@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T22:58:04Z_
+_As of 2026-09-14T23:01:13Z_
 
 ## Latest
 
@@ -90,6 +90,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > (permalink: https://github.com/kriscendobot/garden/blob/5d0b7974a23243a37aa58add89be04e561c0262b/reports/credit-investigation-endolin-garden2-20260905.md)
 >
 > TLDR: all liaison numbers reproduce exactly ($1,257.19 recorded, no dedup/cumulative defects). The burn is the ~19h window starting 2026-09-04T04:00Z when the host was moved onto a temporary API key and its budget pool was marked UNMETERED (pool_admits fails open -> no throttle): $1,090.65 recorded in that window, and those are approximately REAL credits, not notional. Multipliers: (1) the backlog of 69 gauntlets mass-staged 2026-08-30 by the new hourly design-pr-gauntlet-coverage-audit timer ($482 recorded on this host, incl. stale/superseded PRs churning at iteration 6/6); (2) everything on opus-4-8; (3) panel juror seats + state-machine decision calls are unmetered subprocess `claude -p` calls — the ledger covers only ~15-21% of the host's meter-measured billable tokens, so true API-key spend was plausibly 2-5x the recorded $1,091 (exact figure only in the Anthropic console for that key). Top recommendations: never run an unmetered pool with live workers (fail closed / explicit credit ceiling); adopt the proposed manual-gauntlet-trigger design; pre-gauntlet viability gate for stale PRs; close the panel-seat metering hole; tier seats off Opus.
+
+- `20260914T230021Z-cca02b` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260914T230021Z-cca02b.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `4d51ea7f4375ee42d1428dbbb0786cbe3683d3ea`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
@@ -561,23 +573,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.3M | $283.19 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.4M | $284.05 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1277
+### doin (0)
+(none)
 
-### tada (7864)
+### tada (7865)
+- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-5.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-liaison-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-liaison-check.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-3.md) — Completion report
-- [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-port-xs-frame-locals-limit.md) — Completion report: Port the XS 65535-locals-per-frame limit to Iron Horse
-- … and 7859 more
+- … and 7860 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
