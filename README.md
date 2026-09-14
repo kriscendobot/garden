@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T08:35:42Z_
+_As of 2026-09-14T08:37:29Z_
 
 ## Latest
 
@@ -532,16 +532,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260914-083507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260914-083507.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (7837)
+### tada (7838)
+- [`claude-on-minion-town-press-20260914-083507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-083507.md) — Cost
 - [`daily-progress-summary-20260914-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260914-070506.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260914-065006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260914-065006.md) — Completion report — Claude-on-minion.town completion press, tick 23 (20260914...
 - [`claude-on-minion-town-press-20260914-052009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-052009.md) — Cost
 - [`improve-dependabotany-terminal-ledger-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-terminal-ledger-gate.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260914-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260914-043506.md) — What I did
-- … and 7832 more
+- … and 7833 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
