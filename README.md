@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T13:55:01Z_
+_As of 2026-09-14T13:56:46Z_
 
 ## Latest
 
@@ -525,12 +525,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.4M | $267.79 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.3M _(+125.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr877-conduct-20260914`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-conduct-20260914.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #877
 
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr877-review-a8763cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-review-a8763cf9.md) — Review directive on endojs/endo-but-for-bots PR #877
