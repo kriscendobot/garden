@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T00:11:23Z_
+_As of 2026-09-14T00:12:37Z_
 
 ## Latest
 
@@ -525,23 +525,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.4M | $267.95 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.2M _(+124.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-dependabotany-schedule-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-schedule-budget.md) — ---
+### doin (0)
+(none)
 
-### tada (7828)
+### tada (7829)
+- [`improve-dependabotany-schedule-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-schedule-budget.md) — Completion report
 - [`claude-on-minion-town-press-20260913-232006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260913-232006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1268-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1268-dependabot.md) — Botanist completion report — endojs/endo-but-for-bots PR #1268
 - [`endojs-endo-but-for-bots-pr1269-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1269-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots PR #1269
 - [`endojs-endo-but-for-bots-pr1274-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1274-dependabot.md) — Cost
-- [`endojs-endo-but-for-bots-pr1273-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1273-dependabot.md) — Completion report
-- … and 7823 more
+- … and 7824 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
