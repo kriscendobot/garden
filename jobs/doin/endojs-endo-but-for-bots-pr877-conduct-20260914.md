@@ -24,3 +24,13 @@ Guards (re-verify before merging):
 
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/877#pullrequestreview-5198524053
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-14T13:56:53Z
