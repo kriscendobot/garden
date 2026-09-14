@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T21:17:28Z_
+_As of 2026-09-14T21:20:50Z_
 
 ## Latest
 
@@ -526,13 +526,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 30.2M | $276.07 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.8M _(+132.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 4.8M _(+132.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`xs-locals-limit-check-20260914-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs-locals-limit-check-20260914-212007.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
 - [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-port-xs-frame-locals-limit.md) — Port the XS 65535-locals-per-frame limit check to Iron Horse
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1277
 
