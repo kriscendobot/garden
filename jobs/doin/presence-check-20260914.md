@@ -15,3 +15,13 @@ If you claim this job, please reply in your completion report with:
 
 That's it — report and complete. This exists to confirm a newly-onboarded
 volunteer host is claiming and pushing successfully.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-14T18:49:41Z
