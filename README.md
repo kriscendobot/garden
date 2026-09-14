@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T22:17:41Z_
+_As of 2026-09-14T22:24:28Z_
 
 ## Latest
 
@@ -532,16 +532,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1277
+### doin (0)
+(none)
 
-### tada (7861)
+### tada (7862)
+- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-3.md) — Completion report
 - [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-port-xs-frame-locals-limit.md) — Completion report: Port the XS 65535-locals-per-frame limit to Iron Horse
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-2.md) — Completion report — FIX round 2, endojs/endo-but-for-bots PR #1277
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-2.md) — Completion report
-- … and 7856 more
+- … and 7857 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
