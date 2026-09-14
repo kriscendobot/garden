@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T23:03:43Z_
+_As of 2026-09-14T23:05:27Z_
 
 ## Latest
 
@@ -206,6 +206,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > this is treated as a signal to wait for you, not to advance the leader unvalidated.
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
+
+- `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
+
+> Rolling deploy HALTED on a failed canary.
+> canary host: oros-studio-garden-ce242c49
+> target sha:  4d51ea7f4375ee42d1428dbbb0786cbe3683d3ea
+> failing signal: released 1500s ago but never advanced to the target sha (deploy stuck/failed on the canary)
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign drain op) pending your decision; auto-rollback is deliberately not performed
+> (designs/follower-self-deploy.md § Failure handling). Investigate the target on oros-studio-garden-ce242c49,
+> then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
