@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-14T21:54:34Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-port-xs-frame-locals-limit
-pr_number: 1278
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1278
-pr_head: kriscendobot:ironhorse-frame-locals-limit
