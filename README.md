@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T22:54:01Z_
+_As of 2026-09-14T22:54:44Z_
 
 ## Latest
 
@@ -468,6 +468,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 
+- `20260914T225416Z-84fe54` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260914T225416Z-84fe54.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `4d51ea7f4375ee42d1428dbbb0786cbe3683d3ea`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `20260904T063018Z-6a1c2e` — from gardener:minion-town-reminders-daemon-redeploy-unblock, reply_to `minion-town-reminders-daemon-redeploy-unblock` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T063018Z-6a1c2e.md)
 
 > AUTHORIZATION REQUESTED — minion.town @endo/reminder daemon redeploy (job minion-town-reminders-daemon-redeploy-unblock)
@@ -541,7 +553,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.8M | $278.43 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 30.8M | $278.66 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
