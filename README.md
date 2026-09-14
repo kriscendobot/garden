@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T18:26:20Z_
+_As of 2026-09-14T18:50:05Z_
 
 ## Latest
 
@@ -525,15 +525,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.5M | $268.30 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.4M _(+125.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`presence-check-20260914`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/presence-check-20260914.md) — Fleet presence check
 
 ### tada (7846)
 - [`endojs-endo-but-for-bots-pr1125-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-retcon.md) — Completion report
