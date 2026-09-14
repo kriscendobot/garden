@@ -60,3 +60,13 @@ why.
   against that class first.
 - A fresh worktree needs the `c/moddable` submodule and generated JS bundles before
   the engine builds. Budget for that.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-14T21:16:44Z
