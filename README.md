@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T04:35:46Z_
+_As of 2026-09-14T04:36:31Z_
 
 ## Latest
 
@@ -525,14 +525,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $267.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.4M | $267.53 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.2M _(+124.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260914-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-minion-town-containment-gateway-endo-sock-1-20260914-043506.md) — Containment drift check for kriscendobot/minion.town gateway records
+### todo (0)
+(none)
 
-### doin (1)
+### doin (2)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260914-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260914-043506.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`dependabotany-recheck-endo-but-for-bots-20260914-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260914-043506.md) — ---
 
 ### tada (7831)
