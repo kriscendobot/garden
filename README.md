@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T22:57:39Z_
+_As of 2026-09-14T22:58:04Z_
 
 ## Latest
 
@@ -561,24 +561,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.3M | $283.14 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.3M | $283.19 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`canary-probe-oros-studio-garden-ce242c49-liaison-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-liaison-check.md) — liaison-posted round-trip probe for oros-studio-garden-ce242c49
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1277
 
-### tada (7863)
+### tada (7864)
+- [`canary-probe-oros-studio-garden-ce242c49-liaison-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-liaison-check.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-3.md) — Completion report
 - [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-port-xs-frame-locals-limit.md) — Completion report: Port the XS 65535-locals-per-frame limit to Iron Horse
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-3.md) — Completion report
-- … and 7858 more
+- … and 7859 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
