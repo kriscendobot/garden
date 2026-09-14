@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T12:20:23Z_
+_As of 2026-09-14T12:50:32Z_
 
 ## Latest
 
@@ -529,8 +529,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 4.3M _(+125.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`claude-on-minion-town-completion-press-20260914-125009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20260914-125009.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### doin (0)
 (none)
