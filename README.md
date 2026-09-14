@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T20:19:26Z_
+_As of 2026-09-14T20:21:24Z_
 
 ## Latest
 
@@ -526,22 +526,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 29.5M | $268.36 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.5M _(+126.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 4.5M _(+126.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1125-review-da14cc53`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-da14cc53.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153.md) — ---
 
-### tada (7848)
+### tada (7849)
+- [`endojs-endo-but-for-bots-pr1125-review-da14cc53`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-da14cc53.md) — Cost
 - [`claude-on-minion-town-completion-press-20260914-185011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260914-185011.md) — Completion report — Claude-on-minion.town completion press, tick 25 (20260914...
 - [`presence-check-20260914`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/presence-check-20260914.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-retcon.md) — Completion report
 - [`claude-on-minion-town-press-20260914-175006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-175006.md) — Cost
-- [`claude-on-minion-town-press-20260914-145006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-145006.md) — Cost
-- … and 7843 more
+- … and 7844 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
