@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T21:14:57Z_
+_As of 2026-09-14T21:17:28Z_
 
 ## Latest
 
@@ -525,14 +525,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.2M | $276.01 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.2M | $276.07 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.8M _(+132.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-port-xs-frame-locals-limit.md) — Port the XS 65535-locals-per-frame limit check to Iron Horse
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1277
 
 ### tada (7854)
