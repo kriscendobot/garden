@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T13:56:46Z_
+_As of 2026-09-14T13:57:44Z_
 
 ## Latest
 
@@ -525,23 +525,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.4M | $267.79 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.3M | $267.23 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.3M _(+125.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr877-conduct-20260914`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-conduct-20260914.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #877
+### todo (0)
+(none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr877-review-a8763cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-review-a8763cf9.md) — Review directive on endojs/endo-but-for-bots PR #877
+- [`endojs-endo-but-for-bots-pr877-conduct-20260914`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-conduct-20260914.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #877
 
-### tada (7840)
+### tada (7841)
+- [`endojs-endo-but-for-bots-pr877-review-a8763cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-review-a8763cf9.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260914-125009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260914-125009.md) — Completion report — Claude-on-minion.town completion press, tick 24 (20260914...
 - [`claude-on-minion-town-press-20260914-115005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-115005.md) — Completion report
 - [`claude-on-minion-town-press-20260914-083507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-083507.md) — Cost
 - [`daily-progress-summary-20260914-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260914-070506.md) — Completion report
-- [`claude-on-minion-town-completion-press-20260914-065006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260914-065006.md) — Completion report — Claude-on-minion.town completion press, tick 23 (20260914...
-- … and 7835 more
+- … and 7836 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
