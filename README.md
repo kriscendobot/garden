@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T20:26:23Z_
+_As of 2026-09-14T20:30:52Z_
 
 ## Latest
 
@@ -525,14 +525,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.6M | $271.23 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.5M _(+126.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 29.6M | $273.58 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Codex | 4.6M _(+126.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-endo-daemon-retention-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-retention-labels.md) — ---
 - [`endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153.md) — ---
 
 ### tada (7849)
