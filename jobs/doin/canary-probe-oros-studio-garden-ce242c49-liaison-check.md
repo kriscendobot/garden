@@ -11,3 +11,13 @@ dispatch: automatic
 Synthetic no-op probe (same shape rolling-deploy uses): claim -> complete -> tada
 on this host, to validate the newly-onboarded host can claim work and push
 evidence to origin/journal2.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-14T22:57:07Z
