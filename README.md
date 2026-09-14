@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T21:20:50Z_
+_As of 2026-09-14T21:22:35Z_
 
 ## Latest
 
@@ -526,24 +526,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 30.2M | $276.07 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.8M _(+132.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`xs-locals-limit-check-20260914-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs-locals-limit-check-20260914-212007.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
+### doin (2)
 - [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-port-xs-frame-locals-limit.md) — Port the XS 65535-locals-per-frame limit check to Iron Horse
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1277
 
-### tada (7854)
+### tada (7855)
+- [`xs-locals-limit-check-20260914-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs-locals-limit-check-20260914-212007.md) — Report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-1.md) — Completion report
 - [`claude-on-minion-town-press-20260914-205006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-205006.md) — Completion report — claude-on-minion-town-press
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-clean.md) — Completion report
 - [`design-endo-daemon-retention-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-retention-labels.md) — Cost
-- [`endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153.md) — Cost
-- … and 7849 more
+- … and 7850 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
