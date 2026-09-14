@@ -28,3 +28,13 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/877#pullrequestreview
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=237 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-14T14:04:44Z
