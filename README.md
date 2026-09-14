@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T14:36:05Z_
+_As of 2026-09-14T14:40:28Z_
 
 ## Latest
 
@@ -532,8 +532,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr877-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #877 (mer...
 
 ### tada (7842)
 - [`endojs-endo-but-for-bots-pr877-conduct-20260914`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-conduct-20260914.md) — Cost
