@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T23:50:50Z_
+_As of 2026-09-14T23:52:14Z_
 
 ## Latest
 
@@ -592,17 +592,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-press-20260914-235006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260914-235006.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1277
 
-### tada (7867)
+### tada (7868)
+- [`claude-on-minion-town-press-20260914-235006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-235006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-5.md) — Completion report — Gauntlet FIX round 5, endojs/endo-but-for-bots PR #1277
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-5.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-liaison-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-liaison-check.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-4.md) — Completion report
-- … and 7862 more
+- … and 7863 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
