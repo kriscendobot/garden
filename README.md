@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T13:57:44Z_
+_As of 2026-09-14T14:06:45Z_
 
 ## Latest
 
@@ -19,7 +19,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 18d)
 - [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 18d)
 
-_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden2-5bcdff64.md)
@@ -525,7 +525,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $267.23 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.4M | $268.29 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 4.3M _(+125.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
