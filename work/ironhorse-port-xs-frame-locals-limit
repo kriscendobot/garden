@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-14T21:16:44Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-port-xs-frame-locals-limit
+pr_number: 1278
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1278
+pr_head: kriscendobot:ironhorse-frame-locals-limit
