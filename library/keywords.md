@@ -99,3 +99,5 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - garbage collection, mark-and-sweep, mark and sweep, GC quarantine -> gc-quarantine-store
 - ordered key encoding, passable key encoding, lexicographic passable key -> rank-order-preserving-encoding
 - Cloudflare Artifacts, Artifacts, ArtifactFS -> cloudflare-artifacts
+- `formulaGraph`, `listRetentionPaths`, retention paths, retention pin -> formula-graph
+- durable set, id-keyed set, retention set -> four-tables-coordinated-retention
