@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-14T20:29:49Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-design-endo-daemon-retention-labels
+pr_number: 1277
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1277
+pr_head: design/daemon-retention-labels
