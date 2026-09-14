@@ -139,6 +139,18 @@ active_due_rows_none_body() {
   printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s - terminal sweep\n\n## Active due rows\n\nNone.\n' \
     "$PROJECT" "$REPO" "$REPO"
 }
+# Explicit terminal-ledger prose declaration: every row has reached a terminal
+# (merged/closed) state, so none remain active. No structured heading — the drain
+# is stated only in prose.
+all_rows_terminal_body() {
+  printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s — terminal sweep\n\nAll rows are now terminal; every tracked Dependabot PR has merged or closed.\n' \
+    "$PROJECT" "$REPO" "$REPO"
+}
+# The equivalent prose declaration phrased as an open-set statement.
+no_embargo_remains_body() {
+  printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s — terminal sweep\n\nNo prior EMBARGO remains open; the active set is empty.\n' \
+    "$PROJECT" "$REPO" "$REPO"
+}
 
 # ============================================================================
 hr; echo "STATIC — dependabotany-preflight.sh parses (bash -n)"; hr
@@ -167,6 +179,25 @@ add_entry 2026/08/01/000001Z-a "$(embargo_body 900 2026-08-05)"
 add_entry 2026/09/01/000002Z-b "$(active_due_rows_none_body)"
 run_pre ""
 [ "$RC" -eq 2 ] && ok "Active due rows/None + no PRs -> exit 2" || bad "exit $RC (want 2); OUT=$OUT"
+
+# ============================================================================
+hr; echo 'NO WORK — prose "all rows terminal" declaration drains a matured set: exit 2'; hr
+# Regression: without recognizing this terminal-ledger prose the matured
+# EMBARGO-2026-08-05 row below re-dispatches a no-op sweep every day.
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 903 2026-08-05)"   # matured before today
+add_entry 2026/08/06/000002Z-b "$(all_rows_terminal_body)"
+run_pre ""
+[ "$RC" -eq 2 ] && ok '"all rows terminal" + matured row + no PRs → exit 2' || bad "exit $RC (want 2); OUT=$OUT"
+grep -qi 'declares the embargo set drained' <<<"$OUT" && ok "logged the drain recognition" || bad "no drain-recognition log; OUT=$OUT"
+
+# ============================================================================
+hr; echo 'NO WORK — prose "no prior EMBARGO remains open" drains a matured set: exit 2'; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 904 2026-08-05)"   # matured before today
+add_entry 2026/08/06/000002Z-b "$(no_embargo_remains_body)"
+run_pre ""
+[ "$RC" -eq 2 ] && ok '"no prior EMBARGO remains open" + matured row + no PRs → exit 2' || bad "exit $RC (want 2); OUT=$OUT"
 
 # ============================================================================
 hr; echo "NO WORK — no open dependabot PRs + live embargo NOT yet due: exit 2"; hr

@@ -112,7 +112,20 @@ mapfile -t LEDGER < <(
 #     `EMBARGO-YYYY-MM-DD` maturity date has arrived.
 # ISO dates sort lexically = chronologically, so the string compare is exact.
 today="${GARDEN_DEPB_TODAY:-$(date -u +%F)}"
-DRAIN_RE='(embargo|embargoed)[^.]*set[^.]*(empty|drained)|zero[^.]*embargoed|no[^.]*embargoed[^.]*rows|schedule[^.]*(deleted|retired)|embargoed set is now empty'
+# The prose "off" signals a sweep writes when it empties the set. Kept
+# deliberately generous: skipping still requires (A) zero open dependabot PRs, and
+# an active embargo is by construction an open PR, so an over-broad drain match can
+# never unsafely skip live work (see SOUNDNESS above) — it only quiets a genuinely
+# idle set. Beyond the "empty/drained/retired" forms, recognize two explicit
+# terminal-ledger declarations a sweep uses interchangeably:
+#   * "all rows terminal" / "every ledger row is now terminal" — every embargo row
+#     has reached a terminal (merged/closed) state, so none remain active;
+#   * "no prior EMBARGO remains open" / "no embargo remains" — an equivalent
+#     statement that the active set is empty.
+# Without these, a terminal sweep that states the drain only in this prose leaves a
+# matured EMBARGO-YYYY-MM-DD date in the ledger, and the due-row scan below then
+# re-dispatches a no-op sweep every day after the last PR merged or closed.
+DRAIN_RE='(embargo|embargoed)[^.]*set[^.]*(empty|drained)|zero[^.]*embargoed|no[^.]*embargoed[^.]*rows|schedule[^.]*(deleted|retired)|embargoed set is now empty|(all|every)[^.]*rows?[^.]*terminal|no[^.]*embargo[^.]*remain'
 
 # ledger_declares_drained <entry>
 #
