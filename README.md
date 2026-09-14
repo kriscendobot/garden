@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T20:32:06Z_
+_As of 2026-09-14T20:42:36Z_
 
 ## Latest
 
@@ -526,22 +526,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 29.5M | $268.36 _(notional, rate-card)_ | 21% of 143.0M (ok) |
-| Codex | 4.6M _(+126.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 4.8M _(+132.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`design-endo-daemon-retention-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-daemon-retention-labels.md) — ---
+### doin (0)
+(none)
 
-### tada (7850)
+### tada (7851)
+- [`design-endo-daemon-retention-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-daemon-retention-labels.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-retention-pin-adversarial-5201186153.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-review-da14cc53`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-da14cc53.md) — Cost
 - [`claude-on-minion-town-completion-press-20260914-185011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260914-185011.md) — Completion report — Claude-on-minion.town completion press, tick 25 (20260914...
 - [`presence-check-20260914`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/presence-check-20260914.md) — Cost
-- [`endojs-endo-but-for-bots-pr1125-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-retcon.md) — Completion report
-- … and 7845 more
+- … and 7846 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
