@@ -26,6 +26,7 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/877#pullrequestreview-5198524053
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=237 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
