@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T21:44:42Z_
+_As of 2026-09-14T22:03:23Z_
 
 ## Latest
 
@@ -525,24 +525,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.6M | $277.67 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.8M | $281.23 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1277
-- [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-port-xs-frame-locals-limit.md) — Port the XS 65535-locals-per-frame limit check to Iron Horse
 
-### tada (7859)
+### tada (7860)
+- [`ironhorse-port-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-port-xs-frame-locals-limit.md) — Completion report: Port the XS 65535-locals-per-frame limit to Iron Horse
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-2.md) — Completion report — FIX round 2, endojs/endo-but-for-bots PR #1277
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-1.md) — Completion report
-- [`xs-locals-limit-check-20260914-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs-locals-limit-check-20260914-212007.md) — Report
-- … and 7854 more
+- … and 7855 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
