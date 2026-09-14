@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T23:02:44Z_
+_As of 2026-09-14T23:03:43Z_
 
 ## Latest
 
@@ -218,6 +218,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `build-minion-town-claude-harness-provisioning-gauntlet-halted` — from gauntlet:build-minion-town-claude-harness-provisioning-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-minion-town-claude-harness-provisioning-gauntlet-halted.md)
 
 > Gauntlet build-minion-town-claude-harness-provisioning-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
+- `20260914T230315Z-9874e6` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260914T230315Z-9874e6.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `4d51ea7f4375ee42d1428dbbb0786cbe3683d3ea`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
