@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T22:56:59Z_
+_As of 2026-09-14T22:57:39Z_
 
 ## Latest
 
@@ -440,6 +440,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ebfb-exo-stream-drop-base64-stream-methods-gauntlet HALTED: stage 'ebfb-exo-stream-drop-base64-stream-methods-gauntlet-fix-2' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
+- `20260914T225714Z-3bd7ff` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260914T225714Z-3bd7ff.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `4d51ea7f4375ee42d1428dbbb0786cbe3683d3ea`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `20260909T194232Z-03194f` — from liaison, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260909T194232Z-03194f.md)
 
 > Posted a design→review→build chain for proportional worker-leveling across hosts (your ask about balancing gardener varietals by subscription budget).
@@ -549,14 +561,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.3M | $282.55 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.3M | $283.14 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 4.8M _(+132.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`canary-probe-oros-studio-garden-ce242c49-liaison-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-liaison-check.md) — liaison-posted round-trip probe for oros-studio-garden-ce242c49
+### todo (0)
+(none)
 
-### doin (1)
+### doin (2)
+- [`canary-probe-oros-studio-garden-ce242c49-liaison-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-liaison-check.md) — liaison-posted round-trip probe for oros-studio-garden-ce242c49
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1277-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1277
 
 ### tada (7863)
