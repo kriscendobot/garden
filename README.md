@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-14T04:17:18Z_
+_As of 2026-09-14T04:35:46Z_
 
 ## Latest
 
@@ -529,11 +529,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 4.2M _(+124.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260914-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-minion-town-containment-gateway-endo-sock-1-20260914-043506.md) — Containment drift check for kriscendobot/minion.town gateway records
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-20260914-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260914-043506.md) — ---
 
 ### tada (7831)
 - [`claude-on-minion-town-press-20260914-022006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-022006.md) — Assessment
