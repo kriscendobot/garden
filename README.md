@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:26:37Z_
+_As of 2026-09-15T18:28:04Z_
 
 ## Latest
 
@@ -242,6 +242,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-endolin-garden2-5bcdff64-1.md)
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): budget pool anthropic:endolin-garden2-5bcdff64 spend=46449456 cap=64000000 high-water=0.85 target=1 step=2->1
+
+- `20260915T182720Z-164f72` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260915T182720Z-164f72.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `89aa679f9a34d729a98830a51c2711b475ea7ca2`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-all-followers-drained-endolin-garden-ece02cb4.md)
 
@@ -625,7 +637,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $292.29 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.6M | $292.36 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 5.3M _(+136.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
