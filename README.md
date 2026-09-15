@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T19:07:34Z_
+_As of 2026-09-15T19:09:15Z_
 
 ## Latest
 
@@ -266,6 +266,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > this is treated as a signal to wait for you, not to advance the leader unvalidated.
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
+
+- `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
+
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-14T23:05:11Z, cleared 2026-09-15T19:08:17Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> canary oros-studio-garden-ce242c49 passed a later roll; clearing.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -637,24 +645,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.7M | $294.53 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 5.7M _(+143.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 32.6M | $293.77 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Codex | 5.7M _(+144.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #1125
-- [`claude-on-minion-town-completion-press-20260915-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260915-190507.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### tada (7893)
+### tada (7894)
+- [`claude-on-minion-town-completion-press-20260915-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260915-190507.md) — Completion report — Claude-on-minion.town completion press, tick 29 (20260915...
 - [`canary-probe-oros-studio-garden-ce242c49-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1125-review-b58d5a3f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-b58d5a3f.md) — Completion report
 - [`verify-policy-refusal-tempdir-oros-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/verify-policy-refusal-tempdir-oros-20260915.md) — Completion report
-- [`fix-hardcoded-home-dirname-tempdir-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-hardcoded-home-dirname-tempdir-tests.md) — Cost
-- … and 7888 more
+- … and 7889 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
