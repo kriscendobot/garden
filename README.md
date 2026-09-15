@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:18:31Z_
+_As of 2026-09-15T18:19:26Z_
 
 ## Latest
 
@@ -608,16 +608,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic: policy-refusal-quarantine-test.sh failure on this host
+### doin (0)
+(none)
 
-### tada (7885)
+### tada (7886)
+- [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic report: policy-refusal-quarantine-test.sh failure on oros-studio-g...
 - [`claude-on-minion-town-press-20260915-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-150509.md) — Press tick 2026-09-15 — verification summary
 - [`canary-probe-endolin-garden2-5bcdff64-c4bc96940582`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c4bc96940582.md) — rolling-deploy canary probe — round trip OK
 - [`improve-worker-cgroup-residue-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-worker-cgroup-residue-reaping.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c.md) — rolling-deploy canary probe — round trip OK
-- [`improve-journal-worktree-staleness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-worktree-staleness.md) — Completion report
-- … and 7880 more
+- … and 7881 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
