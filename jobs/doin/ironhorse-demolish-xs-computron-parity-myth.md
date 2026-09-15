@@ -111,3 +111,13 @@ Do not change metering behavior itself in this job. This is about the stated
 objective, the tests that encode it, and the plans that perpetuate it. If you
 find a place where the implementation actually chases XS counts at a cost to
 CPU-time fidelity, report it as a follow-up rather than fixing it here.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-15T23:00:35Z
