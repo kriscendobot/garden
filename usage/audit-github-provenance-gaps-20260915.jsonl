@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":18,"elapsed_s":442,"input_tokens":30,"output_tokens":29221,"cache_creation_tokens":98693,"cache_read_tokens":1064399,"total_cost_usd":2.2528865,"ts":"2026-09-15T21:30:16Z","base":"audit-github-provenance-gaps-20260915","host":"endolin-garden-ece02cb4","outcome":"tada","role":"researcher","provider":"anthropic"}
