@@ -55,3 +55,13 @@ Keep existing tests green (`comment-provenance-test.sh`, plus panel/
 completion-summary tests if present) and add coverage for the per-section
 case: an aggregated body with 2+ sections from different (mocked) model/
 harness values renders 2+ distinct footnotes, not one.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-15T21:07:14Z
