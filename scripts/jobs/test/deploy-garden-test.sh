@@ -142,14 +142,30 @@ grep -q "fleet quiesced" <<<"$OUT" && ok "quiesce reached (no mid-job gardeners)
 hr; echo "CANDIDATE TEST GATE — a failing candidate suite aborts before drain or swap"; hr
 setup_fixture
 origin_commit scripts/jobs/test/deploy-gate-probe.sh "#!/bin/bash
+printf 'leading-output-that-will-be-trimmed:'
+printf '%0200d' 0
+printf '\nDIAGNOSTIC_SENTINEL_FROM_STDOUT\n'
+printf 'DIAGNOSTIC_SENTINEL_FROM_STDERR\n' >&2
 exit 1" "test: make candidate gate fail"
 before="$(root_head)"
-run_deploy
+run_deploy GARDEN_DEPLOY_TEST_OUTPUT_BYTES=128
 [ "$RC" -ne 0 ] && ok "non-zero exit on a failing candidate suite" || bad "exit 0 despite a failing candidate suite"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced when candidate gate fails" || bad "root advanced despite failed candidate gate"
 draining && bad "drain engaged despite pre-drain candidate gate failure" || ok "candidate gate failed before engaging the drain"
-grep -q "deploy-gate-probe.sh(rc=1)" <<<"$OUT" && ok "failure names the failing suite" || bad "failing suite not named: $OUT"
+grep -q "deploy-gate-probe.sh(rc=1; diagnostic=" <<<"$OUT" && ok "failure names the failing suite and diagnostic" || bad "failing suite diagnostic not named: $OUT"
 grep -q "kind:error" <<<"$OUT" && ok "kind:error reporting path is logged" || bad "kind:error reporting path not logged: $OUT"
+diagnostic="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name '*deploy-gate-probe.sh.log' -print -quit 2>/dev/null || true)"
+[ -n "$diagnostic" ] && ok "failing suite output is persisted under deploy state" || bad "candidate diagnostic was not persisted: $OUT"
+grep -q 'DIAGNOSTIC_SENTINEL_FROM_STDOUT' "$diagnostic" \
+  && grep -q 'DIAGNOSTIC_SENTINEL_FROM_STDERR' "$diagnostic" \
+  && ok "diagnostic captures the bounded stdout+stderr tail" \
+  || bad "diagnostic omitted suite output: $(cat "$diagnostic" 2>/dev/null)"
+[ "$(sed '1,/^---$/d' "$diagnostic" | wc -c)" -le 128 ] \
+  && ok "persisted suite output obeys the configured byte bound" \
+  || bad "persisted suite output exceeded 128 bytes: $(wc -c < "$diagnostic") total bytes"
+grep -qF "diagnostic=$diagnostic" <<<"$OUT" \
+  && ok "deploy error log carries the exact diagnostic reference" \
+  || bad "deploy error log omitted diagnostic reference: $OUT"
 
 # ============================================================================
 hr; echo "CANDIDATE TEST GATE ROOT — reject noexec, fall back to executable scratch"; hr

@@ -90,7 +90,9 @@ export GARDEN_TAG="deploy-garden"
 : "${GARDEN_DEPLOY_TEST_OVERRIDE:=0}"     # set 1 only for a deliberate emergency bypass
 : "${GARDEN_DEPLOY_TEST_SUITE_TIMEOUT:=60}" # max seconds for one candidate test suite
 : "${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT:=300}" # max seconds for the whole candidate gate
+: "${GARDEN_DEPLOY_TEST_OUTPUT_BYTES:=16384}" # retained stdout+stderr tail per suite
 : "${GARDEN_DEPLOY_REPORT_TIMEOUT:=30}"      # max seconds per failure-report sink
+: "${GARDEN_DEPLOY_GATE_DIAGNOSTICS_DIR:=$GARDEN_DEPLOY_STATE/candidate-gate-diagnostics}"
 # These bounded regressions directly protect the failure-reporting helpers that
 # previously let a deleted common.sh helper reach every host unnoticed, plus the
 # provider policy-refusal quarantine/resume path whose regression would otherwise
@@ -167,7 +169,7 @@ thaw_timers_if_frozen() {
 
 deploy_exit_cleanup() { cleanup_candidate_gate_root; thaw_timers_if_frozen; lift_drain_if_we_engaged; }
 
-report_candidate_gate_failure() { # <candidate-sha> <failed-suite>...
+report_candidate_gate_failure() { # <candidate-sha> <failed-suite-with-diagnostic>...
   local candidate="$1"; shift
   local failed joined body
   joined="$(printf '%s, ' "$@")"; joined="${joined%, }"
@@ -177,6 +179,10 @@ report_candidate_gate_failure() { # <candidate-sha> <failed-suite>...
 
 candidate: \`$candidate\`
 failing suites: $joined
+
+Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+are host-local on \`${GARDEN:-unknown-host}\` and retain at most
+\`${GARDEN_DEPLOY_TEST_OUTPUT_BYTES}\` bytes of output per suite.
 
 The deployed tree was left in place. Set \`GARDEN_DEPLOY_TEST_OVERRIDE=1\` only
 for a deliberate emergency deploy after assessing this failure."
@@ -192,6 +198,25 @@ for a deliberate emergency deploy after assessing this failure."
   else
     log "WARN: could not emit candidate gate kind:error journal entry"
   fi
+}
+
+persist_candidate_gate_diagnostic() { # <candidate> <ordinal> <suite> <rc> <capture-file>
+  local candidate="$1" ordinal="$2" suite="$3" rc="$4" capture="$5"
+  local dir safe path
+  dir="$GARDEN_DEPLOY_GATE_DIAGNOSTICS_DIR/$candidate"
+  safe="${suite//\//_}"
+  safe="${safe//[^[:alnum:]._-]/_}"
+  path="$dir/$(printf '%02d' "$ordinal")-$safe.log"
+  if mkdir -p "$dir" 2>/dev/null \
+    && chmod 700 "$dir" 2>/dev/null \
+    && { printf 'suite: %s\nexit: %s\noutput: last %s bytes\n---\n' \
+         "$suite" "$rc" "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES"; cat "$capture"; } \
+       >"$path" 2>/dev/null; then
+    chmod 600 "$path" 2>/dev/null || true
+    printf '%s\n' "$path"
+    return 0
+  fi
+  return 1
 }
 
 report_boundary_not_established() { # <candidate-sha> <mode: fallback|abort>
@@ -312,14 +337,17 @@ prepare_candidate_gate_root() {
 
 run_candidate_gate() { # <candidate-sha>
   local candidate="$1" gate_root suite path rc now deadline remaining limit
+  local capture diagnostic suite_number=0
   local -a failed=()
   [ "$GARDEN_DEPLOY_TEST_OVERRIDE" = "1" ] && {
     log "WARN: GARDEN_DEPLOY_TEST_OVERRIDE=1 — bypassing candidate test gate for $candidate"
     return 0
   }
-  case "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT:$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" in
-    *[!0-9:]*|0:*|*:0) log "FATAL: candidate gate timeouts must be positive integers"; return 1 ;;
-  esac
+  for limit in "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT" "$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES"; do
+    case "$limit" in
+      ''|*[!0-9]*|0) log "FATAL: candidate gate timeouts and output bound must be positive integers"; return 1 ;;
+    esac
+  done
   prepare_candidate_gate_root || return 1
   gate_root="$candidate_gate_root"
   # archive, rather than the live worktree, is the crucial candidate-tree
@@ -337,14 +365,24 @@ run_candidate_gate() { # <candidate-sha>
   done < <(git -C "$GARDEN_ROOT" ls-tree -r -z --name-only "$candidate" -- scripts | while IFS= read -r -d '' path; do case "$path" in *.sh) printf '%s\0' "$path";; esac; done)
   if [ "${#failed[@]}" -eq 0 ]; then
     for suite in $GARDEN_DEPLOY_TEST_SUITES; do
+      suite_number=$((suite_number + 1))
       now="$(date +%s)"
       if [ "$now" -ge "$deadline" ]; then failed+=("total-wall-clock"); break; fi
       if [ ! -f "$gate_root/$suite" ]; then failed+=("missing:$suite"); continue; fi
       remaining=$(( deadline - now )); limit="$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT"
       [ "$remaining" -lt "$limit" ] && limit="$remaining"
-      timeout --kill-after=5 "$limit" env GARDEN_TEST=1 bash "$gate_root/$suite" >/dev/null 2>&1 || {
-        rc=$?; failed+=("$suite(rc=$rc)")
-      }
+      capture="$gate_root/.candidate-gate-output-$suite_number"
+      rc=0
+      timeout --kill-after=5 "$limit" env GARDEN_TEST=1 bash "$gate_root/$suite" 2>&1 \
+        | tail -c "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES" >"$capture" || rc=$?
+      if [ "$rc" -ne 0 ]; then
+        if diagnostic="$(persist_candidate_gate_diagnostic "$candidate" "$suite_number" "$suite" "$rc" "$capture")"; then
+          failed+=("$suite(rc=$rc; diagnostic=$diagnostic)")
+        else
+          failed+=("$suite(rc=$rc; diagnostic=unavailable-see-deploy-log)")
+          log "WARN: could not persist bounded candidate-suite diagnostic for $suite"
+        fi
+      fi
     done
   fi
   cleanup_candidate_gate_root
