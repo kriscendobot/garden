@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T21:36:43Z_
+_As of 2026-09-15T22:22:05Z_
 
 ## Latest
 
@@ -657,16 +657,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $295.84 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 6.0M _(+165.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Claude | 32.9M | $295.92 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Codex | 6.5M _(+174.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-3193517b.md) — attention directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`improve-selected-model-capacity-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-selected-model-capacity-classification.md) — ---
 
 ### tada (7901)
 - [`github-post-provenance-audit-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/github-post-provenance-audit-20260915.md) — orchestration github-post-provenance-audit-20260915 — complete
