@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T22:47:44Z_
+_As of 2026-09-15T22:48:40Z_
 
 ## Latest
 
@@ -665,24 +665,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $296.00 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.9M | $296.08 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 6.5M _(+174.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c626b1d09d0f
 
-### tada (7903)
+### tada (7904)
+- [`canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-3193517b.md) — Cost
 - [`improve-selected-model-capacity-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-selected-model-capacity-classification.md) — Completion report
 - [`github-post-provenance-audit-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/github-post-provenance-audit-20260915.md) — orchestration github-post-provenance-audit-20260915 — complete
 - [`audit-github-provenance-gaps-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-github-provenance-gaps-20260915.md) — Audit: provenance footers on garden-authored GitHub comments
-- [`endojs-endo-but-for-bots-pr1125-7ec0d5f0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-7ec0d5f0.md) — Completion report
-- … and 7898 more
+- … and 7899 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
