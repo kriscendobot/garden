@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T16:15:39Z_
+_As of 2026-09-15T16:17:46Z_
 
 ## Latest
 
@@ -173,10 +173,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260901T205650Z-59a6f5` — from gardener:retire-gardener-worker-kind-alias, reply_to `retire-gardener-worker-kind-alias` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T205650Z-59a6f5.md)
 
 > Retirement gate 1 failed on endolin-garden2-5bcdff64, so I stopped before changing code, journal state, or units as directed. Direct host evidence: /home/kris/garden2/.garden-state/gardeners contains 101 legacy *.garden identity markers plus gardeners/backend/{state,status}; newest legacy file is backend/status from 2026-08-25T22:56:02Z. Legacy garden-gardener@1..4 units are disabled/inactive, but the host declares monks: 4 while only garden-monk@1..3 are enabled and active (monk@4 disabled/inactive). Please reconcile/authorize disposition of the legacy state markers and the monk count mismatch, then requeue the alias-retirement cleanup.
-
-- `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
-
-> journal worktree /home/kris/garden/journal has been STALE for ~2h (7200s since it last reconciled to origin/journal2; threshold 7200s). The keeper cannot self-resolve it: this tick could not reconcile — diverged; self-heal did not reach origin tip this tick (behind=603). Agents landing in journal/ are reading a LAGGED board and must route around it by hand. Investigate: check this host's connectivity to the journal remote, then 'git -C /home/kris/garden/journal status' and the journal-worktree-keeper log. This is one alert per staleness episode — it will NOT re-page, and clears automatically once the worktree reconciles. (host=endolin-garden-ece02cb4)
 
 - `ev7-second-identity-checkpoint` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-second-identity-checkpoint.md)
 
