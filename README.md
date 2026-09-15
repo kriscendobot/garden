@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T14:21:53Z_
+_As of 2026-09-15T14:24:28Z_
 
 ## Latest
 
@@ -8,15 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 3d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 91d)
 - [endojs/Jessie#127](https://github.com/endojs/Jessie/pull/127) — Add Blockly visual programming tools for JSON, Justin, and Jessie (waiting 184d)
-- [endojs/endo#2673](https://github.com/endojs/endo/pull/2673) — feat(non-trapping-shim): opt-in shim of the non-trapping integrity trait (waiting 199d)
-- [endojs/endo#2675](https://github.com/endojs/endo/pull/2675) — feat(ses,pass-style): use non-trapping integrity trait for safety (waiting 199d)
-- [endojs/endo#2701](https://github.com/endojs/endo/pull/2701) — fix(pass-style): fix #2700 ignore more safe async_hook extra properties (waiting 140d)
-- [endojs/endo#2797](https://github.com/endojs/endo/pull/2797) — fix(pass-style): avoid symbol-named methods (waiting 200d)
-- [endojs/endo#2952](https://github.com/endojs/endo/pull/2952) — fix(ses): fix #2951 stronger sniffing for v8 (waiting 200d)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 125d)
 - [endojs/playground#14](https://github.com/endojs/playground/pull/14) — feat: rock-paper-scissors (waiting 871d)
 ## Messages to the maintainer
 
