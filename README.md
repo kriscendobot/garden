@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T22:56:10Z_
+_As of 2026-09-15T23:01:13Z_
 
 ## Latest
 
@@ -665,15 +665,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $297.39 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 33.0M | $299.00 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 6.5M _(+174.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ses-node26-lockdown-permits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits.md) — SES lockdown on Node.js 26: silence the removed/tolerated-intrinsics report
+- [`ironhorse-demolish-xs-computron-parity-myth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-demolish-xs-computron-parity-myth.md) — Demolish the XS-computron-parity myth in Iron Horse
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
 
 ### tada (7904)
