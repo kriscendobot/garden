@@ -5,23 +5,22 @@
 # skills/no-comment-banners/SKILL.md: a code comment line whose body is nothing
 # but a run of repeated rule characters used as a decorative separator.
 #
-# Why a third enforcement site: the banner rule is already enforced at generation
-# (skills/no-comment-banners) and at review (the archivist juror). The pre-push
-# driver does not currently ship a separate no-ascii-banners probe.
-# This gate catches a banner the moment it lands in a gardening diff, so the
-# fixer can strip it before the panel ever sees it.
+# This is a deterministic panel pre-pass. A hit forces the archivist juror into
+# even a trimmed code panel and hands it the offending lines as review evidence;
+# the normal disposition and fixer loop decides what happens next. The detector
+# does not edit the proposed change.
 #
 # Mirrors detect-home-coupling.sh's discipline:
 #   * QUIET BY DESIGN in `check` mode: prints nothing; answers via exit status.
 #       check: exit 0 -> banner added   exit 1 -> clean (path is quiet)
 #   * FAVORS FALSE POSITIVES in what it matches: any added comment line that is a
 #     4-or-more run of rule chars counts. It is cheaper to flag a borderline line
-#     than to let a decorative rule land; the archivist juror is the backstop.
+#     than to let a decorative rule land; the archivist juror judges the result.
 #
 # We can only speak about NEW banners against a base: with no base ref (shallow
 # clone, missing HEAD~1) there are no scannable added lines, so the honest, quiet
-# answer is "no new banner" (exit 1) — the conditional fixer downstream is an LLM
-# and must not be run on noise it cannot act on.
+# answer is "no new banner" (exit 1), so the panel does not force an extra seat on
+# evidence it cannot establish.
 #
 # Scope: only CODE files (js/ts/jsx/tsx/mjs/cjs). Markdown thematic breaks,
 # fenced-code/data dashes, and directional-arrow prose ("foo -> bar") are NOT
@@ -32,7 +31,7 @@
 # Subcommands:
 #   check <worktree> [base]   exit 0 if a banner appears in an added line
 #   lines <worktree> [base]   print each offending added line as `<path>: <text>`
-#                             (consumed by handlers/banner-sweep-claude.sh)
+#                             (consumed by the panel's archivist pre-pass)
 #
 # base defaults to HEAD~1.
 

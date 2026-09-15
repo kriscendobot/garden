@@ -81,16 +81,6 @@ DETECT_HOME_COUPLING="$HERE/detect-home-coupling.sh"
 : "${GARDEN_HOME_COUPLING_FIXER:=$HERE/../handlers/portability-coupling-claude.sh}"
 run_if "$DETECT_HOME_COUPLING" check "$wt" "$base" -- "$GARDEN_HOME_COUPLING_FIXER" "$wt" "$base"
 
-# comment-banner sweep: ONLY when the deterministic detector finds a decorative
-# rule comment (a run of repeated dash/equals/etc.) in an ADDED diff line of a code
-# file (cheap when clean; an LLM deletion when it fires). This is the gardening
-# loop's copy of the no-comment-banners rule, joining the pre-push gate and the
-# archivist juror seat; the archivist is the semantic backstop for what the grep
-# misses.
-DETECT_BANNERS="$HERE/detect-banners.sh"
-: "${GARDEN_BANNER_FIXER:=$HERE/../handlers/banner-sweep-claude.sh}"
-run_if "$DETECT_BANNERS" check "$wt" "$base" -- "$GARDEN_BANNER_FIXER" "$wt" "$base"
-
 # catch-all error-swallow narrowing: ONLY when the deterministic detector finds a
 # try/catch `catch` block added in a code file whose body neither narrows on an
 # error class/code nor rethrows/logs (cheap when clean; an LLM narrowing when it

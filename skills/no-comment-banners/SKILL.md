@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-08-10
+updated: 2026-09-15
 author: gardener
 ---
 
@@ -52,22 +52,17 @@ thinner shape.
 
 The rule governs code comments in the projects the garden builds for (today
 `endojs/endo-but-for-bots` and, post-ferry, `endojs/endo`). It is a project
-code-style rule, not a garden-document prose rule, so it is enforced at three
+code-style rule, not a garden-document prose rule, so it is enforced at two
 sites:
 
-- **Generation.** `scripts/jobs/gardening/detect-banners.sh` detects an added
-  banner-rule comment and gates the state machine's banner-sweep handler. The
-  pre-push driver does not currently ship a `no-ascii-banners` probe, so the
-  panel remains the backstop when the detector or handler does not settle it.
-- **Gardening loop.** The sense-gated `scripts/jobs/gardening/detect-banners.sh`
-  detector runs inside `garden-pr.sh`: on any ADDED banner-rule line in a code
-  file it fires the conditional
-  `scripts/jobs/handlers/banner-sweep-claude.sh` fixer, which deletes the rule
-  lines (keeping a bracketed title as a plain comment) and re-stages — mirroring
-  the workstation-coupling detector+handler pair. Deterministic and
-  quiet-by-design; best-effort, with the `archivist` juror as the backstop.
-- **Review.** The `archivist` code-panel seat (it already reads comment and
-  JSDoc prose) flags any surviving banner rule as should-fix. The `pedant`
+- **Generation.** Avoid banner-rule comments when producing code. The pre-push
+  driver does not currently ship a `no-ascii-banners` probe.
+- **Review.** `scripts/jobs/gardening/detect-banners.sh` runs as a deterministic
+  panel pre-pass. On any ADDED banner-rule line in a code file, `panel.sh`
+  force-adds the `archivist` seat even to a trimmed panel and hands it the
+  matching lines as evidence. The juror judges the finding, and any edit follows
+  the ordinary panel disposition and fixer loop; the detector never deletes the
+  line itself. The `pedant`
   design-panel seat carries the same rule for code blocks inside design
   documents, alongside the ASCII-diagram rule it already holds.
 
@@ -92,3 +87,6 @@ title line and adjust its punctuation so it reads as a sentence.
   rule comments across six files. The planned `no-ascii-banners` probe was
   widened in documentation, but its executable did not survive the v2
   migration; `detect-banners.sh` plus the panel seats are the active enforcement.
+- _2026-09-15_: moved banner detection from a pre-review LLM deletion handler
+  into the panel pre-pass. A hit now forces the archivist juror, preserving the
+  normal review, disposition, and fixer-loop accountability.

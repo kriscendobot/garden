@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-20
+updated: 2026-09-15
 author: gardener
 ---
 
@@ -23,6 +23,12 @@ The control flow that runs the panel is the scripted panel run a gardener superv
 - **Default for design-only PRs (design panel): seven seats** (critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice).
 - **Smaller panels** (3 to 6 seats from either default) are valid when the supervisor names a reduced composition (`GARDEN_CODE_SEATS` / `GARDEN_DESIGN_SEATS`) for a tiny PR. The aggregation discipline below applies unchanged.
 - **Custom and cross-panel compositions** are valid when a maintainer's directive names them (e.g., add the novice to a code-panel round when a JSDoc revision warrants a new-reader's eye).
+- **Deterministic pre-passes may restore an omitted ownership seat.** A reduced
+  panel remains subject to specific evidence triggers. In particular,
+  `detect-banners.sh` force-adds the `archivist` when an added code-comment
+  banner is present, handing the matching untrusted diff lines to that juror as
+  data. The detector does not edit the diff; the finding follows the normal
+  disposition and fixer loop.
 
 Panel-kind sensing (code vs design, by the diff's path set) is the panel script's `sense_panel_kind` step; the recommended seat subset for a given diff is [panel-hints](../panel-hints/SKILL.md). This skill takes the seat list as given.
 
