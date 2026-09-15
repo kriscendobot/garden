@@ -43,3 +43,13 @@ Verify: run all 7 tests locally (should be unaffected/still green on a
 standard host), and if possible re-run `policy-refusal-quarantine-test.sh` on
 oros-studio-garden-ce242c49 (requires: host=oros-studio-garden-ce242c49 for a
 follow-up canary-style verification job) to confirm it now passes there.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-15T18:35:09Z
