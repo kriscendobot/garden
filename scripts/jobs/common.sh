@@ -4277,15 +4277,31 @@ reap_process_group() {
 # parent dies) can wait(2) it away. Treating one as a live survivor made every
 # worker restart send SIGKILL to the same pid forever. We now classify residue,
 # signal only live members, and give the owning parent/systemd time to reap
-# zombies. Residue is remembered outside the unit cgroup: an unchanged set is
-# not signalled again until the retry window expires, and is escalated through
-# the coalescing maintainer-alert path instead of producing one notice per
-# restart.
+# zombies. A process we just SIGKILLed is dead but lingers in cgroup.procs as a
+# zombie until wait(2)ed — which is precisely what systemd reports as a left-over
+# process at the next unit start. Once no live survivor remains, a dedicated
+# zombie-drain window (GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT) polls for those
+# dead members to be reaped before we declare residue, so the common
+# killed-but-not-yet-reaped case resolves cleanly instead of alerting on every
+# restart. Residue that outlives cleanup is remembered outside the unit cgroup:
+# an unchanged set is not signalled again until the retry window expires, and is
+# escalated through the coalescing maintainer-alert path — distinguishing a live
+# survivor we could not kill (the actionable failure) from purely dead residue
+# awaiting reap (a wedged owning parent) — instead of one notice per restart.
 #
 # GARDEN_PROC_ROOT and GARDEN_CGROUP_ROOT are test seams. Production leaves them
 # at /proc and /sys/fs/cgroup.
 : "${GARDEN_WORKER_STARTUP_REAP_GRACE:=2}"
 : "${GARDEN_WORKER_STARTUP_REAP_KILL_WAIT:=2}"
+# After every live survivor is KILLed, dead residue lingers in cgroup.procs as a
+# zombie until its owning parent (or PID 1, after reparenting) calls wait(2). That
+# window is what systemd sees and logs as a left-over process at the next unit
+# start — the recurring warning this reaping exists to quiet. Poll for reap up to
+# this many seconds, but only once NO live survivor remains (a live process needs
+# attention now; a zombie only needs patience). Kept modest: reaping runs before
+# the claim loop, so this is added startup latency only in the rarer restart-into-
+# residue case, and the loop early-exits the instant the cgroup drains.
+: "${GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT:=5}"
 : "${GARDEN_WORKER_STARTUP_REAP_RETRY_SECS:=300}"
 : "${GARDEN_WORKER_STARTUP_REAP_STATE_DIR:=$GARDEN_STATE/worker-cgroup-reap}"
 reap_stale_worker_cgroup() {
@@ -4294,7 +4310,7 @@ reap_stale_worker_cgroup() {
   local cgroup_root="${GARDEN_CGROUP_ROOT:-/sys/fs/cgroup}"
   local line cgpath leaf unit_prefix expected procs root p parent state
   local state_file now retry prior_identity prior_at prior_count identity signature tmp
-  local live_count zombie_count unknown_count wait_left count
+  local live_count zombie_count unknown_count wait_left count zwait
   local -a members=() stale=() live=() zombies=()
   local -A killed=() observed_states=()
 
@@ -4452,6 +4468,23 @@ reap_stale_worker_cgroup() {
     wait_left=$((wait_left - 1))
   done
 
+  # Drain dead-but-unreaped residue. Every live survivor has now had its one KILL;
+  # what commonly remains is a process we just killed that is still a zombie in the
+  # cgroup because its owner has not yet wait(2)ed it. That is exactly what systemd
+  # logs as a left-over process on the next start, so give the owning parent/systemd
+  # a more generous, SEPARATE window than the short post-KILL fork-race wait to
+  # finish reaping. Spend it only while no live survivor remains: a live process is
+  # the actionable problem and must not be masked by waiting on the dead.
+  zwait="$GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT"
+  case "$zwait" in ''|*[!0-9]*) zwait=5 ;; esac
+  while [ "$zwait" -gt 0 ]; do
+    _worker_collect_stale
+    [ "${#stale[@]}" -gt 0 ] || break   # fully reaped: nothing left to wait on
+    [ "${#live[@]}" -eq 0 ] || break     # a live survivor remains: do not wait on zombies
+    sleep 1
+    zwait=$((zwait - 1))
+  done
+
   # Take one final snapshot. Persist and escalate residue; clear a prior episode
   # after the owning parent/systemd has finally reaped it.
   _worker_collect_stale
@@ -4467,9 +4500,21 @@ reap_stale_worker_cgroup() {
     fi
     live_count="${#live[@]}"; zombie_count="${#zombies[@]}"; unknown_count=0
     for p in "${live[@]}"; do [ "${observed_states[$p]:-?}" = '?' ] && unknown_count=$((unknown_count + 1)); done
-    log "WARN: startup cgroup cleanup: persistent residue after cleanup (live=$live_count zombies=$zombie_count unknown=$unknown_count; members: $signature)"
-    alert_maintainer "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
-      "$kind/$id on $GARDEN retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd ($signature). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per ${retry}s." || true
+    if [ "$live_count" -gt 0 ]; then
+      # A survivor we could not kill: the genuine, actionable failure. Escalate.
+      log "WARN: startup cgroup cleanup: persistent residue after cleanup (live=$live_count zombies=$zombie_count unknown=$unknown_count; members: $signature)"
+      alert_maintainer "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
+        "$kind/$id on $GARDEN retains stale cgroup residue after TERM, one KILL per live pid, and a bounded wait for the owning parent/systemd ($signature). Live survivors may be in uninterruptible D state; zombies cannot be killed and require their parent to wait(2). Further cleanup of this unchanged set is rate-limited to once per ${retry}s." || true
+    else
+      # Only dead-but-unreaped residue survived even the zombie-drain window. The
+      # processes ARE terminated; they linger because their owner has not wait(2)ed
+      # them. Surface this distinctly from a live survivor — it is not a failure to
+      # terminate — but still escalate, since a zombie that outlives the drain
+      # implies a wedged owning parent worth inspecting.
+      log "WARN: startup cgroup cleanup: dead residue awaiting reap after cleanup (live=0 zombies=$zombie_count unknown=$unknown_count; members: $signature)"
+      alert_maintainer "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \
+        "$kind/$id on $GARDEN retains ONLY dead (zombie) stale cgroup members after cleanup ($signature). These processes are terminated, not live residue; they linger because their owning parent/systemd has not wait(2)ed them within ${GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT}s. A zombie that outlives the drain implies a wedged parent — inspect it rather than restarting. Re-checked at most once per ${retry}s." || true
+    fi
   else
     rm -f "$state_file" 2>/dev/null || true
     alert_maintainer_clear "worker-cgroup-residue-${GARDEN}-${kind}-${id}" \

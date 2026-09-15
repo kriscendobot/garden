@@ -44,6 +44,9 @@ export GARDEN_PROC_ROOT="$PROC" GARDEN_CGROUP_ROOT="$CGROUP"
 export GARDEN_STATE="$TR/state"
 export GARDEN_WORKER_STARTUP_REAP_STATE_DIR="$GARDEN_STATE/worker-cgroup-reap"
 export GARDEN_WORKER_STARTUP_REAP_GRACE=0 GARDEN_WORKER_STARTUP_REAP_KILL_WAIT=0
+# Default the zombie-drain off so the shared fixtures below exercise the classic
+# paths unchanged; the dedicated drain cases opt in with a stubbed sleep.
+export GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT=0
 export GARDEN_WORKER_STARTUP_REAP_RETRY_SECS=300
 ALERTS="$TR/alerts"
 alert_maintainer() { printf 'open %s\n' "$1" >> "$ALERTS"; }
@@ -173,6 +176,75 @@ if [ ! -e "$STATE" ] && grep -Eq '^clear worker-cgroup-residue-.+-cleric-1$' "$A
 else
   bad "resolved cgroup residue did not clear state and alert episode"
 fi
+
+# --- zombie-drain window (the restart/race path) --------------------------------
+# A live descendant that ignores TERM is KILLed, becomes a zombie still listed in
+# cgroup.procs, and is reaped by its owning parent/systemd only AFTER our short
+# post-KILL fork-race wait — but within the dedicated zombie-drain window. The
+# residue then resolves cleanly: no persistent-residue alert, no cooldown state.
+: > "$KILLS"; : > "$LOGS"
+rm -f "$STATE" 2>/dev/null || true
+open_before="$(grep -c '^open ' "$ALERTS" 2>/dev/null || true)"
+write_status 800 1 S
+write_stat 800 8000
+printf '%s\n' "$$" 500 501 800 > "$PROCS"
+export GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT=3
+# 800 survives TERM; the KILL turns it into a zombie that lingers in the cgroup.
+kill() {
+  printf '%s %s\n' "$1" "$2" >> "$KILLS"
+  [ "$1" = -KILL ] && [ "$2" = 800 ] && write_status 800 1 Z
+  return 0
+}
+# The owning parent reaps the zombie one drain tick in.
+sleep() { printf '%s\n' "$$" 500 501 > "$PROCS"; }
+reap_stale_worker_cgroup cleric 1 0
+unset -f sleep
+kill() { printf '%s %s\n' "$1" "$2" >> "$KILLS"; return 0; }
+export GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT=0
+open_after="$(grep -c '^open ' "$ALERTS" 2>/dev/null || true)"
+if grep -qx -- '-KILL 800' "$KILLS" \
+    && [ "$(grep -c -- '800' "$KILLS")" -eq 2 ]; then
+  ok "zombie-drain still terminates the live survivor (one TERM, one KILL)"
+else
+  bad "zombie-drain mis-signalled the live survivor ($(tr '\n' ';' < "$KILLS"))"
+fi
+if [ "$open_after" -eq "$open_before" ] && [ ! -e "$STATE" ]; then
+  ok "residue reaped within the zombie-drain window resolves without alert or cooldown"
+else
+  bad "killed-then-reaped residue was escalated as persistent ($(tr '\n' ';' < "$LOGS"))"
+fi
+
+# A zombie that outlives even the zombie-drain window is dead residue awaiting
+# reap, not a live survivor. It is never signalled, is surfaced with its own
+# distinct message, and persists cooldown state — but is not conflated with a
+# live process we failed to kill.
+: > "$KILLS"; : > "$LOGS"
+rm -f "$STATE" 2>/dev/null || true
+open_before="$(grep -c '^open ' "$ALERTS" 2>/dev/null || true)"
+write_status 810 1 Z
+write_stat 810 8100
+printf '%s\n' "$$" 500 501 810 > "$PROCS"
+export GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT=2
+sleep() { :; }   # the owner never reaps
+reap_stale_worker_cgroup cleric 1 0
+unset -f sleep
+export GARDEN_WORKER_STARTUP_REAP_ZOMBIE_WAIT=0
+open_after="$(grep -c '^open ' "$ALERTS" 2>/dev/null || true)"
+if [ ! -s "$KILLS" ]; then
+  ok "dead-but-unreaped residue is never signalled"
+else
+  bad "unreapable zombie was signalled after the drain ($(tr '\n' ';' < "$KILLS"))"
+fi
+if grep -q 'dead residue awaiting reap after cleanup (live=0 zombies=1 unknown=0;' "$LOGS" \
+    && [ "$open_after" -gt "$open_before" ] && [ -e "$STATE" ]; then
+  ok "unreaped zombie is escalated distinctly from a live survivor and holds cooldown"
+else
+  bad "unreaped zombie was not surfaced as distinct dead residue ($(tr '\n' ';' < "$LOGS"))"
+fi
+# Reset fixture state for the strict-no-op check below.
+: > "$KILLS"
+rm -f "$STATE" 2>/dev/null || true
+printf '%s\n' "$$" 500 501 > "$PROCS"
 
 : > "$KILLS"
 printf '0::/user.slice/user-1000.slice/user@1000.service/app.slice/session-9.scope\n' > "$PROC/self/cgroup"
