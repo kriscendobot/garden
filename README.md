@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T22:22:05Z_
+_As of 2026-09-15T22:26:57Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 6h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 7h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 3d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
@@ -309,11 +309,19 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-08T20:17:16Z, cleared 2026-09-15T13:47:07Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-08T20:17:16Z, latest 2026-09-15T22:26:06Z).
+> The SAME condition (`rolling-deploy-canary-failed-endolin-garden2-5bcdff64`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> canary endolin-garden2-5bcdff64 passed a later roll; clearing.
+> Rolling deploy HALTED on a failed canary.
+> canary host: endolin-garden2-5bcdff64
+> target sha:  441cafdc2a5f94d2dd3bf5f6a2cd8c2d9d576313
+> failing signal: released 1500s ago but never advanced to the target sha (deploy stuck/failed on the canary)
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign drain op) pending your decision; auto-rollback is deliberately not performed
+> (designs/follower-self-deploy.md § Failure handling). Investigate the target on endolin-garden2-5bcdff64,
+> then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
@@ -657,25 +665,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $295.92 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.9M | $296.00 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 6.5M _(+174.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-3193517b.md) — attention directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`improve-selected-model-capacity-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-selected-model-capacity-classification.md) — ---
 
-### tada (7901)
+### tada (7902)
+- [`improve-selected-model-capacity-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-selected-model-capacity-classification.md) — Completion report
 - [`github-post-provenance-audit-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/github-post-provenance-audit-20260915.md) — orchestration github-post-provenance-audit-20260915 — complete
 - [`audit-github-provenance-gaps-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-github-provenance-gaps-20260915.md) — Audit: provenance footers on garden-authored GitHub comments
 - [`endojs-endo-but-for-bots-pr1125-7ec0d5f0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-7ec0d5f0.md) — Completion report
 - [`claude-on-minion-town-press-20260915-212039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-212039.md) — Cost
-- [`add-per-section-provenance-footnotes-aggregated-reports`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/add-per-section-provenance-footnotes-aggregated-reports.md) — Completion report
-- … and 7896 more
+- … and 7897 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
