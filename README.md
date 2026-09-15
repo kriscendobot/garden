@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:13:07Z_
+_As of 2026-09-15T18:14:09Z_
 
 ## Latest
 
@@ -577,15 +577,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $292.17 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.6M | $292.23 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 5.2M _(+134.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic: policy-refusal-quarantine-test.sh failure on this host
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic: policy-refusal-quarantine-test.sh failure on this host
 
 ### tada (7885)
 - [`claude-on-minion-town-press-20260915-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-150509.md) — Press tick 2026-09-15 — verification summary
