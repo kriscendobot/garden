@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T15:05:51Z_
+_As of 2026-09-15T15:07:15Z_
 
 ## Latest
 
@@ -584,16 +584,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260915-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260915-150509.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (7884)
+### tada (7885)
+- [`claude-on-minion-town-press-20260915-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-150509.md) — Press tick 2026-09-15 — verification summary
 - [`canary-probe-endolin-garden2-5bcdff64-c4bc96940582`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c4bc96940582.md) — rolling-deploy canary probe — round trip OK
 - [`improve-worker-cgroup-residue-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-worker-cgroup-residue-reaping.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c.md) — rolling-deploy canary probe — round trip OK
 - [`improve-journal-worktree-staleness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-worktree-staleness.md) — Completion report
-- [`claude-on-minion-town-completion-press-20260915-130506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260915-130506.md) — Completion report — Claude-on-minion.town completion press, tick 28 (20260915...
-- … and 7879 more
+- … and 7880 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
