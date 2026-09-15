@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T19:05:45Z_
+_As of 2026-09-15T19:06:25Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 13d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 13d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 13d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 14d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 15d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 17d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 19d)
 
@@ -637,16 +637,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $293.54 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 5.6M _(+142.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 32.7M | $293.88 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Codex | 5.7M _(+143.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`canary-probe-oros-studio-garden-ce242c49-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ed289c9da554.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ed289c9da554
+### todo (0)
+(none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #1125
 - [`claude-on-minion-town-completion-press-20260915-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260915-190507.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`canary-probe-oros-studio-garden-ce242c49-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-ed289c9da554.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ed289c9da554
 
 ### tada (7892)
 - [`canary-probe-endolin-garden2-5bcdff64-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
