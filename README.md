@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:24:37Z_
+_As of 2026-09-15T18:26:37Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 2h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 3h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 3d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 13d)
@@ -625,23 +625,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $292.23 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 5.3M _(+135.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 32.6M | $292.29 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Codex | 5.3M _(+136.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-deploy-candidate-gate-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-candidate-gate-diagnostics.md) — ---
+### doin (0)
+(none)
 
-### tada (7887)
+### tada (7888)
+- [`improve-deploy-candidate-gate-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-candidate-gate-diagnostics.md) — Cost
 - [`claude-on-minion-town-press-20260915-182006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-182006.md) — Cost
 - [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic report: policy-refusal-quarantine-test.sh failure on oros-studio-g...
 - [`claude-on-minion-town-press-20260915-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-150509.md) — Press tick 2026-09-15 — verification summary
 - [`canary-probe-endolin-garden2-5bcdff64-c4bc96940582`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c4bc96940582.md) — rolling-deploy canary probe — round trip OK
-- [`improve-worker-cgroup-residue-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-worker-cgroup-residue-reaping.md) — Completion report
-- … and 7882 more
+- … and 7883 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
