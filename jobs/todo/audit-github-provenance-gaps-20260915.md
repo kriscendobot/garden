@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: github-post-provenance-audit-20260915
-priority: normal
 role: researcher
-posted_by: producer
-posted_at: 2026-09-15T20:50:05Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-15T21:22:07Z cleared=none -->
 
 ---
 tier: mentor
