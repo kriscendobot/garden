@@ -29,17 +29,16 @@ export GARDEN_TEST=1
 export GARDEN_EXPLICIT_ADDRESS_REQUIRED=0
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+# shellcheck source=test-tmpdir.sh
+source "$HERE/test-tmpdir.sh"
 BRANCH=journal2
 # Per-run temp root (mktemp), NOT a fixed shared path: ~20 gardeners can race this
 # suite concurrently, and a fixed dir makes each run's `rm -rf; mkdir` collide with a
 # peer's live writes (ENOTEMPTY), flaking the whole suite. A unique dir + EXIT-trap
 # teardown isolates each run. Mirrors skills/mermaid-validation's per-run mktemp fix.
-# Location: NOT /tmp (mounted noexec here, and this suite runs executable stubs from
-# under $TR), and NOT inside a git repo ($HOME is /home/<bot>/garden2, the garden
-# checkout — a $TR beneath it would confuse git-tree discovery in the fixtures).
-# `dirname "$HOME"` (the bot's real home, /home/<bot>) is exec-capable and outside any
-# git tree — exactly where the old fixed path lived.
-TR="$(mktemp -d "$(dirname "$HOME")/.garden-cw-test.XXXXXX")"
+# The shared selector rejects writable noexec mounts before creating the tree.
+TEST_TMPDIR="$(garden_test_exec_tmpdir)"
+TR="$(mktemp -d "$TEST_TMPDIR/.garden-cw-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 SLUG=endojs-endo-but-for-bots
 PASS=0; FAIL=0

@@ -3,6 +3,9 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+# shellcheck source=test-tmpdir.sh
+source "$HERE/test-tmpdir.sh"
+TEST_TMPDIR="$(garden_test_exec_tmpdir)"
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
@@ -23,7 +26,7 @@ WEEKLY_RESET="$(date -u -d '2026-08-15 03:00:00 UTC' +%s)"
   && ok "dated weekly reset parsed as the named UTC date" \
   || bad "dated weekly reset epoch"
 
-TR="$(mktemp -d "$(dirname "$HOME")/.garden-provider-quota-backoff-test.XXXXXX")"
+TR="$(mktemp -d "$TEST_TMPDIR/.garden-provider-quota-backoff-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 BARE="$TR/journal.git"; SEED="$TR/seed"; BRANCH=journal2
 git_id=(-c user.name=test -c user.email=test@localhost)

@@ -25,19 +25,16 @@ set -euo pipefail
 export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+# shellcheck source=test-tmpdir.sh
+source "$HERE/test-tmpdir.sh"
 BRANCH=journal2
 # Per-run temp root (mktemp), NOT a fixed shared path: ~20 gardeners can race this
 # suite concurrently (the env-scrub below exists precisely because it runs under a
 # live fleet), and a fixed dir makes each run's `rm -rf; mkdir` collide with a peer's
 # live writes (ENOTEMPTY). A unique dir + EXIT-trap teardown isolates each run.
-# Location matters on two axes: (1) NOT /tmp — it is mounted noexec here and this
-# suite runs executable handler stubs from under $TR ("Permission denied" otherwise);
-# (2) NOT inside a git repo — case J asserts a corrupt bare dir is "not a git repo"
-# via a bare `git rev-parse`, which walks UP the tree, so a $TR under the garden
-# checkout ($HOME is /home/<bot>/garden2, a repo) would falsely resolve to the garden
-# .git. `dirname "$HOME"` (the bot's real home, /home/<bot>) is exec-capable and
-# outside any git tree — exactly where the old fixed path lived.
-TR="$(mktemp -d "$(dirname "$HOME")/.garden-triager-test.XXXXXX")"
+# The shared selector rejects writable noexec mounts before creating the tree.
+TEST_TMPDIR="$(garden_test_exec_tmpdir)"
+TR="$(mktemp -d "$TEST_TMPDIR/.garden-triager-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 SLUG=kriscendobot-minion.town
 REF=main

@@ -20,6 +20,9 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+# shellcheck source=test-tmpdir.sh
+source "$HERE/test-tmpdir.sh"
+TEST_TMPDIR="$(garden_test_exec_tmpdir)"
 BRANCH=journal2
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
@@ -29,8 +32,7 @@ hr()  { echo "----------------------------------------------------------------";
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_)' || true) 2>/dev/null || true
 export GARDEN_TEST=1
 
-# Not /tmp (noexec here) and not inside a git repo.
-TR="$(mktemp -d "$(dirname "$HOME")/.garden-detect-resets-test.XXXXXX")"
+TR="$(mktemp -d "$TEST_TMPDIR/.garden-detect-resets-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 git_id=(-c user.name=test -c user.email=test@localhost)
 HOST=testhost

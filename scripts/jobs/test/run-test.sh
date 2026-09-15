@@ -19,6 +19,8 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+# shellcheck source=test-tmpdir.sh
+source "$HERE/test-tmpdir.sh"
 NJOBS="${1:-12}"
 G="${2:-4}"
 BRANCH=journal2
@@ -41,21 +43,9 @@ BRANCH=journal2
 #   GARDEN_TEST_KEEP=1      keep the root after a passing run (a failing run always
 #                           keeps it, and prints where).
 TR_KEEP="${GARDEN_TEST_KEEP:-0}"
-# The base filesystem must permit EXECUTION: several subtests write a fixture
-# script (a preflight gate, a fake `claude`/`gh`) and hand its path to a script
-# under test, and `[ -x … ]`/execve fail with EACCES on a `noexec` mount — this
-# container's /tmp is exactly that. Probe each candidate by running a throwaway
-# script there and take the first that works, ending at $HOME (the filesystem the
-# old shared root lived on, so the fallback is the historical behavior).
-tr_base=""
-for cand in "${GARDEN_TEST_TMPDIR:-}" "${TMPDIR:-}" /var/tmp /tmp "$HOME"; do
-  { [ -n "$cand" ] && [ -d "$cand" ] && [ -w "$cand" ]; } || continue
-  probe="$(mktemp -d "$cand/.garden-test-probe.XXXXXX" 2>/dev/null)" || continue
-  printf '#!/bin/sh\nexit 0\n' > "$probe/x"; chmod +x "$probe/x" 2>/dev/null || true
-  if [ -x "$probe/x" ] && "$probe/x" 2>/dev/null; then rm -rf "$probe"; tr_base="$cand"; break; fi
-  rm -rf "$probe"
-done
-[ -n "$tr_base" ] || tr_base="$HOME"
+# The shared selector executes a probe, because writability alone does not catch
+# the noexec /tmp mount used by the garden container.
+tr_base="$(garden_test_exec_tmpdir)"
 if [ -n "${GARDEN_TEST_ROOT:-}" ]; then
   TR="$GARDEN_TEST_ROOT"; TR_OWNED="$TR"
 else

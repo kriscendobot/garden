@@ -27,6 +27,9 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+# shellcheck source=test-tmpdir.sh
+source "$HERE/test-tmpdir.sh"
+TEST_TMPDIR="$(garden_test_exec_tmpdir)"
 BRANCH=journal2
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
@@ -85,7 +88,7 @@ rm -f "$FULL_TRANSCRIPT"
 
 # ============================================================================
 # Reaper fixture: a throwaway bare journal + seeded board.
-TR="$(mktemp -d "$(dirname "$HOME")/.garden-policy-refusal-test.XXXXXX")"
+TR="$(mktemp -d "$TEST_TMPDIR/.garden-policy-refusal-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 BARE="$TR/journal.git"; SEED="$TR/seed"
 git_id=(-c user.name=test -c user.email=test@localhost)
