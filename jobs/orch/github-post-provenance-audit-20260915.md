@@ -2,7 +2,7 @@
 order: serial
 children: fix-comment-provenance-provider-and-automatic-mark add-per-section-provenance-footnotes-aggregated-reports audit-github-provenance-gaps-20260915
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-15T20:50:21Z
 ---
