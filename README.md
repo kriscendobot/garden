@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:56:29Z_
+_As of 2026-09-15T18:59:24Z_
 
 ## Latest
 
@@ -641,8 +641,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 5.5M _(+139.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-endolin-garden2-5bcdff64-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-ed289c9da554.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ ed289c9da554
 
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-review-b58d5a3f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b58d5a3f.md) — Review directive on endojs/endo-but-for-bots PR #1125
