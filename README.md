@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T01:05:48Z_
+_As of 2026-09-15T01:08:28Z_
 
 ## Latest
 
@@ -592,16 +592,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260915-010506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260915-010506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (7870)
+### tada (7871)
+- [`claude-on-minion-town-completion-press-20260915-010506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260915-010506.md) — Completion report — Claude-on-minion.town completion press, tick 26 (20260915...
 - [`endojs-endo-but-for-bots-pr1277-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1277-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-6.md) — Completion report
 - [`claude-on-minion-town-press-20260914-235006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260914-235006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1277-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-panel-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1277-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet-fix-5.md) — Completion report — Gauntlet FIX round 5, endojs/endo-but-for-bots PR #1277
-- … and 7865 more
+- … and 7866 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
