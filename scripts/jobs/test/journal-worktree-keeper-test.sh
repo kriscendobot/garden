@@ -557,6 +557,83 @@ git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
 [ "$(alert_count)" -eq 0 ] && ok "no maintainer page on the live-worktree-preserving prune" || bad "paged on the preserving prune"
 
 # ============================================================================
+hr; echo "FRESHNESS CLOCK — a reconciled tick persists last-fresh"; hr
+# The freshness accounting the staleness alert measures against: every confirmed
+# reconciliation (already-fresh here, also fast-forward and self-heal) must persist a
+# numeric epoch to $GARDEN_STATE/journal-worktree-keeper/last-fresh.
+setup_fixture; write_alert_stub
+SDIR="$TR/state/journal-worktree-keeper"
+run_keeper
+grep -qF "already fresh" <<<"$OUT" && ok "tick took the fresh path" || bad "did not take the fresh path"
+[ -s "$SDIR/last-fresh" ] && [[ "$(cat "$SDIR/last-fresh")" =~ ^[0-9]+$ ]] \
+  && ok "last-fresh persisted as a numeric epoch on a fresh tick" || bad "last-fresh not persisted on a fresh tick"
+[ "$(alert_count)" -eq 0 ] && ok "no staleness alert on a fresh tick" || bad "alerted on a fresh tick"
+
+# ============================================================================
+hr; echo "FRESHNESS CLOCK — a fast-forward also persists last-fresh"; hr
+setup_fixture; write_alert_stub
+SDIR="$TR/state/journal-worktree-keeper"
+upstream_commit b c2
+run_keeper
+grep -qF "fast-forwarded" <<<"$OUT" && ok "tick fast-forwarded" || bad "did not fast-forward"
+[ -s "$SDIR/last-fresh" ] && [[ "$(cat "$SDIR/last-fresh")" =~ ^[0-9]+$ ]] \
+  && ok "last-fresh persisted after a fast-forward" || bad "last-fresh not persisted after a fast-forward"
+
+# ============================================================================
+hr; echo "STALENESS — first non-fresh observation SEEDS the clock (no spurious page)"; hr
+# A brand-new host with no last-fresh on record must NOT treat 'unknown' as
+# infinitely stale: the first tick that cannot reconcile seeds the clock and stays
+# silent. Break the fetch by pointing origin at a nonexistent bare repo.
+setup_fixture; write_alert_stub
+SDIR="$TR/state/journal-worktree-keeper"
+git -C "$JW" remote set-url origin "$TR/nonexistent.git"    # fetch will fail
+[ ! -e "$SDIR/last-fresh" ] && ok "fixture: no last-fresh on record yet" || bad "fixture: last-fresh unexpectedly present"
+run_keeper
+grep -qF "fetch of origin/journal2 failed" <<<"$OUT" && ok "took the failed-fetch path" || bad "did not hit the failed-fetch path"
+grep -qF "seeding the freshness clock" <<<"$OUT" && ok "seeded the freshness clock on first observation" || bad "did not seed the clock"
+[ -s "$SDIR/last-fresh" ] && ok "last-fresh now seeded" || bad "last-fresh not seeded"
+[ "$(alert_count)" -eq 0 ] && ok "NO page on the first non-fresh observation" || bad "paged on first observation"
+
+# ============================================================================
+hr; echo "STALENESS — behind but WITHIN the threshold: tracked, not paged"; hr
+# A recent reconciliation on record and a failed fetch: still behind, but under the
+# bounded threshold, so no alert yet (just a STALE-WATCH log line).
+setup_fixture; write_alert_stub
+SDIR="$TR/state/journal-worktree-keeper"
+mkdir -p "$SDIR"; printf '%s\n' "$(( $(date +%s) - 100 ))" > "$SDIR/last-fresh"   # ~100s ago
+git -C "$JW" remote set-url origin "$TR/nonexistent.git"
+run_keeper GARDEN_JW_FRESH_MAX_SECS=7200
+grep -qF "within the 7200s threshold" <<<"$OUT" && ok "logged within-threshold STALE-WATCH" || bad "did not log within-threshold"
+[ "$(alert_count)" -eq 0 ] && ok "NO page while within the threshold" || bad "paged within the threshold"
+[ ! -e "$SDIR/stale-alerted" ] && ok "no stale-alerted episode marker within the threshold" || bad "episode marker set within the threshold"
+
+# ============================================================================
+hr; echo "STALENESS — behind PAST the threshold: exactly one deduped page"; hr
+# The core gap the job targets: a persistent lag the keeper cannot self-resolve
+# (here a sustained fetch failure) must escalate ONCE past the bounded threshold,
+# then stay silent (per-episode dedup) until freshness is restored.
+setup_fixture; write_alert_stub
+SDIR="$TR/state/journal-worktree-keeper"
+mkdir -p "$SDIR"; printf '%s\n' "$(( $(date +%s) - 100000 ))" > "$SDIR/last-fresh"  # ~27h ago
+git -C "$JW" remote set-url origin "$TR/nonexistent.git"
+run_keeper GARDEN_JW_FRESH_MAX_SECS=7200
+[ "$RC" -eq 0 ] && ok "exit 0 (never wedged) on a threshold breach" || bad "exit $RC on threshold breach"
+grep -qF "STALE-THRESHOLD:" <<<"$OUT" && ok "logged the STALE-THRESHOLD escalation" || bad "did not log the threshold escalation"
+[ "$(alert_count)" -eq 1 ] && ok "exactly one staleness page past the threshold" || bad "expected 1 page, got $(alert_count)"
+grep -qF "journal-worktree-stale-testhost" "$ALERTS" && ok "page carries the per-host staleness dedup-key" || bad "staleness dedup-key wrong/missing"
+[ -e "$SDIR/stale-alerted" ] && ok "stale-alerted episode marker set" || bad "episode marker not set"
+# Second tick, still broken: the episode is deduped — no second page.
+run_keeper GARDEN_JW_FRESH_MAX_SECS=7200
+grep -qF "STALE-PERSISTS:" <<<"$OUT" && ok "second tick logged STALE-PERSISTS (deduped)" || bad "did not dedupe the second tick"
+[ "$(alert_count)" -eq 1 ] && ok "still exactly one page after a second stale tick" || bad "re-paged on the second stale tick ($(alert_count))"
+# Restore the remote: the next tick reconciles, clears the episode, logs restoration.
+git -C "$JW" remote set-url origin "$UP"
+run_keeper GARDEN_JW_FRESH_MAX_SECS=7200
+[ "$(head_sha)" = "$(remote_sha)" ] && ok "worktree reconciled once the remote was restored" || bad "did not reconcile after restore"
+grep -qF "FRESHNESS-RESTORED:" <<<"$OUT" && ok "logged FRESHNESS-RESTORED on recovery" || bad "did not log freshness restoration"
+[ ! -e "$SDIR/stale-alerted" ] && ok "episode marker cleared on recovery (a future lag can page again)" || bad "episode marker not cleared on recovery"
+
+# ============================================================================
 hr
 echo "journal-worktree-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"

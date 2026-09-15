@@ -134,6 +134,28 @@ JW="$GARDEN_JOURNAL_WORKTREE"
 : "${GARDEN_JW_SETTLE_SECS:=3}"
 : "${GARDEN_JW_SELF_HEAL:=1}"
 
+# Freshness accounting (2026-09-15). The prior keeper treated EVERY tick that could
+# not reconcile — a failed fetch, a refused fast-forward, a heal that aborted on an
+# active writer — as a silent success (log + `return 0`), so the worktree could sit
+# ~14h behind origin/journal2 with no alert while every agent that landed in journal/
+# read a lagged board and had to detect-and-route-around by hand. The keeper now
+# PERSISTS the timestamp of the last reconciliation to origin tip and, when the tree
+# stays behind past a BOUNDED threshold, emits ONE actionable, per-episode-deduplicated
+# alert (cleared automatically when freshness is restored). This is deliberately NOT
+# the old hourly page-storm: the divergence self-heal still fixes the common case
+# without paging; this alert fires only for a persistent, cross-tick lag the keeper
+# cannot itself resolve (sustained offline fetch, a stuck non-ff state, an agent parked
+# in the tree for hours).
+#   GARDEN_JW_STATE_DIR      where last-fresh / stale-alerted markers persist.
+#   GARDEN_JW_FRESH_MAX_SECS staleness threshold; past it a persistent lag alerts once.
+: "${GARDEN_JW_STATE_DIR:=$GARDEN_STATE/journal-worktree-keeper}"
+: "${GARDEN_JW_FRESH_MAX_SECS:=7200}"   # 2h ≈ 4 keeper ticks; well under the 14h pathology
+
+# Set to 1 by jw_mark_fresh at each confirmed reconciliation to origin tip, so a
+# single trailing staleness check can distinguish a fresh tick from every not-fresh
+# exit path. Reset per tick at the top of keep_journal_worktree.
+JW_RECONCILED=0
+
 # --- active-writer probe -----------------------------------------------------
 # True (returns 0) when a live agent is editing the worktree, so the heal must
 # abort. Two independent signals, either of which means "hands off":
@@ -279,6 +301,8 @@ heal_diverged_worktree() {  # heal_diverged_worktree <jw> <ahead> <behind> <dirt
   tracked_n="$(grep -c . "$tracked_list" 2>/dev/null || echo 0)"
   untracked_n="$(grep -c . "$untracked_list" 2>/dev/null || echo 0)"
   log "SELF-HEALED: $jw reset to origin/$JOURNAL_BRANCH (was ${ahead} ahead, ${behind} behind, ${tracked_n} dirty tracked, ${untracked_n} untracked). Lossless backup at $backup (patches/ + files/ + status.txt). Maintainer NOT paged."
+  # The reset landed the tree on the origin tip we fetched: a confirmed reconciliation.
+  jw_mark_fresh "self-healed reset to origin/$JOURNAL_BRANCH"
   rm -rf "$tmp"
   return 0
 }
@@ -480,10 +504,68 @@ jw_backup_raw_tree() {  # jw_backup_raw_tree <jw> <backup-dir>
   return "$rc"
 }
 
+# --- freshness bookkeeping ---------------------------------------------------
+# Epoch seconds, tolerant of a missing `date`.
+jw_now() { date +%s 2>/dev/null || echo 0; }
+
+# Record a CONFIRMED reconciliation: the worktree is at origin tip right now.
+# Persist the timestamp (the freshness clock every not-fresh tick measures against),
+# mark this tick reconciled, and END any open staleness episode — clearing the
+# per-episode dedup marker so a FUTURE lag delivers its own single alert. Called at
+# every point the tree is known to sit at origin/$JOURNAL_BRANCH: already-fresh, a
+# successful fast-forward, and a successful self-heal reset.
+jw_mark_fresh() {  # jw_mark_fresh <detail>
+  JW_RECONCILED=1
+  mkdir -p "$GARDEN_JW_STATE_DIR" 2>/dev/null || true
+  jw_now > "$GARDEN_JW_STATE_DIR/last-fresh" 2>/dev/null || true
+  if [ -f "$GARDEN_JW_STATE_DIR/stale-alerted" ]; then
+    rm -f "$GARDEN_JW_STATE_DIR/stale-alerted" 2>/dev/null || true
+    log "FRESHNESS-RESTORED: $JW reconciled (${1:-at origin tip}); cleared the stale-alert episode marker"
+  fi
+}
+
+# Called on any tick that did NOT confirm freshness. If the worktree has been unable
+# to reconcile for longer than the bounded threshold, emit EXACTLY ONE actionable
+# alert for this staleness episode (deduped by the stale-alerted marker until
+# jw_mark_fresh clears it). The FIRST-EVER observation seeds the clock instead of
+# firing, so a brand-new host never pages spuriously; the threshold is measured from
+# the last real reconciliation thereafter.
+jw_check_staleness() {  # jw_check_staleness <reason> [behind]
+  local reason="$1" behind="${2:-unknown}"
+  local now last age
+  now="$(jw_now)"
+  mkdir -p "$GARDEN_JW_STATE_DIR" 2>/dev/null || true
+  last="$(cat "$GARDEN_JW_STATE_DIR/last-fresh" 2>/dev/null || echo '')"
+  if ! [[ "$last" =~ ^[0-9]+$ ]]; then
+    # No reconciliation on record yet — seed the freshness clock from this first
+    # observation rather than treating "unknown" as infinitely stale.
+    printf '%s\n' "$now" > "$GARDEN_JW_STATE_DIR/last-fresh" 2>/dev/null || true
+    log "STALE-WATCH: $JW not reconciled this tick (${reason}); seeding the freshness clock (first observation)"
+    return 0
+  fi
+  age=$(( now - last ))
+  if [ "$age" -lt "${GARDEN_JW_FRESH_MAX_SECS}" ]; then
+    log "STALE-WATCH: $JW not reconciled this tick (${reason}); ${age}s behind, within the ${GARDEN_JW_FRESH_MAX_SECS}s threshold — no alert yet"
+    return 0
+  fi
+  # Past the threshold. Exactly one alert per episode.
+  if [ -f "$GARDEN_JW_STATE_DIR/stale-alerted" ]; then
+    log "STALE-PERSISTS: $JW still behind (${reason}); ${age}s since last reconciliation, alert already delivered this episode — not re-paging"
+    return 0
+  fi
+  local hrs; hrs=$(( age / 3600 ))
+  local msg="journal worktree $JW has been STALE for ~${hrs}h (${age}s since it last reconciled to origin/$JOURNAL_BRANCH; threshold ${GARDEN_JW_FRESH_MAX_SECS}s). The keeper cannot self-resolve it: this tick could not reconcile — ${reason} (behind=${behind}). Agents landing in journal/ are reading a LAGGED board and must route around it by hand. Investigate: check this host's connectivity to the journal remote, then 'git -C $JW status' and the journal-worktree-keeper log. This is one alert per staleness episode — it will NOT re-page, and clears automatically once the worktree reconciles. (host=$GARDEN)"
+  log "STALE-THRESHOLD: $msg"
+  alert_maintainer "journal-worktree-stale-$GARDEN" "$msg"
+  : > "$GARDEN_JW_STATE_DIR/stale-alerted" 2>/dev/null || true
+  return 0
+}
+
 # Fetch + reconcile the journal worktree. Every failure path logs and returns 0
 # so a transient hiccup never marks the tick Failed; a clean tree fast-forwards,
 # a diverged tree self-heals losslessly.
 keep_journal_worktree() {
+  JW_RECONCILED=0
   # Repair a stale/dangling gitdir link first, so the keeper's own git commands
   # below don't themselves fail on the broken cross-pointers.
   jw_repair_gitdir "$JW"
@@ -502,6 +584,7 @@ keep_journal_worktree() {
   if ! git -C "$JW" rev-parse --git-dir >/dev/null 2>&1 \
      || ! git -C "$JW" config --get remote.origin.url >/dev/null 2>&1; then
     log "WARN: journal worktree missing or unlinked at $JW (gitdir/origin unresolved after repair); skipping"
+    jw_check_staleness "gitdir/origin unresolved after repair"
     return 0
   fi
 
@@ -510,6 +593,10 @@ keep_journal_worktree() {
   # worktree untouched and let the next tick catch up.
   if ! journal_fetch "$JW"; then
     log "fetch of origin/$JOURNAL_BRANCH failed (offline?); leaving $JW untouched"
+    # A failed fetch is the canonical silent-lag path: we cannot confirm freshness,
+    # and origin may have advanced. Account for the staleness across ticks so a
+    # SUSTAINED fetch failure alerts once past the threshold instead of never.
+    jw_check_staleness "fetch of origin/$JOURNAL_BRANCH failed (offline?)"
     return 0
   fi
 
@@ -518,6 +605,7 @@ keep_journal_worktree() {
   head="$(git -C "$JW" rev-parse --verify --quiet HEAD || true)"
   if [ -z "$remote" ] || [ -z "$head" ]; then
     log "WARN: could not resolve HEAD or origin/$JOURNAL_BRANCH in $JW; skipping"
+    jw_check_staleness "could not resolve HEAD or origin/$JOURNAL_BRANCH"
     return 0
   fi
 
@@ -532,6 +620,7 @@ keep_journal_worktree() {
   if [ -z "$dirty" ] && [ "${ahead:-0}" -eq 0 ]; then
     if [ "$head" = "$remote" ]; then
       log "$JW: already fresh at $head"
+      jw_mark_fresh "already fresh at $head"
       return 0
     fi
     # Strictly behind: a real fast-forward is safe. Use --ff-only so an unexpected
@@ -539,11 +628,15 @@ keep_journal_worktree() {
     # only refuse, never create a merge commit.
     if git -C "$JW" merge --ff-only "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
       log "$JW: fast-forwarded $head -> $remote (${behind} commit(s))"
+      jw_mark_fresh "fast-forwarded to $remote"
     else
       local msg
       msg="journal worktree $JW could not fast-forward to origin/$JOURNAL_BRANCH despite a clean, non-ahead tree; left UNTOUCHED. Inspect 'git -C $JW status'. (host=$GARDEN)"
       log "STALE: $msg"
       alert_maintainer "journal-worktree-fffail-$GARDEN" "$msg"
+      # Also feed the cross-tick freshness clock: a ff-fail that PERSISTS past the
+      # threshold escalates once via the deduped staleness alert.
+      jw_check_staleness "fast-forward to origin/$JOURNAL_BRANCH refused" "$behind"
     fi
     return 0
   fi
@@ -555,6 +648,10 @@ keep_journal_worktree() {
   if [ "${GARDEN_JW_SELF_HEAL}" = 1 ]; then
     log "DIVERGED: $JW is ${ahead:-0} local-ahead, ${behind} behind, ${dirty_count} dirty path(s); attempting lossless self-heal"
     heal_diverged_worktree "$JW" "${ahead:-0}" "${behind:-0}" "${dirty_count:-0}"
+    # heal_diverged_worktree marks fresh only on a successful reset. If it aborted
+    # (active writer, reset failure, or unpreservable WIP), the tree is still behind:
+    # account for the lag so a heal that CANNOT complete for hours escalates once.
+    [ "$JW_RECONCILED" = 1 ] || jw_check_staleness "diverged; self-heal did not reach origin tip this tick" "$behind"
     return 0
   fi
 
@@ -563,6 +660,7 @@ keep_journal_worktree() {
   msg="journal worktree $JW has DIVERGED from origin/$JOURNAL_BRANCH and was left UNTOUCHED (self-heal disabled): ${ahead:-0} local-ahead commit(s), ${behind} behind, ${dirty_count} dirty path(s). Reconcile by hand: 'git -C $JW status'. (host=$GARDEN)"
   log "DIVERGED: $msg"
   alert_maintainer "journal-worktree-divergence-$GARDEN" "$msg"
+  jw_check_staleness "diverged; self-heal disabled" "$behind"
   return 0
 }
 
