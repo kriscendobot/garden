@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:20:47Z_
+_As of 2026-09-15T18:22:10Z_
 
 ## Latest
 
@@ -181,6 +181,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T073707Z-bff9ad` — from orchestrator:minion-town-clipometer-esbuild-orchestration-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T073707Z-bff9ad.md)
 
 > Orchestration minion-town-clipometer-esbuild-orchestration HALTED: child minion-town-clipometer-esbuild-pipeline stalled in flight for 2501s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/4 done before halt; parked remainder: minion-town-clipometer-esbuild-validate minion-town-clipometer-primer-esbuild-update minion-town-clipometer-esbuild-issue-report
+
+- `20260915T182118Z-25c671` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260915T182118Z-25c671.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `c4bc969405828bea12db9ee6c77931a8dbd99f7c`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `20260901T205650Z-59a6f5` — from gardener:retire-gardener-worker-kind-alias, reply_to `retire-gardener-worker-kind-alias` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T205650Z-59a6f5.md)
 
@@ -602,22 +614,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.6M | $292.23 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 5.2M _(+134.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 5.2M _(+134.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`claude-on-minion-town-press-20260915-182006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260915-182006.md) — Press the Claude-on-minion.town arc forward
+- [`improve-deploy-candidate-gate-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-candidate-gate-diagnostics.md) — ---
 
-### tada (7886)
+### tada (7887)
+- [`claude-on-minion-town-press-20260915-182006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-182006.md) — Cost
 - [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic report: policy-refusal-quarantine-test.sh failure on oros-studio-g...
 - [`claude-on-minion-town-press-20260915-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-150509.md) — Press tick 2026-09-15 — verification summary
 - [`canary-probe-endolin-garden2-5bcdff64-c4bc96940582`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-c4bc96940582.md) — rolling-deploy canary probe — round trip OK
 - [`improve-worker-cgroup-residue-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-worker-cgroup-residue-reaping.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c.md) — rolling-deploy canary probe — round trip OK
-- … and 7881 more
+- … and 7882 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
