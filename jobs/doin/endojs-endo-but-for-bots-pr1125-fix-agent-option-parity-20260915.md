@@ -88,3 +88,13 @@ states a formula identity" is explicitly future work ("in the fullness of time")
 - If Ask 1's full convergence is deferred to a designer sub-job, name that
   posted job in the completion report and in the inline reply so nothing is
   silently dropped.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-15T18:59:40Z
