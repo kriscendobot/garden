@@ -17,6 +17,11 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
 GARDEN_TAG="mirror-close"
+# The close-reason comment is deterministic prose — NO `claude -p` in this process.
+# Declare it machine-authored so the fleet gh wrapper's provenance footer renders
+# `model automatic`, not a spurious instrumentation-gap alert (comment-provenance.sh
+# § AUTOMATIC).
+export GARDEN_NO_LLM=1
 
 repo="${1:?usage: mirror-close-gh.sh <owner/repo> <pr-number> <comment-file>}"
 num="${2:?usage: mirror-close-gh.sh <owner/repo> <pr-number> <comment-file>}"

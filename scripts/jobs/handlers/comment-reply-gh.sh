@@ -35,6 +35,11 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
 GARDEN_TAG="comment-reply"
+# The reply body is a deterministic template — NO `claude -p` in this process. Declare
+# it machine-authored so the fleet gh wrapper's provenance footer renders
+# `model automatic`, not a spurious instrumentation-gap alert (comment-provenance.sh
+# § AUTOMATIC).
+export GARDEN_NO_LLM=1
 
 repo="${1:?owner/name}"; surface="${2:?surface}"; cid="${3:?comment-id}"; pr="${4:?pr}"; bf="${5:?body-file}"
 [ -f "$bf" ] || die "reply body file not found: $bf"

@@ -26,6 +26,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
 GARDEN_TAG="comment-reactji"
+# A reactji carries no comment body (the gh wrapper passes /reactions through without a
+# footer), but declare this process machine-authored anyway for intent + robustness: it
+# runs NO `claude -p` (comment-provenance.sh § AUTOMATIC).
+export GARDEN_NO_LLM=1
 
 repo="${1:?owner/name}"; surface="${2:?surface}"; cid="${3:?id}"; content="${4:-eyes}"
 

@@ -22,6 +22,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
 GARDEN_TAG="block-pr-comment"
+# This courtesy comment is fixed prose — NO `claude -p` in this process. Declare it
+# machine-authored so the fleet gh wrapper's provenance footer renders `model automatic`,
+# not a spurious instrumentation-gap alert (comment-provenance.sh § AUTOMATIC).
+export GARDEN_NO_LLM=1
 
 repo="${1:?usage: block-pr-comment-gh.sh <owner/repo> <pr-number> <plan-base>}"
 num="${2:?usage: block-pr-comment-gh.sh <owner/repo> <pr-number> <plan-base>}"

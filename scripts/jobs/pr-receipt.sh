@@ -43,6 +43,11 @@ source "$HERE/common.sh"
 # shellcheck source=receipt-defaults.sh
 source "$HERE/receipt-defaults.sh"
 export GARDEN_TAG="pr-receipt"
+# This receipt is composed in plain code — NO `claude -p` in this process. Declare it
+# machine-authored so the fleet gh wrapper's provenance footer renders `model automatic`
+# rather than treating the (absent) model/harness as an instrumentation gap
+# (comment-provenance.sh § AUTOMATIC).
+export GARDEN_NO_LLM=1
 
 repo="" pr="" no_post=0 dir="" force=0
 closed_outcome="" outcome_evidence="" outcome_note="" successor=""

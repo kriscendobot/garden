@@ -85,8 +85,8 @@ hr; echo "SUBTEST 1 — body-flag surface (pr/issue comment, pr review)"; hr
 
 provenance_rewrite_argv pr comment 5 --body "hello world" && {
   b="$(body_of_bodyfile)"
-  { has_footer "$b" && [ "$(count_footer "$b")" = 1 ] && [[ "$b" == "hello world"* ]] && [[ "$b" == *"$EXPECT_URL"* ]] && [[ "$b" == *"claude-opus-5"* ]] && [[ "$b" == *"harness <code>claude</code>"* ]]; } \
-    && ok "pr comment --body → single footer, original body preserved, all three facts" \
+  { has_footer "$b" && [ "$(count_footer "$b")" = 1 ] && [[ "$b" == "hello world"* ]] && [[ "$b" == *"$EXPECT_URL"* ]] && [[ "$b" == *"claude-opus-5"* ]] && [[ "$b" == *"harness <code>claude</code>"* ]] && [[ "$b" == *"provider <code>anthropic</code>"* ]]; } \
+    && ok "pr comment --body → single footer, original body preserved, all four facts (model/harness/provider/garden)" \
     || bad "pr comment --body body wrong: $b"
 } || bad "pr comment --body was not rewritten"
 provenance_cleanup
@@ -250,6 +250,114 @@ run_wrapper api -X POST repos/o/r/issues/comments/9/reactions -f content=eyes >/
 grep -q "reactions -f content=eyes" "$GHLOG" && ! grep -q "$MARKER" "$GHLOG" \
   && ok "wrapper: reactji passes through untouched (no body injected)" \
   || bad "wrapper reactji: $(cat "$GHLOG")"
+
+# ============================================================================
+hr; echo "SUBTEST 8 — provider field follows the worker-kind taxonomy"; hr
+# provider is a DISTINCT fact from harness: the codex harness fronts several
+# providers by kind. Spot-check the taxonomy (mirrors common.sh worker_kind_field).
+check_provider() {  # <worker-kind> → prints the rendered provenance_line
+  ( export GARDEN_WORKER_KIND="$1"; . "$LIB"; provenance_line )
+}
+for row in \
+  "monk anthropic claude" \
+  "gardener anthropic claude" \
+  "cleric openai codex" \
+  "fireworker fireworks codex" \
+  "openrouter openrouter codex" \
+  "mystic moonshot kimi" \
+  "friar ollama-cloud claude" \
+  "opencode-anthropic anthropic opencode" \
+; do
+  set -- $row; kind="$1"; eprov="$2"; eharn="$3"
+  line="$(check_provider "$kind")"
+  { [[ "$line" == *"provider <code>$eprov</code>"* ]] && [[ "$line" == *"harness <code>$eharn</code>"* ]]; } \
+    && ok "kind $kind → provider $eprov, harness $eharn" \
+    || bad "kind $kind: got [$line], expected provider $eprov / harness $eharn"
+done
+
+# ============================================================================
+hr; echo "SUBTEST 9 — GARDEN_NO_LLM marks a deterministic post 'automatic'"; hr
+(
+  export GARDEN_NO_LLM=1
+  # shellcheck source=/dev/null
+  . "$LIB"
+  provenance_line
+) > "$TR/automatic.out" 2>/dev/null
+{ grep -q "model <code>automatic</code>" "$TR/automatic.out" \
+  && ! grep -q "harness <code>" "$TR/automatic.out" \
+  && ! grep -q "provider <code>" "$TR/automatic.out" \
+  && grep -q "$EXPECT_URL" "$TR/automatic.out"; } \
+  && ok "GARDEN_NO_LLM=1 → model automatic, harness/provider omitted, garden sha kept" \
+  || bad "automatic marker: $(cat "$TR/automatic.out")"
+
+# GARDEN_NO_LLM wins even when a model var is (spuriously) inherited by a
+# deterministic handler job: the explicit no-LLM mark beats a stray GARDEN_JOB_MODEL.
+(
+  export GARDEN_NO_LLM=1 GARDEN_JOB_MODEL="claude-opus-5" GARDEN_WORKER_KIND="gardener"
+  # shellcheck source=/dev/null
+  . "$LIB"
+  provenance_line
+) > "$TR/automatic2.out" 2>/dev/null
+{ grep -q "model <code>automatic</code>" "$TR/automatic2.out" && ! grep -q "claude-opus-5" "$TR/automatic2.out"; } \
+  && ok "GARDEN_NO_LLM=1 overrides an inherited GARDEN_JOB_MODEL (→ automatic)" \
+  || bad "automatic override: $(cat "$TR/automatic2.out")"
+
+# The automatic marker suppresses the instrumentation-gap alert (no LLM ⇒ no gap).
+(
+  export GARDEN_NO_LLM=1
+  export GARDEN_ALERT_CMD="$TR/alert-sink9.sh"; printf '#!/bin/bash\nprintf "%%s\\n" "$1" >> "%s"\n' "$TR/gap9.log" > "$GARDEN_ALERT_CMD"; chmod +x "$GARDEN_ALERT_CMD"
+  : > "$TR/gap9.log"
+  # shellcheck source=/dev/null
+  . "$LIB"
+  provenance_rewrite_argv pr comment 5 --body "auto body" >/dev/null 2>&1
+)
+[ ! -s "$TR/gap9.log" ] && ok "automatic post raises NO gap alert" || bad "automatic wrongly alerted: $(cat "$TR/gap9.log")"
+
+# ============================================================================
+hr; echo "SUBTEST 10 — instrumentation gap (LLM post, no facts) is surfaced, still posts"; hr
+(
+  unset GARDEN_JOB_MODEL GARDEN_WORKER_KIND
+  export GARDEN_ALERT_CMD="$TR/alert-sink10.sh"; printf '#!/bin/bash\nprintf "%%s|%%s\\n" "$1" "$3" >> "%s"\n' "$TR/gap10.log" > "$GARDEN_ALERT_CMD"; chmod +x "$GARDEN_ALERT_CMD"
+  : > "$TR/gap10.log"
+  # shellcheck source=/dev/null
+  . "$LIB"
+  # A comment with a resolvable garden sha but NO model/harness/provider: footer is
+  # appended (garden-only) AND the gap is surfaced (the PR #1125 shape).
+  if provenance_rewrite_argv pr comment 5 --body "gap body"; then echo REWROTE; else echo PASSTHROUGH; fi
+  provenance_cleanup
+) > "$TR/gap10.out" 2>/dev/null
+{ grep -q "comment-provenance-gap" "$TR/gap10.log" && grep -q "|1" "$TR/gap10.log"; } \
+  && ok "gap → maintainer alert raised (keyed comment-provenance-gap-<host>, count folded)" \
+  || bad "gap alert not raised: $(cat "$TR/gap10.log")"
+grep -q REWROTE "$TR/gap10.out" \
+  && ok "gap → comment STILL posts (garden-only footer appended, fail-open preserved)" \
+  || bad "gap should still post: $(cat "$TR/gap10.out")"
+
+# The gap alert is THROTTLED per host: a burst folds into ONE delivery.
+(
+  unset GARDEN_JOB_MODEL GARDEN_WORKER_KIND
+  export GARDEN_ALERT_CMD="$TR/alert-sink10b.sh"; printf '#!/bin/bash\nprintf "x\\n" >> "%s"\n' "$TR/gap10b.log" > "$GARDEN_ALERT_CMD"; chmod +x "$GARDEN_ALERT_CMD"
+  export GARDEN_STATE="$TR/gap10b-state"
+  : > "$TR/gap10b.log"
+  # shellcheck source=/dev/null
+  . "$LIB"
+  for i in 1 2 3 4 5; do provenance_rewrite_argv pr comment 5 --body "gap $i" >/dev/null 2>&1; provenance_cleanup; done
+)
+[ "$(wc -l < "$TR/gap10b.log" | tr -d ' ')" = 1 ] \
+  && ok "gap alert throttled: a burst of 5 folds into ONE delivery" \
+  || bad "throttle failed, deliveries=$(cat "$TR/gap10b.log" | wc -l)"
+
+# A no-facts post that is NOT a comment (a reactji) raises NO gap alert.
+(
+  unset GARDEN_JOB_MODEL GARDEN_WORKER_KIND
+  export GARDEN_ALERT_CMD="$TR/alert-sink10c.sh"; printf '#!/bin/bash\nprintf "x\\n" >> "%s"\n' "$TR/gap10c.log" > "$GARDEN_ALERT_CMD"; chmod +x "$GARDEN_ALERT_CMD"
+  export GARDEN_STATE="$TR/gap10c-state"
+  : > "$TR/gap10c.log"
+  # shellcheck source=/dev/null
+  . "$LIB"
+  provenance_rewrite_argv api -X POST repos/o/r/issues/comments/9/reactions -f content=eyes >/dev/null 2>&1
+)
+[ ! -s "$TR/gap10c.log" ] && ok "non-comment (reactji) with no facts raises NO gap alert" || bad "reactji wrongly alerted"
 
 # ============================================================================
 hr

@@ -16,24 +16,44 @@
 # A skill telling agents to append a line is unreliable (forgotten, doubled, drifts);
 # the wrapper cannot forget and is idempotent by construction.
 #
-# THE THREE FACTS
-#   model   — GARDEN_JOB_MODEL, the model actually resolved for THIS job
+# THE FACTS
+#   model    — GARDEN_JOB_MODEL, the model actually resolved for THIS job
 #             (exported by the handler from resolve_model_tier/role_default_model),
 #             not the role's nominal default. Empty ⇒ field omitted.
-#   harness — the worker kind's harness CLI (GARDEN_WORKER_KIND: monk/gardener/friar→claude,
+#   harness  — the worker kind's harness CLI (GARDEN_WORKER_KIND: monk/gardener/friar→claude,
 #             cleric/hermit/fireworker/openrouter→codex, mystic→kimi). Empty ⇒ field omitted.
-#   garden  — the DEPLOYED sha from .garden-state/deploy/deployed-sha (the code that
+#   provider — the model PROVIDER for the worker kind (GARDEN_WORKER_KIND, the same
+#             taxonomy common.sh's worker_kind_field <kind> provider classifies:
+#             monk/gardener/opencode-anthropic→anthropic, cleric→openai, hermit→local,
+#             mystic→moonshot, fireworker→fireworks, openrouter→openrouter,
+#             openrouter-promo→openrouter-promo, friar→ollama-cloud). `harness` alone
+#             does NOT disambiguate provider — the `codex` harness fronts
+#             openai/local/fireworks/openrouter depending on kind — so provider is a
+#             distinct fact. Empty ⇒ field omitted.
+#   garden   — the DEPLOYED sha from .garden-state/deploy/deployed-sha (the code that
 #             actually produced the behavior — NOT origin/main2 tip, which the
 #             deployed root routinely lags), hyperlinked to the commit on the repo
 #             derived from the git remote (survives the pending kriskowal→kriscendobot
 #             transfer: whatever the remote says is what we link, and GitHub redirects
 #             the old owner anyway). Short sha as the link text.
 #
+# AUTOMATIC (no LLM in the loop) vs an unresolved-fact bug
+# A deterministic caller (a watcher ack, a reactji, a receipt, a mirror-close — no
+# `claude -p`/`codex`/`kimi` in its own process) sets GARDEN_NO_LLM=1 to declare its
+# comment MACHINE-authored. That renders `model automatic` (harness/provider omitted)
+# — legibly distinct from a comment an LLM produced. When a comment is NOT marked
+# automatic yet NONE of model/harness/provider resolve, that is an INSTRUMENTATION GAP
+# (the caller ran an LLM but forgot to export GARDEN_JOB_MODEL/GARDEN_WORKER_KIND — the
+# PR #1125 defect, indistinguishable in the rendered footer from a deterministic post).
+# The comment STILL posts (fail-open below), but the gap is surfaced to the maintainer
+# (throttled, best-effort — _prov_note_gap) so it is found and fixed, not accumulated.
+#
 # FAIL OPEN, NEVER CLOSED
-# If model/harness/sha cannot be resolved, the footer degrades to the fields that
-# DID resolve (or vanishes entirely) — the comment still posts. A comment that fails
-# to post because provenance was unavailable is worse than a comment missing its
-# footer. Any parse ambiguity ⇒ the wrapper passes the call through UNCHANGED.
+# If model/harness/provider/sha cannot be resolved, the footer degrades to the fields
+# that DID resolve (or vanishes entirely) — the comment still posts. A comment that
+# fails to post because provenance was unavailable is worse than a comment missing its
+# footer. Any parse ambiguity ⇒ the wrapper passes the call through UNCHANGED. The
+# gap alert is best-effort and NEVER blocks a post.
 #
 # IDEMPOTENT
 # The footer carries a hidden marker (PROV_MARKER); a body that already ends with it
@@ -77,6 +97,50 @@ _prov_harness() {
   esac
 }
 
+# _prov_provider <worker-kind> — the model PROVIDER for a worker kind. Kept in sync
+# with worker_kind_field <kind> provider (common.sh) but inlined so this file stays
+# standalone. `harness` alone cannot disambiguate provider (the codex harness fronts
+# openai/local/fireworks/openrouter by kind), so this is a separate fact. An
+# unknown/blank kind yields empty (field omitted, fail-open).
+_prov_provider() {
+  case "${1-}" in
+    monk|gardener|opencode-anthropic) printf 'anthropic' ;;
+    cleric)                 printf 'openai' ;;
+    hermit)                 printf 'local' ;;
+    mystic)                 printf 'moonshot' ;;
+    fireworker)             printf 'fireworks' ;;
+    openrouter)             printf 'openrouter' ;;
+    openrouter-promo)       printf 'openrouter-promo' ;;
+    friar)                  printf 'ollama-cloud' ;;
+    '')                     : ;;
+    *)                      : ;;  # unrecognized kind ⇒ no provider fact (fail-open)
+  esac
+}
+
+# _prov_no_llm — true when a deterministic (no-LLM) caller has explicitly marked
+# this comment as machine-authored via GARDEN_NO_LLM. Deliberate, opt-in signal:
+# a watcher ack / reactji / receipt / mirror-close sets it before its gh call.
+_prov_no_llm() {
+  case "${GARDEN_NO_LLM:-}" in
+    1|true|TRUE|yes|YES|on|ON) return 0 ;;
+  esac
+  return 1
+}
+
+# _prov_llm_facts_missing — true when this comment is (presumably) LLM-authored — NOT
+# marked automatic — yet NONE of model/harness/provider resolved: an instrumentation
+# gap (the caller ran an LLM but forgot to export GARDEN_JOB_MODEL/GARDEN_WORKER_KIND).
+# The garden sha is irrelevant here: a footer naming ONLY the commit is exactly the
+# PR #1125 defect. Used only to decide whether to surface a maintainer alert; the post
+# itself always proceeds (fail-open).
+_prov_llm_facts_missing() {
+  _prov_no_llm && return 1
+  [ -n "${GARDEN_JOB_MODEL:-}" ] && return 1
+  [ -n "$(_prov_harness "${GARDEN_WORKER_KIND:-}")" ] && return 1
+  [ -n "$(_prov_provider "${GARDEN_WORKER_KIND:-}")" ] && return 1
+  return 0
+}
+
 # _prov_deployed_sha <root> — the recorded deployed sha (the deploy marker). No git
 # fallback here: the hot comment path must not shell out to git in the shared root,
 # and an unrecorded sha simply degrades the garden field (fail-open). Env overrides
@@ -110,22 +174,34 @@ _prov_repo_url() {
 }
 
 # provenance_line — render the footer line, or nothing if no fact resolved. Pure;
-# reads GARDEN_JOB_MODEL / GARDEN_WORKER_KIND from the environment.
+# reads GARDEN_JOB_MODEL / GARDEN_WORKER_KIND / GARDEN_NO_LLM from the environment.
 provenance_line() {
-  local model harness root sha url short line parts
-  model="${GARDEN_JOB_MODEL:-}"
-  harness="$(_prov_harness "${GARDEN_WORKER_KIND:-}")"
+  local model harness provider root sha url short parts
   root="$(_prov_root)"
   sha="$(_prov_deployed_sha "$root")"
   url="$(_prov_repo_url "$root")"
 
   parts=""
-  if [ -n "$model" ]; then
-    parts="model <code>$(_prov_esc "$model")</code>"
-  fi
-  if [ -n "$harness" ]; then
-    [ -n "$parts" ] && parts="$parts · "
-    parts="${parts}harness <code>$(_prov_esc "$harness")</code>"
+  if _prov_no_llm; then
+    # Deterministic, no-LLM caller: render `model automatic` and omit harness/provider
+    # (there is no model/harness/provider — a machine wrote this). The garden sha
+    # still records WHICH deployed code produced it, so it is appended below.
+    parts="model <code>automatic</code>"
+  else
+    model="${GARDEN_JOB_MODEL:-}"
+    harness="$(_prov_harness "${GARDEN_WORKER_KIND:-}")"
+    provider="$(_prov_provider "${GARDEN_WORKER_KIND:-}")"
+    if [ -n "$model" ]; then
+      parts="model <code>$(_prov_esc "$model")</code>"
+    fi
+    if [ -n "$harness" ]; then
+      [ -n "$parts" ] && parts="$parts · "
+      parts="${parts}harness <code>$(_prov_esc "$harness")</code>"
+    fi
+    if [ -n "$provider" ]; then
+      [ -n "$parts" ] && parts="$parts · "
+      parts="${parts}provider <code>$(_prov_esc "$provider")</code>"
+    fi
   fi
   if [ -n "$sha" ]; then
     short="${sha:0:8}"
@@ -166,6 +242,78 @@ provenance_append() {
     printf '%s' "$body"; return 0
   fi
   printf '%s\n\n%s' "$body" "$line"
+}
+
+# ===========================================================================
+# instrumentation-gap alert — surface (throttled) a comment posted by an
+# LLM-driven caller that forgot to export its job facts (the PR #1125 defect),
+# so silent gaps get found instead of accumulating unnoticed.
+#
+# Self-contained on purpose: this file does NOT source common.sh (the hot gh path
+# must stay cheap), so the throttle+count is reimplemented minimally here, mirroring
+# common.sh's alert_maintainer missing-tools-<host> shape (one delivery per window
+# per key, folded occurrence count). The rare DELIVERY forks watchdog-notice.sh —
+# which sources common.sh in ITS OWN process (a subprocess, not a hot-path source)
+# and coalesces per key in the maintainer inbox. Best-effort and NEVER fails the
+# caller: a comment ALWAYS still posts (the fail-open invariant).
+# ===========================================================================
+
+# _prov_note_gap — record + (throttled) deliver ONE maintainer alert for a comment
+# provenance gap on this host. Keyed per host (comment-provenance-gap-<host>) so a
+# busy gap cannot spam the inbox.
+_prov_note_gap() {
+  [ "${GARDEN_NO_MAINTAINER_ALERT:-0}" = 1 ] && return 0
+  local root state host key skey dir marker cfile now last n throttle msg
+  root="$(_prov_root)"
+  state="${GARDEN_STATE:-$root/.garden-state}"
+  host="${GARDEN:-$(hostname -s 2>/dev/null || echo unknown)}"
+  key="comment-provenance-gap-${host}"
+  skey="${key//[^A-Za-z0-9._-]/_}"
+  dir="$state/alerts"
+  marker="$dir/$skey.last"; cfile="$dir/$skey.count"
+  mkdir -p "$dir" 2>/dev/null || true
+
+  now="$(date +%s 2>/dev/null || echo 0)"
+  # Count the occurrence FIRST so one suppressed by the throttle still folds into the
+  # next delivery's count (mirrors alert_maintainer).
+  n="$(cat "$cfile" 2>/dev/null || echo 0)"; [[ "$n" =~ ^[0-9]+$ ]] || n=0; n=$(( n + 1 ))
+  printf '%s\n' "$n" > "$cfile" 2>/dev/null || true
+
+  throttle="${GARDEN_ALERT_THROTTLE_SECS:-3600}"
+  if [ -f "$marker" ]; then
+    last="$(cat "$marker" 2>/dev/null || echo 0)"; [[ "$last" =~ ^[0-9]+$ ]] || last=0
+    [ $(( now - last )) -lt "$throttle" ] && return 0
+  fi
+  printf '%s\n' "$now" > "$marker" 2>/dev/null || true
+
+  msg="comment-provenance INSTRUMENTATION GAP on host ${host}: a fleet \`gh\` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its \`gh\` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post."
+
+  # Test/alternate sink first (mirrors alert_maintainer's GARDEN_ALERT_CMD hook).
+  if [ -n "${GARDEN_ALERT_CMD:-}" ]; then
+    "$GARDEN_ALERT_CMD" "$key" "$msg" "$n" >/dev/null 2>&1 || true
+    printf '0\n' > "$cfile" 2>/dev/null || true
+    return 0
+  fi
+  local wn="$root/scripts/jobs/watchdog-notice.sh"
+  if [ -x "$wn" ]; then
+    printf '%s\n' "$msg" \
+      | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="watchdog:comment-provenance" \
+        "$wn" --count "$n" "$key" >/dev/null 2>&1 || true
+  fi
+  printf '0\n' > "$cfile" 2>/dev/null || true
+  return 0
+}
+
+# _prov_gap_check <body> — on the comment-post path, if <body> is a non-empty,
+# not-already-footed comment whose LLM facts are missing (and not marked automatic),
+# surface the instrumentation gap. A no-op otherwise. Never fails the caller.
+_prov_gap_check() {
+  local body="${1-}"
+  [ -n "$body" ] || return 0
+  provenance_body_has_line "$body" && return 0   # already footed ⇒ a repost, not a gap
+  _prov_llm_facts_missing || return 0
+  _prov_note_gap
+  return 0
 }
 
 # ===========================================================================
@@ -235,6 +383,10 @@ _prov_rewrite_body_flag() {
   done
 
   [ "$have_body" -eq 1 ] || return 1   # editor/--edit-last/-w: nothing to inject
+
+  # Surface an instrumentation gap (missing LLM facts, not marked automatic) — the
+  # PR #1125 defect. Independent of whether a footer ends up appended below.
+  _prov_gap_check "$body"
 
   # Idempotent: an already-footed body sourced from a FILE/inline can pass through
   # untouched. But if we consumed STDIN we must forward it (stdin is gone), so we
@@ -350,6 +502,7 @@ _prov_rewrite_api() {
       _prov_forward_json "$json" && return 0 || return 1
     fi
     local cur; cur="$(printf '%s' "$json" | jq -er '.body // empty' 2>/dev/null || true)"
+    _prov_gap_check "$cur"
     if [ -z "$cur" ] || provenance_body_has_line "$cur"; then
       # No body to footer, or already footed. On stdin we must still forward.
       if [ "$from_stdin" -eq 1 ]; then _prov_forward_json "$json" && return 0 || return 1; fi
@@ -374,6 +527,7 @@ _prov_rewrite_api() {
       -)  resolved="$(cat)" ;;
     esac
   fi
+  _prov_gap_check "$resolved"
   if provenance_body_has_line "$resolved"; then
     case "$body_val" in @-|-) : ;; *) return 1 ;; esac  # already footed & not stdin ⇒ passthrough
   fi
