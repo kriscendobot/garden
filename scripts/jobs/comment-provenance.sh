@@ -68,6 +68,14 @@
 # hand-written footer is also not doubled.
 : "${PROV_MARKER:=garden-provenance}"
 
+# The PER-SECTION footnote marker, DELIBERATELY DISTINCT from PROV_MARKER. A
+# multi-section aggregate body (a panel's per-seat blocks, a completion summary's
+# per-contributor sections) footnotes each section with THIS marker so the
+# per-section footnotes do NOT trip the gh wrapper's whole-body idempotency guard
+# (provenance_body_has_line keys on PROV_MARKER); the assembled body still receives
+# its single closing whole-body footer from the wrapper. See provenance_footnote.
+: "${PROV_SECTION_MARKER:=garden-provenance-section}"
+
 # _prov_root — the DEPLOYED garden root. The wrapper on PATH lives at
 # <root>/scripts/jobs/bin/gh, so this file lives at <root>/scripts/jobs/…; walk up
 # from here. An explicit GARDEN_ROOT env wins (tests, overrides).
@@ -173,36 +181,66 @@ _prov_repo_url() {
   printf '%s' "$u"
 }
 
-# provenance_line — render the footer line, or nothing if no fact resolved. Pure;
-# reads GARDEN_JOB_MODEL / GARDEN_WORKER_KIND / GARDEN_NO_LLM from the environment.
+# _prov_is_no_llm_val <v> — true when a value is a truthy no-LLM ("automatic")
+# marker. The env path reads GARDEN_NO_LLM via _prov_no_llm; the explicit-facts
+# path (a per-section footnote) passes the same truth-values through here.
+_prov_is_no_llm_val() {
+  case "${1-}" in
+    1|true|TRUE|yes|YES|on|ON) return 0 ;;
+  esac
+  return 1
+}
+
+# _prov_mhp_parts <model> <harness> <provider> <no_llm> — build the
+# "model … · harness … · provider …" (or, when no_llm is truthy, "model automatic")
+# fragment from EXPLICIT resolved facts. Pure, reads NO env: the model, the RESOLVED
+# harness, and the RESOLVED provider are all passed in, so a caller composing a
+# multi-section body can render each section's own facts (which may differ from the
+# composing process's env). Any empty fact is omitted (fail-open); an all-empty,
+# not-automatic input yields the empty string.
+_prov_mhp_parts() {
+  local model="${1-}" harness="${2-}" provider="${3-}" no_llm="${4-}" parts=""
+  if _prov_is_no_llm_val "$no_llm"; then
+    # Deterministic, no-LLM section/caller: render `model automatic` and omit
+    # harness/provider (there is no model/harness/provider — a machine wrote this).
+    printf 'model <code>automatic</code>'
+    return 0
+  fi
+  if [ -n "$model" ]; then
+    parts="model <code>$(_prov_esc "$model")</code>"
+  fi
+  if [ -n "$harness" ]; then
+    [ -n "$parts" ] && parts="$parts · "
+    parts="${parts}harness <code>$(_prov_esc "$harness")</code>"
+  fi
+  if [ -n "$provider" ]; then
+    [ -n "$parts" ] && parts="$parts · "
+    parts="${parts}provider <code>$(_prov_esc "$provider")</code>"
+  fi
+  printf '%s' "$parts"
+}
+
+# provenance_line — render the WHOLE-BODY footer line, or nothing if no fact
+# resolved. Pure; reads GARDEN_JOB_MODEL / GARDEN_WORKER_KIND / GARDEN_NO_LLM from
+# the environment (the composing process's own facts) and appends the deployed
+# garden sha. This is the footer the gh wrapper injects at the END of a comment
+# body; a per-SECTION footnote uses provenance_footnote instead.
 provenance_line() {
-  local model harness provider root sha url short parts
+  local model harness provider root sha url short parts no_llm=0
   root="$(_prov_root)"
   sha="$(_prov_deployed_sha "$root")"
   url="$(_prov_repo_url "$root")"
 
-  parts=""
   if _prov_no_llm; then
-    # Deterministic, no-LLM caller: render `model automatic` and omit harness/provider
-    # (there is no model/harness/provider — a machine wrote this). The garden sha
-    # still records WHICH deployed code produced it, so it is appended below.
-    parts="model <code>automatic</code>"
+    no_llm=1
   else
     model="${GARDEN_JOB_MODEL:-}"
     harness="$(_prov_harness "${GARDEN_WORKER_KIND:-}")"
     provider="$(_prov_provider "${GARDEN_WORKER_KIND:-}")"
-    if [ -n "$model" ]; then
-      parts="model <code>$(_prov_esc "$model")</code>"
-    fi
-    if [ -n "$harness" ]; then
-      [ -n "$parts" ] && parts="$parts · "
-      parts="${parts}harness <code>$(_prov_esc "$harness")</code>"
-    fi
-    if [ -n "$provider" ]; then
-      [ -n "$parts" ] && parts="$parts · "
-      parts="${parts}provider <code>$(_prov_esc "$provider")</code>"
-    fi
   fi
+  parts="$(_prov_mhp_parts "${model:-}" "${harness:-}" "${provider:-}" "$no_llm")"
+  # The garden sha (the DEPLOYED code that produced the body) is a whole-body fact;
+  # it rides the whole-body footer, not the per-section footnotes.
   if [ -n "$sha" ]; then
     short="${sha:0:8}"
     [ -n "$parts" ] && parts="$parts · "
@@ -216,13 +254,53 @@ provenance_line() {
   printf '<sub><!--%s-->%s</sub>' "$PROV_MARKER" "$parts"
 }
 
+# provenance_footnote <model> <harness> <provider> [no_llm] — render a PER-SECTION
+# provenance footnote from EXPLICIT resolved facts. `harness` and `provider` are
+# the RESOLVED names (NOT a worker kind — pass literals, or the output of
+# _prov_harness/_prov_provider; or use provenance_footnote_for_kind which resolves
+# a kind for you). For a caller stitching a MULTI-SECTION aggregate body — a panel's
+# per-seat `claude -p` blocks, a completion summary's per-contributor sections —
+# where each section's model/harness/provider may differ from the composing
+# process's own env. A whole-body footer would misattribute every section but one.
+#
+# Same <sub> visual style as the whole-body footer, with two deliberate differences:
+#   * it carries PROV_SECTION_MARKER (not PROV_MARKER), so it does NOT trip the gh
+#     wrapper's whole-body idempotency guard — the assembled body still gets its
+#     single closing whole-body footer;
+#   * it OMITS the garden sha (a whole-body fact, constant across sections; the
+#     closing footer carries it once) — a footnote answers only WHICH
+#     model/harness/provider (or automatic) produced THIS section.
+# Empty (rc 0, no output) when no fact resolves and the section is not marked
+# automatic (fail-open) — a section with unknown provenance simply carries none.
+provenance_footnote() {
+  local parts
+  parts="$(_prov_mhp_parts "${1-}" "${2-}" "${3-}" "${4-}")"
+  [ -n "$parts" ] || return 0
+  printf '<sub><!--%s-->%s</sub>' "$PROV_SECTION_MARKER" "$parts"
+}
+
+# provenance_footnote_for_kind <model> <worker-kind> [no_llm] — convenience over
+# provenance_footnote: resolve harness/provider from a WORKER KIND (the same
+# taxonomy the env path uses via _prov_harness/_prov_provider), then render the
+# per-section footnote. A blank/unknown kind resolves to empty harness/provider
+# (fail-open, exactly like the env path).
+provenance_footnote_for_kind() {
+  provenance_footnote "${1-}" "$(_prov_harness "${2-}")" "$(_prov_provider "${2-}")" "${3-}"
+}
+
 # provenance_body_has_line <body> — true (rc 0) when the body already carries a
 # provenance footer: our hidden marker, or a hand-written equivalent (a <sub> line
 # naming model … garden … commit/). Prevents a doubled footer.
 provenance_body_has_line() {
   local body="${1-}"
+  # Match the WHOLE-BODY marker as its DELIMITED comment token `<!--marker-->`, not a
+  # bare substring: PROV_SECTION_MARKER ("garden-provenance-section") contains
+  # PROV_MARKER ("garden-provenance") as a substring, so a bare-substring test would
+  # false-positive on a body that carries ONLY per-section footnotes and wrongly
+  # suppress its single closing whole-body footer. The rendered footer always emits
+  # the delimited form, so this stays exact for a real whole-body footer.
   case "$body" in
-    *"$PROV_MARKER"*) return 0 ;;
+    *"<!--$PROV_MARKER-->"*) return 0 ;;
   esac
   # Loose shape match for a hand-authored footer (agent copied the template).
   printf '%s' "$body" | grep -Eiq '<sub>[^<]*model .*garden.*commit/' && return 0

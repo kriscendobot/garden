@@ -360,6 +360,68 @@ grep -q REWROTE "$TR/gap10.out" \
 [ ! -s "$TR/gap10c.log" ] && ok "non-comment (reactji) with no facts raises NO gap alert" || bad "reactji wrongly alerted"
 
 # ============================================================================
+hr; echo "SUBTEST 11 — per-section footnotes for an AGGREGATED multi-section body"; hr
+# A whole-body footer misattributes every section but one when a body is stitched
+# from multiple agents at DIFFERENT model/harness/provider (a panel's per-seat
+# blocks, a completion summary's per-contributor sections). provenance_footnote
+# renders one footnote per section from that section's OWN explicit facts.
+SECTION_MARKER="garden-provenance-section"
+
+# Two sections, two different (model, harness, provider) → two DISTINCT footnotes.
+fn1="$(provenance_footnote "claude-opus-5" "claude" "anthropic")"
+fn2="$(provenance_footnote "gpt-5" "codex" "openai")"
+{ [ -n "$fn1" ] && [ -n "$fn2" ] && [ "$fn1" != "$fn2" ] \
+  && [[ "$fn1" == *"claude-opus-5"* ]] && [[ "$fn1" == *"harness <code>claude</code>"* ]] && [[ "$fn1" == *"provider <code>anthropic</code>"* ]] \
+  && [[ "$fn2" == *"gpt-5"* ]] && [[ "$fn2" == *"harness <code>codex</code>"* ]] && [[ "$fn2" == *"provider <code>openai</code>"* ]]; } \
+  && ok "two sections at different model/harness/provider → two distinct footnotes" \
+  || bad "per-section footnotes not distinct: fn1=[$fn1] fn2=[$fn2]"
+
+# The footnote carries the SECTION marker, not the whole-body marker, and OMITS the
+# garden sha (a whole-body fact) — so it never trips the whole-body idempotency guard.
+{ [[ "$fn1" == *"<!--$SECTION_MARKER-->"* ]] && [[ "$fn1" != *"$EXPECT_URL"* ]] && [[ "$fn1" != *"garden <code>"* ]]; } \
+  && ok "footnote uses PROV_SECTION_MARKER and omits the garden sha" \
+  || bad "footnote marker/sha wrong: $fn1"
+
+# A section produced deterministically (no LLM) → `automatic`, harness/provider omitted.
+fna="$(provenance_footnote "" "" "" 1)"
+{ [[ "$fna" == *"model <code>automatic</code>"* ]] && [[ "$fna" != *"harness <code>"* ]] && [[ "$fna" != *"provider <code>"* ]] && [[ "$fna" == *"<!--$SECTION_MARKER-->"* ]]; } \
+  && ok "no_llm section → model automatic footnote (harness/provider omitted)" \
+  || bad "automatic footnote wrong: $fna"
+
+# Fail-open: a section with no resolvable fact yields an EMPTY footnote (no output).
+fne="$(provenance_footnote "" "" "")"
+[ -z "$fne" ] && ok "no fact resolves → empty footnote (fail-open, no footnote appended)" || bad "expected empty footnote, got: $fne"
+
+# provenance_footnote_for_kind resolves harness/provider from the worker kind.
+fnk_cleric="$(provenance_footnote_for_kind "gpt-5" "cleric")"
+fnk_monk="$(provenance_footnote_for_kind "claude-opus-5" "monk")"
+{ [[ "$fnk_cleric" == *"harness <code>codex</code>"* ]] && [[ "$fnk_cleric" == *"provider <code>openai</code>"* ]] \
+  && [[ "$fnk_monk" == *"harness <code>claude</code>"* ]] && [[ "$fnk_monk" == *"provider <code>anthropic</code>"* ]] \
+  && [ "$fnk_cleric" != "$fnk_monk" ]; } \
+  && ok "provenance_footnote_for_kind resolves the kind → distinct footnotes per kind" \
+  || bad "for_kind footnotes wrong: cleric=[$fnk_cleric] monk=[$fnk_monk]"
+
+# End to end: an aggregated body of 2 sections, each footnoted with its own facts,
+# then posted through the wrapper. The body carries 2 DISTINCT section footnotes AND
+# still gains the single closing whole-body footer (the section marker did not trip
+# the whole-body idempotency guard).
+AGG="## seat-a"$'\n'"verdict a"$'\n'"$fn1"$'\n\n'"## seat-b"$'\n'"verdict b"$'\n'"$fn2"
+nsec="$(grep -o "$SECTION_MARKER" <<<"$AGG" | wc -l | tr -d ' ')"
+[ "$nsec" = 2 ] && ok "aggregated body carries 2 per-section footnotes (one per section)" || bad "expected 2 section footnotes, got $nsec"
+provenance_rewrite_argv pr comment 5 --body "$AGG" && {
+  b="$(body_of_bodyfile)"
+  nsec_b="$(grep -o "$SECTION_MARKER" <<<"$b" | wc -l | tr -d ' ')"
+  # count the WHOLE-BODY marker only: the section marker contains it as a substring,
+  # so subtract the section occurrences from the raw marker count.
+  nall="$(grep -o "$MARKER" <<<"$b" | wc -l | tr -d ' ')"
+  nbody=$((nall - nsec_b))
+  { [ "$nsec_b" = 2 ] && [ "$nbody" = 1 ] && [[ "$b" == *"$EXPECT_URL"* ]]; } \
+    && ok "posted body keeps 2 section footnotes + gains exactly 1 closing whole-body footer" \
+    || bad "post assembly wrong: section=$nsec_b body=$nbody (raw=$nall); body=$b"
+} || bad "aggregated multi-section body was not rewritten (whole-body footer skipped?)"
+provenance_cleanup
+
+# ============================================================================
 hr
 echo "SUMMARY: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

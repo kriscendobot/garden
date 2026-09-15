@@ -43,6 +43,16 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : "${GARDEN_ROOT:=$(cd "$HERE/../../.." && pwd)}"
 : "${JURORS_DIR:=$GARDEN_ROOT/roles/jurors}"
 
+# Per-section provenance. The aggregate this script assembles is posted verbatim as
+# the panel's `gh pr review`, so each seat's block gets a footnote naming the
+# model/harness/provider (or automatic) that produced THAT seat — a whole-body
+# footer would misattribute every seat but one. comment-provenance.sh is pure and
+# side-effect-free to source; a missing/unreadable copy just disables the footnotes
+# (fail-open — seat_provenance_footnote no-ops when provenance_footnote is absent).
+# shellcheck source=/dev/null
+[ -r "$GARDEN_ROOT/scripts/jobs/comment-provenance.sh" ] \
+  && . "$GARDEN_ROOT/scripts/jobs/comment-provenance.sh" || true
+
 wt="${1:?usage: panel.sh <worktree> <pr> [base]}"
 pr="${2:?pr number}"
 base="${3:-HEAD~1}"
@@ -399,6 +409,27 @@ $(cat "$brief"). Diff base: $base.${related_ev}"
   # cause of the recurring 0-byte seat blocks that jammed the panel gate.
 }
 
+# --- PER-SECTION PROVENANCE: one footnote per seat block --------------------
+# seat_provenance_footnote <seat> — render the provenance footnote appended to a
+# seat's block in the aggregate: which model/harness/provider (or automatic)
+# produced THIS seat. Seats run `claude -p` (harness claude) at the panel job's
+# resolved facts today — GARDEN_JOB_MODEL + GARDEN_WORKER_KIND, exported by the
+# handler — so the default captures those per seat. A seat COULD diverge (a
+# per-seat model, or a deterministic seat-gate that spends no `claude -p` and so is
+# `automatic`); capturing per seat keeps the aggregate correct section-by-section
+# rather than tarring every seat with one whole-body footer. Overridable via
+# GARDEN_PANEL_SEAT_PROVENANCE (called as `$GARDEN_PANEL_SEAT_PROVENANCE <seat>`) so
+# tests can inject distinct facts per seat. Fail-open: empty when the provenance
+# library is unavailable or no fact resolves (no footnote appended).
+seat_provenance_footnote() {  # seat_provenance_footnote <seat> -> footnote or ""
+  local seat="$1"
+  if [ -n "${GARDEN_PANEL_SEAT_PROVENANCE:-}" ]; then
+    "$GARDEN_PANEL_SEAT_PROVENANCE" "$seat"; return
+  fi
+  command -v provenance_footnote_for_kind >/dev/null 2>&1 || return 0
+  provenance_footnote_for_kind "${GARDEN_JOB_MODEL:-}" "${GARDEN_WORKER_KIND:-}"
+}
+
 # --- DECISION HOOK: aggregate the seat verdicts into one disposition ---------
 # Reads every seat's block and decides the round's disposition. Echoes one of
 # `must-fix` (changes required; loop to the fixer) or `pass` (no must-fix items;
@@ -667,7 +698,16 @@ while :; do
       fail) PANEL_DISPOSITION="seat-error"; fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)" ;;
       *)    PANEL_DISPOSITION="seat-error"; fail "seat $seat (fan-out died before reporting a verdict; stderr in $block.stderr)" ;;
     esac
-    { echo "### $seat"; cat "$block"; echo; } >> "$agg"
+    {
+      echo "### $seat"
+      cat "$block"
+      # Per-section provenance footnote for THIS seat, in the same visual style as
+      # the whole-body footer. Deterministic (a pure function of the seat's facts),
+      # so the aggregate stays byte-stable regardless of seat completion order.
+      fn="$(seat_provenance_footnote "$seat" 2>/dev/null || true)"
+      [ -n "$fn" ] && printf '%s\n' "$fn"
+      echo
+    } >> "$agg"
   done
 
   # STRICT verdict parse — the disposition gate must never fail OPEN. The old

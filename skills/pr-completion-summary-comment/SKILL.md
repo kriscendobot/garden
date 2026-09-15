@@ -29,6 +29,23 @@ One top-level comment (`gh pr comment <N>`, or `POST /repos/<owner>/<repo>/issue
 
 Keep it scannable. A bulleted item-to-SHA map plus a one-line verification status is the floor; prose paragraphs only where an item needs explanation.
 
+### Per-section provenance for an aggregated summary
+
+The gh wrapper appends **one** whole-body provenance footer (model · harness · provider · deployed-garden sha) to the end of any comment the fleet posts (`scripts/jobs/comment-provenance.sh`). That is correct for a summary written entirely by the posting doer. But when the summary **stitches together sections contributed by different roles/jobs over the PR's lifetime** — each potentially produced by a different model/harness/provider than the composing process — a single whole-body footer misattributes every section but one.
+
+For that case, footnote **each contributed section with that section's own facts**, in the same `<sub>…</sub>` style, using the section renderer from `comment-provenance.sh`:
+
+```sh
+# resolved facts of the SECTION's author (harness/provider are the resolved names):
+provenance_footnote "<model>" "<harness>" "<provider>"
+# or, from a worker kind (resolves harness/provider for you):
+provenance_footnote_for_kind "<model>" "<worker-kind>"
+# a section produced deterministically (no LLM):
+provenance_footnote "" "" "" 1        # → "model automatic"
+```
+
+Append the returned line immediately after its section, before concatenating the next. Section footnotes carry a distinct marker (`PROV_SECTION_MARKER`) that does **not** suppress the closing whole-body footer, so the assembled comment carries a footnote per section **and** the single closing footer naming the composing process and the deployed garden sha. A reader can then tell, section by section, which model/harness/provider (or automatic) produced it. A section whose facts do not resolve simply carries no footnote (fail-open) — never a wrong one. This mirrors the panel review's per-seat footnotes (`scripts/jobs/gardening/panel.sh`, [`../panel-review/SKILL.md`](../panel-review/SKILL.md)).
+
 ## Authorization
 
 Posting a comment on an upstream PR requires the per-action authorization the job carries (see [`../../roles/COMMON.md`](../../roles/COMMON.md) § External-repo etiquette). On `endojs/endo-but-for-bots` the standing comment authorization (per `journal/projects/endo-but-for-bots/README.md` § Standing authorizations) covers it, so the summary is unconditionally required there. On any other repo, when the job does not carry the comment authorization the doer records the summary in its completion report and surfaces the gap over the message bus rather than posting under the bot identity; the orchestrator posts it. The summary is not skipped, only relocated.

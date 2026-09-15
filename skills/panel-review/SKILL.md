@@ -196,6 +196,8 @@ The body is the aggregated report (typically 2300 to 3600 words for the code pan
 
 The summary-fix bundle, the follow-up ledger append, and the proposed-rule message to the gardener all land on the same beat as the review submission; the un-draft is the last step of the round.
 
+**Per-seat provenance footnotes.** The aggregate is a body stitched from many seats, each its own `claude -p` invocation potentially at a different model/tier than its peers or the supervising gardener; a single whole-body footer would misattribute every seat but one. The panel script therefore appends a per-seat provenance footnote (model · harness · provider, or `automatic` for a deterministic seat) to each seat's block as it aggregates (`scripts/jobs/gardening/panel.sh`'s `seat_provenance_footnote` → `provenance_footnote_for_kind` in `scripts/jobs/comment-provenance.sh`). Those footnotes carry a distinct section marker that does not suppress the single closing whole-body footer the gh wrapper adds when the review posts. Leave them in place; do not collapse them into one footer.
+
 ## Pre-round state check
 
 The panel run probes PR state before fanning seats (this is the script's responsibility, not a separate dispatch):
