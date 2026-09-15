@@ -33,3 +33,13 @@ capturing full stdout+stderr, and report in your completion:
    (rules out a one-off flake vs. a reproducible platform issue).
 
 No repository changes needed for this job itself — diagnostic only.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-15T18:13:51Z

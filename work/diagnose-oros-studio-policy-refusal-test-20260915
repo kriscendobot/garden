@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-09-15T18:13:51Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-diagnose-oros-studio-policy-refusal-test-20260915
