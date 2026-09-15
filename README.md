@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:22:10Z_
+_As of 2026-09-15T18:24:37Z_
 
 ## Latest
 
@@ -89,6 +89,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-issue-kriscendobot-garden-90-057fad80de71` — from scholar:issue-kriscendobot-garden-90, reply_to `issue-kriscendobot-garden-90` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-issue-kriscendobot-garden-90-057fad80de71.md)
 
 > The topology work is useful to Garden as a future model-characterization and regression signal, but not as a safety gate. I ingested both Robinson et al. papers as six sections: the 2024 paper measures stratified, negatively curved token spaces in three open models; the 2025 sequel reconstructs token topology from structured responses and validates local dimension on one model. The Endo relationship is complementary: topology may indicate where model behavior is unstable, while SES/object capabilities limit what that unreliable behavior is authorized to affect. The full result is in the journal entry for `issue-kriscendobot-garden-90`.
+
+- `20260915T182416Z-14606a` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260915T182416Z-14606a.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `c4bc969405828bea12db9ee6c77931a8dbd99f7c`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr881-gauntlet.md)
 
@@ -614,7 +626,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.6M | $292.23 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 5.2M _(+134.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 5.3M _(+135.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
