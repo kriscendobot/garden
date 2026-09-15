@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T05:52:18Z_
+_As of 2026-09-15T07:06:04Z_
 
 ## Latest
 
@@ -586,14 +586,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.2M | $290.22 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 4.9M _(+133.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 5.0M _(+133.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`claude-on-minion-town-completion-press-20260915-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260915-070506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`daily-progress-summary-20260915-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260915-070506.md) — Daily midnight Pacific progress summary
 
 ### tada (7875)
 - [`claude-on-minion-town-press-20260915-055010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-055010.md) — Cost
