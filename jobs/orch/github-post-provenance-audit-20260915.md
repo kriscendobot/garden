@@ -1,4 +1,5 @@
 ---
+child-fix-comment-provenance-provider-and-automatic-mark-reap-count: 0
 order: serial
 children: fix-comment-provenance-provider-and-automatic-mark add-per-section-provenance-footnotes-aggregated-reports audit-github-provenance-gaps-20260915
 on-child-failure: halt
