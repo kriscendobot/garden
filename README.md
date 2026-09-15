@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T22:38:02Z_
+_As of 2026-09-15T22:47:44Z_
 
 ## Latest
 
@@ -672,8 +672,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c626b1d09d0f
 
 ### tada (7903)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-3193517b.md) — Cost
