@@ -1,4 +1,5 @@
 ---
+child-add-per-section-provenance-footnotes-aggregated-reports-reap-count: 0
 child-fix-comment-provenance-provider-and-automatic-mark-host: endolin-garden2-5bcdff64
 child-fix-comment-provenance-provider-and-automatic-mark-reap-count: 0
 order: serial
