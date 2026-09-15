@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T21:04:22Z_
+_As of 2026-09-15T21:07:38Z_
 
 ## Latest
 
@@ -652,8 +652,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-3193517b.md) — attention directive on endojs/endo-but-for-bots PR #1125
+- [`add-per-section-provenance-footnotes-aggregated-reports`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/add-per-section-provenance-footnotes-aggregated-reports.md) — Per-section provenance footnotes for aggregated multi-agent reports
 
 ### tada (7896)
 - [`fix-comment-provenance-provider-and-automatic-mark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-provider-and-automatic-mark.md) — Completion report
