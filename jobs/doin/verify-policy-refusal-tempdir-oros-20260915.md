@@ -12,3 +12,13 @@ From a garden development worktree containing main2 commit ed289c9da5 or later, 
     bash scripts/jobs/test/policy-refusal-quarantine-test.sh
 
 Confirm that the standalone suite creates its executable fixture tree through the shared temp-base selector and passes under this host's relocated HOME layout. Report the command, selected environment context needed to explain the result, and the pass/fail summary. Do not modify code unless a host-specific regression is found; if one is found, report it and post a separately scoped fix job.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-15T18:41:53Z
