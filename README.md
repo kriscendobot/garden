@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T21:22:41Z_
+_As of 2026-09-15T21:25:51Z_
 
 ## Latest
 
@@ -645,26 +645,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $296.30 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 33.0M | $296.52 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 6.0M _(+165.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-3193517b.md) — attention directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-7ec0d5f0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-7ec0d5f0.md) — attention directive on endojs/endo-but-for-bots PR #1125
 - [`audit-github-provenance-gaps-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-github-provenance-gaps-20260915.md) — Audit posted GitHub comments for missing/incomplete provenance
-- [`claude-on-minion-town-press-20260915-212039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260915-212039.md) — Press the Claude-on-minion.town arc forward
 
-### tada (7897)
+### tada (7898)
+- [`claude-on-minion-town-press-20260915-212039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-212039.md) — Cost
 - [`add-per-section-provenance-footnotes-aggregated-reports`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/add-per-section-provenance-footnotes-aggregated-reports.md) — Completion report
 - [`fix-comment-provenance-provider-and-automatic-mark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-provider-and-automatic-mark.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915.md) — Cost
 - [`claude-on-minion-town-completion-press-20260915-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260915-190507.md) — Completion report — Claude-on-minion.town completion press, tick 29 (20260915...
-- [`canary-probe-oros-studio-garden-ce242c49-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
-- … and 7892 more
+- … and 7893 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
