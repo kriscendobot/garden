@@ -4,6 +4,6 @@ window_start_epoch: 1789182000
 spend: 32893560
 cap: 143000000
 status: ok
-sampled_at_epoch: 1789511410
-sampled_at: 2026-09-15T22:30:10Z
-sample_bucket: 1988346
+sampled_at_epoch: 1789512314
+sampled_at: 2026-09-15T22:45:14Z
+sample_bucket: 1988347
