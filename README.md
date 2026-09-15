@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T00:01:32Z_
+_As of 2026-09-15T01:05:48Z_
 
 ## Latest
 
@@ -592,8 +592,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20260915-010506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260915-010506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (7870)
 - [`endojs-endo-but-for-bots-pr1277-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1277-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1277-gauntlet — review budget reached
