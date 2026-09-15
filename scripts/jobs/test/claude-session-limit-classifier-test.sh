@@ -18,6 +18,15 @@
 # (common.sh — the single source of truth both gardener.sh and follow-up-claude.sh
 # consume) to match the cap wording case-insensitively.
 #
+# The same branch also rescues the transient provider-CAPACITY envelope
+# "Selected model is at capacity. Please try a different model." — an
+# overload-shaped, self-resolving refusal added to GARDEN_TRANSIENT_CLAUDE_SIGNATURES
+# as `at capacity`, so gardener.sh requeues/backoffs rather than escalating a real
+# handler failure. Unlike the named-reset session/usage caps it carries NO reset
+# time, so it stays in the ambiguous overload family and keeps gardener.sh's
+# short-elapsed floor (it is NOT in the explicit-cap subset) — SUBTEST 1/1b assert
+# both halves.
+#
 # SUBTEST 1 drives the pure helper is_transient_claude_signature (common.sh)
 # directly on the EXACT incident string and a few wording variants, and pins that
 # an ordinary crash is still classified a real failure. SUBTEST 2 is an integration
@@ -70,6 +79,11 @@ assert_transient "resets 9:45pm (UTC)" "'resets … (utc)' clause alone"
 # The prior alternatives must STILL classify transient (no drift).
 assert_transient "Error: overloaded_error (529)" "pre-existing: overloaded"
 assert_transient "connection error: ECONNRESET" "pre-existing: connection error / econnreset"
+# The provider capacity envelope: a transient provider-CAPACITY refusal
+# (overload-shaped, self-resolving). Must classify transient so gardener.sh
+# requeues/backoffs rather than escalating a real handler failure.
+assert_transient "Selected model is at capacity. Please try a different model." "provider capacity envelope: 'Selected model is at capacity'"
+assert_transient "SELECTED MODEL IS AT CAPACITY. PLEASE TRY A DIFFERENT MODEL." "uppercased capacity envelope"
 # A genuine crash / malformed-prompt defect must NOT be swept up as transient.
 assert_real "TypeError: cannot read properties of undefined (reading 'x')" "an ordinary crash is a real failure"
 assert_real "no such file or directory: /home/kris/nope" "a missing-path defect is a real failure"
@@ -93,6 +107,7 @@ assert_cap "resets 9:45pm (UTC)" "'resets … (utc)' clause alone"
 assert_notcap "Error: overloaded_error (529)" "overloaded stays floor-gated"
 assert_notcap "connection error: ECONNRESET" "connection drop stays floor-gated"
 assert_notcap "api error: 429 rate limit" "rate-limit/429 stays floor-gated"
+assert_notcap "Selected model is at capacity. Please try a different model." "capacity envelope stays floor-gated (no named reset)"
 # Subset invariant: every explicit-cap match is also a transient match.
 assert_transient "You've hit your session limit · resets 2am (UTC)" "explicit-cap subset ⊆ transient set"
 

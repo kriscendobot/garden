@@ -4099,6 +4099,13 @@ gh_pr_view_retry() {
 #   * rate[ _-]?limit / 429                  (throttling)
 #   * connection error / econnreset / etimedout   (transport drop / SDK)
 #   * 5NN                                    (any 5xx gateway/overload)
+#   * at capacity                            (the provider envelope "Selected model
+#     is at capacity. Please try a different model." — a transient
+#     provider-CAPACITY refusal, overload-shaped and self-resolving: the same model
+#     frees up shortly, so requeue/backoff rather than escalate a real handler
+#     failure. Deliberately in the AMBIGUOUS/overload family, NOT the explicit-cap
+#     subset — like `overloaded` it keeps gardener.sh's short-elapsed floor, since
+#     it carries no named reset time to requeue past.)
 #   * hit your session/usage/weekly/5-hour limit (Claude Code account caps,
 #     e.g. "You've hit your session limit · resets 1:10am (UTC)" — a cap that names
 #     its own reset time is the definitive self-resolving transient; requeuing past
@@ -4106,7 +4113,7 @@ gh_pr_view_retry() {
 #     usage-cap wording that leads with the reset clause.)
 #     gardener.sh parses the named reset and stamps a reset-aware reaper backoff,
 #     so the next attempt begins when that specific account window opens.
-: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout|${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES}}"
+: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|at capacity|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout|${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES}}"
 
 # Classify a failed `claude -p`'s combined output ($1) as a transient API blip
 # (returns 0) versus a genuine, non-self-resolving failure (returns 1). A
