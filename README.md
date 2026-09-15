@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:59:24Z_
+_As of 2026-09-15T19:01:53Z_
 
 ## Latest
 
@@ -638,22 +638,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.6M | $293.54 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 5.5M _(+139.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 5.6M _(+139.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`canary-probe-endolin-garden2-5bcdff64-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-ed289c9da554.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ ed289c9da554
+### todo (0)
+(none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1125-review-b58d5a3f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b58d5a3f.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #1125
 
-### tada (7890)
+### tada (7892)
+- [`canary-probe-endolin-garden2-5bcdff64-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr1125-review-b58d5a3f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-b58d5a3f.md) — Completion report
 - [`verify-policy-refusal-tempdir-oros-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/verify-policy-refusal-tempdir-oros-20260915.md) — Completion report
 - [`fix-hardcoded-home-dirname-tempdir-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-hardcoded-home-dirname-tempdir-tests.md) — Cost
 - [`improve-deploy-candidate-gate-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-candidate-gate-diagnostics.md) — Cost
-- [`claude-on-minion-town-press-20260915-182006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-182006.md) — Cost
-- [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic report: policy-refusal-quarantine-test.sh failure on oros-studio-g...
-- … and 7885 more
+- … and 7887 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
