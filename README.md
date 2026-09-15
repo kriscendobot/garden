@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T21:27:56Z_
+_As of 2026-09-15T21:30:36Z_
 
 ## Latest
 
@@ -645,24 +645,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.0M | $297.16 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.9M | $295.84 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 6.0M _(+165.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-3193517b.md) — attention directive on endojs/endo-but-for-bots PR #1125
-- [`audit-github-provenance-gaps-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-github-provenance-gaps-20260915.md) — Audit posted GitHub comments for missing/incomplete provenance
 
-### tada (7899)
+### tada (7900)
+- [`audit-github-provenance-gaps-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-github-provenance-gaps-20260915.md) — Audit: provenance footers on garden-authored GitHub comments
 - [`endojs-endo-but-for-bots-pr1125-7ec0d5f0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-7ec0d5f0.md) — Completion report
 - [`claude-on-minion-town-press-20260915-212039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-212039.md) — Cost
 - [`add-per-section-provenance-footnotes-aggregated-reports`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/add-per-section-provenance-footnotes-aggregated-reports.md) — Completion report
 - [`fix-comment-provenance-provider-and-automatic-mark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-provider-and-automatic-mark.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915.md) — Cost
-- … and 7894 more
+- … and 7895 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
