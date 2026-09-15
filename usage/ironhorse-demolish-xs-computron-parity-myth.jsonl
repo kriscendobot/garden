@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":188,"elapsed_s":1488,"input_tokens":342,"output_tokens":115513,"cache_creation_tokens":330595,"cache_read_tokens":38742491,"total_cost_usd":53.337748249999976,"ts":"2026-09-15T23:25:59Z","base":"ironhorse-demolish-xs-computron-parity-myth","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
