@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T13:44:42Z_
+_As of 2026-09-15T13:45:05Z_
 
 ## Latest
 
@@ -592,16 +592,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 032e4ab8af8c
+### doin (0)
+(none)
 
-### tada (7881)
+### tada (7882)
+- [`canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-032e4ab8af8c.md) — rolling-deploy canary probe — round trip OK
 - [`improve-journal-worktree-staleness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-worktree-staleness.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260915-130506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260915-130506.md) — Completion report — Claude-on-minion.town completion press, tick 28 (20260915...
 - [`claude-on-minion-town-press-20260915-120507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-120507.md) — Verification (part 1)
 - [`claude-on-minion-town-press-20260915-090505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-090505.md) — Verification this tick
-- [`daily-progress-summary-20260915-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260915-070506.md) — Completion report
-- … and 7876 more
+- … and 7877 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
