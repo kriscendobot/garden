@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T20:59:58Z_
+_As of 2026-09-15T21:04:22Z_
 
 ## Latest
 
@@ -645,24 +645,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $295.50 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.9M | $295.67 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 6.0M _(+165.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-3193517b.md) — attention directive on endojs/endo-but-for-bots PR #1125
-- [`fix-comment-provenance-provider-and-automatic-mark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-comment-provenance-provider-and-automatic-mark.md) — Fix comment-provenance.sh: add provider, make "automatic" explicit
 
-### tada (7895)
+### tada (7896)
+- [`fix-comment-provenance-provider-and-automatic-mark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-provider-and-automatic-mark.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915.md) — Cost
 - [`claude-on-minion-town-completion-press-20260915-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260915-190507.md) — Completion report — Claude-on-minion.town completion press, tick 29 (20260915...
 - [`canary-probe-oros-studio-garden-ce242c49-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1125-review-b58d5a3f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-b58d5a3f.md) — Completion report
-- … and 7890 more
+- … and 7891 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
