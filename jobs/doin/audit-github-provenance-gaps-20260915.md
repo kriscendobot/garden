@@ -45,3 +45,13 @@ historical GitHub review record is a maintainer judgment call, not a
 mechanical fix. Report the gaps; flag in your completion whether you think
 retroactive editing is worth a maintainer decision, but do not do it
 unprompted.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-15T21:22:14Z
