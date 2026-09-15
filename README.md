@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T14:46:05Z_
+_As of 2026-09-15T14:47:41Z_
 
 ## Latest
 
@@ -584,8 +584,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-endolin-garden2-5bcdff64-c4bc96940582`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-c4bc96940582.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c4bc96940582
 
 ### tada (7883)
 - [`improve-worker-cgroup-residue-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-worker-cgroup-residue-reaping.md) — Completion report
