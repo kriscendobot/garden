@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T19:01:53Z_
+_As of 2026-09-15T19:05:45Z_
 
 ## Latest
 
@@ -638,14 +638,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.6M | $293.54 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 5.6M _(+139.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Codex | 5.6M _(+142.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-oros-studio-garden-ce242c49-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-ed289c9da554.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ed289c9da554
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-fix-agent-option-parity-20260915.md) — Address kriskowal CHANGES_REQUESTED review on endojs/endo-but-for-bots PR #1125
+- [`claude-on-minion-town-completion-press-20260915-190507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260915-190507.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (7892)
 - [`canary-probe-endolin-garden2-5bcdff64-ed289c9da554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-ed289c9da554.md) — rolling-deploy canary probe — round trip OK
