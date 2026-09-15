@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:42:52Z_
+_As of 2026-09-15T18:43:32Z_
 
 ## Latest
 
@@ -637,23 +637,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $293.41 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.6M | $293.54 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 5.4M _(+138.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`verify-policy-refusal-tempdir-oros-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-policy-refusal-tempdir-oros-20260915.md) — Verify policy-refusal test temp-dir fix on oros-studio
+### doin (0)
+(none)
 
-### tada (7889)
+### tada (7890)
+- [`verify-policy-refusal-tempdir-oros-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/verify-policy-refusal-tempdir-oros-20260915.md) — Completion report
 - [`fix-hardcoded-home-dirname-tempdir-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-hardcoded-home-dirname-tempdir-tests.md) — Cost
 - [`improve-deploy-candidate-gate-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-candidate-gate-diagnostics.md) — Cost
 - [`claude-on-minion-town-press-20260915-182006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-182006.md) — Cost
 - [`diagnose-oros-studio-policy-refusal-test-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/diagnose-oros-studio-policy-refusal-test-20260915.md) — Diagnostic report: policy-refusal-quarantine-test.sh failure on oros-studio-g...
-- [`claude-on-minion-town-press-20260915-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-150509.md) — Press tick 2026-09-15 — verification summary
-- … and 7884 more
+- … and 7885 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
