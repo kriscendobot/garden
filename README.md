@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:16:10Z_
+_As of 2026-09-15T18:18:31Z_
 
 ## Latest
 
@@ -189,6 +189,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-second-identity-checkpoint` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-second-identity-checkpoint.md)
 
 > Evaluation 7 needs a human GitHub federation login checkpoint to create the required distinct identity B. Please reply when you are ready to complete the browser GitHub login; I will continue identity-A bootstrap and schema discovery meanwhile.
+
+- `20260915T181810Z-bf3785` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260915T181810Z-bf3785.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `c4bc969405828bea12db9ee6c77931a8dbd99f7c`
+> failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
 
