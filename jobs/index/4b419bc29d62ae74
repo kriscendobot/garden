@@ -1,2 +1,2 @@
-base: improve-worker-cgroup-residue-reaping
+base: improve-selected-model-capacity-classification
 identity: mentor:scripts/jobs/common.sh
