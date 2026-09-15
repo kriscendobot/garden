@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T18:28:04Z_
+_As of 2026-09-15T18:35:26Z_
 
 ## Latest
 
@@ -637,15 +637,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $292.36 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.6M | $293.19 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 5.3M _(+136.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-hardcoded-home-dirname-tempdir-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-hardcoded-home-dirname-tempdir-tests.md) — Fix: hardcoded $(dirname "$HOME") temp-dir base breaks on non-standard $HOME ...
 
 ### tada (7888)
 - [`improve-deploy-candidate-gate-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-candidate-gate-diagnostics.md) — Cost
