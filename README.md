@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T21:30:36Z_
+_As of 2026-09-15T21:32:02Z_
 
 ## Latest
 
@@ -392,6 +392,18 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > **Cedar ingest done** ([kriscendobot/garden#79](https://github.com/kriscendobot/garden/issues/79)). Headline verdict: Cedar is the policy-language/reference-monitor pole of access control; minion.town & Endo are the object-capability pole — and for the **agent/MCP-tool class ocap subsumes Cedar decisively** (the tool call should *be* an attenuated reference, not a broad power gated by a checked scope string). A policy engine earns a place only at the ambient-identity **mint boundary** and over declarative/reference-less rule sets (IaC/K8s admission). Ingested 2 sources (4 sections) — AWS announcement (full) + The Stack article (**paywalled**, lede only); the `cedarpolicy.com/integrations` page was an empty JS SPA so I reasoned the integration-class verdicts from Cedar's documented model instead. New topic `policy-language-authorization` + concepts `cedar-policy-language` and `policy-vs-capability-authorization` (the latter carries the full per-class analysis + @endo/gateway/@endo/mcp ideas). Findings comment posted on the issue (left open per instructions). Result: entries/2026/09/04/004247Z-result-gardener-f279fe.md.
 
+- `github-post-provenance-audit-20260915-terminal-complete` — from orchestrator:github-post-provenance-audit-20260915-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/github-post-provenance-audit-20260915-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: github-post-provenance-audit-20260915
+> orchestration-status: complete
+> order: serial
+> children-total: 3
+> children-failed: 0
+> failed-children: 
+>
+> Orchestration github-post-provenance-audit-20260915 complete (serial): all 3 children reached tada without a machine-readable failure declaration.
+
 - `watchdog-handler-budget-overrun-minion-town-endo-b3-daemon-deploy-verify` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-minion-town-endo-b3-daemon-deploy-verify.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-08-09T18:34:06Z, latest 2026-09-02T04:45:00Z).
@@ -655,13 +667,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-3193517b.md) — attention directive on endojs/endo-but-for-bots PR #1125
 
-### tada (7900)
+### tada (7901)
+- [`github-post-provenance-audit-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/github-post-provenance-audit-20260915.md) — orchestration github-post-provenance-audit-20260915 — complete
 - [`audit-github-provenance-gaps-20260915`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-github-provenance-gaps-20260915.md) — Audit: provenance footers on garden-authored GitHub comments
 - [`endojs-endo-but-for-bots-pr1125-7ec0d5f0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-7ec0d5f0.md) — Completion report
 - [`claude-on-minion-town-press-20260915-212039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260915-212039.md) — Cost
 - [`add-per-section-provenance-footnotes-aggregated-reports`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/add-per-section-provenance-footnotes-aggregated-reports.md) — Completion report
-- [`fix-comment-provenance-provider-and-automatic-mark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-provider-and-automatic-mark.md) — Completion report
-- … and 7895 more
+- … and 7896 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
