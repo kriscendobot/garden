@@ -33,3 +33,13 @@ report rather than entering the loop when it does not. Per the standing garden
 norm, when a premise is overtaken the gate should surface "close as superseded"
 explicitly as an option, naming the deciding question, rather than silently
 refusing. Include a regression test.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T06:22:17Z
