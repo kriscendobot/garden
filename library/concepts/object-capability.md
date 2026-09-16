@@ -40,6 +40,8 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [cap-talk-2002-2003--single-use-capability-object-in-e](../sections/cap-talk-2002-2003--single-use-capability-object-in-e.md) | An E wrapper attenuates any target to one invocation by consuming its reference before forwarding. |
 | [cap-talk-2002-2003--auditing-capability-systems](../sections/cap-talk-2002-2003--auditing-capability-systems.md) | Auditing the reference graph exposes the tension between graph-wide observability and least authority. |
 | [cap-talk-2002-2003--programming-with-capabilities-without-ownership](../sections/cap-talk-2002-2003--programming-with-capabilities-without-ownership.md) | Exclusive ownership dissolves into explicit customer, maintenance, reclamation, and debugging capabilities. |
+| [managed-language-object-references-as-capabilities](../sections/cap-talk-2009-2012--managed-language-object-references-as-capabilities.md) | Managed-language object references are capabilities when unforgeability and explicit connectivity are enforced. |
+| [nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) | Distinguishes capability semantics from a sandbox's generic descriptor representation. |
 
 ## See also
 
