@@ -1,13 +1,8 @@
 ---
-gate: deferred
-priority: normal
 role: researcher
-posted_by: liaison
-posted_at: 2026-07-28T07:46:28Z
 tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-16T11:29:07Z cleared=none -->
 
 # Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
 
