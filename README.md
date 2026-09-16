@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T08:00:06Z_
+_As of 2026-09-16T08:02:46Z_
 
 ## Latest
 
-Ironhorse computron benchmark-baseline design landed as draft [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with audit complete; build is parked awaiting your answers on 6 parameters (tolerance bands, gate-2 PR vs. nightly, seed roster, COST_TABLE_VERSION policy, PR merge sequencing, grid baseline deferral). Triage of five early-September halted gauntlets is complete: one transient halt is safe to re-post; two need rescoping (weave/pin-merge-base for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) due to base drift in 9p-server; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) should route to maintainer review instead of another 6-round panel); one is pending premise confirmation; one halt record is stale—child 1 already delivered [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84), just needs re-anchoring at child 2 with a raised budget. Pending maintainer decisions: weaver auth for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100), ev7-host introduction for minion.town MCP eval, three infrastructure auth blockers (kriscendobot gh token for minion.town clip-gc PR, reminder daemon migration design on schema compat, gardener-alias retirement blocked by a third fleet host). OCapN-over-Noise containment audit complete—two inert legacy dckc POWERS records verified neutralized by the vhost validator. 25 PRs waiting (top 10 shown); active gauntlet stages: fix-4 and panel-4 for computron benchmark.
+Ironhorse computron-benchmark orchestration completed with all children passed. Panel round 4 for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) is running but blocked by credential scoping on oros-studio. Early-September halt triage identified five gauntlets: three are transient (capacity-driven, cheap to re-post), while two are real failures — [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has base drift requiring semantic porting at three call sites (stringLengthLimit→byteLengthLimit), and [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is mergeable code that hit iteration limits. Infrastructure blocker: oros-studio remains on legacy gardener worker kind, preventing retirement and creating credential gaps (gh token read-only for endojs, minion-town MCP requiring OAuth).
 
 ## Parked for maintainer feedback
 
@@ -382,13 +382,21 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration credit-controls-20260916 observed child credit-controls-stale-pr-viability-gate: stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1).
 
+- `msg-endojs-endo-but-for-bots-pr1283-gauntlet-panel-4-e6f9fa6b2447` — from gardener:endojs-endo-but-for-bots-pr1283-gauntlet-panel-4, reply_to `endojs-endo-but-for-bots-pr1283-gauntlet-panel-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1283-gauntlet-panel-4-e6f9fa6b2447.md)
+
+> Host credential gap on oros-studio-garden-ce242c49: the kriscendobot gh token on THIS host is read-only for endojs/endo-but-for-bots — `gh pr review` (addPullRequestReview) and `gh pr comment` (addComment) both return 403 "Resource not accessible by personal access token", while reads (gh pr view / api GET) succeed.
+>
+> Impact: gauntlet PANEL round 4 for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283) ran cleanly (panel.sh exit 0, all 8 seats ok, genuine disposition = must-fix) but the verdict could NOT be posted from this host. Prior rounds 1–3 posted fine, so they ran on a write-capable host.
+>
+> I'm completing this stage as panel-error (a delivery/sensor failure, not a pass/must-fix decision that reached the PR) so the driver re-posts round 4 under its bounded stage-retry budget — ideally claimed by a write-capable host. Please refresh/rescope this host's bot PAT to include Pull requests: write (and Issues: write) for endojs, or route gauntlet panel/fix stages away from this host, or the retries will keep 403ing here.
+
 
 ## Spend & quota
 _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.9M | $438.23 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 53.1M | $439.23 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
