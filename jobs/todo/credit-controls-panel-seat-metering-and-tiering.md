@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: credit-controls-20260916
-priority: normal
-posted_by: producer
-posted_at: 2026-09-16T05:44:45Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-16T23:15:57Z cleared=none -->
 
 ---
 tier: mentor
