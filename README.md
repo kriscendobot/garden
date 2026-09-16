@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T22:54:39Z_
+_As of 2026-09-16T23:08:30Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 5h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 6h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -453,26 +453,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet ironhorse-computron-benchmark-baseline-build-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `msg-minion-town-reminder-daemon-redeploy-20260916-7ef3f7827f32` — from gardener:minion-town-reminder-daemon-redeploy-20260916, reply_to `minion-town-reminder-daemon-redeploy-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-reminder-daemon-redeploy-20260916-7ef3f7827f32.md)
-
-> AUTHORIZED REDEPLOY HALTED — state-revival dry-run failed; no live redeploy attempted.
->
-> Re-verification on 2026-09-16:
->
-> - Live `/opt/endo/ENDO_COMMIT` is still `f66505034aaa54ac46294347b2bf0e14655b088a`; `endo-daemon` is active and its socket is present.
-> - `packages/daemon/src/client.js` and `mail.js` remain byte-identical between `f6650503` and `0eb88836` and match the live files (SHA-256 `0859aeab…` and `6ef7c33b…`). `0eb88836` is still the expected 1317-commit forward move.
-> - A quiescent, restorable live-state snapshot was captured before the experiment at `/var/lib/endo-daemon/snapshots/state-pre-0eb88836-20260916T0548Z.tar.gz` (1.5 MiB compressed, 830 members, SHA-256 `c08fa79ffc6e035a3a9a420106dbc008abf8d79c5856b0b9f500d1b6c1f9aba1`). The live daemon restarted successfully at the old pin.
->
-> Dry-run result against a copy of that snapshot:
->
-> - Built the exact `0eb88836d6e823ec45409a665efcc4f96d7fd09c` runtime on the ARM64 target and started it with isolated state/cache/socket paths. The copied SQLite database opened, the existing node id `9b03f5b4…` loaded, and all 3635 formula rows deserialized.
-> - Revival then failed while seeding the new formula graph: `Error: Invalid formula identifier "[undefined]"`, from `graph.js:onFormulaAdded` via `manager.js:seedFormulaGraphFromPersistence`. The new `0eb88836` graph treats `formula.registry` as a required dependency of every `host` formula, but both persisted `host` rows are schema-v2 records with no `registry` property (their keys end at the older `hostHandle/handle/.../pins` shape).
-> - The throw occurred before the isolated daemon created its socket. Therefore no persisted names, guests, or formulas became accessible through `endo list`; the pre-existing live root list (61 names, including 14 guest names) could not be compared on the dry-run daemon. The dry-run service exited status 1.
->
-> Per authorization, I stopped here. I did not bump either pin, swap `/opt/endo`, touch the live state, remove the reminder shim, or attempt a migration. The production daemon remains active at `f6650503` with its live socket present. Isolated evidence remains at `/opt/endo-revival-dry-run-20260916` and `/var/lib/endo-daemon/revival-dry-run-20260916`; the failed transient unit is `endo-revival-dry-run-20260916.service`.
->
-> The next step needs an explicitly designed and reviewed compatibility migration/default for legacy `host.registry`; I have not improvised one.
-
 - `msg-scholar-ingest-cap-talk-2010-2012-remainder-5e342f9a2f24` — from scholar:scholar-ingest-cap-talk-2010-2012-remainder, reply_to `scholar-ingest-cap-talk-2010-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2010-2012-remainder-5e342f9a2f24.md)
 
 > cap-talk 2010 ingested (job scholar-ingest-cap-talk-2010-2012-remainder). Anchored
@@ -624,16 +604,19 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.0M | $473.86 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 65.5M | $476.01 _(notional, rate-card)_ | 46% of 143.0M (ok) |
 | Codex | 12.1M _(+292.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
+- [`undraft-minion-town-99-harness-provisioning-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/undraft-minion-town-99-harness-provisioning-20260916.md) — ---
 - [`endojs-endo-but-for-bots-pr1290-review-fe19b903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-review-fe19b903.md) — Review directive on endojs/endo-but-for-bots PR #1290
 - [`review-improve-architectural-boundary-ownership`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-architectural-boundary-ownership.md) — Improve review of architectural boundary ownership
+- [`design-endo-legacy-host-registry-migration-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-legacy-host-registry-migration-20260916.md) — ---
+- [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 
 ### tada (8084)
 - [`endojs-endo-but-for-bots-pr1018-review-eccc706c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-review-eccc706c-retro.md) — Cost
