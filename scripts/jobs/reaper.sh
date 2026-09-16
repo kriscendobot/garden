@@ -1246,8 +1246,12 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # later promotes it, ensure-project-worktree recreates a clean checkout for
     # the same base.  Run only after the board CAS lands so a lost push race can
     # never discard resumable work.
-    for pbase in "${DOOM_BASE[@]}"; do
-      cleanup_terminal_project_worktrees "$pbase"
+    for i in "${!DOOM_BASE[@]}"; do
+      # `over-token-budget` rides the same parked-plan arrays, but it is a
+      # temporary budget hold which garden-budget-refresh auto-promotes.  It is
+      # explicitly NON-terminal and must retain its resume checkout.
+      [ "${DOOM_SIG[$i]}" = over-token-budget ] && continue
+      cleanup_terminal_project_worktrees "${DOOM_BASE[$i]}"
     done
     # Flush doom alerts only AFTER the board change has landed, so a maintainer
     # is told only about jobs actually parked. Each alert is AMEND-OR-POST KEYED on
