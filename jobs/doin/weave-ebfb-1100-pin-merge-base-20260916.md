@@ -35,6 +35,8 @@ TASK, in order:
 The PR premise is LIVE: endojs/endo-but-for-bots#1100 is OPEN draft, not merged,
 not superseded.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
