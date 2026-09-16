@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T05:06:30Z_
+_As of 2026-09-16T05:11:35Z_
 
 ## Latest
 
@@ -697,14 +697,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $396.25 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 44.2M | $396.92 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 7.1M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`investigate-malingering-foreman`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-malingering-foreman.md) — Investigate and fix the malingering foreman
 - [`endojs-endo-but-for-bots-pr1282-d101dbfb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-d101dbfb.md) — attention directive on endojs/endo-but-for-bots PR #1282
 
 ### tada (7931)
