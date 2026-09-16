@@ -31,6 +31,12 @@
 | [yurl-key-centric-web-calculus](../sections/cap-talk-2002-2003--yurl-key-centric-web-calculus.md) | cap-talk 2003-September | The YURL debate separates secure designation of the intended key from claims about a globally named identity. |
 | [naming-vs-pointing-and-global-names](../sections/cap-talk-2002-2003--naming-vs-pointing-and-global-names.md) | cap-talk 2003-September | Pointing identifies the entity an introducer meant; naming and reputation remain contextual layers rather than the reference itself. |
 | [trust-introductions-and-no-omniscience](../sections/cap-talk-2002-2003--trust-introductions-and-no-omniscience.md) | cap-talk 2003-September | Reputations aggregate introductions, but chance encounters reveal that a connectivity mechanism need not endorse either party. |
+| [capabilities-versus-nyms](../sections/cap-talk-2004-2008--capabilities-versus-nyms.md) | cap-talk 2004-May | Persistent public-key identity and possession-based designation solve different protocol problems. |
+| [firefox-identifiability-and-idn-spoofing](../sections/cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing.md) | cap-talk 2005-February | IDN homographs show that HTTPS can authenticate an endpoint while the browser renders the wrong human identity. |
+| [petname-toolbar-as-trusted-path](../sections/cap-talk-2004-2008--petname-toolbar-as-trusted-path.md) | cap-talk 2005-February | The Firefox toolbar layers a local user-chosen relationship name over a possession-based web reference. |
+| [phishing-yurls-and-petnames](../sections/cap-talk-2004-2008--phishing-yurls-and-petnames.md) | cap-talk 2006-February | A YURL establishes connectivity while a petname supplies the user-controlled meaning of the relationship. |
+| [same-key-and-composite-identity](../sections/cap-talk-2004-2008--same-key-and-composite-identity.md) | cap-talk 2007-February | Same-key tests expose a specific identity relation, not universal behavioral equivalence. |
+| [web-keys-mashing-with-permission](../sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md) | cap-talk 2008-January | Web-keys compose applications without requiring a shared identity database or ambient cookies. |
 
 ## See also
 
