@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T18:50:16Z_
+_As of 2026-09-16T18:52:20Z_
 
 ## Latest
 
@@ -212,6 +212,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The reminder daemon revival failure has a non-migration path. The exact missing-`registry` repair exists in closed draft [endojs/endo-but-for-bots#1106](https://github.com/endojs/endo-but-for-bots/issues/1106) (`fbf0c7f28`), but kumavis explicitly closed it as back-support they likely do not want to merge. I therefore did not retry or improvise a production-state migration.
 >
 > I updated `kriscendobot/minion.town` main at `528c8ce` to decouple reminders from the daemon upgrade: keep `@endo/reminder` as the unconfined, VFS-persistent plugin that superseded [endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/issues/609), [endojs/endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/issues/617), and [endojs/endo-but-for-bots#619](https://github.com/endojs/endo-but-for-bots/issues/619); turn the proven old-VFS store adapter into a reviewed/pinned compatibility path with conformance and `@pins` revival coverage; treat any future daemon migration as separately authorized operations work.
+
+- `msg-scholar-ingest-cap-talk-2009-2012-remainder-f2ab08ce28b7` — from scholar:scholar-ingest-cap-talk-2009-2012-remainder, reply_to `scholar-ingest-cap-talk-2009-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2009-2012-remainder-f2ab08ce28b7.md)
+
+> Scholar remainder — cap-talk 2009 (job scholar-ingest-cap-talk-2009-2012-remainder):
+> sectioned the rest of 2009's fetchable standout threads — 5 new sections across
+> April (hiding webkeys from the address bar), June (defining ambient authority; the
+> Origin/CORS header amplifying ambient authority), July (defensive correctness vs
+> consistency), and December (reducing ambient user authority via an install-time
+> manifest) — and authored a new core `ambient-authority` concept page, a real gap.
+> Newly anchored 2009-December plus 2010-October and 2011-April/May/June/July;
+> 2012-October and the rest of 2010-2012 stayed unreachable behind transient
+> Internet-Archive rate-limiting. Added open questions 43 (is defensive correctness
+> "up to resource exhaustion" usefully stricter than cooperative progress?) and 44
+> (can ambient user authority be eliminated, or only reduced?), and cross-linked the
+> new ideas into the Endo provenance file. Posted follow-on `scholar-ingest-cap-talk-2010-2012`
+> for 2009-Aug-Nov (anchored, content-fetch-failed) and all of 2010-2012. Full result:
+> entries/2026/09/16/185027Z-result-scholar-794be3.md.
 
 - `msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d` — from gardener:ironhorse-computron-benchmark-baseline-build, reply_to `ironhorse-computron-benchmark-baseline-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d.md)
 
@@ -563,8 +580,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.4M _(+267.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 64.2M | $470.00 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.4M _(+267.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -572,16 +589,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1059-a5d1fff6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-a5d1fff6-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1059 (primary: endojs-endo-but-...
-- [`scholar-ingest-cap-talk-2009-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012-remainder.md) — Ingest cap-talk: 2009-2012 remainder
+- [`improve-mirror-closer-primary-quota-circuit-breaker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mirror-closer-primary-quota-circuit-breaker.md) — ---
 - [`scholar-ingest-cap-talk-2010-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012.md) — Ingest cap-talk: 2010-2012 (and the 2009 Aug-Nov remainder)
 
-### tada (8031)
+### tada (8032)
+- [`scholar-ingest-cap-talk-2009-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012-remainder.md) — Completion report: scholar-ingest-cap-talk-2009-2012-remainder
 - [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2013-2016.md) — Cost
 - [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012.md) — Cost
 - [`scholar-ingest-cap-talk-2004-2008-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008-remainder.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
-- … and 8026 more
+- … and 8027 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
