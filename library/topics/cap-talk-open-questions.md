@@ -335,6 +335,18 @@ The March 2010 singletons discussion converged that only *mutable* globally-acce
 
 - [cap-talk-2009-2012--mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) - the mutable-only distinction and Wagner's benign-singleton pushback.
 
+### 54. Should a platform permission system offer partial (attenuable) grants, or does attenuability backfire into over-asking?
+
+The capability community's default is that authority should be as attenuable as possible. Dan Bornstein, an Android engineer, reported (May-July 2010) that the Android team debated and *rejected* per-permission install-time grants — letting a user switch off individual permissions of an installed app — on two grounds: it would push developers to *ask for more* permissions ("the user can just turn off the ones they don't want"), and it would create a combinatorial explosion of untested permission subsets and thus bugs. The team judged the coarse all-or-nothing manifest, plus market pressure (users down-rank permission-heavy apps), a *better* driver toward least authority than attenuable grants. Whether user-facing attenuability of a declared coarse permission set genuinely backfires, or Android simply lacked the object-reference granularity at which attenuation composes cleanly (Endo's answer: attenuate by handing out a specific facet, so no untested-subset explosion arises), is unresolved on the list.
+
+- [cap-talk-2009-2012--android-capability-discipline-and-pola](../sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md) - the rejected partial-grants argument, POLA scoring, and per-capability social voting.
+
+### 55. Should a capability language express read-only as a first-class system-verified type qualifier, or via method-level auditing plus a forwarding membrane?
+
+The December 2010 sensory-objects thread asked how to reconstruct KeyKOS's transitively-read-only *sense key* in a language-enforced capability system. Kevin Reid showed E can do it *today* with no language change: a Selfless auditor parameterized by a method's verb+arity certifies side-effect-free methods, and a membrane that forwards only audited-Sensory messages is a sense key. David Wagner offered the alternative of a first-class `readonly T` type qualifier (every type implicitly polymorphic over readwrite/readonly, compiler-verified, transitive — cf. Joe-E, Javari) but was explicitly "not sure whether the security benefits would be worth the additional complexity in the language," and noted the deeper asymmetry that OS capabilities are a *reference+rights pair* while language capabilities are *just a reference*, which "may make it harder to take ideas from EROS and translate them directly." Whether the type-qualifier route's security benefit justifies its language complexity, and whether the OS reference+rights model is even superior to the language reference-is-the-capability model, is left open. (Endo's later answer is a third route: transitive `harden()` immutability plus passStyle classification, so read-only data is hardened copy-data with no methods at all.)
+
+- [cap-talk-2009-2012--system-enforced-sensory-objects](../sections/cap-talk-2009-2012--system-enforced-sensory-objects.md) - the three constructions (E auditor+membrane, `readonly T` type qualifier, freeze-for-parallel-then-thaw) and Wagner's cost-benefit reservation.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
