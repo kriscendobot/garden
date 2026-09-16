@@ -87,6 +87,10 @@
 | [Code-change submission as the sole edit path](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os api.ts | submitCodeChange as the only edit path: server transform over accepted changes, atomic pin declarations, and OT-safe retry by session and seq. |
 | [Chat code base — epochs, pins, and generations](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os api.ts | ChatCodeBase — how clients reconstruct chat content from pins plus epoch changes, and the content-preserving vs destructive generation bumps. |
 | [Accept, mainline merge, and revert](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os api.ts | Fast-forward-only accept that closes an epoch, 3-way update-from-mainline, and the destructive revert/discard operations. |
+| [cap-talk-1999--shared-object-lifetime-reference-counting](../sections/cap-talk-1999--shared-object-lifetime-reference-counting.md) | cap-talk 1999-January archive | Distributed reference counting requires durable holder records and cleanup signals, not only a local integer. |
+| [cap-talk-1999--single-level-store-checkpointing-tradeoffs](../sections/cap-talk-1999--single-level-store-checkpointing-tradeoffs.md) | cap-talk 1999-June archive | Transparent checkpoint persistence, recovery guarantees, locality optimizations, and the honest random-mutation workload boundary. |
+| [cap-talk-1999--storage-gc-and-covert-channels](../sections/cap-talk-1999--storage-gc-and-covert-channels.md) | cap-talk 1999-July (Shapiro, Miller, Frantz) | Reference-driven storage reclamation reveals last-reference events through observable quota changes. |
+| [cap-talk-1999--persistence-and-transaction-failure](../sections/cap-talk-1999--persistence-and-transaction-failure.md) | cap-talk 1999-September (Shapiro) | A durable object graph does not remove network failure, lost commit acknowledgments, or check-then-update races. |
 
 ## See also
 
