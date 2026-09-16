@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T00:27:55Z_
+_As of 2026-09-16T00:34:08Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cloudflare OS library ingestion completed after 10 consecutive scholar passes co
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 8h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 9h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
@@ -665,25 +665,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.6M | $321.47 _(notional, rate-card)_ | 25% of 143.0M (ok) |
-| Codex | 6.5M _(+174.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 35.6M | $322.03 _(notional, rate-card)_ | 25% of 143.0M (ok) |
+| Codex | 6.6M _(+176.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ses-node26-lockdown-permits-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1281
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`issue-kriscendobot-garden-94`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-94.md) — Issue from kriskowal on kriscendobot/garden #94
 
-### tada (7909)
+### tada (7910)
+- [`issue-kriscendobot-garden-94`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-94.md) — Cost
 - [`issue-kriscendobot-garden-93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-93.md) — Completion report
 - [`ses-node26-lockdown-permits-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-1.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-clean.md) — Completion report
 - [`ironhorse-demolish-xs-computron-parity-myth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-demolish-xs-computron-parity-myth.md) — Completion report — ironhorse-demolish-xs-computron-parity-myth
-- [`ses-node26-lockdown-permits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits.md) — Completion report — ses-node26-lockdown-permits
-- … and 7904 more
+- … and 7905 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
