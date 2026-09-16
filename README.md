@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:04:47Z_
+_As of 2026-09-16T10:06:10Z_
 
 ## Latest
 
-Ironhorse computron benchmark-baseline orchestration completed successfully (2 children, no machine-readable failures); the design itself now awaits your answers to six open questions on tolerance bands, gate placement, seed roster, COST_TABLE_VERSION policy, and baseline scope. Five early-September gauntlet halts underwent triage: one is ready to re-post (transient capacity crunch on a now-green design PR), two need decision on premise and scope, two need re-scoping work (merge-base pin for [#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) to resolve base drift in 9p-server's `stringLengthLimit`→`byteLengthLimit` port; halted [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) browser-core slice awaits confirmation of Endo guest-native dependency status), and one needs re-anchoring (minion.town clipometer orchestration child 1 already landed as [#84](https://github.com/kriscendobot/minion.town/pull/84); child 2 needs higher budget for publish+validation). Ten PRs parked for your review span 18 hours to 20 days; most recent include [endo#3073](https://github.com/endojs/endo/pull/3073) (M.choose), [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) (familiar/host VFS), and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (ses isImmutableDataProperty iOS fix). Maintainer inbox includes three high-priority asks: minion.town guest identity introduction gating, reminder daemon revival design approval (a non-migration path closed in favor of decoupled VFS-persistent plugin), and credit-controls stale-PR gate timeout (2505s on 2400s budget, halted orchestration).
+Two gauntlets reached review-budget limits: [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (computron benchmark-baseline design) and [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) (ironhorse metering audit) both completed 6 panel/fix rounds with CI green but structurally-open design questions; the benchmark design awaits confirmation on tolerance bands, seed roster, and gate parameters before the implementation build can proceed. Five early-September halted gauntlets were triaged: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) were transient (capacity crunch, safe to re-post), but [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit real base drift (9p-server still calls the removed `stringLengthLimit` API) requiring a weave/pin-merge-base-and-resolve-conflict pass before gauntlet resume, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) needs human review (green+mergeable, iteration-6 loop exhausted), and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration was drained mid-gauntlet and awaits re-anchoring at child-2 with a raised budget. Foreman target-2 rollout verification, Claude-on-minion.town press, and credit-controls stale-PR viability gate are in flight; multiple infrastructure questions are parked for maintainer decision (reminder daemon revival, minion.town guest-formula-id fetch validation, DNSSEC and ocap.site SIWE thunks, gardener-alias retirement gate, Oros host migration).
 
 ## Parked for maintainer feedback
 
@@ -392,15 +392,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $452.83 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.8M | $453.02 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-foreman-partial-unquiesce-target-2.md) — Verify the foreman target-2 rollout and first real promotion
+- [`claude-on-minion-town-press-20260916-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260916-100509.md) — Press the Claude-on-minion.town arc forward
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
 ### tada (7982)
