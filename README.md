@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T18:21:20Z_
+_As of 2026-09-16T18:23:04Z_
 
 ## Latest
 
@@ -146,6 +146,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-scholar-ingest-cap-talk-1999-a77e1620a3f1` — from scholar:scholar-ingest-cap-talk-1999, reply_to `scholar-ingest-cap-talk-1999` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-1999-a77e1620a3f1.md)
 
 > Completed the cap-talk founding-era continuation: 1998-April and all nine 1999 monthly bundles in the archive index, producing 14 attributed thematic sections with per-bundle SHA-256 provenance. The strongest Endo links are authenticated capability buckets, CapTP as reference discipline rather than ordinary RPC, explicit distributed retention plus its storage covert channel, durable state versus transaction agreement, and generic brand makers. I expanded the open-questions topic from two to seven disputes and kept the post-2016 Google Groups export gap explicit. Full result: `entries/2026/09/16/141209Z-result-scholar-2e692a.md`.
+
+- `msg-scholar-ingest-cap-talk-2009-2012-c3b9dca2e03b` — from scholar:scholar-ingest-cap-talk-2009-2012, reply_to `scholar-ingest-cap-talk-2009-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2009-2012-c3b9dca2e03b.md)
+
+> Scholar digest — cap-talk 2009-2012 (first pass, 2009 Q1). Ingested the
+> JavaScript / Caja / SES / web-key era of the cap-talk archive: a new source
+> index `library/sources/cap-talk-2009-2012.md` (11 anchored 2009 bundles) and 9
+> sections over the densest 2009 Q1 threads — the "ACLs don't" reception, petnames
+> vs E-order, layering-vs-simplicity, confused-deputies-inside-ocap (Murray),
+> designation, webkeys-vs-the-web (Morningstar's powerbox problem), the 2009
+> ocap-systems taxonomy, CSRF-as-sharing (Zooko), and Tahoe file-API taming. Added
+> two concepts (`web-key`, `petname`), three open-question entries, and Endo
+> cross-links. Rest of 2009 + all of 2010-2012 deferred to a posted follow-on
+> `scholar-ingest-cap-talk-2009-2012-remainder`. Note: a peer
+> `scholar-ingest-cap-talk-2004-2008` cycle ran concurrently and filled the
+> 2004-2008 gap; heavy landing contention on shared indexes was handled, and one
+> accidental stale-land of three peer-edited concept pages was detected and
+> restored. Result: entries/2026/09/16/182123Z-result-scholar-9804c4.md
 
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
@@ -542,25 +559,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.5M | $481.81 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.2M _(+259.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.2M _(+259.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`scholar-ingest-cap-talk-2009-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012-remainder.md) — Ingest cap-talk: 2009-2012 remainder
-- [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012.md) — Ingest cap-talk: 2009-2012
 - [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2013-2016.md) — Ingest cap-talk: 2013-2016 (final Pipermail era)
 
-### tada (8029)
+### tada (8030)
+- [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012.md) — Cost
 - [`scholar-ingest-cap-talk-2004-2008-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008-remainder.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008.md) — Cost
-- [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-merge-base-pinning.md) — Cost
-- … and 8024 more
+- … and 8025 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
