@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:35:54Z_
+_As of 2026-09-16T19:40:36Z_
 
 ## Latest
 
@@ -584,25 +584,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.8M | $479.22 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.8M | $480.15 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.7M _(+270.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (1)
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012-remainder.md) — Continue cap-talk 2010-2012 ingestion
-- [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
-- [`claude-on-minion-town-completion-press-20260916-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260916-193507.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### tada (8042)
+### tada (8044)
+- [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — What I did
+- [`claude-on-minion-town-completion-press-20260916-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-193507.md) — Completion report — Claude-on-minion.town completion press, tick 20260916-193507
 - [`improve-fetch-source-transient-wayback-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-transient-wayback-retries.md) — Cost
 - [`claude-on-minion-town-press-20260916-192011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-192011.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-428a03013158`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-428a03013158.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr388-review-37754f3b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-37754f3b-retro.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-428a03013158`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-428a03013158.md) — rolling-deploy canary probe — round trip OK
-- … and 8037 more
+- … and 8039 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
