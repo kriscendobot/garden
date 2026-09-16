@@ -512,6 +512,47 @@ set -e
 [ "$(cat "$COUNT")" = 5 ] && ok "archive attempts bounded at five" || bad "unexpected archive attempt count: $(cat "$COUNT")"
 [ -e "$OUT" ] && bad "failed output left behind after exhaustion" || ok "failed output removed after exhaustion"
 
+# === 25. BOTH indexes unreachable -> distinct index-unreachable result (exit 3) =
+# The job's core case: availability 429 AND CDX 503 (both curl failures, no
+# authoritative empty answer from either). The script must NOT fall through to
+# the bare 2id_ redirect form (which would hammer a likely-404 and surface as a
+# generic exit-1); instead it emits a distinct retryable index-unreachable
+# result and exit 3, preserving per-index curl-rc diagnostics, and touches the
+# archive not at all. This is what stops scholars re-retrying a known-dead path.
+hr; echo "CASE 25: availability + CDX both unreachable -> index-unreachable exit 3"
+: >"$STUB_LOG"
+OUT="$TR/case25.out"
+set +e
+MAN="$(STUB_DIRECT_RC=7 STUB_AVAIL_RC=22 STUB_CDX_RC=22 "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+set -e
+[ "$rc" = 3 ] && ok "exit 3 (distinct from exit 1)" || bad "exit $rc (expected 3)"
+[ "$(printf '%s' "$MAN" | field source_fetched_via)" = index-unreachable ] && ok "via=index-unreachable" || bad "via not index-unreachable"
+[ "$(printf '%s' "$MAN" | field source_index_unreachable)" = true ] && ok "source_index_unreachable=true" || bad "index_unreachable flag missing"
+[ "$(printf '%s' "$MAN" | field source_retryable)" = true ] && ok "source_retryable=true (retryable diagnostics)" || bad "retryable flag missing"
+[ "$(printf '%s' "$MAN" | field source_availability_curl_rc)" = 22 ] && ok "availability curl rc preserved" || bad "availability rc missing/wrong"
+[ "$(printf '%s' "$MAN" | field source_cdx_curl_rc)" = 22 ] && ok "CDX curl rc preserved" || bad "CDX rc missing/wrong"
+grep -q "web.archive.org/web/2id_" "$STUB_LOG" && bad "hit the 2id_ redirect despite both indexes unreachable" || ok "did NOT fall through to the 2id_ redirect"
+printf '%s' "$MAN" | grep -q '^source_content_sha256=' && bad "hashed nonexistent bytes" || ok "no content hash emitted (no bytes)"
+[ -e "$OUT" ] && bad "empty output left behind" || ok "no output file left behind"
+
+# === 26. one index authoritative-empty, the other unreachable -> 2id_ redirect =
+# The index-unreachable result fires ONLY when BOTH lookups were unreachable.
+# When availability answers authoritatively (a 200 with an empty snapshot set —
+# "nothing captured") and only CDX is unreachable, we DO have a negative answer,
+# so the bare 2id_ redirect remains the right last resort — exit 3 must NOT fire.
+hr; echo "CASE 26: availability empty (authoritative) + CDX unreachable -> 2id_ redirect"
+: >"$STUB_LOG"
+OUT="$TR/case26.out"
+MAN="$(STUB_DIRECT_RC=7 STUB_AVAIL_RC=0 STUB_AVAIL_JSON='{"archived_snapshots":{}}' \
+       STUB_CDX_RC=22 \
+       STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="redirect-bytes" \
+       "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0 (authoritative empty -> redirect served bytes)" || bad "exit $rc (expected 0)"
+[ "$(printf '%s' "$MAN" | field source_fetched_via)" = wayback ] && ok "via=wayback (redirect form)" || bad "via not wayback"
+eff="$(printf '%s' "$MAN" | field source_effective_url)"
+[ "$eff" = "http://web.archive.org/web/2id_/$URL" ] && ok "used the bare 2id_ redirect form" || bad "unexpected effective URL: $eff"
+printf '%s' "$MAN" | grep -q '^source_index_unreachable=' && bad "index-unreachable fired with one authoritative answer" || ok "index-unreachable did NOT fire"
+
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"

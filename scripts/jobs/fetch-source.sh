@@ -39,7 +39,14 @@
 #      404 — or the URL is not an erights/caplet URL), resolves a capture
 #      timestamp — first from the Wayback availability API, and when that
 #      RATE-LIMITS or returns nothing, from a bounded CDX index query — and
-#      fetches the original-bytes form  http://web.archive.org/web/<timestamp>id_/<url> ;
+#      fetches the original-bytes form  http://web.archive.org/web/<timestamp>id_/<url> .
+#      When NEITHER index yields a timestamp but at least one answered
+#      authoritatively (a 200 with an empty snapshot set — "nothing captured"),
+#      degrade to the bare `2id_` redirect form as a last resort. But when BOTH
+#      index lookups were merely UNREACHABLE (e.g. availability 429 and CDX 503),
+#      do NOT fall through to that redirect — the capture status is unknown and
+#      the redirect is very likely a 404 the caller will re-retry by hand; emit a
+#      distinct retryable index-unreachable result and exit 3 (see EXIT CODES);
 #   4. writes the fetched bytes (to the given output path, else a temp file) and
 #      prints a one-line-per-field manifest on stdout whose key field is
 #         source_content_sha256=<64-hex>
@@ -60,7 +67,11 @@
 # Output manifest (stdout, one `key=value` per line):
 #   source_url=<url as given>
 #   source_effective_url=<the URL actually fetched (direct, mirror, or id_ form)>
-#   source_fetched_via=direct|mirror|wayback   # which substitute, for provenance
+#   source_fetched_via=direct|mirror|wayback|index-unreachable
+#                                         # which substitute served the bytes, for
+#                                         # provenance; `index-unreachable` is the
+#                                         # no-bytes exit-3 case (both Wayback
+#                                         # indexes were unreachable) — see below
 #   source_output_path=<absolute path to the written bytes>
 #   source_bytes=<integer byte count>
 #   source_content_sha256=<64-hex>        # the citable idempotency anchor
@@ -77,6 +88,16 @@
 #   source_text_path=<absolute path>      # adjacent pypdf-extracted text (present
 #                                         # only when a PDF was extracted)
 #   source_text_bytes=<integer>           # byte count of the extracted text
+#
+# On the index-unreachable exit-3 path (both Wayback indexes unreachable, no
+# capture timestamp resolvable, no bytes fetched) the manifest is REPLACED by a
+# short diagnostic block the caller can act on instead of the byte fields above:
+#   source_url=<url as given>
+#   source_fetched_via=index-unreachable
+#   source_index_unreachable=true
+#   source_retryable=true                 # the failure is transient — retry later
+#   source_availability_curl_rc=<int>     # curl rc from the availability lookup
+#   source_cdx_curl_rc=<int>              # curl rc from the CDX lookup
 #
 # WHY GZIP DECODE. `curl` saves the raw response body, and the Wayback `id_`
 # original-bytes form replays the originally-captured payload INCLUDING its stored
@@ -113,6 +134,11 @@
 #   0  bytes fetched (direct, via the mirror, or via the archive) and hashed
 #   1  direct, mirror, and archive fallback all failed to produce bytes
 #   2  usage error
+#   3  no bytes AND both Wayback indexes were unreachable (429/503/timeout) so no
+#      capture timestamp could be resolved — a DISTINCT, retryable index-unreachable
+#      result (source_retryable=true), kept separate from exit 1 so a caller can
+#      retry later rather than re-hammering a likely-404 redirect path by hand.
+#      Boolean callers (`if fetch-source.sh ...`) still see a non-zero "no bytes".
 #
 # CONFIG (overridable; the test harness points curl at a stub)
 #   FETCH_SOURCE_CURL        curl binary / wrapper to use (default: curl)
@@ -246,15 +272,29 @@ if [ -z "$fetched_via" ]; then
   # HTTP 429, which `-f` turns into a curl failure — so a rate limit lands in the
   # `else` branch below with no timestamp, indistinguishable (deliberately) from
   # "unreachable" or "nothing captured".
+  # Track, per index, whether the lookup was UNREACHABLE (a curl error — 429
+  # rate-limit, 503, connect timeout) as opposed to an authoritative empty answer
+  # (a 200 whose snapshot set is empty — "nothing captured here"). The distinction
+  # decides the no-timestamp degradation below: an authoritative empty answer from
+  # either index means a bare `2id_` redirect is a sensible last resort, but when
+  # BOTH indexes were merely unreachable we know nothing about whether a capture
+  # exists, and must report a distinct retryable index-unreachable result instead
+  # of hammering a possibly-nonexistent redirect path.
   wayback_ts=""
   wayback_ts_source=""
+  avail_failed=false
+  avail_rc=0
+  cdx_failed=false
+  cdx_rc=0
   avail_url="http://${WAYBACK_HOST}/wayback/available?url=${url}"
   log "wayback availability: $avail_url"
   if avail_json="$("$CURL" -fsSL --connect-timeout "$CONNECT_TIMEOUT" --max-time "$MAX_TIME" "$avail_url")"; then
     wayback_ts="$(printf '%s' "$avail_json" | jq -r '.archived_snapshots.closest.timestamp // empty')"
     [ -n "$wayback_ts" ] && wayback_ts_source="availability"
   else
-    log "wayback availability API unreachable or rate-limited (curl rc=$?)"
+    avail_rc=$?
+    avail_failed=true
+    log "wayback availability API unreachable or rate-limited (curl rc=${avail_rc})"
   fi
 
   # --- 3a'. bounded CDX fallback when availability yielded no timestamp -------
@@ -277,16 +317,44 @@ if [ -z "$fetched_via" ]; then
       wayback_ts="$(printf '%s' "$cdx_json" | jq -r '.[1][0] // empty' 2>/dev/null)"
       [ -n "$wayback_ts" ] && wayback_ts_source="cdx"
     else
-      log "wayback CDX API unreachable or rate-limited (curl rc=$?)"
+      cdx_rc=$?
+      cdx_failed=true
+      log "wayback CDX API unreachable or rate-limited (curl rc=${cdx_rc})"
     fi
+  fi
+
+  # --- 3a''. both indexes unreachable -> distinct retryable result, no 2id_ ----
+  # When NO capture timestamp was resolved AND both index lookups were merely
+  # UNREACHABLE (availability 429 and CDX 503, say — not an authoritative empty
+  # answer from either), we cannot tell whether a capture exists. Falling through
+  # to the bare `2id_` redirect form here would hammer a path that is very likely
+  # a 404, exhaust the retry budget, and surface as a generic exit-1 "no bytes" —
+  # which is exactly the shape that led scholars to re-retry a known-dead lookup
+  # by hand. Instead emit a DISTINCT, self-describing index-unreachable result
+  # (source_fetched_via=index-unreachable, source_retryable=true, per-index curl
+  # rc diagnostics) and exit 3, so the caller can tell "the index was down, try
+  # again later" apart from "the archive genuinely has nothing / the bytes could
+  # not be fetched". No bytes were written, so leave nothing behind.
+  if [ -z "$wayback_ts" ] && [ "$avail_failed" = true ] && [ "$cdx_failed" = true ]; then
+    log "FATAL: both Wayback indexes unreachable (availability curl rc=${avail_rc}, CDX curl rc=${cdx_rc}); no capture timestamp resolvable — reporting index-unreachable (retryable), NOT falling through to the 2id_ redirect"
+    rm -f "$out"
+    printf 'source_url=%s\n'                 "$url"
+    printf 'source_fetched_via=index-unreachable\n'
+    printf 'source_index_unreachable=true\n'
+    printf 'source_retryable=true\n'
+    printf 'source_availability_curl_rc=%s\n' "$avail_rc"
+    printf 'source_cdx_curl_rc=%s\n'          "$cdx_rc"
+    exit 3
   fi
 
   # --- 3b. fetch the ORIGINAL bytes via the id_ form -------------------------
   # The id_ suffix after the timestamp returns the unmodified capture (no
   # Wayback toolbar / link rewriting), which is what makes the SHA-256 stable
   # and comparable to a direct fetch. With a known timestamp, request it
-  # exactly; with none, the bare `2id_` form lets Wayback redirect (-L) to its
-  # nearest original capture as a last resort.
+  # exactly; with none — reached only when at least one index answered
+  # AUTHORITATIVELY empty (both-unreachable already exited 3 above) — the bare
+  # `2id_` form lets Wayback redirect (-L) to its nearest original capture as a
+  # last resort.
   if [ -n "$wayback_ts" ]; then
     archive_url="http://web.archive.org/web/${wayback_ts}id_/${url}"
   else
