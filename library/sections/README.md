@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7048 (530 parent indexes + 6518 children).
+Total section files: 7070 (530 parent indexes + 6540 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -413,6 +413,31 @@ Total section files: 7048 (530 parent indexes + 6518 children).
 - [cap-talk-2002-2003--trust-introductions-and-no-omniscience](cap-talk-2002-2003--trust-introductions-and-no-omniscience.md)
 - [cap-talk-2002-2003--unix-file-descriptor-confused-deputy](cap-talk-2002-2003--unix-file-descriptor-confused-deputy.md)
 - [cap-talk-2002-2003--yurl-key-centric-web-calculus](cap-talk-2002-2003--yurl-key-centric-web-calculus.md)
+
+### cap-talk-2004-2008
+
+- [cap-talk-2004-2008--authority-versus-information-flow](cap-talk-2004-2008--authority-versus-information-flow.md)
+- [cap-talk-2004-2008--capabilities-as-data-versus-descriptors](cap-talk-2004-2008--capabilities-as-data-versus-descriptors.md)
+- [cap-talk-2004-2008--capabilities-versus-mandatory-classification](cap-talk-2004-2008--capabilities-versus-mandatory-classification.md)
+- [cap-talk-2004-2008--capabilities-versus-nyms](cap-talk-2004-2008--capabilities-versus-nyms.md)
+- [cap-talk-2004-2008--confinement-crisis-and-capdesk-pola](cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md)
+- [cap-talk-2004-2008--confused-deputy-as-ambient-authority](cap-talk-2004-2008--confused-deputy-as-ambient-authority.md)
+- [cap-talk-2004-2008--crypto-brand-security-requirements](cap-talk-2004-2008--crypto-brand-security-requirements.md)
+- [cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing](cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing.md)
+- [cap-talk-2004-2008--generic-wrapping-and-membrane-limits](cap-talk-2004-2008--generic-wrapping-and-membrane-limits.md)
+- [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md)
+- [cap-talk-2004-2008--mungi-pola-and-confused-deputy](cap-talk-2004-2008--mungi-pola-and-confused-deputy.md)
+- [cap-talk-2004-2008--object-capability-patterns-historical-inventory](cap-talk-2004-2008--object-capability-patterns-historical-inventory.md)
+- [cap-talk-2004-2008--password-capability-safety](cap-talk-2004-2008--password-capability-safety.md)
+- [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
+- [cap-talk-2004-2008--petname-toolbar-as-trusted-path](cap-talk-2004-2008--petname-toolbar-as-trusted-path.md)
+- [cap-talk-2004-2008--phishing-yurls-and-petnames](cap-talk-2004-2008--phishing-yurls-and-petnames.md)
+- [cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement](cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md)
+- [cap-talk-2004-2008--ref-send-eventual-reference-api](cap-talk-2004-2008--ref-send-eventual-reference-api.md)
+- [cap-talk-2004-2008--reference-versus-capability](cap-talk-2004-2008--reference-versus-capability.md)
+- [cap-talk-2004-2008--same-key-and-composite-identity](cap-talk-2004-2008--same-key-and-composite-identity.md)
+- [cap-talk-2004-2008--web-keys-mashing-with-permission](cap-talk-2004-2008--web-keys-mashing-with-permission.md)
+- [cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question](cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question.md)
 
 ### cask--allocator-design
 
