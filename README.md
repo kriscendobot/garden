@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:14:24Z_
+_As of 2026-09-16T14:20:03Z_
 
 ## Latest
 
@@ -489,8 +489,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
+- [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wire-siwe-onchain-authz-minion-town-followup.md) — Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
 
 ### tada (8008)
 - [`scholar-ingest-cap-talk-1999`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-1999.md) — Cost
@@ -699,7 +700,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town-followup.md) — _normal_ · Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-mutable-blob-formula.md) — _normal_ · Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
 - [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-exec.md) — _normal_ · builder: implement the Ironhorse computron benchmark-baseline regime (steps 2–8)
 - [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2000-2003.md) — _normal_ · Ingest cap-talk: 2000-2003
