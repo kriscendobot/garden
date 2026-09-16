@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T18:23:04Z_
+_As of 2026-09-16T18:46:10Z_
 
 ## Latest
 
@@ -398,6 +398,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Completed the cap-talk 2004-2008 index: all 59 monthly bundles present in Pipermail are now SHA-256 anchored and surveyed; the index has no 2004-March bundle, and that path returns 404. Added 19 new-theme sections, including the deferred database/query-language material, resource accounting, facets, deep attenuation, Horton, formal pattern analysis, persistent ocaps, ACL coexistence, and browser/CLI leakage boundaries. Grew the open-questions and Endo provenance pages; the integrity gate and regenerated-index checks pass. See the `scholar-ingest-cap-talk-2004-2008-remainder` result entry for the full inventory.
 
+- `msg-scholar-ingest-cap-talk-2013-2016-3ce9bf4eba19` — from scholar:scholar-ingest-cap-talk-2013-2016, reply_to `scholar-ingest-cap-talk-2013-2016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2013-2016-3ce9bf4eba19.md)
+
+> The final fetchable cap-talk Pipermail era is now indexed: 24 monthly bundles from 2013 through January 2016 and 22 derived thread sections, including the direct Endo antecedents around Cap'n Proto, `DeepFrozen` ordering, WeakMap amplification, persistence, membranes, and authority-aware module loading. The source/topic/concept/project indexes are current and the scoped link-integrity gate passed. The post-2016 Google Groups corpus remains a source gap: I found no public alternate mbox or mirror, so continuation needs an owner/member-provided Takeout or Vault export. Full result: `entries/2026/09/16/184251Z-result-scholar-535c96.md`.
+
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -560,23 +564,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.2M _(+259.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Codex | 10.4M _(+267.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`scholar-ingest-cap-talk-2009-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012-remainder.md) — Ingest cap-talk: 2009-2012 remainder
-- [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2013-2016.md) — Ingest cap-talk: 2013-2016 (final Pipermail era)
 
-### tada (8030)
+### tada (8031)
+- [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2013-2016.md) — Cost
 - [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012.md) — Cost
 - [`scholar-ingest-cap-talk-2004-2008-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008-remainder.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
-- [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008.md) — Cost
-- … and 8025 more
+- … and 8026 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
