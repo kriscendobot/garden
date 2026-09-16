@@ -99,3 +99,13 @@ open a pull request in this job.
 Ground claims in sources you actually read, and cite them. Where the answer is
 genuinely open, say it is open. A confident invention here is worse than an
 acknowledged gap, particularly on the prior-art and security questions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T11:29:18Z
