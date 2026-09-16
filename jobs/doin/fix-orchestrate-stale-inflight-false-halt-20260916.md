@@ -48,3 +48,13 @@ TASK:
 
 This bug is expensive out of proportion to its size: it silently parks approved,
 funded work for weeks and the halt message reads authoritative while being wrong.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T23:17:23Z
