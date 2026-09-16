@@ -10,6 +10,8 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
   url="$3"
   bot='"author":{"login":"kriscendobot"}'
   case "$url" in
+    # NON-DRAFT PR consumed by the explicitly attested #99 undraft job.
+    */pull/99) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: harness","body":"b",%s}\n' "$url" "$bot" ;;
     # a DRAFT producer PR — the ordinary parked-draft completion (pass, no mutation).
     */pull/200) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"feat: x","body":"b",%s}\n' "$url" "$bot" ;;
     # NON-DRAFT, uncovered → BLOCK.

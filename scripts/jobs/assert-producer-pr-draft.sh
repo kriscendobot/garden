@@ -30,7 +30,8 @@
 #
 # Usage: assert-producer-pr-draft.sh <base> <job-file> <completion-report>
 #   rc 0: nothing owed — no PR named, a citation of another author's PR, a non-open
-#         PR, an existing PR consumed by a review/attention feedback job, a probe, an
+#         PR, an existing PR consumed by a review/attention feedback job, an
+#         explicitly maintainer-attested undraft job, a probe, an
 #         open-questions review surface, a DRAFT PR (the ordinary parked-draft
 #         completion), a non-draft PR already covered by a gauntlet, or any
 #         INCONCLUSIVE read (fail-open).
@@ -87,6 +88,50 @@ if [ -n "$feedback_job" ] \
   exit 0
 fi
 
+# A narrowly-scoped, maintainer-attested UNDRAFT job also consumes its cited PR:
+# making that already-existing artifact ready is the requested operation, not
+# evidence that the job produced a new ready PR. This is deliberately stricter than
+# merely grepping for "undraft": the basename identifies the operation, the report's
+# PR must already be cited by the job, and the job must carry the liaison's explicit
+# `MAINTAINER DECISION (<login>, ...):` attestation. Verify that login against the
+# authoritative journal maintainers/allowlist before granting the exemption.
+#
+# The marker is self-asserted in journal text in the same sense as authorized_by on
+# a sysop operation; journal push access is the authentication boundary. An absent,
+# malformed, duplicated, unallowlisted, or unverifiable attestation falls through to
+# the ordinary producer gate.
+maintainer_allowlisted() { # <journal-clone> <login>
+  local clone="$1" login="$2" lc line
+  lc="$(printf '%s' "$login" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+  [ -n "$lc" ] && [ -f "$clone/maintainers/allowlist" ] || return 1
+  while IFS= read -r line; do
+    line="${line%%#*}"
+    line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+    [ "$line" = "$lc" ] && return 0
+  done < "$clone/maintainers/allowlist"
+  return 1
+}
+
+attestations=()
+mapfile -t attestations < <(
+  sed -nE 's/.*MAINTAINER DECISION \(([A-Za-z0-9][A-Za-z0-9-]*),[^)]*\):.*/\1/p' \
+    "$jobfile" 2>/dev/null || true
+)
+DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+if [[ "$base" == undraft-* ]] \
+   && [ "${#attestations[@]}" -eq 1 ] \
+   && extract_pr_refs_from_text "$jobfile" | grep -Fxq -- "$pr_url"; then
+  attested_by="${attestations[0]}"
+  # Both clone operations can exit on an unavailable journal; isolate them so an
+  # inability to verify authorization means "no exemption", not a wedged completion.
+  if ( ensure_clone "$DIR" && sync_clone "$DIR" ) >/dev/null 2>&1 \
+     && maintainer_allowlisted "$DIR" "$attested_by"; then
+    log "draft-gate: $pr_url is the existing PR consumed by maintainer-attested undraft job '$base' (authorized by $attested_by); no producer PR to gate"
+    exit 0
+  fi
+  log "draft-gate: undraft attestation by '$attested_by' is not verifiable against journal maintainers/allowlist; applying the ordinary producer gate"
+fi
+
 gh_bin="${GARDEN_GH:-gh}"
 case "$gh_bin" in
   */*) [ -x "$gh_bin" ] || { log "draft-gate: gh unavailable to inspect $pr_url; inconclusive, not blocking"; exit 0; } ;;
@@ -134,7 +179,6 @@ repo="$(printf '%s' "$ref" | cut -f1)"
 pr_number="$(printf '%s' "$ref" | cut -f2)"
 slug="${repo%/*}-${repo#*/}"
 
-DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 if ! ensure_clone "$DIR" 2>/dev/null; then
   log "draft-gate: producer clone $DIR unavailable; inconclusive, not blocking"
   exit 0

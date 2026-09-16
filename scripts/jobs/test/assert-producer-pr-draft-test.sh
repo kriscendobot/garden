@@ -16,6 +16,8 @@
 #   * A PR named only in the JOB FILE (not the report) is a citation → pass.
 #   * Review/attention feedback reports may re-name their existing input PR without
 #     being misclassified as that PR's producer; a different PR remains gated.
+#   * The live #99 maintainer-attested undraft shape consumes its cited PR and passes;
+#     a forged/non-allowlisted version remains subject to the ordinary block.
 #   * An inconclusive gh read fails OPEN (rc 0) — a GitHub blip never wedges completion.
 
 set -euo pipefail
@@ -29,9 +31,11 @@ git init -q --bare "$TR/journal.git"
 git init -q "$TR/seed"
 git -C "$TR/seed" checkout -q -b journal2
 mkdir -p "$TR/seed/jobs/"{todo,doin,tada,index,gauntlet} "$TR/seed/work"
+mkdir -p "$TR/seed/maintainers"
 touch "$TR/seed/jobs/todo/.gitkeep" "$TR/seed/jobs/doin/.gitkeep" \
   "$TR/seed/jobs/tada/.gitkeep" "$TR/seed/jobs/index/.gitkeep" \
   "$TR/seed/jobs/gauntlet/.gitkeep" "$TR/seed/work/.gitkeep"
+printf 'kriskowal\n' >"$TR/seed/maintainers/allowlist"
 printf 'repo: endojs/endo-but-for-bots\npr_number: 202\nkind: feature\n' \
   >"$TR/seed/jobs/gauntlet/endojs-endo-but-for-bots-pr202-gauntlet.md"
 git -C "$TR/seed" add -A
@@ -53,13 +57,13 @@ repo=endojs/endo-but-for-bots
 jobf="$TR/job.md"; printf -- '---\nrole: builder\n---\nBuild the feature.\n' >"$jobf"
 probe_jobf="$TR/probe-job.md"; printf -- '---\nrole: builder\n---\nprobe the design.\n' >"$probe_jobf"
 
-run_gate() {  # run_gate <job-file> <report-text> ; sets RC, resets the call log
-  local jf="$1" report_text="$2"
+run_gate() {  # run_gate <job-file> <report-text> [base] ; sets RC, resets the call log
+  local jf="$1" report_text="$2" base="${3:-some-base}"
   : >"$TR/gh-calls.log"
   export GARDEN_GH_CALL_LOG="$TR/gh-calls.log"
   local rep="$TR/report.md"; printf '%s\n' "$report_text" >"$rep"
   set +e
-  "$GATE" some-base "$jf" "$rep" >"$TR/gate.out" 2>&1
+  "$GATE" "$base" "$jf" "$rep" >"$TR/gate.out" 2>&1
   RC=$?
   set -e
 }
@@ -139,4 +143,33 @@ printf -- '# Build the feature\n\nQuoted context:\n# attention directive on %s P
 run_gate "$quoted_heading_jobf" "New ready PR: https://github.com/$repo/pull/201"
 [ "$RC" -eq 1 ] || fail "a later feedback-like heading in a producer job should not bypass the gate (rc=$RC): $(cat "$TR/gate.out")"
 
-echo 'PASS: the draft guardrail passes draft/covered/probe/non-bot/carve-out/citation/inconclusive and existing-PR feedback completions, blocks uncovered producer PRs (including feedback jobs reporting a different PR), and never mutates PR state or stages a record'
+echo '== (m) the maintainer-attested #99 UNDRAFT job consumes its cited PR =='
+undraft_jobf="$TR/undraft-job.md"
+cat >"$undraft_jobf" <<EOF
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Stop the panel loop on kriscendobot/minion.town#99 and route it to maintainer
+review: un-draft it. MAINTAINER DECISION (kriskowal, liaison muster 2026-09-16):
+the recurring panel must-fixes are diminishing polish, not merge-blockers.
+
+TASK:
+1. Re-confirm the PR is still green and mergeable at its current head.
+2. Un-draft kriscendobot/minion.town#99 for maintainer review.
+3. Do NOT merge.
+EOF
+run_gate "$undraft_jobf" 'Un-drafted https://github.com/kriscendobot/minion.town/pull/99 for maintainer review.' \
+  undraft-minion-town-99-harness-provisioning-20260916
+[ "$RC" -eq 0 ] || fail "maintainer-attested undraft of existing PR #99 should complete (rc=$RC): $(cat "$TR/gate.out")"
+[ ! -s "$TR/gh-calls.log" ] || fail "attested-undraft consumer exemption should not query GitHub: $(cat "$TR/gh-calls.log")"
+
+echo '== (n) a forged #99 UNDRAFT attestation remains BLOCKED =='
+sed 's/MAINTAINER DECISION (kriskowal,/MAINTAINER DECISION (not-a-maintainer,/' \
+  "$undraft_jobf" >"$TR/forged-undraft-job.md"
+run_gate "$TR/forged-undraft-job.md" 'Un-drafted https://github.com/kriscendobot/minion.town/pull/99 for maintainer review.' \
+  undraft-minion-town-99-harness-provisioning-20260916
+[ "$RC" -eq 1 ] || fail "non-allowlisted undraft attestation must not bypass the ready-PR gate (rc=$RC): $(cat "$TR/gate.out")"
+
+echo 'PASS: the draft guardrail passes draft/covered/probe/non-bot/carve-out/citation/inconclusive, existing-PR feedback, and maintainer-attested undraft completions; blocks ordinary/forged uncovered ready-PR producers; and never mutates PR state or stages a record'
