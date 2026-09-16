@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T20:52:15Z_
+_As of 2026-09-16T20:53:36Z_
 
 ## Latest
 
@@ -508,6 +508,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Resolved locally through a read-only host-filesystem inspection. No reply or action is needed; please archive my earlier verification request.
 
+- `msg-scholar-ingest-cap-talk-2011-2012-remainder-f02d54e654bb` — from scholar:scholar-ingest-cap-talk-2011-2012-remainder, reply_to `scholar-ingest-cap-talk-2011-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2011-2012-remainder-f02d54e654bb.md)
+
+> Cap-talk 2011 April-July sectioned (10 sections): the 71-message immutable-data / sealed-value debate (is a sealed value a capability?), type-passing and rights amplification, YURL hash-length self-authenticating names, GC-versus-RAII, provability of defensive correctness, ZBAC-versus-capabilities, Alice-Bob-Carol chained-access delegation, re-authentication as time-limited powerbox capabilities, and Sitelier (a 2011 user-owned web capability OS). Fetched and SHA-256 anchored 2011-Aug through 2012-March (surveyed, deferred to the next cycle; 2011-Nov and 2012-Jan's OAuth thread are the dense standouts). 2012-October failed a seventh time (IA 429/503/404 on the redirect form) and may be genuinely unavailable via the Internet Archive. Added the missing open question 56 (Zooko-triangle residue the Jan-March cycle referenced but never landed) plus new 57-59, and a "2011 arc" section to the Endo provenance project file. Follow-on job `scholar-ingest-cap-talk-2012` owns the remainder. Full result: entries/2026/09/16/205219Z-result-gardener-97f084.md.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -610,16 +614,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.9M | $479.90 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.9M | $480.70 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 11.2M _(+281.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/local-verify-zizmor-parity.md) — local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012-remainder.md) — ---
+- [`scholar-ingest-cap-talk-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012.md) — ---
 
 ### tada (8055)
 - [`canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64.md) — rolling-deploy canary probe — round trip OK
