@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: credit-controls-20260916
-priority: normal
-posted_by: producer
-posted_at: 2026-09-16T05:44:40Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-16T06:22:09Z cleared=none -->
 
 ---
 tier: mentor
