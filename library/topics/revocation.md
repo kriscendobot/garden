@@ -10,6 +10,8 @@
 | [cap-talk-1998--rescinded-keys](../sections/cap-talk-1998--rescinded-keys.md) | revocation, capability-security | A rescinded key must return a message just like any other key — revocation must be *indistinguishable* from a live-but-unhelpful object (KeyKOS/EROS `DK(0)` overloading). |
 | [cap-talk-1998--dead-object-sameness](../sections/cap-talk-1998--dead-object-sameness.md) | capability-theory, revocation | Invocation failure and reference equality after destruction are separate design choices. |
 | [keykos-eros-practical-model-for-a-newcomer](../sections/cap-talk-2000-2001--keykos-eros-practical-model-for-a-newcomer.md) | capability-security, revocation | Capabilities are copied not delegated, so revocation is a deliberately interposed nullifiable indirection (Hardy's version-B / Rescind); antecedent of the caretaker. |
+| [one-shot-capabilities-cannot-constrain-delegation](../sections/cap-talk-2000-2001--one-shot-capabilities-cannot-constrain-delegation.md) | capability-theory, capability-security, revocation | Use-once and null-use revocation do not constrain delegation of effective authority. |
+| [paradigm-regained-permission-authority-and-abstraction](../sections/cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md) | capability-theory, capability-security, revocation | Caretaker behavior makes revocation visible only when security-enforcing abstraction is part of the model. |
 
 ## See also
 
