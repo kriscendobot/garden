@@ -10,6 +10,7 @@ The archive's founding dispute. A newcomer's natural intuition (Frascadore, 1998
 
 - [cap-talk-1998--acl-vs-capability-challenge-problems](../sections/cap-talk-1998--acl-vs-capability-challenge-problems.md) - the challenge problems and Frascadore's attempted ACL solution.
 - [cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys](../sections/cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys.md) - the seeding equivalence intuition.
+- [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](../sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md) - the 2009 reprise: Tyler Close's "ACLs don't" paper, rejected from Oakland-09 as "probably done before" even as reviewers conceded the access-matrix equivalence is "incorrect" — the myth dismissed as obvious yet still unabsorbed.
 
 ### 2. What counts as "a capability"? (the definitional dispute)
 
@@ -210,6 +211,24 @@ The mature hybrid rule is plausible but conditional: capability references desig
 Reference reachability does not spontaneously grow in a closed graph, but active principals can receive messages, exercise amplifiers, and benefit from changing state. Any monotonicity theorem must state which inbound channels and protocols are excluded.
 
 - [cap-talk-2004-2008--principal-authority-monotonicity](../sections/cap-talk-2004-2008--principal-authority-monotonicity.md)
+
+### 34. Does per-holder petname naming conflict with provenance-sensitive message ordering?
+
+Karp (January 2009) poses a tension between a petname system's rule that the same object always gets the same name and E-order's guarantee, which rides the specific delegated *reference*, not the object. A petname collapses a reference Bob already held and one Alice just gave him into one name, but only the delegated reference carries the ordering guarantee — so a petname UI hides which reference is ordering-bearing. Landau replies that references with different properties are, operationally, different references and should have different petnames, but that concedes a strictly object-identifying petname loses information the semantics need. Left unresolved: whether human-facing naming (identity by object) and machine semantics (identity by delegation edge) can be reconciled in one layer.
+
+- [cap-talk-2009-2012--petnames-versus-e-order](../sections/cap-talk-2009-2012--petnames-versus-e-order.md) - the E-order-vs-petname statement and the is-it-a-bug-or-a-feature question.
+
+### 35. Are object-capability systems really immune to confused deputies?
+
+Toby Murray (February 2009) argues the immunity is overstated: a confused deputy can arise inside an ocap system whenever a service fails to validate a capability it is passed and that capability is more powerful in the service's hands than in the client's (via rights amplification). The defense is capability input-validation, which is why ocap systems build authentication in primitively (trademarks, final-type checks). The uncomfortable corollary: if the ocap fix reduces to "validate your inputs", an ACL/identity system can claim the same, weakening the confused-deputy argument. The replies sharpen (not settle) the distinction between eliminating a hazard by construction versus making it visible and locally guardable.
+
+- [cap-talk-2009-2012--confused-deputies-in-capability-systems](../sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md) - Murray's argument and the ensuing debate.
+
+### 36. Where does a browser hold the user's powerbox when a capability is a URL?
+
+Chip Morningstar (March 2009) shows that if all authority rides web-keys, a browser can hold authority only in bookmarks, history, or open-page state — and bookmarks/history are unreliable roots for a web UI, while a server-held powerbox handed back at login breaks on ordinary navigation (the next page lacks the authorities and cannot even synthesize a "Home" link). His two escapes each sacrifice something: never leaving the home page (breaks the web's bookmark/link nature) or a per-page powerbox module keyed by a session cookie (which is "in essence a webkey held in a cookie", reintroducing the ambient authority web-keys were meant to remove). The architectural tension between capabilities-in-URLs and the stateless, linkable Web is left open.
+
+- [cap-talk-2009-2012--webkeys-vs-the-web](../sections/cap-talk-2009-2012--webkeys-vs-the-web.md) - the three roots of browser authority, the navigation break, and the two unsatisfactory approaches.
 
 ## See also
 
