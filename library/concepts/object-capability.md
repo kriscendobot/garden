@@ -34,6 +34,8 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign](../sections/papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign.md) | Cordis (Shi et al. 2026) §6.3 independently arrives at capability-based access control: dependency injection = capability request, context proxy = mediator, authority by reference-possession not ambient authority. |
 | [cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference](../sections/cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference.md) | Landau's behavioral definition: a capability is what it does under a message, not an object reference; equality and the incidental data byte follow. |
 | [cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus](../sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md) | Miller's two-threads history placing the object-capability model in the lambda-calculus/Actors lineage rather than the OS access-matrix one. |
+| [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) | Matrix-model precursor to Models 1-4: object capabilities let ordinary subjects create and attenuate authority without admin power. |
+| [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](../sections/cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md) | Direct drafting context for Capability Myths Demolished and its insistence that implemented KeyKOS belongs in the model. |
 
 ## See also
 
