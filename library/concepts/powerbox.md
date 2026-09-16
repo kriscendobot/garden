@@ -32,6 +32,7 @@ confused-deputy attack against the broker.
 | [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | The 2010 Web Powerbox design (Seaborn, Varda, Close, Miller): a browser-held introducer with drag-and-drop grants and a revocable-connection UI, and why it beats OAuth. |
 | [cap-talk-2009-2012--web-browser-powerbox-web-introducer](../sections/cap-talk-2009-2012--web-browser-powerbox-web-introducer.md) | cap-talk 2010-December | Tyler Close's Web Introducer: an extension-free, single-click, in-page browser powerbox; the granting-gesture cost is what determines whether fine-grained delegation happens. |
 | [cap-talk-2009-2012--android-capability-discipline-and-pola](../sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md) | cap-talk 2010-May/July | Why platform manifest attenuation backfires (over-asking, untested subsets) where object-reference/powerbox attenuation does not. |
+| [cap-talk-2009-2012--re-authentication-and-time-limited-capabilities](../sections/cap-talk-2009-2012--re-authentication-and-time-limited-capabilities.md) | Re-authentication (browsing versus buying) recast as minting a fresh, short-lived, narrowly-scoped capability through the powerbox rather than re-proving identity. |
 
 ## See also
 
