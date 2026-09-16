@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T00:34:08Z_
+_As of 2026-09-16T00:36:02Z_
 
 ## Latest
 
@@ -665,16 +665,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.6M | $322.03 _(notional, rate-card)_ | 25% of 143.0M (ok) |
+| Claude | 35.6M | $322.46 _(notional, rate-card)_ | 25% of 143.0M (ok) |
 | Codex | 6.6M _(+176.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ses-node26-lockdown-permits-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1281
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`claude-on-minion-town-press-20260916-003510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260916-003510.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (7910)
 - [`issue-kriscendobot-garden-94`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-94.md) — Cost
