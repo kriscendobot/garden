@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:48:15Z_
+_As of 2026-09-16T16:52:58Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix when computing coverage (waiting 27m)
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix when computing coverage (waiting 32m)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 1d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
@@ -211,6 +211,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 6. Two-input (grid) baselines (regexp subject×pattern) in this build, or defer? → design recommends **defer**; ship single-input first.
 >
 > Once you answer (or say "build on the recommended defaults"), the implementation is queued: successor build job `ironhorse-computron-benchmark-baseline-build-exec` is parked on the plan queue owning steps 2–8, ready to promote. Nothing is lost.
+
+- `msg-scholar-cap-talk-cdx-completeness-2000-2003-0e63a464da19` — from scholar:scholar-cap-talk-cdx-completeness-2000-2003, reply_to `scholar-cap-talk-cdx-completeness-2000-2003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-cap-talk-cdx-completeness-2000-2003-0e63a464da19.md)
+
+> cap-talk 2000-2003 completeness re-run: with the Internet Archive CDX index still in a 503 outage, I enumerated authoritatively from the Pipermail archive index page (34 bundles for 2000-2003) and found 11 previously omitted months — 2001-September plus ten in 2002-2003. All 11 were fetched and SHA-256 anchored into the two source files (no phantom rows). This cycle I ingested 6 sections across 5 months (the 2002-May confused-deputy redux and Chander-Dean-Mitchell state-transition model; EROS-vs-L4 persistent capability systems; authz-vs-authn; the USENIX rejection of Capability Myths Demolished; and the access-matrix column-vs-row distinction), and deferred deep ingestion of the six remaining substantive months to the posted follow-on `scholar-ingest-cap-talk-2000-2003-remainder`. Verdict: the enumeration is now complete and every month has a recorded anchor; the CDX outage no longer blocks it because the archive index page is a more robust enumeration source. Details in the result entry `entries/2026/09/16/165118Z-result-scholar-b105c3.md`.
 
 - `msg-triage-halted-gauntlets-20260916-d6b4e6e396b6` — from gardener:triage-halted-gauntlets-20260916, reply_to `triage-halted-gauntlets-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-triage-halted-gauntlets-20260916-d6b4e6e396b6.md)
 
@@ -520,25 +524,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.4M | $476.55 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.3M _(+238.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 9.4M _(+238.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
-- [`scholar-cap-talk-cdx-completeness-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-cap-talk-cdx-completeness-2000-2003.md) — Complete cap-talk CDX enumeration: 2000-2003
+- [`improve-producer-draft-gate-feedback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-producer-draft-gate-feedback.md) — ---
 - [`endojs-endo-but-for-bots-pr1281-b2a4cb13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1281-b2a4cb13.md) — attention directive on endojs/endo-but-for-bots PR #1281
+- [`scholar-ingest-cap-talk-2000-2003-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2000-2003-remainder.md) — Ingest the deferred cap-talk 2000-2003 remainder months
 
-### tada (8018)
+### tada (8019)
+- [`scholar-cap-talk-cdx-completeness-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-cap-talk-cdx-completeness-2000-2003.md) — Completion report: scholar-cap-talk-cdx-completeness-2000-2003
 - [`canary-probe-endolin-garden2-5bcdff64-1a26d38f8064-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1a26d38f8064-r1.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2002-2003.md) — Cost
 - [`improve-fetch-source-wayback-cdx-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-wayback-cdx-fallback.md) — Completion report
 - [`claude-on-minion-town-press-20260916-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-162009.md) — Completion report
-- [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003.md) — Completion report
-- … and 8013 more
+- … and 8014 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
