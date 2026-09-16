@@ -33,6 +33,7 @@ TASK:
    why the loop stopped rather than converged.
 4. Do NOT merge. The merge decision is the maintainer's.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
