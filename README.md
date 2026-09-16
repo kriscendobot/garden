@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T17:06:49Z_
+_As of 2026-09-16T17:07:43Z_
 
 ## Latest
 
@@ -531,9 +531,10 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
 - [`scholar-ingest-cap-talk-2000-2003-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2000-2003-remainder.md) — Ingest the deferred cap-talk 2000-2003 remainder months
+- [`scholar-ingest-cap-talk-2003-sep-oct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2003-sep-oct.md) — Ingest the deferred cap-talk 2003-September and 2003-October sections
 
 ### tada (8022)
 - [`endojs-endo-but-for-bots-pr1281-b2a4cb13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-b2a4cb13.md) — Cost
