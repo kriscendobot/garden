@@ -15,6 +15,7 @@ Jonathan Shapiro's founding cap-talk analogy (1998): a building **card key** loo
 | [cap-talk-1998--card-keys-are-capabilities](../sections/cap-talk-1998--card-keys-are-capabilities.md) | The analogy in full: token vs. identity; the three ACL-looking features explained as capability-primitive constructions. |
 | [cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys](../sections/cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys.md) | Frascadore's originating swipe-card-vs-key framing that Shapiro answers. |
 | [cap-talk-1998--capability-ids-and-indirection-revocation](../sections/cap-talk-1998--capability-ids-and-indirection-revocation.md) | The destroyable indirection object that makes a card-key rescindable, and grows the key-ID space. |
+| [cap-talk-2000-2001--authorization-certificates-are-all-around-us](../sections/cap-talk-2000-2001--authorization-certificates-are-all-around-us.md) | Everyday bearer/authorization certificates (credit card as designation-not-authentication, cookies, order tickets); the card-key pattern is the world's default. |
 
 ## See also
 
