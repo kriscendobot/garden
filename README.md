@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:45:09Z_
+_As of 2026-09-16T16:48:15Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix when computing coverage (waiting 22m)
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix when computing coverage (waiting 27m)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 1d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
@@ -520,7 +520,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.4M | $475.24 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.4M | $476.55 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 9.3M _(+238.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
@@ -532,13 +532,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`scholar-cap-talk-cdx-completeness-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-cap-talk-cdx-completeness-2000-2003.md) — Complete cap-talk CDX enumeration: 2000-2003
 - [`endojs-endo-but-for-bots-pr1281-b2a4cb13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1281-b2a4cb13.md) — attention directive on endojs/endo-but-for-bots PR #1281
 
-### tada (8017)
+### tada (8018)
+- [`canary-probe-endolin-garden2-5bcdff64-1a26d38f8064-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1a26d38f8064-r1.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2002-2003.md) — Cost
 - [`improve-fetch-source-wayback-cdx-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-wayback-cdx-fallback.md) — Completion report
 - [`claude-on-minion-town-press-20260916-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-162009.md) — Completion report
 - [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003.md) — Completion report
-- [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-exec.md) — Cost
-- … and 8012 more
+- … and 8013 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
