@@ -18,6 +18,7 @@
 | [joining-references-across-membranes](../sections/cap-talk-2013-2016--joining-references-across-membranes.md) | revocation, distributed-objects, capability-security, cap-talk-open-questions | Two references may ultimately route to one endpoint yet carry different attenuation and revocation paths. |
 | [reactive-expiry-versus-stateful-membranes](../sections/cap-talk-2013-2016--reactive-expiry-versus-stateful-membranes.md) | revocation, capability-security, cap-talk-open-questions | Barbour contrasts the classic explicit revoker or membrane — mutable forwarding state that must be installed with foresight and recursively wraps capabilities crossing the boundary — with a reactive model in which grants expire and are continuously replaced. |
 | [substructural-reactive-capabilities](../sections/cap-talk-2013-2016--substructural-reactive-capabilities.md) | capability-theory, revocation, cap-talk-open-questions | Barbour's Awelon proposal combines reactive dataflow with affine, relevant, and linear types. |
+| [js-membranes-and-fine-grained-object-views](../sections/cap-talk-2009-2012--js-membranes-and-fine-grained-object-views.md) | hardened-javascript, patterns, revocation, capability-security | Tom Van Cutsem's E-style JavaScript membranes make revocation transitive over an entire object graph via Proxy interposition. |
 
 ## See also
 
