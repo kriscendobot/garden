@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:23:52Z_
+_As of 2026-09-16T19:26:24Z_
 
 ## Latest
 
@@ -584,24 +584,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.7M | $474.19 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.6M _(+269.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 64.7M | $475.08 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.7M _(+270.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012-remainder.md) — Continue cap-talk 2010-2012 ingestion
-- [`improve-fetch-source-transient-wayback-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fetch-source-transient-wayback-retries.md) — ---
 
-### tada (8041)
+### tada (8042)
+- [`improve-fetch-source-transient-wayback-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-transient-wayback-retries.md) — Cost
 - [`claude-on-minion-town-press-20260916-192011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-192011.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-428a03013158`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-428a03013158.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr388-review-37754f3b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-37754f3b-retro.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-428a03013158`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-428a03013158.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1072-review-bb54af10-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-bb54af10-retro.md) — Cost
-- … and 8036 more
+- … and 8037 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
