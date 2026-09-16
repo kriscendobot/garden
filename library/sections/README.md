@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7165 (530 parent indexes + 6635 children).
+Total section files: 7176 (530 parent indexes + 6646 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -467,6 +467,7 @@ Total section files: 7165 (530 parent indexes + 6635 children).
 - [cap-talk-2009-2012--authority-carrying-urls-in-the-wild](cap-talk-2009-2012--authority-carrying-urls-in-the-wild.md)
 - [cap-talk-2009-2012--avoiding-excess-authority-in-chained-access](cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md)
 - [cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values](cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values.md)
+- [cap-talk-2009-2012--capabilities-for-legacy-web-programs](cap-talk-2009-2012--capabilities-for-legacy-web-programs.md)
 - [cap-talk-2009-2012--capability-adoption-through-service-chaining](cap-talk-2009-2012--capability-adoption-through-service-chaining.md)
 - [cap-talk-2009-2012--capsicum-practical-capabilities-for-unix](cap-talk-2009-2012--capsicum-practical-capabilities-for-unix.md)
 - [cap-talk-2009-2012--comparing-models-zbac-versus-capabilities](cap-talk-2009-2012--comparing-models-zbac-versus-capabilities.md)
@@ -477,6 +478,7 @@ Total section files: 7165 (530 parent indexes + 6635 children).
 - [cap-talk-2009-2012--defensive-correctness-provability](cap-talk-2009-2012--defensive-correctness-provability.md)
 - [cap-talk-2009-2012--defensive-correctness-versus-consistency](cap-talk-2009-2012--defensive-correctness-versus-consistency.md)
 - [cap-talk-2009-2012--defining-ambient-authority](cap-talk-2009-2012--defining-ambient-authority.md)
+- [cap-talk-2009-2012--distributed-reference-counting-garbage-collection](cap-talk-2009-2012--distributed-reference-counting-garbage-collection.md)
 - [cap-talk-2009-2012--examples-of-capabilities-for-outsiders](cap-talk-2009-2012--examples-of-capabilities-for-outsiders.md)
 - [cap-talk-2009-2012--fabric-security-language-capabilities-or-acls](cap-talk-2009-2012--fabric-security-language-capabilities-or-acls.md)
 - [cap-talk-2009-2012--file-api-taming-tahoe](cap-talk-2009-2012--file-api-taming-tahoe.md)
@@ -488,11 +490,18 @@ Total section files: 7165 (530 parent indexes + 6635 children).
 - [cap-talk-2009-2012--hiding-webkeys-from-the-address-bar](cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md)
 - [cap-talk-2009-2012--horton-accountability-and-contract-law](cap-talk-2009-2012--horton-accountability-and-contract-law.md)
 - [cap-talk-2009-2012--immutable-data-and-the-authority-boundary](cap-talk-2009-2012--immutable-data-and-the-authority-boundary.md)
+- [cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default](cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default.md)
+- [cap-talk-2009-2012--js-membranes-and-fine-grained-object-views](cap-talk-2009-2012--js-membranes-and-fine-grained-object-views.md)
+- [cap-talk-2009-2012--language-support-for-object-capabilities](cap-talk-2009-2012--language-support-for-object-capabilities.md)
+- [cap-talk-2009-2012--limits-of-program-verification-and-policy-verification](cap-talk-2009-2012--limits-of-program-verification-and-policy-verification.md)
 - [cap-talk-2009-2012--managed-language-object-references-as-capabilities](cap-talk-2009-2012--managed-language-object-references-as-capabilities.md)
+- [cap-talk-2009-2012--modeling-capability-propagation-and-horton](cap-talk-2009-2012--modeling-capability-propagation-and-horton.md)
 - [cap-talk-2009-2012--mutable-singletons-are-ambient-authority](cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md)
 - [cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities](cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md)
 - [cap-talk-2009-2012--networking-named-content-self-authenticating-names](cap-talk-2009-2012--networking-named-content-self-authenticating-names.md)
 - [cap-talk-2009-2012--object-oriented-security-naming](cap-talk-2009-2012--object-oriented-security-naming.md)
+- [cap-talk-2009-2012--openid-single-sign-on-critique](cap-talk-2009-2012--openid-single-sign-on-critique.md)
+- [cap-talk-2009-2012--opinions-of-oauth](cap-talk-2009-2012--opinions-of-oauth.md)
 - [cap-talk-2009-2012--origin-header-amplifies-ambient-authority](cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md)
 - [cap-talk-2009-2012--petnames-versus-e-order](cap-talk-2009-2012--petnames-versus-e-order.md)
 - [cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction](cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md)
@@ -502,6 +511,7 @@ Total section files: 7165 (530 parent indexes + 6635 children).
 - [cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary](cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary.md)
 - [cap-talk-2009-2012--sitelier-capability-os-for-the-web](cap-talk-2009-2012--sitelier-capability-os-for-the-web.md)
 - [cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable](cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
+- [cap-talk-2009-2012--supplanting-passwords-and-the-master-capability](cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md)
 - [cap-talk-2009-2012--system-enforced-sensory-objects](cap-talk-2009-2012--system-enforced-sensory-objects.md)
 - [cap-talk-2009-2012--taxonomy-of-object-capability-systems](cap-talk-2009-2012--taxonomy-of-object-capability-systems.md)
 - [cap-talk-2009-2012--three-laws-of-security](cap-talk-2009-2012--three-laws-of-security.md)
@@ -511,6 +521,7 @@ Total section files: 7165 (530 parent indexes + 6635 children).
 - [cap-talk-2009-2012--web-powerbox-and-oauth](cap-talk-2009-2012--web-powerbox-and-oauth.md)
 - [cap-talk-2009-2012--webkeys-vs-the-web](cap-talk-2009-2012--webkeys-vs-the-web.md)
 - [cap-talk-2009-2012--what-is-designation](cap-talk-2009-2012--what-is-designation.md)
+- [cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets](cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets.md)
 - [cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity](cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity.md)
 - [cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names](cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names.md)
 - [cap-talk-2009-2012--zookos-triangle-and-petname-mappings](cap-talk-2009-2012--zookos-triangle-and-petname-mappings.md)
