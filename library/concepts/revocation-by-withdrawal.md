@@ -28,6 +28,7 @@ must remain alive), revocation lists (which must propagate), or expiry
 | [d256/per-agent-keypairs](../sections/endo-but-for-bots--llm-designs-d256--per-agent-keypairs.md) | Worked example at the agent-identity layer: revoking an agent is revoking its `keypair` formula; keypair lifecycle follows formula lifecycle (deleting the formula deletes the keys). |
 | [cap-talk-1998--capability-ids-and-indirection-revocation](../sections/cap-talk-1998--capability-ids-and-indirection-revocation.md) | Primary-source ancestor: EROS gives the holder a capability to a destroyable indirection object, so destroying it rescinds access (Shapiro 1998). |
 | [cap-talk-1998--rescinded-keys](../sections/cap-talk-1998--rescinded-keys.md) | Landau (1998): a rescinded key must return a message like any other key -- revocation indistinguishable from a live object; contrast Endo's reactable broken reference. |
+| [cap-talk-2009-2012--re-authentication-and-time-limited-capabilities](../sections/cap-talk-2009-2012--re-authentication-and-time-limited-capabilities.md) | Powerbox-issued capabilities carry time and use limits and are revoked when the user is done; a step-up is a fresh expiring capability, not a persistent elevated session. |
 
 ## See also
 
