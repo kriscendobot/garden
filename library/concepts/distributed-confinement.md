@@ -50,6 +50,8 @@ not merely by their arrangement.
 | [cap-talk-1998--cgi-confinement-and-capability-buckets](../sections/cap-talk-1998--cgi-confinement-and-capability-buckets.md) | A confined web task cannot leak unless it receives both sensitive data and an unauthorized outward channel. |
 | [cap-talk-1999--principal-attribution-proxies-and-confinement](../sections/cap-talk-1999--principal-attribution-proxies-and-confinement.md) | Confinement controls a program's channels but cannot identify the ultimate human directing a proxy. |
 | [cap-talk-1999--principal-policy-and-confinement-debate](../sections/cap-talk-1999--principal-policy-and-confinement-debate.md) | Controlled compartments may enforce narrower policies, but the participants did not settle human attribution. |
+| [cap-talk-2002-2003--constructor-hidden-authority-and-confinement](../sections/cap-talk-2002-2003--constructor-hidden-authority-and-confinement.md) | Constructor checks that code has no hidden outward channel before the user grants it a secret. |
+| [cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement](../sections/cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement.md) | The KeyKOS-to-EROS transition from convincing mechanism to explicit confinement model and preservation invariants. |
 
 ## See also
 
