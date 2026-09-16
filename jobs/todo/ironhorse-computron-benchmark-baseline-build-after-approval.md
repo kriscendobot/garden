@@ -1,10 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-09-16T15:25:23Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:38:11Z cleared=none -->
 
 ---
 tier: mentor
