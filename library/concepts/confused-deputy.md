@@ -49,6 +49,7 @@ what, so blame cannot be assigned — Morningstar calls **accountability launder
 | [geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) | Framing and persistent origin grants let an embedded principal exercise user location authority ambiguously. |
 | [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | The RFC cookie spec identifies CSRF as the browser confused deputy: the cookie authorizes an action a remote party designated. |
 | [cap-talk-2009-2012--avoiding-excess-authority-in-chained-access](../sections/cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md) | The Alice-Bob-Carol chain as a generalized confused deputy; Barbour's rule that the choice of whose authority the intermediary uses must be static, so a caller cannot gain authority by withholding a reference. |
+| [modeling-capability-propagation-and-horton](../sections/cap-talk-2009-2012--modeling-capability-propagation-and-horton.md) | SAM modelling shows RBAC needs bolted-on checks to close confused deputies while capability propagation is predictable. |
 
 ## See also
 
