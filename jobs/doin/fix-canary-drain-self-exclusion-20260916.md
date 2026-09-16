@@ -42,3 +42,13 @@ belongs in this change or a follow-up.
 
 Include a regression test under scripts/jobs/test/ that pins the recovery path.
 Design: designs/follower-self-deploy.md.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:29:10Z
