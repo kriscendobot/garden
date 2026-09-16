@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T06:19:58Z_
+_As of 2026-09-16T06:21:08Z_
 
 ## Latest
 
-Three jobs active: [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron benchmark-baseline) is in panel round 1 and fix round 1; [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) is being rebased and pinned to current llm. Credit-controls gauntlet completed. Triage of five early-September halted gauntlets found: two transient (capacity crunch), ready to re-post; three non-transient failures requiring rescoping ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) → clean idempotent re-post; [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) → re-post panel-2 if premise confirmed live; [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) → weave/pin-merge-base then resume; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) → green+mergeable, route to human review not loop; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) → resume at child 2, raise timeout, un-archive). Maintainer inbox holds six critical decisions: ironhorse computron-baseline open questions (6 items), reminder daemon revival failure (needs design migration), oros-studio gardener-alias retirement gate blocker (third host unmigrated, decision needed on migrate-first vs. keep-gardener), minion.town clip GC build needs kriscendobot gh token restore, minion.town dckc-powers audit found inert legacy records (cosmetic hygiene sweep optional), minion-town reminder-daemon dry-run hit state-revival schema drift (no improvised migration). Quota stable at 34% Claude, 23% Codex.
+Design gauntlet for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron benchmark-baseline regime) completed panel round 1; fix-1 is in progress. Concurrently, [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (exo-stream drop base64-stream methods) is being re-scoped with a merge-base rebase due to live base drift in `9p-server`. Triage of five early-September halted gauntlets found transient capacity-crunch halts on now-green [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) (relative routing design) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (invitation-only guest onboarding) — both ready for re-post — plus real failures: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needing re-scope, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) (Claude harness provisioning) at iteration 6/6 churn that should move to maintainer review instead, and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) (CLIPOMETER esbuild) partially landed with child 1 done — others parked awaiting decision. Reminder daemon revival failure resolved: @endo/reminder as VFS-persistent plugin supersedes daemon-upgrade binding. Ironhorse computron benchmark audit complete; builder holding pending your answers to six open questions (tolerance bands, gate placement, seed roster scope, baseline-regeneration policy, PR fate, grid-baseline timing). Three maintainer-blocking items: host introduction for GitHub-federation checkpoint, kriscendobot gh token restore for minion.town clip-GC PR creation, and oros-studio migration to monk (blocking gardener-alias retirement).
 
 ## Parked for maintainer feedback
 
@@ -306,25 +306,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.9M | $412.70 _(notional, rate-card)_ | 34% of 143.0M (ok) |
-| Codex | 7.3M _(+186.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 48.0M | $412.79 _(notional, rate-card)_ | 34% of 143.0M (ok) |
+| Codex | 7.4M _(+186.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1283
+### doin (2)
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1283
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
 
-### tada (7951)
+### tada (7952)
+- [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-panel-1.md) — Panel stage — PR #1283 round 1 (design gauntlet)
 - [`credit-controls-manual-gauntlet-trigger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-manual-gauntlet-trigger.md) — Completion report
 - [`minion-town-reminder-compat-store`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-reminder-compat-store.md) — Cost
 - [`reminder-daemon-revival-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reminder-daemon-revival-failure.md) — Cost
 - [`minion-town-dckc-powers-weblet-audit-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-dckc-powers-weblet-audit-20260916.md) — dckc POWERS-weblet audit — minion.town endo-gateway (READ-ONLY)
-- [`reconcile-gardener-alias-retirement-gate-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reconcile-gardener-alias-retirement-gate-20260916.md) — Completion report
-- … and 7946 more
+- … and 7947 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
