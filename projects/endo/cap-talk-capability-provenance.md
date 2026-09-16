@@ -96,10 +96,50 @@ Waterken's `ref_send` is a direct Java-library ancestor of Endo's eventual-send 
 - [`../../library/sections/cap-talk-2004-2008--ref-send-eventual-reference-api.md`](../../library/sections/cap-talk-2004-2008--ref-send-eventual-reference-api.md)
 - [`../../library/sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md`](../../library/sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md)
 
+## Facets, endowments, and enforced dependency injection
+
+The 2006 object/facet debate gives Endo's exo model a precise reading: each facet reference is a distinct authority-bearing object, even when several facets close over one state record. The 2008 dependency-injection comparison then explains SES compartments in familiar engineering terms. Constructor injection makes dependencies visible, but only an ocap runtime ensures omitted powers cannot be recovered through globals, reflection, or an untamed container. Endo endowments are dependency injection plus enforcement.
+
+- [`../../library/sections/cap-talk-2004-2008--objects-facets-and-behavioral-identity.md`](../../library/sections/cap-talk-2004-2008--objects-facets-and-behavioral-identity.md)
+- [`../../library/sections/cap-talk-2004-2008--object-capabilities-versus-dependency-injection.md`](../../library/sections/cap-talk-2004-2008--object-capabilities-versus-dependency-injection.md)
+- [`../../library/sections/cap-talk-2004-2008--database-query-authority.md`](../../library/sections/cap-talk-2004-2008--database-query-authority.md)
+
+## Budgets must travel with authority
+
+The space-bank and memory-accounting threads are direct antecedents of explicit Endo resource powers. A service capability answers what an object may do; a separate sub-budget answers who sponsors the CPU, storage, or durable retention it consumes. Shared references prevent reachability alone from assigning responsibility, so Endo formula retention and quota designs should preserve visible sponsorship and reclamation authority.
+
+- [`../../library/sections/cap-talk-2004-2008--capability-accounting.md`](../../library/sections/cap-talk-2004-2008--capability-accounting.md)
+- [`../../library/sections/cap-talk-2004-2008--memory-accounting-without-partitions.md`](../../library/sections/cap-talk-2004-2008--memory-accounting-without-partitions.md)
+
+## Deep attenuation and trusted user gestures
+
+Deep attenuation says a restriction follows references obtained through the wrapper, but the 2007 thread shows why Endo cannot implement this as global method-name filtering: each interface must define its own read-only, revocable, or otherwise narrowed facet. The companion UI discussions generalize PowerBoxes. A trusted gesture can convey a narrow facet through file-open or drag-and-drop, while an untrusted application must not counterfeit the endpoint or upgrade the grant.
+
+- [`../../library/sections/cap-talk-2004-2008--deep-attenuation-and-typed-operations.md`](../../library/sections/cap-talk-2004-2008--deep-attenuation-and-typed-operations.md)
+- [`../../library/sections/cap-talk-2004-2008--user-intent-as-authorization.md`](../../library/sections/cap-talk-2004-2008--user-intent-as-authorization.md)
+- [`../../library/sections/cap-talk-2004-2008--attenuated-drag-and-drop.md`](../../library/sections/cap-talk-2004-2008--attenuated-drag-and-drop.md)
+
+## Transport and policy boundaries
+
+Several late-era threads sharpen boundaries around CapTP and sturdyrefs. SAML or another signed assertion can bootstrap an offline delegation, but the live object protocol should remain reference-based. Bearer capabilities leak through `argv`, logs, and URL machinery that assumes identifiers are public. ACL-like tenant policy can safely narrow an already-designated reference, but must not turn a powerless name into stronger authority. Authority-analysis tools must also state whether incoming messages and amplifiers are excluded before claiming authority cannot grow.
+
+- [`../../library/sections/cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md`](../../library/sections/cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md)
+- [`../../library/sections/cap-talk-2004-2008--capabilities-in-argv-leakage.md`](../../library/sections/cap-talk-2004-2008--capabilities-in-argv-leakage.md)
+- [`../../library/sections/cap-talk-2004-2008--capability-urls-in-practice.md`](../../library/sections/cap-talk-2004-2008--capability-urls-in-practice.md)
+- [`../../library/sections/cap-talk-2004-2008--acls-and-object-capabilities-coexistence.md`](../../library/sections/cap-talk-2004-2008--acls-and-object-capabilities-coexistence.md)
+- [`../../library/sections/cap-talk-2004-2008--principal-authority-monotonicity.md`](../../library/sections/cap-talk-2004-2008--principal-authority-monotonicity.md)
+
+## Concurrency assumptions are part of a pattern
+
+Authodox's CSP models show that a caretaker or membrane can preserve its advertised property under one concurrency model and fail under another. Endo pattern documentation should name turn, reentrancy, and callback assumptions. Chrome's renderer sandbox supplies the systems-level analogue: process separation helps, but the broker protocol and stripped ambient powers determine the actual authority boundary.
+
+- [`../../library/sections/cap-talk-2004-2008--authodox-object-capability-analysis.md`](../../library/sections/cap-talk-2004-2008--authodox-object-capability-analysis.md)
+- [`../../library/sections/cap-talk-2004-2008--chrome-sandbox-and-brokered-authority.md`](../../library/sections/cap-talk-2004-2008--chrome-sandbox-and-brokered-authority.md)
+
 ## Persistence does not erase partial failure
 
 The 2008 persistence exchange reinforces the earlier transaction lesson. A durable reference graph and causally consistent checkpoints do not tell a caller whether an unacknowledged operation happened. Endo's durable promises, formulas, and vats still need explicit retry and idempotency semantics. A persisted project must restore actual references through a PowerBox-like trusted mechanism rather than turn them into editable ambient names.
 
 - [`../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md`](../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
 
-Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, and `scholar-ingest-cap-talk-2004-2008` (2026-09-16), through the representative 2004-2008 slice.
+Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, `scholar-ingest-cap-talk-2004-2008`, and `scholar-ingest-cap-talk-2004-2008-remainder` (2026-09-16), through the complete 2004-2008 monthly index.
