@@ -31,3 +31,13 @@ TASK:
 
 Report which of (2) or (3) it turned out to be — that is the substance of the
 answer, not the fix itself.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T23:09:18Z
