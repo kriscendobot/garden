@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7149 (530 parent indexes + 6619 children).
+Total section files: 7155 (530 parent indexes + 6625 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -465,10 +465,12 @@ Total section files: 7149 (530 parent indexes + 6619 children).
 - [cap-talk-2009-2012--android-capability-discipline-and-pola](cap-talk-2009-2012--android-capability-discipline-and-pola.md)
 - [cap-talk-2009-2012--authentication-identity-versus-property-validation](cap-talk-2009-2012--authentication-identity-versus-property-validation.md)
 - [cap-talk-2009-2012--authority-carrying-urls-in-the-wild](cap-talk-2009-2012--authority-carrying-urls-in-the-wild.md)
+- [cap-talk-2009-2012--capability-adoption-through-service-chaining](cap-talk-2009-2012--capability-adoption-through-service-chaining.md)
 - [cap-talk-2009-2012--capsicum-practical-capabilities-for-unix](cap-talk-2009-2012--capsicum-practical-capabilities-for-unix.md)
 - [cap-talk-2009-2012--confused-deputies-in-capability-systems](cap-talk-2009-2012--confused-deputies-in-capability-systems.md)
 - [cap-talk-2009-2012--cookies-as-ambient-authority](cap-talk-2009-2012--cookies-as-ambient-authority.md)
 - [cap-talk-2009-2012--cors-open-review-and-ambient-cookies](cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md)
+- [cap-talk-2009-2012--covert-channels-and-bounded-crypto-code](cap-talk-2009-2012--covert-channels-and-bounded-crypto-code.md)
 - [cap-talk-2009-2012--defensive-correctness-versus-consistency](cap-talk-2009-2012--defensive-correctness-versus-consistency.md)
 - [cap-talk-2009-2012--defining-ambient-authority](cap-talk-2009-2012--defining-ambient-authority.md)
 - [cap-talk-2009-2012--fabric-security-language-capabilities-or-acls](cap-talk-2009-2012--fabric-security-language-capabilities-or-acls.md)
@@ -479,6 +481,7 @@ Total section files: 7149 (530 parent indexes + 6619 children).
 - [cap-talk-2009-2012--hashcode-collisions-and-the-weakest-link](cap-talk-2009-2012--hashcode-collisions-and-the-weakest-link.md)
 - [cap-talk-2009-2012--hiding-webkeys-from-the-address-bar](cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md)
 - [cap-talk-2009-2012--horton-accountability-and-contract-law](cap-talk-2009-2012--horton-accountability-and-contract-law.md)
+- [cap-talk-2009-2012--immutable-data-and-the-authority-boundary](cap-talk-2009-2012--immutable-data-and-the-authority-boundary.md)
 - [cap-talk-2009-2012--managed-language-object-references-as-capabilities](cap-talk-2009-2012--managed-language-object-references-as-capabilities.md)
 - [cap-talk-2009-2012--mutable-singletons-are-ambient-authority](cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md)
 - [cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities](cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md)
@@ -489,15 +492,18 @@ Total section files: 7149 (530 parent indexes + 6619 children).
 - [cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction](cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md)
 - [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md)
 - [cap-talk-2009-2012--safe-language-defined-and-ocap](cap-talk-2009-2012--safe-language-defined-and-ocap.md)
+- [cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary](cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary.md)
 - [cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable](cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
 - [cap-talk-2009-2012--system-enforced-sensory-objects](cap-talk-2009-2012--system-enforced-sensory-objects.md)
 - [cap-talk-2009-2012--taxonomy-of-object-capability-systems](cap-talk-2009-2012--taxonomy-of-object-capability-systems.md)
 - [cap-talk-2009-2012--three-laws-of-security](cap-talk-2009-2012--three-laws-of-security.md)
+- [cap-talk-2009-2012--waterken-persistence-transactions-and-failure](cap-talk-2009-2012--waterken-persistence-transactions-and-failure.md)
 - [cap-talk-2009-2012--web-browser-powerbox-web-introducer](cap-talk-2009-2012--web-browser-powerbox-web-introducer.md)
 - [cap-talk-2009-2012--web-powerbox-and-oauth](cap-talk-2009-2012--web-powerbox-and-oauth.md)
 - [cap-talk-2009-2012--webkeys-vs-the-web](cap-talk-2009-2012--webkeys-vs-the-web.md)
 - [cap-talk-2009-2012--what-is-designation](cap-talk-2009-2012--what-is-designation.md)
 - [cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity](cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity.md)
+- [cap-talk-2009-2012--zookos-triangle-and-petname-mappings](cap-talk-2009-2012--zookos-triangle-and-petname-mappings.md)
 
 ### cap-talk-2013-2016
 
