@@ -10,6 +10,7 @@ OS-level observation and bounding of a running process and its descendants — t
 | [descendant-monitoring semantics](../sections/web--apple-es-new-descendants-client--descendant-monitoring-semantics.md) | endpoint-security, process-monitoring | The scoping rule: observe the caller, observe-and-gate its recursive descendant tree, ignore everything else. |
 | [muting and client requirements](../sections/web--apple-es-new-descendants-client--muting-and-client-requirements.md) | endpoint-security, process-monitoring | Reduced deployment cost (no root, no TCC) is what makes the descendant-scoped monitor practical to run. |
 | [Devoker vigil health monitor](../sections/unum--devoker-four-layer-architecture.md) | agent-fleet-orchestration, process-monitoring | The vigil timer polls the worker unit's ActiveState/SubState/Result triple to restart-on-failure, idle-kick pending work, run a stuck-task detector, and size occupancy-aware burst concurrency. |
+| [auditing-capability-systems](../sections/cap-talk-2002-2003--auditing-capability-systems.md) | cap-talk 2003-October | Snapshot audits and protected logs can bound damage, but ongoing execution needs mechanisms that preserve the checked invariant. |
 
 ## See also
 
