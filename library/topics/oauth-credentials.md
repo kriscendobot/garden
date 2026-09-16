@@ -31,6 +31,7 @@ OAuth 2.0 application credential models for programmatic and delegated access, a
 | [Spotify OAuth and development-mode requirements](../sections/cloudflare-os--packages-gatekeeper-spotify-readme--oauth-development-mode.md) | oauth-credentials, cloudflare-workers-agent-hosting | Spotify development apps require a loopback-IP callback and explicit user enrollment. |
 | [Supabase OAuth and approval boundary](../sections/cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary.md) | oauth-credentials, capability-mediated-integrations | Organization OAuth credentials coexist with unsimulated approval-gated SQL writes. |
 | [ZoomInfo OAuth PKCE and token lifecycle](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--oauth-pkce-and-token-lifecycle.md) | oauth-credentials, cloudflare-workers-agent-hosting | ZoomInfo uses PKCE, client Basic authentication, and refresh-token rotation. |
+| [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | cap-talk 2010-February | Why the Web Powerbox (a per-connection web-key) dominates OAuth's ambient-cookie and bearer-token model on the web's confused-deputy attacks. |
 
 ## See also
 
