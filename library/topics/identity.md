@@ -37,6 +37,9 @@
 | [phishing-yurls-and-petnames](../sections/cap-talk-2004-2008--phishing-yurls-and-petnames.md) | cap-talk 2006-February | A YURL establishes connectivity while a petname supplies the user-controlled meaning of the relationship. |
 | [same-key-and-composite-identity](../sections/cap-talk-2004-2008--same-key-and-composite-identity.md) | cap-talk 2007-February | Same-key tests expose a specific identity relation, not universal behavioral equivalence. |
 | [web-keys-mashing-with-permission](../sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md) | cap-talk 2008-January | Web-keys compose applications without requiring a shared identity database or ambient cookies. |
+| [cap-talk-2004-2008--capability-urls-in-practice](../sections/cap-talk-2004-2008--capability-urls-in-practice.md) | cap-talk 2004-2008 archive | Tahoe users showed that bearer capability URLs can be a workable sharing interface, but the browser and surrounding application ecosystem routinely treat URLs as public names. |
+| [cap-talk-2004-2008--horton-accountability-without-authority](../sections/cap-talk-2004-2008--horton-accountability-without-authority.md) | cap-talk 2004-2008 archive | Horton explores how a recipient can learn a delegation chain without turning identity into ambient authorization. |
+| [cap-talk-2004-2008--saml-assertions-versus-object-capabilities](../sections/cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md) | cap-talk 2004-2008 archive | A signed SAML assertion can act as an offline bearer authorization, but it is not by itself an object capability system. |
 
 ## See also
 
