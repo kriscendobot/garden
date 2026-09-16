@@ -120,3 +120,5 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - one-shot capability, non-transferable capability, limited transfer, proxy defeats non-transferability -> distributed-confinement
 - overt causality, covert causality, in-model causality, conforming-implementation channel test -> distributed-confinement
 - ad hominem security, trusted by whom, trusted computing, trusted PC, Palladium, who wrote the code -> ad-hominem-security
+- web-key, webkey, web key, webkeys, capability URL, capability-in-URL, capabilities in URLs, swiss number URL, unguessable URL, Waterken web-key, https capability -> web-key
+- petname, petnames, petname system, per-holder naming, Zooko's triangle, edgename, petname path -> petname
