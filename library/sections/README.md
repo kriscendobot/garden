@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7133 (530 parent indexes + 6603 children).
+Total section files: 7141 (530 parent indexes + 6611 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -460,9 +460,11 @@ Total section files: 7133 (530 parent indexes + 6603 children).
 
 ### cap-talk-2009-2012
 
+- [cap-talk-2009-2012--acl-model-incomplete-owner-admin](cap-talk-2009-2012--acl-model-incomplete-owner-admin.md)
 - [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md)
 - [cap-talk-2009-2012--authentication-identity-versus-property-validation](cap-talk-2009-2012--authentication-identity-versus-property-validation.md)
 - [cap-talk-2009-2012--confused-deputies-in-capability-systems](cap-talk-2009-2012--confused-deputies-in-capability-systems.md)
+- [cap-talk-2009-2012--cookies-as-ambient-authority](cap-talk-2009-2012--cookies-as-ambient-authority.md)
 - [cap-talk-2009-2012--cors-open-review-and-ambient-cookies](cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md)
 - [cap-talk-2009-2012--defensive-correctness-versus-consistency](cap-talk-2009-2012--defensive-correctness-versus-consistency.md)
 - [cap-talk-2009-2012--defining-ambient-authority](cap-talk-2009-2012--defining-ambient-authority.md)
@@ -470,15 +472,21 @@ Total section files: 7133 (530 parent indexes + 6603 children).
 - [cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary](cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md)
 - [cap-talk-2009-2012--geolocation-origin-authority-and-ui](cap-talk-2009-2012--geolocation-origin-authority-and-ui.md)
 - [cap-talk-2009-2012--guards-well-known-not-ambient](cap-talk-2009-2012--guards-well-known-not-ambient.md)
+- [cap-talk-2009-2012--hashcode-collisions-and-the-weakest-link](cap-talk-2009-2012--hashcode-collisions-and-the-weakest-link.md)
 - [cap-talk-2009-2012--hiding-webkeys-from-the-address-bar](cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md)
 - [cap-talk-2009-2012--managed-language-object-references-as-capabilities](cap-talk-2009-2012--managed-language-object-references-as-capabilities.md)
+- [cap-talk-2009-2012--mutable-singletons-are-ambient-authority](cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md)
 - [cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities](cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md)
+- [cap-talk-2009-2012--object-oriented-security-naming](cap-talk-2009-2012--object-oriented-security-naming.md)
 - [cap-talk-2009-2012--origin-header-amplifies-ambient-authority](cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md)
 - [cap-talk-2009-2012--petnames-versus-e-order](cap-talk-2009-2012--petnames-versus-e-order.md)
 - [cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction](cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md)
 - [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md)
+- [cap-talk-2009-2012--safe-language-defined-and-ocap](cap-talk-2009-2012--safe-language-defined-and-ocap.md)
 - [cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable](cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
 - [cap-talk-2009-2012--taxonomy-of-object-capability-systems](cap-talk-2009-2012--taxonomy-of-object-capability-systems.md)
+- [cap-talk-2009-2012--three-laws-of-security](cap-talk-2009-2012--three-laws-of-security.md)
+- [cap-talk-2009-2012--web-powerbox-and-oauth](cap-talk-2009-2012--web-powerbox-and-oauth.md)
 - [cap-talk-2009-2012--webkeys-vs-the-web](cap-talk-2009-2012--webkeys-vs-the-web.md)
 - [cap-talk-2009-2012--what-is-designation](cap-talk-2009-2012--what-is-designation.md)
 - [cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity](cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity.md)
