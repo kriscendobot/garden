@@ -22,6 +22,9 @@ The competing definitions differ operationally. Under "shared with all programs,
 | [what-is-hardenedjs](../sections/endo--docs-guide--what-is-hardenedjs-ses-endo--what-is-hardenedjs.md) | Hardened JavaScript removes ambient authority from the JavaScript environment — frozen primordials, no ambient IO, modules receive only endowments explicitly passed — the enacted form of ambient-authority elimination. |
 | [cors-open-review-and-ambient-cookies](../sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md) | CORS preflight protects legacy request shapes but does not remove automatically attached ambient cookie authority. |
 | [geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) | Origin-persistent geolocation is ambient authority; a visible page-lifetime facet narrows and revokes it. |
+| [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | RFC 6265's own security-considerations text names cookies a form of ambient authority: the browser attaches them without the requester designating them, so server and client become confused deputies. |
+| [mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) | A mutable globally-accessible singleton is ambient authority by construction; only mutable ones are harmful, which is why frozen (constant) primordials are fine. |
+| [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | OAuth's redirect dance actively depends on ambient authority via cookies; the powerbox replaces it with a per-connection capability the browser holds. |
 
 ## See also
 
