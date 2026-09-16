@@ -295,6 +295,13 @@ fi
 # commands, and must not be able to author or erase its own cost record.
 envelope="$(mktemp "${TMPDIR:-/tmp}/garden-claude-envelope-$base.XXXXXX")"
 rusage="$(mktemp "${TMPDIR:-/tmp}/garden-claude-rusage-$base.XXXXXX")"
+# NESTED-`claude -p` metering (designs/panel-seat-metering-and-tiering.md): snapshot
+# the job's session-log usage BEFORE the top-level call so the after-snapshot delta
+# below captures every nested subprocess `claude -p` (panel juror seats, the panel
+# decider/appellate) the top-level envelope structurally cannot see. Taken here, in
+# the handler (outside the agent, which runs with GARDEN_USAGE_FILE unset), and BEFORE
+# the completion teardown removes the top-level transcript.
+usage_before_nested="$(meter_job_session_usage "$base" 2>/dev/null || true)"
 set +e
 if [ -x /usr/bin/time ]; then
   ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
@@ -310,6 +317,16 @@ if command -v jq >/dev/null 2>&1 && jq -er '.result' "$envelope" > "$report" 2>/
   resolved_for_usage="${resolved_model:-}"
   usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "$resolved_for_usage" "$(cat "$envelope")" || true
   usage_capture_rusage "${GARDEN_USAGE_FILE:-/dev/null}" "$rusage" || true
+  # Close the nested-`claude -p` metering hole: when this handler supervised a panel
+  # (or any nested `claude -p`), the envelope just captured accounts only for the
+  # top-level session. Augment the handoff with the COMPLETE session-log delta over
+  # the job's own worktree dirs — measured before the completion teardown below
+  # retires the top-level transcript — so the per-job ledger approximates real spend
+  # (designs/panel-seat-metering-and-tiering.md). No-op for a plain job (delta ~=
+  # envelope); best-effort and never fatal.
+  usage_after_nested="$(meter_job_session_usage "$base" 2>/dev/null || true)"
+  augment_usage_with_session_delta "${GARDEN_USAGE_FILE:-/dev/null}" \
+    "$usage_before_nested" "$usage_after_nested" "$resolved_for_usage" || true
 else
   cp "$envelope" "$report" 2>/dev/null || : > "$report"
 fi

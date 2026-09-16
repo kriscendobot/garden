@@ -1,0 +1,57 @@
+# seat-model-tiers.tsv — per-seat review-model tier for the gardening panel.
+# panel.sh's seat_model_flag reads this to choose a `claude --model` per juror seat
+# (and for the decider/appellate decision calls). Columns: <seat>\t<tier>.
+# Tiers (Anthropic-only, the models a monk's `claude -p` can reach):
+#   opus    inherit the fleet's resolved ceiling model (NO --model passed) — the
+#           deepest reasoning; the tiering NEVER routes a seat above this.
+#   sonnet  a strong general reviewer; the default for a scoped-rubric seat.
+#   haiku   mechanical / narrow / deterministic-pre-pass-gated judgment.
+# An unmapped seat defaults to opus (fail-safe: full capability). Rationale and the
+# per-seat justification live in designs/panel-seat-metering-and-tiering.md.
+# Overridable wholesale via GARDEN_PANEL_SEAT_TIERS, per-tier via
+# GARDEN_PANEL_MODEL_SONNET / GARDEN_PANEL_MODEL_HAIKU.
+
+# --- opus: adversarial / security / expert-distilled / deepest architecture ----
+saboteur	opus
+breaker	opus
+warden	opus
+locksmith	opus
+wire-watcher	opus
+integrator	opus
+purist	opus
+engine-realist	opus
+spec-keeper	opus
+decomplector	opus
+
+# --- haiku: mechanical / narrow / pre-pass-gated -------------------------------
+orthographer	haiku
+coverage-auditor	haiku
+archivist	haiku
+pruner	haiku
+copyeditor	haiku
+pedant	haiku
+appellate	haiku
+
+# --- sonnet: the default — a strong general reviewer with a scoped rubric -------
+assessor	sonnet
+benchmarker	sonnet
+changeset-auditor	sonnet
+corner-prober	sonnet
+curator	sonnet
+duality-auditor	sonnet
+fast-checker	sonnet
+gateway	sonnet
+migrator	sonnet
+packager	sonnet
+prover	sonnet
+releaser	sonnet
+scribe	sonnet
+stylist	sonnet
+surfacer	sonnet
+transplanter	sonnet
+typist	sonnet
+critic	sonnet
+skeptic	sonnet
+ergonomist	sonnet
+novice	sonnet
+decider	sonnet

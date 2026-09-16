@@ -352,6 +352,34 @@ maybe_resume_single_round() {
 
 if maybe_resume_single_round; then exit 0; fi
 
+# --- PER-SEAT MODEL TIERING -------------------------------------------------
+# Each seat's `claude -p` runs at a per-seat REVIEW TIER rather than uniformly at
+# the fleet ceiling (all-Opus), the panel's dominant cost multiplier. The map is
+# data (seat-model-tiers.tsv); this resolver turns a seat name into the `claude
+# --model` VALUE to pass. The reachable models are Anthropic-only (a monk's
+# `claude -p` authenticates to Anthropic): `opus` means INHERIT the resolved
+# ceiling (pass no --model — the tiering never routes a seat ABOVE the ceiling, so
+# it can only reduce cost); `sonnet`/`haiku` pass an explicit alias. An unmapped
+# seat defaults to opus (fail-safe: full capability). Per-seat rationale:
+# designs/panel-seat-metering-and-tiering.md. Overridable wholesale via
+# GARDEN_PANEL_SEAT_TIERS, per-tier via GARDEN_PANEL_MODEL_{SONNET,HAIKU}.
+: "${GARDEN_PANEL_SEAT_TIERS:=$HERE/seat-model-tiers.tsv}"
+: "${GARDEN_PANEL_MODEL_SONNET:=sonnet}"
+: "${GARDEN_PANEL_MODEL_HAIKU:=haiku}"
+seat_model_flag() {  # seat_model_flag <seat> -> `claude --model` value or "" (inherit)
+  local seat="$1" tier=""
+  if [ -r "$GARDEN_PANEL_SEAT_TIERS" ]; then
+    tier="$(awk -v s="$seat" '
+      /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+      $1 == s { print $2; exit }' "$GARDEN_PANEL_SEAT_TIERS" 2>/dev/null)"
+  fi
+  case "$tier" in
+    sonnet) printf '%s\n' "$GARDEN_PANEL_MODEL_SONNET" ;;
+    haiku)  printf '%s\n' "$GARDEN_PANEL_MODEL_HAIKU" ;;
+    *)      : ;;  # opus / unmapped -> inherit the ceiling model (no --model)
+  esac
+}
+
 # --- DECISION HOOK: a single juror seat's review ----------------------------
 # Shells one `claude -p` per seat, briefing it with the seat's AGENT.md and the
 # PR diff. Returns the seat's verdict block on stdout; the caller files it under
@@ -362,14 +390,19 @@ seat_review() {  # seat_review <seat> -> prints that seat's per-juror block
   if [ -n "${GARDEN_PANEL_SEAT:-}" ]; then
     "$GARDEN_PANEL_SEAT" "$seat" "$pr" "$wt" "$base"; return
   fi
+  # Per-seat review model (empty => inherit the ceiling; see seat_model_flag).
+  local seat_model seat_model_args=()
+  seat_model="$(seat_model_flag "$seat")"
+  [ -n "$seat_model" ] && seat_model_args=(--model "$seat_model")
   # Cost-gated seats: a seat may ship a deterministic PRE-PASS gate co-located here
   # as seat-gate-<seat>.sh. It runs plain code first and only spends a `claude -p`
   # when it has something to judge (the proxy's deterministic-pre-pass-then-cost-
   # gated-handler pattern), OWNING the seat's block on stdout in every branch. The
-  # coverage-auditor is the first such seat (c8 coverage-of-new-lines).
+  # coverage-auditor is the first such seat (c8 coverage-of-new-lines). The gate
+  # reads GARDEN_PANEL_SEAT_MODEL for its own per-seat `--model` (same tiering).
   local gate="$HERE/seat-gate-$seat.sh"
   if [ -x "$gate" ]; then
-    "$gate" "$seat" "$pr" "$wt" "$base"; return
+    GARDEN_PANEL_SEAT_MODEL="$seat_model" "$gate" "$seat" "$pr" "$wt" "$base"; return
   fi
   local brief="$JURORS_DIR/$seat/AGENT.md"
   [ -r "$brief" ] || fail "seat brief $brief"
@@ -441,7 +474,12 @@ assigns an outer-layer lifecycle concept to an inner mechanism that only evaluat
 runs to quiescence. Do NOT flag a design merely for naming multiple layers when its map \
 is explicit and coherent. Evidence: $(cat "${GARDEN_PANEL_OWNERSHIP_MAP_EVIDENCE}")."
   fi
-  claude -p --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr\
+  # Run from the reviewed worktree (cd "$wt"): its session transcript then lands in
+  # THIS job's worktree session dir, where the handler's before/after delta counts
+  # it (closing the panel-seat metering hole, designs/panel-seat-metering-and-tiering.md),
+  # and a bare `gh pr view $pr` resolves against the repo under review. --model
+  # carries the seat's review tier (empty seat_model_args => inherit the ceiling).
+  ( cd "$wt" && claude -p "${seat_model_args[@]}" --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr\
 ${wt_repo:+ of repository $wt_repo}. The checkout under review is the git worktree at \
 $wt; review ONLY that worktree's diff — run \`git -C $wt diff $base...HEAD\` (its HEAD is \
 the PR head, $base is the base). Do NOT resolve 'PR #$pr' against any other repository \
@@ -449,7 +487,7 @@ the PR head, $base is the base). Do NOT resolve 'PR #$pr' against any other repo
 Read your operating brief, then review that diff and return ONE per-juror block: a Verdict \
 (approve / request-changes / comment-only) and Findings, each finding citing a \
 standing rule [rule: <path>] or proposing one [proposed-rule: ...]. Brief: \
-$(cat "$brief"). Diff base: $base.${related_ev}${banner_ev}${ownership_ev}"
+$(cat "$brief"). Diff base: $base.${related_ev}${banner_ev}${ownership_ev}" )
   # NOTE: stderr is intentionally NOT swallowed here. The caller redirects this
   # function's stderr to a per-seat .stderr file so a failing `claude -p`
   # (rate-limit/overload/truncation) is DIAGNOSABLE instead of vanishing — the
@@ -485,11 +523,17 @@ seat_provenance_footnote() {  # seat_provenance_footnote <seat> -> footnote or "
 decide_disposition() {  # decide_disposition <aggregate-file> -> must-fix | pass
   local agg="$1"
   if [ -n "${GARDEN_PANEL_DECIDE:-}" ]; then "$GARDEN_PANEL_DECIDE" "$agg" "$pr"; return; fi
-  claude -p --dangerously-skip-permissions "You are the gardener acting as panel foreperson on PR #$pr. Below \
+  # The decider (foreperson) applies a mechanical disposition rubric at its own
+  # review tier (seat-model-tiers.tsv `decider`); cd "$wt" so its transcript is
+  # metered with the rest of the panel.
+  local decide_model decide_args=()
+  decide_model="$(seat_model_flag decider)"
+  [ -n "$decide_model" ] && decide_args=(--model "$decide_model")
+  ( cd "$wt" && claude -p "${decide_args[@]}" --dangerously-skip-permissions "You are the gardener acting as panel foreperson on PR #$pr. Below \
 are the jury seats' verdict blocks. Apply the disposition rubric: any concrete \
 request-changes finding is 'must-fix' and blocks the panel; otherwise the panel \
 passes. Answer with exactly one word: 'must-fix' or 'pass'. Verdicts: \
-$(cat "$agg")"
+$(cat "$agg")" )
 }
 
 # --- PLUGGABLE HOOK: the appellate pass (terminating rounds only) ------------
@@ -501,10 +545,15 @@ $(cat "$agg")"
 appellate_pass() {  # appellate_pass <aggregate-file> -> proposals (to run dir)
   local agg="$1"
   if [ -n "${GARDEN_PANEL_APPELLATE:-}" ]; then "$GARDEN_PANEL_APPELLATE" "$agg" "$pr"; return; fi
-  claude -p --dangerously-skip-permissions "You are the appellate on PR #$pr. Read the panel's passing verdict \
+  # Advisory-only, so it runs at a cheap tier (seat-model-tiers.tsv `appellate`);
+  # cd "$wt" so its transcript is metered with the rest of the panel.
+  local appellate_model appellate_args=()
+  appellate_model="$(seat_model_flag appellate)"
+  [ -n "$appellate_model" ] && appellate_args=(--model "$appellate_model")
+  ( cd "$wt" && claude -p "${appellate_args[@]}" --dangerously-skip-permissions "You are the appellate on PR #$pr. Read the panel's passing verdict \
 and, conservatively, list any small-and-in-context follow-up/acknowledge items \
 that should be promoted to summary-fix before un-draft. Be terse; silence is a \
-valid output. Verdict: $(cat "$agg")" 2>/dev/null || true
+valid output. Verdict: $(cat "$agg")" ) 2>/dev/null || true
 }
 
 # --- PLUGGABLE HOOK: fixer invocation (non-terminating rounds) ---------------
@@ -630,8 +679,11 @@ fi
 # GNU timeout can execute external commands, not shell functions. Export the
 # review function and the run context into its short-lived Bash child so timeout
 # owns the whole seat process group (including `claude -p`) and can reap it.
-export -f fail seat_review
+export -f fail seat_review seat_model_flag
 export HERE JURORS_DIR wt pr base wt_repo
+# The per-seat tiering resolver reads these in the child bash (seat_review runs in a
+# `bash -c` subprocess via timeout); export them so a downshift is not silently lost.
+export GARDEN_PANEL_SEAT_TIERS GARDEN_PANEL_MODEL_SONNET GARDEN_PANEL_MODEL_HAIKU
 
 # --- SHORT-CIRCUIT: an empty diff has nothing for a jury to review ----------
 # Zero rounds, zero seats, zero `claude -p`. There is no finding a seat could

@@ -137,6 +137,20 @@ map above:
 
 Coverage: `scripts/jobs/test/reroute-role-floor-test.sh`.
 
+## Panel juror seats (a separate, intra-panel tier map)
+
+The four-tier vocabulary above governs how a *job* is dispatched. The gardening
+review **panel** has its own, orthogonal per-seat tiering: each juror seat's
+`claude -p` runs at a seat-specific model rather than uniformly at the ceiling.
+The map is `scripts/jobs/gardening/seat-model-tiers.tsv` (`<seat> opus|sonnet|haiku`),
+resolved by `panel.sh`; because a seat's `claude -p` runs in the panel job's
+Anthropic environment the reachable models are Anthropic-only, so `opus` means
+"inherit the job's resolved ceiling model" and the map only ever downshifts. The
+per-seat justification (which seats keep Opus and why) and the coupled metering
+fix are in [`designs/panel-seat-metering-and-tiering.md`](../../designs/panel-seat-metering-and-tiering.md).
+This is deliberately NOT part of the closed fleet inventory: it is a cost lever
+inside one supervised script, not a dispatch route.
+
 ## Deployment migration
 
 After deploying this revision, run

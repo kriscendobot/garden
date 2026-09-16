@@ -63,6 +63,8 @@ runnable non-interactively):
 | `GARDEN_PANEL_SEAT_ATTEMPTS` / `_BACKOFF` | per-seat retry-on-empty attempts (default 3) and backoff step in seconds (default 5). |
 | `GARDEN_PANEL_SEAT_TIMEOUT` / `_KILL_AFTER` | wall-clock bound for each seat attempt (default 1200s) and TERM grace (default 30s). The bound is clamped below the enclosing handler budget. |
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
+| `GARDEN_PANEL_SEAT_TIERS` | per-seat review-model map (default `scripts/jobs/gardening/seat-model-tiers.tsv`): `<seat>	opus\|sonnet\|haiku`. `opus` inherits the fleet ceiling (no `--model`); tiering only ever DOWNSHIFTS. Also keys the `decider`/`appellate` decision calls. Rationale: `designs/panel-seat-metering-and-tiering.md`. |
+| `GARDEN_PANEL_MODEL_SONNET` / `GARDEN_PANEL_MODEL_HAIKU` | the concrete `claude --model` value for the sonnet / haiku seat tiers (default aliases `sonnet` / `haiku`). |
 | `GARDEN_TRACE` / `GARDEN_TRACE_LOG` | opt-in `set -x` diverted to a file via `BASH_XTRACEFD`. |
 
 Two hook hazards, each paid for once:
@@ -202,6 +204,12 @@ prompt and the diff base rather than by a distinct dispatched role.
 - **Panel-kind sensing is exact-match, like v1 panel-hints.** One source change
   among many design docs makes it a code-panel PR. There is no design-only-with-
   typo escape.
+- **Seats are metered and tiered.** Each seat / decider / appellate `claude -p` runs
+  from `cd "$wt"` so its session transcript lands in the panel job's own worktree
+  session dir, where the handler's before/after delta counts it — closing the
+  nested-`claude -p` metering hole (the per-job ledger used to see only the top-level
+  session). Per-seat model is `seat-model-tiers.tsv` (only ever downshifts from the
+  ceiling). Both in `designs/panel-seat-metering-and-tiering.md`.
 - _2026-08-01_: the empty-diff short-circuit (Procedure step 2) was added while
   running the gauntlet on `endojs/endo-but-for-bots#847`, a diagnostic baseline PR
   whose head is an empty commit on a frozen snapshot. Without the gate that PR

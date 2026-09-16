@@ -808,6 +808,56 @@ meter_job_session_total() {
   awk -F'\t' -v cr="${GARDEN_TOKEN_COUNT_CACHE_READ:-0}" '{print $1+$2+$3+((cr==1)?$4:0)}' <<<"$u"
 }
 
+# augment_usage_with_session_delta <usage-file> <before-tsv> <after-tsv> [model]
+# Close the NESTED-`claude -p` metering hole (designs/panel-seat-metering-and-tiering.md).
+# The provider's terminal envelope a handler writes to <usage-file> accounts for ONLY
+# the top-level `claude -p`; it structurally cannot see the tokens a NESTED subprocess
+# `claude -p` burned (panel juror seats, the panel decider/appellate, gardening
+# state-machine decision calls — separate API sessions, billed and logged separately).
+# <before>/<after> are meter_job_session_usage TSV snapshots (input\toutput\t
+# cache_creation\tcache_read, cumulative over the job's OWN worktree session dirs)
+# taken around the handler; their per-class delta is the COMPLETE per-job usage —
+# top-level PLUS every nested session, all of which write into those dirs. When that
+# delta's billable total materially exceeds the envelope's (a job that spawned nested
+# claude), rewrite <usage-file> from the delta so the per-job ledger approximates real
+# spend: preserve the envelope's model / num_turns / rusage, swap in the delta's four
+# token classes, drop total_cost_usd (nested seats span multiple models and cannot be
+# priced from one envelope — the row reads honestly as source:"session-augmented" and
+# unpriced). A plain job's delta ~= its envelope, so the envelope (with its exact
+# provider dollars) is left untouched. Best-effort; never fails the caller.
+augment_usage_with_session_delta() {
+  local file="$1" before="$2" after="$3" model="${4:-}" inccr out v
+  local bi bo bc br ai ao ac ar di do_ dc dr
+  command -v jq >/dev/null 2>&1 || return 0
+  [ -s "$file" ] || return 0
+  jq -e . >/dev/null 2>&1 < "$file" || return 0
+  case "$before" in *$'\t'*$'\t'*$'\t'*) ;; *) return 0 ;; esac
+  case "$after"  in *$'\t'*$'\t'*$'\t'*) ;; *) return 0 ;; esac
+  IFS=$'\t' read -r bi bo bc br <<<"$before"
+  IFS=$'\t' read -r ai ao ac ar <<<"$after"
+  for v in "$bi" "$bo" "$bc" "$br" "$ai" "$ao" "$ac" "$ar"; do
+    case "$v" in ''|*[!0-9]*) return 0 ;; esac
+  done
+  di=$(( ai - bi > 0 ? ai - bi : 0 )); do_=$(( ao - bo > 0 ? ao - bo : 0 ))
+  dc=$(( ac - bc > 0 ? ac - bc : 0 )); dr=$(( ar - br > 0 ? ar - br : 0 ))
+  case "${GARDEN_TOKEN_COUNT_CACHE_READ:-0}" in 1|true|yes|on) inccr=1 ;; *) inccr=0 ;; esac
+  out="$(jq -c --argjson i "$di" --argjson o "$do_" --argjson c "$dc" --argjson r "$dr" \
+      --argjson cr "$inccr" --arg model "$model" '
+      def bill(x): ( (x.input_tokens // 0) + (x.output_tokens // 0)
+                     + (x.cache_creation_tokens // 0)
+                     + (if $cr == 1 then (x.cache_read_tokens // 0) else 0 end) );
+      . as $env
+      | { input_tokens: $i, output_tokens: $o, cache_creation_tokens: $c, cache_read_tokens: $r } as $d
+      | if bill($d) > (bill($env) * 1.05)
+        then ( $env + $d + { source: "session-augmented" }
+               + (if (($env.model // "") == "") and ($model != "") then { model: $model } else {} end)
+               | del(.total_cost_usd) )
+        else $env end' "$file" 2>/dev/null)" || return 0
+  [ -n "$out" ] || return 0
+  printf '%s\n' "$out" > "$file" 2>/dev/null || true
+  return 0
+}
+
 # usage_capture_result <file> <model> <provider-envelope-json>
 # Store only the provider's terminal, cumulative fields.  The handoff is outside
 # the worktree and is never disclosed to the agent prompt.
