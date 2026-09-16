@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7099 (530 parent indexes + 6569 children).
+Total section files: 7108 (530 parent indexes + 6578 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -473,6 +473,15 @@ Total section files: 7099 (530 parent indexes + 6569 children).
 ### cap-talk-2013-2016
 
 - [cap-talk-2013-2016--ambient-capabilities-terminology](cap-talk-2013-2016--ambient-capabilities-terminology.md)
+- [cap-talk-2013-2016--capability-system-by-any-name](cap-talk-2013-2016--capability-system-by-any-name.md)
+- [cap-talk-2013-2016--capn-proto-zero-copy-at-untrusted-boundaries](cap-talk-2013-2016--capn-proto-zero-copy-at-untrusted-boundaries.md)
+- [cap-talk-2013-2016--capper-credentials-persistence-and-module-authority](cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md)
+- [cap-talk-2013-2016--contracts-track-capability-flow](cap-talk-2013-2016--contracts-track-capability-flow.md)
+- [cap-talk-2013-2016--deepfrozen-e-order-optimization](cap-talk-2013-2016--deepfrozen-e-order-optimization.md)
+- [cap-talk-2013-2016--filesystem-redirect-revocation-paths](cap-talk-2013-2016--filesystem-redirect-revocation-paths.md)
+- [cap-talk-2013-2016--good-guy-timers-and-time-authority](cap-talk-2013-2016--good-guy-timers-and-time-authority.md)
+- [cap-talk-2013-2016--google-docs-share-links-as-webkeys](cap-talk-2013-2016--google-docs-share-links-as-webkeys.md)
+- [cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time](cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time.md)
 
 ### cask--allocator-design
 
