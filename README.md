@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T20:53:36Z_
+_As of 2026-09-16T20:54:37Z_
 
 ## Latest
 
@@ -614,25 +614,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.9M | $480.70 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.5M | $471.21 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 11.2M _(+281.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/local-verify-zizmor-parity.md) — local-verify: cover the zizmor workflow audit (CI parity gap)
-- [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012-remainder.md) — ---
 - [`scholar-ingest-cap-talk-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012.md) — ---
 
-### tada (8055)
+### tada (8056)
+- [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2011-2012-remainder.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — Completion report
 - [`kriscendobot-minion.town-pr52-review-86b4c679-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr52-review-86b4c679-retro.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-568e5d9eeb64.md) — rolling-deploy canary probe — round trip OK
-- [`scholar-ingest-cap-talk-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2012-remainder.md) — Cost
-- … and 8050 more
+- … and 8051 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
