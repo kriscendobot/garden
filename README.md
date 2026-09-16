@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T03:32:44Z_
+_As of 2026-09-16T03:50:46Z_
 
 ## Latest
 
@@ -704,8 +704,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260916-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260916-035007.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (7929)
 - [`ses-node26-lockdown-permits-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet.md) — gauntlet ses-node26-lockdown-permits-gauntlet — review budget reached
