@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":22,"elapsed_s":395,"input_tokens":30,"output_tokens":21321,"cache_creation_tokens":71397,"cache_read_tokens":862821,"total_cost_usd":1.9725725,"ts":"2026-09-16T11:36:38Z","base":"endo-bejar-hofman-box-investigation","host":"endolin-garden-ece02cb4","outcome":"tada","role":"researcher","provider":"anthropic"}
