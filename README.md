@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:21:44Z_
+_As of 2026-09-16T16:22:25Z_
 
 ## Latest
 
@@ -528,26 +528,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.2M | $469.67 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.3M _(+230.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 64.1M | $469.51 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 9.3M _(+230.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
-- [`claude-on-minion-town-press-20260916-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260916-162009.md) — Press the Claude-on-minion.town arc forward
 - [`improve-fetch-source-wayback-cdx-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fetch-source-wayback-cdx-fallback.md) — ---
 - [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2002-2003.md) — Ingest cap-talk: 2002-2003
 
-### tada (8014)
+### tada (8015)
+- [`claude-on-minion-town-press-20260916-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-162009.md) — Completion report
 - [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003.md) — Completion report
 - [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-exec.md) — Cost
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-mutable-blob-formula.md) — Cost
 - [`fix-comment-provenance-pr-close-merge-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-pr-close-merge-bypass.md) — Cost
-- [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-retcon.md) — Completion report
-- … and 8009 more
+- … and 8010 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
