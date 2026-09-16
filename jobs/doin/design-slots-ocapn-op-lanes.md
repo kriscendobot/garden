@@ -31,3 +31,13 @@ single opaque marshalled vector on a four-verb bus (deliver/resolve/drop/abort).
 
 This is forward-looking; no immediate implementation is expected until the
 eventual-send question is settled.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T10:49:34Z
