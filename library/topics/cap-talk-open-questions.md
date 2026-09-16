@@ -347,6 +347,12 @@ The December 2010 sensory-objects thread asked how to reconstruct KeyKOS's trans
 
 - [cap-talk-2009-2012--system-enforced-sensory-objects](../sections/cap-talk-2009-2012--system-enforced-sensory-objects.md) - the three constructions (E auditor+membrane, `readonly T` type qualifier, freeze-for-parallel-then-thaw) and Wagner's cost-benefit reservation.
 
+### 56. Which properties belong to a name, and which belong to the naming system around it?
+
+The February 2011 Zooko's-triangle discussion agrees that memorable, securely unique, and globally context-free naming are distinct properties, but exposes two presentation problems. Petnames and lambda names occupy the same edge yet differ by mapping direction; the edge alone does not explain the naming system. HTTPS names appear to satisfy three informal adjectives only because DNS and a CA hierarchy supply centralized shared context, while the original triangle's third property is decentralization. The archive does not converge on one diagram or vocabulary that represents names, mappings, and trust assumptions without conflating them.
+
+- [cap-talk-2009-2012--zookos-triangle-and-petname-mappings](../sections/cap-talk-2009-2012--zookos-triangle-and-petname-mappings.md) - the global/context-free distinction, petname versus lambda-name mappings, and the HTTPS/CA counterexample.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
