@@ -1,9 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: producer
-posted_at: 2026-08-28T04:09:36Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:39:28Z cleared=none -->
 
 ---
 tier: mentor
