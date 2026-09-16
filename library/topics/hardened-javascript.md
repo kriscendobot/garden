@@ -111,6 +111,8 @@
 | [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--scope](../sections/endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--scope.md) | endo-but-for-bots PR #475 design archive | Separates intended integration from deferred subclassing, cross-realm, fidelity, performance, and type-model questions. |
 | [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--decisions-and-references](../sections/endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--decisions-and-references.md) | endo-but-for-bots PR #475 design archive | Records sequencing, document, tag-fidelity, and provenance decisions. |
 | [full-abstraction-at-the-bytecode-boundary](../sections/cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md) | cap-talk 2009-September | SES transforms and bytecode must preserve the source language's semantic security boundary, not merely memory safety. |
+| [mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) | cap-talk 2010-March | The 'only mutable singletons are harmful' principle SES operationalizes by freezing the primordials into constant (harmless) singletons. |
+| [safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) | cap-talk 2010-April | Memory/abstraction safety as the prerequisite ocap enforcement rests on; JavaScript's base safety is why SES can build ocap on it. |
 
 ## Superseded sections
 
