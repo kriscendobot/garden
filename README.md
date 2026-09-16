@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T00:51:57Z_
+_As of 2026-09-16T00:55:04Z_
 
 ## Latest
 
@@ -665,24 +665,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.0M | $334.38 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 37.1M | $334.40 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 6.6M _(+176.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`ses-node26-lockdown-permits-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1281
 
-### tada (7913)
+### tada (7914)
+- [`ses-node26-lockdown-permits-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-2.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-2ed62678db1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-2ed62678db1e.md) — rolling-deploy canary probe — round trip OK
 - [`ses-node26-lockdown-permits-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-1.md) — Completion report
 - [`claude-on-minion-town-press-20260916-003510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-003510.md) — Cost
 - [`issue-kriscendobot-garden-94`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-94.md) — Cost
-- [`issue-kriscendobot-garden-93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-93.md) — Completion report
-- … and 7908 more
+- … and 7909 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
