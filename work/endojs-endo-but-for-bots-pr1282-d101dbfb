@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 2
+worker_kind: gardener
+claimed_at: 2026-09-16T05:05:54Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr1282-d101dbfb
