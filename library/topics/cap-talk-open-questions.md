@@ -63,6 +63,36 @@ The November 2000 EROS "call count" exchange leaves the semantics of the once-on
 
 - [cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb](../sections/cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb.md) - the call-count / resume-key sub-thread.
 
+### 10. What does formal verification add to convincing capability engineering?
+
+Miller argues that Hardy and the KeyKOS community already knew factories could confine through strong informal proof. Shapiro distinguishes that engineering knowledge from a published model that falsifies prior impossibility claims, generalizes beyond one implementation, and identifies preservation invariants. The archive converges on the value of both but not on a single use of "know."
+
+- [cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement](../sections/cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement.md) - the Knowledge vs Proof exchange and the separate question of whether confinement is necessary for all security.
+
+### 11. Can an access matrix derive the object-capability model?
+
+Wilcox-O'Hearn's S0/S1/S2 construction suggests that letting normal users create fresh subjects and controlling grants by both resource and recipient turns an ACL matrix into a capability system. The list accepts the normal-user least-authority criterion but leaves the proposed equivalence and row-plus-column characterization only semiformal. Miller considers the idea while drafting *Capability Myths Demolished*.
+
+- [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) - the proposal, corrections, and narrowed desideratum.
+
+### 12. Why did capability critiques exclude KeyKOS counterexamples?
+
+The 2003 review of Li Gong's earlier KeyKOS paper cannot reconstruct a coherent distinction between its "fully armed system" category and an ordinary partitioned capability system. The thread diagnoses authentication/authorization conflation and model selection, but the historical reason the working counterexample was discounted remains open.
+
+- [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](../sections/cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md) - direct preparation for revising *Capability Myths Demolished*.
+
+### 13. Where exactly is the overt/covert boundary?
+
+Miller and Karp propose a semantics-relative test: a channel is covert if some implementation conforming to the same platform specification can make it fail. This makes the boundary precise relative to a model but does not settle terminology (overt/covert versus in-model/out-of-model), treatment of vanishing bandwidth, or which real-time and physical properties a platform should specify.
+
+- [cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics](../sections/cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics.md) - the conforming-implementation test and examples.
+
+### 14. Can non-transferability constrain effective authority?
+
+The list converges on "no" for a hostile holder that can communicate: a kernel can block copying a permission token, but the holder can proxy for another party. The remaining open boundary is the trust or confinement assumption under which a transfer restriction becomes meaningful rather than merely advisory.
+
+- [cap-talk-2002-2003--limited-transfer-permission-vs-authority](../sections/cap-talk-2002-2003--limited-transfer-permission-vs-authority.md) - the immediate post-*Paradigm Regained* application of permission versus authority.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
