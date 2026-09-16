@@ -64,3 +64,13 @@ Where a real fork exists that only the maintainer can settle — most likely the
 read-during-resize semantics, and whether the trio is the right factoring — put it in
 `## Open questions`. Per the garden's carve-out, a design landing with a non-empty
 open-questions section is presented as a review PR rather than landed bare.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T14:44:14Z
