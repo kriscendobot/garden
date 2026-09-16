@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T21:53:44Z_
+_As of 2026-09-16T21:57:21Z_
 
 ## Latest
 
@@ -618,24 +618,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.4M | $484.79 _(notional, rate-card)_ | 46% of 143.0M (ok) |
-| Codex | 11.4M _(+281.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 65.4M | $485.64 _(notional, rate-card)_ | 46% of 143.0M (ok) |
+| Codex | 11.4M _(+283.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`scholar-ingest-cap-talk-2012-april-onward`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012-april-onward.md) — ---
-- [`improve-mirror-closer-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mirror-closer-quota-cooldown.md) — ---
 
-### tada (8065)
+### tada (8066)
+- [`improve-mirror-closer-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mirror-closer-quota-cooldown.md) — Cost
 - [`endojs-endo-but-for-bots-pr858-review-e6eaf772-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-e6eaf772-retro.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-4c73aea97774`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-4c73aea97774.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr832-review-7bada805-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-review-7bada805-retro.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-4c73aea97774`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-4c73aea97774.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr819-review-f8bab00f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr819-review-f8bab00f-retro.md) — Completion report
-- … and 8060 more
+- … and 8061 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
