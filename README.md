@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:26:59Z_
+_As of 2026-09-16T11:31:29Z_
 
 ## Latest
 
-Recent work centers on triage: five early-September halted gauntlets and orchestrations require disposition per detailed report; [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs base drift resolution (API deprecated in live llm, PR 360 commits behind); Ironhorse benchmark design ([endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282)) awaits your answers to six open questions before build proceeds. Stalled infrastructure: daemon revival on minion.town blocked by schema migration; third host (oros-studio) never migrated to monk, blocking gardener-alias retirement; identity federation setup needs host-side introduction. Token spend at 42% of Claude quota; board idle.
+Two investigation jobs moved into active work (`endo-bejar-hofman-box-investigation` and `endo-daemon-sqlite-wal-limit-measurement`). The Ironhorse computron benchmark baseline plan completed; its build job (`ironhorse-computron-benchmark-baseline-build-exec`) is parked awaiting your answers to six open questions on tolerance bands, PR CI vs nightly gating, seed roster, COST_TABLE_VERSION policy, PR#1282 fate, and grid baselines. Triage of five early-September halted gauntlets found one transient (re-post as-is), one dependent on a live premise check, two requiring re-scoping (weave/pin-merge-base for [#1100](https://github.com/endojs/endo-but-for-bots/pull/1100), and human review→un-draft for [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99)), and one with child 1 already done, needing re-anchor to child 2 with raised budget. The weave-ebfb-1100-pin-merge-base job hit its 2400s handler timeout and is parked; split it into claim-sized stages. Reminder daemon revival failed on schema incompatibility (missing `registry` property); production remains at `f6650503`. Three infrastructure asks: restore the kriscendobot gh token (clip-content-store-gc-build blocked), migrate oros-studio to the monk worker kind or decide to keep it gardener (affects retiring the gardener alias), and provide a host-side identity introduction for GitHub federation (ev7-host-introduction-request).
 
 ## Parked for maintainer feedback
 
@@ -110,19 +110,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > halt-parked-remainder: credit-controls-panel-seat-metering-and-tiering
 >
 > Orchestration credit-controls-20260916 HALTED: child credit-controls-stale-pr-viability-gate stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 2/4 done before halt; parked remainder: credit-controls-panel-seat-metering-and-tiering
-
-- `ebfb-sturdyref-stack-rebase-20260916-halted` — from orchestrator:ebfb-sturdyref-stack-rebase-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-stack-rebase-20260916-halted.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: ebfb-sturdyref-stack-rebase-20260916
-> orchestration-status: halted
-> child: ebfb-sturdyref-rebase-pr737-20260916
-> failure-kind: gated-outcome-unsatisfied
-> children-completed: 1
-> children-total: 11
-> halt-parked-remainder: ebfb-sturdyref-rebase-pr541-20260916 ebfb-sturdyref-rebase-pr698-20260916 ebfb-sturdyref-rebase-pr700-20260916 ebfb-sturdyref-rebase-pr701-20260916 ebfb-sturdyref-rebase-pr702-20260916 ebfb-sturdyref-rebase-pr703-20260916 ebfb-sturdyref-rebase-pr704-20260916 ebfb-sturdyref-rebase-pr871-20260916 ebfb-sturdyref-retire-snapshot-20260916
->
-> Orchestration ebfb-sturdyref-stack-rebase-20260916 HALTED: child ebfb-sturdyref-rebase-pr737-20260916 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/11 done before halt; parked remainder: ebfb-sturdyref-rebase-pr541-20260916 ebfb-sturdyref-rebase-pr698-20260916 ebfb-sturdyref-rebase-pr700-20260916 ebfb-sturdyref-rebase-pr701-20260916 ebfb-sturdyref-rebase-pr702-20260916 ebfb-sturdyref-rebase-pr703-20260916 ebfb-sturdyref-rebase-pr704-20260916 ebfb-sturdyref-rebase-pr871-20260916 ebfb-sturdyref-retire-snapshot-20260916
 
 - `msg-reminder-daemon-revival-failure-6e023fc1b25f` — from gardener:reminder-daemon-revival-failure, reply_to `reminder-daemon-revival-failure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reminder-daemon-revival-failure-6e023fc1b25f.md)
 
@@ -265,19 +252,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > stop the loop, human review → un-draft (green+mergeable). 5 → RE-SCOPE: resume at child 2
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
-
-- `ebfb-sturdyref-stack-rebase-20260916-child-ebfb-sturdyref-rebase-pr737-20260916-failed` — from orchestrator:ebfb-sturdyref-stack-rebase-20260916-child-ebfb-sturdyref-rebase-pr737-20260916-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-stack-rebase-20260916-child-ebfb-sturdyref-rebase-pr737-20260916-failed.md)
-
-> orchestration-event: orchestration-child-failure
-> orchestration: ebfb-sturdyref-stack-rebase-20260916
-> orchestration-status: running
-> child: ebfb-sturdyref-rebase-pr737-20260916
-> failure-kind: gated-outcome-unsatisfied
-> order: serial
-> on-child-failure: halt
-> detail: completed but declared its gated outcome unsatisfied
->
-> Orchestration ebfb-sturdyref-stack-rebase-20260916 observed child ebfb-sturdyref-rebase-pr737-20260916: completed but declared its gated outcome unsatisfied.
 
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
@@ -426,15 +400,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.4M | $457.71 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 59.6M | $458.50 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-bejar-hofman-box-investigation.md) — Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
+- [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-sqlite-wal-limit-measurement.md) — Measure the daemon SQLite WAL size policy
 
 ### tada (7993)
 - [`ebfb-sturdyref-stack-rebase-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-rebase-20260916.md) — orchestration ebfb-sturdyref-stack-rebase-20260916 — HALTED
@@ -640,8 +615,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
-- [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-daemon-sqlite-wal-limit-measurement.md) — _normal_ · Measure the daemon SQLite WAL size policy
 - [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sha256-async-arm-followup.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — _normal_ · Build: SES import attributes (design #248)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — _normal_ · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
