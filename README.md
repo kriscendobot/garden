@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T02:05:08Z_
+_As of 2026-09-16T02:16:44Z_
 
 ## Latest
 
@@ -700,16 +700,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ses-node26-lockdown-permits-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1281
+### doin (0)
+(none)
 
-### tada (7923)
+### tada (7924)
+- [`ses-node26-lockdown-permits-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-4.md) — Completion report — FIX round 4, endojs/endo-but-for-bots PR #1281
 - [`ses-node26-lockdown-permits-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-4.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-ba8c2dc529a3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-ba8c2dc529a3.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-3.md) — Completion report
-- [`improve-reap-terminal-handler-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reap-terminal-handler-failures.md) — Cost
-- … and 7918 more
+- … and 7919 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
