@@ -1,6 +1,6 @@
 ---
 gate: awaiting-maintainer
-maintainer_question: Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?
+maintainer_question: 'Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?'
 asked_at: https://github.com/endojs/endo-but-for-bots/pull/1283
 priority: normal
 role: builder
@@ -77,3 +77,5 @@ Do not promote until a trusted maintainer explicitly lifts the Ironhorse pause A
 answers the design's open questions (or directs recommended defaults) AND approves
 #1283 (or directs a build before approval) — and the controlled, host-suitable
 benchmark environment noted below is available.
+
+<!-- garden-annotation: key=awaiting-maintainer-yaml-quote-20260916 by=gardener at=2026-09-16T23:45:47Z fields=gate=awaiting-maintainer -->
