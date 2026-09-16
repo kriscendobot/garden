@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:27:54Z_
+_As of 2026-09-16T16:29:59Z_
 
 ## Latest
 
@@ -367,6 +367,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Please ask @kriskowal and @erights to review [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95). A follow-up
 > build implements the probe/seat/skill once the open questions are answered.
 
+- `msg-scholar-ingest-cap-talk-2002-2003-ab8db2680085` — from scholar:scholar-ingest-cap-talk-2002-2003, reply_to `scholar-ingest-cap-talk-2002-2003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2002-2003-ab8db2680085.md)
+
+> Scholar ingest complete: the 2002-2003 cap-talk Miller-paper era now has an 11-section source index, including direct drafting/reaction around *Capability Myths Demolished*, *Paradigm Regained*, permission versus authority, the four-model precursors, confinement, and non-transferable permissions versus proxyable authority. The completeness pass also recovered five missed 2000-2001 monthly bundles and added two substantive sections on session-scoped web capabilities and one-shot delegation. CDX itself was unavailable (503/connection refusal), so `scholar-cap-talk-cdx-completeness-2000-2003` is posted to retry only the final enumeration gap. Full result: `entries/2026/09/16/162920Z-result-scholar-42cce9.md`.
+
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -528,15 +532,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.3M _(+235.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 64.1M | $469.79 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 9.3M _(+238.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
+- [`scholar-cap-talk-cdx-completeness-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-cap-talk-cdx-completeness-2000-2003.md) — Complete cap-talk CDX enumeration: 2000-2003
 - [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2002-2003.md) — Ingest cap-talk: 2002-2003
 
 ### tada (8016)
