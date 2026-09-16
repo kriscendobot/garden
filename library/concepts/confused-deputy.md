@@ -42,6 +42,8 @@ what, so blame cannot be assigned — Morningstar calls **accountability launder
 | [cap-talk-2004-2008--mungi-pola-and-confused-deputy](../sections/cap-talk-2004-2008--mungi-pola-and-confused-deputy.md) | Capability primitives are insufficient when application APIs accept forgeable names and resolve them with ambient authority. |
 | [cap-talk-2004-2008--confused-deputy-as-ambient-authority](../sections/cap-talk-2004-2008--confused-deputy-as-ambient-authority.md) | The concise 2007 teaching thread: pass an authorized object instead of a name resolved using the deputy’s authority. |
 | [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md) | Hybrid applications reintroduce confused deputies through ACL checks and implicit rights amplification. |
+| [cap-talk-2009-2012--confused-deputies-in-capability-systems](../sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md) | Toby Murray's argument that confused deputies can arise inside ocap systems too, when a service skips input-validation on a passed capability that is more powerful in its hands (rights amplification); the fix is to authenticate accepted capabilities (trademarks in E/Cajita/KeyKOS, final-type checks in Joe-E). |
+| [cap-talk-2009-2012--what-is-designation](../sections/cap-talk-2009-2012--what-is-designation.md) | Designation defined on-list; the designation/authority fusion is exactly what prevents the confused deputy (Properties A + D). |
 
 ## See also
 
