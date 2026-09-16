@@ -118,3 +118,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - principal agent, user intent agent, pre-opened descriptor, save-as capability -> principle-of-least-authority
 - one-shot capability, non-transferable capability, limited transfer, proxy defeats non-transferability -> distributed-confinement
 - overt causality, covert causality, in-model causality, conforming-implementation channel test -> distributed-confinement
+- ad hominem security, trusted by whom, trusted computing, trusted PC, Palladium, who wrote the code -> ad-hominem-security
