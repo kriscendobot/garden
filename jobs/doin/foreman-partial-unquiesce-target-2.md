@@ -48,3 +48,13 @@ takes direct pushes, no PR — see CLAUDE.md § Conventions).
 
 Report the before/after: a decisions.log line showing `target=0`
 pre-change, and one showing `target=2` with an actual promotion post-change.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T05:26:41Z
