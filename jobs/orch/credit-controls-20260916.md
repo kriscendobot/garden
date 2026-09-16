@@ -1,4 +1,5 @@
 ---
+child-credit-controls-stale-pr-viability-gate-reap-count: 0
 child-credit-controls-manual-gauntlet-trigger-host: endolin-garden2-5bcdff64
 child-credit-controls-manual-gauntlet-trigger-reap-count: 0
 child-credit-controls-fail-closed-pools-host: endolin-garden-ece02cb4
