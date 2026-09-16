@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T06:52:41Z_
+_As of 2026-09-16T07:07:34Z_
 
 ## Latest
 
-Three items in active work: [endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron benchmark) is in FIX round 2 + PANEL round 3; the [ironhorse-computron-benchmark-baseline orchestration](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2.md) completed successfully (both children reached tada). A real failure was triaged: [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit base drift (its `@endo/exo-stream` renamed `stringLengthLimit`→`byteLengthLimit`, but current `llm` still calls the removed API in 3 sites of `9p-server`), so a weave job to pin the merge base and resolve the semantic port is now [held awaiting go-ahead](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-ebfb-1100-pin-merge-base-20260916.md). The rolling-deploy canary recovered, budget leveler brought monk workers 2→3, and the maintainer inbox has seven messages awaiting decisions on reminders-daemon migration, guest MCP authentication, DNSSEC Route53 config, and six unresolved Ironhorse benchmark baseline parameters.
+Computron benchmark design ([endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283)) and its build are in active gauntlets (design at panel-3, build at fix-3); build implementation awaits six maintainer design questions. Triage of five halted gauntlets cleared two as transient, identifying three for re-scoping: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (weave + semantic-conflict resolution), [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) (green, exit panel loop), [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (premise confirmation needed).
 
 ## Parked for maintainer feedback
 
@@ -93,6 +93,19 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
+
+- `credit-controls-20260916-halted` — from orchestrator:credit-controls-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/credit-controls-20260916-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: credit-controls-20260916
+> orchestration-status: halted
+> child: credit-controls-stale-pr-viability-gate
+> failure-kind: handler-timeout
+> children-completed: 2
+> children-total: 4
+> halt-parked-remainder: credit-controls-panel-seat-metering-and-tiering
+>
+> Orchestration credit-controls-20260916 HALTED: child credit-controls-stale-pr-viability-gate stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 2/4 done before halt; parked remainder: credit-controls-panel-seat-metering-and-tiering
 
 - `msg-reminder-daemon-revival-failure-6e023fc1b25f` — from gardener:reminder-daemon-revival-failure, reply_to `reminder-daemon-revival-failure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reminder-daemon-revival-failure-6e023fc1b25f.md)
 
@@ -356,31 +369,46 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > `inbox/maintainer/unread/20260901T205650Z-59a6f5` can be marked read — its two
 > asks (marker disposition + monk-count) are resolved above; the live blocker is oros.
 
+- `credit-controls-20260916-child-credit-controls-stale-pr-viability-gate-failed` — from orchestrator:credit-controls-20260916-child-credit-controls-stale-pr-viability-gate-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/credit-controls-20260916-child-credit-controls-stale-pr-viability-gate-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: credit-controls-20260916
+> orchestration-status: running
+> child: credit-controls-stale-pr-viability-gate
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1)
+>
+> Orchestration credit-controls-20260916 observed child credit-controls-stale-pr-viability-gate: stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1).
+
 
 ## Spend & quota
 _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.7M | $427.46 _(notional, rate-card)_ | 35% of 143.0M (ok) |
+| Claude | 51.0M | $421.79 _(notional, rate-card)_ | 36% of 143.0M (ok) |
 | Codex | 7.4M _(+186.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1283
+### doin (5)
+- [`claude-on-minion-town-completion-press-20260916-070531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260916-070531.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`daily-progress-summary-20260916-070531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260916-070531.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1283
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
-### tada (7960)
+### tada (7963)
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-3.md) — Completion report
+- [`credit-controls-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-20260916.md) — orchestration credit-controls-20260916 — HALTED
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2.md) — What happened
 - [`claude-on-minion-town-press-20260916-065008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-065008.md) — Cost
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-2.md) — Completion report
-- [`canary-probe-oros-studio-garden-ce242c49-db3687f60de6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-db3687f60de6.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden2-5bcdff64-db3687f60de6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-db3687f60de6.md) — rolling-deploy canary probe — round trip OK
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2.md) — Completion report
-- … and 7955 more
+- … and 7958 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
