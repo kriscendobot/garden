@@ -1,10 +1,8 @@
 ---
-gate: go-ahead
-priority: low
 role: designer
-posted_by: producer
-posted_at: 2026-08-19T17:47:08Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=low at=2026-09-16T23:37:48Z cleared=none -->
 
 ---
 tier: mentor
