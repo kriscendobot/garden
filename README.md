@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-15T23:35:40Z_
+_As of 2026-09-16T00:13:25Z_
 
 ## Latest
 
@@ -665,24 +665,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.0M | $298.95 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 35.5M | $320.36 _(notional, rate-card)_ | 25% of 143.0M (ok) |
 | Codex | 6.5M _(+174.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ses-node26-lockdown-permits-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1281
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
 
-### tada (7907)
+### tada (7908)
+- [`ses-node26-lockdown-permits-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-1.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-clean.md) — Completion report
 - [`ironhorse-demolish-xs-computron-parity-myth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-demolish-xs-computron-parity-myth.md) — Completion report — ironhorse-demolish-xs-computron-parity-myth
 - [`ses-node26-lockdown-permits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits.md) — Completion report — ses-node26-lockdown-permits
 - [`canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1125-3193517b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-3193517b.md) — Cost
-- … and 7902 more
+- … and 7903 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
