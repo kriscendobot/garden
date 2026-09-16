@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T06:04:33Z_
+_As of 2026-09-16T06:17:29Z_
 
 ## Latest
 
-Five halted gauntlets from early September have been triaged: two were transient capacity-crunch halts on now-green PRs (cheap re-posts); the other three are real failures requiring re-scoping — [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a weave onto live llm before the gauntlet resumes (already in progress), [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green but hit iteration cap so should route to human review instead of another panel loop, and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) needs confirmation that it's still the intended path or should stay parked pending an Endo dependency. The Ironhorse computron benchmark-baseline design ([endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283)) is in panel round 1 awaiting your answers to six open questions about tolerance bands, gate staging, seed rosters, and manual baseline writes — the build is queued and ready to promote once those decisions land. The minion.town reminder daemon revival hit a schema gap and has been decoupled: the approach is now the VFS-persistent `@endo/reminder` plugin (superseding the daemon formula path) with a compatibility store adapter, removing the daemon upgrade blocker. Several infrastructure items need attention: kriscendobot's gh token is needed to create minion.town PRs, the MCP server needs OAuth for blind-eval and clip publishing, and the gardener-alias retirement is blocked pending a third-host migration to bring oros-studio to monk.
+Ironhorse computron-benchmark-baseline design landed as draft [#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with open questions; the builder completed the unblocked audit (revealing six parameters needing maintainer confirmation) and is holding the implementation pending your answers. Triage of five early-September halted gauntlets completed: items 1–2 were transient capacity hangs (can re-post), item 3 ([ebfb #1100](https://github.com/endojs/endo-but-for-bots/pull/1100)) needs a weave/pin-merge-base to resolve base drift, item 4 ([minion.town #99](https://github.com/kriscendobot/minion.town/pull/99)) hit iteration cap on mergeable code and should stop the panel loop, and item 5 (clipometer) is parked waiting re-anchor to resume at child 2. Reminder daemon revival hit a schema migration blocker; the gardener decoupled reminders to stay as an unconfined VFS-persistent plugin instead. Several actions awaiting you: host intro for minion-town MCP eval, answers to the benchmark open questions, and clarifying whether oros-studio should migrate to monk before retiring the gardener-worker alias.
 
 ## Parked for maintainer feedback
 
@@ -306,27 +306,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.7M | $411.54 _(notional, rate-card)_ | 33% of 143.0M (ok) |
+| Claude | 47.8M | $412.20 _(notional, rate-card)_ | 33% of 143.0M (ok) |
 | Codex | 7.3M _(+186.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-manual-gauntlet-trigger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-manual-gauntlet-trigger.md) — ---
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1283
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
-- [`minion-town-reminder-compat-store`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-reminder-compat-store.md) — ---
 
-### tada (7949)
+### tada (7950)
+- [`minion-town-reminder-compat-store`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-reminder-compat-store.md) — Cost
 - [`reminder-daemon-revival-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reminder-daemon-revival-failure.md) — Cost
 - [`minion-town-dckc-powers-weblet-audit-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-dckc-powers-weblet-audit-20260916.md) — dckc POWERS-weblet audit — minion.town endo-gateway (READ-ONLY)
 - [`reconcile-gardener-alias-retirement-gate-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reconcile-gardener-alias-retirement-gate-20260916.md) — Completion report
 - [`credit-controls-fail-closed-pools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-fail-closed-pools.md) — Completion report: credit-controls-fail-closed-pools (CHILD 1 of 4)
-- [`sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean.md) — Completion report
-- … and 7944 more
+- … and 7945 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
