@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:14:22Z_
+_As of 2026-09-16T10:20:58Z_
 
 ## Latest
 
-Verification of the foreman partial-unquiesce completed. A triage of five halted early-September gauntlets found two were transient capacity-crunch stalls on now-green PRs (cheap re-posts), while [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has real base drift requiring a weave to repoint onto current llm and resolve a `stringLengthLimit`→`byteLengthLimit` API migration in 9p-server; [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is mergeable but hit panel iteration churn (6/6 rounds). The Ironhorse computron benchmark-baseline audit completed with no surviving own-cost constraints; implementation is parked awaiting your answers to six open questions on tolerance bands, gate cadence, and baseline scope. Several infrastructure gaps are pending: identity introductions for GitHub federation (ev7), minion.town daemon migration to the new endo pin requires a designed compatibility path for legacy host.registry, and host oros-studio hasn't yet migrated to the monk worker kind so the gardener-alias retirement is blocked.
+Parked on review: [endojs/endo#3073](https://github.com/endojs/endo/pull/3073), [endojs/endo#3110](https://github.com/endojs/endo/pull/3110), and eight endo-but-for-bots designs await 4–20 days for maintainer decisions. Real failure surfaced and re-scoped: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (9p-server API drift) now awaits merge-base pin and semantic porting. Ironhorse computron audit complete and ready to build upon your answers to six design questions. Minion.town clip, daemon, and onboarding work stalled on credentials and schema gaps. Quota nominal.
 
 ## Parked for maintainer feedback
 
@@ -400,14 +400,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.1M | $453.40 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.2M | $453.62 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/implement-worktree-teardown-on-job-completion.md) — ---
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
 ### tada (7984)
@@ -614,7 +615,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/implement-worktree-teardown-on-job-completion.md) — _high_ · ---
 - [`design-endor-git-windows-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-endor-git-windows-followup.md) — _normal_ · Follow-up: Windows (MSVC) support for endor-git bindings
 - [`design-slots-ocapn-op-lanes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-slots-ocapn-op-lanes.md) — _normal_ · ---
 - [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-sturdyref-stack-modernize.md) — _2_ · The situation
