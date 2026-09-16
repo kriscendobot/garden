@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-06-25
+updated: 2026-09-16
 author: gardener
 ---
 
@@ -31,7 +31,7 @@ Keep it scannable. A bulleted item-to-SHA map plus a one-line verification statu
 
 ### Per-section provenance for an aggregated summary
 
-The gh wrapper appends **one** whole-body provenance footer (model · harness · provider · deployed-garden sha) to the end of any comment the fleet posts (`scripts/jobs/comment-provenance.sh`). That is correct for a summary written entirely by the posting doer. But when the summary **stitches together sections contributed by different roles/jobs over the PR's lifetime** — each potentially produced by a different model/harness/provider than the composing process — a single whole-body footer misattributes every section but one.
+The gh wrapper appends **one** whole-body provenance footer (model · harness · provider · host · deployed-garden sha) to the end of any comment the fleet posts (`scripts/jobs/comment-provenance.sh`). That is correct for a summary written entirely by the posting doer. But when the summary **stitches together sections contributed by different roles/jobs over the PR's lifetime** — each potentially produced by a different model/harness/provider than the composing process — a single whole-body footer misattributes every section but one.
 
 For that case, footnote **each contributed section with that section's own facts**, in the same `<sub>…</sub>` style, using the section renderer from `comment-provenance.sh`:
 

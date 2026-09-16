@@ -4,7 +4,8 @@
 # WHAT THIS IS
 # The maintainer directive (kriskowal, 2026-07-28): every PR/issue comment the
 # fleet posts to GitHub carries a small-text footer naming the MODEL, the HARNESS,
-# and the DEPLOYED garden `main2` hash (hyperlinked) that produced it. This library
+# the HOST, and the DEPLOYED garden `main2` hash (hyperlinked) that produced it.
+# This library
 # renders that one-line footer and rewrites a `gh` argv to inject it. It is sourced
 # by the fleet's gh wrapper (scripts/jobs/bin/gh) — the single PATH chokepoint every
 # fleet gh call passes through — so the norm is ENFORCED by a script, not remembered
@@ -30,6 +31,8 @@
 #             does NOT disambiguate provider — the `codex` harness fronts
 #             openai/local/fireworks/openrouter depending on kind — so provider is a
 #             distinct fact. Empty ⇒ field omitted.
+#   host     — GARDEN, the fleet's canonical host/shard identity, falling back to
+#             `hostname -s`. Empty ⇒ field omitted.
 #   garden   — the DEPLOYED sha from .garden-state/deploy/deployed-sha (the code that
 #             actually produced the behavior — NOT origin/main2 tip, which the
 #             deployed root routinely lags), hyperlinked to the commit on the repo
@@ -135,12 +138,21 @@ _prov_no_llm() {
   return 1
 }
 
+# _prov_host — the fleet's canonical host/shard identity. GARDEN is the shared
+# identity knob used across the fleet; hostname -s is its standard fallback.
+# Failure or an empty result simply omits the field (fail-open).
+_prov_host() {
+  local host="${GARDEN:-}"
+  [ -n "$host" ] || host="$(hostname -s 2>/dev/null || true)"
+  printf '%s' "$host"
+}
+
 # _prov_llm_facts_missing — true when this comment is (presumably) LLM-authored — NOT
 # marked automatic — yet NONE of model/harness/provider resolved: an instrumentation
 # gap (the caller ran an LLM but forgot to export GARDEN_JOB_MODEL/GARDEN_WORKER_KIND).
-# The garden sha is irrelevant here: a footer naming ONLY the commit is exactly the
-# PR #1125 defect. Used only to decide whether to surface a maintainer alert; the post
-# itself always proceeds (fail-open).
+# Host and garden sha are irrelevant here: a footer naming ONLY those whole-body
+# facts is exactly the PR #1125 defect. Used only to decide whether to surface a
+# maintainer alert; the post itself always proceeds (fail-open).
 _prov_llm_facts_missing() {
   _prov_no_llm && return 1
   [ -n "${GARDEN_JOB_MODEL:-}" ] && return 1
@@ -226,7 +238,7 @@ _prov_mhp_parts() {
 # garden sha. This is the footer the gh wrapper injects at the END of a comment
 # body; a per-SECTION footnote uses provenance_footnote instead.
 provenance_line() {
-  local model harness provider root sha url short parts no_llm=0
+  local model harness provider host root sha url short parts no_llm=0
   root="$(_prov_root)"
   sha="$(_prov_deployed_sha "$root")"
   url="$(_prov_repo_url "$root")"
@@ -239,8 +251,14 @@ provenance_line() {
     provider="$(_prov_provider "${GARDEN_WORKER_KIND:-}")"
   fi
   parts="$(_prov_mhp_parts "${model:-}" "${harness:-}" "${provider:-}" "$no_llm")"
-  # The garden sha (the DEPLOYED code that produced the body) is a whole-body fact;
-  # it rides the whole-body footer, not the per-section footnotes.
+  host="$(_prov_host)"
+  if [ -n "$host" ]; then
+    [ -n "$parts" ] && parts="$parts · "
+    parts="${parts}host <code>$(_prov_esc "$host")</code>"
+  fi
+  # Host and garden sha (the execution location and DEPLOYED code that produced the
+  # body) are whole-body facts; they ride the whole-body footer, not per-section
+  # footnotes.
   if [ -n "$sha" ]; then
     short="${sha:0:8}"
     [ -n "$parts" ] && parts="$parts · "
@@ -267,8 +285,8 @@ provenance_line() {
 #   * it carries PROV_SECTION_MARKER (not PROV_MARKER), so it does NOT trip the gh
 #     wrapper's whole-body idempotency guard — the assembled body still gets its
 #     single closing whole-body footer;
-#   * it OMITS the garden sha (a whole-body fact, constant across sections; the
-#     closing footer carries it once) — a footnote answers only WHICH
+#   * it OMITS the host and garden sha (whole-body facts, constant across sections;
+#     the closing footer carries them once) — a footnote answers only WHICH
 #     model/harness/provider (or automatic) produced THIS section.
 # Empty (rc 0, no output) when no fact resolves and the section is not marked
 # automatic (fail-open) — a section with unknown provenance simply carries none.
@@ -364,7 +382,7 @@ _prov_note_gap() {
   fi
   printf '%s\n' "$now" > "$marker" 2>/dev/null || true
 
-  msg="comment-provenance INSTRUMENTATION GAP on host ${host}: a fleet \`gh\` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its \`gh\` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post."
+  msg="comment-provenance INSTRUMENTATION GAP on host ${host}: a fleet \`gh\` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its \`gh\` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post."
 
   # Test/alternate sink first (mirrors alert_maintainer's GARDEN_ALERT_CMD hook).
   if [ -n "${GARDEN_ALERT_CMD:-}" ]; then

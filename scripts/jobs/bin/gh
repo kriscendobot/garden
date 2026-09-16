@@ -224,8 +224,8 @@ fi
 
 # --- GitHub-comment provenance footer (maintainer directive 2026-07-28) --------
 # Every PR/issue comment the fleet posts carries a small-text footer naming the
-# model, harness, and DEPLOYED garden sha (hyperlinked). Enforcing it HERE — the
-# single PATH chokepoint every fleet gh call passes through — is far more reliable
+# model, harness, provider, host, and DEPLOYED garden sha (hyperlinked). Enforcing
+# it HERE — the single PATH chokepoint every fleet gh call passes through — is far more reliable
 # than a skill telling agents to remember (roles/mentor/AGENT.md). The rewrite is
 # fail-open by construction: comment-provenance.sh returns rc 1 (passthrough) for
 # every non-comment call, an already-footed body, an unresolvable footer, or ANY

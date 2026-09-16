@@ -4,8 +4,8 @@
 #
 # WHAT THIS GUARDS (maintainer directive kriskowal 2026-07-28)
 # Every PR/issue comment the fleet posts carries a small-text footer naming the
-# model, harness, and DEPLOYED garden sha (hyperlinked). Enforced at the single
-# PATH chokepoint the fleet's gh wrapper is. This test covers the whole invocation
+# model, harness, provider, host, and DEPLOYED garden sha (hyperlinked). Enforced
+# at the single PATH chokepoint the fleet's gh wrapper is. This test covers the whole invocation
 # surface and the hard constraints:
 #   * each body form (--body / --body-file / stdin; -f/-F/--input JSON) gains
 #     EXACTLY ONE footer;
@@ -46,8 +46,10 @@ git -C "$FIX" remote add origin "git@github.com:kriskowal/garden.git" 2>/dev/nul
 export GARDEN_ROOT="$FIX"
 export GARDEN_JOB_MODEL="claude-opus-5"
 export GARDEN_WORKER_KIND="gardener"
+export GARDEN="test-garden-host"
 
 EXPECT_URL="https://github.com/kriskowal/garden/commit/$SHA"
+EXPECT_HOST="test-garden-host"
 MARKER="garden-provenance"
 
 # shellcheck source=/dev/null
@@ -85,8 +87,8 @@ hr; echo "SUBTEST 1 — body-flag surface (pr/issue comment, pr review)"; hr
 
 provenance_rewrite_argv pr comment 5 --body "hello world" && {
   b="$(body_of_bodyfile)"
-  { has_footer "$b" && [ "$(count_footer "$b")" = 1 ] && [[ "$b" == "hello world"* ]] && [[ "$b" == *"$EXPECT_URL"* ]] && [[ "$b" == *"claude-opus-5"* ]] && [[ "$b" == *"harness <code>claude</code>"* ]] && [[ "$b" == *"provider <code>anthropic</code>"* ]]; } \
-    && ok "pr comment --body → single footer, original body preserved, all four facts (model/harness/provider/garden)" \
+  { has_footer "$b" && [ "$(count_footer "$b")" = 1 ] && [[ "$b" == "hello world"* ]] && [[ "$b" == *"$EXPECT_URL"* ]] && [[ "$b" == *"claude-opus-5"* ]] && [[ "$b" == *"harness <code>claude</code>"* ]] && [[ "$b" == *"provider <code>anthropic</code>"* ]] && [[ "$b" == *"host <code>$EXPECT_HOST</code>"* ]]; } \
+    && ok "pr comment --body → single footer, original body preserved, all five facts (model/harness/provider/host/garden)" \
     || bad "pr comment --body body wrong: $b"
 } || bad "pr comment --body was not rewritten"
 provenance_cleanup
@@ -197,10 +199,12 @@ done
 hr; echo "SUBTEST 6 — fail-open: unresolvable provenance degrades, never blocks"; hr
 (
   export GARDEN_ROOT="$TR/empty"; mkdir -p "$TR/empty"
-  unset GARDEN_JOB_MODEL GARDEN_WORKER_KIND
+  unset GARDEN GARDEN_JOB_MODEL GARDEN_WORKER_KIND
   export GARDEN_DEPLOYED_SHA_MARKER="$TR/empty/nope"
   # shellcheck source=/dev/null
   . "$LIB"
+  # Simulate the fallback hostname lookup failing too, so genuinely no fact resolves.
+  _prov_host() { :; }
   line="$(provenance_line)"
   [ -z "$line" ] && echo FAILOPEN_EMPTY || echo "FAILOPEN_NONEMPTY:$line"
   if provenance_rewrite_argv pr comment 5 --body "x"; then echo REWROTE; else echo PASSTHROUGH; fi
@@ -208,15 +212,24 @@ hr; echo "SUBTEST 6 — fail-open: unresolvable provenance degrades, never block
 grep -q FAILOPEN_EMPTY "$TR/failopen.out" && ok "no facts resolve → empty footer (no crash)" || bad "fail-open line: $(cat "$TR/failopen.out")"
 grep -q PASSTHROUGH "$TR/failopen.out" && ok "no facts resolve → comment posts WITHOUT footer (passthrough)" || bad "fail-open should passthrough: $(cat "$TR/failopen.out")"
 
-# Partial resolution: only the sha (no model/harness) still yields a garden field.
+# GARDEN is authoritative; without it the standard hostname -s fallback is used.
+[ "$(_prov_host)" = "$EXPECT_HOST" ] \
+  && ok "host field uses the canonical GARDEN identity" \
+  || bad "host field ignored GARDEN: $(_prov_host)"
+fallback_host="$(unset GARDEN; _prov_host)"
+[ "$fallback_host" = "$(hostname -s)" ] \
+  && ok "host field falls back to hostname -s" \
+  || bad "host fallback mismatch: got [$fallback_host]"
+
+# Partial resolution: host and sha (no model/harness) still yield their fields.
 (
   unset GARDEN_JOB_MODEL GARDEN_WORKER_KIND
   # shellcheck source=/dev/null
   . "$LIB"
   provenance_line
 ) > "$TR/partial.out" 2>/dev/null
-{ grep -q "$EXPECT_URL" "$TR/partial.out" && ! grep -q "model <code>" "$TR/partial.out"; } \
-  && ok "partial resolve → garden field present, model/harness omitted" \
+{ grep -q "$EXPECT_URL" "$TR/partial.out" && grep -q "host <code>$EXPECT_HOST</code>" "$TR/partial.out" && ! grep -q "model <code>" "$TR/partial.out"; } \
+  && ok "partial resolve → host/garden fields present, model/harness omitted" \
   || bad "partial resolve: $(cat "$TR/partial.out")"
 
 # ============================================================================
@@ -322,7 +335,7 @@ hr; echo "SUBTEST 10 — instrumentation gap (LLM post, no facts) is surfaced, s
   # shellcheck source=/dev/null
   . "$LIB"
   # A comment with a resolvable garden sha but NO model/harness/provider: footer is
-  # appended (garden-only) AND the gap is surfaced (the PR #1125 shape).
+  # appended (host/garden only) AND the gap is surfaced (the PR #1125 shape).
   if provenance_rewrite_argv pr comment 5 --body "gap body"; then echo REWROTE; else echo PASSTHROUGH; fi
   provenance_cleanup
 ) > "$TR/gap10.out" 2>/dev/null
@@ -330,7 +343,7 @@ hr; echo "SUBTEST 10 — instrumentation gap (LLM post, no facts) is surfaced, s
   && ok "gap → maintainer alert raised (keyed comment-provenance-gap-<host>, count folded)" \
   || bad "gap alert not raised: $(cat "$TR/gap10.log")"
 grep -q REWROTE "$TR/gap10.out" \
-  && ok "gap → comment STILL posts (garden-only footer appended, fail-open preserved)" \
+  && ok "gap → comment STILL posts (host/garden-only footer appended, fail-open preserved)" \
   || bad "gap should still post: $(cat "$TR/gap10.out")"
 
 # The gap alert is THROTTLED per host: a burst folds into ONE delivery.
