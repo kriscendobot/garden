@@ -50,3 +50,13 @@ TASK:
 
 Both reporting gardeners suggested exactly this general gate; you are implementing
 their recommendation, not inventing it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T23:26:57Z
