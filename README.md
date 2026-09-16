@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T17:53:33Z_
+_As of 2026-09-16T17:54:29Z_
 
 ## Latest
 
@@ -538,25 +538,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.2M | $471.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.0M _(+251.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 64.2M | $471.68 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.0M _(+251.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`scholar-ingest-cap-talk-2004-2008-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2004-2008-remainder.md) — ---
-- [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2004-2008.md) — Ingest cap-talk: 2004-2008
 - [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012.md) — Ingest cap-talk: 2009-2012
 
-### tada (8025)
+### tada (8026)
+- [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008.md) — Cost
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-merge-base-pinning.md) — Cost
 - [`scholar-ingest-cap-talk-2003-sep-oct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2003-sep-oct.md) — Cost
 - [`scholar-ingest-cap-talk-2000-2003-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003-remainder.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1281-b2a4cb13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-b2a4cb13.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-1a26d38f8064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-1a26d38f8064.md) — rolling-deploy canary probe — round trip OK
-- … and 8020 more
+- … and 8021 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
