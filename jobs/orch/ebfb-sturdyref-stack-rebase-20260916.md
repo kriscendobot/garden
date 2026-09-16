@@ -1,4 +1,5 @@
 ---
+child-ebfb-sturdyref-rebase-pr737-20260916-host: endolin-garden-ece02cb4
 child-ebfb-sturdyref-rebase-pr737-20260916-reap-count: 0
 child-ebfb-sturdyref-rebase-pr774-20260916-host: endolin-garden2-5bcdff64
 child-ebfb-sturdyref-rebase-pr774-20260916-reap-count: 0
