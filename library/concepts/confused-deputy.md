@@ -39,6 +39,9 @@ what, so blame cannot be assigned — Morningstar calls **accountability launder
 | [cap-talk-2002-2003--unix-file-descriptor-confused-deputy](../sections/cap-talk-2002-2003--unix-file-descriptor-confused-deputy.md) | A descriptor is capability-like, but implicit numeric-name assignment lets a privileged program mistake a newly opened protected file for inherited stderr. |
 | [cap-talk-2002-2003--confused-deputy-redux-namespace-assignment](../sections/cap-talk-2002-2003--confused-deputy-redux-namespace-assignment.md) | May 2002 continuation: the namespace owner, not the kernel, must assign the descriptor index; caller-environment trust is the recurring hazard. |
 | [cap-talk-2002-2003--access-matrix-column-vs-row-distinction](../sections/cap-talk-2002-2003--access-matrix-column-vs-row-distinction.md) | Wagner shows setegid explicit-intention signalling avoids the confused deputy in Unix; Shapiro warns the control is discretionary and fails against untrusted code. |
+| [cap-talk-2004-2008--mungi-pola-and-confused-deputy](../sections/cap-talk-2004-2008--mungi-pola-and-confused-deputy.md) | Capability primitives are insufficient when application APIs accept forgeable names and resolve them with ambient authority. |
+| [cap-talk-2004-2008--confused-deputy-as-ambient-authority](../sections/cap-talk-2004-2008--confused-deputy-as-ambient-authority.md) | The concise 2007 teaching thread: pass an authorized object instead of a name resolved using the deputy’s authority. |
+| [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md) | Hybrid applications reintroduce confused deputies through ACL checks and implicit rights amplification. |
 
 ## See also
 
