@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:12:50Z_
+_As of 2026-09-16T16:21:44Z_
 
 ## Latest
 
@@ -8,6 +8,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix when computing coverage (waiting 2m)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 1d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
@@ -17,9 +18,8 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 15d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 18d)
-- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 20d)
 
-_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
@@ -528,15 +528,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.1M _(+227.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 64.2M | $469.67 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 9.3M _(+230.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
+- [`claude-on-minion-town-press-20260916-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260916-162009.md) — Press the Claude-on-minion.town arc forward
+- [`improve-fetch-source-wayback-cdx-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fetch-source-wayback-cdx-fallback.md) — ---
 - [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2002-2003.md) — Ingest cap-talk: 2002-2003
 
 ### tada (8014)
