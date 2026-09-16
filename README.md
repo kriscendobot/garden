@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T18:20:06Z_
+_As of 2026-09-16T18:21:20Z_
 
 ## Latest
 
@@ -542,14 +542,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.5M | $481.35 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.1M _(+259.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 64.5M | $481.81 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.2M _(+259.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`scholar-ingest-cap-talk-2009-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012-remainder.md) — Ingest cap-talk: 2009-2012 remainder
 - [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012.md) — Ingest cap-talk: 2009-2012
 - [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2013-2016.md) — Ingest cap-talk: 2013-2016 (final Pipermail era)
 
