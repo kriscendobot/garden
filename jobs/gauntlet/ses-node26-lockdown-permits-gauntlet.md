@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1281
 build_job: ses-node26-lockdown-permits
 kind: feature
-stage: panel
+stage: fix
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: ses-node26-lockdown-permits-gauntlet-panel-4
+current_child: ses-node26-lockdown-permits-gauntlet-fix-4
 state: running
 created_by: producer
 created_at: 2026-09-15T23:13:52Z
