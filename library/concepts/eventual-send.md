@@ -44,6 +44,7 @@ the event-loop / vat model makes the whole thing data-race-free by construction.
 | [endo/packages-eventual-send-src-handled-promise-js/operation-reduction-and-sendonly](../sections/endo--packages-eventual-send-src-handled-promise-js--operation-reduction-and-sendonly.md) | How `dispatchToHandler` reduces `applyMethod` into `get` + `applyFunction` and substitutes the `SendOnly` variants — the mechanism a minimum-viable handler implements. |
 | [endo/packages-eventual-send-README/four-target-cartesian-product](../sections/endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation--mark-miller-s-thesis-cited-as-original-source.md) | The README's four-target cartesian product (function/object × call/send) and its citation of Mark Miller's thesis as the original source of the eventual-send model. |
 | [papers/cas/vat-and-event-loop-model](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--vat-and-event-loop-model--body.md) | **Theoretical model.** The vat / event-loop substrate that makes eventual send data-race-free: turns, the message queue, and why shared-state concurrency is rejected. |
+| [cap-talk-2009-2012--waterken-persistence-transactions-and-failure](../sections/cap-talk-2009-2012--waterken-persistence-transactions-and-failure.md) | Waterken couples eventual sends and broken promises to an end-of-turn durable transaction boundary. |
 
 ## See also
 
