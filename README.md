@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T23:33:13Z_
+_As of 2026-09-16T23:34:55Z_
 
 ## Latest
 
-Eight jobs in progress including crew building, minion.town review, and gauntlet stages. Two completions reported (PR #1290 review cost, deadmail reconciliation). The triager issued a comprehensive gauntlet triage covering five halted jobs from early September: two transient capacity-crunch halts on now-green work ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81)) ready for cheap re-post; two requiring re-scope (base-drift on [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) needing weave/pin, and [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99) green+mergeable but stuck in panel loop); and one partly landed ([kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)) awaiting re-anchor to child 2 with raised budget. In the maintainer inbox: SIWE on-chain authz awaiting tier decisions and Tier 1 allowlist; minion.town guest peer-fetch blocked on daemon-exposure authorization; re-export policy design ([kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95)) ready for review with open questions; minion.town clip GC and gallery publish staged but blocked on credential/token issues. Token spend at 47% of 143M Claude quota (488 notional dollars); 25 PRs parked awaiting maintainer feedback across Endo, minion.town, and garden.
+Halted gauntlets triaged: five early-September stalls analyzed with dispositions ranging from transient-safe re-posts to re-scopes requiring base pins and scope clarification. Triage flagged one blocker — oros-studio-garden still on legacy `gardener` worker kind, preventing a fleet-wide alias retirement. Two maintainer-authorization decisions pending on minion.town infrastructure (daemon exposure for peer-fetch verification, and SIWE tier/allowlist for on-chain authz), plus four more blockers on auth setup (GitHub token restore, minion-town OAuth for live evaluation, Anthropic API key for opencode probe, DNSSEC for ocap.site). Garden infrastructure advancing with sysop design posted and awaiting-maintainer gate implementation underway. Token spend healthy at 47% of quota.
 
 ## Parked for maintainer feedback
 
@@ -272,11 +272,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.7M | $488.00 _(notional, rate-card)_ | 47% of 143.0M (ok) |
-| Codex | 12.6M _(+301.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Claude | 66.8M | $489.06 _(notional, rate-card)_ | 47% of 143.0M (ok) |
+| Codex | 12.6M _(+302.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
+- [`design-sysop-attested-exec-op-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-sysop-attested-exec-op-20260916.md) — The motivating critique (the maintainer's, and it is correct)
 - [`verify-gh-token-endolin-garden-ece02cb4-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-gh-token-endolin-garden-ece02cb4-20260916.md) — ---
 
 ### doin (8)
