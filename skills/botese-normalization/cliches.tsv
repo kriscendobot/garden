@@ -1,0 +1,51 @@
+# cliches.tsv — the single auditable home for the Botese (AI-slop cliché) phrase
+# list the thesaurus seat-gate greps and the deslopper role rewrites.
+#
+# FORMAT: four TAB-separated columns, one cliché per row. Lines beginning with
+# '#' and blank lines are ignored.
+#
+#   category    a coarse grouping of the cliché kind (filler-emphasis,
+#               overwrought-metaphor, ...).
+#   phrase      the literal, whole PHRASE to detect — usually MULTI-WORD, matched
+#               case-insensitively as a unit with non-word boundaries at both ends.
+#               NEVER a bare common word and NEVER a suffix pattern or heuristic
+#               (the same "comprehensive list, not patterns" discipline as
+#               divergences.tsv, PR #75). Multi-word so precision comes from the
+#               distinctive CONSTRUCTION, not the shared word.
+#   suggestion  what to write instead — prose guidance the thesaurus seat cites and
+#               the deslopper applies. There is no 1:1 mechanical swap (unlike a
+#               British->American spelling), so this is a rewrite direction, and the
+#               matched phrase is REMOVED/REPHRASED, not substituted token-for-token.
+#   notes       false-friend cautions, the legitimate literal sense, provenance.
+#
+# WHY PHRASES, NOT WORDS (precision over recall — the load-bearing decision here).
+# "seam" and "load-bearing" are ordinary words with genuine literal uses: a real
+# architectural seam, a Michael-Feathers testing "seam", a real load-bearing wall.
+# Bare-word matching would fire on all of those. So the list enumerates the
+# DISTINCTIVE cliché COLLOCATION ("load-bearing invariant", "seam where"), which the
+# literal senses do not share. A false positive that rewrites a legitimate sentence
+# is worse than a missed cliché — the grep can only ever match a curated phrase, and
+# the thesaurus SEAT still adjudicates every hit (identifier / quote / genuine
+# literal use are accepted with rationale, exactly as the orthographer seat does).
+#
+# CURATION: maintainer-reviewed on each extension (mirrors divergences.tsv). A
+# gardener proposes a new phrase through a thesaurus [proposed-rule] finding; a human
+# vets it before it lands. Keep phrases SPECIFIC (a construction, not a word) and add
+# inflected collocations as their own rows (matching is whole-phrase, so
+# "load-bearing invariant" does NOT also catch "load-bearing invariants").
+#
+# SEED: exactly the two examples the maintainer named (kriskowal, endojs/
+# endo-but-for-bots#1281 review r4028527867, 2026-09-16) — "seam" and "load-bearing"
+# — each enumerated as its distinctive AI-cliché collocations. Deliberately small:
+# the mechanism plus these two concepts is the deliverable, not an exhaustive
+# thesaurus. The list grows by maintainer-reviewed curation.
+#
+# category	phrase	suggestion	notes
+filler-emphasis	load-bearing invariant	name the invariant and why it matters; drop "load-bearing"	Botese "critical" filler on an abstraction; NOT a real load-bearing wall/beam/column/member
+filler-emphasis	load-bearing assumption	state the assumption plainly; drop "load-bearing"
+filler-emphasis	load-bearing abstraction	say what the abstraction does; drop "load-bearing"
+filler-emphasis	load-bearing comment	explain what the comment guarantees; drop "load-bearing"
+filler-emphasis	load-bearing detail	state the detail and its consequence; drop "load-bearing"
+filler-emphasis	load-bearing word	quote the word and say why it is precise; drop "load-bearing"
+overwrought-metaphor	seam where	say plainly what boundary or interface this is	overwrought "this is the seam where X happens" metaphor; NOT a real fabric/rock seam or a Feathers testing seam ("introduce a seam so ...")
+overwrought-metaphor	is the seam	name the boundary or interface directly	as in "this is the seam ..."; excludes the legitimate Feathers testing-"seam" sense, which the seat accepts with rationale

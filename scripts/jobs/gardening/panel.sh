@@ -110,27 +110,27 @@ fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 
 # --- juror seat list: code panel vs design panel ----------------------------
 # The two panel kinds and their seats are the v1 jury composition (see
-# skills/panel-review). The code panel is the 29-seat source-touching panel; the
-# design panel is the 7-seat design-only panel. The script senses which to run
+# skills/panel-review). The code panel is the 31-seat source-touching panel; the
+# design panel is the 9-seat design-only panel. The script senses which to run
 # from the diff (design-only when every changed path is under designs/), then
 # iterates the matching seat list. A project can override either list via env.
 
-# Code panel (30 seats): source-touching PRs. The coverage-auditor and the
-# orthographer are MANDATORY seats (every builder/fixer gauntlet runs the code
-# panel), but both are COST-GATED at dispatch: each ships a co-located seat-gate
-# that runs a deterministic pre-pass (c8 coverage of new lines; grep for British
-# spellings) and only spends a `claude -p` when there is something to judge (see
-# seat-gate-coverage-auditor.sh, seat-gate-orthographer.sh, and the seat_review
-# gate below).
+# Code panel (31 seats): source-touching PRs. The coverage-auditor, the
+# orthographer, and the thesaurus are MANDATORY seats (every builder/fixer gauntlet
+# runs the code panel), but all are COST-GATED at dispatch: each ships a co-located
+# seat-gate that runs a deterministic pre-pass (c8 coverage of new lines; grep for
+# British spellings; grep for Botese clichés) and only spends a `claude -p` when
+# there is something to judge (see seat-gate-coverage-auditor.sh,
+# seat-gate-orthographer.sh, seat-gate-thesaurus.sh, and the seat_review gate below).
 : "${GARDEN_CODE_SEATS:=assessor typist stylist packager archivist prover curator \
 migrator locksmith warden saboteur breaker purist spec-keeper wire-watcher \
 engine-realist integrator duality-auditor benchmarker changeset-auditor surfacer scribe pruner \
-gateway corner-prober fast-checker releaser transplanter coverage-auditor orthographer}"
+gateway corner-prober fast-checker releaser transplanter coverage-auditor orthographer thesaurus}"
 
-# Design panel (8 seats) — design-only PRs (paths under designs/). The orthographer
-# sits here too ("all documents", PR #75); cost-gated, so a design with no British
-# spelling costs zero claude -p.
-: "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice orthographer}"
+# Design panel (9 seats) — design-only PRs (paths under designs/). The orthographer
+# and the thesaurus sit here too ("all documents"); cost-gated, so a design with no
+# British spelling and no Botese cliché costs zero claude -p.
+: "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice orthographer thesaurus}"
 
 # --- stage: sense the panel kind from the diff ------------------------------
 # Design panel iff there is at least one change AND every changed path is under a
