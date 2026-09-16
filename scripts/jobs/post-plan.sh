@@ -288,7 +288,9 @@ rm -f "$CLEARED_TMP"; trap - EXIT
 compose() {
   printf -- '---\n'
   printf 'gate: %s\n' "$gate"
-  [ -n "$maintainer_question" ] && printf 'maintainer_question: %s\n' "$maintainer_question"
+  if [ -n "$maintainer_question" ]; then
+    printf 'maintainer_question: %s\n' "$(yaml_single_quote_scalar "$maintainer_question")"
+  fi
   [ -n "$asked_at" ] && printf 'asked_at: %s\n' "$asked_at"
   if $budget_hold; then
     printf 'budget_hold: true\n'

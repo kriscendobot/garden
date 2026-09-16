@@ -220,7 +220,7 @@ if [ -n "$roadmap" ];  then fields+="roadmap=$roadmap"$'\n';   fi
 if [ -n "$role" ];     then fields+="role=$role"$'\n';         fi
 if [ "$awaiting_maintainer" = 1 ]; then
   fields+="gate=awaiting-maintainer"$'\n'
-  fields+="maintainer_question=$maintainer_question"$'\n'
+  fields+="maintainer_question=$(yaml_single_quote_scalar "$maintainer_question")"$'\n'
   fields+="asked_at=$asked_at"$'\n'
 fi
 

@@ -6224,7 +6224,27 @@ derive_job_identity_from_body() {
 # Read a single leading-frontmatter scalar field from a plan file ($1=file,
 # $2=key), stripping surrounding quotes. Empty if absent.
 plan_field() {
-  sed -n "s/^$2:[[:space:]]*//p" "$1" 2>/dev/null | head -1 | sed 's/^"\(.*\)"$/\1/; s/^'\''\(.*\)'\''$/\1/'
+  local value
+  value="$(sed -n "s/^$2:[[:space:]]*//p" "$1" 2>/dev/null | head -1)"
+  case "$value" in
+    "'"*"'")
+      value="${value#\'}"; value="${value%\'}"; value="${value//\'\'/\'}"
+      ;;
+    '"'*'"')
+      value="${value#\"}"; value="${value%\"}"
+      ;;
+  esac
+  printf '%s\n' "$value"
+}
+
+# Quote an arbitrary one-line string as a YAML single-quoted scalar. A question
+# commonly contains `#`, `:`, brackets, or an apostrophe; writing it as a plain
+# scalar can silently turn the rest into a YAML comment. Single quotes escape by
+# doubling, and plan_field reverses that encoding above.
+yaml_single_quote_scalar() {
+  local value="$1"
+  value="${value//\'/\'\'}"
+  printf "'%s'" "$value"
 }
 
 # The gate reason of a plan file, defaulting to 'deferred' when unset.

@@ -53,12 +53,12 @@ rc=0
   || bad "post accepted awaiting-maintainer without question/URL"
 
 "$JOBS/post-plan.sh" --awaiting-maintainer \
-  --question "Which deployment should serve the guest?" \
+  --question "Which deployment's PR #7 should serve the guest?" \
   --asked-at "https://github.com/example/project/issues/7#issuecomment-9" \
   pending-answer "$TR/body" >/dev/null
 got="$(show_path "$BARE" jobs/plan/pending-answer.md)"
 { grep -q '^gate: awaiting-maintainer$' <<<"$got" \
-  && grep -q '^maintainer_question: Which deployment should serve the guest?$' <<<"$got" \
+  && grep -q "^maintainer_question: 'Which deployment''s PR #7 should serve the guest?'$" <<<"$got" \
   && grep -q '^asked_at: https://github.com/example/project/issues/7#issuecomment-9$' <<<"$got"; } \
   && ok "post records the gate, question, and answer URL" \
   || bad "posted gate metadata is incomplete: $got"
