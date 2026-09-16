@@ -171,6 +171,28 @@ Endo's petname layer (petnames, petname-paths, edgenames) and its formula/locato
 - [`../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md`](../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md)
 - [`../../library/concepts/petname.md`](../../library/concepts/petname.md)
 
+## Managed references, guards, and compilation boundaries
+
+The August-October 2009 threads spell out three assumptions behind Hardened JavaScript. First, an ordinary managed-language object reference can be the capability only after unsafe pointer construction, ambient statics, reflection escapes, and untamed host APIs are removed. Second, well-known guards for pure data are designated validators, not ambient authority, while a guard that recognizes a "real" file or another external power must itself be explicitly endowed. Third, a bytecode verifier that prevents memory corruption is not enough: compiled or supplied bytecode must preserve the source language's semantic invariants, because verifier-accepted target code may construct values no source program can express. SES transforms, bundles, XS bytecode, and serialization boundaries all inherit that full-abstraction obligation.
+
+- [`../../library/sections/cap-talk-2009-2012--managed-language-object-references-as-capabilities.md`](../../library/sections/cap-talk-2009-2012--managed-language-object-references-as-capabilities.md)
+- [`../../library/sections/cap-talk-2009-2012--guards-well-known-not-ambient.md`](../../library/sections/cap-talk-2009-2012--guards-well-known-not-ambient.md)
+- [`../../library/sections/cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md`](../../library/sections/cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md)
+
+## Browser and broker grants should be explicit, narrow, and visible
+
+The CORS and geolocation threads show the same deputy failure at two browser surfaces. Origin policy automatically supplies cookies or sensitive device authority when the requesting component did not designate a particular grant, while multi-origin composition prevents the user from seeing which principal receives it. Endo powerboxes and web gateways should instead return a narrow session facet, keep sensitive use visible and revocable, and restore persistent authority only through a specifically designated sturdy reference. The RabbitMQ case adds the deployment warning: if a protocol starts with broker-side ACLs, later capability adoption can require coordinated changes across every client even when the checking mechanism itself is small.
+
+- [`../../library/sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md`](../../library/sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md)
+- [`../../library/sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md`](../../library/sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md)
+- [`../../library/sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md`](../../library/sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md)
+
+## Process confinement and object-capability protocols are separate layers
+
+Native Client's brokered sandbox demonstrates why Endo should not call every handle a capability. An OS or process boundary limits effects after compromise, but only the broker protocol determines whether possession designates and authorizes one object or whether ambient identity and names still manufacture authority. XS workers and native subprocess brokers need both layers: coarse machine isolation outside and an explicitly reference-based message surface inside.
+
+- [`../../library/sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md`](../../library/sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md)
+
 ## The final Pipermail era: direct Endo design antecedents
 
 The 2013-2016 archive lands close to Endo's present architecture. Persistent objects do not erase the need for an explicit upgrade schema; hostile transport bytes should become validated immutable values before ordinary code sees them; and a return continuation is a narrower capability than a callback reference. `DeepFrozen` receiver **and arguments** can relax E-order because no stateful effect remains to reorder. WeakMaps make identity-based rights amplification and private state direct JavaScript patterns. These are design constraints, not merely historical resemblance.
