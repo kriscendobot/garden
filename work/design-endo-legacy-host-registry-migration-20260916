@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-16T23:07:45Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-design-endo-legacy-host-registry-migration-20260916
+pr_number: 98
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/98
+pr_head: endo-legacy-host-registry-migration
