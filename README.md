@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:31:29Z_
+_As of 2026-09-16T11:37:01Z_
 
 ## Latest
 
-Two investigation jobs moved into active work (`endo-bejar-hofman-box-investigation` and `endo-daemon-sqlite-wal-limit-measurement`). The Ironhorse computron benchmark baseline plan completed; its build job (`ironhorse-computron-benchmark-baseline-build-exec`) is parked awaiting your answers to six open questions on tolerance bands, PR CI vs nightly gating, seed roster, COST_TABLE_VERSION policy, PR#1282 fate, and grid baselines. Triage of five early-September halted gauntlets found one transient (re-post as-is), one dependent on a live premise check, two requiring re-scoping (weave/pin-merge-base for [#1100](https://github.com/endojs/endo-but-for-bots/pull/1100), and human review→un-draft for [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99)), and one with child 1 already done, needing re-anchor to child 2 with raised budget. The weave-ebfb-1100-pin-merge-base job hit its 2400s handler timeout and is parked; split it into claim-sized stages. Reminder daemon revival failed on schema incompatibility (missing `registry` property); production remains at `f6650503`. Three infrastructure asks: restore the kriscendobot gh token (clip-content-store-gc-build blocked), migrate oros-studio to the monk worker kind or decide to keep it gardener (affects retiring the gardener alias), and provide a host-side identity introduction for GitHub federation (ev7-host-introduction-request).
+One job completed (Bejar-Hofman Box investigation); the Ironhorse computron benchmark baseline orchestration finished all 2 children. Maintainer inbox holds five major items: a triage of five halted gauntlets from early September (two transient and safe to re-post, three real failures needing re-scoping), answers needed for the Ironhorse benchmark baseline build's six design open questions before the implementation can proceed, host-side actions for GitHub federation and a third fleet host blocking the gardener worker kind retirement, and minor cleanup on the daemon revival dry-run. Quota at 42% with 59.6M tokens spent. The [ebfb-exo-stream-drop-base64-stream-methods gauntlet](https://github.com/endojs/endo-but-for-bots/pull/1100) requires a re-scoped weave to pin its merge base onto current llm and resolve API migration conflicts before re-posting the gauntlet.
 
 ## Parked for maintainer feedback
 
@@ -400,24 +400,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.6M | $458.50 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 59.6M | $458.14 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-bejar-hofman-box-investigation.md) — Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
+### doin (1)
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-sqlite-wal-limit-measurement.md) — Measure the daemon SQLite WAL size policy
 
-### tada (7993)
+### tada (7994)
+- [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-bejar-hofman-box-investigation.md) — Completion report: Bejar-Hofman Box investigation
 - [`ebfb-sturdyref-stack-rebase-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-rebase-20260916.md) — orchestration ebfb-sturdyref-stack-rebase-20260916 — HALTED
 - [`ebfb-sturdyref-rebase-pr737-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr737-20260916.md) — Completion report
 - [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-thixotrope-drop-inert-bundle-filter.md) — Cost
 - [`ebfb-sturdyref-rebase-pr774-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr774-20260916.md) — Completion report: rebase PR #774 onto live llm
-- [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-modernize.md) — Completion report — ebfb-sturdyref-stack-modernize
-- … and 7988 more
+- … and 7989 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
