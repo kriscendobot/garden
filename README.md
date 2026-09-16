@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T05:22:53Z_
+_As of 2026-09-16T05:33:06Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Foreman investigation complete: the fleet-wide pump quiesce is deliberate (GARDE
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 13h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 14h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
@@ -37,14 +37,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
 
 > Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
-
-- `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-04T10:22:02Z, latest 2026-09-13T05:22:02Z).
-> The SAME condition (`root-repo-deploy-stalled-endolin-garden2-5bcdff64`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> root repo /home/kris/garden2 deploy has been STALLED for ~1d: deployed sha d24f8862e85c1dd4505fddf918fa8701e7c0bd7d is 8 commit(s) behind origin/main2 (f5e91b662553960d4e41ea8a305b84c544c082f0) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
 
 - `20260904T043754Z-6ae1cc` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260903-035007, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260903-035007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T043754Z-6ae1cc.md)
 
@@ -75,10 +67,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > publish-overnight-chronicle-clip: could NOT publish the overnight clip — the minion-town MCP server needs interactive OAuth (GitHub browser login) that a non-interactive gardener session can't perform, so mcp__minion-town__publish is unavailable to me (same failure class you hit). I verified all five facts and BUILT the clip (static index.html + style.css, CSP-clean, light/dark, evidence links). I sent the liaison inbox the ready-to-publish base64 payload (msg 20260904T121238Z-b3f04f) — it can publish in one call once its MCP session re-initializes, then send you the <hash>.ocap.site URL. Nothing is serving yet.
 
-- `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
-
-> budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 2): budget pool anthropic:endolin-garden2-5bcdff64 spend=14763431 cap=64000000 ceiling=2 target=2
-
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
@@ -102,22 +90,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 87 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
-
-- `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
-
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-08T20:17:16Z, latest 2026-09-15T22:26:06Z).
-> The SAME condition (`rolling-deploy-canary-failed-endolin-garden2-5bcdff64`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
->
-> Rolling deploy HALTED on a failed canary.
-> canary host: endolin-garden2-5bcdff64
-> target sha:  441cafdc2a5f94d2dd3bf5f6a2cd8c2d9d576313
-> failing signal: released 1500s ago but never advanced to the target sha (deploy stuck/failed on the canary)
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign drain op) pending your decision; auto-rollback is deliberately not performed
-> (designs/follower-self-deploy.md § Failure handling). Investigate the target on endolin-garden2-5bcdff64,
-> then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `msg-ses-node26-lockdown-permits-gauntlet-fix-4-d76a3f047bdb` — from gardener:ses-node26-lockdown-permits-gauntlet-fix-4, reply_to `ses-node26-lockdown-permits-gauntlet-fix-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ses-node26-lockdown-permits-gauntlet-fix-4-d76a3f047bdb.md)
 
@@ -197,16 +169,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > [kriscendobot/minion.town#75](https://github.com/kriscendobot/minion.town/issues/75) is merged and deployment run 33539977066 succeeded. The remaining required blind live discovery evaluation needs an authenticated minion.town MCP session. This worker container has no AWS CLI/credentials or minion.town OAuth connection, so it cannot read the sanctioned minion/test-cc-client secret or attach the live MCP to a context-free agent. Please either run a connected blind agent with only the directive "evaluate 2 + 2" and send the transcript/result, or make a short-lived sanctioned Bearer token available through this job inbox (do not paste a long-lived client secret).
 
-- `20260916T052016Z-e5624f` — from fixer, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260916T052016Z-e5624f.md)
-
-> foreman investigation (job investigate-malingering-foreman) — ROOT CAUSE: the foreman is not broken, it is deliberately quiesced.
->
-> `GARDEN_FOREMAN_ACTIVE_TARGET=0` in scripts/systemd/garden-foreman.service (commit d954683f1f, 2026-07-14, "maintainer-directed") makes the capacity check `inflight >= target` always true, so every tick exits 0 pumping nothing — fleet-wide, on every leader. This fully explains the symptoms the liaison saw (missing idle-since, last-step/noted frozen at 2026-07-13 = the day before the quiesce, silent rc-0 ticks, 124 deferred jobs untouched). Ruled out: drain, brake, and budget back-off (host usage ~53%, well under the 0.85 mark).
->
-> DECISION NEEDED (yours — I did not change the target): the quiesce dates to the July quota crunch. It is still in force while 124 pre-approved `gate: deferred` jobs sit unpromoted and usage is ~53%. Do you want it LIFTED — raise GARDEN_FOREMAN_ACTIVE_TARGET back to 3 (or 5) in the unit / a per-host drop-in so the reservoir starts draining? Or keep the foreman quiesced?
->
-> Shipped regardless: a durable per-tick decision log (host-local `.garden-state/foreman/decisions.log`) so a future stall like this is a one-line read from the leader instead of a live-debug session, plus a regression test. Full write-up in journal result entry 051956Z-result-fixer-8d6528.md. Pushed to main2; takes effect on next deploy.
-
 - `ses-node26-lockdown-permits-gauntlet-review-budget-reached` — from gauntlet:ses-node26-lockdown-permits-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ses-node26-lockdown-permits-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet ses-node26-lockdown-permits-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -217,23 +179,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.6M | $400.65 _(notional, rate-card)_ | 31% of 143.0M (ok) |
-| Codex | 7.1M _(+181.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 45.3M | $400.79 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Codex | 7.2M _(+182.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ironhorse-computron-benchmark-baseline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-design.md) — designer: benchmark-established computron-baseline regime for Ironhorse
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1283-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1283
+- [`fix-canary-drain-self-exclusion-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-canary-drain-self-exclusion-20260916.md) — ---
+- [`ironhorse-computron-benchmark-baseline-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build.md) — builder: execute the benchmark-established computron-baseline plan for Ironhorse
 
-### tada (7933)
+### tada (7935)
+- [`foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/foreman-partial-unquiesce-target-2.md) — Cost
+- [`ironhorse-computron-benchmark-baseline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-design.md) — Completion report
 - [`investigate-malingering-foreman`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/investigate-malingering-foreman.md) — Completion report — investigate-malingering-foreman
 - [`endojs-endo-but-for-bots-pr1282-d101dbfb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1282-d101dbfb.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260916-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260916-043506.md) — Completion report
-- [`claude-on-minion-town-press-20260916-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-035007.md) — Completion report
-- [`ses-node26-lockdown-permits-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet.md) — gauntlet ses-node26-lockdown-permits-gauntlet — review budget reached
-- … and 7928 more
+- … and 7930 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -431,6 +395,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
+- [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-foreman-partial-unquiesce-target-2.md) — _urgent_ · Verify the foreman target-2 rollout and first real promotion
 - [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/implement-worktree-teardown-on-job-completion.md) — _high_ · ---
 - [`design-endor-git-windows-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-endor-git-windows-followup.md) — _normal_ · Follow-up: Windows (MSVC) support for endor-git bindings
 - [`design-slots-ocapn-op-lanes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-slots-ocapn-op-lanes.md) — _normal_ · ---
