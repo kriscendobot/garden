@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
 role: scout
-posted_by: gardener
-posted_at: 2026-08-06T15:03:02Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-16T11:29:15Z cleared=none -->
 
 ---
 tier: mentor
