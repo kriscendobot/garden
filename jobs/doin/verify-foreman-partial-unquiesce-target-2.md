@@ -32,3 +32,13 @@ pre-change line captured by the predecessor:
 Do not change the target or deploy unrelated code. If the board remains at or
 above two active jobs, wait for it to fall below two so the actual promotion can
 be observed.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T10:04:12Z
