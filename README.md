@@ -1,25 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:53:24Z_
+_As of 2026-09-16T14:02:00Z_
 
 ## Latest
 
-Five early-September halted gauntlets were triaged: two were transient capacity stalls (safe to re-post), one was a real base-drift failure on [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) requiring a merge-base pin to resolve, one hit iteration limits on already-green code (stop the panel loop), and one needs re-anchoring at an earlier child. Two design reviews are ready: [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95) (re-export deprecation policy gate) and [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron-benchmark regime, holding pending answers to six open questions). Separate blockers await decisions: [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) design not yet accepted (rust-module-lexer build parked pending acceptance), minion.town daemon revival dry-run failed (missing `registry` migration path), and fleet gardener-alias retirement blocked by oros host still on legacy worker.
+Cap-talk March-1998 founding era ingested; four time slices staged. Computron benchmark audit complete (zero surviving cost constraints); build blocked on six design-question answers. Five Sep-01/04 halted gauntlets triaged: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) transient (re-post if confirmed live); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) real base drift (weave+pin-merge+semantic-port fix); [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) green mergeable after 6 rounds (stop loop?); [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) done but archived during drain. Design [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) still open unresolved; build awaits acceptance. Reminder daemon revival blocked (schema migration). Garden reexport-deprecation-policy design [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95) awaiting review; several ops gates deferred (guest-peer-fetch daemon exposure, ocap.site DNSSEC, SIWE thunk, oros-studio gardener→monk migration).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 22h)
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 14d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 15d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 17d)
-- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 20d)
-
-_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
+- [endojs/playground#14](https://github.com/endojs/playground/pull/14) — feat: rock-paper-scissors (waiting 872d)
 ## Messages to the maintainer
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
@@ -478,8 +467,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.4M | $466.27 _(notional, rate-card)_ | 44% of 143.0M (ok) |
-| Codex | 8.4M _(+209.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 63.6M | $466.47 _(notional, rate-card)_ | 44% of 143.0M (ok) |
+| Codex | 8.6M _(+211.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
