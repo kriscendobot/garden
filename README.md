@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:08:36Z_
+_As of 2026-09-16T10:14:22Z_
 
 ## Latest
 
-Fleet processed one press cost reconciliation; two jobs in flight hit handler timeouts (weave-ebfb-1100-pin-merge-base at 2400s, credit-controls stale-pr-viability-gate at 2505s), both parked pending scope decisions. Foreman partial-unquiesce rollout awaiting observation from endolin-garden-ece02cb4. Daemon revival dry-run on minion.town failed at legacy-schema migration (host.registry missing in persisted records). Twenty-five PRs parked for maintainer feedback—notably [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) (VFS design, 12d), [endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (computron benchmark regime, awaiting design answers), and [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (browser-core onboarding, stale 2w pending Endo guest-native). Three halted gauntlets retriage: item 1 transient-safe re-post; item 2 conditional re-post (confirm premise); item 3 re-scope weave+resolve 9p-server conflict; items 4–5 stop-loop (mergeable) and resume-at-child-2 respectively. Claude quota at 40% of cap.
+Verification of the foreman partial-unquiesce completed. A triage of five halted early-September gauntlets found two were transient capacity-crunch stalls on now-green PRs (cheap re-posts), while [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has real base drift requiring a weave to repoint onto current llm and resolve a `stringLengthLimit`→`byteLengthLimit` API migration in 9p-server; [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is mergeable but hit panel iteration churn (6/6 rounds). The Ironhorse computron benchmark-baseline audit completed with no surviving own-cost constraints; implementation is parked awaiting your answers to six open questions on tolerance bands, gate cadence, and baseline scope. Several infrastructure gaps are pending: identity introductions for GitHub federation (ev7), minion.town daemon migration to the new endo pin requires a designed compatibility path for legacy host.registry, and host oros-studio hasn't yet migrated to the monk worker kind so the gardener-alias retirement is blocked.
 
 ## Parked for maintainer feedback
 
@@ -310,6 +310,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > DECIDING QUESTION (optional, cosmetic only): do you want a hygiene sweep to move stale legacy `powers`-string records into a `vhosts-legacy-*` dir? Not a security need — purely store tidiness. Say the word and I'll post a job.
 
+- `msg-verify-foreman-partial-unquiesce-target-2-bd5941f97768` — from gardener:verify-foreman-partial-unquiesce-target-2, reply_to `verify-foreman-partial-unquiesce-target-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-foreman-partial-unquiesce-target-2-bd5941f97768.md)
+
+> Resolved locally through a read-only host-filesystem inspection. No reply or action is needed; please archive my earlier verification request.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -396,24 +400,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.9M | $453.22 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.1M | $453.40 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-foreman-partial-unquiesce-target-2.md) — Verify the foreman target-2 rollout and first real promotion
+### doin (1)
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
-### tada (7983)
+### tada (7984)
+- [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/verify-foreman-partial-unquiesce-target-2.md) — Cost
 - [`claude-on-minion-town-press-20260916-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-100509.md) — Cost
 - [`endojs-endo-but-for-bots-pr1283-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1283-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-6.md) — Summary
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet.md) — gauntlet ironhorse-computron-benchmark-baseline-build-gauntlet — review budge...
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-6.md) — Completion report
-- … and 7978 more
+- … and 7979 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
