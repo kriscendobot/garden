@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-computron-benchmark-baseline
-priority: normal
 role: designer
-posted_by: producer
-posted_at: 2026-09-16T05:10:22Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-16T05:13:04Z cleared=none -->
 
 ---
 tier: mentor
