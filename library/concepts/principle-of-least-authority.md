@@ -34,6 +34,9 @@ A programmer already following good software-engineering discipline is most of t
 | [what-are-capabilities/distributed-services-and-engineering](../sections/habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices.md) | POLA operationalized as the three rules for taming Java (private instance vars, no static authority, no cross-thread mutable state); measures against deliberate misbehavior also prevent accidental misbehavior. |
 | [cap-talk-1998--cgi-confinement-and-capability-buckets](../sections/cap-talk-1998--cgi-confinement-and-capability-buckets.md) | Authentication maps a session to the smallest and weakest capability bucket sufficient for its task. |
 | [cap-talk-1999--driver-trust-dma-and-least-authority](../sections/cap-talk-1999--driver-trust-dma-and-least-authority.md) | A DMA-capable driver has machine-wide authority regardless of code placement; count effects, not process boundaries. |
+| [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) | The system-level POLA criterion: normal users can construct narrower subjects without invoking a superuser. |
+| [cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety](../sections/cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety.md) | A small chooser principal-agent turns one user decision into one pre-opened capability rather than lending the application the whole account. |
+| [cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction](../sections/cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md) | Public review where least permission versus least authority and the direct/indirect-effects definition were sharpened. |
 
 ## See also
 
