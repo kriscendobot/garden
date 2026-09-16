@@ -12,3 +12,13 @@ Implement the next step per §8.7:
 4. Then exercise `@pins` revival on a throwaway guest using the existing (already-deployed) daemon — this is the remaining lifetime gate the production experiment did not test.
 
 Do not attempt any live-state migration, formula rewrite, or daemon pin bump — the 2026-09-16 authorization covered only the exact `0eb88836` procedure and does not extend here. Read the full design doc (especially §8.7 and §8.6) before starting.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T06:02:57Z
