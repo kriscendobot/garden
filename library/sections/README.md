@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7013 (530 parent indexes + 6483 children).
+Total section files: 7026 (530 parent indexes + 6496 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -371,10 +371,26 @@ Total section files: 7013 (530 parent indexes + 6483 children).
 - [cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits](cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md)
 - [cap-talk-2000-2001--keykos-eros-practical-model-for-a-newcomer](cap-talk-2000-2001--keykos-eros-practical-model-for-a-newcomer.md)
 - [cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol](cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md)
+- [cap-talk-2000-2001--one-shot-capabilities-cannot-constrain-delegation](cap-talk-2000-2001--one-shot-capabilities-cannot-constrain-delegation.md)
 - [cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb](cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb.md)
 - [cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo](cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo.md)
 - [cap-talk-2000-2001--the-tcb-is-not-singular](cap-talk-2000-2001--the-tcb-is-not-singular.md)
 - [cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus](cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md)
+- [cap-talk-2000-2001--web-capabilities-session-lifetime-and-leakage](cap-talk-2000-2001--web-capabilities-session-lifetime-and-leakage.md)
+
+### cap-talk-2002-2003
+
+- [cap-talk-2002-2003--capabilities-property-rights-and-exclusive-transfer](cap-talk-2002-2003--capabilities-property-rights-and-exclusive-transfer.md)
+- [cap-talk-2002-2003--constructor-hidden-authority-and-confinement](cap-talk-2002-2003--constructor-hidden-authority-and-confinement.md)
+- [cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement](cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement.md)
+- [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md)
+- [cap-talk-2002-2003--limited-transfer-permission-vs-authority](cap-talk-2002-2003--limited-transfer-permission-vs-authority.md)
+- [cap-talk-2002-2003--normal-users-can-construct-least-authority](cap-talk-2002-2003--normal-users-can-construct-least-authority.md)
+- [cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics](cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics.md)
+- [cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction](cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md)
+- [cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety](cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety.md)
+- [cap-talk-2002-2003--sparse-capabilities-over-wire](cap-talk-2002-2003--sparse-capabilities-over-wire.md)
+- [cap-talk-2002-2003--unix-file-descriptor-confused-deputy](cap-talk-2002-2003--unix-file-descriptor-confused-deputy.md)
 
 ### cask--allocator-design
 
