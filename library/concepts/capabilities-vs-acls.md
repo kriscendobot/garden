@@ -17,6 +17,9 @@ The comparison at the center of object-capability security: an **access-control 
 | [cap-talk-1998--acl-vs-capability-challenge-problems](../sections/cap-talk-1998--acl-vs-capability-challenge-problems.md) | Shapiro's challenge problems; the hard part of the ACL solution is reconstructing caller identity, which a capability never needs. |
 | [papers--miller-capability-myths-demolished-2003--equivalence-myth](../sections/papers--miller-capability-myths-demolished-2003--equivalence-myth.md) | The 2003 formalization: properties A/B/C; references-as-arrows shows the models differ by arrow direction. |
 | [papers--close-acls-dont-2009--three-failures-of-acls-and-capability-application-caveat](../sections/papers--close-acls-dont-2009--three-failures-of-acls-and-capability-application-caveat.md) | The three structural failures of ACLs (authorize, authenticate, accountability). |
+| [cap-talk-1998--capability-definition-and-delegation](../sections/cap-talk-1998--capability-definition-and-delegation.md) | Designation plus permitted operations; recursive delegation exposes the owner-only ACL mismatch. |
+| [cap-talk-1999--principal-attribution-proxies-and-confinement](../sections/cap-talk-1999--principal-attribution-proxies-and-confinement.md) | A principal label on a capability cannot distinguish direct action, delegation, proxying, or confused use. |
+| [cap-talk-1999--principal-policy-and-confinement-debate](../sections/cap-talk-1999--principal-policy-and-confinement-debate.md) | The unresolved 1999 debate over principal policy inside controlled compartments. |
 
 ## See also
 
