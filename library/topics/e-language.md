@@ -53,6 +53,7 @@
 | [single-use-capability-object-in-e](../sections/cap-talk-2002-2003--single-use-capability-object-in-e.md) | cap-talk 2003-October | A catch-all E object attenuates any target to one message by replacing its slot with a broken reference before dispatch. |
 | [guards-well-known-not-ambient](../sections/cap-talk-2009-2012--guards-well-known-not-ambient.md) | capability-theory, e-language | E guards for pure data can be well-known; authority-recognizing guards must be explicitly endowed. |
 | [cap-talk-2009-2012--system-enforced-sensory-objects](../sections/cap-talk-2009-2012--system-enforced-sensory-objects.md) | cap-talk 2010-December | Kevin Reid: reconstruct a KeyKOS sense key in E with a Selfless verb+arity auditor plus a membrane forwarding only Sensory-audited messages; Shapiro's freeze-for-parallel want that EventuallyDeepFrozen does not meet. |
+| [cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e](../sections/cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md) | cap-talk 2012-December | Why the AppArmor/MinorFs/E POLA stack went unadopted — distro-specific OS layer plus a new language, no big-company backing; Endo demands no OS or language transition (Hardened JS on stock Node). |
 
 ## See also
 
