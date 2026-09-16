@@ -8,6 +8,7 @@
 |---------|--------|-------------------|
 | [cap-talk-1998--capability-ids-and-indirection-revocation](../sections/cap-talk-1998--capability-ids-and-indirection-revocation.md) | capability-security, revocation | EROS revocation primitive: a holder is given a capability to a *destroyable indirection object* rather than to the target, so destroying the indirection rescinds access without disturbing any other key. |
 | [cap-talk-1998--rescinded-keys](../sections/cap-talk-1998--rescinded-keys.md) | revocation, capability-security | A rescinded key must return a message just like any other key — revocation must be *indistinguishable* from a live-but-unhelpful object (KeyKOS/EROS `DK(0)` overloading). |
+| [cap-talk-1998--dead-object-sameness](../sections/cap-talk-1998--dead-object-sameness.md) | capability-theory, revocation | Invocation failure and reference equality after destruction are separate design choices. |
 
 ## See also
 
