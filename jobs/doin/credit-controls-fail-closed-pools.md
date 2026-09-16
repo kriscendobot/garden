@@ -38,3 +38,13 @@ Related live signal: two watchdog notices are open RIGHT NOW for exactly this
 condition — pools anthropic:endolin-garden2-5bcdff64 (cap=385000000) and
 anthropic:endolin-garden-ece02cb4 (cap=595000000) are both UNCALIBRATED, seen 32
 and 87 times. Say in your report whether your change would have refused those.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:46:37Z
