@@ -41,6 +41,8 @@ A programmer already following good software-engineering discipline is most of t
 | [cap-talk-2002-2003--programming-with-capabilities-without-ownership](../sections/cap-talk-2002-2003--programming-with-capabilities-without-ownership.md) | Separate maintenance, destruction, and customer facets replace a broad, ambiguous ownership relation with narrow authorities. |
 | [cap-talk-2009-2012--defining-ambient-authority](../sections/cap-talk-2009-2012--defining-ambient-authority.md) | POLA is unachievable amid pervasive ambient authority; least authority requires every authority be designated and granted on a need-to-do basis (the designation criterion the 2009 definition thread settled on). |
 | [cap-talk-2009-2012--android-capability-discipline-and-pola](../sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md) | cap-talk 2010-May/July | Applying POLA to a shipping platform: POLA scoring of apps and the disputed claim that user-facing partial-permission attenuation backfires into over-asking. |
+| [cap-talk-2009-2012--capability-adoption-through-service-chaining](../sections/cap-talk-2009-2012--capability-adoption-through-service-chaining.md) | Service chaining demonstrates least authority as an ordinary composition benefit: pass the one facet the next service needs. |
+| [cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary](../sections/cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary.md) | A microkernel applies least authority to the trusted computing base by moving services outside undivided privilege. |
 
 ## See also
 
