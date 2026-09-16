@@ -97,6 +97,8 @@ For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests
 
 When step 1 determines `design-panel`, the recommended set is the wholesale seven-seat design panel: `critic`, `skeptic`, `decomplector`, `ergonomist`, `copyeditor`, `pedant`, `novice`. The script does not consult code-panel probes on design-only PRs.
 
+The `decomplector` carries a **cross-boundary ownership-map** lens whose signal *is* in the design diff but is surfaced through a deterministic panel pre-pass rather than a seat-selection probe (the seat is already wholesale on every design PR, so a probe would not change the fan-out — the same reason the always-on `integrator`'s reconciliation lens has no probe). `scripts/jobs/gardening/ownership-map-signal.sh`, run as a `panel.sh` pre-pass on design-panel PRs, detects a design that spans ≥2 architectural layers, reports whether an `## Ownership map` section is present, and lists fused inner/outer name candidates (the `CrankOutcome` shape); on a hit it hands the decomplector that evidence and guarantees the seat is in the panel. This is the durable review-cycle sensor for the `architectural-boundary-ownership` review-miss cluster (grounding `endojs/endo-but-for-bots#1018`); the seat's brief § Ownership-map reconstruction is what it does with the evidence, and [ownership-map](../ownership-map/SKILL.md) is the artifact the designer states so the map exists to reconstruct.
+
 **Cross-panel** seats: on code-panel PRs with substantial markdown changes (`*.md` with `+` line count > 30 anywhere outside `designs/`), additionally fire `pedant` and `copyeditor` from the design panel. The script lists them under a separate "Cross-panel" section so the cross-fire can be verified.
 
 ## Output
