@@ -33,3 +33,13 @@ judgment. This is a READ-ONLY assessment plus a recommendation.
 Prior related security review: reports of the 2026-09-04 minion.town security
 review listed several open operator items on this daemon — check whether either
 weblet intersects one before reporting.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:52:11Z
