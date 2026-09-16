@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T20:34:38Z_
+_As of 2026-09-16T20:39:01Z_
 
 ## Latest
 
@@ -610,7 +610,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.7M | $474.30 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.8M | $475.41 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 11.1M _(+281.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
@@ -618,16 +618,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (2)
+- [`canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 568e5d9eeb64
 - [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012-remainder.md) — ---
-- [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — Retrospective on kriscendobot/minion.town PR #53 (primary: kriscendobot-minio...
 
-### tada (8053)
+### tada (8054)
+- [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — Completion report
 - [`kriscendobot-minion.town-pr52-review-86b4c679-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr52-review-86b4c679-retro.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-568e5d9eeb64.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2012-remainder.md) — Cost
 - [`improve-deadline-nudge-stage-failure-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deadline-nudge-stage-failure-isolation.md) — Completion report
-- [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2011-2012.md) — Completion report: scholar-ingest-cap-talk-2011-2012
-- … and 8048 more
+- … and 8049 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
