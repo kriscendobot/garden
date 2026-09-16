@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T12:50:53Z_
+_As of 2026-09-16T13:02:30Z_
 
 ## Latest
 
-Cost analysis for agents-to-agentry migration completed. Maintainer queue: [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has base drift and needs a weave/merge-base pin (9p-server API removed, CI red); ironhorse computron-benchmark design awaiting configuration answers before build; triage of five early-Sept halted gauntlets found one real failure (weave #1100), two transient (cheap re-posts), two contingent (scope or drain-blocked). Also pending: reminder daemon upgrade (state-revival blocker), gardener alias retirement (third-host migration), minion.town clip ready to publish pending OAuth session.
+SES import attributes Phase 1 build completed; Phase 2 (module-source) and Phase 3 (compartment-mapper) are now parked and ready to queue. Pass-style-src-naming standardization is in progress. Five halted gauntlets from early September require triage decisions: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) are safe re-posts (transient infra halt), but [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a weave/merge-base pin due to base drift, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) should stop the panel loop (code is green+mergeable), and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) already delivered; resume at child 2 with a raised budget. Maintainer inbox has pending: ironhorse benchmark baseline regime answers (6 open questions on seed roster, tolerance bands, tiering), oros-studio migration gate (third host never cut over to monk), and minion.town reminder daemon revival blocked (missing registry repair, no production migration improvised).
 
 ## Parked for maintainer feedback
 
@@ -400,7 +400,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.8M | $459.83 _(notional, rate-card)_ | 43% of 143.0M (ok) |
+| Claude | 61.2M | $461.32 _(notional, rate-card)_ | 43% of 143.0M (ok) |
 | Codex | 8.2M _(+207.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
@@ -408,15 +408,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — Build: SES import attributes (design #248)
+- [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pass-style-src-naming.md) — regularize pass-style src file naming convention — endojs/endo-but-for-bots
 
-### tada (7999)
+### tada (8000)
+- [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — Completion report: Build SES import attributes (design #248)
 - [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — Cost
 - [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-marshal-passables-equal-ava-operator.md) — Cost
 - [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-async-arm-followup.md) — Completion report
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-daemon-sqlite-wal-limit-measurement.md) — Completion report: endo-daemon-sqlite-wal-limit-measurement
-- [`endo-immutable-arraybuffer-hardened262-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-immutable-arraybuffer-hardened262-coverage.md) — Completion report
-- … and 7994 more
+- … and 7995 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -464,6 +464,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr879-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr879-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #879
 - [`endojs-endo-but-for-bots-pr897-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr897-weave-20260901.md) — _normal_ · Weave (rebase onto live llm) endojs/endo-but-for-bots PR #897
 - [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
+- [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`xs2rust-endor-press-20260902-110504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260902-110504.md) — _normal_ · Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`dependabotany-recheck-endo-but-for-bots-pr1268`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-pr1268.md) — _normal_ · botanist recheck: endojs/endo-but-for-bots PR #1268 (re-conduct after rebase)
 - [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — _normal_ · Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
@@ -603,6 +604,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`xs2rust-endor-press-20260902-075006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260902-075006.md) — _normal_ · Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`ironhorse-fuzz-8adaa3bbc9cda1ce-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-8adaa3bbc9cda1ce-repair.md) — _normal_ · Repair Ironhorse engine defect 8adaa3bbc9cda1ce (target differential_source) ...
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — _normal_ · Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
+- [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`endo-claude-agent-sdk-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-claude-agent-sdk-design.md) — _normal_ · Design: the Claude Agent SDK as an alternative confinement substrate for @end...
 - [`ironhorse-fuzz-3fc02d8b57faa79a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-3fc02d8b57faa79a-repair.md) — _normal_ · Repair Ironhorse engine defect 3fc02d8b57faa79a (target differential_source) ...
@@ -617,7 +619,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — _normal_ · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
 - [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk.md) — _normal_ · Ingest the cap-talk mailing list into the library
-- [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pass-style-src-naming.md) — _normal_ · regularize pass-style src file naming convention — endojs/endo-but-for-bots
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-gauntlet-reexport-policy-check.md) — _normal_ · propose a gauntlet check that prevents plain re-export policy violations
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town-followup.md) — _normal_ · Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
 - [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify.md) — _normal_ · Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
