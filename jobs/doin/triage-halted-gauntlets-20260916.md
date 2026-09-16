@@ -41,3 +41,13 @@ For EACH, determine and report:
 
 Do NOT promote or re-post anything yourself. Report all five dispositions in ONE
 message to the maintainer inbox so the decision is a single read.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:43:19Z
