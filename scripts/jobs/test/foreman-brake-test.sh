@@ -223,7 +223,9 @@ hr; echo "SUBTEST 8 — fail-safe ordering: the brake is read AFTER the clone sy
 # fire on a journal it could not read. Pin that ordering so a future edit cannot
 # reorder the guard above the sync and reintroduce a stale/absent-clone read.
 sync_ln="$(grep -n '^sync_clone "\$DIR"' "$JOBS/foreman.sh" | head -1 | cut -d: -f1 || true)"
-guard_ln="$(grep -n '^foreman_braked "\$DIR" && exit 0' "$JOBS/foreman.sh" | head -1 | cut -d: -f1 || true)"
+# The guard exits on the brake; it also records a decision line first, so match the
+# `foreman_braked "$DIR" && { ... exit 0 ...}` form rather than a bare `&& exit 0`.
+guard_ln="$(grep -n '^foreman_braked "\$DIR" &&.*exit 0' "$JOBS/foreman.sh" | head -1 | cut -d: -f1 || true)"
 { [ -n "$sync_ln" ] && [ -n "$guard_ln" ] && [ "$sync_ln" -lt "$guard_ln" ]; } \
   && ok "foreman.sh reads the brake (line $guard_ln) AFTER sync_clone (line $sync_ln)" \
   || bad "foreman.sh brake guard is not strictly after sync_clone (sync=$sync_ln guard=$guard_ln)"

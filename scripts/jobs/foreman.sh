@@ -49,7 +49,12 @@
 # (anti-flap), `noted` (maintainer-note dedupe), `notice-sig` (the substance
 # signature of the last milestone/bottleneck maintainer notice, so a stalled board
 # posts that notice ONCE per distinct state, not every tick — mirroring
-# identity-drift-guard.sh's per-signature dedup).
+# identity-drift-guard.sh's per-signature dedup), and `decisions.log` (a durable,
+# self-trimming per-tick DECISION record: one line per tick giving inflight,
+# target, and the guard/branch that ended it — added after the "malingering
+# foreman" investigation, job investigate-malingering-foreman 2026-09-16, found a
+# quiesced foreman — GARDEN_FOREMAN_ACTIVE_TARGET=0 — exiting 0 every tick with NO
+# trace, diagnosable only by live-debugging the running unit).
 #
 # Pluggable for tests: GARDEN_FOREMAN_HANDLER <digest-file> emits one block
 # (JOB <base> … ENDJOB, or MAINTAINER … ENDMAINTAINER, or nothing).
@@ -97,16 +102,6 @@ DIR="${GARDEN_FOREMAN_CLONE:-$GARDEN_STATE/foreman/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
-# The foreman has its OWN brake, independent of the fleet drain (job
-# garden-foreman-independent-brake). foreman_braked is true when EITHER the fleet
-# is draining (the drain keeps stopping the foreman, unchanged) OR the journal-
-# backed foreman brake (GARDEN_FOREMAN_BRAKE_PATH) is set — which stops ONLY the
-# foreman, so gardeners keep claiming while the pump is silenced. This is the sole
-# call site that changed from fleet_draining; the brake is read from the clone we
-# just synced, and sync_clone has already exited the tick if the journal was
-# unreadable, so the pump never fires on a journal it could not read (fail-safe).
-foreman_braked "$DIR" && exit 0
-
 STATE="$GARDEN_STATE/foreman"
 mkdir -p "$STATE"
 IDLE_SINCE="$STATE/idle-since"
@@ -116,6 +111,39 @@ NOTED="$STATE/noted"
 # Lives under $GARDEN_STATE (per-host, outside any reset-prone worktree), exactly
 # like identity-drift-guard.sh's drift marker.
 NOTICE_SIG="$STATE/notice-sig"
+# Durable per-tick DECISION record. Every tick appends ONE line saying how it
+# resolved: the inflight count, the active-job target, the guard/branch that
+# ended the tick, and any detail (what was promoted/pumped). This closes the gap
+# the "malingering foreman" investigation (job investigate-malingering-foreman,
+# 2026-09-16) hit: a tick that exits 0 having pumped nothing — because the
+# active-job target is 0 (the fleet-wide quiesce), a budget back-off fired, or
+# the settle clock has not elapsed — otherwise leaves NO durable trace, so a
+# board sitting under-target for weeks could only be diagnosed by live-debugging
+# the running unit. Host-local under $GARDEN_STATE (NOT the journal: a line every
+# 5 min would be needless journal churn), self-trimming so an idle host never
+# grows it without bound. Best-effort — a logging failure must never fail a tick.
+DECISIONS="$STATE/decisions.log"
+decide() {
+  local guard="$1" detail="${2:-}"
+  { printf '%s inflight=%s target=%s guard=%s%s\n' \
+      "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${inflight:-?}" \
+      "${GARDEN_FOREMAN_ACTIVE_TARGET:-?}" "$guard" "${detail:+ $detail}" \
+      >> "$DECISIONS"; } 2>/dev/null || true
+  local n; n="$(wc -l < "$DECISIONS" 2>/dev/null || echo 0)"
+  if [ "${n:-0}" -gt 1200 ]; then
+    { tail -n 1000 "$DECISIONS" > "$DECISIONS.tmp" && mv "$DECISIONS.tmp" "$DECISIONS"; } 2>/dev/null || true
+  fi
+}
+
+# The foreman has its OWN brake, independent of the fleet drain (job
+# garden-foreman-independent-brake). foreman_braked is true when EITHER the fleet
+# is draining (the drain keeps stopping the foreman, unchanged) OR the journal-
+# backed foreman brake (GARDEN_FOREMAN_BRAKE_PATH) is set — which stops ONLY the
+# foreman, so gardeners keep claiming while the pump is silenced. This is the sole
+# call site that changed from fleet_draining; the brake is read from the clone we
+# just synced, and sync_clone has already exited the tick if the journal was
+# unreadable, so the pump never fires on a journal it could not read (fail-safe).
+foreman_braked "$DIR" && { decide braked; exit 0; }
 
 # Wall clock in epoch seconds, overridable for tests.
 now() { printf '%s\n' "${GARDEN_FOREMAN_NOW:-$(date -u +%s)}"; }
@@ -181,8 +209,11 @@ inflight=$(( todo_n + doin_n ))
 
 if [ "$inflight" -ge "$GARDEN_FOREMAN_ACTIVE_TARGET" ]; then
   # Board at (or over) the active-job target: clear the settle clock, run no
-  # handler, stay silent.
+  # handler, stay silent. NB target=0 lands here EVERY tick (inflight is a count,
+  # always >= 0) — that is the fleet-wide quiesce (GARDEN_FOREMAN_ACTIVE_TARGET=0),
+  # and the decision line makes that visible instead of an untraceable silent exit.
   rm -f "$IDLE_SINCE"
+  decide subscribed
   exit 0
 fi
 
@@ -190,11 +221,13 @@ fi
 NOW="$(now)"
 if [ ! -f "$IDLE_SINCE" ]; then
   printf '%s\n' "$NOW" > "$IDLE_SINCE"   # first below-target observation; start the clock
+  decide settle-start
   exit 0
 fi
 since="$(cat "$IDLE_SINCE" 2>/dev/null || echo "$NOW")"
 elapsed=$(( NOW - since ))
 if [ "$elapsed" -lt "$GARDEN_FOREMAN_IDLE_SETTLE" ]; then
+  decide settle-wait "elapsed=$elapsed"
   exit 0   # below target but within the settle window; do nothing
 fi
 
@@ -215,6 +248,7 @@ if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" i
   backoff)
     note_once "token-backoff" "foreman: this host's Anthropic pool is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark of its configured weekly quota (Friday $GARDEN_TOKEN_RESET_HHMM Pacific window). Pausing the autonomous pump until usage falls back under the mark."
     log "token quota high-water reached; backing off (no pump this tick)"
+    decide token-backoff
     exit 0
     ;;
   unknown)
@@ -233,6 +267,7 @@ case "$(budget_fleet_status "$DIR")" in
   backoff)
     note_once "fleet-budget-backoff" "foreman: every configured budget pool is at its high-water mark; deferred-plan promotion and new pumping are paused until the Friday $GARDEN_TOKEN_RESET_HHMM Pacific quota refresh."
     log "all configured budget pools at high water; stopping promotion/pump this tick"
+    decide budget-backoff
     exit 0
     ;;
   unknown)
@@ -277,6 +312,7 @@ if [ "$promoted" -gt 0 ]; then
   rm -f "$NOTICE_SIG"    # …and the milestone-notice dedupe: a bottleneck that
                          # recurs after real progress is a new state, worth one note
   printf '%s\n' "$NOW" > "$IDLE_SINCE"
+  decide promoted "count=$promoted last=$(cat "$LAST_STEP" 2>/dev/null || true)"
   exit 0
 fi
 # No deferred plan job was available; fall through to generate one new step.
@@ -306,6 +342,7 @@ if [ "$hrc" -ne 0 ]; then
   log "WARN: foreman handler failed rc=$hrc: $(tail -c 500 "$herrf" 2>/dev/null || echo '<no stderr>')"
   alert_maintainer "foreman-handler-failed-$GARDEN" \
     "garden-foreman's pump handler ($GARDEN_FOREMAN_HANDLER) failed rc=$hrc on $GARDEN; the board pump is starving. stderr tail: $(tail -c 500 "$herrf" 2>/dev/null)"
+  decide handler-failed "rc=$hrc"
   out=""
 fi
 rm -f "$digest" "$herrf"
@@ -330,11 +367,13 @@ case "$btype" in
     base="$(printf '%s' "$base" | tr -d '[:space:]')"
     if [ -z "$base" ]; then
       log "handler returned an empty JOB base; staying idle"
+      decide noop "empty-base"
     elif [ "$base" = "$last_step" ]; then
       # Anti-flap: the same step recurred after the previous post drained without
       # milestone progress. Do not blindly re-post; surface it for review.
       note_once "repeat:$base" "foreman: next step '$base' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck."
       log "anti-flap: '$base' repeats last posted step; surfaced to maintainer, not re-posted"
+      decide anti-flap "base=$base"
     else
       if [ -n "$role" ]; then
         printf '%s' "$body" | "$HERE/post-job.sh" --role "$role" "$base"
@@ -345,6 +384,7 @@ case "$btype" in
       : > "$NOTED"           # forward progress clears the maintainer-note dedupe
       rm -f "$NOTICE_SIG"    # …and the milestone-notice dedupe (real work resumed)
       log "pumped next milestone step '$base'"
+      decide pumped "base=$base${role:+ role=$role}"
     fi
     ;;
   MAINTAINER)
@@ -354,9 +394,11 @@ case "$btype" in
     # flood this fixes). note_milestone_once posts once per distinct state.
     note_milestone_once "$body"
     log "next step blocked on a maintainer decision; noted to maintainer inbox (dedup by substance)"
+    decide maintainer-note
     ;;
   *)
     log "handler proposed no next step; staying idle"
+    decide noop "no-block"
     ;;
 esac
 
