@@ -1,2 +1,2 @@
-base: improve-fetch-source-gzip-decode
+base: improve-fetch-source-wayback-cdx-fallback
 identity: mentor:scripts/jobs/fetch-source.sh
