@@ -35,3 +35,13 @@ explicitly as an option, naming the deciding question, rather than silently
 refusing. Include a regression test.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T10:23:48Z
