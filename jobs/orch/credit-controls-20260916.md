@@ -1,4 +1,5 @@
 ---
+child-credit-controls-fail-closed-pools-host: endolin-garden-ece02cb4
 child-credit-controls-fail-closed-pools-reap-count: 0
 order: serial
 children: credit-controls-fail-closed-pools credit-controls-manual-gauntlet-trigger credit-controls-stale-pr-viability-gate credit-controls-panel-seat-metering-and-tiering
