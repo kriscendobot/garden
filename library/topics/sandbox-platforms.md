@@ -40,6 +40,7 @@
 | [Workers runtime architecture](../sections/cloudflare-os--readme--workers-runtime-architecture.md) | cloudflare-workers-agent-hosting, agent-workspaces, sandbox-platforms | Workers primitives provide the kernel, process, driver, and workspace boundaries. |
 | [nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) | Native Client / cap-talk 2009 | Process confinement and brokered descriptors are an outer layer; the broker protocol determines whether references are capabilities. |
 | [cap-talk-2009-2012--capsicum-practical-capabilities-for-unix](../sections/cap-talk-2009-2012--capsicum-practical-capabilities-for-unix.md) | cap-talk 2010-August | Capsicum retrofits a capability mode onto FreeBSD (cap_enter drops ambient authority; capability-refined descriptors); the systems-security counterpart to language ocap. |
+| [sel4-verification-and-the-tcb-boundary](../sections/cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary.md) | cap-talk 2011-February/March | seL4 verifies the privileged microkernel, then uses that substrate to enforce separable user-component boundaries. |
 
 ## See also
 
