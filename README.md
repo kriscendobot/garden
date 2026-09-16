@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T15:37:37Z_
+_As of 2026-09-16T15:39:32Z_
 
 ## Latest
 
@@ -317,10 +317,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > stop the loop, human review → un-draft (green+mergeable). 5 → RE-SCOPE: resume at child 2
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1281-8e31b55afce3` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1281-8e31b55afce3.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1281](https://github.com/endojs/endo-but-for-bots/pull/1281) ([endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/issues/1281)) is in the mergeable queue with NO gauntlet review staged (head 8e31b55afce3207c4911d4d802cd1691a8451402). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #1281'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
