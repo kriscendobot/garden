@@ -1,9 +1,11 @@
 ---
-gate: go-ahead
+gate: awaiting-maintainer
 priority: normal
 role: mentor
 posted_by: producer
 posted_at: 2026-09-16T13:19:17Z
+maintainer_question: Should the guest run on the already-public pet daemon, or should the guest-substrate daemon get its own public OCapN-CBOR-Noise route?
+asked_at: https://github.com/kriscendobot/garden/issues/58#issuecomment-5447765615
 ---
 
 ---
@@ -60,3 +62,5 @@ issue_spine: issue-kriscendobot-garden-58
 issue_url: https://github.com/kriscendobot/garden/issues/58#issuecomment-5447180549
 submitter: kriskowal
 ----- END ISSUE NOTE -----
+
+<!-- garden-annotation: key=awaiting-maintainer-migration-20260916 by=gardener at=2026-09-16T23:39:38Z fields=gate=awaiting-maintainer -->
