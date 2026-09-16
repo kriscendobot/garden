@@ -16,6 +16,8 @@ The archive's founding dispute. A newcomer's natural intuition (Frascadore, 1998
 A recurring, never-fully-converged terminology fight: does syscall-gating, POSIX "capabilities," a parent-monitors-child sandbox, or a "capability URL" deserve the name? Jim Dennis (1998) argued that active syscall-monitoring "isn't a capabilities model" and that misusing the word confuses newcomers and irritates practitioners. The dispute persists in the field (POSIX capabilities, seccomp, and "capability URLs") and is only sharpened by insisting on the *object-capability* qualifier.
 
 - [cap-talk-1998--caos-capability-os-terminology](../sections/cap-talk-1998--caos-capability-os-terminology.md) - the CAOS thread.
+- [cap-talk-2000-2001--capability-representation-partitioned-tagged-and-password](../sections/cap-talk-2000-2001--capability-representation-partitioned-tagged-and-password.md) - the 2000 representation-taxonomy facet (do password/sparse capabilities count, and does a system "bottom out" only in capabilities as names?).
+- [cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus](../sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md) - Miller's 2001 diagnosis that the term carries two incompatible lineages (OS/Lampson vs lambda-calculus), which is part of why the definition never converges.
 
 ### 3. Can a machine attribute an action to the human principal behind a proxy?
 
@@ -47,6 +49,19 @@ Hardy asks whether two references to the same destroyed object should still comp
 Landau can implement shared-object reclamation with per-holder domains, nodes, and destruction callbacks, but judges the machinery expensive for a reference count. The question anticipates distributed retention protocols: explicit lifecycle signaling is understandable and capability-safe, while implicit collection promises a simpler surface but introduces liveness and covert-channel problems.
 
 - [cap-talk-1999--shared-object-lifetime-reference-counting](../sections/cap-talk-1999--shared-object-lifetime-reference-counting.md)
+
+### 8. Is a certificate-chain authorization system (SPKI) a capability system?
+
+The 2001 web-standardization threads leave this genuinely open. Miller calls SPKI "approximately a capability system" that "falls short," and Hanson (designing his own scheme, Goo) rejects it as a substrate on cost-model grounds: an SPKI certificate *chain* makes the token *grow* as authority is *attenuated*, forces disclosure of a delegatee's residual rights, and (via shortcuts) trades revocability for size. The unresolved question is whether an authorization certificate is a weak capability or a categorically different thing with the wrong attenuation economics (attenuation should shrink authority and stay cheap, not grow the token and disclose the residue).
+
+- [cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol](../sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md) - Miller's "approximately a capability system" survey.
+- [cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo](../sections/cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo.md) - Hanson's concrete SPKI critique and Shapiro's "why not SPKI?" gate.
+
+### 9. Is consuming the resume capability on use a security feature or a bug-catching feature?
+
+The November 2000 EROS "call count" exchange leaves the semantics of the once-only resume key unsettled: Bornschein reads user-level serial checking as smuggling in a brute-forceable password capability, while Shapiro argues the once-only consumption "is not a security feature" at all but a way to catch servers that return multiple times. Whether that guarantee deserves kernel enforcement or a cheaper user-level check is left open.
+
+- [cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb](../sections/cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb.md) - the call-count / resume-key sub-thread.
 
 ## See also
 
