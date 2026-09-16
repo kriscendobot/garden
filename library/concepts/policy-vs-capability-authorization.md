@@ -56,6 +56,7 @@ The through-line of the refinement: **don't pick a pole — compose both reviewa
 | [cedar-aws-announcement--overview](../sections/cedar-aws-announcement--overview.md) | Cedar's policy-as-code, RBAC/ABAC, decouple-from-app-logic model — the reference-monitor pole of this contrast. |
 | [cedar-aws-announcement--verified-permissions-and-local-use](../sections/cedar-aws-announcement--verified-permissions-and-local-use.md) | Central, auditable policy storage — the single-surface auditability ocap must instrument for by other means. |
 | [thestack-cedar-for-ai-agents--overview](../sections/thestack-cedar-for-ai-agents--overview.md) | The "perfectly timed for AI agents" thesis the ocap reading inverts for the agent-tool integration class. |
+| [cap-talk-2009-2012--comparing-models-zbac-versus-capabilities](../sections/cap-talk-2009-2012--comparing-models-zbac-versus-capabilities.md) | Attribute/role-based (ZBAC) authorization needs cross-domain agreement on role meaning that does not scale (the DoD 13+2 problem); capabilities avoid it by authorizing with the reference itself. |
 
 ## See also
 
