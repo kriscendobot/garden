@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T05:47:32Z_
+_As of 2026-09-16T05:49:50Z_
 
 ## Latest
 
-Ironhorse computron benchmark-baseline orchestration completed both children serially (design + build audit both reached completion). The design PR [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) landed draft with six open questions on gate parameters and implementation details; the build audit is parked awaiting answers (posted to maintainer inbox). Clean stage passed; gauntlet panel round 1 now running. Credit-controls work activated: three jobs parked on the plan queue, one orchestration posted. Budget watchdog continues flagging uncalibrated pool caps across both hosts (87+ and 32+ occurrences respectively—needs maintainer calibration). Two minion.town infrastructure messages: reminder daemon redeploy posted, and containment check surfaced two unexpected POWERS weblets under dckc ownership (both legitimately low-privilege per investigation; flagged for confirmation). SES node26 lockdown-permits round 4 complete with fixes pushed but summary comment blocked by host token scope (relocated to inbox for orchestrator repost). 25 PRs parked for maintainer review, led by [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) (M.choose), [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) (VFS/mount design, 12d), and [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari regression, 14d).
+Triager completed a diagnosis of five halted gauntlets from early September, revealing one was transient-safe for replay, two need premises confirmed before re-posting, and two require scoping adjustments (base-drift weave and re-anchoring after partial completion). [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (ses-node26-lockdown-permits) reached round-4 fix with changes pushed and CI green; the completion summary is queued for posting from a scoped host. Ironhorse computron benchmark-baseline plan landed as draft [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with six open questions on tolerance bands, PR-vs-nightly gate strategy, seed roster, and baseline versioning—builder is holding steps 2–8 pending your answers. Two budget-level pools flagged uncalibrated; minion.town clip GC PR creation blocked on kriscendobot gh credentials; gardener worker-kind alias retirement awaiting legacy state reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -100,6 +100,116 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Once you answer (or say "build on the recommended defaults"), the implementation is queued: successor build job `ironhorse-computron-benchmark-baseline-build-exec` is parked on the plan queue owning steps 2–8, ready to promote. Nothing is lost.
 
+- `msg-triage-halted-gauntlets-20260916-d6b4e6e396b6` — from gardener:triage-halted-gauntlets-20260916, reply_to `triage-halted-gauntlets-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-triage-halted-gauntlets-20260916-d6b4e6e396b6.md)
+
+> # Triage: five halted gauntlets/orchestrations (parked early Sept)
+>
+> Per-item disposition below. I checked each PR's live state + CI *now* and the actual
+> stage records; I did **not** re-post anything. TL;DR: items 1 & 2 were transient
+> (capacity-crunch) halts on now-green PRs — cheap re-posts; items 3 & 4 are real
+> non-transient failures that must be **re-scoped**, not retried; item 5 has already
+> partly landed and needs re-anchoring, not a restart.
+>
+> Common context: items 1 & 2 both doomed 2026-09-03/04 with
+> `doom_signature=requeue-exhausted`, `requeue_cycles=5`, `deadline_overruns=0`,
+> `elapsed_constancy_confirmations=1` — i.e. the handler never overran its own
+> deadline; it was requeued 5x without progress and exhausted. That window is the
+> known capacity/quota outage (temp API key ~1 day around 09-04). `deadline_overruns=0`
+> plus that window means these are **transient infra** halts, not work failures — the
+> `failure_classification=unknown` only means the reaper couldn't *prove* it at the time.
+>
+> ---
+>
+> ## 1. sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean — [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/issues/1013)
+> - **Premise: LIVE.** [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/issues/1013) (`design: relative routing…`, head
+>   `design/relative-routing`) is OPEN, not merged, not superseded. **CI is now ALL GREEN**
+>   (build/lint/test/browser-tests/zizmor).
+> - **Halt: TRANSIENT** (capacity crunch, see common context; no deadline overrun).
+> - The `clean` stage is idempotent — step 1 short-circuits to `clean=done` when CI is
+>   green at head, and this is a design-doc PR so the coverage pass is a no-op anyway.
+> - **→ RE-POST as-is** (no header change). It will idempotently no-op and let the sweep
+>   gauntlet advance. Near-zero cost.
+>
+> ## 2. build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2 — [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81)
+> - **Premise: LIVE but STALE.** [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81) (`Build: capability-first
+>   guest onboarding — browser core slice`) OPEN draft, CI `test` green, **not superseded**
+>   (its parent design [kriscendobot/minion.town#56](https://github.com/kriscendobot/minion.town/issues/56) merged 09-02; adjacent open work
+>   [kriscendobot/minion.town#80](https://github.com/kriscendobot/minion.town/issues/80) / [kriscendobot/minion.town#82](https://github.com/kriscendobot/minion.town/issues/82) / [kriscendobot/minion.town#95](https://github.com/kriscendobot/minion.town/issues/95)
+>   doesn't replace it). But it's untouched since 2026-09-02 (~2 weeks) and the browser-core
+>   slice was noted as blocked on the Endo guest-native invite/accept dependency.
+> - **Halt: TRANSIENT** (same capacity crunch).
+> - Caution: this stage carries `handler-timeout=10800` (a full ~3h, 29-seat panel) —
+>   exactly the expensive-panel churn the credit investigation flagged.
+> - **→ RE-POST panel-2, but confirm the premise first.** Deciding question: *is the
+>   [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81) browser-core slice still the intended live path, or is it
+>   parked pending Endo guest-native invite/accept?* If still live → re-post
+>   (transient-safe). If it's waiting on that dependency → keep it parked (DROP the stage)
+>   rather than burn a 3h panel on a slice that can't merge yet.
+>
+> ## 3. ebfb-exo-stream-drop-base64-stream-methods-gauntlet — [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100)
+> - **Premise: LIVE** (OPEN draft, not merged, not superseded).
+> - **Halt: REAL failure, NOT transient.** fix-2 correctly declared `orchestration-failed`.
+>   CI is RED (confirmed still red now: lint + test FAILURE on every leg) from **base
+>   drift**: this PR migrated `@endo/exo-stream` `stringLengthLimit`→`byteLengthLimit`,
+>   but current `llm`'s `packages/9p-server/src/server.js` still calls the removed
+>   `stringLengthLimit` API (3 sites). GitHub tests the merge ref, so llm's stale call
+>   site + this PR's renamed type = tsc + runtime failures. A plain gauntlet re-post would
+>   re-fail identically.
+> - **→ RE-SCOPE: weave / pin-the-merge-base of [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) onto current
+>   `llm`**, resolving the `9p-server` `stringLengthLimit`→`byteLengthLimit` conflict
+>   (semantic port, not just a rename; branch was ~360 commits behind), *then* resume the
+>   gauntlet from fix. This is the successor fix-2 already named.
+>
+> ## 4. build-minion-town-claude-harness-provisioning-gauntlet — [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99)
+> - **Premise: LIVE and healthy.** [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99) (`feat(deploy): provision
+>   pinned Claude harness`) OPEN draft, **mergeable=CLEAN, CI ALL GREEN** (Claude harness
+>   amd64/arm64 + test), updated 09-09.
+> - **Halt: NOT a work failure** — hit `max_iterations=6`. Every panel round 1–6 returned
+>   must-fix; fix-6 achieved green and folded polish (locksmith/saboteur should-fix). The
+>   29-seat panel structurally always surfaces fresh nits (and own-PR request-changes
+>   downgrades to a comment), so it never emits `pass`. This is precisely the "iteration
+>   6/6 churn" cost multiplier the credit investigation named.
+> - **→ RE-SCOPE: stop the panel loop.** The code is green + mergeable; another 6-round
+>   loop would just grind more nits and cap again. Deciding question: *are the recurring
+>   panel must-fixes real merge-blockers, or diminishing polish on already-green,
+>   mergeable code?* If diminishing (which the fix-6 folded items suggest), route to a
+>   final maintainer review → un-draft/merge rather than re-running the gauntlet.
+>
+> ## 5. minion-town-clipometer-esbuild-orchestration — HALTED, "0/4 children done"
+> - **The halt record is stale.** It recorded child 1 (`…-pipeline`) stalling 2501s vs
+>   `handler-timeout=2400s`. But child 1 **subsequently recovered on a reaper requeue and
+>   completed** — draft PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) (`CLIPOMETER on real @endo/captp +
+>   esbuild pipeline`) is OPEN, CI green. Its own gauntlet reached panel-3 and was then
+>   **archived 09-05 by the liaison during a fleet drain** ("archive all scheduled
+>   gauntlets during the drain"), which is why [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) never un-drafted.
+>   So the true state is: **child 1 done (PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)), children 2–4
+>   still parked.** This is drain-parked, not failed.
+> - The 2501s>2400s overrun is real but was non-fatal (requeue recovered it). Child 2
+>   (`…-validate`) is heavier than child 1 — it does a full build + **live publish to prod
+>   + two-window Playwright** validation — so the budget matters more there.
+> - **→ RE-SCOPE (do not restart from child 1):**
+>   1. Re-anchor the orchestration to **resume at child 2** (`minion-town-clipometer-esbuild-validate`);
+>      child 1's deliverable (PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)) already exists.
+>   2. Give child 2 a raised budget: **`handler-timeout: 3600`** (validate's build+publish+
+>      dual-browser run exceeds child 1's 2501s at the 2400 default).
+>   3. Note child 2 needs the **real guest MCP identity** (not the disposable
+>      `minion-mcp-test-cc`) for the canonical publish — child 1's report flags that if the
+>      job env lacks it, that publish step hands to the liaison/maintainer.
+>   - Deciding question: *is the live-CLIPOMETER-replacement still wanted (dckc's 09-03
+>     directive), and should [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s archived gauntlet be un-archived
+>     to un-draft it?*
+>   - Also unresolved from child 1: the published `@endo/patterns@2.0.0` /
+>     `@endo/marshal@1.10.0` npm version inconsistency (worked around by vendoring
+>     `iterate-reader.js`) — child 2's live run is the checkpoint that confirms the vendored
+>     approach works against the real daemon.
+>
+> ---
+> **Summary:** 1 → RE-POST (no change). 2 → RE-POST panel-2 *iff* premise confirmed live,
+> else DROP the stage. 3 → RE-SCOPE to a weave/pin-merge-base then resume. 4 → RE-SCOPE:
+> stop the loop, human review → un-draft (green+mergeable). 5 → RE-SCOPE: resume at child 2
+> with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
+> promoted/re-posted nothing.
+
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #87 (first seen 2026-09-04T00:20:48Z, latest 2026-09-04T22:05:22Z).
@@ -162,28 +272,27 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.5M | $411.75 _(notional, rate-card)_ | 33% of 143.0M (ok) |
-| Codex | 7.3M _(+183.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 46.7M | $408.33 _(notional, rate-card)_ | 33% of 143.0M (ok) |
+| Codex | 7.3M _(+183.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`minion-town-reminder-daemon-redeploy-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-reminder-daemon-redeploy-20260916.md) — ---
 - [`credit-controls-fail-closed-pools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-fail-closed-pools.md) — ---
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1283
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1283
-- [`fix-canary-drain-self-exclusion-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-canary-drain-self-exclusion-20260916.md) — ---
-- [`triage-halted-gauntlets-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/triage-halted-gauntlets-20260916.md) — ---
+- [`endojs-endo-but-for-bots-pr1281-review-b373c832`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1281-review-b373c832.md) — Review directive on endojs/endo-but-for-bots PR #1281
 
-### tada (7938)
+### tada (7940)
+- [`triage-halted-gauntlets-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/triage-halted-gauntlets-20260916.md) — Completion report
+- [`fix-canary-drain-self-exclusion-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-canary-drain-self-exclusion-20260916.md) — Completion report
 - [`ironhorse-computron-benchmark-baseline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline.md) — orchestration ironhorse-computron-benchmark-baseline — complete
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-clean.md) — Completion report
 - [`ironhorse-computron-benchmark-baseline-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build.md) — Completion report
-- [`foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/foreman-partial-unquiesce-target-2.md) — Cost
-- [`ironhorse-computron-benchmark-baseline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-design.md) — Completion report
-- … and 7933 more
+- … and 7935 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -508,6 +617,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1125-3193517b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-3193517b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-review-a74698d6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1282-d101dbfb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1282-d101dbfb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1282 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1281-review-b373c832-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1281-review-b373c832-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1281 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
