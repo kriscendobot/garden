@@ -268,6 +268,18 @@ Capper can mint application-level webkeys, while Sandstorm wants the platform to
 
 - [cap-talk-2013-2016--capper-credentials-persistence-and-module-authority](../sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md)
 
+### 43. Is "defensive correctness up to resource exhaustion" usefully stricter than mere cooperative progress?
+
+The July 2009 "controversial article" thread sharpens the gap between *defensive consistency* (no client can make a server give incorrect service to another — a safety property object-capability languages deliver by construction) and *defensive correctness* (consistency plus: no client can *prevent* correct service to another — a liveness/availability property). Full correctness is unattainable for co-located clients (one can loop forever or exhaust memory) and impossible over an unreliable network "almost by definition"; Miller offers a ladder of practical approximations, the load-bearing one being *defensive correctness up to resource exhaustion*, in which non-termination is folded into "resource exhaustion" and the standard reduces to a conventional liveness requirement. Miller explicitly declines to settle whether this standard is *usefully* stricter than plain cooperative progress ("we leave [it] to the judgement of the reader"), and the related question — whether E's unbounded message-buffering requirement means sender-side buffering is better for correctness — is raised and left open.
+
+- [cap-talk-2009-2012--defensive-correctness-versus-consistency](../sections/cap-talk-2009-2012--defensive-correctness-versus-consistency.md) - the two definitions, why full correctness is not free (co-location, unreliable networks), and Miller's ladder of practical approximations.
+
+### 44. Can ambient user authority be eliminated, or only reduced and rationed?
+
+The December 2009 "Reducing Ambient user authority" thread proposes an OS with an install-time authority manifest, no command line (so no string→filename→capability resolution under ambient user authority), and an App→User→Group→Everyone escalation ladder with consent prompts. The reviewers press on the gap the thread's own title concedes — *reduce*, not *eliminate*. Two residues resist elimination: the escalation *consent prompt* is a human decision surface that "always allow" trains users to click through (ambient authority with extra steps), and *per-user application settings* keep an identity-indexed component — authority that follows the user rather than a designated reference, which is ambient by the designation criterion the June 2009 thread settled on. Whether an install-manifest-plus-escalation model genuinely removes ambient user authority or merely relocates and rations it is left unresolved.
+
+- [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](../sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md) - the manifest, the console-free design, the escalation ladder, and the reduce-vs-eliminate critique.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
