@@ -38,3 +38,13 @@ those two years belongs here too.
 
 NOTE: the post-2016 Google Groups home is a JS SPA whose message bodies are not
 fetchable from the sandbox; flag that gap if reached.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T16:09:50Z
