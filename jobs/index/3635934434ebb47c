@@ -1,2 +1,2 @@
-base: improve-mirror-closer-primary-quota-circuit-breaker
+base: improve-mirror-closer-quota-cooldown
 identity: mentor:scripts/jobs/mirror-closer.sh
