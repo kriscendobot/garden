@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T17:21:02Z_
+_As of 2026-09-16T17:21:46Z_
 
 ## Latest
 
@@ -535,23 +535,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.7M _(+247.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 9.7M _(+247.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
-- [`scholar-ingest-cap-talk-2003-sep-oct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2003-sep-oct.md) — Ingest the deferred cap-talk 2003-September and 2003-October sections
 
-### tada (8023)
+### tada (8024)
+- [`scholar-ingest-cap-talk-2003-sep-oct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2003-sep-oct.md) — Cost
 - [`scholar-ingest-cap-talk-2000-2003-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003-remainder.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1281-b2a4cb13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-b2a4cb13.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-1a26d38f8064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-1a26d38f8064.md) — rolling-deploy canary probe — round trip OK
 - [`improve-producer-draft-gate-feedback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-producer-draft-gate-feedback.md) — Cost
-- [`scholar-cap-talk-cdx-completeness-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-cap-talk-cdx-completeness-2000-2003.md) — Completion report: scholar-cap-talk-cdx-completeness-2000-2003
-- … and 8018 more
+- … and 8019 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
