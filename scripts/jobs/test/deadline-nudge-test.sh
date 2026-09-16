@@ -295,6 +295,28 @@ else
   bad 'journal-sync exhaustion was opaque or exceeded its retry bound'
 fi
 
+stage_stub="$HERE/deadline-nudge-stage-git-stub.sh"
+stage_stub_bin="$TEST_ROOT/stage-stub-bin"
+mkdir -p "$stage_stub_bin"
+ln -s "$stage_stub" "$stage_stub_bin/git"
+add_claim_at_tip stage-fault 300
+run_nudge stage-fault-scan env PATH="$stage_stub_bin:$PATH" \
+  GARDEN_NUDGE_REAL_GIT="$real_git" GARDEN_NUDGE_STAGE_FAIL=1 \
+  GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=2 \
+  > "$TEST_ROOT/stage-fault.out" 2>&1
+stage_fault_rc=$?
+stage_fault_clone="$STATE/stage-fault-scan/journal"
+stage_fault_orphans="$(find "$stage_fault_clone/inbox/stage-fault" -name 'deadline-nudge-*.md' 2>/dev/null | wc -l)"
+if [ "$stage_fault_rc" -eq 0 ] \
+  && [ -z "$(nudge_paths stage-fault)" ] \
+  && grep -q 'staging stage failed (rc=' "$TEST_ROOT/stage-fault.out" \
+  && ! grep -q 'failed locally' "$TEST_ROOT/stage-fault.out" \
+  && [ "$stage_fault_orphans" -eq 0 ]; then
+  ok 'staging failure is stage-named, discards partial writes, leaves the board unchanged, and fails open'
+else
+  bad "staging failure was opaque, escaped fail-open, or left partial writes (rc=$stage_fault_rc orphans=$stage_fault_orphans)"
+fi
+
 race_stub="$HERE/deadline-nudge-race-push-stub.sh"
 add_claim_at_tip claim-race 300
 old_claimed_at="$(tip_show jobs/doin/claim-race.md | sed -n 's/^  claimed_at: //p')"

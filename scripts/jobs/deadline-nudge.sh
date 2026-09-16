@@ -35,6 +35,10 @@ prepare_clone() {
     rc=0
     ( ensure_clone "$DIR" ) || rc=$?
     [ "$rc" -eq 0 ] && return 0
+    if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+      log "deadline-nudge clone stage skipped: journal offline (rc=$rc); deferring to next timer tick"
+      return "$rc"
+    fi
     log "deadline-nudge clone stage failed (attempt $attempt/$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS, rc=$rc)"
     [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS" ] || backoff "$attempt"
   done
@@ -50,6 +54,13 @@ sync_journal() {
     if [ "$rc" -eq 0 ]; then
       clone_lock "$DIR"
       return 0
+    fi
+    # A connectivity blip is a routine transient, not a stage fault to retry or
+    # surface as exhausted: sync_clone already logged the outage and exits
+    # EX_TEMPFAIL. Defer this tick cleanly rather than spinning the retry bound.
+    if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+      log "deadline-nudge journal-sync stage skipped: journal offline (rc=$rc); deferring to next timer tick"
+      return "$rc"
     fi
     log "deadline-nudge journal-sync stage failed (attempt $attempt/$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS, rc=$rc)"
     [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS" ] || backoff "$attempt"
@@ -137,7 +148,7 @@ stage_due_messages() {
   local campaign campaign_budget campaign_spend campaign_remaining campaign_json
   local quota_status quota_spend quota_budget quota_remaining quota_refresh_at quota_reset_epoch
   local provider_quota provider_quota_type provider_quota_reset
-  local job_quota_status job_quota_refresh
+  local job_quota_status job_quota_refresh add_rc
 
   IFS=$'\t' read -r quota_status quota_spend quota_budget quota_remaining < <(quota_facts)
   quota_reset_epoch="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
@@ -289,7 +300,12 @@ stage_due_messages() {
       printf 'An unfinished deliverable must never claim clean completion. After the successor or orchestration is durably posted, report what is complete and what remains, then end with `<<<GARDEN-JOB-HANDED-OFF: <successor-base-or-orch>>>` immediately before the completion signal. '
       printf '%s\n' 'That records `handed-off:` and `deliverable-complete: false`; without a durable named successor the handoff is rejected.'
     } > "$DIR/$message_path"
-      git -C "$DIR" add "$message_path"
+      add_rc=0
+      git -C "$DIR" add "$message_path" || add_rc=$?
+      if [ "$add_rc" -ne 0 ]; then
+        log "deadline-nudge staging stage failed: git add '$message_path' (rc=$add_rc)"
+        return 1
+      fi
       staged=$((staged + 1))
     fi
     if [ "$checkpoint_missing" -eq 1 ]; then
@@ -306,7 +322,12 @@ stage_due_messages() {
         printf 'Final checkpoint: %s second(s) remain. Commit and push safe WIP NOW; uncommitted work is invisible across a cross-host requeue. ' "$remaining"
         printf '%s\n' 'Then either finish honestly or use the evidenced handoff disposition from the earlier nudge. Never claim clean completion for unfinished work.'
       } > "$DIR/$checkpoint_path"
-      git -C "$DIR" add "$checkpoint_path"
+      add_rc=0
+      git -C "$DIR" add "$checkpoint_path" || add_rc=$?
+      if [ "$add_rc" -ne 0 ]; then
+        log "deadline-nudge staging stage failed: git add '$checkpoint_path' (rc=$add_rc)"
+        return 1
+      fi
       staged=$((staged + 1))
     fi
   done < <(list_jobs "$DIR" "$JOBS_DOIN")
@@ -315,7 +336,7 @@ stage_due_messages() {
 }
 
 deadline_nudge_tick() {
-  local now attempt rc
+  local now attempt rc stage_rc
   for value in "$GARDEN_DEADLINE_NUDGE_INTERVAL" "$GARDEN_DEADLINE_NUDGE_FRACTION" \
                "$GARDEN_DEADLINE_NUDGE_CAP" "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" \
                "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS" "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS"; do
@@ -330,35 +351,78 @@ deadline_nudge_tick() {
     return 0
   fi
 
-  prepare_clone
+  # Each stage below captures its own status explicitly rather than running bare
+  # under `set -e`. A bare stage call lets a single transient failure escape the
+  # courtesy-timer retry path, aborting the whole tick with only an opaque
+  # top-level rc and no indication of WHICH stage broke — the "repeated rc=1
+  # without the failing stage" symptom. The clone lock that sync_journal leaves
+  # held for the write/push transaction is released on every exit path (each
+  # early return here plus the subshell's EXIT trap backstop below).
+
+  # Clone stage. prepare_clone runs its own bounded retry and logs the
+  # stage-specific outcome; a failure here means no usable clone, so defer.
+  if ! prepare_clone; then
+    return 0
+  fi
+
   for attempt in $(seq 1 "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS"); do
-    sync_journal
+    # Journal-sync stage. sync_journal reacquires the clone lock on success and
+    # logs its own stage-specific failure; defer the tick when it cannot sync.
+    if ! sync_journal; then
+      return 0
+    fi
     if ! nudge_enabled; then
       clone_unlock "$DIR"
       return 0
     fi
+    # Staging stage. stage_due_messages checks the status of every fallible
+    # write itself (the git-add of each queued warning) and returns non-zero
+    # with a stage-named diagnostic rather than leaning on `set -e` — which is
+    # unreliable that deep inside the function (nested command substitutions
+    # suspend it). Capture that status explicitly so a transient staging fault
+    # fails the tick open instead of silently under-staging or surfacing only an
+    # opaque top-level rc.
     STAGED_NUDGES=0
-    stage_due_messages "$now"
+    stage_rc=0
+    stage_due_messages "$now" || stage_rc=$?
+    if [ "$stage_rc" -ne 0 ]; then
+      log "ERROR: deadline-nudge staging stage failed (rc=$stage_rc); discarding partial writes and deferring to next timer tick"
+      # A mid-loop failure can leave earlier warnings written+staged (uncommitted)
+      # and the failed one written-but-untracked. Left behind, next tick's
+      # existence check would treat those files as already delivered and skip
+      # them forever. Reset the private clone to its synced tip and sweep the
+      # untracked inbox writes so the next tick recomputes and re-delivers every
+      # still-due warning cleanly. This clone is the scanner's own and lock-held.
+      git -C "$DIR" reset -q --hard 2>/dev/null || true
+      git -C "$DIR" clean -qfd inbox 2>/dev/null || true
+      clone_unlock "$DIR"
+      return 0
+    fi
     if [ "$STAGED_NUDGES" -eq 0 ]; then
       clone_unlock "$DIR"
       return 0
     fi
+    # Push stage. commit_and_push releases the clone lock on every path.
     rc=0
     commit_and_push "$DIR" "deadline-nudge: queue $STAGED_NUDGES warning(s) from $GARDEN" || rc=$?
     case "$rc" in
       0) log "queued $STAGED_NUDGES deadline nudge(s)"; return 0 ;;
       2) return 0 ;;
     esac
-    log "deadline-nudge push lost a race (attempt $attempt); recomputing claims"
+    log "deadline-nudge push stage lost a race (attempt $attempt/$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS); recomputing claims"
     [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" ] || backoff "$attempt"
   done
+  log "ERROR: deadline-nudge push stage exhausted after $GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS attempt(s); deferring to next timer tick"
   return 1
 }
 
 # Courtesy delivery fails open. Clone, fetch, parse, commit, and exhausted-push
 # failures stay local and the oneshot exits successfully for the next timer tick.
+# The EXIT trap guarantees the clone lock is released whichever path (a clean
+# return or a `set -e` abort) ends the tick subshell; clone_unlock is a no-op
+# when no lock is held, so it is safe on every exit.
 tick_rc=0
-( deadline_nudge_tick ) || tick_rc=$?
+( trap 'clone_unlock "$DIR"' EXIT; deadline_nudge_tick ) || tick_rc=$?
 if [ "$tick_rc" -ne 0 ]; then
   log "WARN: deadline nudge tick failed locally (rc=$tick_rc); next timer tick will retry"
 fi
