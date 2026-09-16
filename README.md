@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T22:54:09Z_
+_As of 2026-09-16T22:54:39Z_
 
 ## Latest
 
@@ -631,18 +631,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1290-review-fe19b903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-review-fe19b903.md) — Review directive on endojs/endo-but-for-bots PR #1290
 - [`review-improve-architectural-boundary-ownership`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-architectural-boundary-ownership.md) — Improve review of architectural boundary ownership
-- [`endojs-endo-but-for-bots-pr1018-review-eccc706c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-review-eccc706c-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1018 (primary: endojs-endo-but-...
 
-### tada (8083)
+### tada (8084)
+- [`endojs-endo-but-for-bots-pr1018-review-eccc706c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-review-eccc706c-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1059-1e30a92e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1059-1e30a92e-retro.md) — Completion report
 - [`kriscendobot-minion.town-pr66-review-21dce903-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr66-review-21dce903-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1015-review-6a83ee90-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-review-6a83ee90-retro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr858-review-8add9193-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-8add9193-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1072-review-c8a0f42b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-c8a0f42b-retro.md) — Cost
-- … and 8078 more
+- … and 8079 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
