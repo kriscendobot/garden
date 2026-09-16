@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T06:32:46Z_
+_As of 2026-09-16T06:35:46Z_
 
 ## Latest
 
-Panel stages wrapped for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (design: `M.choose`) and the Ironhorse computron benchmark baseline build; both now in fix/build phases. Maintainer inbox surfaced five halted gauntlets from early September (capacity-crunch transients vs. real rework gaps—triage report filed), plus three open decision points: the Ironhorse benchmark regime's 6 open questions (seed roster, tolerance bands, gate-2 cadence), whether to re-post the minion.town guest-onboarding panel (still waiting on Endo guest-native dependency), and how to handle the daemon revival migration path (non-migration proposed; @endo/reminder stays unconfined/VFS-persistent per the redesign). One fleet host (oros-studio) still runs legacy gardener workers and blocks the gardener-kind alias retirement—requires migration or a defer decision. Spend holding at 35% of Claude quota; codex at 24% of plan.
+Design gauntlet for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283) (Ironhorse computron benchmark baseline) is in fix-2; the builder has completed its audit and is holding, awaiting maintainer answers to six open questions on parameters and scope. Five halted early-September gauntlets triaged with clear disposition — [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/issues/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81) were transient capacity halts (re-postable), [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100), [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99), and clipometer need real re-scoping. Minion-town overnight clip is ready for publication (OAuth + token needed); reminder daemon issue decoupled from upgrade to a VFS-persistent plugin approach.
 
 ## Parked for maintainer feedback
 
@@ -306,15 +306,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.5M | $418.71 _(notional, rate-card)_ | 35% of 143.0M (ok) |
+| Claude | 49.7M | $420.03 _(notional, rate-card)_ | 35% of 143.0M (ok) |
 | Codex | 7.4M _(+186.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1283
 
