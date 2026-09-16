@@ -70,3 +70,13 @@ Note: `bundle-xs-worker.mjs` also writes THROWING STUBS for any absent
 job -- it is load-bearing for `ci.yml`'s `build-xsnap`, and it is the
 subject of the separate parked job
 `ebfb-llm-xs-daemon-bundle-reconcile`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T11:09:20Z
