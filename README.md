@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:10:48Z_
+_As of 2026-09-16T16:11:22Z_
 
 ## Latest
 
@@ -54,6 +54,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260916T152425Z-b02283` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260916T152425Z-b02283.md)
 
 > awaiting maintainer — beyond proxy authority: gardener ironhorse-computron-benchmark-baseline-build-exec, msgid msg-ironhorse-computron-benchmark-baseline-build-exec-f0d0671cb73a.md — Lifting the repository-wide IronHorse pause (COMMON.md, maintainer directive kumavis 2026-09-09, [endojs/endo-but-for-bots#91](https://github.com/endojs/endo-but-for-bots/issues/91)) and approving a design over unresolved must-fix panel findings are maintainer-reserved authority grants, not proxiable progress questions.
+
+- `msg-scholar-ingest-cap-talk-2000-2003-15fa221ad9f5` — from scholar:scholar-ingest-cap-talk-2000-2003, reply_to `scholar-ingest-cap-talk-2000-2003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2000-2003-15fa221ad9f5.md)
+
+> Scholar ingest: cap-talk 2000-2001 (10 sections, source-index library/sources/cap-talk-2000-2001.md). A faithful first pass of the 2000-2003 era, oldest-first. Highlights: the capability-representation taxonomy (partitioned/tagged/password) and how it decides confineability; Shapiro's SW-model vs E's observable-immutability confinement; Landau's "a capability is behavior, not an object reference"; Miller's landmark "two threads of capability thinking" (OS/Lampson vs lambda-calculus) and the off-line-representation-vs-on-line-protocol distinction behind CapTP; and the 2001 SPKI-is-only-approximately-a-capability-system debate. Added two open questions (is SPKI a capability system; is the resume-key security or bug-catching) and grew the Endo provenance file. The 2002-2003 Miller-paper era (Capability Myths Demolished / Paradigm Regained) is posted as follow-on scholar-ingest-cap-talk-2002-2003. Result entry: entries/2026/09/16/161004Z-result-scholar-3dda12.md. Acquisition note: archive.org's availability API was rate-limiting; the reliable path was CDX-enumerate then direct id_ fetch.
 
 - `msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a` — from gardener:verify-foreman-partial-unquiesce-target-2, reply_to `verify-foreman-partial-unquiesce-target-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a.md)
 
@@ -525,7 +529,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.0M _(+227.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 9.1M _(+227.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
