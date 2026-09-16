@@ -155,6 +155,7 @@
 | [Cloudflare Artifacts repository model and durability](../sections/web--cloudflare-artifacts-docs--product-scope-repository-unit-and-durability.md) | agent-workspaces, cloudflare-workers-agent-hosting, content-addressed-storage | Artifacts makes an isolated, durably replicated Git repository the unit of agent work and lifecycle. |
 | [Artifacts Git, REST, and Worker surfaces](../sections/web--cloudflare-artifacts-docs--git-compatibility-and-programmatic-surfaces.md) | cloudflare-workers-agent-hosting, content-addressed-storage, capability-security | Git-over-HTTPS is the full repository data path; REST and the Worker binding expose different control and read subsets. |
 | [Worker-side Artifacts mutation with isomorphic-git](../sections/web--cloudflare-artifacts-docs--worker-side-mutation-with-isomorphic-git.md) | cloudflare-workers-agent-hosting, agent-workspaces, content-addressed-storage | Workers edit an ephemeral filesystem through isomorphic-git, then commit and push durable state to Artifacts. |
+| [sha1-key-fingerprint-threat-model](../sections/cap-talk-2002-2003--sha1-key-fingerprint-threat-model.md) | cap-talk 2003-September | Historical fingerprint reasoning shows that digest security depends on the structured object being named and attacker control over its encoding. |
 
 ## See also
 
