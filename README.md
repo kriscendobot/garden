@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:03:27Z_
+_As of 2026-09-16T11:05:28Z_
 
 ## Latest
 
-Gauntlet triage completed: [endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) are safe transient re-posts; [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) requires a weave/pin-merge-base to resolve base drift (semantic port of `stringLengthLimit`→`byteLengthLimit` in 9p-server); [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green/mergeable so panel loop should stop for human review rather than burn another 6 rounds; [minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration recovered child 1 but needs re-anchoring at child 2 with raised budget. Three maintainer-gated decisions awaiting: Ironhorse benchmark regime open questions (tolerance bands, PR/nightly gating, seed roster, baseline policy); weave-1100 in jobs/plan (deadline overrun, held); credit-controls orchestration halted on child 3 (stale-PR viability gate timeout). Reminder daemon revival blocked on missing schema migration for legacy `host.registry`. Minion-town dckc powers-weblet audit complete—both uncatalogued records inert (validator poison-pill on `powers` field), no action needed. Foreman partial-unquiesce verified locally. Budget leveler raised monk count to 3 on leader host. Design-slots-ocapn-op-lanes job completed.
+Sturdyref stack modernization completed; the rebase of [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) is now in flight. Five early-September halted gauntlets triaged: two were transient capacity-crunch halts (cheap re-posts); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit real base drift requiring a weave/pin-merge-base; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green+mergeable but panel-loop churn suggests stopping the loop for human review; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) child-1 already done but children 2–4 stalled by drain. Ironhorse computron benchmark-baseline design landed with six open questions; audit shows no surviving own-cost constraint to meter. Infrastructure: minion.town daemon state revival failed on schema mismatch (legacy `host.registry` missing), reverting to old pin; clip-publishing blocked on MCP OAuth; host migration incomplete (oros-studio still on legacy gardener worker kind); weave-ebfb-1100 hit timeout after 2400s wall-clock and parked for manual promotion.
 
 ## Parked for maintainer feedback
 
@@ -400,7 +400,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.6M | $459.14 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Claude | 58.6M | $456.66 _(notional, rate-card)_ | 41% of 143.0M (ok) |
 | Codex | 7.8M _(+197.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
@@ -408,15 +408,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (1)
-- [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-stack-modernize.md) — The situation
+- [`ebfb-sturdyref-rebase-pr774-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-rebase-pr774-20260916.md) — Shared context (sturdyref stack modernization, orchestration ebfb-sturdyref-s...
 
-### tada (7988)
+### tada (7989)
+- [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-modernize.md) — Completion report — ebfb-sturdyref-stack-modernize
 - [`design-slots-ocapn-op-lanes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-slots-ocapn-op-lanes.md) — Cost
 - [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/implement-worktree-teardown-on-job-completion.md) — Cost
 - [`design-endor-git-windows-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endor-git-windows-followup.md) — Completion report
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-stale-pr-viability-gate.md) — Cost
-- [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/verify-foreman-partial-unquiesce-target-2.md) — Cost
-- … and 7983 more
+- … and 7984 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
