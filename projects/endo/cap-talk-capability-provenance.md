@@ -1,6 +1,6 @@
 # cap-talk provenance for Endo's capability model
 
-> Abstract: What the cap-talk mailing-list archive (founded 1998 by Jonathan Shapiro of EROS) says that bears directly on Endo's design and open questions. Endo is an object-capability platform; several of its load-bearing patterns, including caretaker revocation, connectivity discipline, distributed capability transport, durable retention, and refusal to designate authority by identity, were argued out on cap-talk years before they were formalized in the Miller papers Endo cites. This file flags the concrete connections so an Endo contributor can reach the primary sources from the project tree, not only from the library. Sources live under [`../../library/sources/cap-talk-1998.md`](../../library/sources/cap-talk-1998.md) and [`../../library/sources/cap-talk-1999.md`](../../library/sources/cap-talk-1999.md).
+> Abstract: What the cap-talk mailing-list archive (founded 1998 by Jonathan Shapiro of EROS) says that bears directly on Endo's design and open questions. Endo is an object-capability platform; several of its load-bearing patterns, including caretaker revocation, connectivity discipline, distributed capability transport, durable retention, eventual send, powerboxes, and refusal to designate authority by identity, were argued out on cap-talk years before or while they were formalized in the Miller and Close papers Endo cites. This file flags the concrete connections so an Endo contributor can reach the primary sources from the project tree, not only from the library. The era indexes run from [`../../library/sources/cap-talk-1998.md`](../../library/sources/cap-talk-1998.md) through [`../../library/sources/cap-talk-2004-2008.md`](../../library/sources/cap-talk-2004-2008.md).
 
 ## Revocation: destroyable indirection is the caretaker
 
@@ -73,4 +73,33 @@ Miller's July 2001 "two threads" history places the object-capability model Endo
 - [`../../library/sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md`](../../library/sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md)
 - [`../../library/sections/cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md`](../../library/sections/cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md)
 
-Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, and `scholar-ingest-cap-talk-2000-2003` (2026-09-16), founding-era and 2000-2001 slices.
+## CapDesk and Polaris: dynamic authority at desktop scale
+
+The 2004 discussion is the live workshop around *The Structure of Authority*: Shapiro's non-transferability/confinement doubts do not invalidate POLA, while the CapDesk demonstration makes just-in-time authority legible to practitioners who had rejected the abstract argument. The 2005 shatter-attack thread then shows the hard engineering boundary. A shared GUI message channel lets a low-authority application drive a high-authority PowerBox unless Polaris mediates or removes it.
+
+- [`../../library/sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md`](../../library/sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md)
+- [`../../library/sections/cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md`](../../library/sections/cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md)
+
+## Web-keys and petnames: designation, authority, and human meaning
+
+Endo's sturdy references inherit the web-key split: an unguessable reference supplies secure designation and authorization, but it does not supply a human-recognizable relationship name. Petnames layer user-controlled meaning over the reference through a trusted path. The 2008 web-key thread also supplies the application caveat that Close later formalizes: delegation, revocation, and persistent restoration must be explicit, and an ACL-shaped application can recreate a confused deputy on an ocap substrate.
+
+- [`../../library/sections/cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing.md`](../../library/sections/cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing.md)
+- [`../../library/sections/cap-talk-2004-2008--petname-toolbar-as-trusted-path.md`](../../library/sections/cap-talk-2004-2008--petname-toolbar-as-trusted-path.md)
+- [`../../library/sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md`](../../library/sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md)
+- [`../../library/sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md`](../../library/sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md)
+
+## Eventual references and the named pattern lineage
+
+Waterken's `ref_send` is a direct Java-library ancestor of Endo's eventual-send surface: sends return promises, permit pipelining, and carry failure through the reference protocol. The 2008 historical inventory then names the wider reusable family Endo draws on: sealers/trademarks, revocable forwarders/caretakers, membranes, powerboxes, and eventual references.
+
+- [`../../library/sections/cap-talk-2004-2008--ref-send-eventual-reference-api.md`](../../library/sections/cap-talk-2004-2008--ref-send-eventual-reference-api.md)
+- [`../../library/sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md`](../../library/sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md)
+
+## Persistence does not erase partial failure
+
+The 2008 persistence exchange reinforces the earlier transaction lesson. A durable reference graph and causally consistent checkpoints do not tell a caller whether an unacknowledged operation happened. Endo's durable promises, formulas, and vats still need explicit retry and idempotency semantics. A persisted project must restore actual references through a PowerBox-like trusted mechanism rather than turn them into editable ambient names.
+
+- [`../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md`](../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
+
+Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, and `scholar-ingest-cap-talk-2004-2008` (2026-09-16), through the representative 2004-2008 slice.
