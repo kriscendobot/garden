@@ -35,6 +35,7 @@ TASK:
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
