@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:24:41Z_
+_As of 2026-09-16T13:26:26Z_
 
 ## Latest
 
-Claude-on-minion.town's completion press landed. The triage of five halted gauntlets exposed real failures requiring re-scoping: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) for base-drift weave and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) for premise verification, plus two transient halts ready to re-post. Minion.town clip publishing and guest verification are blocked on infrastructure gaps (missing kriscendobot token, MCP auth, peer-fetch authorization), and the gardener alias retirement is stalled by oros-studio's unmigrated monks. The Ironhorse benchmark baseline, re-export policy ([kriscendobot/garden#95](https://github.com/kriscendobot/garden/pull/95)), and reminder daemon upgrade decisions await your answers.
+Completed triage of five halted gauntlets from early September: two are transient halts safe to re-post ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013), [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81)), two are real failures needing re-scope ([endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) merge-base pin, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) exit panel), and one partly landed requires re-anchoring ([kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)). Multiple builds and design PRs await maintainer decisions: the Ironhorse benchmark ([endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283)) needs answers to six design questions, minion.town's daemon migration dry-run hit a schema compatibility gap, gardener-alias retirement is blocked on an unmigrated third fleet host, and several design PRs ([endojs/endo#3073](https://github.com/endojs/endo/pull/3073), [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [garden#95](https://github.com/kriscendobot/garden/pull/95)) await acceptance or review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 21h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 22h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
@@ -453,23 +453,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.8M | $465.37 _(notional, rate-card)_ | 44% of 143.0M (ok) |
-| Codex | 8.3M _(+208.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 62.9M | $465.48 _(notional, rate-card)_ | 44% of 143.0M (ok) |
+| Codex | 8.3M _(+208.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — ---
+### doin (0)
+(none)
 
-### tada (8005)
+### tada (8006)
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — Cost
 - [`claude-on-minion-town-completion-press-20260916-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-132012.md) — Completion report — Claude-on-minion.town completion press, tick (20260916-13...
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-gauntlet-reexport-policy-check.md) — Completion report
 - [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-peer-fetch-verify.md) — Completion report
 - [`claude-on-minion-town-press-20260916-130520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-130520.md) — Press report — arc issue #89 (Claude on minion.town)
-- [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pass-style-src-naming.md) — Cost
-- … and 8000 more
+- … and 8001 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
