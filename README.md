@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T18:00:58Z_
+_As of 2026-09-16T18:11:29Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 54m)
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 1h)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 1h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
@@ -377,6 +377,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Scholar ingest complete: the 2002-2003 cap-talk Miller-paper era now has an 11-section source index, including direct drafting/reaction around *Capability Myths Demolished*, *Paradigm Regained*, permission versus authority, the four-model precursors, confinement, and non-transferable permissions versus proxyable authority. The completeness pass also recovered five missed 2000-2001 monthly bundles and added two substantive sections on session-scoped web capabilities and one-shot delegation. CDX itself was unavailable (503/connection refusal), so `scholar-cap-talk-cdx-completeness-2000-2003` is posted to retry only the final enumeration gap. Full result: `entries/2026/09/16/162920Z-result-scholar-42cce9.md`.
 
+- `msg-scholar-ingest-cap-talk-2004-2008-remainder-81c78d0da7cf` — from scholar:scholar-ingest-cap-talk-2004-2008-remainder, reply_to `scholar-ingest-cap-talk-2004-2008-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2004-2008-remainder-81c78d0da7cf.md)
+
+> Completed the cap-talk 2004-2008 index: all 59 monthly bundles present in Pipermail are now SHA-256 anchored and surveyed; the index has no 2004-March bundle, and that path returns 404. Added 19 new-theme sections, including the deferred database/query-language material, resource accounting, facets, deep attenuation, Horton, formal pattern analysis, persistent ocaps, ACL coexistence, and browser/CLI leakage boundaries. Grew the open-questions and Endo provenance pages; the integrity gate and regenerated-index checks pass. See the `scholar-ingest-cap-talk-2004-2008-remainder` result entry for the full inventory.
+
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -538,24 +542,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.3M | $474.04 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.1M _(+254.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 64.4M | $478.26 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.1M _(+259.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`scholar-ingest-cap-talk-2004-2008-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2004-2008-remainder.md) — ---
+### doin (1)
 - [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012.md) — Ingest cap-talk: 2009-2012
 
-### tada (8027)
+### tada (8029)
+- [`scholar-ingest-cap-talk-2004-2008-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008-remainder.md) — Cost
+- [`canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008.md) — Cost
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-merge-base-pinning.md) — Cost
-- [`scholar-ingest-cap-talk-2003-sep-oct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2003-sep-oct.md) — Cost
-- [`scholar-ingest-cap-talk-2000-2003-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003-remainder.md) — Completion report
-- … and 8022 more
+- … and 8024 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
