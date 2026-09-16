@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T05:33:06Z_
+_As of 2026-09-16T05:35:48Z_
 
 ## Latest
 
-Foreman investigation complete: the fleet-wide pump quiesce is deliberate (GARDEN_FOREMAN_ACTIVE_TARGET=0, set July 14), not a defect. 124 pre-approved jobs sit in the deferred reservoir awaiting a decision on whether to lift the target and drain the backlog. A durable per-tick decision log shipped to prevent similar blind stalls. Meanwhile, infrastructure has stalled: the rolling deploy's canary (endolin-garden2) is stuck, the root repo deploy hasn't advanced in ~1 day, and both budget pools remain uncalibrated (the Anthropic pool shows 31% quota usage but the 2026-09-04/05 credit investigation found real spend was 2–5× the recorded figures due to unmetered pools, a gap closed by requiring explicit ceilings). Review backlog is 25 parked PRs; top awaiting are [#3073](https://github.com/endojs/endo/pull/3073) (M.choose patterns), [#3110](https://github.com/endojs/endo/pull/3110) (error-console refactor), and [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) (VFS mount caps) at 12–14 days. Several operational blockers need authorization: minion.town daemon redeploy (state-revival dry-run recommended before the live swap), ocap.site DNSSEC signing enablement, and minion.town's CLI MCP OAuth prerequisite.
+[endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) gauntlet is in its clean stage; [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (ses-node26-lockdown-permits) completed fix round 4 with coordinated commits and is staged for a merged decision. Ironhorse computron-baseline benchmark design completed; build is in flight. Two budget watchdog notices remain uncalibrated on both hosts (87 and 32 recurrences respectively). Minion.town infrastructure work has several blockers: clip content publishing is ready but blocked on OAuth session reinit for the MCP server; endo-daemon redeploy authorization and DNSSEC setup for ocap.site await your decision; PR #81 gauntlet halted after six rounds without convergence. Garden-proper has a foreman state reconciliation hold and a legacy gardener-worker-kind alias retirement awaiting legacy state disposition. Twenty-five parked PRs remain awaiting review, highlighted by the designs on minion.town VFS mounts, SES error-console refactoring, eventual-send ponyfill, and daemon setExceptionBreakMode gating.
 
 ## Parked for maintainer feedback
 
@@ -90,6 +90,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 87 messages. Latest detail:
 >
 > budget-level: pool anthropic:endolin-garden-ece02cb4 cap=595000000 is UNCALIBRATED (provenance='none'); NOT leveling workers against a setpoint the config disclaims. Calibrate it (weekly-capacity-calibration.sh or Claude Code /usage) and set the provenance columns on config/budget-pools (calibrated-from date).
+
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): budget pool anthropic:endolin-garden-ece02cb4 spend=45294142 cap=143000000 ceiling=4 target=3
 
 - `msg-ses-node26-lockdown-permits-gauntlet-fix-4-d76a3f047bdb` — from gardener:ses-node26-lockdown-permits-gauntlet-fix-4, reply_to `ses-node26-lockdown-permits-gauntlet-fix-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ses-node26-lockdown-permits-gauntlet-fix-4-d76a3f047bdb.md)
 
@@ -179,7 +183,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.3M | $400.79 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 45.3M | $401.46 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 7.2M _(+182.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
