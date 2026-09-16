@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:15:59Z_
+_As of 2026-09-16T13:22:06Z_
 
 ## Latest
 
-Two infrastructure jobs claimed: [garden-gauntlet-reexport-policy-check](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-gauntlet-reexport-policy-check.md) and [minion-town-guest-peer-fetch-verify](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-peer-fetch-verify.md). Maintainer inbox holds five real blockers: [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) base-drifted (needs semantic port of `stringLengthLimit`→`byteLengthLimit` on 3 call sites), ironhorse computron benchmark design needs answers to 6 open questions before build proceeds, credit-controls orchestration halted on viability-gate timeout, [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) gauntlet uncertain (premise still live?), and gardener-alias retirement gated on oros-studio host migration. Press body contains detailed triage of five early-September halted gauntlets: items 1–2 were transient (quota), 3 is real base drift (re-scope weave), 4 is green/mergeable (route to human review), 5 partially recovered (re-anchor orchestration at child 2). Token spend holding: Claude 43% quota, Codex 29% plan cap. No todo—board empty except the two doin jobs and 8002 completed.
+The journalism role completes its session preflight without warnings. Triage on five early-September halted gauntlets finished: two were transient capacity-crunch stalls on now-green code (cheap re-posts); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit real base drift (360 commits behind, exo-stream API renamed — needs weave/pin-merge-base to resolve the 9p-server call sites); [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) reached green+mergeable after six panel rounds but is caught in diminishing-nit churn (awaits maintainer routing to human review → un-draft rather than gauntlet loop); and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) partly landed and needs re-anchoring. Several PRs await maintainer decisions: design [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) (module lexer consolidation) blocked the build job on acceptance; [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron benchmark) sat in draft pending open-questions answers (tolerance bands, deterministic gate scope, seed roster, cost-table versioning, two-input deferral) but the audit phase finished and implementation jobs are parked; [kriscendobot/garden#95](https://github.com/kriscendobot/garden/pull/95) (re-export policy gauntlet) is ready for @kriskowal/@erights review. Minion.town clip publishing hit an MCP OAuth barrier — the built clip is ready but needs an interactive session to publish. Quota sits at 44% of weekly cap; rolling-deploy canary on endolin-garden2 cleared after recovery.
 
 ## Parked for maintainer feedback
 
@@ -283,6 +283,27 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): budget pool anthropic:endolin-garden-ece02cb4 spend=45294142 cap=143000000 ceiling=4 target=3
 
+- `msg-garden-gauntlet-reexport-policy-check-c841557cb265` — from gardener:garden-gauntlet-reexport-policy-check, reply_to `garden-gauntlet-reexport-policy-check` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-gauntlet-reexport-policy-check-c841557cb265.md)
+
+> Design proposal ready for review: re-export deprecation policy gate.
+>
+> @erights asked on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (comment 3450576324) for garden
+> machinery to prevent every plain-re-export policy violation and never author a
+> new one, reviewed by both @kriskowal and @erights before landing.
+>
+> Deliverable: [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95) (draft, open-questions design PR) —
+> designs/reexport-deprecation-policy-gauntlet.md. Proposes a deterministic
+> no-plain-reexport pre-push probe (author-time block), a cost-gated
+> reexport-auditor jury seat that reuses it (review-time), and a
+> re-export-deprecation-policy skill both consult, plus builder/fixer/web-builder
+> norm lines. Nothing is implemented yet — it awaits answers to 5 open questions
+> (barrel-file exemption, what counts as a compliant deprecation, whether the LLM
+> seat is needed on top of the probe, Endo-only vs garden-wide, and .d.ts
+> type-only re-exports).
+>
+> Please ask @kriskowal and @erights to review [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95). A follow-up
+> build implements the probe/seat/skill once the open questions are answered.
+
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -310,6 +331,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > Per authorization, I stopped here. I did not bump either pin, swap `/opt/endo`, touch the live state, remove the reminder shim, or attempt a migration. The production daemon remains active at `f6650503` with its live socket present. Isolated evidence remains at `/opt/endo-revival-dry-run-20260916` and `/var/lib/endo-daemon/revival-dry-run-20260916`; the failed transient unit is `endo-revival-dry-run-20260916.service`.
 >
 > The next step needs an explicitly designed and reviewed compatibility migration/default for legacy `host.registry`; I have not improvised one.
+
+- `msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8` — from gardener:minion-town-guest-peer-fetch-verify, reply_to `minion-town-guest-peer-fetch-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md)
+
+> minion.town guest peer-fetch ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)): STILL BLOCKED on your decision — no work done, job re-gated.
+>
+> The job `minion-town-guest-peer-fetch-verify` was auto-promoted off the deferred plan queue by the foreman today (2026-09-16) and claimed, but its precondition is unmet: the daemon-exposure question you were asked on [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58) (comment 5447765615, 2026-08-28) has never been answered. Every comment on that issue since is about other matters (hint format, the npm.minion.town proxy, press pause/resume, the checklist reframe, the Fable supervisor, sitreps). The promotion metadata itself records `cleared=none`.
+>
+> The remaining work (a peer `enlivenSturdyRef` fetch of a revealed guest) needs an infrastructure + security-posture change that only you can authorize, so I did NOT run it. I re-parked it as a **go-ahead** plan job `minion-town-guest-peer-fetch-verify-await-auth` (deferred was the wrong gate — the foreman auto-selects deferred jobs and ignores the prose condition; go-ahead is never auto-promoted). It will wait for your answer and not be re-promoted automatically.
+>
+> THE QUESTION (please answer to unblock): authorize exposing the guest-substrate daemon `endo-daemon.service` over a public OCapN-CBOR-Noise route so a peer can `enlivenSturdyRef` a revealed guest by its formula id — OR did you intend the app to run on the already-public pet-daemon? Once you answer, promote `minion-town-guest-peer-fetch-verify-await-auth`.
 
 - `msg-minion-town-dckc-powers-weblet-audit-20260916-bc25b836fd57` — from gardener:minion-town-dckc-powers-weblet-audit-20260916, reply_to `minion-town-dckc-powers-weblet-audit-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-dckc-powers-weblet-audit-20260916-bc25b836fd57.md)
 
@@ -418,7 +449,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.9M | $462.45 _(notional, rate-card)_ | 43% of 143.0M (ok) |
+| Claude | 62.7M | $465.59 _(notional, rate-card)_ | 44% of 143.0M (ok) |
 | Codex | 8.2M _(+207.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
@@ -426,16 +457,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (2)
-- [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-peer-fetch-verify.md) — Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
-- [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-gauntlet-reexport-policy-check.md) — propose a gauntlet check that prevents plain re-export policy violations
+- [`claude-on-minion-town-completion-press-20260916-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260916-132012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — ---
 
-### tada (8002)
+### tada (8004)
+- [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-gauntlet-reexport-policy-check.md) — Completion report
+- [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-peer-fetch-verify.md) — Completion report
 - [`claude-on-minion-town-press-20260916-130520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-130520.md) — Press report — arc issue #89 (Claude on minion.town)
 - [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pass-style-src-naming.md) — Cost
 - [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — Completion report: Build SES import attributes (design #248)
-- [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — Cost
-- [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-marshal-passables-equal-ava-operator.md) — Cost
-- … and 7997 more
+- … and 7999 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -472,6 +503,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-c6c71d428a37088c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-c6c71d428a37088c-repair.md) — _normal_ · Repair Ironhorse engine defect c6c71d428a37088c (target differential_regexp_s...
 - [`endojs-endo-but-for-bots-pr1089-32c7e8f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1089-32c7e8f1.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1089
 - [`ironhorse-fuzz-51c6a212946102f6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-51c6a212946102f6-repair.md) — _normal_ · Repair Ironhorse engine defect 51c6a212946102f6 (target differential_regexp) ...
+- [`minion-town-guest-peer-fetch-verify-await-auth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify-await-auth.md) — _normal_ · Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-13b68e2edb67861a-repair.md) — _normal_ · Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
 - [`ironhorse-fuzz-e2a75557f762cd9c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-e2a75557f762cd9c-repair.md) — _normal_ · Repair Ironhorse engine defect e2a75557f762cd9c (target differential_regexp) ...
 - [`endo-claude-agent-sdk-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-claude-agent-sdk-probe.md) — _normal_ · Probe: measure the Agent SDK's confinement claims against a live run
