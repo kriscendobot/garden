@@ -33,6 +33,9 @@
 | [w3c--did-core-1-0--representations-and-media-types](../sections/w3c--did-core-1-0--representations-and-media-types.md) | W3C DID Core 1.0 | The same DID data model can be produced and consumed as JSON or JSON-LD. |
 | [w3c--did-core-1-0--method-operations-security-and-privacy](../sections/w3c--did-core-1-0--method-operations-security-and-privacy.md) | W3C DID Core 1.0 | Methods own lifecycle operations and their security, privacy, recovery, and correlation properties. |
 | [w3c--did-core-1-0--architectural-considerations](../sections/w3c--did-core-1-0--architectural-considerations.md) | W3C DID Core 1.0 | DID subject, controller, document, registry, resolver, and service are distinct architectural roles. |
+| [yurl-key-centric-web-calculus](../sections/cap-talk-2002-2003--yurl-key-centric-web-calculus.md) | cap-talk 2003-September | YURLs replace global-name resolution with a key fingerprint and layer human names and redirection above the pointer. |
+| [naming-vs-pointing-and-global-names](../sections/cap-talk-2002-2003--naming-vs-pointing-and-global-names.md) | cap-talk 2003-September | Cryptographic pointers provide local designational integrity without asking a global registry to settle contested social names. |
+| [sha1-key-fingerprint-threat-model](../sections/cap-talk-2002-2003--sha1-key-fingerprint-threat-model.md) | cap-talk 2003-September | A self-authenticating key reference needs an attack analysis that includes the accepted key encoding, not hash collision resistance alone. |
 
 ## See also
 
