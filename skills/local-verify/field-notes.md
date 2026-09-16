@@ -38,6 +38,15 @@ like one of these recurring classes.
   `scripts/jobs/ensure-project-worktree.sh` already applied to the dep install.
   The tell is a "failure" whose message is `permission denied` rather than an
   assertion: that is the environment, not the change.
+- _2026-09-16_: widened that fix from `local-verify.sh` to every gardener agent.
+  A live warm-cache hit reproduced `permission denied: ava` even though the
+  cached package files retained mode 755. The cache and its link-state reconcile
+  neither created nor exposed a bad mode: Yarn generated a fresh 755 wrapper
+  under noexec `/tmp` when the later package script ran. The install helper's
+  executable `TMPDIR` applied only to its child process and could not reach the
+  agent parent. `handlers/worker-common.sh` now exports `exec_tmpdir` before any
+  provider launches, so ordinary `yarn run` bin dispatch works throughout the
+  job. Direct `node node_modules/<tool>/...` invocation is not the fallback.
 - _2026-07-28_: closed a coverage gap found in the same shepherd run. On
   endojs/endo-but-for-bots the `codegen` step matched `build:types` at the repo
   root, which is `tsc --build tsconfig.composite.json` — a **compile**, not a

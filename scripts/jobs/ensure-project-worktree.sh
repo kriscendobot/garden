@@ -301,6 +301,9 @@ provision_deps() {
     # every yarn-run bin die with "permission denied" (agoric-sdk-local-build-env).
     # Point TMPDIR at an exec-capable scratch dir defensively. Both the cold
     # install and the warm-hit reconcile below dispatch through package bins.
+    # This setting is necessarily local to this child process. worker-common.sh
+    # also exports an executable TMPDIR for the agent process that receives the
+    # finished worktree and runs package scripts later.
     local tmpexec="$GARDEN_SCRATCH/tmpexec"
     mkdir -p "$tmpexec" 2>/dev/null || true
 

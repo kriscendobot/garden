@@ -324,7 +324,7 @@ make_node_fork() {  # make_node_fork <owner> <name> <branch> — seed a node pro
 # the pnpm-style .store) AND a workspace-package node_modules — the two-level tree
 # the real pnpm linker produces. Writes noise to stdout to prove it never leaks
 # onto the helper's stdout (which must stay the single worktree path).
-STUB_INSTALL='echo installing...; mkdir -p node_modules/.store packages/a/node_modules; echo NATIVE > node_modules/.store/better_sqlite3.node; echo rootdep > node_modules/marker; echo wsdep > packages/a/node_modules/marker'
+STUB_INSTALL='echo installing...; mkdir -p node_modules/.store node_modules/.bin packages/a/node_modules; echo NATIVE > node_modules/.store/better_sqlite3.node; echo rootdep > node_modules/marker; printf "#!/bin/sh\nexit 0\n" > node_modules/.bin/ava; chmod 755 node_modules/.bin/ava; echo wsdep > packages/a/node_modules/marker'
 # The stubbed link-state reconcile a warm HIT must run: it stands in for
 # `yarn install --immutable` writing .yarn/install-state.gz beside the linked-in
 # trees. Deliberately distinct from STUB_INSTALL so the two are distinguishable,
@@ -390,6 +390,14 @@ W2="$(run_node_helper garden-warm-second endojs/warm-cache main)"
 [ -f "$W2/node_modules/.store/better_sqlite3.node" ] && [ -f "$W2/packages/a/node_modules/marker" ] \
   && ok "warm HIT populates node_modules (root + workspace) into the second tree" \
   || bad "warm cache did not populate the second worktree's node_modules"
+# A mode-bit regression would implicate the cache copy. The reported Yarn fault
+# had the opposite shape: the package entrypoints and copied files remained 755,
+# while Yarn's temporary wrappers lived on noexec /tmp. Lock down the distinction
+# so a future copy implementation cannot turn that diagnosis into a real mode bug.
+[ "$(stat -c %a "$W1/node_modules/.bin/ava" 2>/dev/null)" = 755 ] \
+  && [ "$(stat -c %a "$W2/node_modules/.bin/ava" 2>/dev/null)" = 755 ] \
+  && ok "warm HIT preserves package-bin executable mode (755)" \
+  || bad "warm HIT lost the package-bin executable mode"
 # The whole point: the native artifact is the SAME inode, i.e. hardlinked, not rebuilt.
 if [ "$W1/node_modules/.store/better_sqlite3.node" -ef "$W2/node_modules/.store/better_sqlite3.node" ]; then
   ok "the compiled native artifact is HARDLINKED (shared inode) across worktrees"

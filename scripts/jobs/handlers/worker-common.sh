@@ -15,6 +15,19 @@
 # GARDEN_COMPLETION_MARKER) and the worktree janitors (kill_stale_worktree_handlers,
 # scratch_cleanup) are in scope.
 
+# A worker's agent inherits this environment and later invokes project package
+# scripts directly. Yarn 4 materializes package-bin wrappers under $TMPDIR for
+# every `yarn run`; the garden container's /tmp is noexec, so the wrappers have
+# mode 755 but execve still rejects them with EACCES (reported as "permission
+# denied: ava" / "permission denied: tsc"). ensure-project-worktree.sh already
+# selects an executable TMPDIR for its own cold install and warm-hit reconcile,
+# but a child cannot export that choice back into this parent handler. Select it
+# once here, before any provider launches, so every agent command inherits it.
+# This is a worker-environment fix, not a direct-node fallback: Yarn's ordinary
+# bin dispatch remains the source of truth.
+TMPDIR="$(exec_tmpdir)"
+export TMPDIR
+
 # worker_worktree_path <base> — the per-job worktree path, STABLE per base (never a
 # per-attempt random suffix): a reaper requeue re-runs the SAME base, so the same
 # path lets a resumed run re-enter the same worktree and find its uncommitted work.
