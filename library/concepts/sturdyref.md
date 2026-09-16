@@ -37,6 +37,7 @@ session-scoped graph after partition — the distributed enactment of the
 | [ocapn/locators/sturdyref-locator/uri-serialization](../sections/ocapn--draft-specifications-locators--sturdyref-locator--uri-serialization.md) | The `ocapn://…` URI serialization for out-of-band carriage of a sturdyref. |
 | [ocapn/locators/peer-locator](../sections/ocapn--draft-specifications-locators--peer-locator--peer-locator-ocapn-peer.md) | The Peer Locator half of a sturdyref: how to reach the hosting peer (the address the swiss-num is resolved against). |
 | [papers/cas/partial-failure-and-when-catch](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--partial-failure-and-when-catch--body.md) | §9.2 *Offline capabilities*: `captp://…` URIs and the SturdyRef abstraction as the durable seed from which a session-scoped reference graph is rebuilt after partition; the *Initial Conditions* mechanism in distributed form. |
+| [cap-talk-2009-2012--sitelier-capability-os-for-the-web](../sections/cap-talk-2009-2012--sitelier-capability-os-for-the-web.md) | Sitelier's PGP-keyed decentralized identity across user-owned sites, a 2011 sketch of self-authenticating peer identity and durable cross-site references. |
 
 ## See also
 
