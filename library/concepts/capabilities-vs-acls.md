@@ -20,6 +20,8 @@ The comparison at the center of object-capability security: an **access-control 
 | [cap-talk-1998--capability-definition-and-delegation](../sections/cap-talk-1998--capability-definition-and-delegation.md) | Designation plus permitted operations; recursive delegation exposes the owner-only ACL mismatch. |
 | [cap-talk-1999--principal-attribution-proxies-and-confinement](../sections/cap-talk-1999--principal-attribution-proxies-and-confinement.md) | A principal label on a capability cannot distinguish direct action, delegation, proxying, or confused use. |
 | [cap-talk-1999--principal-policy-and-confinement-debate](../sections/cap-talk-1999--principal-policy-and-confinement-debate.md) | The unresolved 1999 debate over principal policy inside controlled compartments. |
+| [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) | Proposed row-plus-column matrix distinction and the normal-user creation criterion that fed the four-model analysis. |
+| [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](../sections/cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md) | On-list reaction to critiques that excluded KeyKOS and conflated authentication with authorization. |
 
 ## See also
 
