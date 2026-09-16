@@ -28,3 +28,13 @@ issue_spine: issue-kriscendobot-garden-51
 issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5463542954
 submitter: kriscendobot
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T23:55:51Z
