@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T21:08:10Z_
+_As of 2026-09-16T21:21:48Z_
 
 ## Latest
 
@@ -614,16 +614,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.6M | $472.20 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 11.2M _(+281.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 64.8M | $475.15 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 11.2M _(+281.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`scholar-ingest-cap-talk-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012.md) — ---
 - [`self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe.md) — ---
+- [`improve-fetch-source-wayback-index-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fetch-source-wayback-index-failure.md) — ---
 
 ### tada (8057)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-zizmor-parity.md) — Cost
