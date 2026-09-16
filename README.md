@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T20:33:43Z_
+_As of 2026-09-16T20:34:38Z_
 
 ## Latest
 
@@ -610,8 +610,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.7M | $474.11 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 11.1M _(+280.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 64.7M | $474.30 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 11.1M _(+281.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -619,15 +619,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (2)
 - [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012-remainder.md) — ---
-- [`kriscendobot-minion.town-pr52-review-86b4c679-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr52-review-86b4c679-retro.md) — Retrospective on kriscendobot/minion.town PR #52 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — Retrospective on kriscendobot/minion.town PR #53 (primary: kriscendobot-minio...
 
-### tada (8052)
+### tada (8053)
+- [`kriscendobot-minion.town-pr52-review-86b4c679-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr52-review-86b4c679-retro.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-568e5d9eeb64.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2012-remainder.md) — Cost
 - [`improve-deadline-nudge-stage-failure-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deadline-nudge-stage-failure-isolation.md) — Completion report
 - [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2011-2012.md) — Completion report: scholar-ingest-cap-talk-2011-2012
-- [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — Completion report
-- … and 8047 more
+- … and 8048 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -830,7 +830,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
-- [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #53 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr819-review-f8bab00f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr819-review-f8bab00f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #819 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr832-review-7bada805-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-review-7bada805-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr858-review-e6eaf772-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr858-review-e6eaf772-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #858 (primary: endojs-endo-but-f...
