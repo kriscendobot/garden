@@ -52,3 +52,17 @@ TASK, in order:
 
 The PR premise is LIVE: endojs/endo-but-for-bots#1100 is OPEN draft, not merged,
 not superseded.
+
+<!-- garden-annotation: key=handler-budget-20260916 by=producer at=2026-09-16T23:15:15Z -->
+
+handler-timeout: 9000
+
+BUDGET CORRECTION (liaison, 2026-09-16): this job was doomed at the 2400s fleet
+default after one wall hit with no productive progress. That default was never
+right for this work: pinning a merge base on a branch ~360 commits behind, then
+resolving a SEMANTIC port (stringLengthLimit -> byteLengthLimit across 3 call
+sites in 9p-server, where the two names do not mean the same thing), then
+verifying CI green, does not fit a 40-minute claim. Raised to 9000s.
+
+If it still will not fit, SPLIT it rather than raising again: stage 1 pin + rebase,
+stage 2 conflict resolution + CI verification, stage 3 resume the gauntlet from fix.
