@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7098 (530 parent indexes + 6568 children).
+Total section files: 7099 (530 parent indexes + 6569 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -469,6 +469,10 @@ Total section files: 7098 (530 parent indexes + 6568 children).
 - [cap-talk-2009-2012--webkeys-vs-the-web](cap-talk-2009-2012--webkeys-vs-the-web.md)
 - [cap-talk-2009-2012--what-is-designation](cap-talk-2009-2012--what-is-designation.md)
 - [cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity](cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity.md)
+
+### cap-talk-2013-2016
+
+- [cap-talk-2013-2016--ambient-capabilities-terminology](cap-talk-2013-2016--ambient-capabilities-terminology.md)
 
 ### cask--allocator-design
 
