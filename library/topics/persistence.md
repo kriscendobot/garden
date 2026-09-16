@@ -95,6 +95,7 @@
 | [capper-credentials-persistence-and-module-authority](../sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md) | capability-security, persistence, compartments | Connolly's Capper experiment assembles an OFX banking application from webkeys: a broad desktop secret-store capability is attenuated to one credential entry, which is then combined with an institution facet to mint an account object. |
 | [persistent-objects-schema-evolution-and-portability](../sections/cap-talk-2013-2016--persistent-objects-schema-evolution-and-portability.md) | persistence, capability-security | The durability argument between object checkpoints and relational data separates three concerns that are too easily collapsed: preserving a live authority graph, preserving queryable bulk data, and migrating state across code versions or language implementations. |
 | [waterken-persistence-transactions-and-failure](../sections/cap-talk-2009-2012--waterken-persistence-transactions-and-failure.md) | cap-talk 2011-March | A turn checkpoint is atomic only if every exception that can occur after partial mutation is classified correctly. |
+| [distributed-reference-counting-garbage-collection](../sections/cap-talk-2009-2012--distributed-reference-counting-garbage-collection.md) | distributed-objects, capability-theory, persistence | Reference counting is correct only where routing keeps counts local; KeyKOS deletes-and-nulls instead, and space recovery under POLA stays unsolved. |
 
 ## See also
 
