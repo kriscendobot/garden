@@ -1,7 +1,7 @@
 ---
 slug: merge-base-pinning
 category: process
-status: improvement-dispatched
+status: closed
 count: 4
 members:
   - endojs-endo-but-for-bots-pr719-review-9fcf7da1
@@ -10,7 +10,9 @@ members:
   - endojs-endo-but-for-bots-pr836-review-ee46b083
 prs: [719, 831, 836]
 improvement_job: review-improve-merge-base-pinning
+improved_by: e86f559da5790c6bb8c928ff0b435eabd4dd66b4, d4a9f045b77fc64748054ebfaef7313644c74f6b
 ---
+
 
 
 
