@@ -1,4 +1,5 @@
 ---
+child-ebfb-sturdyref-rebase-pr774-20260916-reap-count: 0
 order: serial
 children: ebfb-sturdyref-rebase-pr774-20260916 ebfb-sturdyref-rebase-pr737-20260916 ebfb-sturdyref-rebase-pr541-20260916 ebfb-sturdyref-rebase-pr698-20260916 ebfb-sturdyref-rebase-pr700-20260916 ebfb-sturdyref-rebase-pr701-20260916 ebfb-sturdyref-rebase-pr702-20260916 ebfb-sturdyref-rebase-pr703-20260916 ebfb-sturdyref-rebase-pr704-20260916 ebfb-sturdyref-rebase-pr871-20260916 ebfb-sturdyref-retire-snapshot-20260916
 on-child-failure: halt
