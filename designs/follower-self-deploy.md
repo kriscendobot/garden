@@ -246,17 +246,45 @@ is left as an open question; the fixed suite is the recommended first cut.
 
 ## Failure handling and rollback
 
-**On a failed canary, the leader halts.** Specifically it:
+**On a failed canary, the leader halts *after a bounded self-retry*.** Specifically:
 
 1. **Stops the roll** — releases no further followers and **does not advance
    itself**. This is the load-bearing rule; a broken tip that fails a canary never
    reaches the leader.
-2. **Pages the maintainer**, once per window and self-clearing (`alert_maintainer`
-   under `rolling-deploy-canary-failed-<GARDEN>`, cleared on the next clean roll),
-   naming the canary host, the sha, and the failing signal (which unit, or "probe
-   timed out," or "throughput dropped to zero").
-3. **Leaves the failed canary drained** so it stops taking real work on a suspect
-   version, pending a human decision.
+2. **Leaves the failed canary drained** so it stops taking real work on a suspect
+   version — but with **roll provenance** (`drain-fleet.sh on --source rolling-deploy`,
+   marker line `source: rolling-deploy`), which is what makes the drain *retryable*
+   rather than a permanent exclusion (see below).
+3. **Retries the canary on its own, bounded.** The conductor re-releases a
+   previously-failed canary up to `GARDEN_CANARY_MAX_RETRIES` times (default 3),
+   waiting `GARDEN_CANARY_RETRY_BACKOFF` (default 15m) between attempts: it lifts its
+   own roll-drain and re-validates. A transient failure (a unit that recovered, a
+   probe flake) clears itself with no human. Only when the budget is **exhausted**
+   does it become a terminal halt.
+4. **Pages the maintainer on exhaustion**, once per window and self-clearing
+   (`alert_maintainer` under `rolling-deploy-canary-failed-<GARDEN>`, cleared on the
+   next clean roll or a passing retry), naming the canary host, the sha, and the
+   failing signal — and, when retries were exhausted, saying so **louder** (a
+   persistent, confirmed regression that needs a human, not a first-tick blip). The
+   canary is left drained pending a human decision.
+
+**Why the drain must carry provenance (the deadlock this fixes).** The failure
+remediation *drains* the canary, and `self-deploy` correctly refuses to deploy out
+from under any drain. Before this change the roll-set drain was **indistinguishable
+from an operator drain**: `self-deploy` published `operator-drained`, and the
+conductor skips an `operator-drained` follower *forever*. So the failure remediation
+manufactured exactly the state that made recovery impossible — a failed canary was
+permanently excluded from every subsequent roll and only a human could break the loop
+(observed: a follower 6 commits behind for 9+ days, its watchdog firing 1545 times).
+The fix records provenance in the marker's `source:` line. `self-deploy` now publishes
+`roll-drained` (not `operator-drained`) under a roll-induced drain, and the conductor
+treats `roll-drained` as **retryable** (lift + re-release, bounded) while an
+**operator** drain stays absolutely inviolable — skipped, never lifted by any
+autonomous path. Provenance **fails safe toward operator**: a marker with no or an
+unrecognized `source:` is treated as operator, so the operator guarantee is never
+weakened by a missing field. A leaderless follower (no conductor to retry it) clears
+its *own* roll-drain under the headless-fallback gate for the same reason — a stale
+roll-drain must not strand a fleet whose leader died — but never an operator drain.
 
 **Rollback is deliberately *not* automatic (recommended).** `deploy-garden.sh`
 records the prior `deployed_sha` and swaps atomically, so a rollback is mechanically
@@ -339,15 +367,20 @@ text.
 
 ## Interaction with drain and the foreman brake
 
-- **Operator drain is respected.** An operator-drained follower is **skipped as a
-  canary** (a paused host cannot validate, and self-deploying it out from under an
-  operator would violate the deliberate posture). The roll proceeds with the
-  remaining, non-drained followers. The leader advances itself only after at least
-  the required canary set (all, or a quorum — § Open questions) has **passed**; if
-  **every** follower is operator-drained, the fleet has no available canary and the
-  leader falls back to leader-only-fleet behavior *or* holds — an open question,
-  since "no canary available because a human paused them all" is arguably a signal
-  to wait for the human, not to deploy unvalidated.
+- **Operator drain is respected; a roll-drain is retried.** The two are told apart
+  by the drain marker's `source:` provenance (§ Failure handling). An
+  **operator-drained** follower is **skipped as a canary** (a paused host cannot
+  validate, and self-deploying it out from under an operator would violate the
+  deliberate posture) and is never lifted by any autonomous path. A **roll-drained**
+  follower — the conductor's own failure remediation, on this or an earlier target —
+  is instead handed to the bounded retry machinery (lift + re-release, then
+  halt+escalate on exhaustion), so it is never permanently excluded. The roll
+  proceeds with the remaining, non-operator-drained followers; the leader advances
+  itself only after the required canary set (all, or a quorum — § Open questions) has
+  **passed**. If **every** follower is *operator*-drained, the fleet has no available
+  canary and the leader holds and pages (a human paused them all — a signal to wait,
+  not to deploy unvalidated); a roll-drained follower does **not** count toward that
+  hold, since it is actively being retried rather than waiting on a human.
 - **`deploy-garden.sh`'s own drain is unchanged** — it engages, quiesces, and lifts
   its own drain on success/self-abort; because the roll skips operator-drained
   hosts, the deploy under the roll always engages and lifts *its own* drain, the

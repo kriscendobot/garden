@@ -148,7 +148,11 @@ validate_canary() {  # validate_canary <host> <target>
   probe="$(rfield_get "$target" "$host" probe_base)"
   now="$(now_s)"
   if [ -z "$probe" ]; then
-    probe="canary-probe-$host-$(sd "$target")"
+    # Attempt-suffix the probe base so a RETRY posts a fresh job rather than matching a
+    # previous attempt's stale tada (retries==0 → no suffix, the first-attempt name).
+    local tries suffix=""; tries="$(rfield_get "$target" "$host" retries)"
+    [[ "$tries" =~ ^[0-9]+$ ]] && [ "$tries" -gt 0 ] && suffix="-r$tries"
+    probe="canary-probe-$host-$(sd "$target")$suffix"
     # Deterministic (no LLM): requires host-pin + canary-probe short-circuit in the
     # worker spine (gardener.sh). handler-timeout small: it never runs a handler.
     local body; body="$(mktemp "${TMPDIR:-/tmp}/canary-probe.XXXXXX")"
@@ -194,25 +198,108 @@ validate_canary() {  # validate_canary <host> <target>
   return 0
 }
 
-# --- halt: page once, leave the canary drained, never advance the leader -----
-halt_roll() {  # halt_roll <host> <target> <reason>
-  local host="$1" target="$2" reason="$3"
+# --- roll_drain: leave a suspect canary drained with ROLL provenance ----------
+# A BENIGN drain op (no attestation), stamped source=rolling-deploy so self-deploy and
+# this conductor can tell it apart from an operator pause and RETRY it — the fix for the
+# deadlock where a roll-set drain was indistinguishable from an operator drain and
+# permanently excluded the canary (designs/follower-self-deploy.md § Failure handling).
+roll_drain() {  # roll_drain <host> <reason>
+  "$DRAIN_OP" "$1" op=drain state=on source="$GARDEN_DRAIN_SOURCE_ROLL" reason="rolling-deploy: $2" >/dev/null 2>&1 \
+    || log "WARN: could not send benign roll-induced drain-on to canary $1"
+}
+roll_undrain() {  # roll_undrain <host> <reason>
+  "$DRAIN_OP" "$1" op=drain state=off reason="rolling-deploy: $2" >/dev/null 2>&1 \
+    || log "WARN: could not send drain-off to canary $1"
+}
+
+# --- retry_or_halt: a FRESH validation/deploy failure of a canary ------------
+# A roll-induced canary drain is RETRYABLE. Under the retry budget: drain the suspect
+# canary (roll provenance) and schedule a retry (rstat retry-wait); the conductor lifts
+# the drain and re-releases it after a backoff. When the budget is exhausted: fall
+# through to a terminal halt that pages LOUDLY and leaves it drained for a human.
+retry_or_halt() {  # retry_or_halt <host> <target> <reason>
+  local host="$1" target="$2" reason="$3" tries
+  tries="$(rfield_get "$target" "$host" retries)"; [[ "$tries" =~ ^[0-9]+$ ]] || tries=0
+  if [ "$tries" -ge "$GARDEN_CANARY_MAX_RETRIES" ]; then
+    halt_roll "$host" "$target" "$reason" exhausted
+    return
+  fi
+  rstat_set "$target" "$host" retry-wait
+  rfield_set "$target" "$host" retry_at "$now"
+  roll_drain "$host" "canary FAILED validation, retry ${tries}/${GARDEN_CANARY_MAX_RETRIES} pending ($reason)"
+  log "canary $host failed for ${target:0:12} (retry ${tries}/${GARDEN_CANARY_MAX_RETRIES} pending): $reason — drained (roll-induced); will re-release after backoff"
+}
+
+# --- handle_roll_retry: a canary that is roll-drained / awaiting a retry ------
+# Reached when a released canary publishes roll_status=roll-drained (its own or a stale
+# roll-drain from an earlier target) or its rstat is retry-wait. Respects an operator
+# override (an operator drain that overwrote the marker → skip), waits out the backoff,
+# then LIFTS the roll-drain and re-arms the canary for another validation round, bounded
+# by GARDEN_CANARY_MAX_RETRIES. Always advances at most one step and its caller exits.
+handle_roll_retry() {  # handle_roll_retry <host> <target>
+  local host="$1" target="$2" tries ra
+  # Operator override mid-retry: an operator drain (source=operator) overwrites the
+  # marker, so self-deploy publishes operator-drained. Operator wins — skip forever.
+  if [ "$(follower_health_field "$host" roll_status)" = operator-drained ]; then
+    rstat_set "$target" "$host" skipped
+    log "canary $host became operator-drained during retry; SKIPPING (operator drain is inviolable)"
+    return
+  fi
+  tries="$(rfield_get "$target" "$host" retries)"; [[ "$tries" =~ ^[0-9]+$ ]] || tries=0
+  if [ "$tries" -ge "$GARDEN_CANARY_MAX_RETRIES" ]; then
+    halt_roll "$host" "$target" "retries exhausted after re-validation kept failing" exhausted
+    return
+  fi
+  ra="$(rfield_get "$target" "$host" retry_at)"
+  if [[ "$ra" =~ ^[0-9]+$ ]] && [ $(( now - ra )) -lt "$GARDEN_CANARY_RETRY_BACKOFF" ]; then
+    log "canary $host in retry backoff ($(( now - ra ))s/${GARDEN_CANARY_RETRY_BACKOFF}s) for ${target:0:12}; holding"
+    return
+  fi
+  # Backoff elapsed (or a stale roll-drain with no recorded retry_at): grant a retry.
+  # Stamp retry_at=now so, until the follower republishes a non-roll-drained status
+  # (its drain-off is async), a re-entry HOLDS on the fresh backoff rather than burning
+  # the whole budget in a few ticks.
+  tries=$(( tries + 1 ))
+  rfield_set "$target" "$host" retries "$tries"
+  rfield_set "$target" "$host" retry_at "$now"
+  roll_undrain "$host" "retry ${tries}/${GARDEN_CANARY_MAX_RETRIES} — lifting roll-drain to re-validate ${target:0:12}"
+  # Clear the prior probe so validate_canary posts a FRESH one (a new attempt-suffixed
+  # base) rather than reading the previous attempt's stale tada.
+  rfield_set "$target" "$host" probe_base ""
+  rfield_set "$target" "$host" probe_posted_at ""
+  rstat_set "$target" "$host" released
+  rfield_set "$target" "$host" released_at "$now"
+  alert_maintainer_clear "rolling-deploy-canary-failed-$host" "retrying canary $host (attempt ${tries}/${GARDEN_CANARY_MAX_RETRIES}); clearing prior page." || true
+  log "canary $host retry ${tries}/${GARDEN_CANARY_MAX_RETRIES}: lifted roll-drain and re-armed for ${target:0:12}"
+}
+
+# --- halt: page (LOUDER when retries are exhausted), leave the canary drained -
+halt_roll() {  # halt_roll <host> <target> <reason> [exhausted]
+  local host="$1" target="$2" reason="$3" mode="${4:-}"
   rstat_set "$target" "$host" failed
   # Leave the failed canary DRAINED so it stops taking real work on a suspect version
-  # (a BENIGN drain op — no attestation). Best-effort; the alert is the load-bearing part.
-  "$DRAIN_OP" "$host" op=drain state=on reason="rolling-deploy: canary FAILED validation ($reason)" >/dev/null 2>&1 \
-    || log "WARN: could not send benign drain-on to failed canary $host"
+  # (a BENIGN, roll-provenance drain op — no attestation). Best-effort; the alert is the
+  # load-bearing part.
+  roll_drain "$host" "canary FAILED validation ($reason)"
+  local aged=""
+  if [ "$mode" = exhausted ]; then
+    aged="This canary was RETRIED ${GARDEN_CANARY_MAX_RETRIES} time(s) automatically and kept
+failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
+confirmed regression, not a transient blip — treat it as higher severity than a
+first-tick halt.
+"
+  fi
   alert_maintainer "rolling-deploy-canary-failed-$host" \
 "Rolling deploy HALTED on a failed canary.
 canary host: $host
 target sha:  $target
 failing signal: $reason
-The roll released no further followers and the LEADER did NOT advance itself — a
+${aged}The roll released no further followers and the LEADER did NOT advance itself — a
 broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-(benign drain op) pending your decision; auto-rollback is deliberately not performed
-(designs/follower-self-deploy.md § Failure handling). Investigate the target on $host,
-then lift its drain and re-trigger, or hold the tip. (leader=$GARDEN)"
-  log "HALTED: canary $host failed validation for ${target:0:12}: $reason — leader will NOT advance; canary left drained"
+(benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
+performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
+on $host, then lift its drain and re-trigger, or hold the tip. (leader=$GARDEN)"
+  log "HALTED: canary $host failed validation for ${target:0:12}${mode:+ ($mode)}: $reason — leader will NOT advance; canary left drained"
 }
 
 # =============================================================================
@@ -259,6 +346,7 @@ for f in "${followers[@]}"; do
     passed)  passed_any=1; skipped_all=0; continue ;;
     skipped) continue ;;
     failed)  log "roll already HALTED at failed canary $f for ${target:0:12}; leader holds"; exit 0 ;;
+    retry-wait) skipped_all=0; handle_roll_retry "$f" "$target"; exit 0 ;;
   esac
   skipped_all=0
 
@@ -286,6 +374,16 @@ for f in "${followers[@]}"; do
     continue
   fi
 
+  # Released but ROLL-DRAINED — a failure-remediation drain from THIS or an earlier
+  # target (never an operator pause; operator-drained is handled just above). A
+  # roll-drain must NOT permanently exclude the canary: hand it to the bounded retry
+  # machinery, which lifts the drain and re-arms it (or halts+escalates when exhausted).
+  # This is the crux of the deadlock fix — a stale roll-drain is retried, not skipped.
+  if [ "$(follower_health_field "$f" roll_status)" = roll-drained ]; then
+    handle_roll_retry "$f" "$target"
+    exit 0
+  fi
+
   # Released but not yet deployed to the target?
   if [ "$(follower_deployed_sha "$f")" != "$target" ]; then
     ra="$(rfield_get "$target" "$f" released_at)"; : "${ra:=$now}"
@@ -294,7 +392,7 @@ for f in "${followers[@]}"; do
     # advances is eventually a failed canary, not an infinite wait.
     local_budget=$(( GARDEN_CANARY_PROBE_DEADLINE + GARDEN_CANARY_WATCH ))
     if [ $(( now - ra )) -ge "$local_budget" ]; then
-      halt_roll "$f" "$target" "released ${local_budget}s ago but never advanced to the target sha (deploy stuck/failed on the canary)"
+      retry_or_halt "$f" "$target" "released ${local_budget}s ago but never advanced to the target sha (deploy stuck/failed on the canary)"
       exit 0
     fi
     log "canary $f released; awaiting its deploy to ${target:0:12} ($(( now - ra ))s/${local_budget}s)"
@@ -312,7 +410,7 @@ for f in "${followers[@]}"; do
        alert_maintainer_clear "rolling-deploy-canary-failed-$f" "canary $f passed a later roll; clearing." || true
        continue ;;
     2) log "canary $f validating for ${target:0:12}: $VAL_DETAIL"; exit 0 ;;
-    *) halt_roll "$f" "$target" "$VAL_DETAIL"; exit 0 ;;
+    *) retry_or_halt "$f" "$target" "$VAL_DETAIL"; exit 0 ;;
   esac
 done
 

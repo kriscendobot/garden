@@ -489,11 +489,11 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
       else OUTCOME="failed"; DETAIL="set-workers $kind=$count rc=$rc: $(printf '%s' "$out" | tail -1)"; fi
       ;;
     drain)
-      local state reason
-      state="$(field state)"; reason="$(field reason)"
+      local state reason source
+      state="$(field state)"; reason="$(field reason)"; source="$(field source)"
       case "$state" in
-        on)  local rc=0; "$GARDEN_SYSOP_DRAIN" on "$reason" >/dev/null 2>&1 || rc=$?
-             if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="drain on${reason:+ ($reason)}"; else OUTCOME="failed"; DETAIL="drain on rc=$rc"; fi;;
+        on)  local rc=0; "$GARDEN_SYSOP_DRAIN" on ${source:+--source "$source"} "$reason" >/dev/null 2>&1 || rc=$?
+             if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="drain on${source:+ [$source]}${reason:+ ($reason)}"; else OUTCOME="failed"; DETAIL="drain on rc=$rc"; fi;;
         off) local rc=0; "$GARDEN_SYSOP_DRAIN" off >/dev/null 2>&1 || rc=$?
              if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="drain off"; else OUTCOME="failed"; DETAIL="drain off rc=$rc"; fi;;
         *)   OUTCOME="parse-error"; DETAIL="drain: state must be on|off (got '${state:-<none>}')";;

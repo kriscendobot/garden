@@ -92,8 +92,9 @@ simulate_follower_deploy() {  # <host> <sha> [roll_status] [unit_failures] [firs
     "host: $h"$'\n'"deployed_sha: $sha"$'\n'"roll_status: $status"$'\n'"unit_failures: $failures"$'\n'"unit_total: 12"$'\n'"first_bad_unit: $firstbad"$'\n'"at: now" \
     "sim: $h health $status"
 }
-seed_probe_tada() {  # <host> — seed the canary probe's tada as if the round trip completed
-  local probe="canary-probe-$1-$TARGET12"
+seed_probe_tada() {  # <host> [retry-n] — seed the canary probe's tada as if the round trip completed
+  local suffix=""; [ -n "${2:-}" ] && [ "$2" -gt 0 ] 2>/dev/null && suffix="-r$2"
+  local probe="canary-probe-$1-$TARGET12$suffix"
   push_change "jobs/tada/$probe.md" "canary-probe: ok"$'\n'"host: $1"$'\n' "sim: probe $probe completed"
 }
 
@@ -152,6 +153,29 @@ else bad "the roll issues a sysop deploy op (would route through the attestation
 if ! grep -qE 'msgs/' "$JOBS/rolling-deploy.sh" "$JOBS/self-deploy.sh"; then
   ok "no msgs/ path is read to decide to deploy (design point-4 invariant)"
 else bad "a msgs/ read leaked into the deploy decision"; fi
+
+# ============================================================================
+hr; echo "DRAIN PROVENANCE — drain-fleet.sh --source + drain_source/drain_is_roll_induced"; hr
+DPS="$TR/drain-prov-state"; mkdir -p "$DPS"
+dp() { env -i PATH="$PATH" HOME="$HOME" GARDEN_TEST=1 GARDEN_ROOT="$ROOT" \
+         JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN="$LEADER" GARDEN_STATE="$DPS" "$@"; }
+dp_pred() { dp bash -c "source \"$JOBS/common.sh\"; $1"; }
+# operator default
+dp "$JOBS/drain-fleet.sh" on "weekly quota" >/dev/null 2>&1
+grep -q '^source: operator$' "$DPS/draining" && ok "drain-fleet.sh on (no flag) records source: operator" || bad "default drain source not operator ($(cat "$DPS/draining" 2>/dev/null))"
+[ "$(dp_pred 'drain_source')" = operator ] && ok "drain_source reads operator for a default drain" || bad "drain_source != operator for a default drain"
+dp_pred 'drain_is_roll_induced' && bad "operator drain misread as roll-induced" || ok "drain_is_roll_induced FALSE for an operator drain (guarantee preserved)"
+dp "$JOBS/drain-fleet.sh" off >/dev/null 2>&1
+# roll provenance
+dp "$JOBS/drain-fleet.sh" on --source rolling-deploy "canary FAILED validation" >/dev/null 2>&1
+grep -q '^source: rolling-deploy$' "$DPS/draining" && ok "drain-fleet.sh on --source rolling-deploy records source: rolling-deploy" || bad "roll drain source line missing ($(cat "$DPS/draining" 2>/dev/null))"
+dp_pred 'drain_is_roll_induced' && ok "drain_is_roll_induced TRUE for a --source rolling-deploy drain (retryable)" || bad "roll drain not recognized as roll-induced"
+dp "$JOBS/drain-fleet.sh" off >/dev/null 2>&1
+# a legacy marker with NO source: line → operator (fail-safe toward the inviolable case)
+printf 'draining\nset_by: legacy\n' > "$DPS/draining"
+[ "$(dp_pred 'drain_source')" = operator ] && ok "a legacy marker with no source: line reads operator (fail-safe)" || bad "legacy no-source marker not read as operator"
+dp_pred 'drain_is_roll_induced' && bad "legacy no-source marker misread as roll-induced" || ok "drain_is_roll_induced FALSE for a legacy no-source marker"
+rm -f "$DPS/draining"
 
 # ============================================================================
 hr; echo "REQUIREMENT TOKEN — host=<GARDEN> pins a job to one host's workers"; hr
@@ -232,24 +256,63 @@ if grep -q "deploy-invoked host=$LEADER" "$DEPLOY_LOG"; then
 else bad "leader did not self-deploy after all canaries passed (deploy log: $(cat "$DEPLOY_LOG"))"; fi
 
 # ============================================================================
-hr; echo "HALT — a failed canary halts the roll, leaves the canary drained, never advances the leader"; hr
-# Fresh single-follower fleet.
-push_change "hosts/$F2" "@DELETE" "drop F2 for the halt fleet"
+hr; echo "RETRY + RECOVER — a failed canary is DRAINED (roll provenance), retried on its own, and recovers"; hr
+# The deadlock fix: a roll-set canary drain is retryable, not a permanent exclusion.
+# Fresh single-follower fleet; NOW pinned so the retry backoff is deterministic.
+push_change "hosts/$F2" "@DELETE" "drop F2 for the retry fleet"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for retry fleet"
+push_change "fleet/deployed/$F1" "@DELETE" "clear F1 deployed"
+push_change "fleet/health/$F1" "@DELETE" "clear F1 health"
+set_leader_signal "$TARGET"; reset_leader_roll_state
+: > "$DEPLOY_LOG"; : > "$DRAIN_LOG"; : > "$ALERT_LOG"
+RETRY_ENV=(GARDEN_CANARY_MAX_RETRIES=2 GARDEN_CANARY_RETRY_BACKOFF=100)
+run_conductor "${RETRY_ENV[@]}" GARDEN_ROLLING_NOW=1000       # release F1
+# F1 deploys but with a BROKEN unit-health record (a failed unit).
+simulate_follower_deploy "$F1" "$TARGET" deployed "1" "garden-foreman.service"
+run_conductor "${RETRY_ENV[@]}" GARDEN_ROLLING_NOW=1000       # validate → unit FAIL → retry-wait + roll-drain (NO page)
+if grep -q 'state=on' "$DRAIN_LOG" && grep -q 'source=rolling-deploy' "$DRAIN_LOG"; then
+  ok "RETRY: failed canary drained with ROLL provenance (source=rolling-deploy), not an operator drain"
+else bad "failed canary not roll-drained (drain log: $(cat "$DRAIN_LOG"))"; fi
+if ! grep -q 'key=rolling-deploy-canary-failed' "$ALERT_LOG"; then ok "RETRY: no maintainer page yet (retry budget not exhausted)"; else bad "paged the maintainer while retries remained (alerts: $(cat "$ALERT_LOG"))"; fi
+grep -q deploy-invoked "$DEPLOY_LOG" && bad "leader advanced on a failed canary" || ok "RETRY: leader did NOT advance on the failed canary"
+# Before the backoff elapses, the conductor HOLDS (no drain-off yet).
+: > "$DRAIN_LOG"
+run_conductor "${RETRY_ENV[@]}" GARDEN_ROLLING_NOW=1050        # 50s < 100s backoff → hold
+grep -q 'state=off' "$DRAIN_LOG" && bad "lifted the roll-drain before the backoff elapsed" || ok "RETRY: holds during the retry backoff (no premature drain-off)"
+# Backoff elapsed: the conductor LIFTS its own roll-drain and re-arms the canary.
+: > "$DRAIN_LOG"
+run_conductor "${RETRY_ENV[@]}" GARDEN_ROLLING_NOW=1200        # 200s >= 100s → lift + re-release
+if grep -q 'state=off' "$DRAIN_LOG"; then ok "RETRY: backoff elapsed → conductor lifted its own roll-drain (drain off) to re-validate"; else bad "conductor did not lift the roll-drain to retry (drain log: $(cat "$DRAIN_LOG"))"; fi
+# The canary is now HEALTHY. Next tick validates → posts a fresh (attempt-suffixed) probe.
+simulate_follower_deploy "$F1" "$TARGET" deployed "0" "-"
+run_conductor "${RETRY_ENV[@]}" GARDEN_ROLLING_NOW=1200        # validate → posts canary-probe...-r1
+if [ -n "$(from_bare "jobs/todo/canary-probe-$F1-$TARGET12-r1.md")" ]; then
+  ok "RETRY: re-validation posts a FRESH attempt-suffixed probe (canary-probe-$F1-$TARGET12-r1)"
+else bad "retry did not post a fresh attempt-suffixed probe (todo: $(git -C "$BARE" ls-tree -r --name-only "$BRANCH" | grep canary-probe || true))"; fi
+# Probe passes → canary recovers → leader self-deploys (recovery complete, no human).
+seed_probe_tada "$F1" 1
+: > "$DEPLOY_LOG"
+run_conductor "${RETRY_ENV[@]}" GARDEN_ROLLING_NOW=1200
+if grep -q "deploy-invoked host=$LEADER" "$DEPLOY_LOG"; then
+  ok "RECOVER: retried canary PASSED → leader self-deployed; the roll recovered ON ITS OWN (deadlock broken)"
+else bad "roll did not recover after a passing retry (deploy log: $(cat "$DEPLOY_LOG"))"; fi
+
+# ============================================================================
+hr; echo "HALT — retries EXHAUSTED → the roll halts, pages LOUDLY, leaves the canary drained"; hr
+# With the retry budget at 0, a failure halts immediately (the terminal, human-needed case).
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for halt fleet"
 push_change "fleet/deployed/$F1" "@DELETE" "clear F1 deployed"
 push_change "fleet/health/$F1" "@DELETE" "clear F1 health"
 set_leader_signal "$TARGET"; reset_leader_roll_state
 : > "$DEPLOY_LOG"; : > "$DRAIN_LOG"; : > "$ALERT_LOG"
-run_conductor                                   # release F1
-# F1 deploys but with a BROKEN unit-health record (a failed unit).
+run_conductor GARDEN_CANARY_MAX_RETRIES=0                    # release F1
 simulate_follower_deploy "$F1" "$TARGET" deployed "1" "garden-foreman.service"
-run_conductor                                   # validate → unit health FAIL → HALT
-if ! grep -q deploy-invoked "$DEPLOY_LOG"; then ok "HALT: leader did NOT self-deploy on a failed canary"; else bad "leader advanced on a failed canary"; fi
-if grep -q "$F1" "$DRAIN_LOG" && grep -q 'state=on' "$DRAIN_LOG"; then ok "HALT: failed canary F1 left DRAINED (benign drain op sent)"; else bad "failed canary not drained (drain log: $(cat "$DRAIN_LOG"))"; fi
-if grep -q "key=rolling-deploy-canary-failed-$F1" "$ALERT_LOG"; then ok "HALT: maintainer paged once, keyed to the failed canary"; else bad "maintainer not paged on canary failure (alerts: $(cat "$ALERT_LOG"))"; fi
-# A later tick keeps holding (leader never advances after a recorded halt).
+run_conductor GARDEN_CANARY_MAX_RETRIES=0                    # validate → FAIL, budget 0 → HALT
+if ! grep -q deploy-invoked "$DEPLOY_LOG"; then ok "HALT: leader did NOT self-deploy on the exhausted canary"; else bad "leader advanced on a failed canary"; fi
+if grep -q "$F1" "$DRAIN_LOG" && grep -q 'state=on' "$DRAIN_LOG" && grep -q 'source=rolling-deploy' "$DRAIN_LOG"; then ok "HALT: exhausted canary F1 left DRAINED (roll-provenance drain op)"; else bad "exhausted canary not roll-drained (drain log: $(cat "$DRAIN_LOG"))"; fi
+if grep -q "key=rolling-deploy-canary-failed-$F1" "$ALERT_LOG"; then ok "HALT: maintainer paged once, keyed to the failed canary"; else bad "maintainer not paged on exhaustion (alerts: $(cat "$ALERT_LOG"))"; fi
 : > "$DEPLOY_LOG"
-run_conductor
+run_conductor GARDEN_CANARY_MAX_RETRIES=0
 grep -q deploy-invoked "$DEPLOY_LOG" && bad "leader advanced on a later tick despite the halt" || ok "later tick keeps HOLDING (leader still not advanced)"
 
 # ============================================================================
@@ -355,6 +418,26 @@ env -i PATH="$PATH" HOME="$HOME" \
 if ! grep -q "deploy-invoked host=$F1" "$DEPLOY_LOG" && [ "$(sed -n 's/^roll_status:[[:space:]]*//p' <<<"$(from_bare "fleet/health/$F1")" | tail -1)" = operator-drained ]; then
   ok "operator-drained follower DECLINES the release and publishes operator-drained status"
 else bad "operator-drained decline did not publish the right status / deployed anyway"; fi
+
+# (f) ROLL-DRAINED DECLINE: released but under a ROLL-INDUCED drain → publishes
+# roll-drained (NOT operator-drained), still no deploy. This is the follower half of
+# the deadlock fix: the conductor can tell its own failure-remediation drain apart
+# from an operator pause and retry it, instead of skipping the canary forever.
+push_change "deploy/roll/$F1" "$TARGET" "release F1 for roll-drain decline test"
+mkdir -p "$TR/sd-state-rolldrain/deploy"; printf 'Upgrade ready\n\navailable: %s\n' "$TARGET" > "$TR/sd-state-rolldrain/deploy/upgrade-ready"
+# A draining marker whose provenance is the conductor (source: rolling-deploy).
+printf 'draining\nset_by: %s\nsource: rolling-deploy\nreason: rolling-deploy: canary FAILED validation\n' "$LEADER" > "$TR/sd-state-rolldrain/draining"
+: > "$DEPLOY_LOG"
+env -i PATH="$PATH" HOME="$HOME" \
+  GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+  GARDEN="$F1" GARDEN_STATE="$TR/sd-state-rolldrain" GARDEN_LEADER="$LEADER" GARDEN_SELF_DEPLOY_SETTLE=0 \
+  GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$TR/mock-state" GARDEN_MOCK_LOG="$TR/mock-log" \
+  GARDEN_UPGRADE_READY_MARKER="$TR/sd-state-rolldrain/deploy/upgrade-ready" \
+  GARDEN_SELF_DEPLOY_DEPLOY_CMD="$TR/rec-deploy.sh" \
+  "$JOBS/self-deploy.sh" >>"$TR/self-deploy.out" 2>&1 || true
+if ! grep -q "deploy-invoked host=$F1" "$DEPLOY_LOG" && [ "$(sed -n 's/^roll_status:[[:space:]]*//p' <<<"$(from_bare "fleet/health/$F1")" | tail -1)" = roll-drained ]; then
+  ok "roll-induced-drained follower DECLINES the release and publishes roll-drained (retryable, distinct from operator-drained)"
+else bad "roll-induced decline did not publish roll-drained / deployed anyway (status: $(sed -n 's/^roll_status:[[:space:]]*//p' <<<"$(from_bare "fleet/health/$F1")" | tail -1))"; fi
 
 # ============================================================================
 hr; echo "RESULTS"; hr

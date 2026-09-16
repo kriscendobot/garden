@@ -268,6 +268,18 @@ export GARDEN
 : "${GARDEN_CANARY_WATCH:=900}"                      # 15 min: post-probe regression-watch window
 : "${GARDEN_ROLL_LEADERLESS_GRACE:=3600}"            # 60 min a follower waits for a leader release before the headless fallback
 : "${GARDEN_SELF_DEPLOY_RETRY_BACKOFF:=1800}"        # 30 min between headless-fallback retries
+# A ROLL-INDUCED canary drain (failure remediation set by the conductor) is RETRYABLE,
+# unlike an operator drain. The conductor re-releases a previously-failed canary on its
+# own up to GARDEN_CANARY_MAX_RETRIES times, waiting GARDEN_CANARY_RETRY_BACKOFF between
+# attempts, then holds and escalates LOUDER. This breaks the self-sustaining deadlock
+# where a roll-set drain was indistinguishable from an operator pause and permanently
+# excluded the canary (designs/follower-self-deploy.md § Failure handling).
+: "${GARDEN_CANARY_MAX_RETRIES:=3}"                  # roll-induced canary drain retries before hold+escalate
+: "${GARDEN_CANARY_RETRY_BACKOFF:=900}"              # 15 min between roll-induced-drain retries
+# Provenance token the conductor stamps into a roll-induced drain marker's `source:`
+# line; every other drain (operator, deploy-in-progress, maintenance) is `operator`,
+# the inviolable default. self-deploy/rolling-deploy key retryability on this exact value.
+: "${GARDEN_DRAIN_SOURCE_ROLL:=rolling-deploy}"
 
 # Fleet draining marker. If present, this host's workers finish their in-flight
 # claims but take no new ones — a graceful, mundane pause, not a kill. The marker
@@ -586,6 +598,28 @@ start_api_cooldown() {  # rc 0 = THIS tick recorded the window (and owns the war
 fleet_draining() { [ -e "$GARDEN_DRAINING_MARKER" ] || [ -e "$GARDEN_KILLSWITCH" ]; }
 # Deprecated alias retained so any not-yet-updated caller keeps working.
 killswitch_engaged() { fleet_draining; }
+
+# drain_source — echo the PROVENANCE of the current drain, read from the draining
+# marker's `source:` line (written by drain-fleet.sh). The default, and the value
+# for any marker with no `source:` line (a legacy or operator drain) and for the
+# deprecated killswitch, is `operator` — so provenance FAILS SAFE toward operator:
+# only a marker explicitly stamped `source: rolling-deploy` is ever treated as
+# roll-induced/retryable, and the operator-drain guarantee is never weakened by a
+# missing or malformed field. Echoes nothing when the host is not draining at all.
+drain_source() {
+  fleet_draining || return 0
+  if [ -e "$GARDEN_DRAINING_MARKER" ]; then
+    local s; s="$(sed -n 's/^source:[[:space:]]*//p' "$GARDEN_DRAINING_MARKER" 2>/dev/null | head -1 | tr -d '[:space:]')"
+    printf '%s\n' "${s:-operator}"
+  else
+    printf 'operator\n'   # legacy killswitch only
+  fi
+}
+# drain_is_roll_induced — rc0 iff this host is draining AND the drain was set by the
+# rolling-deploy conductor as failure remediation (source == rolling-deploy). Any
+# other drain — operator, deploy-in-progress, maintenance, legacy, or an unreadable
+# marker — is NOT roll-induced, so an operator pause is never mistaken for one.
+drain_is_roll_induced() { [ "$(drain_source)" = "$GARDEN_DRAIN_SOURCE_ROLL" ]; }
 
 # True when the FOREMAN must not pump this tick: either the whole fleet is
 # draining (fleet_draining — the drain keeps its meaning and keeps stopping the
@@ -1082,8 +1116,11 @@ fleet_unit_health() {
 # is the canary-validation input the leader reads AND the leaderless fallback's
 # last-known-good source. Best-effort: an unreachable journal never fails a deploy.
 # roll-status defaults to `deployed` (a normal post-deploy publish); a follower that
-# declined to deploy (operator-drained) publishes `operator-drained` with its
-# CURRENT (un-advanced) deployed sha, so the leader can tell "skipped" from "done".
+# declined to deploy publishes its CURRENT (un-advanced) deployed sha with a status the
+# leader keys on: `operator-drained` (a genuine operator pause → conductor SKIPS it,
+# inviolable) or `roll-drained` (the conductor's OWN failure-remediation drain →
+# conductor lifts it and retries, bounded), so the leader can tell "skipped" from
+# "retryable" from "done".
 publish_fleet_health() {
   local sha="${1:?publish_fleet_health: sha}" status="${2:-deployed}"
   local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"

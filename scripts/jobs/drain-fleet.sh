@@ -2,9 +2,17 @@
 # drain-fleet.sh — start or stop draining this host's gardener fleet.
 #
 # Usage:
-#   drain-fleet.sh on  [reason...]   write the draining marker (fleet drains)
+#   drain-fleet.sh on [--source SRC] [reason...]  write the draining marker (fleet drains)
 #   drain-fleet.sh off               remove the draining marker (fleet resumes)
 #   drain-fleet.sh status            report whether the fleet is draining
+#
+# --source records the drain's PROVENANCE in the marker (`source:` line). It defaults
+# to `operator` — an operator/maintenance pause, which is INVIOLABLE: no autonomous
+# path ever lifts it. The rolling-deploy conductor passes `--source rolling-deploy`
+# when it drains a FAILED canary, so self-deploy/rolling-deploy can tell that
+# failure-remediation drain apart from an operator pause and retry it on their own
+# (designs/follower-self-deploy.md § Failure handling). Provenance fails safe toward
+# operator: an unrecognized or absent source is treated as operator by drain_source().
 #
 # Draining is an ACT, not a fixture: it enacts a moratorium on undertaking
 # further work, while allowing work already in progress to finish. Workers finish
@@ -32,6 +40,17 @@ action="${1:-status}"
 case "$action" in
   on)
     shift || true
+    source="operator"
+    # Optional leading --source SRC (SRC a single [A-Za-z0-9._-]+ token); everything
+    # after is the free-text reason, exactly as before.
+    while [ "$#" -gt 0 ]; do
+      case "$1" in
+        --source) shift; source="${1:-operator}"; shift || true ;;
+        --source=*) source="${1#--source=}"; shift ;;
+        *) break ;;
+      esac
+    done
+    case "$source" in *[!A-Za-z0-9._-]*|'') die "illegal --source '$source' (one [A-Za-z0-9._-]+ token)";; esac
     reason="$*"
     mkdir -p "$(dirname "$GARDEN_DRAINING_MARKER")"
     {
@@ -53,9 +72,10 @@ case "$action" in
       echo
       echo "set_by: $GARDEN"
       echo "set_at: $(date -u +%FT%TZ)"
+      echo "source: $source"
       [ -n "$reason" ] && echo "reason: $reason"
     } > "$GARDEN_DRAINING_MARKER"
-    log "fleet draining ON — marker written at $GARDEN_DRAINING_MARKER"
+    log "fleet draining ON (source=$source) — marker written at $GARDEN_DRAINING_MARKER"
     ;;
   off)
     if [ -e "$GARDEN_DRAINING_MARKER" ]; then
@@ -78,6 +98,6 @@ case "$action" in
     log "not draining"
     ;;
   *)
-    die "usage: drain-fleet.sh on [reason...] | off | status"
+    die "usage: drain-fleet.sh on [--source SRC] [reason...] | off | status"
     ;;
 esac

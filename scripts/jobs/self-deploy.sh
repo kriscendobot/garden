@@ -89,12 +89,25 @@ do_deploy() {  # do_deploy <mode>
 # --- 3. PRIMARY: the leader released this host -------------------------------
 if [ "$release" = "$target" ]; then
   if fleet_draining; then
-    # An operator paused this host. Do NOT self-deploy out from under them; publish an
-    # operator-drained health record so the leader's conductor SKIPS this canary rather
-    # than waiting for a deploy that will not come.
-    publish_fleet_health "$(deployed_sha 2>/dev/null || true)" operator-drained \
-      && log "released to ${target:0:12} but operator-drained; declined and published operator-drained status" \
-      || log "WARN: operator-drained + could not publish decline status"
+    # This host is draining. NEVER self-deploy out from under a drain — but the
+    # conductor's SKIP-forever behavior must apply only to a genuine OPERATOR pause,
+    # not to the roll's OWN failure-remediation drain (which would deadlock: a
+    # roll-set drain that looks operator-set permanently excludes the canary,
+    # designs/follower-self-deploy.md § Failure handling). Distinguish by provenance:
+    #   - roll-induced  → publish `roll-drained`; the conductor lifts its own drain and
+    #     retries this canary (bounded). Still DECLINE here — the conductor grants the
+    #     retry by lifting the drain, at which point a later tick deploys normally.
+    #   - operator (or any non-roll drain) → publish `operator-drained`; the conductor
+    #     SKIPS this canary and never lifts the drain. Inviolable, unchanged.
+    if drain_is_roll_induced; then
+      publish_fleet_health "$(deployed_sha 2>/dev/null || true)" roll-drained \
+        && log "released to ${target:0:12} but roll-drained (conductor failure-remediation); declined and published roll-drained status (retryable)" \
+        || log "WARN: roll-drained + could not publish decline status"
+    else
+      publish_fleet_health "$(deployed_sha 2>/dev/null || true)" operator-drained \
+        && log "released to ${target:0:12} but operator-drained; declined and published operator-drained status" \
+        || log "WARN: operator-drained + could not publish decline status"
+    fi
     exit 0
   fi
   do_deploy "leader-release"
@@ -125,8 +138,19 @@ if [ "$leaderless" -ne 1 ]; then
 fi
 
 if fleet_draining; then
-  log "leaderless fallback eligible but this host is operator-drained; holding (never self-deploy out from under an operator)"
-  exit 0
+  if drain_is_roll_induced; then
+    # A roll-induced drain with NO live conductor to lift it would strand this host
+    # forever (the very deadlock this daemon exists to prevent). Since it is provably
+    # the roll's own drain — never an operator's — the leaderless backstop clears it
+    # and proceeds under the headless canary gate below. An OPERATOR drain still holds.
+    "$HERE/drain-fleet.sh" off >/dev/null 2>&1 \
+      && log "leaderless fallback: cleared a stale ROLL-INDUCED drain (no live conductor to retry it) and proceeding under the headless gate" \
+      || log "WARN: leaderless fallback could not clear the stale roll-induced drain; holding"
+    fleet_draining && exit 0
+  else
+    log "leaderless fallback eligible but this host is operator-drained; holding (never self-deploy out from under an operator)"
+    exit 0
+  fi
 fi
 
 # Headless canary: never advance AHEAD of the last-known-good leader-validated sha.
