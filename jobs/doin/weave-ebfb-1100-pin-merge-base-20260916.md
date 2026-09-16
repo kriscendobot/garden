@@ -34,3 +34,13 @@ TASK, in order:
 
 The PR premise is LIVE: endojs/endo-but-for-bots#1100 is OPEN draft, not merged,
 not superseded.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:54:24Z
