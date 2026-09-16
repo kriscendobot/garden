@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:49:08Z_
+_As of 2026-09-16T14:50:01Z_
 
 ## Latest
 
@@ -504,16 +504,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.7M | $466.58 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.1M | $468.30 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 8.9M _(+220.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1281-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1281
+### todo (0)
+(none)
 
-### doin (2)
+### doin (3)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-mutable-blob-formula.md) — Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
+- [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1281-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1281
 
 ### tada (8009)
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town-followup.md) — Completion report — wire-siwe-onchain-authz-minion-town-followup
