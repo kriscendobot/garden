@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":70,"elapsed_s":1086,"input_tokens":138,"output_tokens":73920,"cache_creation_tokens":166835,"cache_read_tokens":8635125,"total_cost_usd":7.8377895,"ts":"2026-09-16T05:48:02Z","base":"fix-canary-drain-self-exclusion-20260916","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
