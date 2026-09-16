@@ -44,6 +44,7 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) | Distinguishes capability semantics from a sandbox's generic descriptor representation. |
 | [object-oriented-security-naming](../sections/cap-talk-2009-2012--object-oriented-security-naming.md) | Varda's thesis that ocap security is a special case of object-oriented design, and the never-settled dispute over renaming it 'object-oriented security'. |
 | [safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) | An ocap language must guarantee safety of exactly the abstractions that preserve ocap invariants (unforgeable references, scopes, no ambient authority). |
+| [cap-talk-2009-2012--immutable-data-and-the-authority-boundary](../sections/cap-talk-2009-2012--immutable-data-and-the-authority-boundary.md) | Identity and reachable slots, not mutability alone, separate authority-bearing references from pure copy-data. |
 
 ## See also
 
