@@ -156,6 +156,7 @@
 | [Artifacts Git, REST, and Worker surfaces](../sections/web--cloudflare-artifacts-docs--git-compatibility-and-programmatic-surfaces.md) | cloudflare-workers-agent-hosting, content-addressed-storage, capability-security | Git-over-HTTPS is the full repository data path; REST and the Worker binding expose different control and read subsets. |
 | [Worker-side Artifacts mutation with isomorphic-git](../sections/web--cloudflare-artifacts-docs--worker-side-mutation-with-isomorphic-git.md) | cloudflare-workers-agent-hosting, agent-workspaces, content-addressed-storage | Workers edit an ephemeral filesystem through isomorphic-git, then commit and push durable state to Artifacts. |
 | [sha1-key-fingerprint-threat-model](../sections/cap-talk-2002-2003--sha1-key-fingerprint-threat-model.md) | cap-talk 2003-September | Historical fingerprint reasoning shows that digest security depends on the structured object being named and attacker control over its encoding. |
+| [cap-talk-2009-2012--networking-named-content-self-authenticating-names](../sections/cap-talk-2009-2012--networking-named-content-self-authenticating-names.md) | cap-talk 2010-December | CCN's key-rooted content validation is a self-authenticating name system (same as Self-certifying Filesystem and Tahoe-LAFS); the y-property versus misplaced transitive 'trust'. |
 
 ## See also
 
