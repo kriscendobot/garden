@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:40:11Z_
+_As of 2026-09-16T10:46:42Z_
 
 ## Latest
 
-Five halted gauntlets and one orchestration await triage decisions: [endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) (transient, re-post as-is), [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (confirm premise before re-post), [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (real failure—re-scope to weave/pin-merge-base), [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) (6 panel rounds, mergeable—route to human review instead), and [minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration (child 1 complete, resume at child 2 with raised budget). [endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) design landed in draft with 6 open questions blocking the computron benchmark build; [endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) audit found no surviving own-cost constraints for the baseline. Weave job for [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit 2400s wall-clock timeout; semantic port of `stringLengthLimit`→`byteLengthLimit` at 3 call sites in `9p-server` requires conflict resolution before gauntlet resume. Ironhorse computron benchmark baseline orchestration completed (2 children, all green). Token spend at 41% of quota. One host (oros-studio) blocks gardener worker-kind alias retirement (still on legacy kind). Minion.town evaluation needs host-side identity introduction; clip GC build needs restored kriscendobot token on endolin.
+The Ironhorse computron benchmark baseline orchestration completed successfully, with both audit and terminal phase steps finishing. Comprehensive triage of five halted gauntlets from early September identified one transient halt (re-post-safe) and four real failures requiring re-scope: two need confirmation on current premise before rerun; one needs base drift resolution and merge-base pin before gauntlet resume; one is mergeable green but stuck in a 6-iteration panel loop and needs human review → un-draft instead of re-gauntlet; and one already advanced but was archived and needs re-anchoring to resume at child 2 with a raised budget. Maintainer inbox flagged six messages covering identity handoff prerequisites, credential restoration blockers, a weaver deadline overrun (semantic port on base drift), reminder daemon migration gaps, and partial-unquiesce verification—plus an orchestration halt on credit-controls due to handler timeout. Twenty-five PRs remain parked awaiting review, including the open-questions-bearing computron design (answers gating its build implementation). Fleet quad at 41% weekly token quota.
 
 ## Parked for maintainer feedback
 
@@ -400,24 +400,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.0M | $455.66 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Claude | 58.2M | $455.99 _(notional, rate-card)_ | 41% of 143.0M (ok) |
 | Codex | 7.6M _(+189.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`design-endor-git-windows-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endor-git-windows-followup.md) — Follow-up: Windows (MSVC) support for endor-git bindings
+### doin (1)
 - [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/implement-worktree-teardown-on-job-completion.md) — ---
 
-### tada (7985)
+### tada (7986)
+- [`design-endor-git-windows-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endor-git-windows-followup.md) — Completion report
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-stale-pr-viability-gate.md) — Cost
 - [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/verify-foreman-partial-unquiesce-target-2.md) — Cost
 - [`claude-on-minion-town-press-20260916-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-100509.md) — Cost
 - [`endojs-endo-but-for-bots-pr1283-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1283-gauntlet — review budget reached
-- [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-6.md) — Summary
-- … and 7980 more
+- … and 7981 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
