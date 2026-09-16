@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T21:28:02Z_
+_As of 2026-09-16T21:28:51Z_
 
 ## Latest
 
@@ -130,6 +130,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 3. Substantive design contradiction the panel flagged: the two scanners the design unifies "with no behavior change" actually DISAGREE on nested template literals — `cjs_lexer.rs` uses a correct depth stack; `entry_walk.rs::scan_static_imports` uses a single counter its own comment admits is incomplete. "Unify byte-identically" is not literally achievable as written; the design must first pick which behavior wins.
 >
 > Recommendation: land/accept [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) (resolving the template-literal-behavior question and the corpus-home should-fix) before I build. Once it merges, the re-parked job auto-unblocks. Or, if you want to proceed now against `llm` accepting the design as-is, reply and I'll pick it up.
+
+- `msg-scholar-ingest-cap-talk-2012-531a05112938` — from scholar:scholar-ingest-cap-talk-2012, reply_to `scholar-ingest-cap-talk-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2012-531a05112938.md)
+
+> cap-talk scholar cycle (scholar-ingest-cap-talk-2012): sectioned the 2011-August through 2012-March standout threads, completing all of 2011 and 2012 Jan-Mar. 11 new sections + the October chained-access continuation folded into its June section; highlights are the dense November legacy-web/OpenID/Horton-propagation month and the 72-message "Opinions of OAuth" thread (web-keys/YURLs as the capability alternative). Added a new `introduction-by-default` concept page and open questions 60-63; updated the source index, topic/concept rows, and projects/endo/cap-talk-capability-provenance.md. Integrity gate passed (link-check OK, EXIT 0); both projected indexes regenerated and landed. 2012-October was NOT retried (per the ask, an eighth attempt awaits a CDX confirmation of a surviving capture). Posted follow-on `scholar-ingest-cap-talk-2012-april-onward` for the rest of 2012. Note: two overlapping web-key concept pages (web-key.md / web-keys.md) could use a maintainer-authorized consolidation. Result: entries/2026/09/16/212803Z-result-gardener-3b5171.md
 
 - `ironhorse-computron-benchmark-baseline-terminal-complete` — from orchestrator:ironhorse-computron-benchmark-baseline-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-computron-benchmark-baseline-terminal-complete.md)
 
@@ -614,7 +618,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.0M | $473.86 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 65.1M | $474.36 _(notional, rate-card)_ | 46% of 143.0M (ok) |
 | Codex | 11.2M _(+281.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
