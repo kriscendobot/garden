@@ -37,6 +37,7 @@ implemented primitive.
 | [ocapn--draft-specifications-captp--promises](../sections/ocapn--draft-specifications-captp--promises.md) | Spec-level account of promises in CapTP, including the answer-slot machinery that the wire side of pipelining depends on. |
 | [Capn Web RPC discipline](../sections/cloudflare-os--agents--capn-web-rpc-discipline.md) | Cloudflare OS requires pipelined RPC promises to remain unawaited when their future result or stub feeds another call. |
 | [RPC and build-system review](../sections/cloudflare-os--review--rpc-and-build-system-review.md) | Review guidance explicitly excludes intentional Capn Web pipelining from floating-promise findings. |
+| [cap-talk-2004-2008--ref-send-eventual-reference-api](../sections/cap-talk-2004-2008--ref-send-eventual-reference-api.md) | Waterken’s Java ref_send API packages eventual sends, result promises, pipelining, and failure propagation. |
 
 ## See also
 
