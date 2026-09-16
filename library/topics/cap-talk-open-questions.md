@@ -162,6 +162,55 @@ Persistent reference graphs can survive restarts, and causally ordered checkpoin
 
 - [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](../sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
 
+### 26. Who pays for shared durable state?
+
+Space banks and sub-meters make allocation authority explicit, but shared references complicate responsibility after the creator delegates or disappears. Charging creators permits budget pinning; charging holders makes transfer and reclamation observable; partitions waste slack. The archive does not find a universally efficient policy.
+
+- [cap-talk-2004-2008--capability-accounting](../sections/cap-talk-2004-2008--capability-accounting.md)
+- [cap-talk-2004-2008--memory-accounting-without-partitions](../sections/cap-talk-2004-2008--memory-accounting-without-partitions.md)
+
+### 27. What does a delegation account prove?
+
+Horton can preserve a sealed chain describing who delegated a reference through which proxy, without making identity the authorization mechanism. It cannot by itself prove human intent, distinguish a compromised delegate, or prevent proxying. The right evidentiary claim for such provenance remains protocol-specific.
+
+- [cap-talk-2004-2008--horton-accountability-without-authority](../sections/cap-talk-2004-2008--horton-accountability-without-authority.md)
+
+### 28. Is trust a substitute for least authority?
+
+No consensus accepts “authority must not exceed trust” as a replacement for POLA. Trust is observer-relative, while restricting even trusted components is part of what justifies trust. The unresolved part is who defines a component's intended function when users, developers, and deployers disagree.
+
+- [cap-talk-2004-2008--authority-must-not-exceed-trust](../sections/cap-talk-2004-2008--authority-must-not-exceed-trust.md)
+
+### 29. When may a UI gesture safely mint authority?
+
+Designation-as-authorization avoids meaningless prompts, but only if a trusted path binds the user's gesture, its recipient, and its scope. The archive does not offer a universal rule for interpreting clicks, URLs, drag-and-drop, undo, and compound GUI transactions.
+
+- [cap-talk-2004-2008--user-intent-as-authorization](../sections/cap-talk-2004-2008--user-intent-as-authorization.md)
+
+### 30. Is non-delegatable authority useful beyond an expressiveness result?
+
+A membrane can prevent transfer of the exact reference while an unconfined holder can still proxy its effects. The construction refutes a narrow impossibility claim, but may force permanent mediation and obstruct refactoring. Its practical benefit over ordinary attenuation and revocation remains disputed.
+
+- [cap-talk-2004-2008--non-delegatable-authority](../sections/cap-talk-2004-2008--non-delegatable-authority.md)
+
+### 31. How much persistence belongs in the language?
+
+Transparent graph persistence preserves identity elegantly but cannot transparently restore sockets, clocks, files, remote peers, code upgrades, or uncertain outcomes. Explicit serialization exposes those boundaries at a higher programming cost. The division between platform and application remains open.
+
+- [cap-talk-2004-2008--persistent-object-capability-language](../sections/cap-talk-2004-2008--persistent-object-capability-language.md)
+
+### 32. Can ACL policy safely coexist with object capabilities?
+
+The mature hybrid rule is plausible but conditional: capability references designate and bound maximum authority; ACL-like policy may subtract rights for administration or group removal. Whether practical systems can preserve that one-way narrowing without identity lookup adding authority remains an engineering question.
+
+- [cap-talk-2004-2008--acls-and-object-capabilities-coexistence](../sections/cap-talk-2004-2008--acls-and-object-capabilities-coexistence.md)
+
+### 33. Under what assumptions is authority non-increasing?
+
+Reference reachability does not spontaneously grow in a closed graph, but active principals can receive messages, exercise amplifiers, and benefit from changing state. Any monotonicity theorem must state which inbound channels and protocols are excluded.
+
+- [cap-talk-2004-2008--principal-authority-monotonicity](../sections/cap-talk-2004-2008--principal-authority-monotonicity.md)
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
