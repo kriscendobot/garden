@@ -43,6 +43,7 @@
 | [cap-talk-2009-2012--file-api-taming-tahoe](../sections/cap-talk-2009-2012--file-api-taming-tahoe.md) | capability-security, identity | Tahoe file/directory capabilities do not know their own names; naming is a per-directory binding; the (directory, name) tuple restores relative naming without an ambient global namespace. |
 | [authentication-identity-versus-property-validation](../sections/cap-talk-2009-2012--authentication-identity-versus-property-validation.md) | capability-theory, identity | Authentication as remote-principal identification versus security-relevant property validation. |
 | [geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) | capability-security, identity | An origin string is not a user-understood principal on a multi-origin composed page. |
+| [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | cap-talk 2010-February | Cookies conflate designation and authorization; the terminology note on what to call an unguessable-but-not-unforgeable secret-bearing URL. |
 
 ## See also
 
