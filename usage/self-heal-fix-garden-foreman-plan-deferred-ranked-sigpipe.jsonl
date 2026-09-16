@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":44,"elapsed_s":877,"input_tokens":86,"output_tokens":43399,"cache_creation_tokens":101306,"cache_read_tokens":3401540,"total_cost_usd":3.8022709999999997,"ts":"2026-09-16T21:22:46Z","base":"self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
