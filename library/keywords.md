@@ -101,3 +101,10 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - Cloudflare Artifacts, Artifacts, ArtifactFS -> cloudflare-artifacts
 - `formulaGraph`, `listRetentionPaths`, retention paths, retention pin -> formula-graph
 - durable set, id-keyed set, retention set -> four-tables-coordinated-retention
+- capabilities vs ACLs, capability vs ACL, ACL vs capability, access control list vs capability, ACLs on capabilities, equivalence myth, identity vs token, token vs identity -> capabilities-vs-acls
+- card keys, card key, swipe card, swipe cards, card keys are capabilities, Shapiro card key analogy -> card-keys
+- rescinded key, rescinded keys, indistinguishable revocation, `DK(0)` -> revocation-by-withdrawal
+- destroyable indirection object, indirection object revocation, EROS revocation primitive, key ID opacity -> card-keys
+- cap-talk, cap-talk mailing list, eros-os.org pipermail, EROS architects list -> capabilities-vs-acls
+- space bank, objects are allocated not created, storage accounting vs garbage collection -> capabilities-vs-acls
+- what is a capability, CAOS capable OS, syscall gating is not a capability, POSIX capabilities are not ocaps -> capabilities-vs-acls
