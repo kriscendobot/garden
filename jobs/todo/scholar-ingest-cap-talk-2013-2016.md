@@ -1,9 +1,8 @@
 ---
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-09-16T13:50:54Z
+role: scholar
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-16T18:19:13Z cleared=none -->
 
 ---
 role: scholar
