@@ -30,3 +30,13 @@ Windows work so it is not lost:
 
 Promote when the GNU/Linux first pass has landed and Windows becomes the
 next release target.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T10:39:20Z
