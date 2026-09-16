@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7120 (530 parent indexes + 6590 children).
+Total section files: 7125 (530 parent indexes + 6595 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -462,8 +462,13 @@ Total section files: 7120 (530 parent indexes + 6590 children).
 
 - [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md)
 - [cap-talk-2009-2012--confused-deputies-in-capability-systems](cap-talk-2009-2012--confused-deputies-in-capability-systems.md)
+- [cap-talk-2009-2012--defensive-correctness-versus-consistency](cap-talk-2009-2012--defensive-correctness-versus-consistency.md)
+- [cap-talk-2009-2012--defining-ambient-authority](cap-talk-2009-2012--defining-ambient-authority.md)
 - [cap-talk-2009-2012--file-api-taming-tahoe](cap-talk-2009-2012--file-api-taming-tahoe.md)
+- [cap-talk-2009-2012--hiding-webkeys-from-the-address-bar](cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md)
+- [cap-talk-2009-2012--origin-header-amplifies-ambient-authority](cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md)
 - [cap-talk-2009-2012--petnames-versus-e-order](cap-talk-2009-2012--petnames-versus-e-order.md)
+- [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md)
 - [cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable](cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
 - [cap-talk-2009-2012--taxonomy-of-object-capability-systems](cap-talk-2009-2012--taxonomy-of-object-capability-systems.md)
 - [cap-talk-2009-2012--webkeys-vs-the-web](cap-talk-2009-2012--webkeys-vs-the-web.md)
