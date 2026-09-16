@@ -16,6 +16,10 @@ A **web-key** is an unguessable URL whose possession both designates a Web resou
 | [cap-talk-2004-2008--web-keys-mashing-with-permission](../sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md) | Close's 2008 paper thread: unguessable REST URLs, delegation, revocation, persistence, and application composition. |
 | [papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix](../sections/papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix.md) | The access-matrix formalization: anti-forgery tokens and unguessable URLs move Web applications from ACL-by-cookie to capability-by-reference. |
 | [cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names](../sections/cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names.md) | YURLs put a hash of the server public key in the hostname to authenticate an endpoint without DNS or a CA; sizing the fingerprint against parallelizable multi-target preimage attacks. |
+| [opinions-of-oauth](../sections/cap-talk-2009-2012--opinions-of-oauth.md) | Tyler Close and Marc Stiegler present web-keys and Waterken YURLs (public-key fingerprint in the hostname) as the capability alternative to OAuth. |
+| [supplanting-passwords-and-the-master-capability](../sections/cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md) | Web-keys replace per-resource passwords; a master-capability bootstrap remains irreducible. |
+| [what-parts-of-a-url-are-safe-for-secrets](../sections/cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets.md) | The confidentiality leak in URL-borne capabilities: nothing in the URL is safe, so keep the secret in the fragment. |
+| [capabilities-for-legacy-web-programs](../sections/cap-talk-2009-2012--capabilities-for-legacy-web-programs.md) | HMAC-signed URLs retrofit unforgeable, possession-proves-authority behavior onto legacy web frameworks. |
 
 ## See also
 
