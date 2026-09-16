@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-09-16
 author: gardener
 ---
 
@@ -30,9 +30,11 @@ fi
 # ahead-count within the intended delta? One deterministic probe covers both.
 scripts/jobs/gardening/assert-pinned-base.sh pr <owner>/<repo> <N>
 case $? in
+  0) pin=ok ;;
+  4) pin=inconclusive ;;        # gh/parse failure; never report this as clean
   5) pin=unpinned-base ;;       # floating master/llm/main
   6) pin=wide-entrained-delta ;;# far more commits than the intended change
-  *) pin=ok ;;                  # 0 pinned; 4 inconclusive (a gh blip)
+  *) pin=sensor-error ;;
 esac
 ```
 
@@ -55,6 +57,9 @@ esac
   commits (#831's "79 commits entrained"). `assert-pinned-base.sh` flags it (exit
   6) above `GARDEN_PIN_MAX_AHEAD`; treat it as a candidate for a from-pinned-base
   restack, not a routine rebase.
+- **inconclusive** / **sensor-error**: the probe could not establish branch
+  hygiene. Do not classify the PR as green; retry the probe and report the read or
+  sensor failure if it persists.
 
 ## Bulk-fetching
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-08-22
+updated: 2026-09-16
 author: gardener
 ---
 
@@ -58,6 +58,17 @@ by the **deterministic sensor** `scripts/jobs/gardening/assert-pinned-base.sh`:
   base halts the gauntlet with the `pin the merge base #N` disposition; a wide
   entrained delta surfaces a maintainer notice.
 
+### Re-litigation test
+
+- **#719:** its floating `master` base makes `assert-pinned-base.sh pr` exit 5;
+  the gauntlet halts before review, so the stray `package.json` artifact is not
+  presented as part of the intended delta.
+- **#831:** its floating base makes the same probe exit 5; independently, its 79
+  commits exceed the default 40-commit ceiling and make the probe exit 6, which
+  surfaces the wide-entrained-delta notice before review.
+- **#836:** its floating `llm` base makes the probe exit 5; the gauntlet directs
+  the weaver to pin the merge base before review.
+
 ## Naming convention
 
 ```
@@ -95,19 +106,22 @@ distinct dispatched role. The stages map to v1's builder/weaver/conductor as:
 # 1. Fetch the current upstream base.
 git fetch origin <base>
 
-# 2. Compute the short SHA.
-SHA7=$(git rev-parse --short=7 origin/<base>)
+# 2. Capture the upstream tip and compute the short SHA once. Use BASE_SHA for
+#    every later operation so another fetch cannot silently move the snapshot.
+BASE_SHA=$(git rev-parse origin/<base>)
+SHA7=$(git rev-parse --short=7 "$BASE_SHA")
 FROZEN_BASE="<base>-$SHA7"
 
 # 3. Push the frozen-base branch to the fork. The bot's fork is origin's
 #    `kriscendobot/...` remote (the worktree is checked out from the bot's bare
 #    clone).
-git push origin "refs/remotes/origin/<base>:refs/heads/$FROZEN_BASE"
+git push origin "$BASE_SHA:refs/heads/$FROZEN_BASE"
 
-# 4. Create the head branch off the frozen base. The head name follows the
-#    project's existing naming (e.g., `feat/<topic>`, `fix/<issue>-<topic>`,
-#    or whatever pr-formation prescribes).
-git checkout -b <head-branch> "$FROZEN_BASE"
+# 4. Fetch the frozen ref and create the head branch from that ref, not from the
+#    moving origin/<base>. The head name follows the project's existing naming.
+git fetch origin \
+  "refs/heads/$FROZEN_BASE:refs/remotes/origin/$FROZEN_BASE"
+git checkout -b <head-branch> "origin/$FROZEN_BASE"
 
 # 5. Author commits, push the head.
 git add ... && git commit ...
@@ -123,9 +137,9 @@ scripts/jobs/gardening/ensure-pr.sh <job-base> <owner/repo> <head-branch> "$FROZ
 ```
 
 The frozen base lives in the fork's branches namespace; it never propagates to
-upstream. The `git push origin refs/remotes/origin/<base>:refs/heads/<frozen-base>`
-form pushes the local view of upstream's tip without checking out the upstream
-branch.
+upstream. The `git push origin <captured-sha>:refs/heads/<frozen-base>` form
+pushes the captured upstream tip without checking out the upstream branch and
+cannot drift if another process fetches the moving ref between the read and push.
 
 ## Rebase: move both base and head
 
@@ -140,8 +154,9 @@ together.
 # 1. Fetch upstream's current tip.
 git fetch origin <base>
 
-# 2. Compute the new short SHA.
-NEW_SHA7=$(git rev-parse --short=7 origin/<base>)
+# 2. Capture the new tip and compute its short SHA once.
+NEW_BASE_SHA=$(git rev-parse origin/<base>)
+NEW_SHA7=$(git rev-parse --short=7 "$NEW_BASE_SHA")
 NEW_FROZEN_BASE="<base>-$NEW_SHA7"
 
 # 3. If the new short SHA equals the current frozen-base SHA, no rebase needed.
@@ -152,17 +167,17 @@ if [ "$NEW_SHA7" = "$CURRENT_SHA7" ]; then
   exit 0
 fi
 
-# 4. Push the new frozen-base branch. This creates a branch on the remote but
-#    NOT a local ref named `$NEW_FROZEN_BASE`, so step 5 rebases onto
-#    `origin/<base>` (the same commit the snapshot was cut from), not onto the
-#    bare `$NEW_FROZEN_BASE` name, which would fail with "invalid upstream".
-git push origin "refs/remotes/origin/<base>:refs/heads/$NEW_FROZEN_BASE"
+# 4. Push the new frozen-base branch, then fetch that exact ref. The fetch creates
+#    a local remote-tracking ref whose NAME and commit both express the pin.
+git push origin "$NEW_BASE_SHA:refs/heads/$NEW_FROZEN_BASE"
+git fetch origin \
+  "refs/heads/$NEW_FROZEN_BASE:refs/remotes/origin/$NEW_FROZEN_BASE"
 
 # 5. Fetch the head, rebase onto the new frozen base, push with --force-with-lease.
 HEAD_BRANCH=$(gh pr view <N> --json headRefName --jq .headRefName)
 git fetch origin "$HEAD_BRANCH"
 git checkout -B "$HEAD_BRANCH" "origin/$HEAD_BRANCH"
-git rebase origin/<base>   # equals $NEW_FROZEN_BASE's commit; the local ref does not exist yet
+git rebase "origin/$NEW_FROZEN_BASE"
 git push --force-with-lease origin "$HEAD_BRANCH"
 
 # 6. Update the PR's base.
