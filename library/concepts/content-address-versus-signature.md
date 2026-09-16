@@ -20,6 +20,7 @@ Two verification primitives are routinely conflated and do different jobs. **A h
 | [atproto--specs-sync--event-stream-relays-and-self-certification](../sections/atproto--specs-sync--event-stream-relays-and-self-certification.md) | The deployed boundary: repository data verifies offline, identity and account data 'is not self-certifying', and wholesale filtering of a repository is undetectable. |
 | [atproto--specs-sync--inductive-verification-and-operation-inversion](../sections/atproto--specs-sync--inductive-verification-and-operation-inversion.md) | `since` and `prevData` 'are neither authenticated (signed) nor self-certifying' yet still carry the consistency chain: a third category between hash and signature. |
 | [atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat](../sections/atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat.md) | The mutable-name side of the same split: `at://` names a record, and the spec says outright it is not content-addressed. |
+| [cap-talk-2002-2003--sha1-key-fingerprint-threat-model](../sections/cap-talk-2002-2003--sha1-key-fingerprint-threat-model.md) | A key fingerprint authenticates a structured public-key encoding; useful attacks depend on producing an accepted key the attacker can exercise. |
 
 ## See also
 
