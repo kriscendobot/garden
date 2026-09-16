@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T21:27:04Z_
+_As of 2026-09-16T21:28:02Z_
 
 ## Latest
 
@@ -621,7 +621,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`scholar-ingest-cap-talk-2012-april-onward`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012-april-onward.md) — ---
 - [`scholar-ingest-cap-talk-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012.md) — ---
 
 ### tada (8059)
