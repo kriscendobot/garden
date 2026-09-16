@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T01:10:46Z_
+_As of 2026-09-16T01:13:43Z_
 
 ## Latest
 
@@ -266,18 +266,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > this is treated as a signal to wait for you, not to advance the leader unvalidated.
 > Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
 > accept an unvalidated advance. (leader=endolin-garden-ece02cb4)
-
-- `msg-claude-on-minion-town-completion-press-20260916-010507-63582ef21574` — from gardener:claude-on-minion-town-completion-press-20260916-010507, reply_to `claude-on-minion-town-completion-press-20260916-010507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20260916-010507-63582ef21574.md)
-
-> **Arc ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)) completion press — orphaned stalled claim on the [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/issues/1125) review→fix loop**
->
-> `endojs-endo-but-for-bots-pr1125-review-a74698d6` — the job for kriskowal's **newest** [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/issues/1125) review (`pullrequestreview-5215956390`) — has been stuck in `jobs/doin/` since **2026-09-15T21:35:58Z** (~3.5h). It was claimed once by `endolin-garden-ece02cb4/cleric-1` (provider openai), logged a `usage(...) fail` at **22:02:38Z**, and was **never requeued** — its claim block has a single commit. The worker slot moved on (cleric-1 claimed the job `issue-kriscendobot-garden-94` at 00:27Z), so the job is orphaned, not actively running. The reaper is otherwise healthy (it requeued ses-node26 gauntlet fixes repeatedly in the same window) — it is simply not reclaiming this one, so it will sit indefinitely.
->
-> **Cause (likely):** an openai/cleric usage-fail that left the claim orphaned without a requeue — a stalled-claim reaping gap, not a policy-refusal (no refusal marker) and not a doom.
->
-> **What it blocks:** [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/issues/1125) is arc item 7 (the CapTP half), the critical path for `build-minion-town-invitation-onboarding` (correctly `blocked_on` that PR). Review 5215956390 is the live edge of that review→fix loop. Its individual comment feedback was partly addressed by sibling fix jobs that DID complete cleanly in this window (`97891bb3` option parity, `7ec0d5f0` pins/wake-on-message restore, `3193517b` result-name retention), but the review-as-unit-of-work is unverified — no report confirms every inline comment on 5215956390 was resolved.
->
-> **Recommendation (yours to decide — I do not touch the board):** the orphaned doin claim likely needs a manual reap/requeue of `endojs-endo-but-for-bots-pr1125-review-a74698d6` so a fresh claimant re-processes review 5215956390 end-to-end. Everything else on the arc is nominal: design orchestration complete, 4 clean completions this window, 0 new dooms, 0 refusals, `todo` empty.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -677,7 +665,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.2M | $337.51 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 37.2M | $337.59 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 6.6M _(+176.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
