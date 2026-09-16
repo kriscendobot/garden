@@ -22,6 +22,7 @@ Two verification primitives are routinely conflated and do different jobs. **A h
 | [atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat](../sections/atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat.md) | The mutable-name side of the same split: `at://` names a record, and the spec says outright it is not content-addressed. |
 | [cap-talk-2002-2003--sha1-key-fingerprint-threat-model](../sections/cap-talk-2002-2003--sha1-key-fingerprint-threat-model.md) | A key fingerprint authenticates a structured public-key encoding; useful attacks depend on producing an accepted key the attacker can exercise. |
 | [hashcode-collisions-and-the-weakest-link](../sections/cap-talk-2009-2012--hashcode-collisions-and-the-weakest-link.md) | Whether it is sound to anchor a correctness or identity guarantee on a cryptographic hash (Waterken ETags): the hash is not the weakest link, software is. |
+| [cap-talk-2009-2012--networking-named-content-self-authenticating-names](../sections/cap-talk-2009-2012--networking-named-content-self-authenticating-names.md) | cap-talk 2010-December | CCN roots names in a public key (signature-style self-authentication), which Zooko shows is the same self-authenticating-name category as SFS and Tahoe-LAFS. |
 
 ## See also
 
