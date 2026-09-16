@@ -113,3 +113,8 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - principal attribution, capability provenance, proxy attribution -> capabilities-vs-acls
 - space bank, objects are allocated not created, storage accounting vs garbage collection -> capabilities-vs-acls
 - what is a capability, CAOS capable OS, syscall gating is not a capability, POSIX capabilities are not ocaps -> capabilities-vs-acls
+- lambda-capability, lambda capability, explicit descriptor binding, namespace owner assigns names -> object-capability
+- permission vs authority, permission versus authority, least permission, direct vs indirect access -> principle-of-least-authority
+- principal agent, user intent agent, pre-opened descriptor, save-as capability -> principle-of-least-authority
+- one-shot capability, non-transferable capability, limited transfer, proxy defeats non-transferability -> distributed-confinement
+- overt causality, covert causality, in-model causality, conforming-implementation channel test -> distributed-confinement
