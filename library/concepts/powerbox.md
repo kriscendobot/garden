@@ -33,6 +33,7 @@ confused-deputy attack against the broker.
 | [cap-talk-2009-2012--web-browser-powerbox-web-introducer](../sections/cap-talk-2009-2012--web-browser-powerbox-web-introducer.md) | cap-talk 2010-December | Tyler Close's Web Introducer: an extension-free, single-click, in-page browser powerbox; the granting-gesture cost is what determines whether fine-grained delegation happens. |
 | [cap-talk-2009-2012--android-capability-discipline-and-pola](../sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md) | cap-talk 2010-May/July | Why platform manifest attenuation backfires (over-asking, untested subsets) where object-reference/powerbox attenuation does not. |
 | [cap-talk-2009-2012--re-authentication-and-time-limited-capabilities](../sections/cap-talk-2009-2012--re-authentication-and-time-limited-capabilities.md) | Re-authentication (browsing versus buying) recast as minting a fresh, short-lived, narrowly-scoped capability through the powerbox rather than re-proving identity. |
+| [supplanting-passwords-and-the-master-capability](../sections/cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md) | The powerbox and endowment as the patterns for getting capabilities in the first place, and the master-capability bootstrap residue. |
 
 ## See also
 
