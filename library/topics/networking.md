@@ -108,6 +108,7 @@
 | [OpenSandbox credential binding discipline](../sections/opensandbox--docs-guides-credential-vault--binding-discipline-residual-trust-and-endo-comparison.md) | OpenSandbox Credential Vault | nft-backed default-deny egress and precise bindings are required to prevent destination bypass. |
 | [OpenSandbox inbound token validation](../sections/opensandbox--docs-guides-secure-access--inbound-token-boundary-and-validation-order.md) | OpenSandbox Secure Access | Gateway and server proxy gate HTTP/WebSocket with a per-sandbox token. |
 | [OpenSandbox signed endpoint URLs](../sections/opensandbox--docs-guides-secure-access--signed-urls-key-rotation-and-routing-modes.md) | OpenSandbox Secure Access | Expiring signatures can route through host, header, or URI modes. |
+| [cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels](../sections/cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels.md) | cap-talk 2012-September | Brian Warner: make the VatID the base32 public key and apply NaCl box/unbox per message instead of TLS per connection — self-authenticating identity, connectionless store-and-forward; the OCapN-over-Noise antecedent. |
 
 ## See also
 
