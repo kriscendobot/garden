@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T09:24:24Z_
+_As of 2026-09-16T09:25:29Z_
 
 ## Latest
 
-Panel round 6 completed for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron benchmark baseline). The maintainer inbox holds three high-urgency items awaiting decisions: a weave job that hit its 2400s handler timeout and needs re-scoping for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (`@endo/exo-stream` migration with base drift); a halted orchestration for credit-controls work (child stalled at viability gate); and host-introduction setup for minion.town's GitHub-federation identity test. Five earlier-halted gauntlets were triaged: two were transient (capacity-crunch) and ready for cheap re-post, one ([kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81)) needs premise confirmation, and two require scope decisions (stop the panel loop on [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) since it's already mergeable, and re-anchor [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) orchestration to resume at child 2 with raised budget). Claude quota is at 39% and holding; 25 PRs remain parked for review, led by endo patterns and error-console work.
+Fleet blocked on bot PAT scope: GitHub write access to PR reviews and comments lost, preventing panel verdicts from posting on [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) and all other PRs. Gauntlet halts from early September triaged: one transient halt ready for re-post, one awaiting premise confirmation, one real base-drift failure needing a weave/merge-base pin of [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (`stringLengthLimit`→`byteLengthLimit` conflict in `9p-server`), one green PR needing human review instead of re-panel, and one partly-landed orchestration needing re-anchor at child 2. Ironhorse computron benchmark baseline plan completed and is parked awaiting your answers to six open questions on tolerance bands, gate placement, seed roster, and baseline versioning policy. Daemon revival dry-run on minion.town failed (schema incompatibility on `host.registry`); no production redeploy attempted. Canary deploy recovered and passing; a third fleet host (oros-studio) still on legacy `gardener` kind is blocking alias retirement.
 
 ## Parked for maintainer feedback
 
@@ -249,6 +249,24 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
 
+- `msg-ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6-af3f4264030e` — from gardener:ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6, reply_to `ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6-af3f4264030e.md)
+
+> BLOCKER — bot GitHub PAT lost write scope for PRs/Issues.
+>
+> Job: ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6 (gauntlet PANEL round 6 on [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283)).
+>
+> The panel RAN fine (panel.sh exit 0, disposition **must-fix**, durably recorded at panel-runs/endojs-endo-but-for-bots-1283/8528976561cc.md). But I could NOT post the verdict — every write to the repo 403s "Resource not accessible by personal access token":
+>   - gh pr review (GraphQL addPullRequestReview) → 403
+>   - REST POST .../pulls/1283/reviews → 403
+>   - gh pr comment (GraphQL addComment) → 403
+>   - REST POST .../issues/1283/comments → 403
+>
+> Diagnosis: kriscendobot's fine-grained PAT can push commits (Contents:write — repo shows push:true) but has only READ on Pull requests + Issues, so it can create no review and no comment. This blocks EVERY panel-verdict / PR-comment / reactji write across the fleet on this repo (and likely others), not just this stage. gh-credential-guard.sh is dated 2026-09-15 — a recent token rotation likely narrowed the scope.
+>
+> Fix: widen the bot PAT's "Pull requests" and "Issues" permissions to Read+Write (and re-store via gh auth), then the retried panel round will post cleanly.
+>
+> I completed this stage as panel=panel-error (sensor/actuator failure, not a review verdict) so the driver retries the round under its bounded stage-retry budget rather than advancing a fixer against a verdict that never landed. Retries will keep failing identically until the PAT scope is fixed.
+
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-15T22:26:06Z, cleared 2026-09-16T06:41:07Z).
@@ -388,7 +406,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.1M | $446.46 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 55.2M | $446.55 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
