@@ -43,6 +43,7 @@ A programmer already following good software-engineering discipline is most of t
 | [cap-talk-2009-2012--android-capability-discipline-and-pola](../sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md) | cap-talk 2010-May/July | Applying POLA to a shipping platform: POLA scoring of apps and the disputed claim that user-facing partial-permission attenuation backfires into over-asking. |
 | [cap-talk-2009-2012--capability-adoption-through-service-chaining](../sections/cap-talk-2009-2012--capability-adoption-through-service-chaining.md) | Service chaining demonstrates least authority as an ordinary composition benefit: pass the one facet the next service needs. |
 | [cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary](../sections/cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary.md) | A microkernel applies least authority to the trusted computing base by moving services outside undivided privilege. |
+| [cap-talk 2012-12: permissive POLA stack adoption](../sections/cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md) | The AppArmor/MinorFs/E least-authority stack's non-adoption post-mortem: the technology worked, but the distro-specific OS layer plus a new language demanded a transition no one would pay for. |
 
 ## See also
 
