@@ -160,4 +160,21 @@ Endo's petname layer (petnames, petname-paths, edgenames) and its formula/locato
 - [`../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md`](../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md)
 - [`../../library/concepts/petname.md`](../../library/concepts/petname.md)
 
-Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, `scholar-ingest-cap-talk-2004-2008`, and `scholar-ingest-cap-talk-2004-2008-remainder` (2026-09-16), through the complete 2004-2008 monthly index; `scholar-ingest-cap-talk-2009-2012` (2026-09-16), the JavaScript / Caja / SES / web-key era first pass (2009 Q1).
+## The final Pipermail era: direct Endo design antecedents
+
+The 2013-2016 archive lands close to Endo's present architecture. Persistent objects do not erase the need for an explicit upgrade schema; hostile transport bytes should become validated immutable values before ordinary code sees them; and a return continuation is a narrower capability than a callback reference. `DeepFrozen` receiver **and arguments** can relax E-order because no stateful effect remains to reorder. WeakMaps make identity-based rights amplification and private state direct JavaScript patterns. These are design constraints, not merely historical resemblance.
+
+The same era supplies two cautions for Endo reference identity. A filesystem facet reached through a chain of redirects carries revocation-path provenance, and two remote references to one endpoint are not interchangeable when their membranes carry different revocation, ordering, or audit conditions. Transport-level endpoint discovery must not silently canonicalize away those distinctions.
+
+Finally, the Capper experiment is an application-level sketch: keep durable credentials in a dedicated secret service, derive one narrow account facet, pass module authority explicitly, and store upgradeable state separately from live closure layout.
+
+- [`../../library/sections/cap-talk-2013-2016--persistent-objects-schema-evolution-and-portability.md`](../../library/sections/cap-talk-2013-2016--persistent-objects-schema-evolution-and-portability.md)
+- [`../../library/sections/cap-talk-2013-2016--capn-proto-zero-copy-at-untrusted-boundaries.md`](../../library/sections/cap-talk-2013-2016--capn-proto-zero-copy-at-untrusted-boundaries.md)
+- [`../../library/sections/cap-talk-2013-2016--return-paths-are-limited-capabilities.md`](../../library/sections/cap-talk-2013-2016--return-paths-are-limited-capabilities.md)
+- [`../../library/sections/cap-talk-2013-2016--deepfrozen-e-order-optimization.md`](../../library/sections/cap-talk-2013-2016--deepfrozen-e-order-optimization.md)
+- [`../../library/sections/cap-talk-2013-2016--taming-constructors-and-weakmap-amplification.md`](../../library/sections/cap-talk-2013-2016--taming-constructors-and-weakmap-amplification.md)
+- [`../../library/sections/cap-talk-2013-2016--filesystem-redirect-revocation-paths.md`](../../library/sections/cap-talk-2013-2016--filesystem-redirect-revocation-paths.md)
+- [`../../library/sections/cap-talk-2013-2016--joining-references-across-membranes.md`](../../library/sections/cap-talk-2013-2016--joining-references-across-membranes.md)
+- [`../../library/sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md`](../../library/sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md)
+
+Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, `scholar-ingest-cap-talk-2004-2008`, and `scholar-ingest-cap-talk-2004-2008-remainder` (2026-09-16), through the complete 2004-2008 monthly index; `scholar-ingest-cap-talk-2009-2012` (2026-09-16), the JavaScript / Caja / SES / web-key era first pass (2009 Q1); `scholar-ingest-cap-talk-2013-2016` (2026-09-16), the final Pipermail slice through January 2016.
