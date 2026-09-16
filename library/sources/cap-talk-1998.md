@@ -3,8 +3,8 @@ source_kind: mailing-list-archive
 source_url: http://www.eros-os.org/pipermail/cap-talk/1998-March/
 source_snapshot: http://web.archive.org/web/2id_/http://www.eros-os.org/pipermail/cap-talk/1998-March.txt.gz
 source_content_sha256: a88db289169663d08ae270831e0ec62a44a1245f4f4b0c22b8a61cb5d2c5b2af
-source_authors: [Jonathan S. Shapiro, Gregory Frascadore, Charles Landau, Jim Dennis, Andrej Presern, Dru Nelson]
-source_date: 1998-03
+source_authors: [Jonathan S. Shapiro, Gregory Frascadore, Charles Landau, Jim Dennis, Andrej Presern, Dru Nelson, Norman Hardy, Ben Laurie]
+source_date: 1998-03 to 1998-04
 retrieved: 2026-09-16
 ingested: 2026-09-16
 ingested_by: scholar
