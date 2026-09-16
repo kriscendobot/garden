@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T20:13:57Z_
+_As of 2026-09-16T20:17:34Z_
 
 ## Latest
 
@@ -607,13 +607,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.5M | $471.21 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.8M _(+273.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Codex | 10.9M _(+275.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012-remainder.md) — ---
 - [`scholar-ingest-cap-talk-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012-remainder.md) — Continue cap-talk ingestion: all of 2011 and 2012 (and retry 2012-October)
 
 ### tada (8050)
