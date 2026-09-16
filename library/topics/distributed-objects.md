@@ -19,6 +19,7 @@
 | [skeptical-rest--authority-boundaries](../sections/habitat-chronicles--skeptical-perspective-on-rest--authority-boundaries-visibility-vs-authoritativeness.md) | distributed-objects, capability-theory | REST confuses visibility with authoritativeness; aligning resource splits with authority boundaries (product catalog) vs control-signal resources; client/server division of labor. |
 | [skeptical-rest--hateoas](../sections/habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia.md) | networking, distributed-objects | HATEOAS's good idea (next-state links per response) vs its bad idea (machines are blind, not general-purpose context interpreters); transitions referenced but not described; anticipatory vs reactive clients. |
 | [skeptical-rest--state-statelessness-polling](../sections/habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling.md) | networking, distributed-objects, eventual-send | state1 vs state2; a stateless server cannot speak first, so the client must poll and caching does not fix it — the server-initiated-notification affordance the E-vat lineage supplies. |
+| [cap-talk-2009-2012--petnames-versus-e-order](../sections/cap-talk-2009-2012--petnames-versus-e-order.md) | distributed-objects, cap-talk-open-questions | Karp's open question: a petname's object-identifying rule collapses the delegation-edge distinction E-order needs, so per-holder naming can hide which reference carries the message-ordering guarantee. |
 
 ## See also
 
