@@ -1,2 +1,2 @@
-base: improve-producer-draft-gate-feedback
+base: improve-attested-undraft-draft-gate
 identity: mentor:scripts/jobs/assert-producer-pr-draft.sh
