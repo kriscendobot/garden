@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":3,"elapsed_s":19,"input_tokens":6,"output_tokens":952,"cache_creation_tokens":26231,"cache_read_tokens":81808,"total_cost_usd":0.327044,"ts":"2026-09-16T01:06:27Z","base":"fu-qwen-model-watch-20260728-180502-1-20260916-010507","host":"oros-studio-garden-ce242c49","outcome":"tada","provider":"anthropic"}
