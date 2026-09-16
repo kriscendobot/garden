@@ -53,12 +53,4 @@ Close with the re-litigation test: for each of #719/#831/#836, name the exact ch
 that would now catch it. Update the cluster to `closed` with `--improved-by` via
 `scripts/jobs/review-miss-record.sh cluster-status merge-base-pinning closed`.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-16T13:29:19Z
+<!-- garden-reaped: 1 -->
