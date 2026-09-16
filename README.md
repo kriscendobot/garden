@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:40:36Z_
+_As of 2026-09-16T19:42:04Z_
 
 ## Latest
 
@@ -12,9 +12,9 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 2h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 14d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 15d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 15d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 16d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 18d)
@@ -451,6 +451,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The next step needs an explicitly designed and reviewed compatibility migration/default for legacy `host.registry`; I have not improvised one.
 
+- `msg-scholar-ingest-cap-talk-2010-2012-remainder-5e342f9a2f24` — from scholar:scholar-ingest-cap-talk-2010-2012-remainder, reply_to `scholar-ingest-cap-talk-2010-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2010-2012-remainder-5e342f9a2f24.md)
+
+> cap-talk 2010 ingested (job scholar-ingest-cap-talk-2010-2012-remainder). Anchored
+> all twelve 2010 monthly bundles by SHA-256 and sectioned the dense front of the year
+> (Feb-Apr, 8 sections): cookies as ambient authority (Adam Barth's RFC 6265 review),
+> the Web Powerbox vs OAuth, hash weakest-link (Waterken ETags), the object-oriented-
+> security naming debate, mutable-singletons-are-ambient-authority, the safe-language
+> definition, MarkM's Three Laws of Security, and the ACL model's incompleteness.
+> Added open questions 50-53 and a "2010 web-platform arc" section to the Endo
+> provenance file. 2012-October failed a fifth time (live Internet-Archive outage) and
+> stays deferred. Lighter 2010 months and all of 2011-2012 handed to a posted
+> successor, scholar-ingest-cap-talk-2011-2012. Full result:
+> entries/2026/09/16/194117Z-result-scholar-116cd0.md
+
 - `msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8` — from gardener:minion-town-guest-peer-fetch-verify, reply_to `minion-town-guest-peer-fetch-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md)
 
 > minion.town guest peer-fetch ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)): STILL BLOCKED on your decision — no work done, job re-gated.
@@ -584,15 +598,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.8M | $480.15 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.8M | $480.95 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.7M _(+270.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012-remainder.md) — Continue cap-talk 2010-2012 ingestion
+- [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012.md) — Continue cap-talk 2011-2012 ingestion (and the 2010 remainder)
 
 ### tada (8044)
 - [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — What I did
