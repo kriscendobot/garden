@@ -32,3 +32,13 @@ Find the existing proposed design if one is already in designs/ (search before
 writing a new one). Design and implement the trigger, and say explicitly what
 happens to the autonomous coverage-audit timer — whether it is retired, reduced
 in cadence, or made to propose rather than stage. Include a regression test.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T06:01:23Z
