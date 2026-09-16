@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T06:39:57Z_
+_As of 2026-09-16T06:41:47Z_
 
 ## Latest
 
-One weave job entered active work ([endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) rebase) and a canary probe completed. Five early-September halted gauntlets were triaged: two are transient capacity-crunch holds (re-post as-is) and three need scope changes (one rebase, one human review routing, one re-anchoring). The Ironhorse computron benchmark audit is complete—no surviving own-cost constraints—and awaits answers to 6 design questions (tolerance bands, seed roster, gate placement, cost versioning, [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) fate, baseline dimensionality) before the build proceeds. The reminder daemon was decoupled from upgrade; @endo/reminder stays unconfined/VFS-persistent. Three pending: restore kriscendobot gh token (blocking minion.town clip-store GC PR), arrange minion.town eval host introductions, and decide on oros-studio monk migration before retiring the legacy gardener alias.
+Five halted gauntlets from early September are back for triage: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) were transient capacity halts (cheap re-posts), but [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a weave/pin-merge-base rebase, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green+mergeable and needs human review→un-draft instead of loop continuation, and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration needs re-anchoring to resume at child 2 with raised budget. The Ironhorse computron benchmark design ([endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283)) landed as draft with an `## Open questions` section; the builder completed the audit and is holding the implementation pending six maintainer decisions on tolerance bands, gate placement, and baseline strategy. A minion.town reminder daemon redeploy dry-run failed on a missing `host.registry` migration path and is blocked pending an explicitly designed compatibility fix. Rolling-deploy canary recovered and is now green. Several maintainer inbox messages await decisions on host identity introduction, guest MCP authentication, and minion.town infrastructure readiness.
 
 ## Parked for maintainer feedback
 
@@ -188,6 +188,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
 
+- `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
+
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-15T22:26:06Z, cleared 2026-09-16T06:41:07Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> canary endolin-garden2-5bcdff64 passed a later roll; clearing.
+
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): budget pool anthropic:endolin-garden-ece02cb4 spend=45294142 cap=143000000 ceiling=4 target=3
@@ -306,7 +314,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.0M | $422.32 _(notional, rate-card)_ | 35% of 143.0M (ok) |
+| Claude | 50.1M | $423.30 _(notional, rate-card)_ | 35% of 143.0M (ok) |
 | Codex | 7.4M _(+186.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
