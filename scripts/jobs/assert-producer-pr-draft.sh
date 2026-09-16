@@ -30,18 +30,25 @@
 #
 # Usage: assert-producer-pr-draft.sh <base> <job-file> <completion-report>
 #   rc 0: nothing owed — no PR named, a citation of another author's PR, a non-open
-#         PR, a probe, an open-questions review surface, a DRAFT PR (the ordinary
-#         parked-draft completion), a non-draft PR already covered by a gauntlet, or
-#         any INCONCLUSIVE read (fail-open).
+#         PR, an existing PR consumed by a review/attention feedback job, a probe, an
+#         open-questions review surface, a DRAFT PR (the ordinary parked-draft
+#         completion), a non-draft PR already covered by a gauntlet, or any
+#         INCONCLUSIVE read (fail-open).
 #   rc 1: a bot-authored OPEN NON-DRAFT PR newly named by the report has NO gauntlet
 #         record — block completion (leave the job in doin for the reaper to retry).
 #
 # Only the completion REPORT may name the PR the job produced (a job-file URL is a
 # CITATION — a PR the producer told the job about — never a newly produced artifact;
-# this is the #671/#867 report-only rule the retired stager also used). Recognize BOTH
-# the full-URL and the shorthand `owner/repo#N` citation forms via the shared
-# extractor. Deterministic, NO LLM: PR metadata + trusted journal records only — never
-# a PR body/title/comment into a model.
+# this is the #671/#867 report-only rule the retired stager also used). There is one
+# necessary refinement: comment-watcher / mention-watcher feedback jobs naturally
+# name that same cited PR again in their completion report after editing or merely
+# acknowledging it. Their canonical first heading identifies the feedback job, and a
+# matching PR reference in the trusted job file proves the report names its input,
+# not a newly produced artifact. Exempt that exact pair before reading GitHub. Do not
+# exempt a different PR named by such a job: it may genuinely be newly produced.
+# Recognize BOTH the full-URL and the shorthand `owner/repo#N` citation forms via the
+# shared extractor. Deterministic, NO LLM: trusted job/report text, PR metadata, and
+# trusted journal records only — never a PR body/title/comment into a model.
 #
 # Fail-toward-not-wedging on INCONCLUSIVE reads (gh error, unparsable JSON, clone
 # unreachable): return rc 0 rather than block a completion on a transient blip. A
@@ -60,6 +67,25 @@ base="${1:?base}"; jobfile="${2:?job file}"; report="${3:?completion report}"
 # Report-only artifact discovery (both citation forms via the shared extractor).
 pr_url="$(extract_pr_refs_from_text "$report" | head -1 || true)"
 [ -n "$pr_url" ] || exit 0
+
+# A watcher-created review/attention job consumes an existing PR; it is not that
+# PR's producer. Match only the canonical first H1 emitted by the two watchers, then
+# require the report's PR to be one of the job file's cited PRs. The reference check
+# keeps a feedback job that actually opens and reports a different PR inside the
+# producer gate. Reading the first H1 (rather than grepping every line) also prevents
+# quoted/untrusted comment excerpts from impersonating the trusted job shape.
+job_heading="$(awk '/^# / { print; exit }' "$jobfile" 2>/dev/null || true)"
+feedback_job=""
+if [[ "$job_heading" =~ ^#[[:space:]]Review[[:space:]]directive[[:space:]]on[[:space:]].+[[:space:]]PR[[:space:]]#[0-9]+$ ]] \
+   || [[ "$job_heading" =~ ^#[[:space:]]attention[[:space:]]directive[[:space:]]on[[:space:]].+[[:space:]]PR[[:space:]]#[0-9]+$ ]] \
+   || [[ "$job_heading" =~ ^#[[:space:]]attention[[:space:]]directive[[:space:]]from[[:space:]]@-mention[[:space:]]on[[:space:]].+[[:space:]]#[0-9]+$ ]]; then
+  feedback_job=y
+fi
+if [ -n "$feedback_job" ] \
+   && extract_pr_refs_from_text "$jobfile" | grep -Fxq -- "$pr_url"; then
+  log "draft-gate: $pr_url is the existing PR consumed by a review/attention feedback job; no producer PR to gate"
+  exit 0
+fi
 
 gh_bin="${GARDEN_GH:-gh}"
 case "$gh_bin" in

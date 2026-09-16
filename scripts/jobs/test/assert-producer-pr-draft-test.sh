@@ -14,6 +14,8 @@
 #   * A NON-DRAFT PR already covered by a gauntlet record passes (rc 0).
 #   * A probe, a non-bot-authored PR, and an open-questions carve-out all pass.
 #   * A PR named only in the JOB FILE (not the report) is a citation → pass.
+#   * Review/attention feedback reports may re-name their existing input PR without
+#     being misclassified as that PR's producer; a different PR remains gated.
 #   * An inconclusive gh read fails OPEN (rc 0) — a GitHub blip never wedges completion.
 
 set -euo pipefail
@@ -107,4 +109,34 @@ echo '== (h) an inconclusive gh read fails OPEN (rc 0) =='
 run_gate "$jobf" "Ready PR: https://github.com/$repo/pull/207"
 [ "$RC" -eq 0 ] || fail "an inconclusive gh read must fail OPEN, not block (rc=$RC): $(cat "$TR/gate.out")"
 
-echo 'PASS: the draft guardrail passes draft/covered/probe/non-bot/carve-out/citation/inconclusive completions, blocks a bot-authored non-draft uncovered PR, and never mutates PR state or stages a record'
+echo '== (i) a REVIEW-feedback completion re-naming its existing PR passes =='
+review_jobf="$TR/review-job.md"
+printf -- '---\nhandler-budget-role: review\n---\n\n# Review directive on %s PR #201\n\nReview: https://github.com/%s/pull/201#pullrequestreview-1\n' \
+  "$repo" "$repo" >"$review_jobf"
+run_gate "$review_jobf" "Updated existing PR: $repo#201"
+[ "$RC" -eq 0 ] || fail "review feedback on existing PR #201 should pass (rc=$RC): $(cat "$TR/gate.out")"
+[ ! -s "$TR/gh-calls.log" ] || fail "review-feedback exemption should not query GitHub: $(cat "$TR/gh-calls.log")"
+
+echo '== (j) an ATTENTION completion re-naming its existing PR passes =='
+attention_jobf="$TR/attention-job.md"
+printf -- '# attention directive from @-mention on %s #201\n\nMention: https://github.com/%s/pull/201#issuecomment-1\n' \
+  "$repo" "$repo" >"$attention_jobf"
+run_gate "$attention_jobf" "Acknowledged https://github.com/$repo/pull/201"
+[ "$RC" -eq 0 ] || fail "attention feedback on existing PR #201 should pass (rc=$RC): $(cat "$TR/gate.out")"
+[ ! -s "$TR/gh-calls.log" ] || fail "attention exemption should not query GitHub: $(cat "$TR/gh-calls.log")"
+
+echo '== (k) feedback shape does NOT exempt a different, newly reported PR =='
+different_input_jobf="$TR/different-input-job.md"
+printf -- '# attention directive on %s PR #999\n\nComment: https://github.com/%s/pull/999#issuecomment-1\n' \
+  "$repo" "$repo" >"$different_input_jobf"
+run_gate "$different_input_jobf" "New ready PR: https://github.com/$repo/pull/201"
+[ "$RC" -eq 1 ] || fail "a different non-draft PR reported by feedback job should BLOCK (rc=$RC): $(cat "$TR/gate.out")"
+
+echo '== (l) a quoted feedback heading cannot exempt an ordinary producer =='
+quoted_heading_jobf="$TR/quoted-heading-job.md"
+printf -- '# Build the feature\n\nQuoted context:\n# attention directive on %s PR #201\n\nSource: https://github.com/%s/pull/201\n' \
+  "$repo" "$repo" >"$quoted_heading_jobf"
+run_gate "$quoted_heading_jobf" "New ready PR: https://github.com/$repo/pull/201"
+[ "$RC" -eq 1 ] || fail "a later feedback-like heading in a producer job should not bypass the gate (rc=$RC): $(cat "$TR/gate.out")"
+
+echo 'PASS: the draft guardrail passes draft/covered/probe/non-bot/carve-out/citation/inconclusive and existing-PR feedback completions, blocks uncovered producer PRs (including feedback jobs reporting a different PR), and never mutates PR state or stages a record'
