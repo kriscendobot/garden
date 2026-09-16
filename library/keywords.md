@@ -106,5 +106,10 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - rescinded key, rescinded keys, indistinguishable revocation, `DK(0)` -> revocation-by-withdrawal
 - destroyable indirection object, indirection object revocation, EROS revocation primitive, key ID opacity -> card-keys
 - cap-talk, cap-talk mailing list, eros-os.org pipermail, EROS architects list -> capabilities-vs-acls
+- capability bucket, authenticated capability bucket, session capability set -> principle-of-least-authority
+- capability unforgeability, sparsity, partitioned capability, tagged capability -> object-capability
+- DMA authority, DMA driver trust, driver trusted computing base -> principle-of-least-authority
+- grant matcher, grant matching, nominated comparator -> object-sameness
+- principal attribution, capability provenance, proxy attribution -> capabilities-vs-acls
 - space bank, objects are allocated not created, storage accounting vs garbage collection -> capabilities-vs-acls
 - what is a capability, CAOS capable OS, syscall gating is not a capability, POSIX capabilities are not ocaps -> capabilities-vs-acls
