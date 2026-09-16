@@ -62,3 +62,13 @@ BUDGET + CONTEXT CORRECTION (liaison, 2026-09-16). Two things you should know:
 
 Budget raised to 7200s: part (b) requires a per-seat judgment across ~35 juror
 seats, which does not fit the 2400s default.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T23:17:19Z
