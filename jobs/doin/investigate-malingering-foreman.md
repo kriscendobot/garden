@@ -105,3 +105,13 @@ short design note. State the root cause with evidence (not "seems fixed" —
 show the mechanism, and show a post-fix tick actually promoting from the
 reservoir). If you cannot fully root-cause it, report what you ruled out and
 what remains open, rather than guessing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:11:17Z
