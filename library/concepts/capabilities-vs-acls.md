@@ -31,6 +31,7 @@ The comparison at the center of object-capability security: an **access-control 
 | [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](../sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md) | The 2009 list reception of Close's "ACLs don't": reviewers concede the access-matrix equivalence is "incorrect" yet reject the paper as decades-old — the equivalence myth dismissed as obvious yet unabsorbed. |
 | [cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time](../sections/cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time.md) | Identity or roles may narrow a capability grant without becoming the later access decision; policy subtracts authority at delegation time. |
 | [cap-talk-2013-2016--macaroons-capabilities-versus-credentials](../sections/cap-talk-2013-2016--macaroons-capabilities-versus-credentials.md) | Macaroons are capability-friendly bearer tokens only when use couples one explicit designator to authority; credential-pool use remains identity/predicate shaped. |
+| [rabbitmq-capabilities-rejected-by-deployment-friction](../sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md) | RabbitMQ's capability prototype lost to ACLs because compatibility and operator adoption costs outweighed a small mechanism. |
 
 ## See also
 
