@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:10:38Z_
+_As of 2026-09-16T13:15:59Z_
 
 ## Latest
 
-Triage of five halted gauntlets (from early September) delivered remediation: two are transient infra halts on now-green PRs (ready for re-post); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) needs base-drift resolution via merge-base pinning; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99) is mergeable code hit by panel-loop ceiling; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) needs re-anchoring with timeout raise. A separate weave on the same [#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) hit 2400s timeout and awaits promotion. Rust module lexer build blocked on design acceptance for [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019). Ironhorse computron regime holding on six open parameter questions. Two orchestrations stalled on capacity and viability gates. 25 PRs await review.
+Two infrastructure jobs claimed: [garden-gauntlet-reexport-policy-check](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-gauntlet-reexport-policy-check.md) and [minion-town-guest-peer-fetch-verify](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-peer-fetch-verify.md). Maintainer inbox holds five real blockers: [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) base-drifted (needs semantic port of `stringLengthLimit`→`byteLengthLimit` on 3 call sites), ironhorse computron benchmark design needs answers to 6 open questions before build proceeds, credit-controls orchestration halted on viability-gate timeout, [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) gauntlet uncertain (premise still live?), and gardener-alias retirement gated on oros-studio host migration. Press body contains detailed triage of five early-September halted gauntlets: items 1–2 were transient (quota), 3 is real base drift (re-scope weave), 4 is green/mergeable (route to human review), 5 partially recovered (re-anchor orchestration at child 2). Token spend holding: Claude 43% quota, Codex 29% plan cap. No todo—board empty except the two doin jobs and 8002 completed.
 
 ## Parked for maintainer feedback
 
@@ -418,15 +418,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.7M | $462.13 _(notional, rate-card)_ | 43% of 143.0M (ok) |
+| Claude | 61.9M | $462.45 _(notional, rate-card)_ | 43% of 143.0M (ok) |
 | Codex | 8.2M _(+207.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-peer-fetch-verify.md) — Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
+- [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-gauntlet-reexport-policy-check.md) — propose a gauntlet check that prevents plain re-export policy violations
 
 ### tada (8002)
 - [`claude-on-minion-town-press-20260916-130520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-130520.md) — Press report — arc issue #89 (Claude on minion.town)
@@ -636,9 +637,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
 - [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk.md) — _normal_ · Ingest the cap-talk mailing list into the library
-- [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-gauntlet-reexport-policy-check.md) — _normal_ · propose a gauntlet check that prevents plain re-export policy violations
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town-followup.md) — _normal_ · Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
-- [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify.md) — _normal_ · Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-mutable-blob-formula.md) — _normal_ · Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
 - [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-exec.md) — _normal_ · builder: implement the Ironhorse computron benchmark-baseline regime (steps 2–8)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
