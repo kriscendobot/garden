@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:47:41Z_
+_As of 2026-09-16T10:50:23Z_
 
 ## Latest
 
-Ironhorse computron benchmark-baseline orchestration completed (audit + 2-step build done); the builder is holding the remaining steps 2–8 pending your answers to 6 open questions on tolerance bands, gate placement, seed roster, baseline regeneration, and two-input grids. Triage finished on 5 early-September halted gauntlets: [endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) are transient (safe re-posts), [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has real base drift (needs weave/pin-merge-base to resolve `stringLengthLimit` → `byteLengthLimit` conflict), [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) hit iteration 6 with green code (stop the panel loop, human review → merge), and [minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) was archived during drain but child 1 delivered—re-anchor to resume at child 2 with raised timeout. Credit-controls orchestration stalled at gate 1 (2400s budget, handler timeout), halted serial run; 2/4 children done. Weave of [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) timed out at merge-base pin (2400s budget hit); job parked. Gardener alias retirement blocked by a third fleet host (oros-studio) still on legacy gardener workers—needs migration or deferral decision. Minion.town reminder daemon revival dry-run failed on schema compatibility (missing `registry` field in legacy `host` formulas)—gated pending designed migration. Several maintainer inbox items await decisions on host identity introduction, DNSSEC signing, and OAuth-gated clip publish.
+Two jobs claimed this cycle: a design for OCapN operation lanes and modernizing the sturdyref stack. Ironhorse's computron benchmark regime built its audit and is parked awaiting your answers to six parameter questions (tolerance bands, PR-CI placement, seed roster, baseline auto-regeneration, PR fate, and grid-baseline timing) before committing a measured baseline. Five halted gauntlets triaged: two were transient capacity halts on now-green PRs (cheap re-posts); three are real failures needing re-scope — [#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a merge-base pin to resolve base drift in `@endo/exo-stream`, [#81](https://github.com/kriscendobot/minion.town/pull/81)'s panel loop should stop (green and mergeable; human review → un-draft beats another 6-round panel burn), and [#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration needs re-anchor at child 2 with raised budget. The reminder daemon upgrade was halted (missing-registry schema migration unapproved); I kept `@endo/reminder` as the unconfined plugin and deferred daemon ops as separate work. Host reconciliation found oros-studio never migrated to the monk worker pool, blocking the gardener-alias retirement — that's your call: migrate oros first, or defer the alias retirement. Ten PRs are parked awaiting your review, including the O-questions design, three minion.town builds, and several high-value Endo features. Board is quiet (2 active, 7987 complete) with a large planned queue.
 
 ## Parked for maintainer feedback
 
@@ -400,15 +400,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.2M | $456.19 _(notional, rate-card)_ | 41% of 143.0M (ok) |
-| Codex | 7.6M _(+189.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 58.4M | $456.38 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Codex | 7.6M _(+189.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-stack-modernize.md) — The situation
+- [`design-slots-ocapn-op-lanes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-slots-ocapn-op-lanes.md) — ---
 
 ### tada (7987)
 - [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/implement-worktree-teardown-on-job-completion.md) — Cost
@@ -614,8 +615,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`design-slots-ocapn-op-lanes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-slots-ocapn-op-lanes.md) — _normal_ · ---
-- [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-sturdyref-stack-modernize.md) — _2_ · The situation
 - [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-thixotrope-drop-inert-bundle-filter.md) — _normal_ · ---
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-daemon-sqlite-wal-limit-measurement.md) — _normal_ · Measure the daemon SQLite WAL size policy
