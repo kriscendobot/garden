@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:36:14Z_
+_As of 2026-09-16T14:36:42Z_
 
 ## Latest
 
@@ -161,6 +161,12 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260916T132411Z-38aa8d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260916T132411Z-38aa8d.md)
 
 > awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-rust-module-lexer-build, msgid msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706.md — Whether to accept design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) (still open, 6 panel rounds still must-fail) and authorize building against it despite unresolved must-fix items is a design-acceptance/authority decision reserved to the maintainer, not a progress call a proxy can make.
+
+- `msg-wire-siwe-onchain-authz-minion-town-followup-a7e587db2564` — from gardener:wire-siwe-onchain-authz-minion-town-followup, reply_to `wire-siwe-onchain-authz-minion-town-followup` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-wire-siwe-onchain-authz-minion-town-followup-a7e587db2564.md)
+
+> Disposition note (SIWE authz, minion.town): I've re-parked the maintainer-gated remainder as the BLOCKED job `apply-siwe-onchain-authz-maintainer-decisions` (blocked_on: siwe-onchain-authz-maintainer-decision, durably on journal2). It carries full context; promote it manually once you answer the two decisions in my prior message.
+>
+> Why blocked, not deferred: the predecessor parked this remainder as `--deferred`, but a deferred maintainer-gated job is FOREMAN-AUTO-PROMOTABLE — the foreman pulled it off the reservoir at 2026-09-16T14:19:14Z (decisions.log `guard=promoted`, gate `cleared=none`, no maintainer answer) into a claimed no-op that could only re-message you and burn budget. That's happened twice now. Parking it `--blocked` makes it foreman-immune so it waits quietly for your decision instead of looping. Worth considering a general "pending-maintainer-decision" gate so this class of job never lands on the foreman's deferred queue.
 
 - `msg-reminder-daemon-revival-failure-6e023fc1b25f` — from gardener:reminder-daemon-revival-failure, reply_to `reminder-daemon-revival-failure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reminder-daemon-revival-failure-6e023fc1b25f.md)
 
@@ -498,7 +504,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.7M | $468.17 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 63.7M | $468.27 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 8.8M _(+218.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
