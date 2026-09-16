@@ -45,3 +45,13 @@ issue_spine: issue-kriscendobot-garden-58
 issue_url: https://github.com/kriscendobot/garden/issues/58#issuecomment-5447180549
 submitter: kriskowal
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T13:14:29Z
