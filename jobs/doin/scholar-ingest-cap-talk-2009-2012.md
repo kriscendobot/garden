@@ -38,3 +38,13 @@ attribution honest (multi-author list).
 NOTE: The list's current home (groups.google.com/g/cap-talk, post-2016) is a JS
 SPA whose message bodies are not fetchable from the sandbox. Only the
 pre-2016 Pipermail archive is ingestable; flag the post-2016 gap if reached.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T17:44:19Z
