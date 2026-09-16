@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:22:06Z_
+_As of 2026-09-16T13:24:41Z_
 
 ## Latest
 
-The journalism role completes its session preflight without warnings. Triage on five early-September halted gauntlets finished: two were transient capacity-crunch stalls on now-green code (cheap re-posts); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit real base drift (360 commits behind, exo-stream API renamed — needs weave/pin-merge-base to resolve the 9p-server call sites); [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) reached green+mergeable after six panel rounds but is caught in diminishing-nit churn (awaits maintainer routing to human review → un-draft rather than gauntlet loop); and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) partly landed and needs re-anchoring. Several PRs await maintainer decisions: design [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) (module lexer consolidation) blocked the build job on acceptance; [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron benchmark) sat in draft pending open-questions answers (tolerance bands, deterministic gate scope, seed roster, cost-table versioning, two-input deferral) but the audit phase finished and implementation jobs are parked; [kriscendobot/garden#95](https://github.com/kriscendobot/garden/pull/95) (re-export policy gauntlet) is ready for @kriskowal/@erights review. Minion.town clip publishing hit an MCP OAuth barrier — the built clip is ready but needs an interactive session to publish. Quota sits at 44% of weekly cap; rolling-deploy canary on endolin-garden2 cleared after recovery.
+Claude-on-minion.town's completion press landed. The triage of five halted gauntlets exposed real failures requiring re-scoping: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) for base-drift weave and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) for premise verification, plus two transient halts ready to re-post. Minion.town clip publishing and guest verification are blocked on infrastructure gaps (missing kriscendobot token, MCP auth, peer-fetch authorization), and the gardener alias retirement is stalled by oros-studio's unmigrated monks. The Ironhorse benchmark baseline, re-export policy ([kriscendobot/garden#95](https://github.com/kriscendobot/garden/pull/95)), and reminder daemon upgrade decisions await your answers.
 
 ## Parked for maintainer feedback
 
@@ -128,6 +128,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > halt-parked-remainder: credit-controls-panel-seat-metering-and-tiering
 >
 > Orchestration credit-controls-20260916 HALTED: child credit-controls-stale-pr-viability-gate stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 2/4 done before halt; parked remainder: credit-controls-panel-seat-metering-and-tiering
+
+- `20260916T132411Z-38aa8d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260916T132411Z-38aa8d.md)
+
+> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-rust-module-lexer-build, msgid msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706.md — Whether to accept design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) (still open, 6 panel rounds still must-fail) and authorize building against it despite unresolved must-fix items is a design-acceptance/authority decision reserved to the maintainer, not a progress call a proxy can make.
 
 - `msg-reminder-daemon-revival-failure-6e023fc1b25f` — from gardener:reminder-daemon-revival-failure, reply_to `reminder-daemon-revival-failure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reminder-daemon-revival-failure-6e023fc1b25f.md)
 
@@ -449,24 +453,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.7M | $465.59 _(notional, rate-card)_ | 44% of 143.0M (ok) |
-| Codex | 8.2M _(+207.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 62.8M | $465.37 _(notional, rate-card)_ | 44% of 143.0M (ok) |
+| Codex | 8.3M _(+208.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-completion-press-20260916-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260916-132012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (1)
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — ---
 
-### tada (8004)
+### tada (8005)
+- [`claude-on-minion-town-completion-press-20260916-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-132012.md) — Completion report — Claude-on-minion.town completion press, tick (20260916-13...
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-gauntlet-reexport-policy-check.md) — Completion report
 - [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-peer-fetch-verify.md) — Completion report
 - [`claude-on-minion-town-press-20260916-130520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-130520.md) — Press report — arc issue #89 (Claude on minion.town)
 - [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pass-style-src-naming.md) — Cost
-- [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — Completion report: Build SES import attributes (design #248)
-- … and 7999 more
+- … and 8000 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
