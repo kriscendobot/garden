@@ -1,8 +1,13 @@
 ---
+gate: awaiting-maintainer
+maintainer_question: Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?
+asked_at: https://github.com/endojs/endo-but-for-bots/pull/1283
+priority: normal
 role: builder
 tier: mentor
+posted_by: gardener
+posted_at: 2026-09-16T23:42:54Z
 ---
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:38:11Z cleared=none -->
 
 ---
 tier: mentor
