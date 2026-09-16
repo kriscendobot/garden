@@ -1,20 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
 role: builder
 tier: mentor
 token-budget: 250000
-doomed: true
-doom_signature: policy-refusal
-doom_count: 1
-requeue_cycles: 4
-deadline_overruns: 0
-elapsed_constancy_confirmations: 1
-doomed_at: 2026-08-31T09:44:33Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-31T09:44:33Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:48:16Z cleared=none -->
 
 ---
 role: builder
