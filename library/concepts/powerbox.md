@@ -25,9 +25,6 @@ confused-deputy attack against the broker.
 | [designation-as-authorization-powerbox-and-installation-endowment](../sections/papers--stiegler-polaris-virus-safe-computing-2004--designation-as-authorization-powerbox-and-installation-endowment.md) | The PowerBox intercepts File-Open and mints a single-file authority on selection. |
 | [polarizing-applications-pets-restricted-accounts-and-visual-cues](../sections/papers--stiegler-polaris-virus-safe-computing-2004--polarizing-applications-pets-restricted-accounts-and-visual-cues.md) | How a running Pet acquires authority to further files. |
 | [status-limits-and-residual-attacks](../sections/papers--stiegler-polaris-virus-safe-computing-2004--status-limits-and-residual-attacks.md) | The GUI-hole attack drives the PowerBox to grant unintended authority. |
-| [cap-talk-2004-2008--confinement-crisis-and-capdesk-pola](../sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md) | The CapDesk demonstration makes dynamic least authority and designation-as-authorization concrete. |
-| [cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement](../sections/cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md) | Polaris must mediate the shared Windows GUI channel so a confined application cannot drive the trusted broker. |
-| [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](../sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md) | A trusted powerbox persists intended references rather than letting applications edit ambient filenames into authority. |
 
 ## See also
 
