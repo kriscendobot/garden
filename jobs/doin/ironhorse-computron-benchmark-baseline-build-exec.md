@@ -92,3 +92,13 @@ determinism.
 
 Open the PR through the gardening flow (ensure-pr.sh) against `llm`. If steps 2–8 are
 themselves large, orchestrate ordered sub-builds rather than piling loose jobs.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T15:04:26Z
