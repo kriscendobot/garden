@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7048 (530 parent indexes + 6518 children).
+Total section files: 7098 (530 parent indexes + 6568 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -413,6 +413,62 @@ Total section files: 7048 (530 parent indexes + 6518 children).
 - [cap-talk-2002-2003--trust-introductions-and-no-omniscience](cap-talk-2002-2003--trust-introductions-and-no-omniscience.md)
 - [cap-talk-2002-2003--unix-file-descriptor-confused-deputy](cap-talk-2002-2003--unix-file-descriptor-confused-deputy.md)
 - [cap-talk-2002-2003--yurl-key-centric-web-calculus](cap-talk-2002-2003--yurl-key-centric-web-calculus.md)
+
+### cap-talk-2004-2008
+
+- [cap-talk-2004-2008--acls-and-object-capabilities-coexistence](cap-talk-2004-2008--acls-and-object-capabilities-coexistence.md)
+- [cap-talk-2004-2008--attenuated-drag-and-drop](cap-talk-2004-2008--attenuated-drag-and-drop.md)
+- [cap-talk-2004-2008--authodox-object-capability-analysis](cap-talk-2004-2008--authodox-object-capability-analysis.md)
+- [cap-talk-2004-2008--authority-must-not-exceed-trust](cap-talk-2004-2008--authority-must-not-exceed-trust.md)
+- [cap-talk-2004-2008--authority-versus-information-flow](cap-talk-2004-2008--authority-versus-information-flow.md)
+- [cap-talk-2004-2008--capabilities-as-data-versus-descriptors](cap-talk-2004-2008--capabilities-as-data-versus-descriptors.md)
+- [cap-talk-2004-2008--capabilities-in-argv-leakage](cap-talk-2004-2008--capabilities-in-argv-leakage.md)
+- [cap-talk-2004-2008--capabilities-versus-mandatory-classification](cap-talk-2004-2008--capabilities-versus-mandatory-classification.md)
+- [cap-talk-2004-2008--capabilities-versus-nyms](cap-talk-2004-2008--capabilities-versus-nyms.md)
+- [cap-talk-2004-2008--capability-accounting](cap-talk-2004-2008--capability-accounting.md)
+- [cap-talk-2004-2008--capability-urls-in-practice](cap-talk-2004-2008--capability-urls-in-practice.md)
+- [cap-talk-2004-2008--chrome-sandbox-and-brokered-authority](cap-talk-2004-2008--chrome-sandbox-and-brokered-authority.md)
+- [cap-talk-2004-2008--confinement-crisis-and-capdesk-pola](cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md)
+- [cap-talk-2004-2008--confused-deputy-as-ambient-authority](cap-talk-2004-2008--confused-deputy-as-ambient-authority.md)
+- [cap-talk-2004-2008--crypto-brand-security-requirements](cap-talk-2004-2008--crypto-brand-security-requirements.md)
+- [cap-talk-2004-2008--database-query-authority](cap-talk-2004-2008--database-query-authority.md)
+- [cap-talk-2004-2008--deep-attenuation-and-typed-operations](cap-talk-2004-2008--deep-attenuation-and-typed-operations.md)
+- [cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing](cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing.md)
+- [cap-talk-2004-2008--generic-wrapping-and-membrane-limits](cap-talk-2004-2008--generic-wrapping-and-membrane-limits.md)
+- [cap-talk-2004-2008--horton-accountability-without-authority](cap-talk-2004-2008--horton-accountability-without-authority.md)
+- [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md)
+- [cap-talk-2004-2008--memory-accounting-without-partitions](cap-talk-2004-2008--memory-accounting-without-partitions.md)
+- [cap-talk-2004-2008--mungi-pola-and-confused-deputy](cap-talk-2004-2008--mungi-pola-and-confused-deputy.md)
+- [cap-talk-2004-2008--non-delegatable-authority](cap-talk-2004-2008--non-delegatable-authority.md)
+- [cap-talk-2004-2008--object-capabilities-versus-dependency-injection](cap-talk-2004-2008--object-capabilities-versus-dependency-injection.md)
+- [cap-talk-2004-2008--object-capability-patterns-historical-inventory](cap-talk-2004-2008--object-capability-patterns-historical-inventory.md)
+- [cap-talk-2004-2008--objects-facets-and-behavioral-identity](cap-talk-2004-2008--objects-facets-and-behavioral-identity.md)
+- [cap-talk-2004-2008--password-capability-safety](cap-talk-2004-2008--password-capability-safety.md)
+- [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
+- [cap-talk-2004-2008--persistent-object-capability-language](cap-talk-2004-2008--persistent-object-capability-language.md)
+- [cap-talk-2004-2008--petname-toolbar-as-trusted-path](cap-talk-2004-2008--petname-toolbar-as-trusted-path.md)
+- [cap-talk-2004-2008--phishing-yurls-and-petnames](cap-talk-2004-2008--phishing-yurls-and-petnames.md)
+- [cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement](cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md)
+- [cap-talk-2004-2008--principal-authority-monotonicity](cap-talk-2004-2008--principal-authority-monotonicity.md)
+- [cap-talk-2004-2008--ref-send-eventual-reference-api](cap-talk-2004-2008--ref-send-eventual-reference-api.md)
+- [cap-talk-2004-2008--reference-versus-capability](cap-talk-2004-2008--reference-versus-capability.md)
+- [cap-talk-2004-2008--same-key-and-composite-identity](cap-talk-2004-2008--same-key-and-composite-identity.md)
+- [cap-talk-2004-2008--saml-assertions-versus-object-capabilities](cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md)
+- [cap-talk-2004-2008--user-intent-as-authorization](cap-talk-2004-2008--user-intent-as-authorization.md)
+- [cap-talk-2004-2008--web-keys-mashing-with-permission](cap-talk-2004-2008--web-keys-mashing-with-permission.md)
+- [cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question](cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question.md)
+
+### cap-talk-2009-2012
+
+- [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md)
+- [cap-talk-2009-2012--confused-deputies-in-capability-systems](cap-talk-2009-2012--confused-deputies-in-capability-systems.md)
+- [cap-talk-2009-2012--file-api-taming-tahoe](cap-talk-2009-2012--file-api-taming-tahoe.md)
+- [cap-talk-2009-2012--petnames-versus-e-order](cap-talk-2009-2012--petnames-versus-e-order.md)
+- [cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable](cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
+- [cap-talk-2009-2012--taxonomy-of-object-capability-systems](cap-talk-2009-2012--taxonomy-of-object-capability-systems.md)
+- [cap-talk-2009-2012--webkeys-vs-the-web](cap-talk-2009-2012--webkeys-vs-the-web.md)
+- [cap-talk-2009-2012--what-is-designation](cap-talk-2009-2012--what-is-designation.md)
+- [cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity](cap-talk-2009-2012--what-sustained-interest-layering-vs-simplicity.md)
 
 ### cask--allocator-design
 
