@@ -36,6 +36,10 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus](../sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md) | Miller's two-threads history placing the object-capability model in the lambda-calculus/Actors lineage rather than the OS access-matrix one. |
 | [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) | Matrix-model precursor to Models 1-4: object capabilities let ordinary subjects create and attenuate authority without admin power. |
 | [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](../sections/cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md) | Direct drafting context for Capability Myths Demolished and its insistence that implemented KeyKOS belongs in the model. |
+| [cap-talk-2002-2003--single-use-capabilities-systems](../sections/cap-talk-2002-2003--single-use-capabilities-systems.md) | Resume capabilities and constructed one-shot objects show that an object capability can carry consume-on-use behavior. |
+| [cap-talk-2002-2003--single-use-capability-object-in-e](../sections/cap-talk-2002-2003--single-use-capability-object-in-e.md) | An E wrapper attenuates any target to one invocation by consuming its reference before forwarding. |
+| [cap-talk-2002-2003--auditing-capability-systems](../sections/cap-talk-2002-2003--auditing-capability-systems.md) | Auditing the reference graph exposes the tension between graph-wide observability and least authority. |
+| [cap-talk-2002-2003--programming-with-capabilities-without-ownership](../sections/cap-talk-2002-2003--programming-with-capabilities-without-ownership.md) | Exclusive ownership dissolves into explicit customer, maintenance, reclamation, and debugging capabilities. |
 
 ## See also
 
