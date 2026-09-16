@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T17:40:05Z_
+_As of 2026-09-16T17:44:49Z_
 
 ## Latest
 
@@ -541,8 +541,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2004-2008.md) — Ingest cap-talk: 2004-2008
+- [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2009-2012.md) — Ingest cap-talk: 2009-2012
 
 ### tada (8025)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-merge-base-pinning.md) — Cost
@@ -752,7 +753,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2009-2012.md) — _normal_ · Ingest cap-talk: 2009-2012
 - [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2013-2016.md) — _normal_ · Ingest cap-talk: 2013-2016 (final Pipermail era)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
