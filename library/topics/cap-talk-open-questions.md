@@ -310,6 +310,31 @@ Native Client confines untrusted native code and brokers resources through descr
 
 - [cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) - NaCl's confinement value and the behavioral test for capability-like descriptors.
 
+### 50. What should a URL-borne secret, and the discipline itself, be called?
+
+A terminology dispute on two scales, both raised in 2010 and neither settled on the list. At the small scale (the February cookies thread), Mark Miller notes that a secret-bearing URL is not strictly a "cryptographic capability" (his precise spoken term, objected to on reasonable grounds), that "password capability" is spoiled by history, that "sparse capability" is accurate but has become obscure, and that "web-keys by themselves are not cryptographic capabilities"; his pragmatic recommendation is the noncommittal "treating URLs as capabilities." At the large scale (the March object-oriented-security.org thread), Kenton Varda argues the whole discipline should be rebranded "object-oriented security" to reach OO programmers, while Kevin Reid objects that the name is too generic (it fails to exclude call-stack-inspection security, the model ocap opposes) and that term proliferation loses accumulated recognition. The community kept "ocap"/"object-capability" and "treating URLs as capabilities"; the precise, adoptable name for an unguessable-but-not-unforgeable secret, and for the discipline, stayed unresolved.
+
+- [cap-talk-2009-2012--cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) - Miller's terminology note on naming a secret-bearing URL.
+- [cap-talk-2009-2012--object-oriented-security-naming](../sections/cap-talk-2009-2012--object-oriented-security-naming.md) - the rebrand proposal and the too-generic objection.
+
+### 51. In the Three Laws of Security, should confidentiality outrank availability?
+
+Mark Miller's April 2010 Asimov-styled formulation orders an object's obligations Integrity, then Availability, then Confidentiality, each subordinate to those before it. David Barbour immediately disputed the last two, being "not convinced that Confidentiality shouldn't supersede Availability." The disagreement is real: for a key-management or medical-records object, leaking a secret can be worse than refusing service (confidentiality first), while for others refusing service is the greater harm (availability first). Whether a single global ranking of the triad is even the right shape, versus a per-object or per-contract policy, is left open, as is Barbour's separate suggestion that integrity is better framed in terms of contracts than owned invariants.
+
+- [cap-talk-2009-2012--three-laws-of-security](../sections/cap-talk-2009-2012--three-laws-of-security.md) - the three ordered laws and the contested availability-versus-confidentiality ranking.
+
+### 52. Are object-capability languages a subset of safe languages, or only an overlap?
+
+Adopting Pierce's definition (a safe language protects its own abstractions), Matej Kosik proposed that "object-capability language" is a hyponym of "safe language" (the ocap languages nest inside the safe ones). Mike Samuel disputed the inclusion: an ocap language need only be safe with respect to the abstractions that preserve ocap invariants (unforgeable references, honored scopes, no ambient authority), not with respect to every abstraction, so a language could be ocap while being unsafe elsewhere. The precise relation (subset versus overlap) did not converge. The practical residue for the SES/Endo lineage is clear either way: ocap enforcement requires safety of the invariant-preserving abstractions, which is exactly what lockdown and taming secure on top of JavaScript's base memory safety.
+
+- [cap-talk-2009-2012--safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) - Pierce's definition and the hyponym-versus-overlap dispute.
+
+### 53. Can benign singletons be permitted, or must ambient-authority discipline forbid all of them?
+
+The March 2010 singletons discussion converged that only *mutable* globally-accessible singletons are ambient authority (constant ones are fine), but left a second question open. David Wagner pushed back on the stronger claim that even benign singletons (those providing no sensitive access) are unacceptable and that auditing them is infeasible, offering logging as a benign singleton whose usual objections may not apply and inviting a search for other exceptions. Whether a capability discipline should tolerate audited benign singletons, or forbid the pattern outright because combinations of individually-benign privileges can surprise, is unresolved. SES resolves the mutable case mechanically (frozen primordials) but the benign-mutable-singleton judgment call remains a design question.
+
+- [cap-talk-2009-2012--mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) - the mutable-only distinction and Wagner's benign-singleton pushback.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
