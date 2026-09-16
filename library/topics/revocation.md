@@ -12,6 +12,7 @@
 | [keykos-eros-practical-model-for-a-newcomer](../sections/cap-talk-2000-2001--keykos-eros-practical-model-for-a-newcomer.md) | capability-security, revocation | Capabilities are copied not delegated, so revocation is a deliberately interposed nullifiable indirection (Hardy's version-B / Rescind); antecedent of the caretaker. |
 | [one-shot-capabilities-cannot-constrain-delegation](../sections/cap-talk-2000-2001--one-shot-capabilities-cannot-constrain-delegation.md) | capability-theory, capability-security, revocation | Use-once and null-use revocation do not constrain delegation of effective authority. |
 | [paradigm-regained-permission-authority-and-abstraction](../sections/cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md) | capability-theory, capability-security, revocation | Caretaker behavior makes revocation visible only when security-enforcing abstraction is part of the model. |
+| [object-capability-patterns-historical-inventory](../sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md) | cap-talk 2008-March | The revocable-forwarder lineage distinguishes forwarding from brokenness-reporting facets. |
 
 ## See also
 
