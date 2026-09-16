@@ -15,6 +15,7 @@ A **web-key** is an unguessable URL whose possession both designates a Web resou
 | [cap-talk-2004-2008--phishing-yurls-and-petnames](../sections/cap-talk-2004-2008--phishing-yurls-and-petnames.md) | A YURL securely designates; a user-controlled petname supplies relationship meaning through trusted UI. |
 | [cap-talk-2004-2008--web-keys-mashing-with-permission](../sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md) | Close's 2008 paper thread: unguessable REST URLs, delegation, revocation, persistence, and application composition. |
 | [papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix](../sections/papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix.md) | The access-matrix formalization: anti-forgery tokens and unguessable URLs move Web applications from ACL-by-cookie to capability-by-reference. |
+| [cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names](../sections/cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names.md) | YURLs put a hash of the server public key in the hostname to authenticate an endpoint without DNS or a CA; sizing the fingerprint against parallelizable multi-target preimage attacks. |
 
 ## See also
 
