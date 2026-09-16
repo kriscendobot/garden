@@ -36,6 +36,7 @@ what, so blame cannot be assigned — Morningstar calls **accountability launder
 | [habitat-chronicles--what-are-capabilities--designation-and-authority-the-idea](../sections/habitat-chronicles--what-are-capabilities--designation-and-authority-the-idea.md) | **Canonical plain-language telling.** Hardy's FORTRAN-compiler billing-file story, ambient authority as the root flaw, and the 5–8-of-OWASP-top-10 claim. |
 | [habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices](../sections/habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices.md) | The service-chaining form: an upstream service using its own credentials becomes a Confused Deputy; the ACL patch-ups (RBAC/ABAC/PBAC) are "the same one broken thing: ambient authority"; "built in accountability laundering." |
 | [papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy](../sections/papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy.md) | The formal treatment: confused-deputy avoidance as one of two practical advantages of object-capability systems (requires Property A + Property D); coins *unconfusable deputy*. |
+| [cap-talk-2002-2003--unix-file-descriptor-confused-deputy](../sections/cap-talk-2002-2003--unix-file-descriptor-confused-deputy.md) | A descriptor is capability-like, but implicit numeric-name assignment lets a privileged program mistake a newly opened protected file for inherited stderr. |
 
 ## See also
 
