@@ -40,3 +40,13 @@ immutableArrayBufferViewMatrix harness to cover the gap. Validate any
 additions across all three configured agents (bare XS, SES-on-XS, SES-on-Node)
 under MODDABLE_VERSION 9.0.0 before landing — the harness is shared with the
 test262-runner copy and a naive addition can regress the XS baseline.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T11:44:18Z
