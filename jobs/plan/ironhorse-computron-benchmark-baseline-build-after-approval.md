@@ -50,3 +50,27 @@ for committing representative medians.
 Use the isolated project worktree helper with this successor's job basename. If the
 approved design still decomposes into multiple ordered builds, post parked child jobs
 and a serial orchestration rather than loose follow-ups.
+
+<!-- garden-annotation: key=maintainer-withholding-20260916 by=liaison at=2026-09-16T23:29:09Z -->
+
+## Maintainer withholding — authority WITHHELD (kriskowal, liaison muster 2026-09-16)
+
+Recorded from a maintainer directive that was addressed to the completed
+predecessor `ironhorse-computron-benchmark-baseline-build-exec` and dead-lettered
+to `deadmail-20260916T232300Z-07f109`. Authority is WITHHELD on both promotion
+counts. This job STAYS PARKED.
+
+- **Promotion gate (1) — Ironhorse pause: NOT lifted.** The repository-wide
+  Ironhorse pause STAYS IN FORCE (kumavis, 2026-09-09, endojs/endo-but-for-bots#91;
+  `roles/COMMON.md`). It was not lifted for this scoped work. A future request that
+  does not explicitly lift it keeps this parked.
+- **Promotion gate (2) — Open questions: NOT answered.** The six open questions on
+  endojs/endo-but-for-bots#1283 (authoritative seed roster, tolerance bands, etc.)
+  are NOT being answered while the pause holds. Do not press on them.
+- **Promotion gate (3) — design NOT approved.** endojs/endo-but-for-bots#1283 is
+  NOT approved over its unresolved must-fix panel findings.
+
+Do not promote until a trusted maintainer explicitly lifts the Ironhorse pause AND
+answers the design's open questions (or directs recommended defaults) AND approves
+#1283 (or directs a build before approval) — and the controlled, host-suitable
+benchmark environment noted below is available.
