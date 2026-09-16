@@ -21,6 +21,7 @@ The architectural payoff is structural: brand-and-trademark is *the* primitive t
 | [endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme](../sections/endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme.md) | Endo's wire-format substrate for brand-stamped values. The `$` (remotable) and `&` (promise) sigils preserve brand identity across vat-crossing serialization. |
 | [endo--packages-eventual-send-src-handled-promise-js--safe-vs-passable-promise](../sections/endo--packages-eventual-send-src-handled-promise-js--safe-vs-passable-promise.md) | The safe-vs-passable promise distinction depends on brand verification: a passable promise carries a brand the receiving compartment can verify against its own marshal table. |
 | [papers--miller-tribble-shapiro-concurrency-among-strangers-2005--defensive-correctness-and-pola](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--defensive-correctness-and-pola.md) | The statusGetter/statusSetter facet split is brand discipline at the method-surface level: the brand is *which facet you got*, and the brand check is the structural verification that this matters. |
+| [cap-talk-1999--rights-amplification-from-seals-and-equality](../sections/cap-talk-1999--rights-amplification-from-seals-and-equality.md) | 1999 bridge from Trusty Scheme: pointer equality plus complementary seal/unseal facets yields general rights amplification. |
 
 ## See also
 
