@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T01:46:18Z_
+_As of 2026-09-16T01:50:42Z_
 
 ## Latest
 
@@ -665,15 +665,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.8M | $356.59 _(notional, rate-card)_ | 28% of 143.0M (ok) |
+| Claude | 39.9M | $358.50 _(notional, rate-card)_ | 28% of 143.0M (ok) |
 | Codex | 7.1M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ses-node26-lockdown-permits-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1281
+- [`canary-probe-oros-studio-garden-ce242c49-ba8c2dc529a3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-ba8c2dc529a3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ba8c2dc529a3
 
 ### tada (7921)
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Cost
