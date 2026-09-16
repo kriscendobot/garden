@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:02:30Z_
+_As of 2026-09-16T13:10:38Z_
 
 ## Latest
 
-SES import attributes Phase 1 build completed; Phase 2 (module-source) and Phase 3 (compartment-mapper) are now parked and ready to queue. Pass-style-src-naming standardization is in progress. Five halted gauntlets from early September require triage decisions: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) are safe re-posts (transient infra halt), but [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a weave/merge-base pin due to base drift, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) should stop the panel loop (code is green+mergeable), and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) already delivered; resume at child 2 with a raised budget. Maintainer inbox has pending: ironhorse benchmark baseline regime answers (6 open questions on seed roster, tolerance bands, tiering), oros-studio migration gate (third host never cut over to monk), and minion.town reminder daemon revival blocked (missing registry repair, no production migration improvised).
+Triage of five halted gauntlets (from early September) delivered remediation: two are transient infra halts on now-green PRs (ready for re-post); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) needs base-drift resolution via merge-base pinning; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99) is mergeable code hit by panel-loop ceiling; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) needs re-anchoring with timeout raise. A separate weave on the same [#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) hit 2400s timeout and awaits promotion. Rust module lexer build blocked on design acceptance for [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019). Ironhorse computron regime holding on six open parameter questions. Two orchestrations stalled on capacity and viability gates. 25 PRs await review.
 
 ## Parked for maintainer feedback
 
@@ -78,6 +78,20 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > The PR premise is LIVE: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) is OPEN draft, not merged,
 > not superseded.
 
+- `msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706` — from gardener:endojs-endo-but-for-bots-rust-module-lexer-build, reply_to `endojs-endo-but-for-bots-rust-module-lexer-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706.md)
+
+> Re: build job `endojs-endo-but-for-bots-rust-module-lexer-build` (consolidate the Rust module lexer, design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019)).
+>
+> I did NOT start the build — its precondition is unmet and its premise is stale. Re-parked it blocked on [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) instead of burning a large multi-phase Rust refactor. Details:
+>
+> 1. Design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) is NOT maintainer-accepted. Still OPEN; zero reviews from you. All reviews are the bot design panel, which across 6 rounds still aggregates to **must-fix** with unresolved should-fix items (corpus fixture home; template-literal divergence). The job body is explicit: "promote only after design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) is reviewed/accepted by the maintainer. Do not start ahead of design acceptance." It was promoted off the plan queue today (cleared=none), but the design-acceptance gate was not satisfied.
+>
+> 2. Stale premise: job targets branch `feat/endor-run-entry-point-deps` "where entry_walk.rs lives, not yet on llm." But PR [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) MERGED 2026-08-27 — both `entry_walk.rs` and `cjs_lexer.rs` are on `llm` now. Any real build should target `llm`, and I updated the re-parked body to say so.
+>
+> 3. Substantive design contradiction the panel flagged: the two scanners the design unifies "with no behavior change" actually DISAGREE on nested template literals — `cjs_lexer.rs` uses a correct depth stack; `entry_walk.rs::scan_static_imports` uses a single counter its own comment admits is incomplete. "Unify byte-identically" is not literally achievable as written; the design must first pick which behavior wins.
+>
+> Recommendation: land/accept [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) (resolving the template-literal-behavior question and the corpus-home should-fix) before I build. Once it merges, the re-parked job auto-unblocks. Or, if you want to proceed now against `llm` accepting the design as-is, reply and I'll pick it up.
+
 - `ironhorse-computron-benchmark-baseline-terminal-complete` — from orchestrator:ironhorse-computron-benchmark-baseline-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-computron-benchmark-baseline-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -97,6 +111,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
+
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): budget pool anthropic:endolin-garden-ece02cb4 spend=61369085 cap=143000000 ceiling=4 target=2
 
 - `credit-controls-20260916-halted` — from orchestrator:credit-controls-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/credit-controls-20260916-halted.md)
 
@@ -400,23 +418,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.2M | $461.32 _(notional, rate-card)_ | 43% of 143.0M (ok) |
+| Claude | 61.7M | $462.13 _(notional, rate-card)_ | 43% of 143.0M (ok) |
 | Codex | 8.2M _(+207.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pass-style-src-naming.md) — regularize pass-style src file naming convention — endojs/endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (8000)
+### tada (8002)
+- [`claude-on-minion-town-press-20260916-130520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-130520.md) — Press report — arc issue #89 (Claude on minion.town)
+- [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pass-style-src-naming.md) — Cost
 - [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — Completion report: Build SES import attributes (design #248)
 - [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — Cost
 - [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-marshal-passables-equal-ava-operator.md) — Cost
-- [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-async-arm-followup.md) — Completion report
-- [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-daemon-sqlite-wal-limit-measurement.md) — Completion report: endo-daemon-sqlite-wal-limit-measurement
-- … and 7995 more
+- … and 7997 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -616,7 +634,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — _normal_ · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
 - [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk.md) — _normal_ · Ingest the cap-talk mailing list into the library
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-gauntlet-reexport-policy-check.md) — _normal_ · propose a gauntlet check that prevents plain re-export policy violations
@@ -735,6 +752,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 - [`build-minion-town-invitation-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-invitation-onboarding.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1125` · Build invitation-only guest onboarding for minion.town
+- [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
