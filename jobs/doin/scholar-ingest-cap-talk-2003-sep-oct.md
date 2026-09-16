@@ -12,3 +12,13 @@ The remainder cycle (`scholar-ingest-cap-talk-2000-2003-remainder`, 2026-09-16) 
 - **2003-October** (snapshot `web/20160730015229id_`, sha `5c3eea510fe625cf0629554a05b5b9e770b6bb912af6d60d4c4f26d19ead7806`): "Auditing Capability Systems"; "Programming with capabilities"; "HRU Model"; "Single-use capabilities".
 
 Add each new section to `cap-talk-2002-2003.md`'s ## Sections table (bump section_count from 23), the relevant topic pages, and concept pages; flip the two "deferred to a follow-on" survey notes in the anchors table to section references, and update the frontmatter completeness-pass note and the sources/README.md row. Respect the per-cycle budget (~25 section writes); 2003-September alone may be a full cycle.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T17:07:06Z
