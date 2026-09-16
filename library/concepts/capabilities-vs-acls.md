@@ -28,6 +28,7 @@ The comparison at the center of object-capability security: an **access-control 
 | [cap-talk-2002-2003--programming-with-capabilities-without-ownership](../sections/cap-talk-2002-2003--programming-with-capabilities-without-ownership.md) | A capability program models each authority as a delegable facet instead of attaching an exclusive owner identity to every object. |
 | [cap-talk-2004-2008--reference-versus-capability](../sections/cap-talk-2004-2008--reference-versus-capability.md) | A reference carries capability meaning only when possession authorizes its behavior under unforgeable acquisition rules. |
 | [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md) | An ACL-shaped application can recreate identity lookup and confused deputies on a pure ocap substrate. |
+| [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](../sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md) | The 2009 list reception of Close's "ACLs don't": reviewers concede the access-matrix equivalence is "incorrect" yet reject the paper as decades-old — the equivalence myth dismissed as obvious yet unabsorbed. |
 
 ## See also
 
