@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T23:28:06Z_
+_As of 2026-09-16T23:33:13Z_
 
 ## Latest
 
-Five halted gauntlets triaged: items 1–2 are transient capacity failures on now-green PRs ([endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013), [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81)), ready to re-post; items 3–4 require re-scoping ([endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs merge-base weave, [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) should skip the panel loop and move to human review); item 5 ([minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)) partly recovered and needs orchestration re-anchoring. The re-export deprecation policy design ([garden#95](https://github.com/kriscendobot/garden/pull/95)) awaits maintainer review. Several auth-gated decisions remain: SIWE tier/allowlist, daemon exposure, DNSSEC, and peer identity introduction. A third fleet host (oros-studio) still on legacy `gardener` worker kind blocks the alias retirement until migration to monk.
+Eight jobs in progress including crew building, minion.town review, and gauntlet stages. Two completions reported (PR #1290 review cost, deadmail reconciliation). The triager issued a comprehensive gauntlet triage covering five halted jobs from early September: two transient capacity-crunch halts on now-green work ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81)) ready for cheap re-post; two requiring re-scope (base-drift on [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) needing weave/pin, and [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99) green+mergeable but stuck in panel loop); and one partly landed ([kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)) awaiting re-anchor to child 2 with raised budget. In the maintainer inbox: SIWE on-chain authz awaiting tier decisions and Tier 1 allowlist; minion.town guest peer-fetch blocked on daemon-exposure authorization; re-export policy design ([kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95)) ready for review with open questions; minion.town clip GC and gallery publish staged but blocked on credential/token issues. Token spend at 47% of 143M Claude quota (488 notional dollars); 25 PRs parked awaiting maintainer feedback across Endo, minion.town, and garden.
 
 ## Parked for maintainer feedback
 
@@ -29,6 +29,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
 > publish-overnight-chronicle-clip: could NOT publish the overnight clip — the minion-town MCP server needs interactive OAuth (GitHub browser login) that a non-interactive gardener session can't perform, so mcp__minion-town__publish is unavailable to me (same failure class you hit). I verified all five facts and BUILT the clip (static index.html + style.css, CSP-clean, light/dark, evidence links). I sent the liaison inbox the ready-to-publish base64 payload (msg 20260904T121238Z-b3f04f) — it can publish in one call once its MCP session re-initializes, then send you the <hash>.ocap.site URL. Nothing is serving yet.
+
+- `msg-add-awaiting-maintainer-gate-20260916-089c812734e1` — from gardener:add-awaiting-maintainer-gate-20260916, reply_to `add-awaiting-maintainer-gate-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-add-awaiting-maintainer-gate-20260916-089c812734e1.md)
+
+> I am implementing the awaiting-maintainer gate. The SIWE successor apply-siwe-onchain-authz-maintainer-decisions was asked only through maintainer inbox message 20260822T055203Z-ae527d, but the new gate must record an issue/PR/comment URL. Which existing GitHub URL should be the answer location? If none exists, please name where you want the two SIWE decisions posted; I will leave its synthetic blocked gate intact until it has a truthful URL.
 
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
@@ -268,31 +272,30 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.3M | $483.78 _(notional, rate-card)_ | 46% of 143.0M (ok) |
-| Codex | 12.4M _(+298.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Claude | 66.7M | $488.00 _(notional, rate-card)_ | 47% of 143.0M (ok) |
+| Codex | 12.6M _(+301.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
-- [`build-thesaurus-botese-jury-seat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-thesaurus-botese-jury-seat.md) — Add a "thesaurus" jury seat for Botese (AI-slop cliché phrases)
-- [`review-minion-town-reminder-decoupling-528c8ce-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-minion-town-reminder-decoupling-528c8ce-20260916.md) — ---
+### todo (1)
+- [`verify-gh-token-endolin-garden-ece02cb4-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-gh-token-endolin-garden-ece02cb4-20260916.md) — ---
 
 ### doin (8)
 - [`undraft-minion-town-99-harness-provisioning-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/undraft-minion-town-99-harness-provisioning-20260916.md) — ---
+- [`build-thesaurus-botese-jury-seat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-thesaurus-botese-jury-seat.md) — Add a "thesaurus" jury seat for Botese (AI-slop cliché phrases)
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
-- [`endojs-endo-but-for-bots-pr1290-review-fe19b903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-review-fe19b903.md) — Review directive on endojs/endo-but-for-bots PR #1290
-- [`deadmail-20260916T232300Z-07f109`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260916T232300Z-07f109.md) — Dead-lettered message — pick up its intent
 - [`add-awaiting-maintainer-gate-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/add-awaiting-maintainer-gate-20260916.md) — ---
+- [`review-minion-town-reminder-decoupling-528c8ce-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-minion-town-reminder-decoupling-528c8ce-20260916.md) — ---
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 - [`credit-controls-panel-seat-metering-and-tiering`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-panel-seat-metering-and-tiering.md) — ---
 - [`fix-orchestrate-stale-inflight-false-halt-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-stale-inflight-false-halt-20260916.md) — ---
 
-### tada (8088)
+### tada (8090)
+- [`endojs-endo-but-for-bots-pr1290-review-fe19b903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1290-review-fe19b903.md) — Cost
+- [`deadmail-20260916T232300Z-07f109`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260916T232300Z-07f109.md) — Completion report
 - [`improve-attested-undraft-draft-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-attested-undraft-draft-gate.md) — Cost
 - [`fix-warm-cache-yarn-bin-shim-permissions-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-warm-cache-yarn-bin-shim-permissions-20260916.md) — Cost
 - [`review-improve-architectural-boundary-ownership`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-architectural-boundary-ownership.md) — Completion report
-- [`design-endo-legacy-host-registry-migration-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-legacy-host-registry-migration-20260916.md) — Completion report: design-endo-legacy-host-registry-migration-20260916
-- [`credit-controls-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-20260916.md) — orchestration credit-controls-20260916 — HALTED
-- … and 8083 more
+- … and 8085 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
