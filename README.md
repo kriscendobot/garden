@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-09-16T09:28:14Z_
+_As of 2026-09-16T09:32:55Z_
 
 ## Latest
 
-Panel round 6 on [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (ironhorse-computron-benchmark-baseline-build) completed; the fix stage is now in flight. The [ironhorse-computron-benchmark-baseline-build](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6.md) orchestration terminal report confirms all 2 children reached completion. Three critical blockers emerged: a narrowed bot GitHub PAT blocking all panel verdict posts (write scope removed from PRs/Issues, fix required), a weave job for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit the 2400s wall clock and needs splitting or timeout raise, and the credit-controls-20260916 orchestration halted on a stale-PR viability gate timeout (2505s vs 2400s budget). Several parked jobs await maintainer decisions: the ironhorse benchmark regime awaits answers to 6 open questions (tolerance bands, gate timing, seed roster), the reminder daemon revival needs a designed compatibility migration (not a quick improvise), and a triage of 5 halted early-September gauntlets flagged one real base-drift failure ([endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) requires a semantic port of stringLengthLimit→byteLengthLimit in 9p-server after rebase), one that's transient-safe to re-post, and three that need re-scoping or confirmation on live status.
+[endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (exo-stream API migration) hit a real, non-transient failure in its gauntlet fix stage: the branch is ~360 commits behind and llm's `9p-server` still calls the removed `stringLengthLimit` API at 3 sites, causing CI to fail. This requires a weave/merge-base pinning to resolve the semantic port (not a simple rename), after which the gauntlet resumes from fix. A sibling weave job is parked and ready to promote once you authorize.
+
+The ironhorse computron benchmark-baseline orchestration completed successfully (all 2 children), but the build implementation is queued pending your answers to 6 open questions: tolerance bands, gate-2 placement (PR CI vs nightly), seed roster scope, COST_TABLE_VERSION strategy, fate of [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282), and whether to defer grid baselines. The design offers recommendations for each; say "build on the recommended defaults" to proceed.
+
+Five halted gauntlets were triaged: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) is a cheap re-post (transient capacity crunch, CI now all-green); [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) needs a premise confirmation before re-posting its expensive panel; [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) is the real failure above; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green and mergeable (iteration 6/6 churn, stop the panel loop); and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration is partially recovered (child 1 done, children 2–4 parked awaiting higher budget and guest MCP setup).
+
+Several infrastructure decisions are pending: oros-studio host blocks the gardener-alias retirement (not yet migrated to monk—decide whether to migrate it first or keep the alias); minion.town needs a kriscendobot gh token restored for PR creation; the dckc powers-weblet audit confirms two inert legacy records (within authorized posture, cosmetic hygiene sweep optional); ocap.site needs DNSSEC authorization; and the minion.town reminder daemon upgrade needs a reviewed compatibility migration for legacy `host.registry` schema.
 
 ## Parked for maintainer feedback
 
@@ -249,24 +255,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
 
-- `msg-ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6-af3f4264030e` — from gardener:ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6, reply_to `ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6-af3f4264030e.md)
-
-> BLOCKER — bot GitHub PAT lost write scope for PRs/Issues.
->
-> Job: ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6 (gauntlet PANEL round 6 on [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283)).
->
-> The panel RAN fine (panel.sh exit 0, disposition **must-fix**, durably recorded at panel-runs/endojs-endo-but-for-bots-1283/8528976561cc.md). But I could NOT post the verdict — every write to the repo 403s "Resource not accessible by personal access token":
->   - gh pr review (GraphQL addPullRequestReview) → 403
->   - REST POST .../pulls/1283/reviews → 403
->   - gh pr comment (GraphQL addComment) → 403
->   - REST POST .../issues/1283/comments → 403
->
-> Diagnosis: kriscendobot's fine-grained PAT can push commits (Contents:write — repo shows push:true) but has only READ on Pull requests + Issues, so it can create no review and no comment. This blocks EVERY panel-verdict / PR-comment / reactji write across the fleet on this repo (and likely others), not just this stage. gh-credential-guard.sh is dated 2026-09-15 — a recent token rotation likely narrowed the scope.
->
-> Fix: widen the bot PAT's "Pull requests" and "Issues" permissions to Read+Write (and re-store via gh auth), then the retried panel round will post cleanly.
->
-> I completed this stage as panel=panel-error (sensor/actuator failure, not a review verdict) so the driver retries the round under its bounded stage-retry budget rather than advancing a fixer against a verdict that never landed. Retries will keep failing identically until the PAT scope is fixed.
-
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-15T22:26:06Z, cleared 2026-09-16T06:41:07Z).
@@ -406,19 +394,20 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.4M | $447.36 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 55.9M | $449.19 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1283
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
 ### tada (7978)
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6.md) — Cost
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6.md) — Completion report: gauntlet panel round 6, endojs/endo-but-for-bots PR #1283
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-5.md) — What I did
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5.md) — Completion report
