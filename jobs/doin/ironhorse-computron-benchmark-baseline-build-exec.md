@@ -96,3 +96,13 @@ themselves large, orchestrate ordered sub-builds rather than piling loose jobs.
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=92 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T15:14:01Z
