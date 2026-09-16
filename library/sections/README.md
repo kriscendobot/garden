@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7108 (530 parent indexes + 6578 children).
+Total section files: 7120 (530 parent indexes + 6590 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -482,6 +482,18 @@ Total section files: 7108 (530 parent indexes + 6578 children).
 - [cap-talk-2013-2016--good-guy-timers-and-time-authority](cap-talk-2013-2016--good-guy-timers-and-time-authority.md)
 - [cap-talk-2013-2016--google-docs-share-links-as-webkeys](cap-talk-2013-2016--google-docs-share-links-as-webkeys.md)
 - [cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time](cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time.md)
+- [cap-talk-2013-2016--iot-capabilities-as-cryptographic-strings](cap-talk-2013-2016--iot-capabilities-as-cryptographic-strings.md)
+- [cap-talk-2013-2016--iot-local-capability-broker](cap-talk-2013-2016--iot-local-capability-broker.md)
+- [cap-talk-2013-2016--joining-references-across-membranes](cap-talk-2013-2016--joining-references-across-membranes.md)
+- [cap-talk-2013-2016--macaroons-capabilities-versus-credentials](cap-talk-2013-2016--macaroons-capabilities-versus-credentials.md)
+- [cap-talk-2013-2016--persistent-objects-schema-evolution-and-portability](cap-talk-2013-2016--persistent-objects-schema-evolution-and-portability.md)
+- [cap-talk-2013-2016--pola-creator-authority-visibility-and-revocation](cap-talk-2013-2016--pola-creator-authority-visibility-and-revocation.md)
+- [cap-talk-2013-2016--reactive-expiry-versus-stateful-membranes](cap-talk-2013-2016--reactive-expiry-versus-stateful-membranes.md)
+- [cap-talk-2013-2016--return-paths-are-limited-capabilities](cap-talk-2013-2016--return-paths-are-limited-capabilities.md)
+- [cap-talk-2013-2016--sandstorm-layered-confinement](cap-talk-2013-2016--sandstorm-layered-confinement.md)
+- [cap-talk-2013-2016--substructural-reactive-capabilities](cap-talk-2013-2016--substructural-reactive-capabilities.md)
+- [cap-talk-2013-2016--taming-constructors-and-weakmap-amplification](cap-talk-2013-2016--taming-constructors-and-weakmap-amplification.md)
+- [cap-talk-2013-2016--trusted-ui-for-one-click-authority](cap-talk-2013-2016--trusted-ui-for-one-click-authority.md)
 
 ### cask--allocator-design
 
