@@ -90,3 +90,13 @@ open questions is opened as a review PR rather than landed bare. Do NOT implemen
 Reference: designs/sysop.md (§ Trust model), scripts/jobs/sysop.sh,
 scripts/jobs/send-host-op.sh, roles/boatman/AGENT.md (§ Host preconditions),
 CLAUDE.md § The sysop.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T23:35:47Z
