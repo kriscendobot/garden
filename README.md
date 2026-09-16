@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T01:17:45Z_
+_As of 2026-09-16T01:22:11Z_
 
 ## Latest
 
@@ -665,14 +665,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.1M | $334.49 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 6.6M _(+176.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 38.4M | $344.90 _(notional, rate-card)_ | 27% of 143.0M (ok) |
+| Codex | 6.7M _(+177.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`improve-reap-terminal-handler-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-reap-terminal-handler-failures.md) — ---
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
 - [`ses-node26-lockdown-permits-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1281
 
