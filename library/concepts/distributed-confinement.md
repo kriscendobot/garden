@@ -47,6 +47,9 @@ not merely by their arrangement.
 | [papers/paradigm-regained/access-abstraction-and-confinement (common confusions)](../sections/papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement--common-confusions.md) | The disambiguations: discretionary vs non-discretionary, why "capabilities can't confine" keeps being re-asserted. |
 | [papers/capmyths/confinement-myth](../sections/papers--miller-capability-myths-demolished-2003--confinement-myth.md) | The *Confinement Myth*: true in capabilities-as-rows / -as-keys (Models 2/3), false in object-capabilities (Model 4); why the myth persists by reasoning in the wrong model. |
 | [papers/capmyths/four-models-and-seven-properties](../sections/papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties.md) | Property A / D / F are the design conditions a confining arrangement relies on; Model 4 holds all seven, which is *why* confinement becomes achievable. |
+| [cap-talk-1998--cgi-confinement-and-capability-buckets](../sections/cap-talk-1998--cgi-confinement-and-capability-buckets.md) | A confined web task cannot leak unless it receives both sensitive data and an unauthorized outward channel. |
+| [cap-talk-1999--principal-attribution-proxies-and-confinement](../sections/cap-talk-1999--principal-attribution-proxies-and-confinement.md) | Confinement controls a program's channels but cannot identify the ultimate human directing a proxy. |
+| [cap-talk-1999--principal-policy-and-confinement-debate](../sections/cap-talk-1999--principal-policy-and-confinement-debate.md) | Controlled compartments may enforce narrower policies, but the participants did not settle human attribution. |
 
 ## See also
 
