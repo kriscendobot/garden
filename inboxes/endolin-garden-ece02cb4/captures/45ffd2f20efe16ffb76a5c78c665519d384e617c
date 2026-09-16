@@ -1,0 +1,10 @@
+<6>23:53:08 [cleric/1] requeued job 'undraft-minion-town-99-harness-provisioning-20260916' has no local codex sidecar on endolin-garden-ece02cb4; prior session and worktree were lost — starting fresh with lost-state framing
+<6>23:53:08 [cleric/1] job 'undraft-minion-town-99-harness-provisioning-20260916' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>23:54:04 [assert-producer-pr-draft] draft-gate: BLOCK — https://github.com/kriscendobot/minion.town/pull/99 (kriscendobot/minion.town#99) named by completing job 'undraft-minion-town-99-harness-provisioning-20260916' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)
+
+--- handler report (partial) ---
+Re-confirmed [PR #99](https://github.com/kriscendobot/minion.town/pull/99) at head `47821c4670a664564d3aaec57ce43e924b5f0df5`: OPEN, non-draft, mergeable/CLEAN, with all three CI checks successful.
+
+The prior claimant already un-drafted the PR and posted the required [completion summary](https://github.com/kriscendobot/minion.town/pull/99#issuecomment-5705823811), covering the six-round budget, fix-6 changes, and maintainer adjudication of remaining findings as diminishing polish. No duplicate comment was posted. The PR remains unmerged for maintainer review.
+
+Self-improvement: nothing this time.
