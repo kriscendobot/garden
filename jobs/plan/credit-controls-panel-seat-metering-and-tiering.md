@@ -42,3 +42,25 @@ ride the latest Opus; every other role the fleet default). Propose and implement
 a seat tiering that preserves review quality — justify per-seat where a cheaper
 tier is and is not safe, rather than demoting all 35 seats uniformly. If you judge
 some seats genuinely need Opus, say which and why.
+
+<!-- garden-annotation: key=handler-budget-20260916 by=producer at=2026-09-16T23:15:51Z -->
+
+handler-timeout: 7200
+
+BUDGET + CONTEXT CORRECTION (liaison, 2026-09-16). Two things you should know:
+
+1. The parent orchestration credit-controls-20260916 reported HALTED because
+   child 3 (credit-controls-stale-pr-viability-gate) "stalled in flight for
+   2505s". THAT CLAIM WAS FALSE. Child 3 completed successfully in 463s and
+   pushed c32821fa15 to main2 (pre-spend PR viability stage, regression coverage,
+   mutation-tested). Children 1-3 are ALL done and landed. You are the last child,
+   and you are unblocked.
+
+2. Children 1-3 landed ahead of you, so re-read what they actually did before you
+   design your part -- the metering surface may have moved under you:
+   - child 1: fail-closed behavior on an unmetered/uncalibrated budget pool.
+   - child 2: manual gauntlet trigger.
+   - child 3: pre-spend PR viability gate (c32821fa15).
+
+Budget raised to 7200s: part (b) requires a per-seat judgment across ~35 juror
+seats, which does not fit the 2400s default.
