@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T15:04:57Z_
+_As of 2026-09-16T15:07:13Z_
 
 ## Latest
 
@@ -140,6 +140,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
+
+- `msg-ironhorse-computron-benchmark-baseline-build-exec-f0d0671cb73a` — from gardener:ironhorse-computron-benchmark-baseline-build-exec, reply_to `ironhorse-computron-benchmark-baseline-build-exec` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-exec-f0d0671cb73a.md)
+
+> The computron-baseline build remains gated. [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283) is still a draft and has no approval; its latest panel record contains unresolved must-fix findings. The design's Open questions also have no maintainer answer in this job's inbox. Please either (1) approve the revised design and answer the open questions, or (2) explicitly direct the build to use its recommended defaults. In particular, please confirm the seed roster and tolerance bands. The repository-wide IronHorse pause in roles/COMMON.md also requires an explicit trusted-maintainer lift; please confirm that this directive/build is intended to lift the pause for this scoped work.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
