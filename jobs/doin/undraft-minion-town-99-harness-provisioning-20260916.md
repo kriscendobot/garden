@@ -35,6 +35,7 @@ TASK:
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
