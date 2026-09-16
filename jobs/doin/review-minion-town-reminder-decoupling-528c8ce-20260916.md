@@ -52,3 +52,13 @@ So: report explicitly whether these two paths CONFLICT or COMPOSE. The plausible
 reading is that the decoupling is the correct near-term unblock and the migration
 is the durable fix — but say so on evidence, and if one undermines the other, say
 which should be reverted. Do NOT touch the live daemon; it stays at `f6650503`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T23:31:02Z
