@@ -54,4 +54,23 @@ The 1999 Trusty Scheme exchange makes a subtle Endo API property explicit: the o
 
 - [`../../library/sections/cap-talk-1999--rights-amplification-from-seals-and-equality.md`](../../library/sections/cap-talk-1999--rights-amplification-from-seals-and-equality.md)
 
-Scholar jobs `scholar-ingest-cap-talk` and `scholar-ingest-cap-talk-1999` (2026-09-16), founding-era slices.
+## Off-line representation versus on-line protocol (the CapTP split)
+
+The July 2001 web-standardization thread draws the distinction Endo's transport layer keeps to this day: a serialized, storable capability (an off-line *representation*, like a sturdyref or a swiss-number URL) is a different artifact from the live protocol that makes possession authorize invocation (an on-line *protocol*, like CapTP). Miller's own survey names E's `cap://` URI over Pluribus and Waterken's `https:` encoding as the two working instances, and rates SPKI only "approximately a capability system." Endo's OCapN inherits exactly this two-layer shape (locator/sturdyref plus CapTP), and the SPKI verdict is the primary-source ancestor of the reasons Endo does not treat authorization certificates as object capabilities.
+
+- [`../../library/sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md`](../../library/sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md)
+
+## A reference is its behavior, and facets are distinct capabilities
+
+Landau's November 2000 argument that a capability is defined by its behavior under a message (not by an underlying object reference, and not by interface thinning) is the primary-source root of Endo's facet discipline and its `Far`/`Remotable` model: a read facet and a write facet over one state are genuinely different capabilities, not thinned views of a shared identity, and reference equality is behavioral (E's `==`, Endo's marshal identity). It also underwrites why Endo can pass different facets to different clients without leaking that they share an implementation.
+
+- [`../../library/sections/cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference.md`](../../library/sections/cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference.md)
+
+## The lambda-calculus lineage and confinement by immutability
+
+Miller's July 2001 "two threads" history places the object-capability model Endo realizes in the lambda-calculus / Actors lineage (Rees's W7, Joule, E) rather than the OS access-matrix one, which is why a hardened lambda language (SES) can be capability-secure at all. The companion 2000 confinement thread shows E achieving confinement through *observable pure immutability* rather than kernel weakening, the direct ancestor of using `harden` and transitively-frozen objects as Endo's confinement lever.
+
+- [`../../library/sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md`](../../library/sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md)
+- [`../../library/sections/cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md`](../../library/sections/cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md)
+
+Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, and `scholar-ingest-cap-talk-2000-2003` (2026-09-16), founding-era and 2000-2001 slices.
