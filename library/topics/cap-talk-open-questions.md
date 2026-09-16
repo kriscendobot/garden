@@ -230,6 +230,44 @@ Chip Morningstar (March 2009) shows that if all authority rides web-keys, a brow
 
 - [cap-talk-2009-2012--webkeys-vs-the-web](../sections/cap-talk-2009-2012--webkeys-vs-the-web.md) - the three roots of browser authority, the navigation break, and the two unsatisfactory approaches.
 
+### 37. Does creating an object imply a permanent inspection capability?
+
+Creation, resource sponsorship, authorship, and reflective control are often called “parenthood,” but they need not belong to one principal. Retaining inspection helps maintenance and recovery; withholding it can be the confinement guarantee the instance was created to provide. KeyKOS's factory-plus-instance-creator construction suggests explicit cooperative debug authority, but the archive does not settle a universal default.
+
+- [cap-talk-2013-2016--pola-creator-authority-visibility-and-revocation](../sections/cap-talk-2013-2016--pola-creator-authority-visibility-and-revocation.md)
+
+### 38. Can renewable, expiring grants replace stateful membranes?
+
+Continuous renewal makes current grants visible and bounds the lifetime of a leak, but it shifts security into clocks, overlap windows, liveness, and partition behavior. The proponent did not supply the requested concrete example proving that recursive membrane behavior can be recovered without equivalent state.
+
+- [cap-talk-2013-2016--reactive-expiry-versus-stateful-membranes](../sections/cap-talk-2013-2016--reactive-expiry-versus-stateful-membranes.md)
+- [cap-talk-2013-2016--substructural-reactive-capabilities](../sections/cap-talk-2013-2016--substructural-reactive-capabilities.md)
+
+### 39. When does a cryptographic string remain an object capability?
+
+Random webkeys, signed self-describing tokens, and macaroons can all be unforgeable bearer artifacts. They differ in whether the token designates one facet, whether use requires a pool of unrelated credentials, where attenuation is interpreted, and what state is needed for revocation. The list agrees that representation alone does not decide the category, but does not produce one accepted boundary.
+
+- [cap-talk-2013-2016--iot-capabilities-as-cryptographic-strings](../sections/cap-talk-2013-2016--iot-capabilities-as-cryptographic-strings.md)
+- [cap-talk-2013-2016--macaroons-capabilities-versus-credentials](../sections/cap-talk-2013-2016--macaroons-capabilities-versus-credentials.md)
+
+### 40. Can identity policy narrow grants without recreating IBAC?
+
+The proposed rule permits identity, roles, or labels to decide whether a new reference may be minted, while possession alone decides later use. This appears capability-compatible when policy only subtracts authority, but the object-to-recipient arrow still resembles an ACL and can drift into use-time identity checks. The one-way boundary remains an engineering invariant rather than a property guaranteed by the notation.
+
+- [cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time](../sections/cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time.md)
+
+### 41. What should joining two paths to one endpoint mean?
+
+References carried through different membranes have distinct revocation, attenuation, ordering, and provenance. Revoking the joined result when either path is cut and revoking it only when both are cut each violate a plausible grantor expectation. Endpoint sameness, even when tested cooperatively, does not supply a policy for merging authority.
+
+- [cap-talk-2013-2016--joining-references-across-membranes](../sections/cap-talk-2013-2016--joining-references-across-membranes.md)
+
+### 42. Which layer should own sharing and revocation?
+
+Capper can mint application-level webkeys, while Sandstorm wants the platform to provide sharing, audit, and revocation for the application. Both are capability-shaped, but composing them can produce duplicate policy, invisible outer grants, or an application protocol the platform cannot revoke precisely. The archive identifies the collision without a general layering rule.
+
+- [cap-talk-2013-2016--capper-credentials-persistence-and-module-authority](../sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md)
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
