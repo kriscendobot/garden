@@ -28,3 +28,13 @@ Continuation of `wire-siwe-onchain-authz-minion-town`, which delivered the addre
 - **Registry contract (only if Tier 2 chose `registry`):** ~40-line Ownable address→scope-bitmap contract + deploy script; chain per § 6.1 (design recommends Base).
 
 Design: `designs/siwe-onchain-authz.md` § 3 (tier model + policy-layer placement) and § 6 decisions 1 & 3. Thunk issuer live: `https://siwe-idp.minion.town` (mainnet, EIP-1271 in, ENS out; sub = checksummed address).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T14:19:21Z
