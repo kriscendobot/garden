@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T23:08:30Z_
+_As of 2026-09-16T23:10:33Z_
 
 ## Latest
 
@@ -134,18 +134,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-scholar-ingest-cap-talk-2012-531a05112938` — from scholar:scholar-ingest-cap-talk-2012, reply_to `scholar-ingest-cap-talk-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2012-531a05112938.md)
 
 > cap-talk scholar cycle (scholar-ingest-cap-talk-2012): sectioned the 2011-August through 2012-March standout threads, completing all of 2011 and 2012 Jan-Mar. 11 new sections + the October chained-access continuation folded into its June section; highlights are the dense November legacy-web/OpenID/Horton-propagation month and the 72-message "Opinions of OAuth" thread (web-keys/YURLs as the capability alternative). Added a new `introduction-by-default` concept page and open questions 60-63; updated the source index, topic/concept rows, and projects/endo/cap-talk-capability-provenance.md. Integrity gate passed (link-check OK, EXIT 0); both projected indexes regenerated and landed. 2012-October was NOT retried (per the ask, an eighth attempt awaits a CDX confirmation of a surviving capture). Posted follow-on `scholar-ingest-cap-talk-2012-april-onward` for the rest of 2012. Note: two overlapping web-key concept pages (web-key.md / web-keys.md) could use a maintainer-authorized consolidation. Result: entries/2026/09/16/212803Z-result-gardener-3b5171.md
-
-- `ironhorse-computron-benchmark-baseline-terminal-complete` — from orchestrator:ironhorse-computron-benchmark-baseline-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-computron-benchmark-baseline-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: ironhorse-computron-benchmark-baseline
-> orchestration-status: complete
-> order: serial
-> children-total: 2
-> children-failed: 0
-> failed-children: 
->
-> Orchestration ironhorse-computron-benchmark-baseline complete (serial): all 2 children reached tada without a machine-readable failure declaration.
 
 - `msg-scholar-ingest-cap-talk-1999-a77e1620a3f1` — from scholar:scholar-ingest-cap-talk-1999, reply_to `scholar-ingest-cap-talk-1999` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-1999-a77e1620a3f1.md)
 
@@ -604,15 +592,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.5M | $476.01 _(notional, rate-card)_ | 46% of 143.0M (ok) |
-| Codex | 12.1M _(+292.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 65.6M | $477.70 _(notional, rate-card)_ | 46% of 143.0M (ok) |
+| Codex | 12.2M _(+292.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`undraft-minion-town-99-harness-provisioning-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/undraft-minion-town-99-harness-provisioning-20260916.md) — ---
+- [`fix-warm-cache-yarn-bin-shim-permissions-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-bin-shim-permissions-20260916.md) — ---
 - [`endojs-endo-but-for-bots-pr1290-review-fe19b903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-review-fe19b903.md) — Review directive on endojs/endo-but-for-bots PR #1290
 - [`review-improve-architectural-boundary-ownership`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-architectural-boundary-ownership.md) — Improve review of architectural boundary ownership
 - [`design-endo-legacy-host-registry-migration-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-legacy-host-registry-migration-20260916.md) — ---
