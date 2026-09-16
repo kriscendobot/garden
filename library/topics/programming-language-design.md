@@ -6,6 +6,8 @@ Programming-language design concerns the semantic models and surface mechanisms 
 |---|---|---|
 | [Operational models and development](../sections/web--kay-personal-computer-for-children-1972--operational-models-and-development.md) | Kay, *A Personal Computer for Children of All Ages* (1972) | Programming as executable operational knowledge that can be observed, debugged, and refined. |
 | [Objects as processes](../sections/web--kay-personal-computer-for-children-1972--objects-as-processes.md) | Kay, *A Personal Computer for Children of All Ages* (1972) | Objects as stateful processes with control paths, messages, and user-definable abstractions. |
+| [managed-language-object-references-as-capabilities](../sections/cap-talk-2009-2012--managed-language-object-references-as-capabilities.md) | cap-talk 2009-August | Memory safety, reference unforgeability, and explicit endowments can replace hardware address-space separation. |
+| [full-abstraction-at-the-bytecode-boundary](../sections/cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md) | cap-talk 2009-September | Verified target bytecode can violate source-language invariants without escaping memory safety. |
 
 ## See also
 
