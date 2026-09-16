@@ -57,6 +57,7 @@ If it still will not fit, SPLIT it rather than raising again: stage 1 pin + reba
 stage 2 conflict resolution + CI verification, stage 3 resume the gauntlet from fix.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1839 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
