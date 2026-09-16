@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:43:46Z_
+_As of 2026-09-16T19:45:20Z_
 
 ## Latest
 
@@ -598,7 +598,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.6M | $471.42 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.6M | $471.64 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.7M _(+270.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
@@ -608,13 +608,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (1)
 - [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012.md) — Continue cap-talk 2011-2012 ingestion (and the 2010 remainder)
 
-### tada (8045)
+### tada (8046)
+- [`canary-probe-endolin-garden2-5bcdff64-9405a69805d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-9405a69805d1.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2010-2012-remainder.md) — Completion report: scholar-ingest-cap-talk-2010-2012-remainder
 - [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — What I did
 - [`claude-on-minion-town-completion-press-20260916-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-193507.md) — Completion report — Claude-on-minion.town completion press, tick 20260916-193507
 - [`improve-fetch-source-transient-wayback-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-transient-wayback-retries.md) — Cost
-- [`claude-on-minion-town-press-20260916-192011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-192011.md) — Cost
-- … and 8040 more
+- … and 8041 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
