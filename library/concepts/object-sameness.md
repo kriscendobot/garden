@@ -52,6 +52,8 @@ the designational-equivalence guarantee a Grant Matcher needs.
 | [equality/reference-sameness/overview](../sections/web--miller-equality-reference-sameness--overview.md) | The `==` predicate (true/false/throws); designational equivalence; monotonicity; EMap-requires-Settled-keys; designational-vs-computational via Disconnected refs; PowerKey/CycleBreaker. |
 | [equality/four-party-partial-orders/overview](../sections/web--miller-equality-four-party-partial-orders--overview.md) | The asynchronous `join` — eventual equality that bottoms out in immediate `==`; why distributed grant matching needs it. |
 | [grant-matcher/how-eq-makes-a-difference](../sections/web--miller-grant-matcher-puzzle--how-eq-makes-a-difference.md) | Why an address-equality `EQ` (the `==` of reference sameness) resolves the puzzle by returning false for a transparent forwarder. |
+| [cap-talk-1998--dead-object-sameness](../sections/cap-talk-1998--dead-object-sameness.md) | Hardy and Shapiro ask whether references retain sameness after target destruction or collapse to one null key. |
+| [cap-talk-1999--grant-matching-and-object-sameness](../sections/cap-talk-1999--grant-matching-and-object-sameness.md) | Grant matching needs an attenuated comparison facet plus a primitive symmetric sameness test. |
 
 ## See also
 
