@@ -34,6 +34,7 @@ The comparison at the center of object-capability security: an **access-control 
 | [rabbitmq-capabilities-rejected-by-deployment-friction](../sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md) | RabbitMQ's capability prototype lost to ACLs because compatibility and operator adoption costs outweighed a small mechanism. |
 | [acl-model-incomplete-owner-admin](../sections/cap-talk-2009-2012--acl-model-incomplete-owner-admin.md) | The ACL model cannot express changing an ACL without an out-of-model owner/administrator; in ocap the authority to grant is just a held capability (Karp; HRU 1976). |
 | [cap-talk-2009-2012--fabric-security-language-capabilities-or-acls](../sections/cap-talk-2009-2012--fabric-security-language-capabilities-or-acls.md) | cap-talk 2010-October | Cornell's Fabric self-describes 'oids are not capabilities' and delegates via an actsfor principal hierarchy plus Jif labels — information-flow/ACL, not object-capabilities. |
+| [cap-talk-2009-2012--comparing-models-zbac-versus-capabilities](../sections/cap-talk-2009-2012--comparing-models-zbac-versus-capabilities.md) | ZBAC/attributes versus capabilities via the credit-card example and the DoD cross-service role-agreement failure; why possession-is-authorization needs no shared attribute vocabulary. |
 
 ## See also
 
