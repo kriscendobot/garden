@@ -42,3 +42,13 @@ Remaining work, oldest-first, respecting the per-cycle budget (~3-5 sources or
 
 NOTE: the post-2016 Google Groups era remains not fetchable from the sandbox
 (documented in `cap-talk-1998.md`); flag the gap if reached.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T18:49:47Z
