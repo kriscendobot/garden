@@ -1,20 +1,20 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:20:58Z_
+_As of 2026-09-16T10:25:15Z_
 
 ## Latest
 
-Parked on review: [endojs/endo#3073](https://github.com/endojs/endo/pull/3073), [endojs/endo#3110](https://github.com/endojs/endo/pull/3110), and eight endo-but-for-bots designs await 4–20 days for maintainer decisions. Real failure surfaced and re-scoped: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (9p-server API drift) now awaits merge-base pin and semantic porting. Ironhorse computron audit complete and ready to build upon your answers to six design questions. Minion.town clip, daemon, and onboarding work stalled on credentials and schema gaps. Quota nominal.
+Five early-September halted gauntlets were triaged: four are transient capacity halts on now-green code and are re-postable, while one—[endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100)—has a real base-drift failure (9p-server still calling removed `stringLengthLimit` API) that needs weave and semantic porting. [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (computron benchmark design) is held pending your answers to six parameter questions; the audit found no surviving own-cost constraints. Several work items are blocked on decisions: oros-studio requires migration to monk before the gardener-worker-kind alias can be retired, minion.town clip and daemon work await gh-token restoration and a daemon-schema-compat design, and [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) needs your call on whether to continue gauntlet iteration or merge the green-and-mergeable code.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 18h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 14d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 15d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 17d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 20d)
@@ -400,8 +400,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.2M | $453.62 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 57.4M | $453.92 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Codex | 7.5M _(+186.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
