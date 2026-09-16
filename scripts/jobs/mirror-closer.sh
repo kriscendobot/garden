@@ -62,16 +62,18 @@
 # exits nonzero when any non-quota mapping failed, so the failure stays visible
 # to systemd/journald.
 #
-# PRIMARY-QUOTA CIRCUIT BREAKER (2026-09-16 hardening): GitHub's primary hourly
-# quota is account-wide and cannot recover until it resets, so once ONE mapping's
-# call is refused for primary quota, every remaining call this tick is equally
-# doomed. Rather than plow on — burning a fresh doomed API call per mapping and
-# logging a fatal-per-mapping WARN storm — the loop BREAKS at the first primary-
-# quota refusal and emits ONE aggregate degraded warning. Every unresolved
-# mapping (the one that hit the wall plus the ones we never queried) is preserved
-# unstamped and retried on a future tick once quota resets. A quota-only tick
-# exits zero degraded; a non-quota failure seen BEFORE the break still exits
-# nonzero so a real (404/etc.) failure is never masked by the degrade.
+# PRIMARY-QUOTA CIRCUIT BREAKER + COOLDOWN (2026-09-16 hardening): GitHub's
+# primary hourly quota is account-wide and cannot recover until it resets, so
+# once ONE mapping's call is refused, every remaining call this tick — and every
+# five-minute timer tick in the same quota window — is equally doomed. The first
+# refusal stops the loop and persists a host-local one-hour cooldown. Subsequent
+# ticks exit before cloning the journal or calling GitHub; the first tick after
+# expiry retries every unresolved mapping. The one-hour window is conservative:
+# a primary bucket cannot remain exhausted longer than one hour from the refusal,
+# and the failing GraphQL response does not reliably expose the reset header.
+# Every unresolved mapping remains unstamped throughout. A quota-only tick exits
+# zero degraded; a non-quota failure seen BEFORE the break still exits nonzero so
+# a real (404/etc.) failure is never masked by the degrade.
 #
 # Pluggable GitHub I/O for deterministic tests (the close path is NEVER exercised
 # against a real upstream in CI — see test/mirror-closer-test.sh):
@@ -93,7 +95,59 @@ require_tools git
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
-DIR="${GARDEN_MIRROR_CLONE:-$GARDEN_STATE/mirror-closer/journal}"
+MIRROR_STATE_DIR="${GARDEN_MIRROR_STATE_DIR:-$GARDEN_STATE/mirror-closer}"
+MIRROR_QUOTA_MARKER="${GARDEN_MIRROR_QUOTA_MARKER:-$MIRROR_STATE_DIR/primary-quota-cooldown}"
+
+# The primary GitHub quota is hourly. Starting a full hour at the first refusal
+# may wait past the provider's actual reset, but never probes before recovery is
+# guaranteed. A bounded override and frozen clock keep the behavior testable.
+mirror_quota_now() {
+  local now="${GARDEN_MIRROR_QUOTA_NOW:-$(date +%s 2>/dev/null || echo 0)}"
+  case "$now" in ''|*[!0-9]*) now=0;; esac
+  printf '%s\n' "$now"
+}
+
+mirror_quota_cooldown_secs() {
+  local secs="${GARDEN_MIRROR_QUOTA_COOLDOWN_SECS:-3600}"
+  case "$secs" in ''|*[!0-9]*) secs=3600;; esac
+  [ "$secs" -le 7200 ] || secs=7200
+  printf '%s\n' "$secs"
+}
+
+mirror_quota_cooldown_active() {
+  local now expiry
+  now="$(mirror_quota_now)"
+  expiry="$(sed -n '1p' "$MIRROR_QUOTA_MARKER" 2>/dev/null || true)"
+  case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+  if [ "$expiry" -gt "$now" ]; then
+    MIRROR_QUOTA_EXPIRY="$expiry"
+    return 0
+  fi
+  rm -f "$MIRROR_QUOTA_MARKER"
+  return 1
+}
+
+start_mirror_quota_cooldown() {
+  local now secs expiry tmp
+  now="$(mirror_quota_now)"
+  secs="$(mirror_quota_cooldown_secs)"
+  [ "$secs" -gt 0 ] || return 0
+  expiry=$((now + secs))
+  mkdir -p "${MIRROR_QUOTA_MARKER%/*}"
+  tmp="$MIRROR_QUOTA_MARKER.$$"
+  printf '%s\nprimary-quota\n' "$expiry" > "$tmp"
+  mv -f "$tmp" "$MIRROR_QUOTA_MARKER"
+  MIRROR_QUOTA_EXPIRY="$expiry"
+}
+
+MIRROR_QUOTA_EXPIRY=0
+if mirror_quota_cooldown_active; then
+  remaining=$((MIRROR_QUOTA_EXPIRY - $(mirror_quota_now)))
+  log "GitHub primary-quota cooldown active; skipping tick for ${remaining}s more (unresolved mappings preserved)"
+  exit 0
+fi
+
+DIR="${GARDEN_MIRROR_CLONE:-$MIRROR_STATE_DIR/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
@@ -264,7 +318,8 @@ log "tick complete: closed $acted mirror(s) this run"
 if [ "$quota_break" -eq 1 ]; then
   skipped=$(( n - 1 - i )); [ "$skipped" -lt 0 ] && skipped=0
   pending=$(( quota_blocked + skipped ))
-  log "WARN: GitHub primary quota exhausted this tick; stopped querying after the first doomed call — $pending mapping(s) left unresolved ($quota_blocked quota-refused + $skipped unqueried) and will retry after quota resets"
+  start_mirror_quota_cooldown
+  log "WARN: GitHub primary quota exhausted this tick; stopped querying after the first doomed call and entered a $(mirror_quota_cooldown_secs)s cooldown — $pending mapping(s) left unresolved ($quota_blocked quota-refused + $skipped unqueried) and will retry after the cooldown"
   # A non-quota failure seen BEFORE the circuit break still keeps the tick
   # unhealthy: a real (404/etc.) failure must never be masked by the degrade.
   if [ "$failed" -gt 0 ]; then

@@ -272,6 +272,7 @@ record "$TR/state-h1c" "$BARE_H1C" "up/repo#172" "garden/mir#272"
 record "$TR/state-h1c" "$BARE_H1C" "up/repo#173" "garden/mir#273"
 env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_QUOTA_COUNT="$CNT_H1C" \
+    GARDEN_MIRROR_QUOTA_NOW=1000000000 GARDEN_MIRROR_QUOTA_COOLDOWN_SECS=3600 \
     GARDEN_MIRROR_PR_STATE="$COUNTQUOTA" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >"$LOG_H1C" 2>&1; rch1c=$?
 [ "$rch1c" -eq 0 ] && ok "quota-only tick exits 0 (degraded, healthy)" || bad "quota-only circuit-breaker tick exited $rch1c"
@@ -289,6 +290,44 @@ for k in up-repo-171 up-repo-172 up-repo-173; do
     && bad "$k stamped despite being quota-blocked/unqueried" || ok "$k left unresolved (preserved for retry after quota reset)"
 done
 [ ! -s "$CL_H1C" ] && ok "no mirror was closed during a quota-exhausted tick" || bad "closed a mirror despite quota exhaustion: $(cat "$CL_H1C")"
+
+# A second timer tick inside the same primary window must stop at the persisted
+# marker, before even invoking the handler that made the first doomed request.
+LOG_H1C_2="$TR/closer-h1c-second.log"
+env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_QUOTA_COUNT="$CNT_H1C" \
+    GARDEN_MIRROR_QUOTA_NOW=1000000300 GARDEN_MIRROR_QUOTA_COOLDOWN_SECS=3600 \
+    GARDEN_MIRROR_PR_STATE="$COUNTQUOTA" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_H1C_2" 2>&1; rch1c2=$?
+[ "$rch1c2" -eq 0 ] && [ "$(cat "$CNT_H1C")" -eq 1 ] \
+  && ok "persisted cooldown: the next timer tick made ZERO additional GraphQL calls" \
+  || bad "cooldown tick issued another request (rc=$rch1c2, calls=$(cat "$CNT_H1C"))"
+grep -q 'primary-quota cooldown active; skipping tick for 3300s more' "$LOG_H1C_2" \
+  && ok "cooldown tick reports its remaining reset window without another warning" \
+  || bad "cooldown skip diagnostic missing/wrong: $(cat "$LOG_H1C_2")"
+
+# At expiry the marker is removed and unresolved mappings become eligible again.
+# Switch to the healthy state stub: all three upstreams are open, so the retry is
+# observable as exactly three state calls without changing any mapping.
+EXPIRYSTATE="$TR/state-expiry-count.sh"
+cat > "$EXPIRYSTATE" <<'EOF'
+#!/bin/bash
+n=$(( $(cat "${MC_EXPIRY_COUNT:?set MC_EXPIRY_COUNT}" 2>/dev/null || echo 0) + 1 ))
+printf '%s' "$n" > "${MC_EXPIRY_COUNT}"
+printf 'open\tfalse\n'
+EOF
+chmod +x "$EXPIRYSTATE"
+EXPIRY_COUNT="$TR/expiry-calls.count"; : > "$EXPIRY_COUNT"
+env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_EXPIRY_COUNT="$EXPIRY_COUNT" \
+    GARDEN_MIRROR_QUOTA_NOW=1000003600 GARDEN_MIRROR_QUOTA_COOLDOWN_SECS=3600 \
+    GARDEN_MIRROR_PR_STATE="$EXPIRYSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >/dev/null 2>&1; rch1c3=$?
+[ "$rch1c3" -eq 0 ] && [ "$(cat "$EXPIRY_COUNT")" -eq 3 ] \
+  && ok "cooldown expiry retries all 3 unresolved mappings" \
+  || bad "post-expiry retry wrong (rc=$rch1c3, calls=$(cat "$EXPIRY_COUNT"))"
+[ ! -e "$TR/state-h1c/mirror-closer/primary-quota-cooldown" ] \
+  && ok "expired primary-quota marker is removed" || bad "expired cooldown marker survived"
 
 hr; echo "H2 — loud failure: a failed close aborts nonzero and leaves mapping unresolved"; hr
 BARE_H2="$TR/h2.git"; seed_bare "$BARE_H2"
