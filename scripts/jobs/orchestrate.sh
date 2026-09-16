@@ -171,6 +171,32 @@ child_board_view() {  # <child> -> "<location> <snapshot>"
   printf '%s\n' "$view"
 }
 
+# child_completed_on_resync — the COMPLETION RECORD is the authority; an in-flight
+# timing reading is not. Before trusting an INFERRED failure (a stall or a requeue
+# streak derived from timestamps/counts on ONE synced snapshot, NOT a committed
+# terminal marker), re-sync the clone and re-read: a child completing in a fresh
+# attempt can already have its tada committed while an earlier claim's timing still
+# reads as a stall, and the tick's single top sync can observe the board a beat
+# before the doin→tada completion lands. Returns 0 iff a fresh read shows the child
+# in jobs/tada WITHOUT a gated-failure marker (a genuine success); 1 otherwise. Reuses
+# the gone-recheck budget (attempts/sleep) since it is the same "re-sync before an
+# irreversible verdict" guard. Only paid on the rare inferred-failure path.
+child_completed_on_resync() {  # <child>
+  local c="$1" attempt view loc snapshot jf rc
+  for attempt in $(seq 1 "$GARDEN_ORCH_GONE_RECHECK"); do
+    [ "$GARDEN_ORCH_GONE_RECHECK_SLEEP" -gt 0 ] 2>/dev/null && sleep "$GARDEN_ORCH_GONE_RECHECK_SLEEP"
+    sync_clone "$DIR" >/dev/null 2>&1 || true
+    view="$(child_board_view_once "$c")"; read -r loc snapshot <<<"$view"
+    [ "$loc" = tada ] || continue
+    jf="$(mktemp "${TMPDIR:-/tmp}/orch-recheck.XXXXXX")"
+    if ! child_snapshot_file "$snapshot" tada "$c" "$jf"; then rm -f "$jf"; continue; fi
+    rc=0; tada_failed "$jf" || rc=1
+    rm -f "$jf"
+    [ "$rc" -eq 1 ] && return 0   # tada present, no gated-failure declaration → success
+  done
+  return 1
+}
+
 child_snapshot_file() {  # <snapshot> <location> <child> <destination>
   local snapshot="$1" location="$2" c="$3" destination="$4" path
   case "$location" in
@@ -206,7 +232,6 @@ set_orch_field() {  # <base> <field> <value>; CAS-retried, leading frontmatter o
 child_reap_count() { reap_count "$1"; }
 child_claim_host() { sed -n 's/^  host:[[:space:]]*//p' "$1" | tail -1; }
 child_claimed_at() { sed -n 's/^  claimed_at:[[:space:]]*//p' "$1" | tail -1; }
-child_promoted_at() { sed -n 's/.*garden-promoted-from-plan:.* at=\([^ >]*\).*/\1/p' "$1" | tail -1; }
 child_handler_timeout() {
   local n
   n="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$1" | head -1 | tr -dc '0-9')"
@@ -289,14 +314,31 @@ child_failure_detail() {  # <child> <orch-record>
   if ! has_productive_cycle_hint "$jf" && [ "$n" -gt "$limit" ] 2>/dev/null; then
     printf 'stalled after %s requeues on host %s (limit %s, no progress hint this cycle)\n' "$n" "$host" "$limit"; rm -f "$jf"; return 0
   fi
-  started="$(child_claimed_at "$jf")"; [ -n "$started" ] || started="$(child_promoted_at "$jf")"
-  if [ -n "$started" ]; then
-    now="$(date -u +%s)"; started_epoch="$(date -u -d "$started" +%s 2>/dev/null || true)"
-    if [ -n "$started_epoch" ]; then
-      age=$(( now - started_epoch )); limit=$(( $(child_handler_timeout "$jf") * GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER ))
-      if [ "$age" -gt "$limit" ]; then
-        printf 'stalled in flight for %ss on host %s (handler-timeout=%ss, multiplier=%s)\n' \
-          "$age" "$host" "$(child_handler_timeout "$jf")" "$GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER"; rm -f "$jf"; return 0
+  # In-flight age is measured ONLY from the CURRENT claim's `claimed_at`, which exists
+  # solely on a CLAIMED (doin) child. A queued (todo) child is NOT "in flight": it is
+  # waiting to be claimed, and the fleet may legitimately hold it (a drain, a busy
+  # pool, a just-requeued reap-and-resume). The old fallback to child_promoted_at
+  # measured age from the ONE `garden-promoted-from-plan ... at=` marker — which is
+  # written once at promotion and SURVIVES EVERY requeue (clean_body strips the claim
+  # block and cycle markers, never the promotion marker) — so a child promoted long
+  # ago and momentarily back in todo read as "stalled in flight for <campaign-age>s"
+  # even though its live attempt had barely begun. That is the 2026-09-16
+  # credit-controls false halt: a child that completed in 463s was declared a 2505s
+  # in-flight stall because 2505s was the campaign age since promotion, not any
+  # attempt's runtime, and the named host came from the orchestration record's
+  # remembered child-<c>-host rather than a live claim. Never infer an in-flight stall
+  # from the promotion clock; a queued/unclaimed child is `active`, governed by the
+  # requeue-count limit and the reaper, not by campaign age.
+  if [ "$location" = doin ]; then
+    started="$(child_claimed_at "$jf")"
+    if [ -n "$started" ]; then
+      now="$(date -u +%s)"; started_epoch="$(date -u -d "$started" +%s 2>/dev/null || true)"
+      if [ -n "$started_epoch" ]; then
+        age=$(( now - started_epoch )); limit=$(( $(child_handler_timeout "$jf") * GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER ))
+        if [ "$age" -gt "$limit" ]; then
+          printf 'stalled in flight for %ss on host %s (handler-timeout=%ss, multiplier=%s)\n' \
+            "$age" "$host" "$(child_handler_timeout "$jf")" "$GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER"; rm -f "$jf"; return 0
+        fi
       fi
     fi
   fi
@@ -346,13 +388,23 @@ child_state() {  # <child-base> <orch-record> → done|active|progressing|parked
       # which is what the tunable was for. The reaper resets the reap count on every
       # productive cycle, so n already measures the non-productive streak.
       if [ "$n" -gt "$GARDEN_ORCH_STALL_REQUEUE_LIMIT" ] 2>/dev/null; then
-        printf 'failed\n'; rm -f "$jf"; return 0
+        # Re-check tada before trusting the requeue-streak verdict: the child may have
+        # completed on the very cycle that tipped it past the limit.
+        if child_completed_on_resync "$c"; then printf 'done\n'; else printf 'failed\n'; fi
+        rm -f "$jf"; return 0
       fi
     fi
-    # Claim metadata is stamped by claim-job.sh.  A queued child uses the promotion
-    # timestamp instead, so an unclaimable child cannot wait forever either.
+    # Claim metadata is stamped by claim-job.sh. Only a CLAIMED (doin) child can be
+    # "stalled in flight", measured from its current claim; a queued child stays active
+    # (see child_failure_detail — the promotion-clock fallback is deliberately gone).
     detail="$(child_failure_detail "$c" "$orch")"
-    if [[ "$detail" == stalled\ in\ flight* ]]; then printf 'failed\n'; rm -f "$jf"; return 0; fi
+    if [[ "$detail" == stalled\ in\ flight* ]]; then
+      # The completion record is the authority over an in-flight timing reading:
+      # re-sync and re-check tada before declaring the child failed (a fresh attempt
+      # may have completed while an earlier claim's timestamp still reads as a stall).
+      if child_completed_on_resync "$c"; then printf 'done\n'; else printf 'failed\n'; fi
+      rm -f "$jf"; return 0
+    fi
     printf 'active\n'; rm -f "$jf"; return 0
   fi
   if [ "$location" = plan ]; then
@@ -683,6 +735,10 @@ advance_serial() {  # <base> <policy> <child>...
           local sf; sf="$(mktemp "${TMPDIR:-/tmp}/orch-halt.XXXXXX")"
           {
             printf 'orchestration-status: halted\n'
+            # The child this halt BLAMED, machine-readable for resume_recovered_halts
+            # (below): if this child is later observed COMPLETE in tada, the halt was
+            # premised on a false or transient failure and the campaign self-corrects.
+            printf 'halt-failed-child: %s\n' "$c"
             # Machine-readable remainder, parsed by supersede_stale_halts (below):
             # the bases this halt left parked under their held gate. If another path
             # (a human promote, a re-post) later runs them, that pass amends this
@@ -849,6 +905,89 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
   rm -f "$sf"
 }
 
+# --- resume a halt premised on a child that actually completed --------------
+# A serial halt writes tada/<base>.md (with `halt-failed-child: X` and
+# `halt-parked-remainder: …`) and removes the orch record, so this watcher stops
+# driving it. But the halt verdict can be WRONG (a stale in-flight reading — the
+# 2026-09-16 credit-controls halt, where a 463s child was declared a 2505s stall) or
+# merely PREMATURE (the blamed child overran once but RECOVERED on a reaper requeue —
+# the minion-town-clipometer-esbuild halt, where child 1 completed as draft PR #84
+# yet children 2–4 sat parked for two weeks on a false "0/4 done"). In BOTH, the
+# blamed child X later lands in tada as a genuine success while the not-yet-run
+# remainder stays parked under its held gate forever. This pass detects that — X is
+# now tada and NOT gated-failed — and CONTINUES the campaign: it re-posts a resume
+# orchestration over the still-parked remainder (reusing post-orchestration.sh's
+# atomic --resume-from retag) and flips the halt record to `halted-resumed`. It fires
+# ONLY when the halt's OWN blamed child succeeded (a child that genuinely stayed
+# doomed leaves the halt standing). Idempotent: the resume base is deterministic
+# (post-orchestration is a no-op if it already exists) and a record already at
+# `halted-resumed` is skipped.
+resume_recovered_halts() {
+  local rec base status failed_child remainder resume_base view loc snapshot jf ts kid still_parked path attempt rc
+  for rec in "$DIR/$JOBS_TADA"/*.md; do
+    [ -f "$rec" ] || continue
+    status="$(plan_field "$rec" orchestration-status)"
+    case "$status" in halted|halted-superseded) ;; *) continue;; esac
+    failed_child="$(plan_field "$rec" halt-failed-child)"
+    remainder="$(plan_field "$rec" halt-parked-remainder)"
+    [ -n "$failed_child" ] || continue
+    [ -n "$remainder" ] || continue
+    base="$(basename "$rec" .md)"
+    resume_base="$base-resume"
+    # Only resume when the child the halt BLAMED is now a genuine tada success.
+    sync_clone "$DIR"
+    view="$(child_board_view_once "$failed_child")"; read -r loc snapshot <<<"$view"
+    [ "$loc" = tada ] || continue
+    jf="$(mktemp "${TMPDIR:-/tmp}/orch-resume.XXXXXX")"
+    if ! child_snapshot_file "$snapshot" tada "$failed_child" "$jf"; then rm -f "$jf"; continue; fi
+    if tada_failed "$jf"; then rm -f "$jf"; continue; fi   # genuinely failed → halt stands
+    rm -f "$jf"
+    # At least one remainder child must still be parked-orchestrated to have anything
+    # to resume; if they all ran elsewhere, supersede_stale_halts corrects the record.
+    still_parked=0
+    for kid in $remainder; do
+      [ -f "$DIR/$JOBS_PLAN/$kid.md" ] \
+        && [ "$(plan_field "$DIR/$JOBS_PLAN/$kid.md" orchestrated_by)" = "$base" ] && still_parked=1
+    done
+    [ "$still_parked" -eq 1 ] || continue
+    # A halt arises only on a serial run under policy=halt, so the resume mirrors that.
+    # shellcheck disable=SC2086
+    if "$HERE/post-orchestration.sh" --serial --on-child-failure halt --by orchestrator-resume \
+        --resume-from "$base" "$resume_base" $remainder >/dev/null 2>&1; then
+      log "orchestration '$base': RESUMED as '$resume_base' — halt-blamed child '$failed_child' actually completed; remainder: $remainder"
+    else
+      log "orchestration '$base': resume post failed; retrying next tick"
+      continue
+    fi
+    # Flip the halt record's status and append a dated addendum (CAS-retried). Stays a
+    # `halted-*` status so tada_failed keeps reading the ORIGINAL campaign as halted;
+    # the resumed remainder runs under its own base.
+    ts="$(date -u +%FT%TZ)"
+    for attempt in $(seq 1 20); do
+      sync_clone "$DIR"
+      path="$(tada_find_tree "$DIR" HEAD "$base" 2>/dev/null || true)"
+      [ -n "$path" ] || break
+      case "$(plan_field "$DIR/$path" orchestration-status)" in halted|halted-superseded) ;; *) break;; esac
+      sed -i 's/^orchestration-status: halted\(-superseded\)\?$/orchestration-status: halted-resumed/' "$DIR/$path"
+      {
+        printf '\n---\n\n'
+        printf 'RESUMED %s: the halt above was premised on child %s, which has since\n' "$ts" "$failed_child"
+        printf 'completed successfully (tada report present, no gated-failure). The\n'
+        printf 'not-yet-run remainder has been re-posted as orchestration %s to\n' "$resume_base"
+        printf 'continue the campaign:\n\n'
+        # shellcheck disable=SC2086
+        printf -- '- %s\n' $remainder
+        printf '\nConsult %s and the board for live status; do not read the halt\n' "$resume_base"
+        printf 'narrative above as current.\n'
+      } >> "$DIR/$path"
+      git -C "$DIR" add "$path"
+      rc=0; commit_and_push "$DIR" "orch($base) halt superseded by resume $resume_base by $GARDEN" || rc=$?
+      { [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; } && break
+      backoff "$attempt"
+    done
+  done
+}
+
 # --- supersede stale halt records -------------------------------------------
 # A halted serial orchestration writes its outcome to jobs/tada/<base>.md and
 # removes its orch record, so this watcher stops driving it. The downstream
@@ -932,8 +1071,12 @@ for j in $(list_jobs "$DIR" "$JOBS_ORCH"); do
   esac
 done
 
-# After driving live orchestrations, correct any halt record whose parked
-# remainder subsequently ran on another path (see supersede_stale_halts above).
+# After driving live orchestrations: first RESUME any halt whose blamed child turned
+# out to complete (a false or transient failure — resume_recovered_halts), then
+# correct any residual halt record whose parked remainder ran on another path
+# (supersede_stale_halts). Resume runs first so a genuinely-recoverable campaign
+# continues rather than merely having its narrative annotated.
+resume_recovered_halts
 supersede_stale_halts
 
 exit 0

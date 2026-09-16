@@ -39,6 +39,13 @@
 #                   successful or continued-failure predecessor outcome.
 #  12. NOTICES      - fresh active state is silent; child failure/timeout and
 #                   every terminal completion emit deterministic structured fields.
+#  25. TADA AUTHORITY — an inferred in-flight stall re-checks jobs/tada/ before
+#                   declaring a child failed; a completion seen on re-sync wins.
+#  26. FALSE STALL  — a queued (unclaimed) child is NEVER "stalled in flight" from
+#                   the campaign-old promotion clock (the credit-controls false halt).
+#  27. RESUME       — a halt whose blamed child is later observed complete re-posts
+#                   the parked remainder and flips the record to halted-resumed
+#                   (the minion-town-clipometer two-week park).
 #
 # Usage: orchestrate-test.sh
 
@@ -992,6 +999,134 @@ rc=0; "$JOBS/post-orchestration.sh" --adopt-go-ahead --no-validate val-orch-d vg
 [ "$val_ok" -eq 1 ] \
   && ok "wrong-gate, foreign-owned, and contradictory-flag children are refused before any record is written" \
   || bad "child validation did not fail closed"
+
+# ============================================================================
+hr; echo "SUBTEST 25 — TADA AUTHORITY: an inferred in-flight stall re-checks tada before failing"; hr
+# The completion record is the authority over an in-flight timing reading. A child
+# can complete in a fresh attempt while an EARLIER claim's timestamps still read as a
+# stall (the tick's top sync can observe the board a beat before the doin->tada
+# completion lands). The base sorts FIRST among running orchestrations so its
+# child_state read happens immediately after the after-sync hook, before any sibling
+# sync_clone discards the transient snapshot (same discipline as SUBTEST 20).
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-a-tada ta-x >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-a-tada ta-y >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt 00-a-tada ta-x ta-y >/dev/null
+tick                        # promote ta-x
+complete_child ta-x         # ta-x's tada lands on origin (the fresh, authoritative state)
+# After the tick-top sync (clone == origin, ta-x in tada), force the clone onto a
+# COMMITTED snapshot in which ta-x is back in doin with a LONG-expired claim — the
+# stale pre-completion read whose timing screams "stalled in flight". child_state must
+# re-check tada (the authority) and rule the child done, not failed.
+transient_stale="$TR/transient-stale.sh"
+oldts="$(date -u -d '2 hours ago' +%FT%TZ)"
+{
+  printf '%s\n' '#!/bin/sh' 'd="$1"'
+  printf '%s\n' 'git -C "$d" rm -q jobs/tada/ta-x.md 2>/dev/null || true'
+  printf '%s\n' 'mkdir -p "$d/jobs/doin"'
+  printf 'printf "handler-timeout: 1\\n\\n# ta-x\\n\\n---\\nclaim:\\n  host: stale-host\\n  gardener: 1\\n  claimed_at: %s\\n" > "$d/jobs/doin/ta-x.md"\n' "$oldts"
+  printf '%s\n' 'git -C "$d" add jobs/doin/ta-x.md'
+  printf '%s\n' 'git -C "$d" -c user.name=t -c user.email=t@l commit -q -m "transient: ta-x stale doin" || true'
+} > "$transient_stale"
+chmod +x "$transient_stale"
+GARDEN_ORCH_AFTER_SYNC_CMD="$transient_stale" tick
+auth_ok=1
+in_dir jobs/tada 00-a-tada && auth_ok=0        # NOT halted: orchestration still running
+in_dir jobs/todo ta-y || auth_ok=0             # run ADVANCED: ta-y promoted after ta-x re-checked done
+in_dir jobs/plan ta-y && auth_ok=0             # ta-y no longer parked
+in_dir jobs/tada ta-x || auth_ok=0             # ta-x's real completion stands
+[ "$auth_ok" -eq 1 ] \
+  && ok "an expired-claim in-flight reading re-checked tada, saw the completion, and advanced (no false halt)" \
+  || bad "in-flight stall ignored the completion record (todo=$(board jobs/todo), tada=$(board jobs/tada), plan=$(board jobs/plan))"
+
+# ============================================================================
+hr; echo "SUBTEST 26 — FALSE STALL: a queued child is never stalled from the promotion clock"; hr
+# The 2026-09-16 credit-controls halt: a child promoted long ago and momentarily back
+# in todo (a normal reap-and-resume) was declared "stalled in flight for <campaign-age>s"
+# because the age was measured from the ONE `garden-promoted-from-plan ... at=` marker,
+# which survives every requeue. A queued child is NOT in flight and must never halt its
+# parent on campaign age — pinning "a child that completes within budget must never
+# halt its parent".
+age_promotion() {  # age_promotion <base> <old-iso-ts> — backdate the promotion marker
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  sed -i "s/ at=[^ ]* / at=$2 /" "$wt/jobs/todo/$1.md"
+  git -C "$wt" add "jobs/todo/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "age-promotion($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by fs-orch fs-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by fs-orch fs-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt fs-orch fs-a fs-b >/dev/null
+tick                        # promote fs-a (queued in todo, promotion marker at=now)
+age_promotion fs-a "$(date -u -d '2 hours ago' +%FT%TZ)"   # backdate WELL past the 2400s default
+tick                        # queued child with an ancient promotion must stay active, NOT halt
+fs_ok=1
+in_dir jobs/tada fs-orch && fs_ok=0            # NOT halted
+in_dir jobs/todo fs-a || fs_ok=0              # fs-a still active (queued)
+in_dir jobs/plan fs-b || fs_ok=0             # fs-b still parked, not abandoned
+grep -q 'stalled in flight' "$TR/tick.log" && fs_ok=0   # no false in-flight verdict
+[ "$fs_ok" -eq 1 ] \
+  && ok "a queued child with an ancient promotion marker stays active (no promotion-clock false stall)" \
+  || bad "queued child false-halted on campaign age (tada=$(board jobs/tada), todo=$(board jobs/todo), plan=$(board jobs/plan))"
+complete_child fs-a
+tick                        # normal advance still works
+in_dir jobs/todo fs-b \
+  && ok "after the queued child completes, the serial run advances normally" \
+  || bad "serial run did not advance after the queued child completed (todo=$(board jobs/todo))"
+
+# ============================================================================
+hr; echo "SUBTEST 27 — RESUME: a halt whose blamed child later completes resumes the remainder"; hr
+# The minion-town-clipometer-esbuild halt: child 1 overran once, HALTED the run, then
+# RECOVERED on a reaper requeue and completed — yet children 2-4 sat parked for two
+# weeks on a false "done" count. When the halt-blamed child is later observed complete,
+# the campaign must CONTINUE: re-post the parked remainder and correct the record.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch re-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch re-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch re-c >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt re-orch re-a re-b re-c >/dev/null
+tick                        # promote re-a
+fail_child re-a             # re-a vanishes (doom-drop) → HALT next tick
+tick                        # detect failure → HALT, recording halt-failed-child: re-a
+resume_ready=1
+in_dir jobs/tada re-orch || resume_ready=0
+grep -qx 'halt-failed-child: re-a' "$V/jobs/tada/re-orch.md" 2>/dev/null || resume_ready=0
+{ in_dir jobs/plan re-b && in_dir jobs/plan re-c; } || resume_ready=0
+[ "$resume_ready" -eq 1 ] \
+  && ok "halt recorded the machine-readable blamed child and left the remainder parked" \
+  || bad "halt setup wrong (tada=$(board jobs/tada) plan=$(board jobs/plan))"
+# re-a RECOVERS on another path: its completion lands in tada well after the halt.
+promote_and_complete_externally re-a
+tick                        # resume_recovered_halts: re-a is now tada → resume the remainder
+resume_ok=1
+in_dir jobs/orch re-orch-resume || { resume_ok=0; echo "    resume orchestration not posted"; }
+board jobs/plan >/dev/null
+grep -q '^orchestrated_by: re-orch-resume$' "$V/jobs/plan/re-b.md" 2>/dev/null || { resume_ok=0; echo "    re-b not retagged"; }
+grep -q '^orchestrated_by: re-orch-resume$' "$V/jobs/plan/re-c.md" 2>/dev/null || { resume_ok=0; echo "    re-c not retagged"; }
+board jobs/tada >/dev/null
+grep -qx 'orchestration-status: halted-resumed' "$V/jobs/tada/re-orch.md" 2>/dev/null || { resume_ok=0; echo "    halt record not flipped to halted-resumed"; }
+grep -q '^RESUMED ' "$V/jobs/tada/re-orch.md" 2>/dev/null || { resume_ok=0; echo "    no RESUMED addendum"; }
+[ "$resume_ok" -eq 1 ] \
+  && ok "the recovered blamed child triggered a resume orchestration over the parked remainder" \
+  || bad "resume did not fire (orch=$(board jobs/orch) plan=$(board jobs/plan) tada-status=$(grep -i '^orchestration-status:' "$V/jobs/tada/re-orch.md" 2>/dev/null))"
+# The resume orchestration now drives the remainder serially to completion.
+tick                        # promote re-b (resume campaign, serial)
+in_dir jobs/todo re-b || bad "resume campaign did not promote re-b (todo=$(board jobs/todo))"
+complete_child re-b
+tick                        # re-b done → promote re-c
+in_dir jobs/todo re-c || bad "resume campaign did not promote re-c after re-b (todo=$(board jobs/todo))"
+complete_child re-c
+tick                        # all remainder done → resume campaign completes
+{ in_dir jobs/tada re-orch-resume && ! in_dir jobs/orch re-orch-resume; } \
+  && ok "the resumed remainder ran to completion under the resume orchestration" \
+  || bad "resume campaign did not complete (tada=$(board jobs/tada) orch=$(board jobs/orch))"
+# Idempotent: a further tick must not re-post or duplicate the resume.
+tick
+board jobs/tada >/dev/null
+n_res="$(grep -c '^RESUMED ' "$V/jobs/tada/re-orch.md" 2>/dev/null || echo 0)"
+[ "$n_res" = 1 ] \
+  && ok "resume is idempotent (exactly one RESUMED addendum, no duplicate campaign)" \
+  || bad "resume not idempotent (RESUMED lines: $n_res)"
 
 # ============================================================================
 hr

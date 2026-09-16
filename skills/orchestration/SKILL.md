@@ -158,6 +158,23 @@ campaign, then retags them and creates the new record in one journal commit.
 Completed children may remain in the full list and are skipped normally. Never
 edit or replenish an old campaign's budget in place.
 
+## Halt self-correction (a false or transient failure resumes itself)
+
+A serial halt records its blamed child (`halt-failed-child:`) and its not-yet-run
+remainder (`halt-parked-remainder:`) in the terminal `tada/<base>.md`. Each tick the
+watcher re-examines every halt: if the **blamed child is later observed complete in
+`tada/`** — the halt was drawn from a stale in-flight reading, or the child overran
+once and recovered on a reaper requeue — the campaign **continues itself**. The
+watcher re-posts a `<base>-resume` orchestration over the still-parked remainder
+(reusing `--resume-from`, which now also accepts a `halted`/`halted-superseded`
+terminal) and flips the halt record to `halted-resumed` with a dated addendum. This
+is deterministic and needs no human. A halt whose blamed child genuinely stayed
+failed (doomed/vanished) is left standing. The **authority is always the completion
+record**: an in-flight timing reading (age since claim, requeue count) is only ever a
+provisional signal, re-checked against `tada/` before any child is declared failed,
+and a queued (unclaimed) child is never judged "stalled in flight" from the
+campaign-old promotion clock.
+
 ## Why not just `blocked_on` + unblock
 
 The `blocked_on` + `unblock.sh` chain is the OTHER deterministic serial primitive

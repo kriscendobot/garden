@@ -36,7 +36,16 @@
 #   --serial | --parallel        ordering of the children (default --serial).
 #   --on-child-failure halt|continue   policy on a child failure (default halt).
 #   --budget-tokens N           positive billable-token cap (serial only).
-#   --resume-from CAMPAIGN      adopt that terminal campaign's parked remainder.
+#   --resume-from CAMPAIGN      adopt that terminal campaign's parked remainder. The
+#                                campaign may be a budget terminal (budget-exhausted /
+#                                budget-meter-incomplete, remainder in
+#                                campaign-parked-children) OR a serial HALT (halted /
+#                                halted-superseded, remainder in halt-parked-remainder);
+#                                the orchestrate watcher resumes a halt whose blamed
+#                                child turned out to complete. Remainder children that
+#                                already progressed off plan/ are accepted as
+#                                restart-safe re-posts; the still-parked ones are
+#                                retagged into the new campaign.
 #   --adopt-go-ahead            atomically adopt children currently parked
 #                                gate=go-ahead into this new orchestration, flipping
 #                                gate go-ahead -> orchestrated AND setting
@@ -206,25 +215,47 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     exit 0
   fi
   resume_children=()
+  resume_retag=()
   if [ -n "$resume_from" ]; then
     terminal_path="$(tada_find "$DIR" "$resume_from" || true)"
     [ -n "$terminal_path" ] || die "--resume-from campaign '$resume_from' has no terminal tada report"
     terminal="$DIR/$terminal_path"
-    grep -qE '^orchestration-status: (budget-exhausted|budget-meter-incomplete)$' "$terminal" \
-      || die "--resume-from campaign '$resume_from' is not a resumable budget terminal outcome"
-    read -ra resume_children <<<"$(sed -n 's/^campaign-parked-children:[[:space:]]*//p' "$terminal" | head -1)"
+    # Resumable terminals: a budget stop (parked remainder in campaign-parked-children)
+    # OR a serial HALT (parked remainder in halt-parked-remainder). A halt can be
+    # resumed when the campaign should continue past a failure that turned out false
+    # or transient — the orchestrate watcher's resume_recovered_halts drives this.
+    resume_status="$(sed -n 's/^orchestration-status:[[:space:]]*//p' "$terminal" | head -1)"
+    case "$resume_status" in
+      budget-exhausted|budget-meter-incomplete)
+        read -ra resume_children <<<"$(sed -n 's/^campaign-parked-children:[[:space:]]*//p' "$terminal" | head -1)";;
+      halted|halted-superseded|halted-resumed)
+        read -ra resume_children <<<"$(sed -n 's/^halt-parked-remainder:[[:space:]]*//p' "$terminal" | head -1)";;
+      *)
+        die "--resume-from campaign '$resume_from' is not a resumable terminal outcome (status: ${resume_status:-none})";;
+    esac
     [ "${#resume_children[@]}" -gt 0 ] \
       || die "--resume-from campaign '$resume_from' names no parked remainder"
     for c in "${resume_children[@]}"; do
       printf '%s\n' "${children[@]}" | grep -qx "$c" \
         || die "parked remainder child '$c' is absent from the new campaign child list"
       plan="$DIR/$JOBS_PLAN/$c.md"
-      [ -f "$plan" ] || die "parked remainder child '$c' is no longer in plan/"
+      if [ ! -f "$plan" ]; then
+        # A remainder child that already left plan/ progressed on another path (a
+        # human promote, or a resume that partially ran). It cannot be retagged, but
+        # it must still be a known board job — accept it as a restart-safe re-post,
+        # never as a silently-invented child.
+        job_in_lifecycle "$DIR" "$c" \
+          || die "parked remainder child '$c' is neither in plan/ nor anywhere on the board"
+        continue
+      fi
       [ "$(plan_gate "$plan")" = orchestrated ] \
         || die "parked remainder child '$c' is not orchestrated"
       [ "$(plan_field "$plan" orchestrated_by)" = "$resume_from" ] \
         || die "parked remainder child '$c' is not owned by '$resume_from'"
+      resume_retag+=("$c")
     done
+    [ "${#resume_retag[@]}" -gt 0 ] \
+      || die "--resume-from campaign '$resume_from' has no still-parked remainder to adopt"
   fi
   # Validate each parked child, and collect any go-ahead children to ADOPT.
   #
@@ -281,7 +312,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # Adoption and the new orchestration record are one journal commit: a watcher
   # can see either the old ownership or the complete new campaign, never a
   # half-retagged remainder.
-  for c in "${resume_children[@]}"; do
+  for c in "${resume_retag[@]}"; do
     sed -i "s/^orchestrated_by:.*/orchestrated_by: $base/" "$DIR/$JOBS_PLAN/$c.md"
     git -C "$DIR" add "$JOBS_PLAN/$c.md"
   done
