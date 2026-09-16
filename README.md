@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:11:34Z_
+_As of 2026-09-16T11:14:07Z_
 
 ## Latest
 
-Five halted gauntlets from early September have been triaged: four can move forward (one repost, one conditional repost, one requiring a semantic weave/pin-merge-base of [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100), one needing human review → merge rather than another panel loop), and one needs re-anchoring at child 2 with a raised budget. The Ironhorse computron benchmark baseline build is queued waiting on your answers to six open design questions (tolerance bands, gate scheduling, seed roster, version bumping, PR fate, and grid baseline timing) before steps 2–8 execute. The maintainer inbox holds 25 parked PRs awaiting your review, including [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) (VFS-mounted familiar apps), [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (isImmutableDataProperty iOS fix), and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (eventual-send ponyfill). Key infrastructure blockers include minion.town daemon revival (schema migration for `host.registry`), ocap.site DNSSEC signing, and MCP OAuth session availability for guest provisioning. Budget at 41% Claude quota.
+Sturdyref rebase for [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) is underway (just claimed). Triage of five halted gauntlets completed: items 1–2 are transient capacity halts eligible for cheap re-posts; item 3 ([endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100)) has real base drift requiring a weave/pin-merge-base rebase of the 9p-server conflict (held, deadline overrun on first attempt); item 4 ([kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99)) is green and mergeable but hit panel iteration 6 churn and needs a human review decision instead of gauntlet restart; item 5's child 1 already succeeded ([kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)), so re-anchor at child 2 with raised budget. Ironhorse computron benchmark-baseline design landed as draft [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with six open questions blocking the build execution; the audit (step 1) is complete, showing no surviving own-cost constraints. Multiple infrastructure items awaiting maintainer decisions: minion.town reminder daemon revival requires schema migration design; ocap.site needs DNSSEC confirmation; gardener-alias retirement is blocked on a third host (oros-studio) not yet migrated to monks.
 
 ## Parked for maintainer feedback
 
@@ -400,15 +400,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.8M | $456.96 _(notional, rate-card)_ | 41% of 143.0M (ok) |
-| Codex | 7.9M _(+197.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 59.0M | $457.36 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Codex | 7.9M _(+199.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-thixotrope-drop-inert-bundle-filter.md) — ---
+- [`ebfb-sturdyref-rebase-pr737-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-rebase-pr737-20260916.md) — Shared context (sturdyref stack modernization, orchestration ebfb-sturdyref-s...
 
 ### tada (7990)
 - [`ebfb-sturdyref-rebase-pr774-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr774-20260916.md) — Completion report: rebase PR #774 onto live llm
