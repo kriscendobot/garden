@@ -597,11 +597,72 @@ meter_quota_status() {
   meter_verdict "$total" "$quota"
 }
 
-# pool_admits <pool> [journal-dir] — print the verdict and return false only for
-# confirmed backoff. Unknown/off are deliberately true: every caller fails open.
+# pool_provenance_uncalibrated <provenance> — true when a pool's calibrated_from
+# marker disclaims the cap. This is the SAME set budget-level.sh's `uncalibrated`
+# predicate uses (empty/-/none/placeholder/uncalibrated/seed/tbd/todo); the two must
+# agree on what "not a trustworthy setpoint" means, because one disarms worker
+# leveling and the other (below) now fails per-claim admission CLOSED on it.
+pool_provenance_uncalibrated() {
+  case "$(printf %s "${1:-}" | tr '[:upper:]' '[:lower:]')" in
+    ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# pool_admission_refusal <pool> [journal-dir] — the fail-CLOSED half of the claim
+# gate. When a CONFIGURED pool cannot be trusted to bound spend, print a one-line
+# operator remedy on stdout and return 0 (REFUSE). Return 1 (nothing to refuse)
+# otherwise. Two conditions refuse:
+#   * kind=unmetered — the pool declares NO ceiling, so admission against it is
+#     unbounded. This is the 2026-09-04 endolin incident: a host ran ~19h on a
+#     temporary API key whose pool was marked `unmetered`, pool_admits failed OPEN,
+#     nothing throttled, and $1,090 burned. The escape hatch is a deliberate
+#     ceiling: convert the pool to weekly-tokens/weekly-usd with a calibrated cap.
+#   * uncalibrated provenance on a metered pool — the cap is a placeholder the
+#     config itself disclaims (the seeded 5M / hand-set 385M/595M rows), so gating
+#     against it "throttles nothing" in practice. The escape hatch is to promote a
+#     calibrated figure with real provenance.
+# An ABSENT pool row is NOT refused: that is the deliberate "no budget gating
+# configured for this provider" posture (meter_quota_status -> off -> fail open),
+# a separate decision out of scope here. A calibrated metered pool is not refused
+# either; it then gates normally on its cap via meter_quota_status.
+pool_admission_refusal() {
+  local pool="$1" dir="${2:-}" file row kind prov
+  file="$(budget_pool_file "$dir")" || return 1
+  row="$(awk -v want="$pool" '
+      /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+      $1 == want { print $4 "\t" $6; found=1; exit }
+      END { if (!found) exit 1 }' "$file" 2>/dev/null)" || return 1
+  IFS=$'\t' read -r kind prov <<<"$row"
+  if [ "$kind" = unmetered ]; then
+    printf 'budget pool %s is UNMETERED (declares no ceiling); set a deliberate cap to admit: set-budget-pool.sh %s <weekly-token-cap> <calibrated-from> --kind weekly-tokens\n' \
+      "$pool" "$pool"
+    return 0
+  fi
+  if pool_provenance_uncalibrated "$prov"; then
+    printf 'budget pool %s cap is UNCALIBRATED (provenance %s); promote a calibrated cap to admit: set-budget-pool.sh %s <weekly-token-cap> <calibrated-from>\n' \
+      "$pool" "${prov:-none}" "$pool"
+    return 0
+  fi
+  return 1
+}
+
+# pool_admits <pool> [journal-dir] — the claim-gate admission verdict. Prints one
+# word and returns false when admission must stop:
+#   refuse  — a configured pool with NO trustworthy ceiling (unmetered kind, or an
+#             uncalibrated cap). FAIL CLOSED (pool_admission_refusal). New: this
+#             used to fail OPEN, which let the endolin temp-key pool burn unbounded.
+#   backoff — a calibrated pool at/over its high-water mark.
+# off/unknown remain deliberately true (fail open): no gating configured, or a
+# blind sensor — neither is a misconfigured ceiling. The caller surfaces `refuse`
+# LOUDLY with pool_admission_refusal's remedy line, so the halt is never mysterious.
 pool_admits() {
-  local status
-  status="$(meter_quota_status "$1" "${2:-}")"
+  local pool="$1" dir="${2:-}" status
+  if pool_admission_refusal "$pool" "$dir" >/dev/null; then
+    printf 'refuse\n'
+    return 1
+  fi
+  status="$(meter_quota_status "$pool" "$dir")"
   printf '%s\n' "$status"
   [ "$status" != backoff ]
 }

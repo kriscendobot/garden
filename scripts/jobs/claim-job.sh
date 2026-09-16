@@ -189,6 +189,17 @@ CLAIM_POOL="$(budget_pool_for_provider_host "$KIND_PROVIDER" "$GARDEN" "$DIR")"
 if claim_budget_status="$(pool_admits "$CLAIM_POOL" "$DIR")"; then
   [ "$claim_budget_status" != unknown ] \
     || log "WARN: budget pool '$CLAIM_POOL' unreadable; claims remain open (fail-open)"
+elif [ "$claim_budget_status" = refuse ]; then
+  # FAIL CLOSED: a configured pool with no trustworthy ceiling (unmetered kind or an
+  # uncalibrated cap) halts claims rather than admitting unbounded spend. This CAN
+  # silently wedge a host, so make the halt LOUD and the remedy OBVIOUS: page the
+  # maintainer once (alert_maintainer dedups the repeated tick) with the exact
+  # set-budget-pool.sh command that clears it.
+  remedy="$(pool_admission_refusal "$CLAIM_POOL" "$DIR" 2>/dev/null || true)"
+  log "budget pool '$CLAIM_POOL' refuses admission (fail-closed): ${remedy:-untrusted ceiling}"
+  alert_maintainer "budget-pool-refuse-$CLAIM_POOL" \
+    "claim gate is FAIL-CLOSED on $GARDEN: ${remedy:-budget pool $CLAIM_POOL has no trustworthy ceiling}. No job will be claimed on this host until a calibrated cap is set."
+  exit 3
 else
   log "budget pool '$CLAIM_POOL' is at its high-water mark; declining this claim tick"
   exit 3

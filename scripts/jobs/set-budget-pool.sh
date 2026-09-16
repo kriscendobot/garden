@@ -9,14 +9,14 @@
 # It writes the provenance columns (calibrated_from, calibrated_at) that
 # budget-level.sh's budget_level_uncalibrated predicate reads: a provenance of
 # placeholder/uncalibrated/seed/tbd/todo/none/'-'/'' makes budget-level LEVEL NOTHING
-# (config-absent for worker leveling). NOTE the asymmetry this setter cannot hide: the
-# CLAIM gate (pool_admits/meter_quota_status) reads only the ceiling column and does
-# NOT consult provenance, so ANY cap you write here arms per-claim admission at full
-# authority regardless of its provenance marker. Do not promote a fit graded below
-# `converged` expecting the uncalibrated marker to neuter it — it only disarms leveling,
-# not admission. The approved design deliberately keeps that claim gate hard: never
-# promote a fit below `converged`, and never expect provenance to make a configured
-# cap fail open.
+# (config-absent for worker leveling). Since credit-controls-fail-closed-pools the
+# CLAIM gate (pool_admits/pool_admission_refusal) consults BOTH kind and provenance and
+# FAILS CLOSED on an untrustworthy pool: an `unmetered` pool (no ceiling) or an
+# uncalibrated cap now REFUSES every claim rather than admitting at full authority.
+# So the escape hatch out of a fail-closed halt is exactly this setter: promote a
+# CALIBRATED cap (a provenance outside the uncalibrated set) so the pool gates on a
+# real number instead of refusing. Do not promote a fit graded below `converged`: an
+# uncalibrated marker no longer merely disarms leveling, it halts the host's claims.
 #
 #   set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind KIND]
 #

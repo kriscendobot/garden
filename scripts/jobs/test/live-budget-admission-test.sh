@@ -22,9 +22,11 @@ make_log() { # dir id iso tokens
     "$3" "$2" "$4" >> "$1/p/session.jsonl"
 }
 
-# Anchored local pool: the pre-reset row is excluded; 900/1000 trips 0.85.
+# Anchored local pool: the pre-reset row is excluded; 900/1000 trips 0.85. The row
+# carries a CALIBRATED provenance (columns 6-7) so the claim gate gates on the cap
+# rather than fail-closing on an uncalibrated pool (exercised separately below).
 CFG="$TR/budget-pools"
-printf '%s\n' 'anthropic:testhost anthropic testhost weekly-tokens 1000' > "$CFG"
+printf '%s\n' 'anthropic:testhost anthropic testhost weekly-tokens 1000 usage-panel 2026-09-01' > "$CFG"
 LOGS="$TR/logs"
 make_log "$LOGS" old 2026-08-22T02:59:59Z 9999
 make_log "$LOGS" live 2026-08-22T03:00:01Z 900
@@ -48,6 +50,71 @@ unknown="$(GARDEN=testhost GARDEN_STATE="$TR/state-u" GARDEN_USAGE_NOW="$NOW" \
   GARDEN_CCUSAGE_LOGDIR="$TR/missing" GARDEN_USAGE_LEDGER="$TR/no-ledger" GARDEN_BUDGET_POOLS_FILE="$CFG" \
   bash -c 'source "$1/common.sh"; pool_admits anthropic:testhost; echo rc=$?' _ "$JOBS")"
 [[ "$unknown" = $'unknown\nrc=0' ]] && ok "unreadable configured meter admits fail-open" || bad "fail-open result: $unknown"
+
+# --- Fail CLOSED on an untrustworthy pool (credit-controls-fail-closed-pools) -------
+# pool_admits used to fail OPEN on a pool with no trustworthy ceiling — the endolin
+# 2026-09-04 incident, where a host running on a temporary API key had its pool marked
+# `unmetered`, nothing throttled, and $1,090 burned in ~19h. It now REFUSES such a
+# pool (rc 1, verdict `refuse`), with the deliberate calibrated-ceiling escape hatch.
+pa() { # <pool> <pools-file> — print "<verdict>\nrc=<rc>"
+  GARDEN=testhost GARDEN_STATE="$TR/state-fc" GARDEN_USAGE_NOW="$NOW" \
+    GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_BUDGET_POOLS_FILE="$2" \
+    bash -c 'source "$1/common.sh"; pool_admits "$2"; echo rc=$?' _ "$JOBS" "$1"
+}
+
+# 1. An `unmetered` pool declares no ceiling → refuse, regardless of provenance
+#    (here `temporary-key`, the exact incident marker).
+UNMET="$TR/pools-unmetered"
+printf '%s\n' 'anthropic:tmphost anthropic tmphost unmetered - temporary-key 2026-09-05' > "$UNMET"
+[[ "$(pa anthropic:tmphost "$UNMET")" = $'refuse\nrc=1' ]] \
+  && ok "an unmetered pool fails CLOSED (the temp-key incident)" \
+  || bad "unmetered pool verdict: $(pa anthropic:tmphost "$UNMET" | tr '\n' ' ')"
+
+# 2. A metered pool with an explicit `placeholder` provenance → refuse. This mirrors
+#    the two live watchdog pools (cap=385M/595M, UNCALIBRATED); the change WOULD have
+#    refused both.
+for cap in 385000000 595000000; do
+  PLC="$TR/pools-placeholder-$cap"
+  printf '%s\t%s\t%s\tweekly-tokens\t%s\tplaceholder\t-\n' anthropic:unchost anthropic unchost "$cap" > "$PLC"
+  [[ "$(pa anthropic:unchost "$PLC")" = $'refuse\nrc=1' ]] \
+    && ok "an uncalibrated (placeholder) cap=$cap pool fails CLOSED" \
+    || bad "placeholder cap=$cap verdict: $(pa anthropic:unchost "$PLC" | tr '\n' ' ')"
+done
+
+# 3. A bare 5-column row (provenance absent) is uncalibrated too → refuse, matching
+#    budget-level.sh's `uncalibrated` set (empty counts).
+BARE="$TR/pools-bare"
+printf '%s\n' 'anthropic:barehost anthropic barehost weekly-tokens 1000' > "$BARE"
+[[ "$(pa anthropic:barehost "$BARE")" = $'refuse\nrc=1' ]] \
+  && ok "a bare (provenance-absent) cap fails CLOSED" \
+  || bad "bare-row verdict: $(pa anthropic:barehost "$BARE" | tr '\n' ' ')"
+
+# 4. Escape hatch: a CALIBRATED cap admits and gates normally on its number. The
+#    LOGS fixture is 900 tokens; cap 100000 is well under the mark → ok, rc=0.
+CAL="$TR/pools-calibrated"
+printf '%s\n' 'anthropic:testhost anthropic testhost weekly-tokens 100000 manual-fit 2026-09-05' > "$CAL"
+[[ "$(pa anthropic:testhost "$CAL")" = $'ok\nrc=0' ]] \
+  && ok "a calibrated cap admits (the deliberate escape hatch)" \
+  || bad "calibrated-cap verdict: $(pa anthropic:testhost "$CAL" | tr '\n' ' ')"
+# ...and still backs off when over the high-water mark (cap 1000, spend 900 > 0.85).
+[[ "$(pa anthropic:testhost "$CFG")" = $'backoff\nrc=1' ]] \
+  && ok "a calibrated cap still backs off at its high-water mark" \
+  || bad "calibrated-backoff verdict: $(pa anthropic:testhost "$CFG" | tr '\n' ' ')"
+
+# 5. An ABSENT pool row is NOT refused: budget gating simply not configured for that
+#    provider is a separate deliberate posture → off, rc=0 (fail open, unchanged).
+[[ "$(pa anthropic:noSuchHost "$CAL")" = $'off\nrc=0' ]] \
+  && ok "an absent pool row still fails OPEN (gating not configured is not misconfigured)" \
+  || bad "absent-row verdict: $(pa anthropic:noSuchHost "$CAL" | tr '\n' ' ')"
+
+# 6. The refusal carries an actionable operator remedy naming set-budget-pool.sh, so
+#    the fail-closed halt is loud, not mysterious.
+remedy="$(GARDEN=testhost GARDEN_STATE="$TR/state-fc" GARDEN_BUDGET_POOLS_FILE="$UNMET" \
+  bash -c 'source "$1/common.sh"; pool_admission_refusal anthropic:tmphost' _ "$JOBS")"
+case "$remedy" in
+  *UNMETERED*set-budget-pool.sh*anthropic:tmphost*) ok "the refusal prints an actionable set-budget-pool.sh remedy" ;;
+  *) bad "refusal remedy not actionable: $remedy" ;;
+esac
 
 # --- Blindness holds, does not maximize (cybernetics-audit § 2.2, rec 1) ----------
 # A sensor with NO in-window logs is only a genuine 0 when it can prove it is not
@@ -125,6 +192,30 @@ set -e
 [ "$crc" -eq 3 ] && view_has "$CBARE" jobs/todo/claim-me.md \
   && ok "claim gate declines confirmed-backoff host without moving the job" \
   || bad "claim gate rc=$crc or moved todo: $COUT"
+
+# Claim gate FAILS CLOSED on an unmetered pool: it declines the tick (rc 3), leaves
+# the job in todo, and pages the maintainer ONCE with the set-budget-pool.sh remedy.
+RBARE="$TR/claim-refuse.git"; seed_board "$RBARE"
+RSEED="$RBARE-seed"; printf '# claim me\n' > "$RSEED/jobs/todo/claim-me.md"
+printf '%s\n' 'anthropic:testhost anthropic testhost unmetered - temporary-key 2026-09-05' > "$RSEED/config/budget-pools"
+git -C "$RSEED" add jobs/todo/claim-me.md config/budget-pools
+git -C "$RSEED" "${git_id[@]}" commit -qm refuse; git -C "$RSEED" push -q
+RALERT="$TR/claim-refuse-alerts.log"; : > "$RALERT"
+set +e
+ROUT="$(env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/claim-refuse-state" JOURNAL_REMOTE="$RBARE" \
+  GARDEN_WORKER_CLONE="$TR/claim-refuse-state/worker/journal" GARDEN_GARDENER_CLONE="$TR/claim-refuse-state/worker/journal" \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=gardener \
+  GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh" GARDEN_ALERT_RECORD="$RALERT" \
+  "$JOBS/claim-job.sh" 1 2>&1)"
+rrc=$?
+set -e
+if [ "$rrc" -eq 3 ] && view_has "$RBARE" jobs/todo/claim-me.md \
+   && grep -q '^KEY=budget-pool-refuse-anthropic:testhost$' "$RALERT" \
+   && grep -q 'FAIL-CLOSED.*set-budget-pool.sh' "$RALERT"; then
+  ok "claim gate fails CLOSED on an unmetered pool: declines, keeps the job, pages the remedy"
+else
+  bad "claim-refuse rc=$rrc alerts=$(tr '\n' ';' < "$RALERT") out=$ROUT"
+fi
 
 # With provider fallback enabled, the old current-provider pump gate is bypassed;
 # this proves the fleet gate itself stops deferred promotion.
