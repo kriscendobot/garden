@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T03:50:46Z_
+_As of 2026-09-16T03:53:58Z_
 
 ## Latest
 
@@ -704,16 +704,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260916-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260916-035007.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (7929)
+### tada (7930)
+- [`claude-on-minion-town-press-20260916-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-035007.md) — Completion report
 - [`ses-node26-lockdown-permits-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet.md) — gauntlet ses-node26-lockdown-permits-gauntlet — review budget reached
 - [`ses-node26-lockdown-permits-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-6.md) — Completion report
 - [`ses-node26-lockdown-permits-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-6.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-5.md) — Completion report
-- [`ses-node26-lockdown-permits-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-5.md) — What I did
-- … and 7924 more
+- … and 7925 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
