@@ -2,6 +2,7 @@
 
 Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.md`). Most keyword resolution is served by each concept page's `aliases:` frontmatter; this file collects a few high-value cross-term pointers explicitly. Format: `- term, term, ... -> concept-id`.
 
+- ambient authority, ambient authorities, ambient capability, ambient permission, ambient user authority, identity-based authority, no-credential authority, undesignated authority -> ambient-authority
 - OpenSandbox, opensandbox-server, execd, secure container runtime, gVisor sandbox, Kata sandbox, bubblewrap isolation session, AI code sandbox, OpenSandbox MCP, Credential Vault, Secure Access, OpenSandbox multi-tenancy -> opensandbox
 - token subspace, token space topology, LLM token topology, stratified token manifold, local token dimension, token embedding curvature, structured prompt topology recovery, behavioral embedding recovery -> token-subspace-topology
 - Alan Kay, DynaBook, Dynabook, personal computer for children, personal portable information manipulator -> dynabook
