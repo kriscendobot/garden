@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:34:53Z_
+_As of 2026-09-16T19:35:54Z_
 
 ## Latest
 
@@ -584,16 +584,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.8M | $478.72 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.8M | $479.22 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.7M _(+270.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012-remainder.md) — Continue cap-talk 2010-2012 ingestion
 - [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
+- [`claude-on-minion-town-completion-press-20260916-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260916-193507.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (8042)
 - [`improve-fetch-source-transient-wayback-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-transient-wayback-retries.md) — Cost
