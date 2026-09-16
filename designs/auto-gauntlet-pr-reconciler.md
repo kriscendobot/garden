@@ -8,7 +8,17 @@ author: gardener
 
 | Created | 2026-08-05 |
 | Author | gardener |
-| Status | Proposed — completion-edge slice landed 2026-08-14 |
+| Status | **Superseded 2026-09-16 by [manual-gauntlet-trigger.md](manual-gauntlet-trigger.md).** Proposed — completion-edge slice landed 2026-08-14 |
+
+> **Superseded.** This design aimed to make the *automatic* gauntlet edge more
+> robust (PR-keyed coverage, a non-`role: builder` completion sensor, a reconciler
+> that re-stages a missed gauntlet). The manual-gauntlet-trigger design
+> ([manual-gauntlet-trigger.md](manual-gauntlet-trigger.md), adopted 2026-09-16 as a
+> cost control) instead **removes the automatic edge entirely**: `run the gauntlet
+> #N` is the sole ordinary trigger, `auto-gauntlet-handoff.sh` is retired, the
+> completion sensor is now the draft guardrail `assert-producer-pr-draft.sh`, and the
+> periodic audit is a non-mutating readiness *alert*, never a stager. The
+> repo-property framing below is historical; the mechanics it describes no longer run.
 
 ## Status: what has landed (2026-08-14)
 

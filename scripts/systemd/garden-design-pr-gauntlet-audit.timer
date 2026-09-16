@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden design-PR gauntlet-coverage audit timer
+Description=Garden PR gauntlet-readiness audit timer
 
 [Timer]
 # Absolute wall-clock schedule (hourly at :37), NOT a relative OnActiveSec/
@@ -8,11 +8,12 @@ Description=Garden design-PR gauntlet-coverage audit timer
 # indefinitely (see garden-library-source-drift-scan.timer for the full rationale;
 # garden-orchestrate.timer starved for real on this exact bug). Offset to :37 so it
 # runs clear of the clone-keeper (:00/:30) and journal-worktree-keeper (:15/:45)
-# fetch windows. Hourly is ample for a backstop: the completion-time stager/sensor
-# already cover the common draft path; this only catches the non-draft-at-birth (or
-# otherwise-missed) design PR, and a security-critical one should never sit a day
-# unnoticed again (kriscendobot/minion.town#47). Persistent=true catches up a run
-# missed across downtime.
+# fetch windows. Hourly is ample for a NON-MUTATING readiness audit: it only READS PR
+# metadata and, at most, writes a local dedup marker + one deduplicated maintainer
+# alert per changed head — it never stages a gauntlet or re-drafts a PR, so the
+# 2026-08-30 mass-stage cost class ($482) cannot recur. A non-draft PR that slipped
+# into the mergeable queue with no review should not sit a day unnoticed
+# (kriscendobot/minion.town#47). Persistent=true catches up a run missed across downtime.
 OnCalendar=*:37
 Persistent=true
 

@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden design-PR gauntlet-coverage audit (periodic backstop: stage a design gauntlet for any bot-authored OPEN design-only PR that has none — the third coverage layer the completion-time stager/sensor leave to "the audit", covering the non-draft-at-birth case they cannot; kriscendobot/minion.town#47)
+Description=Garden PR gauntlet-readiness audit (NON-MUTATING periodic backstop: raise a DEDUPLICATED maintainer ALERT for any bot-authored OPEN NON-DRAFT PR with no gauntlet coverage — never stages a gauntlet, never re-drafts. Manual-gauntlet-trigger regime, designs/manual-gauntlet-trigger.md)
 
 [Service]
 Type=oneshot

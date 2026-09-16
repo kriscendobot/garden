@@ -2,7 +2,36 @@
 
 | Created | 2026-09-05 |
 | Author  | gardener (job `design-manual-gauntlet-trigger`) |
-| Status  | Proposed |
+| Status  | Accepted — implemented 2026-09-16 (job `credit-controls-manual-gauntlet-trigger`, child 2 of orchestration `credit-controls-20260916`). |
+
+## Implementation note (2026-09-16)
+
+Adopted as the named cost-control recommendation of
+`reports/credit-investigation-endolin-garden2-20260905.md`: the hourly
+`design-pr-gauntlet-coverage-audit` timer mass-staged 69 gauntlets in one pass on
+2026-08-30 (~$482 on one host). What landed:
+
+- **The automatic stager is retired.** `scripts/jobs/auto-gauntlet-handoff.sh` is
+  deleted and its call removed from the gardener completion path. A completed
+  `build`, `design`, or any other producer now stops at its open **draft** PR and
+  stages **no** gauntlet. `run the gauntlet #N` (→ `post-gauntlet.sh`) is the sole
+  ordinary trigger, from the comment watcher or the liaison.
+- **The completion sensor is generalized** from "a draft design PR must have a
+  gauntlet" to the draft guardrail below: `scripts/jobs/assert-producer-pr-draft.sh`
+  passes a **draft** producer PR (no gauntlet needed) and blocks completion only for
+  a **non-draft** bot-authored artifact newly named by the report that has no
+  gauntlet coverage — the "opened ready by mistake" class — never mutating PR state.
+- **The periodic audit is now non-mutating** (`design-pr-gauntlet-coverage-audit.sh`,
+  same filename/unit): it finds bot-authored open **non-draft** PRs with no
+  active/completed gauntlet and raises a **deduplicated maintainer alert** (keyed on
+  `<repo>#<number>:<headRefOid>` so a changed head re-warns while an unchanged one
+  stays quiet). It **never stages a record and never re-drafts a PR**. Its hourly
+  cadence is retained — an alert-only sweep costs nothing near the old mass-stage.
+- **Open question resolutions** (per the design's own recommendations): the readiness
+  audit **alerts only**, never re-drafts (avoids the #671/#867 hazard). `merge #N`
+  remains gated on maintainer approval + green CI in the conductor and is out of
+  scope for this change; the conductor is unchanged and `run the gauntlet #N` stays
+  the normal way out of draft.
 
 ## Decision
 

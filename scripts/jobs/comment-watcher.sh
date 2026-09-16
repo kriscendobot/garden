@@ -1150,7 +1150,7 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     # Shepherds and gauntlets BLOCK on CI, which overruns the default handler budget.
     # Stamp the shared CI-sized timeout so the gardener honors it in place of the
     # default and the job COMPLETES instead of overrunning (rc=124). This matches the
-    # ci-watcher auto-shepherd and auto-gauntlet-handoff producers, so idempotent
+    # ci-watcher auto-shepherd producer, so idempotent
     # re-posts across producers never flap the header.
     case "$verb" in
       shepherd|gauntlet) printf 'handler-timeout: %s\n\n' "$GARDEN_SHEPHERD_HANDLER_TIMEOUT" ;;

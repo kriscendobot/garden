@@ -7638,8 +7638,8 @@ parse_pr_ref() {
 # PRs (endojs/endo-but-for-bots#1023 and #1024) each cited its own PR in the SHORTHAND
 # form only, so the full-URL-only scrape the stager/gate used found nothing and both
 # skipped the design-panel gauntlet silently. This helper is the single shared
-# backstop both auto-gauntlet-handoff.sh (stager) and assert-design-pr-gauntlet.sh
-# (gate) call, so a report in EITHER form is recognized identically — one helper, so a
+# backstop the completion-time draft guardrail (assert-producer-pr-draft.sh) and the
+# readiness audit call, so a report in EITHER form is recognized identically — one helper, so a
 # future caller cannot re-introduce a third copy of the full-URL-only bug. Every match
 # is normalized through parse_pr_ref to a canonical URL, so downstream logic (gh pr
 # view, parse_pr_ref) sees no behavioral difference between the two citation forms.
@@ -7688,8 +7688,8 @@ design_only_paths() {
 
 # is_open_questions_design_pr <pr-json>  — rc 0 iff the PR carries the canonical
 # open-questions carve-out marker in its title or body. This is the ONE place the
-# marker string is defined; the stager (auto-gauntlet-handoff.sh) and the sensor
-# (assert-design-pr-gauntlet.sh) both call this so the carve-out cannot drift into
+# marker string is defined; the completion-time draft guardrail
+# (assert-producer-pr-draft.sh) calls this so the carve-out cannot drift into
 # two spellings. The marker is the durable HTML-comment `<!-- garden-design-open-questions -->`
 # a designer writes into a garden-own-repo design PR whose `## Open questions`
 # section is a live, maintainer-facing review surface (roles/designer/AGENT.md §

@@ -18,7 +18,7 @@
 # maintainer-judgment call routed to the inbox), not the primary mechanism.
 #
 # This gate is the primary mechanism, structurally mirroring
-# assert-design-pr-gauntlet.sh: gardener.sh calls it right before a job may be
+# assert-producer-pr-draft.sh: gardener.sh calls it right before a job may be
 # recorded complete, and a non-zero exit is treated exactly like a failed handoff
 # — the job stays in doin and the reaper retries — forcing a correction rather
 # than a silent miss. Fully deterministic, NO LLM: the report's own text plus

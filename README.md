@@ -78,9 +78,9 @@ deterministically. `#N` is a pull-request number.
 | Verb | What the garden does |
 | --- | --- |
 | **design X** / propose X / spec X | draft a design document and open it as a DRAFT PR on the roadmap branch |
-| **build #N** / build X | implement an approved design. The DRAFT code PR **auto-runs the gauntlet** (clean → panel → fix-loop → un-draft) under its supervising gardener; no separate *run the gauntlet* is needed |
+| **build #N** / build X | implement an approved design and **stop at an open DRAFT code PR** — no gauntlet is staged automatically ([designs/manual-gauntlet-trigger.md](designs/manual-gauntlet-trigger.md)). Promote it to review with an explicit *run the gauntlet #N* |
 | **probe #N** | a build that **stays draft**: a gap report on a tentative design. The gauntlet chain deliberately does **not** run |
-| **run the gauntlet #N** ★ | the full PR chain end to end (clean → panel review → fix-loop → un-draft) for a PR that did **not** come through a build (a maintainer-authored PR, or a probe you now want promoted), or to re-run on demand. Not a required follow-up to a build |
+| **run the gauntlet #N** ★ | the full PR chain end to end (clean → panel review → fix-loop → un-draft). The **sole ordinary trigger** for reviewing a garden-authored draft PR (from a build, a design, a maintainer-authored PR, or a promoted probe) — the garden no longer stages gauntlets automatically |
 | **rebase #N** ★ | rebase the PR branch on its base |
 | **weave #N** | rebase and resolve conflicts |
 | **pin the merge base #N** ★ | repoint the PR's base onto a pinned `llm-<sha>` branch, then rebase the head onto it and resolve conflicts. A stronger op than *rebase*: it changes the **base**, not just the head. The rebase and conflict resolution are implicit in the verb ([frozen-base-branch](skills/frozen-base-branch/SKILL.md), [verify-upstream-state-before-pinning](skills/verify-upstream-state-before-pinning/SKILL.md)) |

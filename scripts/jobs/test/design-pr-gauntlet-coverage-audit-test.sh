@@ -1,24 +1,21 @@
 #!/bin/bash
-# design-pr-gauntlet-coverage-audit-test.sh — the standing backstop that the two
-# completion-time scripts' own comments presuppose ("the design-gauntlet
-# sensor/audit will surface it") but which did not exist until now.
-#
-# Grounding incident: kriscendobot/minion.town#47 — a SECURITY-CRITICAL ocap-redesign
-# design PR opened NON-DRAFT on 2026-08-16 that sat over a day with zero review and
-# NO gauntlet ever staged, because both completion-time scripts deliberately decline
-# to stage for an already-non-draft design PR (the #671/#867 force-draft hazard) and
-# left that case "for the audit". This is the audit.
+# design-pr-gauntlet-coverage-audit-test.sh — the NON-MUTATING readiness audit of the
+# manual-gauntlet-trigger regime (designs/manual-gauntlet-trigger.md). The unit used
+# to STAGE a gauntlet for every uncovered design PR; on 2026-08-30 that mass-staged 69
+# gauntlets in one pass (~$482 on one host). It is now demoted to an ALERT-ONLY sweep:
+# it tells the maintainer about a bot-authored OPEN NON-DRAFT PR with no gauntlet
+# coverage and NEVER stages a record or re-drafts a PR.
 #
 # Under test (all deterministic, NO LLM):
-#   * A bot-authored OPEN DESIGN-ONLY PR with NO gauntlet record gets one staged —
-#     INCLUDING the non-draft-at-birth shape the two sibling scripts cannot cover.
-#   * The draft variant of the same is staged too (state is never touched either way).
-#   * A design PR that ALREADY has a gauntlet record is an idempotent no-op.
-#   * A code PR, a NON-bot-authored PR, and a probe stage nothing.
-#   * A stalled per-PR metadata read times out as an inconclusive skip, and the
-#     audit continues to later PRs instead of consuming its service deadline.
-#   * The garden's OWN repo is excluded (no PR workflow runs on it).
-#   * Re-running the audit is idempotent (exactly one record per PR).
+#   * An uncovered non-draft bot PR (#47) raises exactly ONE maintainer alert and
+#     stages NO gauntlet record (the whole point — no autonomous spend).
+#   * A covered PR — active record (#48) or completed in tada/ (#53) — is quiet.
+#   * A DRAFT PR (#49, #52) is skipped: draft is the manual regime's hard boundary.
+#   * A non-bot PR (#50) and a probe (#51) are skipped.
+#   * A stalled per-PR metadata read (#54) is an inconclusive skip; scanning continues.
+#   * The garden's OWN repo (#28) is excluded.
+#   * Dedup: re-running with an UNCHANGED head raises no second alert; a CHANGED head
+#     re-alerts.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -26,7 +23,7 @@ JOBS="$(cd "$HERE/.." && pwd)"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-dpgca-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 
-# --- seed a bare journal with the watch set + one pre-existing gauntlet record ----
+# --- seed a bare journal with the watch set + two pre-existing gauntlet records ----
 git init -q --bare "$TR/journal.git"
 git init -q "$TR/seed"
 git -C "$TR/seed" checkout -q -b journal2
@@ -38,13 +35,10 @@ touch "$TR/seed/jobs/todo/.gitkeep" "$TR/seed/jobs/doin/.gitkeep" \
 # Watch set: the bot's own fork PLUS the garden's own repo (which must be EXCLUDED).
 touch "$TR/seed/comment-repos/kriscendobot-minion.town"
 touch "$TR/seed/comment-repos/kriscendobot-garden"
-# A pre-existing gauntlet record covering minion.town #48 (idempotent no-op case).
+# A pre-existing ACTIVE gauntlet record covering minion.town #48 (quiet case).
 printf 'repo: kriscendobot/minion.town\npr_number: 48\nkind: feature\n' \
   >"$TR/seed/jobs/gauntlet/kriscendobot-minion.town-pr48-gauntlet.md"
-# A COMPLETED gauntlet for minion.town #53 — its record lives in jobs/tada/ (a run
-# that already finished), NOT jobs/gauntlet/. gauntlet_record_for_pr scans only
-# jobs/gauntlet/, so the audit must ALSO honour a completed run in tada/ or it would
-# re-stage every tick (the regression the sensor's base-keyed tada/ check prevents).
+# A COMPLETED gauntlet for minion.town #53 — its record lives in jobs/tada/.
 printf '# gauntlet (completed)\n\ndone\n' \
   >"$TR/seed/jobs/tada/kriscendobot-minion.town-pr53-gauntlet.md"
 git -C "$TR/seed" add -A
@@ -71,76 +65,61 @@ record_count() {  # record_count <gauntlet-base>
   rm -rf "$clone"
   printf '%s\n' "$n"
 }
+# Count alert-log lines whose key names a given PR (via the pr<N> slug).
+alert_count() {  # alert_count <pr-token e.g. pr47>
+  grep -c "minion.town-$1-" "$GARDEN_AUDIT_ALERT_LOG" 2>/dev/null || true
+}
 
-# --- stubs: a PR source and a gh `pr view`, both committed on the repo filesystem --
-# (NOT generated under $TMPDIR: /tmp is mounted noexec in CI, so an executable stub
-# there fails the audit's `[ -x ]` gate — the reason the sibling tests keep their
-# stubs in test/ too.) Their fixtures cover: an uncovered NON-DRAFT design PR (#47,
-# the incident), an already-covered one (#48), a code PR (#49), a non-bot PR (#50),
-# a probe (#51), an uncovered DRAFT design PR (#52), and the garden own repo (#28).
+# --- stubs (committed, not under noexec /tmp) --------------------------------------
 export GARDEN_DPGCA_PR_SOURCE="$HERE/design-pr-audit-pr-source-stub.sh"
 export GARDEN_GH="$HERE/design-pr-audit-gh-stub.sh"
-# A spy stager: records which PRs the audit DECIDES to stage (its own skip logic,
-# independent of post-gauntlet.sh's dedup) then forwards to the real stager so the
-# on-journal records the record_count assertions read still get written.
-export GARDEN_DPGCA_POST_GAUNTLET="$HERE/design-pr-audit-stager-spy.sh"
-export GARDEN_DPGCA_REAL_POST_GAUNTLET="$JOBS/post-gauntlet.sh"
-export GARDEN_DPGCA_STAGE_LOG="$TR/stage-calls.log"
+# Alert sink spy — captures every maintainer alert the audit raises.
+export GARDEN_ALERT_CMD="$HERE/design-pr-audit-alert-spy.sh"
+export GARDEN_AUDIT_ALERT_LOG="$TR/alert-calls.log"
+: >"$GARDEN_AUDIT_ALERT_LOG"
+# Durable dedup markers live under a test-owned dir (defaults into GARDEN_STATE).
+export GARDEN_DPGCA_DEDUP_DIR="$TR/dedup"
 export GARDEN_DPGCA_SOURCE_TIMEOUT_SECS=1
 export GARDEN_DPGCA_KILL_AFTER=1s
-: >"$GARDEN_DPGCA_STAGE_LOG"
 
-echo '== run the audit over the watched set =='
+echo '== run the readiness audit over the watched set =='
 "$AUDIT" 2>&1 | tee "$TR/audit.log"
 
-echo '== (a) the NON-DRAFT-at-birth design PR (#47, the grounding incident) is staged =='
-[ "$(record_count kriscendobot-minion.town-pr47-gauntlet)" -eq 1 ] \
-  || fail 'minion.town #47 (non-draft, uncovered) did NOT get a gauntlet — the exact bypass this audit exists to close'
+echo '== (a) the uncovered non-draft PR (#47) raised exactly ONE alert =='
+[ "$(alert_count pr47)" -eq 1 ] || fail "minion.town #47 should have raised exactly one alert (got $(alert_count pr47))"
 
-echo '== (b) the DRAFT uncovered design PR (#52) is staged too (state never gates the audit) =='
-[ "$(record_count kriscendobot-minion.town-pr52-gauntlet)" -eq 1 ] \
-  || fail 'minion.town #52 (draft, uncovered) did NOT get a gauntlet'
+echo '== (b) NON-MUTATING: #47 got NO gauntlet record staged =='
+[ "$(record_count kriscendobot-minion.town-pr47-gauntlet)" -eq 0 ] \
+  || fail 'the readiness audit STAGED a gauntlet for #47 — it must only ALERT, never stage'
 
-echo '== (c) a stalled per-PR metadata read is an inconclusive skip, then scanning continues =='
+echo '== (c) covered PRs (#48 active record, #53 completed in tada) are quiet =='
+[ "$(alert_count pr48)" -eq 0 ] || fail '#48 (covered by active gauntlet) wrongly alerted'
+[ "$(alert_count pr53)" -eq 0 ] || fail '#53 (covered by completed gauntlet) wrongly alerted'
+
+echo '== (d) draft PRs (#49, #52) are skipped — draft is the hard boundary =='
+[ "$(alert_count pr49)" -eq 0 ] || fail '#49 (draft) wrongly alerted'
+[ "$(alert_count pr52)" -eq 0 ] || fail '#52 (draft) wrongly alerted'
+
+echo '== (e) a non-bot PR (#50) and a probe (#51) are skipped =='
+[ "$(alert_count pr50)" -eq 0 ] || fail '#50 (non-bot) wrongly alerted'
+[ "$(alert_count pr51)" -eq 0 ] || fail '#51 (probe) wrongly alerted'
+
+echo '== (f) the stalled #54 read is an inconclusive skip, and scanning continued =='
 grep -q 'metadata read timed out for https://github.com/kriscendobot/minion.town/pull/54; skipping (inconclusive)' "$TR/audit.log" \
   || fail 'the stalled #54 metadata read was not reported as an inconclusive timeout'
-[ "$(record_count kriscendobot-minion.town-pr54-gauntlet)" -eq 0 ] \
-  || fail 'the inconclusive #54 metadata read wrongly staged a gauntlet'
+[ "$(alert_count pr54)" -eq 0 ] || fail '#54 (inconclusive) wrongly alerted'
 
-echo '== (d) the already-covered design PR (#48) stays at exactly one record =='
-[ "$(record_count kriscendobot-minion.town-pr48-gauntlet)" -eq 1 ] \
-  || fail 'minion.town #48 (already covered) record count is not exactly 1'
+echo '== (g) the garden OWN repo (#28) is excluded =='
+[ "$(alert_count pr28)" -eq 0 ] || fail "the garden's own repo PR #28 wrongly alerted"
+grep -q "skipping the garden's own repo kriscendobot/garden" "$TR/audit.log" \
+  || fail 'the garden own repo exclusion was not logged'
 
-echo '== (e) a code PR (#49), a non-bot PR (#50), and a probe (#51) stage nothing =='
-[ "$(record_count kriscendobot-minion.town-pr49-gauntlet)" -eq 0 ] || fail 'code PR #49 wrongly got a gauntlet'
-[ "$(record_count kriscendobot-minion.town-pr50-gauntlet)" -eq 0 ] || fail 'non-bot PR #50 wrongly got a gauntlet'
-[ "$(record_count kriscendobot-minion.town-pr51-gauntlet)" -eq 0 ] || fail 'probe PR #51 wrongly got a gauntlet'
+echo '== (h) dedup: re-running with the SAME head raises no second alert for #47 =='
+"$AUDIT" >/dev/null 2>&1
+[ "$(alert_count pr47)" -eq 1 ] || fail "#47 re-alerted on an unchanged head (got $(alert_count pr47), want 1)"
 
-echo '== (f) the garden OWN repo (#28) is excluded — no PR workflow runs on it =='
-[ "$(record_count kriscendobot-garden-pr28-gauntlet)" -eq 0 ] \
-  || fail "the garden's own repo design PR #28 wrongly got a gauntlet"
+echo '== (i) a CHANGED head for #47 re-alerts =='
+GARDEN_TEST_PR47_HEAD=bbb47changed "$AUDIT" >/dev/null 2>&1
+[ "$(alert_count pr47)" -eq 2 ] || fail "#47 did not re-alert after its head changed (got $(alert_count pr47), want 2)"
 
-echo '== (g) a design PR whose gauntlet already COMPLETED (record in tada/, #53) is NOT re-staged =='
-# The decisive assertion is on the audit's OWN decision (the spy log), because
-# post-gauntlet.sh would refuse a duplicate on its own — so record_count alone could
-# not tell "the audit correctly skipped" from "the audit tried and post-gauntlet
-# blocked it". The audit must never even CALL the stager for #53.
-if grep -q 'pr53-gauntlet' "$GARDEN_DPGCA_STAGE_LOG"; then
-  fail 'the audit re-staged #53 whose gauntlet already completed (tada/) — the every-tick re-stage regression'
-fi
-# And it DID decide to stage the genuinely-uncovered ones.
-grep -q 'pr47-gauntlet' "$GARDEN_DPGCA_STAGE_LOG" || fail 'spy did not record the #47 staging'
-grep -q 'pr52-gauntlet' "$GARDEN_DPGCA_STAGE_LOG" || fail 'spy did not record the #52 staging'
-# It never called the stager for the covered/ineligible ones either.
-for p in pr48 pr49 pr50 pr51 pr54; do
-  grep -q "${p}-gauntlet" "$GARDEN_DPGCA_STAGE_LOG" && fail "audit wrongly called the stager for minion.town #$p"
-done
-grep -q 'garden-pr28' "$GARDEN_DPGCA_STAGE_LOG" && fail 'audit wrongly called the stager for the garden own repo #28'
-true
-
-echo '== (h) re-running the audit is idempotent (exactly one record per newly-staged PR) =='
-"$AUDIT"
-[ "$(record_count kriscendobot-minion.town-pr47-gauntlet)" -eq 1 ] || fail '#47 duplicated on re-run'
-[ "$(record_count kriscendobot-minion.town-pr52-gauntlet)" -eq 1 ] || fail '#52 duplicated on re-run'
-
-echo 'PASS: the standing audit bounds every per-PR metadata read, skips timeouts as inconclusive, continues scanning, stages every conclusively uncovered bot-authored OPEN design PR (draft OR non-draft), and remains idempotent'
+echo 'PASS: the readiness audit ALERTS on uncovered non-draft bot PRs, stages NOTHING, stays quiet on covered/draft/non-bot/probe/own-repo/inconclusive, dedups on head, and re-alerts on a changed head'

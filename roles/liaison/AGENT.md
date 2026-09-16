@@ -43,19 +43,21 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   budget. A build-heavy job that omits it and overruns is now surfaced fast (the
   reaper dooms a no-progress deadline overrun after **one** cycle, parking it held
   with a notice) so you can re-post it with the header rather than watch it churn.
-- **A `build` job auto-runs the gauntlet. Never tell the maintainer to gauntlet a
-  build-produced PR by hand.** A `build` (and a `design`-then-`build`) is the
-  *opening stage* of the gauntlet: the supervising gardener carries its draft PR
-  through the gardening state machine (`scripts/jobs/gardening/garden-pr.sh` plus
-  `panel.sh`), which terminates by un-drafting on a clean panel. No separate *run
-  the gauntlet #N* dispatch is needed, and you must never say a build "won't
-  auto-run the gauntlet." Use **run the gauntlet #N** only for a PR that did **not**
-  come through a build job (a maintainer-authored PR, or a probe the maintainer now
-  wants promoted to mergeable), or to **re-run** the chain on demand. It is not a
-  required follow-up to a build. **The one exception is a probe**
-  (`gap-revealing-build`, triager *probe #N*): a probe's DRAFT PR **stays draft** by
-  design, since the cleaner/panel/fixer/un-draft chain deliberately does not run.
-  So the auto-gauntlet invariant is for **mergeable-feature** builds, never probes.
+- **A `build` job stops at an open DRAFT PR — the gauntlet is MANUAL.** Under the
+  manual-gauntlet-trigger regime ([designs/manual-gauntlet-trigger.md](../../designs/manual-gauntlet-trigger.md),
+  adopted 2026-09-16 as a cost control) the garden no longer stages gauntlets
+  automatically at completion: a `build` (and a `design`-then-`build`) leaves its
+  draft PR parked, and **run the gauntlet #N** is the sole ordinary trigger that
+  carries it through the gardening state machine (`scripts/jobs/gardening/garden-pr.sh`
+  plus `panel.sh`, terminating by un-drafting on a clean panel). So when the
+  maintainer wants a build-produced draft reviewed, post **run the gauntlet #N** —
+  do not assume it already ran. A probe (`gap-revealing-build`, triager *probe #N*)
+  likewise stays draft; unlike an ordinary build it is not meant to be promoted to a
+  mergeable gauntlet. A completed build/design never silently pushes a PR into the
+  mergeable queue: the completion-time draft guardrail
+  (`scripts/jobs/assert-producer-pr-draft.sh`) blocks a completion that named a
+  bot-authored non-draft PR with no gauntlet, and a non-mutating hourly readiness
+  audit alerts you about any that slip through — neither ever stages a gauntlet.
 - **Watch the maintainer inbox via the Monitor tool.** Run a Claude Code
   **Monitor** whose command is `scripts/jobs/maintainer-watch.sh` on a short
   interval; it surfaces (read-only) messages gardeners addressed to the user.

@@ -1,53 +1,44 @@
 #!/bin/bash
-# design-pr-gauntlet-coverage-audit.sh — the STANDING PERIODIC BACKSTOP for the
-# design-PR gauntlet-bypass class (review-misses cluster
-# `garden-design-pr-gauntlet-bypass`). It is the third coverage layer the two
-# completion-time scripts' own comments already presuppose ("the design-gauntlet
-# sensor/audit will surface it") but which, until now, did not exist.
+# design-pr-gauntlet-coverage-audit.sh — the STANDING PERIODIC READINESS AUDIT for the
+# manual-gauntlet-trigger regime (designs/manual-gauntlet-trigger.md, adopted
+# 2026-09-16). It is NON-MUTATING: it ALERTS the maintainer about a bot-authored,
+# OPEN, NON-DRAFT PR with no gauntlet coverage; it NEVER stages a gauntlet record and
+# NEVER re-drafts a PR.
 #
-# THE GAP THIS CLOSES.  Two scripts fire at a job's COMPLETION:
-#   * auto-gauntlet-handoff.sh (STAGER)   — stages a design PR's gauntlet, but only
-#     when the PR is still DRAFT; it deliberately declines to stage for a design PR
-#     that is already NON-DRAFT at completion time, because force-drafting a PR that
-#     may be under active maintainer review is the endojs/endo-but-for-bots
-#     #671/#867 corruption hazard.
-#   * assert-design-pr-gauntlet.sh (SENSOR) — blocks a completion whose design PR
-#     has no gauntlet record, but likewise steps aside for a NON-DRAFT design PR
-#     (it "did not create that draft state").
-# Both leave the non-draft case "for the design-gauntlet sensor/audit" — a periodic
-# sweep that never got built.  So a design PR that is NON-DRAFT AT BIRTH (opened
-# ready-for-review, never through a draft->gauntlet handoff) had NO safety net ever,
-# unless a human happened to notice.  The grounding incident: kriscendobot/minion.town#47,
-# a SECURITY-CRITICAL ocap-redesign design PR opened non-draft on 2026-08-16 that sat
-# with ZERO review activity for over a day and NO gauntlet ever staged (staged by hand
-# 2026-08-17; this timer is the structural fix).
+# WHY IT CHANGED.  This unit used to STAGE a gauntlet for every uncovered design PR it
+# found. On 2026-08-30 that autonomous staging mass-staged 69 gauntlets in a single
+# hourly pass (~$482 on one host — reports/credit-investigation-endolin-garden2-
+# 20260905.md), including stale/superseded PRs churning at iteration 6/6. Under the
+# manual-gauntlet regime the garden no longer stages gauntlets autonomously at all:
+# `run the gauntlet #N` is the sole ordinary trigger. So this backstop is demoted from
+# a stager to a READINESS AUDIT — it still catches the "a bot PR reached the mergeable
+# queue with no review" drift, but it does so by telling the maintainer, not by
+# spending a gauntlet. A maintainer who wants review answers with `run the gauntlet #N`.
 #
-# WHAT IT DOES (deterministic, NO LLM — PR metadata + file PATHS + trusted journal
-# records only; never a PR body/title/comment into a model):
+# WHAT IT DOES (deterministic, NO LLM — PR metadata + trusted journal records only;
+# never a PR body/title/comment into a model):
 #   1. Enumerate the OPEN PRs on every actively-watched repo (the journal's
 #      comment-repos/ set — the same gate the CI and comment watchers use), skipping
 #      the garden's own repo (no PR workflow runs on it — CLAUDE.md § Conventions).
-#   2. Keep only BOT-AUTHORED, OPEN, DESIGN-ONLY PRs (design_only_paths — the exact
-#      predicate the two sibling scripts key on), exempting a probe (a gap-revealing
-#      prototype intentionally stays draft with no gauntlet).
-#   3. If NO staged-gauntlet record already covers the PR (gauntlet_record_for_pr —
-#      PR-keyed, reused, not reimplemented), stage one (post-gauntlet.sh, the same
-#      call shape as the two sibling scripts).
-# Critically, UNLIKE the two completion-time scripts, this audit stages regardless of
-# the PR's DRAFT STATE and NEVER touches it: staging a gauntlet RECORD does not draft
-# or un-draft anything, so the non-draft-under-review corruption hazard those scripts
-# guard against simply does not arise here.  That is the whole reason the audit can
-# safely cover the non-draft case they cannot.
+#   2. Keep only BOT-AUTHORED, OPEN, NON-DRAFT PRs (draft is the manual regime's hard
+#      boundary — a draft PR is parked-by-design and owes nothing), exempting a probe.
+#   3. If NO staged-gauntlet RECORD already covers the PR (active in jobs/gauntlet/ or
+#      completed in jobs/tada/), raise a DEDUPLICATED maintainer alert.
 #
-# It is a small NEW backstop, not a change to those two scripts — their completion-time
-# logic and its non-draft caution are correct and stay as they are.
+# Dedup keys on `<repo>#<number>:<headRefOid>` via a durable per-PR marker under
+# $GARDEN_STATE, so an UNCHANGED head never re-alerts (no per-tick spam) while a
+# CHANGED head surfaces a fresh warning. The alert itself rides alert_maintainer
+# (throttled + coalescing), so even a first-of-head alert cannot flood the inbox.
 #
-# Leader-only (the unit's ExecCondition gates it to the leader host): staging is
-# CAS-pushed and idempotent per PR, but running it on every host would multiply the
-# gh enumeration cost for no benefit.  Resilient by construction: an inconclusive
-# read (gh error, offline clone) skips that repo/PR and the next tick retries — a
-# transient blip never wedges anything, because the audit only ever ADDS a missing
-# record.
+# It NEVER mutates anything on GitHub or the journal: no `gh pr ready`, no
+# post-gauntlet.sh, no journal push. The whole #671/#867 force-draft-under-review
+# hazard the old completion-time scripts guarded against simply cannot arise, because
+# this audit only ever READS and, at most, writes a local dedup marker + inbox alert.
+#
+# Leader-only (the unit's ExecCondition gates it to the leader host): running it on
+# every host would multiply the gh enumeration cost for no benefit. Resilient by
+# construction: an inconclusive read (gh error, offline clone) skips that repo/PR and
+# the next tick retries.
 #
 # Usage: design-pr-gauntlet-coverage-audit.sh
 #   Injection points (for the test; all default to the production handlers):
@@ -55,11 +46,10 @@
 #                                  (default: the comment-repos/ set in the clone).
 #     GARDEN_DPGCA_PR_SOURCE       <owner/name> <bot-login> -> TSV
 #                                  number author head_repo updated_at title
-#                                  (default: handlers/ci-pr-source-gh.sh — the same
-#                                  authoritative paginated open-PR source ci-watcher
-#                                  uses, so an older open PR is never page-capped out).
-#     GARDEN_DPGCA_POST_GAUNTLET   the stager (default: post-gauntlet.sh).
+#                                  (default: handlers/ci-pr-source-gh.sh).
 #     GARDEN_GH                    the gh binary (default: gh).
+#     GARDEN_ALERT_CMD             alert sink (default: the maintainer inbox via
+#                                  alert_maintainer/watchdog-notice.sh).
 #     GARDEN_DPGCA_SOURCE_TIMEOUT_SECS / GARDEN_DPGCA_KILL_AFTER
 #                                  bound both repo enumeration and each per-PR
 #                                  metadata read (defaults: 180 / 10s).
@@ -72,8 +62,9 @@ export GARDEN_TAG="design-pr-gauntlet-coverage-audit"
 
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_DPGCA_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
-: "${GARDEN_DPGCA_POST_GAUNTLET:=$HERE/post-gauntlet.sh}"
 : "${GARDEN_DPGCA_CLONE:=$GARDEN_STATE/design-pr-gauntlet-audit/journal}"
+# Durable per-PR dedup markers (repo#number -> last-alerted headRefOid).
+: "${GARDEN_DPGCA_DEDUP_DIR:=$GARDEN_STATE/pr-gauntlet-readiness}"
 # Bound each repo's PR-source enumeration so a hung gh/git can never outlive the tick.
 : "${GARDEN_DPGCA_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_DPGCA_KILL_AFTER:=10s}"
@@ -87,17 +78,16 @@ case "$gh_bin" in
 esac
 
 # A read/enumerate clone of the journal: the source of the comment-repos/ watch set
-# AND of the existing gauntlet records. post-gauntlet.sh writes through its OWN
-# producer clone, so this one is never a write target.
+# AND of the existing gauntlet records. This audit never writes through it.
 DIR="$GARDEN_DPGCA_CLONE"
 ensure_clone "$DIR" || die "audit: journal clone $DIR unavailable"
 sync_clone "$DIR" >/dev/null 2>&1 || true
 
+mkdir -p "$GARDEN_DPGCA_DEDUP_DIR" 2>/dev/null || true
+
 # The garden runs NO PR workflow on itself (main2/journal2 push direct — CLAUDE.md
-# § Conventions); its only open PRs are long-lived review vessels a gauntlet must
-# never be staged over. Keyed to the canonical repo and its migration aliases so the
-# exclusion follows any future transfer (the same reasoning ci-watcher's is_bot_repo
-# states for the auto-shepherd gate).
+# § Conventions); its only open PRs are long-lived review vessels. Keyed to the
+# canonical repo and its migration aliases so the exclusion follows any future transfer.
 is_own_repo() {  # is_own_repo <owner/name>
   local r
   for r in "$GARDEN_PRODUCTION_JOURNAL_REPO" $GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES; do
@@ -106,9 +96,7 @@ is_own_repo() {  # is_own_repo <owner/name>
   return 1
 }
 
-# Enumerate the actively-watched repos as owner/name, one per line. Default source is
-# the journal clone's comment-repos/ set (bare <owner>-<name> slugs); owners in our
-# set carry no dash, so split on the FIRST dash exactly as ci-watcher does.
+# Enumerate the actively-watched repos as owner/name, one per line.
 repos_list() {
   if [ -n "${GARDEN_DPGCA_REPO_SOURCE:-}" ]; then
     "$GARDEN_DPGCA_REPO_SOURCE"
@@ -127,8 +115,7 @@ repos_list() {
   done
 }
 
-# Bounded PR-source read for one repo → TSV on stdout (empty on any failure; a repo
-# we cannot enumerate is skipped, never fatal — the next tick retries).
+# Bounded PR-source read for one repo → TSV on stdout (empty on any failure).
 pr_source() {  # pr_source <owner/name>
   local repo="$1"
   if command -v timeout >/dev/null 2>&1; then
@@ -140,23 +127,23 @@ pr_source() {  # pr_source <owner/name>
   fi
 }
 
-# Bounded authoritative metadata read for one PR. A single stalled GitHub request
-# must not consume the audit unit's whole 900-second systemd deadline; it is just an
-# inconclusive read, and the next periodic tick will retry it.
+# Bounded authoritative metadata read for one PR. headRefOid rides along so the
+# dedup key can distinguish a re-pushed head from an unchanged one.
 pr_view() {  # pr_view <PR URL>
   if command -v timeout >/dev/null 2>&1; then
     timeout --signal=TERM --kill-after="$GARDEN_DPGCA_KILL_AFTER" \
       "${GARDEN_DPGCA_SOURCE_TIMEOUT_SECS}s" \
-      "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,files
+      "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,headRefOid
   else
-    "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,files
+    "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,headRefOid
   fi
 }
 
 scanned_repos=0
 candidate_prs=0
-staged=0
+alerted=0
 already=0
+quiet=0
 
 while IFS= read -r repo; do
   [ -n "$repo" ] || continue
@@ -190,21 +177,19 @@ while IFS= read -r repo; do
     state="$(printf '%s' "$pr_json" | jq -r '.state // empty' 2>/dev/null || true)"
     pauthor="$(printf '%s' "$pr_json" | jq -r '.author.login // empty' 2>/dev/null || true)"
     draft="$(printf '%s' "$pr_json" | jq -r '.isDraft // false' 2>/dev/null || true)"
+    head_oid="$(printf '%s' "$pr_json" | jq -r '.headRefOid // empty' 2>/dev/null || true)"
 
     # Re-confirm the invariants on the authoritative per-PR read.
     [ "$pauthor" = "$GARDEN_BOT_LOGIN" ] || continue
     [ "$state" = OPEN ] || continue
 
-    # A probe intentionally stays draft with no gauntlet — never a miss. Prefer the
-    # PR's durable annotation (title/body carries the gap-revealing marker).
+    # DRAFT is the manual regime's hard boundary — a draft PR is parked-by-design and
+    # owes nothing. Only a NON-DRAFT PR that reached the mergeable queue is a concern.
+    [ "$draft" = true ] && continue
+
+    # A probe intentionally stays draft with no gauntlet — never a concern.
     if printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\n")' 2>/dev/null \
          | grep -qi 'gap-revealing prototype\|gap-revealing'; then
-      continue
-    fi
-
-    mapfile -t _files < <(printf '%s' "$pr_json" | jq -r '(.files // [])[].path // empty' 2>/dev/null || true)
-    # Not a design-only diff → the design-PR invariant does not apply.
-    if [ "${#_files[@]}" -eq 0 ] || ! design_only_paths "${_files[@]}"; then
       continue
     fi
 
@@ -212,37 +197,35 @@ while IFS= read -r repo; do
     slug="${repo%/*}-${repo#*/}"
     gauntlet_base="${slug}-pr${number}-gauntlet"
 
-    # Already covered? Mirror the SENSOR's exact triple check (not just
-    # gauntlet_record_for_pr): a gauntlet that has already RUN TO COMPLETION lives in
-    # jobs/tada/, which the PR-keyed record scan (jobs/gauntlet/ only) does not see.
-    # Checking only the active-record path would make the audit log a false "STAGED"
-    # and call post-gauntlet.sh EVERY tick for a PR whose gauntlet finished long ago
-    # (post-gauntlet's own base-keyed tada/ idempotence stops a duplicate, so it is
-    # harmless — but noisy and wrong). The three arms: PR-keyed records under ANY base
-    # in gauntlet/ (an active run); the PR-derived base in gauntlet/; and the
-    # PR-derived base in tada/ (a completed run).
+    # Already covered by an active (jobs/gauntlet/) or completed (jobs/tada/) gauntlet?
     if existing="$(gauntlet_record_for_pr "$DIR" "$repo" "$number")"; then
       already=$((already + 1))
-      log "audit: design PR $pr_url (draft=$draft) already covered by gauntlet record(s) [$(printf '%s' "$existing" | tr '\n' ' ')]"
+      log "audit: $pr_url already covered by gauntlet record(s) [$(printf '%s' "$existing" | tr '\n' ' ')]; no alert"
       continue
     fi
     if [ -e "$DIR/$JOBS_GAUNTLET/$gauntlet_base.md" ] || [ -e "$DIR/$JOBS_TADA/$gauntlet_base.md" ]; then
       already=$((already + 1))
-      log "audit: design PR $pr_url (draft=$draft) already covered by gauntlet '$gauntlet_base' (active or completed); no new record"
+      log "audit: $pr_url already covered by gauntlet '$gauntlet_base' (active or completed); no alert"
       continue
     fi
 
-    # Uncovered design PR — stage its gauntlet. NEVER touch draft state (staging a
-    # record neither drafts nor un-drafts), so the non-draft-under-review hazard the
-    # two completion-time scripts avoid does not arise here.
-    if "$GARDEN_DPGCA_POST_GAUNTLET" --by "$GARDEN_TAG" "$gauntlet_base" "$pr_url"; then
-      staged=$((staged + 1))
-      log "audit: STAGED design gauntlet '$gauntlet_base' for uncovered $([ "$draft" = true ] && printf 'DRAFT' || printf 'NON-DRAFT') design PR $pr_url — the completion-time stager had left this case for the audit; panel.sh runs before maintainer review"
-    else
-      log "audit: WARNING failed to stage gauntlet '$gauntlet_base' for $pr_url; a later tick retries"
+    # Uncovered non-draft bot PR. Dedup on <repo>#<number>:<headRefOid> so an unchanged
+    # head stays quiet; a re-pushed head re-warns. NEVER stage, NEVER touch the PR.
+    marker="$GARDEN_DPGCA_DEDUP_DIR/${slug}-pr${number}"
+    prev_oid="$(cat "$marker" 2>/dev/null || true)"
+    if [ -n "$head_oid" ] && [ "$prev_oid" = "$head_oid" ]; then
+      quiet=$((quiet + 1))
+      log "audit: $pr_url uncovered but already alerted for head $head_oid; staying quiet"
+      continue
     fi
+
+    alert_maintainer "pr-gauntlet-readiness-${slug}-pr${number}-${head_oid:0:12}" \
+      "Readiness audit: bot-authored OPEN NON-DRAFT PR $pr_url ($repo#$number) is in the mergeable queue with NO gauntlet review staged (head $head_oid). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #$number'; otherwise no action is needed. This audit never re-drafts or stages anything."
+    printf '%s\n' "$head_oid" > "$marker" 2>/dev/null || true
+    alerted=$((alerted + 1))
+    log "audit: ALERTED maintainer about uncovered non-draft PR $pr_url (head $head_oid); no gauntlet staged, PR untouched"
   done <<<"$src"
 done < <(repos_list)
 
-log "audit: swept $scanned_repos watched repo(s); $candidate_prs bot-authored design PR(s), $already already covered, $staged newly staged"
+log "audit: swept $scanned_repos watched repo(s); $candidate_prs bot-authored non-draft PR(s), $already already covered, $alerted newly alerted, $quiet quiet (already-alerted head)"
 exit 0

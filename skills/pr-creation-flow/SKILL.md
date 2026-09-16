@@ -39,8 +39,9 @@ just the directive the triager maps to the job.
 
 ## When to use
 
-- A gardener claims a `build` job: the chain starts here (the build stage opens
-  the draft PR, the rest of the chain advances it to un-draft).
+- A gardener claims a `build` job: the build stage opens the draft PR and **stops
+  there** (manual-gauntlet-trigger regime — the rest of the chain runs only on an
+  explicit `run the gauntlet #N`).
 - A gardener claims a `run the gauntlet #N` job: resume an existing draft PR from
   its next-stage-owed (see *The next-stage-owed heuristic*) and drive to un-draft.
 - A cold PR opened by someone else needs a panel after the fact: the cleaner and
@@ -172,18 +173,20 @@ separate dispatched agents. The panel-fixer loop lives entirely inside
   design-only PR is the project's bot-fork roadmap branch; see *Designs versus
   implementations*. A design PR is usually opened not by a `build` but by a
   `design` job (a designer), or by a research/issue job that happens to carry a
-  design — none of which is `role: builder`. So the gauntlet on a design PR is
-  staged **at job completion, for any role**, not only for builds: when a job
-  completes naming a bot-authored open **draft** design-only PR in its report,
-  [`scripts/jobs/auto-gauntlet-handoff.sh`](../../scripts/jobs/auto-gauntlet-handoff.sh)
-  records that PR's design gauntlet (`<owner>-<repo>-pr<N>-gauntlet`, PR-keyed so
-  two producers on one design PR converge on one record), and
-  [`scripts/jobs/assert-design-pr-gauntlet.sh`](../../scripts/jobs/assert-design-pr-gauntlet.sh)
-  refuses to record the job complete until that record exists. This closes the
-  review-miss cluster `garden-design-pr-gauntlet-bypass` (garden #7,
-  endo-but-for-bots #809, minion.town #41), where the old `role: builder`-only edge
-  let three design PRs reach the maintainer with no panel. The un-draft is still
-  earned only by the panel at the end of the loop.
+  design — none of which is `role: builder`. Under the manual-gauntlet-trigger
+  regime ([designs/manual-gauntlet-trigger.md](../../designs/manual-gauntlet-trigger.md),
+  adopted 2026-09-16 as a cost control) the garden **no longer stages this gauntlet
+  automatically at completion** for any role: a design job completes at its open
+  **draft** PR, and the design panel runs only when the maintainer requests it with
+  **run the gauntlet #N** (→ `post-gauntlet.sh`, PR-keyed base
+  `<owner>-<repo>-pr<N>-gauntlet`). What the completion machinery still enforces is
+  the draft boundary, not a staged gauntlet:
+  [`scripts/jobs/assert-producer-pr-draft.sh`](../../scripts/jobs/assert-producer-pr-draft.sh)
+  passes a draft producer PR and blocks a completion only when it named a
+  bot-authored **non-draft** PR with no gauntlet coverage (the "opened ready by
+  mistake" class), never mutating PR state; a non-mutating hourly readiness audit
+  alerts the maintainer about any non-draft PR that reached the mergeable queue
+  uncovered. The un-draft is still earned only by the panel, once a gauntlet is run.
 - **No must-fix on first panel round.** The fixer stage does not run; the panel
   declares the loop done after the first verdict, the appellate pass runs, then
   `gh pr ready <N>`.

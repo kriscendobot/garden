@@ -678,41 +678,25 @@ while :; do
       fi
     fi
   fi
-  # A completed feature build has one more mandatory completion edge: its open
-  # draft PR must receive a gauntlet job before this build is allowed into tada.
-  # Historically the generic Claude handler only *instructed* the builder to
-  # continue, so builds posted by post-plan --blocked completed and vanished
-  # from the board with their draft PRs stranded. Keep the handoff inside the
-  # worker's durable completion path. A posting failure becomes a normal failed
-  # claim below, which the reaper retries, rather than a silent stalled build.
+  # COMPLETION-TIME DRAFT GUARDRAIL (manual-gauntlet-trigger regime,
+  # designs/manual-gauntlet-trigger.md). The garden no longer stages gauntlets
+  # automatically at completion — `run the gauntlet #N` is the sole ordinary trigger,
+  # so a completed build/design stops at its open DRAFT PR and owes no gauntlet. What
+  # a completion still may NOT do is silently slip a *ready* (non-draft) PR into the
+  # maintainer's mergeable queue with no review. assert-producer-pr-draft.sh enforces
+  # exactly that: it passes a DRAFT PR unconditionally and blocks completion (rc 1)
+  # only for a bot-authored OPEN NON-DRAFT PR newly named by the report that has no
+  # gauntlet coverage (the "opened ready by mistake" class). It NEVER mutates PR state.
+  # A block is treated like a failed completion edge: leave the job in doin and let the
+  # reaper retry. Deterministic, no LLM. See scripts/jobs/assert-producer-pr-draft.sh.
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     set +e
-    "$HERE/auto-gauntlet-handoff.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
-    handoff_rc=$?
-    set -e
-    if [ "$handoff_rc" -ne 0 ]; then
-      hrc=$handoff_rc
-      log "auto-gauntlet handoff FAILED for '$base' (rc=$hrc); leaving build in doin for retry"
-    fi
-  fi
-
-  # SENSING half of the design-PR gauntlet-bypass fix (auto-gauntlet-handoff is the
-  # prevention half). INDEPENDENTLY of the stager above, refuse to record a job
-  # complete (doin→tada) while a garden-owned DESIGN PR it produced has no staged
-  # design gauntlet — the evaluator's absence. On the ordinary path the stager just
-  # staged it, so this passes; it bites only when a design PR reached completion
-  # with no gauntlet (the three-miss bypass shape, or any future producer that opens
-  # a design PR without the stager). A block is treated exactly like a failed
-  # handoff: leave the job in doin and let the reaper retry. See
-  # scripts/jobs/assert-design-pr-gauntlet.sh (deterministic, no LLM).
-  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
-    set +e
-    "$HERE/assert-design-pr-gauntlet.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
+    "$HERE/assert-producer-pr-draft.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
     sensor_rc=$?
     set -e
     if [ "$sensor_rc" -ne 0 ]; then
       hrc=$sensor_rc
-      log "design-PR gauntlet SENSOR blocked completion of '$base' (rc=$hrc): a garden-owned design PR named in the report has no staged gauntlet; leaving in doin for retry"
+      log "producer-PR draft GUARDRAIL blocked completion of '$base' (rc=$hrc): a bot-authored non-draft PR named in the report has no staged gauntlet; leaving in doin for retry"
     fi
   fi
 
