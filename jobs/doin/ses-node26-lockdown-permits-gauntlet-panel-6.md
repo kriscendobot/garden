@@ -46,10 +46,10 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=252 -->
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=252,51 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
