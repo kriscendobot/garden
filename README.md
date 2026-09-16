@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:24:11Z_
+_As of 2026-09-16T11:26:59Z_
 
 ## Latest
 
-Triage on five halted gauntlets from early September completed: two transient capacity-crunch halts ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81)) are safe to re-post; [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit a real failure (base drift on `@endo/exo-stream` API—needs reweave and semantic port of the `stringLengthLimit`→`byteLengthLimit` conflict, ~360 commits behind); [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green and mergeable but stopped at panel iteration 6 (route to human review rather than re-loop); [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration halted stale but child 1 already completed (re-anchor to resume at child 2 with raised budget). Ironhorse computron benchmark-baseline design landed as draft [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with open questions on tolerance bands, CI placement, seed roster, and baselines; builder audit complete and holding implementation until answers. Minion.town clip built and ready to publish but blocked on MCP OAuth; daemon migration attempt halted on missing-registry repair (reminders now decoupled from upgrade). Budget rebalanced 2→3 monks on endolin-garden-ece02cb4. Multiple infrastructure validations and host-state reconciliations in progress.
+Recent work centers on triage: five early-September halted gauntlets and orchestrations require disposition per detailed report; [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs base drift resolution (API deprecated in live llm, PR 360 commits behind); Ironhorse benchmark design ([endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282)) awaits your answers to six open questions before build proceeds. Stalled infrastructure: daemon revival on minion.town blocked by schema migration; third host (oros-studio) never migrated to monk, blocking gardener-alias retirement; identity federation setup needs host-side introduction. Token spend at 42% of Claude quota; board idle.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 19h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 20h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
@@ -110,6 +110,19 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > halt-parked-remainder: credit-controls-panel-seat-metering-and-tiering
 >
 > Orchestration credit-controls-20260916 HALTED: child credit-controls-stale-pr-viability-gate stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 2/4 done before halt; parked remainder: credit-controls-panel-seat-metering-and-tiering
+
+- `ebfb-sturdyref-stack-rebase-20260916-halted` — from orchestrator:ebfb-sturdyref-stack-rebase-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-stack-rebase-20260916-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: ebfb-sturdyref-stack-rebase-20260916
+> orchestration-status: halted
+> child: ebfb-sturdyref-rebase-pr737-20260916
+> failure-kind: gated-outcome-unsatisfied
+> children-completed: 1
+> children-total: 11
+> halt-parked-remainder: ebfb-sturdyref-rebase-pr541-20260916 ebfb-sturdyref-rebase-pr698-20260916 ebfb-sturdyref-rebase-pr700-20260916 ebfb-sturdyref-rebase-pr701-20260916 ebfb-sturdyref-rebase-pr702-20260916 ebfb-sturdyref-rebase-pr703-20260916 ebfb-sturdyref-rebase-pr704-20260916 ebfb-sturdyref-rebase-pr871-20260916 ebfb-sturdyref-retire-snapshot-20260916
+>
+> Orchestration ebfb-sturdyref-stack-rebase-20260916 HALTED: child ebfb-sturdyref-rebase-pr737-20260916 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/11 done before halt; parked remainder: ebfb-sturdyref-rebase-pr541-20260916 ebfb-sturdyref-rebase-pr698-20260916 ebfb-sturdyref-rebase-pr700-20260916 ebfb-sturdyref-rebase-pr701-20260916 ebfb-sturdyref-rebase-pr702-20260916 ebfb-sturdyref-rebase-pr703-20260916 ebfb-sturdyref-rebase-pr704-20260916 ebfb-sturdyref-rebase-pr871-20260916 ebfb-sturdyref-retire-snapshot-20260916
 
 - `msg-reminder-daemon-revival-failure-6e023fc1b25f` — from gardener:reminder-daemon-revival-failure, reply_to `reminder-daemon-revival-failure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reminder-daemon-revival-failure-6e023fc1b25f.md)
 
@@ -252,6 +265,19 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > stop the loop, human review → un-draft (green+mergeable). 5 → RE-SCOPE: resume at child 2
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
+
+- `ebfb-sturdyref-stack-rebase-20260916-child-ebfb-sturdyref-rebase-pr737-20260916-failed` — from orchestrator:ebfb-sturdyref-stack-rebase-20260916-child-ebfb-sturdyref-rebase-pr737-20260916-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-stack-rebase-20260916-child-ebfb-sturdyref-rebase-pr737-20260916-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: ebfb-sturdyref-stack-rebase-20260916
+> orchestration-status: running
+> child: ebfb-sturdyref-rebase-pr737-20260916
+> failure-kind: gated-outcome-unsatisfied
+> order: serial
+> on-child-failure: halt
+> detail: completed but declared its gated outcome unsatisfied
+>
+> Orchestration ebfb-sturdyref-stack-rebase-20260916 observed child ebfb-sturdyref-rebase-pr737-20260916: completed but declared its gated outcome unsatisfied.
 
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
@@ -400,7 +426,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.1M | $457.43 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Claude | 59.4M | $457.71 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
@@ -410,13 +436,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (0)
 (none)
 
-### tada (7992)
+### tada (7993)
+- [`ebfb-sturdyref-stack-rebase-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-rebase-20260916.md) — orchestration ebfb-sturdyref-stack-rebase-20260916 — HALTED
 - [`ebfb-sturdyref-rebase-pr737-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr737-20260916.md) — Completion report
 - [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-thixotrope-drop-inert-bundle-filter.md) — Cost
 - [`ebfb-sturdyref-rebase-pr774-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr774-20260916.md) — Completion report: rebase PR #774 onto live llm
 - [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-modernize.md) — Completion report — ebfb-sturdyref-stack-modernize
-- [`design-slots-ocapn-op-lanes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-slots-ocapn-op-lanes.md) — Cost
-- … and 7987 more
+- … and 7988 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
