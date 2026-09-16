@@ -1,20 +1,20 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:37:01Z_
+_As of 2026-09-16T11:42:08Z_
 
 ## Latest
 
-One job completed (Bejar-Hofman Box investigation); the Ironhorse computron benchmark baseline orchestration finished all 2 children. Maintainer inbox holds five major items: a triage of five halted gauntlets from early September (two transient and safe to re-post, three real failures needing re-scoping), answers needed for the Ironhorse benchmark baseline build's six design open questions before the implementation can proceed, host-side actions for GitHub federation and a third fleet host blocking the gardener worker kind retirement, and minor cleanup on the daemon revival dry-run. Quota at 42% with 59.6M tokens spent. The [ebfb-exo-stream-drop-base64-stream-methods gauntlet](https://github.com/endojs/endo-but-for-bots/pull/1100) requires a re-scoped weave to pin its merge base onto current llm and resolve API migration conflicts before re-posting the gauntlet.
+A quiet moment on the board—one measurement job in flight, 7994 completed. The inbox surfaced five halted gauntlets from early September requiring triage: two were transient capacity-crunch holds on now-green PRs (ready for cheap re-posts), while three are real failures needing re-scope work—[endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a weave/pin-merge-base to resolve base drift in `9p-server` (semantic port of `stringLengthLimit`→`byteLengthLimit`, not a rename), [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green/mergeable but hit iteration cap and should route to human review rather than another panel loop, and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) is stale pending clarification whether it's still live or blocked on Endo guest-native invite/accept. The Ironhorse computron benchmark-baseline design landed as draft with open questions; its builder has completed the unblocked audit step and is holding the rest pending your answers to six scoping questions (tolerance bands, gate-2 timing, seed roster, baseline regeneration policy, PR fate, and grid baselines). Also awaiting: maintainer identity introduction for minion.town eval, kriscendobot gh token restore for a PR opener, DNSSEC approval for ocap.site, and clarification on a third fleet host blocking the gardener-alias retirement. Spend steady at 42% of Claude quota.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 20h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 14d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 14d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 15d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 17d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 20d)
@@ -400,7 +400,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.6M | $458.14 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 59.8M | $458.33 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
