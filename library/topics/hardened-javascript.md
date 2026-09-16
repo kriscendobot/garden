@@ -113,6 +113,8 @@
 | [full-abstraction-at-the-bytecode-boundary](../sections/cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md) | cap-talk 2009-September | SES transforms and bytecode must preserve the source language's semantic security boundary, not merely memory safety. |
 | [mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) | cap-talk 2010-March | The 'only mutable singletons are harmful' principle SES operationalizes by freezing the primordials into constant (harmless) singletons. |
 | [safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) | cap-talk 2010-April | Memory/abstraction safety as the prerequisite ocap enforcement rests on; JavaScript's base safety is why SES can build ocap on it. |
+| [language-support-for-object-capabilities](../sections/cap-talk-2009-2012--language-support-for-object-capabilities.md) | programming-language-design, hardened-javascript, capability-security | Kevin Reid's list of what a capability language should make cheap (encapsulation, immutable-by-default, cheap multi-facet objects, interposition), and why to design security in rather than add it on. |
+| [js-membranes-and-fine-grained-object-views](../sections/cap-talk-2009-2012--js-membranes-and-fine-grained-object-views.md) | hardened-javascript, patterns, revocation, capability-security | Tom Van Cutsem's E-style JavaScript membranes make revocation transitive over an entire object graph via Proxy interposition. |
 
 ## Superseded sections
 
