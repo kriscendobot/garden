@@ -60,8 +60,18 @@
 # it), and continues to the other mappings rather than aborting the whole tick.
 # One bad mapping can no longer starve every other unresolved mapping. The tick
 # exits nonzero when any non-quota mapping failed, so the failure stays visible
-# to systemd/journald. A tick blocked only by GitHub's primary hourly quota exits
-# zero in a named degraded state; the unresolved mappings retry after reset.
+# to systemd/journald.
+#
+# PRIMARY-QUOTA CIRCUIT BREAKER (2026-09-16 hardening): GitHub's primary hourly
+# quota is account-wide and cannot recover until it resets, so once ONE mapping's
+# call is refused for primary quota, every remaining call this tick is equally
+# doomed. Rather than plow on — burning a fresh doomed API call per mapping and
+# logging a fatal-per-mapping WARN storm — the loop BREAKS at the first primary-
+# quota refusal and emits ONE aggregate degraded warning. Every unresolved
+# mapping (the one that hit the wall plus the ones we never queried) is preserved
+# unstamped and retried on a future tick once quota resets. A quota-only tick
+# exits zero degraded; a non-quota failure seen BEFORE the break still exits
+# nonzero so a real (404/etc.) failure is never masked by the degrade.
 #
 # Pluggable GitHub I/O for deterministic tests (the close path is NEVER exercised
 # against a real upstream in CI — see test/mirror-closer-test.sh):
@@ -167,13 +177,18 @@ run_handler_captured() {  # run_handler_captured <output-var> <handler> [args...
 acted=0
 failed=0
 quota_blocked=0
+quota_break=0
 out=''
 mout=''
 HANDLER_STDERR=''
 
+# Classify a handler failure and, on the FIRST primary-quota refusal, arm the
+# circuit breaker (quota_break) so the caller stops querying the remaining
+# mappings this tick — they are all equally doomed until quota resets.
 count_handler_failure() {
   if is_gh_primary_rate_limit_text "$HANDLER_STDERR"; then
     quota_blocked=$((quota_blocked+1))
+    quota_break=1
   else
     failed=$((failed+1))
   fi
@@ -193,6 +208,7 @@ for i in $(seq 0 $((n-1))); do
   if ! run_handler_captured out "$GARDEN_MIRROR_PR_STATE" "$up_repo" "$up_num"; then
     log "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
     count_handler_failure
+    [ "$quota_break" -eq 1 ] && break
     continue
   fi
   parse_state "$out"
@@ -209,6 +225,7 @@ for i in $(seq 0 $((n-1))); do
   if ! run_handler_captured mout "$GARDEN_MIRROR_PR_STATE" "$mir_repo" "$mir_num"; then
     log "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
     count_handler_failure
+    [ "$quota_break" -eq 1 ] && break
     continue
   fi
   parse_state "$mout"
@@ -229,6 +246,7 @@ for i in $(seq 0 $((n-1))); do
     rm -f "$cbody"
     log "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
     count_handler_failure
+    [ "$quota_break" -eq 1 ] && break
     continue
   fi
   rm -f "$cbody"
@@ -238,11 +256,24 @@ for i in $(seq 0 $((n-1))); do
 done
 
 log "tick complete: closed $acted mirror(s) this run"
-if [ "$failed" -gt 0 ]; then
-  log "WARN: $failed non-quota mapping failure(s) and $quota_blocked GitHub primary-quota-blocked failure(s) this tick; mappings were left unresolved; will retry next tick"
-  exit 1
-fi
-if [ "$quota_blocked" -gt 0 ]; then
-  log "WARN: $quota_blocked mapping(s) blocked only by GitHub primary quota this tick and were left unresolved; degraded until quota resets"
+
+# Primary-quota circuit breaker fired: the loop broke at the first quota refusal.
+# `i` holds the index we broke at, so mappings after it were never queried. Emit
+# ONE aggregate degraded warning naming both the quota-refused mapping(s) and the
+# ones we skipped; all are preserved unresolved and retry once quota resets.
+if [ "$quota_break" -eq 1 ]; then
+  skipped=$(( n - 1 - i )); [ "$skipped" -lt 0 ] && skipped=0
+  pending=$(( quota_blocked + skipped ))
+  log "WARN: GitHub primary quota exhausted this tick; stopped querying after the first doomed call — $pending mapping(s) left unresolved ($quota_blocked quota-refused + $skipped unqueried) and will retry after quota resets"
+  # A non-quota failure seen BEFORE the circuit break still keeps the tick
+  # unhealthy: a real (404/etc.) failure must never be masked by the degrade.
+  if [ "$failed" -gt 0 ]; then
+    log "WARN: $failed non-quota mapping failure(s) also occurred before the quota wall; those mappings were left unresolved and will retry next tick"
+    exit 1
+  fi
   exit 0
+fi
+if [ "$failed" -gt 0 ]; then
+  log "WARN: $failed non-quota mapping failure(s) this tick; mappings were left unresolved; will retry next tick"
+  exit 1
 fi

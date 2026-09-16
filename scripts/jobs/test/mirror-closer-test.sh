@@ -222,28 +222,73 @@ env GARDEN_STATE="$TR/state-h1" JOURNAL_REMOTE="$BARE_H1" JOURNAL_BRANCH="$BRANC
     GARDEN_MIRROR_PR_STATE="$QUOTASTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >"$LOG_H1" 2>&1; rch1=$?
 [ "$rch1" -eq 0 ] && ok "tick exits 0 when every failure is blocked by GitHub primary quota" || bad "primary-quota-only tick exited $rch1"
-grep -q 'blocked only by GitHub primary quota' "$LOG_H1" \
+grep -q 'GitHub primary quota exhausted this tick' "$LOG_H1" \
   && ok "degraded WARN names GitHub primary quota" || bad "quota WARN missing: $(cat "$LOG_H1")"
 mapping_of "$BARE_H1" up-repo-160.md | grep -q '^closed_at:' \
   && bad "stamped a quota-blocked mapping" || ok "quota-blocked mapping left unresolved (never guessed a state)"
 
-hr; echo "H1b — MIXED tick: one quota-blocked + one non-quota failure → exit 1 (any real failure keeps the tick unhealthy)"; hr
+hr; echo "H1b — MIXED tick: a non-quota failure seen BEFORE the quota wall → exit 1 (a real failure is never masked by the degrade)"; hr
+# Mappings are processed in alphabetical (glob) order, so up-repo-161 precedes
+# up-repo-162. Make #161 the non-quota 404 (seen first, recorded as a real failure)
+# and #162 the primary-quota refusal (which then arms the circuit breaker and stops
+# the tick). Because a genuine failure was already counted before the break, the
+# tick must still exit nonzero — the degrade never masks a real failure.
 BARE_H1B="$TR/h1b.git"; seed_bare "$BARE_H1B"
 ST_H1B="$TR/states-h1b.tsv"; CL_H1B="$TR/close-h1b.log"; LOG_H1B="$TR/closer-h1b.log"; : > "$CL_H1B"; : > "$ST_H1B"
-record "$TR/state-h1b" "$BARE_H1B" "up/repo#161" "garden/mir#261"  # quota-blocked
-record "$TR/state-h1b" "$BARE_H1B" "up/repo#162" "garden/mir#262"  # non-quota 404
+record "$TR/state-h1b" "$BARE_H1B" "up/repo#161" "garden/mir#261"  # non-quota 404 (seen first)
+record "$TR/state-h1b" "$BARE_H1B" "up/repo#162" "garden/mir#262"  # primary-quota refusal (breaks)
 env GARDEN_STATE="$TR/state-h1b" JOURNAL_REMOTE="$BARE_H1B" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_STATES="$ST_H1B" MC_CLOSE_LOG="$CL_H1B" \
-    MC_QUOTA_REF="up/repo#161" \
+    MC_QUOTA_REF="up/repo#162" \
     GARDEN_MIRROR_PR_STATE="$MIXEDSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >"$LOG_H1B" 2>&1; rch1b=$?
-[ "$rch1b" -ne 0 ] && ok "mixed tick exits nonzero when any failure is non-quota (rc=$rch1b)" || bad "mixed quota+404 tick masqueraded as healthy (exit 0)"
+[ "$rch1b" -ne 0 ] && ok "mixed tick exits nonzero when a non-quota failure preceded the quota wall (rc=$rch1b)" || bad "mixed quota+404 tick masqueraded as healthy (exit 0)"
 grep -q 'non-quota mapping failure' "$LOG_H1B" \
   && ok "final WARN counts the non-quota failure separately from the quota block" || bad "mixed WARN missing: $(cat "$LOG_H1B")"
 mapping_of "$BARE_H1B" up-repo-161.md | grep -q '^closed_at:' \
-  && bad "stamped a quota-blocked mapping in a mixed tick" || ok "quota-blocked mapping left unresolved (never guessed a state)"
-mapping_of "$BARE_H1B" up-repo-162.md | grep -q '^closed_at:' \
   && bad "stamped a non-quota-failed mapping" || ok "non-quota-failed mapping left unresolved (will retry)"
+mapping_of "$BARE_H1B" up-repo-162.md | grep -q '^closed_at:' \
+  && bad "stamped a quota-blocked mapping in a mixed tick" || ok "quota-blocked mapping left unresolved (never guessed a state)"
+
+hr; echo "H1c — CIRCUIT BREAKER: the first primary-quota refusal stops the tick — remaining mappings are NOT queried (no doomed-call storm), all left unresolved, one aggregate WARN"; hr
+# Three mappings, EVERY upstream read would be refused for primary quota. A counting
+# quota stub records how many times it is called. Before the circuit breaker the
+# closer queried every mapping (3 doomed calls + a fatal-per-mapping WARN storm);
+# now it must break at the FIRST refusal, so the stub is called exactly ONCE, every
+# mapping is preserved unresolved, and the tick exits 0 with a single aggregate
+# degraded warning naming the skipped mappings.
+BARE_H1C="$TR/h1c.git"; seed_bare "$BARE_H1C"
+CL_H1C="$TR/close-h1c.log"; LOG_H1C="$TR/closer-h1c.log"; CNT_H1C="$TR/quota-calls.count"; : > "$CL_H1C"; : > "$CNT_H1C"
+COUNTQUOTA="$TR/state-quota-count.sh"
+cat > "$COUNTQUOTA" <<'EOF'
+#!/bin/bash
+n=$(( $(cat "${MC_QUOTA_COUNT:?set MC_QUOTA_COUNT}" 2>/dev/null || echo 0) + 1 ))
+printf '%s' "$n" > "${MC_QUOTA_COUNT}"
+echo "gh: API rate limit already exceeded for user ID 279080640." >&2; exit 1
+EOF
+chmod +x "$COUNTQUOTA"
+record "$TR/state-h1c" "$BARE_H1C" "up/repo#171" "garden/mir#271"
+record "$TR/state-h1c" "$BARE_H1C" "up/repo#172" "garden/mir#272"
+record "$TR/state-h1c" "$BARE_H1C" "up/repo#173" "garden/mir#273"
+env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_QUOTA_COUNT="$CNT_H1C" \
+    GARDEN_MIRROR_PR_STATE="$COUNTQUOTA" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_H1C" 2>&1; rch1c=$?
+[ "$rch1c" -eq 0 ] && ok "quota-only tick exits 0 (degraded, healthy)" || bad "quota-only circuit-breaker tick exited $rch1c"
+[ "$(cat "$CNT_H1C")" -eq 1 ] \
+  && ok "circuit breaker: only the FIRST mapping was queried (1 call, not 3) — remaining doomed calls skipped" \
+  || bad "circuit breaker did not fire: state handler called $(cat "$CNT_H1C")× (expected 1)"
+grep -q 'GitHub primary quota exhausted this tick' "$LOG_H1C" \
+  && ok "one aggregate degraded WARN names GitHub primary quota" || bad "aggregate quota WARN missing: $(cat "$LOG_H1C")"
+grep -q '3 mapping(s) left unresolved (1 quota-refused + 2 unqueried)' "$LOG_H1C" \
+  && ok "aggregate WARN accounts for all 3 mappings (1 refused + 2 unqueried)" || bad "aggregate WARN miscounts: $(cat "$LOG_H1C")"
+[ "$(grep -c 'reading upstream state for .* failed' "$LOG_H1C")" -eq 1 ] \
+  && ok "no fatal-per-mapping WARN storm: exactly one per-mapping WARN before the break" || bad "per-mapping WARN storm: $(grep -c 'reading upstream state for .* failed' "$LOG_H1C") lines"
+for k in up-repo-171 up-repo-172 up-repo-173; do
+  mapping_of "$BARE_H1C" "$k.md" | grep -q '^closed_at:' \
+    && bad "$k stamped despite being quota-blocked/unqueried" || ok "$k left unresolved (preserved for retry after quota reset)"
+done
+[ ! -s "$CL_H1C" ] && ok "no mirror was closed during a quota-exhausted tick" || bad "closed a mirror despite quota exhaustion: $(cat "$CL_H1C")"
 
 hr; echo "H2 — loud failure: a failed close aborts nonzero and leaves mapping unresolved"; hr
 BARE_H2="$TR/h2.git"; seed_bare "$BARE_H2"
