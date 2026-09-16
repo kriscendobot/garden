@@ -55,3 +55,13 @@ verifying CI green, does not fit a 40-minute claim. Raised to 9000s.
 
 If it still will not fit, SPLIT it rather than raising again: stage 1 pin + rebase,
 stage 2 conflict resolution + CI verification, stage 3 resume the gauntlet from fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T23:15:33Z
