@@ -28,6 +28,9 @@
 | [capability-shaped sign-in flow](../sections/cloudflare-os--docs-oauth-signin--capability-shaped-sign-in-flow.md) | authentication-gatekeepers, identity, capability-mediated-integrations | Verified email resolves the user before a session token is delivered. |
 | [identity grant versus resource grant](../sections/cloudflare-os--packages-gatekeeper-github-readme--identity-grant-versus-resource-grant.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | A primary verified GitHub email identifies the user without retaining repository authority. |
 | [verified-email login and resource scopes](../sections/cloudflare-os--packages-gatekeeper-google-readme--verified-email-login-and-resource-scopes.md) | authentication-gatekeepers, identity, capability-mediated-integrations, oauth-credentials | Google identity requires the provider verified-email signal. |
+| [yurl-key-centric-web-calculus](../sections/cap-talk-2002-2003--yurl-key-centric-web-calculus.md) | cap-talk 2003-September | The YURL debate separates secure designation of the intended key from claims about a globally named identity. |
+| [naming-vs-pointing-and-global-names](../sections/cap-talk-2002-2003--naming-vs-pointing-and-global-names.md) | cap-talk 2003-September | Pointing identifies the entity an introducer meant; naming and reputation remain contextual layers rather than the reference itself. |
+| [trust-introductions-and-no-omniscience](../sections/cap-talk-2002-2003--trust-introductions-and-no-omniscience.md) | cap-talk 2003-September | Reputations aggregate introductions, but chance encounters reveal that a connectivity mechanism need not endorse either party. |
 
 ## See also
 
