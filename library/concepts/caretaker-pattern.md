@@ -37,6 +37,7 @@ loses its effect.
 | [what-are-capabilities/capability-patterns](../sections/habitat-chronicles--what-are-capabilities--capability-patterns.md) | The **revoker** as the caretaker's upstream form — "a simple message forwarder that can be commanded to drop its forwarding pointer" — extended to auditable delegation. |
 | [cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction](../sections/cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md) | Public draft review of the caretaker as the canonical example of behavioral abstraction enforcing revocation. |
 | [cap-talk-2004-2008--object-capability-patterns-historical-inventory](../sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md) | The 2008 inventory traces revocable forwarders from Redell and compares forwarding, revocation, and brokenness facets. |
+| [cap-talk-2009-2012--horton-accountability-and-contract-law](../sections/cap-talk-2009-2012--horton-accountability-and-contract-law.md) | cap-talk 2010-November | Horton generalizes the interposed-membrane idea to accountability: an accounting membrane records the introduction graph so responsibility can be assigned across an introduction. |
 
 ## See also
 
