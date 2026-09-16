@@ -97,6 +97,7 @@ themselves large, orchestrate ordered sub-builds rather than piling loose jobs.
 <!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=92,47 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
