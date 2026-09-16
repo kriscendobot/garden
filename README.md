@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T23:10:33Z_
+_As of 2026-09-16T23:28:06Z_
 
 ## Latest
 
-Cap-talk March-1998 founding era ingested; four time slices staged. Computron benchmark audit complete (zero surviving cost constraints); build blocked on six design-question answers. Five Sep-01/04 halted gauntlets triaged: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) transient (re-post if confirmed live); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) real base drift (weave+pin-merge+semantic-port fix); [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) green mergeable after 6 rounds (stop loop?); [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) done but archived during drain. Design [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) still open unresolved; build awaits acceptance. Reminder daemon revival blocked (schema migration). Garden reexport-deprecation-policy design [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95) awaiting review; several ops gates deferred (guest-peer-fetch daemon exposure, ocap.site DNSSEC, SIWE thunk, oros-studio gardener→monk migration).
+Five halted gauntlets triaged: items 1–2 are transient capacity failures on now-green PRs ([endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013), [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81)), ready to re-post; items 3–4 require re-scoping ([endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs merge-base weave, [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) should skip the panel loop and move to human review); item 5 ([minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)) partly recovered and needs orchestration re-anchoring. The re-export deprecation policy design ([garden#95](https://github.com/kriscendobot/garden/pull/95)) awaits maintainer review. Several auth-gated decisions remain: SIWE tier/allowlist, daemon exposure, DNSSEC, and peer identity introduction. A third fleet host (oros-studio) still on legacy `gardener` worker kind blocks the alias retirement until migration to monk.
 
 ## Parked for maintainer feedback
 
@@ -26,239 +26,13 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
 
-- `msg-scholar-ingest-cap-talk-d5753a06e5cf` — from scholar:scholar-ingest-cap-talk, reply_to `scholar-ingest-cap-talk` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-d5753a06e5cf.md)
-
-> cap-talk ingested (first pass, founding era). The list's current Google Groups
-> home is not fetchable from the sandbox (JS SPA), but its full historical archive
-> survives as a Pipermail archive spanning 1998-2016 (188 months) via the Internet
-> Archive, and that is what I ingested from. First slice = the March 1998 founding
-> month: 8 thread sections capturing Jonathan Shapiro's real-time capability-vs-ACL
-> arguments (card keys are capabilities, ACL-on-cap not cap-on-ACL, confinement
-> unsolvable with ACLs, revocation by destroyable indirection) that predate and
-> prefigure the Miller "Capability Myths Demolished" paper the library already has.
->
-> Per your asks: themed under capability-theory/capability-security + a new
-> `revocation` topic; unsettled notions called out explicitly in a new
-> `cap-talk-open-questions` topic (the ACL/capability equivalence question; the
-> "what counts as a capability" dispute); Endo-relevant ideas cross-linked in
-> `journal/projects/endo/cap-talk-capability-provenance.md`. Remainder handed off:
-> `scholar-ingest-cap-talk-1999` is active, and 2000-2003 / 2004-2008 / 2009-2012 /
-> 2013-2016 are parked on the plan queue.
->
-> Verdict on usefulness: high for Endo — this is the primary-source origin of the
-> caretaker/revocation and connectivity-axiom lineage Endo rests on. One decision
-> for you: the post-2016 Google-Groups messages need an alternate export/mbox if
-> you want them; the Pipermail archive already covers the first 18 years.
-> Result: entries/2026/09/16/135136Z-result-scholar-31e8e8.md
-
-- `20260916T152425Z-b02283` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260916T152425Z-b02283.md)
-
-> awaiting maintainer — beyond proxy authority: gardener ironhorse-computron-benchmark-baseline-build-exec, msgid msg-ironhorse-computron-benchmark-baseline-build-exec-f0d0671cb73a.md — Lifting the repository-wide IronHorse pause (COMMON.md, maintainer directive kumavis 2026-09-09, [endojs/endo-but-for-bots#91](https://github.com/endojs/endo-but-for-bots/issues/91)) and approving a design over unresolved must-fix panel findings are maintainer-reserved authority grants, not proxiable progress questions.
-
-- `msg-scholar-ingest-cap-talk-2000-2003-15fa221ad9f5` — from scholar:scholar-ingest-cap-talk-2000-2003, reply_to `scholar-ingest-cap-talk-2000-2003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2000-2003-15fa221ad9f5.md)
-
-> Scholar ingest: cap-talk 2000-2001 (10 sections, source-index library/sources/cap-talk-2000-2001.md). A faithful first pass of the 2000-2003 era, oldest-first. Highlights: the capability-representation taxonomy (partitioned/tagged/password) and how it decides confineability; Shapiro's SW-model vs E's observable-immutability confinement; Landau's "a capability is behavior, not an object reference"; Miller's landmark "two threads of capability thinking" (OS/Lampson vs lambda-calculus) and the off-line-representation-vs-on-line-protocol distinction behind CapTP; and the 2001 SPKI-is-only-approximately-a-capability-system debate. Added two open questions (is SPKI a capability system; is the resume-key security or bug-catching) and grew the Endo provenance file. The 2002-2003 Miller-paper era (Capability Myths Demolished / Paradigm Regained) is posted as follow-on scholar-ingest-cap-talk-2002-2003. Result entry: entries/2026/09/16/161004Z-result-scholar-3dda12.md. Acquisition note: archive.org's availability API was rate-limiting; the reliable path was CDX-enumerate then direct id_ fetch.
-
-- `msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a` — from gardener:verify-foreman-partial-unquiesce-target-2, reply_to `verify-foreman-partial-unquiesce-target-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a.md)
-
-> I need one read-only observation from leader endolin-garden-ece02cb4 to complete verify-foreman-partial-unquiesce-target-2. Please return its deployed SHA, the rendered garden-foreman.service GARDEN_FOREMAN_ACTIVE_TARGET line, and the exact /home/kris/garden/.garden-state/foreman/decisions.log line with target=2 guard=promoted or guard=pumped. The foreman promoted this job at 2026-09-16T10:04:07Z, so the evidence should exist. No deploy is requested.
-
-- `doomed-weave-ebfb-1100-pin-merge-base-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-ebfb-1100-pin-merge-base-20260916-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
-> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/weave-ebfb-1100-pin-merge-base-20260916; it stays HELD until a human promotes it
-> (promote-plan.sh weave-ebfb-1100-pin-merge-base-20260916) or removes it.
-> Original job base: weave-ebfb-1100-pin-merge-base-20260916
->
-> --- original job body ---
-> ---
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
-> Pin the merge base of [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) onto current `llm`, resolve
-> the resulting conflict, then resume its halted gauntlet from the fix stage.
->
-> WHY (triage job triage-halted-gauntlets-20260916, 2026-09-16): the
-> `ebfb-exo-stream-drop-base64-stream-methods-gauntlet` fix-2 stage correctly
-> declared `orchestration-failed`. This is a REAL, non-transient failure — a plain
-> gauntlet re-post would re-fail identically — caused by BASE DRIFT:
->
-> - [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) migrated `@endo/exo-stream`
->   `stringLengthLimit` -> `byteLengthLimit`.
-> - Current `llm`'s `packages/9p-server/src/server.js` still calls the REMOVED
->   `stringLengthLimit` API at 3 sites.
-> - GitHub tests the merge ref, so llm's stale call sites plus this PR's renamed
->   type produce tsc + runtime failures. CI is confirmed RED right now (lint +
->   test FAILURE on every leg).
-> - The branch is ~360 commits behind.
->
-> TASK, in order:
-> 1. Pin the merge base per skills/frozen-base-branch and
->    skills/verify-upstream-state-before-pinning: repoint the PR's base onto a
->    pinned `llm-<sha>` branch, then rebase the head onto it.
-> 2. Resolve the `9p-server` conflict. This is a SEMANTIC PORT, not a rename —
->    `stringLengthLimit` and `byteLengthLimit` do not mean the same thing, so
->    carry the intent at each of the 3 call sites rather than sed-ing the
->    identifier. Say in your report what you concluded the correct byte limit is
->    at each site and why.
-> 3. Verify CI green on the rebased head before handing on.
-> 4. Then resume the gauntlet from the FIX stage (not from clean/panel).
->
-> The PR premise is LIVE: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) is OPEN draft, not merged,
-> not superseded.
-
-- `msg-scholar-ingest-cap-talk-2003-sep-oct-6bb7abd3031f` — from gardener:scholar-ingest-cap-talk-2003-sep-oct, reply_to `scholar-ingest-cap-talk-2003-sep-oct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2003-sep-oct-6bb7abd3031f.md)
-
-> Ingested the deferred cap-talk 2003-September and 2003-October bundles as nine derived-summary sections. The fetched compressed bundles matched the recorded SHA-256 anchors (`5fb31ec6...` and `5c3eea51...`). Updated `cap-talk-2002-2003` from 23 to 32 sections, replaced both deferred survey notes with section links, closed the completeness-pass note, updated the sources index, and routed the new material through nine topic pages, the cap-talk open-questions page, and six concept pages. Regenerated the sections index and topic counts. Verification: `library-link-check.sh --source-slug cap-talk-2002-2003` reported OK and `regenerate-topics-counts.sh --check` reported current. No follow-up is required for these deferred months.
->
-> Self-improvement: nothing this time.
-
-- `msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706` — from gardener:endojs-endo-but-for-bots-rust-module-lexer-build, reply_to `endojs-endo-but-for-bots-rust-module-lexer-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706.md)
-
-> Re: build job `endojs-endo-but-for-bots-rust-module-lexer-build` (consolidate the Rust module lexer, design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019)).
->
-> I did NOT start the build — its precondition is unmet and its premise is stale. Re-parked it blocked on [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) instead of burning a large multi-phase Rust refactor. Details:
->
-> 1. Design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) is NOT maintainer-accepted. Still OPEN; zero reviews from you. All reviews are the bot design panel, which across 6 rounds still aggregates to **must-fix** with unresolved should-fix items (corpus fixture home; template-literal divergence). The job body is explicit: "promote only after design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) is reviewed/accepted by the maintainer. Do not start ahead of design acceptance." It was promoted off the plan queue today (cleared=none), but the design-acceptance gate was not satisfied.
->
-> 2. Stale premise: job targets branch `feat/endor-run-entry-point-deps` "where entry_walk.rs lives, not yet on llm." But PR [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) MERGED 2026-08-27 — both `entry_walk.rs` and `cjs_lexer.rs` are on `llm` now. Any real build should target `llm`, and I updated the re-parked body to say so.
->
-> 3. Substantive design contradiction the panel flagged: the two scanners the design unifies "with no behavior change" actually DISAGREE on nested template literals — `cjs_lexer.rs` uses a correct depth stack; `entry_walk.rs::scan_static_imports` uses a single counter its own comment admits is incomplete. "Unify byte-identically" is not literally achievable as written; the design must first pick which behavior wins.
->
-> Recommendation: land/accept [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) (resolving the template-literal-behavior question and the corpus-home should-fix) before I build. Once it merges, the re-parked job auto-unblocks. Or, if you want to proceed now against `llm` accepting the design as-is, reply and I'll pick it up.
-
-- `msg-scholar-ingest-cap-talk-2012-531a05112938` — from scholar:scholar-ingest-cap-talk-2012, reply_to `scholar-ingest-cap-talk-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2012-531a05112938.md)
-
-> cap-talk scholar cycle (scholar-ingest-cap-talk-2012): sectioned the 2011-August through 2012-March standout threads, completing all of 2011 and 2012 Jan-Mar. 11 new sections + the October chained-access continuation folded into its June section; highlights are the dense November legacy-web/OpenID/Horton-propagation month and the 72-message "Opinions of OAuth" thread (web-keys/YURLs as the capability alternative). Added a new `introduction-by-default` concept page and open questions 60-63; updated the source index, topic/concept rows, and projects/endo/cap-talk-capability-provenance.md. Integrity gate passed (link-check OK, EXIT 0); both projected indexes regenerated and landed. 2012-October was NOT retried (per the ask, an eighth attempt awaits a CDX confirmation of a surviving capture). Posted follow-on `scholar-ingest-cap-talk-2012-april-onward` for the rest of 2012. Note: two overlapping web-key concept pages (web-key.md / web-keys.md) could use a maintainer-authorized consolidation. Result: entries/2026/09/16/212803Z-result-gardener-3b5171.md
-
-- `msg-scholar-ingest-cap-talk-1999-a77e1620a3f1` — from scholar:scholar-ingest-cap-talk-1999, reply_to `scholar-ingest-cap-talk-1999` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-1999-a77e1620a3f1.md)
-
-> Completed the cap-talk founding-era continuation: 1998-April and all nine 1999 monthly bundles in the archive index, producing 14 attributed thematic sections with per-bundle SHA-256 provenance. The strongest Endo links are authenticated capability buckets, CapTP as reference discipline rather than ordinary RPC, explicit distributed retention plus its storage covert channel, durable state versus transaction agreement, and generic brand makers. I expanded the open-questions topic from two to seven disputes and kept the post-2016 Google Groups export gap explicit. Full result: `entries/2026/09/16/141209Z-result-scholar-2e692a.md`.
-
-- `msg-scholar-ingest-cap-talk-2009-2012-c3b9dca2e03b` — from scholar:scholar-ingest-cap-talk-2009-2012, reply_to `scholar-ingest-cap-talk-2009-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2009-2012-c3b9dca2e03b.md)
-
-> Scholar digest — cap-talk 2009-2012 (first pass, 2009 Q1). Ingested the
-> JavaScript / Caja / SES / web-key era of the cap-talk archive: a new source
-> index `library/sources/cap-talk-2009-2012.md` (11 anchored 2009 bundles) and 9
-> sections over the densest 2009 Q1 threads — the "ACLs don't" reception, petnames
-> vs E-order, layering-vs-simplicity, confused-deputies-inside-ocap (Murray),
-> designation, webkeys-vs-the-web (Morningstar's powerbox problem), the 2009
-> ocap-systems taxonomy, CSRF-as-sharing (Zooko), and Tahoe file-API taming. Added
-> two concepts (`web-key`, `petname`), three open-question entries, and Endo
-> cross-links. Rest of 2009 + all of 2010-2012 deferred to a posted follow-on
-> `scholar-ingest-cap-talk-2009-2012-remainder`. Note: a peer
-> `scholar-ingest-cap-talk-2004-2008` cycle ran concurrently and filled the
-> 2004-2008 gap; heavy landing contention on shared indexes was handled, and one
-> accidental stale-land of three peer-edited concept pages was detected and
-> restored. Result: entries/2026/09/16/182123Z-result-scholar-9804c4.md
-
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
 > publish-overnight-chronicle-clip: could NOT publish the overnight clip — the minion-town MCP server needs interactive OAuth (GitHub browser login) that a non-interactive gardener session can't perform, so mcp__minion-town__publish is unavailable to me (same failure class you hit). I verified all five facts and BUILT the clip (static index.html + style.css, CSP-clean, light/dark, evidence links). I sent the liaison inbox the ready-to-publish base64 payload (msg 20260904T121238Z-b3f04f) — it can publish in one call once its MCP session re-initializes, then send you the <hash>.ocap.site URL. Nothing is serving yet.
 
-- `msg-scholar-ingest-cap-talk-2004-2008-122f19f38b0d` — from scholar:scholar-ingest-cap-talk-2004-2008, reply_to `scholar-ingest-cap-talk-2004-2008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2004-2008-122f19f38b0d.md)
-
-> Ingested the representative 2004-2008 cap-talk slice: 18 independently hashed Pipermail bundles and 22 derived thread summaries covering CapDesk/Polaris, petnames and web-keys, confused deputies in hybrid systems, Waterken `ref_send`, the historical ocap-pattern inventory, and persistence/partial failure. Cross-linked the existing Miller, Polaris, and Tyler Close paper sections, expanded the open-questions and Endo provenance pages, and added a `web-keys` concept. The integrity gates passed; a posted remainder job owns complete enumeration of the unanchored monthly bundles. Full result: `entries/2026/09/16/175241Z-result-scholar-4ef339.md`.
-
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
-
-- `msg-ironhorse-computron-benchmark-baseline-build-exec-f0d0671cb73a` — from gardener:ironhorse-computron-benchmark-baseline-build-exec, reply_to `ironhorse-computron-benchmark-baseline-build-exec` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-exec-f0d0671cb73a.md)
-
-> The computron-baseline build remains gated. [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283) is still a draft and has no approval; its latest panel record contains unresolved must-fix findings. The design's Open questions also have no maintainer answer in this job's inbox. Please either (1) approve the revised design and answer the open questions, or (2) explicitly direct the build to use its recommended defaults. In particular, please confirm the seed roster and tolerance bands. The repository-wide IronHorse pause in roles/COMMON.md also requires an explicit trusted-maintainer lift; please confirm that this directive/build is intended to lift the pause for this scoped work.
-
-- `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
-
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): budget pool anthropic:endolin-garden-ece02cb4 spend=61369085 cap=143000000 ceiling=4 target=2
-
-- `credit-controls-20260916-halted` — from orchestrator:credit-controls-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/credit-controls-20260916-halted.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: credit-controls-20260916
-> orchestration-status: halted
-> child: credit-controls-stale-pr-viability-gate
-> failure-kind: handler-timeout
-> children-completed: 2
-> children-total: 4
-> halt-parked-remainder: credit-controls-panel-seat-metering-and-tiering
->
-> Orchestration credit-controls-20260916 HALTED: child credit-controls-stale-pr-viability-gate stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 2/4 done before halt; parked remainder: credit-controls-panel-seat-metering-and-tiering
-
-- `20260916T132411Z-38aa8d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260916T132411Z-38aa8d.md)
-
-> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-rust-module-lexer-build, msgid msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706.md — Whether to accept design PR [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/issues/1019) (still open, 6 panel rounds still must-fail) and authorize building against it despite unresolved must-fix items is a design-acceptance/authority decision reserved to the maintainer, not a progress call a proxy can make.
-
-- `msg-wire-siwe-onchain-authz-minion-town-followup-a7e587db2564` — from gardener:wire-siwe-onchain-authz-minion-town-followup, reply_to `wire-siwe-onchain-authz-minion-town-followup` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-wire-siwe-onchain-authz-minion-town-followup-a7e587db2564.md)
-
-> Disposition note (SIWE authz, minion.town): I've re-parked the maintainer-gated remainder as the BLOCKED job `apply-siwe-onchain-authz-maintainer-decisions` (blocked_on: siwe-onchain-authz-maintainer-decision, durably on journal2). It carries full context; promote it manually once you answer the two decisions in my prior message.
->
-> Why blocked, not deferred: the predecessor parked this remainder as `--deferred`, but a deferred maintainer-gated job is FOREMAN-AUTO-PROMOTABLE — the foreman pulled it off the reservoir at 2026-09-16T14:19:14Z (decisions.log `guard=promoted`, gate `cleared=none`, no maintainer answer) into a claimed no-op that could only re-message you and burn budget. That's happened twice now. Parking it `--blocked` makes it foreman-immune so it waits quietly for your decision instead of looping. Worth considering a general "pending-maintainer-decision" gate so this class of job never lands on the foreman's deferred queue.
-
-- `msg-reminder-daemon-revival-failure-6e023fc1b25f` — from gardener:reminder-daemon-revival-failure, reply_to `reminder-daemon-revival-failure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reminder-daemon-revival-failure-6e023fc1b25f.md)
-
-> The reminder daemon revival failure has a non-migration path. The exact missing-`registry` repair exists in closed draft [endojs/endo-but-for-bots#1106](https://github.com/endojs/endo-but-for-bots/issues/1106) (`fbf0c7f28`), but kumavis explicitly closed it as back-support they likely do not want to merge. I therefore did not retry or improvise a production-state migration.
->
-> I updated `kriscendobot/minion.town` main at `528c8ce` to decouple reminders from the daemon upgrade: keep `@endo/reminder` as the unconfined, VFS-persistent plugin that superseded [endojs/endo-but-for-bots#609](https://github.com/endojs/endo-but-for-bots/issues/609), [endojs/endo-but-for-bots#617](https://github.com/endojs/endo-but-for-bots/issues/617), and [endojs/endo-but-for-bots#619](https://github.com/endojs/endo-but-for-bots/issues/619); turn the proven old-VFS store adapter into a reviewed/pinned compatibility path with conformance and `@pins` revival coverage; treat any future daemon migration as separately authorized operations work.
-
-- `msg-scholar-ingest-cap-talk-2009-2012-remainder-f2ab08ce28b7` — from scholar:scholar-ingest-cap-talk-2009-2012-remainder, reply_to `scholar-ingest-cap-talk-2009-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2009-2012-remainder-f2ab08ce28b7.md)
-
-> Scholar remainder — cap-talk 2009 (job scholar-ingest-cap-talk-2009-2012-remainder):
-> sectioned the rest of 2009's fetchable standout threads — 5 new sections across
-> April (hiding webkeys from the address bar), June (defining ambient authority; the
-> Origin/CORS header amplifying ambient authority), July (defensive correctness vs
-> consistency), and December (reducing ambient user authority via an install-time
-> manifest) — and authored a new core `ambient-authority` concept page, a real gap.
-> Newly anchored 2009-December plus 2010-October and 2011-April/May/June/July;
-> 2012-October and the rest of 2010-2012 stayed unreachable behind transient
-> Internet-Archive rate-limiting. Added open questions 43 (is defensive correctness
-> "up to resource exhaustion" usefully stricter than cooperative progress?) and 44
-> (can ambient user authority be eliminated, or only reduced?), and cross-linked the
-> new ideas into the Endo provenance file. Posted follow-on `scholar-ingest-cap-talk-2010-2012`
-> for 2009-Aug-Nov (anchored, content-fetch-failed) and all of 2010-2012. Full result:
-> entries/2026/09/16/185027Z-result-scholar-794be3.md.
-
-- `msg-scholar-ingest-cap-talk-2010-2012-d72955286d8b` — from scholar:scholar-ingest-cap-talk-2010-2012, reply_to `scholar-ingest-cap-talk-2010-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2010-2012-d72955286d8b.md)
-
-> Completed cap-talk's 2009-August through November remainder: all four Internet Archive bundles re-fetched with matching SHA-256 anchors, and eight standout threads became indexed sections spanning managed references, authentication, full abstraction, CORS, guards, RabbitMQ adoption, geolocation, and Native Client. The source now contains 22 sections and Endo's provenance note carries the new managed-language, browser-grant, and sandbox-boundary consequences. The 2010-2012 backlog, including another 2012-October fetch attempt, is durably owned by `scholar-ingest-cap-talk-2010-2012-remainder`; full details are in `entries/2026/09/16/190713Z-result-scholar-98e4df.md`.
-
-- `msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d` — from gardener:ironhorse-computron-benchmark-baseline-build, reply_to `ironhorse-computron-benchmark-baseline-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d.md)
-
-> Re: "make a plan and execute that plan" — Ironhorse computron benchmark-baseline regime (design PR [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283), source: PR [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282) review comment).
->
-> The plan (job `ironhorse-computron-benchmark-baseline-design`) landed as **draft** PR [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283) with an `## Open questions` section, and it explicitly states the build's implementation specifics are gated on your answers to those questions. As the builder I completed the plan's unblocked step 1 (the audit) and am **holding the rest** rather than committing a measured, provenance-tracked baseline against unconfirmed parameters. Two reasons I did not just build on the defaults:
->
-> 1. **The open questions define the substance that gets committed** — the seed roster (which loads to baseline) and the tolerance bands (the actual gate values). Getting these wrong means re-measuring a provenance-tracked artifact = throwaway churn, and it would land a large new CI-gating PR competing with the still-open, unreviewed design PR.
-> 2. **Gate 3 (the "benchmark-established" heart) needs wall-clock measurement on a controlled host.** The garden's container can't produce representative medians; that step must run on a benchmark-suitable host regardless.
->
-> **Step-1 audit result — loads [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282) left with NO surviving own-cost constraint (the gap the regime must fill):**
-> - async-generator `await` metering (`await_in_try.rs`): former −20 start-reject pin + reject-matrix → advisory only.
-> - suspend-in-try metering (`suspend_in_try_metering.rs`): throw-across-yield/await, cross-frame rebased handler, post-resume → advisory only.
-> - promise-combinator meter (`promise_combinator_capability_result_parity.rs`) → advisory only.
-> - regexp match-meter (`parity.rs` + fuzz) → advisory; partially retained via `work_limits.rs` (`match_meter_raw == 100·XS_REGEXP_METERING`) and the `finding_*` overflow pins, but representative match loads (subject×pattern) are otherwise unconstrained.
-> - Kept-constrained (not in the gap): `error_messages_calls.rs` `==14`, the ~15 interp frozen-cost pins, `ironhorse_meter_bounds.rs`, the `ironhorse-meter-5-raw-N` raw pins, the 53-entry golden corpus, `--repeat`.
->
-> **The 6 open questions — with the design's recommendations. Please confirm/adjust:**
-> 1. Tolerance bands? Proposed: gate-1 exact (0); gate-2 off-ladder ε=±3%, per-doubling class bands ≈ linear [1.8,2.2] / quadratic [3.6,4.4] / constant [1.0,1.15]; gate-3 fidelity (computrons/sec) ±25%. → *right widths?*
-> 2. Gate-2 (deterministic growth envelope) on **PR CI** or nightly? → design recommends **PR CI**.
-> 3. Authoritative seed roster? → design proposes the §polynomial-built-ins list (named-property insertion [quadratic], string indexing/iteration, Map/Set bulk insert, for..in, regexp match, async-gen await/suspend) + every load from the audit above. Add/drop any?
-> 4. COST_TABLE_VERSION bump: auto-regenerate baselines, or always manual `--write-baseline`? → design recommends **manual** (reviewability).
-> 5. Fate of [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282): **revise in place, land the regime first, merge together to avoid a coverage-gap window** (design recommendation) vs. supersede with a fresh combined PR?
-> 6. Two-input (grid) baselines (regexp subject×pattern) in this build, or defer? → design recommends **defer**; ship single-input first.
->
-> Once you answer (or say "build on the recommended defaults"), the implementation is queued: successor build job `ironhorse-computron-benchmark-baseline-build-exec` is parked on the plan queue owning steps 2–8, ready to promote. Nothing is lost.
-
-- `msg-scholar-ingest-cap-talk-2000-2003-remainder-51564a563243` — from scholar:scholar-ingest-cap-talk-2000-2003-remainder, reply_to `scholar-ingest-cap-talk-2000-2003-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2000-2003-remainder-51564a563243.md)
-
-> Scholar cycle `scholar-ingest-cap-talk-2000-2003-remainder`: ingested 7 sections for the four earlier deferred cap-talk months (2001-September; 2002-February/March/September), covering "Saving the Unix API" / "Reframing Boxing", textual distributed protocols, the EROS legacy-deployment debate, exceptions/logging leakage, Norman Hardy's "ad hominem security" pejorative, and the Linux privileged-ports / coarse-grained-privilege thread. Added a new `ad-hominem-security` concept and two new cap-talk-open-questions. Bundle SHA-256 anchors re-verified against the recorded Internet-Archive captures; integrity gate green; sections/topics indexes regenerated. The two large 2003 months (2003-September and 2003-October) are deferred to a posted follow-on `scholar-ingest-cap-talk-2003-sep-oct` (2003-September alone is a full cycle). Full result: entries/2026/09/16/170747Z-result-scholar-c93cf5.md.
-
-- `msg-scholar-cap-talk-cdx-completeness-2000-2003-0e63a464da19` — from scholar:scholar-cap-talk-cdx-completeness-2000-2003, reply_to `scholar-cap-talk-cdx-completeness-2000-2003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-cap-talk-cdx-completeness-2000-2003-0e63a464da19.md)
-
-> cap-talk 2000-2003 completeness re-run: with the Internet Archive CDX index still in a 503 outage, I enumerated authoritatively from the Pipermail archive index page (34 bundles for 2000-2003) and found 11 previously omitted months — 2001-September plus ten in 2002-2003. All 11 were fetched and SHA-256 anchored into the two source files (no phantom rows). This cycle I ingested 6 sections across 5 months (the 2002-May confused-deputy redux and Chander-Dean-Mitchell state-transition model; EROS-vs-L4 persistent capability systems; authz-vs-authn; the USENIX rejection of Capability Myths Demolished; and the access-matrix column-vs-row distinction), and deferred deep ingestion of the six remaining substantive months to the posted follow-on `scholar-ingest-cap-talk-2000-2003-remainder`. Verdict: the enumeration is now complete and every month has a recorded anchor; the CDX outage no longer blocks it because the archive index page is a more robust enumeration source. Details in the result entry `entries/2026/09/16/165118Z-result-scholar-b105c3.md`.
 
 - `msg-triage-halted-gauntlets-20260916-d6b4e6e396b6` — from gardener:triage-halted-gauntlets-20260916, reply_to `triage-halted-gauntlets-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-triage-halted-gauntlets-20260916-d6b4e6e396b6.md)
 
@@ -370,26 +144,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
 
-- `msg-scholar-ingest-cap-talk-2011-2012-fc3944bfb701` — from scholar:scholar-ingest-cap-talk-2011-2012, reply_to `scholar-ingest-cap-talk-2011-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2011-2012-fc3944bfb701.md)
-
-> Scholar cycle `scholar-ingest-cap-talk-2011-2012` completed **all of 2010**: sectioned the eight standout threads of the lighter May-December 2010 cap-talk months — the Android capability-discipline arc (why Android's team *rejected* partial permission grants), Capsicum (capabilities retrofitted onto FreeBSD), Cornell's Fabric (information-flow, not ocap: "oids are not capabilities"), authority-carrying URLs going mainstream (Karp's SIAM login-URL evidence), Horton accountability and its contract-law analogy, system-enforced sensory objects (read-only across the OS/language boundary), Networking Named Content / CCN (Zooko: key-rooted names ARE self-authenticating naming; the y-property vs "trust"), and Tyler Close's in-page browser powerbox.
->
-> Added open questions 54 (does user-facing partial-permission attenuation backfire into over-asking?) and 55 (read-only as a type qualifier vs auditor+membrane?), touched 8 topic and 6 concept pages, and grew the Endo provenance file. Integrity gate green; both projected indexes regenerated. Result: entries/2026/09/16/200445Z-result-scholar-39d953.md.
->
-> Deferred (posted as `scholar-ingest-cap-talk-2012-remainder`): all of 2011 and 2012, oldest-first, including the standing 2012-October retry (five prior IA-outage failures; it now probes the CDX index before deferring again). Post-2016 Google Groups remains unreachable.
-
-- `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
-
-> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-15T22:26:06Z, cleared 2026-09-16T16:44:19Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> retrying canary endolin-garden2-5bcdff64 (attempt 1/3); clearing prior page.
-
-- `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
-
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): budget pool anthropic:endolin-garden-ece02cb4 spend=45294142 cap=143000000 ceiling=4 target=3
-
 - `msg-garden-gauntlet-reexport-policy-check-c841557cb265` — from gardener:garden-gauntlet-reexport-policy-check, reply_to `garden-gauntlet-reexport-policy-check` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-gauntlet-reexport-policy-check-c841557cb265.md)
 
 > Design proposal ready for review: re-export deprecation policy gate.
@@ -411,49 +165,9 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > Please ask @kriskowal and @erights to review [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95). A follow-up
 > build implements the probe/seat/skill once the open questions are answered.
 
-- `msg-scholar-ingest-cap-talk-2002-2003-ab8db2680085` — from scholar:scholar-ingest-cap-talk-2002-2003, reply_to `scholar-ingest-cap-talk-2002-2003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2002-2003-ab8db2680085.md)
-
-> Scholar ingest complete: the 2002-2003 cap-talk Miller-paper era now has an 11-section source index, including direct drafting/reaction around *Capability Myths Demolished*, *Paradigm Regained*, permission versus authority, the four-model precursors, confinement, and non-transferable permissions versus proxyable authority. The completeness pass also recovered five missed 2000-2001 monthly bundles and added two substantive sections on session-scoped web capabilities and one-shot delegation. CDX itself was unavailable (503/connection refusal), so `scholar-cap-talk-cdx-completeness-2000-2003` is posted to retry only the final enumeration gap. Full result: `entries/2026/09/16/162920Z-result-scholar-42cce9.md`.
-
-- `msg-scholar-ingest-cap-talk-2012-remainder-af95f54c8852` — from scholar:scholar-ingest-cap-talk-2012-remainder, reply_to `scholar-ingest-cap-talk-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2012-remainder-af95f54c8852.md)
-
-> Anchored 2011 January-March and added six cap-talk sections covering service-chain adoption, Zooko's triangle, immutable-data authority, covert-channel limits, Waterken failure semantics, and seL4 verification scope; open question 56 captures the remaining naming-system dispute. A sixth 2012-October retry still found no capture through the availability API, bounded CDX fallback, or `2id_` form. The landed library passed the source-scoped link check and has current generated indexes; details are in `entries/2026/09/16/202146Z-result-scholar-6103bb.md`, and `scholar-ingest-cap-talk-2011-2012-remainder` owns the remaining months.
-
-- `msg-scholar-ingest-cap-talk-2004-2008-remainder-81c78d0da7cf` — from scholar:scholar-ingest-cap-talk-2004-2008-remainder, reply_to `scholar-ingest-cap-talk-2004-2008-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2004-2008-remainder-81c78d0da7cf.md)
-
-> Completed the cap-talk 2004-2008 index: all 59 monthly bundles present in Pipermail are now SHA-256 anchored and surveyed; the index has no 2004-March bundle, and that path returns 404. Added 19 new-theme sections, including the deferred database/query-language material, resource accounting, facets, deep attenuation, Horton, formal pattern analysis, persistent ocaps, ACL coexistence, and browser/CLI leakage boundaries. Grew the open-questions and Endo provenance pages; the integrity gate and regenerated-index checks pass. See the `scholar-ingest-cap-talk-2004-2008-remainder` result entry for the full inventory.
-
-- `msg-scholar-ingest-cap-talk-2013-2016-3ce9bf4eba19` — from scholar:scholar-ingest-cap-talk-2013-2016, reply_to `scholar-ingest-cap-talk-2013-2016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2013-2016-3ce9bf4eba19.md)
-
-> The final fetchable cap-talk Pipermail era is now indexed: 24 monthly bundles from 2013 through January 2016 and 22 derived thread sections, including the direct Endo antecedents around Cap'n Proto, `DeepFrozen` ordering, WeakMap amplification, persistence, membranes, and authority-aware module loading. The source/topic/concept/project indexes are current and the scoped link-integrity gate passed. The post-2016 Google Groups corpus remains a source gap: I found no public alternate mbox or mirror, so continuation needs an owner/member-provided Takeout or Vault export. Full result: `entries/2026/09/16/184251Z-result-scholar-535c96.md`.
-
-- `msg-scholar-ingest-cap-talk-2012-april-onward-0f69aea8ec39` — from scholar:scholar-ingest-cap-talk-2012-april-onward, reply_to `scholar-ingest-cap-talk-2012-april-onward` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2012-april-onward-0f69aea8ec39.md)
-
-> Scholar: completed the cap-talk 2012 April-onward ingest — this **finishes the Pipermail cap-talk archive** (2013-2016 already ingested; only 2012-October remains, unavailable via the Internet Archive). Fetched and SHA-256-anchored the 8 remaining fetchable 2012 bundles and wrote 9 sections; the standout is 2012-December (196 msgs). Endo-relevant highlights: Brian Warner's September proposal to make the VatID the public key and secure Ken channels with per-message NaCl box/unbox instead of per-connection TLS — the direct OCapN-over-Noise antecedent; Miller's "Bits of Capabilities" (object-caps unforgeable vs crypto-caps merely unguessable, Boebert's *-property impossible for the latter); and December's language-vs-OS-vs-hardware enforcement-locus debate (Barbour's start-high/refuse-insecure-code argument = Endo's own bet). Added open questions 64-67 and a "2012 close" section to `projects/endo/cap-talk-capability-provenance.md`.
->
-> Note on 2012-October: an eighth fetch was deliberately NOT attempted. Per the job's ask it needs a CDX confirmation that a capture exists, but the Internet Archive was globally offline today, so October is treated as unavailable via IA and documented for a later cycle to revisit when IA is stable. No follow-on job posted (scope complete; October is externally blocked, not budget-truncated). Full result: entries/2026/09/16/220040Z-result-gardener-fa8b2f.md.
-
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
-
-- `ironhorse-computron-benchmark-baseline-build-gauntlet-review-budget-reached` — from gauntlet:ironhorse-computron-benchmark-baseline-build-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-computron-benchmark-baseline-build-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet ironhorse-computron-benchmark-baseline-build-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
-
-- `msg-scholar-ingest-cap-talk-2010-2012-remainder-5e342f9a2f24` — from scholar:scholar-ingest-cap-talk-2010-2012-remainder, reply_to `scholar-ingest-cap-talk-2010-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2010-2012-remainder-5e342f9a2f24.md)
-
-> cap-talk 2010 ingested (job scholar-ingest-cap-talk-2010-2012-remainder). Anchored
-> all twelve 2010 monthly bundles by SHA-256 and sectioned the dense front of the year
-> (Feb-Apr, 8 sections): cookies as ambient authority (Adam Barth's RFC 6265 review),
-> the Web Powerbox vs OAuth, hash weakest-link (Waterken ETags), the object-oriented-
-> security naming debate, mutable-singletons-are-ambient-authority, the safe-language
-> definition, MarkM's Three Laws of Security, and the ACL model's incompleteness.
-> Added open questions 50-53 and a "2010 web-platform arc" section to the Endo
-> provenance file. 2012-October failed a fifth time (live Internet-Archive outage) and
-> stays deferred. Lighter 2010 months and all of 2011-2012 handed to a posted
-> successor, scholar-ingest-cap-talk-2011-2012. Full result:
-> entries/2026/09/16/194117Z-result-scholar-116cd0.md
 
 - `msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8` — from gardener:minion-town-guest-peer-fetch-verify, reply_to `minion-town-guest-peer-fetch-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md)
 
@@ -464,31 +178,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > The remaining work (a peer `enlivenSturdyRef` fetch of a revealed guest) needs an infrastructure + security-posture change that only you can authorize, so I did NOT run it. I re-parked it as a **go-ahead** plan job `minion-town-guest-peer-fetch-verify-await-auth` (deferred was the wrong gate — the foreman auto-selects deferred jobs and ignores the prose condition; go-ahead is never auto-promoted). It will wait for your answer and not be re-promoted automatically.
 >
 > THE QUESTION (please answer to unblock): authorize exposing the guest-substrate daemon `endo-daemon.service` over a public OCapN-CBOR-Noise route so a peer can `enlivenSturdyRef` a revealed guest by its formula id — OR did you intend the app to run on the already-public pet-daemon? Once you answer, promote `minion-town-guest-peer-fetch-verify-await-auth`.
-
-- `msg-minion-town-dckc-powers-weblet-audit-20260916-bc25b836fd57` — from gardener:minion-town-dckc-powers-weblet-audit-20260916, reply_to `minion-town-dckc-powers-weblet-audit-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-dckc-powers-weblet-audit-20260916-bc25b836fd57.md)
-
-> dckc POWERS-weblet audit (minion.town, READ-ONLY) — assessment complete.
->
-> The two uncatalogued dckc POWERS weblets surfaced by the 09-04 drift check confer ZERO live authority. Both are legacy records predating [kriscendobot/minion.town#51](https://github.com/kriscendobot/minion.town/issues/51):
-> - 806fc2ea… powers="counter"  (qbx4f2xd….ocap.site)
-> - c016601e… powers="@none"    (yalgahxp….ocap.site)
-> Both carry the OLD schema (a `powers` STRING, no directoryId), share one contentRoot, and dead-end.
->
-> WHY INERT: the deployed vhost validator (vhost-table.js validateVhostRecord) hard-rejects ANY record with a `powers` key — `"powers" in raw → return undefined`. The mere presence of that field is a poison pill → the record resolves to 404. No serve path reads `record.powers`; the old top-host string resolver is gone. Live-probed both at loopback AND public edge: /=404, bootstrap=404. Defense-in-depth: `counter`→plain Counter exo, `@none`→null; neither is @agent/EndoHost.
->
-> POSTURE: both WITHIN the authorized 08-27 open-plane posture of [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58) (containment drop-in disabled Aug 27 23:36). Containment intact; the 3 de-registered records stay absent.
->
-> RECOMMENDATION: catalogue BOTH as EXPECTED / known-inert legacy dckc experiments. No de-registration needed for containment (the validator already neutralizes them) — did NOT touch anything. They corroborate the 2026-09-04 security review's open operator item on the untracked containment drop-in ("back-only-attenuated, lower risk").
->
-> DECIDING QUESTION (optional, cosmetic only): do you want a hygiene sweep to move stale legacy `powers`-string records into a `vhosts-legacy-*` dir? Not a security need — purely store tidiness. Say the word and I'll post a job.
-
-- `msg-verify-foreman-partial-unquiesce-target-2-bd5941f97768` — from gardener:verify-foreman-partial-unquiesce-target-2, reply_to `verify-foreman-partial-unquiesce-target-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-foreman-partial-unquiesce-target-2-bd5941f97768.md)
-
-> Resolved locally through a read-only host-filesystem inspection. No reply or action is needed; please archive my earlier verification request.
-
-- `msg-scholar-ingest-cap-talk-2011-2012-remainder-f02d54e654bb` — from scholar:scholar-ingest-cap-talk-2011-2012-remainder, reply_to `scholar-ingest-cap-talk-2011-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2011-2012-remainder-f02d54e654bb.md)
-
-> Cap-talk 2011 April-July sectioned (10 sections): the 71-message immutable-data / sealed-value debate (is a sealed value a capability?), type-passing and rights amplification, YURL hash-length self-authenticating names, GC-versus-RAII, provability of defensive correctness, ZBAC-versus-capabilities, Alice-Bob-Carol chained-access delegation, re-authentication as time-limited powerbox capabilities, and Sitelier (a 2011 user-owned web capability OS). Fetched and SHA-256 anchored 2011-Aug through 2012-March (surveyed, deferred to the next cycle; 2011-Nov and 2012-Jan's OAuth thread are the dense standouts). 2012-October failed a seventh time (IA 429/503/404 on the redirect form) and may be genuinely unavailable via the Internet Archive. Added the missing open question 56 (Zooko-triangle residue the Jan-March cycle referenced but never landed) plus new 57-59, and a "2011 arc" section to the Endo provenance project file. Follow-on job `scholar-ingest-cap-talk-2012` owns the remainder. Full result: entries/2026/09/16/205219Z-result-gardener-97f084.md.
 
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
@@ -573,47 +262,37 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > `inbox/maintainer/unread/20260901T205650Z-59a6f5` can be marked read — its two
 > asks (marker disposition + monk-count) are resolved above; the live blocker is oros.
 
-- `credit-controls-20260916-child-credit-controls-stale-pr-viability-gate-failed` — from orchestrator:credit-controls-20260916-child-credit-controls-stale-pr-viability-gate-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/credit-controls-20260916-child-credit-controls-stale-pr-viability-gate-failed.md)
-
-> orchestration-event: orchestration-child-timeout
-> orchestration: credit-controls-20260916
-> orchestration-status: running
-> child: credit-controls-stale-pr-viability-gate
-> failure-kind: handler-timeout
-> order: serial
-> on-child-failure: halt
-> detail: stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1)
->
-> Orchestration credit-controls-20260916 observed child credit-controls-stale-pr-viability-gate: stalled in flight for 2505s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1).
-
 
 ## Spend & quota
 _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.6M | $477.70 _(notional, rate-card)_ | 46% of 143.0M (ok) |
-| Codex | 12.2M _(+292.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Claude | 66.3M | $483.78 _(notional, rate-card)_ | 46% of 143.0M (ok) |
+| Codex | 12.4M _(+298.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (2)
+- [`build-thesaurus-botese-jury-seat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-thesaurus-botese-jury-seat.md) — Add a "thesaurus" jury seat for Botese (AI-slop cliché phrases)
+- [`review-minion-town-reminder-decoupling-528c8ce-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-minion-town-reminder-decoupling-528c8ce-20260916.md) — ---
 
-### doin (6)
+### doin (8)
 - [`undraft-minion-town-99-harness-provisioning-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/undraft-minion-town-99-harness-provisioning-20260916.md) — ---
-- [`fix-warm-cache-yarn-bin-shim-permissions-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-bin-shim-permissions-20260916.md) — ---
+- [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
 - [`endojs-endo-but-for-bots-pr1290-review-fe19b903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-review-fe19b903.md) — Review directive on endojs/endo-but-for-bots PR #1290
-- [`review-improve-architectural-boundary-ownership`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-architectural-boundary-ownership.md) — Improve review of architectural boundary ownership
-- [`design-endo-legacy-host-registry-migration-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-legacy-host-registry-migration-20260916.md) — ---
+- [`deadmail-20260916T232300Z-07f109`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260916T232300Z-07f109.md) — Dead-lettered message — pick up its intent
+- [`add-awaiting-maintainer-gate-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/add-awaiting-maintainer-gate-20260916.md) — ---
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
+- [`credit-controls-panel-seat-metering-and-tiering`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-panel-seat-metering-and-tiering.md) — ---
+- [`fix-orchestrate-stale-inflight-false-halt-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-stale-inflight-false-halt-20260916.md) — ---
 
-### tada (8084)
-- [`endojs-endo-but-for-bots-pr1018-review-eccc706c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-review-eccc706c-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1059-1e30a92e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1059-1e30a92e-retro.md) — Completion report
-- [`kriscendobot-minion.town-pr66-review-21dce903-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr66-review-21dce903-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1015-review-6a83ee90-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-review-6a83ee90-retro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr858-review-8add9193-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-8add9193-retro.md) — Cost
-- … and 8079 more
+### tada (8088)
+- [`improve-attested-undraft-draft-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-attested-undraft-draft-gate.md) — Cost
+- [`fix-warm-cache-yarn-bin-shim-permissions-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-warm-cache-yarn-bin-shim-permissions-20260916.md) — Cost
+- [`review-improve-architectural-boundary-ownership`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-improve-architectural-boundary-ownership.md) — Completion report
+- [`design-endo-legacy-host-registry-migration-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-legacy-host-registry-migration-20260916.md) — Completion report: design-endo-legacy-host-registry-migration-20260916
+- [`credit-controls-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-20260916.md) — orchestration credit-controls-20260916 — HALTED
+- … and 8083 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -693,7 +372,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-ecae051e6e8f5a27-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ecae051e6e8f5a27-repair.md) — _normal_ · Repair Ironhorse engine defect ecae051e6e8f5a27 (target differential_source) ...
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
-- [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-ebfb-1100-pin-merge-base-20260916.md) — _normal_ · ---
 - [`xs2rust-endor-press-20260902-183505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260902-183505.md) — _normal_ · Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — _normal_ · Repair Ironhorse engine defect 67ca18e4febe7a34 (target differential_source) ...
 - [`ironhorse-fuzz-2cc2ac67ba7e9b9f-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-2cc2ac67ba7e9b9f-repair.md) — _normal_ · Repair Ironhorse engine defect 2cc2ac67ba7e9b9f (target differential_regexp_s...
