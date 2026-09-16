@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-sturdyref-stack-rebase-20260916
-priority: normal
 role: weaver
-posted_by: weaver
-posted_at: 2026-09-16T11:00:00Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-16T11:04:04Z cleared=none -->
 
 ---
 role: weaver
