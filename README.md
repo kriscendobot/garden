@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:31:52Z_
+_As of 2026-09-16T13:52:40Z_
 
 ## Latest
 
@@ -25,6 +25,31 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
+
+- `msg-scholar-ingest-cap-talk-d5753a06e5cf` — from scholar:scholar-ingest-cap-talk, reply_to `scholar-ingest-cap-talk` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-d5753a06e5cf.md)
+
+> cap-talk ingested (first pass, founding era). The list's current Google Groups
+> home is not fetchable from the sandbox (JS SPA), but its full historical archive
+> survives as a Pipermail archive spanning 1998-2016 (188 months) via the Internet
+> Archive, and that is what I ingested from. First slice = the March 1998 founding
+> month: 8 thread sections capturing Jonathan Shapiro's real-time capability-vs-ACL
+> arguments (card keys are capabilities, ACL-on-cap not cap-on-ACL, confinement
+> unsolvable with ACLs, revocation by destroyable indirection) that predate and
+> prefigure the Miller "Capability Myths Demolished" paper the library already has.
+>
+> Per your asks: themed under capability-theory/capability-security + a new
+> `revocation` topic; unsettled notions called out explicitly in a new
+> `cap-talk-open-questions` topic (the ACL/capability equivalence question; the
+> "what counts as a capability" dispute); Endo-relevant ideas cross-linked in
+> `journal/projects/endo/cap-talk-capability-provenance.md`. Remainder handed off:
+> `scholar-ingest-cap-talk-1999` is active, and 2000-2003 / 2004-2008 / 2009-2012 /
+> 2013-2016 are parked on the plan queue.
+>
+> Verdict on usefulness: high for Endo — this is the primary-source origin of the
+> caretaker/revocation and connectivity-axiom lineage Endo rests on. One decision
+> for you: the post-2016 Google-Groups messages need an alternate export/mbox if
+> you want them; the Pipermail archive already covers the first 18 years.
+> Result: entries/2026/09/16/135136Z-result-scholar-31e8e8.md
 
 - `msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a` — from gardener:verify-foreman-partial-unquiesce-target-2, reply_to `verify-foreman-partial-unquiesce-target-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a.md)
 
@@ -453,16 +478,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.2M | $465.88 _(notional, rate-card)_ | 44% of 143.0M (ok) |
-| Codex | 8.3M _(+208.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 63.4M | $466.27 _(notional, rate-card)_ | 44% of 143.0M (ok) |
+| Codex | 8.4M _(+209.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
 - [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk.md) — Ingest the cap-talk mailing list into the library
+- [`scholar-ingest-cap-talk-1999`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-1999.md) — Ingest cap-talk: 1998-April through 1999
 
 ### tada (8006)
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — Cost
@@ -674,6 +700,10 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town-followup.md) — _normal_ · Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-mutable-blob-formula.md) — _normal_ · Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
 - [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-exec.md) — _normal_ · builder: implement the Ironhorse computron benchmark-baseline regime (steps 2–8)
+- [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2000-2003.md) — _normal_ · Ingest cap-talk: 2000-2003
+- [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2004-2008.md) — _normal_ · Ingest cap-talk: 2004-2008
+- [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2009-2012.md) — _normal_ · Ingest cap-talk: 2009-2012
+- [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2013-2016.md) — _normal_ · Ingest cap-talk: 2013-2016 (final Pipermail era)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #888 (primary: endojs-endo-but-f...
