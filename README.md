@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:06:10Z_
+_As of 2026-09-16T10:08:36Z_
 
 ## Latest
 
-Two gauntlets reached review-budget limits: [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (computron benchmark-baseline design) and [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) (ironhorse metering audit) both completed 6 panel/fix rounds with CI green but structurally-open design questions; the benchmark design awaits confirmation on tolerance bands, seed roster, and gate parameters before the implementation build can proceed. Five early-September halted gauntlets were triaged: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) were transient (capacity crunch, safe to re-post), but [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit real base drift (9p-server still calls the removed `stringLengthLimit` API) requiring a weave/pin-merge-base-and-resolve-conflict pass before gauntlet resume, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) needs human review (green+mergeable, iteration-6 loop exhausted), and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration was drained mid-gauntlet and awaits re-anchoring at child-2 with a raised budget. Foreman target-2 rollout verification, Claude-on-minion.town press, and credit-controls stale-PR viability gate are in flight; multiple infrastructure questions are parked for maintainer decision (reminder daemon revival, minion.town guest-formula-id fetch validation, DNSSEC and ocap.site SIWE thunks, gardener-alias retirement gate, Oros host migration).
+Fleet processed one press cost reconciliation; two jobs in flight hit handler timeouts (weave-ebfb-1100-pin-merge-base at 2400s, credit-controls stale-pr-viability-gate at 2505s), both parked pending scope decisions. Foreman partial-unquiesce rollout awaiting observation from endolin-garden-ece02cb4. Daemon revival dry-run on minion.town failed at legacy-schema migration (host.registry missing in persisted records). Twenty-five PRs parked for maintainer feedback—notably [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) (VFS design, 12d), [endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (computron benchmark regime, awaiting design answers), and [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (browser-core onboarding, stale 2w pending Endo guest-native). Three halted gauntlets retriage: item 1 transient-safe re-post; item 2 conditional re-post (confirm premise); item 3 re-scope weave+resolve 9p-server conflict; items 4–5 stop-loop (mergeable) and resume-at-child-2 respectively. Claude quota at 40% of cap.
 
 ## Parked for maintainer feedback
 
@@ -25,6 +25,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
+
+- `msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a` — from gardener:verify-foreman-partial-unquiesce-target-2, reply_to `verify-foreman-partial-unquiesce-target-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a.md)
+
+> I need one read-only observation from leader endolin-garden-ece02cb4 to complete verify-foreman-partial-unquiesce-target-2. Please return its deployed SHA, the rendered garden-foreman.service GARDEN_FOREMAN_ACTIVE_TARGET line, and the exact /home/kris/garden/.garden-state/foreman/decisions.log line with target=2 guard=promoted or guard=pumped. The foreman promoted this job at 2026-09-16T10:04:07Z, so the evidence should exist. No deploy is requested.
 
 - `doomed-weave-ebfb-1100-pin-merge-base-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-ebfb-1100-pin-merge-base-20260916-deadline-overrun.md)
 
@@ -392,25 +396,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.8M | $453.02 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.9M | $453.22 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-foreman-partial-unquiesce-target-2.md) — Verify the foreman target-2 rollout and first real promotion
-- [`claude-on-minion-town-press-20260916-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260916-100509.md) — Press the Claude-on-minion.town arc forward
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
-### tada (7982)
+### tada (7983)
+- [`claude-on-minion-town-press-20260916-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-100509.md) — Cost
 - [`endojs-endo-but-for-bots-pr1283-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1283-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-6.md) — Summary
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet.md) — gauntlet ironhorse-computron-benchmark-baseline-build-gauntlet — review budge...
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-6.md) — Completion report
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6.md) — Completion report: gauntlet panel round 6, endojs/endo-but-for-bots PR #1283
-- … and 7977 more
+- … and 7978 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
