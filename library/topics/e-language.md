@@ -52,6 +52,7 @@
 | [erights--elib-concurrency-eio-obtaining--obtain-primitive-and-input-operation-taxonomy](../sections/erights--elib-concurrency-eio-obtaining--obtain-primitive-and-input-operation-taxonomy.md) | erights.org elib/concurrency/eio/obtaining.html | EIO's single `obtain/5` primitive and its 2*2*3*2 = 24-cell input-operation taxonomy (reading/skipping/peeking/checking crossed with NOW/WAIT/LATER scheduling); LATER returns a vow, the ancestor of async-iterator pull. |
 | [single-use-capability-object-in-e](../sections/cap-talk-2002-2003--single-use-capability-object-in-e.md) | cap-talk 2003-October | A catch-all E object attenuates any target to one message by replacing its slot with a broken reference before dispatch. |
 | [guards-well-known-not-ambient](../sections/cap-talk-2009-2012--guards-well-known-not-ambient.md) | capability-theory, e-language | E guards for pure data can be well-known; authority-recognizing guards must be explicitly endowed. |
+| [cap-talk-2009-2012--system-enforced-sensory-objects](../sections/cap-talk-2009-2012--system-enforced-sensory-objects.md) | cap-talk 2010-December | Kevin Reid: reconstruct a KeyKOS sense key in E with a Selfless verb+arity auditor plus a membrane forwarding only Sensory-audited messages; Shapiro's freeze-for-parallel want that EventuallyDeepFrozen does not meet. |
 
 ## See also
 
