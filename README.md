@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:50:50Z_
+_As of 2026-09-16T19:52:58Z_
 
 ## Latest
 
@@ -598,25 +598,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.7M | $472.98 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.7M _(+271.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 64.7M | $473.46 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.7M _(+271.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`canary-probe-oros-studio-garden-ce242c49-9405a69805d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-9405a69805d1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 9405a69805d1
-- [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — Retrospective on endojs/endo-but-for-bots PR #888 (primary: endojs-endo-but-f...
+### doin (2)
 - [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012.md) — Continue cap-talk 2011-2012 ingestion (and the 2010 remainder)
+- [`improve-deadline-nudge-stage-failure-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-stage-failure-isolation.md) — ---
 
-### tada (8046)
+### tada (8048)
+- [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — Completion report
+- [`canary-probe-oros-studio-garden-ce242c49-9405a69805d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-9405a69805d1.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-9405a69805d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-9405a69805d1.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2010-2012-remainder.md) — Completion report: scholar-ingest-cap-talk-2010-2012-remainder
 - [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — What I did
-- [`claude-on-minion-town-completion-press-20260916-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-193507.md) — Completion report — Claude-on-minion.town completion press, tick 20260916-193507
-- [`improve-fetch-source-transient-wayback-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-transient-wayback-retries.md) — Cost
-- … and 8041 more
+- … and 8043 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
