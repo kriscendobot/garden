@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T21:57:21Z_
+_As of 2026-09-16T22:02:56Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 ## Parked for maintainer feedback
 
 - [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 4h)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 4h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 5h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -439,6 +439,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The final fetchable cap-talk Pipermail era is now indexed: 24 monthly bundles from 2013 through January 2016 and 22 derived thread sections, including the direct Endo antecedents around Cap'n Proto, `DeepFrozen` ordering, WeakMap amplification, persistence, membranes, and authority-aware module loading. The source/topic/concept/project indexes are current and the scoped link-integrity gate passed. The post-2016 Google Groups corpus remains a source gap: I found no public alternate mbox or mirror, so continuation needs an owner/member-provided Takeout or Vault export. Full result: `entries/2026/09/16/184251Z-result-scholar-535c96.md`.
 
+- `msg-scholar-ingest-cap-talk-2012-april-onward-0f69aea8ec39` — from scholar:scholar-ingest-cap-talk-2012-april-onward, reply_to `scholar-ingest-cap-talk-2012-april-onward` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2012-april-onward-0f69aea8ec39.md)
+
+> Scholar: completed the cap-talk 2012 April-onward ingest — this **finishes the Pipermail cap-talk archive** (2013-2016 already ingested; only 2012-October remains, unavailable via the Internet Archive). Fetched and SHA-256-anchored the 8 remaining fetchable 2012 bundles and wrote 9 sections; the standout is 2012-December (196 msgs). Endo-relevant highlights: Brian Warner's September proposal to make the VatID the public key and secure Ken channels with per-message NaCl box/unbox instead of per-connection TLS — the direct OCapN-over-Noise antecedent; Miller's "Bits of Capabilities" (object-caps unforgeable vs crypto-caps merely unguessable, Boebert's *-property impossible for the latter); and December's language-vs-OS-vs-hardware enforcement-locus debate (Barbour's start-high/refuse-insecure-code argument = Endo's own bet). Added open questions 64-67 and a "2012 close" section to `projects/endo/cap-talk-capability-provenance.md`.
+>
+> Note on 2012-October: an eighth fetch was deliberately NOT attempted. Per the job's ask it needs a CDX confirmation that a capture exists, but the Internet Archive was globally offline today, so October is treated as unavailable via IA and documented for a later cycle to revisit when IA is stable. No follow-on job posted (scope complete; October is externally blocked, not budget-truncated). Full result: entries/2026/09/16/220040Z-result-gardener-fa8b2f.md.
+
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -618,23 +624,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.4M | $485.64 _(notional, rate-card)_ | 46% of 143.0M (ok) |
+| Claude | 65.0M | $473.86 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 11.4M _(+283.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-cap-talk-2012-april-onward`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012-april-onward.md) — ---
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1015-2b55429b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-2b55429b-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1018-review-cf8012a8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-review-cf8012a8-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1018 (primary: endojs-endo-but-...
 
-### tada (8066)
+### tada (8067)
+- [`scholar-ingest-cap-talk-2012-april-onward`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2012-april-onward.md) — Completion report
 - [`improve-mirror-closer-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mirror-closer-quota-cooldown.md) — Cost
 - [`endojs-endo-but-for-bots-pr858-review-e6eaf772-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-e6eaf772-retro.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-4c73aea97774`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-4c73aea97774.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr832-review-7bada805-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr832-review-7bada805-retro.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-4c73aea97774`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-4c73aea97774.md) — rolling-deploy canary probe — round trip OK
-- … and 8061 more
+- … and 8062 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -836,8 +843,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr1018-review-cf8012a8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1018-review-cf8012a8-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1018 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1015-2b55429b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-2b55429b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1015-review-348a2017-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-review-348a2017-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr832-review-f3554a0a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-review-f3554a0a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1085-b27f483f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1085-b27f483f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1085 (primary: endojs-endo-but-...
