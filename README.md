@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T08:39:24Z_
+_As of 2026-09-16T08:43:31Z_
 
 ## Latest
 
-Panel round 5 completed for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283); fix round 5 is in progress. Five halted gauntlets from early September need triage decisions per the inbox message: two are transient-safe re-posts, but [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has real base-drift requiring a merge-base pin, and two others need scope confirmation. Ironhorse benchmark-baseline build audit is complete and awaiting your answers to six design questions before proceeding.
+Ironhorse computron benchmark baseline build is in fix-5; its audit phase completed with 6 open questions on tolerance bands, gate placement, seed roster, COST_TABLE_VERSION strategy, PR fate, and grid-baseline deferral — waiting for your answers. Comprehensive triage of five halted gauntlets from early September is done: items 1 & 2 are transient (capacity crunch, safe to re-post), item 3 ([endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100)) is a real base-drift failure requiring semantic port of `9p-server` `stringLengthLimit`→`byteLengthLimit` after weave/pin-merge-base, item 4 ([minion.town#99](https://github.com/kriscendobot/minion.town/pull/99)) is green and mergeable but hit panel iteration ceiling — should stop loop and route to maintainer review, item 5 (clipometer) already delivered its first child ([minion.town#84](https://github.com/kriscendobot/minion.town/pull/84), now green) and needs re-anchoring to resume at child 2 with raised budget. The reminder daemon revival gap and three host-infrastructure blocking decisions (gardener-worker-kind retirement, minion.town dckc-powers audit, DNSSEC signing) are parked in the inbox awaiting authorization or direction.
 
 ## Parked for maintainer feedback
 
@@ -388,15 +388,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $445.22 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.7M | $445.58 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1283
+- [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
 ### tada (7974)
