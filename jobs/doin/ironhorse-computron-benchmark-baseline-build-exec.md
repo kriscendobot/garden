@@ -94,6 +94,7 @@ Open the PR through the gardening flow (ensure-pr.sh) against `llm`. If steps 2â
 themselves large, orchestrate ordered sub-builds rather than piling loose jobs.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=92 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
