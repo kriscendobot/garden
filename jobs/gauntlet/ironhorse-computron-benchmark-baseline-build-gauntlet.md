@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1283
 build_job: ironhorse-computron-benchmark-baseline-build
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1
+current_child: ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2
 state: running
 created_by: producer
 created_at: 2026-09-16T05:40:57Z
