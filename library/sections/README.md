@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7176 (530 parent indexes + 6646 children).
+Total section files: 7185 (530 parent indexes + 6655 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -466,9 +466,11 @@ Total section files: 7176 (530 parent indexes + 6646 children).
 - [cap-talk-2009-2012--authentication-identity-versus-property-validation](cap-talk-2009-2012--authentication-identity-versus-property-validation.md)
 - [cap-talk-2009-2012--authority-carrying-urls-in-the-wild](cap-talk-2009-2012--authority-carrying-urls-in-the-wild.md)
 - [cap-talk-2009-2012--avoiding-excess-authority-in-chained-access](cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md)
+- [cap-talk-2009-2012--bits-of-capabilities-ocaps-versus-crypto-caps](cap-talk-2009-2012--bits-of-capabilities-ocaps-versus-crypto-caps.md)
 - [cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values](cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values.md)
 - [cap-talk-2009-2012--capabilities-for-legacy-web-programs](cap-talk-2009-2012--capabilities-for-legacy-web-programs.md)
 - [cap-talk-2009-2012--capability-adoption-through-service-chaining](cap-talk-2009-2012--capability-adoption-through-service-chaining.md)
+- [cap-talk-2009-2012--capability-enforcement-language-os-or-hardware](cap-talk-2009-2012--capability-enforcement-language-os-or-hardware.md)
 - [cap-talk-2009-2012--capsicum-practical-capabilities-for-unix](cap-talk-2009-2012--capsicum-practical-capabilities-for-unix.md)
 - [cap-talk-2009-2012--comparing-models-zbac-versus-capabilities](cap-talk-2009-2012--comparing-models-zbac-versus-capabilities.md)
 - [cap-talk-2009-2012--confused-deputies-in-capability-systems](cap-talk-2009-2012--confused-deputies-in-capability-systems.md)
@@ -490,6 +492,8 @@ Total section files: 7176 (530 parent indexes + 6646 children).
 - [cap-talk-2009-2012--hiding-webkeys-from-the-address-bar](cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md)
 - [cap-talk-2009-2012--horton-accountability-and-contract-law](cap-talk-2009-2012--horton-accountability-and-contract-law.md)
 - [cap-talk-2009-2012--immutable-data-and-the-authority-boundary](cap-talk-2009-2012--immutable-data-and-the-authority-boundary.md)
+- [cap-talk-2009-2012--immutable-instances-and-the-data-boundary](cap-talk-2009-2012--immutable-instances-and-the-data-boundary.md)
+- [cap-talk-2009-2012--implementing-attenuated-delegation](cap-talk-2009-2012--implementing-attenuated-delegation.md)
 - [cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default](cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default.md)
 - [cap-talk-2009-2012--js-membranes-and-fine-grained-object-views](cap-talk-2009-2012--js-membranes-and-fine-grained-object-views.md)
 - [cap-talk-2009-2012--language-support-for-object-capabilities](cap-talk-2009-2012--language-support-for-object-capabilities.md)
@@ -498,11 +502,14 @@ Total section files: 7176 (530 parent indexes + 6646 children).
 - [cap-talk-2009-2012--modeling-capability-propagation-and-horton](cap-talk-2009-2012--modeling-capability-propagation-and-horton.md)
 - [cap-talk-2009-2012--mutable-singletons-are-ambient-authority](cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md)
 - [cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities](cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md)
+- [cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels](cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels.md)
 - [cap-talk-2009-2012--networking-named-content-self-authenticating-names](cap-talk-2009-2012--networking-named-content-self-authenticating-names.md)
 - [cap-talk-2009-2012--object-oriented-security-naming](cap-talk-2009-2012--object-oriented-security-naming.md)
 - [cap-talk-2009-2012--openid-single-sign-on-critique](cap-talk-2009-2012--openid-single-sign-on-critique.md)
 - [cap-talk-2009-2012--opinions-of-oauth](cap-talk-2009-2012--opinions-of-oauth.md)
 - [cap-talk-2009-2012--origin-header-amplifies-ambient-authority](cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md)
+- [cap-talk-2009-2012--password-as-designation-not-authentication](cap-talk-2009-2012--password-as-designation-not-authentication.md)
+- [cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e](cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md)
 - [cap-talk-2009-2012--petnames-versus-e-order](cap-talk-2009-2012--petnames-versus-e-order.md)
 - [cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction](cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md)
 - [cap-talk-2009-2012--re-authentication-and-time-limited-capabilities](cap-talk-2009-2012--re-authentication-and-time-limited-capabilities.md)
@@ -511,6 +518,8 @@ Total section files: 7176 (530 parent indexes + 6646 children).
 - [cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary](cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary.md)
 - [cap-talk-2009-2012--sitelier-capability-os-for-the-web](cap-talk-2009-2012--sitelier-capability-os-for-the-web.md)
 - [cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable](cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
+- [cap-talk-2009-2012--space-recovery-in-mutually-suspicious-systems](cap-talk-2009-2012--space-recovery-in-mutually-suspicious-systems.md)
+- [cap-talk-2009-2012--sql-storage-of-a-capability-application](cap-talk-2009-2012--sql-storage-of-a-capability-application.md)
 - [cap-talk-2009-2012--supplanting-passwords-and-the-master-capability](cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md)
 - [cap-talk-2009-2012--system-enforced-sensory-objects](cap-talk-2009-2012--system-enforced-sensory-objects.md)
 - [cap-talk-2009-2012--taxonomy-of-object-capability-systems](cap-talk-2009-2012--taxonomy-of-object-capability-systems.md)
