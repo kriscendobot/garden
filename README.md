@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:52:58Z_
+_As of 2026-09-16T16:53:58Z_
 
 ## Latest
 
@@ -525,11 +525,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.4M _(+238.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Codex | 9.4M _(+239.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-oros-studio-garden-ce242c49-1a26d38f8064`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-1a26d38f8064.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 1a26d38f8064
 
 ### doin (4)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
