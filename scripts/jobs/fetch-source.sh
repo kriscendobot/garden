@@ -36,9 +36,10 @@
 #      reachable from the sandbox and higher-fidelity than a Wayback capture for
 #      the HTML site;
 #   3. if there are still no bytes (the mirror lacks the path — PDFs / talk files
-#      404 — or the URL is not an erights/caplet URL), asks the Wayback
-#      availability API for the closest capture timestamp and fetches the
-#      original-bytes form  http://web.archive.org/web/<timestamp>id_/<url> ;
+#      404 — or the URL is not an erights/caplet URL), resolves a capture
+#      timestamp — first from the Wayback availability API, and when that
+#      RATE-LIMITS or returns nothing, from a bounded CDX index query — and
+#      fetches the original-bytes form  http://web.archive.org/web/<timestamp>id_/<url> ;
 #   4. writes the fetched bytes (to the given output path, else a temp file) and
 #      prints a one-line-per-field manifest on stdout whose key field is
 #         source_content_sha256=<64-hex>
@@ -64,6 +65,10 @@
 #   source_bytes=<integer byte count>
 #   source_content_sha256=<64-hex>        # the citable idempotency anchor
 #   source_wayback_timestamp=<14-digit>   # present only when fetched via wayback
+#   source_wayback_timestamp_source=availability|cdx
+#                                         # which index resolved the timestamp,
+#                                         # for provenance; present only when a
+#                                         # capture timestamp was resolved
 #   source_stub_suspect=true|false        # ADVISORY: HTML that looks like a
 #                                         # placeholder (a 200 that is not an
 #                                         # ingestable source). Never fatal.
@@ -114,6 +119,8 @@
 #   FETCH_SOURCE_CONNECT_TIMEOUT   per-connection timeout, seconds (default: 20)
 #   FETCH_SOURCE_MAX_TIME    overall per-request timeout, seconds (default: 120)
 #   FETCH_SOURCE_WAYBACK_HOST  availability-API host (default: archive.org)
+#   FETCH_SOURCE_CDX_HOST    CDX-index host for the rate-limit fallback
+#                            (default: web.archive.org)
 #   FETCH_SOURCE_STUB_BYTE_THRESHOLD  HTML bodies smaller than this many bytes
 #                            are flagged as stub-suspect (advisory; default: 512)
 #
@@ -133,6 +140,7 @@ CURL="${FETCH_SOURCE_CURL:-curl}"
 CONNECT_TIMEOUT="${FETCH_SOURCE_CONNECT_TIMEOUT:-20}"
 MAX_TIME="${FETCH_SOURCE_MAX_TIME:-120}"
 WAYBACK_HOST="${FETCH_SOURCE_WAYBACK_HOST:-archive.org}"
+CDX_HOST="${FETCH_SOURCE_CDX_HOST:-web.archive.org}"
 STUB_BYTE_THRESHOLD="${FETCH_SOURCE_STUB_BYTE_THRESHOLD:-512}"
 
 usage() {
@@ -174,6 +182,7 @@ _curl() {
 fetched_via=""
 effective_url=""
 wayback_ts=""
+wayback_ts_source=""
 
 # An erights.org / caplet.com URL has a directly-reachable GitHub Pages mirror
 # (`erights.github.io/erights-org-website/<path>`) that preserves the original
@@ -214,18 +223,49 @@ if [ -z "$fetched_via" ]; then
   log "no direct/mirror bytes; falling back to the Internet Archive"
   : >"$out"   # discard any partial body a failed earlier fetch left behind
 
-  # --- 3a. ask the Wayback availability API for the closest capture ----------
-  # Returns {"archived_snapshots":{"closest":{"timestamp":"<14d>","url":"..."}}}
-  # or {"archived_snapshots":{}} when nothing is captured. jq extracts the
-  # timestamp; we do NOT swallow jq/curl errors (a silent empty here is exactly
-  # the failure mode that wedged comms before — see the missing-tool lesson).
+  # --- 3a. resolve a capture timestamp: availability API, then bounded CDX ----
+  # First ask the cheap Wayback availability API for the closest capture:
+  #   {"archived_snapshots":{"closest":{"timestamp":"<14d>","url":"..."}}}
+  #   or {"archived_snapshots":{}} when nothing is captured.
+  # jq extracts the timestamp; we do NOT swallow jq/curl errors (a silent empty
+  # here is exactly the failure mode that wedged comms before — the missing-tool
+  # lesson). The availability API RATE-LIMITS hard during bulk ingest: it answers
+  # HTTP 429, which `-f` turns into a curl failure — so a rate limit lands in the
+  # `else` branch below with no timestamp, indistinguishable (deliberately) from
+  # "unreachable" or "nothing captured".
+  wayback_ts=""
+  wayback_ts_source=""
   avail_url="http://${WAYBACK_HOST}/wayback/available?url=${url}"
   log "wayback availability: $avail_url"
   if avail_json="$("$CURL" -fsSL --connect-timeout "$CONNECT_TIMEOUT" --max-time "$MAX_TIME" "$avail_url")"; then
     wayback_ts="$(printf '%s' "$avail_json" | jq -r '.archived_snapshots.closest.timestamp // empty')"
+    [ -n "$wayback_ts" ] && wayback_ts_source="availability"
   else
-    log "wayback availability API unreachable (curl rc=$?)"
-    wayback_ts=""
+    log "wayback availability API unreachable or rate-limited (curl rc=$?)"
+  fi
+
+  # --- 3a'. bounded CDX fallback when availability yielded no timestamp -------
+  # The CDX index is a SEPARATE endpoint that survives the availability API's
+  # rate limits, so when 3a produced nothing (rate-limited, unreachable, or a
+  # genuinely empty snapshot) we resolve the timestamp deterministically from it
+  # instead of forcing a scholar to improvise the CDX lookup by hand during bulk
+  # mailing-list archive ingestion. The query is BOUNDED on both axes:
+  #   filter=statuscode:200  skip error / redirect captures
+  #   fl=timestamp           return only the 14-digit capture stamp
+  #   limit=-1               return only the single MOST-RECENT matching row
+  # so the response is one line and the pick is deterministic (same URL -> same
+  # newest 200-capture). The JSON is [["timestamp"],["<14d>"]]; jq reads the one
+  # data row after the CDX header row, and a header-only response (nothing
+  # captured) yields empty. curl/jq errors are surfaced, never swallowed.
+  if [ -z "$wayback_ts" ]; then
+    cdx_url="http://${CDX_HOST}/cdx/search/cdx?url=${url}&output=json&fl=timestamp&filter=statuscode:200&limit=-1"
+    log "wayback CDX fallback: $cdx_url"
+    if cdx_json="$("$CURL" -fsSL --connect-timeout "$CONNECT_TIMEOUT" --max-time "$MAX_TIME" "$cdx_url")"; then
+      wayback_ts="$(printf '%s' "$cdx_json" | jq -r '.[1][0] // empty' 2>/dev/null)"
+      [ -n "$wayback_ts" ] && wayback_ts_source="cdx"
+    else
+      log "wayback CDX API unreachable or rate-limited (curl rc=$?)"
+    fi
   fi
 
   # --- 3b. fetch the ORIGINAL bytes via the id_ form -------------------------
@@ -369,6 +409,7 @@ printf 'source_output_path=%s\n'    "$out"
 printf 'source_bytes=%s\n'          "$bytes"
 printf 'source_content_sha256=%s\n' "$sha"
 [ -n "$wayback_ts" ] && printf 'source_wayback_timestamp=%s\n' "$wayback_ts"
+[ -n "$wayback_ts_source" ] && printf 'source_wayback_timestamp_source=%s\n' "$wayback_ts_source"
 printf 'source_stub_suspect=%s\n'   "$stub_suspect"
 [ "$stub_suspect" = true ] && printf 'source_stub_reason=%s\n' "$stub_reason"
 [ "$is_pdf" = true ] && printf 'source_is_pdf=true\n'

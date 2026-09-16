@@ -41,6 +41,8 @@ rm -rf "$TR"; mkdir -p "$TR"
 #   STUB_DIRECT_BODY    body written on a successful direct fetch
 #   STUB_AVAIL_RC       availability-API exit code
 #   STUB_AVAIL_JSON     availability-API JSON printed to stdout
+#   STUB_CDX_RC         CDX-index exit code (the availability rate-limit fallback)
+#   STUB_CDX_JSON       CDX-index JSON printed to stdout ([["timestamp"],["<14d>"]])
 #   STUB_ARCHIVE_RC     archive-fetch exit code (0 -> writes STUB_ARCHIVE_BODY)
 #   STUB_ARCHIVE_BODY   body written on a successful archive fetch
 #   STUB_MIRROR_RC      erights GitHub Pages mirror exit code (0 -> writes body)
@@ -78,6 +80,11 @@ emit_hdrs() {  # $1 = Content-Encoding value (empty -> no header file written)
 case "$url" in
   *"/wayback/available"*)
     printf '%s' "${STUB_AVAIL_JSON:-}"; exit "${STUB_AVAIL_RC:-0}" ;;
+  *"/cdx/search/cdx"*)
+    # CDX index query (the availability-API rate-limit fallback). Prints JSON to
+    # stdout like the availability API; MUST precede the web.archive.org case
+    # below since the CDX endpoint is also hosted on web.archive.org.
+    printf '%s' "${STUB_CDX_JSON:-}"; exit "${STUB_CDX_RC:-0}" ;;
   *"web.archive.org"*)
     if [ "${STUB_ARCHIVE_RC:-0}" = 0 ]; then
       printf '%s' "${STUB_ARCHIVE_BODY:-}" >"$out"; emit_hdrs "${STUB_ARCHIVE_CE:-}"
@@ -161,9 +168,11 @@ case "$eff" in
   *) bad "effective URL not the id_ form: $eff" ;;
 esac
 [ "$(printf '%s' "$MAN" | field source_wayback_timestamp)" = 20180101000000 ] && ok "timestamp recorded" || bad "timestamp missing"
+[ "$(printf '%s' "$MAN" | field source_wayback_timestamp_source)" = availability ] && ok "timestamp source=availability" || bad "timestamp source not availability"
 got="$(printf '%s' "$MAN" | field source_content_sha256)"
 [ "$got" = "$(sha_of archived-bytes)" ] && ok "sha matches archived body" || bad "sha mismatch ($got)"
 [ "$(cat "$OUT")" = "archived-bytes" ] && ok "archived bytes written" || bad "output body wrong"
+grep -q "/cdx/search/cdx" "$STUB_LOG" && bad "CDX consulted despite availability hit" || ok "CDX NOT consulted when availability answered"
 
 # === 3. direct fails, no capture timestamp -> redirect form =================
 hr; echo "CASE 3: no availability timestamp -> bare redirect id_ form"
@@ -399,6 +408,62 @@ MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_BODY="$BODY19" "$FETCH" "$URL" "$OUT" 2>/dev
 [ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
 [ "$(cat "$OUT")" = "$BODY19" ] && ok "identity body untouched" || bad "identity body changed"
 [ "$(printf '%s' "$MAN" | field source_content_sha256)" = "$(sha_of "$BODY19")" ] && ok "sha over raw bytes" || bad "sha mismatch"
+
+# === 20. availability RATE-LIMITED -> bounded CDX timestamp fallback =========
+# The core new behaviour: the availability API answers HTTP 429 (curl -f -> non-0
+# rc), so the script must resolve the capture timestamp from the CDX index and
+# fetch that capture's id_ original bytes. Provenance records source=cdx.
+hr; echo "CASE 20: availability rate-limited -> CDX timestamp -> id_ fetch"
+: >"$STUB_LOG"
+OUT="$TR/case20.out"
+CDXJSON='[["timestamp"],["20190202020202"]]'
+MAN="$(STUB_DIRECT_RC=7 STUB_AVAIL_RC=22 \
+       STUB_CDX_RC=0 STUB_CDX_JSON="$CDXJSON" \
+       STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="cdx-archived-bytes" \
+       "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+grep -q "/cdx/search/cdx" "$STUB_LOG" && ok "CDX index consulted after availability rate-limit" || bad "CDX not consulted"
+[ "$(printf '%s' "$MAN" | field source_fetched_via)" = wayback ] && ok "via=wayback" || bad "via not wayback"
+[ "$(printf '%s' "$MAN" | field source_wayback_timestamp)" = 20190202020202 ] && ok "CDX timestamp recorded" || bad "CDX timestamp missing/wrong"
+[ "$(printf '%s' "$MAN" | field source_wayback_timestamp_source)" = cdx ] && ok "timestamp source=cdx" || bad "timestamp source not cdx"
+eff="$(printf '%s' "$MAN" | field source_effective_url)"
+case "$eff" in
+  *"20190202020202id_/$URL") ok "id_ original-bytes form uses the CDX timestamp" ;;
+  *) bad "effective URL not the CDX id_ form: $eff" ;;
+esac
+got="$(printf '%s' "$MAN" | field source_content_sha256)"
+[ "$got" = "$(sha_of cdx-archived-bytes)" ] && ok "sha matches archived body" || bad "sha mismatch ($got)"
+
+# === 21. availability EMPTY snapshot -> CDX fallback (not only on rate-limit) =
+# The fallback triggers whenever availability yields no timestamp, including a
+# 200 with an empty snapshot set — a second index opinion, deterministic.
+hr; echo "CASE 21: availability empty snapshot -> CDX fallback"
+: >"$STUB_LOG"
+OUT="$TR/case21.out"
+MAN="$(STUB_DIRECT_RC=7 STUB_AVAIL_RC=0 STUB_AVAIL_JSON='{"archived_snapshots":{}}' \
+       STUB_CDX_RC=0 STUB_CDX_JSON='[["timestamp"],["20200303030303"]]' \
+       STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="cdx-empty-avail" \
+       "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_wayback_timestamp)" = 20200303030303 ] && ok "CDX timestamp used" || bad "CDX timestamp missing"
+[ "$(printf '%s' "$MAN" | field source_wayback_timestamp_source)" = cdx ] && ok "timestamp source=cdx" || bad "timestamp source not cdx"
+
+# === 22. availability rate-limited AND CDX empty -> bare redirect form ========
+# When both indexes yield nothing, degrade gracefully to the bare 2id_ redirect
+# form (no timestamp), exactly as when availability alone was empty (CASE 3).
+hr; echo "CASE 22: availability rate-limited + CDX header-only -> redirect form"
+: >"$STUB_LOG"
+OUT="$TR/case22.out"
+MAN="$(STUB_DIRECT_RC=7 STUB_AVAIL_RC=22 \
+       STUB_CDX_RC=0 STUB_CDX_JSON='[["timestamp"]]' \
+       STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="redirect-bytes" \
+       "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+grep -q "/cdx/search/cdx" "$STUB_LOG" && ok "CDX was attempted" || bad "CDX not attempted"
+eff="$(printf '%s' "$MAN" | field source_effective_url)"
+[ "$eff" = "http://web.archive.org/web/2id_/$URL" ] && ok "fell back to the bare 2id_ redirect form" || bad "unexpected effective URL: $eff"
+printf '%s' "$MAN" | grep -q '^source_wayback_timestamp=' && bad "timestamp emitted when none resolved" || ok "no timestamp when neither index resolved one"
+printf '%s' "$MAN" | grep -q '^source_wayback_timestamp_source=' && bad "timestamp source emitted when none resolved" || ok "no timestamp source when none resolved"
 
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"
