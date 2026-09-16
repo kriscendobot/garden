@@ -371,6 +371,31 @@ Alan Karp's June 2011 problem (from designers building on ZBAC): Alice holds a r
 
 - [cap-talk-2009-2012--avoiding-excess-authority-in-chained-access](../sections/cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md) - the Alice-Bob-Carol scenario, the static-choice principle, the two-by-three matrix, and the no-maximum-facet objection.
 
+### 60. Can space recovery (distributed garbage collection) be solved for pure capability systems without violating POLA?
+
+The January 2012 reference-counting thread left this open, and Jonathan Shapiro sharpened the stakes: in *extensible, fine-grained* capability systems, distributed garbage collection remains unsolved, and its absence "undermines one of the core arguments in favor of capability architectures." Reference counting is correct only where the routing discipline keeps counts local (Karp's proxy-by-default Client Utility), but the prevailing introduction-by-default systems send delegated references directly, leaving no local chokepoint to count against. KeyKOS avoided GC entirely by deleting an object and nulling all references, but Bill Frantz noted you cannot foresee what a deletion destroys, and examining the object graph to find out is itself a POLA violation — he called space recovery in these systems "an unsolved problem." Whether a distributed capability system can reclaim space reliably without either a proxy chokepoint or a graph inspection that breaks least authority is unresolved. (Endo's working answer is explicit lifecycle — dropping references, caretaker revoke, an object's own shutdown — rather than system-wide collection, but the general problem stays open.)
+
+- [cap-talk-2009-2012--distributed-reference-counting-garbage-collection](../sections/cap-talk-2009-2012--distributed-reference-counting-garbage-collection.md) - the reference-counting-versus-deletion debate and the POLA obstacle to space recovery.
+- [cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default](../sections/cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default.md) - why the routing regime decides whether reference counting is even possible.
+
+### 61. Is the master-capability bootstrap irreducible?
+
+Dan Connolly's November 2011 question — what actually supplants a password for a network service reached from a borrowed browser — produced the standard capability answer (web-keys replace per-resource passwords) and an unresolved residue. David Barbour, James Donald, and Seth Purcell converged that there must be *somewhere* a single master capability holding the rest of one's authority, and unless the user can memorize its web-key it has to live somewhere (a bookmark, a sticky note, or behind a password dialog); Purcell's sharp point is that a master web-key the user can *choose and remember* "looks suspiciously like password-based authentication by a different name." Whether the last secret at the single point of entry can be eliminated, or is genuinely irreducible (so the capability web only *relocates* rather than removes the password problem), and how to handle the borrowed-computer case without a trusted personal device, is unresolved on the list.
+
+- [cap-talk-2009-2012--supplanting-passwords-and-the-master-capability](../sections/cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md) - the web-key answer and the irreducible master-capability bootstrap.
+
+### 62. Is OAuth 2 an acceptable practical substitute for web-keys, or does its design forgo capability revocation and least authority?
+
+Shapiro's January 2012 "Opinions of OAuth?" thread asked what a developer should use *right now*, not hypothetically. Alan Karp judged OAuth 2 "isn't terrible" and usable properly given its industry acceptance; Bill Frantz called it "the best that the wrong way of doing things" can be; Mark Miller questioned the framing (solution to what problem?), and Tyler Close and Marc Stiegler offered web-keys / YURLs as the direct capability alternative. The list did not resolve whether OAuth 2's bearer-token-plus-redirect design is a *good-enough* practical substitute for capabilities, or whether its reusable coarse-scope tokens and awkward revocation forgo enough of the least-authority and clean-revocation benefits that a capability system should refuse it rather than interoperate. The practical-versus-principled tension is the standing open question every OAuth integration re-poses.
+
+- [cap-talk-2009-2012--opinions-of-oauth](../sections/cap-talk-2009-2012--opinions-of-oauth.md) - the OAuth-2-is-acceptable verdict versus the web-key alternative.
+
+### 63. Where in a URL is a secret safe, and should exfiltrating full URLs be treated as spyware?
+
+James Donald's March 2012 question — which parts of a URL are *supposed* to be safe to carry a secret — drew David Barbour's blunt "Nothing in the URL is safe," because browsers, add-ons, `Referer` headers, history, and logs disseminate URLs widely. Donald countered that login URLs routinely carry passwords, so "nothing is safe" cannot be the whole practical story. The gap between the web-key model (authority in a URL) and the web's actual leaky handling of URLs is unresolved: whether the fragment is a *reliably* safe place for a secret across all clients and extensions, and whether a norm classifying add-ons that exfiltrate full (rather than truncated) URLs as spyware could ever be established, stayed open. (This is why Endo does not rely on URL-borne bearer secrets for its primary transport.)
+
+- [cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets](../sections/cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets.md) - the URL confidentiality leak and the fragment-plus-encrypted-bookmark mitigations.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
