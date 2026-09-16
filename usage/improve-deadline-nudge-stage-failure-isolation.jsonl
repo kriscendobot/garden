@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":67,"elapsed_s":1276,"input_tokens":134,"output_tokens":77613,"cache_creation_tokens":166627,"cache_read_tokens":8621168,"total_cost_usd":7.920480000000001,"ts":"2026-09-16T20:13:15Z","base":"improve-deadline-nudge-stage-failure-isolation","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
