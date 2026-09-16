@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T01:41:42Z_
+_As of 2026-09-16T01:46:18Z_
 
 ## Latest
 
@@ -665,24 +665,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.4M | $346.05 _(notional, rate-card)_ | 27% of 143.0M (ok) |
-| Codex | 7.0M _(+180.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 39.8M | $356.59 _(notional, rate-card)_ | 28% of 143.0M (ok) |
+| Codex | 7.1M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ses-node26-lockdown-permits-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1281
-- [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
 
-### tada (7920)
+### tada (7921)
+- [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-3.md) — Completion report
 - [`improve-reap-terminal-handler-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reap-terminal-handler-failures.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-3.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-2.md) — Completion report
-- [`claude-on-minion-town-completion-press-20260916-010507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-010507.md) — Completion report — Claude-on-minion.town completion press, tick 30 (20260916...
-- … and 7915 more
+- … and 7916 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
