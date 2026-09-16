@@ -37,6 +37,8 @@ A programmer already following good software-engineering discipline is most of t
 | [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) | The system-level POLA criterion: normal users can construct narrower subjects without invoking a superuser. |
 | [cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety](../sections/cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety.md) | A small chooser principal-agent turns one user decision into one pre-opened capability rather than lending the application the whole account. |
 | [cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction](../sections/cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md) | Public review where least permission versus least authority and the direct/indirect-effects definition were sharpened. |
+| [cap-talk-2002-2003--yurl-key-centric-web-calculus](../sections/cap-talk-2002-2003--yurl-key-centric-web-calculus.md) | A key-centric introduction removes the later certificate authority from the reference path while retaining only the introducer’s claim. |
+| [cap-talk-2002-2003--programming-with-capabilities-without-ownership](../sections/cap-talk-2002-2003--programming-with-capabilities-without-ownership.md) | Separate maintenance, destruction, and customer facets replace a broad, ambiguous ownership relation with narrow authorities. |
 
 ## See also
 
