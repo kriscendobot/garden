@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T06:41:47Z_
+_As of 2026-09-16T06:48:13Z_
 
 ## Latest
 
-Five halted gauntlets from early September are back for triage: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) were transient capacity halts (cheap re-posts), but [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a weave/pin-merge-base rebase, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green+mergeable and needs human review→un-draft instead of loop continuation, and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration needs re-anchoring to resume at child 2 with raised budget. The Ironhorse computron benchmark design ([endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283)) landed as draft with an `## Open questions` section; the builder completed the audit and is holding the implementation pending six maintainer decisions on tolerance bands, gate placement, and baseline strategy. A minion.town reminder daemon redeploy dry-run failed on a missing `host.registry` migration path and is blocked pending an explicitly designed compatibility fix. Rolling-deploy canary recovered and is now green. Several maintainer inbox messages await decisions on host identity introduction, guest MCP authentication, and minion.town infrastructure readiness.
+Fleet triage completed on five halted gauntlets: one was transient (re-post safe); two are real failures needing re-scope ([endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) base-drift weave, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) panel loop stop); one holds pending Endo dependency; one is drain-parked with partial completion ([kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) done, child 2–4 pending re-anchor). The Ironhorse computron benchmark-baseline design landed as draft with six open questions blocking implementation. A weave job (`weave-ebfb-1100-pin-merge-base-20260916`) hit the 2400s handler timeout and moved to plan—needs either splitting or a budget increase. Several maintainer actions are queued: identity host-side introduction for the evaluation, gh token restoration, DNSSEC config for ocap.site, and oros-studio's monk migration (currently blocking the gardener-alias retirement). Fleet at 35% Claude quota, rolling deploy canary recovered, 25 PRs waiting review.
 
 ## Parked for maintainer feedback
 
@@ -25,6 +25,54 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
+
+- `doomed-weave-ebfb-1100-pin-merge-base-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-ebfb-1100-pin-merge-base-20260916-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/weave-ebfb-1100-pin-merge-base-20260916; it stays HELD until a human promotes it
+> (promote-plan.sh weave-ebfb-1100-pin-merge-base-20260916) or removes it.
+> Original job base: weave-ebfb-1100-pin-merge-base-20260916
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Pin the merge base of [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) onto current `llm`, resolve
+> the resulting conflict, then resume its halted gauntlet from the fix stage.
+>
+> WHY (triage job triage-halted-gauntlets-20260916, 2026-09-16): the
+> `ebfb-exo-stream-drop-base64-stream-methods-gauntlet` fix-2 stage correctly
+> declared `orchestration-failed`. This is a REAL, non-transient failure — a plain
+> gauntlet re-post would re-fail identically — caused by BASE DRIFT:
+>
+> - [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) migrated `@endo/exo-stream`
+>   `stringLengthLimit` -> `byteLengthLimit`.
+> - Current `llm`'s `packages/9p-server/src/server.js` still calls the REMOVED
+>   `stringLengthLimit` API at 3 sites.
+> - GitHub tests the merge ref, so llm's stale call sites plus this PR's renamed
+>   type produce tsc + runtime failures. CI is confirmed RED right now (lint +
+>   test FAILURE on every leg).
+> - The branch is ~360 commits behind.
+>
+> TASK, in order:
+> 1. Pin the merge base per skills/frozen-base-branch and
+>    skills/verify-upstream-state-before-pinning: repoint the PR's base onto a
+>    pinned `llm-<sha>` branch, then rebase the head onto it.
+> 2. Resolve the `9p-server` conflict. This is a SEMANTIC PORT, not a rename —
+>    `stringLengthLimit` and `byteLengthLimit` do not mean the same thing, so
+>    carry the intent at each of the 3 call sites rather than sed-ing the
+>    identifier. Say in your report what you concluded the correct byte limit is
+>    at each site and why.
+> 3. Verify CI green on the rebased head before handing on.
+> 4. Then resume the gauntlet from the FIX stage (not from clean/panel).
+>
+> The PR premise is LIVE: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) is OPEN draft, not merged,
+> not superseded.
 
 - `ironhorse-computron-benchmark-baseline-terminal-complete` — from orchestrator:ironhorse-computron-benchmark-baseline-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-computron-benchmark-baseline-terminal-complete.md)
 
@@ -314,26 +362,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.1M | $423.30 _(notional, rate-card)_ | 35% of 143.0M (ok) |
+| Claude | 50.6M | $428.41 _(notional, rate-card)_ | 35% of 143.0M (ok) |
 | Codex | 7.4M _(+186.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
+### doin (3)
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1283
 
-### tada (7957)
+### tada (7958)
+- [`canary-probe-oros-studio-garden-ce242c49-db3687f60de6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-db3687f60de6.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-db3687f60de6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-db3687f60de6.md) — rolling-deploy canary probe — round trip OK
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-1.md) — Completion report
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1.md) — Completion report
-- … and 7952 more
+- … and 7953 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -411,6 +458,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-ecae051e6e8f5a27-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ecae051e6e8f5a27-repair.md) — _normal_ · Repair Ironhorse engine defect ecae051e6e8f5a27 (target differential_source) ...
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
+- [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-ebfb-1100-pin-merge-base-20260916.md) — _normal_ · ---
 - [`xs2rust-endor-press-20260902-183505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260902-183505.md) — _normal_ · Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
 - [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — _normal_ · Repair Ironhorse engine defect 67ca18e4febe7a34 (target differential_source) ...
 - [`ironhorse-fuzz-2cc2ac67ba7e9b9f-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-2cc2ac67ba7e9b9f-repair.md) — _normal_ · Repair Ironhorse engine defect 2cc2ac67ba7e9b9f (target differential_regexp_s...
