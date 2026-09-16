@@ -34,3 +34,13 @@ TASK:
 
 If any step needs a judgment that is genuinely the maintainer's, stop and say so
 plainly rather than guessing — that is what the prior pass did correctly.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:51:57Z
