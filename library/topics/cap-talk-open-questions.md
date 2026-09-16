@@ -93,6 +93,19 @@ The list converges on "no" for a hostile holder that can communicate: a kernel c
 
 - [cap-talk-2002-2003--limited-transfer-permission-vs-authority](../sections/cap-talk-2002-2003--limited-transfer-permission-vs-authority.md) - the immediate post-*Paradigm Regained* application of permission versus authority.
 
+### 15. What deployment path actually gets a capability OS adopted?
+
+Legacy Unix compatibility is the obvious adoption path, but the 2002-February threads leave standing that source-level POSIX compatibility yields little real confinement, because most Unix programs were never decomposed into least-authority pieces and so are handed large bags of capabilities to run at all. Whether the answer is per-launch disposable Unix boxes, bug-for-bug emulation, mechanical source translation, or something else is unresolved.
+
+- [cap-talk-2002-2003--eros-legacy-deployment-path](../sections/cap-talk-2002-2003--eros-legacy-deployment-path.md) - Cox's be-both optimism against Laurie's decomposition skepticism.
+- [cap-talk-2002-2003--saving-the-unix-api-and-reframing-boxing](../sections/cap-talk-2002-2003--saving-the-unix-api-and-reframing-boxing.md) - the incompatible designation model and the disposable-box reframing.
+
+### 16. How can a capability system offer diagnostics without leaking authority?
+
+Exceptions with stack traces and logging are ordinary developer conveniences, but a stack trace lets an object observe its own call chain, information its callers never granted, and logging can compromise confinement if carelessly designed. The scheme that works in a strongly-typed setting is unlikely to carry over to a pure capability language; the resolution moved to e-lang and is not settled on cap-talk.
+
+- [cap-talk-2002-2003--exceptions-and-logging-in-capability-systems](../sections/cap-talk-2002-2003--exceptions-and-logging-in-capability-systems.md) - Plotnikov's framing of the stack-trace leakage problem.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
