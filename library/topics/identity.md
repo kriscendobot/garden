@@ -41,6 +41,8 @@
 | [cap-talk-2004-2008--horton-accountability-without-authority](../sections/cap-talk-2004-2008--horton-accountability-without-authority.md) | cap-talk 2004-2008 archive | Horton explores how a recipient can learn a delegation chain without turning identity into ambient authorization. |
 | [cap-talk-2004-2008--saml-assertions-versus-object-capabilities](../sections/cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md) | cap-talk 2004-2008 archive | A signed SAML assertion can act as an offline bearer authorization, but it is not by itself an object capability system. |
 | [cap-talk-2009-2012--file-api-taming-tahoe](../sections/cap-talk-2009-2012--file-api-taming-tahoe.md) | capability-security, identity | Tahoe file/directory capabilities do not know their own names; naming is a per-directory binding; the (directory, name) tuple restores relative naming without an ambient global namespace. |
+| [authentication-identity-versus-property-validation](../sections/cap-talk-2009-2012--authentication-identity-versus-property-validation.md) | capability-theory, identity | Authentication as remote-principal identification versus security-relevant property validation. |
+| [geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) | capability-security, identity | An origin string is not a user-understood principal on a multi-origin composed page. |
 
 ## See also
 
