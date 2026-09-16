@@ -94,16 +94,7 @@ Open the PR through the gardening flow (ensure-pr.sh) against `llm`. If steps 2â
 themselves large, orchestrate ordered sub-builds rather than piling loose jobs.
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=92,47 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-16T15:14:01Z
+
+<!-- garden-reaped: 2 -->
