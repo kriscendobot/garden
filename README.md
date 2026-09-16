@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T18:52:20Z_
+_As of 2026-09-16T18:54:59Z_
 
 ## Latest
 
@@ -580,25 +580,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.2M | $470.00 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.4M _(+267.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1059-a5d1fff6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1059-a5d1fff6-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1059 (primary: endojs-endo-but-...
+### doin (2)
 - [`improve-mirror-closer-primary-quota-circuit-breaker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mirror-closer-primary-quota-circuit-breaker.md) — ---
 - [`scholar-ingest-cap-talk-2010-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012.md) — Ingest cap-talk: 2010-2012 (and the 2009 Aug-Nov remainder)
 
-### tada (8032)
+### tada (8033)
+- [`endojs-endo-but-for-bots-pr1059-a5d1fff6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1059-a5d1fff6-retro.md) — Cost
 - [`scholar-ingest-cap-talk-2009-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012-remainder.md) — Completion report: scholar-ingest-cap-talk-2009-2012-remainder
 - [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2013-2016.md) — Cost
 - [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012.md) — Cost
 - [`scholar-ingest-cap-talk-2004-2008-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2004-2008-remainder.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-d4a9f045b77f.md) — rolling-deploy canary probe — round trip OK
-- … and 8027 more
+- … and 8028 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
