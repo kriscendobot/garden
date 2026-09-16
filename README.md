@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:46:31Z_
+_As of 2026-09-16T12:01:51Z_
 
 ## Latest
 
-One job (endo-immutable-arraybuffer hardened262) entered active work; infrastructure recovered a canary and adjusted budgets (monks increased). Inbox carries 17+ flagged issues: five early-Sept halted gauntlets need triage (items 1–2 are transient, safe re-posts; items 3–5 are real failures requiring re-scope), a base-drift weave on [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) timed out (9p-server still calls removed `stringLengthLimit` API, needs merge-base pin), orchestration timeouts (credit-controls, minion.town-clipometer), and reminder daemon revival blocked on migration design. Top waiting PRs: [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) (20d), [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) (17d). Ironhorse computron baseline awaits your answers to six open design questions before build execution.
+[endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit a real non-transient failure: the PR migrated `@endo/exo-stream` `stringLengthLimit` → `byteLengthLimit`, but the current `llm` still calls the old API in `9p-server`, causing a merge-ref CI failure. Triage of five early-September halted gauntlets revealed one transient (capacity-crunch re-post), one conditional (pending premise), two requiring re-scopes (one is the base-drift weave above; another has iterated to green but should stop the loop for human review), and one mid-orchestration stall needing re-anchoring. The Ironhorse computron benchmark-baseline design landed as a draft with six open questions about tolerances, seed roster, and gate timing; the builder is holding steps 2–8 pending answers. Immutable ArrayBuffer hardened262 coverage completed. Several critical path items await maintainer actions: kriscendobot gh token (clip PR), host-side identity introduction (minion-town eval), and a host-migration decision for oros-studio (blocks gardener alias retirement).
 
 ## Parked for maintainer feedback
 
@@ -400,24 +400,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.1M | $459.49 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 60.1M | $458.73 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-sqlite-wal-limit-measurement.md) — Measure the daemon SQLite WAL size policy
-- [`endo-immutable-arraybuffer-hardened262-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-immutable-arraybuffer-hardened262-coverage.md) — Extend hardened test262 coverage to every immutable-arraybuffer method
 
-### tada (7994)
+### tada (7995)
+- [`endo-immutable-arraybuffer-hardened262-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-immutable-arraybuffer-hardened262-coverage.md) — Completion report
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-bejar-hofman-box-investigation.md) — Completion report: Bejar-Hofman Box investigation
 - [`ebfb-sturdyref-stack-rebase-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-rebase-20260916.md) — orchestration ebfb-sturdyref-stack-rebase-20260916 — HALTED
 - [`ebfb-sturdyref-rebase-pr737-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr737-20260916.md) — Completion report
 - [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-thixotrope-drop-inert-bundle-filter.md) — Cost
-- [`ebfb-sturdyref-rebase-pr774-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr774-20260916.md) — Completion report: rebase PR #774 onto live llm
-- … and 7989 more
+- … and 7990 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
