@@ -63,3 +63,13 @@ wants:
   many authors, not a single source's monograph — keep per-message/per-thread
   attribution honest in the source index rather than treating the archive as
   one authored work.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T13:29:32Z
