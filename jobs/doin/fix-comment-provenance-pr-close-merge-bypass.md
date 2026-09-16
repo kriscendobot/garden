@@ -42,3 +42,13 @@ still lets the close/merge proceed, just without a footer field.
 The audit also flagged a second, unresolved path (GAP CLASS 2 — plain
 gardener/shepherd status comments bypassing the wrapper for an unknown
 reason) as needing separate tracing, out of scope for this job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T14:51:11Z
