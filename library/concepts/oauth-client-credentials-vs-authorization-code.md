@@ -18,6 +18,8 @@ The central decision in adopting an OAuth-app pattern is which OAuth 2.0 grant f
 | [web--tailscale-oauth-apps--user-delegated-authorization-code-model](../sections/web--tailscale-oauth-apps--user-delegated-authorization-code-model.md) | The authorization-code flow on behalf of a user; the explicit OAuth-apps-versus-OAuth-clients decision contrast. |
 | [web--tailscale-oauth-apps--requirements-and-limitations](../sections/web--tailscale-oauth-apps--requirements-and-limitations.md) | Preconditions and single-tailnet boundary of the OAuth-apps flow. |
 | [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | Seaborn's 2010 comparison of the OAuth redirect flow's residual attacks (clickjacking, phishing, XSRF, asynchrony) against a capability powerbox. |
+| [opinions-of-oauth](../sections/cap-talk-2009-2012--opinions-of-oauth.md) | The 2012 list verdict on OAuth 2 (best wrong way of doing things) and the web-key / YURL alternative. |
+| [openid-single-sign-on-critique](../sections/cap-talk-2009-2012--openid-single-sign-on-critique.md) | Karp's critique of OpenID: phishing-training, single sign-on with no single sign-out, authority re-centralized in one credential. |
 
 ## See also
 
