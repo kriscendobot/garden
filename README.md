@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T00:17:56Z_
+_As of 2026-09-16T00:18:41Z_
 
 ## Latest
 
@@ -672,18 +672,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ses-node26-lockdown-permits-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1281
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`issue-kriscendobot-garden-93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-93.md) — Issue from kriskowal on kriscendobot/garden #93
 
-### tada (7908)
+### tada (7909)
+- [`issue-kriscendobot-garden-93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-93.md) — Completion report
 - [`ses-node26-lockdown-permits-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-1.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-clean.md) — Completion report
 - [`ironhorse-demolish-xs-computron-parity-myth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-demolish-xs-computron-parity-myth.md) — Completion report — ironhorse-demolish-xs-computron-parity-myth
 - [`ses-node26-lockdown-permits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits.md) — Completion report — ses-node26-lockdown-permits
-- [`canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-c626b1d09d0f.md) — rolling-deploy canary probe — round trip OK
-- … and 7903 more
+- … and 7904 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
