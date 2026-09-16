@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T21:28:51Z_
+_As of 2026-09-16T21:29:30Z_
 
 ## Latest
 
@@ -618,24 +618,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.1M | $474.36 _(notional, rate-card)_ | 46% of 143.0M (ok) |
+| Claude | 65.1M | $474.65 _(notional, rate-card)_ | 46% of 143.0M (ok) |
 | Codex | 11.2M _(+281.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`scholar-ingest-cap-talk-2012-april-onward`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012-april-onward.md) — ---
-- [`scholar-ingest-cap-talk-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012.md) — ---
 
-### tada (8059)
+### tada (8060)
+- [`scholar-ingest-cap-talk-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2012.md) — Completion report — scholar-ingest-cap-talk-2012
 - [`improve-fetch-source-wayback-index-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-wayback-index-failure.md) — Completion report
 - [`self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe.md) — Completion report
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-zizmor-parity.md) — Cost
 - [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2011-2012-remainder.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64.md) — rolling-deploy canary probe — round trip OK
-- … and 8054 more
+- … and 8055 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
