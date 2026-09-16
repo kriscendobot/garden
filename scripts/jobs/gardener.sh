@@ -1496,6 +1496,16 @@ while :; do
         log "could not stamp policy-refusal hint on '$base' (rc=$?); falling back to the ordinary real-failure escalation so the signal is not lost"
       fi
       # --- real failure: escalate the diagnostic output by hash -----------------
+      # The handler is gone and this claim cannot complete.  Stamp that fact on the
+      # board BEFORE invoking either diagnostic sink: report-error.sh and
+      # journal-entry.sh are best-effort side effects and must not be able to leave
+      # a dead claim parked in doin until the full claim TTL.  The reaper remains
+      # the single writer of doin->todo and the bounded retry/doom counter.
+      if ( stamp_terminal_handler_failure_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+        log "stamped terminal-handler-failure hint on '$base'; reaper will requeue before TTL (deterministic failure cycle counts)"
+      else
+        log "could not stamp terminal-handler-failure hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+      fi
       # Defensive: $capture is non-empty here (the transient branch absorbed the
       # empty case), but keep the synthesize-if-empty guard so a future change to
       # the classifier can never hash the empty git blob.

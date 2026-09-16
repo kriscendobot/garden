@@ -122,6 +122,9 @@ grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/policy-refusal-quarantin
 grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/codex-policy-refusal-resume-test.sh' "$DEPLOY" \
   && ok "default candidate gate includes Codex policy-refusal resume regression" \
   || bad "default candidate gate omits Codex policy-refusal resume regression"
+grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/terminal-handler-failure-reap-test.sh' "$DEPLOY" \
+  && ok "default candidate gate includes terminal-handler prompt-reap regression" \
+  || bad "default candidate gate omits terminal-handler prompt-reap regression"
 
 # ============================================================================
 hr; echo "CLEAN DEPLOY — quiesced fleet, scripts change: merge + record + lift + restart"; hr

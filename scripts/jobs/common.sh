@@ -4921,6 +4921,54 @@ elapsed_within_band() {
 REAP_NOW_MARKER='<!-- garden-reap-now -->'
 REAP_NOW_MARKER_RE='^<!-- garden-reap-now -->$'
 
+# A non-transient handler failure is also known-dead immediately, but it must not
+# borrow REAP_NOW_MARKER: the reaper preserves that marker as evidence that the
+# last cycle was transient.  This distinct marker gives the same prompt, cap-
+# exempt reaping while preserving the deterministic classification if repeated
+# failures exhaust the retry bound.
+TERMINAL_HANDLER_FAILURE_MARKER='<!-- garden-terminal-handler-failure -->'
+TERMINAL_HANDLER_FAILURE_MARKER_RE='^<!-- garden-terminal-handler-failure -->$'
+
+has_terminal_handler_failure_hint() {
+  local f="${1:-}"
+  [ -f "$f" ] || return 1
+  grep -Eq "$TERMINAL_HANDLER_FAILURE_MARKER_RE" "$f"
+}
+
+# stamp_terminal_handler_failure_hint <clone> <doin-relpath> — durably mark a
+# still-claimed job whose handler has returned a non-transient failure.  The
+# reaper consumes the marker on its next tick instead of waiting for the claim
+# TTL.  This is deliberately a separate board write from diagnostic reporting:
+# an inbox/reporting failure cannot strand a dead claim for hours.
+stamp_terminal_handler_failure_hint() {
+  local clone="$1" rel="$2" attempt f rc
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi
+    if has_terminal_handler_failure_hint "$f"; then clone_unlock "$clone"; return 0; fi
+    awk -v m="$TERMINAL_HANDLER_FAILURE_MARKER" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) print m
+          print line[i]
+        }
+        if (cut == 0) print m
+      }
+    ' "$f" > "$f.terminal-failure" && mv "$f.terminal-failure" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "terminal-failure: hint $rel by $GARDEN (non-transient handler failure)"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
+  done
+  return 1
+}
+
 # A provider quota refusal with a named reset is known-dead like reap-now, but it
 # must not be reclaimed until the provider says the account window opens. The
 # marker carries both the extracted class and the absolute UTC reset. The reaper
@@ -5368,9 +5416,9 @@ stamp_outage_cycle_hint() {
 
 # --- the cycle-marker family, cleared on every plan-side transition ----------
 #
-# The seven markers above (reap-count, deadline-overrun, elapsed-constancy,
-# quota-backoff, and the per-cycle reap-now / productive-cycle / outage-cycle
-# hints) are the reaper's and the gardener's running
+# The cycle markers above (reap-count, deadline-overrun, elapsed-constancy,
+# quota-backoff, and the per-cycle terminal-failure / reap-now / productive-cycle /
+# outage-cycle hints) are the reaper's and the gardener's running
 # account of ONE job's failure history. They are meaningful only while the job is
 # cycling through todo -> doin -> requeue; a job that reaches jobs/plan/ has stopped
 # cycling, and its counters are stale the moment it is parked.
@@ -5392,7 +5440,7 @@ stamp_outage_cycle_hint() {
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
 # spelling of "the family", so no caller enumerates the members itself.
-CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$POLICY_REFUSAL_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$TERMINAL_HANDLER_FAILURE_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$POLICY_REFUSAL_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
 
 # strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
 # Idempotent by construction: a body with no markers passes through byte-identical, and
@@ -5416,6 +5464,7 @@ cycle_marker_summary() {
   observation="$(printf '%s\n' "$line" | sed -nE 's/^<!-- garden-transient-elapsed: kind=([^ ]+) through=([0-9]+) values=([^ ]+) -->$/\1@\2[\3]/p')"
   [ -n "$observation" ] && out="${out:+$out,}transient-elapsed=$observation"
   if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
+  if has_terminal_handler_failure_hint "$f"; then out="${out:+$out,}terminal-handler-failure"; fi
   if provider_quota_backoff_fields "$f" >/dev/null 2>&1; then out="${out:+$out,}provider-quota-backoff"; fi
   if has_policy_refusal_hint "$f";   then out="${out:+$out,}policy-refusal"; fi
   if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi

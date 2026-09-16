@@ -598,6 +598,7 @@ gc_scratch() {
 # found the body is returned unchanged (never blindly truncated at a stray `---`).
 clean_body() {
   awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" \
+      -v terminal="$TERMINAL_HANDLER_FAILURE_MARKER_RE" \
       -v qback="$PROVIDER_QUOTA_BACKOFF_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" \
       -v outage="$OUTAGE_MARKER_RE" -v policy="$POLICY_REFUSAL_MARKER_RE" '
     { line[NR] = $0 }
@@ -609,6 +610,7 @@ clean_body() {
       for (i = 1; i <= end; i++) {
         if (line[i] ~ mark) continue          # drop prior reap-count markers
         if (line[i] ~ rnow) continue          # drop the gardener reap-now hint (never persist it)
+        if (line[i] ~ terminal) continue      # drop the consumed non-transient terminal-failure hint
         if (line[i] ~ qback) continue         # drop the consumed provider reset backoff
         if (line[i] ~ prod) continue          # drop the gardener productive-cycle hint (re-earned each cycle)
         if (line[i] ~ outage) continue        # drop the gardener outage-cycle hint (re-earned each cycle)
@@ -720,18 +722,20 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
     reap_now_flag=1
     log "quota-backoff: '$base' provider $quota_type limit reset is due ($quota_reset_at); requeueing now"
   fi
-  # A gardener whose handler died a transient signal-kill stamps a reap-now hint on
-  # its own still-in-doin claim (gardener.sh transient branch): it KNOWS the claim
-  # is dead, so we requeue it on THIS tick instead of idling the full TTL. Checked
-  # BEFORE the ts==0 guard so the hint is authoritative even on an unparseable
-  # claimed_at. The hint only promotes the claim into the stale set early — it then
-  # flows through the SAME requeue + doom-counter path below, so a job SIGTERM'd
-  # every cycle still escalates as doom after the threshold (never loops forever).
+  # A gardener whose handler has terminated stamps either a transient reap-now hint
+  # or a non-transient terminal-failure hint on its own still-in-doin claim: it
+  # KNOWS the claim is dead, so we requeue it on THIS tick instead of idling the
+  # full TTL. Checked BEFORE the ts==0 guard so either hint is authoritative even
+  # on an unparseable claimed_at. A hint only promotes the claim into the stale set
+  # early — it then flows through the SAME requeue + doom-counter path below.
   if [ "$reap_now_flag" -eq 1 ]; then
     : # provider quota reset reached; already logged above
   elif has_reap_now_hint "$f"; then
     reap_now_flag=1
     log "reap-now: '$base' carries a gardener reap-now hint (age ${age}s); requeueing before TTL"
+  elif has_terminal_handler_failure_hint "$f"; then
+    reap_now_flag=1
+    log "terminal-failure: '$base' carries a non-transient handler-failure hint (age ${age}s); requeueing before TTL"
   else
     # Age-based staleness, floored at the handler's maximum possible lifetime
     # (reap_age_threshold) so a GARDEN_CLAIM_TTL set below the handler wall cannot
@@ -930,7 +934,12 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # plan record preserves that classification so a supervising gauntlet can safely
     # distinguish a transient requeue-exhaustion from an unknown/deterministic one.
     last_cycle_transient=0
+    last_cycle_terminal_failure=0
     has_reap_now_hint "$f" && last_cycle_transient=1
+    # The separate terminal marker proves the opposite classification while using
+    # the same prompt-reaping path. Do not conflate it with reap-now: gauntlet retry
+    # policy consumes failure_classification from a doomed plan record.
+    has_terminal_handler_failure_hint "$f" && last_cycle_terminal_failure=1
     body="$(clean_body "$f")"
     # A gardener stamps `<!-- garden-deadline-overrun: N -->` on a claim whose handler
     # hit its OWN wall-clock budget (rc=124 at the wall) — a DETERMINISTIC overrun that
@@ -1109,7 +1118,9 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf 'doomed: true\n'
           printf 'doom_signature: %s\n' "$sig"
           printf 'doom_count: %s\n'     "$pcount"
-          if [ "$sig" = requeue-exhausted ] && [ "$last_cycle_transient" -eq 1 ]; then
+          if [ "$sig" = requeue-exhausted ] && [ "$last_cycle_terminal_failure" -eq 1 ]; then
+            printf 'failure_classification: deterministic\n'
+          elif [ "$sig" = requeue-exhausted ] && [ "$last_cycle_transient" -eq 1 ]; then
             printf 'failure_classification: transient\n'
           elif [ "$sig" = policy-refusal ] || [ "$sig" = deadline-overrun ] \
             || [ "$sig" = elapsed-constancy ]; then
