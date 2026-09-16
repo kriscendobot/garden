@@ -1,23 +1,11 @@
 ---
-gate: go-ahead
-priority: normal
 role: gardener
 tier: mentor
 handler-budget-role: shepherd
 handler-timeout: 7200
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: unknown
-requeue_cycles: 5
-deadline_overruns: 0
-elapsed_constancy_confirmations: 1
-doomed_at: 2026-09-03T19:55:51Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-09-03T19:55:51Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T05:53:35Z cleared=none -->
 
 ---
 role: gardener
