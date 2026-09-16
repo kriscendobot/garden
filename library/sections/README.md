@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6981 (530 parent indexes + 6451 children).
+Total section files: 6989 (530 parent indexes + 6459 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -334,6 +334,17 @@ Total section files: 6981 (530 parent indexes + 6451 children).
 ### bun--workspaces
 
 - [bun--workspaces--manifest-globs-and-workspace-publish-rewrite](bun--workspaces--manifest-globs-and-workspace-publish-rewrite.md)
+
+### cap-talk-1998
+
+- [cap-talk-1998--acl-vs-capability-challenge-problems](cap-talk-1998--acl-vs-capability-challenge-problems.md)
+- [cap-talk-1998--acls-on-capabilities](cap-talk-1998--acls-on-capabilities.md)
+- [cap-talk-1998--caos-capability-os-terminology](cap-talk-1998--caos-capability-os-terminology.md)
+- [cap-talk-1998--capability-ids-and-indirection-revocation](cap-talk-1998--capability-ids-and-indirection-revocation.md)
+- [cap-talk-1998--card-keys-are-capabilities](cap-talk-1998--card-keys-are-capabilities.md)
+- [cap-talk-1998--creating-and-granting-capabilities](cap-talk-1998--creating-and-granting-capabilities.md)
+- [cap-talk-1998--rescinded-keys](cap-talk-1998--rescinded-keys.md)
+- [cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys](cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys.md)
 
 ### cask--allocator-design
 
