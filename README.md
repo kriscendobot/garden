@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:32:55Z_
+_As of 2026-09-16T10:40:11Z_
 
 ## Latest
 
-Five early-September halted gauntlets were triaged: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has a real base-drift failure requiring rebase and semantic port of the 9p-server `stringLengthLimit`→`byteLengthLimit` migration, [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/pull/1125) is blocked on Endo guest-native, and others have clear re-scoping paths. The Ironhorse computron benchmark-baseline plan landed as [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with six open questions; build on hold pending maintainer decisions on tolerance, gating, and parameters. Multiple streams await decisions: minion-town eval identity, daemon revival migration, clip publishing auth, and PR dependencies. Deploy canary briefly failed but recovered; spend at 40% quota.
+Five halted gauntlets and one orchestration await triage decisions: [endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) (transient, re-post as-is), [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (confirm premise before re-post), [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (real failure—re-scope to weave/pin-merge-base), [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) (6 panel rounds, mergeable—route to human review instead), and [minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration (child 1 complete, resume at child 2 with raised budget). [endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) design landed in draft with 6 open questions blocking the computron benchmark build; [endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) audit found no surviving own-cost constraints for the baseline. Weave job for [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit 2400s wall-clock timeout; semantic port of `stringLengthLimit`→`byteLengthLimit` at 3 call sites in `9p-server` requires conflict resolution before gauntlet resume. Ironhorse computron benchmark baseline orchestration completed (2 children, all green). Token spend at 41% of quota. One host (oros-studio) blocks gardener worker-kind alias retirement (still on legacy kind). Minion.town evaluation needs host-side identity introduction; clip GC build needs restored kriscendobot token on endolin.
 
 ## Parked for maintainer feedback
 
@@ -400,14 +400,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.9M | $455.44 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 58.0M | $455.66 _(notional, rate-card)_ | 41% of 143.0M (ok) |
 | Codex | 7.6M _(+189.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-endor-git-windows-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endor-git-windows-followup.md) — Follow-up: Windows (MSVC) support for endor-git bindings
 - [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/implement-worktree-teardown-on-job-completion.md) — ---
 
 ### tada (7985)
@@ -614,7 +615,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`design-endor-git-windows-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-endor-git-windows-followup.md) — _normal_ · Follow-up: Windows (MSVC) support for endor-git bindings
 - [`design-slots-ocapn-op-lanes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-slots-ocapn-op-lanes.md) — _normal_ · ---
 - [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-sturdyref-stack-modernize.md) — _2_ · The situation
 - [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-thixotrope-drop-inert-bundle-filter.md) — _normal_ · ---
