@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7003 (530 parent indexes + 6473 children).
+Total section files: 7013 (530 parent indexes + 6483 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -362,6 +362,19 @@ Total section files: 7003 (530 parent indexes + 6473 children).
 - [cap-talk-1999--shared-object-lifetime-reference-counting](cap-talk-1999--shared-object-lifetime-reference-counting.md)
 - [cap-talk-1999--single-level-store-checkpointing-tradeoffs](cap-talk-1999--single-level-store-checkpointing-tradeoffs.md)
 - [cap-talk-1999--storage-gc-and-covert-channels](cap-talk-1999--storage-gc-and-covert-channels.md)
+
+### cap-talk-2000-2001
+
+- [cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference](cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference.md)
+- [cap-talk-2000-2001--authorization-certificates-are-all-around-us](cap-talk-2000-2001--authorization-certificates-are-all-around-us.md)
+- [cap-talk-2000-2001--capability-representation-partitioned-tagged-and-password](cap-talk-2000-2001--capability-representation-partitioned-tagged-and-password.md)
+- [cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits](cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md)
+- [cap-talk-2000-2001--keykos-eros-practical-model-for-a-newcomer](cap-talk-2000-2001--keykos-eros-practical-model-for-a-newcomer.md)
+- [cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol](cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md)
+- [cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb](cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb.md)
+- [cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo](cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo.md)
+- [cap-talk-2000-2001--the-tcb-is-not-singular](cap-talk-2000-2001--the-tcb-is-not-singular.md)
+- [cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus](cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md)
 
 ### cask--allocator-design
 
