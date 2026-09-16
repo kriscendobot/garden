@@ -26,6 +26,7 @@ plaintext on disk, protected by filesystem permissions.
 | [dani/network-registration](../sections/endo-but-for-bots--llm-designs-dani--network-registration.md) | `EndoNetwork.registerAgentKey(publicKey, agentId)` — installed networks must know agent public keys to route inbound connections. |
 | [dcp/handle-agent-foundation-and-the-gap](../sections/endo-but-for-bots--llm-designs-dcp--handle-agent-foundation-and-the-gap.md) | The `handle` formula type links back to its owning agent (`{type: 'handle', agent: agentId}`); the Handle / Agent / keypair triangle is the prerequisite for the delegate model. |
 | [dcp/verification-and-handle-extensions](../sections/endo-but-for-bots--llm-designs-dcp--verification-and-handle-extensions.md) | Cross-OCapN verification requires the verifier to reach the principal's Handle — explicitly interacts with the per-agent keypair work as a follow-on. |
+| [cap-talk 2012-09: NaCl per-message crypto for Ken channels](../sections/cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels.md) | Brian Warner making the VatID the base32-encoded public key itself — self-authenticating identity with no certificate or CA — the direct antecedent of Endo's per-agent-keypair peer identity. |
 
 ## See also
 
