@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-16T13:14:14Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-garden-gauntlet-reexport-policy-check
+pr_number: 95
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/95
+pr_head: design/reexport-deprecation-policy-gauntlet
