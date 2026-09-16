@@ -77,6 +77,7 @@
 | [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--background-and-api-surface](../sections/endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--background-and-api-surface.md) | endo-but-for-bots PR #475 design archive | Describes the intended constructor, prototype, and pass-style surface for emulated freezable views. |
 | [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--semantics](../sections/endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--semantics.md) | endo-but-for-bots PR #475 design archive | Specifies wrapper semantics needed for immutable byteArray values. |
 | [endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--scope](../sections/endo-but-for-bots--packages-immutable-arraybuffer-designs-freezable-typedarray--scope.md) | endo-but-for-bots PR #475 design archive | Separates intended pass-style integration from deferred compatibility questions. |
+| [cap-talk-2009-2012--immutable-instances-and-the-data-boundary](../sections/cap-talk-2009-2012--immutable-instances-and-the-data-boundary.md) | cap-talk 2012-April | Miller relocates the data-versus-capability line from mutability to unforgeability-plus-identity: Data is transitively immutable AND transitively identity-free (in Joe-E, only scalars); Endo answers with passStyle. |
 
 - [`marshal`](marshal.md): the package implementing pass-style serialization (same surface).
 - [`captp`](captp.md): consumer of marshal for capability transport.
