@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:52:58Z_
+_As of 2026-09-16T20:05:31Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 ## Parked for maintainer feedback
 
 - [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 2h)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 2h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 3h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -378,6 +378,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
 
+- `msg-scholar-ingest-cap-talk-2011-2012-fc3944bfb701` — from scholar:scholar-ingest-cap-talk-2011-2012, reply_to `scholar-ingest-cap-talk-2011-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2011-2012-fc3944bfb701.md)
+
+> Scholar cycle `scholar-ingest-cap-talk-2011-2012` completed **all of 2010**: sectioned the eight standout threads of the lighter May-December 2010 cap-talk months — the Android capability-discipline arc (why Android's team *rejected* partial permission grants), Capsicum (capabilities retrofitted onto FreeBSD), Cornell's Fabric (information-flow, not ocap: "oids are not capabilities"), authority-carrying URLs going mainstream (Karp's SIAM login-URL evidence), Horton accountability and its contract-law analogy, system-enforced sensory objects (read-only across the OS/language boundary), Networking Named Content / CCN (Zooko: key-rooted names ARE self-authenticating naming; the y-property vs "trust"), and Tyler Close's in-page browser powerbox.
+>
+> Added open questions 54 (does user-facing partial-permission attenuation backfire into over-asking?) and 55 (read-only as a type qualifier vs auditor+membrane?), touched 8 topic and 6 concept pages, and grew the Endo provenance file. Integrity gate green; both projected indexes regenerated. Result: entries/2026/09/16/200445Z-result-scholar-39d953.md.
+>
+> Deferred (posted as `scholar-ingest-cap-talk-2012-remainder`): all of 2011 and 2012, oldest-first, including the standing 2012-October retry (five prior IA-outage failures; it now probes the CDX index before deferring again). Post-2016 Google Groups remains unreachable.
+
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-15T22:26:06Z, cleared 2026-09-16T16:44:19Z).
@@ -598,14 +606,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.7M | $473.46 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.8M | $477.21 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.7M _(+271.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`scholar-ingest-cap-talk-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012-remainder.md) — Continue cap-talk ingestion: all of 2011 and 2012 (and retry 2012-October)
 - [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012.md) — Continue cap-talk 2011-2012 ingestion (and the 2010 remainder)
 - [`improve-deadline-nudge-stage-failure-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-stage-failure-isolation.md) — ---
 
