@@ -15,6 +15,7 @@ Dialog's `Value::Record` variant: a value that is compound (has internal structu
 | [dialog-db--notes-record-value--problem-compound-atomic-values](../sections/dialog-db--notes-record-value--problem-compound-atomic-values.md) | Why compound-but-atomic values need a Record rather than multiple claims; the concrete cases. |
 | [dialog-db--notes-record-value--recordformat-trait-and-record-type](../sections/dialog-db--notes-record-value--recordformat-trait-and-record-type.md) | The RecordFormat trait and the type-erased Record container with its realize/TryFrom/From API and trait bounds. |
 | [dialog-db--notes-record-value--storage-deferral-and-decision](../sections/dialog-db--notes-record-value--storage-deferral-and-decision.md) | The two-step rollout to zero-copy Record::from(bytes) from storage, and the merge extension for conflict resolution. |
+| [cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values](../sections/cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values.md) | The data-versus-object line the thread drew: a value is immutable copy-data with no exercisable behavior, distinct from a reference; the ancestor of Endo passStyle copy-data carrying no authority. |
 
 ## See also
 
