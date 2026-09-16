@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T15:07:13Z_
+_As of 2026-09-16T15:24:54Z_
 
 ## Latest
 
@@ -50,6 +50,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > for you: the post-2016 Google-Groups messages need an alternate export/mbox if
 > you want them; the Pipermail archive already covers the first 18 years.
 > Result: entries/2026/09/16/135136Z-result-scholar-31e8e8.md
+
+- `20260916T152425Z-b02283` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260916T152425Z-b02283.md)
+
+> awaiting maintainer — beyond proxy authority: gardener ironhorse-computron-benchmark-baseline-build-exec, msgid msg-ironhorse-computron-benchmark-baseline-build-exec-f0d0671cb73a.md — Lifting the repository-wide IronHorse pause (COMMON.md, maintainer directive kumavis 2026-09-09, [endojs/endo-but-for-bots#91](https://github.com/endojs/endo-but-for-bots/issues/91)) and approving a design over unresolved must-fix panel findings are maintainer-reserved authority grants, not proxiable progress questions.
 
 - `msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a` — from gardener:verify-foreman-partial-unquiesce-target-2, reply_to `verify-foreman-partial-unquiesce-target-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-foreman-partial-unquiesce-target-2-3032a182c44a.md)
 
@@ -508,7 +512,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $469.14 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 9.0M _(+227.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
