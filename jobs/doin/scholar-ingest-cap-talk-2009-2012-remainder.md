@@ -35,3 +35,13 @@ NOTE: the post-2016 Google Groups era remains not fetchable from the sandbox
 (documented in `cap-talk-1998.md`); flag the gap if reached. A separate
 `scholar-ingest-cap-talk-2004-2008` job (peer, 2026-09-16) filled the 2004-2008
 gap concurrently.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T18:20:59Z
