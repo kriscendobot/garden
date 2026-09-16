@@ -54,3 +54,13 @@ that would now catch it. Update the cluster to `closed` with `--improved-by` via
 `scripts/jobs/review-miss-record.sh cluster-status merge-base-pinning closed`.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T17:33:32Z
