@@ -295,7 +295,11 @@ esac
 slots=$(( GARDEN_FOREMAN_ACTIVE_TARGET - inflight ))
 promoted=0
 while [ "$promoted" -lt "$slots" ]; do
-  top_deferred="$(plan_deferred_ranked "$DIR" | head -1)"
+  # `|| true`: plan_deferred_ranked ends in `| cut -f3`; when it emits 2+ lines,
+  # `head -1` closes the pipe after the first, cut's next write gets EPIPE and
+  # exits 1, and pipefail would abort this whole `set -e` script even though we
+  # already captured the line we wanted. Tolerate the writer-side SIGPIPE.
+  top_deferred="$(plan_deferred_ranked "$DIR" | head -1)" || true
   [ -n "$top_deferred" ] || break   # no more deferred plan jobs queued this tick
   if "$HERE/promote-plan.sh" "$top_deferred" >/dev/null 2>&1; then
     promoted=$(( promoted + 1 ))
