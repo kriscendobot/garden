@@ -1,0 +1,23 @@
+<6>23:08:04 [monk/2] job 'undraft-minion-town-99-harness-provisioning-20260916' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>23:08:04 [monk/2] job 'undraft-minion-town-99-harness-provisioning-20260916' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>23:09:37 [assert-producer-pr-draft] draft-gate: BLOCK — https://github.com/kriscendobot/minion.town/pull/99 (kriscendobot/minion.town#99) named by completing job 'undraft-minion-town-99-harness-provisioning-20260916' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)
+
+--- handler report (partial) ---
+Inbox empty. Job complete — no garden-repo changes were needed (this was purely a PR-operations job on the minion.town fork).
+
+## Completion report
+
+**Job:** Stop the panel loop on kriscendobot/minion.town#99 and route it to maintainer review.
+
+**Verified state (2026-09-16, current head):**
+- PR #99 `feat(deploy): provision pinned Claude harness`, head `47821c4670a664564d3aaec57ce43e924b5f0df5`, has not drifted since triage — CI all green (Claude harness amd64 `pass`, arm64 `pass`, test `pass`), `mergeable=MERGEABLE`, `mergeStateStatus=CLEAN`.
+
+**Actions taken:**
+1. Re-confirmed green + mergeable at the current head via `gh pr checks` / `gh pr view`.
+2. **Un-drafted** the PR (`gh pr ready 99`) — confirmed `isDraft=false`, still `OPEN`/`CLEAN`/`MERGEABLE`.
+3. **Posted the completion-summary comment** (https://github.com/kriscendobot/minion.town/pull/99#issuecomment-5705823811) anchored to head `47821c4670`, stating plainly: the gauntlet reached its 6-round `max_iterations` budget and never emitted `pass` (structural — 29-seat panel surfaces fresh nits each round, and an own-PR request-changes downgrades to a comment); the maintainer decision (kriskowal, muster 2026-09-16) that the recurring must-fixes are diminishing polish not merge-blockers; the exact seat-by-seat list of what fix round 6 folded (assessor, packager/migrator, archivist, breaker, purist, wire-watcher must-fixes + locksmith/saboteur should-fixes); and verification status. A cold reviewer now knows why the loop stopped rather than converged.
+4. **Did NOT merge** — left explicitly for the maintainer.
+
+**Changes:** No garden-repo (main2) changes were required; the work was PR operations on the fork. Nothing to commit/push.
+
+**Follow-ups:** None. PR #99 now awaits the maintainer's merge decision.
