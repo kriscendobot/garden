@@ -118,6 +118,50 @@ The October subject line contains only Ganor's request for the Harrison-Ruzzo-Ul
 
 - [cap-talk-2002-2003--hru-paper-source-request](../sections/cap-talk-2002-2003--hru-paper-source-request.md) - the source request and pointer back to the substantive June discussion.
 
+### 19. What does confinement constrain when a hostile holder can proxy?
+
+Shapiro's 2004 "crisis of confidence" separates restricting direct capability transfer from restricting effective authority. A hostile holder with an allowed communication path can proxy an operation even when it cannot transfer the underlying reference. The list preserves POLA and controlled connectivity as useful properties, but does not recover a general non-proxying guarantee without additional confinement assumptions.
+
+- [cap-talk-2004-2008--confinement-crisis-and-capdesk-pola](../sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md)
+
+### 20. Which component may convert authority into ordinary data?
+
+Descriptor systems make references non-serializable unless the environment provides a transfer operation. Password capabilities can travel through ordinary protocols but may also leak through dumps, logs, or debugging. Proxies and scrubbing can close those channels locally, at the cost of making the runtime part of the security case. The archive does not select one universally superior representation.
+
+- [cap-talk-2004-2008--capabilities-as-data-versus-descriptors](../sections/cap-talk-2004-2008--capabilities-as-data-versus-descriptors.md)
+- [cap-talk-2004-2008--password-capability-safety](../sections/cap-talk-2004-2008--password-capability-safety.md)
+
+### 21. Can a callee know the ultimate human invoker?
+
+Delegation and proxying prevent a runtime caller label from proving who intended an effect. Explicit scoped credentials can state a useful attribution claim, but the list does not converge on a universal accountability layer that recovers human causation from reference exercise.
+
+- [cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question](../sections/cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question.md)
+
+### 22. Can a generic wrapper mediate every object correctly?
+
+Identity tests, callbacks, returned references, exceptions, and protocol invariants defeat the idea of a completely transparent, protocol-independent wrapper. Useful membranes exist, but require a stated value-translation boundary and runtime assumptions. The universal claim remains false or underspecified.
+
+- [cap-talk-2004-2008--generic-wrapping-and-membrane-limits](../sections/cap-talk-2004-2008--generic-wrapping-and-membrane-limits.md)
+- [cap-talk-2004-2008--same-key-and-composite-identity](../sections/cap-talk-2004-2008--same-key-and-composite-identity.md)
+
+### 23. Does a pure ocap substrate prevent confused deputies in hybrid applications?
+
+No. The 2008 thread converges on the application caveat: code can rebuild an ACL lookup, firewall, or implicit rights amplification on top of object capabilities and become confusable again. What remains unsettled is how much protective machinery a platform should provide against this attractive nuisance.
+
+- [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md)
+
+### 24. Does authority imply information flow?
+
+The list distinguishes potential causal influence, possible communication, actual trace-level information transfer, and authority reachability. Small examples defeat attempts to collapse these into one relation. Authority-analysis tools must state which relation they compute.
+
+- [cap-talk-2004-2008--authority-versus-information-flow](../sections/cap-talk-2004-2008--authority-versus-information-flow.md)
+
+### 25. What durability guarantee should a persistent capability provide?
+
+Persistent reference graphs can survive restarts, and causally ordered checkpoints can recover distributed consistency, but neither eliminates uncertain remote outcomes or replay. The open design boundary is how much retry, idempotency, and reference restoration belongs in the platform versus each application protocol.
+
+- [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](../sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
