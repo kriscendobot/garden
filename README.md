@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T07:57:57Z_
+_As of 2026-09-16T08:00:06Z_
 
 ## Latest
 
-Panel round 4 of the Ironhorse computron-benchmark-baseline gauntlet completed, and its orchestration finished all 2 children reaching tada; however, a separate credit-controls orchestration halted mid-flight (2 of 4 children done) after one child timed out on the handler budget. Comprehensive triage of five halted gauntlets from early September identified transient capacity-crunch failures on [endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (both safe to re-post), a real base-drift failure on [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) requiring a merge-base pin and semantic conflict resolution, green-but-iterated code on [minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) that should skip to human review rather than loop gauntlet again, and a partially-landed [minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) that needs re-anchoring to resume at child 2 with a higher handler budget. A weave job for [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit the 2400s handler timeout and is parked pending rescope. Ten maintainer inbox items are open, including the [endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) benchmark-baseline design's six open questions (tolerance bands, gate coverage, seed roster, cost-table versioning, fate of [endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282), grid-baseline deferral), minion.town daemon revival dry-run blocked by a missing legacy-host schema migration, identity A→B introduction for minion.town evaluation, and several completions awaiting your review.
+Ironhorse computron benchmark-baseline design landed as draft [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with audit complete; build is parked awaiting your answers on 6 parameters (tolerance bands, gate-2 PR vs. nightly, seed roster, COST_TABLE_VERSION policy, PR merge sequencing, grid baseline deferral). Triage of five early-September halted gauntlets is complete: one transient halt is safe to re-post; two need rescoping (weave/pin-merge-base for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) due to base drift in 9p-server; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) should route to maintainer review instead of another 6-round panel); one is pending premise confirmation; one halt record is stale—child 1 already delivered [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84), just needs re-anchoring at child 2 with a raised budget. Pending maintainer decisions: weaver auth for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100), ev7-host introduction for minion.town MCP eval, three infrastructure auth blockers (kriscendobot gh token for minion.town clip-gc PR, reminder daemon migration design on schema compat, gardener-alias retirement blocked by a third fleet host). OCapN-over-Noise containment audit complete—two inert legacy dckc POWERS records verified neutralized by the vhost validator. 25 PRs waiting (top 10 shown); active gauntlet stages: fix-4 and panel-4 for computron benchmark.
 
 ## Parked for maintainer feedback
 
@@ -388,14 +388,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $438.04 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 52.9M | $438.23 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1283
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
