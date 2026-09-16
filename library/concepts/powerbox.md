@@ -29,6 +29,7 @@ confused-deputy attack against the broker.
 | [cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement](../sections/cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md) | Polaris must mediate the shared Windows GUI channel so a confined application cannot drive the trusted broker. |
 | [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](../sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md) | A trusted powerbox persists intended references rather than letting applications edit ambient filenames into authority. |
 | [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](../sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md) | The powerbox as the deliberate, user-mediated re-introduction of authority: an install-time manifest plus escalation prompts, and the worry that consent prompts habituate users into re-granting ambient authority. |
+| [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | The 2010 Web Powerbox design (Seaborn, Varda, Close, Miller): a browser-held introducer with drag-and-drop grants and a revocable-connection UI, and why it beats OAuth. |
 
 ## See also
 
