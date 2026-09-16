@@ -1,4 +1,12 @@
 ---
+gate: blocked
+blocked_on: https://github.com/endojs/endo-but-for-bots/pull/1019
+priority: normal
+posted_by: proxy
+posted_at: 2026-09-16T13:09:28Z
+---
+
+---
 tier: mentor
 ---
 <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-16T13:04:07Z cleared=none -->
@@ -42,13 +50,3 @@ green.
 
 BLOCKED (parked): promote only after design PR #1019 is reviewed/accepted by
 the maintainer. Do not start ahead of design acceptance.
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-16T13:04:21Z
