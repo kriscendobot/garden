@@ -1,2 +1,2 @@
-base: improve-fetch-source-transient-wayback-retries
+base: improve-fetch-source-wayback-index-failure
 identity: mentor:scripts/jobs/fetch-source.sh
