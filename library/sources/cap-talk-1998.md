@@ -24,7 +24,7 @@ Abstract: The cap-talk mailing list is the long-running venue for object-capabil
 
 ## The cap-talk archive (map)
 
-- **Current home:** [groups.google.com/g/cap-talk](https://groups.google.com/g/cap-talk). The Google Groups web UI is a JavaScript single-page app whose message bodies load via an authenticated XHR; a plain `fetch-source.sh` (curl) retrieves only the SPA shell and thread titles, and the legacy `_escaped_fragment_` crawl endpoint now just redirects. **Google Groups message bodies are therefore not directly fetchable from the bot sandbox** (documented as a blocker in this cycle's `result`; the maintainer may know an alternate export/mbox for the post-2016 messages).
+- **Current home:** [groups.google.com/g/cap-talk](https://groups.google.com/g/cap-talk). The Google Groups web UI is a JavaScript single-page app whose message bodies load through application requests; a plain `fetch-source.sh` (curl) does not yield a stable mailbox source, and the legacy `_escaped_fragment_` crawl endpoint now just redirects. **Google Groups message bodies are therefore not directly fetchable as a corpus from the bot sandbox.** The 2013-2016 completion survey found no public cap-talk mbox or alternate mirror. Google Takeout or Vault may provide an authorized member/administrator export, but that is not a public fetchable source.
 - **Historical archive (the usable source):** the Mailman/Pipermail archive at `http://www.eros-os.org/pipermail/cap-talk/`, spanning **March 1998 through January 2016** (188 monthly archives). The host is offline (HTTP 522), but the archive is captured by the Internet Archive and fetched via the `id_` original-bytes recipe (`fetch-source.sh` falls back to it automatically). Each month is available as threaded HTML (`YYYY-Month/thread.html`, `subject.html`, `author.html`, `date.html`), per-message HTML (`YYYY-Month/NNNNNN.html`), and a downloadable `YYYY-Month.txt.gz` mbox-style text bundle. Ingest from the `.txt.gz` bundle (its content hash is the idempotency anchor).
 - **Provenance / attribution:** a mailing list of many authors. Each section names its thread's participants in `source_authors`; the archive is not treated as one authored work.
 
@@ -38,8 +38,8 @@ The archive is far larger than one cycle's budget. Suggested partition (each a f
 | 2000-2003 | ~2000-2003 | E language emergence; distributed capabilities; the Miller-paper era begins |
 | 2004-2008 | ~2004-2008 | ocap patterns; web-key / CapDesk / Polaris; DVH confused-deputy revival |
 | 2009-2012 | ~2009-2012 | JavaScript / Caja / SES; ACLs-don't; secure-EcmaScript |
-| 2013-2016 | ~2013-2016 | later theory; run-up to the Google Groups migration |
-| post-2016 | Google Groups | blocked on a fetchable export; see the blocker note above |
+| [2013-2016](cap-talk-2013-2016.md) | 2013 through 2016-January | complete captured Pipermail endpoint: 24 independently hashed bundles and 22 derived thread sections; no 2014-September or 2015 bundle exposed |
+| post-2016 | Google Groups | blocked on an owner/member-provided export; no public alternate mbox or mirror found in the completion survey |
 
 ## Monthly bundle anchors
 
