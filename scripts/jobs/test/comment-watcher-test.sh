@@ -1580,6 +1580,39 @@ EOF
 fi
 
 BARE_RATE="$TR/rate.git"; seed_bare "$BARE_RATE"
+
+# A source killed by `timeout` commonly leaves no stderr signature. Both timeout's
+# own deadline code (124) and its --kill-after SIGKILL code (137) must therefore be
+# classified from the return code alone: skip the tick, freeze the cursor, and open
+# the same shared API cooldown used by text-classified GitHub availability failures.
+for timeout_rc in 124 137; do
+  TIMEOUT_SOURCE="$TR/timeout-source-$timeout_rc.sh"
+  printf '#!/bin/bash\nexit %s\n' "$timeout_rc" > "$TIMEOUT_SOURCE"
+  chmod +x "$TIMEOUT_SOURCE"
+  TIMEOUT_STATE="$TR/state-timeout-$timeout_rc"
+  TIMEOUT_ERR="$TR/timeout-$timeout_rc.err"
+  set +e
+  env GARDEN_STATE="$TIMEOUT_STATE" JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$TIMEOUT_SOURCE" \
+      GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$TIMEOUT_ERR"
+  timeout_watch_rc=$?
+  set -e
+  [ "$timeout_watch_rc" -eq 0 ] \
+    && ok "source rc $timeout_rc is absorbed as a skipped tick" \
+    || bad "source rc $timeout_rc escaped as watcher failure $timeout_watch_rc"
+  grep -q "WARN: comment source timed out (transient, rc=$timeout_rc)" "$TIMEOUT_ERR" \
+    && [ -f "$TIMEOUT_STATE/gh-api-cooldown/marker" ] \
+    && ok "source rc $timeout_rc warns once and opens the shared API cooldown" \
+    || bad "source rc $timeout_rc warning/cooldown missing ($(cat "$TIMEOUT_ERR"))"
+  [ -z "$(cursor_seen "$TIMEOUT_STATE" "$BARE_RATE")" ] \
+    && ok "source rc $timeout_rc freezes the cursor" \
+    || bad "source rc $timeout_rc advanced the cursor"
+  grep -q 'FATAL:' "$TIMEOUT_ERR" \
+    && bad "source rc $timeout_rc emitted FATAL" \
+    || ok "source rc $timeout_rc did not emit FATAL"
+done
+
 RATE_WATCH_SOURCE="$TR/rate-watch-source.sh"
 cat > "$RATE_WATCH_SOURCE" <<'EOF'
 #!/bin/bash

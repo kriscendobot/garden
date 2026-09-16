@@ -1514,6 +1514,16 @@ if [ "$src_rc" -ne 0 ]; then
     log "RATE LIMITED: comment source ended this tick non-attributably (rc=$src_rc) — cursor frozen; propagating rc for self-heal normalization"
     exit "$src_rc"
   fi
+  # `timeout` reports its own wall-clock expiry as rc 124, or rc 137 when the
+  # source ignores TERM and --kill-after escalates to SIGKILL. Either result says
+  # only that GitHub could not be enumerated within this tick's bound; stderr may
+  # be empty, so classify the return code before the text-based transient gates.
+  if [ "$src_rc" -eq 124 ] || [ "$src_rc" -eq 137 ]; then
+    if start_api_cooldown "comment:$slug"; then
+      log "WARN: comment source timed out (transient, rc=$src_rc) — cooling all gh-api watchers for $(_api_cooldown_secs)s (never guess)"
+    fi
+    exit 0
+  fi
   # Transient connectivity (GitHub outage, DNS blip, TLS/read timeout) is "we
   # couldn't ask right now", not a broken enumeration — skip this tick instead of
   # dying, so an outage doesn't drive a systemd restart storm. A structural
