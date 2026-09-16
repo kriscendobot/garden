@@ -1,13 +1,8 @@
 ---
-tier: mentor
-gate: deferred
-priority: low
 role: builder
-posted_by: shepherd
-posted_at: 2026-07-30T01:20:17Z
-fallback-tier: minion
-dispatch: automatic
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-09-16T20:49:12Z cleared=none -->
 
 ---
 tier: minion
