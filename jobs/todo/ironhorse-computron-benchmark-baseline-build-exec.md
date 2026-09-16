@@ -1,9 +1,8 @@
 ---
-gate: deferred
-priority: normal
-posted_by: builder
-posted_at: 2026-09-16T05:39:45Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-16T15:04:08Z cleared=none -->
 
 ---
 role: builder
