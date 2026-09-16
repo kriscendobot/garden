@@ -106,6 +106,18 @@ Exceptions with stack traces and logging are ordinary developer conveniences, bu
 
 - [cap-talk-2002-2003--exceptions-and-logging-in-capability-systems](../sections/cap-talk-2002-2003--exceptions-and-logging-in-capability-systems.md) - Plotnikov's framing of the stack-trace leakage problem.
 
+### 17. Do Granovetter introductions fully model human encounters?
+
+Close argues that every trust relationship aggregates introductions and that only connectivity begets connectivity. Finney, Wagner, and van Gelderen press chance meetings and gradual familiarity as counterexamples. Treating the shared physical world, proximity, or the senses as an introducer preserves the graph account, but weakens "introduction" to connectivity without endorsement. The archive converges on sparseness as the important boundary: random encounters are plausible in human spaces but negligible among cryptographic references.
+
+- [cap-talk-2002-2003--trust-introductions-and-no-omniscience](../sections/cap-talk-2002-2003--trust-introductions-and-no-omniscience.md) - the shared-world reconciliation and the sparse-reference qualification.
+
+### 18. Where was the original HRU paper available online in 2003?
+
+The October subject line contains only Ganor's request for the Harrison-Ruzzo-Ullman paper, with no answer in the captured bundle. This is an unresolved bibliographic question in the archive, not another treatment of the safety model.
+
+- [cap-talk-2002-2003--hru-paper-source-request](../sections/cap-talk-2002-2003--hru-paper-source-request.md) - the source request and pointer back to the substantive June discussion.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
