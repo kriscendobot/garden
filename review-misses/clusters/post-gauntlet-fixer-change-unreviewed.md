@@ -2,10 +2,12 @@
 slug: post-gauntlet-fixer-change-unreviewed
 category: process
 status: open
-count: 1
+count: 2
 members:
   - endojs-endo-but-for-bots-pr475-review-e560d700
-prs: [475]
+  - endojs-endo-but-for-bots-pr858-review-8add9193
+prs: [475, 858]
 ---
+
 
 A substantive fixer change lands after the last panel reviewed the PR and reaches maintainer review without a fresh correctness pass over the new head, leaving newly introduced state invariants for the maintainer to reconstruct.
