@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":13,"elapsed_s":89,"input_tokens":26,"output_tokens":4598,"cache_creation_tokens":37182,"cache_read_tokens":540595,"total_cost_usd":0.7603774999999999,"ts":"2026-09-16T23:09:39Z","base":"undraft-minion-town-99-harness-provisioning-20260916","host":"endolin-garden2-5bcdff64","outcome":"fail","provider":"anthropic"}
