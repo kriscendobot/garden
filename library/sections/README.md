@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7039 (530 parent indexes + 6509 children).
+Total section files: 7048 (530 parent indexes + 6518 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -383,6 +383,7 @@ Total section files: 7039 (530 parent indexes + 6509 children).
 
 - [cap-talk-2002-2003--access-matrix-column-vs-row-distinction](cap-talk-2002-2003--access-matrix-column-vs-row-distinction.md)
 - [cap-talk-2002-2003--ad-hominem-security-trusted-by-whom](cap-talk-2002-2003--ad-hominem-security-trusted-by-whom.md)
+- [cap-talk-2002-2003--auditing-capability-systems](cap-talk-2002-2003--auditing-capability-systems.md)
 - [cap-talk-2002-2003--authorization-versus-authentication](cap-talk-2002-2003--authorization-versus-authentication.md)
 - [cap-talk-2002-2003--capabilities-property-rights-and-exclusive-transfer](cap-talk-2002-2003--capabilities-property-rights-and-exclusive-transfer.md)
 - [cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection](cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection.md)
@@ -391,19 +392,27 @@ Total section files: 7039 (530 parent indexes + 6509 children).
 - [cap-talk-2002-2003--eros-legacy-deployment-path](cap-talk-2002-2003--eros-legacy-deployment-path.md)
 - [cap-talk-2002-2003--exceptions-and-logging-in-capability-systems](cap-talk-2002-2003--exceptions-and-logging-in-capability-systems.md)
 - [cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement](cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement.md)
+- [cap-talk-2002-2003--hru-paper-source-request](cap-talk-2002-2003--hru-paper-source-request.md)
 - [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md)
 - [cap-talk-2002-2003--limited-transfer-permission-vs-authority](cap-talk-2002-2003--limited-transfer-permission-vs-authority.md)
 - [cap-talk-2002-2003--linux-privileged-ports-and-coarse-grained-privilege](cap-talk-2002-2003--linux-privileged-ports-and-coarse-grained-privilege.md)
+- [cap-talk-2002-2003--naming-vs-pointing-and-global-names](cap-talk-2002-2003--naming-vs-pointing-and-global-names.md)
 - [cap-talk-2002-2003--normal-users-can-construct-least-authority](cap-talk-2002-2003--normal-users-can-construct-least-authority.md)
 - [cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics](cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics.md)
 - [cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction](cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md)
 - [cap-talk-2002-2003--persistent-capability-systems-on-microkernels-eros-vs-l4](cap-talk-2002-2003--persistent-capability-systems-on-microkernels-eros-vs-l4.md)
 - [cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety](cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety.md)
+- [cap-talk-2002-2003--programming-with-capabilities-without-ownership](cap-talk-2002-2003--programming-with-capabilities-without-ownership.md)
 - [cap-talk-2002-2003--saving-the-unix-api-and-reframing-boxing](cap-talk-2002-2003--saving-the-unix-api-and-reframing-boxing.md)
+- [cap-talk-2002-2003--sha1-key-fingerprint-threat-model](cap-talk-2002-2003--sha1-key-fingerprint-threat-model.md)
+- [cap-talk-2002-2003--single-use-capabilities-systems](cap-talk-2002-2003--single-use-capabilities-systems.md)
+- [cap-talk-2002-2003--single-use-capability-object-in-e](cap-talk-2002-2003--single-use-capability-object-in-e.md)
 - [cap-talk-2002-2003--sparse-capabilities-over-wire](cap-talk-2002-2003--sparse-capabilities-over-wire.md)
 - [cap-talk-2002-2003--state-transition-model-of-trust-management](cap-talk-2002-2003--state-transition-model-of-trust-management.md)
 - [cap-talk-2002-2003--textual-distributed-computing-protocols](cap-talk-2002-2003--textual-distributed-computing-protocols.md)
+- [cap-talk-2002-2003--trust-introductions-and-no-omniscience](cap-talk-2002-2003--trust-introductions-and-no-omniscience.md)
 - [cap-talk-2002-2003--unix-file-descriptor-confused-deputy](cap-talk-2002-2003--unix-file-descriptor-confused-deputy.md)
+- [cap-talk-2002-2003--yurl-key-centric-web-calculus](cap-talk-2002-2003--yurl-key-centric-web-calculus.md)
 
 ### cask--allocator-design
 
