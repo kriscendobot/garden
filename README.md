@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:16:45Z_
+_As of 2026-09-16T19:19:36Z_
 
 ## Latest
 
@@ -584,24 +584,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.2M | $470.74 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.2M | $470.82 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.5M _(+269.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012-remainder.md) — Continue cap-talk 2010-2012 ingestion
-- [`endojs-endo-but-for-bots-pr388-review-37754f3b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr388-review-37754f3b-retro.md) — Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
 
-### tada (8038)
+### tada (8039)
+- [`endojs-endo-but-for-bots-pr388-review-37754f3b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-37754f3b-retro.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-428a03013158`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-428a03013158.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1072-review-bb54af10-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-bb54af10-retro.md) — Cost
 - [`scholar-ingest-cap-talk-2010-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2010-2012.md) — Cost
 - [`endojs-endo-but-for-bots-pr1072-review-73226ec0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-73226ec0-retro.md) — Completion report
-- [`improve-mirror-closer-primary-quota-circuit-breaker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mirror-closer-primary-quota-circuit-breaker.md) — Completion report
-- … and 8033 more
+- … and 8034 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
