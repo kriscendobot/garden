@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T12:01:51Z_
+_As of 2026-09-16T12:10:24Z_
 
 ## Latest
 
-[endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit a real non-transient failure: the PR migrated `@endo/exo-stream` `stringLengthLimit` → `byteLengthLimit`, but the current `llm` still calls the old API in `9p-server`, causing a merge-ref CI failure. Triage of five early-September halted gauntlets revealed one transient (capacity-crunch re-post), one conditional (pending premise), two requiring re-scopes (one is the base-drift weave above; another has iterated to green but should stop the loop for human review), and one mid-orchestration stall needing re-anchoring. The Ironhorse computron benchmark-baseline design landed as a draft with six open questions about tolerances, seed roster, and gate timing; the builder is holding steps 2–8 pending answers. Immutable ArrayBuffer hardened262 coverage completed. Several critical path items await maintainer actions: kriscendobot gh token (clip PR), host-side identity introduction (minion-town eval), and a host-migration decision for oros-studio (blocks gardener alias retirement).
+Gauntlet triage sorted five halted cases. [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) hit transient capacity-crunch halts and are safe to re-post; [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a merge-base pin to resolve 9p-server API drift before resuming; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green and mergeable but iteration-limited; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) partially delivered. Ironhorse computron benchmark audit wrapped; build staged pending six open-question answers. Minion.town reminder daemon redeploy stalled on schema migration (legacy `host.registry`).
 
 ## Parked for maintainer feedback
 
@@ -400,23 +400,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.1M | $458.73 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 60.3M | $459.21 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-sqlite-wal-limit-measurement.md) — Measure the daemon SQLite WAL size policy
+### doin (2)
+- [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sha256-async-arm-followup.md) — ---
+- [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-marshal-passables-equal-ava-operator.md) — ava context patch: byteArray-aware passablesEqual operator
 
-### tada (7995)
+### tada (7996)
+- [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-daemon-sqlite-wal-limit-measurement.md) — Completion report: endo-daemon-sqlite-wal-limit-measurement
 - [`endo-immutable-arraybuffer-hardened262-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-immutable-arraybuffer-hardened262-coverage.md) — Completion report
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-bejar-hofman-box-investigation.md) — Completion report: Bejar-Hofman Box investigation
 - [`ebfb-sturdyref-stack-rebase-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-rebase-20260916.md) — orchestration ebfb-sturdyref-stack-rebase-20260916 — HALTED
 - [`ebfb-sturdyref-rebase-pr737-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr737-20260916.md) — Completion report
-- [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-thixotrope-drop-inert-bundle-filter.md) — Cost
-- … and 7990 more
+- … and 7991 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -614,7 +615,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sha256-async-arm-followup.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — _normal_ · Build: SES import attributes (design #248)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — _normal_ · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
@@ -622,7 +622,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pass-style-src-naming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pass-style-src-naming.md) — _normal_ · regularize pass-style src file naming convention — endojs/endo-but-for-bots
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-gauntlet-reexport-policy-check.md) — _normal_ · propose a gauntlet check that prevents plain re-export policy violations
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town-followup.md) — _normal_ · Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
-- [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-marshal-passables-equal-ava-operator.md) — _normal_ · ava context patch: byteArray-aware passablesEqual operator
 - [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — _normal_ · Design/plan: migrate remaining agents to agentry; scuttle the lal providers
 - [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify.md) — _normal_ · Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-mutable-blob-formula.md) — _normal_ · Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
