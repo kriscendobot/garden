@@ -38,6 +38,7 @@
 | [papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign](../sections/papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign.md) | Shi et al. 2026 | Sandboxing untrusted components: language-level access control is insufficient, so an untrusted component runs in an external execution boundary and reaches host dependencies through an attenuable bridge fiber. |
 | [gadgets as personal software sandboxes](../sections/cloudflare-os--readme--gadgets-personal-software-sandboxes.md) | ai-generated-apps, agent-workspaces, sandbox-platforms | A gadget is a private, modifiable application instance isolated from every other user copy. |
 | [Workers runtime architecture](../sections/cloudflare-os--readme--workers-runtime-architecture.md) | cloudflare-workers-agent-hosting, agent-workspaces, sandbox-platforms | Workers primitives provide the kernel, process, driver, and workspace boundaries. |
+| [nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) | Native Client / cap-talk 2009 | Process confinement and brokered descriptors are an outer layer; the broker protocol determines whether references are capabilities. |
 
 ## See also
 
