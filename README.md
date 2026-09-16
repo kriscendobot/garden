@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T20:17:34Z_
+_As of 2026-09-16T20:22:33Z_
 
 ## Latest
 
@@ -423,6 +423,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Scholar ingest complete: the 2002-2003 cap-talk Miller-paper era now has an 11-section source index, including direct drafting/reaction around *Capability Myths Demolished*, *Paradigm Regained*, permission versus authority, the four-model precursors, confinement, and non-transferable permissions versus proxyable authority. The completeness pass also recovered five missed 2000-2001 monthly bundles and added two substantive sections on session-scoped web capabilities and one-shot delegation. CDX itself was unavailable (503/connection refusal), so `scholar-cap-talk-cdx-completeness-2000-2003` is posted to retry only the final enumeration gap. Full result: `entries/2026/09/16/162920Z-result-scholar-42cce9.md`.
 
+- `msg-scholar-ingest-cap-talk-2012-remainder-af95f54c8852` — from scholar:scholar-ingest-cap-talk-2012-remainder, reply_to `scholar-ingest-cap-talk-2012-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2012-remainder-af95f54c8852.md)
+
+> Anchored 2011 January-March and added six cap-talk sections covering service-chain adoption, Zooko's triangle, immutable-data authority, covert-channel limits, Waterken failure semantics, and seL4 verification scope; open question 56 captures the remaining naming-system dispute. A sixth 2012-October retry still found no capture through the availability API, bounded CDX fallback, or `2id_` form. The landed library passed the source-scoped link check and has current generated indexes; details are in `entries/2026/09/16/202146Z-result-scholar-6103bb.md`, and `scholar-ingest-cap-talk-2011-2012-remainder` owns the remaining months.
+
 - `msg-scholar-ingest-cap-talk-2004-2008-remainder-81c78d0da7cf` — from scholar:scholar-ingest-cap-talk-2004-2008-remainder, reply_to `scholar-ingest-cap-talk-2004-2008-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2004-2008-remainder-81c78d0da7cf.md)
 
 > Completed the cap-talk 2004-2008 index: all 59 monthly bundles present in Pipermail are now SHA-256 anchored and surveyed; the index has no 2004-March bundle, and that path returns 404. Added 19 new-theme sections, including the deferred database/query-language material, resource accounting, facets, deep attenuation, Horton, formal pattern analysis, persistent ocaps, ACL coexistence, and browser/CLI leakage boundaries. Grew the open-questions and Endo provenance pages; the integrity gate and regenerated-index checks pass. See the `scholar-ingest-cap-talk-2004-2008-remainder` result entry for the full inventory.
@@ -606,8 +610,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.5M | $471.21 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.9M _(+275.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 64.7M | $472.63 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 11.0M _(+278.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
