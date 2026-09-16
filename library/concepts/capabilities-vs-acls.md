@@ -29,6 +29,8 @@ The comparison at the center of object-capability security: an **access-control 
 | [cap-talk-2004-2008--reference-versus-capability](../sections/cap-talk-2004-2008--reference-versus-capability.md) | A reference carries capability meaning only when possession authorizes its behavior under unforgeable acquisition rules. |
 | [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md) | An ACL-shaped application can recreate identity lookup and confused deputies on a pure ocap substrate. |
 | [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](../sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md) | The 2009 list reception of Close's "ACLs don't": reviewers concede the access-matrix equivalence is "incorrect" yet reject the paper as decades-old — the equivalence myth dismissed as obvious yet unabsorbed. |
+| [cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time](../sections/cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time.md) | Identity or roles may narrow a capability grant without becoming the later access decision; policy subtracts authority at delegation time. |
+| [cap-talk-2013-2016--macaroons-capabilities-versus-credentials](../sections/cap-talk-2013-2016--macaroons-capabilities-versus-credentials.md) | Macaroons are capability-friendly bearer tokens only when use couples one explicit designator to authority; credential-pool use remains identity/predicate shaped. |
 
 ## See also
 
