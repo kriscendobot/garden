@@ -26,6 +26,8 @@ The comparison at the center of object-capability security: an **access-control 
 | [cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection](../sections/cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection.md) | The USENIX committee read the ACL-vs-cap myth-demolitions as minor nitpicks; Miller's post-mortem on why the argument failed to land. |
 | [cap-talk-2002-2003--access-matrix-column-vs-row-distinction](../sections/cap-talk-2002-2003--access-matrix-column-vs-row-distinction.md) | Extending a privilege needs the matrix column in ACLs but the column and the row in capabilities; the real difference is behaviour under untrusted code. |
 | [cap-talk-2002-2003--programming-with-capabilities-without-ownership](../sections/cap-talk-2002-2003--programming-with-capabilities-without-ownership.md) | A capability program models each authority as a delegable facet instead of attaching an exclusive owner identity to every object. |
+| [cap-talk-2004-2008--reference-versus-capability](../sections/cap-talk-2004-2008--reference-versus-capability.md) | A reference carries capability meaning only when possession authorizes its behavior under unforgeable acquisition rules. |
+| [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md) | An ACL-shaped application can recreate identity lookup and confused deputies on a pure ocap substrate. |
 
 ## See also
 
