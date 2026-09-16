@@ -40,6 +40,7 @@
 | [cap-talk-2004-2008--capability-urls-in-practice](../sections/cap-talk-2004-2008--capability-urls-in-practice.md) | cap-talk 2004-2008 archive | Tahoe users showed that bearer capability URLs can be a workable sharing interface, but the browser and surrounding application ecosystem routinely treat URLs as public names. |
 | [cap-talk-2004-2008--horton-accountability-without-authority](../sections/cap-talk-2004-2008--horton-accountability-without-authority.md) | cap-talk 2004-2008 archive | Horton explores how a recipient can learn a delegation chain without turning identity into ambient authorization. |
 | [cap-talk-2004-2008--saml-assertions-versus-object-capabilities](../sections/cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md) | cap-talk 2004-2008 archive | A signed SAML assertion can act as an offline bearer authorization, but it is not by itself an object capability system. |
+| [cap-talk-2009-2012--file-api-taming-tahoe](../sections/cap-talk-2009-2012--file-api-taming-tahoe.md) | capability-security, identity | Tahoe file/directory capabilities do not know their own names; naming is a per-directory binding; the (directory, name) tuple restores relative naming without an ambient global namespace. |
 
 ## See also
 
