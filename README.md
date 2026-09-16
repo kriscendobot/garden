@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T05:11:35Z_
+_As of 2026-09-16T05:13:40Z_
 
 ## Latest
 
@@ -697,7 +697,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $396.92 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 44.2M | $397.44 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 7.1M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
@@ -706,15 +706,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### doin (2)
 - [`investigate-malingering-foreman`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-malingering-foreman.md) — Investigate and fix the malingering foreman
-- [`endojs-endo-but-for-bots-pr1282-d101dbfb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-d101dbfb.md) — attention directive on endojs/endo-but-for-bots PR #1282
+- [`ironhorse-computron-benchmark-baseline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-design.md) — designer: benchmark-established computron-baseline regime for Ironhorse
 
-### tada (7931)
+### tada (7932)
+- [`endojs-endo-but-for-bots-pr1282-d101dbfb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1282-d101dbfb.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260916-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260916-043506.md) — Completion report
 - [`claude-on-minion-town-press-20260916-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-035007.md) — Completion report
 - [`ses-node26-lockdown-permits-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet.md) — gauntlet ses-node26-lockdown-permits-gauntlet — review budget reached
 - [`ses-node26-lockdown-permits-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-6.md) — Completion report
-- [`ses-node26-lockdown-permits-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-6.md) — Cost
-- … and 7926 more
+- … and 7927 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
