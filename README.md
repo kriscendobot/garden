@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T02:16:44Z_
+_As of 2026-09-16T02:18:31Z_
 
 ## Latest
 
@@ -693,15 +693,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.9M | $358.27 _(notional, rate-card)_ | 28% of 143.0M (ok) |
+| Claude | 39.9M | $358.50 _(notional, rate-card)_ | 28% of 143.0M (ok) |
 | Codex | 7.1M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ses-node26-lockdown-permits-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1281
 
 ### tada (7924)
 - [`ses-node26-lockdown-permits-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-4.md) — Completion report — FIX round 4, endojs/endo-but-for-bots PR #1281
