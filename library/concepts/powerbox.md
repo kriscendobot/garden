@@ -28,6 +28,7 @@ confused-deputy attack against the broker.
 | [cap-talk-2004-2008--confinement-crisis-and-capdesk-pola](../sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md) | The CapDesk demonstration makes dynamic least authority and designation-as-authorization concrete. |
 | [cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement](../sections/cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md) | Polaris must mediate the shared Windows GUI channel so a confined application cannot drive the trusted broker. |
 | [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](../sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md) | A trusted powerbox persists intended references rather than letting applications edit ambient filenames into authority. |
+| [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](../sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md) | The powerbox as the deliberate, user-mediated re-introduction of authority: an install-time manifest plus escalation prompts, and the worry that consent prompts habituate users into re-granting ambient authority. |
 
 ## See also
 
