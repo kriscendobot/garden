@@ -60,3 +60,13 @@ open questions, land it as a review PR (frozen-base-branch); otherwise land bare
 on main2. Relevant reading: `designs/ironhorse-engine.md` § Metering,
 `designs/ironhorse-known-defects.md`, and PR #1282's description for exactly
 which tests/gates it touched (so the plan restores their INTENT via benchmarks).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:13:14Z
