@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T02:18:31Z_
+_As of 2026-09-16T02:28:02Z_
 
 ## Latest
 
@@ -693,23 +693,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.9M | $358.50 _(notional, rate-card)_ | 28% of 143.0M (ok) |
+| Claude | 41.4M | $370.00 _(notional, rate-card)_ | 29% of 143.0M (ok) |
 | Codex | 7.1M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ses-node26-lockdown-permits-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1281
+### doin (0)
+(none)
 
-### tada (7924)
+### tada (7925)
+- [`ses-node26-lockdown-permits-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-5.md) — What I did
 - [`ses-node26-lockdown-permits-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-4.md) — Completion report — FIX round 4, endojs/endo-but-for-bots PR #1281
 - [`ses-node26-lockdown-permits-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-4.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-ba8c2dc529a3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-ba8c2dc529a3.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Cost
-- [`ses-node26-lockdown-permits-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-3.md) — Completion report
-- … and 7919 more
+- … and 7920 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
