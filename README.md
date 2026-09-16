@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T12:10:24Z_
+_As of 2026-09-16T12:24:44Z_
 
 ## Latest
 
-Gauntlet triage sorted five halted cases. [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) hit transient capacity-crunch halts and are safe to re-post; [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a merge-base pin to resolve 9p-server API drift before resuming; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green and mergeable but iteration-limited; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) partially delivered. Ironhorse computron benchmark audit wrapped; build staged pending six open-question answers. Minion.town reminder daemon redeploy stalled on schema migration (legacy `host.registry`).
+Five halted gauntlets await triage: two were transient capacity-crunch holds ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013), [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) conditional on premise); [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) is real base-drift requiring weave/pin-merge-base with `stringLengthLimit`→`byteLengthLimit` semantic port; [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) hit iteration 6 with green code; one needs re-anchoring at child 2. Three maintainer asks pending: ev7 MCP identity federation, Ironhorse benchmark open questions, retire-gardener-worker-kind-alias stuck on oros-studio. Reminder daemon hit legacy schema—reminders decoupled into VFS-persistent plugin. Budget at 42% (Claude 60.5M/143M); board quiet at 2 completions.
 
 ## Parked for maintainer feedback
 
@@ -400,24 +400,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.3M | $459.21 _(notional, rate-card)_ | 42% of 143.0M (ok) |
-| Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 60.5M | $459.34 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Codex | 8.2M _(+207.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sha256-async-arm-followup.md) — ---
-- [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-marshal-passables-equal-ava-operator.md) — ava context patch: byteArray-aware passablesEqual operator
+### doin (0)
+(none)
 
-### tada (7996)
+### tada (7998)
+- [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-marshal-passables-equal-ava-operator.md) — Cost
+- [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-async-arm-followup.md) — Completion report
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-daemon-sqlite-wal-limit-measurement.md) — Completion report: endo-daemon-sqlite-wal-limit-measurement
 - [`endo-immutable-arraybuffer-hardened262-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-immutable-arraybuffer-hardened262-coverage.md) — Completion report
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-bejar-hofman-box-investigation.md) — Completion report: Bejar-Hofman Box investigation
-- [`ebfb-sturdyref-stack-rebase-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-stack-rebase-20260916.md) — orchestration ebfb-sturdyref-stack-rebase-20260916 — HALTED
-- [`ebfb-sturdyref-rebase-pr737-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-sturdyref-rebase-pr737-20260916.md) — Completion report
-- … and 7991 more
+- … and 7993 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
