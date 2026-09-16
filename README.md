@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:56:36Z_
+_As of 2026-09-16T14:58:59Z_
 
 ## Latest
 
@@ -505,23 +505,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.14 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.0M _(+225.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 9.0M _(+227.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
-- [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-mutable-blob-formula.md) — Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
 
-### tada (8011)
+### tada (8012)
+- [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-mutable-blob-formula.md) — Cost
 - [`fix-comment-provenance-pr-close-merge-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-pr-close-merge-bypass.md) — Cost
 - [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-retcon.md) — Completion report
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town-followup.md) — Completion report — wire-siwe-onchain-authz-minion-town-followup
 - [`scholar-ingest-cap-talk-1999`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-1999.md) — Cost
-- [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk.md) — Completion report: scholar-ingest-cap-talk
-- … and 8006 more
+- … and 8007 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
