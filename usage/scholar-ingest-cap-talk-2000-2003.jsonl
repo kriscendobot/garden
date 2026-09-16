@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":86,"elapsed_s":2194,"input_tokens":158,"output_tokens":78577,"cache_creation_tokens":304736,"cache_read_tokens":16535114,"total_cost_usd":13.280131999999996,"ts":"2026-09-16T16:11:53Z","base":"scholar-ingest-cap-talk-2000-2003","host":"oros-studio-garden-ce242c49","outcome":"tada","role":"scholar","provider":"anthropic"}
