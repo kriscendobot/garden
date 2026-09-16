@@ -46,6 +46,7 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) | An ocap language must guarantee safety of exactly the abstractions that preserve ocap invariants (unforgeable references, scopes, no ambient authority). |
 | [cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values](../sections/cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values.md) | Is a sealed (immutable) value a capability? Barbour: no, it is a non-exercisable value; the permission-versus-authority distinction and the implementation-versus-abstraction fallacy. |
 | [cap-talk-2009-2012--type-passing-and-rights-amplification](../sections/cap-talk-2009-2012--type-passing-and-rights-amplification.md) | Passing a function with its argument is not rights amplification (amplification needs combined references); modeling method dispatch as function invocation is a homomorphism, not an identity of abstractions. |
+| [cap-talk 2012-12: bits of capabilities](../sections/cap-talk-2009-2012--bits-of-capabilities-ocaps-versus-crypto-caps.md) | Miller's canonical statement that object-capabilities are unforgeable while cryptographic capabilities are merely unguessable, and Boebert's *-property is impossible for the latter. |
 
 ## See also
 
