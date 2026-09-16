@@ -57,3 +57,13 @@ DESIGN QUESTIONS TO SETTLE:
 Deliver the design. Do NOT implement it, and do NOT touch the live daemon or its
 persisted state — it remains active at `f6650503` and must stay that way until a
 reviewed migration exists.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T23:07:45Z
