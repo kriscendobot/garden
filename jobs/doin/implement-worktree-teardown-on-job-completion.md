@@ -45,3 +45,13 @@ Also add an inode-headroom alert (df -i threshold) so this is caught before
 
 Design refs: WORKTREES.md (lifecycle), designs/gardening-state-machine.md,
 scripts/jobs/{complete-job,ensure-project-worktree,reaper}.sh.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T10:19:13Z
