@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-16T10:39:20Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-design-endor-git-windows-followup
-pr_number: 1284
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1284
-pr_head: kriscendobot:design/endor-git-windows
