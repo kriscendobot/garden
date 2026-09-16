@@ -47,6 +47,7 @@ what, so blame cannot be assigned — Morningstar calls **accountability launder
 | [cap-talk-2009-2012--origin-header-amplifies-ambient-authority](../sections/cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md) | CSRF as the browser-as-confused-deputy; CORS/Origin access decisions leave the ambient-authority deputy in place; all scripts on a page wield the page's origin authority. |
 | [cors-open-review-and-ambient-cookies](../sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md) | Cross-origin requests can combine caller-selected destinations with the browser's ambient cookies. |
 | [geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) | Framing and persistent origin grants let an embedded principal exercise user location authority ambiguously. |
+| [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | The RFC cookie spec identifies CSRF as the browser confused deputy: the cookie authorizes an action a remote party designated. |
 
 ## See also
 
