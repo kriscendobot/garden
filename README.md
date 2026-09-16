@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:26:24Z_
+_As of 2026-09-16T19:34:53Z_
 
 ## Latest
 
@@ -584,15 +584,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.7M | $475.08 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.8M | $478.72 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.7M _(+270.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012-remainder.md) — Continue cap-talk 2010-2012 ingestion
+- [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
 
 ### tada (8042)
 - [`improve-fetch-source-transient-wayback-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-transient-wayback-retries.md) — Cost
@@ -803,7 +804,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
-- [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #888 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr52-review-86b4c679-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr52-review-86b4c679-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #52 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #53 (primary: kriscendobot-minio...
