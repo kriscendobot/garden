@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:49:55Z_
+_As of 2026-09-16T19:50:50Z_
 
 ## Latest
 
@@ -598,14 +598,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.6M | $472.58 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.7M _(+270.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 64.7M | $472.98 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.7M _(+271.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`canary-probe-oros-studio-garden-ce242c49-9405a69805d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-9405a69805d1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 9405a69805d1
 - [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — Retrospective on endojs/endo-but-for-bots PR #888 (primary: endojs-endo-but-f...
 - [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012.md) — Continue cap-talk 2011-2012 ingestion (and the 2010 remainder)
 
