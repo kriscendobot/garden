@@ -91,3 +91,13 @@ replay ONLY your PR's own commits onto that rebased parent.
 
 Do NOT merge anything. Do NOT undraft. Deliverable is a cleanly-rebased,
 truthfully-based branch ready for normal review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T11:13:14Z
