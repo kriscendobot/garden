@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
 role: designer
-posted_by: liaison
-posted_at: 2026-09-05T04:34:58Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-16T14:44:07Z cleared=none -->
 
 ---
 tier: mentor
