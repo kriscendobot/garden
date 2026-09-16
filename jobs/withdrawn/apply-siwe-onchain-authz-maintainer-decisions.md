@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by designs/siwe-invitation-pivot.md and kriscendobot/minion.town PR #80: tiers 1-3 and their allowlist/tier questions dissolved; the retained SIWE path is a future recovery bond after PR #56.
+withdrawn_by: gardener
+withdrawn_at: 2026-09-16T23:44:01Z
+withdrawn_from_gate: blocked
+---
+
+---
 gate: blocked
 blocked_on: siwe-onchain-authz-maintainer-decision
 priority: normal
