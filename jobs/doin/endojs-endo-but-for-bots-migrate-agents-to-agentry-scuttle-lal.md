@@ -24,3 +24,13 @@ Scope to work out when promoted:
 - Remove ("scuttle") the lal providers once nothing depends on them.
 
 Repo: endojs/endo-but-for-bots @ `llm`. Parked pending maintainer promotion.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T12:29:24Z
