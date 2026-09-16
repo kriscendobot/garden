@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:26:26Z_
+_As of 2026-09-16T13:31:52Z_
 
 ## Latest
 
-Completed triage of five halted gauntlets from early September: two are transient halts safe to re-post ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013), [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81)), two are real failures needing re-scope ([endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) merge-base pin, [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) exit panel), and one partly landed requires re-anchoring ([kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)). Multiple builds and design PRs await maintainer decisions: the Ironhorse benchmark ([endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283)) needs answers to six design questions, minion.town's daemon migration dry-run hit a schema compatibility gap, gardener-alias retirement is blocked on an unmigrated third fleet host, and several design PRs ([endojs/endo#3073](https://github.com/endojs/endo/pull/3073), [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [garden#95](https://github.com/kriscendobot/garden/pull/95)) await acceptance or review.
+Five early-September halted gauntlets were triaged: two were transient capacity stalls (safe to re-post), one was a real base-drift failure on [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) requiring a merge-base pin to resolve, one hit iteration limits on already-green code (stop the panel loop), and one needs re-anchoring at an earlier child. Two design reviews are ready: [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95) (re-export deprecation policy gate) and [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (Ironhorse computron-benchmark regime, holding pending answers to six open questions). Separate blockers await decisions: [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) design not yet accepted (rust-module-lexer build parked pending acceptance), minion.town daemon revival dry-run failed (missing `registry` migration path), and fleet gardener-alias retirement blocked by oros host still on legacy worker.
 
 ## Parked for maintainer feedback
 
@@ -453,15 +453,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.9M | $465.48 _(notional, rate-card)_ | 44% of 143.0M (ok) |
+| Claude | 63.2M | $465.88 _(notional, rate-card)_ | 44% of 143.0M (ok) |
 | Codex | 8.3M _(+208.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
+- [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk.md) — Ingest the cap-talk mailing list into the library
 
 ### tada (8006)
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — Cost
@@ -670,8 +671,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
-- [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk.md) — _normal_ · Ingest the cap-talk mailing list into the library
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town-followup.md) — _normal_ · Finish wiring SIWE on-chain authz into minion.town's policy layer (maintainer...
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-mutable-blob-formula.md) — _normal_ · Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
 - [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-exec.md) — _normal_ · builder: implement the Ironhorse computron benchmark-baseline regime (steps 2–8)
