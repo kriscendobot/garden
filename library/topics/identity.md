@@ -46,6 +46,7 @@
 | [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | cap-talk 2010-February | Cookies conflate designation and authorization; the terminology note on what to call an unguessable-but-not-unforgeable secret-bearing URL. |
 | [cap-talk-2009-2012--authority-carrying-urls-in-the-wild](../sections/cap-talk-2009-2012--authority-carrying-urls-in-the-wild.md) | cap-talk 2010-October | A password-equivalent login URL in the wild: authority in a URL substitutes for an identity+password, and the market is teaching users to guard it. |
 | [cap-talk-2009-2012--networking-named-content-self-authenticating-names](../sections/cap-talk-2009-2012--networking-named-content-self-authenticating-names.md) | cap-talk 2010-December | Self-authenticating names root identity in a key; the y-property is what a secure reference guarantees, and it is not transitive trust. |
+| [zookos-triangle-and-petname-mappings](../sections/cap-talk-2009-2012--zookos-triangle-and-petname-mappings.md) | cap-talk 2011-February | Names, mappings, and CA trust assumptions occupy different layers of Zooko's triangle and petname systems. |
 
 ## See also
 
