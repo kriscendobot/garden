@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:44:35Z_
+_As of 2026-09-16T14:49:08Z_
 
 ## Latest
 
@@ -505,11 +505,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 63.7M | $466.58 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 8.8M _(+218.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 8.9M _(+220.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1281-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1281
 
 ### doin (2)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
