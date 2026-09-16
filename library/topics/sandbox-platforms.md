@@ -41,6 +41,8 @@
 | [nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) | Native Client / cap-talk 2009 | Process confinement and brokered descriptors are an outer layer; the broker protocol determines whether references are capabilities. |
 | [cap-talk-2009-2012--capsicum-practical-capabilities-for-unix](../sections/cap-talk-2009-2012--capsicum-practical-capabilities-for-unix.md) | cap-talk 2010-August | Capsicum retrofits a capability mode onto FreeBSD (cap_enter drops ambient authority; capability-refined descriptors); the systems-security counterpart to language ocap. |
 | [sel4-verification-and-the-tcb-boundary](../sections/cap-talk-2009-2012--sel4-verification-and-the-tcb-boundary.md) | cap-talk 2011-February/March | seL4 verifies the privileged microkernel, then uses that substrate to enforce separable user-component boundaries. |
+| [cap-talk-2009-2012--capability-enforcement-language-os-or-hardware](../sections/cap-talk-2009-2012--capability-enforcement-language-os-or-hardware.md) | cap-talk 2012-December | Does an ocap language stop viruses or must enforcement be at the OS/hardware? Barbour: start high (VM/language/web), refuse insecure-language code, security is dataflow and modular structure — the Endo bet. |
+| [cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e](../sections/cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md) | cap-talk 2012-December | Why the AppArmor/MinorFs/E POLA stack went unadopted — distro-specific OS layer plus a new language, no big-company backing; Endo demands no OS or language transition (Hardened JS on stock Node). |
 
 ## See also
 
