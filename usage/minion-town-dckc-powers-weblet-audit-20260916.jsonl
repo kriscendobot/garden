@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":19,"elapsed_s":395,"input_tokens":34,"output_tokens":24694,"cache_creation_tokens":83459,"cache_read_tokens":1147116,"total_cost_usd":2.02886,"ts":"2026-09-16T05:59:47Z","base":"minion-town-dckc-powers-weblet-audit-20260916","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
