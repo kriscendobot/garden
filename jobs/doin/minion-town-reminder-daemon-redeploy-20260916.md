@@ -38,3 +38,13 @@ REQUIRED ORDER:
 4. Capture a restorable snapshot of the live state before any mutating step.
 
 handler-timeout: 7200
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T05:43:54Z
