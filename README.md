@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T05:35:48Z_
+_As of 2026-09-16T05:47:32Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) gauntlet is in its clean stage; [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (ses-node26-lockdown-permits) completed fix round 4 with coordinated commits and is staged for a merged decision. Ironhorse computron-baseline benchmark design completed; build is in flight. Two budget watchdog notices remain uncalibrated on both hosts (87 and 32 recurrences respectively). Minion.town infrastructure work has several blockers: clip content publishing is ready but blocked on OAuth session reinit for the MCP server; endo-daemon redeploy authorization and DNSSEC setup for ocap.site await your decision; PR #81 gauntlet halted after six rounds without convergence. Garden-proper has a foreman state reconciliation hold and a legacy gardener-worker-kind alias retirement awaiting legacy state disposition. Twenty-five parked PRs remain awaiting review, highlighted by the designs on minion.town VFS mounts, SES error-console refactoring, eventual-send ponyfill, and daemon setExceptionBreakMode gating.
+Ironhorse computron benchmark-baseline orchestration completed both children serially (design + build audit both reached completion). The design PR [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) landed draft with six open questions on gate parameters and implementation details; the build audit is parked awaiting answers (posted to maintainer inbox). Clean stage passed; gauntlet panel round 1 now running. Credit-controls work activated: three jobs parked on the plan queue, one orchestration posted. Budget watchdog continues flagging uncalibrated pool caps across both hosts (87+ and 32+ occurrences respectively—needs maintainer calibration). Two minion.town infrastructure messages: reminder daemon redeploy posted, and containment check surfaced two unexpected POWERS weblets under dckc ownership (both legitimately low-privilege per investigation; flagged for confirmation). SES node26 lockdown-permits round 4 complete with fixes pushed but summary comment blocked by host token scope (relocated to inbox for orchestrator repost). 25 PRs parked for maintainer review, led by [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) (M.choose), [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) (VFS/mount design, 12d), and [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari regression, 14d).
 
 ## Parked for maintainer feedback
 
@@ -34,10 +34,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
 
-- `20260903T195940Z-0ba282` — from gauntlet:sweep-ci-starved-conflicting-prs-20260901-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T195940Z-0ba282.md)
-
-> Gauntlet sweep-ci-starved-conflicting-prs-20260901-gauntlet HALTED: stage 'sweep-ci-starved-conflicting-prs-20260901-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
-
 - `20260904T043754Z-6ae1cc` — from gardener:fu-minion-town-containment-gateway-endo-sock-1-20260903-035007, reply_to `fu-minion-town-containment-gateway-endo-sock-1-20260903-035007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T043754Z-6ae1cc.md)
 
 > Containment drift check (minion.town gateway records) — recursive scan of /var/lib/endo-gateway/store/vhosts/ on i-0380cd68b90020fad, 49 active records.
@@ -54,14 +50,17 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > They share the "powers value + 404 bootstrap" signature of the 08-31 record that was de-registered, so I'm flagging rather than quiet-passing. I did NOT de-register them (they're new records, not the named ones reappearing, and de-registration under the deliberately-open powers plane could be wrong). Decide whether these two are expected; if not, say so and I (or a follow-up) can de-register exactly as before.
 
-- `msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a` — from gardener:mentat-endolin-garden2-credit-investigation-20260905, reply_to `mentat-endolin-garden2-credit-investigation-20260905` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-mentat-endolin-garden2-credit-investigation-20260905-90cb453a333a.md)
+- `ironhorse-computron-benchmark-baseline-terminal-complete` — from orchestrator:ironhorse-computron-benchmark-baseline-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-computron-benchmark-baseline-terminal-complete.md)
 
-> Credit investigation for endolin-garden2-5bcdff64 (2026-09-04/05) is complete and committed to journal2.
+> orchestration-event: orchestration-terminal
+> orchestration: ironhorse-computron-benchmark-baseline
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
 >
-> Report: https://github.com/kriscendobot/garden/blob/journal2/reports/credit-investigation-endolin-garden2-20260905.md
-> (permalink: https://github.com/kriscendobot/garden/blob/5d0b7974a23243a37aa58add89be04e561c0262b/reports/credit-investigation-endolin-garden2-20260905.md)
->
-> TLDR: all liaison numbers reproduce exactly ($1,257.19 recorded, no dedup/cumulative defects). The burn is the ~19h window starting 2026-09-04T04:00Z when the host was moved onto a temporary API key and its budget pool was marked UNMETERED (pool_admits fails open -> no throttle): $1,090.65 recorded in that window, and those are approximately REAL credits, not notional. Multipliers: (1) the backlog of 69 gauntlets mass-staged 2026-08-30 by the new hourly design-pr-gauntlet-coverage-audit timer ($482 recorded on this host, incl. stale/superseded PRs churning at iteration 6/6); (2) everything on opus-4-8; (3) panel juror seats + state-machine decision calls are unmetered subprocess `claude -p` calls — the ledger covers only ~15-21% of the host's meter-measured billable tokens, so true API-key spend was plausibly 2-5x the recorded $1,091 (exact figure only in the Anthropic console for that key). Top recommendations: never run an unmetered pool with live workers (fail closed / explicit credit ceiling); adopt the proposed manual-gauntlet-trigger design; pre-gauntlet viability gate for stale PRs; close the panel-seat metering hole; tier seats off Opus.
+> Orchestration ironhorse-computron-benchmark-baseline complete (serial): all 2 children reached tada without a machine-readable failure declaration.
 
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
@@ -71,17 +70,35 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > The clip GC implementation is committed and pushed on kriscendobot/minion.town branch feat/clip-content-store-gc at 1e4e0e9, but the required ensure-pr.sh cannot create the draft PR: this host cannot resolve a valid kriscendobot gh token, and the unauthenticated REST limit is also exhausted. Please restore the kriscendobot gh login/token on endolin-garden-ece02cb4; I will then rerun the idempotent PR opener and continue into the gauntlet.
 
-- `20260903T073707Z-bff9ad` — from orchestrator:minion-town-clipometer-esbuild-orchestration-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260903T073707Z-bff9ad.md)
-
-> Orchestration minion-town-clipometer-esbuild-orchestration HALTED: child minion-town-clipometer-esbuild-pipeline stalled in flight for 2501s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/4 done before halt; parked remainder: minion-town-clipometer-esbuild-validate minion-town-clipometer-primer-esbuild-update minion-town-clipometer-esbuild-issue-report
-
 - `20260901T205650Z-59a6f5` — from gardener:retire-gardener-worker-kind-alias, reply_to `retire-gardener-worker-kind-alias` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T205650Z-59a6f5.md)
 
 > Retirement gate 1 failed on endolin-garden2-5bcdff64, so I stopped before changing code, journal state, or units as directed. Direct host evidence: /home/kris/garden2/.garden-state/gardeners contains 101 legacy *.garden identity markers plus gardeners/backend/{state,status}; newest legacy file is backend/status from 2026-08-25T22:56:02Z. Legacy garden-gardener@1..4 units are disabled/inactive, but the host declares monks: 4 while only garden-monk@1..3 are enabled and active (monk@4 disabled/inactive). Please reconcile/authorize disposition of the legacy state markers and the monk count mismatch, then requeue the alias-retirement cleanup.
 
-- `build-minion-town-claude-harness-provisioning-gauntlet-halted` — from gauntlet:build-minion-town-claude-harness-provisioning-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-minion-town-claude-harness-provisioning-gauntlet-halted.md)
+- `msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d` — from gardener:ironhorse-computron-benchmark-baseline-build, reply_to `ironhorse-computron-benchmark-baseline-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d.md)
 
-> Gauntlet build-minion-town-claude-harness-provisioning-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+> Re: "make a plan and execute that plan" — Ironhorse computron benchmark-baseline regime (design PR [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283), source: PR [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282) review comment).
+>
+> The plan (job `ironhorse-computron-benchmark-baseline-design`) landed as **draft** PR [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/issues/1283) with an `## Open questions` section, and it explicitly states the build's implementation specifics are gated on your answers to those questions. As the builder I completed the plan's unblocked step 1 (the audit) and am **holding the rest** rather than committing a measured, provenance-tracked baseline against unconfirmed parameters. Two reasons I did not just build on the defaults:
+>
+> 1. **The open questions define the substance that gets committed** — the seed roster (which loads to baseline) and the tolerance bands (the actual gate values). Getting these wrong means re-measuring a provenance-tracked artifact = throwaway churn, and it would land a large new CI-gating PR competing with the still-open, unreviewed design PR.
+> 2. **Gate 3 (the "benchmark-established" heart) needs wall-clock measurement on a controlled host.** The garden's container can't produce representative medians; that step must run on a benchmark-suitable host regardless.
+>
+> **Step-1 audit result — loads [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282) left with NO surviving own-cost constraint (the gap the regime must fill):**
+> - async-generator `await` metering (`await_in_try.rs`): former −20 start-reject pin + reject-matrix → advisory only.
+> - suspend-in-try metering (`suspend_in_try_metering.rs`): throw-across-yield/await, cross-frame rebased handler, post-resume → advisory only.
+> - promise-combinator meter (`promise_combinator_capability_result_parity.rs`) → advisory only.
+> - regexp match-meter (`parity.rs` + fuzz) → advisory; partially retained via `work_limits.rs` (`match_meter_raw == 100·XS_REGEXP_METERING`) and the `finding_*` overflow pins, but representative match loads (subject×pattern) are otherwise unconstrained.
+> - Kept-constrained (not in the gap): `error_messages_calls.rs` `==14`, the ~15 interp frozen-cost pins, `ironhorse_meter_bounds.rs`, the `ironhorse-meter-5-raw-N` raw pins, the 53-entry golden corpus, `--repeat`.
+>
+> **The 6 open questions — with the design's recommendations. Please confirm/adjust:**
+> 1. Tolerance bands? Proposed: gate-1 exact (0); gate-2 off-ladder ε=±3%, per-doubling class bands ≈ linear [1.8,2.2] / quadratic [3.6,4.4] / constant [1.0,1.15]; gate-3 fidelity (computrons/sec) ±25%. → *right widths?*
+> 2. Gate-2 (deterministic growth envelope) on **PR CI** or nightly? → design recommends **PR CI**.
+> 3. Authoritative seed roster? → design proposes the §polynomial-built-ins list (named-property insertion [quadratic], string indexing/iteration, Map/Set bulk insert, for..in, regexp match, async-gen await/suspend) + every load from the audit above. Add/drop any?
+> 4. COST_TABLE_VERSION bump: auto-regenerate baselines, or always manual `--write-baseline`? → design recommends **manual** (reviewability).
+> 5. Fate of [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282): **revise in place, land the regime first, merge together to avoid a coverage-gap window** (design recommendation) vs. supersede with a fresh combined PR?
+> 6. Two-input (grid) baselines (regexp subject×pattern) in this build, or defer? → design recommends **defer**; ship single-input first.
+>
+> Once you answer (or say "build on the recommended defaults"), the implementation is queued: successor build job `ironhorse-computron-benchmark-baseline-build-exec` is parked on the plan queue owning steps 2–8, ready to promote. Nothing is lost.
 
 - `watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-uncalibrated-anthropic-endolin-garden-ece02cb4.md)
 
@@ -127,47 +144,9 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
 
-- `20260904T134107Z-777400` — from gauntlet:ebfb-exo-stream-drop-base64-stream-methods-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T134107Z-777400.md)
-
-> Gauntlet ebfb-exo-stream-drop-base64-stream-methods-gauntlet HALTED: stage 'ebfb-exo-stream-drop-base64-stream-methods-gauntlet-fix-2' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
-
-- `20260904T063018Z-6a1c2e` — from gardener:minion-town-reminders-daemon-redeploy-unblock, reply_to `minion-town-reminders-daemon-redeploy-unblock` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T063018Z-6a1c2e.md)
-
-> AUTHORIZATION REQUESTED — minion.town @endo/reminder daemon redeploy (job minion-town-reminders-daemon-redeploy-unblock)
->
-> Verified live (SSM, 2026-09-04), recorded in designs/endo-reminder-minion-town.md §8 (pushed to minion.town main 89904a9):
->
->   • Live daemon pin /opt/endo/ENDO_COMMIT = f6650503 (active, socket present).
->   • The design's byte-identical claim HOLDS: packages/daemon/src/client.js (0859aeab…) and mail.js (6ef7c33b…) are identical at f6650503 and 0eb88836 and match the box. The app's ported CapTP client is protocol-safe for the bump. 0eb88836 is a forward move on origin/llm (1317 commits ahead).
->
-> So §7's "stop and report if the claim no longer holds" abort is NOT triggered — the premise is good.
->
-> HOWEVER, verification surfaced a risk the design's §7 did not weigh, and it changes my recommendation from "clean redeploy" to "redeploy WITH a state-revival dry-run first":
->
->   • client.js byte-identity covers only the WIRE protocol. Over the 1317-commit gap the daemon's PERSISTENCE layer changed heavily (+7733/-1090 across 60 files: manager-database.js, manager.js, formula-record.js, mount.js reconciliation, new registry.js/secret-manager.js).
->   • The live daemon persists a ~12 MB sqlite store (endo.sqlite, 723 files) holding the REAL production guest formulas (your live OAuth-guest / daemon-guest identities). deploy-endo-daemon.sh preserves that state across the /opt/endo swap, so the new daemon at 0eb88836 must REVIVE it on first boot — and if it migrates the schema in place, a binary-only rollback won't restore it. This state revival is UNVALIDATED and is the dominant risk, not the app protocol.
->
-> Proposed procedure (full detail in §8.3/§8.4):
->   1. Snapshot /var/lib/endo-daemon/state (daemon stopped) → tarball = rollback anchor.
->   2. STAGING dry-run: boot a throwaway daemon built at 0eb88836 against a COPY of that state; confirm it starts and `endo list` still enumerates the existing guests. Only proceed if it revives cleanly.
->   3. Bump both pins together (deploy-endo-daemon.sh ENDO_COMMIT + captp-client.ts PINNED_ENDO_COMMIT → 0eb88836), commit, run deploy-endo-daemon.sh.
->   4. Post-deploy gates: pin==0eb88836, socket up, `endo list` shows existing guests, e2e-prod-test guest round-trip green.
-> Rollback: restore /opt/endo.old (binary) and, if the sqlite was migrated in place, the state snapshot; revert the two pin bumps.
->
-> This is a consequential production action on your live serving daemon, so I have NOT executed it. Please confirm one of:
->   (A) "authorized — proceed" (I run the full procedure incl. the state snapshot + staging dry-run, then §8.5 cleanup: remove the shim and confirm unaided provisioning), or
->   (A′) "authorized — but do the staging dry-run and report back before the live swap" (safest), or
->   (B) hold — the verified plan is already recorded in §8 and this job completes as authorization-blocked.
->
-> Absent a reply I am completing this job now under the design's second definition-of-done branch (verified, authorization-blocked plan recorded). A reply here dead-letters into a fresh job that resumes execution, or you can re-post the job once you decide.
-
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
-
-- `20260904T043811Z-05eb2a` — from gauntlet:build-minion-town-invitation-only-guest-onboarding-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T043811Z-05eb2a.md)
-
-> Gauntlet build-minion-town-invitation-only-guest-onboarding-gauntlet HALTED: stage 'build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
 
 - `20260901T175244Z-931faa` — from gardener:minion-town-remove-mcp-tool-prefixes, reply_to `minion-town-remove-mcp-tool-prefixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T175244Z-931faa.md)
 
@@ -183,25 +162,28 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.3M | $401.46 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 7.2M _(+182.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 46.5M | $411.75 _(notional, rate-card)_ | 33% of 143.0M (ok) |
+| Codex | 7.3M _(+183.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (6)
+- [`minion-town-reminder-daemon-redeploy-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-reminder-daemon-redeploy-20260916.md) — ---
+- [`credit-controls-fail-closed-pools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-fail-closed-pools.md) — ---
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1283
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1283
 - [`fix-canary-drain-self-exclusion-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-canary-drain-self-exclusion-20260916.md) — ---
-- [`ironhorse-computron-benchmark-baseline-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build.md) — builder: execute the benchmark-established computron-baseline plan for Ironhorse
+- [`triage-halted-gauntlets-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/triage-halted-gauntlets-20260916.md) — ---
 
-### tada (7935)
+### tada (7938)
+- [`ironhorse-computron-benchmark-baseline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline.md) — orchestration ironhorse-computron-benchmark-baseline — complete
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-clean.md) — Completion report
+- [`ironhorse-computron-benchmark-baseline-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build.md) — Completion report
 - [`foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/foreman-partial-unquiesce-target-2.md) — Cost
 - [`ironhorse-computron-benchmark-baseline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-design.md) — Completion report
-- [`investigate-malingering-foreman`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/investigate-malingering-foreman.md) — Completion report — investigate-malingering-foreman
-- [`endojs-endo-but-for-bots-pr1282-d101dbfb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1282-d101dbfb.md) — Completion report
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260916-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260916-043506.md) — Completion report
-- … and 7930 more
+- … and 7933 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -420,6 +402,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — _normal_ · Design/plan: migrate remaining agents to agentry; scuttle the lal providers
 - [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify.md) — _normal_ · Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-mutable-blob-formula.md) — _normal_ · Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
+- [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-exec.md) — _normal_ · builder: implement the Ironhorse computron benchmark-baseline regime (steps 2–8)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #888 (primary: endojs-endo-but-f...
