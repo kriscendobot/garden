@@ -44,6 +44,7 @@ what, so blame cannot be assigned — Morningstar calls **accountability launder
 | [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md) | Hybrid applications reintroduce confused deputies through ACL checks and implicit rights amplification. |
 | [cap-talk-2009-2012--confused-deputies-in-capability-systems](../sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md) | Toby Murray's argument that confused deputies can arise inside ocap systems too, when a service skips input-validation on a passed capability that is more powerful in its hands (rights amplification); the fix is to authenticate accepted capabilities (trademarks in E/Cajita/KeyKOS, final-type checks in Joe-E). |
 | [cap-talk-2009-2012--what-is-designation](../sections/cap-talk-2009-2012--what-is-designation.md) | Designation defined on-list; the designation/authority fusion is exactly what prevents the confused deputy (Properties A + D). |
+| [cap-talk-2009-2012--origin-header-amplifies-ambient-authority](../sections/cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md) | CSRF as the browser-as-confused-deputy; CORS/Origin access decisions leave the ambient-authority deputy in place; all scripts on a page wield the page's origin authority. |
 
 ## See also
 
