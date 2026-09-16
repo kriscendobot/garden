@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T20:05:31Z_
+_As of 2026-09-16T20:06:01Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 2h)
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 3h)
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 3h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
@@ -606,25 +606,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.8M | $477.21 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 10.7M _(+271.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 64.5M | $471.21 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.7M _(+271.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`scholar-ingest-cap-talk-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012-remainder.md) — Continue cap-talk ingestion: all of 2011 and 2012 (and retry 2012-October)
-- [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2011-2012.md) — Continue cap-talk 2011-2012 ingestion (and the 2010 remainder)
 - [`improve-deadline-nudge-stage-failure-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-stage-failure-isolation.md) — ---
 
-### tada (8048)
+### tada (8049)
+- [`scholar-ingest-cap-talk-2011-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2011-2012.md) — Completion report: scholar-ingest-cap-talk-2011-2012
 - [`endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr888-review-8b40fdbe-retro.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-9405a69805d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-9405a69805d1.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-9405a69805d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-9405a69805d1.md) — rolling-deploy canary probe — round trip OK
 - [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2010-2012-remainder.md) — Completion report: scholar-ingest-cap-talk-2010-2012-remainder
-- [`endojs-endo-but-for-bots-pr388-review-3f255add-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-3f255add-retro.md) — What I did
-- … and 8043 more
+- … and 8044 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
