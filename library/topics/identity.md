@@ -54,6 +54,8 @@
 | [openid-single-sign-on-critique](../sections/cap-talk-2009-2012--openid-single-sign-on-critique.md) | identity, capability-security, oauth-credentials | Karp's verdict: OpenID trains users to be phished, gives single sign-on with no single sign-out, and re-centralizes authority into one compromisable credential. |
 | [opinions-of-oauth](../sections/cap-talk-2009-2012--opinions-of-oauth.md) | oauth-credentials, capability-security, identity | OAuth 2 is the best wrong way of doing things; the capability alternative is the web-key / YURL, an unguessable URL conveying specific authority with no identity round-trip. |
 | [what-parts-of-a-url-are-safe-for-secrets](../sections/cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets.md) | capability-security, identity | Barbour: nothing in the URL is safe; put web-key secrets in the fragment, store bookmarks encrypted, and treat any leaked URL as compromised. |
+| [cap-talk-2009-2012--password-as-designation-not-authentication](../sections/cap-talk-2009-2012--password-as-designation-not-authentication.md) | cap-talk 2012-November | A MinorFs PAM bug shows a password can designate a resource rather than authenticate an identity (HMAC-derived sparse-cap root); Karp's revocation/attenuation question stays open. |
+| [cap-talk-2009-2012--bits-of-capabilities-ocaps-versus-crypto-caps](../sections/cap-talk-2009-2012--bits-of-capabilities-ocaps-versus-crypto-caps.md) | cap-talk 2012-December | Miller's distinction: object-capabilities are unforgeable, cryptographic capabilities merely unguessable (transmissible as bits, knowledge-limited); Boebert's *-property is impossible for crypto-caps — the in-vat-ocap / on-wire-crypto-cap seam. |
 
 ## See also
 
