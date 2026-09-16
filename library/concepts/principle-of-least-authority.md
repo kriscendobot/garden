@@ -32,6 +32,8 @@ A programmer already following good software-engineering discipline is most of t
 | [papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker](../sections/papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker.md) | §4.4: "To render permission-only analysis useless, a threat model need not include either malice or accident; it need only include subjects following security best practices." Following POLA *is itself* a behavior that permission-only analysis cannot account for. |
 | [what-are-capabilities/capability-patterns](../sections/habitat-chronicles--what-are-capabilities--capability-patterns.md) | POLA introduced under the *abstraction* pattern ("only the specific authority necessary"), with the authority-vs-permission distinction and the Unix passwd/setuid example. |
 | [what-are-capabilities/distributed-services-and-engineering](../sections/habitat-chronicles--what-are-capabilities--distributed-services-and-engineering-practices.md) | POLA operationalized as the three rules for taming Java (private instance vars, no static authority, no cross-thread mutable state); measures against deliberate misbehavior also prevent accidental misbehavior. |
+| [cap-talk-1998--cgi-confinement-and-capability-buckets](../sections/cap-talk-1998--cgi-confinement-and-capability-buckets.md) | Authentication maps a session to the smallest and weakest capability bucket sufficient for its task. |
+| [cap-talk-1999--driver-trust-dma-and-least-authority](../sections/cap-talk-1999--driver-trust-dma-and-least-authority.md) | A DMA-capable driver has machine-wide authority regardless of code placement; count effects, not process boundaries. |
 
 ## See also
 
