@@ -32,3 +32,13 @@ TASK:
    diminishing polish by maintainer decision — so a reviewer arriving cold knows
    why the loop stopped rather than converged.
 4. Do NOT merge. The merge decision is the maintainer's.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T23:07:16Z
