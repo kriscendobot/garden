@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T11:22:33Z_
+_As of 2026-09-16T11:24:11Z_
 
 ## Latest
 
-The board is quiet — no jobs claimed or in progress — but maintainer inbox is full with consequential decisions awaiting review. Two jobs just completed ([endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) rebase and a thixotrope bundle cleanup), leaving ten PRs parked (19h–20d waiting) and a complex backlog of architectural and operational decisions. Most pressing: sturdyref design collision (llm shipped a competing implementation; needs verdict on which design wins before [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737)'s stack can rebase), [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) needs a weave to resolve base drift (the 9p-server `stringLengthLimit`→`byteLengthLimit` API port), and ironhorse computron baseline build is parked awaiting parameter confirmation (6 open questions on tolerance bands, seed roster, and gate targets). Five halted gauntlets flagged for re-scoping vs. retry — items 1–2 are transient-safe re-posts but items 3–5 need real scope changes or re-anchoring. Fleet-wise, oros-studio (a third live follower) still runs legacy gardener workers, blocking the retire-gardener-worker-kind-alias job; decision needed on whether to migrate oros first or defer the alias retirement.
+Triage on five halted gauntlets from early September completed: two transient capacity-crunch halts ([endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81)) are safe to re-post; [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit a real failure (base drift on `@endo/exo-stream` API—needs reweave and semantic port of the `stringLengthLimit`→`byteLengthLimit` conflict, ~360 commits behind); [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) is green and mergeable but stopped at panel iteration 6 (route to human review rather than re-loop); [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84)'s orchestration halted stale but child 1 already completed (re-anchor to resume at child 2 with raised budget). Ironhorse computron benchmark-baseline design landed as draft [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with open questions on tolerance bands, CI placement, seed roster, and baselines; builder audit complete and holding implementation until answers. Minion.town clip built and ready to publish but blocked on MCP OAuth; daemon migration attempt halted on missing-registry repair (reminders now decoupled from upgrade). Budget rebalanced 2→3 monks on endolin-garden-ece02cb4. Multiple infrastructure validations and host-state reconciliations in progress.
 
 ## Parked for maintainer feedback
 
@@ -261,23 +261,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > canary endolin-garden2-5bcdff64 passed a later roll; clearing.
 
-- `msg-ebfb-sturdyref-rebase-pr737-20260916-b0223b138feb` — from gardener:ebfb-sturdyref-rebase-pr737-20260916, reply_to `ebfb-sturdyref-rebase-pr737-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ebfb-sturdyref-rebase-pr737-20260916-b0223b138feb.md)
-
-> BLOCKER — sturdyref stack rebase ([endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)) halts the serial orchestration ebfb-sturdyref-stack-rebase-20260916.
->
-> Live `llm` has INDEPENDENTLY SHIPPED a complete, tested sturdyref implementation in @endo/ocapn using a DIFFERENT design than this stack proposes. This is a design collision, not mechanical drift.
->
-> - llm's design: WeakMap `sturdyRefDetails` + `makeTagged('ocapn-sturdyref')`; exports getSturdyRefDetails; wire codec in codecs/descriptors.js; toStringTag `[object ocapn-sturdyref]`. Consumers OUTSIDE [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)'s footprint depend on it: packages/thixotrope/test/hub.test.js (asserts the ocapn-sturdyref toStringTag on a round-tripped client.makeSturdyRef) and packages/goblin-chat/src/uri-parse.js.
-> - [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737)'s design: first-class pass-style 'sturdyref' + standalone @endo/sturdyref shim; rewrites client/sturdyrefs.js (getSturdyRefLocator, enliven cache, makeSturdyRefTracker); toStringTag 'SturdyRef'; removes getSturdyRefDetails/makeTagged.
->
-> Rebasing [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) onto llm cannot be done as a rebase: it requires (a) a DESIGN DECISION — does the stack's first-class-pass-style sturdyref supersede llm's shipped ocapn-sturdyref? — and (b) if yes, re-authoring to update out-of-footprint llm consumers (thixotrope, goblin-chat) and reconcile the wire codec. That violates the job's own success criterion (diff == PR footprint only) and is beyond a rebase's remit.
->
-> This undermines the whole stack premise: the bridge PRs [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) through [endojs/endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/issues/704) build on the ocapn sturdyref wire codec, which now collides with llm's shipped version. The premise "llm is a clean ancestor, only @endo/ascii landed" missed that llm shipped a competing sturdyref.
->
-> Actions taken: rebase aborted, origin branch build/sturdyref-pass-style-ocapn-single LEFT UNTOUCHED at 1854bdc247. Nothing force-pushed.
->
-> Need your decision on which sturdyref design wins on llm before this stack can be rebased.
-
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): budget pool anthropic:endolin-garden-ece02cb4 spend=45294142 cap=143000000 ceiling=4 target=3
@@ -417,7 +400,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.1M | $457.34 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Claude | 59.1M | $457.43 _(notional, rate-card)_ | 41% of 143.0M (ok) |
 | Codex | 8.0M _(+202.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
