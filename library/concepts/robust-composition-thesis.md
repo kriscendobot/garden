@@ -46,6 +46,7 @@ ingested material is the paper it shares Part III with:
 | [papers--miller-tribble-shapiro-concurrency-among-strangers-2005--partial-failure-and-when-catch](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--partial-failure-and-when-catch.md) | Thesis ch 17-18 material (partial failure, when-catch). |
 | [papers--miller-tribble-shapiro-concurrency-among-strangers-2005--history-and-related-work](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--history-and-related-work.md) | Thesis Part V lineage (ch 23). |
 | [erights--elang-index--overview](../sections/erights--elang-index--overview.md) | The E documentation the thesis's code examples assume. |
+| [cap-talk-2009-2012--defensive-correctness-versus-consistency](../sections/cap-talk-2009-2012--defensive-correctness-versus-consistency.md) | The 2009 cap-talk working of the thesis's defensive-consistency/correctness definitions (§5.7); why full correctness needs vat isolation plus budgeted, reclaimable resources. |
 
 The `endojs/endo-but-for-bots` design `designs/thesis-translation.md`
 (PR #631, 2026-07-07) plans a modernized edition under `docs/thesis/`
