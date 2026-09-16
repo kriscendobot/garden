@@ -62,6 +62,12 @@ got="$(show_path "$BARE" jobs/plan/pending-answer.md)"
   && grep -q '^asked_at: https://github.com/example/project/issues/7#issuecomment-9$' <<<"$got"; } \
   && ok "post records the gate, question, and answer URL" \
   || bad "posted gate metadata is incomplete: $got"
+READ="$TR/read"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$READ"
+decoded="$(JOBS="$JOBS" PLAN="$READ/jobs/plan/pending-answer.md" bash -c \
+  'source "$JOBS/common.sh"; plan_field "$PLAN" maintainer_question')"
+[ "$decoded" = "Which deployment's PR #7 should serve the guest?" ] \
+  && ok "the scalar reader decodes apostrophes and keeps # inside the question" \
+  || bad "question scalar decoded as: $decoded"
 
 # Seed the exact workaround this gate replaces: a fake blocked edge used only to
 # keep the foreman away. annotate-plan must change the gate and remove the edge in
