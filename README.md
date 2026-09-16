@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T01:14:23Z_
+_As of 2026-09-16T01:17:45Z_
 
 ## Latest
 
@@ -672,8 +672,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`ses-node26-lockdown-permits-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1281
 
 ### tada (7917)
 - [`ses-node26-lockdown-permits-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-2.md) — Completion report
