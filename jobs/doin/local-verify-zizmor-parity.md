@@ -30,3 +30,13 @@ locally before push (detect `.github/workflows/zizmor.yml`, mirror its
 persona/min-severity inputs), closing the coverage gap per the
 maintainer's 2026-07-20 parity policy: any lint/test CI failure is a
 defect in our anticipation automation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T20:49:21Z
