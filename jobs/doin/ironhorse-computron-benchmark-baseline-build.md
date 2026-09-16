@@ -31,3 +31,13 @@ load — NOT XS-computron parity (accuracy-over-parity doctrine holds).
 If the plan's execution is itself large and naturally decomposes into ordered
 parts, orchestrate sub-builds rather than piling loose jobs. Open a PR through
 the gardening flow (ensure-pr.sh) for the executed work per the plan.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T05:28:20Z
