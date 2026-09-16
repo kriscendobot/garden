@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:11:22Z_
+_As of 2026-09-16T16:12:50Z_
 
 ## Latest
 
@@ -529,24 +529,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.1M _(+227.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 9.1M _(+227.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2000-2003.md) — Ingest cap-talk: 2000-2003
+### doin (2)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
 - [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2002-2003.md) — Ingest cap-talk: 2002-2003
 
-### tada (8013)
+### tada (8014)
+- [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003.md) — Completion report
 - [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-exec.md) — Cost
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-mutable-blob-formula.md) — Cost
 - [`fix-comment-provenance-pr-close-merge-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-comment-provenance-pr-close-merge-bypass.md) — Cost
 - [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-retcon.md) — Completion report
-- [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town-followup.md) — Completion report — wire-siwe-onchain-authz-minion-town-followup
-- … and 8008 more
+- … and 8009 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
