@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T22:13:34Z_
+_As of 2026-09-16T22:15:37Z_
 
 ## Latest
 
@@ -625,22 +625,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.0M | $473.86 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 11.5M _(+284.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Codex | 11.5M _(+284.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`issue-kriscendobot-garden-96`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-96.md) — Issue from dckc on kriscendobot/garden #96
+- [`endojs-endo-but-for-bots-pr1015-review-348a2017-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-review-348a2017-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
 
-### tada (8069)
+### tada (8071)
+- [`issue-kriscendobot-garden-96`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-96.md) — Cost
+- [`canary-probe-endolin-garden2-5bcdff64-a197ac8b1d88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-a197ac8b1d88.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1015-2b55429b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-2b55429b-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1018-review-cf8012a8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1018-review-cf8012a8-retro.md) — Completion report
 - [`scholar-ingest-cap-talk-2012-april-onward`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2012-april-onward.md) — Completion report
-- [`improve-mirror-closer-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mirror-closer-quota-cooldown.md) — Cost
-- [`endojs-endo-but-for-bots-pr858-review-e6eaf772-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr858-review-e6eaf772-retro.md) — Completion report
-- … and 8064 more
+- … and 8066 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -842,7 +842,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr1015-review-348a2017-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-review-348a2017-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr832-review-f3554a0a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-review-f3554a0a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1085-b27f483f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1085-b27f483f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1085 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr832-e39ce097-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr832-e39ce097-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #832 (primary: endojs-endo-but-f...
