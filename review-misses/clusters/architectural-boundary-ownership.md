@@ -1,13 +1,15 @@
 ---
 slug: architectural-boundary-ownership
 category: spec-violation
-status: improvement-dispatched
+status: closed
 count: 1
 members:
   - endojs-endo-but-for-bots-pr1018-review-eccc706c
 prs: [1018]
 improvement_job: review-improve-architectural-boundary-ownership
+improved_by: 5ba8b6f06a: skills/ownership-map/SKILL.md (prevention artifact), roles/designer/AGENT.md (ownership-map requirement), scripts/jobs/gardening/ownership-map-signal.sh + panel.sh design-panel pre-pass + roles/jurors/decomplector/AGENT.md Ownership-map reconstruction (sensing); tests ownership-map-signal-test.sh, panel-ownership-map-trigger-test.sh
 ---
+
 
 
 A design assigns execution, durability, or lifecycle responsibilities to the wrong architectural layer, while repeated panel reviews check local consistency without constructing an explicit ownership map across adjacent components.
