@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":33,"elapsed_s":383,"input_tokens":46,"output_tokens":26481,"cache_creation_tokens":79937,"cache_read_tokens":1473911,"total_cost_usd":2.2016545,"ts":"2026-09-16T05:58:58Z","base":"reconcile-gardener-alias-retirement-gate-20260916","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
