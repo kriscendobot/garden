@@ -26,6 +26,8 @@ must remain alive), revocation lists (which must propagate), or expiry
 | [dp/six-aspects-of-sharing-and-related-work](../sections/endo--designs-dp--six-aspects-of-sharing-and-related-work.md) | How withdrawal-of-constructor satisfies the seventh Karp/Stiegler/Close aspect (revocable). |
 | [dcp/verification-and-handle-extensions](../sections/endo-but-for-bots--llm-designs-dcp--verification-and-handle-extensions.md) | Worked example at the Handle layer: HandleControl `revoke()` invalidates the Handle formula and the epithet-chain link breaks cleanly at that point — *revocation as chain break*. |
 | [d256/per-agent-keypairs](../sections/endo-but-for-bots--llm-designs-d256--per-agent-keypairs.md) | Worked example at the agent-identity layer: revoking an agent is revoking its `keypair` formula; keypair lifecycle follows formula lifecycle (deleting the formula deletes the keys). |
+| [cap-talk-1998--capability-ids-and-indirection-revocation](../sections/cap-talk-1998--capability-ids-and-indirection-revocation.md) | Primary-source ancestor: EROS gives the holder a capability to a destroyable indirection object, so destroying it rescinds access (Shapiro 1998). |
+| [cap-talk-1998--rescinded-keys](../sections/cap-talk-1998--rescinded-keys.md) | Landau (1998): a rescinded key must return a message like any other key -- revocation indistinguishable from a live object; contrast Endo's reactable broken reference. |
 
 ## See also
 
