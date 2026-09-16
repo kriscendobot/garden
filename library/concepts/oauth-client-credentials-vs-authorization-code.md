@@ -17,6 +17,7 @@ The central decision in adopting an OAuth-app pattern is which OAuth 2.0 grant f
 | [web--tailscale-oauth-clients--client-setup-and-secret-lifecycle](../sections/web--tailscale-oauth-clients--client-setup-and-secret-lifecycle.md) | Secret exposed once; client is tailnet-owned and outlives its creator; revocation, not offboarding, retires it. |
 | [web--tailscale-oauth-apps--user-delegated-authorization-code-model](../sections/web--tailscale-oauth-apps--user-delegated-authorization-code-model.md) | The authorization-code flow on behalf of a user; the explicit OAuth-apps-versus-OAuth-clients decision contrast. |
 | [web--tailscale-oauth-apps--requirements-and-limitations](../sections/web--tailscale-oauth-apps--requirements-and-limitations.md) | Preconditions and single-tailnet boundary of the OAuth-apps flow. |
+| [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | Seaborn's 2010 comparison of the OAuth redirect flow's residual attacks (clickjacking, phishing, XSRF, asynchrony) against a capability powerbox. |
 
 ## See also
 
