@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:29:59Z_
+_As of 2026-09-16T16:30:26Z_
 
 ## Latest
 
@@ -532,25 +532,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $469.79 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.3M _(+238.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 64.2M | $469.87 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 9.3M _(+238.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
 - [`scholar-cap-talk-cdx-completeness-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-cap-talk-cdx-completeness-2000-2003.md) — Complete cap-talk CDX enumeration: 2000-2003
-- [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2002-2003.md) — Ingest cap-talk: 2002-2003
 
-### tada (8016)
+### tada (8017)
+- [`scholar-ingest-cap-talk-2002-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2002-2003.md) — Cost
 - [`improve-fetch-source-wayback-cdx-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-wayback-cdx-fallback.md) — Completion report
 - [`claude-on-minion-town-press-20260916-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-162009.md) — Completion report
 - [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2000-2003.md) — Completion report
 - [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-exec.md) — Cost
-- [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-mutable-blob-formula.md) — Cost
-- … and 8011 more
+- … and 8012 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
