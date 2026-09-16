@@ -4,3 +4,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 In scripts/jobs/comment-watcher.sh, the `run_source` failure branch (~line 1506-1565) dies loud on rc=124/137 (timeout's own wall-clock-expiry code from the `timeout ... "$GARDEN_COMMENT_SOURCE_TIMEOUT_SECS"s` call at line 1495) whenever the killed process's stderr doesn't match one of the text-based transient signatures (is_transient_net_error / is_transient_gh_source_error / is_transient_auth_error) — which a bare SIGTERM-killed `gh` call often won't. This diverges from the sibling receipt-watcher.sh's `shared_availability_failure` (line 57-60), which explicitly treats `rc -eq 124 || rc -eq 137` as transient alongside the stderr checks, matching the codebase-wide convention (common.sh journal_fetch, gardener.sh handler-wall-clock) that timeout's own expiry code IS the transient-network signal. Add the same `rc -eq 124 || rc -eq 137` check to comment-watcher.sh's run_source failure handling (before/alongside the stderr-text checks, ideally routed through the shared start_api_cooldown path like the gh-api-blip branch) so a hung comment-source fetch skips the tick with a WARN instead of dying and detonating a systemd restart.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T13:21:35Z
