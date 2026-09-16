@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 make a test plan for https://github.com/kriscendobot/oros-ckm-data-readiness start by figuring out what code is the ground-breaking part of this work vs. the ordinary stuff that it has in common with many other projects. make a telescoping plan: pick 1 to 3 files and make a detai
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T22:23:16Z
