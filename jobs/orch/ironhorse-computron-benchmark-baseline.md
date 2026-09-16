@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-computron-benchmark-baseline-design ironhorse-computron-benchmark-baseline-build
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-16T05:10:55Z
 ---
