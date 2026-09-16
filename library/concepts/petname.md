@@ -15,6 +15,7 @@ A **petname** is a name a holder chooses for an object, private to that holder, 
 | [cap-talk-2009-2012--petnames-versus-e-order](../sections/cap-talk-2009-2012--petnames-versus-e-order.md) | Karp's open question: a petname's object-identifying rule ("same object, same name") collapses the delegation-edge distinction E-order needs, so a petname UI can hide which reference carries the message-ordering guarantee. |
 | [cap-talk-2009-2012--file-api-taming-tahoe](../sections/cap-talk-2009-2012--file-api-taming-tahoe.md) | Name-free file/directory capabilities (a file does not know its own name; naming is a per-directory binding), and the (directory, name) tuple that restores just enough naming context to compute siblings. |
 | [endo-but-for-bots--packages-chat-message-parse-js--petname-regex-validates-and-extracts-and-petname-edgename-naming-inversion](../sections/endo-but-for-bots--packages-chat-message-parse-js--petname-regex-validates-and-extracts-and-petname-edgename-naming-inversion.md) | Endo chat's petname/edgename parsing: the concrete petname-path syntax and the petname-vs-edgename naming inversion in practice. |
+| [cap-talk-2009-2012--zookos-triangle-and-petname-mappings](../sections/cap-talk-2009-2012--zookos-triangle-and-petname-mappings.md) | Petnames and lambda names combine memorable and securely unique naming but differ in the direction of their mappings. |
 
 ## See also
 
