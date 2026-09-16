@@ -22,6 +22,9 @@ The comparison at the center of object-capability security: an **access-control 
 | [cap-talk-1999--principal-policy-and-confinement-debate](../sections/cap-talk-1999--principal-policy-and-confinement-debate.md) | The unresolved 1999 debate over principal policy inside controlled compartments. |
 | [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) | Proposed row-plus-column matrix distinction and the normal-user creation criterion that fed the four-model analysis. |
 | [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](../sections/cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md) | On-list reaction to critiques that excluded KeyKOS and conflated authentication with authorization. |
+| [cap-talk-2002-2003--state-transition-model-of-trust-management](../sections/cap-talk-2002-2003--state-transition-model-of-trust-management.md) | An early formal ACL-vs-capability comparison whose capability model omits forwarders, wrongly ranking trust management above capabilities. |
+| [cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection](../sections/cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection.md) | The USENIX committee read the ACL-vs-cap myth-demolitions as minor nitpicks; Miller's post-mortem on why the argument failed to land. |
+| [cap-talk-2002-2003--access-matrix-column-vs-row-distinction](../sections/cap-talk-2002-2003--access-matrix-column-vs-row-distinction.md) | Extending a privilege needs the matrix column in ACLs but the column and the row in capabilities; the real difference is behaviour under untrusted code. |
 
 ## See also
 
