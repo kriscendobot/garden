@@ -51,6 +51,8 @@
 | [tc39-module-harmony--shadowrealm-explainer--clarifications-globals-csp-module-graph-and-compartments](../sections/tc39-module-harmony--shadowrealm-explainer--clarifications-globals-csp-module-graph-and-compartments.md) | tc39 shadowrealm | The ShadowRealm side of the boundary: it defines no host virtualization, the two proposals compose, and Compartments plans the per-ShadowRealm module-graph hooks. |
 | [opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap](../sections/opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap.md) | OpenSandbox architecture | Containers and pods are coarser than SES Compartments and do not preserve the same object-capability cooperation model. |
 | [OpenSandbox execd implementation boundaries and Endo comparison](../sections/opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison.md) | OpenSandbox execd guide | Bubblewrap namespaces are outer OS isolation, distinct from SES compartment authority mediation. |
+| [cap-talk-2004-2008--chrome-sandbox-and-brokered-authority](../sections/cap-talk-2004-2008--chrome-sandbox-and-brokered-authority.md) | cap-talk 2004-2008 archive | Chrome's process-per-tab design was immediately recognized as useful fault isolation, but process separation alone does not establish least authority. |
+| [cap-talk-2004-2008--object-capabilities-versus-dependency-injection](../sections/cap-talk-2004-2008--object-capabilities-versus-dependency-injection.md) | cap-talk 2004-2008 archive | Dependency injection and object-capability style share a construction pattern: dependencies arrive as references rather than being found through singletons or global registries. |
 
 ## See also
 
