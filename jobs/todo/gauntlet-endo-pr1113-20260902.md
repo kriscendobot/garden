@@ -1,20 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
 tier: minion
 token-budget: 100000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 5
-deadline_overruns: 0
-elapsed_constancy_confirmations: 1
-doomed_at: 2026-09-02T09:25:21Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-09-02T09:25:21Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:37:59Z cleared=none -->
 
 ---
 tier: minion
