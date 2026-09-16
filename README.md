@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T04:35:55Z_
+_As of 2026-09-16T04:40:03Z_
 
 ## Latest
 
@@ -697,23 +697,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $394.83 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 44.1M | $396.25 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 7.1M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260916-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260916-043506.md) — Containment drift check for kriscendobot/minion.town gateway records
+### doin (0)
+(none)
 
-### tada (7930)
+### tada (7931)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260916-043506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260916-043506.md) — Completion report
 - [`claude-on-minion-town-press-20260916-035007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-035007.md) — Completion report
 - [`ses-node26-lockdown-permits-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet.md) — gauntlet ses-node26-lockdown-permits-gauntlet — review budget reached
 - [`ses-node26-lockdown-permits-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-6.md) — Completion report
 - [`ses-node26-lockdown-permits-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-6.md) — Cost
-- [`ses-node26-lockdown-permits-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-5.md) — Completion report
-- … and 7925 more
+- … and 7926 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
