@@ -16,3 +16,13 @@ The 2026-09-16 completeness pass (`scholar-cap-talk-cdx-completeness-2000-2003`)
 - **2003-October**: "Auditing Capability Systems"; "Programming with capabilities"; "HRU Model"; "Single-use capabilities".
 
 The bundle anchors (timestamp + sha256) are already in the two source files' Monthly-bundle-anchors tables; fetch each via `web/<ts>id_/http://www.eros-os.org/pipermail/cap-talk/<Month>.txt.gz` (hash is over the compressed .txt.gz bytes). Add each new section to its source file's ## Sections table, the relevant topic pages, and concept pages; flip the "Deferred to ..." survey notes to a section reference as you ingest. Respect the per-cycle budget (~3-5 months / ~25 section writes) and post a further follow-on if needed.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T16:50:56Z
