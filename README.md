@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T19:06:43Z_
+_As of 2026-09-16T19:08:47Z_
 
 ## Latest
 
@@ -229,6 +229,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > new ideas into the Endo provenance file. Posted follow-on `scholar-ingest-cap-talk-2010-2012`
 > for 2009-Aug-Nov (anchored, content-fetch-failed) and all of 2010-2012. Full result:
 > entries/2026/09/16/185027Z-result-scholar-794be3.md.
+
+- `msg-scholar-ingest-cap-talk-2010-2012-d72955286d8b` — from scholar:scholar-ingest-cap-talk-2010-2012, reply_to `scholar-ingest-cap-talk-2010-2012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2010-2012-d72955286d8b.md)
+
+> Completed cap-talk's 2009-August through November remainder: all four Internet Archive bundles re-fetched with matching SHA-256 anchors, and eight standout threads became indexed sections spanning managed references, authentication, full abstraction, CORS, guards, RabbitMQ adoption, geolocation, and Native Client. The source now contains 22 sections and Endo's provenance note carries the new managed-language, browser-grant, and sandbox-boundary consequences. The 2010-2012 backlog, including another 2012-October fetch attempt, is durably owned by `scholar-ingest-cap-talk-2010-2012-remainder`; full details are in `entries/2026/09/16/190713Z-result-scholar-98e4df.md`.
 
 - `msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d` — from gardener:ironhorse-computron-benchmark-baseline-build, reply_to `ironhorse-computron-benchmark-baseline-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-computron-benchmark-baseline-build-88d207a2b27d.md)
 
@@ -580,24 +584,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.2M | $470.09 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 10.4M _(+267.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1072-review-73226ec0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-review-73226ec0-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
-- [`scholar-ingest-cap-talk-2010-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012.md) — Ingest cap-talk: 2010-2012 (and the 2009 Aug-Nov remainder)
+### doin (1)
+- [`scholar-ingest-cap-talk-2010-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2010-2012-remainder.md) — Continue cap-talk 2010-2012 ingestion
 
-### tada (8034)
+### tada (8036)
+- [`scholar-ingest-cap-talk-2010-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2010-2012.md) — Cost
+- [`endojs-endo-but-for-bots-pr1072-review-73226ec0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1072-review-73226ec0-retro.md) — Completion report
 - [`improve-mirror-closer-primary-quota-circuit-breaker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-mirror-closer-primary-quota-circuit-breaker.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1059-a5d1fff6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1059-a5d1fff6-retro.md) — Cost
 - [`scholar-ingest-cap-talk-2009-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012-remainder.md) — Completion report: scholar-ingest-cap-talk-2009-2012-remainder
-- [`scholar-ingest-cap-talk-2013-2016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2013-2016.md) — Cost
-- [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2009-2012.md) — Cost
-- … and 8029 more
+- … and 8031 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
