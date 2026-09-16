@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T01:10:18Z_
+_As of 2026-09-16T01:10:46Z_
 
 ## Latest
 
@@ -677,25 +677,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.2M | $338.75 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 37.2M | $337.51 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 6.6M _(+176.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ses-node26-lockdown-permits-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ses-node26-lockdown-permits-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1281
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-a74698d6.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`claude-on-minion-town-completion-press-20260916-010507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260916-010507.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### tada (7915)
+### tada (7916)
+- [`claude-on-minion-town-completion-press-20260916-010507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-010507.md) — Completion report — Claude-on-minion.town completion press, tick 30 (20260916...
 - [`fu-qwen-model-watch-20260728-180502-1-20260916-010507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-qwen-model-watch-20260728-180502-1-20260916-010507.md) — Cost
 - [`ses-node26-lockdown-permits-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-panel-2.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-2ed62678db1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-2ed62678db1e.md) — rolling-deploy canary probe — round trip OK
 - [`ses-node26-lockdown-permits-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ses-node26-lockdown-permits-gauntlet-fix-1.md) — Completion report
-- [`claude-on-minion-town-press-20260916-003510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-003510.md) — Cost
-- … and 7910 more
+- … and 7911 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
