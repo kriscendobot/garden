@@ -1,6 +1,6 @@
 #!/bin/bash
 # gauntlet.sh — the deterministic STAGED-GAUNTLET driver: walk a PR through the
-# clean → panel → fix-loop → un-draft chain ONE claim-sized stage at a time, so no
+# viability -> clean -> panel -> fix-loop -> un-draft chain ONE claim-sized stage at a time, so no
 # single handler ever spans the (unbounded) loop.
 #
 # Usage: gauntlet.sh   (timer-driven oneshot; one tick per invocation)
@@ -11,7 +11,7 @@
 # 2026-07-28, one already at a 14000s budget against the GARDEN_CLAIM_TTL ceiling.
 # The budget ladder is exhausted; splitting is the only move.
 #
-# THE SHAPE: decompose the gauntlet into claim-sized STAGE jobs (`<g>-clean`,
+# THE SHAPE: decompose the gauntlet into claim-sized STAGE jobs (`<g>-viability`, `<g>-clean`,
 # `<g>-panel-<k>`, `<g>-fix-<k>`, `<g>-undraft`), each a normal independently
 # claimable job with its own fresh handler budget and per-base worktree. This driver
 # is the per-PR analog of orchestrate.sh: a deterministic, leader-only, NO-`claude -p`
@@ -31,6 +31,9 @@
 #     <!-- gauntlet-stage-result: <stage>=<result> -->
 #
 #     | completed | result        | next                                            |
+#     | viability | proceed       | clean                                           |
+#     | viability | closed/merged | refuse and report; no budgeted loop             |
+#     | viability | overtaken     | report deciding question + close-as-superseded  |
 #     | clean     | done          | panel-1                                         |
 #     | clean     | still-pending | re-post <g>-clean (bounded by max_resumes)      |
 #     | panel-k   | pass          | undraft (feature) / done (probe never un-drafts)|
@@ -210,6 +213,42 @@ finish_done() {  # <base> <reason>
   rm -f "$sf"
 }
 
+# A non-viable PR is a successful gate outcome, not an infrastructure failure.
+# Retire it without an orchestration-failed marker, preserve the report as evidence,
+# and tell the maintainer why no clean/panel/fix budget was admitted.
+finish_not_viable() {  # <base> <result> <viability-report>
+  local base="$1" result="$2" report="$3" sf question="" reason
+  case "$result" in
+    closed) reason="the PR is closed; the gauntlet did not enter its budgeted loop." ;;
+    merged) reason="the PR is already merged; the gauntlet did not enter its budgeted loop." ;;
+    overtaken)
+      question="$(sed -n 's/^Deciding question:[[:space:]]*//p' "$report" | head -1)"
+      if [ -z "$question" ] || ! grep -Fxq 'Option: close as superseded' "$report"; then
+        halt_gauntlet "$base" "viability stage reported an overtaken premise without both a named 'Deciding question:' and the exact 'Option: close as superseded' line; halting fail-closed."
+        return 0
+      fi
+      reason="the premise was overtaken. Deciding question: $question Option: close as superseded."
+      ;;
+    *) halt_gauntlet "$base" "viability stage reported unexpected result '$result'"; return 0 ;;
+  esac
+
+  sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-not-viable.XXXXXX")"
+  {
+    printf 'gauntlet-status: not-viable\n'
+    printf 'viability-result: %s\n' "$result"
+    printf '# gauntlet %s - not viable\n\n' "$base"
+    printf '%s\n\n' "$reason"
+    printf '## Viability report\n\n'
+    cat "$report"
+  } > "$sf"
+  finish_gauntlet "$base" "$sf" \
+    || log "gauntlet '$base': not-viable finish failed; retrying next tick"
+  printf 'Gauntlet %s REFUSED by its pre-spend viability gate: %s\n' "$base" "$reason" \
+    | gauntlet_notify "$base-not-viable"
+  log "gauntlet '$base': viability refused - $reason"
+  rm -f "$sf"
+}
+
 halt_gauntlet() {  # <base> <reason>
   local base="$1" reason="$2" sf
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-halt.XXXXXX")"
@@ -282,6 +321,39 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
   printf -- '---\n\n'
 
   case "$stage" in
+    viability)
+      cat <<EOF
+# Gauntlet stage: PRE-SPEND VIABILITY - $repo PR #$prnum
+
+You are the viability gate for staged gauntlet ($base). Spend no clean, panel,
+fix, CI-wait, or un-draft budget. Decide whether the gauntlet may begin, report the
+evidence, then STOP.
+
+1. Read current PR facts with
+   \`gh pr view $pr --json state,mergedAt,isDraft,title,body,baseRefName,headRefName,headRefOid,baseRefOid,url\`.
+   A merged PR reports \`viability=merged\`; any other non-OPEN PR reports
+   \`viability=closed\`. Neither enters the gauntlet loop.
+2. For an open, unmerged PR, inspect its description, discussion and reviews, linked
+   issue/design context, current base code, and relevant newer base history. Ask one
+   concrete yes/no question whose answer decides both of these claims: the PR has not
+   been superseded, and the need or assumption that motivated it still holds.
+3. Report \`viability=proceed\` only when current evidence supports both claims. If a
+   newer implementation/design displaced it, or its motivating premise no longer
+   holds, report \`viability=overtaken\`. Do not enter the expensive loop merely
+   because the PR remains open.
+4. Include concise \`Deciding question:\` and \`Evidence:\` lines in every report.
+   For \`overtaken\`, also include this exact line so the maintainer gets an explicit
+   disposition rather than a silent refusal:
+
+   Option: close as superseded
+
+END your completion report with EXACTLY ONE of these marker lines (last line):
+  <!-- gauntlet-stage-result: viability=proceed -->
+  <!-- gauntlet-stage-result: viability=closed -->
+  <!-- gauntlet-stage-result: viability=merged -->
+  <!-- gauntlet-stage-result: viability=overtaken -->
+EOF
+      ;;
     clean)
       cat <<EOF
 # Gauntlet stage: CLEAN — $repo PR #$prnum
@@ -571,9 +643,10 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
     continue
   fi
 
-  # Fresh record (no stage in flight): post the first stage (clean).
+  # Fresh record (no stage in flight): spend one small viability claim before
+  # admitting any clean/panel/fix-loop budget.
   if [ -z "$child" ]; then
-    advance_stage "$base" "$f" clean 0 "$base-clean"
+    advance_stage "$base" "$f" viability 0 "$base-viability"
     advanced=$((advanced+1))
     continue
   fi
@@ -632,6 +705,12 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   fi
 
   case "$stage" in
+    viability)
+      case "$mresult" in
+        proceed)                 advance_stage "$base" "$f" clean 0 "$base-clean";;
+        closed|merged|overtaken) finish_not_viable "$base" "$mresult" "$DIR/$child_tada_path";;
+        *)                       halt_gauntlet "$base" "viability stage reported unexpected result '$mresult'";;
+      esac;;
     clean)
       case "$mresult" in
         done)          advance_stage "$base" "$f" panel 1 "$base-panel-1";;

@@ -135,9 +135,15 @@ complete_stage() { # <base> <stage=result>
   git -C "$edit" push -q origin "HEAD:$BRANCH"
 }
 
+admit_gauntlet() { # <base>
+  complete_stage "$1-viability" viability=proceed
+  tick
+}
+
 # A. One transient-proven death is retried, audited, then advances.
 post_gauntlet retry-once testowner/testrepo#101
 tick
+admit_gauntlet retry-once
 doom_stage retry-once-clean requeue-exhausted transient
 tick
 if exists jobs/todo retry-once-clean; then
@@ -171,6 +177,7 @@ fi
 # B. max_stage_retries=1 permits one retry; failure number two halts.
 post_gauntlet --max-stage-retries 1 retry-exhausted testowner/testrepo#102
 tick
+admit_gauntlet retry-exhausted
 doom_stage retry-exhausted-clean requeue-exhausted transient
 tick
 if exists jobs/todo retry-exhausted-clean; then
@@ -200,6 +207,7 @@ fi
 # C. A deterministic policy refusal never consumes the available retry budget.
 post_gauntlet --max-stage-retries 2 deterministic testowner/testrepo#103
 tick
+admit_gauntlet deterministic
 doom_stage deterministic-clean policy-refusal deterministic
 tick
 if exists jobs/tada deterministic && ! exists jobs/todo deterministic-clean; then
@@ -222,6 +230,7 @@ fi
 # D. Generic requeue exhaustion is retryable only with positive transient proof.
 post_gauntlet --max-stage-retries 2 unknown-requeue testowner/testrepo#104
 tick
+admit_gauntlet unknown-requeue
 doom_stage unknown-requeue-clean requeue-exhausted unknown
 tick
 if exists jobs/tada unknown-requeue && ! exists jobs/todo unknown-requeue-clean; then

@@ -1,7 +1,7 @@
 #!/bin/bash
 # post-gauntlet.sh — producer primitive: record a staged GAUNTLET run over a PR, so
 # the deterministic gauntlet.sh driver walks it one claim-sized stage at a time
-# (clean → panel → fix-loop → un-draft) rather than one monolithic job whose handler
+# (viability -> clean -> panel -> fix-loop -> un-draft) rather than one monolithic job whose handler
 # must span the whole chain (designs/staged-gauntlet.md).
 #
 # The gauntlet ran as ONE claimed job whose wall-clock was the SUM of every stage,
@@ -136,7 +136,7 @@ compose() {
   printf 'pr_number: %s\n' "$pr_number"
   printf 'build_job: %s\n' "$build_job"
   printf 'kind: %s\n' "$kind"
-  printf 'stage: clean\n'
+  printf 'stage: viability\n'
   printf 'iteration: 0\n'
   printf 'max_iterations: %s\n' "$max_iterations"
   printf 'resumes: 0\n'
@@ -152,7 +152,7 @@ compose() {
   printf 'Staged gauntlet run over %s (%s).\n' "$pr_canonical" "$kind"
   [ -n "$build_job" ] && printf 'Posted by the completion edge of build `%s`.\n' "$build_job"
   printf '\nThe deterministic gauntlet.sh driver walks this PR one claim-sized stage at\n'
-  printf 'a time: clean → panel-1 → (fix-k → panel-(k+1))* → undraft. No single handler\n'
+  printf 'a time: viability -> clean -> panel-1 -> (fix-k -> panel-(k+1))* -> undraft. No single handler\n'
   printf 'spans the loop; each stage is its own fresh-budget claimable job.\n'
 }
 
