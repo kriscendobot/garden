@@ -205,6 +205,12 @@ for attempt in $(seq 1 100); do
   rc=0; commit_and_push "$DIR" "tada($base) done $GARDEN/gardener-$id" || rc=$?
   if [ "$rc" -eq 0 ]; then
     log "completed '$base'"
+    # The accepted push above is the terminal edge.  Only now may the stable
+    # per-base project checkout be destroyed; before it, an offline completion
+    # or lost push race must retain the tree for the requeued worker.  This is
+    # best-effort and fail-open: a leader-only safety-net sweep collects any
+    # local residue later.
+    cleanup_terminal_project_worktrees "$base"
     # Destroy this doer's HOST-LOCAL inbox state too. The `git rm inbox/$base`
     # above removes only the JOURNAL-SIDE inbox: $DIR is the gardener's own clone
     # ($GARDEN_STATE/gardeners/$id/journal, set at the top of this file), not the
@@ -228,7 +234,11 @@ for attempt in $(seq 1 100); do
     foreman_kick
     exit 0
   fi
-  [ "$rc" -eq 2 ] && { log "'$base' already completed (nothing to commit)"; exit 0; }
+  [ "$rc" -eq 2 ] && {
+    log "'$base' already completed (nothing to commit)"
+    cleanup_terminal_project_worktrees "$base"
+    exit 0
+  }
   log "completion of '$base' lost a push race (attempt $attempt); retrying"
   backoff "$attempt"
 done

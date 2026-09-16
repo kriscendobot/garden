@@ -2768,16 +2768,57 @@ scratch_cleanup() {
     "$scratch_abs"/*) : ;;                          # inside scratch — safe to remove
     *) log "scratch_cleanup: refusing to remove $abs (outside $scratch_abs)"; return 0 ;;
   esac
-  # If it is a git worktree, deregister it from its owning repo first.
+  # If it is a git worktree, deregister it from its owning repo first.  Use the
+  # common git dir itself as --git-dir.  For a normal repository that is
+  # <repo>/.git; for the project checkouts created by
+  # ensure-project-worktree.sh it is the BARE repository itself.  The old
+  # `cd "$gitdir/.." && git -C ...` spelling happened to work for the former but
+  # selected the parent directory for a bare clone, so project directories were
+  # rm -rf'd while their worktree registrations leaked forever.
   if [ -e "$abs/.git" ]; then
-    local gitdir owner
+    local gitdir
     gitdir="$(git -C "$abs" rev-parse --git-common-dir 2>/dev/null || true)"
     if [ -n "$gitdir" ]; then
-      owner="$(cd "$gitdir/.." 2>/dev/null && pwd || true)"
-      [ -n "$owner" ] && git -C "$owner" worktree remove --force "$abs" >/dev/null 2>&1 || true
+      git --git-dir="$gitdir" worktree remove --force "$abs" >/dev/null 2>&1 || true
     fi
   fi
   rm -rf "$abs" 2>/dev/null || true
+  return 0
+}
+
+# cleanup_terminal_project_worktrees <base> — remove every project checkout
+# owned by a TERMINAL job base.  Callers must establish the terminal edge first
+# (a successful doin->tada push, or a successful reaper doom push).  Ordinary
+# requeues must never call this: their deterministic checkout is the resume
+# mechanism and may contain the only copy of in-flight work.
+#
+# Both the current bounded base key and the pre-bounding legacy spelling are
+# recognized.  scratch_cleanup supplies the path confinement and, critically,
+# removes registered worktrees through their owning bare repository before the
+# directory fallback.
+cleanup_terminal_project_worktrees() {
+  local base="${1:-}" key legacy path name suffix
+  [ -n "$base" ] || return 0
+  key="$(project_worktree_base_key "$base")"
+  legacy="${base//[^A-Za-z0-9._-]/-}"
+  local candidates=()
+  for path in "$GARDEN_SCRATCH/project-wt-${key}-"* \
+              "$GARDEN_SCRATCH/project-wt-${legacy}-"*; do
+    [ -e "$path" ] || continue
+    name="$(basename "$path")"
+    suffix="${name#project-wt-${key}-}"
+    if ! [[ "$suffix" =~ ^[0-9a-f]{8}$ ]]; then
+      suffix="${name#project-wt-${legacy}-}"
+      [[ "$suffix" =~ ^[0-9a-f]{8}$ ]] || continue
+    fi
+    case " ${candidates[*]} " in *" $path "*) continue ;; esac
+    candidates+=("$path")
+  done
+  for path in "${candidates[@]}"; do
+    scratch_cleanup "$path"
+  done
+  [ "${#candidates[@]}" -eq 0 ] \
+    || log "worktree teardown: removed ${#candidates[@]} terminal project checkout(s) for '$base'"
   return 0
 }
 

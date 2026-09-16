@@ -576,15 +576,13 @@ gc_scratch() {
     if find "$entry" -newermt "-${GARDEN_SCRATCH_GC_AGE} hours" -print -quit 2>/dev/null | grep -q .; then
       continue                                          # touched recently — a live owner
     fi
-    if [ -e "$entry/.git" ]; then
-      local gitdir owner
-      gitdir="$(git -C "$entry" rev-parse --git-common-dir 2>/dev/null || true)"
-      if [ -n "$gitdir" ]; then
-        owner="$(cd "$gitdir/.." 2>/dev/null && pwd || true)"
-        [ -n "$owner" ] && git -C "$owner" worktree remove --force "$entry" >/dev/null 2>&1 || true
-      fi
-    fi
-    rm -rf "$entry" 2>/dev/null && removed=$((removed+1)) || true
+    # scratch_cleanup resolves the owning common git dir correctly for BOTH
+    # garden-root worktrees (<root>/.git) and project worktrees (the bare repo
+    # itself).  Do not duplicate the old dirname heuristic here: for a bare
+    # clone it selected the parent directory, rm -rf'd the checkout, and leaked
+    # the registration this janitor was meant to clean.
+    scratch_cleanup "$entry"
+    [ ! -e "$entry" ] && removed=$((removed+1))
   done
   [ "$removed" -gt 0 ] && log "scratch janitor removed $removed quiescent scratch dir(s) (>${GARDEN_SCRATCH_GC_AGE}h)"
   return 0
@@ -1243,6 +1241,14 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN"; then
     doomed=${#DOOM_BASE[@]}
     reaped=$(( staged - doomed ))
+    # A doom push is terminal for this attempt.  Requeues deliberately retain
+    # their stable per-base checkout, but a held doom does not: if a maintainer
+    # later promotes it, ensure-project-worktree recreates a clean checkout for
+    # the same base.  Run only after the board CAS lands so a lost push race can
+    # never discard resumable work.
+    for pbase in "${DOOM_BASE[@]}"; do
+      cleanup_terminal_project_worktrees "$pbase"
+    done
     # Flush doom alerts only AFTER the board change has landed, so a maintainer
     # is told only about jobs actually parked. Each alert is AMEND-OR-POST KEYED on
     # <job-base>+<signature> via doom-notice.sh: a re-doom of the same job for

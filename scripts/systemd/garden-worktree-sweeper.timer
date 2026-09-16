@@ -1,0 +1,10 @@
+[Unit]
+Description=Garden terminal-worktree sweeper timer
+
+[Timer]
+# Absolute schedule so repeated daemon-reloads cannot postpone the first run.
+OnCalendar=*:12/30
+Persistent=true
+
+[Install]
+WantedBy=timers.target

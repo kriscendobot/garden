@@ -1,7 +1,7 @@
 ---
 created: 2026-05-12
-updated: 2026-06-03
-author: liaison, gardener
+updated: 2026-09-16
+author: gardener, liaison
 ---
 
 # Worktree management
@@ -105,6 +105,32 @@ See `journal/worktrees/README.md` for the schema (path, repo, branch, role, stat
 Inside the worktree itself, `.garden/` may still hold role-private high-frequency state (e.g., the `.garden-monitor/<repo>/` polling state used by the github-activity-poll skill). That state stays local to the worktree, never committed upstream, never authoritative for cross-machine state. Add `.garden/` to the bare clone's `info/exclude` (per the bare-clone setup above) so the role-private state is invisible to the upstream's working tree.
 
 ## Lifecycle and collection
+
+### Per-job v2 worktrees
+
+The worker spine creates a stable garden checkout at
+`scratch/gardener-wt-<job-base>`. Project work uses
+`scripts/jobs/ensure-project-worktree.sh`, which creates a detached checkout at
+`scratch/project-wt-<bounded-job-base>-<repo-branch-digest>`. Stability across a
+reaper requeue is intentional: uncommitted work can be the only resumable copy.
+
+Teardown therefore follows the board state, never age alone:
+
+- a successful `doin/` → `tada/` push removes that base's project checkout;
+- a successful reaper doom push removes it, while an ordinary `doin/` → `todo/`
+  requeue preserves it;
+- `garden-worktree-sweeper.timer` is the leader-only safety net for missed
+  terminal cleanup and for garden-root worktrees, whose registration workers
+  are forbidden to administer;
+- the sweeper also removes unregistered legacy directories below
+  `worktrees/<owner>-<repo>/` and prunes their bare repositories. Registered
+  worktrees are always removed with `git worktree remove --force`, never by
+  deleting the directory first.
+
+The sweeper deliberately runs during fleet drain. A drain is a claim brake, not
+an inode-maintenance brake, and inode pressure is a common reason for draining.
+The root-repo guard independently alerts when `df -i` free headroom falls below
+its configured threshold (5% by default).
 
 A worktree is **collectable** when ALL of:
 

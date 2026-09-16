@@ -92,3 +92,4 @@ jobs:
           bash scripts/jobs/test/journal-entry-project-test.sh
           bash scripts/jobs/test/quota-calibration-test.sh
           bash scripts/jobs/test/gh-credential-guard-test.sh
+          bash scripts/jobs/test/worktree-teardown-test.sh

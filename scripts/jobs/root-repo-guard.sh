@@ -746,7 +746,7 @@ guard_inode_headroom() {
   pct="$(awk -v f="$free" -v t="$total" 'BEGIN { printf "%.2f", (f * 100) / t }')"
   if awk -v p="$pct" -v minimum="$GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT" \
        'BEGIN { exit !(p < minimum) }'; then
-    local msg="host filesystem inode headroom is CRITICAL: filesystem $fs mounted at ${mount:-<unknown>} (the filesystem backing $path) has $free/$total free inodes (${pct}%), below the ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. No automatic deletion was attempted because cleanup must first prove each candidate worktree's job is in jobs/tada and remove it through the owning worktree mechanism. Review completed per-job worktrees and their node_modules, then reclaim a bounded batch and re-check 'df -i $path'. (host=$GARDEN)"
+    local msg="host filesystem inode headroom is CRITICAL: filesystem $fs mounted at ${mount:-<unknown>} (the filesystem backing $path) has $free/$total free inodes (${pct}%), below the ${GARDEN_ROOT_GUARD_MIN_FREE_INODE_PERCENT}% threshold. This is filesystem-wide inode exhaustion, distinct from byte-capacity exhaustion: filesystem and git writes can fail with 'No space left on device' even while bytes remain. The leader-only garden-worktree-sweeper runs during drain and reclaims only terminal or provably unregistered worktrees through their owning git repository; inspect its logs and re-check 'df -i $path'. (host=$GARDEN)"
     log "INODE-HEADROOM-LOW: $msg"
     alert_maintainer "$INODE_ALERT_KEY" "$msg"
     return 1
