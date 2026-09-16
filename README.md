@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-16T10:25:15Z_
+_As of 2026-09-16T10:32:55Z_
 
 ## Latest
 
-Five early-September halted gauntlets were triaged: four are transient capacity halts on now-green code and are re-postable, while one—[endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100)—has a real base-drift failure (9p-server still calling removed `stringLengthLimit` API) that needs weave and semantic porting. [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (computron benchmark design) is held pending your answers to six parameter questions; the audit found no surviving own-cost constraints. Several work items are blocked on decisions: oros-studio requires migration to monk before the gardener-worker-kind alias can be retired, minion.town clip and daemon work await gh-token restoration and a daemon-schema-compat design, and [minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) needs your call on whether to continue gauntlet iteration or merge the green-and-mergeable code.
+Five early-September halted gauntlets were triaged: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has a real base-drift failure requiring rebase and semantic port of the 9p-server `stringLengthLimit`→`byteLengthLimit` migration, [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/pull/1125) is blocked on Endo guest-native, and others have clear re-scoping paths. The Ironhorse computron benchmark-baseline plan landed as [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) with six open questions; build on hold pending maintainer decisions on tolerance, gating, and parameters. Multiple streams await decisions: minion-town eval identity, daemon revival migration, clip publishing auth, and PR dependencies. Deploy canary briefly failed but recovered; spend at 40% quota.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 18h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 19h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 14d)
@@ -400,24 +400,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.4M | $453.92 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 7.5M _(+186.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 57.9M | $455.44 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Codex | 7.6M _(+189.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`implement-worktree-teardown-on-job-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/implement-worktree-teardown-on-job-completion.md) — ---
-- [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
-### tada (7984)
+### tada (7985)
+- [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-stale-pr-viability-gate.md) — Cost
 - [`verify-foreman-partial-unquiesce-target-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/verify-foreman-partial-unquiesce-target-2.md) — Cost
 - [`claude-on-minion-town-press-20260916-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-100509.md) — Cost
 - [`endojs-endo-but-for-bots-pr1283-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1283-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-6.md) — Summary
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet.md) — gauntlet ironhorse-computron-benchmark-baseline-build-gauntlet — review budge...
-- … and 7979 more
+- … and 7980 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
