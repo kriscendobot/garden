@@ -31,6 +31,7 @@ Endo's coerce-or-reject **patterns / guards** in `@endo/patterns` and the
 | [erights--elang-kernel--pattern-forms-and-helpers](../sections/erights--elang-kernel--pattern-forms-and-helpers.md) | The kernel `: eExpr` guard hook on patterns — the syntactic ancestor of `@endo/patterns`. |
 | [endo--pkg-patterns-readme--interface-guards](../sections/endo--pkg-patterns-readme--interface-guards.md) | The Endo realization: `M.interface(...)` method guards that validate calls against per-method argument and return shapes. |
 | [endo--pkg-pass-style-readme--type-guards](../sections/endo--pkg-pass-style-readme--type-guards.md) | The pass-style type-guard predicates the pattern layer builds on. |
+| [guards-well-known-not-ambient](../sections/cap-talk-2009-2012--guards-well-known-not-ambient.md) | Well-known data guards are explicitly designated; authority-recognizing guards belong in a privileged environment. |
 
 ## See also
 
