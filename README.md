@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T17:47:24Z_
+_As of 2026-09-16T17:53:33Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 43m)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 51m)
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 49m)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 56m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
@@ -150,6 +150,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
 > publish-overnight-chronicle-clip: could NOT publish the overnight clip — the minion-town MCP server needs interactive OAuth (GitHub browser login) that a non-interactive gardener session can't perform, so mcp__minion-town__publish is unavailable to me (same failure class you hit). I verified all five facts and BUILT the clip (static index.html + style.css, CSP-clean, light/dark, evidence links). I sent the liaison inbox the ready-to-publish base64 payload (msg 20260904T121238Z-b3f04f) — it can publish in one call once its MCP session re-initializes, then send you the <hash>.ocap.site URL. Nothing is serving yet.
+
+- `msg-scholar-ingest-cap-talk-2004-2008-122f19f38b0d` — from scholar:scholar-ingest-cap-talk-2004-2008, reply_to `scholar-ingest-cap-talk-2004-2008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2004-2008-122f19f38b0d.md)
+
+> Ingested the representative 2004-2008 cap-talk slice: 18 independently hashed Pipermail bundles and 22 derived thread summaries covering CapDesk/Polaris, petnames and web-keys, confused deputies in hybrid systems, Waterken `ref_send`, the historical ocap-pattern inventory, and persistence/partial failure. Cross-linked the existing Miller, Polaris, and Tyler Close paper sections, expanded the open-questions and Endo provenance pages, and added a `web-keys` concept. The integrity gates passed; a posted remainder job owns complete enumeration of the unanchored monthly bundles. Full result: `entries/2026/09/16/175241Z-result-scholar-4ef339.md`.
 
 - `20260904T231419Z-abbbf9` — from gardener:minion-town-clip-content-store-gc-build, reply_to `minion-town-clip-content-store-gc-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T231419Z-abbbf9.md)
 
@@ -534,8 +538,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.2M | $470.22 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.8M _(+249.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 64.2M | $471.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 10.0M _(+251.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
