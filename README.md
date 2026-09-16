@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-16T09:25:29Z_
+_As of 2026-09-16T09:28:14Z_
 
 ## Latest
 
-Fleet blocked on bot PAT scope: GitHub write access to PR reviews and comments lost, preventing panel verdicts from posting on [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) and all other PRs. Gauntlet halts from early September triaged: one transient halt ready for re-post, one awaiting premise confirmation, one real base-drift failure needing a weave/merge-base pin of [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (`stringLengthLimit`→`byteLengthLimit` conflict in `9p-server`), one green PR needing human review instead of re-panel, and one partly-landed orchestration needing re-anchor at child 2. Ironhorse computron benchmark baseline plan completed and is parked awaiting your answers to six open questions on tolerance bands, gate placement, seed roster, and baseline versioning policy. Daemon revival dry-run on minion.town failed (schema incompatibility on `host.registry`); no production redeploy attempted. Canary deploy recovered and passing; a third fleet host (oros-studio) still on legacy `gardener` kind is blocking alias retirement.
+Panel round 6 on [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (ironhorse-computron-benchmark-baseline-build) completed; the fix stage is now in flight. The [ironhorse-computron-benchmark-baseline-build](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6.md) orchestration terminal report confirms all 2 children reached completion. Three critical blockers emerged: a narrowed bot GitHub PAT blocking all panel verdict posts (write scope removed from PRs/Issues, fix required), a weave job for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit the 2400s wall clock and needs splitting or timeout raise, and the credit-controls-20260916 orchestration halted on a stale-PR viability gate timeout (2505s vs 2400s budget). Several parked jobs await maintainer decisions: the ironhorse benchmark regime awaits answers to 6 open questions (tolerance bands, gate timing, seed roster), the reminder daemon revival needs a designed compatibility migration (not a quick improvise), and a triage of 5 halted early-September gauntlets flagged one real base-drift failure ([endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) requires a semantic port of stringLengthLimit→byteLengthLimit in 9p-server after rebase), one that's transient-safe to re-post, and three that need re-scoping or confirmation on live status.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 17h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 18h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
@@ -406,7 +406,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.2M | $446.55 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 55.4M | $447.36 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
@@ -414,16 +414,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (2)
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1283
+- [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
-### tada (7977)
+### tada (7978)
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-5.md) — What I did
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-panel-5.md) — Completion report
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-5.md) — Cost
-- … and 7972 more
+- … and 7973 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
