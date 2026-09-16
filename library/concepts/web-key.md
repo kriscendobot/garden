@@ -16,6 +16,7 @@ A **web-key** is Tyler Close's design (Waterken) for representing an object capa
 | [cap-talk-2009-2012--webkeys-vs-the-web](../sections/cap-talk-2009-2012--webkeys-vs-the-web.md) | Chip Morningstar's powerbox-boot problem: where a browser holds authority when a capability *is* a URL (bookmarks/history/page state), and why a server-held powerbox breaks on navigation. |
 | [cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable](../sections/cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md) | Zooko's aphorism: a CSRF attack is structurally identical to sharing, so make references unforgeable, not unshareable; a session cookie carrying authority is "in essence a webkey held in a cookie". |
 | [cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol](../sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md) | The founding-era split web-keys instantiate: a stored/serialized capability (representation) versus the live protocol (CapTP) that makes possession authorize invocation; Miller rates SPKI only "approximately a capability system". |
+| [cap-talk-2013-2016--google-docs-share-links-as-webkeys](../sections/cap-talk-2013-2016--google-docs-share-links-as-webkeys.md) | Google Docs share-by-link shows webkeys are usable, while exposing the need for per-recipient facets, independent revocation, and browser-safe secret handling. |
 
 ## See also
 
