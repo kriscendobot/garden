@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":95,"elapsed_s":1054,"input_tokens":190,"output_tokens":76640,"cache_creation_tokens":203923,"cache_read_tokens":14178955,"total_cost_usd":11.0487095,"ts":"2026-09-16T06:19:37Z","base":"credit-controls-manual-gauntlet-trigger","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
