@@ -63,3 +63,13 @@ scripts/jobs/review-miss-record.sh cluster-status architectural-boundary-ownersh
 
 Report the exact re-litigation evidence and test commands. Do not alter the
 historical miss record.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T22:52:22Z
