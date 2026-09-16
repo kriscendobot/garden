@@ -91,6 +91,7 @@
 | [cap-talk-1999--single-level-store-checkpointing-tradeoffs](../sections/cap-talk-1999--single-level-store-checkpointing-tradeoffs.md) | cap-talk 1999-June archive | Transparent checkpoint persistence, recovery guarantees, locality optimizations, and the honest random-mutation workload boundary. |
 | [cap-talk-1999--storage-gc-and-covert-channels](../sections/cap-talk-1999--storage-gc-and-covert-channels.md) | cap-talk 1999-July (Shapiro, Miller, Frantz) | Reference-driven storage reclamation reveals last-reference events through observable quota changes. |
 | [cap-talk-1999--persistence-and-transaction-failure](../sections/cap-talk-1999--persistence-and-transaction-failure.md) | cap-talk 1999-September (Shapiro) | A durable object graph does not remove network failure, lost commit acknowledgments, or check-then-update races. |
+| [cap-talk-2004-2008--persistent-object-capability-language](../sections/cap-talk-2004-2008--persistent-object-capability-language.md) | cap-talk 2004-2008 archive | Orthogonal persistence makes an in-memory capability graph survive restart, but it does not by itself define upgrade, external-resource restoration, transaction, revocation, or partial-failure semantics. |
 
 ## See also
 
