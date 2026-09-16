@@ -125,3 +125,8 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - ad hominem security, trusted by whom, trusted computing, trusted PC, Palladium, who wrote the code -> ad-hominem-security
 - web-key, webkey, web key, webkeys, capability URL, capability-in-URL, capabilities in URLs, swiss number URL, unguessable URL, Waterken web-key, https capability -> web-key
 - petname, petnames, petname system, per-holder naming, Zooko's triangle, edgename, petname path -> petname
+- OpenID, single sign-on, SSO, single sign-out, federated identity -> oauth-client-credentials-vs-authorization-code
+- introduction by default, introduction-by-default, proxy by default, proxy-by-default, direct delegation, path-based access -> introduction-by-default
+- master capability, master web-key, capability bootstrap, last secret, borrowed-computer login -> web-keys
+- YURL, YURLs, public-key fingerprint hostname, self-authenticating URL -> web-keys
+- policy verification, confinement verification, Doerrie confinement proof, verification within a model -> distributed-confinement
