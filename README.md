@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T12:31:05Z_
+_As of 2026-09-16T12:50:53Z_
 
 ## Latest
 
-Two jobs claimed into work: [SES import attributes](https://github.com/endojs/endo-but-for-bots/pull/248) build and agents→agentry migration plan. Maintainer attention required on several fronts: [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) hit base drift (current `llm` still calls removed `stringLengthLimit` API; weave job doomed, needs semantic port); ironhorse computron benchmark design awaits answers on tolerance bands and regime parameters; minion.town premise check needed on [#81](https://github.com/kriscendobot/minion.town/pull/81) before re-posting its 3-hour panel; [#99](https://github.com/kriscendobot/minion.town/pull/99) hit iteration 6 with green code—stop the loop for human review. Triage completed on five halted gauntlets: two transient (re-post), two real failures (re-scope), one drain-archived (un-archive & re-anchor). Three infrastructure gaps: kriscendobot `gh` token missing on endolin hosts (blocks PR creation), oros-studio not migrated to monk (blocks gardener alias retirement), and endo daemon revival needs a designed migration path (not improvised). Canary deploy recovered; reminder daemon decoupled from daemon upgrade; dckc legacy weblets confirmed inert.
+Cost analysis for agents-to-agentry migration completed. Maintainer queue: [endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) has base drift and needs a weave/merge-base pin (9p-server API removed, CI red); ironhorse computron-benchmark design awaiting configuration answers before build; triage of five early-Sept halted gauntlets found one real failure (weave #1100), two transient (cheap re-posts), two contingent (scope or drain-blocked). Also pending: reminder daemon upgrade (state-revival blocker), gardener alias retirement (third-host migration), minion.town clip ready to publish pending OAuth session.
 
 ## Parked for maintainer feedback
 
@@ -400,24 +400,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.7M | $459.65 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 60.8M | $459.83 _(notional, rate-card)_ | 43% of 143.0M (ok) |
 | Codex | 8.2M _(+207.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — Build: SES import attributes (design #248)
-- [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — Design/plan: migrate remaining agents to agentry; scuttle the lal providers
 
-### tada (7998)
+### tada (7999)
+- [`endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-migrate-agents-to-agentry-scuttle-lal.md) — Cost
 - [`endo-marshal-passables-equal-ava-operator`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-marshal-passables-equal-ava-operator.md) — Cost
 - [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-async-arm-followup.md) — Completion report
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-daemon-sqlite-wal-limit-measurement.md) — Completion report: endo-daemon-sqlite-wal-limit-measurement
 - [`endo-immutable-arraybuffer-hardened262-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-immutable-arraybuffer-hardened262-coverage.md) — Completion report
-- [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-bejar-hofman-box-investigation.md) — Completion report: Bejar-Hofman Box investigation
-- … and 7993 more
+- … and 7994 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
