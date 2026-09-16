@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T08:33:08Z_
+_As of 2026-09-16T08:36:07Z_
 
 ## Latest
 
-Five halted early-September gauntlets triaged: [endojs/endo-but-for-bots#1013](https://github.com/endojs/endo-but-for-bots/pull/1013) (transient, re-post safe), [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) (transient, confirm premise first), [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) (base drift, needs weave/pin-merge-base), [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/pull/99) (6 iteration loops complete, green+mergeable—stop loop, human review), and [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) (child 1 done, resume at child 2 with higher timeout). Ironhorse computron benchmark plan audit landed as [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (draft with open questions); build parked on answers to six decision points. Minion.town reminder daemon revival blocked by legacy schema migration (host.registry). Fleet budget at 38% Claude / 24% Codex; two hosts active, canary recovered; oros-studio discovery (unforeseen third gardener host) blocks gardener alias retirement.
+The maintainer inbox holds a dense backlog: five halted early-Sept gauntlets/orchestrations with actionable triage (items 1–2 are transient-safe re-posts; items 3–5 require re-scoping); a weave-pin-merge-base job for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) that timed out and flagged real base drift; a credit-controls orchestration halted by a stale-PR viability check timing out; the reminder daemon revival unable to migrate due to a missing legacy `registry` field (a design/migration decision); and authorization gates on an oros-studio host migration, minion.town DNSSEC config, and identity federation for guest onboarding. The [ironhorse computron benchmark baseline orchestration](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-computron-benchmark-baseline-terminal-complete.md) reached completion, with its builder holding steps 2–8 pending your answers to six open design questions (tolerance bands, gate placement, seed roster, baseline versioning, [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) fate, and grid baseline scope). Fleet quota sits healthy at 38% (54.4M/143M tokens). The parked review queue holds 25 PRs awaiting maintainer feedback.
 
 ## Parked for maintainer feedback
 
@@ -388,15 +388,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $444.83 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.4M | $445.13 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 7.5M _(+186.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1283
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
 
 ### tada (7973)
