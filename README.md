@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-16T06:27:08Z_
+_As of 2026-09-16T06:32:46Z_
 
 ## Latest
 
-Both [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (design: M.choose patterns) and the Ironhorse computron benchmark-baseline design completed their first fix rounds and advanced to panel round 2. The maintainer inbox carries 13 open messages with several requiring decisions: the Ironhorse builder is holding the implementation pending answers to six open questions on tolerance bands and seed rosters; minion.town's clip publishing hit an MCP auth wall and the reminder daemon revival needs a reviewed migration path; five early-September halted gauntlets need triage and re-scoping (one is transient-safe to repost, two need rebase/pin-merge-base work, one should stop looping, and one is drain-parked and needs re-anchoring). Fleet-wide, endolin has restored monk count to 3 and oros-studio remains on legacy gardeners with a deploy gate still failing.
+Panel stages wrapped for [endojs/endo-but-for-bots#1283](https://github.com/endojs/endo-but-for-bots/pull/1283) (design: `M.choose`) and the Ironhorse computron benchmark baseline build; both now in fix/build phases. Maintainer inbox surfaced five halted gauntlets from early September (capacity-crunch transients vs. real rework gaps—triage report filed), plus three open decision points: the Ironhorse benchmark regime's 6 open questions (seed roster, tolerance bands, gate-2 cadence), whether to re-post the minion.town guest-onboarding panel (still waiting on Endo guest-native dependency), and how to handle the daemon revival migration path (non-migration proposed; @endo/reminder stays unconfined/VFS-persistent per the redesign). One fleet host (oros-studio) still runs legacy gardener workers and blocks the gardener-kind alias retirement—requires migration or a defer decision. Spend holding at 35% of Claude quota; codex at 24% of plan.
 
 ## Parked for maintainer feedback
 
@@ -306,26 +306,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.3M | $410.39 _(notional, rate-card)_ | 34% of 143.0M (ok) |
+| Claude | 49.5M | $418.71 _(notional, rate-card)_ | 35% of 143.0M (ok) |
 | Codex | 7.4M _(+186.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
-- [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1283
-- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1283
 - [`credit-controls-stale-pr-viability-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/credit-controls-stale-pr-viability-gate.md) — ---
+- [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1283-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1283
 
-### tada (7954)
+### tada (7956)
+- [`ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-panel-2.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-fix-1.md) — Completion report
 - [`ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-computron-benchmark-baseline-build-gauntlet-fix-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1283-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1283-gauntlet-panel-1.md) — Panel stage — PR #1283 round 1 (design gauntlet)
-- [`credit-controls-manual-gauntlet-trigger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/credit-controls-manual-gauntlet-trigger.md) — Completion report
-- [`minion-town-reminder-compat-store`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-reminder-compat-store.md) — Cost
-- … and 7949 more
+- … and 7951 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
