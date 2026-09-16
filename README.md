@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:11:39Z_
+_As of 2026-09-16T14:14:24Z_
 
 ## Latest
 
@@ -128,6 +128,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > failed-children: 
 >
 > Orchestration ironhorse-computron-benchmark-baseline complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
+- `msg-scholar-ingest-cap-talk-1999-a77e1620a3f1` — from scholar:scholar-ingest-cap-talk-1999, reply_to `scholar-ingest-cap-talk-1999` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-1999-a77e1620a3f1.md)
+
+> Completed the cap-talk founding-era continuation: 1998-April and all nine 1999 monthly bundles in the archive index, producing 14 attributed thematic sections with per-bundle SHA-256 provenance. The strongest Endo links are authenticated capability buckets, CapTP as reference discipline rather than ordinary RPC, explicit distributed retention plus its storage covert channel, durable state versus transaction agreement, and generic brand makers. I expanded the open-questions topic from two to seven disputes and kept the post-2016 Google Groups export gap explicit. Full result: `entries/2026/09/16/141209Z-result-scholar-2e692a.md`.
 
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
@@ -479,23 +483,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 63.7M | $466.58 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 8.7M _(+216.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 8.7M _(+218.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
-- [`scholar-ingest-cap-talk-1999`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-1999.md) — Ingest cap-talk: 1998-April through 1999
 
-### tada (8007)
+### tada (8008)
+- [`scholar-ingest-cap-talk-1999`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-1999.md) — Cost
 - [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk.md) — Completion report: scholar-ingest-cap-talk
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — Cost
 - [`claude-on-minion-town-completion-press-20260916-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-132012.md) — Completion report — Claude-on-minion.town completion press, tick (20260916-13...
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-gauntlet-reexport-policy-check.md) — Completion report
-- [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-peer-fetch-verify.md) — Completion report
-- … and 8002 more
+- … and 8003 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
