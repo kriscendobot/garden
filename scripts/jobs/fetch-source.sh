@@ -121,6 +121,10 @@
 #   FETCH_SOURCE_WAYBACK_HOST  availability-API host (default: archive.org)
 #   FETCH_SOURCE_CDX_HOST    CDX-index host for the rate-limit fallback
 #                            (default: web.archive.org)
+#   FETCH_SOURCE_WAYBACK_RETRIES  retries after the first original-byte fetch
+#                            failure (default: 4; five total attempts)
+#   FETCH_SOURCE_WAYBACK_RETRY_DELAY  initial retry delay in seconds, doubled
+#                            after each failure (default: 2)
 #   FETCH_SOURCE_STUB_BYTE_THRESHOLD  HTML bodies smaller than this many bytes
 #                            are flagged as stub-suspect (advisory; default: 512)
 #
@@ -141,7 +145,16 @@ CONNECT_TIMEOUT="${FETCH_SOURCE_CONNECT_TIMEOUT:-20}"
 MAX_TIME="${FETCH_SOURCE_MAX_TIME:-120}"
 WAYBACK_HOST="${FETCH_SOURCE_WAYBACK_HOST:-archive.org}"
 CDX_HOST="${FETCH_SOURCE_CDX_HOST:-web.archive.org}"
+WAYBACK_RETRIES="${FETCH_SOURCE_WAYBACK_RETRIES:-4}"
+WAYBACK_RETRY_DELAY="${FETCH_SOURCE_WAYBACK_RETRY_DELAY:-2}"
 STUB_BYTE_THRESHOLD="${FETCH_SOURCE_STUB_BYTE_THRESHOLD:-512}"
+
+case "$WAYBACK_RETRIES" in
+  ''|*[!0-9]*) log "FATAL: FETCH_SOURCE_WAYBACK_RETRIES must be a non-negative integer"; exit 2 ;;
+esac
+case "$WAYBACK_RETRY_DELAY" in
+  ''|*[!0-9]*) log "FATAL: FETCH_SOURCE_WAYBACK_RETRY_DELAY must be a non-negative integer"; exit 2 ;;
+esac
 
 usage() {
   awk 'NR>1 && /^#/{sub(/^# ?/,"");print;next} NR>1{exit}' "$0"
@@ -280,16 +293,35 @@ if [ -z "$fetched_via" ]; then
     log "no availability timestamp; trying the redirect form"
     archive_url="http://web.archive.org/web/2id_/${url}"
   fi
-  log "archive fetch: $archive_url"
-  if _curl "$archive_url" && [ -s "$out" ]; then
-    fetched_via="wayback"
-    effective_url="$archive_url"
-  else
+  # Original-byte replay occasionally fails transiently even after both index
+  # lookups succeeded. Retry this final fetch in-process so the caller does not
+  # have to defer an otherwise deterministic acquisition to another job. The
+  # retry count is bounded and the delay doubles after each failure. Clear both
+  # body and headers before every attempt: a partial failed response must never
+  # pass the non-empty check or influence content decoding and hashing.
+  archive_attempt=1
+  archive_attempts=$((WAYBACK_RETRIES + 1))
+  archive_delay="$WAYBACK_RETRY_DELAY"
+  while [ "$archive_attempt" -le "$archive_attempts" ]; do
+    : >"$out"
+    : >"$hdrs"
+    log "archive fetch (attempt ${archive_attempt}/${archive_attempts}): $archive_url"
+    if _curl "$archive_url" && [ -s "$out" ]; then
+      fetched_via="wayback"
+      effective_url="$archive_url"
+      break
+    fi
     rc=$?
-    log "FATAL: archive fallback also failed (curl rc=${rc:-?}); no bytes for $url"
-    rm -f "$out"
-    exit 1
-  fi
+    if [ "$archive_attempt" -ge "$archive_attempts" ]; then
+      log "FATAL: archive fallback failed after ${archive_attempts} attempts (last curl rc=${rc:-?}); no bytes for $url"
+      rm -f "$out"
+      exit 1
+    fi
+    log "archive fetch failed (attempt ${archive_attempt}/${archive_attempts}, curl rc=${rc:-?}); retrying in ${archive_delay}s"
+    [ "$archive_delay" -eq 0 ] || sleep "$archive_delay"
+    archive_delay=$((archive_delay * 2))
+    archive_attempt=$((archive_attempt + 1))
+  done
 fi
 
 # --- 3.5 normalize a gzip Content-Encoding to decoded bytes ------------------

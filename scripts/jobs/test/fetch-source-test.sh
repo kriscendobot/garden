@@ -45,6 +45,8 @@ rm -rf "$TR"; mkdir -p "$TR"
 #   STUB_CDX_JSON       CDX-index JSON printed to stdout ([["timestamp"],["<14d>"]])
 #   STUB_ARCHIVE_RC     archive-fetch exit code (0 -> writes STUB_ARCHIVE_BODY)
 #   STUB_ARCHIVE_BODY   body written on a successful archive fetch
+#   STUB_ARCHIVE_FAILS  fail this many archive calls before STUB_ARCHIVE_RC
+#   STUB_ARCHIVE_COUNT  counter file used with STUB_ARCHIVE_FAILS
 #   STUB_MIRROR_RC      erights GitHub Pages mirror exit code (0 -> writes body)
 #   STUB_MIRROR_BODY    body written on a successful mirror fetch
 #   STUB_DIRECT_FILE    if set, a successful direct fetch copies this file to the
@@ -86,10 +88,18 @@ case "$url" in
     # below since the CDX endpoint is also hosted on web.archive.org.
     printf '%s' "${STUB_CDX_JSON:-}"; exit "${STUB_CDX_RC:-0}" ;;
   *"web.archive.org"*)
-    if [ "${STUB_ARCHIVE_RC:-0}" = 0 ]; then
+    archive_rc="${STUB_ARCHIVE_RC:-0}"
+    if [ -n "${STUB_ARCHIVE_FAILS:-}" ]; then
+      archive_count=0
+      [ ! -f "$STUB_ARCHIVE_COUNT" ] || archive_count="$(cat "$STUB_ARCHIVE_COUNT")"
+      archive_count=$((archive_count + 1))
+      printf '%s\n' "$archive_count" >"$STUB_ARCHIVE_COUNT"
+      [ "$archive_count" -le "$STUB_ARCHIVE_FAILS" ] && archive_rc=28
+    fi
+    if [ "$archive_rc" = 0 ]; then
       printf '%s' "${STUB_ARCHIVE_BODY:-}" >"$out"; emit_hdrs "${STUB_ARCHIVE_CE:-}"
     fi
-    exit "${STUB_ARCHIVE_RC:-0}" ;;
+    exit "$archive_rc" ;;
   *"erights.github.io"*)
     if [ "${STUB_MIRROR_RC:-0}" = 0 ]; then
       printf '%s' "${STUB_MIRROR_BODY:-}" >"$out"; emit_hdrs "${STUB_MIRROR_CE:-}"
@@ -107,6 +117,7 @@ STUB_EOF
 chmod +x "$STUB"
 
 export FETCH_SOURCE_CURL="$STUB"
+export FETCH_SOURCE_WAYBACK_RETRY_DELAY=0
 export STUB_LOG="$TR/urls.log"
 
 # A real, minimal, single-page PDF carrying the known text "Hello PDF body", so
@@ -464,6 +475,42 @@ eff="$(printf '%s' "$MAN" | field source_effective_url)"
 [ "$eff" = "http://web.archive.org/web/2id_/$URL" ] && ok "fell back to the bare 2id_ redirect form" || bad "unexpected effective URL: $eff"
 printf '%s' "$MAN" | grep -q '^source_wayback_timestamp=' && bad "timestamp emitted when none resolved" || ok "no timestamp when neither index resolved one"
 printf '%s' "$MAN" | grep -q '^source_wayback_timestamp_source=' && bad "timestamp source emitted when none resolved" || ok "no timestamp source when none resolved"
+
+# === 23. transient original-byte failures recover within the retry bound =====
+# Four failed archive calls reproduce the manual-retry incident. The fifth call
+# succeeds without losing the original id_ URL, manifest provenance, or hash.
+hr; echo "CASE 23: four transient archive failures -> fifth attempt succeeds"
+: >"$STUB_LOG"
+OUT="$TR/case23.out"
+COUNT="$TR/case23.count"
+MAN="$(STUB_DIRECT_RC=7 STUB_AVAIL_RC=0 STUB_AVAIL_JSON='{"archived_snapshots":{}}' \
+       STUB_CDX_RC=0 STUB_CDX_JSON='[["timestamp"]]' \
+       STUB_ARCHIVE_FAILS=4 STUB_ARCHIVE_COUNT="$COUNT" \
+       STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="eventual-original-bytes" \
+       "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0 after bounded transient recovery" || bad "exit $rc"
+[ "$(cat "$COUNT")" = 5 ] && ok "four retries made after the initial failure" || bad "unexpected archive attempt count: $(cat "$COUNT")"
+[ "$(printf '%s' "$MAN" | field source_effective_url)" = "http://web.archive.org/web/2id_/$URL" ] \
+  && ok "effective URL remains the bare 2id_ form" || bad "effective URL changed across retries"
+[ "$(printf '%s' "$MAN" | field source_fetched_via)" = wayback ] && ok "via=wayback" || bad "via not wayback"
+[ "$(printf '%s' "$MAN" | field source_content_sha256)" = "$(sha_of eventual-original-bytes)" ] \
+  && ok "sha matches eventual original bytes" || bad "sha mismatch after retry recovery"
+[ "$(cat "$OUT")" = "eventual-original-bytes" ] && ok "only successful bytes are retained" || bad "output body wrong after retries"
+
+# === 24. retry exhaustion stays fail-closed and bounded ======================
+hr; echo "CASE 24: transient archive failures exhaust the configured bound"
+: >"$STUB_LOG"
+OUT="$TR/case24.out"
+COUNT="$TR/case24.count"
+set +e
+STUB_DIRECT_RC=7 STUB_AVAIL_RC=0 STUB_AVAIL_JSON='{"archived_snapshots":{}}' \
+  STUB_CDX_RC=0 STUB_CDX_JSON='[["timestamp"]]' \
+  STUB_ARCHIVE_FAILS=99 STUB_ARCHIVE_COUNT="$COUNT" \
+  STUB_ARCHIVE_RC=0 "$FETCH" "$URL" "$OUT" >/dev/null 2>&1; rc=$?
+set -e
+[ "$rc" = 1 ] && ok "exit 1 after retry exhaustion" || bad "exit $rc (expected 1)"
+[ "$(cat "$COUNT")" = 5 ] && ok "archive attempts bounded at five" || bad "unexpected archive attempt count: $(cat "$COUNT")"
+[ -e "$OUT" ] && bad "failed output left behind after exhaustion" || ok "failed output removed after exhaustion"
 
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"
