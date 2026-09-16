@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7026 (530 parent indexes + 6496 children).
+Total section files: 7032 (530 parent indexes + 6502 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -380,7 +380,11 @@ Total section files: 7026 (530 parent indexes + 6496 children).
 
 ### cap-talk-2002-2003
 
+- [cap-talk-2002-2003--access-matrix-column-vs-row-distinction](cap-talk-2002-2003--access-matrix-column-vs-row-distinction.md)
+- [cap-talk-2002-2003--authorization-versus-authentication](cap-talk-2002-2003--authorization-versus-authentication.md)
 - [cap-talk-2002-2003--capabilities-property-rights-and-exclusive-transfer](cap-talk-2002-2003--capabilities-property-rights-and-exclusive-transfer.md)
+- [cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection](cap-talk-2002-2003--capability-myths-demolished-reception-and-usenix-rejection.md)
+- [cap-talk-2002-2003--confused-deputy-redux-namespace-assignment](cap-talk-2002-2003--confused-deputy-redux-namespace-assignment.md)
 - [cap-talk-2002-2003--constructor-hidden-authority-and-confinement](cap-talk-2002-2003--constructor-hidden-authority-and-confinement.md)
 - [cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement](cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement.md)
 - [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md)
@@ -388,8 +392,10 @@ Total section files: 7026 (530 parent indexes + 6496 children).
 - [cap-talk-2002-2003--normal-users-can-construct-least-authority](cap-talk-2002-2003--normal-users-can-construct-least-authority.md)
 - [cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics](cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics.md)
 - [cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction](cap-talk-2002-2003--paradigm-regained-permission-authority-and-abstraction.md)
+- [cap-talk-2002-2003--persistent-capability-systems-on-microkernels-eros-vs-l4](cap-talk-2002-2003--persistent-capability-systems-on-microkernels-eros-vs-l4.md)
 - [cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety](cap-talk-2002-2003--principal-agents-user-intent-and-hru-safety.md)
 - [cap-talk-2002-2003--sparse-capabilities-over-wire](cap-talk-2002-2003--sparse-capabilities-over-wire.md)
+- [cap-talk-2002-2003--state-transition-model-of-trust-management](cap-talk-2002-2003--state-transition-model-of-trust-management.md)
 - [cap-talk-2002-2003--unix-file-descriptor-confused-deputy](cap-talk-2002-2003--unix-file-descriptor-confused-deputy.md)
 
 ### cask--allocator-design
