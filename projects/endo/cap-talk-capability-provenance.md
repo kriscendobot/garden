@@ -1,6 +1,6 @@
 # cap-talk provenance for Endo's capability model
 
-> Abstract: What the cap-talk mailing-list archive (founded 1998 by Jonathan Shapiro of EROS) says that bears directly on Endo's design and open questions. Endo is an object-capability platform; several of its load-bearing patterns, including caretaker revocation, connectivity discipline, distributed capability transport, durable retention, eventual send, powerboxes, and refusal to designate authority by identity, were argued out on cap-talk years before or while they were formalized in the Miller and Close papers Endo cites. This file flags the concrete connections so an Endo contributor can reach the primary sources from the project tree, not only from the library. The era indexes run from [`../../library/sources/cap-talk-1998.md`](../../library/sources/cap-talk-1998.md) through [`../../library/sources/cap-talk-2004-2008.md`](../../library/sources/cap-talk-2004-2008.md).
+> Abstract: What the cap-talk mailing-list archive (founded 1998 by Jonathan Shapiro of EROS) says that bears directly on Endo's design and open questions. Endo is an object-capability platform; several of its load-bearing patterns, including caretaker revocation, connectivity discipline, distributed capability transport, durable retention, eventual send, powerboxes, and refusal to designate authority by identity, were argued out on cap-talk years before or while they were formalized in the Miller and Close papers Endo cites. This file flags the concrete connections so an Endo contributor can reach the primary sources from the project tree, not only from the library. The era indexes run from [`../../library/sources/cap-talk-1998.md`](../../library/sources/cap-talk-1998.md) through [`../../library/sources/cap-talk-2009-2012.md`](../../library/sources/cap-talk-2009-2012.md).
 
 ## Revocation: destroyable indirection is the caretaker
 
@@ -142,4 +142,22 @@ The 2008 persistence exchange reinforces the earlier transaction lesson. A durab
 
 - [`../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md`](../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
 
-Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, `scholar-ingest-cap-talk-2004-2008`, and `scholar-ingest-cap-talk-2004-2008-remainder` (2026-09-16), through the complete 2004-2008 monthly index.
+## The web era: ACLs-don't, web-keys, and confused deputies inside ocap
+
+The 2009 archive is where the capability argument meets the Web that Endo now targets, and it sharpens four things Endo still has to get right. First, **the equivalence is still not settled in the wider world**: Tyler Close's "ACLs don't" paper is rejected from Oakland-09 as "probably done before" even as reviewers concede the access-matrix equivalence is "incorrect" — the same fight Shapiro had in 1998, and the reason Endo's docs must keep making the capabilities-vs-ACLs case explicitly rather than assuming it. Second, **object capabilities are not automatically confused-deputy-proof**: Toby Murray shows a service that performs rights amplification (an unsealer, a mint, a facet that upgrades a client reference) can be confused if it does not validate the capabilities it accepts — the primary-source argument for Endo's `Far`/`Remotable` marking, brand/trademark checks, and pattern guards. Third, **CSRF is sharing seen from the attacker's side** (Zooko): the defense is unforgeable references, not unshareable ones, and an authority-carrying session cookie is "in essence a webkey held in a cookie" — a caution for any Endo web gateway not to default the powerbox into an ambient credential. Fourth, **a capability whose whole representation is a URL has nowhere stable to live in a browser session** (Chip Morningstar's web-key/powerbox problem) — precisely the tension Endo's OCapN answers by keeping a durable locator/sturdyref separate from the live CapTP protocol.
+
+- [`../../library/sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md`](../../library/sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md)
+- [`../../library/sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md`](../../library/sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md)
+- [`../../library/sections/cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md`](../../library/sections/cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
+- [`../../library/sections/cap-talk-2009-2012--webkeys-vs-the-web.md`](../../library/sections/cap-talk-2009-2012--webkeys-vs-the-web.md)
+- [`../../library/concepts/web-key.md`](../../library/concepts/web-key.md)
+
+## Petnames name objects; the wire names references
+
+Endo's petname layer (petnames, petname-paths, edgenames) and its formula/locator naming inherit the 2009 warning that per-holder, object-identifying naming can *hide* distinctions the machine layer needs — Karp's petname-versus-E-order question shows two references to the same object obtained by different delegation paths carry different ordering guarantees a single petname would erase. Zooko's Tahoe file-API experience gives the concrete pattern for code that needs relative naming: pass a *(container capability, leaf name)* tuple, not a bare self-reference or an ambient path.
+
+- [`../../library/sections/cap-talk-2009-2012--petnames-versus-e-order.md`](../../library/sections/cap-talk-2009-2012--petnames-versus-e-order.md)
+- [`../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md`](../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md)
+- [`../../library/concepts/petname.md`](../../library/concepts/petname.md)
+
+Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, `scholar-ingest-cap-talk-2004-2008`, and `scholar-ingest-cap-talk-2004-2008-remainder` (2026-09-16), through the complete 2004-2008 monthly index; `scholar-ingest-cap-talk-2009-2012` (2026-09-16), the JavaScript / Caja / SES / web-key era first pass (2009 Q1).
