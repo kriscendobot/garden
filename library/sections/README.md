@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6989 (530 parent indexes + 6459 children).
+Total section files: 7003 (530 parent indexes + 6473 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -340,11 +340,28 @@ Total section files: 6989 (530 parent indexes + 6459 children).
 - [cap-talk-1998--acl-vs-capability-challenge-problems](cap-talk-1998--acl-vs-capability-challenge-problems.md)
 - [cap-talk-1998--acls-on-capabilities](cap-talk-1998--acls-on-capabilities.md)
 - [cap-talk-1998--caos-capability-os-terminology](cap-talk-1998--caos-capability-os-terminology.md)
+- [cap-talk-1998--capability-definition-and-delegation](cap-talk-1998--capability-definition-and-delegation.md)
 - [cap-talk-1998--capability-ids-and-indirection-revocation](cap-talk-1998--capability-ids-and-indirection-revocation.md)
 - [cap-talk-1998--card-keys-are-capabilities](cap-talk-1998--card-keys-are-capabilities.md)
+- [cap-talk-1998--cgi-confinement-and-capability-buckets](cap-talk-1998--cgi-confinement-and-capability-buckets.md)
 - [cap-talk-1998--creating-and-granting-capabilities](cap-talk-1998--creating-and-granting-capabilities.md)
+- [cap-talk-1998--dead-object-sameness](cap-talk-1998--dead-object-sameness.md)
 - [cap-talk-1998--rescinded-keys](cap-talk-1998--rescinded-keys.md)
 - [cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys](cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys.md)
+
+### cap-talk-1999
+
+- [cap-talk-1999--distributed-capabilities-rpc-and-closures](cap-talk-1999--distributed-capabilities-rpc-and-closures.md)
+- [cap-talk-1999--driver-trust-dma-and-least-authority](cap-talk-1999--driver-trust-dma-and-least-authority.md)
+- [cap-talk-1999--four-unforgeability-techniques](cap-talk-1999--four-unforgeability-techniques.md)
+- [cap-talk-1999--grant-matching-and-object-sameness](cap-talk-1999--grant-matching-and-object-sameness.md)
+- [cap-talk-1999--persistence-and-transaction-failure](cap-talk-1999--persistence-and-transaction-failure.md)
+- [cap-talk-1999--principal-attribution-proxies-and-confinement](cap-talk-1999--principal-attribution-proxies-and-confinement.md)
+- [cap-talk-1999--principal-policy-and-confinement-debate](cap-talk-1999--principal-policy-and-confinement-debate.md)
+- [cap-talk-1999--rights-amplification-from-seals-and-equality](cap-talk-1999--rights-amplification-from-seals-and-equality.md)
+- [cap-talk-1999--shared-object-lifetime-reference-counting](cap-talk-1999--shared-object-lifetime-reference-counting.md)
+- [cap-talk-1999--single-level-store-checkpointing-tradeoffs](cap-talk-1999--single-level-store-checkpointing-tradeoffs.md)
+- [cap-talk-1999--storage-gc-and-covert-channels](cap-talk-1999--storage-gc-and-covert-channels.md)
 
 ### cask--allocator-design
 
