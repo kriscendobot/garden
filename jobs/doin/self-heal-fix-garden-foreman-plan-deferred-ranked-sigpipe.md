@@ -14,3 +14,13 @@ Fix: make the truncated read tolerant of the writer-side SIGPIPE, e.g.
 top_deferred="$(plan_deferred_ranked "$DIR" | head -1)" || true
 ```
 (or redirect `cut`'s stderr / restructure `plan_deferred_ranked` to not fail the pipeline on a closed reader). Add a regression test mirroring the existing foreman stub tests: seed 2+ deferred plan jobs in `jobs/plan/` and assert the tick completes (promotes one, doesn't exit nonzero) instead of crashing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T21:07:34Z
