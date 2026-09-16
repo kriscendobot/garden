@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-09-01
+updated: 2026-09-16
 author: gardener
 ---
 
@@ -119,8 +119,8 @@ green while the `.node-version=lts/*` -> Node 24.18.0 CI leg failed type-aware l
 
 ## The steps (in order)
 
-`format -> build -> lint -> package-uniformity -> root-types -> codegen -> test ->
-test-xs -> docgen`, then a **codegen-then-clean gate**.
+`format -> build -> lint -> zizmor -> package-uniformity -> root-types -> codegen
+-> test -> test-xs -> docgen`, then a **codegen-then-clean gate**.
 
 Run in that order against the project worktree. The harness errs toward running
 the project's **full** suite: false positives (a wasted check) are fine, false
@@ -158,6 +158,19 @@ tests instead of treating it as an alternative spelling of `test`. This closes
 the coverage gap exposed by endojs/endo-but-for-bots#1077, where CI's `test-xs`
 job caught hardened262 baseline drift that the primary workspace tests do not
 exercise.
+
+The `zizmor` step is also additive and workflow-driven. When
+`.github/workflows/zizmor.yml` exists, the harness runs `zizmor .` locally and
+passes the static `persona` and `min-severity` values from the
+`zizmorcore/zizmor-action` `with:` block as the equivalent CLI flags. It does
+not infer policy from the filename or bake one repository's values into the
+garden. Missing inputs retain zizmor's defaults; duplicate or dynamic values
+fail loud because the harness cannot honestly claim CI parity by guessing.
+Repositories without the dedicated workflow skip the step silently. This
+closes the gap exposed by endojs/endo-but-for-bots#778: the pedantic/low CI gate
+found three `stale-action-refs` after an action tag moved, even though the PR's
+own changes had not touched those workflows. The audit must therefore run on
+every pre-push gate, not only when a workflow appears in the diff.
 
 The `package-uniformity` step is likewise additive: it covers the check CI runs
 in its lint job **outside** `yarn lint` — the "Check package uniformity" step,
@@ -265,7 +278,7 @@ Per-step command discovery (each step, in order, first match wins):
 
 1. An explicit override env var `LOCAL_VERIFY_<STEP>` (uppercased step name, with
    `-` mapped to `_`: `LOCAL_VERIFY_FORMAT`, `LOCAL_VERIFY_LINT`,
-   `LOCAL_VERIFY_BUILD`, `LOCAL_VERIFY_PACKAGE_UNIFORMITY`,
+   `LOCAL_VERIFY_BUILD`, `LOCAL_VERIFY_ZIZMOR`, `LOCAL_VERIFY_PACKAGE_UNIFORMITY`,
    `LOCAL_VERIFY_ROOT_TYPES`, `LOCAL_VERIFY_CODEGEN`, `LOCAL_VERIFY_TEST`,
    `LOCAL_VERIFY_TEST_XS`, `LOCAL_VERIFY_DOCS`):
    - set to a command string: run that command in the worktree;
@@ -285,6 +298,21 @@ Per-step command discovery (each step, in order, first match wins):
    | docs    | `docs`, `build:types`, `generate-docs`         |
 
 3. Otherwise the step is skipped (recorded, silent).
+
+The `zizmor` step is an exception to package-script discovery. After honoring
+`LOCAL_VERIFY_ZIZMOR`, it activates only when
+`.github/workflows/zizmor.yml` exists. It finds the `with:` block belonging to
+`zizmorcore/zizmor-action` (including the reusable-workflow form), reads its
+static `persona` and `min-severity` scalars, and runs:
+
+```
+zizmor [--persona <value>] [--min-severity <value>] .
+```
+
+An absent input is omitted so the tool's default applies in both environments.
+A duplicate or non-static value fails as `STEP zizmor FAILED` rather than
+silently substituting a policy that may be weaker than CI's. Override or replace
+the command with `LOCAL_VERIFY_ZIZMOR`; `-` or an empty value skips it.
 
 The `package-uniformity` step is the exception to the single-script model above,
 because CI's uniformity check runs a repo-root command no package.json script
@@ -515,7 +543,11 @@ fails loud with the `tsc` type error in its blob on an ill-typed `.js` test; a
 inert (the check never executes); `LOCAL_VERIFY_ROOT_TYPES=-` skips it while
 `LOCAL_VERIFY_ROOT_TYPES=<cmd>` and `GARDEN_ROOT_TYPES_HEAP_MB` are honored; and a
 single wrap script subsumes the reconstruction without a separate
-`showConfig`/`tsc` run. `bash -n` and `shellcheck` clean.
+`showConfig`/`tsc` run. A zizmor group proves that the dedicated workflow
+activates the audit, that only the zizmor action's `with:` block supplies
+`--persona` and `--min-severity`, that a finding is SHA-captured under `STEP
+zizmor FAILED`, and that `LOCAL_VERIFY_ZIZMOR=-` skips it. `bash -n` and
+`shellcheck` clean.
 
 ## Pitfalls
 

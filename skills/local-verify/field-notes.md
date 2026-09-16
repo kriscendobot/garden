@@ -274,3 +274,16 @@ like one of these recurring classes.
   whose XS suite depends on a direct gitlink gets the same checkout parity.
   Submodule progress is captured and discarded on success, preserving the
   silent gate contract.
+- _2026-09-16_: closed the workflow-security coverage gap exposed by
+  endojs/endo-but-for-bots#778. CI's dedicated `.github/workflows/zizmor.yml`
+  ran zizmor with `persona: pedantic` and `min-severity: low`, but local-verify
+  had no zizmor step. Three unchanged `actions/checkout` pins therefore reached
+  CI before the time-dependent `stale-action-refs` audit noticed that their
+  version comments no longer matched the commits behind the tags. Fix: presence
+  of the dedicated workflow now activates an additive `zizmor` step on every
+  local run, and discovery reads the zizmor action's static `persona` and
+  `min-severity` inputs and maps them to the CLI flags instead of hard-coding a
+  weaker or repository-specific policy. Duplicate or dynamic settings fail
+  loud rather than guessing. General lesson: workflow audits that resolve
+  external refs can turn red without a PR touching workflow YAML, so a diff gate
+  is insufficient; the pre-push gate must rerun them every time.

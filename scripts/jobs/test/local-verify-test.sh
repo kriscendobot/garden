@@ -42,6 +42,10 @@
 #      wrap script subsumes the parts; the step is inert where absent. Regression
 #      for job `local-verify-parity-endo-package-uniformity-pr1015`
 #      (endojs/endo-but-for-bots#1015).
+#  14. Additive zizmor parity: `.github/workflows/zizmor.yml` activates the
+#      local audit, whose CLI receives the zizmor action's exact static
+#      `persona` and `min-severity` inputs; unrelated `with:` blocks are ignored,
+#      failures use the ordinary SHA-only surface, and the override can skip it.
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
 # with a stubbed package runner (GARDEN_YARN), and — for 10 — a throwaway garden
@@ -61,7 +65,7 @@ TR="$(mktemp -d "${TMPDIR:-/tmp}/lv-test.XXXXXX")"
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
-trap 'rm -rf "$TR" "${XS_TEST_ROOT:-}"' EXIT
+trap 'rm -rf "$TR" "${XS_TEST_ROOT:-}" "${ZIZMOR_TEST_ROOT:-}"' EXIT
 
 # A stub package runner: `yarn run <script>` -> run scripts/<script> body from a
 # tiny dispatch table the fixture defines. Invoked as `bash <stub> run <script>`.
@@ -885,6 +889,68 @@ ortw="$(RT_TRACE="$RT_TRACE" GARDEN_YARN="bash $RRTW/yarn-stub.sh" "$LV" "$RRTW"
 [ "$(tr '\n' ' ' <"$RT_TRACE")" = "wrap " ] \
   && ok "the wrap script alone runs — no separate showConfig/tsc reconstruction" \
   || bad "root-types wrap form did not subsume the reconstruction (trace=[$(tr '\n' '|' <"$RT_TRACE")])"
+
+# --- 20: additive zizmor workflow-security audit ---------------------------
+# A dedicated workflow runs zizmor outside every package.json script. Presence
+# of that workflow activates the local CLI; its action inputs are the CI policy
+# and must be passed through exactly. Decoy keys in another action's `with:`
+# block prove discovery is scoped to zizmorcore/zizmor-action.
+RZ="$TR/zizmor"; mkdir -p "$RZ/.github/workflows"
+ZIZMOR_TEST_ROOT="${HOME:-/var/tmp}/.cache/lvtest-zizmor.$$"
+mkdir -p "$ZIZMOR_TEST_ROOT/bin"
+git -C "$RZ" init -q
+git -C "$RZ" config user.email t@localhost; git -C "$RZ" config user.name test
+cat > "$RZ/.github/workflows/zizmor.yml" <<'YAML'
+name: Workflow security audit
+on: pull_request
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: example/not-zizmor@0123456789abcdef
+        with:
+          persona: auditor
+          min-severity: high
+      - uses: 'zizmorcore/zizmor-action@70fb788f84895a7701f5643d103d587e460b5c99'
+        with:
+          persona: 'pedantic' # match CI exactly
+          min-severity: "low"
+YAML
+cat > "$ZIZMOR_TEST_ROOT/bin/zizmor" <<'STUB'
+#!/bin/bash
+printf '%s\n' "$*" > "$ZIZMOR_TRACE"
+if [ "${ZIZMOR_FAIL:-}" = 1 ]; then
+  echo "warning[stale-action-refs]: actions/checkout version comment is stale"
+  exit 1
+fi
+STUB
+chmod +x "$ZIZMOR_TEST_ROOT/bin/zizmor"
+git -C "$RZ" add -A; git -C "$RZ" commit -qm init >/dev/null
+ZIZMOR_TRACE="$TR/zizmor-trace"
+oz="$(ZIZMOR_TRACE="$ZIZMOR_TRACE" PATH="$ZIZMOR_TEST_ROOT/bin:$PATH" "$LV" "$RZ" 2>&1)"; rcz=$?
+[ "$rcz" -eq 0 ] && [ -z "$oz" ] \
+  && ok "zizmor clean audit: silent, exit 0" \
+  || bad "clean zizmor audit not silent/zero (rc=$rcz out=[$oz])"
+[ "$(cat "$ZIZMOR_TRACE")" = "--persona pedantic --min-severity low ." ] \
+  && ok "zizmor mirrors the workflow's persona and minimum severity" \
+  || bad "zizmor arguments diverged from CI (args=[$(cat "$ZIZMOR_TRACE")])"
+
+# A finding uses the same content-addressed failure surface as every other step.
+ozf="$(ZIZMOR_FAIL=1 ZIZMOR_TRACE="$ZIZMOR_TRACE" PATH="$ZIZMOR_TEST_ROOT/bin:$PATH" \
+       "$LV" "$RZ" 2>&1)"; rczf=$?
+[ "$rczf" -ne 0 ] && printf '%s' "$ozf" | grep -q 'STEP zizmor FAILED' \
+  && ok "a zizmor finding fails the gate" || bad "zizmor finding did not fail (rc=$rczf out=[$ozf])"
+sz="$(printf '%s' "$ozf" | sed -nE 's/.*STEP zizmor FAILED: output blob ([0-9a-f]{40}).*/\1/p' | head -1)"
+git -C "$RZ" cat-file -p "$sz" 2>/dev/null | grep -q 'stale-action-refs' \
+  && ok "zizmor finding is retained in the failure blob" || bad "zizmor finding missing from blob"
+
+# The standard override contract remains available for controlled environments.
+rm -f "$ZIZMOR_TRACE"
+ozs="$(LOCAL_VERIFY_ZIZMOR=- ZIZMOR_FAIL=1 ZIZMOR_TRACE="$ZIZMOR_TRACE" \
+       PATH="$ZIZMOR_TEST_ROOT/bin:$PATH" "$LV" "$RZ" 2>&1)"; rczs=$?
+[ "$rczs" -eq 0 ] && [ -z "$ozs" ] && [ ! -e "$ZIZMOR_TRACE" ] \
+  && ok "LOCAL_VERIFY_ZIZMOR=- skips the audit" \
+  || bad "zizmor override skip not honored (rc=$rczs out=[$ozs])"
 
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"

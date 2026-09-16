@@ -4,7 +4,7 @@
 # Runs the project's real verification steps, IN ORDER, before a change is
 # pushed for a pull request:
 #
-#   format -> build -> lint -> package-uniformity -> root-types -> codegen -> test -> test-xs -> docgen
+#   format -> build -> lint -> zizmor -> package-uniformity -> root-types -> codegen -> test -> test-xs -> docgen
 #
 # then a codegen-then-clean gate: if any step (a generator, typically) left the
 # worktree dirty, a checked-in generated artifact was stale — fail loud.
@@ -88,6 +88,14 @@
 # Grounding: endojs/endo-but-for-bots#1125 (`packages/daemon/test/mail-pins.test.js`
 # passed per-package `tsc` but failed CI's root program with six TS2322 errors).
 # Same shape as the package-uniformity repo-root gap (#1015).
+#
+# `zizmor` is an additive workflow-security audit. A repository that carries
+# `.github/workflows/zizmor.yml` gates on zizmor in CI even though no
+# package.json script names the check. Discovery reads the zizmor action's
+# static `persona` and `min-severity` inputs from that workflow and passes the
+# same values to the local CLI. This catches time-dependent audits such as
+# `stale-action-refs` before push: an action's tag can move and make a formerly
+# green version comment stale without any workflow file changing.
 #
 # A project with no package.json and no overrides verifies nothing and exits 0;
 # wire the real commands per project via package.json scripts or the overrides.
@@ -192,7 +200,7 @@ fi
 # after the build reports zero errors. Ordering costs nothing here: the harness
 # runs every step regardless (it does not stop at the first failure), so this
 # only changes whether the lint result is trustworthy.
-STEPS="format build lint package-uniformity root-types codegen test test-xs docs"
+STEPS="format build lint zizmor package-uniformity root-types codegen test test-xs docs"
 candidates() {
   case "$1" in
     format)  echo "format:check check:format format-check format" ;;
@@ -342,8 +350,103 @@ discover_root_types() {  # print the root type-check command, or nothing (skip)
   printf 'NODE_OPTIONS=--max-old-space-size=%s %s tsc -p %s --noEmit\n' "$heap" "$YARN" "$cfg"
 }
 
+# Discovery for the additive `zizmor` workflow-security audit. The workflow is
+# the source of truth for the CI policy, so do not bake one repository's
+# `pedantic` / `low` settings into the harness. Find the `with:` block belonging
+# to zizmorcore/zizmor-action (including its reusable-workflow form), extract
+# the two CLI-equivalent static inputs, and quote them into the command. Missing
+# inputs are omitted so zizmor's own defaults remain authoritative in CI and
+# locally. A dynamic expression cannot be reproduced safely outside Actions, so
+# fail the step loud rather than claim parity under a guessed value.
+ZIZMOR_WORKFLOW=".github/workflows/zizmor.yml"
+zizmor_workflow_inputs() {  # print zero or more "key<TAB>value" rows
+  awk '
+    function indentation(s) { match(s, /^[[:space:]]*/); return RLENGTH }
+    function value_of(s, value) {
+      value = s
+      sub(/^[^:]*:[[:space:]]*/, "", value)
+      sub(/[[:space:]]+#.*/, "", value)
+      sub(/^[[:space:]]+/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      if (value ~ /^\047.*\047$/ || value ~ /^".*"$/) {
+        value = substr(value, 2, length(value) - 2)
+      }
+      return value
+    }
+    {
+      line = $0
+      indent = indentation(line)
+      if (in_with && line !~ /^[[:space:]]*(#|$)/ && indent <= with_indent) {
+        in_with = 0
+      }
+      if (seen_action && !in_with &&
+          line ~ /^[[:space:]]*with:[[:space:]]*(#.*)?$/ &&
+          indent == action_indent) {
+        in_with = 1
+        with_indent = indent
+        next
+      }
+      if (seen_action && line !~ /^[[:space:]]*(#|$)/ && indent < action_indent) {
+        seen_action = 0
+      }
+      if (line ~ /^[[:space:]]*(-[[:space:]]+)?uses:[[:space:]]*[\047"]?zizmorcore\/zizmor-action(@|\/)/) {
+        seen_action = 1
+        key_prefix = line
+        sub(/uses:.*/, "", key_prefix)
+        action_indent = length(key_prefix)
+        next
+      }
+      if (in_with && line ~ /^[[:space:]]*persona:[[:space:]]*/) {
+        printf "persona\t%s\n", value_of(line)
+      } else if (in_with && line ~ /^[[:space:]]*min-severity:[[:space:]]*/) {
+        printf "min-severity\t%s\n", value_of(line)
+      }
+    }
+  ' "$wt/$ZIZMOR_WORKFLOW"
+}
+
+discover_zizmor() {  # print the CI-equivalent zizmor command, or nothing
+  local override inputs persona severity count value arg
+  local args=(zizmor)
+  override="$(override_name zizmor)"
+  if [ -n "${!override+x}" ]; then         # override is SET (even if empty)
+    case "${!override}" in
+      -|"") return 0 ;;                     # explicit skip
+      *)    printf '%s\n' "${!override}" ; return 0 ;;
+    esac
+  fi
+  [ -f "$wt/$ZIZMOR_WORKFLOW" ] || return 0
+
+  inputs="$(zizmor_workflow_inputs)"
+  for arg in persona min-severity; do
+    count="$(printf '%s\n' "$inputs" | awk -F '\t' -v key="$arg" '$1 == key { n++ } END { print n + 0 }')"
+    [ "$count" -le 1 ] || {
+      printf '%s\n' "printf '%s\\n' 'ZIZMOR WORKFLOW PARITY: multiple $arg inputs found for zizmorcore/zizmor-action; refusing to guess the CI policy.' >&2; exit 2"
+      return 0
+    }
+    [ "$count" -eq 1 ] || continue
+    value="$(printf '%s\n' "$inputs" | awk -F '\t' -v key="$arg" '$1 == key { print $2 }')"
+    case "$value" in
+      ''|*[!A-Za-z0-9_-]*)
+        printf '%s\n' "printf '%s\\n' 'ZIZMOR WORKFLOW PARITY: $arg is not a static scalar; refusing to guess the CI policy.' >&2; exit 2"
+        return 0 ;;
+    esac
+    case "$arg" in
+      persona) persona="$value" ;;
+      min-severity) severity="$value" ;;
+    esac
+  done
+
+  [ -n "${persona:-}" ] && args+=(--persona "$persona")
+  [ -n "${severity:-}" ] && args+=(--min-severity "$severity")
+  args+=(.)
+  printf '%q ' "${args[@]}"
+  printf '\n'
+}
+
 discover() {
   case "$1" in
+    zizmor)            discover_zizmor ;;
     package-uniformity) discover_package_uniformity ;;
     root-types)         discover_root_types ;;
     *)                  discover_in "$pkg" "$1" ;;
