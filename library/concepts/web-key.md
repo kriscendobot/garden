@@ -18,6 +18,8 @@ A **web-key** is Tyler Close's design (Waterken) for representing an object capa
 | [cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol](../sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md) | The founding-era split web-keys instantiate: a stored/serialized capability (representation) versus the live protocol (CapTP) that makes possession authorize invocation; Miller rates SPKI only "approximately a capability system". |
 | [cap-talk-2013-2016--google-docs-share-links-as-webkeys](../sections/cap-talk-2013-2016--google-docs-share-links-as-webkeys.md) | Google Docs share-by-link shows webkeys are usable, while exposing the need for per-recipient facets, independent revocation, and browser-safe secret handling. |
 | [cap-talk-2009-2012--hiding-webkeys-from-the-address-bar](../sections/cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md) | The April 2009 sharing hazard: authority-bearing webkeys must not appear in the address bar or page source, because users share URLs believing them inert; deliberate delegation should mint a fresh revocable key rather than expose the live one. |
+| [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | The powerbox introduces a requester to a provider by handing over a web-key scoped to one connection and revocable from one place. |
+| [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | Miller's terminology note: a web-key is not itself a cryptographic capability; 'treating URLs as capabilities' is the honest phrasing for unguessable-but-not-unforgeable secrets. |
 
 ## See also
 
