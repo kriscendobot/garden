@@ -22,6 +22,7 @@ A **web-key** is Tyler Close's design (Waterken) for representing an object capa
 | [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | Miller's terminology note: a web-key is not itself a cryptographic capability; 'treating URLs as capabilities' is the honest phrasing for unguessable-but-not-unforgeable secrets. |
 | [cap-talk-2009-2012--authority-carrying-urls-in-the-wild](../sections/cap-talk-2009-2012--authority-carrying-urls-in-the-wild.md) | cap-talk 2010-October | Field evidence that authority-carrying URLs are mainstreaming (SIAM's password-equivalent login link), answering the habituation objection; a designed web-key improves on the ad-hoc persistent bearer URL by being scoped and revocable. |
 | [cap-talk-2009-2012--zookos-triangle-and-petname-mappings](../sections/cap-talk-2009-2012--zookos-triangle-and-petname-mappings.md) | HTTPS names gain conditional uniqueness from DNS and CA trust; that centralized context is not the decentralized corner of the triangle. |
+| [cap-talk 2012-11: password as designation, not authentication](../sections/cap-talk-2009-2012--password-as-designation-not-authentication.md) | A password treated as a knowledge-limited designation (HMAC-derived sparse-cap root), the capabilities-as-data lineage behind web-keys, and Karp's unanswered revocation question. |
 
 ## See also
 
