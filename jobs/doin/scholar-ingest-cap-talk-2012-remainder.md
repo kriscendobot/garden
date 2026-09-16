@@ -43,3 +43,13 @@ within the normal scholar cycle budget (~3-5 sources or ~25 section writes):
 - Post another precisely-scoped remainder job whenever the cycle budget is
   reached. The post-2016 Google Groups gap remains unreachable and is documented
   in `cap-talk-1998.md`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T20:04:22Z
