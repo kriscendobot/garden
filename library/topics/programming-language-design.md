@@ -11,6 +11,7 @@ Programming-language design concerns the semantic models and surface mechanisms 
 | [mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) | cap-talk 2010-March | Mutable global singletons are an ambient-authority anti-pattern; the unum pattern and location-transparent embedded capabilities are the alternative. |
 | [safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) | cap-talk 2010-April | Pierce's definition of a safe language (protects its own abstractions) and the ocap-language-as-hyponym dispute. |
 | [cap-talk-2009-2012--system-enforced-sensory-objects](../sections/cap-talk-2009-2012--system-enforced-sensory-objects.md) | cap-talk 2010-December | Transitive read-only across the OS/language boundary: Wagner's readonly-T type qualifier vs method-level auditing; the reference-vs-reference+rights asymmetry between language and OS capabilities. |
+| [waterken-persistence-transactions-and-failure](../sections/cap-talk-2009-2012--waterken-persistence-transactions-and-failure.md) | cap-talk 2011-March | Java serialization, hidden cast failures, and fatal VM errors define the seams of a persistent vat transaction. |
 
 ## See also
 
