@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-16T05:13:14Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-computron-benchmark-baseline-design
+pr_number: 1283
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1283
+pr_head: design/ironhorse-computron-benchmark-baseline
