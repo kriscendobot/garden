@@ -63,6 +63,16 @@ body_of_bodyfile() {
   [ "$flag" = "--body-file" ] || { echo "__NO_BODYFILE__"; return; }
   cat "$f"
 }
+# comment_value: echo the value following the normalized --comment flag.
+comment_value() {
+  local nm="${#PROV_NEWARGV[@]}" i
+  for ((i=0;i<nm;i++)); do
+    [ "${PROV_NEWARGV[$i]}" = --comment ] || continue
+    [ $((i+1)) -lt "$nm" ] || { echo "__NO_COMMENT__"; return; }
+    printf '%s' "${PROV_NEWARGV[$((i+1))]}"; return
+  done
+  echo "__NO_COMMENT__"
+}
 # field_body: echo the value of the body= field token in PROV_NEWARGV.
 field_body() {
   local a
@@ -83,7 +93,7 @@ has_footer() { case "$1" in *"$MARKER"*) return 0;; *) return 1;; esac; }
 count_footer() { grep -o "$MARKER" <<<"$1" | wc -l | tr -d ' '; }
 
 # ============================================================================
-hr; echo "SUBTEST 1 — body-flag surface (pr/issue comment, pr review)"; hr
+hr; echo "SUBTEST 1 — body/comment-flag surface (comments, reviews, lifecycle verdicts)"; hr
 
 provenance_rewrite_argv pr comment 5 --body "hello world" && {
   b="$(body_of_bodyfile)"
@@ -92,6 +102,25 @@ provenance_rewrite_argv pr comment 5 --body "hello world" && {
     || bad "pr comment --body body wrong: $b"
 } || bad "pr comment --body was not rewritten"
 provenance_cleanup
+
+# Lifecycle commands post a conversation comment through --comment rather than
+# --body. These verdict-bearing paths must enter the same provenance/gap checks.
+for spec in \
+  "pr close 5 --comment closing-verdict" \
+  "pr merge 5 --comment merge-verdict" \
+  "pr reopen 5 -c reopening-note" \
+  "issue close 7 --comment closing-note" \
+  "issue reopen 7 -c reopening-note" \
+; do
+  # shellcheck disable=SC2086
+  provenance_rewrite_argv $spec && {
+    b="$(comment_value)"; expected="${spec##* }"
+    { has_footer "$b" && [[ "$b" == "$expected"* ]]; } \
+      && ok "$spec → footer" \
+      || bad "$spec body wrong: $b"
+  } || bad "$spec was not rewritten"
+  provenance_cleanup
+done
 
 provenance_rewrite_argv issue comment 7 -b "hi there" && {
   b="$(body_of_bodyfile)"; { has_footer "$b" && [[ "$b" == "hi there"* ]]; } && ok "issue comment -b → footer" || bad "issue comment -b: $b"
@@ -113,6 +142,13 @@ provenance_rewrite_argv pr review 5 --approve --body "looks good" && {
   b="$(body_of_bodyfile)"; keep=0; for a in "${PROV_NEWARGV[@]}"; do [ "$a" = "--approve" ] && keep=1; done
   { has_footer "$b" && [ "$keep" = 1 ] && [[ "$b" == "looks good"* ]]; } && ok "pr review --approve --body → footer, --approve preserved" || bad "pr review: $b keep=$keep"
 } || bad "pr review not rewritten"
+provenance_cleanup
+
+# On `pr review`, -c/--comment selects the review event and is not a body value.
+provenance_rewrite_argv pr review 5 --comment --body "review note" && {
+  b="$(body_of_bodyfile)"; keep=0; for a in "${PROV_NEWARGV[@]}"; do [ "$a" = "--comment" ] && keep=1; done
+  { has_footer "$b" && [ "$keep" = 1 ] && [[ "$b" == "review note"* ]]; } && ok "pr review --comment --body → footer, event flag preserved" || bad "pr review --comment: $b keep=$keep"
+} || bad "pr review --comment not rewritten"
 provenance_cleanup
 
 # ============================================================================
@@ -179,6 +215,8 @@ hr; echo "SUBTEST 5 — non-comment calls pass through UNTOUCHED"; hr
 for spec in \
   "pr view 5" \
   "pr merge 5" \
+  "pr merge 5 --body merge-commit-message" \
+  "pr ready 5" \
   "pr edit 5 --add-label z" \
   "pr edit 5 --body description-not-a-comment" \
   "pr create --title x --body y" \
@@ -211,6 +249,26 @@ hr; echo "SUBTEST 6 — fail-open: unresolvable provenance degrades, never block
 ) > "$TR/failopen.out" 2>/dev/null
 grep -q FAILOPEN_EMPTY "$TR/failopen.out" && ok "no facts resolve → empty footer (no crash)" || bad "fail-open line: $(cat "$TR/failopen.out")"
 grep -q PASSTHROUGH "$TR/failopen.out" && ok "no facts resolve → comment posts WITHOUT footer (passthrough)" || bad "fail-open should passthrough: $(cat "$TR/failopen.out")"
+
+# The lifecycle verdict paths have the same fail-open contract: absence of every
+# provenance fact must leave the original close/merge invocation to real gh.
+(
+  export GARDEN_ROOT="$TR/empty-lifecycle"; mkdir -p "$TR/empty-lifecycle"
+  unset GARDEN GARDEN_JOB_MODEL GARDEN_WORKER_KIND
+  export GARDEN_DEPLOYED_SHA_MARKER="$TR/empty-lifecycle/nope"
+  # shellcheck source=/dev/null
+  . "$LIB"
+  _prov_host() { :; }
+  for spec in "pr close 5 --comment closing" "pr merge 5 --comment merging"; do
+    # shellcheck disable=SC2086
+    if provenance_rewrite_argv $spec; then echo "REWROTE:$spec"; else echo "PASSTHROUGH:$spec"; fi
+  done
+) > "$TR/failopen-lifecycle.out" 2>/dev/null
+{ grep -q '^PASSTHROUGH:pr close ' "$TR/failopen-lifecycle.out" \
+  && grep -q '^PASSTHROUGH:pr merge ' "$TR/failopen-lifecycle.out" \
+  && ! grep -q '^REWROTE:' "$TR/failopen-lifecycle.out"; } \
+  && ok "no facts resolve → close/merge verdict calls proceed unchanged" \
+  || bad "close/merge fail-open violated: $(cat "$TR/failopen-lifecycle.out")"
 
 # GARDEN is authoritative; without it the standard hostname -s fallback is used.
 [ "$(_prov_host)" = "$EXPECT_HOST" ] \

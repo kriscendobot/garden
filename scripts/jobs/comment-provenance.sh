@@ -445,11 +445,16 @@ provenance_cleanup() {
   PROV_TMPFILES=()
 }
 
-# _prov_rewrite_body_flag <argv...> — handle `gh pr comment` / `gh issue comment`
-# / `gh pr review`: the body arrives via -b/--body (inline) or -F/--body-file
-# (file, or `-` = stdin). Normalize ALL three into a single temp --body-file that
-# carries body+footer, stripping the original body flags. rc 0 if rewritten.
+# _prov_rewrite_body_flag <body|comment> <argv...> — handle the body-bearing gh
+# comment surfaces. `body` covers `pr comment`, `issue comment`, and `pr review`,
+# where the body arrives via -b/--body or -F/--body-file. `comment` covers the
+# lifecycle commands (`pr close`/`reopen`/`merge`, `issue close`/`reopen`) whose
+# comment arrives via -c/--comment. Body forms normalize to a fresh --body-file;
+# comment forms stay inline because those commands expose no comment-file flag.
+# rc 0 if rewritten.
 _prov_rewrite_body_flag() {
+  local kind="${1:-}"; shift || return 1
+  case "$kind" in body|comment) : ;; *) return 1 ;; esac
   local -a args=("$@")
   local i n="${#args[@]}"
   local body="" have_body=0 from_stdin=0
@@ -460,19 +465,34 @@ _prov_rewrite_body_flag() {
     local a="${args[$i]}"
     case "$a" in
       -b|--body)
+        [ "$kind" = body ] || { keep+=("$a"); i=$((i+1)); [ "$i" -lt "$n" ] || return 1; keep+=("${args[$i]}"); i=$((i+1)); continue; }
         i=$((i+1)); [ "$i" -lt "$n" ] || return 1
         body="${args[$i]}"; have_body=1 ;;
-      --body=*) body="${a#--body=}"; have_body=1 ;;
-      -b=*)     body="${a#-b=}";     have_body=1 ;;
+      --body=*) [ "$kind" = body ] && { body="${a#--body=}"; have_body=1; } || keep+=("$a") ;;
+      -b=*)     [ "$kind" = body ] && { body="${a#-b=}";     have_body=1; } || keep+=("$a") ;;
       -F|--body-file)
+        [ "$kind" = body ] || { keep+=("$a"); i=$((i+1)); [ "$i" -lt "$n" ] || return 1; keep+=("${args[$i]}"); i=$((i+1)); continue; }
         i=$((i+1)); [ "$i" -lt "$n" ] || return 1
         local f="${args[$i]}"
         if [ "$f" = "-" ]; then body="$(cat)"; from_stdin=1; else body="$(cat "$f" 2>/dev/null)" || return 1; fi
         have_body=1 ;;
       --body-file=*|-F=*)
-        local f="${a#*=}"
-        if [ "$f" = "-" ]; then body="$(cat)"; from_stdin=1; else body="$(cat "$f" 2>/dev/null)" || return 1; fi
-        have_body=1 ;;
+        if [ "$kind" = body ]; then
+          local f="${a#*=}"
+          if [ "$f" = "-" ]; then body="$(cat)"; from_stdin=1; else body="$(cat "$f" 2>/dev/null)" || return 1; fi
+          have_body=1
+        else
+          keep+=("$a")
+        fi ;;
+      -c|--comment)
+        if [ "$kind" = comment ]; then
+          i=$((i+1)); [ "$i" -lt "$n" ] || return 1
+          body="${args[$i]}"; have_body=1
+        else
+          keep+=("$a")
+        fi ;;
+      --comment=*|-c=*)
+        if [ "$kind" = comment ]; then body="${a#*=}"; have_body=1; else keep+=("$a"); fi ;;
       *) keep+=("$a") ;;
     esac
     i=$((i+1))
@@ -495,10 +515,13 @@ _prov_rewrite_body_flag() {
   # Footer empty (no fact resolved) and body unchanged: leave the call UNTOUCHED
   # (fail-open). A stdin body must still be forwarded — we already consumed it.
   if [ "$newbody" = "$body" ] && [ "$from_stdin" -eq 0 ]; then return 1; fi
-  local tmp; tmp="$(_prov_mktemp)" || return 1
-  printf '%s' "$newbody" > "$tmp" || return 1
-
-  PROV_NEWARGV=("${keep[@]}" --body-file "$tmp")
+  if [ "$kind" = comment ]; then
+    PROV_NEWARGV=("${keep[@]}" --comment "$newbody")
+  else
+    local tmp; tmp="$(_prov_mktemp)" || return 1
+    printf '%s' "$newbody" > "$tmp" || return 1
+    PROV_NEWARGV=("${keep[@]}" --body-file "$tmp")
+  fi
   return 0
 }
 
@@ -666,11 +689,13 @@ provenance_rewrite_argv() {
   case "$cmd" in
     pr)
       case "$sub" in
-        comment|review) _prov_rewrite_body_flag "$@" && return 0 ;;
+        comment|review)    _prov_rewrite_body_flag body "$@" && return 0 ;;
+        close|reopen|merge) _prov_rewrite_body_flag comment "$@" && return 0 ;;
       esac ;;
     issue)
       case "$sub" in
-        comment) _prov_rewrite_body_flag "$@" && return 0 ;;
+        comment)      _prov_rewrite_body_flag body "$@" && return 0 ;;
+        close|reopen) _prov_rewrite_body_flag comment "$@" && return 0 ;;
       esac ;;
     api) _prov_rewrite_api "$@" && return 0 ;;
   esac
