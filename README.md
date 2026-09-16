@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:51:49Z_
+_As of 2026-09-16T14:52:27Z_
 
 ## Latest
 
@@ -505,25 +505,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.14 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 8.9M _(+220.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 8.9M _(+220.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-mutable-blob-formula.md) — Design: a mutable-blob daemon formula (readable-blob / blob / appendable-blob)
-- [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1281-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1281
 - [`fix-comment-provenance-pr-close-merge-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-comment-provenance-pr-close-merge-bypass.md) — Footer bypass: gh pr close/merge --comment skips provenance entirely
 
-### tada (8009)
+### tada (8010)
+- [`endojs-endo-but-for-bots-pr1281-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-retcon.md) — Completion report
 - [`wire-siwe-onchain-authz-minion-town-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wire-siwe-onchain-authz-minion-town-followup.md) — Completion report — wire-siwe-onchain-authz-minion-town-followup
 - [`scholar-ingest-cap-talk-1999`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-1999.md) — Cost
 - [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk.md) — Completion report: scholar-ingest-cap-talk
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — Cost
-- [`claude-on-minion-town-completion-press-20260916-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-132012.md) — Completion report — Claude-on-minion.town completion press, tick (20260916-13...
-- … and 8004 more
+- … and 8005 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
