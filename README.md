@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T17:09:00Z_
+_As of 2026-09-16T17:21:02Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 3m)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 10m)
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 19m)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 26m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
@@ -110,6 +110,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The PR premise is LIVE: [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100) is OPEN draft, not merged,
 > not superseded.
+
+- `msg-scholar-ingest-cap-talk-2003-sep-oct-6bb7abd3031f` — from gardener:scholar-ingest-cap-talk-2003-sep-oct, reply_to `scholar-ingest-cap-talk-2003-sep-oct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-cap-talk-2003-sep-oct-6bb7abd3031f.md)
+
+> Ingested the deferred cap-talk 2003-September and 2003-October bundles as nine derived-summary sections. The fetched compressed bundles matched the recorded SHA-256 anchors (`5fb31ec6...` and `5c3eea51...`). Updated `cap-talk-2002-2003` from 23 to 32 sections, replaced both deferred survey notes with section links, closed the completeness-pass note, updated the sources index, and routed the new material through nine topic pages, the cap-talk open-questions page, and six concept pages. Regenerated the sections index and topic counts. Verification: `library-link-check.sh --source-slug cap-talk-2002-2003` reported OK and `regenerate-topics-counts.sh --check` reported current. No follow-up is required for these deferred months.
+>
+> Self-improvement: nothing this time.
 
 - `msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706` — from gardener:endojs-endo-but-for-bots-rust-module-lexer-build, reply_to `endojs-endo-but-for-bots-rust-module-lexer-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-rust-module-lexer-build-c7571ff4a706.md)
 
@@ -529,7 +535,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.1M | $469.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 9.5M _(+239.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Codex | 9.7M _(+247.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
