@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T14:58:59Z_
+_As of 2026-09-16T15:04:57Z_
 
 ## Latest
 
@@ -511,8 +511,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
+- [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-computron-benchmark-baseline-build-exec.md) — builder: implement the Ironhorse computron benchmark-baseline regime (steps 2–8)
 
 ### tada (8012)
 - [`design-mutable-blob-formula`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-mutable-blob-formula.md) — Cost
@@ -721,7 +722,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`ironhorse-computron-benchmark-baseline-build-exec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-exec.md) — _normal_ · builder: implement the Ironhorse computron benchmark-baseline regime (steps 2–8)
 - [`scholar-ingest-cap-talk-2000-2003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2000-2003.md) — _normal_ · Ingest cap-talk: 2000-2003
 - [`scholar-ingest-cap-talk-2004-2008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2004-2008.md) — _normal_ · Ingest cap-talk: 2004-2008
 - [`scholar-ingest-cap-talk-2009-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk-2009-2012.md) — _normal_ · Ingest cap-talk: 2009-2012
