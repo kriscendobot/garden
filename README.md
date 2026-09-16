@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T21:21:48Z_
+_As of 2026-09-16T21:27:04Z_
 
 ## Latest
 
@@ -614,25 +614,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.8M | $475.15 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 65.0M | $473.86 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 11.2M _(+281.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (1)
 - [`scholar-ingest-cap-talk-2012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-2012.md) — ---
-- [`self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe.md) — ---
-- [`improve-fetch-source-wayback-index-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fetch-source-wayback-index-failure.md) — ---
 
-### tada (8057)
+### tada (8059)
+- [`improve-fetch-source-wayback-index-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fetch-source-wayback-index-failure.md) — Completion report
+- [`self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-foreman-plan-deferred-ranked-sigpipe.md) — Completion report
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-zizmor-parity.md) — Cost
 - [`scholar-ingest-cap-talk-2011-2012-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk-2011-2012-remainder.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-568e5d9eeb64.md) — rolling-deploy canary probe — round trip OK
-- [`kriscendobot-minion.town-pr53-review-90b51c86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr53-review-90b51c86-retro.md) — Completion report
-- [`kriscendobot-minion.town-pr52-review-86b4c679-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr52-review-86b4c679-retro.md) — Cost
-- … and 8052 more
+- … and 8054 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
