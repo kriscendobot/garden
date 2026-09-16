@@ -44,3 +44,13 @@ normal builder → gauntlet chain; keep the change on `llm`.
 
 Note: the design remains marked *Draft* in `designs/README.md`; flipping its
 status is part of the build's doc bookkeeping once implementation lands.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-16T12:29:20Z
