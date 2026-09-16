@@ -20,6 +20,8 @@ The competing definitions differ operationally. Under "shared with all programs,
 | [origin-header-amplifies-ambient-authority](../sections/cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md) | Miller's critique that CORS/Origin access decisions amplify ambient authority and confused-deputy hazards; "a mashup is a self inflicted cross site script"; all scripts on a page share the page's origin authority. |
 | [reducing-ambient-user-authority-install-manifest](../sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md) | An install-time authority manifest and a console-free OS (no string→filename→capability resolution); the App→User→Group→Everyone escalation ladder; the unresolved "reduce vs eliminate" gap where consent prompts habituate re-granting. |
 | [what-is-hardenedjs](../sections/endo--docs-guide--what-is-hardenedjs-ses-endo--what-is-hardenedjs.md) | Hardened JavaScript removes ambient authority from the JavaScript environment — frozen primordials, no ambient IO, modules receive only endowments explicitly passed — the enacted form of ambient-authority elimination. |
+| [cors-open-review-and-ambient-cookies](../sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md) | CORS preflight protects legacy request shapes but does not remove automatically attached ambient cookie authority. |
+| [geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) | Origin-persistent geolocation is ambient authority; a visible page-lifetime facet narrows and revokes it. |
 
 ## See also
 
