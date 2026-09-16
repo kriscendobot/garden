@@ -1,2 +1,2 @@
-base: improve-ci-watcher-rate-limit-cooldown
+base: improve-ci-rollup-rate-limit-cooldown
 identity: mentor:scripts/jobs/ci-watcher.sh
