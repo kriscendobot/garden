@@ -61,6 +61,12 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
+# The driver's deterministic merge-base-pinning pre-gate makes a live `gh pr view`
+# on the first tick of each fresh record. This suite's fixture PRs do not exist on
+# GitHub, so point the gate at a fast no-op (exit 0 = pinned = proceed) to keep the
+# ticks hermetic and network-free. The gate's own behaviour is proven in
+# assert-pinned-base-test.sh and the halt path in gauntlet-pin-gate-test.sh.
+export GARDEN_ASSERT_PINNED_BASE=/bin/true
 export GARDEN_POST_ATTEMPTS=50
 export GARDEN_CLAIM_TTL=14400 GARDEN_HANDLER_KILL_AFTER=60
 # Keep the CI-blocking-stage budget line deterministic (not required by the test, but

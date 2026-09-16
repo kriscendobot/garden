@@ -27,6 +27,25 @@ git push --force-with-lease <remote> HEAD:<original-branch-name>
 
 `--force-with-lease` (not `--force`) refuses to overwrite work pushed since the agent's last fetch. If the lease is rejected, fetch again and re-rebase.
 
+## Rebase onto the pinned base, never a floating trunk
+
+A follow-up push rebases the head onto the PR's **current frozen base**
+(`<base>-<sha>`), never onto a live `master` / `llm` / `main` tip. Re-parenting onto
+a moving trunk is the `merge-base-pinning` miss
+(review-misses/clusters/merge-base-pinning.md; endojs/endo-but-for-bots #831 dragged
+in 79 entrained commits, most irrelevant). Two rules that keep a followup honest:
+
+- **Move base only in a weave/rebase job, not a followup.** This skill's rebase
+  keeps the same frozen base; only the weaver mints a **new** frozen base at the
+  fresh upstream tip ([frozen-base-branch](../frozen-base-branch/SKILL.md) §
+  Rebase). A followup that reaches for `origin/master` re-bases onto a floating
+  branch — do not.
+- **Verify the delta before pushing.** `git diff --stat <frozen-base>..HEAD` must be
+  your files only. A count that ballooned means the rebase entrained the base's own
+  commits — abort and use `git rebase --onto <base> <old-base> HEAD`. The
+  deterministic `scripts/jobs/gardening/assert-pinned-base.sh` gate flags both
+  shapes (a floating base, and a wide entrained delta) at PR-open and before review.
+
 ## Pitfalls
 
 - **Never `--ours` / `--theirs`.** See [`../conflict-resolution/SKILL.md`](../conflict-resolution/SKILL.md).

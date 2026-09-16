@@ -26,6 +26,38 @@ fork). Upstream PRs the [boatman] ferries use upstream's natural base (e.g.,
 `master` on `endojs/endo`); the frozen-base discipline does **not** propagate to
 upstream because the maintainer reviews against upstream's natural base.
 
+## Hard precondition — never base on a floating branch
+
+This is a **hard precondition** of the builder and weaver flows, not advice: a
+fork-side PR the garden opens or rebases MUST target a pinned `<base>-<sha>`
+snapshot, never a floating `master` / `llm` / `main`. The two failure shapes this
+prevents — the `merge-base-pinning` review-miss cluster
+(`review-misses/clusters/merge-base-pinning.md`, count=4 across
+`endojs/endo-but-for-bots` #719 / #831 / #836, where the maintainer said the
+standing instruction "may need to be reinforced"):
+
+1. **Floating base.** Opening or re-pointing a PR onto a bare `master` / `llm` /
+   `main` instead of a pinned `-xxxx` snapshot. The PR then drifts with the trunk
+   and reviews at the wrong merge base (#836: "pin the llm branch base to
+   llm-xxxx by hash"; #719: a stray `package.json` artifact because the PR
+   "predates the master-xxx pinned base convention").
+2. **Entrained delta.** A rebase/weave that re-parents onto a *moving* branch and
+   drags in commits outside the intended delta (#831: "79 commits entrained, many
+   irrelevant ... may need a restart from scratch"). Always rebase onto the
+   **pinned** snapshot (`git rebase --onto <new-frozen-base> <old-base> HEAD` for
+   a cross-base move), never onto a live trunk tip, and verify
+   `git diff --stat <frozen-base>..HEAD` is your files only before pushing.
+
+Because a standing instruction an agent can forget is not a gate, this is enforced
+by the **deterministic sensor** `scripts/jobs/gardening/assert-pinned-base.sh`:
+- `ensure-pr.sh` runs it (`name` mode) at PR-open and **refuses to open** a draft
+  fork-side PR against a floating base (escape hatch `GARDEN_ALLOW_FLOATING_BASE=1`
+  for a deliberate exception; the ferry's `--no-draft` upstream PR is exempt by
+  design — it uses upstream's natural base).
+- The gauntlet driver runs it (`pr` mode) **before any review spend**: a floating
+  base halts the gauntlet with the `pin the merge base #N` disposition; a wide
+  entrained delta surfaces a maintainer notice.
+
 ## Naming convention
 
 ```
@@ -300,6 +332,13 @@ SHA) is invisible because the bot's fork only sees its own.
 
 (Append; terse and dated.)
 
+- _2026-09-16_: reinforced as a **hard precondition** with a deterministic sensor
+  (`scripts/jobs/gardening/assert-pinned-base.sh`) after the `merge-base-pinning`
+  review-miss cluster cleared threshold (#719 / #831 / #836; the maintainer said
+  the standing instruction "may need to be reinforced"). `ensure-pr.sh` now refuses
+  to open a draft fork-side PR against a floating `master`/`llm`/`main` base, and
+  the gauntlet driver halts a floating-base PR before spending review budget. See §
+  Hard precondition above.
 - _2026-08-22_: after rebasing onto a base with dependency changes, refresh the
   project install before local verification. `ensure-project-worktree.sh`
   populated the warm cache for the old PR head, so the rebased tree's Yarn pnpm

@@ -646,6 +646,31 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   # Fresh record (no stage in flight): spend one small viability claim before
   # admitting any clean/panel/fix-loop budget.
   if [ -z "$child" ]; then
+    # DETERMINISTIC merge-base-pinning pre-gate, BEFORE any review spend (sibling
+    # of the viability gate; the merge-base-pinning review-miss cluster). A PR that
+    # targets a FLOATING trunk (master/llm/main) instead of a pinned <base>-<sha>
+    # snapshot entrains irrelevant commits and reviews at the wrong merge base
+    # (endo-but-for-bots #719/#831/#836). Refuse it here rather than spend clean +
+    # panel + fix budget on a mis-based PR — the maintainer's disposition is "pin
+    # the merge base #N / refresh, then re-run the gauntlet". A gh blip is
+    # INCONCLUSIVE (rc 4) and never blocks; a wide entrained delta (rc 6) is a soft
+    # signal we SURFACE but do not auto-refuse; only a floating base (rc 5) halts.
+    # BOUNDED: the check makes one `gh pr view`, and the fleet gh wrapper can block
+    # on a transient/auth stall. Cap it so a slow gh never wedges this tick (which
+    # advances EVERY gauntlet); a timeout (rc 124) falls through to the proceed path
+    # exactly like an inconclusive read — the pin gate never fails a PR on infra.
+    : "${GARDEN_ASSERT_PINNED_BASE:=$HERE/gardening/assert-pinned-base.sh}"
+    pin_rc=0
+    timeout "${GARDEN_ASSERT_PINNED_BASE_TIMEOUT:-45}" \
+      "$GARDEN_ASSERT_PINNED_BASE" pr "$repo" "$prnum" || pin_rc=$?
+    case "$pin_rc" in
+      5) halt_gauntlet "$base" "PR $repo#$prnum targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #$prnum') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch."
+         advanced=$((advanced+1)); continue;;
+      6) printf 'INFO: gauntlet %s: PR %s#%s carries a WIDE entrained commit delta on its pinned base — possible moving-branch rebase; review the diff scope (skills/rebase-hygiene-audit). Proceeding with the gauntlet.\n' \
+           "$base" "$repo" "$prnum" | gauntlet_notify "$base-entrained-delta";;
+      0|4|124) : ;;   # 0 clean; 4 inconclusive (gh blip); 124 timeout — never block on infra
+      *) log "gauntlet '$base': assert-pinned-base returned unexpected rc=$pin_rc; proceeding";;
+    esac
     advance_stage "$base" "$f" viability 0 "$base-viability"
     advanced=$((advanced+1))
     continue

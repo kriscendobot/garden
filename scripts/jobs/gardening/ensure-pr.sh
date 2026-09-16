@@ -339,6 +339,21 @@ if [ "$find_only" -eq 1 ]; then
   log "no open PR for job '$base' on $repo (--find-only)"
   exit 2
 fi
+
+# Frozen-base precondition (skills/frozen-base-branch; the merge-base-pinning
+# review-miss cluster). A fork-side DRAFT PR MUST target a pinned <base>-<sha>
+# snapshot, never a floating trunk (master/llm/main) — a floating base entrains
+# irrelevant commits and predates review at the wrong merge base (endo-but-for-bots
+# #719/#831/#836). This is the deterministic gate the standing instruction could
+# not be: it cannot forget. The ferry's --no-draft upstream PR is exempt (it uses
+# upstream's NATURAL base by design), so gate only draft creations. The escape
+# hatch GARDEN_ALLOW_FLOATING_BASE=1 exists for a deliberate, justified exception.
+if [ "$draft" -eq 1 ] && [ "${GARDEN_ALLOW_FLOATING_BASE:-0}" != "1" ]; then
+  if ! "$HERE/assert-pinned-base.sh" name "$base_branch"; then
+    die "refusing to open PR for job '$base' against unpinned base '$base_branch': a fork-side PR must target a frozen <base>-<sha> snapshot (skills/frozen-base-branch). Create the frozen base first, or set GARDEN_ALLOW_FLOATING_BASE=1 for a justified exception."
+  fi
+fi
+
 [ -n "$title" ] || die "no PR found and no --title given; cannot create one"
 if [ -n "$body_file" ]; then
   [ -f "$body_file" ] || die "--body-file '$body_file' is not a readable file"

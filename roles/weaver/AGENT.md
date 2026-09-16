@@ -23,11 +23,13 @@ A gardener claims a `rebase` or `weave` job (the triager maps a "rebase #N" / "w
 
 See [conflict-resolution] for the procedure and the three narrow exceptions (generated lockfiles, changeset-managed CHANGELOGs, Prettier-only whitespace).
 
+**Second hard rule — rebase onto the pinned snapshot, never a floating trunk.** A fork-side rebase re-parents onto the **new frozen base** (`<base>-<new-sha>`), never onto a live `master`/`llm`/`main`. Basing on a moving branch is the `merge-base-pinning` miss (endojs/endo-but-for-bots #719/#831/#836): it entrains commits outside the intended delta (#831: 79 of them). For a cross-base move use `git rebase --onto <new-frozen-base> <old-base> HEAD`, and before pushing confirm `git diff --stat <frozen-base>..HEAD` is the PR's files only. `pin the merge base #N` is the strong form of this op. See [frozen-base-branch] § Hard precondition.
+
 ## Skills
 
 - [conflict-resolution]: the no-`--ours`/`--theirs` discipline.
 - [rebase-before-followup]: the canonical PR-branch rebase pattern.
-- [frozen-base-branch]: every fork-side PR uses a frozen base named `<base>-<short-sha>`. When the weaver rebases, it creates a **new** frozen base at upstream's current tip, rebases the head onto it, force-pushes the head, and updates the PR's `base` field. **Both refs move together.** Other open PRs are not affected because each carries its own frozen base. Upstream PRs (post-boatman ferry) use upstream's natural branch and follow the pre-existing rebase pattern unchanged.
+- [frozen-base-branch]: every fork-side PR uses a frozen base named `<base>-<short-sha>`. When the weaver rebases, it creates a **new** frozen base at upstream's current tip, rebases the head onto it, force-pushes the head, and updates the PR's `base` field. **Both refs move together.** Other open PRs are not affected because each carries its own frozen base. Upstream PRs (post-boatman ferry) use upstream's natural branch and follow the pre-existing rebase pattern unchanged. **Hard precondition:** the rebase target is always the **pinned** new snapshot, never a floating `master`/`llm`/`main` tip, and the result's `git diff --stat <frozen-base>..HEAD` is the PR's files only — re-parenting onto a moving branch is the `merge-base-pinning` miss that entrained 79 irrelevant commits into #831 (skill § Hard precondition; deterministic backstop `assert-pinned-base.sh`).
 - [cherry-pick-followup]: when only a subset of commits should move.
 - [rename-discipline]: a rebase that requires reconciling identifier renames on both sides should not invent fresh renames as part of the conflict resolution.
 - [yarn-lock-separate-commit]: lockfile conflicts get the regenerate-and-recommit treatment.

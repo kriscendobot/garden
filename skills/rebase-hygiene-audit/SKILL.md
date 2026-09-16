@@ -25,6 +25,15 @@ if git merge-tree --write-tree <remote>/<base> <remote>/<head> >/dev/null 2>&1; 
 else
   conflicts=conflicts
 fi
+
+# Merge-base pinning: is the PR's base a pinned <base>-<sha> snapshot, and is the
+# ahead-count within the intended delta? One deterministic probe covers both.
+scripts/jobs/gardening/assert-pinned-base.sh pr <owner>/<repo> <N>
+case $? in
+  5) pin=unpinned-base ;;       # floating master/llm/main
+  6) pin=wide-entrained-delta ;;# far more commits than the intended change
+  *) pin=ok ;;                  # 0 pinned; 4 inconclusive (a gh blip)
+esac
 ```
 
 ## Categories
@@ -34,6 +43,18 @@ fi
 - **needs-rebase-with-conflicts**: `behind > 0` and `conflicts == conflicts`. Author must resolve.
 - **has-merge-commits**: `merges > 0`. The author merged base into branch instead of rebasing.
 - **base-not-on-remote**: the base branch doesn't exist on the audit remote (a stacked-PR scenario whose parent merged or closed).
+- **unpinned-base**: the PR's `baseRefName` is a **floating** trunk (`master` / `llm`
+  / `main`) rather than a pinned `<base>-<sha>` snapshot — the `merge-base-pinning`
+  miss (review-misses/clusters/merge-base-pinning.md; endojs/endo-but-for-bots
+  #719 / #836). Such a PR drifts with the trunk and reviews at the wrong merge base;
+  the remedy is a `pin the merge base #N` weave, not a plain rebase. The
+  deterministic `scripts/jobs/gardening/assert-pinned-base.sh pr <repo> <N>` is the
+  per-PR probe (exit 5 = floating base).
+- **wide-entrained-delta**: `ahead` is far larger than the PR's intended change —
+  the tell of a rebase re-parented onto a moving branch that dragged in unrelated
+  commits (#831's "79 commits entrained"). `assert-pinned-base.sh` flags it (exit
+  6) above `GARDEN_PIN_MAX_AHEAD`; treat it as a candidate for a from-pinned-base
+  restack, not a routine rebase.
 
 ## Bulk-fetching
 
