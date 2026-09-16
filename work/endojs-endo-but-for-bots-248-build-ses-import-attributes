@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-16T12:29:20Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-endojs-endo-but-for-bots-248-build-ses-import-attributes
+pr_number: 1292
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1292
+pr_head: llm-ses-import-attributes
