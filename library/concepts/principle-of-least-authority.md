@@ -40,6 +40,7 @@ A programmer already following good software-engineering discipline is most of t
 | [cap-talk-2002-2003--yurl-key-centric-web-calculus](../sections/cap-talk-2002-2003--yurl-key-centric-web-calculus.md) | A key-centric introduction removes the later certificate authority from the reference path while retaining only the introducer’s claim. |
 | [cap-talk-2002-2003--programming-with-capabilities-without-ownership](../sections/cap-talk-2002-2003--programming-with-capabilities-without-ownership.md) | Separate maintenance, destruction, and customer facets replace a broad, ambiguous ownership relation with narrow authorities. |
 | [cap-talk-2009-2012--defining-ambient-authority](../sections/cap-talk-2009-2012--defining-ambient-authority.md) | POLA is unachievable amid pervasive ambient authority; least authority requires every authority be designated and granted on a need-to-do basis (the designation criterion the 2009 definition thread settled on). |
+| [cap-talk-2009-2012--android-capability-discipline-and-pola](../sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md) | cap-talk 2010-May/July | Applying POLA to a shipping platform: POLA scoring of apps and the disputed claim that user-facing partial-permission attenuation backfires into over-asking. |
 
 ## See also
 
