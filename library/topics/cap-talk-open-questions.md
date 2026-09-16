@@ -280,6 +280,36 @@ The December 2009 "Reducing Ambient user authority" thread proposes an OS with a
 
 - [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](../sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md) - the manifest, the console-free design, the escalation ladder, and the reduce-vs-eliminate critique.
 
+### 45. Does authentication necessarily identify a remote principal?
+
+The September definition thread splits between authentication as establishing which principal is probably at the other end of a channel and authentication as validation of any security-relevant property. Hash validation, proof of age, and artifact composition can support authority or accountability without naming a person. Calling those operations "verification" preserves the narrow definition, but ordinary security usage often calls them authentication. The list does not converge on where the word's boundary belongs.
+
+- [cap-talk-2009-2012--authentication-identity-versus-property-validation](../sections/cap-talk-2009-2012--authentication-identity-versus-property-validation.md) - the channel/principal definition, the property-validation alternative, and examples that separate authorization from identity.
+
+### 46. Does CORS justify its complexity while leaving ambient cookie authority in place?
+
+Preflight protects legacy servers from cross-origin request shapes browsers could not previously issue, while a response-only opt-in could cover narrower sharing without expanding that set. The unresolved security issue is separate: automatically attached cookies let a page exercise ambient target-origin authority and preserve the browser confused deputy. The 2009 open review does not settle whether CORS's additional features justify its policy complexity or whether credential designation must be redesigned first.
+
+- [cap-talk-2009-2012--cors-open-review-and-ambient-cookies](../sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md) - compatibility preflight versus response opt-in, ambient cookies, and the request for explicit confused-deputy diagrams.
+
+### 47. How can a capability protocol cross the ecosystem-adoption gap?
+
+RabbitMQ's prototype had minimal checking code and a near-production API, yet ACLs won because capabilities required protocol and client-library changes, operators requested familiar ACLs, and several stakeholders were unconvinced. The capability design offered application-defined fine-grained grants, while ACLs forced the broker to predict categories centrally. The archive identifies the distributed migration cost but does not supply a compatibility path that avoids coordinated client adoption.
+
+- [cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction](../sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md) - the technical prototype, political and compatibility costs, and the ACL decision.
+
+### 48. Should sensitive browser grants persist beyond a visible page lifetime?
+
+Origin-persistent geolocation lets any script running as that origin recover the user's location and creates framing, clickjacking, and phishing ambiguity on multi-origin pages. A top-level-only, visibly indicated, navigation-revoked session facet is easier to reason about but costs a new user gesture each session. The thread privileges privacy but does not produce a general rule for when durable restoration of camera, location, file, or signing authority is safe.
+
+- [cap-talk-2009-2012--geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) - the origin-policy hazards and Hopwood's non-persistent, visibly revocable alternative.
+
+### 49. When is a sandbox descriptor actually a capability?
+
+Native Client confines untrusted native code and brokers resources through descriptors, but representation as a descriptor does not establish object-capability semantics. The descriptor must directly designate an object, possession must authorize its use, and the broker must not recover stronger authority from ambient identity or caller-supplied names. The thread leaves the exact category boundary open while agreeing that confinement and object-capability protocol discipline are separate layers.
+
+- [cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) - NaCl's confinement value and the behavioral test for capability-like descriptors.
+
 ## See also
 
 - [capability-theory](capability-theory.md) - where a question moves once it is settled.
