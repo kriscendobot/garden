@@ -64,3 +64,13 @@ assumes `compareByteArrays` and `toHex` imports. Treat it as the design
 input that answers "how", pending the design step's decision on WHERE it
 lives (ses-ava's `t` wrapper vs. a marshal test helper) and whether to reach
 for concordance instead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-16T12:09:18Z
