@@ -17,6 +17,7 @@ Dialog-db's typed encoding of attenuated object-capability delegation, implement
 | [dialog-db--rust-dialog-capability-readme--traits-policy-attenuation-effect](../sections/dialog-db--rust-dialog-capability-readme--traits-policy-attenuation-effect.md) | The three trait roles (`Policy`, `Attenuation`, `Effect`) and the optional `ucan` serialization feature. |
 | [dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy](../sections/dialog-db--rust-dialog-effects-readme--capability-domain-effect-hierarchy.md) | The six concrete domain effect trees (access, storage, space, archive, memory, credential) built on this chain. |
 | [dialog-db--notes-capability-sysstem--subject-ability-policy](../sections/dialog-db--notes-capability-sysstem--subject-ability-policy.md) | The design-level `subject × command × policy` framing this crate implements. |
+| [cap-talk-2009-2012--capability-adoption-through-service-chaining](../sections/cap-talk-2009-2012--capability-adoption-through-service-chaining.md) | Alice gives Bob a narrow reference for Carol so the chained call carries designated authority without substituting Alice or Bob identity. |
 
 ## See also
 
