@@ -51,6 +51,7 @@
 | [erights--elib-concurrency-eio-goals--design-goals-requirements-and-preferences](../sections/erights--elib-concurrency-eio-goals--design-goals-requirements-and-preferences.md) | erights.org elib/concurrency/eio/goals.html | EIO's design goals: non-blocking I/O even under buggy E code, the InStream/OutStream fail-stop stream model (typed elements + terminator, producer/consumer), and composability (pipes, filters, opto-isolation, backpressure); ancestor of `@endo/stream`. |
 | [erights--elib-concurrency-eio-obtaining--obtain-primitive-and-input-operation-taxonomy](../sections/erights--elib-concurrency-eio-obtaining--obtain-primitive-and-input-operation-taxonomy.md) | erights.org elib/concurrency/eio/obtaining.html | EIO's single `obtain/5` primitive and its 2*2*3*2 = 24-cell input-operation taxonomy (reading/skipping/peeking/checking crossed with NOW/WAIT/LATER scheduling); LATER returns a vow, the ancestor of async-iterator pull. |
 | [single-use-capability-object-in-e](../sections/cap-talk-2002-2003--single-use-capability-object-in-e.md) | cap-talk 2003-October | A catch-all E object attenuates any target to one message by replacing its slot with a broken reference before dispatch. |
+| [guards-well-known-not-ambient](../sections/cap-talk-2009-2012--guards-well-known-not-ambient.md) | capability-theory, e-language | E guards for pure data can be well-known; authority-recognizing guards must be explicitly endowed. |
 
 ## See also
 
