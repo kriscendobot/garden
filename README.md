@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T13:52:40Z_
+_As of 2026-09-16T13:53:24Z_
 
 ## Latest
 
@@ -479,24 +479,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 63.4M | $466.27 _(notional, rate-card)_ | 44% of 143.0M (ok) |
-| Codex | 8.4M _(+209.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Codex | 8.4M _(+209.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-merge-base-pinning.md) — review-improve: merge-base-pinning (prevention + durable sensing)
-- [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk.md) — Ingest the cap-talk mailing list into the library
 - [`scholar-ingest-cap-talk-1999`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cap-talk-1999.md) — Ingest cap-talk: 1998-April through 1999
 
-### tada (8006)
+### tada (8007)
+- [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cap-talk.md) — Completion report: scholar-ingest-cap-talk
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-rc124-timeout-not-classified-transient.md) — Cost
 - [`claude-on-minion-town-completion-press-20260916-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260916-132012.md) — Completion report — Claude-on-minion.town completion press, tick (20260916-13...
 - [`garden-gauntlet-reexport-policy-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-gauntlet-reexport-policy-check.md) — Completion report
 - [`minion-town-guest-peer-fetch-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-guest-peer-fetch-verify.md) — Completion report
-- [`claude-on-minion-town-press-20260916-130520`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260916-130520.md) — Press report — arc issue #89 (Claude on minion.town)
-- … and 8001 more
+- … and 8002 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
