@@ -32,6 +32,9 @@ OAuth 2.0 application credential models for programmatic and delegated access, a
 | [Supabase OAuth and approval boundary](../sections/cloudflare-os--packages-gatekeeper-supabase-readme--oauth-and-approval-boundary.md) | oauth-credentials, capability-mediated-integrations | Organization OAuth credentials coexist with unsimulated approval-gated SQL writes. |
 | [ZoomInfo OAuth PKCE and token lifecycle](../sections/cloudflare-os--packages-gatekeeper-zoominfo-readme--oauth-pkce-and-token-lifecycle.md) | oauth-credentials, cloudflare-workers-agent-hosting | ZoomInfo uses PKCE, client Basic authentication, and refresh-token rotation. |
 | [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | cap-talk 2010-February | Why the Web Powerbox (a per-connection web-key) dominates OAuth's ambient-cookie and bearer-token model on the web's confused-deputy attacks. |
+| [supplanting-passwords-and-the-master-capability](../sections/cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md) | identity, capability-security, oauth-credentials | Web-keys replace per-resource passwords, but the single master-capability bootstrap (memorize, store, or carry the last secret) is irreducible. |
+| [openid-single-sign-on-critique](../sections/cap-talk-2009-2012--openid-single-sign-on-critique.md) | identity, capability-security, oauth-credentials | Karp's verdict: OpenID trains users to be phished, gives single sign-on with no single sign-out, and re-centralizes authority into one compromisable credential. |
+| [opinions-of-oauth](../sections/cap-talk-2009-2012--opinions-of-oauth.md) | oauth-credentials, capability-security, identity | OAuth 2 is the best wrong way of doing things; the capability alternative is the web-key / YURL, an unguessable URL conveying specific authority with no identity round-trip. |
 
 ## See also
 
