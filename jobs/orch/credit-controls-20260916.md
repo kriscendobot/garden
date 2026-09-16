@@ -1,4 +1,5 @@
 ---
+child-credit-controls-manual-gauntlet-trigger-reap-count: 0
 child-credit-controls-fail-closed-pools-host: endolin-garden-ece02cb4
 child-credit-controls-fail-closed-pools-reap-count: 0
 order: serial
