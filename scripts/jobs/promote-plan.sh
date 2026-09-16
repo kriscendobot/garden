@@ -2,7 +2,8 @@
 # promote-plan.sh — move a parked plan job into the live queue: plan/<base> →
 # todo/<base>, so a gardener can claim it normally.
 #
-# Usage: promote-plan.sh [--require-tada <predecessor>]...
+# Usage: promote-plan.sh [--maintainer]
+#                        [--require-tada <predecessor>]...
 #                        [--require-failed <predecessor>]... <basename>
 #
 # Two promotion paths feed this one primitive:
@@ -11,6 +12,9 @@
 #      A go-ahead job is ONLY ever promoted by maintainer authorization.
 #   2. PRIORITY/URGENCY SELECTION — the foreman runs this to promote the top
 #      deferred plan job when the board is idle (see foreman.sh).
+#   3. MAINTAINER DECISION — an `awaiting-maintainer` job requires the explicit
+#      `--maintainer` flag. This makes the human-only clearing path mechanical;
+#      a watcher or foreman call without that attestation is refused.
 #
 # On promotion the leading plan frontmatter (gate/priority/roadmap/provenance) is
 # stripped so the todo job is the clean work body the gardener acts on; a one-line
@@ -72,8 +76,13 @@ export GARDEN_TAG="promote-plan"
 
 required_tada=()
 required_failed=()
+maintainer_promotion=0
 while [ $# -gt 0 ]; do
   case "$1" in
+    --maintainer)
+      maintainer_promotion=1
+      shift
+      ;;
     --require-tada)
       required_tada+=("${2:?--require-tada needs a predecessor basename}")
       shift 2
@@ -88,7 +97,7 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-base="${1:?usage: promote-plan.sh [--require-tada <predecessor>]... [--require-failed <predecessor>]... <basename>}"
+base="${1:?usage: promote-plan.sh [--maintainer] [--require-tada <predecessor>]... [--require-failed <predecessor>]... <basename>}"
 case "$base" in
   -*)        die "illegal basename: '$base'";;
   */*|.*|'') die "illegal basename: '$base'";;
@@ -169,6 +178,11 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   src="$DIR/$JOBS_PLAN/$base.md"
   gate="$(plan_gate "$src")"
   priority="$(plan_priority "$src")"
+  if [ "$gate" = awaiting-maintainer ] && [ "$maintainer_promotion" != 1 ]; then
+    clone_unlock "$DIR"
+    log "refusing to promote '$base': gate=awaiting-maintainer requires an explicit maintainer decision (re-run with --maintainer after the answer at $(plan_field "$src" asked_at))"
+    exit 5
+  fi
   # Preserve the EXECUTION keys across promotion. strip_frontmatter drops the
   # whole plan block (gate/priority are provenance, correctly consumed here),
   # but role:/model:/handler-timeout: bind how the gardener RUNS the job — the
@@ -222,8 +236,13 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     fi
     # `at=` stays the LAST timestamp-shaped field consumers key on (orchestrate.sh
     # parses `at=<value>`); `cleared=` is appended after it as a further token.
-    printf '<!-- garden-promoted-from-plan: gate=%s priority=%s at=%s cleared=%s -->\n\n' \
-      "$gate" "$priority" "$(date -u +%FT%TZ)" "$cleared"
+    if [ "$gate" = awaiting-maintainer ]; then
+      printf '<!-- garden-promoted-from-plan: gate=%s priority=%s maintainer=true at=%s cleared=%s -->\n\n' \
+        "$gate" "$priority" "$(date -u +%FT%TZ)" "$cleared"
+    else
+      printf '<!-- garden-promoted-from-plan: gate=%s priority=%s at=%s cleared=%s -->\n\n' \
+        "$gate" "$priority" "$(date -u +%FT%TZ)" "$cleared"
+    fi
     strip_frontmatter "$src" | strip_cycle_markers
   } > "$DIR/$JOBS_TODO/$base.md"
   git -C "$DIR" rm -q "$JOBS_PLAN/$base.md"

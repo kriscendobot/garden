@@ -35,7 +35,8 @@
 #      in-flight this tick — pre-approved, queued work that costs no `claude -p`
 #      call. Only if NONE is queued, hand a small digest (project, board state,
 #      last step posted) to the handler (the foreman role) and post the one job it
-#      returns. go-ahead and blocked plan jobs are never auto-promoted.
+#      returns. go-ahead, awaiting-maintainer, and blocked plan jobs are never
+#      auto-promoted.
 #   5. COST GATE: the handler (and its `claude -p`) runs ONLY on sustained
 #      under-subscription, never while the board is at the target or still within
 #      the settle window.
@@ -279,9 +280,10 @@ esac
 # Before generating a NEW step (a `claude -p` call), fill the open slots with
 # already-parked deferred plan jobs: they are pre-approved work picked by
 # priority, so promoting them both honors the maintainer's queue and SAVES the
-# handler's cost. go-ahead plan jobs are excluded by plan_deferred_ranked (those
-# need maintainer authorization, never auto-selection); blocked plan jobs are
-# likewise excluded (they wait for the unblock watcher on their blocker).
+# handler's cost. plan_deferred_ranked admits exactly gate=deferred, so go-ahead,
+# awaiting-maintainer, blocked, and orchestrated jobs are excluded. An
+# awaiting-maintainer job can leave only through the explicit
+# promote-plan.sh --maintainer path after its linked answer lands.
 #
 # Batch, not one-per-tick: we promote up to (TARGET - in-flight) deferred jobs in
 # THIS tick, so a board that is under-subscribed by more than one comes up to the

@@ -6210,7 +6210,9 @@ derive_job_identity_from_body() {
 # --- plan-job metadata helpers ----------------------------------------------
 # A plan job carries leading YAML frontmatter:
 #   ---
-#   gate: go-ahead | deferred          # WHY it is parked (the gate reason)
+#   gate: go-ahead | deferred | awaiting-maintainer # WHY it is parked
+#   maintainer_question: <decision>    # required for awaiting-maintainer
+#   asked_at: <issue/PR/comment URL>    # required for awaiting-maintainer
 #   priority: urgent|high|normal|low   # selection key for deferred promotion
 #   roadmap: <milestone/item>          # optional; the roadmap item it serves
 #   posted_by: <role>                  # optional provenance
@@ -6241,6 +6243,11 @@ plan_priority() {
 # the blocked-job dependency edge — the proxy parks the job carrying it, the
 # bulletin renders it, and the unblock watcher scans for it. Empty if absent.
 plan_blocked_on() { plan_field "$1" blocked_on; }
+
+# The actionable decision fields of an `awaiting-maintainer` plan. Producers
+# require both fields, and the bulletin renders them together.
+plan_maintainer_question() { plan_field "$1" maintainer_question; }
+plan_asked_at() { plan_field "$1" asked_at; }
 
 # The performing role a job requests, read from the `role:` field. This is the
 # role a gardener WEARS to do the work (designer, builder, fixer, …), distinct
@@ -7790,8 +7797,10 @@ plan_rank() {
 
 # Print the deferred plan jobs in promotion order: highest priority first, oldest
 # first within a priority (FIFO fairness). One basename (extensionless) per line.
-# go-ahead plan jobs are EXCLUDED — those are promoted only by maintainer
-# authorization, never auto-selected. $1 = a synced journal clone root.
+# Every gate except exactly `deferred` is EXCLUDED. In particular,
+# awaiting-maintainer jobs survive every foreman tick until an explicit
+# `promote-plan.sh --maintainer` call records that the answer arrived.
+# $1 = a synced journal clone root.
 plan_deferred_ranked() {
   local dir="$1" base f gate rank mtime
   for base in $(list_jobs "$dir" "$JOBS_PLAN"); do

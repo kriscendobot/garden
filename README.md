@@ -92,6 +92,7 @@ deterministically. `#N` is a pull-request number.
 | **merge #N** ★ | conduct the merge onto the right branch (or just approve the PR) |
 | **ferry #N** | carry approved work upstream under your own identity — authorization required |
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
+| **await maintainer on X** | park a job with the exact pending question and its issue/PR/comment URL; only an explicit maintainer promotion can release it |
 | **promote X** / go ahead on X | move a parked job onto the board now |
 | **muster** | work the maintainer inbox with the liaison: compact the duplicates, classify what is left, and dispose of it item by item. A conversation, not a board entry, so no watcher recognizes it |
 | **stand up / stand down / drain / lift** | fleet operations, handled by the liaison directly. **Drain** = a moratorium on undertaking further work, while work already in progress finishes; **lift** relaxes it ([scaling.md](context/operations/scaling.md)) |
@@ -113,10 +114,13 @@ instructive way, cited back to the journal entry that records it.
 
 ### Lever semantics: what each control does not reach
 
-**A parked `gate: go-ahead` job will never start by itself.** The gate means
-that the job is *awaiting* maintainer authorization; it is not an authorization
-or a schedule. Only an explicit `promote-plan.sh <job>` moves it from `plan/` to
-`todo/`. The foreman selects only `gate: deferred` jobs
+**A parked `gate: go-ahead` or `gate: awaiting-maintainer` job will never start
+by itself.**
+`go-ahead` means the work awaits maintainer authorization. `awaiting-maintainer`
+means work awaits an answer to its recorded `maintainer_question:` at `asked_at:`.
+Neither gate is an authorization or a schedule. Only an explicit promotion moves
+it from `plan/` to `todo/`; `awaiting-maintainer` additionally requires
+`promote-plan.sh --maintainer <job>`. The foreman selects only `gate: deferred` jobs
 ([`foreman.sh`](scripts/jobs/foreman.sh)); no timer turns a `go-ahead` record
 into a promotion. This is the first thing to check when apparently ready work
 has stayed parked.
@@ -128,6 +132,7 @@ follow its operation link for commands and recovery procedure, or the
 | Lever | What it does | What it does **not** reach | Interacting lever to check |
 | --- | --- | --- | --- |
 | `promote-plan.sh <job>` / “go ahead on X” | Moves one parked job to `todo/`; for a `go-ahead` gate, the maintainer's explicit direction is the authorization. | Merely writing `gate: go-ahead` does not authorize, schedule, or auto-promote anything. The foreman auto-promotes only `deferred`. | Inspect `jobs/plan/<job>.md`, then promote explicitly ([plan-queue procedure](context/operations/plan-queue.md)). |
+| `promote-plan.sh --maintainer <job>` / “the maintainer answered X” | Clears an `awaiting-maintainer` gate after the linked answer lands. | It does not infer an answer from time or from prose in the job. Without `--maintainer`, the promotion is refused. | Read `maintainer_question:` and follow `asked_at:` before promoting. |
 | `drain-fleet.sh on` | Stops this host from taking new claims while its in-flight work finishes. | It is not a producer freeze: the leader scheduler still dispatches due schedules; `repo-watcher.sh` still reconciles watcher units; `self-heal-run.sh` may post a scoped repair; and the host sysop deliberately still runs. Direct job-producing watchers are drain-gated. | Use the control that owns the producer, and distinguish a drain from capacity zero ([scaling](context/operations/scaling.md)). |
 | Foreman active target | `GARDEN_FOREMAN_ACTIVE_TARGET=0` in the shipped foreman unit independently stops both deferred promotion and new-work pumping. | It does not pause gardeners, the scheduler, watchers, or orchestration. Conversely, draining to stop the foreman also stops drain-gated `orchestrate.sh` and direct watchers. | Prefer the foreman-specific target when only the foreman must stop; use drain only for claim moratorium semantics. |
 | `set-deadline-nudge.sh off` | Disables the shared deadline-warning scanner through journal-backed fleet state; `on` restores it and `status` reports it. | It does not extend or stop a handler deadline, interrupt an agent, change a job body, or drain workers. | A delivered warning is queued in the job's own inbox and is observed only at the agent's next `inbox-read.sh` checkpoint. |

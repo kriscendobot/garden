@@ -191,6 +191,9 @@ a **proposal / parked item**, parked for one of these reasons (its **gate**):
   `budget-refresh.sh` promotes that mechanically-marked subset on quota refresh.
 - **`deferred`** — parked behind higher-priority items, to be **selected by
   priority/urgency**.
+- **`awaiting-maintainer`** — waits for a maintainer to answer a specific
+  question at a recorded issue/PR/comment URL. It is never auto-promoted and
+  requires an explicit maintainer promotion after the answer lands.
 - **`blocked`** — parked behind an **artifact** (a PR or another job) named in
   `blocked_on:`; promoted only by the **unblock watcher** when the blocker
   completes.
@@ -204,7 +207,9 @@ Metadata is leading YAML frontmatter:
 
 ```
 ---
-gate: go-ahead | deferred
+gate: go-ahead | deferred | awaiting-maintainer
+maintainer_question: <the decision needed>       # awaiting-maintainer only
+asked_at: https://...                             # issue/PR/comment answer surface
 priority: urgent | high | normal | low      # selection key (urgency: accepted as a synonym)
 roadmap: <milestone/item>                    # optional; what it serves, for roadmap-aware selection
 posted_by: <role>
@@ -213,7 +218,8 @@ posted_at: <iso8601>
 <the work body — becomes the todo job on promotion, minus cycle markers>
 ```
 
-- **Park** (`post-plan.sh [--go-ahead|--deferred|--budget-hold] [--priority L] [--roadmap I]
+- **Park** (`post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--budget-hold]
+  [--question Q --asked-at URL] [--priority L] [--roadmap I]
   [--by R] <base> [body]`): write `jobs/plan/<base>.md`. Default gate `--deferred`.
   `--budget-hold` is a `go-ahead` subset carrying the machine fields that let
   `budget-refresh.sh` promote it after the rolling window or an optional
@@ -257,10 +263,14 @@ posted_at: <iso8601>
     strips. What it cleared is recorded as a `cleared=` token on the annotation
     marker, emitted **only** when something actually was; a note that is
     *entirely* cycle markers has nothing left to say and is refused (exit 1).
-  - **Gate fields are NOT settable here.** `gate:`, `blocked_on:`, and
+  - **Gate fields are not generally settable here.** `gate:`, `blocked_on:`, and
     `orchestrated_by:` carry the promotion invariants (who may promote this job,
     and when); re-gating is a different act with its own primitives
     (`promote-plan.sh`, `block-job.sh`, `post-orchestration.sh`).
+    The sole exception is `--awaiting-maintainer --question Q --asked-at URL`,
+    which atomically repairs a wrongly deferred or synthetic-blocked job. The
+    atomic transition prevents a foreman promotion between the metadata edit and
+    the gate edit; it refuses orchestration children and budget holds.
   - **Plan-only, and loud about it.** A `<base>` that has left `plan/` exits
     **3** ("no longer parked") rather than silently writing into a claimed job;
     `--if-parked` downgrades that to a quiet exit 0 for a producer that races the
@@ -281,7 +291,7 @@ posted_at: <iso8601>
     identity scheme so a doubly-observed comment collapses onto one job). Coverage:
     the `PK`/`PKR` cases in `scripts/jobs/test/comment-watcher-test.sh` and `PK` in
     `scripts/jobs/test/mention-watcher-test.sh`.
-- **Promote** (`promote-plan.sh <base>`): move `plan/<base>` → `todo/<base>`,
+- **Promote** (`promote-plan.sh [--maintainer] <base>`): move `plan/<base>` → `todo/<base>`,
   stripping the plan frontmatter so the todo job is the clean work body; then a
   gardener claims it normally. It also **clears the reaper/gardener cycle markers**
   (`garden-reaped`, `garden-deadline-overrun`, `garden-elapsed-constancy`, and the
@@ -302,6 +312,9 @@ posted_at: <iso8601>
   2. **priority/urgency selection** — the **foreman** auto-promotes the top
      `deferred` plan job (highest priority, FIFO within a priority) when the board
      is idle, preferring it over generating a brand-new step.
+  3. **maintainer answer** — an `awaiting-maintainer` job refuses promotion
+     unless the caller passes `--maintainer` after the answer lands at `asked_at:`.
+     The foreman and all other automatic callers omit this flag.
 
 ## Output
 

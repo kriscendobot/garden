@@ -245,9 +245,11 @@ render_board() {
   fi
 }
 
-# Render the PLAN queue: parked jobs that gardeners never claim. Three groups:
+# Render the PLAN queue: parked jobs that gardeners never claim. Four groups:
 #   - awaiting go-ahead: gate=go-ahead jobs needing maintainer AUTHORIZATION
 #     before any work runs (so the maintainer sees what to act on);
+#   - awaiting maintainer decision: gate=awaiting-maintainer jobs, with the exact
+#     question and a link to the issue/PR/comment where it can be answered;
 #   - deferred (top by priority): gate=deferred jobs the foreman may auto-promote
 #     when the board is idle, shown highest-priority first;
 #   - blocked (awaiting <artifact>): gate=blocked jobs parked behind a PR or
@@ -258,7 +260,7 @@ render_board() {
 # roadmap-view re-renderer above, which writes plan/README.md from the per-design
 # records.)
 render_plan_queue() {
-  local j f desc prio art goahead deferred blocked
+  local j f desc prio art question asked_at goahead awaiting deferred blocked
   goahead=""
   while IFS= read -r j; do
     [ -n "$j" ] || continue
@@ -266,6 +268,16 @@ render_plan_queue() {
     [ "$(plan_gate "$f")" = "go-ahead" ] || continue
     desc=$(job_desc "$f"); prio=$(plan_priority "$f")
     goahead+="$(printf -- '- [`%s`](%s/jobs/plan/%s) — _%s_ · %s' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "$prio" "$desc")"$'\n'
+  done < <(list_jobs "$DIR" jobs/plan)
+
+  awaiting=""
+  while IFS= read -r j; do
+    [ -n "$j" ] || continue
+    f="$DIR/jobs/plan/$j"; [ -f "$f" ] || continue
+    [ "$(plan_gate "$f")" = "awaiting-maintainer" ] || continue
+    question="$(plan_field "$f" maintainer_question)"
+    asked_at="$(plan_field "$f" asked_at)"
+    awaiting+="$(printf -- '- [`%s`](%s/jobs/plan/%s) - [%s](%s)' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "${question:-question missing}" "${asked_at:-#missing-answer-url}")"$'\n'
   done < <(list_jobs "$DIR" jobs/plan)
 
   # deferred, ranked highest-priority-first by the shared selector
@@ -289,6 +301,8 @@ render_plan_queue() {
 
   printf '### awaiting go-ahead (maintainer authorization)\n'
   if [ -n "$goahead" ]; then printf '%s' "$goahead"; else printf '(none)\n'; fi
+  printf '\n### awaiting maintainer decision (answer at the linked question)\n'
+  if [ -n "$awaiting" ]; then printf '%s' "$awaiting"; else printf '(none)\n'; fi
   printf '\n### deferred (top by priority; foreman auto-promotes when idle)\n'
   if [ -n "$deferred" ]; then printf '%s' "$deferred"; else printf '(none)\n'; fi
   printf '\n### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)\n'

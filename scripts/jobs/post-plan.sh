@@ -2,7 +2,7 @@
 # post-plan.sh — producer primitive: PARK a job in the board's plan/ category.
 #
 # A plan job is NOT yet ready to be claimed. Gardeners claim only from jobs/todo/;
-# they never see jobs/plan/. A plan job is parked for one of three reasons (its
+# they never see jobs/plan/. A plan job is parked for one of these reasons (its
 # "gate"):
 #   - go-ahead : needs the maintainer's authorization before ANY work runs. Only
 #                the maintainer (via the liaison, or the proxy within its bounds)
@@ -10,6 +10,10 @@
 #   - deferred : parked behind higher-priority items, to be SELECTED by priority/
 #                urgency. The foreman may auto-promote the top deferred plan job
 #                when the board is idle.
+#   - awaiting-maintainer : waits for the maintainer to answer a recorded question.
+#                NEVER auto-selected. `maintainer_question:` records the decision
+#                and `asked_at:` links the issue/PR/comment where it can be answered.
+#                Requires --question and --asked-at.
 #   - blocked  : parked behind an ARTIFACT (a pull request or another job) named in
 #                its `blocked_on:` field. NEVER auto-selected (not by the foreman,
 #                not by priority); promoted ONLY by the unblock watcher
@@ -29,16 +33,21 @@
 # It becomes work only when promote-plan.sh moves plan/<base> → todo/<base>.
 #
 # Usage:
-#   post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated|--budget-hold]
+#   post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--blocked|--orchestrated|--budget-hold]
+#                [--question TEXT] [--asked-at URL]
 #                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
 #                [--budget-resets-at ISO]
 #                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 #
-#   --go-ahead / --deferred / --blocked / --orchestrated / --budget-hold
+#   --go-ahead / --deferred / --awaiting-maintainer / --blocked / --orchestrated / --budget-hold
 #                            the gate reason. Default: --deferred (the common
 #                            producer action is to park; the others are explicit).
 #   --blocked-on ARTIFACT    the blocker for a --blocked job: a PR URL or a job
 #                            basename. Required with --blocked; illegal otherwise.
+#   --question TEXT          the pending decision; required with
+#                            --awaiting-maintainer and illegal otherwise.
+#   --asked-at URL           issue/PR/comment URL where the question was asked;
+#                            required with --awaiting-maintainer and illegal otherwise.
 #   --orchestrated-by ORCH   the owning orchestration base for an --orchestrated
 #                            child. Required with --orchestrated; illegal otherwise.
 #   --budget-hold            a go-ahead plan held specifically for quota refresh;
@@ -103,12 +112,18 @@ usage() {
 post-plan.sh — park a job in the board's plan/ category (not yet claimable).
 
 Usage:
-  post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated|--budget-hold]
+  post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--blocked|--orchestrated|--budget-hold]
+               [--question TEXT] [--asked-at URL]
                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
                [--budget-resets-at ISO]
                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 
-  --go-ahead / --deferred / --blocked / --orchestrated  the gate reason (default --deferred).
+  --go-ahead / --deferred / --awaiting-maintainer / --blocked / --orchestrated
+                           the gate reason (default --deferred).
+  --question TEXT          pending maintainer decision; required with
+                           --awaiting-maintainer.
+  --asked-at URL           issue/PR/comment URL where the decision was requested;
+                           required with --awaiting-maintainer.
   --budget-hold            park under go-ahead for automatic quota-window refresh.
   --budget-resets-at ISO   optional parseable reset timestamp for --budget-hold.
   --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
@@ -132,6 +147,8 @@ priority="normal"
 roadmap=""
 blocked_on=""
 orchestrated_by=""
+maintainer_question=""
+asked_at=""
 budget_hold=false
 budget_resets_at=""
 role=""
@@ -141,11 +158,14 @@ while [ $# -gt 0 ]; do
     -h|--help)    usage; exit 0;;
     --go-ahead)   gate="go-ahead"; shift;;
     --deferred)   gate="deferred"; shift;;
+    --awaiting-maintainer) gate="awaiting-maintainer"; shift;;
     --blocked)    gate="blocked"; shift;;
     --orchestrated) gate="orchestrated"; shift;;
     --budget-hold)  gate="go-ahead"; budget_hold=true; shift;;
     --budget-resets-at) budget_resets_at="${2:?--budget-resets-at needs an ISO timestamp}"; shift 2;;
     --blocked-on) blocked_on="${2:?--blocked-on needs a value}"; shift 2;;
+    --question) maintainer_question="${2:?--question needs a value}"; shift 2;;
+    --asked-at) asked_at="${2:?--asked-at needs a URL}"; shift 2;;
     --orchestrated-by) orchestrated_by="${2:?--orchestrated-by needs a value}"; shift 2;;
     --priority)   priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)    roadmap="${2:?--roadmap needs a value}"; shift 2;;
@@ -164,7 +184,18 @@ case "$base" in
   -*)        die "illegal basename: '$base' (names must not start with '-')";;
   */*|.*|'') die "illegal basename: '$base'";;
 esac
-case "$gate" in go-ahead|deferred|blocked|orchestrated) :;; *) die "illegal gate: '$gate'";; esac
+case "$gate" in go-ahead|deferred|awaiting-maintainer|blocked|orchestrated) :;; *) die "illegal gate: '$gate'";; esac
+# A maintainer-decision hold must say what can clear it and where the maintainer
+# can answer. Keeping those as structured fields makes the bulletin actionable.
+if [ "$gate" = "awaiting-maintainer" ]; then
+  [ -n "$maintainer_question" ] || die "--awaiting-maintainer requires --question TEXT"
+  [ -n "$asked_at" ] || die "--awaiting-maintainer requires --asked-at URL"
+  case "$maintainer_question" in *$'\n'*|*$'\r'*) die "--question must be one line";; esac
+  case "$asked_at" in https://*) :;; *) die "--asked-at must be an https:// issue/PR/comment URL";; esac
+else
+  [ -z "$maintainer_question" ] || die "--question is only valid with --awaiting-maintainer"
+  [ -z "$asked_at" ] || die "--asked-at is only valid with --awaiting-maintainer"
+fi
 # A blocked job is meaningless without its blocker; a blocker is meaningless on a
 # non-blocked gate. Enforce both so the unblock watcher never sees a malformed edge.
 if [ "$gate" = "blocked" ] && [ -z "$blocked_on" ]; then
@@ -257,6 +288,8 @@ rm -f "$CLEARED_TMP"; trap - EXIT
 compose() {
   printf -- '---\n'
   printf 'gate: %s\n' "$gate"
+  [ -n "$maintainer_question" ] && printf 'maintainer_question: %s\n' "$maintainer_question"
+  [ -n "$asked_at" ] && printf 'asked_at: %s\n' "$asked_at"
   if $budget_hold; then
     printf 'budget_hold: true\n'
     printf 'park_reason: over-token-budget\n'

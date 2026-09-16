@@ -1092,18 +1092,25 @@ qextract() { awk -v fn="$1" 'index($0, fn"() {")==1{f=1} f{print} f && /^}/{exit
   echo 'JOBS_PLAN="jobs/plan"'
 } > "$QF/funcs.sh"
 bash -n "$QF/funcs.sh" && ok "extracted plan-queue functions parse" || bad "plan-queue functions do not parse"
-# Fixture: one go-ahead job (needs maintainer authorization) and two deferred jobs
-# at different priorities (high should rank above low).
+# Fixture: one go-ahead job, one answerable maintainer-decision job, and two
+# deferred jobs at different priorities (high should rank above low).
 printf -- '---\ngate: go-ahead\npriority: high\n---\n# authorize the ocap import\n' > "$QF/journal/jobs/plan/needs-authz.md"
+printf -- '---\ngate: awaiting-maintainer\nmaintainer_question: Which daemon should be public?\nasked_at: https://github.com/example/project/issues/7\npriority: normal\n---\n# wait for the daemon choice\n' > "$QF/journal/jobs/plan/needs-answer.md"
 printf -- '---\ngate: deferred\npriority: high\n---\n# refactor the widget\n'        > "$QF/journal/jobs/plan/defer-high.md"
 printf -- '---\ngate: deferred\npriority: low\n---\n# tidy the docs\n'               > "$QF/journal/jobs/plan/defer-low.md"
 PQ_OUT="$(DIR="$QF/journal" bash -c 'source "'"$QF"'/funcs.sh"; render_plan_queue')"
 # go-ahead group lists the authz job with its description; deferred jobs do NOT appear there
-goahead_block="$(awk '/^### awaiting go-ahead/{f=1;next} /^### deferred/{f=0} f' <<<"$PQ_OUT")"
+goahead_block="$(awk '/^### awaiting go-ahead/{f=1;next} /^### awaiting maintainer/{f=0} f' <<<"$PQ_OUT")"
+answer_block="$(awk '/^### awaiting maintainer/{f=1;next} /^### deferred/{f=0} f' <<<"$PQ_OUT")"
 defer_block="$(awk '/^### deferred/{f=1} f' <<<"$PQ_OUT")"
 { grep -qF 'needs-authz' <<<"$goahead_block" && grep -qF 'authorize the ocap import' <<<"$goahead_block" \
   && ! grep -qF 'defer-high' <<<"$goahead_block"; } \
   && ok "go-ahead group lists gate=go-ahead jobs with description (deferred excluded)" || bad "go-ahead group wrong ($goahead_block)"
+{ grep -qF 'needs-answer' <<<"$answer_block" \
+  && grep -qF 'Which daemon should be public?' <<<"$answer_block" \
+  && grep -qF 'https://github.com/example/project/issues/7' <<<"$answer_block" \
+  && ! grep -qF 'needs-authz' <<<"$answer_block"; } \
+  && ok "awaiting-maintainer group renders its answerable question and URL" || bad "awaiting-maintainer group wrong ($answer_block)"
 # deferred group lists both deferred jobs, high before low, with descriptions; not the go-ahead one
 { grep -qF 'defer-high' <<<"$defer_block" && grep -qF 'refactor the widget' <<<"$defer_block" \
   && grep -qF 'defer-low' <<<"$defer_block" && ! grep -qF 'needs-authz' <<<"$defer_block"; } \
@@ -1113,11 +1120,11 @@ hi_ln="$(grep -n 'defer-high' <<<"$defer_block" | head -1 | cut -d: -f1)"
 lo_ln="$(grep -n 'defer-low'  <<<"$defer_block" | head -1 | cut -d: -f1)"
 { [ -n "$hi_ln" ] && [ -n "$lo_ln" ] && [ "$hi_ln" -lt "$lo_ln" ]; } \
   && ok "deferred group sorted by priority (high before low)" || bad "deferred not priority-sorted (hi=$hi_ln lo=$lo_ln)"
-# empty jobs/plan/ → all three groups render "(none)", never an empty section
+# empty jobs/plan/ -> all four groups render "(none)", never an empty section
 rm -f "$QF"/journal/jobs/plan/*.md
 PQ_EMPTY="$(DIR="$QF/journal" bash -c 'source "'"$QF"'/funcs.sh"; render_plan_queue')"
-{ [ "$(grep -c '^(none)$' <<<"$PQ_EMPTY")" -eq 3 ]; } \
-  && ok "empty jobs/plan/ → all three groups render (none)" || bad "empty plan queue not (none) ($PQ_EMPTY)"
+{ [ "$(grep -c '^(none)$' <<<"$PQ_EMPTY")" -eq 4 ]; } \
+  && ok "empty jobs/plan/ -> all four groups render (none)" || bad "empty plan queue not (none) ($PQ_EMPTY)"
 rm -rf "$QF"
 
 # ============================================================================

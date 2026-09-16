@@ -11,7 +11,8 @@
 #
 # Usage:
 #   annotate-plan.sh [--note TEXT] [--key KEY] [--priority LEVEL] [--roadmap ITEM]
-#                    [--role ROLE] [--by ROLE] [--if-parked] <basename> [body-file]
+#                    [--role ROLE] [--awaiting-maintainer --question TEXT
+#                    --asked-at URL] [--by ROLE] [--if-parked] <basename> [body-file]
 #
 #   --note TEXT       the annotation text, inline. Mutually exclusive with
 #                     [body-file]; with neither, the note is read from stdin
@@ -27,6 +28,12 @@
 #   --priority LEVEL  update the `priority:` field (urgent|high|normal|low).
 #   --roadmap ITEM    update the `roadmap:` field.
 #   --role ROLE       update the `role:` field (the role a gardener wears).
+#   --awaiting-maintainer
+#                     atomically re-gate a parked job as awaiting a maintainer
+#                     decision. Requires --question and --asked-at, and removes
+#                     a synthetic blocked_on edge if present.
+#   --question TEXT    the one-line pending decision.
+#   --asked-at URL     issue/PR/comment URL where the decision was requested.
 #   --by ROLE         provenance stamped on the annotation (default:
 #                     $GARDEN_SENDER or "producer").
 #   --if-parked       if <basename> has already LEFT plan/ (promoted, claimed, or
@@ -52,12 +59,10 @@
 # sanitize, using the same helpers — a marker-format change, or a sixth marker,
 # lands in one place and cannot half-apply.
 #
-# Deliberately NOT settable here: `gate:`, `blocked_on:`, `orchestrated_by:`.
-# Those carry the board's promotion invariants (who may promote this job, and
-# when), and re-gating a parked job is a different act with its own primitives —
-# promote-plan.sh to release a gate, block-job.sh to establish a blocked edge,
-# post-orchestration.sh to own a child. An annotation only ever adds information
-# and re-tunes the deferred-selection keys.
+# Gate fields are not generally settable here. The sole transition is the narrow
+# `--awaiting-maintainer` repair: it atomically records the question and answer URL
+# while changing the gate, so a formerly deferred job cannot race the foreman
+# between two edits. Orchestrated and budget-hold jobs cannot take this transition.
 #
 # Exit codes: 0 annotated (or a deduped/skipped no-op), 1 usage/illegal input,
 # 3 the job is not parked in plan/ (without --if-parked).
@@ -85,7 +90,8 @@ retune its selection metadata).
 
 Usage:
   annotate-plan.sh [--note TEXT] [--key KEY] [--priority LEVEL] [--roadmap ITEM]
-                   [--role ROLE] [--by ROLE] [--if-parked] <basename> [body-file]
+                   [--role ROLE] [--awaiting-maintainer --question TEXT
+                   --asked-at URL] [--by ROLE] [--if-parked] <basename> [body-file]
 
   --note TEXT       annotation text inline (else [body-file], else stdin).
   --key KEY         dedup identity; a key already present is a no-op success.
@@ -93,13 +99,17 @@ Usage:
   --priority LEVEL  update priority: urgent|high|normal|low.
   --roadmap ITEM    update roadmap:.
   --role ROLE       update role:.
+  --awaiting-maintainer
+                    atomically re-gate as awaiting a maintainer decision.
+  --question TEXT   one-line pending decision (required by that transition).
+  --asked-at URL    issue/PR/comment URL (required by that transition).
   --by ROLE         provenance (default: $GARDEN_SENDER or "producer").
   --if-parked       exit 0 quietly if <basename> already left plan/.
   <basename>        the parked job's spine; must not start with '-'.
   [body-file]       a file holding the annotation text.
 
-Gate fields (gate:/blocked_on:/orchestrated_by:) are NOT settable here; use
-promote-plan.sh / block-job.sh / post-orchestration.sh.
+Other gate transitions remain unavailable here; use promote-plan.sh /
+block-job.sh / post-orchestration.sh.
 EOF
 }
 
@@ -109,6 +119,9 @@ key=""
 priority=""
 roadmap=""
 role=""
+awaiting_maintainer=0
+maintainer_question=""
+asked_at=""
 by="${GARDEN_SENDER:-producer}"
 if_parked=0
 while [ $# -gt 0 ]; do
@@ -119,6 +132,9 @@ while [ $# -gt 0 ]; do
     --priority)  priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)   roadmap="${2:?--roadmap needs a value}"; shift 2;;
     --role)      role="${2:?--role needs a value}"; shift 2;;
+    --awaiting-maintainer) awaiting_maintainer=1; shift;;
+    --question) maintainer_question="${2:?--question needs a value}"; shift 2;;
+    --asked-at) asked_at="${2:?--asked-at needs a URL}"; shift 2;;
     --by)        by="${2:?--by needs a value}"; shift 2;;
     --if-parked) if_parked=1; shift;;
     --)          shift; break;;
@@ -146,6 +162,15 @@ if [ -n "$priority" ]; then
     urgent|high|normal|low) :;;
     *) die "illegal --priority '$priority' (urgent|high|normal|low)";;
   esac
+fi
+if [ "$awaiting_maintainer" = 1 ]; then
+  [ -n "$maintainer_question" ] || die "--awaiting-maintainer requires --question TEXT"
+  [ -n "$asked_at" ] || die "--awaiting-maintainer requires --asked-at URL"
+  case "$maintainer_question" in *$'\n'*|*$'\r'*) die "--question must be one line";; esac
+  case "$asked_at" in https://*) :;; *) die "--asked-at must be an https:// issue/PR/comment URL";; esac
+else
+  [ -z "$maintainer_question" ] || die "--question requires --awaiting-maintainer"
+  [ -z "$asked_at" ] || die "--asked-at requires --awaiting-maintainer"
 fi
 
 # Body source guard, mirroring post-plan.sh: a non-empty body arg that is not a
@@ -193,6 +218,11 @@ fields=""
 if [ -n "$priority" ]; then fields+="priority=$priority"$'\n'; fi
 if [ -n "$roadmap" ];  then fields+="roadmap=$roadmap"$'\n';   fi
 if [ -n "$role" ];     then fields+="role=$role"$'\n';         fi
+if [ "$awaiting_maintainer" = 1 ]; then
+  fields+="gate=awaiting-maintainer"$'\n'
+  fields+="maintainer_question=$maintainer_question"$'\n'
+  fields+="asked_at=$asked_at"$'\n'
+fi
 
 if [ -z "$note" ] && [ -z "$fields" ]; then
   if [ "$note_cleared" != "none" ]; then
@@ -201,8 +231,13 @@ if [ -z "$note" ] && [ -z "$fields" ]; then
   die "nothing to annotate: give a note (--note TEXT, a body-file, or stdin) and/or a --priority/--roadmap/--role change"
 fi
 
-# A one-line summary of the metadata change, for the marker and the commit message.
-fields_summary="$(printf '%s' "$fields" | tr '\n' ' ' | sed 's/ *$//')"
+# A one-line summary of the metadata change, for the marker and commit message.
+# The free-form question and URL stay in frontmatter, not an HTML comment or git
+# subject where punctuation could break the envelope; the gate token is enough
+# provenance for the atomic transition.
+fields_summary="$(printf '%s' "$fields" \
+  | sed '/^maintainer_question=/d; /^asked_at=/d' \
+  | tr '\n' ' ' | sed 's/ *$//')"
 
 # The provenance token for a sanitized note — empty (so an ordinary annotation's
 # marker is byte-for-byte what it always was) unless the strip cleared something.
@@ -226,7 +261,7 @@ ensure_clone "$DIR"
 # untouched, so an annotation can never silently drop a job's execution keys the
 # way a blind frontmatter rewrite would.
 apply_fields() {  # apply_fields <src-file>  -> stdout
-  awk -v kv="$fields" '
+  awk -v kv="$fields" -v delete_blocked="$awaiting_maintainer" '
     BEGIN {
       n = split(kv, pairs, "\n")
       for (i = 1; i <= n; i++) {
@@ -246,6 +281,7 @@ apply_fields() {  # apply_fields <src-file>  -> stdout
       p = index($0, ":")
       if (p > 0) {
         k = substr($0, 1, p - 1)
+        if (delete_blocked == 1 && k == "blocked_on") next
         if (k in val) { printf "%s: %s\n", k, val[k]; seen[k] = 1; next }
       }
       print; next
@@ -277,6 +313,18 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       exit 0
     fi
     die_rc 3 "no plan job '$base' to annotate (not in plan/, todo/, doin/, or tada/)"
+  fi
+
+  if [ "$awaiting_maintainer" = 1 ]; then
+    current_gate="$(plan_gate "$src")"
+    if [ "$current_gate" = orchestrated ]; then
+      clone_unlock "$DIR"
+      die "cannot re-gate orchestrated job '$base'; its orchestration owns promotion"
+    fi
+    if [ "$(plan_field "$src" budget_hold)" = true ]; then
+      clone_unlock "$DIR"
+      die "cannot re-gate budget-hold job '$base'; budget-refresh owns promotion"
+    fi
   fi
 
   # Dedup: this exact annotation identity already landed (a re-run, a requeue, or

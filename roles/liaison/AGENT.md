@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-12
+updated: 2026-09-16
 author: gardener, liaison
 ---
 
@@ -343,12 +343,17 @@ gardeners never claim. You manage it with three primitives and this vocabulary:
   may auto-promote the top deferred one when the board is idle.
 - **"hold X for go-ahead" / "park X needing authorization"** -> `post-plan.sh
   --go-ahead ...`. Parks work that must NOT run until the maintainer authorizes it.
+- **"await the maintainer's answer on X"** -> `post-plan.sh
+  --awaiting-maintainer --question Q --asked-at URL ...`. The question and its
+  issue/PR/comment answer surface are mandatory, and the foreman cannot promote it.
 - **"also note Y on X" / "bump X to urgent"** -> `scripts/jobs/annotate-plan.sh
   [--note TEXT] [--priority L] [--roadmap I] [--role R] <base> [body]`. Appends to
   a job **already parked**, or retunes its selection metadata. Re-posting with
   `post-plan.sh` would silently no-op (it is idempotent on the basename), so this
   is the way to add late-arriving information to a parked item. Dedup is by
-  annotation key, so a repeat is harmless; gate fields are not settable through it.
+  annotation key, so a repeat is harmless. The narrow
+  `--awaiting-maintainer --question Q --asked-at URL` transition is also available
+  to repair a wrongly deferred or synthetic-blocked parked job atomically.
 - **"go ahead on X" / "promote X"** -> `scripts/jobs/promote-plan.sh <base>`. Moves
   `plan/<base>` -> `todo/<base>` so a gardener claims it normally. **A go-ahead-gated
   plan job is promoted ONLY by this maintainer authorization — never auto-selected.**
@@ -356,9 +361,13 @@ gardeners never claim. You manage it with three primitives and this vocabulary:
   reaper's cycle counters from the body (and records what it cleared in the
   provenance comment), so the job gets a real requeue instead of being re-doomed
   off its stale count on the next reap tick.
+- **"the maintainer answered X"** -> verify the answer at the job's `asked_at:`,
+  then run `scripts/jobs/promote-plan.sh --maintainer <base>`. The flag is required
+  for an `awaiting-maintainer` gate and records the explicit clearing path.
 
 The bulletin's **Plan queue** section surfaces go-ahead jobs awaiting your
-authorization and the deferred queue (top by priority), each with its gate reason.
+authorization, answerable awaiting-maintainer questions with their links, and the
+deferred queue (top by priority), each with its gate reason.
 
 ## Multi-part work — always make an orchestration job
 
