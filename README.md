@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-16T16:56:02Z_
+_As of 2026-09-16T17:06:49Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ Cap-talk March-1998 founding era ingested; four time slices staged. Computron be
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix when computing coverage (waiting 32m)
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 1d)
+- [endojs/endo#3053](https://github.com/endojs/endo/pull/3053) — fix(patterns): Account for the compactOrdered "~" prefix in covering-range bounds (waiting 3m)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 10m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 4d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
