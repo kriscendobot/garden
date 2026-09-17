@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:20:11Z_
+_As of 2026-09-17T03:21:05Z_
 
 ## Latest
 
@@ -2865,6 +2865,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
 
+- `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
+
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T03:20:34Z).
+> The SAME condition (`budget-level-monk-preflight`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
+>
+> budget-level: fleet monk allocation frozen: anthropic:oros-studio-garden-ce242c49 missing/invalid monk physical cap. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
+
 - `msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8` — from gardener:minion-town-guest-peer-fetch-verify, reply_to `minion-town-guest-peer-fetch-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md)
 
 > minion.town guest peer-fetch ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)): STILL BLOCKED on your decision — no work done, job re-gated.
@@ -4155,8 +4163,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.8M | $532.61 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.8M _(+443.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 71.8M | $532.98 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 18.8M _(+443.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
