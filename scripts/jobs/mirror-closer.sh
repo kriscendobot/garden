@@ -66,9 +66,13 @@
 # primary hourly quota is account-wide and cannot recover until it resets, so
 # once ONE mapping's call is refused, every remaining call this tick — and every
 # five-minute timer tick in the same quota window — is equally doomed. The first
-# refusal stops the loop and persists a host-local one-hour cooldown. Subsequent
-# ticks exit before cloning the journal or calling GitHub; the first tick after
-# expiry retries every unresolved mapping. The one-hour window is conservative:
+# refusal stops the loop and persists a host-local one-hour cooldown, AND arms the
+# shared host-wide gh-api latch (common.sh start_api_cooldown) so every OTHER
+# gh-api watcher on the host is protected too; symmetrically, this watcher checks
+# that shared latch (api_cooldown_active) before its per-mapping loop, so a rate-
+# limit hit by any sibling skips this tick before a doomed call. Subsequent ticks
+# exit before cloning the journal or calling GitHub; the first tick after expiry
+# retries every unresolved mapping. The one-hour window is conservative:
 # a primary bucket cannot remain exhausted longer than one hour from the refusal,
 # and the failing GraphQL response does not reliably expose the reset header.
 # Every unresolved mapping remains unstamped throughout. A quota-only tick exits
@@ -138,6 +142,13 @@ start_mirror_quota_cooldown() {
   printf '%s\nprimary-quota\n' "$expiry" > "$tmp"
   mv -f "$tmp" "$MIRROR_QUOTA_MARKER"
   MIRROR_QUOTA_EXPIRY="$expiry"
+  # Also arm the shared host-wide gh-api latch (common.sh) so a primary-quota hit
+  # HERE immediately protects every other gh-api watcher (ci-, comment-, …) this
+  # window instead of each one re-discovering exhaustion through its own doomed
+  # call. The mirror marker keeps its own longer (hourly) window for this service;
+  # the shared latch is the shorter cross-watcher herd guard. An observer never
+  # extends a live shared window, so this only ever records or no-ops.
+  start_api_cooldown "mirror-closer:primary-quota" || true
 }
 
 MIRROR_QUOTA_EXPIRY=0
@@ -146,6 +157,15 @@ if mirror_quota_cooldown_active; then
   log "GitHub primary-quota cooldown active; skipping tick for ${remaining}s more (unresolved mappings preserved)"
   exit 0
 fi
+
+# Shared host-wide gh-api cooldown (common.sh): if ANY other watcher on this host
+# already hit a rate-limit/transient blip this window, every gh call here is
+# equally doomed — skip the whole tick (journal clone + all mappings) before
+# spending a doomed call, exactly as ci-watcher.sh does. This is the read half of
+# the coordination that start_mirror_quota_cooldown's start_api_cooldown writes:
+# a rate-limit hit anywhere now protects mirror-closer without it re-discovering
+# exhaustion through its own wasted call. Every unresolved mapping is preserved.
+api_cooldown_active && { log "shared gh-api cooldown active; skipping tick (unresolved mappings preserved)"; exit 0; }
 
 DIR="${GARDEN_MIRROR_CLONE:-$MIRROR_STATE_DIR/journal}"
 ensure_clone "$DIR"
