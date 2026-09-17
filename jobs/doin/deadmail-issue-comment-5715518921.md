@@ -51,11 +51,11 @@ Comment: https://github.com/kriscendobot/garden/issues/97#issuecomment-571551892
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T14:13:08Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
