@@ -70,3 +70,13 @@ subset of seats respond.
 
 Same going-forward-only scope as the sibling job: no retroactive editing of
 already-posted comments.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T19:56:22Z
