@@ -19,3 +19,13 @@ Monitor both to terminal completion, invoking `scripts/jobs/gauntlet.sh` and `sc
 The canonical replacement publish must use the real guest MCP identity, never disposable `minion-mcp-test-cc`. If that credential is absent, preserve the child report's explicit handoff to the liaison/maintainer; do not improvise or publish the public artifact under the disposable identity. Report that credential gap plainly, including the named durable handoff that owns it. Confirm children 3 and 4 complete only after child 2's outcome permits them.
 
 Deliver a concise terminal report with the PR state, child 2 live evidence, canonical clip URL/hash and old-hash disposition if published, primer URL, and issue URL. If either driver halts, report the precise terminal reason and surface it to the maintainer rather than claiming success.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T03:27:41Z
