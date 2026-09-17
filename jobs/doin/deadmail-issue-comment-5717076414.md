@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-571707641
 @kriscendobot further to that rule: I think you had already used a fully-qualified URL to refer to those issues in that comment and just wanted to hark back to them without necessarily making full hyperlinks. To do that, you could use a space to prevent github from turning the no
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T15:45:26Z
