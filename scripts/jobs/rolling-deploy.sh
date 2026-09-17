@@ -75,9 +75,23 @@ sync_clone "$DIR"
 # --- CAS write of one journal file (release token, leader-sha) ---------------
 journal_put() {  # journal_put <relpath> <content> <commitmsg>
   local rel="$1" content="$2" msg="$3"
-  local PDIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}" attempt rc
+  local PDIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}" attempt rc put_start
   ensure_clone "$PDIR"
+  # Overall wall-clock deadline (same shape as post-job.sh, commit 5db2500cee).
+  # Attempt COUNT (25) alone does not bound elapsed time: each sync_clone can burn
+  # ~GARDEN_FETCH_TIMEOUT+GARDEN_FETCH_KILL_AFTER seconds under DEGRADED (not cleanly
+  # offline) connectivity, so 25 attempts plus growing backoff can exceed the unit's
+  # TimeoutStartSec (900s) and end in a blunt SIGTERM/kill mid-deploy instead of a
+  # clean skip. Bail EX_TEMPFAIL once the bound is exceeded — self-heal-run.sh
+  # normalizes GARDEN_OFFLINE_RC to a clean exit 0, so a degraded episode fails fast
+  # and clean and the next idempotent tick resumes the roll. A design-intended push
+  # race is sub-second, so the deadline never trims a healthy loop.
+  put_start=$SECONDS
   for attempt in $(seq 1 25); do
+    if [ $((SECONDS - put_start)) -ge "${GARDEN_POST_DEADLINE_SECS:-300}" ]; then
+      log "journal_put of '$rel' exceeded ${GARDEN_POST_DEADLINE_SECS:-300}s wall-clock deadline under degraded connectivity (attempt $attempt); skipping tick (rc=$GARDEN_OFFLINE_RC)"
+      exit "$GARDEN_OFFLINE_RC"
+    fi
     sync_clone "$PDIR"
     mkdir -p "$(dirname "$PDIR/$rel")" 2>/dev/null || true
     printf '%s\n' "$content" > "$PDIR/$rel"
@@ -90,9 +104,17 @@ journal_put() {  # journal_put <relpath> <content> <commitmsg>
 }
 journal_rm() {  # journal_rm <relpath> <commitmsg>  (best-effort)
   local rel="$1" msg="$2"
-  local PDIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}" attempt rc
+  local PDIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}" attempt rc rm_start
   ensure_clone "$PDIR"
+  # Same overall wall-clock deadline as journal_put (see its note): attempt COUNT
+  # alone does not bound elapsed time under degraded connectivity, so bail
+  # EX_TEMPFAIL once the bound is exceeded rather than grinding into a unit kill.
+  rm_start=$SECONDS
   for attempt in $(seq 1 25); do
+    if [ $((SECONDS - rm_start)) -ge "${GARDEN_POST_DEADLINE_SECS:-300}" ]; then
+      log "journal_rm of '$rel' exceeded ${GARDEN_POST_DEADLINE_SECS:-300}s wall-clock deadline under degraded connectivity (attempt $attempt); skipping tick (rc=$GARDEN_OFFLINE_RC)"
+      exit "$GARDEN_OFFLINE_RC"
+    fi
     sync_clone "$PDIR"
     [ -e "$PDIR/$rel" ] || return 0
     git -C "$PDIR" rm -q "$rel" 2>/dev/null || return 0

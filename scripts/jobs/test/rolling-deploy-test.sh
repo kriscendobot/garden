@@ -440,6 +440,41 @@ if ! grep -q "deploy-invoked host=$F1" "$DEPLOY_LOG" && [ "$(sed -n 's/^roll_sta
 else bad "roll-induced decline did not publish roll-drained / deployed anyway (status: $(sed -n 's/^roll_status:[[:space:]]*//p' <<<"$(from_bare "fleet/health/$F1")" | tail -1))"; fi
 
 # ============================================================================
+hr; echo "WALL-CLOCK DEADLINE — journal_put/journal_rm bail EX_TEMPFAIL past the bound"; hr
+# The conductor's journal_put/journal_rm push-CAS loops were bounded only by attempt
+# COUNT (25), not elapsed wall-clock — so under DEGRADED (not cleanly offline)
+# connectivity 25 sync_clones of up to ~GARDEN_FETCH_TIMEOUT+GARDEN_FETCH_KILL_AFTER
+# seconds plus growing backoff can blow through the unit's TimeoutStartSec (900s) and
+# end in a blunt SIGTERM/kill mid-deploy (the 2026-09-17 incident) instead of a clean
+# self-classified skip. The fix mirrors post-job.sh (commit 5db2500cee): a
+# GARDEN_POST_DEADLINE_SECS bound checked at the top of each attempt, bailing
+# EX_TEMPFAIL (GARDEN_OFFLINE_RC) which self-heal-run.sh normalizes to a clean exit.
+#
+# Drive a real release tick (the FIRST journal_put call — writing deploy/roll/<F1>)
+# with the deadline already exceeded (GARDEN_POST_DEADLINE_SECS=0): assert the tick
+# exits GARDEN_OFFLINE_RC (75), writes NO release token, and logs the deadline bail.
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for wall-clock deadline test"
+push_change "deploy/roll/$F2" "@DELETE" "clear F2 release for wall-clock deadline test"
+seed_fleet_hosts "$LEADER" "$F1" "$F2"
+mkdir -p "$TR/state-deadline/deploy"
+printf 'Upgrade ready\n\navailable: %s\n' "$TARGET" > "$TR/state-deadline/deploy/upgrade-ready"
+: > "$TR/deadline-conductor.out"
+env -i PATH="$PATH" HOME="$HOME" \
+  GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+  GARDEN="$LEADER" GARDEN_STATE="$TR/state-deadline" GARDEN_LEADER="$LEADER" \
+  GARDEN_SELF_DEPLOY_SETTLE=0 GARDEN_CANARY_PROBE_DEADLINE=600 GARDEN_CANARY_WATCH=0 \
+  GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$TR/mock-state" GARDEN_MOCK_LOG="$TR/mock-log" \
+  GARDEN_UPGRADE_READY_MARKER="$TR/state-deadline/deploy/upgrade-ready" \
+  GARDEN_ROLLING_DEPLOY_CMD="$TR/rec-deploy.sh" GARDEN_ROLLING_DRAIN_OP="$TR/rec-drain.sh" \
+  GARDEN_ROLLING_POST_JOB="$JOBS/post-job.sh" GARDEN_ALERT_CMD="$TR/rec-alert.sh" \
+  GARDEN_POST_DEADLINE_SECS=0 \
+  "$JOBS/rolling-deploy.sh" >>"$TR/deadline-conductor.out" 2>&1
+dl_rc=$?
+if [ "$dl_rc" -eq 75 ]; then ok "release tick past the deadline exits GARDEN_OFFLINE_RC (75), a clean self-classified skip"; else bad "deadline tick exit was $dl_rc, expected 75 (see $TR/deadline-conductor.out)"; fi
+if [ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ]; then ok "no F1 release token written when the deadline is already exceeded"; else bad "a release token was written despite the wall-clock bail"; fi
+if grep -q 'wall-clock deadline' "$TR/deadline-conductor.out"; then ok "the deadline bail logged the degraded-connectivity skip"; else bad "no wall-clock-deadline log line (see $TR/deadline-conductor.out)"; fi
+
+# ============================================================================
 hr; echo "RESULTS"; hr
 echo "  PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ] || { echo "  (test root kept: $TR)"; exit 1; }
