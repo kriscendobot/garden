@@ -1,7 +1,7 @@
 ---
 slug: incomplete-sibling-transformation
 category: correctness-bug
-status: open
+status: improvement-dispatched
 count: 4
 members:
   - endojs-endo-but-for-bots-pr475-9885f3d8
@@ -9,7 +9,9 @@ members:
   - endojs-endo-but-for-bots-pr475-review-f66ed689
   - endojs-endo-but-for-bots-pr1099-review-6694e2d7
 prs: [475, 1099]
+improvement_job: review-improve-incomplete-sibling-transformation
 ---
+
 
 
 
@@ -39,3 +41,32 @@ single-miss bypass. No review-improve-incomplete-sibling-transformation job is
 dispatched. The pattern is real and well-attested; the first matching miss on a
 SECOND PR should join this cluster and immediately trip a fresh threshold call,
 at which point dispatch is warranted.
+
+**Threshold rationale:** Dispatch decision for cluster `incomplete-sibling-transformation` at the tail of
+the PR #1099 retro.
+
+State after recording the #1099 miss: count=4, prs={475, 1099}, status=open.
+
+Floor: dispatch at K ≥ 3 misses spanning ≥ 2 distinct PRs. Now met — 4 misses
+across two genuinely distinct PRs (#475 and #1099), each a separate maintainer
+review cycle with its own head branch, not one long PR masquerading as a pattern.
+The two-PR requirement that held this cluster below the floor through all of #475
+is now satisfied by the arrival of the pattern on #1099.
+
+Pre-committed dispatch: the cluster's own recorded threshold rationale (written
+when it was held at count=3/prs={475}) stated verbatim that "the first matching
+miss on a SECOND PR should join this cluster and immediately trip a fresh
+threshold call, at which point dispatch is warranted." #1099 is exactly that
+second PR.
+
+Judgment above the floor: the members are not coincidental — all four are the
+same mechanism (a family-generalizing change converts some sibling sites and
+silently skips others, with no panel lens enumerating the family). #1099 shows it
+twice in one review (hex vs base64 encode dispatch; harden vs ses make-hardener),
+strengthening rather than diluting the signal. No fix is already in flight for the
+review-process gap itself (the #1099 code fix landed, but nothing added a durable
+sibling-enumeration lens to the gauntlet). Dispatch is warranted.
+
+Dispatching one builder job `review-improve-incomplete-sibling-transformation`
+(identity `review-cluster:incomplete-sibling-transformation`) with the two-part
+prevention+sensing contract and the per-member re-litigation test.
