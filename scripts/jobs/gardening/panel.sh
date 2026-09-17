@@ -484,7 +484,10 @@ ${wt_repo:+ of repository $wt_repo}. The checkout under review is the git worktr
 $wt; review ONLY that worktree's diff — run \`git -C $wt diff $base...HEAD\` (its HEAD is \
 the PR head, $base is the base). Do NOT resolve 'PR #$pr' against any other repository \
 (a bare \`gh pr view $pr\` from your cwd may answer a DIFFERENT repo's PR #$pr — ignore it). \
-Read your operating brief, then review that diff and return ONE per-juror block: a Verdict \
+Read your operating brief, then review that diff and return ONE per-juror block. The \
+aggregator already prints your seat name '$seat' as this block's heading, so do NOT repeat \
+it: do not open with a '### $seat' heading (or any 'now I'll produce the block' preamble); \
+start directly at the Verdict. The block is a Verdict \
 (approve / request-changes / comment-only) and Findings, each finding citing a \
 standing rule [rule: <path>] or proposing one [proposed-rule: ...]. Brief: \
 $(cat "$brief"). Diff base: $base.${related_ev}${banner_ev}${ownership_ev}" )
@@ -531,6 +534,49 @@ seat_verdict_label() {  # seat_verdict_label <block-file>
   printf '%s' "$line" \
     | grep -oiE 'request-changes|request changes|comment-only|comment only|approve' \
     | head -1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-'
+}
+
+# Strip a seat-authored leading heading that merely repeats the seat's own name,
+# plus any throwaway preamble before it. The aggregate loop below already prints the
+# seat name as the block's heading (the `<summary>`), so a seat that opens with its
+# own `### <seat>` heading — the `### <perspective name>` template artifact in
+# skills/panel-review/SKILL.md, sometimes preceded by "Now I have the block shape..."
+# meta-narration — yields a DOUBLED heading. The seat prompt now forbids this, but
+# prompt compliance is probabilistic, so strip it here too (defense in depth). NARROW
+# by construction so it never eats a legitimate finding: only the leading region
+# BEFORE the first real block marker (Verdict/Findings/Notes) is scanned, and only an
+# actual heading line — atx `#…` or a bold-only `**…**` line — whose text (normalized
+# to alphanumerics, case-insensitively) equals the seat's own name is cut, together
+# with everything before it and the blank lines after it. A real finding is never a
+# bare heading of the seat's own name. Fail-open: emits the block unchanged when no
+# such heading is found, or when the strip would empty an otherwise non-empty block.
+strip_seat_self_heading() {  # strip_seat_self_heading <seat> <block-file>
+  local seat="$1" block="$2" out
+  out="$(awk -v seat="$seat" '
+    function norm(s){ s=tolower(s); gsub(/[^a-z0-9]/,"",s); return s }
+    { lines[NR]=$0 }
+    END{
+      target=norm(seat); cut=0
+      for(i=1;i<=NR;i++){
+        line=lines[i]
+        if(line ~ /^[[:space:]]*\*\*(Verdict|Findings|Notes)/) break
+        is_heading = (line ~ /^[[:space:]]*#+[[:space:]]/) || (line ~ /^[[:space:]]*\*\*[^*]+\*\*[[:space:]]*$/)
+        if(!is_heading) continue
+        h=line
+        sub(/^[[:space:]]*#+[[:space:]]*/,"",h); gsub(/\*/,"",h)
+        sub(/[[:space:]]*:[[:space:]]*$/,"",h)
+        if(norm(h)==target){ cut=i; break }
+      }
+      start=(cut>0)?cut+1:1
+      if(cut>0) while(start<=NR && lines[start] ~ /^[[:space:]]*$/) start++
+      for(i=start;i<=NR;i++) print lines[i]
+    }
+  ' "$block")"
+  if printf '%s' "$out" | grep -q '[^[:space:]]'; then
+    printf '%s\n' "$out"
+  else
+    cat "$block"
+  fi
 }
 
 # --- DECISION HOOK: aggregate the seat verdicts into one disposition ---------
@@ -883,7 +929,10 @@ while :; do
       else
         printf '<summary><b>%s</b></summary>\n\n' "$seat"
       fi
-      cat "$block"
+      # Drop a seat-authored heading that just repeats the seat name (the `<summary>`
+      # above already carries it) before wrapping the block — defense in depth against
+      # the doubled-heading template artifact; see strip_seat_self_heading.
+      strip_seat_self_heading "$seat" "$block"
       # Per-section provenance footnote for THIS seat, in the same visual style as
       # the whole-body footer. Deterministic (a pure function of the seat's facts),
       # so the aggregate stays byte-stable regardless of seat completion order. Kept

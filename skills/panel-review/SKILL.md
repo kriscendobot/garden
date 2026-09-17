@@ -34,11 +34,9 @@ Panel-kind sensing (code vs design, by the diff's path set) is the panel script'
 
 ## Per-juror block shape
 
-Each seat returns:
+Each seat returns the block below. Do **not** re-title it: the aggregator already prints the seat's name as this block's heading, so a seat that opens with its own `### <perspective name>` heading (or narrates "now I'll produce the block" before it) produces a doubled heading — pure waste. Start directly at the Verdict.
 
 ```
-### <perspective name>
-
 **Verdict:** approve / request-changes / comment-only
 
 **Findings:**
