@@ -89,6 +89,7 @@ this PR).
 <!-- garden-plain-retry-not-before: 2026-09-17T20:23:09Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=4,5 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
