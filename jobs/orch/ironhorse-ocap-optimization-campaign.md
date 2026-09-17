@@ -1,4 +1,5 @@
 ---
+child-ironhorse-ocap-frozen-objects-reap-count: 0
 child-ironhorse-ocap-closure-templates-host: endolin-garden2-5bcdff64
 child-ironhorse-ocap-closure-templates-reap-count: 0
 child-ironhorse-ocap-benchmark-corpus-host: endolin-garden2-5bcdff64
