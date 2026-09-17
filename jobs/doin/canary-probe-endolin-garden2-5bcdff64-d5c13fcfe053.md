@@ -9,3 +9,13 @@ dispatch: automatic
 # rolling-deploy canary probe for endolin-garden2-5bcdff64 @ d5c13fcfe053
 
 Synthetic no-op round-trip probe: claim -> complete -> tada on the freshly deployed code.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T11:17:22Z
