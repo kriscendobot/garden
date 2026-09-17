@@ -84,11 +84,11 @@ whether the receipt mechanism itself needed a workaround/extension — flag
 that as a separate follow-up if it's more than a one-off judgment call for
 this PR).
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T20:23:09Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=4,5 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
