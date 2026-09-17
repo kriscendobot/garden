@@ -1,2 +1,2 @@
-base: improve-approval-reconciler-post-confirmation
+base: improve-approval-reconciler-bounds
 identity: mentor:scripts/jobs/approval-reconciler.sh
