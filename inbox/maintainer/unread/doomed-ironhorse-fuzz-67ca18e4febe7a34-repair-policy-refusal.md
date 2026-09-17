@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-09-17T00:44:08Z
+sent_at: 2026-09-17T01:33:35Z
 doom_base: ironhorse-fuzz-67ca18e4febe7a34-repair
 doom_signature: policy-refusal
-notice_count: 1
+notice_count: 2
 first_seen: 2026-09-17T00:44:08Z
-last_seen: 2026-09-17T00:44:08Z
+last_seen: 2026-09-17T01:33:35Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-09-17T00:44:08Z, latest 2026-09-17T01:33:35Z).
+This job has been doom-parked 2 times for the same condition (policy-refusal);
+this is an AMENDED notice, not a new one. Latest detail:
+
 Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
 The provider's safety/usage policy BLOCKED the request (e.g. a content flagged as a
 possible cybersecurity risk). This is DETERMINISTIC: re-running the SAME prompt hits the
@@ -24,14 +28,7 @@ role: builder
 tier: mentor
 token-budget: 250000
 ---
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:42:41Z cleared=none -->
-
----
-role: builder
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-17T01:18:31Z cleared=none -->
 
 # Repair Ironhorse engine defect 67ca18e4febe7a34 (target `differential_source`) and amend the standing PR
 
