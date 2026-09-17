@@ -2,8 +2,9 @@
 kind: issue-follow-up
 issue_spine: issue-kriscendobot-garden-97
 issue_url: https://github.com/kriscendobot/garden/issues/97
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Issue follow-up — fold a late comment into the issue work
@@ -51,13 +52,6 @@ Comment: https://github.com/kriscendobot/garden/issues/97#issuecomment-571551892
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T14:00:21Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-17T14:13:08Z -->
