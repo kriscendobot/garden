@@ -47,16 +47,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=262,152 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-17T04:14:23Z
+
+<!-- garden-reaped: 2 -->
