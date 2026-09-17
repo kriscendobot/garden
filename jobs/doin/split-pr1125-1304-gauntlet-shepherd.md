@@ -32,3 +32,13 @@ serial, not parallel):
   eslint are the local green signal.
 
 Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T21:58:12Z
