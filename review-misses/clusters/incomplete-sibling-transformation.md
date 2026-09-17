@@ -1,7 +1,7 @@
 ---
 slug: incomplete-sibling-transformation
 category: correctness-bug
-status: improvement-dispatched
+status: closed
 count: 4
 members:
   - endojs-endo-but-for-bots-pr475-9885f3d8
@@ -10,7 +10,9 @@ members:
   - endojs-endo-but-for-bots-pr1099-review-6694e2d7
 prs: [475, 1099]
 improvement_job: review-improve-incomplete-sibling-transformation
+improved_by: main2 8107ace005: skills/sibling-family-sweep (prevention), roles/builder+fixer operating norms, skills/panel-hints/probes/B-sibling-family.sh + roles/jurors/breaker Sibling-family enumeration finding (sensing), scripts/jobs/test/sibling-family-probe-test.sh
 ---
+
 
 
 
