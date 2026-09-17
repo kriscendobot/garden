@@ -1,4 +1,5 @@
 ---
+child-build-rbra-daemon-mount-git-20260916-reap-count: 0
 order: serial
 children: build-rbra-daemon-mount-git-20260916 build-rbra-clean-break-20260916 build-rbra-rename-conformance-20260916
 on-child-failure: halt
