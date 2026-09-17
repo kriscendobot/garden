@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-ocap-benchmark-corpus ironhorse-ocap-closure-templates ironhorse-ocap-frozen-objects ironhorse-ocap-campaign-audit
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-17T01:21:15Z
 ---
