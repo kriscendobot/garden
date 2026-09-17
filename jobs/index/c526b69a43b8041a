@@ -1,2 +1,2 @@
-base: improve-orchestrated-shepherd-budget
+base: improve-overrun-split-metadata-promotion
 identity: mentor:scripts/jobs/promote-plan.sh
