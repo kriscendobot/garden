@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: build-rbra-cleanbreak-20260916
-priority: normal
-posted_by: producer
-posted_at: 2026-09-17T01:52:39Z
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T02:34:51Z cleared=none -->
 
 ---
 tier: mentor
