@@ -12,6 +12,7 @@ Both elapsed-constancy early-escalation sites (the exit-0-unsatisfying branch ~l
 <!-- garden-plain-retry-not-before: 2026-09-17T16:43:07Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,7 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
