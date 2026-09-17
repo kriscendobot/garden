@@ -1,4 +1,12 @@
 ---
+gate: blocked
+blocked_on: https://github.com/kriscendobot/garden/issues/91
+priority: normal
+posted_by: proxy
+posted_at: 2026-09-17T02:04:44Z
+---
+
+---
 role: builder
 tier: mentor
 fallback-tier: minion
@@ -42,7 +50,3 @@ port defects buy repair work; known oracle/harness artifacts and duplicates end 
    never becomes repair work.
 5. Land every triage record with journal CAS discipline. Post NO repair job — the producer
    batches genuine findings into one cluster repair on a later tick.
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=194 -->
-
-<!-- garden-reaped: 1 -->
