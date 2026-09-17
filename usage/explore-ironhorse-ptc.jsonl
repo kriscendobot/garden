@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":51,"elapsed_s":935,"input_tokens":98,"output_tokens":47045,"cache_creation_tokens":154348,"cache_read_tokens":5131456,"total_cost_usd":5.285823000000001,"ts":"2026-09-17T01:26:29Z","base":"explore-ironhorse-ptc","host":"oros-studio-garden-ce242c49","outcome":"tada","role":"designer","provider":"anthropic"}
