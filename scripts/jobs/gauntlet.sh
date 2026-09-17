@@ -3,7 +3,14 @@
 # viability -> clean -> panel -> fix-loop -> un-draft chain ONE claim-sized stage at a time, so no
 # single handler ever spans the (unbounded) loop.
 #
-# Usage: gauntlet.sh   (timer-driven oneshot; one tick per invocation)
+# Usage:
+#   gauntlet.sh                                      (timer tick)
+#   gauntlet.sh --resume-from-stage <g> <stage> [--iteration N]
+#
+# The resume form turns a terminal halted report back into an active record, then
+# atomically replaces any stale artifact for the requested stage with a fresh todo
+# job. This is the supported recovery path after the reason for a halt was fixed;
+# operators never need to hand-edit the journal.
 #
 # THE PROBLEM (designs/staged-gauntlet.md): the gauntlet ran as ONE claimed job
 # whose wall-clock was the SUM of every stage, every fix-loop iteration, and every
@@ -84,6 +91,24 @@ fleet_draining && exit 0
 DIR="${GARDEN_GAUNTLET_CLONE:-$GARDEN_STATE/gauntlet/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
+
+resume_base=""
+resume_requested_stage=""
+resume_requested_iteration=""
+if [ "${1:-}" = --resume-from-stage ]; then
+  resume_base="${2:?--resume-from-stage needs a gauntlet base}"
+  resume_requested_stage="${3:?--resume-from-stage needs viability|clean|panel|fix|undraft}"
+  shift 3
+  while [ "$#" -gt 0 ]; do
+    case "$1" in
+      --iteration) resume_requested_iteration="${2:?--iteration needs a positive integer}"; shift 2;;
+      --iteration=*) resume_requested_iteration="${1#--iteration=}"; shift;;
+      *) die "unknown resume option: '$1'";;
+    esac
+  done
+elif [ "$#" -gt 0 ]; then
+  die "usage: gauntlet.sh [--resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N]]"
+fi
 
 # The CI-blocking stages (clean/fix) need a CI-sized handler budget; only the short
 # undraft stage fits the plain default. Kept under GARDEN_CLAIM_TTL so the reaper
@@ -250,14 +275,30 @@ finish_not_viable() {  # <base> <result> <viability-report>
 }
 
 halt_gauntlet() {  # <base> <reason>
-  local base="$1" reason="$2" sf
+  local base="$1" reason="$2" sf rec key
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-halt.XXXXXX")"
+  # Keep the machine-owned record metadata in the terminal report. Besides making
+  # a halt independently auditable, this is the durable source from which the
+  # supported --resume-from-stage primitive can reconstruct the active record.
+  # Older halt summaries did not retain it and therefore cannot be resumed safely
+  # without recovering facts from some other source.
+  rec="$DIR/$JOBS_GAUNTLET/$base.md"
   {
-    # `orchestration-status: halted` makes tada_failed classify this as a failure —
-    # the shared marker both deterministic serial primitives honor; `gauntlet-status`
-    # is the human-legible twin.
+    printf -- '---\n'
+    if [ -f "$rec" ]; then
+      for key in pr repo pr_number build_job kind stage iteration max_iterations \
+        resumes max_resumes stage_retries max_stage_retries created_by created_at; do
+        printf '%s: %s\n' "$key" "$(plan_field "$rec" "$key")"
+      done
+    fi
+    printf 'current_child: %s\n' "$(gauntlet_current_child "$rec")"
+    printf 'state: halted\n'
+    # `orchestration-status: halted` makes tada_failed classify this as a failure:
+    # the shared marker both deterministic serial primitives honor.
     printf 'orchestration-status: halted\n'
     printf 'gauntlet-status: halted\n'
+    printf 'halted_at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '---\n'
     printf '# gauntlet %s — HALTED\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
@@ -479,6 +520,131 @@ EOF
   esac
 }
 
+# Re-open a terminal halt as a durable resume request. The terminal report and the
+# new active record are swapped in ONE commit, so a competing tick/operation sees
+# exactly one owner for the gauntlet base. The stage job itself is installed by
+# restart_requested_stage below in a second CAS transaction; the intermediate
+# resume-pending record is restart-safe and is picked up by every later timer tick.
+activate_stage_resume() {  # <base> <stage> [iteration]
+  local base="$1" stage="${2,,}" requested_iter="${3:-}"
+  local attempt terminal_path terminal record iter key val rc existing_state existing_stage existing_iter
+  case "$base" in -*) die "illegal gauntlet base: '$base'";; */*|.*|'') die "illegal gauntlet base: '$base'";; esac
+  case "$stage" in viability|clean|panel|fix|undraft) :;; *) die "illegal resume stage: '$stage'";; esac
+  case "$requested_iter" in ''|*[!0-9]*) [ -z "$requested_iter" ] || die "illegal --iteration: '$requested_iter'";; esac
+
+  for attempt in $(seq 1 50); do
+    sync_clone "$DIR"
+    record="$DIR/$JOBS_GAUNTLET/$base.md"
+    if [ -f "$record" ]; then
+      existing_state="$(gauntlet_state "$record")"
+      existing_stage="$(gauntlet_stage "$record")"
+      existing_iter="$(gauntlet_iteration "$record")"
+      if [ "$existing_stage" = "$stage" ] \
+        && { [ -z "$requested_iter" ] || [ "$existing_iter" = "$requested_iter" ]; } \
+        && { [ "$existing_state" = resume-pending ] || [ "$existing_state" = running ]; }; then
+        log "gauntlet '$base' already resumed at $stage (iteration $existing_iter)"
+        return 0
+      fi
+      die "gauntlet '$base' already has an active record at $existing_stage (state=$existing_state); refusing a conflicting resume"
+    fi
+
+    terminal_path="$(tada_find "$DIR" "$base" || true)"
+    [ -n "$terminal_path" ] || die "gauntlet '$base' has no terminal report to resume"
+    terminal="$DIR/$terminal_path"
+    [ "$(plan_field "$terminal" gauntlet-status)" = halted ] \
+      || die "gauntlet '$base' is not halted and cannot be resumed"
+    # A safely resumable halt retains the original record facts. Refuse old lossy
+    # summaries rather than guessing a repo, PR, kind, or retry bound.
+    for key in pr repo pr_number kind max_iterations max_resumes max_stage_retries; do
+      [ -n "$(plan_field "$terminal" "$key")" ] \
+        || die "gauntlet '$base' halt predates resumable metadata (missing $key); refusing to guess"
+    done
+
+    iter="$requested_iter"
+    [ -n "$iter" ] || iter="$(gauntlet_iteration "$terminal")"
+    case "$stage" in
+      viability|clean) iter=0;;
+      panel|fix)
+        case "$iter" in ''|0|*[!0-9]*) die "resume stage '$stage' needs a positive --iteration (halt recorded '${iter:-none}')";; esac;;
+    esac
+
+    mkdir -p "$DIR/$JOBS_GAUNTLET"
+    record="$DIR/$JOBS_GAUNTLET/$base.md"
+    {
+      printf -- '---\n'
+      for key in pr repo pr_number build_job kind max_iterations max_resumes max_stage_retries created_by created_at; do
+        val="$(plan_field "$terminal" "$key")"
+        printf '%s: %s\n' "$key" "$val"
+      done
+      printf 'stage: %s\n' "$stage"
+      printf 'iteration: %s\n' "$iter"
+      printf 'resumes: 0\n'
+      printf 'stage_retries: 0\n'
+      printf 'current_child: \n'
+      printf 'state: resume-pending\n'
+      printf 'resumed_at: %s\n' "$(date -u +%FT%TZ)"
+      printf 'resumed_from_stage: %s\n' "$(gauntlet_stage "$terminal")"
+      printf -- '---\n\n'
+      printf '# gauntlet %s — resumed\n\n' "$base"
+      printf 'Resumed at %s (iteration %s) from terminal halt %s.\n' \
+        "$stage" "$iter" "$terminal_path"
+    } > "$record"
+    git -C "$DIR" add "$JOBS_GAUNTLET/$base.md"
+    git -C "$DIR" rm -q "$terminal_path"
+    rc=0
+    commit_and_push "$DIR" "gauntlet($base) resume at $stage/$iter by $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && { log "gauntlet '$base': accepted resume at $stage (iteration $iter)"; return 0; }
+    backoff "$attempt"
+  done
+  die "could not resume gauntlet '$base' after CAS retries"
+}
+
+# Fulfil a resume-pending record by replacing every stale artifact for the selected
+# child and setting record+todo together. In particular, deleting an old gated tada
+# in the SAME commit prevents the driver from accidentally consuming the result that
+# caused the original halt. A doin child is never stolen from a live gardener.
+restart_requested_stage() {  # <base> <stage> <iteration>
+  local base="$1" stage="$2" iter="$3" child body attempt record tada_path rc
+  case "$stage" in
+    viability|clean|undraft) child="$base-$stage";;
+    panel|fix) child="$base-$stage-$iter";;
+    *) log "gauntlet '$base': invalid resume-pending stage '$stage'"; return 1;;
+  esac
+  body="$(mktemp "${TMPDIR:-/tmp}/gauntlet-stage.XXXXXX")"
+  for attempt in $(seq 1 50); do
+    sync_clone "$DIR"
+    record="$DIR/$JOBS_GAUNTLET/$base.md"
+    [ -f "$record" ] || { rm -f "$body"; return 0; }
+    if [ "$(gauntlet_state "$record")" = running ] \
+      && [ "$(gauntlet_current_child "$record")" = "$child" ]; then
+      rm -f "$body"; return 0
+    fi
+    [ "$(gauntlet_state "$record")" = resume-pending ] || { rm -f "$body"; return 1; }
+    if [ -e "$DIR/$JOBS_DOIN/$child.md" ]; then
+      log "gauntlet '$base': cannot restart '$child' while a gardener still owns it in doin/"
+      rm -f "$body"; return 1
+    fi
+    compose_stage_body "$base" "$record" "$stage" "$iter" "$child" > "$body"
+    mkdir -p "$DIR/$JOBS_TODO"
+    cp "$body" "$DIR/$JOBS_TODO/$child.md"
+    git -C "$DIR" add "$JOBS_TODO/$child.md"
+    [ -e "$DIR/$JOBS_PLAN/$child.md" ] && git -C "$DIR" rm -q "$JOBS_PLAN/$child.md"
+    tada_path="$(tada_find "$DIR" "$child" || true)"
+    [ -z "$tada_path" ] || git -C "$DIR" rm -q "$tada_path"
+    sed -i \
+      -e "s/^current_child:.*/current_child: $child/" \
+      -e 's/^state:.*/state: running/' \
+      "$record"
+    git -C "$DIR" add "$JOBS_GAUNTLET/$base.md"
+    rc=0
+    commit_and_push "$DIR" "gauntlet($base) restart stage $child by $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && { log "gauntlet '$base': restarted at $stage (child $child)"; rm -f "$body"; return 0; }
+    backoff "$attempt"
+  done
+  rm -f "$body"
+  return 1
+}
+
 # --- posting a stage --------------------------------------------------------
 # Normal (first-time) post: post-job.sh is idempotent by basename, so a re-post of a
 # stage already on the board is a clean no-op.
@@ -617,6 +783,9 @@ resume_stage() {  # <base> <rec-file> <stage> <iter> <child> <resumes> <max-resu
 }
 
 # --- the tick ---------------------------------------------------------------
+[ -z "$resume_base" ] || activate_stage_resume \
+  "$resume_base" "$resume_requested_stage" "$resume_requested_iteration"
+
 advanced=0
 for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   case "$j" in *.md) ;; *) continue;; esac
@@ -640,6 +809,13 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
 
   if [ -z "$repo" ] || [ -z "$prnum" ]; then
     log "gauntlet '$base' is malformed (missing repo/pr_number); leaving untouched"
+    continue
+  fi
+
+  if [ "$state" = resume-pending ]; then
+    restart_requested_stage "$base" "$stage" "$iter" \
+      || log "gauntlet '$base': resume remains pending; retrying next tick"
+    advanced=$((advanced+1))
     continue
   fi
 

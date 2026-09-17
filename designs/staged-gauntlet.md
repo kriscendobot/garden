@@ -106,6 +106,26 @@ more of exactly this shape:
   4. `done` → read the child's `tada/` report for its **stage-result marker** and
      compute the next stage (below), post/promote it, update the record, CAS-push.
 
+### Resuming a halted stage
+
+A halt's `tada/<g>.md` report retains the active record's PR identity, kind, loop
+bounds, stage, iteration, and provenance. After correcting the halt's cause, resume
+at an explicit stage with:
+
+```
+scripts/jobs/gauntlet.sh --resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N]
+```
+
+Stage names are case-insensitive. `panel` and `fix` use the halt's recorded
+iteration unless `--iteration` selects another positive round. The primitive first
+CAS-swaps the halted report for a `resume-pending` active record. It then CAS-swaps
+any stale todo/plan/tada artifact for the selected child with a fresh todo job while
+moving the record to `running`; it refuses to steal a child already in `doin/`.
+Thus a crash or push race leaves either the terminal halt, a durable pending resume,
+or a fully owned active child—never a hand-edited half-transition. Repeating the
+same request is idempotent, while a conflicting request against an active record is
+rejected.
+
 ### The stage-result marker: how a stage tells the driver what happened
 
 Each stage report ends with a deterministic marker the driver greps (no LLM in the

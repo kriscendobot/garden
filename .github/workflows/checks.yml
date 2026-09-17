@@ -94,3 +94,4 @@ jobs:
           bash scripts/jobs/test/gh-credential-guard-test.sh
           bash scripts/jobs/test/worktree-teardown-test.sh
           bash scripts/jobs/test/assert-pinned-base-test.sh
+          bash scripts/jobs/test/gauntlet-resume-test.sh

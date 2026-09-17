@@ -7624,12 +7624,14 @@ orch_resume_from() { plan_field "$1" resume_from; }
 #   stage_retries: <n>                  # retryable deaths spent for this stage
 #   max_stage_retries: 2                # give-up bound for stage-job deaths
 #   current_child: <stage-job-base>    # the stage job currently in flight
-#   state: pending | running | done | halted
+#   state: pending | resume-pending | running | done | halted
 #   created_by: <role>
 #   created_at: <iso8601>
 #   ---
 # All read via plan_field (a leading-frontmatter scalar reader). Defaults mirror
-# post-gauntlet.sh's own defaults so a hand-edited record still parses sanely.
+# post-gauntlet.sh's own defaults so a hand-edited record still parses sanely. A
+# terminal halt retains these fields so gauntlet.sh --resume-from-stage can restore
+# it without guessing or requiring a one-off journal edit.
 gauntlet_field() { plan_field "$1" "$2"; }
 gauntlet_kind() { local v; v="$(plan_field "$1" kind)"; printf '%s\n' "${v:-feature}"; }
 gauntlet_stage() { local v; v="$(plan_field "$1" stage)"; printf '%s\n' "${v:-clean}"; }
