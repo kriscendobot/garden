@@ -73,3 +73,13 @@ post that ack again) once landed, or if you hit a design fork worth surfacing
 to the maintainer before committing to a phrase-matching strategy.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T00:05:28Z
