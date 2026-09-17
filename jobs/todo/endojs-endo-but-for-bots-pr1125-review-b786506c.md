@@ -1,4 +1,28 @@
 ---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_role: ordinary
+split_source_handler_timeout: 7200
+split_orchestration: endojs-endo-but-for-bots-pr1125-review-b786506c-split
+reposted_by: reaper:endolin-garden-ece02cb4
+reposted_at: 2026-09-17T07:53:15Z
+---
+
+# Deliberate overrun decomposition for `endojs-endo-but-for-bots-pr1125-review-b786506c`
+
+This ordinary job hit its applied 7200s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+
+Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+
+- **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by endojs-endo-but-for-bots-pr1125-review-b786506c-split`, then record `endojs-endo-but-for-bots-pr1125-review-b786506c-split` with `post-orchestration.sh`.
+- **Indivisible:** record a concrete `split-indivisible-reason:` in both the child body and orchestration description, choose a `handler-timeout:` strictly greater than 7200 and no greater than 14339, record that value as `split-indivisible-handler-timeout:` in the orchestration description, park exactly one child (normally `endojs-endo-but-for-bots-pr1125-review-b786506c-expanded-window`) under `endojs-endo-but-for-bots-pr1125-review-b786506c-split`, then record the single-child orchestration. A generic "too large" assertion is not a reason.
+- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: endojs-endo-but-for-bots-pr1125-review-b786506c-split>>>` immediately before the completion signal so completion verifies the successor.
+- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+
+## Original job specification
+
+---
 handler-budget-role: review
 tier: mentor
 fallback-tier: minion
@@ -50,15 +74,3 @@ directive:
   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
     and do the work.
 Never state in your report that a peer did work you did not verify.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T05:45:27Z
