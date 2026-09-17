@@ -20,6 +20,7 @@ Blocked on Endo builder job
 guest-safe invitation primitive and its two-daemon guest round-trip test.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
