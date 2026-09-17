@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:40:26Z_
+_As of 2026-09-17T03:42:28Z_
 
 ## Latest
 
@@ -4200,10 +4200,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1100
 - [`clipometer-reanchor-followthrough-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-reanchor-followthrough-20260917.md) — ---
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #84
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
+- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #695
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
 
 ### tada (8168)
