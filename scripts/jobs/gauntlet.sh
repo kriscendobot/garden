@@ -132,6 +132,17 @@ fi
 # cycle). Headroom above it covers the coverage/fix work that runs before the wait.
 : "${GARDEN_GAUNTLET_CI_DEADLINE_SECS:=3600}"
 
+# The panel stage fans juror seats that ALL authenticate to one provider — panel.sh
+# shells `claude -p` per seat, so the panel is Anthropic-only. Posting a panel stage
+# while that provider's weekly quota is exhausted spends a whole panel attempt that
+# aborts at a seat with NO verdict (the 2026-09 weekly-quota outages). Before posting
+# any panel stage the driver deterministically checks the provider's budget-pool
+# admission and DEFERS the stage — leaving the record at its current stage to
+# re-attempt every tick — until quota is usable again, exactly as a producer routes a
+# job to budget-hold when its pool is at high water. The provider whose configured
+# budget pools gate the panel (overridable for tests / a non-Anthropic panel):
+: "${GARDEN_GAUNTLET_PANEL_PROVIDER:=anthropic}"
+
 # --- child state, read purely from the board (mirrors orchestrate.sh) --------
 child_state() {  # <stage-base> → done|active|failed
   local c="$1" tada_path
@@ -223,6 +234,48 @@ gauntlet_notify() {  # <subject> ; body on stdin
   GARDEN_MSG_COALESCE=1 GARDEN_MSG_ID="$subject" \
   GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="gauntlet:${subject}" "$HERE/inbox-send.sh" maintainer >/dev/null 2>&1 || \
     log "gauntlet notify to maintainer failed (non-fatal): $subject"
+}
+
+# --- panel-provider quota/admission pre-gate --------------------------------
+# panel_provider_admits — deterministic pre-post admission check for the panel stage.
+# Returns 0 (POST the panel) when the panel provider still has usable quota; returns
+# 1 (DEFER) only when EVERY configured budget pool for that provider is confirmed
+# at/over its weekly-quota high-water mark (meter_quota_status=backoff). FAIL-OPEN by
+# construction — an absent/unreadable budget-pools config, a provider with no
+# configured pool, or a blind sensor (off/unknown) all ADMIT — so a missing meter
+# never wedges a gauntlet, the same fail-open posture the claim gate takes. Only a
+# confirmed backoff defers. A `refuse` state (an unmetered/uncalibrated pool) is a
+# config fault the CLAIM gate surfaces loudly, not a transient quota state, so it is
+# NOT deferred here: the panel job is posted and the misconfiguration surfaces at
+# claim rather than the gauntlet silently stalling forever on it. Reuses the SAME
+# meter_quota_status the foreman gate and per-claim admission reason over, so the
+# panel pre-gate cannot drift from the number that actually declines a claim.
+panel_provider_admits() {
+  local provider="$GARDEN_GAUNTLET_PANEL_PROVIDER" file pool prov _rest status seen=0
+  file="$(budget_pool_file "$DIR" 2>/dev/null)" || return 0   # no config → fail open
+  [ -r "$file" ] || return 0
+  while IFS=$'\t ' read -r pool prov _rest; do
+    case "$pool" in ''|'#'*) continue ;; esac
+    [ "$prov" = "$provider" ] || continue
+    seen=1
+    status="$(meter_quota_status "$pool" "$DIR" 2>/dev/null || echo unknown)"
+    [ "$status" = backoff ] || return 0   # off/unknown/ok → at least one pool admits
+  done < "$file"
+  [ "$seen" -eq 1 ] || return 0            # provider has no configured pool → fail open
+  return 1                                 # every configured provider pool is at backoff
+}
+
+# Surface a panel-quota defer to the maintainer, coalesced per base so a gauntlet
+# stalled across many ticks AMENDS one entry (throttled to ~hourly by inbox-send)
+# instead of spamming — the same coalescing discipline halts use.
+notify_panel_deferred() {  # <base> <what>
+  local base="$1" what="$2" reset_epoch reset_iso=""
+  reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
+  [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ 2>/dev/null || true)"
+  printf 'INFO: Gauntlet %s is DEFERRING its %s — the panel provider (%s) is at/over its weekly quota, so posting a panel round now would abort at a seat with NO verdict and burn the attempt. It will post automatically once quota is usable again%s.\n' \
+    "$base" "$what" "$GARDEN_GAUNTLET_PANEL_PROVIDER" "${reset_iso:+ (next reset ~$reset_iso)}" \
+    | gauntlet_notify "$base-panel-quota-deferred"
+  log "gauntlet '$base': panel provider ($GARDEN_GAUNTLET_PANEL_PROVIDER) at quota backoff — deferring $what"
 }
 
 finish_done() {  # <base> <reason>
@@ -610,6 +663,14 @@ restart_requested_stage() {  # <base> <stage> <iteration>
     panel|fix) child="$base-$stage-$iter";;
     *) log "gauntlet '$base': invalid resume-pending stage '$stage'"; return 1;;
   esac
+  # Same pre-spend panel-quota gate for a manual --resume-from-stage that lands on a
+  # panel round: hold the resume-pending record (return non-terminal → "resume remains
+  # pending") until the provider admits, so a resumed panel round is not spent into a
+  # seat quota-abort either.
+  if [ "$stage" = panel ] && ! panel_provider_admits; then
+    notify_panel_deferred "$base" "resumed panel round $iter"
+    return 1
+  fi
   body="$(mktemp "${TMPDIR:-/tmp}/gauntlet-stage.XXXXXX")"
   for attempt in $(seq 1 50); do
     sync_clone "$DIR"
@@ -680,6 +741,16 @@ repost_stage() {  # <child> <body-file>
 # not-yet-posted (→ "failed") stage.
 advance_stage() {  # <base> <rec-file> <newstage> <newiter> <child>
   local base="$1" rec="$2" nstage="$3" niter="$4" child="$5" body
+  # Pre-spend panel-quota gate: never advance INTO a panel round while the panel
+  # provider is at weekly-quota backoff — a posted panel round would only abort at a
+  # seat with no verdict. Leave the record UNTOUCHED at its current stage so the
+  # completed predecessor re-drives this same transition next tick; the panel posts
+  # automatically once quota recovers. An unbounded wait on a quota RESET (not a
+  # failure) is deliberate — it mirrors a producer's budget-hold, never a doom.
+  if [ "$nstage" = panel ] && ! panel_provider_admits; then
+    notify_panel_deferred "$base" "advance to panel round $niter"
+    return 0
+  fi
   body="$(mktemp "${TMPDIR:-/tmp}/gauntlet-stage.XXXXXX")"
   compose_stage_body "$base" "$rec" "$nstage" "$niter" "$child" > "$body"
   if post_stage "$child" "$body"; then
@@ -734,6 +805,15 @@ repost_failed_stage() {  # <base> <child> <body-file> <next-retry>
 retry_failed_stage() {  # <base> <rec> <stage> <iter> <child> <retries> <max> <why>
   local base="$1" rec="$2" stage="$3" iter="$4" child="$5"
   local retries="$6" max_retries="$7" why="$8" failures next body
+  # A panel re-post (a doomed-transient OR panel-error retry) spends the same seat
+  # fan-out advance_stage does, so defer it under the SAME panel-quota gate while the
+  # provider is at backoff — WITHOUT consuming a stage-retry. Leave the failed panel
+  # child's evidence in place so the retry re-drives next tick once quota recovers.
+  # clean/fix/viability retries are unaffected (the guard is panel-only).
+  if [ "$stage" = panel ] && ! panel_provider_admits; then
+    notify_panel_deferred "$base" "retry of panel round $iter"
+    return 0
+  fi
   failures=$((retries + 1))
   next=$failures
   if [ "$next" -gt "$max_retries" ]; then
