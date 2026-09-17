@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: cybernetics-economic-resilience-build
-priority: normal
 role: conductor
-posted_by: gardener
-posted_at: 2026-09-17T00:34:14Z
+tier: mentor
+handler-budget-role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T00:37:03Z cleared=none -->
 
 ---
 handler-budget-role: conductor
