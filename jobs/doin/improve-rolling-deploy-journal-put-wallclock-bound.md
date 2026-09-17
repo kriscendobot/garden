@@ -11,3 +11,13 @@ scripts/jobs/rolling-deploy.sh
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T22:53:10Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T22:53:15Z
