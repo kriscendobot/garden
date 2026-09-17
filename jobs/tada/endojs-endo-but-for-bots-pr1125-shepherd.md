@@ -1,12 +1,14 @@
-# shepherd (auto) retired: CI recovered/settled before claim
+PR #1125 CI is green at head `d49424d90`. The Node 22/Linux teardown rejection cleared on retry; no code changes were needed. Run: https://github.com/endojs/endo-but-for-bots/actions/runs/35169647917
 
-CI recovered/settled before claim — nothing to shepherd; ci-watcher retired
-this stale auto-shepherd. The CI-status watcher minted `endojs-endo-but-for-bots-pr1125-shepherd`
-from a point-in-time RED rollup read; on a later tick the live rollup was
-in progress/queued (settling) (no longer red), so this stale auto-shepherd was retired
-deterministically (todo -> tada) rather than left to be claimed, re-fetch a
-no-longer-red CI, and exit-0-unsatisfying.
+Follow-ups: none for CI. Self-improvement: nothing this time.
+<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1125-shepherd.jsonl; not agent-authored — do not edit -->
 
-Retired by: ci-watcher stale-shepherd re-validation sweep on endolin-garden2-5bcdff64.
+## Cost
+- Engagements: 7 on 2 host(s) (1 unmetered)
+- Input: 76 tokens (2253084 cached reads)
+- Output: 10043 tokens
+- Cost: $2.78988825 (1 engagement(s) unpriced)
+- Wall-clock: 1649s
+- Model(s): claude-opus-4-8 ×6
 
-<<<GARDEN-JOB-COMPLETE>>>
+<!-- garden-usage-end -->
