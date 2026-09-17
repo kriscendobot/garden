@@ -1,7 +1,7 @@
 host: endolin-garden2-5bcdff64
-deployed_sha: aa0cb5eb522538b90ecd8af5c69ec986dde12d76
+deployed_sha: 5475bc942dea6a9711e34eee2d4aa5048caf2c0a
 roll_status: deployed
 unit_failures: 0
 unit_total: 262
 first_bad_unit: -
-at: 2026-09-17T15:30:42Z
+at: 2026-09-17T16:21:42Z
