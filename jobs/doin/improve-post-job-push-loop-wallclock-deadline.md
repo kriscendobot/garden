@@ -11,3 +11,13 @@ The push-CAS retry loop (~line 268, `for attempt in $(seq 1 "${GARDEN_POST_ATTEM
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T20:43:07Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T20:43:12Z
