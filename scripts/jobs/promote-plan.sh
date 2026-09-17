@@ -198,7 +198,10 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # but role:/model:/handler-timeout: bind how the gardener RUNS the job — the
   # per-role model pin (designer→Opus, builder→Opus) and the per-job handler
   # budget are resolved from the CLAIMED todo file, so dropping them silently
-  # demoted every planned designer/builder job to the fleet default model.
+  # demoted every planned designer/builder job to the fleet default model. An
+  # indivisible overrun child also carries its split reason as execution evidence:
+  # assert-overrun-split-posted.sh must still be able to match that reason after an
+  # orchestrator promotes the child.
   role="$(plan_field "$src" role)"
   tier="$(plan_field "$src" tier)"
   model="$(plan_field "$src" model)"
@@ -206,6 +209,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   htimeout="$(plan_field "$src" handler-timeout)"
   token_budget="$(plan_field "$src" token-budget)"
   budget_epoch="$(plan_field "$src" token-budget-epoch)"
+  split_indivisible_reason="$(plan_field "$src" split-indivisible-reason)"
 
   if [ "$gate" = orchestrated ] && [[ "$base" == *-shepherd-* ]] \
      && [ "$role" != shepherd ]; then
@@ -233,7 +237,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   cleared="$(cycle_marker_summary "$src")"
   mkdir -p "$DIR/$JOBS_TODO"
   {
-    if [ -n "$role$tier$model$budget_role$htimeout$token_budget$budget_epoch" ]; then
+    if [ -n "$role$tier$model$budget_role$htimeout$token_budget$budget_epoch$split_indivisible_reason" ]; then
       printf -- '---\n'
       [ -n "$role" ]     && printf 'role: %s\n' "$role"
       [ -n "$tier" ]     && printf 'tier: %s\n' "$tier"
@@ -242,6 +246,8 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       [ -n "$htimeout" ] && printf 'handler-timeout: %s\n' "$htimeout"
       [ -n "$token_budget" ] && printf 'token-budget: %s\n' "$token_budget"
       [ -n "$budget_epoch" ] && printf 'token-budget-epoch: %s\n' "$budget_epoch"
+      [ -n "$split_indivisible_reason" ] && printf 'split-indivisible-reason: %s\n' \
+        "$(yaml_single_quote_scalar "$split_indivisible_reason")"
       printf -- '---\n'
     fi
     # `at=` stays the LAST timestamp-shaped field consumers key on (orchestrate.sh

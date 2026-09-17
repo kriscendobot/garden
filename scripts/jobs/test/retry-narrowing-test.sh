@@ -361,7 +361,7 @@ children: leaf-expanded-window
 on-child-failure: halt
 state: pending
 ---
-split-indivisible-reason: one atomic external build cannot be partitioned
+split-indivisible-reason: "one atomic build: partitioning is impossible # indivisible"
 split-indivisible-handler-timeout: 2
 EOF
 cat > jobs/plan/leaf-expanded-window.md <<EOF
@@ -369,7 +369,7 @@ cat > jobs/plan/leaf-expanded-window.md <<EOF
 gate: orchestrated
 orchestrated_by: leaf-split
 handler-timeout: 2
-split-indivisible-reason: one atomic external build cannot be partitioned
+split-indivisible-reason: "one atomic build: partitioning is impossible # indivisible"
 ---
 run the atomic build
 EOF'
@@ -388,6 +388,24 @@ if "$JOBS/assert-overrun-split-posted.sh" leaf \
   ok "completion gate accepts one indivisible child with a recorded reason and larger timeout"
 else
   bad "completion gate rejected a valid indivisible larger-timeout child"
+fi
+if "$JOBS/promote-plan.sh" leaf-expanded-window >/dev/null 2>&1; then
+  snapshot
+  promoted_leaf="$TEMPORARY_ROOT/verify/jobs/todo/leaf-expanded-window.md"
+  if grep -Fqx "split-indivisible-reason: 'one atomic build: partitioning is impossible # indivisible'" \
+    "$promoted_leaf"; then
+    ok "plan-to-todo promotion preserves an indivisible child's reason as a quoted scalar"
+  else
+    bad "plan-to-todo promotion dropped or malformed the indivisible child's reason"
+  fi
+  if "$JOBS/assert-overrun-split-posted.sh" leaf \
+    "$TEMPORARY_ROOT/leaf-job.md" "$TEMPORARY_ROOT/leaf-report"; then
+    ok "completion gate accepts the indivisible handoff after its child is promoted"
+  else
+    bad "completion gate rejected the indivisible handoff after child promotion"
+  fi
+else
+  bad "could not promote the expanded-window child for the regression check"
 fi
 sed -i 's/split_source_handler_timeout: 1/split_source_handler_timeout: 2/' "$TEMPORARY_ROOT/leaf-job.md"
 if "$JOBS/assert-overrun-split-posted.sh" leaf \
