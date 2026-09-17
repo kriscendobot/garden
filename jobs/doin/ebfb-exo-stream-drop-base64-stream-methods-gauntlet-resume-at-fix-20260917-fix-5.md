@@ -41,10 +41,10 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=767,192 -->
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=2 values=192,29 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
