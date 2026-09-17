@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T05:41:34Z_
+_As of 2026-09-17T05:45:02Z_
 
 ## Latest
 
@@ -9,8 +9,8 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 ## Parked for maintainer feedback
 
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 3h)
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 5h)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 2h)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 6h)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 3h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -2633,6 +2633,64 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
+> The handler returned rc=124 at its applied 7200s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/ironhorse-ocap-frozen-objects; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-ocap-frozen-objects) or removes it.
+> Original job base: ironhorse-ocap-frozen-objects
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> handler-timeout: 7200
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T03:31:11Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> role: builder
+> handler-timeout: 7200
+> ---
+>
+> Implement milestone 3 of the design in [endojs/endo-but-for-bots#1300](https://github.com/endojs/endo-but-for-bots/issues/1300),
+> `designs/ironhorse-ocap-workload-optimization.md`: exploit proven ordinary-object
+> immutability in the Rust Ironhorse engine. This child runs after the closure-site
+> milestone has posted an accepted or not-pursuing result.
+>
+> Use the landed benchmark corpus as the fixed contract. Work in an isolated
+> project checkout, use the correct frozen `llm-<sha>` implementation base, and
+> open one draft milestone PR through `ensure-pr.sh` if a change earns acceptance.
+> Do not un-draft it.
+>
+> Implement and measure the ordinary, non-proxy fused freeze-and-referent walk,
+> the derived sealed/frozen/hardened state cache, and cached fast rejection of
+> writes while preserving strict throws, sloppy no-ops, receiver semantics, and
+> Proxy/exotic behavior. Measure the frozen property-index and hardened GC-edge
+> roster candidates independently; land either only if it clears the design's bar.
+> Do not infer deep immutability for mutable internal slots, omit specified write
+> behavior, merge object identities, or skip page-level dirty tracking. Derived
+> caches are not snapshot payloads and must be rebuilt on restore.
+>
+> Run the exact path-keyed test262 and hardened262 parent/candidate manifest gate,
+> the Rust workspace and snapshot compatibility tests, the general benchmark
+> regression gate, and a real same-host before/after object-capability benchmark.
+> Post raw reports for every accepted and declined candidate. A correct candidate
+> that misses the speed bar is reverted and recorded as not pursuing; that is a
+> valid campaign result, not an orchestration failure.
+>
+> If the core deliverable is finished but its required gated outcome is not met,
+> end the report with these exact lines in order:
+>
+> <<<GARDEN-ORCHESTRATION-FAILED>>>
+> <<<GARDEN-JOB-COMPLETE>>>
+
 - `msg-clipometer-reanchor-followthrough-20260917-2c57182e8954` — from gardener:clipometer-reanchor-followthrough-20260917, reply_to `clipometer-reanchor-followthrough-20260917` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-clipometer-reanchor-followthrough-20260917-2c57182e8954.md)
 
 > CLIPOMETER re-anchor follow-through — decisive outcome (campaign BLOCKED on a minion.town server change).
@@ -3539,6 +3597,80 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `doomed-build-rbra-clean-break-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-rbra-clean-break-20260916-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
+> The handler returned rc=124 at its applied 10800s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/build-rbra-clean-break-20260916; it stays HELD until a human promotes it
+> (promote-plan.sh build-rbra-clean-break-20260916) or removes it.
+> Original job base: build-rbra-clean-break-20260916
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> handler-timeout: 10800
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T02:34:51Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> handler-timeout: 10800
+> ---
+> Step 2 (the CLEAN BREAK) of ReadableBlob range attenuation on
+> endojs/endo-but-for-bots, per `designs/readableblob-range-attenuation.md`.
+> Prerequisite: step 1 (range/textRange adopted additively on ALL producers) is
+> merged into draft PR [endojs/endo-but-for-bots#1301](https://github.com/endojs/endo-but-for-bots/issues/1301)'s branch
+> `kriscendobot:build/readableblob-range-attenuation`. STACK ON IT (resume via
+> `ensure-project-worktree.sh` + `git reset --hard
+> kriscendobot/build/readableblob-range-attenuation`; re-adopt #1301 with
+> `ensure-pr.sh` by the job marker — never open a new PR).
+>
+> Replace `fetch`, `rangeRead`, and `rangeReadText` with `range`/`textRange` on
+> EVERY producer in one clean break — NO deprecated aliases (resolved decision 2).
+> `fetch` is NOT an alias of `range`: `fetch` returned a one-use
+> `PassableBytesReader`; `range` returns a same-interface `ReadableBlob`. Separate
+> the range-specific `fetch` from the unrelated HTTP / git-transport /
+> content-store `fetch` methods (design's inventory table is authoritative — read
+> it on the branch).
+>
+> Producers to strip of `fetch`/`rangeRead`/`rangeReadText`:
+> `packages/platform/src/fs-node/local-blob.js`,
+> `packages/platform/src/fs/extended/shared/blob-ref.js`,
+> `packages/daemon/src/manager.js` (`makeReadableBlob`, `makeBytesBlob`),
+> `packages/daemon/src/mount.js` (`makeMountFileExo`, `makeReadableBlobView`),
+> `packages/git/src/native-git-backend.js` (`makeGitBlob`).
+>
+> Guards: drop `fetch` from `rangeReadMethodGuards`/`BlobRefInterface`/daemon
+> `BlobInterface`, and drop `rangeReadConvenienceMethodGuards`
+> (`rangeRead`/`rangeReadText`) from `ReadableBlobRangeReadInterface`.
+>
+> Consumers — update to the new cap shape, decoding/streaming through the normal
+> blob surface where they formerly drained a bytes reader:
+> - `packages/platform/src/fs/extended/cas.js` (`cacheBackedRead`: was
+>   `E(blobRef).fetch(0n, info.size)` → drainBytesReader). Read the whole blob via
+>   the surviving surface (e.g. `streamBase64` decoded, or the design's chosen
+>   path) — there is NO `fetch` anymore.
+> - `packages/platform/src/fs/extended/cached-fs.js` (`populateInBackground`: same
+>   `fetch(0n,size)` pattern).
+> - any daemon consumers that drained a range `fetch`.
+>
+> Tests: update `packages/platform/test/{local-blob,blobref,node-fs,optimal-querying}.test.js`
+> and `packages/daemon/test/{endo,mount,git}.test.js` + mount conformance — remove
+> `fetch`/`rangeRead`/`rangeReadText` assertions, keep/extend the range/textRange
+> matrix and the method-set surface tests (which now must NOT list the removed
+> methods). Update `packages/platform/test/fs-types-source.test-d.ts` key-set
+> assertions. Update `packages/platform/src/fs/types.ts` +
+> `packages/platform/src/fs/extended/types.ts` (remove fetch/rangeRead*, keep
+> range/textRange) and `packages/exo-git/src/types.ts`.
+>
+> Verify: full `packages/{platform,daemon,git,exo-git}` lint + lint:types +
+> test:types + ava. Push, keep #1301 draft. Report the consumer-rewrite approach
+> taken and whether the rename child can proceed.
+
 - `msg-ironhorse-fuzz-repromote-quarantined-1719457af4c6` — from gardener:ironhorse-fuzz-repromote-quarantined, reply_to `ironhorse-fuzz-repromote-quarantined` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-fuzz-repromote-quarantined-1719457af4c6.md)
 
 > ironhorse-fuzz repromote: STOPPED after the bounded probe — the reword does NOT fix the refusal on Anthropic, and this job is superseded by design.
@@ -4275,29 +4407,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.9M | $575.11 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 19.6M _(+472.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
+| Claude | 77.0M | $576.43 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 19.6M _(+474.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #695
 - [`endojs-endo-but-for-bots-pr1125-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1125
-- [`improve-reputation-reduce-incremental-projections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-reputation-reduce-incremental-projections.md) — ---
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #84
-- [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
-- [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
 
-### tada (8186)
+### tada (8187)
+- [`improve-reputation-reduce-incremental-projections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reputation-reduce-incremental-projections.md) — Cost
 - [`build-rbra-cleanbreak-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-rbra-cleanbreak-20260916.md) — orchestration build-rbra-cleanbreak-20260916 — HALTED
 - [`ironhorse-ocap-optimization-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-ocap-optimization-campaign.md) — orchestration ironhorse-ocap-optimization-campaign — HALTED
 - [`improve-set-budget-pool-require-physical-cap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-set-budget-pool-require-physical-cap.md) — Completion report
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-5.md) — Completion report
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5.md) — Gauntlet FIX round 5 — kriscendobot/minion.town PR #84
-- … and 8181 more
+- … and 8182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4448,6 +4577,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`ironhorse-fuzz-6ca7a76e0bfe3435-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-6ca7a76e0bfe3435-repair.md) — _normal_ · Repair Ironhorse engine defect 6ca7a76e0bfe3435 (target differential_regexp_s...
 - [`ironhorse-fuzz-aaa423e9c5d56067-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-aaa423e9c5d56067-repair.md) — _normal_ · Repair Ironhorse engine defect aaa423e9c5d56067 (target differential_source) ...
+- [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-rbra-clean-break-20260916.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr569-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr569-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #569
 - [`endojs-endo-but-for-bots-pr797-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr797-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #797
 - [`endojs-endo-but-for-bots-pr674-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr674-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #674
@@ -4459,6 +4589,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr78-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
 - [`ironhorse-fuzz-6be90176ff07c648-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-6be90176ff07c648-repair.md) — _normal_ · Repair Ironhorse engine defect 6be90176ff07c648 (target differential_regexp) ...
 - [`kriscendobot-minion.town-pr80-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr80-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — kriscendobot/minion.town PR #80
+- [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-ocap-frozen-objects.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr690-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr690-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #690
 - [`endojs-endo-but-for-bots-pr508-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr508-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #508
 - [`xs2rust-endor-press-20260902-075006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260902-075006.md) — _normal_ · Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
