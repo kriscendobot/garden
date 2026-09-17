@@ -19,6 +19,7 @@ Blocked on Endo builder job
 `minion-town-remote-guest-endo-cli-endo-invite-primitive`, which owns the
 guest-safe invitation primitive and its two-daemon guest round-trip test.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
