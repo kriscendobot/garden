@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T06:26:53Z_
+_As of 2026-09-17T06:36:00Z_
 
 ## Latest
 
@@ -3129,7 +3129,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared cleric demand active=2 queue=0 fleet-envelope=5 target=1
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T20:50:24Z, latest 2026-09-17T06:35:15Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared cleric demand active=1 queue=0 fleet-envelope=5 target=1
 
 - `doomed-ironhorse-fuzz-baad1f22ef053213-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-baad1f22ef053213-repair-policy-refusal.md)
 
@@ -4407,8 +4411,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.6M | $580.15 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 20.1M _(+492.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Claude | 77.7M | $581.88 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 20.1M _(+495.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
