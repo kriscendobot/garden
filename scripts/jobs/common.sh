@@ -355,6 +355,18 @@ export GARDEN
 : "${GARDEN_FETCH_KILL_AFTER:=10}"  # seconds after SIGTERM before SIGKILL escalation
 : "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
 : "${GARDEN_OFFLINE_RC:=75}"      # EX_TEMPFAIL: sync_clone exit on a connectivity/DNS outage
+# Overall wall-clock bound on a producer's push-CAS retry loop (post-job.sh /
+# post-plan.sh). The loop is bounded only by GARDEN_POST_ATTEMPTS (attempt COUNT),
+# and each attempt's sync_clone can burn up to ~GARDEN_FETCH_TIMEOUT +
+# GARDEN_FETCH_KILL_AFTER seconds, so under sustained DEGRADED (not cleanly offline)
+# connectivity the loop can grind for tens of minutes — long enough to blow through a
+# watcher unit's TimeoutStartSec (e.g. the comment-watcher's 900s) and end in a blunt
+# SIGKILL + Failed unit that self-heal never classifies. Bail cleanly, offline-style
+# (EX_TEMPFAIL), once elapsed exceeds this bound — well under callers' typical
+# TimeoutStartSec — so a degraded episode fails fast like sync_clone's own offline skip
+# instead of requiring a systemd kill. A push race (the design-intended retry) is
+# sub-second, so this never trims a healthy loop.
+: "${GARDEN_POST_DEADLINE_SECS:=300}"  # seconds; producer push-CAS loop bails EX_TEMPFAIL past this
 : "${GARDEN_HANDOFF_UNVERIFIED_RC:=76}" # soft job-level verdict: declared handoff successor is absent
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
 : "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up

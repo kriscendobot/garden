@@ -265,7 +265,17 @@ elif [ "$fleet_budget_status" = unknown ]; then
   log "WARN: fleet budget state unreadable; posting '$base' to todo/ (fail-open)"
 fi
 
+# Overall wall-clock deadline for the retry loop. Attempt COUNT alone does not bound
+# elapsed time: each sync_clone can burn ~GARDEN_FETCH_TIMEOUT+GARDEN_FETCH_KILL_AFTER
+# seconds under degraded connectivity, so 50 attempts is tens of minutes — past a
+# watcher's TimeoutStartSec. Bail EX_TEMPFAIL once the bound is exceeded, the same clean
+# offline-style skip sync_clone takes, before starting a fresh attempt.
+post_loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  if [ $((SECONDS - post_loop_start)) -ge "${GARDEN_POST_DEADLINE_SECS:-300}" ]; then
+    log "post of '$base' exceeded ${GARDEN_POST_DEADLINE_SECS:-300}s wall-clock deadline under degraded connectivity (attempt $attempt); skipping tick (rc=$GARDEN_OFFLINE_RC)"
+    exit "$GARDEN_OFFLINE_RC"
+  fi
   sync_clone "$DIR"
   # Basename dedup. A same-named LIVE job (plan/todo/doin) is always a no-op — the base
   # is the reservation spine, and a live copy means the work is queued/running (this is
