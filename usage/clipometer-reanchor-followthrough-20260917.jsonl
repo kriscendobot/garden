@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":25,"elapsed_s":413,"input_tokens":44,"output_tokens":26061,"cache_creation_tokens":67504,"cache_read_tokens":1205803,"total_cost_usd":1.9296865,"ts":"2026-09-17T03:35:29Z","base":"clipometer-reanchor-followthrough-20260917","host":"oros-studio-garden-ce242c49","outcome":"requeue","role":"gardener","provider":"anthropic"}
