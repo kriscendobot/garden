@@ -84,6 +84,7 @@ whether the receipt mechanism itself needed a workaround/extension — flag
 that as a separate follow-up if it's more than a one-off judgment call for
 this PR).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
