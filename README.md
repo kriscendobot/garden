@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:39:29Z_
+_As of 2026-09-17T02:40:12Z_
 
 ## Latest
 
@@ -1652,10 +1652,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 7. Document THIS case and its solution in the standing PR body or a PR comment (finding 50834e82d3af453d).
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr81-e3c84775b338` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr81-e3c84775b338.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/81](https://github.com/kriscendobot/minion.town/pull/81) ([kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81)) is in the mergeable queue with NO gauntlet review staged (head e3c84775b338d730b86abb6892292c34c85d521f). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #81'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `doomed-ironhorse-fuzz-c6c71d428a37088c-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-c6c71d428a37088c-repair-policy-refusal.md)
 
@@ -4148,7 +4144,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 71.7M | $530.93 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.5M _(+429.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Codex | 18.5M _(+429.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
