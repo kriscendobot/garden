@@ -60,3 +60,13 @@ range/textRange) and `packages/exo-git/src/types.ts`.
 Verify: full `packages/{platform,daemon,git,exo-git}` lint + lint:types +
 test:types + ava. Push, keep #1301 draft. Report the consumer-rewrite approach
 taken and whether the rename child can proceed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T02:35:07Z
