@@ -50,6 +50,7 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=97 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
