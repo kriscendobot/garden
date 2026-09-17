@@ -9,3 +9,4 @@
 # pool_id	provider	account/host	ceiling_kind	ceiling	calibrated_from	calibrated_at
 anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	143000000	manual-regression-fresh-contiguous-cluster	2026-09-04T22:10:57Z
 anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	64000000	manual-single-point-first-fresh-pair	2026-09-05T11:44:00Z
+anthropic:oros-studio-garden-ce242c49	anthropic	oros-studio-garden-ce242c49	weekly-tokens	73000000	manual-single-point-fresh-pair	2026-09-17T02:06:49Z
