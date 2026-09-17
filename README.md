@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T06:56:50Z_
+_As of 2026-09-17T07:00:15Z_
 
 ## Latest
 
@@ -2784,10 +2784,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <sub><!--garden-provenance-->model <code>claude-opus-4-8</code> · harness <code>claude</code> · provider <code>anthropic</code> · host <code>oros-studio-garden-ce242c49</code> · job <code>ironhorse-fuzz-3310b49d21f64878-repair</code></sub>
 
-- `endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-review-budget-reached.md)
-
-> INFO: Gauntlet endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
-
 - `doomed-ironhorse-fuzz-cfdc1a28296f23a1-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-cfdc1a28296f23a1-repair-policy-refusal.md)
 
 > Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
@@ -4416,7 +4412,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.6M | $580.15 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 20.1M _(+498.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Codex | 20.1M _(+499.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
