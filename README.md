@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:50:07Z_
+_As of 2026-09-17T02:53:25Z_
 
 ## Latest
 
@@ -224,6 +224,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared cleric demand active=3 queue=20 fleet-envelope=5 target=2
+
+- `cybernetics-economic-resilience-build-terminal-complete` — from orchestrator:cybernetics-economic-resilience-build-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/cybernetics-economic-resilience-build-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: cybernetics-economic-resilience-build
+> orchestration-status: complete
+> order: serial
+> children-total: 6
+> children-failed: 0
+> failed-children: 
+>
+> Orchestration cybernetics-economic-resilience-build complete (serial): all 6 children reached tada without a machine-readable failure declaration.
 
 - `doomed-ironhorse-fuzz-3fc02d8b57faa79a-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-3fc02d8b57faa79a-repair-policy-refusal.md)
 
@@ -4144,27 +4156,28 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 71.8M | $531.83 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.6M _(+438.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
+| Codex | 18.7M _(+439.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #695
+- [`improve-dependabot-process-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-process-reap.md) — ---
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`build-minion-town-web-invite-accept-slice-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-web-invite-accept-slice-20260916.md) — The intent, in the maintainer's own framing
 
-### tada (8154)
+### tada (8155)
+- [`cybernetics-economic-resilience-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-economic-resilience-build.md) — orchestration cybernetics-economic-resilience-build — complete
 - [`build-cybernetics-ranked-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-cybernetics-ranked-promotion.md) — Completion report
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1281-review-ca9db945`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-review-ca9db945.md) — Cost
 - [`build-rbra-daemon-mount-git-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-rbra-daemon-mount-git-20260916.md) — Completion report
-- [`build-cybernetics-overrun-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-cybernetics-overrun-split.md) — Cost
-- … and 8149 more
+- … and 8150 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
