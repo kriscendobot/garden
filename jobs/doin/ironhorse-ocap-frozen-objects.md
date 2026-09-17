@@ -45,6 +45,8 @@ end the report with these exact lines in order:
 <<<GARDEN-ORCHESTRATION-FAILED>>>
 <<<GARDEN-JOB-COMPLETE>>>
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
