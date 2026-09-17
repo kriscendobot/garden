@@ -54,6 +54,8 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-policy-refusal -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
