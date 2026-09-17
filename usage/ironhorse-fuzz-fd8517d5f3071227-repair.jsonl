@@ -5,3 +5,4 @@
 {"ts":"2026-08-31T17:36:18Z","base":"ironhorse-fuzz-fd8517d5f3071227-repair","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":283}
 {"ts":"2026-08-31T17:47:44Z","base":"ironhorse-fuzz-fd8517d5f3071227-repair","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":71}
 {"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":340,"input_tokens":22,"output_tokens":17212,"cache_creation_tokens":54610,"cache_read_tokens":541249,"total_cost_usd":1.2471344999999998,"ts":"2026-09-17T01:08:55Z","base":"ironhorse-fuzz-fd8517d5f3071227-repair","host":"oros-studio-garden-ce242c49","outcome":"requeue","role":"builder","provider":"anthropic"}
+{"ts":"2026-09-17T01:29:35Z","base":"ironhorse-fuzz-fd8517d5f3071227-repair","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":290}
