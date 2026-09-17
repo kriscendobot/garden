@@ -53,3 +53,13 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=348 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T01:24:09Z
