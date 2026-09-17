@@ -86,3 +86,13 @@ rather than pure LLM-authored prose).
 
 This is a going-forward formatting change only — do not retroactively edit
 already-posted comments.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T19:39:11Z
