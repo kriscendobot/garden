@@ -20,13 +20,6 @@ Blocked on Endo builder job
 guest-safe invitation primitive and its two-daemon guest round-trip test.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T21:51:27Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-17T22:03:09Z -->
