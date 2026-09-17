@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 https://github.com/kriscendobot/oros-ckm-data-readiness has no github workflows. establish [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration) according to best practices 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T13:43:08Z
