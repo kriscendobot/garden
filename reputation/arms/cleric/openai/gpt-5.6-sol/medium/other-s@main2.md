@@ -4,10 +4,10 @@ model: gpt-5.6-sol
 thoughtfulness: medium
 work_class: other:s
 target: main2
-attempts: 123
-accepts: 123
-censored: 105
-estimated: 105
-mean_dollars: 2.074564
-m2: 1654.473055
+attempts: 130
+accepts: 130
+censored: 112
+estimated: 112
+mean_dollars: 2.132820
+m2: 1687.747405
 acceptance_rate: 1.0000
