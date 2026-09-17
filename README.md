@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:57:44Z_
+_As of 2026-09-17T03:01:41Z_
 
 ## Latest
 
@@ -8,9 +8,9 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 21m)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 27m)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 3h)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9m)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 16m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -4156,14 +4156,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 71.8M | $532.08 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.7M _(+441.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Codex | 18.7M _(+442.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
 
-### doin (7)
-- [`improve-dependabot-process-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-process-reap.md) — ---
+### doin (6)
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #695
@@ -4171,13 +4170,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`build-minion-town-web-invite-accept-slice-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-web-invite-accept-slice-20260916.md) — The intent, in the maintainer's own framing
 
-### tada (8156)
+### tada (8157)
+- [`improve-dependabot-process-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabot-process-reap.md) — Completion report
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2.md) — Completion report
 - [`cybernetics-economic-resilience-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-economic-resilience-build.md) — orchestration cybernetics-economic-resilience-build — complete
 - [`build-cybernetics-ranked-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-cybernetics-ranked-promotion.md) — Completion report
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1281-review-ca9db945`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-review-ca9db945.md) — Cost
-- … and 8151 more
+- … and 8152 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
