@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T08:24:34Z_
+_As of 2026-09-17T08:28:58Z_
 
 ## Latest
 
@@ -4415,26 +4415,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.2M | $585.23 _(notional, rate-card)_ | 55% of 143.0M (ok) |
-| Codex | 20.8M _(+530.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Claude | 78.3M | $586.37 _(notional, rate-card)_ | 55% of 143.0M (ok) |
+| Codex | 20.9M _(+536.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 97% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c-expanded-window.md) — Address review on endojs/endo-but-for-bots PR #1125 (expanded window)
-- [`improve-overrun-split-metadata-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-overrun-split-metadata-promotion.md) — ---
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Deliberate overrun decomposition for endojs-endo-but-for-bots-pr1125-review-b...
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1100
 
-### tada (8205)
+### tada (8206)
+- [`improve-overrun-split-metadata-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-overrun-split-metadata-promotion.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-33254d01db18`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-33254d01db18.md) — rolling-deploy canary probe — round trip OK
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-6.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260917-080545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260917-080545.md) — Completion report — Claude-on-minion.town completion press, tick 20260917-080545
 - [`claude-on-minion-town-press-20260917-080545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260917-080545.md) — Cost
-- [`improve-gh-api-cooldown-host-scope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gh-api-cooldown-host-scope.md) — Cost
-- … and 8200 more
+- … and 8201 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
