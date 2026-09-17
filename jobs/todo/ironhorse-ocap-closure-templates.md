@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-ocap-optimization-campaign
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-09-17T01:20:56Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T02:25:03Z cleared=none -->
 
 ---
 tier: mentor
