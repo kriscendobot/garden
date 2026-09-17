@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:36:31Z_
+_As of 2026-09-17T03:38:52Z_
 
 ## Latest
 
@@ -4193,28 +4193,27 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.4M | $537.33 _(notional, rate-card)_ | 51% of 143.0M (ok) |
+| Claude | 72.5M | $537.30 _(notional, rate-card)_ | 51% of 143.0M (ok) |
 | Codex | 18.8M _(+443.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`clipometer-reanchor-followthrough-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-reanchor-followthrough-20260917.md) — ---
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #84
-- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #695
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1100
 
-### tada (8166)
+### tada (8167)
+- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-3.md) — Completion report
 - [`minion-town-clipometer-esbuild-orchestration-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-orchestration-resume.md) — orchestration minion-town-clipometer-esbuild-orchestration-resume — HALTED
 - [`minion-town-clipometer-esbuild-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-validate.md) — Completion report — minion-town-clipometer-esbuild-validate
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-ocap-closure-templates.md) — Cost
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2.md) — Completion report
-- [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/clipometer-orchestration-reanchor-20260916.md) — Cost
-- … and 8161 more
+- … and 8162 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
