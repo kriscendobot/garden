@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: split-pr1125-stack-gauntlets
-priority: normal
-posted_by: producer
-posted_at: 2026-09-17T21:52:47Z
+role: gardener
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T21:58:04Z cleared=none -->
 
 ---
 role: gardener
