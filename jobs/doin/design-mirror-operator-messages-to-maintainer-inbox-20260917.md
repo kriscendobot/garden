@@ -88,3 +88,13 @@ that design if it has landed and say how the two compose — do not duplicate it
 A design under `designs/`. Include an `## Open questions` section if real decisions
 remain for the maintainer — per the repo carve-out, a design carrying open
 questions opens as a review PR rather than landing bare. Do NOT implement.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T20:01:07Z
