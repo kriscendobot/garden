@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":181,"elapsed_s":1775,"input_tokens":362,"output_tokens":114864,"cache_creation_tokens":277359,"cache_read_tokens":30519186,"total_cost_usd":20.910365000000006,"ts":"2026-09-17T02:33:03Z","base":"build-rbra-daemon-mount-git-20260916","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
