@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:31:26Z_
+_As of 2026-09-17T02:33:35Z_
 
 ## Latest
 
@@ -3488,8 +3488,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
 
-> triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git failed (rc=143). git said: 
-> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo` has CLEARED (first seen 2026-09-17T02:30:24Z, cleared 2026-09-17T02:32:28Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git is SUCCEEDING again; kriscendobot-endo is being triaged normally.
 
 - `doomed-ironhorse-fuzz-c781c9b9de456ab2-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-c781c9b9de456ab2-repair-policy-refusal.md)
 
@@ -3925,8 +3928,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-triager-fetch-failed-kriscendobot-minion.town` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-minion.town.md)
 
-> triager: fetch for kriscendobot-minion.town at /home/kris/garden/worktrees/kriscendobot-minion.town.git failed (rc=143). git said: 
-> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-minion.town` has CLEARED (first seen 2026-09-17T02:30:11Z, cleared 2026-09-17T02:32:23Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-minion.town at /home/kris/garden/worktrees/kriscendobot-minion.town.git is SUCCEEDING again; kriscendobot-minion.town is being triaged normally.
 
 - `doomed-ironhorse-fuzz-d5413146a257bc30-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-d5413146a257bc30-repair-policy-refusal.md)
 
@@ -4129,30 +4135,28 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.1M | $548.62 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.4M _(+425.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
+| Claude | 71.7M | $530.35 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 18.4M _(+426.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
 
-### doin (8)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #695
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
-- [`build-cybernetics-overrun-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-cybernetics-overrun-split.md) — Build ordinary-job overrun splitting
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
-- [`build-rbra-daemon-mount-git-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-daemon-mount-git-20260916.md) — ---
 - [`endojs-endo-but-for-bots-pr1281-review-ca9db945`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1281-review-ca9db945.md) — Review directive on endojs/endo-but-for-bots PR #1281
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 - [`build-minion-town-web-invite-accept-slice-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-web-invite-accept-slice-20260916.md) — The intent, in the maintainer's own framing
 
-### tada (8149)
+### tada (8151)
+- [`build-rbra-daemon-mount-git-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-rbra-daemon-mount-git-20260916.md) — Completion report
+- [`build-cybernetics-overrun-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-cybernetics-overrun-split.md) — Cost
 - [`ironhorse-ocap-benchmark-corpus`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-ocap-benchmark-corpus.md) — Cost
 - [`ironhorse-fuzz-a7755caa51aa9320-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-a7755caa51aa9320-repair.md) — Completion report — finding a7755caa51aa9320 (differential_source)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-1.md) — Completion report
-- [`build-cybernetics-triager-pacing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-cybernetics-triager-pacing.md) — Cost
-- [`ironhorse-fuzz-3310b49d21f64878-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-3310b49d21f64878-repair.md) — Completion Report — ironhorse-fuzz-3310b49d21f64878-repair
-- … and 8144 more
+- … and 8146 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
