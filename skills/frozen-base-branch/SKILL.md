@@ -347,6 +347,7 @@ SHA) is invisible because the bot's fork only sees its own.
 
 (Append; terse and dated.)
 
+- _2026-09-17_: `kriscendobot/garden` open-questions design PRs are answer-surfaces over content already landed on `main2`. At conduct time, verify the marker and byte-identical design on `main2`, then merge against the frozen review base rather than retargeting to `main2` (which would collapse the comparison to empty). PR #87 was the first approved answer-surface finalized this way.
 - _2026-09-16_: reinforced as a **hard precondition** with a deterministic sensor
   (`scripts/jobs/gardening/assert-pinned-base.sh`) after the `merge-base-pinning`
   review-miss cluster cleared threshold (#719 / #831 / #836; the maintainer said

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-12
+updated: 2026-09-17
 author: liaison, gardener
 ---
 
@@ -40,6 +40,8 @@ For each PR in the job:
    The deterministic spine then rebases onto the now-live base through `safe-rebase.sh`. Its only automatic conflict recovery is a separated lockfile-only commit, which it drops and regenerates. Every code or mixed conflict fails closed with `needs weave`; the conductor does not choose `--ours` / `--theirs` or resolve it on discretion.
 
    If the PR's base is already a live trunk (`llm`, `main`, `master` without a `-<sha>` suffix), skip the unfreeze step and rebase directly per the same conflict discipline.
+
+   **Exception — garden open-questions answer-surfaces stay on their review snapshot.** A PR on `kriscendobot/garden` whose body carries `<!-- garden-design-open-questions -->` is not a pending content merge: the designer already landed the design on `main2`, and the PR exists only to collect inline answers. Do not retarget this PR to `main2`, where its already-landed commits would collapse to an empty comparison. Before merging, verify the PR head's design file is byte-identical to `origin/main2`, the effective maintainer approval still stands, and no check is pending or failing; then merge it against its frozen review base so GitHub records the approved review surface as merged. This is the sole exception to the live-trunk-at-merge invariant. Sweep both the head and frozen review-base branches afterward when no open PR uses them.
 
    **Exception — `endojs/endo-but-for-bots` has no `master` trunk (maintainer directive, 2026-07-16, #475).** On that repo `master` is upstream `endojs/endo`'s branch, never the fork's; a PR based on a `master-<sha>` reflection is **never unfrozen to or merged into a fork `master`**. The conductor REFUSES `gh pr merge` into `endo-but-for-bots` `master` (or any base that would land there) and stalls with reason `ferry required: master work lands upstream via the boatman`. The `llm` trunk on that repo is unaffected.
 3. **Tidy the commit history.** Absorb fixer follow-up commits into the originals they amend so the merge cluster reads as a coherent change set:
@@ -97,7 +99,7 @@ Pushing a tidied force-with-lease and issuing `gh pr merge` are upstream mutatio
 ## Definition of done
 
 - Every PR in the job is either merged (state=MERGED), enqueued for auto-merge (state=OPEN with autoMergeRequest), or stalled with a recorded reason. A PR is **never** left in `tada` green-but-unmerged: a still-pending CI is block-watched to terminal and merged in the same job, or the job is re-enqueued — it does not complete while waiting.
-- Every merged PR's `baseRefName` at merge time was the live trunk (`llm`, `main`, or `master`), never a frozen snapshot. Snapshots-as-base are unfrozen at step 2; merging onto a snapshot is a discipline violation. On `endojs/endo-but-for-bots` there is no `master` trunk to merge into — `master-<sha>`-based PRs stall `ferry required` (step 2 exception).
+- Every ordinary merged PR's `baseRefName` at merge time was the live trunk (`llm`, `main`, or `master`), never a frozen snapshot. Snapshots-as-base are unfrozen at step 2; merging onto a snapshot is a discipline violation except for a verified `kriscendobot/garden` open-questions answer-surface whose byte-identical content is already on `main2`. On `endojs/endo-but-for-bots` there is no `master` trunk to merge into — `master-<sha>`-based PRs stall `ferry required` (step 2 exception).
 - The report lists the run's outcomes plus any unblocked-downstream PRs. **A report for a PR you did NOT merge carries `orchestration-failed: true`** (operating norms § *A DECLINED merge…*), so a merge-gated downstream is not falsely unblocked; a report for a genuinely merged PR does not.
 
 ## The tada-failed contract (declined-merge marker)
