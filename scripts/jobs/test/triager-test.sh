@@ -831,6 +831,42 @@ grep -q "verdict=transient-repository-exists" "$MOUT" && ok "API success routes 
 ! grep -qi "upstream gone/unreachable" "$MOUT" && ok "API-vetoed fetch is not logged as upstream gone" || bad "API-vetoed fetch logged a gone claim (out: $(cat "$MOUT"))"
 
 # ============================================================================
+hr; echo "N — TERM/INT-killed fetch (rc 143/130): clean signal exit, NOT a fetch failure"; hr
+# A systemd stop (KillMode default SIGTERM) or a Ctrl-C can kill the steady-state
+# `git fetch`, leaving rc=143 (128+SIGTERM) or rc=130 (128+SIGINT). That is an
+# INTERRUPTED tick, not a fetch failure — before the fix the classifier fell through
+# to case (c) and logged the 143 as a WARN + paged the maintainer for an expected
+# shutdown. The guard must instead exit with the clean signal status BEFORE the
+# fetch-failure classifier runs: no FATAL/WARN, no maintainer alert, handler never
+# invoked, cursor never advanced. We reproduce a signal-killed fetch with the same
+# scoped shim (empty stderr, exactly as a signalled git leaves) at each signal rc.
+for _sig in 143 130; do
+  rm -rf "$TR/state-sig-$_sig"; STATE="$TR/state-sig-$_sig"; rm -rf "$BARE"; seed_journal
+  seed_watched_bare
+  mk_fetch_shim "$TR/fetch-shim-sig-$_sig" "$_sig" ""    # empty stderr: a signalled git prints nothing
+  : > "$CALLS"; : > "$ALERTS"; NOUT="$TR/triager-sig-$_sig.out"; : > "$NOUT"
+  FETCH_CALLS="$TR/fetch-calls-sig-$_sig"; : > "$FETCH_CALLS"
+  set +e
+  env PATH="$TR/fetch-shim-sig-$_sig:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
+      GARDEN=testhost GARDEN_STATE="$STATE" \
+      JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+      GARDEN_FETCH_TIMEOUT=5 GARDEN_TRIAGE_FETCH_ATTEMPTS=1 \
+      GARDEN_ALERT_CMD="$ALERT_STUB" \
+      GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+      GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+      "$JOBS/triager.sh" "$SLUG" >>"$NOUT" 2>&1
+  rc=$?; set -e
+  [ "$rc" -eq "$_sig" ] && ok "rc-$_sig signal exit re-raises the clean signal status ($_sig)" || bad "tick exit = $rc (want $_sig — the interrupted tick must exit with the signal status)"
+  grep -qi "interrupted by signal $((_sig - 128))" "$NOUT" && ok "rc-$_sig logs the clean-shutdown reason, not a fetch failure" || bad "rc-$_sig clean-shutdown log missing (out: $(cat "$NOUT"))"
+  ! grep -qi "WARN: fetch failed for $SLUG" "$NOUT" && ok "rc-$_sig never logs a fetch-failure WARN" || bad "rc-$_sig logged a spurious fetch-failure WARN (out: $(cat "$NOUT"))"
+  ! grep -qi "transient fetch failure for $SLUG" "$NOUT" && ok "rc-$_sig is not misfiled as a transient fetch failure" || bad "rc-$_sig misclassified as transient (out: $(cat "$NOUT"))"
+  [ ! -s "$ALERTS" ] && ok "rc-$_sig pages nobody (an expected stop is not an alert)" || bad "rc-$_sig alerted the maintainer ($(cat "$ALERTS"))"
+  [ ! -s "$CALLS" ] && ok "rc-$_sig never reaches the triage handler" || bad "rc-$_sig ran the handler ($(grep -c . "$CALLS") calls; want 0)"
+  [ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "rc-$_sig leaves the activity cursor unadvanced" || bad "rc-$_sig advanced the cursor on an interrupted tick"
+done
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

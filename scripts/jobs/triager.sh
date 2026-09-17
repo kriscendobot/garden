@@ -48,6 +48,17 @@ export GARDEN_TAG="triager/$slug"
 : "${GARDEN_TRIAGE_FETCH_ATTEMPTS:=${GARDEN_FETCH_RETRIES:-3}}"
 : "${GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK:=${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}}"
 
+# A systemd stop (KillMode default SIGTERM) or a Ctrl-C (SIGINT) can land while this
+# tick runs — most visibly during the steady-state `git fetch`, which then dies with
+# rc=143 (128+SIGTERM) or rc=130 (128+SIGINT). That is an INTERRUPTED tick, not a
+# fetch failure. If bash itself catches the signal, exit with the corresponding clean
+# signal status so systemd records a normal signal-caused stop instead of a failure —
+# the same trap shape ci-watcher.sh / comment-watcher.sh use. (If only the fetch child
+# caught it and bash did not, the rc==143/130 guard after the fetch loop below catches
+# it before the fetch-failure classifier turns an expected stop into a WARN + page.)
+trap 'exit 143' TERM
+trap 'exit 130' INT
+
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 BARE="$(bare_clone_dir "$slug")"   # $GARDEN_ROOT/worktrees/<slug>.git (GARDEN_REPOS override honored)
@@ -166,6 +177,17 @@ while :; do
   fi
   break
 done
+# TERM/INT handled BEFORE fetch classification. A systemd stop that SIGTERMs the fetch
+# child (KillMode default) or a Ctrl-C leaves rc=143 (128+SIGTERM) / rc=130 (128+SIGINT).
+# If the signal reached only the child — bash was not signalled, so the TERM/INT trap
+# above did not fire — the classifier below would otherwise read this expected shutdown
+# as a real fetch failure and log a WARN (observed: a systemd stop produced fetch rc=143
+# logged as a fetch failure with no diagnostic). Exit with the clean signal status
+# instead, so the interrupted tick is recorded as an ordinary stop, not a fetch failure.
+if [ "$rc" -eq 143 ] || [ "$rc" -eq 130 ]; then
+  log "fetch for $slug interrupted by signal $((rc - 128)) (rc=$rc); clean shutdown, not a fetch failure"
+  exit "$rc"
+fi
 if [ "$rc" -ne 0 ]; then
   # CLASSIFY before escalating. A fetch failure has three materially different
   # causes and the remedy differs per cause; the pre-2026-07-28 code captured
