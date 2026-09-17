@@ -1,4 +1,5 @@
 ---
+child-build-cybernetics-ranked-promotion-host: endolin-garden2-5bcdff64
 child-build-cybernetics-ranked-promotion-reap-count: 0
 child-build-cybernetics-overrun-split-host: endolin-garden-ece02cb4
 child-build-cybernetics-overrun-split-reap-count: 0
