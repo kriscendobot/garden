@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 build a PR to fix https://github.com/Oros-AI/oros-ckm-data-readiness/issues/1 dispatch a builder to make a PR for a static check (lint). Document it in CONTRIBUTING.md p.s. do we really have to put all the issues for all kriscendobot forks in this garden repo?  
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T23:03:03Z
