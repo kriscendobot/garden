@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-17T20:01:07Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-mirror-operator-messages-to-maintainer-inbox-20260917
+pr_number: 100
+pr_repo: kriskowal/garden
+pr_url: https://github.com/kriskowal/garden/pull/100
+pr_head: design-mirror-operator-messages-to-maintainer-inbox
