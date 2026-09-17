@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T06:08:36Z_
+_As of 2026-09-17T06:13:18Z_
 
 ## Latest
 
@@ -4404,11 +4404,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.1M | $582.72 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 20.0M _(+486.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Codex | 20.0M _(+488.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`canary-probe-endolin-garden2-5bcdff64-1c60aa15c62b-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-1c60aa15c62b-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 1c60aa15c62b
+### todo (0)
+(none)
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #695
@@ -4417,13 +4417,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Review directive on endojs/endo-but-for-bots PR #1125
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #84
 
-### tada (8189)
+### tada (8190)
+- [`canary-probe-endolin-garden2-5bcdff64-1c60aa15c62b-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1c60aa15c62b-r1.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1226-review-2fc247cc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-review-2fc247cc.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-shepherd.md) — Cost
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6.md) — Completion report
 - [`improve-reputation-reduce-incremental-projections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reputation-reduce-incremental-projections.md) — Cost
-- [`build-rbra-cleanbreak-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-rbra-cleanbreak-20260916.md) — orchestration build-rbra-cleanbreak-20260916 — HALTED
-- … and 8184 more
+- … and 8185 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
