@@ -76,6 +76,7 @@ hr()  { echo "----------------------------------------------------------------";
 # Scrub ambient fleet GARDEN_*/JOURNAL_* so a live gardener running this test cannot
 # splice the real journal under the fixture (the run-test.sh isolation rationale).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|CI_)' || true) 2>/dev/null || true
+export GARDEN_TEST=1 GARDEN_API_COOLDOWN_SECS=0
 
 rm -rf "$TR"; mkdir -p "$TR"
 git_id=(-c user.name=test -c user.email=test@localhost)
@@ -168,7 +169,8 @@ STALE_TS="$(date -u -d '-30 days' +%Y-%m-%dT%H:%M:%SZ)"
 prline() { printf '%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "${4:-$FRESH_TS}"; }
 
 run_ci() {  # run_ci <state> <bare> <fixture> <rollup-map> [slug]
-  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+  env GARDEN_STATE="$1" GARDEN_API_COOLDOWN_DIR="$1/gh-api-cooldown" \
+    JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_BOT_LOGIN=kriscendobot \
       GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$3" \
       GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP="$4" \
@@ -257,8 +259,10 @@ exit 1
 EOF
 chmod +x "$BLIP_SRC"
 BARE_BLIP="$TR/blip.git"; seed_bare "$BARE_BLIP"
+ROOT_CD="$TR/root-cd"; mkdir -p "$ROOT_CD"
 set +e
-env GARDEN_STATE="$TR/state-blip" JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
+env GARDEN_ROOT="$ROOT_CD" GARDEN_STATE="$TR/state-blip" GARDEN_API_COOLDOWN_SECS=300 \
+    JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$BLIP_SRC" \
     GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
     GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
@@ -277,9 +281,9 @@ grep -qi 'transient gh-api blip' "$TR/blip.err" && ok "truncated-JSON blip logs 
 # every tick (the 2026-09-04 thundering herd). Prove (1) the marker lives at the
 # shared, kind-agnostic path, (2) a sibling ci tick skips SILENTLY without touching
 # its source, and (3) the same predicate any OTHER watcher kind calls sees the window.
-[ -s "$TR/state-blip/gh-api-cooldown/marker" ] \
+[ -s "$ROOT_CD/.garden-state/gh-api-cooldown/marker" ] \
   && ok "the blip recorded the HOST-WIDE shared cooldown marker (not a ci-private one)" \
-  || bad "no shared gh-api-cooldown/marker written under GARDEN_STATE"
+  || bad "no shared gh-api-cooldown/marker written under GARDEN_ROOT"
 
 CD_CNT="$TR/ci-cd.count"; printf '0\n' > "$CD_CNT"
 COUNTING_SRC="$TR/counting-source.sh"
@@ -291,7 +295,8 @@ exit 1
 EOF
 chmod +x "$COUNTING_SRC"
 set +e
-env GARDEN_STATE="$TR/state-blip" JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
+env GARDEN_ROOT="$ROOT_CD" GARDEN_STATE="$TR/state-blip-sibling" GARDEN_API_COOLDOWN_SECS=300 \
+    JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$COUNTING_SRC" \
     GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
     GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
@@ -303,7 +308,8 @@ set -e
 [ ! -s "$TR/ci-cd.err" ] && ok "the sibling cooldown skip is quiet (the detector owns the one warning)" || bad "sibling emitted output ($(cat "$TR/ci-cd.err"))"
 
 set +e
-env GARDEN_STATE="$TR/state-blip" bash -c 'source "'"$JOBS"'/common.sh"; api_cooldown_active'
+env GARDEN_ROOT="$ROOT_CD" GARDEN_STATE="$TR/state-blip-other-kind" GARDEN_API_COOLDOWN_SECS=300 \
+    bash -c 'source "'"$JOBS"'/common.sh"; api_cooldown_active'
 xkind_rc=$?
 set -e
 [ "$xkind_rc" -eq 0 ] && ok "the shared api_cooldown_active predicate reports the window active for EVERY watcher kind" || bad "cross-kind predicate did not see the shared window (rc $xkind_rc)"
@@ -658,7 +664,8 @@ FIX_S="$TR/fix-s.tsv"
   prline 112 kriscendobot "$REPO" "$FRESH_TS"; } > "$FIX_S"   # red, must never be read
 CALLS_S="$TR/s.calls"; : > "$CALLS_S"
 ERR_S="$TR/s.err"
-env GARDEN_STATE="$TR/state-s" JOURNAL_REMOTE="$BARE_S" JOURNAL_BRANCH="$BRANCH" \
+env GARDEN_STATE="$TR/state-s" GARDEN_API_COOLDOWN_DIR="$TR/state-s/gh-api-cooldown" GARDEN_API_COOLDOWN_SECS=300 \
+    JOURNAL_REMOTE="$BARE_S" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_BOT_LOGIN=kriscendobot \
     GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_S" \
     GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='110=10 112=0' \
@@ -688,7 +695,8 @@ run_ci "$TR/state-t-seed" "$BARE_T" "$FIX_T_SEED" "120=0 121=0"
 FIX_T_EMPTY="$TR/fix-t-empty.tsv"; : > "$FIX_T_EMPTY"
 CALLS_T="$TR/t.calls"; : > "$CALLS_T"
 ERR_T="$TR/t.err"
-env GARDEN_STATE="$TR/state-t" JOURNAL_REMOTE="$BARE_T" JOURNAL_BRANCH="$BRANCH" \
+env GARDEN_STATE="$TR/state-t" GARDEN_API_COOLDOWN_DIR="$TR/state-t/gh-api-cooldown" GARDEN_API_COOLDOWN_SECS=300 \
+    JOURNAL_REMOTE="$BARE_T" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_BOT_LOGIN=kriscendobot \
     GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_T_EMPTY" \
     GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' \

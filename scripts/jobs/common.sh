@@ -546,11 +546,13 @@ is_transient_gh_source_error() {
 # 2026-09-04 13:05-13:13Z: all watchers 5xx-ing in lockstep for 8+ minutes). These two
 # helpers give the whole HOST one bounded, shared cooldown: the first tick to see a
 # transient gh-api failure calls start_api_cooldown to record a finite window under
-# GARDEN_STATE (and owns the single warning it emits); every other watcher tick calls
-# api_cooldown_active FIRST — before any API work — and skips silently until the window
-# expires. An observer never extends a live window, so a short provider blip cannot
-# become an unbounded local blackout; the cursor is untouched, preserving fail-closed
-# "never guess a state".
+# the rendered unit root's .garden-state (and owns the single warning it emits); every
+# other watcher tick calls api_cooldown_active FIRST — before any API work — and skips
+# silently until the window expires. Do not derive this coordination path from
+# GARDEN_STATE: independently namespaced service invocations may override that path,
+# but every rendered unit on one host shares GARDEN_ROOT. An observer never extends a
+# live window, so a short provider blip cannot become an unbounded local blackout; the
+# cursor is untouched, preserving fail-closed "never guess a state".
 #
 # The marker is HOST-WIDE, not per-watcher-kind, on purpose: the herd spans watcher
 # KINDS, so one blip must quiet ci- AND comment- AND dependabot- ticks alike, out of a
@@ -560,7 +562,7 @@ is_transient_gh_source_error() {
 # Window: GARDEN_API_COOLDOWN_SECS (default 300s, capped at 900s; 0 = a test/operator
 # escape hatch that disables the cooldown without changing classification). A non-numeric
 # value falls back to the default. Extracted from comment-watcher.sh's original copy.
-: "${GARDEN_API_COOLDOWN_DIR:=$GARDEN_STATE/gh-api-cooldown}"
+: "${GARDEN_API_COOLDOWN_DIR:=$GARDEN_ROOT/.garden-state/gh-api-cooldown}"
 GARDEN_API_COOLDOWN_MARKER="$GARDEN_API_COOLDOWN_DIR/marker"
 GARDEN_API_COOLDOWN_LOCK="$GARDEN_API_COOLDOWN_DIR/marker.lock"
 

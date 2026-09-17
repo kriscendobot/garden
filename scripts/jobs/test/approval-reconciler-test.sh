@@ -59,6 +59,7 @@ hr()  { echo "----------------------------------------------------------------";
 # Scrub ambient fleet GARDEN_*/JOURNAL_* so a live gardener running this test cannot
 # splice the real journal under the fixture.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|CI_|AR_)' || true) 2>/dev/null || true
+export GARDEN_TEST=1 GARDEN_API_COOLDOWN_SECS=0
 
 rm -rf "$TR"; mkdir -p "$TR"
 git_id=(-c user.name=test -c user.email=test@localhost)

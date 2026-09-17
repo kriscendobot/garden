@@ -58,6 +58,7 @@ report_result() {
 trap 'rc=$?; if [ "$reported" -eq 0 ]; then hr; echo "RESULT: $PASS passed, $FAIL failed (ABORTED, rc=$rc)"; hr; fi' EXIT
 
 rm -rf "$TR"; mkdir -p "$TR"
+export GARDEN_API_COOLDOWN_SECS=0
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 seed_bare() {  # seed_bare <bare-path>

@@ -272,8 +272,9 @@ VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 # The host-shared cooldown (one provider blip freezes ALL gh-api watchers for one
 # window instead of each re-triggering the same rate limit every tick) now lives in
 # common.sh: api_cooldown_active / start_api_cooldown, keyed off GARDEN_API_COOLDOWN_SECS
-# and a HOST-WIDE marker under GARDEN_STATE that ci-/dependabot-/approval-/issue-inbox-
-# watchers share too — so a blip any one of them sees quiets all of them. This block
+# and a HOST-WIDE marker under GARDEN_ROOT/.garden-state that ci-/dependabot-/
+# approval-/issue-inbox-watchers share too — so a blip any one of them sees quiets
+# all of them. This block
 # was the original copy the shared helper was extracted from. The one shim kept here:
 # honor a legacy GARDEN_COMMENT_API_COOLDOWN_SECS override by feeding it to the shared
 # knob, so an operator who set the old name still tunes the (now shared) window.

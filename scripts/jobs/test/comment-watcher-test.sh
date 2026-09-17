@@ -24,6 +24,7 @@ set -euo pipefail
 # Explicit positive test-context sentinel: protects this standalone suite even when
 # invoked outside the test-tree entrypoint heuristic.
 export GARDEN_TEST=1
+export GARDEN_API_COOLDOWN_SECS=0
 # Most cases predate the explicit-address routing contract and isolate unrelated
 # watcher invariants. Dedicated ADDRESS cases below exercise the production default.
 export GARDEN_EXPLICIT_ADDRESS_REQUIRED=0
@@ -1592,7 +1593,8 @@ for timeout_rc in 124 137; do
   TIMEOUT_STATE="$TR/state-timeout-$timeout_rc"
   TIMEOUT_ERR="$TR/timeout-$timeout_rc.err"
   set +e
-  env GARDEN_STATE="$TIMEOUT_STATE" JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+  env GARDEN_STATE="$TIMEOUT_STATE" GARDEN_API_COOLDOWN_DIR="$TIMEOUT_STATE/gh-api-cooldown" \
+    GARDEN_API_COOLDOWN_SECS=300 JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$TIMEOUT_SOURCE" \
       GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$TIMEOUT_ERR"
@@ -1915,7 +1917,8 @@ exit 1
 EOF
 chmod +x "$CD_SOURCE"
 run_cd() {  # run_cd <slug> <stderr-file>
-  env GARDEN_STATE="$TR/state-cd" JOURNAL_REMOTE="$BARE_CD" JOURNAL_BRANCH="$BRANCH" \
+  env GARDEN_STATE="$TR/state-cd" GARDEN_API_COOLDOWN_DIR="$TR/state-cd/gh-api-cooldown" \
+      GARDEN_API_COOLDOWN_SECS=300 JOURNAL_REMOTE="$BARE_CD" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$CD_SOURCE" CD_COUNT="$CD_COUNT" \
       GARDEN_COMMENT_API_COOLDOWN_SECS=300 GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/comment-watcher.sh" "$1" >/dev/null 2>"$2"

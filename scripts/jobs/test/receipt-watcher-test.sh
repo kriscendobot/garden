@@ -39,6 +39,8 @@ git -C "$SEED" remote add origin "$BARE"
 git -C "$SEED" push -q -u origin "$BRANCH"
 
 STATE="$TR/state"
+export GARDEN_API_COOLDOWN_DIR="$STATE/gh-api-cooldown"
+export GARDEN_API_COOLDOWN_SECS=300
 WATCH_CLONE="$STATE/receipt-watcher/journal"
 CURSOR_CLONE="$STATE/cursors/journal"
 mkdir -p "$(dirname "$WATCH_CLONE")"
