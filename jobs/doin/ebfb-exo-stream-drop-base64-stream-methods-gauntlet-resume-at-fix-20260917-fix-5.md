@@ -44,3 +44,13 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=767,192 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T05:59:04Z
