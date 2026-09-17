@@ -34,3 +34,13 @@ regardless of target, so this is a standing-baseline fix, not an urgent
 one — no need to force a deploy for it).
 
 Report the before/after target value and confirm the two prior tests pass.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T21:09:11Z
