@@ -36,11 +36,11 @@ one — no need to force a deploy for it).
 
 Report the before/after target value and confirm the two prior tests pass.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T21:23:11Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=3,6 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
