@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Issue from dckc on kriscendobot/garden #99
@@ -30,13 +31,6 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 https://github.com/kriscendobot/oros-ckm-data-readiness has no github workflows. establish [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration) according to best practices 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T13:43:08Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-17T14:03:08Z -->
