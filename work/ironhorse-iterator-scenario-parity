@@ -3,3 +3,7 @@ gardener: 3
 worker_kind: cleric
 claimed_at: 2026-09-17T01:09:34Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-iterator-scenario-parity
+pr_number: 1299
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1299
+pr_head: fix/ironhorse-iterator-intrinsic-metadata
