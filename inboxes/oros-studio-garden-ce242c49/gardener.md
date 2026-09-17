@@ -45,3 +45,14 @@ Inspect via `git -C journal cat-file -p 9b8fa304c775075b7142f408f2c4614d65d6ca4b
 
 Inspect via `git -C journal cat-file -p 870d6b6a631f2e9fc3144d760b15ab99d9d0b23b` (or read
 `journal/inboxes/oros-studio-garden-ce242c49/captures/870d6b6a631f2e9fc3144d760b15ab99d9d0b23b`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-09-17T00:27:57Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 8e5757a31b246e727aca1fecab261f6cfe3f6ed1
+- Context: gardener-1 on oros-studio-garden-ce242c49: job 'weave-ebfb-1100-pin-merge-base-20260916' exit-0-unsatisfying but elapsed near-constant (1839,1465s) over 2 cycles — likely a wedged child, not a working one
+- Capture: inboxes/oros-studio-garden-ce242c49/captures/8e5757a31b246e727aca1fecab261f6cfe3f6ed1
+
+Inspect via `git -C journal cat-file -p 8e5757a31b246e727aca1fecab261f6cfe3f6ed1` (or read
+`journal/inboxes/oros-studio-garden-ce242c49/captures/8e5757a31b246e727aca1fecab261f6cfe3f6ed1`) -- both work off-host after a plain `journal2` fetch.
