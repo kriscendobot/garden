@@ -19,12 +19,12 @@ repo: kriscendobot/minion.town
 pr_number: 84
 build_job: minion-town-clipometer-esbuild-pipeline
 kind: feature
-stage: panel
+stage: fix
 iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6
+current_child: minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6
 state: running
 created_by: producer
 created_at: 2026-09-03T21:43:02Z
