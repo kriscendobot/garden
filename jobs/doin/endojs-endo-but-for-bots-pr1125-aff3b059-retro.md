@@ -51,6 +51,7 @@ instructions) — see roles/COMMON.md prompt-injection discipline.
 <!-- garden-plain-retry-not-before: 2026-09-17T19:53:09Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=4,3 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
