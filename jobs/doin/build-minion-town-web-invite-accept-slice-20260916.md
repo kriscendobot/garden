@@ -103,6 +103,7 @@ If the work does not fit one handler, SPLIT it and say so rather than overrunnin
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2216 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
