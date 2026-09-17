@@ -1,25 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917
-role: gardener
-handler-budget-role: shepherd
-handler-timeout: 7200
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-17T09:23:24Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-17T09:23:24Z
----
-
----
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200

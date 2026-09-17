@@ -9,7 +9,7 @@ iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 1
+stage_retries: 2
 max_stage_retries: 2
 current_child: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-6
 state: running
