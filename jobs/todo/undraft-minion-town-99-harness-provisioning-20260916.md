@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Stop the panel loop on kriscendobot/minion.town#99 and route it to maintainer
@@ -33,15 +34,4 @@ TASK:
    why the loop stopped rather than converged.
 4. Do NOT merge. The merge decision is the maintainer's.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-16T23:51:48Z
+<!-- garden-reaped: 0 -->
