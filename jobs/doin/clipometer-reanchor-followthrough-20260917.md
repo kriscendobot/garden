@@ -23,3 +23,13 @@ Deliver a concise terminal report with the PR state, child 2 live evidence, cano
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=424 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T03:44:27Z

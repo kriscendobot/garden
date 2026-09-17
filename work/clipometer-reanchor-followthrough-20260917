@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-09-17T03:44:27Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-clipometer-reanchor-followthrough-20260917
