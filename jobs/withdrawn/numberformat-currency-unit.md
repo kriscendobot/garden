@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Intl is omitted from Compartments' shared intrinsics (not conducive to a hardened-JS environment) — archived indefinitely, maintainer directive (kriskowal, 2026-09-17)
+withdrawn_by: producer
+withdrawn_at: 2026-09-17T00:03:31Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: numberformat-residual-orch
 priority: normal
