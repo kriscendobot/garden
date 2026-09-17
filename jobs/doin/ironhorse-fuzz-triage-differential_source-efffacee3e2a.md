@@ -44,6 +44,7 @@ port defects buy repair work; known oracle/harness artifacts and duplicates end 
    batches genuine findings into one cluster repair on a later tick.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=194 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
