@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:25:39Z_
+_As of 2026-09-17T02:31:26Z_
 
 ## Latest
 
@@ -3486,6 +3486,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
+
+> triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git failed (rc=143). git said: 
+> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
+
 - `doomed-ironhorse-fuzz-c781c9b9de456ab2-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-c781c9b9de456ab2-repair-policy-refusal.md)
 
 > Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
@@ -3918,6 +3923,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `watchdog-triager-fetch-failed-kriscendobot-minion.town` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-minion.town.md)
+
+> triager: fetch for kriscendobot-minion.town at /home/kris/garden/worktrees/kriscendobot-minion.town.git failed (rc=143). git said: 
+> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
+
 - `doomed-ironhorse-fuzz-d5413146a257bc30-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-d5413146a257bc30-repair-policy-refusal.md)
 
 > Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
@@ -4119,8 +4129,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.1M | $544.60 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.3M _(+418.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Claude | 72.1M | $548.62 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 18.4M _(+425.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
