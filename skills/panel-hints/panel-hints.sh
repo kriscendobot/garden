@@ -72,7 +72,26 @@ if [ "$all_design" = "true" ]; then
   for f in $files; do
     echo "  $f"
   done | head -5
-  echo "Recommended total: 7 of 7 design-panel seats."
+  # Cross-panel: the archivist (a code-panel docs-accuracy seat) cross-fires onto a
+  # design PR when the doc makes a definite technical claim about a named in-repo
+  # entity, so those claims are cross-verified against the code and the doc's own
+  # other statements. Symmetric to X-pedant/X-copyeditor firing onto code PRs. This
+  # is the durable review-cycle sensor for the docs-claim-contradicts-code-semantics
+  # review-miss cluster's design-PR member (#264: "typically a `tar.gz`" for a zip).
+  arch_probe="$PROBES_DIR/C-archivist-claim-accuracy.sh"
+  cross_total=7
+  if [ -f "$arch_probe" ]; then
+    arch_out=$(BASE="$BASE" bash "$arch_probe" 2>/dev/null)
+    if [[ "$arch_out" == fire* ]]; then
+      reason=$(echo "$arch_out" | cut -d' ' -f3-)
+      echo "Cross-panel (1): archivist"
+      echo "  archivist  $reason"
+      cross_total=8
+    else
+      echo "Cross-panel (0): -"
+    fi
+  fi
+  echo "Recommended total: $cross_total of 7 design-panel seats (+ $((cross_total - 7)) cross-panel)."
   exit 0
 fi
 

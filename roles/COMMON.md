@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-09-16
+updated: 2026-09-17
 author: gardener, liaison
 ---
 
@@ -252,6 +252,12 @@ When done with a one-shot task, write a `result` entry to the journal **and** re
 **A CI lint/test failure is a defect in our automation, not just a PR to fix.** Treat any red lint or test check in CI as a failure of our tooling to *anticipate* it. Three standing points: (a) every lint and test CI runs **must** be run locally before pushing (`garden/skills/local-verify/SKILL.md`, `garden/skills/pre-push-gates/SKILL.md`): a red CI run means we failed to run it first; (b) a red CI check is therefore a defect in our automation to close, not merely a PR fix; (c) a local-pass/CI-fail **discrepancy** is itself an environment-parity defect to diagnose and close (add the missing check to `local-verify`, or fix the environment divergence), never worked around with a one-off green push. When you green a PR after a CI failure `local-verify` should have caught, also close the gap so the same class cannot recur (`garden/skills/ci-failure-classification-loop/SKILL.md`).
 
 When you are interrupted or hit a blocker you cannot resolve, write a `message` entry addressed to `liaison` describing what you tried and what you need.
+
+## Definite technical claims in authored prose
+
+Every **definite, in-repo-verifiable technical claim** you write in fleet-authored prose — a package README, a `*.md`, a design document, a source comment or JSDoc — about an in-repo API, format, export, or behavior must be **cross-verified against the authoritative implementation it describes, and against the document's own other statements, before it lands**, or hedged as an explicit assumption ("assuming X still holds", "as of this writing") rather than asserted as fact. The check is concrete: before you write "`@endo/base64` does not provide atob/btoa", "the archive is a `tar.gz`", "`.buffer.immutable` is the brand check", open the package's exports / the reference implementation / the format writer and confirm it, and re-read the same document for a statement that contradicts what you just wrote. Prose you can only read for clarity is not verified prose. This is prevention for the producing work; the review-cycle backstop is the archivist seat (its brief § Cross-verify definite technical claims) and the panel-hints `C-archivist-claim-accuracy.sh` probe that routes definite in-repo claims to it.
+
+Why this is a rule and not a memory aid: a definite claim is checkable, so an unchecked one that reaches the maintainer is a review the fleet should not have needed. The signal ("prose naming an in-repo entity and asserting a definite claim about it") is mechanically detectable and the probe surfaces it, but *whether the claim is true* requires reading the code, so the responsibility to verify sits with you at authoring time. Source: `docs-claim-contradicts-code-semantics` review-miss cluster (`endojs/endo-but-for-bots` #475, #877, #264), where a README brand-check claim, a header comment about a sibling package's exports, and a design doc's archive-format claim each contradicted the repo's own authoritative code (or the doc's own later prose) and reached the maintainer because review read the prose for clarity without cross-verifying it.
 
 ## House style
 
