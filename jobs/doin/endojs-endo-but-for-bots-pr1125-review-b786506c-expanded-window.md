@@ -115,3 +115,13 @@ with scripts/jobs/ensure-project-worktree.sh <this-base> endojs/endo-but-for-bot
 bot/build/endo-guest-invite-primitive, then work there. Push to the PR head
 branch bot/build/endo-guest-invite-primitive with a rebase CAS loop. Do not open
 a new PR (this feedback is on the existing #1125).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T08:01:18Z
