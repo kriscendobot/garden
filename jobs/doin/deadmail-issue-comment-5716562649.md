@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/99#issuecomment-571656264
 @kriscendobot on second thought, hold off on aiming directly upstream. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T15:05:25Z
