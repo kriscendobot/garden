@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-clipometer-esbuild-orchestration-resume
-priority: normal
-posted_by: producer
-posted_at: 2026-09-03T06:52:00Z
+role: gardener
+tier: mentor
+handler-timeout: 3600
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T03:18:10Z cleared=none -->
 
 ---
 tier: mentor
