@@ -47,6 +47,115 @@ export GARDEN_TAG="triager/$slug"
 # remains a compatibility fallback for deployed overrides.
 : "${GARDEN_TRIAGE_FETCH_ATTEMPTS:=${GARDEN_FETCH_RETRIES:-3}}"
 : "${GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK:=${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}}"
+: "${GARDEN_TRIAGE_PACE_ROLE:=triager}"
+: "${GARDEN_TRIAGE_PACE_ENABLED:=1}"
+: "${GARDEN_TRIAGE_PACE_PROJECTOR:=$HERE/triager-pace.sh}"
+
+PACE_STATE_DIRECTORY="$GARDEN_STATE/triager/pace"
+PACE_MARKER="$PACE_STATE_DIRECTORY/${slug//[^A-Za-z0-9._-]/_}"
+PACE_WARNING_LATCH="$PACE_STATE_DIRECTORY/warning-${slug//[^A-Za-z0-9._-]/_}"
+PACE_PROBE_WARNING_LATCH="$PACE_STATE_DIRECTORY/probe-warning-${slug//[^A-Za-z0-9._-]/_}"
+PACE_PREEMPTED=0
+PACE_EXPECTED_SHA=""
+PACE_OBSERVED_SHA=""
+PACE_EXPECTED_WAKE=""
+
+triager_pace_now() {
+  printf '%s\n' "${GARDEN_TRIAGE_PACE_NOW:-$(date -u +%s)}"
+}
+
+triager_pace_note_warning() {
+  local reason="$1"
+  mkdir -p "$PACE_STATE_DIRECTORY" 2>/dev/null || true
+  if mkdir "$PACE_WARNING_LATCH" 2>/dev/null; then
+    log "WARN: triager pacing unavailable for $slug ($reason); using the current timer cadence (further repeats suppressed until recovery)"
+  elif [ ! -d "$PACE_WARNING_LATCH" ]; then
+    log "WARN: triager pacing unavailable for $slug ($reason); using the current timer cadence (warning latch unavailable)"
+  fi
+}
+
+triager_pace_note_recovery() {
+  if [ -d "$PACE_WARNING_LATCH" ] && rmdir "$PACE_WARNING_LATCH" 2>/dev/null; then
+    log "triager pacing inputs recovered for $slug"
+  fi
+}
+
+triager_pace_record_preemption() {
+  local input_json
+  [ "$PACE_PREEMPTED" -eq 1 ] || return 0
+  input_json="$(jq -cn --arg slug "$slug" --arg ref "$ref" \
+    --arg expected "$PACE_EXPECTED_SHA" --arg observed "$PACE_OBSERVED_SHA" \
+    --argjson scheduled "$PACE_EXPECTED_WAKE" --argjson actual "$(triager_pace_now)" \
+    '{slug:$slug,ref:$ref,expected_sha:$expected,observed_sha:$observed,scheduled_wake_epoch:$scheduled,event_epoch:$actual}')"
+  record_decision --loop triager-pacing --input-json "$input_json" \
+    --decision event-preempted-wake --from-json "$PACE_EXPECTED_WAKE" \
+    --to-json "$(triager_pace_now)" --reason "watched ref changed during paced defer" \
+    --outcome superseded --outcome-detail "event-bearing tick proceeded immediately"
+  PACE_PREEMPTED=0
+}
+
+triager_pace_schedule() { # <observed-sha> <ref>
+  local observed_sha="$1" observed_ref="$2" clone projection status reason wake now next_wake
+  local input_json temporary_marker decision_name
+  [ "$GARDEN_TRIAGE_PACE_ENABLED" = 1 ] || return 0
+  [ -x "$GARDEN_TRIAGE_PACE_PROJECTOR" ] || {
+    triager_pace_note_warning projector-unavailable
+    return 0
+  }
+  clone="${GARDEN_TRIAGE_PACE_CLONE:-$GARDEN_STATE/triager-pace/journal}"
+  if ! projection="$(
+      GARDEN_USAGE_NOW="$(triager_pace_now)"
+      export GARDEN_USAGE_NOW
+      ensure_clone "$clone"
+      sync_clone "$clone"
+      "$GARDEN_TRIAGE_PACE_PROJECTOR" "$clone" "$GARDEN_TRIAGE_PACE_ROLE"
+    )"; then
+    triager_pace_note_warning journal-input-unavailable
+    return 0
+  fi
+  status="$(jq -r '.status // "fallback"' <<<"$projection" 2>/dev/null || echo fallback)"
+  reason="$(jq -r '.reason // "invalid-projection"' <<<"$projection" 2>/dev/null || echo invalid-projection)"
+  wake="$(jq -r '.wake_after_seconds // empty' <<<"$projection" 2>/dev/null || true)"
+  if [ "$status" != paced ] || ! [[ "$wake" =~ ^[1-9][0-9]*$ ]]; then
+    triager_pace_note_warning "$reason"
+    record_decision --loop triager-pacing \
+      --input-json "$(jq -cn --arg slug "$slug" --argjson projection "$projection" '{slug:$slug,projection:$projection}')" \
+      --decision current-cadence --reason "$reason" --outcome fail-open-skipped \
+      --outcome-detail "fixed timer cadence retained"
+    return 0
+  fi
+
+  triager_pace_note_recovery
+  now="$(triager_pace_now)"
+  next_wake=$((now + wake))
+  mkdir -p "$PACE_STATE_DIRECTORY" 2>/dev/null || {
+    triager_pace_note_warning pace-state-unwritable
+    return 0
+  }
+  temporary_marker="$PACE_MARKER.$$"
+  {
+    printf 'next_wake_epoch: %s\n' "$next_wake"
+    printf 'expected_sha: %s\n' "$observed_sha"
+    printf 'ref: %s\n' "$observed_ref"
+    printf 'role: %s\n' "$GARDEN_TRIAGE_PACE_ROLE"
+  } > "$temporary_marker" && mv "$temporary_marker" "$PACE_MARKER" || {
+    rm -f "$temporary_marker" 2>/dev/null || true
+    triager_pace_note_warning pace-state-unwritable
+    return 0
+  }
+  input_json="$(jq -cn --arg slug "$slug" --arg ref "$observed_ref" \
+    --arg sha "$observed_sha" --argjson projection "$projection" \
+    '{slug:$slug,ref:$ref,observed_sha:$sha,projection:$projection}')"
+  if [ "$wake" -gt "$(jq -r '.floor_seconds' <<<"$projection")" ]; then
+    decision_name=defer-wake
+  else
+    decision_name=current-cadence
+  fi
+  record_decision --loop triager-pacing --input-json "$input_json" \
+    --decision "$decision_name" --from-json "$now" --to-json "$next_wake" \
+    --reason "$reason" --outcome applied \
+    --outcome-detail "next ordinary wake scheduled in ${wake}s; watched events may preempt"
+}
 
 # A systemd stop (KillMode default SIGTERM) or a Ctrl-C (SIGINT) can land while this
 # tick runs — most visibly during the steady-state `git fetch`, which then dies with
@@ -129,6 +238,41 @@ if ! is_own_git_repo "$BARE"; then
     log "STALE: $nmsg"
     alert_maintainer "triager-provision-nourl-${slug//[^A-Za-z0-9._-]/_}" "$nmsg"
     exit 0
+  fi
+fi
+
+# A projected wake suppresses the expensive ordinary fetch until its epoch, but
+# never hides a real watched event.  The timer still supplies the established
+# two-minute observation floor; while paced, a lightweight remote-ref probe checks
+# whether the watched branch changed.  A changed ref preempts the defer and falls
+# through to the normal fetch + handler path in this SAME tick.
+if [ "$GARDEN_TRIAGE_PACE_ENABLED" = 1 ] && [ -r "$PACE_MARKER" ]; then
+  pace_next_wake="$(sed -n 's/^next_wake_epoch:[[:space:]]*//p' "$PACE_MARKER" | head -1)"
+  pace_expected_sha="$(sed -n 's/^expected_sha:[[:space:]]*//p' "$PACE_MARKER" | head -1)"
+  pace_ref="$(sed -n 's/^ref:[[:space:]]*//p' "$PACE_MARKER" | head -1)"
+  pace_now="$(triager_pace_now)"
+  if [[ "$pace_next_wake" =~ ^[0-9]+$ ]] && [[ "$pace_expected_sha" =~ ^[0-9a-f]{40}$ ]] \
+     && [ -n "$pace_ref" ] && [[ "$pace_now" =~ ^[0-9]+$ ]] \
+     && [ "$pace_now" -lt "$pace_next_wake" ]; then
+    if pace_observed_line="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+        git --git-dir="$BARE" ls-remote origin "refs/heads/$pace_ref" 2>/dev/null)"; then
+      pace_observed_sha="$(awk 'NR == 1 {print $1}' <<<"$pace_observed_line")"
+      if [ -d "$PACE_PROBE_WARNING_LATCH" ]; then rmdir "$PACE_PROBE_WARNING_LATCH" 2>/dev/null || true; fi
+      if [ "$pace_observed_sha" = "$pace_expected_sha" ]; then
+        log "cost-aware pace defers ordinary wake for $slug:$pace_ref until $(date -u -d "@$pace_next_wake" +%FT%TZ); no watched event"
+        exit 0
+      fi
+      PACE_PREEMPTED=1
+      PACE_EXPECTED_SHA="$pace_expected_sha"
+      PACE_OBSERVED_SHA="${pace_observed_sha:-deleted}"
+      PACE_EXPECTED_WAKE="$pace_next_wake"
+      log "watched event on $slug:$pace_ref preempts cost-aware wake deferred until $(date -u -d "@$pace_next_wake" +%FT%TZ)"
+    else
+      mkdir -p "$PACE_STATE_DIRECTORY" 2>/dev/null || true
+      if mkdir "$PACE_PROBE_WARNING_LATCH" 2>/dev/null; then
+        log "WARN: paced event probe failed for $slug:$pace_ref; failing open to the current full-fetch cadence (further repeats suppressed until recovery)"
+      fi
+    fi
   fi
 fi
 
@@ -320,6 +464,7 @@ old_sha="$("$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_sha:[[:space:]]
 
 if [ "$old_sha" = "$new_sha" ]; then
   log "no change on $slug:$ref ($new_sha)"
+  triager_pace_schedule "$new_sha" "$ref"
   exit 0
 fi
 
@@ -346,6 +491,9 @@ fi
 log "change on $slug:$ref: ${old_sha:-<none>} → $new_sha; triaging"
 
 if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
+  # Record AFTER the handler: decision-ledger CAS/network work must never sit in
+  # front of the time-sensitive event whose immediate preemption we guarantee.
+  triager_pace_record_preemption
   # Triage succeeded: clear any recorded failure state, then advance the cursor
   # ONLY after triage succeeded, so a crash re-triages.
   if [ -n "$fail_sha" ] || [ "$fail_count" -ne 0 ]; then
@@ -356,8 +504,13 @@ if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
   printf 'last_sha: %s\nref: %s\nlast_polled_at: %s\n' "$new_sha" "$ref" "$(date -u +%FT%TZ)" \
     | "$HERE/cursor-set.sh" "$CURSOR_KEY"
   log "triaged $slug:$ref up to $new_sha"
+  triager_pace_schedule "$new_sha" "$ref"
   exit 0
 fi
+
+# The event still preempted the sleep when the handler failed.  Preserve that
+# output decision before entering the existing durable failure-count path.
+triager_pace_record_preemption
 
 # --- handler failed ----------------------------------------------------------
 # Increment the durable failure count for this change (reset to 1 on a new sha),

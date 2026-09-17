@@ -128,6 +128,9 @@ grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/terminal-handler-failure
 grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/retry-narrowing-test.sh' "$DEPLOY" \
   && ok "default candidate gate includes bounded retry narrowing regression" \
   || bad "default candidate gate omits bounded retry narrowing regression"
+grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/triager-pacing-test.sh' "$DEPLOY" \
+  && ok "default candidate gate includes cost-aware triager pacing regression" \
+  || bad "default candidate gate omits cost-aware triager pacing regression"
 
 # ============================================================================
 hr; echo "CLEAN DEPLOY — quiesced fleet, scripts change: merge + record + lift + restart"; hr
