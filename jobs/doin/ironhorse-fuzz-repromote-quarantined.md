@@ -63,3 +63,13 @@ with counts at each step and the commands that produced them.
 <!-- garden-annotation: key=liaison-role-fix by=producer at=2026-08-31T17:49:08Z fields=role=builder -->
 
 Selection metadata corrected: the original body set 'tier: builder', an invalid tier value (builder is a ROLE; tier takes mentor/minion). Role is now set explicitly so this job draws the 7200s builder handler budget rather than the 2400s default.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T01:08:35Z
