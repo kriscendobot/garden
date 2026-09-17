@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T06:23:52Z_
+_As of 2026-09-17T06:24:47Z_
 
 ## Latest
 
@@ -4407,24 +4407,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.7M | $580.96 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 20.1M _(+491.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Claude | 77.6M | $580.15 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 20.1M _(+492.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #695
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Review directive on endojs/endo-but-for-bots PR #1125
 
-### tada (8195)
+### tada (8196)
+- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6.md) — Cost
 - [`design-endo-guest-stdio-mcp-revise-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-guest-stdio-mcp-revise-20260917.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b.md) — rolling-deploy canary probe — round trip OK
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet.md) — gauntlet minion-town-clipometer-esbuild-pipeline-gauntlet — review budget rea...
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5.md) — Completion report
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6.md) — Gauntlet FIX round 6 — kriscendobot/minion.town PR #84
-- … and 8190 more
+- … and 8191 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
