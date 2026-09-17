@@ -73,3 +73,13 @@ Do not un-draft and do not hand-post a gauntlet — the maintainer promotes it
 with "run the gauntlet #1226" when ready.
 
 <!-- garden-job: design-endo-guest-stdio-mcp-revise-20260917 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T06:07:29Z
