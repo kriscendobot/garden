@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T01:39:24Z_
+_As of 2026-09-17T01:40:54Z_
 
 ## Latest
 
@@ -1880,10 +1880,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
-- `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-3.md)
-
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 3 (target 3): shared cleric demand active=3 queue=20 fleet-envelope=5 target=3
-
 - `msg-ironhorse-iterator-scenario-parity-58aa54c8fbd4` — from gardener:ironhorse-iterator-scenario-parity, reply_to `ironhorse-iterator-scenario-parity` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-iterator-scenario-parity-58aa54c8fbd4.md)
 
 > [endojs/endo-but-for-bots#1299](https://github.com/endojs/endo-but-for-bots/issues/1299) has completed the iterator-metadata fix on every IronHorse scenario the hardened262 harness actually executes: bare `sloppy` and `strict`. Commit `07af274dfbe` also adds a direct XS-differential regression. A complete baseline regeneration still has 44 Iterator/AsyncIterator entries, all caused by pre-existing scenario infrastructure: module/compartment cells are `structural:scenario-not-supported`, lockdown scripts stop at the absent `lockdown` global, and every SES-IronHorse script stops in the SES prelude (the SES-IronHorse passed baselines are empty repository-wide).
@@ -3147,8 +3143,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.6M | $526.37 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 17.0M _(+381.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 71.6M | $526.87 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 17.1M _(+383.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (18)
@@ -3464,4 +3460,4 @@ kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-lis
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 gardeners
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): 8 gardeners
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): 1 gardeners
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 2 gardeners
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 gardeners
