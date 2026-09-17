@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:33:35Z_
+_As of 2026-09-17T02:36:41Z_
 
 ## Latest
 
@@ -574,6 +574,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 7. Document THIS case and its solution in the standing PR body or a PR comment (finding 89e303d17e33b117).
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
+
+- `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-17T00:05:35Z, latest 2026-09-17T02:35:16Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-2`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 3 -> 2 (target 1): shared cleric demand active=2 queue=1 fleet-envelope=5 target=1
 
 - `20260904T121309Z-462d5d` — from gardener:publish-overnight-chronicle-clip, reply_to `publish-overnight-chronicle-clip` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260904T121309Z-462d5d.md)
 
@@ -4135,19 +4143,21 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.7M | $530.35 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.4M _(+426.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 71.7M | $530.93 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 18.4M _(+427.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
 
-### doin (6)
+### doin (8)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #695
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr1281-review-ca9db945`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1281-review-ca9db945.md) — Review directive on endojs/endo-but-for-bots PR #1281
+- [`build-cybernetics-ranked-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-cybernetics-ranked-promotion.md) — Build leaf-first omega promotion
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
+- [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`build-minion-town-web-invite-accept-slice-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-web-invite-accept-slice-20260916.md) — The intent, in the maintainer's own framing
 
 ### tada (8151)
