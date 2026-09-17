@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T06:18:45Z_
+_As of 2026-09-17T06:19:52Z_
 
 ## Latest
 
@@ -4407,27 +4407,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.9M | $575.53 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 20.0M _(+489.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Claude | 77.5M | $578.57 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 20.0M _(+489.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #695
 - [`design-endo-guest-stdio-mcp-revise-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-guest-stdio-mcp-revise-20260917.md) — Revise design PR #1226 per maintainer CHANGES_REQUESTED review
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Review directive on endojs/endo-but-for-bots PR #1125
-- [`canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 1c60aa15c62b
 
-### tada (8193)
+### tada (8194)
+- [`canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b.md) — rolling-deploy canary probe — round trip OK
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet.md) — gauntlet minion-town-clipometer-esbuild-pipeline-gauntlet — review budget rea...
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5.md) — Completion report
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6.md) — Gauntlet FIX round 6 — kriscendobot/minion.town PR #84
 - [`canary-probe-endolin-garden2-5bcdff64-1c60aa15c62b-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-1c60aa15c62b-r1.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1226-review-2fc247cc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1226-review-2fc247cc.md) — Completion report
-- … and 8188 more
+- … and 8189 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
