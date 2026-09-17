@@ -56,6 +56,7 @@ Comment: https://github.com/kriscendobot/garden/issues/97#issuecomment-571551892
 <!-- garden-plain-retry-not-before: 2026-09-17T14:13:08Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
