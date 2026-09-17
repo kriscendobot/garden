@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-17T01:28:30Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-explore-ironhorse-promise-chain-shortening
+pr_number: 6
+pr_repo: kriscendobot/endo-but-for-bots
+pr_url: https://github.com/kriscendobot/endo-but-for-bots/pull/6
+pr_head: design/ironhorse-promise-chain-shortening
