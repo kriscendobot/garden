@@ -11,3 +11,13 @@ The prosecutor retro on kriscendobot/minion.town#68 (review 5083859413, body "pl
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T15:03:11Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T15:03:26Z
