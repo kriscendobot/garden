@@ -110,12 +110,25 @@ automatic ledger, and for the same reason `cybernetics-audit.md` § 2.3 gives: d
 wire an auto-derived setpoint straight to a full-authority actuator.
 
 Promotion into `config/budget-pools` stays a **deliberate act** through a new
-`set-budget-pool.sh <pool> <ceiling> <calibrated_from> [date] [--kind ...]`, invoked
+`set-budget-pool.sh <pool> <ceiling> <calibrated_from> [date] [--kind ...] [--monk-cap N] [--cleric-cap M]`, invoked
 by a human or a proxy role when the log has enough new points and the fit reads
 `converged`. The setter writes the provenance columns (`calibrated_from`,
 `calibrated_at`) that `cybernetics-rec123-budget-loop` already landed, so a promoted
 cap carries `manual-fit <date>` and the leveling controller trusts it, while a cap
 left at `placeholder`/absent stays honestly disarmed for leveling.
+
+Because `budget-level.sh` apportions one monk fleet ceiling across every enabled
+calibrated Anthropic weekly-tokens pool, each such pool's host **must** carry a
+physical-cap row in `config/worker-leveling`
+([`proportional-worker-leveling.md`](proportional-worker-leveling.md) § 1.4); a pool
+whose host has no row freezes **all** monk allocation fleet-wide every leveler tick
+(the `oros-studio-garden-ce242c49` incident). The setter therefore couples the two at
+the write boundary: promoting a calibrated Anthropic pool while worker-leveling is
+configured either **validates** the host's existing physical-cap row or **upserts** it
+from `--monk-cap` (and optional `--cleric-cap`) in the **same atomic journal commit** as
+the pool row, and otherwise **rejects** — never letting a promotion land the freeze the
+leveler would only rediscover forever. It never changes the fleet ceilings (`F`/`K_max`);
+those stay a deliberate `set-worker-leveling.sh` decision.
 
 **A sharp asymmetry this design surfaces and does not paper over.** The uncalibrated
 guard `budget_level_uncalibrated` protects only **`budget-level.sh`** (the worker-count

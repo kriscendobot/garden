@@ -18,36 +18,73 @@
 # real number instead of refusing. Do not promote a fit graded below `converged`: an
 # uncalibrated marker no longer merely disarms leveling, it halts the host's claims.
 #
-#   set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind KIND]
+#   set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind KIND] [--monk-cap N] [--cleric-cap M]
 #
 #   <pool_id>          for example anthropic:endolin-garden-ece02cb4
 #   <ceiling>          integer token cap (weekly-tokens), or `-` for an unmetered pool
 #   <calibrated_from>  provenance, for example `manual-fit`, `usage-sample`, `placeholder`
 #   [calibrated_at]    ISO date/time (default: today, UTC)
 #   --kind KIND        ceiling_kind: weekly-tokens (default) | unmetered | weekly-usd
+#   --monk-cap N       host monk physical cap for the worker-leveling row (see below)
+#   --cleric-cap M     host cleric physical cap (optional; default 0 on an insert)
+#
+# Worker-leveling physical-cap coupling. budget-level.sh apportions one fleet monk
+# ceiling across every ENABLED (calibrated) Anthropic weekly-tokens pool, and each such
+# pool's host MUST carry a `host <id> <monk-cap> <cleric-cap>` row in journal
+# config/worker-leveling (proportional-worker-leveling.md § 1.4). If one enabled pool's
+# host has no physical-cap row, budget-level fails the fleet-wide provenance/capacity gate
+# and FREEZES all monk allocation every tick — no monk count may rise anywhere until a
+# human notices. That is a config error this setter must catch at the write boundary
+# rather than let the leveler rediscover forever (the oros-studio-garden-ce242c49 incident:
+# a freshly calibrated pool with no host row).
+#
+# So when this setter enables a CALIBRATED Anthropic weekly-tokens pool (provenance outside
+# the uncalibrated set) AND worker-leveling is configured (the file exists), it REQUIRES the
+# host's physical cap and, in the SAME atomic journal commit as the pool row:
+#   * validates an existing host row's monk cap (positive integer); or
+#   * upserts the host row from --monk-cap (and optional --cleric-cap) — insert if absent,
+#     update if --monk-cap overrides an existing value; or
+#   * REJECTS (exit 2) when the host row is absent and no --monk-cap is supplied, or when
+#     the resulting file would still freeze the fleet (monk-fleet-ceiling above physical
+#     capacity, or below the one-per-host floor — both a set-worker-leveling.sh policy call).
+# It never invents or changes the fleet ceilings (F/K_max): those stay a deliberate
+# set-worker-leveling.sh decision. When worker-leveling is NOT configured, leveling is off
+# and no freeze is possible, so no physical cap is required.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 export GARDEN_TAG=set-budget-pool
 
-usage() { echo "usage: set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind weekly-tokens|unmetered|weekly-usd]" >&2; exit 2; }
+usage() { echo "usage: set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind weekly-tokens|unmetered|weekly-usd] [--monk-cap N] [--cleric-cap M]" >&2; exit 2; }
 
 pool="${1:-}"; ceiling="${2:-}"; calibrated_from="${3:-}"
 [ -n "$pool" ] && [ -n "$ceiling" ] && [ -n "$calibrated_from" ] || usage
 case "$pool" in *:*) ;; *) echo "pool_id must be provider:host, for example anthropic:endolin-garden-ece02cb4" >&2; exit 2;; esac
 shift 3
-calibrated_at=""; kind="weekly-tokens"
+calibrated_at=""; kind="weekly-tokens"; monk_cap=""; cleric_cap=""
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --kind) kind="${2:?}"; shift 2;;
+    --monk-cap) monk_cap="${2:?}"; shift 2;;
+    --cleric-cap) cleric_cap="${2:?}"; shift 2;;
     -*) echo "unknown option: $1" >&2; usage;;
     *) [ -z "$calibrated_at" ] || usage; calibrated_at="$1"; shift;;
   esac
 done
 case "$kind" in weekly-tokens|unmetered|weekly-usd) ;; *) echo "--kind must be weekly-tokens|unmetered|weekly-usd" >&2; exit 2;; esac
+[ -z "$monk_cap" ] || [[ "$monk_cap" =~ ^[1-9][0-9]*$ ]] || { echo "--monk-cap must be a positive integer" >&2; exit 2; }
+[ -z "$cleric_cap" ] || [[ "$cleric_cap" =~ ^[0-9]+$ ]] || { echo "--cleric-cap must be a non-negative integer" >&2; exit 2; }
 [ -n "$calibrated_at" ] || calibrated_at="$(date -u +%F)"
 provider="${pool%%:*}"; host="${pool#*:}"
+
+# When we ENABLE a calibrated Anthropic weekly-tokens pool, budget-level.sh will demand a
+# worker-leveling physical-cap row for this host or freeze the whole monk fleet. Gate the
+# physical-cap coupling on exactly that condition (see the header).
+require_leveling=0
+if [ "$provider" = anthropic ] && [ "$kind" = weekly-tokens ] && ! pool_provenance_uncalibrated "$calibrated_from"; then
+  require_leveling=1
+fi
 
 # Validate the ceiling against the kind so a fat-fingered value cannot arm the claim
 # gate on garbage. weekly-tokens: positive integer. unmetered: literal `-`. weekly-usd:
@@ -61,10 +98,85 @@ esac
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 
+# _leveling_reconcile <dir> — validate/upsert this host's worker-leveling physical-cap row
+# so enabling a calibrated Anthropic pool cannot freeze the monk fleet. Returns:
+#   0  nothing to do, or the file was reconciled and staged;
+#   3  hard reject (do not retry — a config decision the operator must make);
+#   1  transient local failure (mktemp/git) — the caller retries after a re-sync.
+# Operates on the synced clone the caller already prepared; pure function of that state,
+# so a CAS retry re-derives it idempotently.
+_leveling_reconcile() {
+  local dir="$1"
+  local file="$dir/config/worker-leveling"
+  # No leveling configured => budget-level exits "leveling frozen/off" before the per-pool
+  # physical-cap gate, so no missing-row freeze is possible and no cap is required. But a
+  # --monk-cap here has nowhere valid to land: the fleet ceilings are a deliberate policy
+  # the operator sets first with set-worker-leveling.sh.
+  if [ ! -f "$file" ]; then
+    if [ -n "$monk_cap" ] || [ -n "$cleric_cap" ]; then
+      echo "set-budget-pool: worker-leveling is not configured; establish fleet ceilings and per-host caps first with set-worker-leveling.sh <monk-fleet> <cleric-fleet> <host:monk:cleric>..." >&2
+      return 3
+    fi
+    return 0
+  fi
+
+  local have_row existing_mc existing_cc
+  read -r have_row existing_mc existing_cc < <(awk -v h="$host" '
+    $1=="host" && $2==h { print "1", $3, $4; found=1; exit }
+    END { if (!found) print "0", "", "" }' "$file")
+
+  local new_mc new_cc action
+  if [ "$have_row" = 1 ]; then
+    [ -n "$monk_cap" ] && new_mc="$monk_cap" || new_mc="$existing_mc"
+    [ -n "$cleric_cap" ] && new_cc="$cleric_cap" || new_cc="$existing_cc"
+    [[ "$new_mc" =~ ^[1-9][0-9]*$ ]] || { echo "set-budget-pool: host $host worker-leveling monk physical cap '${existing_mc:-}' is invalid; pass --monk-cap N to fix it" >&2; return 3; }
+    [[ "$new_cc" =~ ^[0-9]+$ ]] || { echo "set-budget-pool: host $host worker-leveling cleric physical cap '${existing_cc:-}' is invalid; pass --cleric-cap M to fix it" >&2; return 3; }
+    # Already valid and no override => validate-only, nothing to write.
+    [ "$new_mc" = "$existing_mc" ] && [ "$new_cc" = "$existing_cc" ] && return 0
+    action=update
+  else
+    [ -n "$monk_cap" ] || { echo "set-budget-pool: host $host has no worker-leveling physical-cap row; enabling calibrated pool $pool would FREEZE all monk allocation fleet-wide. Pass --monk-cap N (and optional --cleric-cap M) to upsert it atomically, or run set-worker-leveling.sh." >&2; return 3; }
+    new_mc="$monk_cap"; [ -n "$cleric_cap" ] && new_cc="$cleric_cap" || new_cc=0
+    action=insert
+  fi
+
+  local tmp; tmp="$(mktemp)" || return 1
+  awk -v h="$host" -v mc="$new_mc" -v cc="$new_cc" -v action="$action" '
+    BEGIN { OFS="\t" }
+    $1=="host" && $2==h { print "host", h, mc, cc; done=1; next }
+    { print }
+    END { if (!done) print "host", h, mc, cc }
+  ' "$file" > "$tmp" || { rm -f "$tmp"; return 1; }
+
+  # Never trade the missing-row freeze for a ceiling-vs-capacity freeze: after the upsert
+  # the file must still satisfy the invariants budget-level.sh and set-worker-leveling.sh
+  # enforce. We only touch physical caps here, never the fleet ceiling.
+  local mf hcount ssum
+  read -r mf hcount ssum < <(awk '
+    $1=="monk-fleet-ceiling" { mf=$2 }
+    $1=="host" { h++; s+=$3 }
+    END { print mf, h+0, s+0 }' "$tmp")
+  if [[ "$mf" =~ ^[1-9][0-9]*$ ]]; then
+    if [ "$ssum" -lt "$mf" ]; then echo "set-budget-pool: upsert leaves monk physical capacity ($ssum) below the monk-fleet-ceiling ($mf); raise per-host caps or lower the ceiling via set-worker-leveling.sh" >&2; rm -f "$tmp"; return 3; fi
+    if [ "$mf" -lt "$hcount" ]; then echo "set-budget-pool: monk-fleet-ceiling ($mf) is below the one-per-host floor ($hcount hosts) after the upsert; raise it via set-worker-leveling.sh" >&2; rm -f "$tmp"; return 3; fi
+  fi
+
+  mv "$tmp" "$file" || { rm -f "$tmp"; return 1; }
+  git -C "$dir" add "config/worker-leveling" || return 1
+  log "worker-leveling host $host <- monk-cap=$new_mc cleric-cap=$new_cc ($action, coupled to budget-pool $pool)"
+  return 0
+}
+
 _set_once() {
   local dir="$1"
   local file="$dir/config/budget-pools" tmp
   mkdir -p "$dir/config" || return 1
+  # Couple the worker-leveling physical cap into the SAME commit. A hard reject (rc 3)
+  # aborts before we touch config/budget-pools, so a bad promotion lands neither file.
+  if [ "$require_leveling" -eq 1 ]; then
+    local lrc=0; _leveling_reconcile "$dir" || lrc=$?
+    [ "$lrc" -eq 0 ] || return "$lrc"
+  fi
   [ -f "$file" ] || : > "$file"
   tmp="$(mktemp)" || return 1
   # Preserve unrelated comments and blank lines verbatim, but remove any
@@ -210,11 +322,17 @@ _set_once() {
   [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]
 }
 
+# rc 3 from _set_once is a hard config reject (missing/uncompleteable physical cap):
+# surface it as exit 2 immediately, never burning the push-retry budget on it.
 sync_clone "$DIR"
-if _set_once "$DIR"; then exit 0; fi
+rc=0; _set_once "$DIR" || rc=$?
+[ "$rc" -eq 0 ] && exit 0
+[ "$rc" -eq 3 ] && exit 2
 for attempt in 2 3 4 5 6 7 8; do
   backoff "$((attempt - 1))"
-  if ( sync_clone "$DIR"; _set_once "$DIR" ); then exit 0; fi
+  rc=0; ( sync_clone "$DIR"; _set_once "$DIR" ) || rc=$?
+  [ "$rc" -eq 0 ] && exit 0
+  [ "$rc" -eq 3 ] && exit 2
 done
 echo "set-budget-pool: exhausted journal-push attempts" >&2
 exit 1
