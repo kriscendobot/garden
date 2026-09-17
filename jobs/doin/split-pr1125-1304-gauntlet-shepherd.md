@@ -38,3 +38,13 @@ Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=159,124 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T22:43:40Z
