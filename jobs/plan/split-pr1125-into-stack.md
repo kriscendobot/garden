@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 1
+doomed_at: 2026-09-17T20:33:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-17T20:33:09Z
+---
+
+---
 role: builder
 tier: mentor
 fallback-tier: minion
@@ -83,20 +104,3 @@ for their gauntlet+shepherd loops, and how the receipt was split (and
 whether the receipt mechanism itself needed a workaround/extension — flag
 that as a separate follow-up if it's more than a one-off judgment call for
 this PR).
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-17T20:23:09Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=4,5 -->
-<!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T20:23:13Z
