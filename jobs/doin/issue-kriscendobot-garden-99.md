@@ -34,3 +34,13 @@ https://github.com/kriscendobot/oros-ckm-data-readiness has no github workflows.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T14:03:08Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T14:03:17Z
