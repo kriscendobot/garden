@@ -41,6 +41,7 @@ Report the before/after target value and confirm the two prior tests pass.
 <!-- garden-plain-retry-not-before: 2026-09-17T21:23:11Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,6 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
