@@ -55,3 +55,13 @@ the generator-family metadata fix landed).
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1453 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T00:45:31Z
