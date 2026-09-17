@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T04:32:55Z_
+_As of 2026-09-17T04:37:18Z_
 
 ## Latest
 
@@ -2907,9 +2907,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T03:20:34Z).
-> The SAME condition (`budget-level-monk-preflight`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T04:35:05Z).
+> The SAME condition (`budget-level-monk-preflight`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
 > budget-level: fleet monk allocation frozen: anthropic:oros-studio-garden-ce242c49 missing/invalid monk physical cap. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
 
@@ -4208,13 +4208,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 74.3M | $551.99 _(notional, rate-card)_ | 52% of 143.0M (ok) |
-| Codex | 19.3M _(+455.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
+| Codex | 19.3M _(+456.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260917-043521`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260917-043521.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #695
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #84
