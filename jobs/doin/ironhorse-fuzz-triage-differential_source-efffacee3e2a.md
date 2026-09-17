@@ -42,3 +42,13 @@ port defects buy repair work; known oracle/harness artifacts and duplicates end 
    never becomes repair work.
 5. Land every triage record with journal CAS discipline. Post NO repair job — the producer
    batches genuine findings into one cluster repair on a later tick.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T01:56:33Z
