@@ -99,6 +99,7 @@ and include the transcript. That is the evaluation's own bar, met.
 Do not touch agoric/agoric-sdk. Follow skills/local-verify and the pre-push gates.
 If the work does not fit one handler, SPLIT it and say so rather than overrunning.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
