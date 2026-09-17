@@ -127,3 +127,13 @@ handler even at 10800s, SPLIT it along the design's own three steps and say so i
 your report rather than overrunning — steps 1, 2, and 3 are natural claim-sized
 stages. Follow skills/local-verify and the pre-push gates; open the PR per the
 normal build flow.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T01:27:13Z
