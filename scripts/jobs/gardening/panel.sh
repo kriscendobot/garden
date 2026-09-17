@@ -515,6 +515,24 @@ seat_provenance_footnote() {  # seat_provenance_footnote <seat> -> footnote or "
   provenance_footnote_for_kind "${GARDEN_JOB_MODEL:-}" "${GARDEN_WORKER_KIND:-}"
 }
 
+# seat_verdict_label <block-file> -> approve | request-changes | comment-only | ""
+# The scannable verdict for a seat's `<details><summary>`, so a reviewer can read
+# the whole panel's per-seat stance WITHOUT expanding a single collapsed block.
+# The seat block is LLM- or gate-authored prose, so match tolerantly: prefer a line
+# that names a Verdict, then normalize to one of the three canonical tokens. Falls
+# back to the whole block, then to "" (summary carries just the seat name) — never
+# a guessed verdict.
+seat_verdict_label() {  # seat_verdict_label <block-file>
+  local block="$1" line=""
+  line="$(grep -iE 'verdict' "$block" 2>/dev/null | head -1)"
+  [ -n "$line" ] || line="$(cat "$block" 2>/dev/null)"
+  # request-changes / comment-only are matched ahead of the bare `approve` they can
+  # never contain, so a "request-changes" line is never mislabeled `approve`.
+  printf '%s' "$line" \
+    | grep -oiE 'request-changes|request changes|comment-only|comment only|approve' \
+    | head -1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-'
+}
+
 # --- DECISION HOOK: aggregate the seat verdicts into one disposition ---------
 # Reads every seat's block and decides the round's disposition. Echoes one of
 # `must-fix` (changes required; loop to the fixer) or `pass` (no must-fix items;
@@ -850,14 +868,29 @@ while :; do
       fail) PANEL_DISPOSITION="seat-error"; fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)" ;;
       *)    PANEL_DISPOSITION="seat-error"; fail "seat $seat (fan-out died before reporting a verdict; stderr in $block.stderr)" ;;
     esac
+    # Wrap each seat's full block in a `<details>` disclosure triangle so the posted
+    # review is scannable: the top-level verdict header (composed downstream, left
+    # untouched) stays visible, and each seat's detail is collapsed behind a
+    # `<summary>` that carries the seat name and its verdict. GitHub renders Markdown
+    # inside a `<details>` only when a BLANK LINE follows the `</summary>` tag —
+    # without it the block content shows as literal text — so the blank line below is
+    # load-bearing (see skills/panel-review/SKILL.md).
     {
-      echo "### $seat"
+      verdict="$(seat_verdict_label "$block" 2>/dev/null || true)"
+      printf '<details>\n'
+      if [ -n "$verdict" ]; then
+        printf '<summary><b>%s</b> — %s</summary>\n\n' "$seat" "$verdict"
+      else
+        printf '<summary><b>%s</b></summary>\n\n' "$seat"
+      fi
       cat "$block"
       # Per-section provenance footnote for THIS seat, in the same visual style as
       # the whole-body footer. Deterministic (a pure function of the seat's facts),
-      # so the aggregate stays byte-stable regardless of seat completion order.
+      # so the aggregate stays byte-stable regardless of seat completion order. Kept
+      # INSIDE the seat's collapsed block, immediately after its content.
       fn="$(seat_provenance_footnote "$seat" 2>/dev/null || true)"
       [ -n "$fn" ] && printf '%s\n' "$fn"
+      printf '</details>\n'
       echo
     } >> "$agg"
   done

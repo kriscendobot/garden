@@ -73,16 +73,18 @@ nfoot="$(grep -c "$SECTION_MARKER" "$AGG" 2>/dev/null || true)"
   || bad "expected 3 per-section footnotes, got $nfoot in $AGG"
 
 # assessor (monk → anthropic/claude) and typist (cleric → openai/codex) differ.
-grep -A5 '^### assessor' "$AGG" | grep -q "provider <code>anthropic</code>" \
-  && grep -A5 '^### assessor' "$AGG" | grep -q "harness <code>claude</code>" \
-  && grep -A5 '^### assessor' "$AGG" | grep -q "claude-opus-5" \
+# Each seat block is now wrapped in a <details> whose <summary> names the seat, so
+# the per-seat anchor is that summary line rather than a bare `### <seat>` heading.
+grep -A5 '<summary><b>assessor</b>' "$AGG" | grep -q "provider <code>anthropic</code>" \
+  && grep -A5 '<summary><b>assessor</b>' "$AGG" | grep -q "harness <code>claude</code>" \
+  && grep -A5 '<summary><b>assessor</b>' "$AGG" | grep -q "claude-opus-5" \
   && ok "assessor's footnote names its own facts (claude-opus-5 / claude / anthropic)" \
-  || bad "assessor footnote wrong: $(grep -A5 '^### assessor' "$AGG")"
-grep -A5 '^### typist' "$AGG" | grep -q "provider <code>openai</code>" \
-  && grep -A5 '^### typist' "$AGG" | grep -q "harness <code>codex</code>" \
-  && grep -A5 '^### typist' "$AGG" | grep -q "gpt-5" \
+  || bad "assessor footnote wrong: $(grep -A5 '<summary><b>assessor</b>' "$AGG")"
+grep -A5 '<summary><b>typist</b>' "$AGG" | grep -q "provider <code>openai</code>" \
+  && grep -A5 '<summary><b>typist</b>' "$AGG" | grep -q "harness <code>codex</code>" \
+  && grep -A5 '<summary><b>typist</b>' "$AGG" | grep -q "gpt-5" \
   && ok "typist's footnote names its own DIFFERENT facts (gpt-5 / codex / openai)" \
-  || bad "typist footnote wrong: $(grep -A5 '^### typist' "$AGG")"
+  || bad "typist footnote wrong: $(grep -A5 '<summary><b>typist</b>' "$AGG")"
 
 # The two footnotes are genuinely distinct lines (not one repeated whole-body footer).
 ndistinct="$(grep "$SECTION_MARKER" "$AGG" | sort -u | wc -l | tr -d ' ')"
@@ -90,13 +92,14 @@ ndistinct="$(grep "$SECTION_MARKER" "$AGG" | sort -u | wc -l | tr -d ' ')"
   && ok "the three footnotes are DISTINCT (per-seat, not one repeated line)" \
   || bad "expected 3 distinct footnotes, got $ndistinct distinct lines"
 
-# The seat verdict blocks themselves are intact and precede their footnotes.
-[ "$(grep -c '^### ' "$AGG")" = 3 ] \
-  && ok "every seat block still reached the aggregate" \
-  || bad "aggregate holds $(grep -c '^### ' "$AGG") seat blocks; expected 3"
+# The seat verdict blocks themselves are intact and precede their footnotes; each
+# is now wrapped in exactly one <details> disclosure block.
+[ "$(grep -c '<summary>' "$AGG")" = 3 ] \
+  && ok "every seat block still reached the aggregate (3 <details> disclosures)" \
+  || bad "aggregate holds $(grep -c '<summary>' "$AGG") seat blocks; expected 3"
 
 hr; echo "SUBTEST 2 — a deterministic seat footnotes as 'automatic'"; hr
-stylist_sec="$(grep -A5 '^### stylist' "$AGG")"
+stylist_sec="$(grep -A5 '<summary><b>stylist</b>' "$AGG")"
 { printf '%s' "$stylist_sec" | grep -q "model <code>automatic</code>" \
   && ! printf '%s' "$stylist_sec" | grep -q "harness <code>"; } \
   && ok "stylist (no-LLM) → 'model automatic' footnote (harness/provider omitted)" \
@@ -107,9 +110,9 @@ hr; echo "SUBTEST 3 — fail-open: no hook + no job facts → no footnotes, bloc
   run_panel "$TR/rd-open" >/dev/null 2>&1 )
 AGG2="$TR/rd-open/round-1.md"
 nfoot2="$(grep -c "$SECTION_MARKER" "$AGG2" 2>/dev/null || true)"
-{ [ "$nfoot2" = 0 ] && [ "$(grep -c '^### ' "$AGG2")" = 3 ]; } \
+{ [ "$nfoot2" = 0 ] && [ "$(grep -c '<summary>' "$AGG2")" = 3 ]; } \
   && ok "no facts and no hook → zero footnotes, all 3 seat blocks intact (fail-open)" \
-  || bad "fail-open aggregate wrong: footnotes=$nfoot2 blocks=$(grep -c '^### ' "$AGG2")"
+  || bad "fail-open aggregate wrong: footnotes=$nfoot2 blocks=$(grep -c '<summary>' "$AGG2")"
 
 hr
 echo "RESULT: $PASS passed, $FAIL failed"

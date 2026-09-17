@@ -108,13 +108,15 @@ run_panel "$SEATS8" 8 "$TR/rd-o8" "$TR/fan-o8" 0 >/dev/null 2>&1
 cmp -s "$TR/rd-o1/round-1.md" "$TR/rd-o8/round-1.md" \
   && ok "round-1.md is byte-identical at concurrency 1 and 8" \
   || bad "round-1.md differs by concurrency: $(diff "$TR/rd-o1/round-1.md" "$TR/rd-o8/round-1.md" | head -5)"
-got="$(grep '^### ' "$TR/rd-o8/round-1.md" | sed 's/^### //' | tr '\n' ' ' | sed 's/ *$//')"
+# Each seat block is wrapped in a <details> whose <summary> names the seat, so the
+# seat order reads off the summary lines rather than bare `### <seat>` headings.
+got="$(grep -oE '<summary><b>[^<]+</b>' "$TR/rd-o8/round-1.md" | sed -E 's#<summary><b>([^<]+)</b>#\1#' | tr '\n' ' ' | sed 's/ *$//')"
 [ "$got" = "$SEATS8" ] \
   && ok "blocks appear in \$seats order, not completion order" \
   || bad "aggregate order is '$got'; expected '$SEATS8'"
-[ "$(grep -c '^### ' "$TR/rd-o8/round-1.md")" = 8 ] \
+[ "$(grep -c '<summary>' "$TR/rd-o8/round-1.md")" = 8 ] \
   && ok "every seat's block reached the aggregate exactly once" \
-  || bad "aggregate holds $(grep -c '^### ' "$TR/rd-o8/round-1.md") blocks; expected 8"
+  || bad "aggregate holds $(grep -c '<summary>' "$TR/rd-o8/round-1.md") blocks; expected 8"
 
 hr; echo "SUBTEST 4 — one always-empty seat fails the parallel panel loudly"; hr
 out4="$(run_panel "$SEATS8" 8 "$TR/rd-f" "$TR/fan-f" 0 prover 2>&1)"; rc4=$?

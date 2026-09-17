@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-09-16
+updated: 2026-09-17
 author: gardener
 ---
 
@@ -28,6 +28,36 @@ One top-level comment (`gh pr comment <N>`, or `POST /repos/<owner>/<repo>/issue
 - **Verification status.** Tests / lint / types: green, red-with-reason, or not-yet-run with the run URL when available.
 
 Keep it scannable. A bulleted item-to-SHA map plus a one-line verification status is the floor; prose paragraphs only where an item needs explanation.
+
+### Loop-status floor + collapse the bulk
+
+A summary comment on an active PR grows long — a many-entry item-to-SHA map, full command output, a long diff excerpt, detailed per-item reasoning. Wrap that **bulk in `<details>`** disclosure triangles (GitHub renders them as collapsed, expandable sections) so the comment stays scannable. But one signal is **never** collapsed: whether the feedback loop is **continuing or quiescing**.
+
+Keep **visible, outside every `<details>`**, a clear **loop-status line** so a maintainer skimming the PR thread can tell "is this still churning or is it done" without expanding anything:
+
+- **The round/iteration number** when this is a gauntlet fix stage. The job frontmatter's `gauntlet_iteration` is already tracked — surface it, e.g. "Fix round 6".
+- **CI status** — green / red / pending.
+- **Where the loop stands next** — whether another panel pass is expected, or it has converged (approved / un-drafted / merged).
+
+The floor is therefore: **a visible loop-status line + a scannable summary (head SHA, what changed, declines, verification), with the bulk detail collapsible.** Collapse detail freely; never collapse the loop-status line. When `<details>` blocks carry Markdown content, leave a **blank line after the `</summary>`** — GitHub renders the body as Markdown only with it (without it the content shows as literal text).
+
+Example skeleton:
+
+```markdown
+**Fix round 6** · CI: 🟡 pending · next: panel re-review expected
+Head `abc1234`. Addressed 4 of the round's 5 must-fix items; 1 declined (out of scope).
+
+<details><summary>Item-to-SHA map (5 items)</summary>
+
+- `def5678` — …
+- …
+</details>
+
+<details><summary>Verification output</summary>
+
+… full lint/test output …
+</details>
+```
 
 ### Per-section provenance for an aggregated summary
 

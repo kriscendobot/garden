@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-15
+updated: 2026-09-17
 author: gardener
 ---
 
@@ -201,6 +201,13 @@ The body is the aggregated report (typically 2300 to 3600 words for the code pan
 ```
 
 The summary-fix bundle, the follow-up ledger append, and the proposed-rule message to the gardener all land on the same beat as the review submission; the un-draft is the last step of the round.
+
+**Collapse each seat's block behind a disclosure triangle.** The code panel's aggregate runs many hundreds of lines across 31 seats; posted as one undifferentiated block it is unscannable. So the report has two visibility tiers:
+
+- **The top-level verdict stays fully visible, unwrapped.** The "Panel verdict — round N" header, the disposition, and the bucketed request-changes findings the decider composes are what a reviewer scans first and must read without expanding anything. Leave them outside every `<details>`.
+- **Each seat's full block is collapsed.** The panel script (`scripts/jobs/gardening/panel.sh`, the per-seat aggregation loop) wraps each seat's block — its verdict, findings, and per-seat provenance footnote — in a `<details>` whose `<summary>` carries the seat name and its verdict, e.g. `<summary><b>assessor</b> — request-changes</summary>`, so a reviewer reads every seat's stance without expanding a single block.
+
+GitHub renders Markdown *inside* a `<details>` only when a **blank line follows the `</summary>`** — without it the block content shows as literal text. The script emits that blank line; preserve it in any hand-composed variant. The per-seat provenance footnote stays **inside** its seat's collapsed block, immediately after the content (never hoisted out).
 
 **Per-seat provenance footnotes.** The aggregate is a body stitched from many seats, each its own `claude -p` invocation potentially at a different model/tier than its peers or the supervising gardener; a single whole-body footer would misattribute every seat but one. The panel script therefore appends a per-seat provenance footnote (model · harness · provider, or `automatic` for a deterministic seat) to each seat's block as it aggregates (`scripts/jobs/gardening/panel.sh`'s `seat_provenance_footnote` → `provenance_footnote_for_kind` in `scripts/jobs/comment-provenance.sh`). Those footnotes carry a distinct section marker that does not suppress the single closing whole-body footer the gh wrapper adds when the review posts. Leave them in place; do not collapse them into one footer.
 
