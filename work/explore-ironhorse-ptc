@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-17T01:09:54Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-explore-ironhorse-ptc
+pr_number: 5
+pr_repo: kriscendobot/endo-but-for-bots
+pr_url: https://github.com/kriscendobot/endo-but-for-bots/pull/5
+pr_head: design/ironhorse-proper-tail-calls
