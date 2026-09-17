@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-17T01:45:29Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-web-invite-accept-slice-20260916
-pr_number: 81
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/81
-pr_head: build/invitation-only-guest-onboarding

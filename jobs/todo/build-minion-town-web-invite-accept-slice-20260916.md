@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 handler-timeout: 10800
@@ -99,13 +100,4 @@ and include the transcript. That is the evaluation's own bar, met.
 Do not touch agoric/agoric-sdk. Follow skills/local-verify and the pre-push gates.
 If the work does not fit one handler, SPLIT it and say so rather than overrunning.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T01:45:29Z
+<!-- garden-reaped: 0 -->

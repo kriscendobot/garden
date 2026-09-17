@@ -83,13 +83,5 @@ the maintainer is weighing whether to raise this host's throttle — what worker
 count the calibrated cap would sustain at roughly 70-80% weekly utilization.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=438 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-17T02:04:54Z
+
+<!-- garden-reaped: 1 -->
