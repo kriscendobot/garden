@@ -332,6 +332,15 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   if commit_and_push "$DIR" "$action by $GARDEN${identity:+ [id:$identity]}"; then
     if $route_budget_hold; then
       log "parked '$base' in plan/ (budget-hold)${identity:+ (identity '$identity')}"
+      if decision_input_json="$(jq -cn --arg base "$base" --arg status "$fleet_budget_status" \
+        --arg posted_by "${GARDEN_SENDER:-producer}" \
+        '{base:$base,budget_fleet_status:$status,posted_by:$posted_by,gate:"go-ahead",park_reason:"over-token-budget"}')"; then
+        record_decision --loop budget-admission --input-json "$decision_input_json" \
+          --decision park-plan \
+          --to-json "$(jq -cn --arg value "$JOBS_PLAN/$base.md" '$value')" \
+          --reason "all configured bounded pools are at high water" \
+          --outcome applied --outcome-detail "job preserved as a budget hold"
+      fi
     else
       log "posted '$base'${identity:+ (identity '$identity')}"
     fi

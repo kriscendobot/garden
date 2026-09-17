@@ -1241,6 +1241,25 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN"; then
     doomed=${#DOOM_BASE[@]}
     reaped=$(( staged - doomed ))
+    # The reap batch CAS is the actuation point. Record each job that moved into
+    # the held plan queue only after that CAS lands; a rejected batch therefore
+    # cannot leave a false decision record. Recording has its own bounded CAS loop
+    # and is fail-open, so it cannot strand the already-parked work.
+    for i in "${!DOOM_BASE[@]}"; do
+      if decision_input_json="$(jq -cn --arg base "${DOOM_BASE[$i]}" \
+        --arg signature "${DOOM_SIG[$i]}" --arg cycles "${DOOM_COUNT[$i]}" \
+        --arg overruns "${DOOM_OVERRUN[$i]}" --arg constancy "${DOOM_CONSTANCY[$i]}" \
+        --arg progress "${DOOM_PROGRESS[$i]}" --arg token_budget "${DOOM_TOKEN_BUDGET[$i]}" \
+        --arg token_spend "${DOOM_TOKEN_SPEND[$i]}" \
+        '{base:$base,signature:$signature,requeue_cycles:$cycles,deadline_overruns:$overruns,elapsed_constancy_confirmations:$constancy,progress:$progress,token_budget:$token_budget,token_spend:$token_spend,gate:"go-ahead"}')"; then
+        record_decision --loop reaper --input-json "$decision_input_json" \
+          --decision park-plan \
+          --from-json "$(jq -cn --arg value "$JOBS_DOIN/${DOOM_BASE[$i]}.md" '$value')" \
+          --to-json "$(jq -cn --arg value "$JOBS_PLAN/${DOOM_BASE[$i]}.md" '$value')" \
+          --reason "reaper selected held plan disposition: ${DOOM_SIG[$i]}" \
+          --outcome applied --outcome-detail "reap batch CAS accepted"
+      fi
+    done
     # A doom push is terminal for this attempt.  Requeues deliberately retain
     # their stable per-base checkout, but a held doom does not: if a maintainer
     # later promotes it, ensure-project-worktree recreates a clean checkout for

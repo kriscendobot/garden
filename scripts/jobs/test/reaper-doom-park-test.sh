@@ -138,6 +138,17 @@ fi
   && ok "exactly one maintainer notice posted for the first doom" \
   || bad "expected 1 maintainer notice, found $(count_unread)"
 
+decision_ledger="$(find "$V/budget/decisions" -maxdepth 1 -name '*-testhost.jsonl' -print -quit 2>/dev/null || true)"
+if [ -n "$decision_ledger" ] && jq -e '
+  select(.loop == "reaper" and .decision == "park-plan"
+    and .input.base == "boom" and .input.signature == "requeue-exhausted"
+    and .from == "jobs/doin/boom.md" and .to == "jobs/plan/boom.md"
+    and .outcome == "applied")' "$decision_ledger" >/dev/null; then
+  ok "doom parking leaves a durable reaper decision with input and outcome"
+else
+  bad "doom park decision record missing or malformed"
+fi
+
 # ============================================================================
 hr; echo "SUBTEST 2 — DEDUP: re-dooming the same job amends, not duplicates"; hr
 # Simulate the job being re-claimed (a human promoted it, a gardener claimed and

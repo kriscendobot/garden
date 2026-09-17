@@ -250,6 +250,17 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
 
   if commit_and_push "$DIR" "promote($base) plan→todo [$gate/$priority] by $GARDEN"; then
     log "promoted '$base' plan→todo (gate=$gate priority=$priority cleared=$cleared)"
+    if decision_input_json="$(jq -cn --arg base "$base" --arg gate "$gate" \
+      --arg priority "$priority" --arg cleared "$cleared" \
+      --argjson maintainer "$maintainer_promotion" \
+      '{base:$base,gate:$gate,priority:$priority,cleared:$cleared,maintainer_attested:($maintainer == 1)}')"; then
+      record_decision --loop plan-queue --input-json "$decision_input_json" \
+        --decision promote-plan \
+        --from-json "$(jq -cn --arg value "$JOBS_PLAN/$base.md" '$value')" \
+        --to-json "$(jq -cn --arg value "$JOBS_TODO/$base.md" '$value')" \
+        --reason "plan gate cleared; job admitted to the claimable queue" \
+        --outcome applied --outcome-detail "promotion CAS accepted"
+    fi
     exit 0
   fi
   log "promote of '$base' lost a push race (attempt $attempt); re-syncing"

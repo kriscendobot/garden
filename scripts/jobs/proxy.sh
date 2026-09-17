@@ -147,7 +147,7 @@ park_blocked_jobs() {
   local dir="$1" attempt f base artifact body src rc
   for attempt in $(seq 1 50); do
     sync_clone "$dir"
-    local parked=() pr_notes=()      # pr_notes: "repo\tnum\tbase" for courtesy comments
+    local parked=() newly_parked=() newly_blocked_on=() pr_notes=()      # pr_notes: "repo\tnum\tbase" for courtesy comments
     while IFS= read -r f; do
       artifact="$(sed -n 's/^blocked_on:[[:space:]]*//p' "$f" | head -1)"
       [ -n "$artifact" ] || continue                 # only the structured blocking signal
@@ -210,6 +210,8 @@ park_blocked_jobs() {
       git -C "$dir" mv "inbox/maintainer/unread/$(basename "$f")" \
                        "inbox/maintainer/read/$(basename "$f")" 2>/dev/null || true
       parked+=("$base")
+      newly_parked+=("$base")
+      newly_blocked_on+=("$artifact")
       # Queue a courtesy PR comment for AFTER the push (so a lost CAS never comments).
       if pr="$(parse_pr_ref "$artifact")"; then
         pr_notes+=("$(printf '%s\t%s' "$pr" "$base")")
@@ -224,6 +226,18 @@ park_blocked_jobs() {
     rc=0; commit_and_push "$dir" "proxy: park ${#parked[@]} blocked job(s)" || rc=$?
     if [ "$rc" -eq 0 ]; then
       log "parked ${#parked[@]} blocked job(s): ${parked[*]}"
+      local index decision_input_json
+      for index in "${!newly_parked[@]}"; do
+        if decision_input_json="$(jq -cn --arg base "${newly_parked[$index]}" \
+          --arg blocked_on "${newly_blocked_on[$index]}" \
+          '{base:$base,gate:"blocked",priority:"normal",blocked_on:$blocked_on,posted_by:"proxy"}')"; then
+          record_decision --loop proxy --input-json "$decision_input_json" \
+            --decision park-plan \
+            --to-json "$(jq -cn --arg value "$JOBS_PLAN/${newly_parked[$index]}.md" '$value')" \
+            --reason "job reported a structured blocker" --outcome applied \
+            --outcome-detail "blocked-job park CAS accepted"
+        fi
+      done
       # Courtesy comments are outward + best-effort; fire once, only after the park
       # landed. pr_notes carries "repo\tnum\tbase".
       local note repo num pbase

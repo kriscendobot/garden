@@ -663,6 +663,17 @@ for name in $(list_jobs "$DIR" schedules); do
       else
         log "dispatched $base from schedule $name$held"
       fi
+      if [ "$target_dir" = "$JOBS_PLAN" ]; then
+        if decision_input_json="$(jq -cn --arg base "$base" --arg schedule "$name" \
+          --arg status "$budget_status" \
+          '{base:$base,schedule:$schedule,budget_fleet_status:$status,gate:"go-ahead",park_reason:"over-token-budget"}')"; then
+          record_decision --loop budget-admission --input-json "$decision_input_json" \
+            --decision park-plan \
+            --to-json "$(jq -cn --arg value "$JOBS_PLAN/$base.md" '$value')" \
+            --reason "all configured bounded pools are at high water" \
+            --outcome applied --outcome-detail "scheduled job preserved as a budget hold"
+        fi
+      fi
       dispatched=$((dispatched+1))
       break
     fi

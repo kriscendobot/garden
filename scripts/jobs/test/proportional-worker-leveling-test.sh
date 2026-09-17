@@ -23,8 +23,42 @@ env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARD
 if grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&grep -q '^small op=set-workers kind=monk count=2$' "$ACT";then ok "143M:64M caps apportion the six-monk ceiling as 4:2";else bad "monk allocation: $(tr '\n' ';'<"$ACT")";fi
 if grep -q '^large op=set-workers kind=cleric count=1$' "$ACT"&&grep -q '^small op=set-workers kind=cleric count=3$' "$ACT";then ok "clerics split 1:3 from host-eligible demand, independently of Anthropic caps";else bad "cleric split: $(tr '\n' ';'<"$ACT")";fi
 
+# Every accepted worker-count actuation is also durable in the weekly decision
+# ledger, with the sensed input and the actual clamped from/to step.
+git -C "$SEED" pull -q --rebase
+DECISION_LEDGER="$(find "$SEED/budget/decisions" -maxdepth 1 -name '*-leader.jsonl' -print -quit)"
+if [ -n "$DECISION_LEDGER" ] && jq -e -s '
+  any(.[]; .loop == "budget-level" and .decision == "raise-workers"
+    and .input.host == "large" and .input.worker_kind == "monk"
+    and .input.sensor == "weekly-token-spend" and .from == 1 and .to == 4
+    and .outcome == "applied")
+  and any(.[]; .loop == "budget-level" and .input.host == "small"
+    and .input.worker_kind == "cleric" and .input.sensor == "eligible-queue-demand"
+    and .from == 0 and .to == 3 and .outcome_detail == "send-host-set-workers accepted")
+  ' "$DECISION_LEDGER" >/dev/null; then
+  ok "worker-level changes record sensed inputs, clamped outputs, and applied outcomes"
+else
+  bad "budget-level decision records are missing or malformed"
+fi
+
+# A failed setter is isolated from the controller and closes the loop as a
+# fail-open-skipped outcome rather than masquerading as an applied change.
+printf '#!/bin/bash\nexit 17\n' > "$TR/fail-send";chmod +x "$TR/fail-send"
+env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 \
+ GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 \
+ GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/fail-send" "$JOBS/budget-level.sh" >/dev/null 2>&1
+git -C "$SEED" pull -q --rebase
+DECISION_LEDGER="$(find "$SEED/budget/decisions" -maxdepth 1 -name '*-leader.jsonl' -print -quit)"
+if jq -e 'select(.loop == "budget-level" and .outcome == "fail-open-skipped"
+  and .outcome_detail == "send-host-set-workers failed with exit status 17")' \
+  "$DECISION_LEDGER" >/dev/null; then
+  ok "failed worker actuation records fail-open-skipped without failing the tick"
+else
+  bad "failed worker actuation outcome was not recorded"
+fi
+
 # Row order is not an input to either allocation; bytewise ids break exact ties.
-git -C "$SEED" pull -q --rebase; tac "$SEED/config/budget-pools" >"$TR/reversed";mv "$TR/reversed" "$SEED/config/budget-pools";git -C "$SEED" add config/budget-pools;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm reorder;git -C "$SEED" push -q
+tac "$SEED/config/budget-pools" >"$TR/reversed";mv "$TR/reversed" "$SEED/config/budget-pools";git -C "$SEED" add config/budget-pools;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm reorder;git -C "$SEED" push -q
 : >"$ACT";rm -rf "$TR/state/budget-level"
 env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >/dev/null 2>&1
 grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&grep -q '^small op=set-workers kind=monk count=2$' "$ACT"&&ok "pool row order does not change apportionment"||bad "row order changed allocation"

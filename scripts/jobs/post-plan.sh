@@ -339,6 +339,14 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   git -C "$DIR" add "$JOBS_PLAN/$base.md"
   if commit_and_push "$DIR" "plan($base) parked [$gate/$priority] by $GARDEN"; then
     log "parked '$base' in plan/ (gate=$gate priority=$priority)"
+    if decision_input_json="$(jq -cn --arg base "$base" --arg gate "$gate" \
+      --arg priority "$priority" --arg posted_by "$by" --arg roadmap "$roadmap" \
+      '{base:$base,gate:$gate,priority:$priority,posted_by:$posted_by,roadmap:$roadmap}')"; then
+      record_decision --loop plan-queue --input-json "$decision_input_json" \
+        --decision park-plan --to-json "$(jq -cn --arg value "$JOBS_PLAN/$base.md" '$value')" \
+        --reason "job parked behind gate=$gate at priority=$priority" \
+        --outcome applied --outcome-detail "plan append CAS accepted"
+    fi
     exit 0
   fi
   log "post-plan of '$base' lost a push race (attempt $attempt); re-syncing"

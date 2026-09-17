@@ -186,9 +186,25 @@ sync_clone "$DIR"
 # meter is off/unknown and therefore proceeds (fail-open); the handler retains its
 # own final backstop for deploy races and usage accrued after this check.
 CLAIM_POOL="$(budget_pool_for_provider_host "$KIND_PROVIDER" "$GARDEN" "$DIR")"
+record_claim_budget_decision() { # status decision outcome reason detail
+  local status="$1" decision_name="$2" decision_outcome="$3"
+  local decision_reason="$4" decision_detail="$5" decision_input_json
+  if decision_input_json="$(jq -cn --arg pool "$CLAIM_POOL" \
+    --arg provider "$KIND_PROVIDER" --arg host "$GARDEN" \
+    --arg worker_kind "$KIND" --arg status "$status" \
+    '{pool:$pool,provider:$provider,host:$host,worker_kind:$worker_kind,status:$status,sensor:"budget-pool"}')"; then
+    record_decision --loop claim-admission --input-json "$decision_input_json" \
+      --decision "$decision_name" --reason "$decision_reason" \
+      --outcome "$decision_outcome" --outcome-detail "$decision_detail"
+  fi
+}
 if claim_budget_status="$(pool_admits "$CLAIM_POOL" "$DIR")"; then
-  [ "$claim_budget_status" != unknown ] \
-    || log "WARN: budget pool '$CLAIM_POOL' unreadable; claims remain open (fail-open)"
+  if [ "$claim_budget_status" = unknown ]; then
+    log "WARN: budget pool '$CLAIM_POOL' unreadable; claims remain open (fail-open)"
+    record_claim_budget_decision unknown allow-claim fail-open-skipped \
+      "budget sensor unreadable; admission fails open" \
+      "budget guard skipped; candidate selection continues"
+  fi
 elif [ "$claim_budget_status" = refuse ]; then
   # FAIL CLOSED: a configured pool with no trustworthy ceiling (unmetered kind or an
   # uncalibrated cap) halts claims rather than admitting unbounded spend. This CAN
@@ -199,9 +215,15 @@ elif [ "$claim_budget_status" = refuse ]; then
   log "budget pool '$CLAIM_POOL' refuses admission (fail-closed): ${remedy:-untrusted ceiling}"
   alert_maintainer "budget-pool-refuse-$CLAIM_POOL" \
     "claim gate is FAIL-CLOSED on $GARDEN: ${remedy:-budget pool $CLAIM_POOL has no trustworthy ceiling}. No job will be claimed on this host until a calibrated cap is set."
+  record_claim_budget_decision refuse decline-claim applied \
+    "configured pool has no trustworthy ceiling" \
+    "${remedy:-claim tick stopped before candidate selection}"
   exit 3
 else
   log "budget pool '$CLAIM_POOL' is at its high-water mark; declining this claim tick"
+  record_claim_budget_decision backoff decline-claim applied \
+    "budget pool is at its configured high-water mark" \
+    "claim tick stopped before candidate selection"
   exit 3
 fi
 

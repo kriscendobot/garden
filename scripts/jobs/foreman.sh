@@ -136,6 +136,18 @@ decide() {
   fi
 }
 
+record_budget_halt() { # sensor status reason detail
+  local sensor="$1" status="$2" reason="$3" detail="$4" decision_input_json
+  if decision_input_json="$(jq -cn --arg host "$GARDEN" --arg sensor "$sensor" \
+    --arg status "$status" --argjson inflight "${inflight:-0}" \
+    --argjson target "$GARDEN_FOREMAN_ACTIVE_TARGET" \
+    '{host:$host,sensor:$sensor,status:$status,inflight:$inflight,target:$target}')"; then
+    record_decision --loop foreman --input-json "$decision_input_json" \
+      --decision halt-pump --reason "$reason" --outcome applied \
+      --outcome-detail "$detail"
+  fi
+}
+
 # The foreman has its OWN brake, independent of the fleet drain (job
 # garden-foreman-independent-brake). foreman_braked is true when EITHER the fleet
 # is draining (the drain keeps stopping the foreman, unchanged) OR the journal-
@@ -250,6 +262,9 @@ if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" i
     note_once "token-backoff" "foreman: this host's Anthropic pool is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark of its configured weekly quota (Friday $GARDEN_TOKEN_RESET_HHMM Pacific window). Pausing the autonomous pump until usage falls back under the mark."
     log "token quota high-water reached; backing off (no pump this tick)"
     decide token-backoff
+    record_budget_halt current-host-token-quota backoff \
+      "Anthropic pool reached its configured high-water mark" \
+      "autonomous plan promotion and milestone pumping skipped for this tick"
     exit 0
     ;;
   unknown)
@@ -269,6 +284,9 @@ case "$(budget_fleet_status "$DIR")" in
     note_once "fleet-budget-backoff" "foreman: every configured budget pool is at its high-water mark; deferred-plan promotion and new pumping are paused until the Friday $GARDEN_TOKEN_RESET_HHMM Pacific quota refresh."
     log "all configured budget pools at high water; stopping promotion/pump this tick"
     decide budget-backoff
+    record_budget_halt fleet-budget-pools backoff \
+      "all configured bounded pools reached their high-water marks" \
+      "deferred-plan promotion and new milestone pumping skipped for this tick"
     exit 0
     ;;
   unknown)

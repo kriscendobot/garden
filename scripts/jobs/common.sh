@@ -456,6 +456,20 @@ log() {
 }
 die()  { log "FATAL: $*"; exit 1; }
 
+# record_decision <decision-append arguments...> — best-effort cybernetic output
+# recording.  Actuators call this only after they have made (or deliberately
+# skipped) their operational change.  The writer owns its own journal CAS loop;
+# no recording failure is allowed to change the actuator's result.
+: "${GARDEN_DECISION_APPEND:=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/decision-append.sh}"
+record_decision() {
+  [ -x "$GARDEN_DECISION_APPEND" ] || {
+    log "WARN: decision writer '$GARDEN_DECISION_APPEND' unavailable; continuing fail-open"
+    return 0
+  }
+  "$GARDEN_DECISION_APPEND" "$@" || true
+  return 0
+}
+
 # is_transient_net_error <stderr-file-or-string> — true (0) when the given text
 # bears the fingerprint of a TRANSIENT connectivity failure (a GitHub outage, a
 # DNS blip, a TLS/handshake/read timeout) rather than a STRUCTURAL one (auth,
