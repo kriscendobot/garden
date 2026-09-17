@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 2
+worker_kind: cleric
+claimed_at: 2026-09-17T01:11:01Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-fuzz-5e7a173f899ae7a1-repair
