@@ -21,13 +21,5 @@ The canonical replacement publish must use the real guest MCP identity, never di
 Deliver a concise terminal report with the PR state, child 2 live evidence, canonical clip URL/hash and old-hash disposition if published, primer URL, and issue URL. If either driver halts, report the precise terminal reason and surface it to the maintainer rather than claiming success.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=424 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-17T03:27:41Z
+
+<!-- garden-reaped: 1 -->
