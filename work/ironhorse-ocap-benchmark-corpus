@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: cleric
 claimed_at: 2026-09-17T01:29:57Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-ocap-benchmark-corpus
+pr_number: 1303
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1303
+pr_head: feat/ironhorse-ocap-benchmark-corpus
