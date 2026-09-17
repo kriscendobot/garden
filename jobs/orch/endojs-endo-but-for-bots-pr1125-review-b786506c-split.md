@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1125-review-b786506c-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-17T07:59:30Z
 ---
