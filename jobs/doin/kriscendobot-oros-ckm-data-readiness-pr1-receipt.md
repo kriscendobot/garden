@@ -21,6 +21,7 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
