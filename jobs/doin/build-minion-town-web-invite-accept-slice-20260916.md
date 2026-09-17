@@ -105,6 +105,7 @@ If the work does not fit one handler, SPLIT it and say so rather than overrunnin
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
