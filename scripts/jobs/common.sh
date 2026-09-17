@@ -306,6 +306,23 @@ export GARDEN
 : "${GARDEN_FOREMAN_BRAKE_PATH:=config/foreman-brake}"
 : "${GARDEN_DEADLINE_NUDGE_CONFIG_PATH:=config/deadline-nudge}"
 
+# Project-pause records — the JOURNAL-BACKED representation of a maintainer pause on
+# a whole project (designs/project-pause-enforcement.md). Each record is a file
+# `pauses/<slug>.md` on journal2 whose frontmatter names the project, the authorizing
+# maintainer + directive, the date, the scope, and one or more `match:` patterns; its
+# EXISTENCE means the project is paused. Read live from an already-synced clone by
+# project_pause_hit at the three chokepoints (post, claim, promote), so a stale host
+# whose DEPLOYED prose predates the pause still honors it — the gap that produced the
+# 2026-09-16/17 IronHorse fuzz storm. Like the foreman brake it fails safe toward
+# paused: the always-readable filename slug is itself a match, so a present-but-corrupt
+# record still blocks any job that names the project. COMMON.md keeps the human-readable
+# statement; this record is what machinery consults. Written/lifted by pause-project.sh.
+: "${GARDEN_PAUSES_PATH:=pauses}"
+# Job-level exit code the posting/promote chokepoints use to REFUSE a paused-project
+# job (distinct from the offline/handoff verdicts above so a caller/test can tell a
+# pause refusal from a network skip). EX_CONFIG-adjacent; internal to the fleet.
+: "${GARDEN_PAUSED_RC:=78}"
+
 # --- transcript capture (designs/transcript-journal-capture.md) ---------------
 #
 # The garden captures every host's finished session transcripts into a dedicated
@@ -667,6 +684,96 @@ foreman_braked() {
   local clone="${1:?foreman_braked: journal clone dir required}"
   fleet_draining && return 0
   [ -e "$clone/$GARDEN_FOREMAN_BRAKE_PATH" ]
+}
+
+# --- project pause (journal-backed, live-read at the chokepoints) -------------
+#
+# project_pause_hit <clone> <base> [body-file] — echo the slug of an ACTIVE project
+# pause that COVERS this job and return 0; return 1 when no pause covers it.
+#
+# WHY: a project pause used to live ONLY as deployed prose in roles/COMMON.md, so a
+# host running a stale garden — most dangerously the LEADER, which runs every
+# singleton producer — silently violated every directive newer than its deployed sha.
+# On 2026-09-16/17 a leader on ~09-04 code posted and ran ~60 IronHorse fuzz jobs a
+# week after the 09-09 pause its code predated. This predicate reads the pause from a
+# journal clone every host syncs live, so the directive no longer waits on a deploy.
+#
+# MATCHING is deliberately generous toward paused. The haystack is the job's base name
+# plus its body, lowercased. For each `pauses/*.md` record:
+#   1. FAIL-SAFE baseline — the slug comes from the directory ENTRY (the filename),
+#      which is always readable even when the record's CONTENT is corrupt/unreadable.
+#      A job whose base or body names the project (contains the slug substring) is a
+#      hit. This is the fail-safe: a present-but-unreadable pause record still blocks,
+#      exactly as foreman_braked treats a present-but-garbage flag as braked.
+#   2. Richer `match:` ERE patterns from the record body (when readable) — a project
+#      whose jobs do not literally contain the slug can still be caught.
+# The blast radius is bounded to jobs that identify with a paused project: absent any
+# pause record every job passes (no record ⇒ no restriction), and an unreadable record
+# only blocks jobs that name ITS slug, never the whole board.
+#
+# The caller passes an ALREADY-SYNCED clone (post/claim/promote all sync_clone first,
+# and sync_clone exits the tick on an offline/unreadable journal BEFORE this read), so
+# the pause is never evaluated against a journal that could not be read.
+project_pause_hit() {
+  local clone="${1:?project_pause_hit: clone dir required}"
+  local base="${2:?project_pause_hit: job base required}"
+  local body_file="${3:-}"
+  local dir="$clone/$GARDEN_PAUSES_PATH"
+  [ -d "$dir" ] || return 1
+  local hay
+  hay="$(printf '%s\n' "$base")"
+  if [ -n "$body_file" ] && [ -f "$body_file" ]; then
+    hay="$hay
+$(cat "$body_file" 2>/dev/null || true)"
+  fi
+  hay="$(printf '%s' "$hay" | tr '[:upper:]' '[:lower:]')"
+  local rec slug lslug pat
+  for rec in "$dir"/*.md; do
+    [ -e "$rec" ] || continue          # no records (glob did not expand) → not paused
+    slug="$(basename "$rec" .md)"
+    lslug="$(printf '%s' "$slug" | tr '[:upper:]' '[:lower:]')"
+    # (1) always-readable slug from the filename — the fail-safe baseline.
+    if printf '%s' "$hay" | grep -qF -- "$lslug"; then printf '%s\n' "$slug"; return 0; fi
+    # (2) richer patterns from the record body, when it is readable.
+    while IFS= read -r pat; do
+      [ -n "$pat" ] || continue
+      if printf '%s' "$hay" | grep -qiE -- "$pat" 2>/dev/null; then printf '%s\n' "$slug"; return 0; fi
+    done < <(sed -n 's/^match:[[:space:]]*//p' "$rec" 2>/dev/null || true)
+  done
+  return 1
+}
+
+# note_project_pause_block <clone> <slug> <context> — deliver ONE coalesced maintainer
+# notice that a paused project showed activity, keyed per project so a systemic cause
+# never produces one message per job (the 60-messages-for-one-cause defect that
+# watchdog-notice.sh exists to prevent). alert_maintainer keys, throttles, and folds
+# per <dedup-key>, so `project-pause-active-<slug>` is one running notice per project
+# whose count climbs; on one host the first blocked call delivers and the rest fold in,
+# and across hosts watchdog-notice amends the same journal entry. Best-effort: never
+# fails its caller. The message names the authorizing maintainer/directive from the
+# record so the maintainer can tell an expected block from a surprising one.
+note_project_pause_block() {
+  local clone="$1" slug="$2" context="$3"
+  local rec="$clone/$GARDEN_PAUSES_PATH/$slug.md"
+  local maint directive scope
+  maint="$(plan_field "$rec" maintainer 2>/dev/null || true)"
+  directive="$(plan_field "$rec" directive 2>/dev/null || true)"
+  scope="$(plan_field "$rec" scope 2>/dev/null || true)"
+  local msg="PROJECT PAUSE enforced on $GARDEN: refused $context because project '$slug' is PAUSED"
+  [ -n "$maint" ] && msg="$msg (paused by $maint"
+  [ -n "$maint" ] && [ -n "$directive" ] && msg="$msg, $directive"
+  [ -n "$maint" ] && msg="$msg)"
+  msg="$msg.
+This means work for a PAUSED project reached a chokepoint — most likely a host running
+a garden OLDER than the pause directive is still producing it (the 2026-09-16/17
+IronHorse-fuzz-storm shape). The chokepoints refuse it, but the fact that it was
+attempted is worth seeing: check whether a host is stale and needs to deploy.${scope:+
+Paused scope: $scope}
+To LIFT the pause (the only authorized way to run this work again), delete the journal
+record: scripts/jobs/pause-project.sh $slug off — and update roles/COMMON.md § Project
+scope to match. This notice is COALESCED per project: one entry, a rising count, not
+one message per refused job."
+  alert_maintainer "project-pause-active-$slug" "$msg"
 }
 
 # --- gardener mid-job (busy) marker — the single definition of "do not disturb" -

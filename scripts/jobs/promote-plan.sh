@@ -186,6 +186,19 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   done
 
   src="$DIR/$JOBS_PLAN/$base.md"
+
+  # Project-pause chokepoint (designs/project-pause-enforcement.md). Promoting a parked
+  # paused-project item is EXACTLY the move that re-armed the IronHorse fuzz storm
+  # (a gardener re-promoting quarantined items). Refuse it here — even under
+  # --maintainer: the authorized way to run paused work is to LIFT the pause (delete
+  # the journal record), the auditable act, not to slip one promotion past the gate.
+  # project_pause_hit fails safe toward paused on an unreadable record.
+  if pause_slug="$(project_pause_hit "$DIR" "$base" "$src")"; then
+    note_project_pause_block "$DIR" "$pause_slug" "promote of parked job '$base'"
+    log "refusing to promote '$base': it belongs to PAUSED project '$pause_slug' (journal pause record $GARDEN_PAUSES_PATH/$pause_slug.md). Lift with pause-project.sh $pause_slug off before promoting. (rc=$GARDEN_PAUSED_RC)"
+    exit "$GARDEN_PAUSED_RC"
+  fi
+
   gate="$(plan_gate "$src")"
   priority="$(plan_priority "$src")"
   if [ "$gate" = awaiting-maintainer ] && [ "$maintainer_promotion" != 1 ]; then

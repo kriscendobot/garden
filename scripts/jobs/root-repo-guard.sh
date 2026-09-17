@@ -159,6 +159,16 @@ if [ -z "${GARDEN_DEPLOY_STALL_DAYS:-}" ]; then
     GARDEN_DEPLOY_STALL_DAYS="$GARDEN_DEPLOY_STALL_DAYS_FOLLOWER"
   fi
 fi
+# Leader-only COMMITS-behind fuse (designs/project-pause-enforcement.md § 5). A
+# day-based fuse alone can let the LEADER drift many commits before it fires, and a
+# stale leader is the single most dangerous host: it runs every singleton producer, so
+# it silently violates every directive newer than its deployed sha — a project pause
+# among them (the 2026-09-16/17 IronHorse fuzz storm). So a leader that is this many
+# commits behind origin/main2 trips the SAME stalled-deploy alert immediately,
+# whichever fuse (days or commits) blows first. 0 disables the commits fuse (days
+# only). Followers keep the day-based fuse only — their staleness is expected and
+# bounded by a human/sysop deploy, and they run no singleton producers.
+: "${GARDEN_DEPLOY_STALL_COMMITS_LEADER:=25}"
 GUARD_STATE="$GARDEN_STATE/root-repo-guard"
 BEHIND_SINCE="$GUARD_STATE/behind-since"
 STALL_ALERTED="$GUARD_STATE/stall-alerted"
@@ -783,10 +793,27 @@ guard_deploy_lag() {
     since="$now"; printf '%s\n' "$now" > "$BEHIND_SINCE" 2>/dev/null || true
   fi
   age_days=$(( (now - since) / 86400 ))
-  if [ "$age_days" -ge "$GARDEN_DEPLOY_STALL_DAYS" ] && [ ! -f "$STALL_ALERTED" ]; then
-    local behind_n
-    behind_n="$(git -C "$ROOT" rev-list --count "$dep..$up" 2>/dev/null || echo '?')"
-    local msg="root repo $ROOT deploy has been STALLED for ~${age_days}d: deployed sha $dep is ${behind_n} commit(s) behind origin/$GARDEN_MAIN_BRANCH ($up) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=$GARDEN)"
+  local behind_n
+  behind_n="$(git -C "$ROOT" rev-list --count "$dep..$up" 2>/dev/null || echo '?')"
+  # Two fuses. The day fuse is the historical one (per host class). The LEADER also
+  # trips on a COMMITS-behind threshold, whichever blows first: a leader far behind is
+  # dangerous long before the day fuse, because it runs every singleton producer and so
+  # silently violates every directive newer than its deployed sha — a project pause
+  # among them (designs/project-pause-enforcement.md § 5).
+  local leader_commits_tripped=0
+  if is_main_host && [ "$GARDEN_DEPLOY_STALL_COMMITS_LEADER" -gt 0 ] 2>/dev/null \
+     && [[ "$behind_n" =~ ^[0-9]+$ ]] && [ "$behind_n" -ge "$GARDEN_DEPLOY_STALL_COMMITS_LEADER" ]; then
+    leader_commits_tripped=1
+  fi
+  if { [ "$age_days" -ge "$GARDEN_DEPLOY_STALL_DAYS" ] || [ "$leader_commits_tripped" -eq 1 ]; } \
+     && [ ! -f "$STALL_ALERTED" ]; then
+    local why="for ~${age_days}d"
+    [ "$leader_commits_tripped" -eq 1 ] && why="$why / ${behind_n} commits behind (leader commits-fuse ${GARDEN_DEPLOY_STALL_COMMITS_LEADER})"
+    local danger=""
+    if is_main_host; then
+      danger=" This host is the LEADER: it runs every singleton producer (foreman, scheduler, watchers), so while it is stale it is NOT honoring any directive newer than its deployed sha — a PROJECT PAUSE among them. This is the shape that let a stale leader run ~60 IronHorse fuzz jobs a week after the 09-09 pause (designs/project-pause-enforcement.md). DEPLOY IT."
+    fi
+    local msg="root repo $ROOT deploy has been STALLED ${why}: deployed sha $dep is ${behind_n} commit(s) behind origin/$GARDEN_MAIN_BRANCH ($up) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed.${danger} (host=$GARDEN)"
     log "DEPLOY-STALLED: $msg"
     alert_maintainer "root-repo-deploy-stalled-$GARDEN" "$msg"
     printf '%s\n' "$now" > "$STALL_ALERTED" 2>/dev/null || true

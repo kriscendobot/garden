@@ -252,6 +252,23 @@ fi
 # native to post-job so directive-identity indexing and all body normalization stay
 # atomic with the routed post.
 sync_clone "$DIR"
+
+# Project-pause chokepoint (designs/project-pause-enforcement.md). A stale producer
+# must not be able to POST work for a project the maintainer has paused — the storm
+# that motivated this began with an OLD leader's fuzz lane posting per-finding jobs a
+# week after the pause its code predated. project_pause_hit reads the pause live from
+# the just-synced clone (fail-safe toward paused: a present-but-unreadable record still
+# blocks via its filename slug), so the pause is honored without a deploy.
+_pause_body="$(mktemp "${TMPDIR:-/tmp}/garden-post-pause.XXXXXX")"
+printf '%s\n' "$BODY" > "$_pause_body"
+if pause_slug="$(project_pause_hit "$DIR" "$base" "$_pause_body")"; then
+  rm -f "$_pause_body"
+  note_project_pause_block "$DIR" "$pause_slug" "post of job '$base'"
+  log "refusing to post '$base': it belongs to PAUSED project '$pause_slug' (journal pause record $GARDEN_PAUSES_PATH/$pause_slug.md). Lift with pause-project.sh $pause_slug off. (rc=$GARDEN_PAUSED_RC)"
+  exit "$GARDEN_PAUSED_RC"
+fi
+rm -f "$_pause_body"
+
 fleet_budget_status="$(budget_fleet_status "$DIR")"
 route_budget_hold=false
 POST_BODY="$BODY"

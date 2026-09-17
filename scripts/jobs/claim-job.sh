@@ -278,6 +278,17 @@ for ((k=0; k<n; k++)); do
     continue
   fi
 
+  # Project-pause chokepoint (designs/project-pause-enforcement.md). Defense in depth:
+  # even if a stale producer already POSTED a paused-project job onto the board, no
+  # worker claims it. A claimable paused job means the post gate was bypassed (a stale
+  # host), so alert — coalesced per project through note_project_pause_block, never one
+  # message per candidate. Skip like the backend-fit filter; other candidates may claim.
+  if pause_slug="$(project_pause_hit "$DIR" "$base" "$DIR/$JOBS_TODO/$base.md")"; then
+    log "'$base' belongs to PAUSED project '$pause_slug'; refusing to claim (project-pause)"
+    note_project_pause_block "$DIR" "$pause_slug" "a claimable todo job '$base' on the board"
+    continue
+  fi
+
   # --- bid auction (design §3) -------------------------------------------------
   # A `market: bid` job runs through the auction; everything else is the untouched
   # race below. The auction NEVER bypasses the push CAS: it only decides WHETHER

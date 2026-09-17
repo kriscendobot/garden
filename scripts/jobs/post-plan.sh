@@ -313,6 +313,22 @@ compose() {
   printf '%s\n' "$BODY"
 }
 
+# Project-pause chokepoint (designs/project-pause-enforcement.md). A stale producer
+# must not be able to PARK new work for a paused project either — a parked job is
+# promoted to todo/ later. project_pause_hit reads the pause live from the just-synced
+# clone and fails safe toward paused. The already-parked IronHorse plan items are
+# untouched: this only refuses a FRESH park of paused work.
+sync_clone "$DIR"
+_pause_body="$(mktemp "${TMPDIR:-/tmp}/garden-post-plan-pause.XXXXXX")"
+printf '%s\n' "$BODY" > "$_pause_body"
+if pause_slug="$(project_pause_hit "$DIR" "$base" "$_pause_body")"; then
+  rm -f "$_pause_body"
+  note_project_pause_block "$DIR" "$pause_slug" "park of job '$base'"
+  log "refusing to park '$base': it belongs to PAUSED project '$pause_slug' (journal pause record $GARDEN_PAUSES_PATH/$pause_slug.md). Lift with pause-project.sh $pause_slug off. (rc=$GARDEN_PAUSED_RC)"
+  exit "$GARDEN_PAUSED_RC"
+fi
+rm -f "$_pause_body"
+
 # Overall wall-clock deadline for the retry loop. Same shape as post-job.sh: attempt
 # COUNT alone does not bound elapsed time (each sync_clone can burn
 # ~GARDEN_FETCH_TIMEOUT+GARDEN_FETCH_KILL_AFTER seconds under degraded connectivity), so
