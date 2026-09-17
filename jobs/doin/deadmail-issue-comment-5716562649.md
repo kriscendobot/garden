@@ -51,6 +51,7 @@ Comment: https://github.com/kriscendobot/garden/issues/99#issuecomment-571656264
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
