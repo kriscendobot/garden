@@ -77,11 +77,21 @@ export GARDEN_TAG="promote-plan"
 required_tada=()
 required_failed=()
 maintainer_promotion=0
+# The derived leaf-first omega rank of this job, when a ranked promoter selected it
+# (the foreman's deferred-admission loop passes it). Recorded in the decision ledger
+# so the ranked ordering is auditable (designs/cybernetics-economic-resilience.md
+# §§ 4–5). Empty for the maintainer/orchestrate paths, which do not rank-select.
+omega_rank=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --maintainer)
       maintainer_promotion=1
       shift
+      ;;
+    --omega-rank)
+      omega_rank="${2:?--omega-rank needs a value}"
+      case "$omega_rank" in ''|*[!0-9]*) die "illegal --omega-rank: '$omega_rank' (want a non-negative integer)";; esac
+      shift 2
       ;;
     --require-tada)
       required_tada+=("${2:?--require-tada needs a predecessor basename}")
@@ -250,15 +260,21 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
 
   if commit_and_push "$DIR" "promote($base) plan→todo [$gate/$priority] by $GARDEN"; then
     log "promoted '$base' plan→todo (gate=$gate priority=$priority cleared=$cleared)"
+    # Fold the omega rank in only when a ranked promoter supplied it, so the
+    # maintainer/orchestrate paths record a clean object without a null rank.
+    omega_arg=(--argjson omega null)
+    [ -n "$omega_rank" ] && omega_arg=(--argjson omega "$omega_rank")
     if decision_input_json="$(jq -cn --arg base "$base" --arg gate "$gate" \
       --arg priority "$priority" --arg cleared "$cleared" \
-      --argjson maintainer "$maintainer_promotion" \
-      '{base:$base,gate:$gate,priority:$priority,cleared:$cleared,maintainer_attested:($maintainer == 1)}')"; then
+      --argjson maintainer "$maintainer_promotion" "${omega_arg[@]}" \
+      '{base:$base,gate:$gate,priority:$priority,cleared:$cleared,maintainer_attested:($maintainer == 1),omega_rank:$omega}')"; then
+      reason="plan gate cleared; job admitted to the claimable queue"
+      [ -n "$omega_rank" ] && reason="leaf-first omega rank $omega_rank admitted; $reason"
       record_decision --loop plan-queue --input-json "$decision_input_json" \
         --decision promote-plan \
         --from-json "$(jq -cn --arg value "$JOBS_PLAN/$base.md" '$value')" \
         --to-json "$(jq -cn --arg value "$JOBS_TODO/$base.md" '$value')" \
-        --reason "plan gate cleared; job admitted to the claimable queue" \
+        --reason "$reason" \
         --outcome applied --outcome-detail "promotion CAS accepted"
     fi
     exit 0

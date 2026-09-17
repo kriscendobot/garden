@@ -7869,3 +7869,53 @@ plan_deferred_ranked() {
     printf '%s\t%s\t%s\n' "$rank" "$mtime" "${base%.md}"
   done | sort -t"$(printf '\t')" -k1,1n -k2,2n | cut -f3
 }
+
+# omega_ranks_for_plan <dir> — print "<omega_rank>\t<base>" for every plan job in
+# the synced journal clone <dir>, deriving the leaf-first omega rank from the board
+# via cnf-backlog-triple.py: a leaf is R0 (0); a plan job that has already spawned
+# children derives 1 + max(child rank) capped at 2 (the realized floor); rank comes
+# from `role:` and realized children, NEVER a declared `rank:`/`omega:` field. This
+# reuses the one audited derivation so the promoter cannot drift from the ordinal
+# measure. Deterministic, no LLM. Returns nonzero and prints nothing when python3 or
+# the deriver is unavailable, so callers FAIL OPEN to the existing priority+FIFO
+# order (designs/cybernetics-economic-resilience.md § 5).
+omega_ranks_for_plan() {
+  local dir="${1:?usage: omega_ranks_for_plan <clone-dir>}"
+  # GARDEN_CNF_TRIPLE overrides the deriver path (a test seam; the deployed default
+  # ships beside this file so common.sh and the deriver always update together — a
+  # deploy is an atomic tree swap, so `--ranks` is present whenever this code runs.
+  # A mismatched/old deriver errs, we return nonzero, and the caller fails open).
+  local helper="${GARDEN_CNF_TRIPLE:-$GARDEN_ROOT/scripts/jobs/cnf-backlog-triple.py}"
+  [ -f "$helper" ] || return 1
+  command -v python3 >/dev/null 2>&1 || return 1
+  python3 "$helper" --root "$dir" --slice plan --ranks 2>/dev/null
+}
+
+# plan_deferred_ranked_omega <dir> — the LEAF-FIRST promotion order. Prints
+# "<omega_rank>\t<base>" one per line, lowest omega rank first (leaf R0 before its
+# higher-ranked parents, per the settled orientation in
+# designs/cybernetics-economic-resilience.md § 5), TIE-BROKEN by the existing
+# deferred order (priority then FIFO) — plan_deferred_ranked's output is fed through
+# a STABLE numeric sort on the omega rank, so omega rank becomes the new primary key
+# while every existing deterministic tie-break is preserved untouched. FAILS OPEN:
+# when the omega derivation is unavailable (no python3, no deriver, empty output)
+# every base is emitted at rank 0 in exactly the current priority+FIFO order, so the
+# promoter's behavior is unchanged when its rank input is absent. The rank column is
+# emitted so the promoter can record it in the decision ledger (§ 4).
+plan_deferred_ranked_omega() {
+  local dir="${1:?usage: plan_deferred_ranked_omega <clone-dir>}" ranks
+  # Capture the omega ranks by command substitution (fully consumed, no partial
+  # pipe), so a caller closing our stdout early (`| head -1`) never strands a temp
+  # file. Empty on fail-open ⇒ every base joins at rank 0 ⇒ current order preserved.
+  ranks="$(omega_ranks_for_plan "$dir" 2>/dev/null || true)"
+  # Join the priority+FIFO-ordered deferred bases against the omega ranks, then a
+  # STABLE numeric sort on the rank column floats leaves (R0) first without
+  # disturbing that existing tie-break order.
+  plan_deferred_ranked "$dir" | awk -F'\t' -v ranks="$ranks" '
+    BEGIN {
+      n = split(ranks, lines, "\n")
+      for (i = 1; i <= n; i++) if (split(lines[i], a, "\t") == 2) rank[a[2]] = a[1]
+    }
+    { print (($1 in rank) ? rank[$1] : 0) "\t" $1 }
+  ' | sort -s -t"$(printf '\t')" -k1,1n
+}

@@ -379,6 +379,26 @@ def report(root, rev, slices, show_members, as_json):
         report_slice(root, rev, sl, show_members)
 
 
+def ranks(root, rev, sl):
+    """Print `<omega_rank>\\t<base>` for every job in the slice, base-sorted.
+
+    The leaf-first promotion order (designs/cybernetics-economic-resilience.md § 5,
+    reconciling designs/omega-task-rank-and-foreman-retirement.md) consumes this:
+    a leaf is R0 (0), a parent that has spawned children derives 1 + max(child
+    rank) capped at 2 (the realized floor), and the promoter admits the LOWEST
+    rank first. Rank is DERIVED here exactly as the triple derives it — from
+    `role:` and realized children, never from a declared `rank:`/`omega:` field —
+    so the promoter inherits that invariant rather than re-implementing (and
+    drifting from) the rules. Deterministic, read-only, no LLM: a caller can
+    reproduce this line for line. Output is base-sorted so the emission order is
+    stable; the CONSUMER supplies its own tie-break (priority then FIFO) and uses
+    only the rank number keyed by base.
+    """
+    _, rows = triple(root, rev, sl)
+    for r, _why, t in sorted(rows, key=lambda x: x[2]["base"]):
+        print(f"{r}\t{t['base']}")
+
+
 def compare(root, old, new):
     print(f"# progress {old} -> {new}, per slice (o<, NOT count delta)")
     print()
@@ -469,6 +489,9 @@ def main():
                     help="o< between two journal2 revisions")
     ap.add_argument("--no-members", action="store_true",
                     help="print only the triples, not the membership")
+    ap.add_argument("--ranks", action="store_true",
+                    help="print `<omega_rank>\\t<base>` per job for the leaf-first "
+                         "promoter (default slice: plan)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--check", action="store_true", help="run regression fixtures")
     ap.add_argument("--fixtures", default=None, help="fixture root (for --check)")
@@ -481,6 +504,11 @@ def main():
 
     if args.compare:
         compare(root, args.compare[0], args.compare[1])
+        return
+
+    if args.ranks:
+        # The promoter cares about the parked pool, so `both` resolves to `plan`.
+        ranks(root, args.rev, "plan" if args.slice == "both" else args.slice)
         return
 
     slices = ["active", "total"] if args.slice == "both" else [args.slice]
