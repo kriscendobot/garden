@@ -1,4 +1,5 @@
 ---
+child-build-rbra-clean-break-20260916-failure-notified: true
 child-build-rbra-clean-break-20260916-host: endolin-garden-ece02cb4
 child-build-rbra-clean-break-20260916-reap-count: 0
 child-build-rbra-daemon-mount-git-20260916-host: endolin-garden-ece02cb4
