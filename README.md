@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T01:32:24Z_
+_As of 2026-09-17T01:34:15Z_
 
 ## Latest
 
@@ -91,6 +91,65 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
+
+- `doomed-ironhorse-fuzz-bc3d0df623811a38-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-bc3d0df623811a38-repair-policy-refusal.md)
+
+> Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
+> The provider's safety/usage policy BLOCKED the request (e.g. a content flagged as a
+> possible cybersecurity risk). This is DETERMINISTIC: re-running the SAME prompt hits the
+> SAME block, so the reaper did NOT requeue it — one refusal is conclusive, and requeueing
+> would only repeat the failure and spam the error inbox with an identical capture.
+> REMEDY: rephrase / re-scope the job so it no longer trips the policy filter (for a
+> security-fuzz repair, describe the fix work WITHOUT the untrusted crash bytes and avoid
+> framing that reads as offensive-security), then promote it (promote-plan.sh ironhorse-fuzz-bc3d0df623811a38-repair); or, if
+> the work genuinely cannot be authorized, remove it. It stays HELD until then — nothing lost.
+> Original job base: ironhorse-fuzz-bc3d0df623811a38-repair
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-17T01:18:25Z cleared=none -->
+>
+> # Repair Ironhorse engine defect bc3d0df623811a38 (target `differential_regexp_surface`) and amend the standing PR
+>
+> The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS
+> engine port produce incorrect behaviour or abort. Own BOTH a load-bearing
+> regression case AND the causal fix, then amend the ONE standing pull request.
+>
+> ## Recorded reproducer (bounded metadata — never paste the input bytes into a prompt or a shell command)
+>
+> - Target: `differential_regexp_surface` (one of the maintained ironhorse-fuzz targets)
+> - Project SHA under test: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
+> - Toolchain: `nightly-2026-08-15`
+> - Minimized input sha256: `b2e8860df966da8a789c6b2e30db50f2de60bf11e03b6c0494925d3a1148c1e5` (4 bytes)
+> - Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/bc3d0df623811a38/input.bin`
+> - Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/bc3d0df623811a38.md`
+> - Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp_surface <input> -- -runs=1`
+>
+> ## Procedure
+>
+> 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
+> 2. Recover the minimized input to a FILE without inlining it into any prompt:
+>    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
+>    durable artifact path above. Verify `sha256sum` equals `b2e8860df966da8a789c6b2e30db50f2de60bf11e03b6c0494925d3a1148c1e5`.
+> 3. Set up the pinned `ironhorse-fuzz` environment (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
+>    see the ironhorse-fuzz-build-setup runbook) and confirm the incorrect behaviour or abort
+>    from that file before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
+>
+> 4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,
+>    so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`
+>    that replays these exact bytes and asserts correct completion (it builds without the oracle/submodule).
+> 5. Fix the causal defect. Keep the fix minimal and targeted.
+> 6. Amend the STANDING branch `ironhorse-fuzz-findings` with fetch/rebase/push CAS discipline, then
+>    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
+>    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
+>    and run its required gauntlet.
+> 7. Document THIS case and its solution in the standing PR body or a PR comment (finding bc3d0df623811a38).
+> 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
+>    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -455,6 +514,72 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
 >    and run its required gauntlet.
 > 7. Document THIS case and its solution in the standing PR body or a PR comment (finding 931a687135cabb0c).
+> 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
+>    comment, and record the unsolved finding visibly in the PR — never let it disappear.
+
+- `doomed-ironhorse-fuzz-fd8517d5f3071227-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-fd8517d5f3071227-repair-policy-refusal.md)
+
+> Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
+> The provider's safety/usage policy BLOCKED the request (e.g. a content flagged as a
+> possible cybersecurity risk). This is DETERMINISTIC: re-running the SAME prompt hits the
+> SAME block, so the reaper did NOT requeue it — one refusal is conclusive, and requeueing
+> would only repeat the failure and spam the error inbox with an identical capture.
+> REMEDY: rephrase / re-scope the job so it no longer trips the policy filter (for a
+> security-fuzz repair, describe the fix work WITHOUT the untrusted crash bytes and avoid
+> framing that reads as offensive-security), then promote it (promote-plan.sh ironhorse-fuzz-fd8517d5f3071227-repair); or, if
+> the work genuinely cannot be authorized, remove it. It stays HELD until then — nothing lost.
+> Original job base: ironhorse-fuzz-fd8517d5f3071227-repair
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:48:53Z cleared=none -->
+>
+> ---
+> role: builder
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Repair Ironhorse engine defect fd8517d5f3071227 (target `differential_regexp`) and amend the standing PR
+>
+> The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS
+> engine port produce incorrect behaviour or abort. Own BOTH a load-bearing
+> regression case AND the causal fix, then amend the ONE standing pull request.
+>
+> ## Recorded reproducer (bounded metadata — never paste the input bytes into a prompt or a shell command)
+>
+> - Target: `differential_regexp` (one of the maintained ironhorse-fuzz targets)
+> - Project SHA under test: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
+> - Toolchain: `nightly-2026-08-15`
+> - Minimized input sha256: `69c4d5ae332ac1ddbf55119ab093eaf6d5ac592521784224b09f3e5befe82f4e` (30 bytes)
+> - Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/fd8517d5f3071227/input.bin`
+> - Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/fd8517d5f3071227.md`
+> - Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp <input> -- -runs=1`
+>
+> ## Procedure
+>
+> 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
+> 2. Recover the minimized input to a FILE without inlining it into any prompt:
+>    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
+>    durable artifact path above. Verify `sha256sum` equals `69c4d5ae332ac1ddbf55119ab093eaf6d5ac592521784224b09f3e5befe82f4e`.
+> 3. Set up the pinned `ironhorse-fuzz` environment (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
+>    see the ironhorse-fuzz-build-setup runbook) and confirm the incorrect behaviour or abort
+>    from that file before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
+>
+> 4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,
+>    so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`
+>    that replays these exact bytes and asserts correct completion (it builds without the oracle/submodule).
+> 5. Fix the causal defect. Keep the fix minimal and targeted.
+> 6. Amend the STANDING branch `ironhorse-fuzz-findings` with fetch/rebase/push CAS discipline, then
+>    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
+>    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
+>    and run its required gauntlet.
+> 7. Document THIS case and its solution in the standing PR body or a PR comment (finding fd8517d5f3071227).
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
@@ -1448,6 +1573,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-ironhorse-fuzz-67ca18e4febe7a34-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-67ca18e4febe7a34-repair-policy-refusal.md)
 
+> DOOM notice — occurrence #2 (first seen 2026-09-17T00:44:08Z, latest 2026-09-17T01:33:35Z).
+> This job has been doom-parked 2 times for the same condition (policy-refusal);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
 > The provider's safety/usage policy BLOCKED the request (e.g. a content flagged as a
 > possible cybersecurity risk). This is DETERMINISTIC: re-running the SAME prompt hits the
@@ -1465,14 +1594,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > tier: mentor
 > token-budget: 250000
 > ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:42:41Z cleared=none -->
->
-> ---
-> role: builder
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-17T01:18:31Z cleared=none -->
 >
 > # Repair Ironhorse engine defect 67ca18e4febe7a34 (target `differential_source`) and amend the standing PR
 >
@@ -3017,8 +3139,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.7M | $527.52 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 16.8M _(+375.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Claude | 71.7M | $528.37 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 16.9M _(+377.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (22)
@@ -3045,14 +3167,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — Triage 7 Ironhorse fuzz finding(s) for target differential_source
 - [`ironhorse-fuzz-a7755caa51aa9320-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-a7755caa51aa9320-repair.md) — Repair Ironhorse engine defect a7755caa51aa9320 (target differential_source) ...
 
-### doin (13)
+### doin (10)
 - [`build-cybernetics-retry-narrowing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-cybernetics-retry-narrowing.md) — Build bounded retry narrowing
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #695
 - [`align-roadmap-design-floating-base-procedure-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/align-roadmap-design-floating-base-procedure-20260917.md) — ---
-- [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — Repair Ironhorse engine defect 67ca18e4febe7a34 (target differential_source) ...
-- [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
 - [`improve-approval-reconciler-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-approval-reconciler-bounds.md) — ---
-- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
 - [`ironhorse-iterator-scenario-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-iterator-scenario-parity.md) — finish Ironhorse iterator metadata across the hardened262 scenario matrix
 - [`build-readableblob-range-attenuation-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation-20260916.md) — What to build
 - [`ironhorse-ocap-benchmark-corpus`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-benchmark-corpus.md) — ---
@@ -3139,6 +3258,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`xs2rust-endor-press-20260902-183505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-press-20260902-183505.md) — _normal_ · Press Ironhorse (the Rust JS engine, formerly xs2rust-endor) forward
+- [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — _normal_ · Repair Ironhorse engine defect 67ca18e4febe7a34 (target differential_source) ...
+- [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — _normal_ · Complete the gauntlet for endojs/endo-but-for-bots#762
 - [`ironhorse-fuzz-d87697d49a5f8f67-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-d87697d49a5f8f67-repair.md) — _normal_ · Repair Ironhorse engine defect d87697d49a5f8f67 (target differential_source) ...
@@ -3152,6 +3273,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr736-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr736-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #736
 - [`endojs-endo-but-for-bots-pr871-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr871-weave-20260901.md) — _normal_ · Weave endojs/endo-but-for-bots#871 — the sturdyref agent-surface build
 - [`amend-invitation-oauth-mcp-prerequisite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/amend-invitation-oauth-mcp-prerequisite.md) — _normal_ · What's actually true today versus what's designed for later — verify,
+- [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-bc3d0df623811a38-repair.md) — _normal_ · Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
 - [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — _normal_ · Repair Ironhorse engine defect fad9672dc7a6e6be (target differential_source) ...
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — _normal_ · Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
 - [`endo-sturdyref-enliven-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-enliven-design.md) — _normal_ · ---
@@ -3187,6 +3309,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr697-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr697-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #697
 - [`endojs-endo-but-for-bots-pr631-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr631-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #631
 - [`endojs-endo-but-for-bots-pr711-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr711-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #711
+- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fd8517d5f3071227-repair.md) — _normal_ · Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
 - [`endojs-endo-but-for-bots-pr511-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr511-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #511
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-284de587e16bce32-repair.md) — _normal_ · Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 - [`endojs-endo-but-for-bots-pr529-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr529-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #529
