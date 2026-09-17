@@ -1,0 +1,2 @@
+base: improve-reputation-reduce-incremental-projections
+identity: mentor:scripts/jobs/reputation-reduce.sh
