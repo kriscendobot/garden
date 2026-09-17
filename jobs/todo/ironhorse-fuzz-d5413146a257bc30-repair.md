@@ -3,7 +3,7 @@ role: builder
 tier: mentor
 token-budget: 250000
 ---
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:43:34Z cleared=none -->
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:47:25Z cleared=none -->
 
 ---
 role: builder
@@ -12,7 +12,7 @@ fallback-tier: minion
 dispatch: automatic
 ---
 
-# Repair Ironhorse engine defect 79f0475dd0440b2d (target `differential_regexp`) and amend the standing PR
+# Repair Ironhorse engine defect d5413146a257bc30 (target `differential_regexp_surface`) and amend the standing PR
 
 The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS
 engine port produce incorrect behaviour or abort. Own BOTH a load-bearing
@@ -20,20 +20,20 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 
 ## Recorded reproducer (bounded metadata — never paste the input bytes into a prompt or a shell command)
 
-- Target: `differential_regexp` (one of the maintained ironhorse-fuzz targets)
+- Target: `differential_regexp_surface` (one of the maintained ironhorse-fuzz targets)
 - Project SHA under test: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
 - Toolchain: `nightly-2026-08-15`
-- Minimized input sha256: `df0ec7eb405a4384678271e613dac0a54682116e7684738d817cb2c201609b67` (3 bytes)
-- Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/79f0475dd0440b2d/input.bin`
-- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/79f0475dd0440b2d.md`
-- Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp <input> -- -runs=1`
+- Minimized input sha256: `957c39a802d5b3a9f09413832ea4c03dba2d2fed67d8b6da0553a6cb6cef0563` (6 bytes)
+- Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/d5413146a257bc30/input.bin`
+- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/d5413146a257bc30.md`
+- Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp_surface <input> -- -runs=1`
 
 ## Procedure
 
 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
 2. Recover the minimized input to a FILE without inlining it into any prompt:
    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
-   durable artifact path above. Verify `sha256sum` equals `df0ec7eb405a4384678271e613dac0a54682116e7684738d817cb2c201609b67`.
+   durable artifact path above. Verify `sha256sum` equals `957c39a802d5b3a9f09413832ea4c03dba2d2fed67d8b6da0553a6cb6cef0563`.
 3. Set up the pinned `ironhorse-fuzz` environment (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
    see the ironhorse-fuzz-build-setup runbook) and confirm the incorrect behaviour or abort
    from that file before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
@@ -46,18 +46,10 @@ regression case AND the causal fix, then amend the ONE standing pull request.
    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
    and run its required gauntlet.
-7. Document THIS case and its solution in the standing PR body or a PR comment (finding 79f0475dd0440b2d).
+7. Document THIS case and its solution in the standing PR body or a PR comment (finding d5413146a257bc30).
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
-<!-- garden-policy-refusal -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T00:16:50Z
+<!-- garden-transient-elapsed: kind=signature through=0 values=97 -->
+
+<!-- garden-reaped: 1 -->
