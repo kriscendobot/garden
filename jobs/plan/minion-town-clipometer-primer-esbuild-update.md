@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: minion-town-clipometer-esbuild-orchestration
+orchestrated_by: minion-town-clipometer-esbuild-orchestration-resume
 priority: normal
 posted_by: producer
 posted_at: 2026-09-03T06:52:06Z
