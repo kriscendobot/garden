@@ -41,3 +41,13 @@ end the report with these exact lines in order:
 
 <<<GARDEN-ORCHESTRATION-FAILED>>>
 <<<GARDEN-JOB-COMPLETE>>>
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T01:29:57Z
