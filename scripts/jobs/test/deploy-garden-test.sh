@@ -125,6 +125,9 @@ grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/codex-policy-refusal-res
 grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/terminal-handler-failure-reap-test.sh' "$DEPLOY" \
   && ok "default candidate gate includes terminal-handler prompt-reap regression" \
   || bad "default candidate gate omits terminal-handler prompt-reap regression"
+grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/retry-narrowing-test.sh' "$DEPLOY" \
+  && ok "default candidate gate includes bounded retry narrowing regression" \
+  || bad "default candidate gate omits bounded retry narrowing regression"
 
 # ============================================================================
 hr; echo "CLEAN DEPLOY — quiesced fleet, scripts change: merge + record + lift + restart"; hr

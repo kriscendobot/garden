@@ -104,6 +104,10 @@ build_fixture() {
     # The claimed-again job. A body reap-count marker makes reap_count() return
     # $reaps after the claim (the claim preserves the body).
     {
+      # Multi-cycle elapsed constancy remains relevant to gauntlet stages, whose
+      # retry budget is still owned by the gauntlet driver. Ordinary jobs now stop
+      # after one retry before this longer classifier window can accrue.
+      printf '%s\n' '---' 'gauntlet: elapsed-test-gauntlet' 'gauntlet_stage: panel' '---'
       printf '# overrunjob\n\ndo the work for overrunjob\n\n'
       [ "$reaps" -gt 0 ] && printf '<!-- garden-reaped: %s -->\n' "$reaps"
     } > jobs/todo/overrunjob.md

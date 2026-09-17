@@ -174,7 +174,7 @@ V="$(seed_and_reap fixer fixer mentor minion openai)"; base=rrf-fixer
 J="$V/jobs/todo/$base.md"
 grep -q '^tier: minion$'        "$J" 2>/dev/null && ok "B3 fixer demoted mentor->minion (floor permits; genuine reroute)" || bad "B3 not demoted: $(grep '^tier:' "$J" 2>/dev/null)"
 grep -q '^model-burned: mentor$' "$J" 2>/dev/null && ok "B3 mentor burned (a true-mentor provider genuinely failed)" || bad "B3 burn not recorded"
-grep -q '<!-- garden-reaped: 0 -->' "$J" 2>/dev/null && ok "B3 reap counter reset (fresh floor-tier budget)" || bad "B3 counter not reset"
+grep -q '<!-- garden-reaped: 1 -->' "$J" 2>/dev/null && ok "B3 reroute preserves the one ordinary retry budget" || bad "B3 counter did not preserve the bounded retry"
 
 # ============================================================================
 hr; echo "RESULTS: $PASS passed, $FAIL failed"; hr

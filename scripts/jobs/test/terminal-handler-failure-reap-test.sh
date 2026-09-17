@@ -82,6 +82,7 @@ fi
 # terminal marker must not be mistaken for the transient reap-now classification.
 env GARDEN=failhost GARDEN_STATE="$TR/state-2" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_CLAIM_NOW=4102444800 \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=2 \
     GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
     "$JOBS/gardener.sh" 2 >"$TR/gardener-2.log" 2>&1 || true

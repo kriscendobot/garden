@@ -158,10 +158,11 @@ export GARDEN_REAP_DOOM_THRESHOLD=1 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_CLAIM
 # past TTL), optionally carrying the productive-cycle marker and either reason-specific
 # counter marker in its body.
 place_stale() {
-  local base="$1" productive="${2:-0}" overrun="${3:-0}" constancy="${4:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
+  local base="$1" productive="${2:-0}" overrun="${3:-0}" constancy="${4:-0}" prior="${5:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
   git clone -q --single-branch --branch journal2 "$BARE3" "$wt"
   {
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
+    [ "$prior" -gt 0 ] && printf '<!-- garden-reaped: %s -->\n' "$prior"
     [ "$productive" = "1" ] && printf '<!-- garden-productive-cycle -->\n'
     [ "$overrun" -gt 0 ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$overrun"
     [ "$constancy" -gt 0 ] && printf '<!-- garden-elapsed-constancy: %s -->\n' "$constancy"
@@ -194,7 +195,7 @@ fi
 
 # The genuine-failure case is preserved: a NON-productive stale claim dooms at the
 # same threshold — parked in plan/ (held), gone from doin, not in todo.
-place_stale failjob 0
+place_stale failjob 0 0 0 1
 "$JOBS/reaper.sh" > "$T3/reap-fail.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-fail.log"; }
 resync3
 fail_ok=1

@@ -40,9 +40,11 @@
 #   3. Strips ONLY the trailing claim block (anchored on the `---` that precedes
 #      `claim:`), so a job body that itself contains a `---` (a Markdown rule or
 #      embedded frontmatter) is not truncated.
-#   4. Counts requeue cycles per job (a `<!-- garden-reaped: N -->` marker carried
-#      in the body across cycles). A job whose handler fails every time would loop
-#      forever; after GARDEN_REAP_DOOM_THRESHOLD cycles it is DOOMED: rather
+#   4. Counts plain non-productive cycles per job (a `<!-- garden-reaped: N -->`
+#      marker carried in the body across cycles). An ordinary job gets exactly one
+#      retry, protected by a recorded future not-before time; the second plain exit
+#      is split-eligible and held for deliberate decomposition. Gauntlet stages keep
+#      their driver's legacy GARDEN_REAP_DOOM_THRESHOLD budget: rather
 #      than being dropped from the board, it is PARKED in jobs/plan/ under a held
 #      `go-ahead` gate (no auto-promoter selects it) so the work survives and can be
 #      resumed, and a maintainer notice is AMEND-OR-POST deduped by <job-base> +
@@ -80,7 +82,8 @@ export GARDEN_TAG="reaper"
 : "${GARDEN_FETCH_REAP_AGE:=120}"      # seconds a `git fetch` may run before it is killed
 : "${GARDEN_FETCH_REAP_KILL_AFTER:=5}" # grace seconds after SIGTERM before the stuck-fetch janitor escalates to SIGKILL
 : "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
-: "${GARDEN_REAP_DOOM_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as doom, not requeued
+: "${GARDEN_REAP_DOOM_THRESHOLD:=5}" # gauntlet-stage requeue cycles before its driver receives a held failure
+: "${GARDEN_REAP_PLAIN_RETRY_BACKOFF_SECONDS:=600}" # delay before an ordinary job's one plain-exit retry is claimable
 # STAGGER A BURST. A restart cycle can orphan dozens of claims within minutes of
 # each other; they then cross the age floor together and, uncapped, ONE tick would
 # dump the whole burst into todo/ at once — the pool re-claims them together and the
@@ -598,7 +601,8 @@ clean_body() {
   awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" \
       -v terminal="$TERMINAL_HANDLER_FAILURE_MARKER_RE" \
       -v qback="$PROVIDER_QUOTA_BACKOFF_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" \
-      -v outage="$OUTAGE_MARKER_RE" -v policy="$POLICY_REFUSAL_MARKER_RE" '
+      -v outage="$OUTAGE_MARKER_RE" -v policy="$POLICY_REFUSAL_MARKER_RE" \
+      -v plainwait="$PLAIN_RETRY_NOT_BEFORE_MARKER_RE" '
     { line[NR] = $0 }
     END {
       cut = 0
@@ -607,6 +611,7 @@ clean_body() {
       m = 0
       for (i = 1; i <= end; i++) {
         if (line[i] ~ mark) continue          # drop prior reap-count markers
+        if (line[i] ~ plainwait) continue     # drop the consumed plain-retry delay
         if (line[i] ~ rnow) continue          # drop the gardener reap-now hint (never persist it)
         if (line[i] ~ terminal) continue      # drop the consumed non-transient terminal-failure hint
         if (line[i] ~ qback) continue         # drop the consumed provider reset backoff
@@ -694,6 +699,11 @@ now="${GARDEN_REAPER_NOW:-$(date -u +%s)}"
 case "$now" in
   ''|*[!0-9]*) log "WARNING: GARDEN_REAPER_NOW='$now' is not an epoch; using wall clock"; now="$(date -u +%s)" ;;
 esac
+plain_retry_backoff="$GARDEN_REAP_PLAIN_RETRY_BACKOFF_SECONDS"
+if ! [ "$plain_retry_backoff" -ge 1 ] 2>/dev/null; then
+  log "WARNING: GARDEN_REAP_PLAIN_RETRY_BACKOFF_SECONDS='$plain_retry_backoff' is not a positive integer; using 600"
+  plain_retry_backoff=600
+fi
 declare -a STALE=()
 declare -a STALE_AGE=()            # parallel to STALE: claim age in seconds (oldest-first cap ordering, § 1b)
 declare -a STALE_RN=()             # parallel to STALE: 1 iff reap-now-hinted (cap-exempt, § 1b)
@@ -877,6 +887,8 @@ doomed=0
 staged=0
 declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_CONSTANCY=() DOOM_SIG=() DOOM_BUDGET=()
 declare -a DOOM_TOKEN_BUDGET=() DOOM_TOKEN_SPEND=() DOOM_PROGRESS=()
+declare -a DOOM_SPLIT_ELIGIBLE=() DOOM_SPLIT_REASON=()
+declare -a RETRY_BASE=() RETRY_KIND=() RETRY_COUNT=() RETRY_NOT_BEFORE=() RETRY_QUOTA_TYPE=() RETRY_QUOTA_RESET_AT=()
 # Parallel to DOOM_BASE: the `gauntlet:` base the doomed stage belongs to (empty for a
 # non-gauntlet job) and whether this cycle carried transient proof — together they gate
 # the deferred gauntlet-handoff at flush time.
@@ -886,6 +898,8 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   staged=0
   DOOM_BASE=(); DOOM_BODY=(); DOOM_COUNT=(); DOOM_OVERRUN=(); DOOM_CONSTANCY=(); DOOM_SIG=(); DOOM_BUDGET=()
   DOOM_TOKEN_BUDGET=(); DOOM_TOKEN_SPEND=(); DOOM_PROGRESS=()
+  DOOM_SPLIT_ELIGIBLE=(); DOOM_SPLIT_REASON=()
+  RETRY_BASE=(); RETRY_KIND=(); RETRY_COUNT=(); RETRY_NOT_BEFORE=(); RETRY_QUOTA_TYPE=(); RETRY_QUOTA_RESET_AT=()
   DOOM_GAUNTLET=(); DOOM_TRANSIENT=()
   mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
@@ -895,6 +909,15 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
 
     prev="$(sed -n 's/^<!-- garden-reaped: \([0-9][0-9]*\) -->$/\1/p' "$f" | tail -1)"
     [ -n "${prev:-}" ] || prev=0
+    gauntlet_base="$(plan_field "$f" gauntlet)"
+    quota_recovery=0
+    quota_type=""
+    quota_reset_at=""
+    if quota_fields="$(provider_quota_backoff_fields "$f" 2>/dev/null || true)" \
+       && [ -n "$quota_fields" ]; then
+      read -r quota_type quota_reset_at <<< "$quota_fields"
+      quota_recovery=1
+    fi
     # PRODUCTIVE cycle: the gardener stamped the productive marker because a per-job
     # worktree HEAD advanced this cycle — the handler pushed REAL WORK (the sanctioned
     # resume treadmill), NOT a handler that "fails every time". Do NOT count it toward
@@ -921,6 +944,10 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       outage=1
       count="$prev"
       log "outage: '$base' transient-failed under an engaged fleet brake this cycle; PAUSING doom counter (held at $prev) — sustained environmental transient, not counted toward doom"
+    elif [ "$quota_recovery" -eq 1 ]; then
+      productive=0
+      count="$prev"
+      log "quota-recovery: '$base' reached its provider $quota_type reset ($quota_reset_at); preserving plain-exit retry count at $prev"
     else
       productive=0
       count=$(( prev + 1 ))
@@ -996,12 +1023,23 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       policy_refusal=1
       old_doom=1
     fi
-    if [ "$policy_refusal" -ne 1 ] && [ "$outage" -ne 1 ] && { \
-      [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] \
-      || [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ] \
-      || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; \
-    }; then
-      old_doom=1
+    if [ "$policy_refusal" -ne 1 ] && [ "$outage" -ne 1 ]; then
+      if [ -z "$gauntlet_base" ]; then
+        # Ordinary jobs have one explicit plain-exit retry state, not a tunable
+        # multi-cycle budget.  A non-productive wall hit is conclusive on its
+        # first observation; otherwise the second plain exit ends retrying.
+        if [ "$overrun" -ge 1 ] \
+           || [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ] \
+           || { [ "$quota_recovery" -ne 1 ] && [ "$count" -ge 2 ]; }; then
+          old_doom=1
+        fi
+      elif [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] \
+        || [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ] \
+        || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; then
+        # Gauntlet stages remain under the gauntlet driver's existing retry
+        # budget and never acquire the ordinary-job split disposition.
+        old_doom=1
+      fi
     fi
     should_park="$old_doom"
     progress=unknown
@@ -1050,13 +1088,29 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # dedup below. The signature (deterministic-overrun vs generic requeue
       # exhaustion) keys both the plan provenance and the maintainer notice.
       if [ -z "$sig" ]; then
-        if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
+        if [ -z "$gauntlet_base" ] && [ "$overrun" -ge 1 ]; then
+          sig="deadline-overrun"
+        elif [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
           sig="deadline-overrun"
         elif [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ]; then
           sig="elapsed-constancy"
         else
           sig="requeue-exhausted"
         fi
+      fi
+      split_eligible=0
+      split_reason=""
+      if [ -z "$gauntlet_base" ]; then
+        case "$sig" in
+          deadline-overrun)
+            split_eligible=1
+            split_reason=deadline-overrun
+            ;;
+          requeue-exhausted|elapsed-constancy)
+            split_eligible=1
+            split_reason=repeated-plain-exit
+            ;;
+        esac
       fi
       # doom_count: how many times THIS job has been doom-parked. A re-doom
       # bumps the prior value carried in the existing plan file (idempotent on the
@@ -1116,6 +1170,10 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf 'doomed: true\n'
           printf 'doom_signature: %s\n' "$sig"
           printf 'doom_count: %s\n'     "$pcount"
+          if [ "$split_eligible" -eq 1 ]; then
+            printf 'split_eligible: true\n'
+            printf 'split_reason: %s\n' "$split_reason"
+          fi
           if [ "$sig" = requeue-exhausted ] && [ "$last_cycle_terminal_failure" -eq 1 ]; then
             printf 'failure_classification: deterministic\n'
           elif [ "$sig" = requeue-exhausted ] && [ "$last_cycle_transient" -eq 1 ]; then
@@ -1151,6 +1209,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       DOOM_TOKEN_BUDGET+=("$token_budget"); DOOM_TOKEN_SPEND+=("$token_spend")
       DOOM_PROGRESS+=("$progress")
       DOOM_GAUNTLET+=("$doom_gauntlet"); DOOM_TRANSIENT+=("$doom_transient")
+      DOOM_SPLIT_ELIGIBLE+=("$split_eligible"); DOOM_SPLIT_REASON+=("$split_reason")
     else
       # A stale Moonshot claim is an already-running automatic job, not a new
       # dispatch. Never touch a live doin claim before it reaches this reaper path;
@@ -1161,8 +1220,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       if grep -q '^  provider: moonshot[[:space:]]*$' "$f" \
         || [ "$(plan_field "$f" model)" = kimi-k3 ]; then
         body="$(printf '%s\n' "$body" | automatic_route_body)"
-        count=0
-        log "kimi quota posture: '$base' exited Moonshot; re-routing its requeue to minion/Codex"
+        log "kimi quota posture: '$base' exited Moonshot; re-routing its bounded requeue to minion/Codex without resetting plain-exit history"
       else
       # --- historical kimi-k3 -> qualified non-Claude re-route ------------------
       # On a GENUINE failure (not an outage, not a productive cycle) of a job whose
@@ -1171,8 +1229,8 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # next instead of a mystic re-claiming and failing again. Gated on the armed
       # journal flag (default off => no-op), on `outage -ne 1` (never re-route during
       # an environmental storm — that is not kimi's fault), and on the job having
-      # reached GARDEN_KIMI_FALLBACK_AFTER genuine failure cycles. A re-route RESETS
-      # the reap counter (the fresh provider earns a fresh doom budget) and records
+      # reached GARDEN_KIMI_FALLBACK_AFTER genuine failure cycles. A re-route keeps
+      # the plain-exit count (the job still has exactly one retry overall) and records
       # the kimi arm as a failure so the evaluation stays honest. Session/worktree
       # freshness is by construction: the opus handler finds no Claude transcript for
       # this base (kimi wrote none) and resets the leftover worktree — see the design.
@@ -1213,21 +1271,40 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           if [ "$rrc" -eq 0 ]; then
             record_kimi_fallback_event "$f" "$spine" "$count" || true
             body="$rerouted_body"
-            log "kimi-fallback: '$base' failed $count cycle(s); re-routing to its qualified non-Claude fallback, resetting reap counter"
-            count=0
+            log "kimi-fallback: '$base' failed $count cycle(s); re-routing its bounded retry to the qualified non-Claude fallback without resetting plain-exit history"
           elif [ "$rrc" -eq 2 ]; then
             log "role-floor: '$base' role floor '$reroute_floor' forbids a below-floor demotion; NOT rerouting — requeueing at its floor tier (a human triages on doom)"
           fi
         fi
       fi
       fi
+      retry_kind=""
+      retry_not_before=""
+      if [ "$quota_recovery" -eq 1 ]; then
+        retry_kind="quota-reset"
+      elif [ "$productive" -eq 1 ]; then
+        retry_kind="productive-resume"
+      elif [ "$outage" -eq 1 ]; then
+        retry_kind="outage-resume"
+      elif [ -z "$gauntlet_base" ] && [ "$count" -eq 1 ]; then
+        retry_kind="plain-exit"
+        retry_not_before="$(date -u -d "@$((now + plain_retry_backoff))" +%FT%TZ)"
+        log "plain-retry: '$base' scheduled its sole retry for $retry_not_before (back-off ${plain_retry_backoff}s)"
+      else
+        retry_kind="gauntlet-stage"
+      fi
       {
         printf '%s\n' "$body"
         printf '\n<!-- garden-reaped: %s -->\n' "$count"
+        [ -z "$retry_not_before" ] \
+          || printf '<!-- garden-plain-retry-not-before: %s -->\n' "$retry_not_before"
       } > "$DIR/$JOBS_TODO/$base"
       git -C "$DIR" rm -q "$JOBS_DOIN/$base"
       [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
       git -C "$DIR" add "$JOBS_TODO/$base"
+      RETRY_BASE+=("$spine"); RETRY_KIND+=("$retry_kind"); RETRY_COUNT+=("$count")
+      RETRY_NOT_BEFORE+=("$retry_not_before")
+      RETRY_QUOTA_TYPE+=("$quota_type"); RETRY_QUOTA_RESET_AT+=("$quota_reset_at")
     fi
     staged=$(( staged + 1 ))
   done
@@ -1251,14 +1328,55 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         --arg overruns "${DOOM_OVERRUN[$i]}" --arg constancy "${DOOM_CONSTANCY[$i]}" \
         --arg progress "${DOOM_PROGRESS[$i]}" --arg token_budget "${DOOM_TOKEN_BUDGET[$i]}" \
         --arg token_spend "${DOOM_TOKEN_SPEND[$i]}" \
-        '{base:$base,signature:$signature,requeue_cycles:$cycles,deadline_overruns:$overruns,elapsed_constancy_confirmations:$constancy,progress:$progress,token_budget:$token_budget,token_spend:$token_spend,gate:"go-ahead"}')"; then
+        --arg split "${DOOM_SPLIT_ELIGIBLE[$i]}" --arg split_reason "${DOOM_SPLIT_REASON[$i]}" \
+        '{base:$base,signature:$signature,requeue_cycles:$cycles,deadline_overruns:$overruns,elapsed_constancy_confirmations:$constancy,progress:$progress,token_budget:$token_budget,token_spend:$token_spend,gate:"go-ahead",split_eligible:($split == "1"),split_reason:$split_reason}')"; then
+        decision_name=park-plan
+        decision_reason="reaper selected held plan disposition: ${DOOM_SIG[$i]}"
+        if [ "${DOOM_SPLIT_ELIGIBLE[$i]}" -eq 1 ]; then
+          decision_name=mark-split-eligible
+          decision_reason="retry suppressed; ordinary job requires deliberate split-or-surface disposition: ${DOOM_SPLIT_REASON[$i]}"
+        fi
         record_decision --loop reaper --input-json "$decision_input_json" \
-          --decision park-plan \
+          --decision "$decision_name" \
           --from-json "$(jq -cn --arg value "$JOBS_DOIN/${DOOM_BASE[$i]}.md" '$value')" \
           --to-json "$(jq -cn --arg value "$JOBS_PLAN/${DOOM_BASE[$i]}.md" '$value')" \
-          --reason "reaper selected held plan disposition: ${DOOM_SIG[$i]}" \
+          --reason "$decision_reason" \
           --outcome applied --outcome-detail "reap batch CAS accepted"
       fi
+    done
+    # Likewise, make the two sanctioned retry decisions attributable only after
+    # the doin→todo CAS lands: one delayed plain retry, or a quota reset whose
+    # existing provider back-off has actually elapsed. Productive/outage resumes
+    # retain their existing semantics and are not retry-policy actuations.
+    for i in "${!RETRY_BASE[@]}"; do
+      case "${RETRY_KIND[$i]}" in
+        plain-exit)
+          if decision_input_json="$(jq -cn --arg base "${RETRY_BASE[$i]}" \
+            --arg count "${RETRY_COUNT[$i]}" --arg not_before "${RETRY_NOT_BEFORE[$i]}" \
+            --arg backoff_seconds "$plain_retry_backoff" \
+            '{base:$base,retry_count:$count,not_before:$not_before,backoff_seconds:$backoff_seconds,classification:"plain-nonproductive-nonquota"}')"; then
+            record_decision --loop reaper --input-json "$decision_input_json" \
+              --decision schedule-plain-retry \
+              --from-json "$(jq -cn --arg value "$JOBS_DOIN/${RETRY_BASE[$i]}.md" '$value')" \
+              --to-json "$(jq -cn --arg value "$JOBS_TODO/${RETRY_BASE[$i]}.md" '$value')" \
+              --reason "first plain non-productive exit receives its sole backed-off retry" \
+              --outcome applied --outcome-detail "reap batch CAS accepted; claim held until ${RETRY_NOT_BEFORE[$i]}"
+          fi
+          ;;
+        quota-reset)
+          if decision_input_json="$(jq -cn --arg base "${RETRY_BASE[$i]}" \
+            --arg count "${RETRY_COUNT[$i]}" --arg quota_type "${RETRY_QUOTA_TYPE[$i]}" \
+            --arg reset_at "${RETRY_QUOTA_RESET_AT[$i]}" \
+            '{base:$base,retry_count:$count,quota_type:$quota_type,reset_at:$reset_at,classification:"provider-quota-recovery"}')"; then
+            record_decision --loop reaper --input-json "$decision_input_json" \
+              --decision release-quota-retry \
+              --from-json "$(jq -cn --arg value "$JOBS_DOIN/${RETRY_BASE[$i]}.md" '$value')" \
+              --to-json "$(jq -cn --arg value "$JOBS_TODO/${RETRY_BASE[$i]}.md" '$value')" \
+              --reason "provider quota reset reached after recorded back-off" \
+              --outcome applied --outcome-detail "reap batch CAS accepted after ${RETRY_QUOTA_RESET_AT[$i]}"
+          fi
+          ;;
+      esac
     done
     # A doom push is terminal for this attempt.  Requeues deliberately retain
     # their stable per-base checkout, but a held doom does not: if a maintainer
@@ -1314,9 +1432,9 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         )"
         surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       elif [ "$psig" = deadline-overrun ]; then
-        log "DOOM (deadline-overrun): '$pbase' stamped the deadline-overrun counter ${povr} time(s) (>= ${GARDEN_REAP_OVERRUN_THRESHOLD}), budget=${pbudget}s; parked in plan/ (held), surfacing to maintainer"
+        log "SPLIT-ELIGIBLE (deadline-overrun): '$pbase' hit its handler wall ${povr} time(s), budget=${pbudget}s; no retry, parked in plan/ (held), surfacing to maintainer"
         pbody="$(
-          printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s handler wall hit(s) on %s.\n' \
+          printf 'SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after %s handler wall hit(s) on %s.\n' \
                  "$povr" "$GARDEN"
           printf 'The handler returned rc=124 at its applied %ss wall-clock budget without productive progress.\n' "$pbudget"
           printf 'One such observation is conclusive, so the reaper did not spend another full handler budget.\n'
@@ -1343,11 +1461,20 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         )"
         surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       else
-        log "DOOM: '$pbase' reaped ${DOOM_COUNT[$i]}× (≥ ${GARDEN_REAP_DOOM_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
+        if [ "${DOOM_SPLIT_ELIGIBLE[$i]:-0}" -eq 1 ]; then
+          log "SPLIT-ELIGIBLE: '$pbase' exhausted its sole plain-exit retry; parked in plan/ (held), surfacing to maintainer"
+        else
+          log "DOOM: '$pbase' reaped ${DOOM_COUNT[$i]}× (≥ ${GARDEN_REAP_DOOM_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
+        fi
         pbody="$(
-          printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s requeue cycles on %s.\n' \
-                 "${DOOM_COUNT[$i]}" "$GARDEN"
-          printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
+          if [ "${DOOM_SPLIT_ELIGIBLE[$i]:-0}" -eq 1 ]; then
+            printf 'SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on %s.\n' "$GARDEN"
+            printf 'The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.\n'
+          else
+            printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s requeue cycles on %s.\n' \
+                   "${DOOM_COUNT[$i]}" "$GARDEN"
+            printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
+          fi
           printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
           printf '(promote-plan.sh %s) or removes it, so nothing is lost.\n' "$pbase"
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \

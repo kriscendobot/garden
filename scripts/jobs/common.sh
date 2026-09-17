@@ -4862,6 +4862,24 @@ maintainer_message_from() {
 # One spelling, sourced by both, so a format change cannot half-land.
 REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
 
+# The sole plain-failure retry is deliberately not immediately claimable.  The
+# reaper writes this absolute UTC deadline beside garden-reaped:1; claim-job.sh
+# reads it and skips the candidate until the deadline.  It is cycle state (not a
+# producer-authored scheduling request), so every plan-queue boundary strips it
+# with the rest of the cycle-marker family.
+PLAIN_RETRY_NOT_BEFORE_MARKER_RE='^<!-- garden-plain-retry-not-before: [0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z -->$'
+
+# plain_retry_not_before <jobfile> — echo the recorded UTC deadline, or nothing
+# when this is not a backed-off plain retry.  A malformed marker is ignored so a
+# bad historical body cannot permanently make a job unclaimable.
+plain_retry_not_before() {
+  local f="${1:-}" line
+  [ -f "$f" ] || return 1
+  line="$(grep -E "$PLAIN_RETRY_NOT_BEFORE_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"
+  [ -n "$line" ] || return 1
+  printf '%s\n' "$line" | sed -nE 's/^<!-- garden-plain-retry-not-before: ([^ ]+) -->$/\1/p'
+}
+
 # reap_count <jobfile> — the reaper's requeue-cycle count carried on a job, read
 # from its `<!-- garden-reaped: N -->` marker (the marker reaper.sh writes; format
 # REAP_MARKER_RE). Echoes N, or 0 when the marker is absent (a first-pass job the
@@ -4871,7 +4889,7 @@ REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
 # the reaper already maintains; it never writes, advances, or CAS-races it. Used by
 # the gardener's transient-handler-failure note so a job dying the SAME transient
 # way every cycle is greppable in the journal NOW, not only after the reaper's
-# ~5×TTL doom threshold fires (~5h).
+# the bounded retry disposition fires.
 reap_count() {
   local f="${1:-}" n
   [ -f "$f" ] || { printf '0\n'; return 0; }
@@ -5360,9 +5378,9 @@ stamp_elapsed_constancy_hint() {
 
 # --- productive-cycle hint ---------------------------------------------------
 #
-# The reaper counts requeue cycles (`<!-- garden-reaped: N -->`) and DOOMS a job
-# after GARDEN_REAP_DOOM_THRESHOLD cycles on the assumption that a handler which
-# is requeued that many times "fails every time". But a long builder on the
+# The reaper counts non-productive cycles (`<!-- garden-reaped: N -->`): an
+# ordinary job gets one backed-off retry, while a gauntlet stage retains its
+# driver's GARDEN_REAP_DOOM_THRESHOLD budget. But a long builder on the
 # SANCTIONED RESUME TREADMILL — push green commits each cycle, then exit WITHOUT the
 # completion signal before the handler wall, and RESUME on the next claim — trips the
 # SAME counter even though EVERY cycle lands real progress. xs2rust-endor-build-stage3
@@ -5375,8 +5393,8 @@ stamp_elapsed_constancy_hint() {
 # job_worktree_heads/job_cycle_productive around the handler call) and stamps THIS
 # marker on its still-in-doin claim; the reaper READS it and RESETS the reap-count
 # rather than incrementing, so only cycles with NO progress accumulate toward the
-# drop. A genuinely-failing job (no commits, hard error every cycle) never earns the
-# marker and still dooms at the threshold.
+# bounded disposition. A genuinely-failing job never earns the marker and still
+# exhausts the applicable ordinary or gauntlet policy.
 #
 # The marker is a BOOLEAN hint present iff the LAST cycle was productive — unlike the
 # reaper-owned reap-count and the gardener-owned deadline-overrun COUNTER, it does not
@@ -5532,7 +5550,7 @@ stamp_outage_cycle_hint() {
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
 # spelling of "the family", so no caller enumerates the members itself.
-CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$TERMINAL_HANDLER_FAILURE_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$POLICY_REFUSAL_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$PLAIN_RETRY_NOT_BEFORE_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$TERMINAL_HANDLER_FAILURE_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$POLICY_REFUSAL_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
 
 # strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
 # Idempotent by construction: a body with no markers passes through byte-identical, and
@@ -5550,6 +5568,8 @@ strip_cycle_markers() {
 cycle_marker_summary() {
   local f="$1" out="" n line observation
   n="$(reap_count "$f")";             [ "$n" -gt 0 ] && out="${out:+$out,}reaped=$n"
+  line="$(plain_retry_not_before "$f" 2>/dev/null || true)"
+  [ -n "$line" ] && out="${out:+$out,}plain-retry-not-before=$line"
   n="$(deadline_overrun_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}deadline-overrun=$n"
   n="$(elapsed_constancy_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}elapsed-constancy=$n"
   line="$(grep -E "$TRANSIENT_ELAPSED_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"

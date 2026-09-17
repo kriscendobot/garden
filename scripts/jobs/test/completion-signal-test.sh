@@ -297,35 +297,33 @@ R3="$T3/reaper-verify"; git clone -q --single-branch --branch journal2 "$BARE3" 
   && ok "requeue stamped the doom-cycle counter (garden-reaped: 1)" \
   || bad "doom-cycle counter not stamped (would bypass the doom bound)"
 
-# The first requeued attempt (cycle=1) is still routine self-healing. It remains
-# visible in the local worker log, but must not publish the shared progress entry
-# that wakes the mentor. A further repeat (cycle=2) does publish one.
+# The sole requeued attempt (cycle=1) is the repeat. If it exits plainly again it
+# publishes one shared warning and the reaper parks it directly; there is no
+# cycle=2 handler attempt.
 env GARDEN="gaphost" GARDEN_STATE="$T3/state" JOURNAL_REMOTE="$BARE3" JOURNAL_BRANCH=journal2 \
+    GARDEN_CLAIM_NOW=4102444800 \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_ELAPSED_CONSTANCY_CYCLES=0 \
     GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=0 \
     GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T3/gardener-cycle1.log" 2>&1 || true
 V3C1="$T3/verify-cycle1"; git clone -q --single-branch --branch journal2 "$BARE3" "$V3C1" 2>/dev/null
 if grep -q 'requeue cycle 1' "$T3/gardener-cycle1.log" \
-   && ! find "$V3C1/entries" -type f -name '*-progress-*' -print -quit | grep -q .; then
-  ok "first exit-0 requeue (cycle 1) stayed local and shared-journal silent"
+   && grep -rlq 'exhausted its sole backed-off retry' "$V3C1/entries" 2>/dev/null; then
+  ok "failed sole retry published one shared split-or-surface warning"
 else
-  bad "cycle-1 exit-0 requeue was not silent ($(find "$V3C1/entries" -type f -name '*-progress-*' -print | tr '\n' ' '))"
+  bad "failed sole retry did not publish its bounded-policy warning"
 fi
 
 env GARDEN="reaphost" GARDEN_STATE="$T3/reaper-state" GARDEN_CLAIM_TTL=3600 \
     JOURNAL_REMOTE="$BARE3" JOURNAL_BRANCH=journal2 \
     "$JOBS/reaper.sh" > "$T3/reaper-cycle1.log" 2>&1 || true
-env GARDEN="gaphost" GARDEN_STATE="$T3/state" JOURNAL_REMOTE="$BARE3" JOURNAL_BRANCH=journal2 \
-    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_ELAPSED_CONSTANCY_CYCLES=0 \
-    GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=0 \
-    GARDEN_JOB_HANDLER="$STUB" \
-    "$JOBS/gardener.sh" 1 > "$T3/gardener-cycle2.log" 2>&1 || true
 V3C2="$T3/verify-cycle2"; git clone -q --single-branch --branch journal2 "$BARE3" "$V3C2" 2>/dev/null
-if grep -rlq 'requeue cycle 2 of doom threshold' "$V3C2/entries" 2>/dev/null; then
-  ok "repeated exit-0 requeue (cycle 2) published shared progress"
+if [ -f "$V3C2/jobs/plan/gapjob.md" ] \
+   && grep -qx 'split_eligible: true' "$V3C2/jobs/plan/gapjob.md" \
+   && [ ! -e "$V3C2/jobs/todo/gapjob.md" ]; then
+  ok "repeated exit-0 was parked split-eligible without a cycle-2 handler attempt"
 else
-  bad "cycle-2 exit-0 repeat did not publish shared progress"
+  bad "repeated exit-0 did not stop after the sole retry"
 fi
 rm -rf "$T3"
 
@@ -334,6 +332,7 @@ rm -rf "$T3"
 T3N="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig3-neardoom.XXXXXX")"
 BARE3N="$(seed_board "$T3N" neardoomjob)"
 U3N="$T3N/update"; git clone -q --single-branch --branch journal2 "$BARE3N" "$U3N"
+sed -i '1i ---\ngauntlet: near-doom-gauntlet\n---' "$U3N/jobs/todo/neardoomjob.md"
 printf '\n<!-- garden-reaped: 1 -->\n' >> "$U3N/jobs/todo/neardoomjob.md"
 git -C "$U3N" add jobs/todo/neardoomjob.md
 git -C "$U3N" -c user.name=test -c user.email=test@localhost commit -q -m 'seed near-doom retry'
@@ -344,7 +343,7 @@ env GARDEN="gaphost" GARDEN_STATE="$T3N/state" JOURNAL_REMOTE="$BARE3N" JOURNAL_
     GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T3N/gardener.log" 2>&1 || true
 V3N="$T3N/verify"; git clone -q --single-branch --branch journal2 "$BARE3N" "$V3N" 2>/dev/null
-if grep -rlq 'requeue cycle 1 of doom threshold 2.*ABOUT TO ESCALATE as doom' "$V3N/entries" 2>/dev/null; then
+if grep -rlq 'requeue cycle 1 of driver-owned threshold 2.*ABOUT TO ESCALATE as doom' "$V3N/entries" 2>/dev/null; then
   ok "near-doom cycle 1 retained its shared escalation warning"
 else
   bad "near-doom cycle 1 did not publish its escalation warning"
@@ -391,13 +390,14 @@ run_mode "clean-but-unsatisfying exit-0"          unsat   0 0 ""
 hr; echo "  doom bound — a never-completing job escalates after the threshold"; hr
 TP="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig-doom.XXXXXX")"
 BAREP="$(seed_board "$TP" doomjob)"
-THRESH=3
+THRESH=2
 # Loop the gardener+reaper cycle: each round the gardener claims and exits-0-without-
 # signal (requeue), the reaper requeues doin→todo and increments the doom counter.
 # After THRESH cycles the reaper must DROP the job (not requeue) and surface it to
 # the maintainer inbox.
 for cycle in $(seq 1 "$THRESH"); do
   env GARDEN="doomhost" GARDEN_STATE="$TP/state" JOURNAL_REMOTE="$BAREP" JOURNAL_BRANCH=journal2 \
+      GARDEN_CLAIM_NOW=4102444800 \
       GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
       GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=0 \
       GARDEN_JOB_HANDLER="$STUB" \
@@ -419,7 +419,7 @@ VP="$TP/verify"; git clone -q --single-branch --branch journal2 "$BAREP" "$VP" 2
 # keyed sibling of inbox-send.sh): it lands in inbox/maintainer/unread. The intent
 # is preserved — "never silently lost" is the guarantee.
 pmsg="$(grep -rl 'doomjob' "$VP/inbox" 2>/dev/null | head -1)"
-{ [ -n "$pmsg" ] && grep -qi 'DOOM' "$pmsg"; } \
+{ [ -n "$pmsg" ] && grep -qiE 'DOOM|SPLIT-ELIGIBLE' "$pmsg"; } \
   && ok "the never-completing job was surfaced to the maintainer as DOOM (never silently lost)" \
   || bad "no doom alert surfaced for the never-completing job (inbox tree: $(find "$VP/inbox" -type f 2>/dev/null | tr '\n' ' '))"
 rm -rf "$TP"

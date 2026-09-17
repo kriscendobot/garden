@@ -70,9 +70,9 @@ count_unread() { resync; ls -1 "$V/inbox/maintainer/unread" 2>/dev/null | grep -
 # Place a STALE claim in doin/<base>.md (claimed_at long past the TTL). Optional
 # frontmatter `gauntlet: <g>` marks it a gauntlet stage; an optional reap-now body
 # marker makes its final doom cycle transient-classified.
-# place_stale <base> [gauntlet-base] [reap-now]
+# place_stale <base> [gauntlet-base] [reap-now] [prior-plain-exits]
 place_stale() {
-  local base="$1" gbase="${2:-}" reap_now="${3:-}" wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  local base="$1" gbase="${2:-}" reap_now="${3:-}" prior="${4:-0}" wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   {
     printf -- '---\n'
@@ -83,6 +83,7 @@ place_stale() {
     fi
     printf -- '---\n'
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
+    [ "$prior" -gt 0 ] && printf '<!-- garden-reaped: %s -->\n' "$prior"
     [ "$reap_now" = reap-now ] && printf '<!-- garden-reap-now -->\n'
     printf -- '---\nclaim:\n  host: testhost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > "$wt/jobs/doin/$base.md"
@@ -192,7 +193,7 @@ cspool="$HANDOFF_SPOOL/doomed-coldgauntlet-panel-1-requeue-exhausted.md"
 
 # ============================================================================
 hr; echo "SUBTEST 5 — NON-GAUNTLET: a transient doom that is not a gauntlet stage surfaces immediately"; hr
-place_stale plainjob "" reap-now
+place_stale plainjob "" reap-now 1
 run_reaper
 resync
 

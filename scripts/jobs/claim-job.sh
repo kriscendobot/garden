@@ -233,6 +233,15 @@ mapfile -t cand < <(list_jobs "$DIR" "$JOBS_TODO")
 n="${#cand[@]}"
 [ "$n" -eq 0 ] && { log "no jobs in todo"; exit 3; }
 
+# A plain non-productive exit earns one retry, but only after the reaper's
+# recorded back-off.  Use one clock reading for the whole candidate pass so two
+# candidates on the same boundary cannot be treated inconsistently.  The test
+# override is also useful for deterministic boundary coverage.
+claim_now="${GARDEN_CLAIM_NOW:-$(date -u +%s)}"
+case "$claim_now" in
+  ''|*[!0-9]*) log "WARNING: GARDEN_CLAIM_NOW='$claim_now' is not an epoch; using wall clock"; claim_now="$(date -u +%s)" ;;
+esac
+
 # numeric offset from id (hash non-numeric ids)
 if [[ "$id" =~ ^[0-9]+$ ]]; then off="$id"; else off=$(( $(printf '%s' "$id" | cksum | cut -d' ' -f1) )); fi
 off=$(( off % n ))
@@ -243,6 +252,16 @@ for ((k=0; k<n; k++)); do
   # re-sync each attempt: the board may have moved under us
   sync_clone "$DIR"
   [ -e "$DIR/$JOBS_TODO/$base.md" ] || { log "'$base' already taken; next"; continue; }
+
+  retry_not_before="$(plain_retry_not_before "$DIR/$JOBS_TODO/$base.md" 2>/dev/null || true)"
+  if [ -n "$retry_not_before" ]; then
+    retry_not_before_epoch="$(date -u -d "$retry_not_before" +%s 2>/dev/null || true)"
+    if [[ "$retry_not_before_epoch" =~ ^[0-9]+$ ]] \
+       && [ "$claim_now" -lt "$retry_not_before_epoch" ]; then
+      log "'$base' is in its sole plain-exit retry back-off until $retry_not_before; skipping"
+      continue
+    fi
+  fi
 
   # §1.3 backend-fit filter: skip a job pinned to a provider this kind cannot honor.
   if ! job_eligible_for_kind "$DIR/$JOBS_TODO/$base.md"; then

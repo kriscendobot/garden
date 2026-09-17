@@ -417,10 +417,10 @@ fi
   && ok "parked overrun doom plan is held (go-ahead) and carries the deadline-overrun signature" \
   || bad "parked overrun doom plan missing held gate / overrun signature"
 # (b) the reaper log names the deterministic-overrun doom (not a generic per-cycle doom).
-if grep -Eq 'DOOM \(deadline-overrun\)' "$TR5/reaper.log"; then
-  ok "reaper logged the deadline-overrun doom signature (names the handler wall-clock budget)"
+if grep -Eq 'SPLIT-ELIGIBLE \(deadline-overrun\)' "$TR5/reaper.log"; then
+  ok "reaper logged the deadline-overrun split signature (names the handler wall-clock budget)"
 else
-  bad "reaper did not log a deadline-overrun doom; log: $(grep -iE 'doom' "$TR5/reaper.log" | tail -3)"
+  bad "reaper did not log a deadline-overrun split; log: $(grep -iE 'split|doom' "$TR5/reaper.log" | tail -3)"
 fi
 
 # ============================================================================

@@ -88,6 +88,9 @@ place_stale() {
       printf -- '---\nrole: %s\n---\n' "$role"
     fi
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
+    # Ordinary jobs receive exactly one plain retry.  Seed the already-consumed
+    # retry so these doom-path fixtures exercise the repeated-exit disposition.
+    printf '<!-- garden-reaped: 1 -->\n'
     [ -n "$overrun" ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$overrun"
     [ "$reap_now" = reap-now ] && printf '<!-- garden-reap-now -->\n'
     printf -- '---\nclaim:\n  host: testhost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
@@ -140,8 +143,9 @@ fi
 
 decision_ledger="$(find "$V/budget/decisions" -maxdepth 1 -name '*-testhost.jsonl' -print -quit 2>/dev/null || true)"
 if [ -n "$decision_ledger" ] && jq -e '
-  select(.loop == "reaper" and .decision == "park-plan"
+  select(.loop == "reaper" and .decision == "mark-split-eligible"
     and .input.base == "boom" and .input.signature == "requeue-exhausted"
+    and .input.split_eligible == true
     and .from == "jobs/doin/boom.md" and .to == "jobs/plan/boom.md"
     and .outcome == "applied")' "$decision_ledger" >/dev/null; then
   ok "doom parking leaves a durable reaper decision with input and outcome"

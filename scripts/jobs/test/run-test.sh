@@ -2291,7 +2291,7 @@ git -C "$RV" log --pretty=%s | grep -q 'reaped 2 stale claim' \
   && ok "parked doom plan carries a held go-ahead gate and doom provenance" \
   || bad "parked doom plan missing held gate / provenance"
 pmsg=$(grep -rl 'reap-doom' "$RV/inbox/maintainer/unread" 2>/dev/null | head -1)
-{ [ -n "$pmsg" ] && grep -qi 'DOOM' "$pmsg"; } \
+{ [ -n "$pmsg" ] && grep -qiE 'DOOM|SPLIT-ELIGIBLE' "$pmsg"; } \
   && ok "doom job surfaced to the maintainer inbox with its body" || bad "no doom alert to maintainer"
 rm -rf "$RV"
 unset JOURNAL_REMOTE

@@ -451,6 +451,17 @@ if tip_has jobs/todo/budgetpark.md && ! tip_has jobs/plan/budgetpark.md \
 else
   bad 'budget refresh did not promote the held plan'
 fi
+budget_decision_path="$(git -C "$BARE" ls-tree -r --name-only "$BRANCH" -- budget/decisions \
+  | grep -- '-leader-one.jsonl$' | tail -1)"
+if [ -n "$budget_decision_path" ] && tip_show "$budget_decision_path" | jq -e '
+  select(.loop == "budget-refresh" and .decision == "release-budget-hold"
+    and .input.base == "budgetpark"
+    and .input.recovery_trigger == "quota-window-or-cap-recovery"
+    and .outcome == "applied")' >/dev/null; then
+  ok 'quota-window/cap recovery records its back-off input and applied release'
+else
+  bad 'budget refresh recovery decision was not durably attributable'
+fi
 
 hr
 printf '%s\n' 'UNIT WIRING'
