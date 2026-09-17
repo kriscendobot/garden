@@ -12,6 +12,7 @@ ci-watcher.sh's rollup_hit_primary_quota() routes GitHub PRIMARY hourly-quota ex
 <!-- garden-plain-retry-not-before: 2026-09-17T13:03:11Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=16,3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
