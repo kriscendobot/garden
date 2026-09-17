@@ -1,1 +1,2 @@
 {"source":"none","ts":"2026-09-04T21:01:03Z","base":"gauntlet-endo-pr1113-20260904c","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":2401,"provider":"anthropic"}
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":112,"input_tokens":18,"output_tokens":6118,"cache_creation_tokens":49997,"cache_read_tokens":439803,"total_cost_usd":0.8766814999999998,"ts":"2026-09-17T00:10:08Z","base":"gauntlet-endo-pr1113-20260904c","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
