@@ -12,6 +12,7 @@ Retro jobs (base suffix `-retro`, minted by comment-watcher.sh's mint_retro as b
 <!-- garden-plain-retry-not-before: 2026-09-17T19:13:14Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,4 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
