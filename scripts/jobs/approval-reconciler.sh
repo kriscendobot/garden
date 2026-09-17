@@ -129,9 +129,27 @@ VERIFY="$GARDEN_AR_VERIFY_CLONE"
 # Bound the PR-source enumeration so a hung gh/git can never outlive the tick.
 : "${GARDEN_AR_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_AR_KILL_AFTER:=10s}"
+# Leave ample room beneath the unit's 900-second TimeoutStartSec.  The source
+# read is already bounded; these two bounds cover the potentially numerous live
+# reads in the PR loop.  A probe is clipped to the time left in the whole tick,
+# so many individually-slow (but successful) reads cannot accumulate past the
+# tick deadline.  The sweep is stateless: anything not visited is safely retried
+# by the next timer firing.
+: "${GARDEN_AR_TICK_TIMEOUT_SECS:=780}"
+: "${GARDEN_AR_PROBE_TIMEOUT_SECS:=60}"
 # Defense-in-depth leader gate (the unit's ExecCondition is the primary). Mockable
 # for the leader/follower test. Set to 0 to defer entirely to the ExecCondition.
 : "${GARDEN_AR_LEADER_GUARD:=1}"
+
+case "$GARDEN_AR_SOURCE_TIMEOUT_SECS:$GARDEN_AR_TICK_TIMEOUT_SECS:$GARDEN_AR_PROBE_TIMEOUT_SECS" in
+  *[!0-9:]*|0:*|*:0:*|*:0) die "GARDEN_AR_SOURCE_TIMEOUT_SECS, GARDEN_AR_TICK_TIMEOUT_SECS, and GARDEN_AR_PROBE_TIMEOUT_SECS must be positive integers" ;;
+esac
+# Force base ten so a zero-padded operator override cannot become invalid octal.
+GARDEN_AR_SOURCE_TIMEOUT_SECS=$((10#$GARDEN_AR_SOURCE_TIMEOUT_SECS))
+GARDEN_AR_TICK_TIMEOUT_SECS=$((10#$GARDEN_AR_TICK_TIMEOUT_SECS))
+GARDEN_AR_PROBE_TIMEOUT_SECS=$((10#$GARDEN_AR_PROBE_TIMEOUT_SECS))
+tick_started="$(date +%s)"
+tick_deadline=$((tick_started + GARDEN_AR_TICK_TIMEOUT_SECS))
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
@@ -144,6 +162,13 @@ fi
 # Do no API work and emit no per-repo log line; the detector's single warning owns it.
 # (Shared host-wide across every gh-api watcher — see api_cooldown_active in common.sh.)
 api_cooldown_active && exit 0
+
+# The safety contract below depends on GNU timeout.  Running without it would
+# silently restore the very unbounded probes this watcher must avoid.
+if ! command -v timeout >/dev/null 2>&1; then
+  log "WARN: timeout(1) is unavailable; deferring the approval sweep. Install GNU coreutils; do not raise the unit's 900s TimeoutStartSec to mask unbounded probes."
+  exit 0
+fi
 
 # slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
 owner="${slug%%-*}"; name="${slug#*-}"
@@ -360,15 +385,18 @@ trap 'cleanup; exit 143' TERM
 trap 'cleanup; exit 130' INT
 
 src_rc=0
-if command -v timeout >/dev/null 2>&1; then
-  timeout --signal=TERM --kill-after="$GARDEN_AR_KILL_AFTER" "${GARDEN_AR_SOURCE_TIMEOUT_SECS}s" \
-    "$GARDEN_AR_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
-  SOURCE_TIMEOUT_PID=$!
-  wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
-  SOURCE_TIMEOUT_PID=""
-else
-  "$GARDEN_AR_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+source_limit="$GARDEN_AR_SOURCE_TIMEOUT_SECS"
+tick_remaining=$((tick_deadline - $(date +%s)))
+if [ "$tick_remaining" -le 0 ]; then
+  log "WARN: the ${GARDEN_AR_TICK_TIMEOUT_SECS}s approval-reconcile tick deadline elapsed before PR enumeration; deferring the whole sweep to the next stateless tick. Inspect leader/journal preflight latency; keep the deadline below the unit's 900s TimeoutStartSec."
+  exit 0
 fi
+[ "$tick_remaining" -ge "$source_limit" ] || source_limit="$tick_remaining"
+timeout --signal=TERM --kill-after="$GARDEN_AR_KILL_AFTER" "${source_limit}s" \
+  "$GARDEN_AR_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
+SOURCE_TIMEOUT_PID=$!
+wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
+SOURCE_TIMEOUT_PID=""
 
 # A source failure normally must stay loud (a partial/absent list would silently
 # stop reconciliation). A transient connectivity/overload blip degrades to a skip —
@@ -391,6 +419,12 @@ repo_is_definitively_gone() {
 }
 
 if [ "$src_rc" -ne 0 ]; then
+  case "$src_rc" in
+    124|137|143)
+      log "WARN: PR enumeration for $repo reached its ${source_limit}s bound; deferring the whole sweep to the next stateless tick. Inspect the PR source/GitHub latency before raising GARDEN_AR_SOURCE_TIMEOUT_SECS; keep GARDEN_AR_TICK_TIMEOUT_SECS below the unit's 900s TimeoutStartSec."
+      exit 0
+      ;;
+  esac
   sed 's/^/  source: /' "$ERRF" >&2 || true
   if is_transient_net_error "$ERRF"; then
     log "WARN: PR source unreachable (transient network) — skipping tick (never guess)"
@@ -420,6 +454,40 @@ fi
 bot_lc="$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
 open_prs=0; ours=0; stale=0; deduped=0; approved=0; conducted=0; shepherded=0
 merged_closed=0; not_approved=0
+source_prs="$(awk -F '\t' '$1 ~ /^[0-9]+$/ { n++ } END { print n+0 }' "$SRC")"
+seen_prs=0; deferred=0; defer_pr=""; defer_stage=""; defer_limit=0; defer_tick_limited=0
+
+# Run one live per-PR read under both bounds.  rc 124 is reserved here for a
+# deferred probe (GNU timeout also uses it); callers must never reinterpret it as
+# "not approved" or "not green".  stdout/stderr stay suppressed as before so
+# untrusted remote diagnostics never become job input.
+run_pr_probe() {  # run_pr_probe <stage> <pr> <command> [args...]
+  local stage="$1" pr="$2"; shift 2
+  local now remaining limit rc
+  now="$(date +%s)"
+  remaining=$((tick_deadline - now))
+  if [ "$remaining" -le 0 ]; then
+    defer_pr="$pr"; defer_stage="$stage"; defer_limit=0; defer_tick_limited=1
+    return 124
+  fi
+  limit="$GARDEN_AR_PROBE_TIMEOUT_SECS"
+  if [ "$remaining" -lt "$limit" ]; then
+    limit="$remaining"
+    defer_tick_limited=1
+  else
+    defer_tick_limited=0
+  fi
+  rc=0
+  timeout --signal=TERM --kill-after="$GARDEN_AR_KILL_AFTER" "${limit}s" \
+    "$@" >/dev/null 2>&1 || rc=$?
+  case "$rc" in
+    124|137|143)
+      defer_pr="$pr"; defer_stage="$stage"; defer_limit="$limit"
+      return 124
+      ;;
+  esac
+  return "$rc"
+}
 
 # Fetch the board once up front; if we cannot read it, skip the tick (never guess
 # board state → never double-dispatch).
@@ -431,6 +499,12 @@ fi
 while IFS=$'\t' read -r pr author head updated _title; do
   [ -n "$pr" ] || continue
   case "$pr" in *[!0-9]*) continue ;; esac      # numeric PR ids only
+  seen_prs=$((seen_prs+1))
+  if [ "$(date +%s)" -ge "$tick_deadline" ]; then
+    defer_pr="$pr"; defer_stage="before approval scan"; defer_limit=0
+    deferred=$((source_prs - seen_prs + 1))
+    break
+  fi
   open_prs=$((open_prs+1))
 
   # Gate 1: our PR — authored by the bot.
@@ -460,7 +534,11 @@ while IFS=$'\t' read -r pr author head updated _title; do
   # Gate 5 (API): EFFECTIVE trusted-maintainer approval. A still-standing APPROVED
   # counts even after the head moved; a dismissal, a later CHANGES_REQUESTED, and
   # untrusted approvers return nonzero.
-  set +e; "$GARDEN_AR_APPROVAL" "$repo" "$pr" >/dev/null 2>&1; arc=$?; set -e
+  set +e; run_pr_probe approval "$pr" "$GARDEN_AR_APPROVAL" "$repo" "$pr"; arc=$?; set -e
+  if [ "$arc" -eq 124 ]; then
+    deferred=$((source_prs - seen_prs + 1))
+    break
+  fi
   if [ "$arc" -ne 0 ]; then
     not_approved=$((not_approved+1))
     log "#$pr: no effective trusted-maintainer approval (rc=$arc) — skipping"
@@ -470,7 +548,11 @@ while IFS=$'\t' read -r pr author head updated _title; do
 
   # Gate 6 (API): the event watcher's EXACT eligibility probe decides conductor vs
   # shepherd vs nothing (draft/mergeable/CI/approval semantics, reused wholesale).
-  set +e; "$GARDEN_AR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; mrc=$?; set -e
+  set +e; run_pr_probe mergeability "$pr" "$GARDEN_AR_MERGEABLE" "$repo" "$pr"; mrc=$?; set -e
+  if [ "$mrc" -eq 124 ]; then
+    deferred=$((source_prs - seen_prs + 1))
+    break
+  fi
   case "$mrc" in
     2)  log "#$pr approved but already merged/closed — nothing to finalize"
         merged_closed=$((merged_closed+1)); continue ;;
@@ -556,4 +638,17 @@ while IFS=$'\t' read -r pr author head updated _title; do
   esac
 done < "$SRC"
 
-log "reconciled $repo: $open_prs open PR(s), $ours bot-authored, $stale stale-skipped, $deduped already-tracked, $approved effective-approval ($not_approved without), $merged_closed merged/closed, $conducted conductor(s) + $shepherded shepherd(s) posted"
+if [ "$deferred" -gt 0 ]; then
+  if [ "$defer_limit" -gt 0 ]; then
+    if [ "$defer_tick_limited" -eq 1 ]; then
+      defer_detail="$defer_stage probe for #$defer_pr reached the tick-limited ${defer_limit}s bound"
+    else
+      defer_detail="$defer_stage probe for #$defer_pr reached its ${defer_limit}s per-PR bound"
+    fi
+  else
+    defer_detail="the ${GARDEN_AR_TICK_TIMEOUT_SECS}s tick deadline was reached at #$defer_pr ($defer_stage)"
+  fi
+  log "WARN: $defer_detail; deferring #$defer_pr and $((deferred-1)) later PR(s) to the next stateless tick. Inspect the $defer_stage handler/GitHub latency before raising GARDEN_AR_PROBE_TIMEOUT_SECS; keep GARDEN_AR_TICK_TIMEOUT_SECS below the unit's 900s TimeoutStartSec."
+fi
+
+log "reconciled $repo: $open_prs open PR(s), $ours bot-authored, $stale stale-skipped, $deduped already-tracked, $approved effective-approval ($not_approved without), $merged_closed merged/closed, $conducted conductor(s) + $shepherded shepherd(s) posted, $deferred deferred"

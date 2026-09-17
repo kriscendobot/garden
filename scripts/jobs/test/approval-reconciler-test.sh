@@ -35,6 +35,12 @@
 #      a fresh confirmation and is not posted again
 #   O. PERSISTENT POST FAILURE — bounded attempts, actionable diagnostics retained,
 #      then explicit deferral to the next tick
+#   P. PER-PR PROBE TIMEOUT — one slow approval read is bounded; it and all later
+#      PRs are deferred with exactly one actionable diagnostic
+#   Q. TICK DEADLINE — repeated slow-but-successful reads stop at the whole-tick
+#      bound rather than approaching the unit's 900-second timeout
+#   R. MERGEABILITY PROBE TIMEOUT — a timed-out eligibility read is deferred and
+#      cannot be misclassified as the ordinary rc-1 shepherd path
 #
 # Usage: approval-reconciler-test.sh
 set -euo pipefail
@@ -340,6 +346,78 @@ if ! board_has "$BARE" "$SLUG-pr903-conduct" \
    && grep -q 'class=journal-contention.*marker-903.*deferring to the next tick' "$OLOG"; then
   ok "persistent failure stops at the bound and preserves its diagnostic for next-tick deferral"
 else bad "persistent failure did not retain diagnostics or respect the retry bound"; fi
+
+# ============================================================================
+hr; echo "P. PER-PR PROBE TIMEOUT — bounded once, remainder safely deferred"; hr
+BARE="$TR/p.git"; seed_bare "$BARE"
+FIX="$TR/p.tsv"
+{ prline 910 kriscendobot "$BOThead"; prline 911 kriscendobot "$BOThead"; } > "$FIX"
+SLOWAPPR="$TR/approval-slow-stub.sh"
+cat > "$SLOWAPPR" <<'EOF'
+#!/bin/bash
+sleep 3
+exit 0
+EOF
+chmod +x "$SLOWAPPR"
+PLOG="$TR/p.log"; RUN_AR_LOG="$PLOG"; p_started="$(date +%s)"
+run_ar "$TR/sp" "$BARE" "$FIX" "" "910=0 911=0" "$SLUG" \
+  GARDEN_AR_APPROVAL="$SLOWAPPR" GARDEN_AR_PROBE_TIMEOUT_SECS=1 \
+  GARDEN_AR_TICK_TIMEOUT_SECS=10 GARDEN_AR_KILL_AFTER=1s
+p_elapsed=$(($(date +%s) - p_started)); RUN_AR_LOG=/dev/null
+if [ "$p_elapsed" -lt 5 ] \
+   && [ "$(lane_count "$BARE" todo 'conduct|shepherd')" = 0 ] \
+   && [ "$(grep -c 'WARN: .*per-PR bound.*deferring #910 and 1 later PR' "$PLOG" || true)" = 1 ]; then
+  ok "a slow approval probe is bounded and the untouched suffix gets one actionable deferral"
+else bad "per-PR timeout did not bound/defer cleanly (elapsed=${p_elapsed}s; log=$(tr '\n' ' ' < "$PLOG"))"; fi
+
+# ============================================================================
+hr; echo "Q. TICK DEADLINE — cumulative slow reads cannot consume the unit timeout"; hr
+BARE="$TR/q.git"; seed_bare "$BARE"
+FIX="$TR/q.tsv"
+{ prline 920 kriscendobot "$BOThead"; prline 921 kriscendobot "$BOThead"; \
+  prline 922 kriscendobot "$BOThead"; prline 923 kriscendobot "$BOThead"; } > "$FIX"
+COUNTAPPR="$TR/approval-counted-slow-stub.sh"; QCOUNT="$TR/q.count"
+cat > "$COUNTAPPR" <<'EOF'
+#!/bin/bash
+n=0; [ ! -f "$AR_APPROVAL_COUNT" ] || n="$(cat "$AR_APPROVAL_COUNT")"
+printf '%s\n' "$((n+1))" > "$AR_APPROVAL_COUNT"
+sleep 1
+exit 1
+EOF
+chmod +x "$COUNTAPPR"
+QLOG="$TR/q.log"; RUN_AR_LOG="$QLOG"; q_started="$(date +%s)"
+run_ar "$TR/sq" "$BARE" "$FIX" "" "" "$SLUG" \
+  GARDEN_AR_APPROVAL="$COUNTAPPR" AR_APPROVAL_COUNT="$QCOUNT" \
+  GARDEN_AR_PROBE_TIMEOUT_SECS=10 GARDEN_AR_TICK_TIMEOUT_SECS=2 \
+  GARDEN_AR_KILL_AFTER=1s
+q_elapsed=$(($(date +%s) - q_started)); RUN_AR_LOG=/dev/null
+q_calls="$(cat "$QCOUNT" 2>/dev/null || echo 0)"
+if [ "$q_elapsed" -lt 6 ] && [ "$q_calls" -ge 1 ] && [ "$q_calls" -lt 4 ] \
+   && [ "$(grep -c 'WARN: .*tick\|WARN: the .*tick' "$QLOG" || true)" = 1 ] \
+   && grep -q 'deferring #9[0-9][0-9] and [0-9] later PR' "$QLOG"; then
+  ok "the whole-tick deadline stops cumulative slow reads and reports one deferred suffix"
+else bad "tick deadline was not enforced once (elapsed=${q_elapsed}s calls=$q_calls; log=$(tr '\n' ' ' < "$QLOG"))"; fi
+
+# ============================================================================
+hr; echo "R. MERGEABILITY PROBE TIMEOUT — never misclassified as red CI"; hr
+BARE="$TR/r.git"; seed_bare "$BARE"
+FIX="$TR/r.tsv"; prline 930 kriscendobot "$BOThead" > "$FIX"
+SLOWMERGE="$TR/mergeability-slow-stub.sh"
+cat > "$SLOWMERGE" <<'EOF'
+#!/bin/bash
+sleep 3
+exit 1
+EOF
+chmod +x "$SLOWMERGE"
+RLOG="$TR/r.log"; RUN_AR_LOG="$RLOG"
+run_ar "$TR/sr" "$BARE" "$FIX" "930=0" "" "$SLUG" \
+  GARDEN_AR_MERGEABLE="$SLOWMERGE" GARDEN_AR_PROBE_TIMEOUT_SECS=1 \
+  GARDEN_AR_TICK_TIMEOUT_SECS=10 GARDEN_AR_KILL_AFTER=1s
+RUN_AR_LOG=/dev/null
+if [ "$(lane_count "$BARE" todo 'conduct|shepherd')" = 0 ] \
+   && [ "$(grep -c 'WARN: mergeability probe for #930.*per-PR bound.*deferring #930 and 0 later PR' "$RLOG" || true)" = 1 ]; then
+  ok "a timed-out mergeability read is deferred, never turned into a shepherd"
+else bad "mergeability timeout was not safely distinguished from rc 1 (log=$(tr '\n' ' ' < "$RLOG"))"; fi
 
 # ============================================================================
 hr
