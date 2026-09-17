@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/1125
-priority: normal
-posted_by: proxy
-posted_at: 2026-09-04T00:25:19Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-17T21:51:10Z cleared=none -->
 
 <!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-04T00:21:20Z cleared=none -->
 
