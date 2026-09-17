@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:12:14Z_
+_As of 2026-09-17T02:15:44Z_
 
 ## Latest
 
@@ -785,6 +785,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 7. Document THIS case and its solution in the standing PR body or a PR comment (finding 79f0475dd0440b2d).
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
+
+- `20260917T021454Z-d00f80` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260917T021454Z-d00f80.md)
+
+> awaiting maintainer — beyond proxy authority: gardener ironhorse-fuzz-triage-differential_source-efffacee3e2a, msgid msg-ironhorse-fuzz-triage-differential_source-efffacee3e2a-8a97a997e368.md — Whether/why the IronHorse pause ([kriscendobot/garden#91](https://github.com/kriscendobot/garden/issues/91)) was violated and whether further IronHorse work may proceed is a policy-gate compliance question, not a progress/direction call the proxy can make.
 
 - `doomed-ironhorse-fuzz-ed616f6ec22095dc-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-ed616f6ec22095dc-repair-policy-refusal.md)
 
@@ -4049,8 +4053,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.9M | $534.05 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.1M _(+407.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
+| Claude | 71.9M | $536.01 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 18.2M _(+409.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
