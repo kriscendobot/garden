@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:31:00Z_
+_As of 2026-09-17T03:33:13Z_
 
 ## Latest
 
@@ -602,6 +602,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260917T013013Z-4bb88c` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260917T013013Z-4bb88c.md)
 
 > awaiting maintainer — beyond proxy authority: gardener ironhorse-iterator-scenario-parity, msgid msg-ironhorse-iterator-scenario-parity-58aa54c8fbd4.md — Confirming whether the go-ahead promotion counts as the maintainer's explicit exception lifting the IronHorse pause is an authority grant only the maintainer can make; the acceptance-criteria scope question is secondary to that unresolved gate.
+
+- `minion-town-clipometer-esbuild-orchestration-resume-child-minion-town-clipometer-esbuild-validate-failed` — from orchestrator:minion-town-clipometer-esbuild-orchestration-resume-child-minion-town-clipometer-esbuild-validate-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-clipometer-esbuild-orchestration-resume-child-minion-town-clipometer-esbuild-validate-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: minion-town-clipometer-esbuild-orchestration-resume
+> orchestration-status: running
+> child: minion-town-clipometer-esbuild-validate
+> failure-kind: gated-outcome-unsatisfied
+> order: serial
+> on-child-failure: halt
+> detail: completed but declared its gated outcome unsatisfied
+>
+> Orchestration minion-town-clipometer-esbuild-orchestration-resume observed child minion-town-clipometer-esbuild-validate: completed but declared its gated outcome unsatisfied.
 
 - `msg-add-awaiting-maintainer-gate-20260916-089c812734e1` — from gardener:add-awaiting-maintainer-gate-20260916, reply_to `add-awaiting-maintainer-gate-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-add-awaiting-maintainer-gate-20260916-089c812734e1.md)
 
@@ -2865,6 +2878,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
 
+- `minion-town-clipometer-esbuild-orchestration-resume-halted` — from orchestrator:minion-town-clipometer-esbuild-orchestration-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-clipometer-esbuild-orchestration-resume-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: minion-town-clipometer-esbuild-orchestration-resume
+> orchestration-status: halted
+> child: minion-town-clipometer-esbuild-validate
+> failure-kind: gated-outcome-unsatisfied
+> children-completed: 0
+> children-total: 3
+> halt-parked-remainder: minion-town-clipometer-primer-esbuild-update minion-town-clipometer-esbuild-issue-report
+>
+> Orchestration minion-town-clipometer-esbuild-orchestration-resume HALTED: child minion-town-clipometer-esbuild-validate completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: minion-town-clipometer-primer-esbuild-update minion-town-clipometer-esbuild-issue-report
+
 - `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T03:20:34Z).
@@ -4163,27 +4189,28 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.8M | $532.38 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Claude | 72.3M | $535.84 _(notional, rate-card)_ | 51% of 143.0M (ok) |
 | Codex | 18.8M _(+443.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`clipometer-reanchor-followthrough-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-reanchor-followthrough-20260917.md) — ---
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #84
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #695
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
+- [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1100
 
-### tada (8165)
+### tada (8166)
+- [`minion-town-clipometer-esbuild-orchestration-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-orchestration-resume.md) — orchestration minion-town-clipometer-esbuild-orchestration-resume — HALTED
 - [`minion-town-clipometer-esbuild-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-validate.md) — Completion report — minion-town-clipometer-esbuild-validate
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-ocap-closure-templates.md) — Cost
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2.md) — Completion report
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/clipometer-orchestration-reanchor-20260916.md) — Cost
-- [`minion-town-clipometer-esbuild-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-orchestration.md) — orchestration minion-town-clipometer-esbuild-orchestration — HALTED
-- … and 8160 more
+- … and 8161 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
