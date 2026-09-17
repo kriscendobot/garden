@@ -12,6 +12,7 @@ scripts/jobs/receipt-watcher.sh
 <!-- garden-plain-retry-not-before: 2026-09-17T16:13:08Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
