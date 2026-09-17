@@ -13,6 +13,7 @@ Note: `gh api repos/kriscendobot/oros-ckm-data-readiness/dependabot/alerts` curr
 <!-- garden-plain-retry-not-before: 2026-09-17T14:23:09Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
