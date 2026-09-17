@@ -52,3 +52,13 @@ and if not, exactly what does the maintainer need to provision?
 If it IS fine, say so and additionally report whether
 `minion-town-clip-content-store-gc-build` can now be re-run to open its draft PR —
 that job's work is committed and pushed at `1e4e0e9` and only the PR opener failed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T01:14:59Z
