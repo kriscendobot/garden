@@ -609,7 +609,9 @@ awk -v e="$west" -v l="$wled" 'BEGIN{exit !((e-0.105)*(e-0.105) > (l-0.105)*(l-0
   && ok "all-estimated evidence draws WIDER than all-ledger (\$$west vs \$$wled) — an estimate is weaker" \
   || bad "estimate sd inflation absent (est=$west ledger=$wled)"
 
-before="$(git -C "$V" rev-parse HEAD)"
+# V predates the adjustment projection commit above; V2 is the current remote
+# snapshot whose stability this second reduction checks.
+before="$(git -C "$V2" rev-parse HEAD)"
 env GARDEN=wh GARDEN_STATE="$TR/state2" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
     "$JOBS/reputation-reduce.sh" > "$TR/w2.log" 2>&1 || true
 V2="$TR/v2"; verify_clone "$BARE" "$V2"
