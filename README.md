@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T00:06:48Z_
+_As of 2026-09-17T00:07:49Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 18m)
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 22m)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 23m)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 27m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -843,14 +843,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.5M | $492.14 _(notional, rate-card)_ | 48% of 143.0M (ok) |
-| Codex | 13.4M _(+318.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
+| Claude | 68.5M | $492.59 _(notional, rate-card)_ | 48% of 143.0M (ok) |
+| Codex | 13.5M _(+318.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
-### todo (74)
+### todo (72)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`undraft-minion-town-99-harness-provisioning-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/undraft-minion-town-99-harness-provisioning-20260916.md) — ---
-- [`gauntlet-endo-pr1113-20260904c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-endo-pr1113-20260904c.md) — ---
 - [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
 - [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
 - [`ironhorse-fuzz-cfdc1a28296f23a1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-cfdc1a28296f23a1-repair.md) — Repair Ironhorse engine defect cfdc1a28296f23a1 (target differential_regexp) ...
@@ -923,24 +921,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — Triage 7 Ironhorse fuzz finding(s) for target differential_source
 - [`ironhorse-fuzz-a7755caa51aa9320-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-a7755caa51aa9320-repair.md) — Repair Ironhorse engine defect a7755caa51aa9320 (target differential_source) ...
 
-### doin (9)
+### doin (10)
 - [`ironhorse-fuzz-baad1f22ef053213-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-baad1f22ef053213-repair.md) — Repair Ironhorse engine defect baad1f22ef053213 (target differential_regexp_s...
-- [`build-thesaurus-botese-jury-seat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-thesaurus-botese-jury-seat.md) — Add a "thesaurus" jury seat for Botese (AI-slop cliché phrases)
+- [`undraft-minion-town-99-harness-provisioning-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/undraft-minion-town-99-harness-provisioning-20260916.md) — ---
 - [`ironhorse-fuzz-3a6aab9d9d140c2c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-3a6aab9d9d140c2c-repair.md) — Repair Ironhorse engine defect 3a6aab9d9d140c2c (target differential_regexp_s...
 - [`ironhorse-fuzz-c6c71d428a37088c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c6c71d428a37088c-repair.md) — Repair Ironhorse engine defect c6c71d428a37088c (target differential_regexp_s...
 - [`ironhorse-fuzz-51c6a212946102f6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-51c6a212946102f6-repair.md) — Repair Ironhorse engine defect 51c6a212946102f6 (target differential_regexp) ...
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
 - [`ironhorse-fuzz-f83dc8932cd3b41a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-f83dc8932cd3b41a-repair.md) — Repair Ironhorse engine defect f83dc8932cd3b41a (target differential_regexp) ...
+- [`gauntlet-endo-pr1113-20260904c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gauntlet-endo-pr1113-20260904c.md) — ---
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 
-### tada (8098)
+### tada (8099)
+- [`build-thesaurus-botese-jury-seat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-thesaurus-botese-jury-seat.md) — Completion report
 - [`ironhorse-fuzz-8b8afc47fcfb223d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-8b8afc47fcfb223d-repair.md) — Completion report — finding 8b8afc47fcfb223d (target differential_regexp)
 - [`ironhorse-fuzz-1a2012ae1ec44d21-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-1a2012ae1ec44d21-repair.md) — Completion report
 - [`gauntlet-endo-pr1113-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/gauntlet-endo-pr1113-20260902.md) — Completion report — gauntlet-endo-pr1113-20260902
 - [`fix-orchestrate-stale-inflight-false-halt-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-stale-inflight-false-halt-20260916.md) — Completion report
-- [`add-awaiting-maintainer-gate-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/add-awaiting-maintainer-gate-20260916.md) — Cost
-- … and 8093 more
+- … and 8094 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
