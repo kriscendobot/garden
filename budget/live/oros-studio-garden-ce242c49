@@ -1,9 +1,9 @@
 pool: anthropic:oros-studio-garden-ce242c49
 host: oros-studio-garden-ce242c49
 window_start_epoch: 1789182000
-spend: 10996334
+spend: 10996765
 cap: 73000000
 status: ok
-sampled_at_epoch: 1789633052
-sampled_at: 2026-09-17T08:17:32Z
-sample_bucket: 1988481
+sampled_at_epoch: 1789633823
+sampled_at: 2026-09-17T08:30:23Z
+sample_bucket: 1988482
