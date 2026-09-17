@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: collapse-jury-and-fixer-report-verbosity
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-09-17T19:42:34Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-17T19:56:07Z cleared=none -->
 
 ---
 role: fixer
