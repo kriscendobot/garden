@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T00:36:11Z_
+_As of 2026-09-17T00:37:48Z_
 
 ## Latest
 
@@ -1733,13 +1733,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.7M | $500.35 _(notional, rate-card)_ | 48% of 143.0M (ok) |
-| Codex | 14.2M _(+325.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Claude | 68.8M | $500.89 _(notional, rate-card)_ | 48% of 143.0M (ok) |
+| Codex | 14.2M _(+326.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
-### todo (57)
+### todo (58)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
 - [`ironhorse-fuzz-c6c71d428a37088c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-c6c71d428a37088c-repair.md) — Repair Ironhorse engine defect c6c71d428a37088c (target differential_regexp_s...
+- [`kriscendobot-garden-pr87-conduct-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr87-conduct-20260917.md) — Finalize kriscendobot/garden PR #87
 - [`ironhorse-fuzz-ecae051e6e8f5a27-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-ecae051e6e8f5a27-repair.md) — Repair Ironhorse engine defect ecae051e6e8f5a27 (target differential_source) ...
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
 - [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Fix Ironhorse fuzz finding bc3d0df623811a38 (target differential_regexp_surfa...
@@ -1796,8 +1797,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — Triage 7 Ironhorse fuzz finding(s) for target differential_source
 - [`ironhorse-fuzz-a7755caa51aa9320-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-a7755caa51aa9320-repair.md) — Repair Ironhorse engine defect a7755caa51aa9320 (target differential_source) ...
 
-### doin (10)
-- [`kriscendobot-garden-pr87-review-9fceaeef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr87-review-9fceaeef.md) — Review directive on kriscendobot/garden PR #87
+### doin (9)
 - [`ironhorse-fuzz-3a6aab9d9d140c2c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-3a6aab9d9d140c2c-repair.md) — Repair Ironhorse engine defect 3a6aab9d9d140c2c (target differential_regexp_s...
 - [`ironhorse-iterator-intrinsic-metadata`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-iterator-intrinsic-metadata.md) — fix Ironhorse %IteratorPrototype% / %AsyncIteratorPrototype% intrinsic metadata
 - [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — Repair Ironhorse engine defect 67ca18e4febe7a34 (target differential_source) ...
@@ -1808,13 +1808,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-557805e944888b5a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-557805e944888b5a-repair.md) — Repair Ironhorse engine defect 557805e944888b5a (target differential_regexp_s...
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 
-### tada (8106)
+### tada (8107)
+- [`kriscendobot-garden-pr87-review-9fceaeef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr87-review-9fceaeef.md) — Cost
 - [`improve-draft-guardrail-terminalization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-draft-guardrail-terminalization.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-b73e4e34`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-b73e4e34.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-22928e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-22928e6b.md) — Cost
 - [`endojs-endo-but-for-bots-pr1281-25caefdb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-25caefdb.md) — Cost
-- [`ironhorse-fuzz-f83dc8932cd3b41a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-f83dc8932cd3b41a-repair.md) — Completion report — ironhorse-fuzz-f83dc8932cd3b41a-repair
-- … and 8101 more
+- … and 8102 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
