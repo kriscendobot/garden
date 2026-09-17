@@ -19,3 +19,13 @@ A trusted maintainer approved https://github.com/kriscendobot/garden/pull/87 and
 Reverify that the PR is open, mergeable, and green. Wear the conductor role to finalize the approved review surface: un-draft it if needed and merge it. Do not complete while checks are pending. This is a bot repository, and the PR carries the `<!-- garden-design-open-questions -->` marker because its design content was already landed on `main2` before review.
 
 Source approval: https://github.com/kriscendobot/garden/pull/87#pullrequestreview-5229680787
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T00:41:09Z
