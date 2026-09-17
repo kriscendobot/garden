@@ -684,19 +684,70 @@ while :; do
   # so a completed build/design stops at its open DRAFT PR and owes no gauntlet. What
   # a completion still may NOT do is silently slip a *ready* (non-draft) PR into the
   # maintainer's mergeable queue with no review. assert-producer-pr-draft.sh enforces
-  # exactly that: it passes a DRAFT PR unconditionally and blocks completion (rc 1)
+  # exactly that: it passes a DRAFT PR unconditionally and signals a handoff (rc 1)
   # only for a bot-authored OPEN NON-DRAFT PR newly named by the report that has no
   # gauntlet coverage (the "opened ready by mistake" class). It NEVER mutates PR state.
-  # A block is treated like a failed completion edge: leave the job in doin and let the
-  # reaper retry. Deterministic, no LLM. See scripts/jobs/assert-producer-pr-draft.sh.
+  # A conclusive block means the handler's work is already DONE; running the agent
+  # again cannot repair the PR state without violating the no-re-draft rule. Convert
+  # that result into a durable, deduplicated maintainer action and then TERMINALIZE
+  # the job in tada. Only a failure to record that action remains retryable.
+  # Deterministic, no LLM. See scripts/jobs/assert-producer-pr-draft.sh.
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     set +e
     "$HERE/assert-producer-pr-draft.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
     sensor_rc=$?
     set -e
-    if [ "$sensor_rc" -ne 0 ]; then
+    if [ "$sensor_rc" -eq 1 ]; then
+      # The sensor is report-only, so this is the same first PR reference it
+      # positively classified above. Use a per-job+PR stable message id: if the
+      # completion CAS loses a race or goes offline after this send, a resumed
+      # cycle cannot create a second maintainer action.
+      draft_gate_pr="$(extract_pr_refs_from_text "$report" | head -1 || true)"
+      draft_gate_ref="$(parse_pr_ref "$draft_gate_pr" 2>/dev/null || true)"
+      draft_gate_repo="$(printf '%s' "$draft_gate_ref" | cut -f1)"
+      draft_gate_number="$(printf '%s' "$draft_gate_ref" | cut -f2)"
+      draft_gate_slug="${draft_gate_repo%/*}-${draft_gate_repo#*/}"
+      draft_gate_notice="$(mktemp "${TMPDIR:-/tmp}/garden-draft-gate-$base.XXXXXX")"
+      {
+        printf 'Manual gauntlet handoff for completed job `%s`: %s is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.\n\n' "$base" "$draft_gate_pr"
+        printf 'The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.\n\n'
+        printf 'Maintainer action: if this PR should enter review, issue `run the gauntlet` for %s. Otherwise no action is required.\n' "$draft_gate_pr"
+      } > "$draft_gate_notice"
+      set +e
+      GARDEN_MSG_COALESCE=0 \
+        GARDEN_MSG_ID="manual-gauntlet-handoff-${base}-${draft_gate_slug}-pr${draft_gate_number}" \
+        GARDEN_SENDER="gardener:$base" \
+        "$HERE/message-user.sh" "$base" "$draft_gate_notice" >>"$capture" 2>&1
+      draft_gate_notice_rc=$?
+      set -e
+      rm -f "$draft_gate_notice"
+      if [ "$draft_gate_notice_rc" -eq 0 ]; then
+        # Keep any exact final disposition marker FINAL. Appending ordinary prose
+        # after an orchestration-failed or named-successor marker would make the
+        # downstream last-line parser miss the agent's original disposition.
+        draft_gate_tail_marker=""
+        if report_has_orchestration_failure_marker "$report"; then
+          draft_gate_tail_marker="$GARDEN_ORCHESTRATION_FAILURE_MARKER"
+        elif draft_gate_existing_successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
+          draft_gate_tail_marker="$GARDEN_HANDOFF_MARKER_PREFIX $draft_gate_existing_successor>>>"
+        fi
+        if [ -n "$draft_gate_tail_marker" ]; then
+          awk -v marker="$draft_gate_tail_marker" '$0 != marker { print }' "$report" \
+            > "$report.draft-gate" && mv "$report.draft-gate" "$report"
+        fi
+        {
+          printf '\n## Manual gauntlet handoff\n\n'
+          printf 'The completion guard found %s ready without gauntlet coverage. A deduplicated maintainer action was recorded; the PR was not re-drafted and no gauntlet was staged.\n' "$draft_gate_pr"
+          [ -z "$draft_gate_tail_marker" ] || printf '%s\n' "$draft_gate_tail_marker"
+        } >> "$report"
+        log "producer-PR draft GUARDRAIL handed '$base' off to the maintainer and terminalized it: $draft_gate_pr is non-draft without gauntlet coverage; PR left untouched"
+      else
+        hrc=$draft_gate_notice_rc
+        log "producer-PR draft GUARDRAIL could not record the manual-gauntlet handoff for '$base' (rc=$hrc); leaving in doin for retry"
+      fi
+    elif [ "$sensor_rc" -ne 0 ]; then
       hrc=$sensor_rc
-      log "producer-PR draft GUARDRAIL blocked completion of '$base' (rc=$hrc): a bot-authored non-draft PR named in the report has no staged gauntlet; leaving in doin for retry"
+      log "producer-PR draft GUARDRAIL failed unexpectedly for '$base' (rc=$hrc); leaving in doin for retry"
     fi
   fi
 

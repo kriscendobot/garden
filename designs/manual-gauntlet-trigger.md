@@ -18,9 +18,12 @@ Adopted as the named cost-control recommendation of
   ordinary trigger, from the comment watcher or the liaison.
 - **The completion sensor is generalized** from "a draft design PR must have a
   gauntlet" to the draft guardrail below: `scripts/jobs/assert-producer-pr-draft.sh`
-  passes a **draft** producer PR (no gauntlet needed) and blocks completion only for
-  a **non-draft** bot-authored artifact newly named by the report that has no
-  gauntlet coverage — the "opened ready by mistake" class — never mutating PR state.
+  passes a **draft** producer PR (no gauntlet needed) and detects a **non-draft**
+  bot-authored artifact newly named by the report that has no gauntlet coverage —
+  the "opened ready by mistake" class — never mutating PR state. A 2026-09-17
+  hardening terminalizes that already-complete producer after durably recording one
+  deduplicated manual-gauntlet action for the maintainer; it no longer leaves the
+  job in `doin` for the reaper to rerun an agent that has nothing left to implement.
 - **The periodic audit is now non-mutating** (`design-pr-gauntlet-coverage-audit.sh`,
   same filename/unit): it finds bot-authored open **non-draft** PRs with no
   active/completed gauntlet and raises a **deduplicated maintainer alert** (keyed on
@@ -66,11 +69,13 @@ Enforce this at the same two independent observation times as today:
 
 - At job completion, a deterministic sensor inspects a bot-authored open PR
   newly named by the completion report. Draft passes without consulting
-  gauntlet records. Non-draft fails completion unless a staged or completed
-  gauntlet covers that PR. This catches the “opened ready by mistake” incident
-  class without purchasing a gauntlet. To avoid the #671/#867 false-artifact
-  regressions, a PR already cited by the job body is a reference rather than a
-  newly produced artifact, and the sensor never changes PR state.
+  gauntlet records. An uncovered non-draft result becomes a terminal manual-
+  gauntlet handoff: record one deduplicated maintainer action, then settle the
+  already-complete producer instead of feeding it to the reaper. This catches the
+  “opened ready by mistake” incident class without purchasing a gauntlet or
+  repeating agent work. To avoid the #671/#867 false-artifact regressions, a PR
+  already cited by the job body is a reference rather than a newly produced
+  artifact, and the sensor never changes PR state.
 - The periodic audit becomes a readiness audit. It finds bot-authored open,
   non-draft build/design PRs with no active or completed gauntlet and sends a
   deduplicated maintainer alert. It never stages a record and never re-drafts a

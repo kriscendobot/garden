@@ -22,10 +22,13 @@
 #                           report's last line; gardener.sh must translate it to
 #                           stamped frontmatter during completion.
 #   GARDEN_STUB_HANDOFF_SUCCESSOR <base> -> emit the exact handoff disposition.
+#   GARDEN_STUB_CALL_LOG     optional file receiving one basename per invocation.
 #
 # Used by completion-signal-test.sh and productive-cycle-test.sh.
 set -uo pipefail
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report}"
+
+[ -n "${GARDEN_STUB_CALL_LOG:-}" ] && printf '%s\n' "$base" >> "$GARDEN_STUB_CALL_LOG"
 
 if [ -n "${GARDEN_STUB_REPORT:-}" ]; then
   printf '%s\n' "$GARDEN_STUB_REPORT" > "$report"

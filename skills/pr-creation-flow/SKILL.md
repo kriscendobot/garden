@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-20
+updated: 2026-09-17
 author: gardener
 ---
 
@@ -182,11 +182,13 @@ separate dispatched agents. The panel-fixer loop lives entirely inside
   `<owner>-<repo>-pr<N>-gauntlet`). What the completion machinery still enforces is
   the draft boundary, not a staged gauntlet:
   [`scripts/jobs/assert-producer-pr-draft.sh`](../../scripts/jobs/assert-producer-pr-draft.sh)
-  passes a draft producer PR and blocks a completion only when it named a
-  bot-authored **non-draft** PR with no gauntlet coverage (the "opened ready by
-  mistake" class), never mutating PR state; a non-mutating hourly readiness audit
-  alerts the maintainer about any non-draft PR that reached the mergeable queue
-  uncovered. The un-draft is still earned only by the panel, once a gauntlet is run.
+  passes a draft producer PR and detects when a completion named a bot-authored
+  **non-draft** PR with no gauntlet coverage (the "opened ready by mistake" class).
+  On that conclusive result, the gardener records one deduplicated manual-gauntlet
+  action for the maintainer and terminalizes the already-complete producer job; it
+  never re-drafts the PR or automatically stages a gauntlet. A non-mutating hourly
+  readiness audit alerts the maintainer about any later uncovered transition. The
+  un-draft is still earned only by the panel, once a gauntlet is run.
 - **No must-fix on first panel round.** The fixer stage does not run; the panel
   declares the loop done after the first verdict, the appellate pass runs, then
   `gh pr ready <N>`.

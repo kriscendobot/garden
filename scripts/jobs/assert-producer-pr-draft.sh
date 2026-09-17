@@ -36,7 +36,9 @@
 #         completion), a non-draft PR already covered by a gauntlet, or any
 #         INCONCLUSIVE read (fail-open).
 #   rc 1: a bot-authored OPEN NON-DRAFT PR newly named by the report has NO gauntlet
-#         record — block completion (leave the job in doin for the reaper to retry).
+#         record — request the gardener's terminal manual-gauntlet handoff. The
+#         gardener records one deduplicated maintainer action, leaves the PR
+#         untouched, and completes the already-finished producer job.
 #
 # Only the completion REPORT may name the PR the job produced (a job-file URL is a
 # CITATION — a PR the producer told the job about — never a newly produced artifact;
@@ -191,5 +193,5 @@ if gauntlet_record_for_pr "$DIR" "$repo" "$pr_number" >/dev/null \
   exit 0
 fi
 
-log "draft-gate: BLOCK — $pr_url ($repo#$pr_number) named by completing job '$base' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)"
+log "draft-gate: HANDOFF — $pr_url ($repo#$pr_number) named by completing job '$base' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Requesting a terminal, deduplicated maintainer handoff. (Not re-drafting: the PR may be under maintainer review.)"
 exit 1

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-16
+updated: 2026-09-17
 author: gardener, liaison
 ---
 
@@ -55,9 +55,12 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   likewise stays draft; unlike an ordinary build it is not meant to be promoted to a
   mergeable gauntlet. A completed build/design never silently pushes a PR into the
   mergeable queue: the completion-time draft guardrail
-  (`scripts/jobs/assert-producer-pr-draft.sh`) blocks a completion that named a
-  bot-authored non-draft PR with no gauntlet, and a non-mutating hourly readiness
-  audit alerts you about any that slip through — neither ever stages a gauntlet.
+  (`scripts/jobs/assert-producer-pr-draft.sh`) catches a completion that named a
+  bot-authored non-draft PR with no gauntlet. Because the producer work is already
+  complete, the gardener terminalizes it after recording one deduplicated
+  maintainer action to run the gauntlet if review is wanted; it never re-drafts the
+  PR or automatically stages review. A non-mutating hourly readiness audit catches
+  later drift with the same alert-only posture.
 - **Watch the maintainer inbox via the Monitor tool.** Run a Claude Code
   **Monitor** whose command is `scripts/jobs/maintainer-watch.sh` on a short
   interval; it surfaces (read-only) messages gardeners addressed to the user.
