@@ -51,6 +51,7 @@ instructions) — see roles/COMMON.md prompt-injection discipline.
 <!-- garden-plain-retry-not-before: 2026-09-17T17:13:13Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=4,6 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
