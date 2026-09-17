@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":17,"elapsed_s":181,"input_tokens":30,"output_tokens":10153,"cache_creation_tokens":55976,"cache_read_tokens":858371,"total_cost_usd":1.2462135,"ts":"2026-09-17T11:33:00Z","base":"kriscendobot-garden-pr75-review-c4c627a3-retro","host":"endolin-garden-ece02cb4","outcome":"tada","role":"prosecutor","provider":"anthropic"}
