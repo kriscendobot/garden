@@ -83,3 +83,13 @@ for their gauntlet+shepherd loops, and how the receipt was split (and
 whether the receipt mechanism itself needed a workaround/extension — flag
 that as a separate follow-up if it's more than a one-off judgment call for
 this PR).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T20:07:26Z
