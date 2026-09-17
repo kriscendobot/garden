@@ -33,6 +33,7 @@ serial, not parallel):
 
 Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=159 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
