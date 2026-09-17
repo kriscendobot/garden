@@ -22,11 +22,11 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T15:33:08Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
