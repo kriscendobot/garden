@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T01:34:15Z_
+_As of 2026-09-17T01:36:37Z_
 
 ## Latest
 
@@ -153,7 +153,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared cleric demand active=4 queue=82 fleet-envelope=5 target=2
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T20:50:15Z, latest 2026-09-17T01:35:17Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared cleric demand active=3 queue=20 fleet-envelope=5 target=2
 
 - `msg-ironhorse-fuzz-daf6694aec7856aa-repair-8f61d5e7263e` — from gardener:ironhorse-fuzz-daf6694aec7856aa-repair, reply_to `ironhorse-fuzz-daf6694aec7856aa-repair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-fuzz-daf6694aec7856aa-repair-8f61d5e7263e.md)
 
@@ -1876,6 +1880,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-3.md)
+
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 3 (target 3): shared cleric demand active=3 queue=20 fleet-envelope=5 target=3
+
 - `msg-ironhorse-iterator-scenario-parity-58aa54c8fbd4` — from gardener:ironhorse-iterator-scenario-parity, reply_to `ironhorse-iterator-scenario-parity` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-iterator-scenario-parity-58aa54c8fbd4.md)
 
 > [endojs/endo-but-for-bots#1299](https://github.com/endojs/endo-but-for-bots/issues/1299) has completed the iterator-metadata fix on every IronHorse scenario the hardened262 harness actually executes: bare `sloppy` and `strict`. Commit `07af274dfbe` also adds a direct XS-differential regression. A complete baseline regeneration still has 44 Iterator/AsyncIterator entries, all caused by pre-existing scenario infrastructure: module/compartment cells are `structural:scenario-not-supported`, lockdown scripts stop at the absent `lockdown` global, and every SES-IronHorse script stops in the SES prelude (the SES-IronHorse passed baselines are empty repository-wide).
@@ -3139,17 +3147,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.7M | $528.37 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 16.9M _(+377.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 71.7M | $529.96 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 16.9M _(+379.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (22)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
+- [`claude-on-minion-town-completion-press-20260917-013543`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20260917-013543.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
 - [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
-- [`ironhorse-fuzz-45f4af87eaf627c7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-45f4af87eaf627c7-repair.md) — Fix Ironhorse fuzz finding 45f4af87eaf627c7 (target differential_regexp) and ...
+- [`claude-on-minion-town-press-20260917-013543`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260917-013543.md) — Press the Claude-on-minion.town arc forward
 - [`ironhorse-fuzz-37e026fd30cbae19-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-37e026fd30cbae19-repair.md) — Repair Ironhorse engine defect 37e026fd30cbae19 (target differential_source) ...
-- [`ironhorse-fuzz-c9eaa7b5ae02437a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-c9eaa7b5ae02437a-repair.md) — Repair Ironhorse engine defect c9eaa7b5ae02437a (target differential_regexp_s...
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Repair Ironhorse engine defect d38f12f4884e186c (target differential_regexp_s...
 - [`ironhorse-fuzz-29a24c1b1052ec91-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-29a24c1b1052ec91-repair.md) — Repair Ironhorse engine defect 29a24c1b1052ec91 (target differential_regexp) ...
 - [`ironhorse-fuzz-6ca7a76e0bfe3435-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-6ca7a76e0bfe3435-repair.md) — Repair Ironhorse engine defect 6ca7a76e0bfe3435 (target differential_regexp_s...
@@ -3172,20 +3180,20 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #695
 - [`align-roadmap-design-floating-base-procedure-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/align-roadmap-design-floating-base-procedure-20260917.md) — ---
 - [`improve-approval-reconciler-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-approval-reconciler-bounds.md) — ---
-- [`ironhorse-iterator-scenario-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-iterator-scenario-parity.md) — finish Ironhorse iterator metadata across the hardened262 scenario matrix
 - [`build-readableblob-range-attenuation-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation-20260916.md) — What to build
 - [`ironhorse-ocap-benchmark-corpus`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-benchmark-corpus.md) — ---
-- [`improve-ci-rollup-rate-limit-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-rollup-rate-limit-cooldown.md) — ---
 - [`explore-ironhorse-promise-chain-shortening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/explore-ironhorse-promise-chain-shortening.md) — Explore: promise resolution chain shortening in Ironhorse
+- [`ironhorse-fuzz-45f4af87eaf627c7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-45f4af87eaf627c7-repair.md) — Fix Ironhorse fuzz finding 45f4af87eaf627c7 (target differential_regexp) and ...
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
+- [`ironhorse-fuzz-c9eaa7b5ae02437a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c9eaa7b5ae02437a-repair.md) — Repair Ironhorse engine defect c9eaa7b5ae02437a (target differential_regexp_s...
 
-### tada (8132)
+### tada (8134)
+- [`ironhorse-iterator-scenario-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-iterator-scenario-parity.md) — Cost
+- [`improve-ci-rollup-rate-limit-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ci-rollup-rate-limit-cooldown.md) — Cost
 - [`improve-gauntlet-stage-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-stage-resume.md) — Cost
 - [`ironhorse-fuzz-repromote-quarantined`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-repromote-quarantined.md) — Completion report
 - [`explore-ironhorse-ptc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/explore-ironhorse-ptc.md) — Completion report
-- [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-3.md) — Completion report
-- [`ironhorse-fuzz-4658b8adc7bdd428-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-4658b8adc7bdd428-repair.md) — Completion report: finding 4658b8adc7bdd428 (differential_source)
-- … and 8127 more
+- … and 8129 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
