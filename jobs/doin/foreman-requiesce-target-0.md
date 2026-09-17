@@ -36,6 +36,7 @@ one — no need to force a deploy for it).
 Report the before/after target value and confirm the two prior tests pass.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
