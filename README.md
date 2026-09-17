@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T07:50:13Z_
+_As of 2026-09-17T07:50:51Z_
 
 ## Latest
 
@@ -3020,9 +3020,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
 
-> WATCHDOG notice — occurrence #18 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T06:50:03Z).
-> The SAME condition (`budget-level-monk-preflight`) has now been observed 18 times; this is ONE
-> coalesced notice that updates in place, not 18 messages. Latest detail:
+> WATCHDOG notice — occurrence #22 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T07:50:13Z).
+> The SAME condition (`budget-level-monk-preflight`) has now been observed 22 times; this is ONE
+> coalesced notice that updates in place, not 22 messages. Latest detail:
 >
 > budget-level: fleet monk allocation frozen: anthropic:oros-studio-garden-ce242c49 missing/invalid monk physical cap. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
 
@@ -4412,7 +4412,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 78.2M | $584.70 _(notional, rate-card)_ | 55% of 143.0M (ok) |
-| Codex | 20.4M _(+509.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
+| Codex | 20.4M _(+509.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -4606,6 +4606,10 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-2a2de75b75de4894-repair.md) — _normal_ · Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 - [`endojs-endo-but-for-bots-pr938-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr938-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #938
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
+
+### awaiting maintainer decision (answer at the linked question)
+- [`minion-town-guest-peer-fetch-verify-await-auth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify-await-auth.md) - [Should the guest run on the already-public pet daemon, or should the guest-substrate daemon get its own public OCapN-CBOR-Noise route?](https://github.com/kriscendobot/garden/issues/58#issuecomment-5447765615)
+- [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr1059-43d08bdd-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1059-43d08bdd-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1059 (primary: endojs-endo-but-...
