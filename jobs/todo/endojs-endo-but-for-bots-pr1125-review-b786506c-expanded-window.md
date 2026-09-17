@@ -1,11 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1125-review-b786506c-split
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-09-17T07:58:23Z
+tier: mentor
+handler-budget-role: review
+handler-timeout: 14339
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-17T08:01:06Z cleared=none -->
 
 ---
 role: fixer
