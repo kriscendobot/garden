@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":19,"elapsed_s":432,"input_tokens":32,"output_tokens":25828,"cache_creation_tokens":97882,"cache_read_tokens":1346266,"total_cost_usd":2.297813,"ts":"2026-09-17T02:13:19Z","base":"calibrate-oros-studio-budget-pool-20260917","host":"oros-studio-garden-ce242c49","outcome":"requeue","provider":"anthropic"}
