@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-09-17T10:45:51Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-review-improve-docs-claim-contradicts-code-semantics
