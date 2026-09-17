@@ -38,3 +38,11 @@ Validate the esbuild/real-`@endo/captp` CLIPOMETER pipeline (child 1) against th
 ## Deliverable
 
 A completion report with the concrete evidence (bundle size, the two-window test result, timestamps/transcript) and, if clean, the new clip's hash/URL plus confirmation the old one is unpublished.
+
+<!-- garden-annotation: key=clipometer-reanchor-20260916 by=mentor at=2026-09-17T03:16:49Z -->
+
+handler-timeout: 3600
+
+Re-anchor addendum (maintainer decision 2026-09-16): the canonical replacement publish must use the real guest MCP identity, never the disposable minion-mcp-test-cc identity. If the real guest credential is absent, hand the canonical publish step to the liaison/maintainer and report the missing credential plainly. Do not improvise another identity.
+
+The live daemon run is also the required checkpoint for child 1's npm inconsistency: published @endo/patterns@2.0.0 imports trivialComparator from @endo/marshal, while published @endo/marshal@1.10.0 does not export it. Child 1 avoided that broken dependency edge by vendoring iterate-reader.js. Report whether the real-daemon build, bootstrap, counter update, and two-window followNameChanges validation show that the vendored approach holds.
