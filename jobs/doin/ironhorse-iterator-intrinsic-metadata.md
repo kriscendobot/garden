@@ -51,3 +51,13 @@ the generator-family metadata fix landed).
 - both intrinsic-metadata probes pass under Ironhorse and Ironhorse+SES;
 - hardened262 baseline regenerated and the 48 recorded failures removed;
 - `yarn workspace @endo/hardened262 test:xs` green locally.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T00:10:28Z
