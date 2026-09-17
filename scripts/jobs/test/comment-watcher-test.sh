@@ -2518,6 +2518,23 @@ run_directive "$TR/state-pov" "$BARE_POV" "$FIX_POV" "$RLOG_POV"
 [ "$(todo_glob "$BARE_POV" "^$SLUG-pr602-review-")" -eq 1 ] && ok "the review primary mints" || bad "review primary missing"
 [ "$(plan_glob "$BARE_POV" "^$SLUG-pr602-review-.*-retro\.md$")" -eq 1 ] && ok "substantive feedback bundled with a verb STILL mints its retro" || bad "the gate over-fired on a substantive review (plan=$(plan_count "$BARE_POV"))"
 
+hr; echo "RETRO-GAUNTLETVERB — a review whose only content is the gauntlet-trigger verb mints NO retro"; hr
+# minion.town #68 review 5083859413, body "please run a gauntlet". Under the manual-
+# gauntlet regime this is a maintainer-invoked pipeline advance, never review-catchable
+# feedback — the same class as "please rebase, retcon, and conduct". The primary review
+# capture still mints; the paired retrospective must NOT (it indicts no work product).
+# Before the fix, `run` and `gauntlet` were unrecognized residual words and the gate
+# fell through to minting a retro.
+BARE_GV="$TR/gv.git"; seed_bare "$BARE_GV"
+FIX_GV="$TR/fix-gv.tsv"; RLOG_GV="$TR/react-gv.log"; : > "$RLOG_GV"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:47:30Z pr-review-body 5083859413 68 kriskowal \
+  https://github.com/kriscendobot/minion.town/pull/68#pullrequestreview-5083859413 \
+  'please run a gauntlet' > "$FIX_GV"
+run_directive "$TR/state-gv" "$BARE_GV" "$FIX_GV" "$RLOG_GV"
+[ "$(todo_glob "$BARE_GV" "^$SLUG-pr68-review-")" -eq 1 ] && ok "the review primary still mints (the gate must not touch the primary)" || bad "gauntlet-verb review primary missing"
+[ "$(plan_count "$BARE_GV")" -eq 0 ] && ok "no retro for a gauntlet-trigger-only review" || bad "gauntlet-trigger-only review wrongly minted a retro (plan=$(plan_count "$BARE_GV"))"
+
 hr; echo "RETRO-EMPTYAPPROVAL — an empty-body approval with zero inline mints NO retro"; hr
 # A bare sign-off ([APPROVED], no body, no [INLINE-REVIEW]) indicts nothing. It
 # routes to the finalization (conductor) on a mergeable PR — the primary work — and
