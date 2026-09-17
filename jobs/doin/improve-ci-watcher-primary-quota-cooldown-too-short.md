@@ -11,3 +11,13 @@ ci-watcher.sh's rollup_hit_primary_quota() routes GitHub PRIMARY hourly-quota ex
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T13:03:11Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T13:03:33Z
