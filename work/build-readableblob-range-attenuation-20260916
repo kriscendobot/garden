@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-17T01:27:13Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-readableblob-range-attenuation-20260916
-pr_number: 1301
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1301
-pr_head: kriscendobot:build/readableblob-range-attenuation
