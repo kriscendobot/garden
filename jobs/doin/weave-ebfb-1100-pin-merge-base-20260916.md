@@ -60,6 +60,7 @@ stage 2 conflict resolution + CI verification, stage 3 resume the gauntlet from 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
