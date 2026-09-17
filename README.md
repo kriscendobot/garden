@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T05:54:00Z_
+_As of 2026-09-17T05:54:44Z_
 
 ## Latest
 
@@ -4412,17 +4412,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.1M | $581.87 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 19.9M _(+479.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Codex | 19.9M _(+479.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (1)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #84
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #695
 - [`endojs-endo-but-for-bots-pr1125-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #84
 
 ### tada (8187)
 - [`improve-reputation-reduce-incremental-projections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-reputation-reduce-incremental-projections.md) — Cost
