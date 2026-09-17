@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T18:41:28Z_
+_As of 2026-09-17T18:52:58Z_
 
 ## Latest
 
@@ -8,8 +8,8 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 15h)
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 18h)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 16h)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 19h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -4496,23 +4496,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.9M | $599.47 _(notional, rate-card)_ | 56% of 143.0M (ok) |
+| Claude | 80.1M | $600.65 _(notional, rate-card)_ | 56% of 143.0M (ok) |
 | Codex | 21.9M _(+563.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr990-review-8896f456-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr990-review-8896f456-retro.md) — Retrospective on endojs/endo-but-for-bots PR #990 (primary: endojs-endo-but-f...
+### todo (0)
+(none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1125-23cf90c0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-23cf90c0.md) — attention directive on endojs/endo-but-for-bots PR #1125
+### doin (0)
+(none)
 
-### tada (8293)
+### tada (8295)
+- [`endojs-endo-but-for-bots-pr990-review-8896f456-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr990-review-8896f456-retro.md) — Cost
+- [`endojs-endo-but-for-bots-pr1125-23cf90c0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-23cf90c0.md) — Completion report
 - [`kriscendobot-garden-pr80-review-5b40d6f6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-review-5b40d6f6-retro.md) — Completion report
 - [`kriscendobot-garden-pr83-review-f6162506-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr83-review-f6162506-retro.md) — Completion report
 - [`kriscendobot-garden-pr84-review-89b0eda7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr84-review-89b0eda7-retro.md) — Completion report
-- [`kriscendobot-garden-pr81-review-1ef600fe-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr81-review-1ef600fe-retro.md) — Completion report — retrospective on kriscendobot/garden PR #81 (review 51198...
-- [`kriscendobot-garden-pr80-review-4ffdbc4c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr80-review-4ffdbc4c-retro.md) — Completion report
-- … and 8288 more
+- … and 8290 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
