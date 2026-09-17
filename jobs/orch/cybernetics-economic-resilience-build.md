@@ -1,4 +1,5 @@
 ---
+child-build-cybernetics-retry-narrowing-host: endolin-garden2-5bcdff64
 child-build-cybernetics-retry-narrowing-reap-count: 0
 child-build-cybernetics-decision-ledger-host: endolin-garden2-5bcdff64
 child-build-cybernetics-decision-ledger-reap-count: 0
