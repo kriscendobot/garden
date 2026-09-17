@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-17T23:03:03Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-issue-kriscendobot-garden-101
+pr_number: 2
+pr_repo: Oros-AI/oros-ckm-data-readiness
+pr_url: https://github.com/Oros-AI/oros-ckm-data-readiness/pull/2
+pr_head: kriscendobot:llm-erasable-syntax-lint
