@@ -57,3 +57,13 @@ If it still will not fit, SPLIT it rather than raising again: stage 1 pin + reba
 stage 2 conflict resolution + CI verification, stage 3 resume the gauntlet from fix.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T00:39:46Z
