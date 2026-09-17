@@ -85,3 +85,13 @@ count the calibrated cap would sustain at roughly 70-80% weekly utilization.
 <!-- garden-transient-elapsed: kind=signature through=0 values=438 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T03:07:25Z
