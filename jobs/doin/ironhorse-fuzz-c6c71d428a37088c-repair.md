@@ -53,3 +53,13 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 <!-- garden-transient-elapsed: kind=signature through=0 values=176 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T00:14:57Z
