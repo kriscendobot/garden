@@ -1,2 +1,2 @@
-base: improve-mirror-closer-quota-cooldown
+base: improve-mirror-closer-shared-quota-cooldown
 identity: mentor:scripts/jobs/mirror-closer.sh
