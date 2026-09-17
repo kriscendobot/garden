@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T07:06:09Z_
+_As of 2026-09-17T07:11:46Z_
 
 ## Latest
 
@@ -4412,24 +4412,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 77.6M | $580.15 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 20.1M _(+500.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Codex | 20.3M _(+504.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`daily-progress-summary-20260917-070513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260917-070513.md) — Daily midnight Pacific progress summary
+### doin (2)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Review directive on endojs/endo-but-for-bots PR #1125
 
-### tada (8198)
+### tada (8199)
+- [`daily-progress-summary-20260917-070513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260917-070513.md) — Cost
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned.md) — gauntlet endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned — review bud...
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-6.md) — Cost
 - [`design-endo-guest-stdio-mcp-revise-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-guest-stdio-mcp-revise-20260917.md) — Completion report
-- [`canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-oros-studio-garden-ce242c49-1c60aa15c62b.md) — rolling-deploy canary probe — round trip OK
-- … and 8193 more
+- … and 8194 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
