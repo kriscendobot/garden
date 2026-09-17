@@ -108,6 +108,21 @@ RETIRE="$GARDEN_CI_RETIRE_CLONE"
 # warns once, not once per watched repo.
 : "${GARDEN_CI_JOURNAL_OUTAGE_LATCH:=$GARDEN_ROOT/.garden-state/ci-watcher/journal-outage}"
 
+# A rollup's stderr is the only reliable place to distinguish GitHub's exhausted
+# PRIMARY hourly quota from an arbitrary unreadable PR. Once one rollup reports that
+# condition, every remaining GraphQL read on this host is doomed until the quota
+# recovers. Open the existing host-wide gh-api cooldown and let the caller stop the
+# entire tick immediately. start_api_cooldown's shared latch ensures only the first
+# watcher to open the episode owns the warning.
+rollup_hit_primary_quota() {  # rollup_hit_primary_quota <captured-stderr> <context>
+  local stderr="$1" context="$2"
+  is_gh_primary_rate_limit_text "$stderr" || return 1
+  if start_api_cooldown "ci:$slug:rollup"; then
+    log "WARN: $context hit GitHub primary API quota exhaustion — cooling all gh-api watchers for $(_api_cooldown_secs)s and stopping this sweep"
+  fi
+  return 0
+}
+
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 # A sibling watcher already proved GitHub's API transiently unreadable this window.
@@ -384,7 +399,12 @@ while IFS=$'\t' read -r pr author head updated _title; do
     10) rm -f "$rerr"; reads_ok=$((reads_ok+1)); log "#$pr green — nothing to do"; continue ;;
     11) rm -f "$rerr"; reads_ok=$((reads_ok+1)); log "#$pr has no checks reported — nothing to do"; continue ;;
     12) rm -f "$rerr"; reads_ok=$((reads_ok+1)); log "#$pr CI still in progress/queued — backing off"; pending=$((pending+1)); continue ;;
-    *)  rmsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
+    *)  rtext="$(cat "$rerr" 2>/dev/null || true)"
+        if rollup_hit_primary_quota "$rtext" "#$pr rollup"; then
+          rm -f "$rerr"
+          exit 0
+        fi
+        rmsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
         log "WARN: #$pr rollup unreadable (rc=$rrc): ${rmsg:-<no stderr>} — skipping (never guess a state)"
         unreadable=$((unreadable+1))
         # Cascade circuit-breaker: consecutive unreadable reads with not one success
@@ -532,7 +552,12 @@ if verify_fetch fresh; then
       10) rm -f "$rerr"; phrase="green" ;;
       11) rm -f "$rerr"; phrase="reporting no checks" ;;
       12) rm -f "$rerr"; phrase="in progress/queued (settling)" ;;
-      *)  smsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
+      *)  srtext="$(cat "$rerr" 2>/dev/null || true)"
+          if rollup_hit_primary_quota "$srtext" "stale-check #$pr rollup"; then
+            rm -f "$rerr"
+            exit 0
+          fi
+          smsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
           log "WARN: stale-check #$pr rollup unreadable (rc=$srrc): ${smsg:-<no stderr>} — leaving $base (never guess a state)"
           continue ;;
     esac

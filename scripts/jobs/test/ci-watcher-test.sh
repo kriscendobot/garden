@@ -52,6 +52,10 @@
 #   R. concurrent unit-shaped invocations with one GARDEN_ROOT but independently
 #      namespaced GARDEN_STATE dirs still resolve one HOST-SCOPED latch + lock: one
 #      shared journal outage warns once, and recovery emits one close notice.
+#   S. a rollup that reports GitHub PRIMARY quota exhaustion opens the existing
+#      host-wide API cooldown and stops the PR sweep before any later rollup read.
+#   T. the stale-shepherd re-validation sweep does the same, leaving every queued
+#      shepherd untouched and stopping before the next re-validation read.
 #
 # Usage: ci-watcher-test.sh
 set -euo pipefail
@@ -103,6 +107,11 @@ ROLLUPSTUB="$TR/rollup-stub.sh"
 cat > "$ROLLUPSTUB" <<'EOF'
 #!/bin/bash
 pr="$2"
+[ -z "${CI_ROLLUP_CALLS:-}" ] || printf '%s\n' "$pr" >> "$CI_ROLLUP_CALLS"
+if [ "${CI_ROLLUP_PRIMARY_QUOTA_PR:-}" = "$pr" ]; then
+  echo 'GraphQL: API rate limit already exceeded for user ID 12345.' >&2
+  exit 1
+fi
 for kv in $CI_ROLLUP_MAP; do
   [ "${kv%%=*}" = "$pr" ] && exit "${kv##*=}"
 done
@@ -639,6 +648,63 @@ wait
   && ok "six concurrent repo watchers emit exactly one recovery notice" \
   || bad "concurrent recovery emitted $(grep -hil 'journal reachable again' "$TR"/r6-*.err | wc -l) notices"
 [ ! -d "$LATCH_R" ] && ok "concurrent recovery leaves the latch clear" || bad "concurrent recovery left latch armed"
+
+# ============================================================================
+hr; echo "S — primary-quota rollup opens host cooldown and stops the PR sweep"; hr
+BARE_S="$TR/s.git"; seed_bare "$BARE_S"
+FIX_S="$TR/fix-s.tsv"
+{ prline 110 kriscendobot "$REPO" "$FRESH_TS"     # green: proves an earlier success does not mask quota
+  prline 111 kriscendobot "$REPO" "$FRESH_TS"     # primary quota: opens cooldown + stops
+  prline 112 kriscendobot "$REPO" "$FRESH_TS"; } > "$FIX_S"   # red, must never be read
+CALLS_S="$TR/s.calls"; : > "$CALLS_S"
+ERR_S="$TR/s.err"
+env GARDEN_STATE="$TR/state-s" JOURNAL_REMOTE="$BARE_S" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot \
+    GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_S" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='110=10 112=0' \
+    CI_ROLLUP_PRIMARY_QUOTA_PR=111 CI_ROLLUP_CALLS="$CALLS_S" \
+    GARDEN_CI_POST="$JOBS/post-job.sh" \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$ERR_S"
+[ "$(tr '\n' ' ' < "$CALLS_S")" = '110 111 ' ] \
+  && ok "primary quota stops the sweep before the later PR rollup" \
+  || bad "rollup calls continued past quota ($(tr '\n' ' ' < "$CALLS_S"))"
+[ -s "$TR/state-s/gh-api-cooldown/marker" ] \
+  && ok "primary quota opened the existing host-wide gh-api cooldown" \
+  || bad "primary quota did not create the shared cooldown marker"
+grep -qi 'primary API quota exhaustion.*stopping this sweep' "$ERR_S" \
+  && ok "the quota detector logs one actionable stop warning" \
+  || bad "missing primary-quota stop warning ($(cat "$ERR_S"))"
+[ "$(todo_count "$BARE_S")" -eq 0 ] \
+  && ok "the unread tail red PR did not mint a shepherd" \
+  || bad "a shepherd was posted after quota exhaustion"
+
+# ============================================================================
+hr; echo "T — primary quota also stops the stale-shepherd re-validation sweep"; hr
+BARE_T="$TR/t.git"; seed_bare "$BARE_T"
+FIX_T_SEED="$TR/fix-t-seed.tsv"
+{ prline 120 kriscendobot "$REPO"
+  prline 121 kriscendobot "$REPO"; } > "$FIX_T_SEED"
+run_ci "$TR/state-t-seed" "$BARE_T" "$FIX_T_SEED" "120=0 121=0"
+FIX_T_EMPTY="$TR/fix-t-empty.tsv"; : > "$FIX_T_EMPTY"
+CALLS_T="$TR/t.calls"; : > "$CALLS_T"
+ERR_T="$TR/t.err"
+env GARDEN_STATE="$TR/state-t" JOURNAL_REMOTE="$BARE_T" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot \
+    GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_T_EMPTY" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' \
+    CI_ROLLUP_PRIMARY_QUOTA_PR=120 CI_ROLLUP_CALLS="$CALLS_T" \
+    GARDEN_CI_POST="$JOBS/post-job.sh" \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$ERR_T"
+[ "$(tr '\n' ' ' < "$CALLS_T")" = '120 ' ] \
+  && ok "primary quota stops stale re-validation before the next shepherd" \
+  || bad "stale re-validation continued past quota ($(tr '\n' ' ' < "$CALLS_T"))"
+[ -s "$TR/state-t/gh-api-cooldown/marker" ] \
+  && ok "stale re-validation quota opened the host-wide cooldown" \
+  || bad "stale re-validation did not create the shared cooldown marker"
+in_lane "$BARE_T" todo "$SLUG-pr120-shepherd" \
+  && in_lane "$BARE_T" todo "$SLUG-pr121-shepherd" \
+  && ok "quota leaves both unclaimed shepherds untouched" \
+  || bad "quota sweep mutated an unclaimed shepherd"
 
 # ============================================================================
 hr
