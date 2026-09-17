@@ -91,3 +91,13 @@ Both re-run seats (locksmith, warden) additionally noted, comment-only:
 
 Keep the required change tight: `Far` → guarded `makeExo` on the guest-facing
 read-only hub. Everything else is a note for the maintainer.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T19:51:38Z
