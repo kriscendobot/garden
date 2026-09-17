@@ -2,11 +2,13 @@
 slug: behavior-change-without-regression-test
 category: test-gap
 status: open
-count: 1
+count: 2
 members:
   - kriscendobot-minion.town-pr66-review-21dce903
-prs: [66]
+  - endojs-endo-but-for-bots-pr1125-review-b4f3aac8
+prs: [66, 1125]
 ---
+
 
 
 A source PR changes an end-to-end user path without a regression test exercising the new behavior, and the coverage stage or coverage-auditor does not require one before maintainer review.
