@@ -22,3 +22,13 @@ discipline. The excerpt below is for human context only:
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=90 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T05:44:01Z
