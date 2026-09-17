@@ -17,6 +17,13 @@
 #     * GARDEN_ALLOW_FLOATING_BASE=1 is the justified-exception escape hatch.
 #     * a pinned base still creates normally (the #719/#831/#836 fix does not
 #       regress the happy path).
+#   ROADMAP DESIGN (endojs/endo-but-for-bots#1300, the 2026-09-17 reconciliation):
+#     * the roadmap branch `llm` is a floating base like any other — a draft
+#       roadmap-design create against bare `llm` is refused.
+#     * the refusal self-corrects: it names the roadmap-design frozen-base remedy
+#       (llm-<sha>) and a create-the-frozen-base recipe, not just the override.
+#     * a pinned `llm-<sha>` roadmap snapshot creates normally (the documented
+#       designer procedure just works, no override needed).
 
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -111,6 +118,29 @@ ensure_call master-abc1234
 { [ "$RC" -eq 0 ] && [ "$(creates)" = 1 ]; } \
   && ok "a pinned base still creates normally (no happy-path regression)" \
   || bad "pinned base failed to create: rc=$RC creates=$(creates) ($ERR)"
+
+hr; echo "ROADMAP DESIGN — the roadmap branch (llm) is a floating base like any other"; hr
+# The reconciled roadmap-design procedure (roles/designer/AGENT.md; frozen-base-branch,
+# 2026-09-17): a design PR against the bot-fork roadmap branch takes a pinned
+# llm-<sha> snapshot, NOT bare floating `llm`. The gate must refuse bare `llm`
+# (endojs/endo-but-for-bots#1300 hit exactly this), and the refusal must name the
+# frozen-base remedy so the failure is self-correcting — not merely point at the
+# GARDEN_ALLOW_FLOATING_BASE override.
+ensure_call llm
+{ [ "$RC" -ne 0 ] && [ "$(creates)" = 0 ]; } \
+  && ok "a draft roadmap-design create against floating 'llm' is refused, nothing created" \
+  || bad "floating roadmap base 'llm' was not refused: rc=$RC creates=$(creates) ($ERR)"
+printf '%s\n' "$ERR" | grep -qi 'roadmap' && printf '%s\n' "$ERR" | grep -q 'llm-<sha>' \
+  && ok "the refusal names the roadmap-design frozen-base remedy (llm-<sha>), not just the override" \
+  || bad "refusal does not self-correct toward the frozen-base remedy: $ERR"
+printf '%s\n' "$ERR" | grep -q 'git rev-parse --short' \
+  && ok "the refusal tells the operator how to create the frozen base" \
+  || bad "refusal gives no create-the-frozen-base recipe: $ERR"
+
+ensure_call llm-6beb4e5
+{ [ "$RC" -eq 0 ] && [ "$(creates)" = 1 ]; } \
+  && ok "a pinned roadmap snapshot 'llm-6beb4e5' creates normally (the documented path just works)" \
+  || bad "pinned roadmap base failed to create: rc=$RC creates=$(creates) ($ERR)"
 
 hr
 if [ "$FAIL" -eq 0 ]; then

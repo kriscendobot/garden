@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-09-16
+updated: 2026-09-17
 author: gardener
 ---
 
@@ -30,7 +30,15 @@ upstream because the maintainer reviews against upstream's natural base.
 
 This is a **hard precondition** of the builder and weaver flows, not advice: a
 fork-side PR the garden opens or rebases MUST target a pinned `<base>-<sha>`
-snapshot, never a floating `master` / `llm` / `main`. The two failure shapes this
+snapshot, never a floating `master` / `llm` / `main`. **This includes a
+roadmap-design PR** — a designer opening a design PR against the bot-fork roadmap
+branch (`llm` on `endojs/endo-but-for-bots`) snapshots it to `llm-<sha>` first, no
+differently from the no-roadmap-branch case snapshotting `master`; there is **no
+floating-base exception for designs**, and the roadmap-design procedure in
+`roles/designer/AGENT.md` is written against this frozen base, not against bare
+`llm`. The `GARDEN_ALLOW_FLOATING_BASE=1` escape hatch below is for a rare,
+individually-justified exception only — it is **not** the roadmap-design path and
+must not be used to skip creating the frozen base. The two failure shapes this
 prevents — the `merge-base-pinning` review-miss cluster
 (`review-misses/clusters/merge-base-pinning.md`, count=4 across
 `endojs/endo-but-for-bots` #719 / #831 / #836, where the maintainer said the
@@ -348,6 +356,17 @@ SHA) is invisible because the bot's fork only sees its own.
 (Append; terse and dated.)
 
 - _2026-09-17_: `kriscendobot/garden` open-questions design PRs are answer-surfaces over content already landed on `main2`. At conduct time, verify the marker and byte-identical design on `main2`, then merge against the frozen review base rather than retargeting to `main2` (which would collapse the comparison to empty). PR #87 was the first approved answer-surface finalized this way.
+- _2026-09-17_: closed the roadmap-design contradiction. `roles/designer/AGENT.md`
+  said "open a draft PR against the roadmap branch" (read as bare `llm`), while
+  the gate refuses a floating fork-side base — so the first create attempt for
+  endojs/endo-but-for-bots#1300 failed at the gate and the only way through
+  looked like the undocumented `GARDEN_ALLOW_FLOATING_BASE=1` override. Resolved
+  in favor of the gate (choice (c)): a roadmap-design PR takes a pinned
+  `llm-<sha>` base like every other fork PR (the design still lands on live `llm`
+  via *Unfreeze before merge*), the role and skill now state that one procedure,
+  and `ensure-pr.sh`'s refusal names the frozen-base remedy explicitly so the
+  failure is self-correcting. The override stays a rare-exception escape hatch,
+  not the roadmap path.
 - _2026-09-16_: reinforced as a **hard precondition** with a deterministic sensor
   (`scripts/jobs/gardening/assert-pinned-base.sh`) after the `merge-base-pinning`
   review-miss cluster cleared threshold (#719 / #831 / #836; the maintainer said

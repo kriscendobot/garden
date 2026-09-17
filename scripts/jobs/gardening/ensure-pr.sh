@@ -350,7 +350,16 @@ fi
 # hatch GARDEN_ALLOW_FLOATING_BASE=1 exists for a deliberate, justified exception.
 if [ "$draft" -eq 1 ] && [ "${GARDEN_ALLOW_FLOATING_BASE:-0}" != "1" ]; then
   if ! "$HERE/assert-pinned-base.sh" name "$base_branch"; then
-    die "refusing to open PR for job '$base' against unpinned base '$base_branch': a fork-side PR must target a frozen <base>-<sha> snapshot (skills/frozen-base-branch). Create the frozen base first, or set GARDEN_ALLOW_FLOATING_BASE=1 for a justified exception."
+    die "$(cat <<EOF
+refusing to open PR for job '$base' against unpinned base '$base_branch': a fork-side PR must target a frozen <base>-<sha> snapshot (skills/frozen-base-branch), never a floating trunk that reviews the wrong divergence as it moves.
+  What to do next: create the frozen base, then re-run against it. Snapshot the current tip of '$base_branch' and target that:
+    git fetch origin $base_branch
+    SHA7=\$(git rev-parse --short=7 origin/$base_branch)
+    git push origin origin/$base_branch:refs/heads/$base_branch-\$SHA7
+    # then pass '$base_branch-\$SHA7' as the base branch to ensure-pr.sh
+  This is the roadmap-design path too: a design PR against the roadmap branch (llm) targets a pinned llm-<sha> snapshot, not bare llm (roles/designer/AGENT.md; frozen-base-branch § Create at PR open). GARDEN_ALLOW_FLOATING_BASE=1 exists ONLY for a rare, individually-justified floating base — it is not the roadmap-design path and does not replace creating the frozen base.
+EOF
+)"
   fi
 fi
 
