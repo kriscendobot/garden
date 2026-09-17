@@ -56,11 +56,11 @@ verifying CI green, does not fit a 40-minute claim. Raised to 9000s.
 If it still will not fit, SPLIT it rather than raising again: stage 1 pin + rebase,
 stage 2 conflict resolution + CI verification, stage 3 resume the gauntlet from fix.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=1839 -->
 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=1839,1465 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
