@@ -12,3 +12,13 @@ Note: `gh api repos/kriscendobot/oros-ckm-data-readiness/dependabot/alerts` curr
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T14:23:09Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T14:23:15Z
