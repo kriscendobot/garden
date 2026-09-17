@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-17T01:10:16Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-ocap-workload-optimization
+pr_number: 1300
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1300
+pr_head: kriscendobot:design/ironhorse-ocap-workload-optimization
