@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":213,"input_tokens":30,"output_tokens":13656,"cache_creation_tokens":89217,"cache_read_tokens":1141263,"total_cost_usd":1.8069605,"ts":"2026-09-17T00:58:12Z","base":"improve-triager-sigterm-clean-exit","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
