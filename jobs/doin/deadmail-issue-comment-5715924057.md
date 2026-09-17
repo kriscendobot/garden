@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-571592405
 @kriscendobot , you wrote: > ## Known blockers > ... Six are draft PRs still moving through their design-panel gauntlets (minion.town #96/#97/#98 ) ... Those abbreviated issue references missed their mark. I'm sure you meant minion.town issues. You hit garden issues. Study and le
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T14:25:40Z
