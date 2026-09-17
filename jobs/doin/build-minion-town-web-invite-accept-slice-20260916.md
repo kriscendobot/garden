@@ -101,3 +101,13 @@ Do not touch agoric/agoric-sdk. Follow skills/local-verify and the pre-push gate
 If the work does not fit one handler, SPLIT it and say so rather than overrunning.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T02:23:57Z
