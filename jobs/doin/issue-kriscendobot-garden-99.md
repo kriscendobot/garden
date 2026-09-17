@@ -30,6 +30,7 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 https://github.com/kriscendobot/oros-ckm-data-readiness has no github workflows. establish [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration) according to best practices 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
