@@ -50,6 +50,7 @@ Comment: https://github.com/kriscendobot/garden/issues/97#issuecomment-571551892
 
 ----- END ORIGINAL MESSAGE -----
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
