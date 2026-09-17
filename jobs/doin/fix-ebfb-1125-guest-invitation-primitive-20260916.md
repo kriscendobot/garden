@@ -100,3 +100,13 @@ endojs/endo-but-for-bots#340 (OCapN-Noise daemon-to-daemon transport) MERGED
 If the work does not fit one handler even at 10800s, SPLIT it: the formula-shape/
 migration threads, the MakeAgentOptions symmetry convergence, and the two
 integration tests are three natural stages. Say so rather than overrunning.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T01:04:27Z
