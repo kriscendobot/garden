@@ -1,0 +1,12 @@
+<6>03:03:48 [cleric/1] requeued job 'build-minion-town-web-invite-accept-slice-20260916' has no local codex sidecar on endolin-garden2-5bcdff64; prior session and worktree were lost — starting fresh with lost-state framing
+<6>03:03:48 [cleric/1] job 'build-minion-town-web-invite-accept-slice-20260916' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>03:07:03 [assert-producer-pr-draft] draft-gate: BLOCK — https://github.com/kriscendobot/minion.town/pull/81 (kriscendobot/minion.town#81) named by completing job 'build-minion-town-web-invite-accept-slice-20260916' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)
+
+--- handler report (partial) ---
+Completed and verified PR #81: https://github.com/kriscendobot/minion.town/pull/81
+
+- Web bearer guest creation/resume, local invite/accept, mail, localStorage, and optional OAuth recovery are implemented.
+- Live-daemon two-guest browser workflow and mail transcript are included.
+- Re-ran CI successfully: all steps, including B1 and guest web acceptance, passed.
+- Local verification passed: 408 tests, 7 skipped; typecheck clean.
+- Follow-up: remote invitation remains gracefully dependent on Endo #1125; multi-instance claims need shared storage. PR is already non-draft and was left unchanged.
