@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":46,"elapsed_s":411,"input_tokens":88,"output_tokens":27149,"cache_creation_tokens":91937,"cache_read_tokens":3268502,"total_cost_usd":3.235679,"ts":"2026-09-17T13:59:07Z","base":"improve-mirror-closer-shared-quota-cooldown","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}
