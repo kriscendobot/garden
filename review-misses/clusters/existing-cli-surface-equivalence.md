@@ -1,7 +1,7 @@
 ---
 slug: existing-cli-surface-equivalence
 category: process
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - endojs-endo-but-for-bots-pr658-review-97e5a186
@@ -9,7 +9,9 @@ members:
   - endojs-endo-but-for-bots-pr1085-review-d35f5e0c
 prs: [658, 897, 1085]
 improvement_job: review-improve-existing-cli-surface-equivalence
+improved_by: 5475bc942d: roles/COMMON.md § Pre-existing equivalent surface; skills/panel-hints/probes/C-curator-sibling-surface.sh; roles/jurors/curator/AGENT.md § Trace the pre-existing sibling surface; skills/panel-hints/SKILL.md; scripts/jobs/test/existing-cli-surface-equivalence-probe-test.sh
 ---
+
 
 
 
