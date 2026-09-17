@@ -1,1 +1,2 @@
 {"ts":"2026-08-31T18:09:28Z","base":"ironhorse-fuzz-repromote-quarantined","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":468}
+{"source":"result","model":"claude-opus-4-8","num_turns":58,"elapsed_s":1045,"input_tokens":116,"output_tokens":53947,"cache_creation_tokens":127926,"cache_read_tokens":5063749,"total_cost_usd":5.1637695,"ts":"2026-09-17T01:26:57Z","base":"ironhorse-fuzz-repromote-quarantined","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder","provider":"anthropic"}
