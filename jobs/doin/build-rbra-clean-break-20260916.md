@@ -61,6 +61,8 @@ Verify: full `packages/{platform,daemon,git,exo-git}` lint + lint:types +
 test:types + ava. Push, keep #1301 draft. Report the consumer-rewrite approach
 taken and whether the rename child can proceed.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
