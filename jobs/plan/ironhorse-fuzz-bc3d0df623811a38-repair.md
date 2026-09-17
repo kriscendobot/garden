@@ -17,33 +17,19 @@ posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-09-17T00:43:35Z
 ---
 
----
-role: builder
-tier: mentor
-token-budget: 250000
----
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:39:10Z cleared=none -->
+# Repair Ironhorse engine defect bc3d0df623811a38 (target `differential_regexp_surface`) and amend the standing PR
 
----
-role: builder
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
----
+The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS
+engine port produce incorrect behaviour or abort. Own BOTH a load-bearing
+regression case AND the causal fix, then amend the ONE standing pull request.
 
-# Fix Ironhorse fuzz finding bc3d0df623811a38 (target `differential_regexp_surface`) and amend the standing PR
-
-The continuous Ironhorse fuzz service reproduced a distinct crash. Own BOTH a
-load-bearing regression case AND the causal fix, then amend the ONE standing
-pull request for fuzz findings.
-
-## Finding (bounded metadata — the crash bytes are untrusted; never paste them into a prompt or a shell command)
+## Recorded reproducer (bounded metadata — never paste the input bytes into a prompt or a shell command)
 
 - Target: `differential_regexp_surface` (one of the maintained ironhorse-fuzz targets)
-- Project SHA under fuzz: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
+- Project SHA under test: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
 - Toolchain: `nightly-2026-08-15`
 - Minimized input sha256: `b2e8860df966da8a789c6b2e30db50f2de60bf11e03b6c0494925d3a1148c1e5` (4 bytes)
-- Durable artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/bc3d0df623811a38/input.bin`
+- Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/bc3d0df623811a38/input.bin`
 - Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/bc3d0df623811a38.md`
 - Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp_surface <input> -- -runs=1`
 
@@ -53,13 +39,13 @@ pull request for fuzz findings.
 2. Recover the minimized input to a FILE without inlining it into any prompt:
    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
    durable artifact path above. Verify `sha256sum` equals `b2e8860df966da8a789c6b2e30db50f2de60bf11e03b6c0494925d3a1148c1e5`.
-3. Set up the pinned fuzz env (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
-   see the ironhorse-fuzz-build-setup runbook) and REPRODUCE the crash from that file
-   before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
+3. Set up the pinned `ironhorse-fuzz` environment (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
+   see the ironhorse-fuzz-build-setup runbook) and confirm the incorrect behaviour or abort
+   from that file before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
 
 4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,
    so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`
-   that replays these exact bytes and asserts no panic (it builds without the oracle/submodule).
+   that replays these exact bytes and asserts correct completion (it builds without the oracle/submodule).
 5. Fix the causal defect. Keep the fix minimal and targeted.
 6. Amend the STANDING branch `ironhorse-fuzz-findings` with fetch/rebase/push CAS discipline, then
    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
