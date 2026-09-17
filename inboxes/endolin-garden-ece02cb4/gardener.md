@@ -4241,3 +4241,14 @@ Inspect via `git -C journal cat-file -p a605595b99a5f719d9b92a93ec14eae7eb97eb33
 
 Inspect via `git -C journal cat-file -p 4991be48766d310492b6ac6594fa2030542613c2` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/4991be48766d310492b6ac6594fa2030542613c2`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-09-17T19:14:46Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: cdb2de928a04390811e3b077eca92bd7e8399409
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'improve-retro-doom-escalation-noise' transient-classified (rc=1) but elapsed near-constant (3,4s) over 2 cycles — likely deterministic overrun, not a blip
+- Capture: inboxes/endolin-garden-ece02cb4/captures/cdb2de928a04390811e3b077eca92bd7e8399409
+
+Inspect via `git -C journal cat-file -p cdb2de928a04390811e3b077eca92bd7e8399409` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/cdb2de928a04390811e3b077eca92bd7e8399409`) -- both work off-host after a plain `journal2` fetch.
