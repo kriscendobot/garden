@@ -1,0 +1,7 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+scripts/jobs/rolling-deploy.sh
+`journal_put`/`journal_rm` (lines ~76-104) retry `sync_clone` up to 25 times with exponential `backoff`, bounded only by attempt COUNT, not wall-clock. Under degraded (not cleanly "offline"-signature) connectivity — the exact `garden-rolling-deploy.service: start operation timed out. Terminating` observed 2026-09-17T22:20:00Z, right after a ~30min host-outage episode (repeated ci-watcher "journal fetch failed" warnings 21:53-22:19) — 25 attempts of up to `GARDEN_FETCH_TIMEOUT`+`GARDEN_FETCH_KILL_AFTER` (~55s) plus growing backoff can exceed the service's `TimeoutStartSec=900`, ending in an unclean systemd SIGTERM/kill instead of a clean self-classified skip. This is the SAME defect class the maintainer just fixed in `post-job.sh`/`post-plan.sh` (commit 5db2500cee, "bound the producer push-CAS loop by wall-clock, not just attempt count") via a `SECONDS`-based `GARDEN_POST_DEADLINE_SECS` bail that exits `$GARDEN_OFFLINE_RC` cleanly — but that fix was never applied to `rolling-deploy.sh`'s own `journal_put`/`journal_rm` push-CAS loops. Add the identical wall-clock deadline check (record loop-start `SECONDS`, bail with the offline rc once a bound like `GARDEN_POST_DEADLINE_SECS` is exceeded) to both functions so a degraded-connectivity episode fails fast and cleanly instead of grinding to a blunt service kill mid-deploy.
