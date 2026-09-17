@@ -2,7 +2,7 @@
 
 | Created | 2026-09-05 |
 | Author  | designer (job `design-cybernetics-economic-resilience`) |
-| Status  | Proposed |
+| Status  | Accepted |
 | Grounds on | [`cybernetics-audit.md`](cybernetics-audit.md), the credit-expenditure investigation (`journal/reports/credit-investigation-endolin-garden2-20260905.md`) |
 | Composes with | [`omega-task-rank-and-foreman-retirement.md`](omega-task-rank-and-foreman-retirement.md), [`live-budget-admission.md`](live-budget-admission.md), [`session-budget-pace.md`](session-budget-pace.md), [`quota-throttle.md`](quota-throttle.md), [`recurring-budget-calibration.md`](recurring-budget-calibration.md), [`manual-gauntlet-trigger.md`](manual-gauntlet-trigger.md), [`cnf-backlog-triple.md`](cnf-backlog-triple.md) |
 
@@ -11,7 +11,8 @@ resilient without regressing what is deployed:
 
 1. one overrun, with no retry, is sufficient just cause to **split** a job and
    **propagate an omega score upward** through its parents;
-2. **retries only after back-off, and only for quota-bump / quota-recovery** cases;
+2. **retries only after back-off**: quota-bump / quota-recovery cases, plus one
+   bounded retry for a plain non-productive exit;
 3. **triager pacing from estimated job cost** — it wakes when enough tokens are
    projected to be released to afford the next job;
 4. **durable journal visibility for every cybernetic input and output**, with
@@ -20,9 +21,9 @@ resilient without regressing what is deployed:
 The audit and the credit investigation already did most of the diligence. This
 document verifies each request against the deployed code, states plainly which
 half is already built, and narrows the proposal to the missing delta. It changes
-no dispatch behavior by itself; each slice below is a separately-landable change,
-and the ones that turn on ranking stay gated on the still-open omega orientation
-question (§6 Q1).
+no dispatch behavior by itself; each slice below is a separately-landable change.
+The ranking orientation is settled: leaves are the omega floor (`R0`) and are
+therefore admitted before their higher-ranked parents.
 
 ## 0. What already landed — so this design is only the delta
 
@@ -73,10 +74,11 @@ request is that the same single overrun instead be **just cause to split**: the
 job decomposes into child sub-jobs and becomes an internal node, and the tree's
 derived rank rises above the children by the existing realized-floor rule. This is
 exactly Stage 5 of the omega design ("self-promotion on time-window overrun"),
-which that design deliberately left as a *deliberate handler action* gated on
-jcorbin's orientation answer. This design proposes making the **trigger**
-deterministic while keeping the **decomposition** a handler act, so nothing
-autonomous mints work:
+which that design deliberately left as a *deliberate handler action*. This design
+makes the **trigger** deterministic while keeping the **decomposition** a handler
+act, so nothing autonomous mints work. The rank orientation is leaf-first:
+leaves are `R0`, parents derive `1 + max(child rank)`, and the promoter admits the
+lowest rank first.
 
 ```mermaid
 flowchart TD
@@ -107,15 +109,12 @@ into progress on smaller leaves that *do* fit. Machine cost is small in absolute
 terms (omega §0: ~50–190× below human-review cost), so the win is not dollars — it
 is not stalling the shared account on a job that structurally cannot converge.
 
-**What stays gated.** The rank *number* that a ranked promoter consumes (§5) and
-the leaf-is-floor-vs-root-is-floor orientation remain open (omega §5 Q1, §6 Q1
-here). Until resolved, this slice can still land its deterministic half: the
-overrun trigger, the split-eligible stamp, the re-post-as-orchestration, and the
-decision record — all of which reuse the existing orchestration substrate and the
-existing derived rank, none of which needs the orientation answer. Only the
-*promotion ordering* waits.
+The split trigger applies only to ordinary jobs. A gauntlet-internal stage remains
+owned by the gauntlet driver and its `max_stage_retries`; the reaper must not also
+split or retry that stage. This single-owner boundary prevents an internal stage
+failure from producing both a gauntlet retry and an ordinary-job decomposition.
 
-## 2. Retries only after back-off, only for quota recovery (request 2)
+## 2. Retries only after back-off, and never as an open-ended loop (request 2)
 
 **Already built.** Two of the three retry classes already obey this rule:
 
@@ -126,20 +125,23 @@ existing derived rank, none of which needs the orientation answer. Only the
 - **Exit-0 provider outages** are routed off the unavailable-worker path
   (`1c3cbbc1fa`), so they no longer burn requeue cycles as if they were failures.
 
-**The delta.** One retry path remains that is neither backed-off nor
-quota-scoped: the **generic requeue budget** (`GARDEN_REAP_DOOM_THRESHOLD=5`). A
-job that exits non-productively *without* hitting its wall and *without* a quota
+**The delta.** One retry path remains that is neither bounded to one attempt nor
+backed off: the **generic requeue budget** (`GARDEN_REAP_DOOM_THRESHOLD=5`). A job
+that exits non-productively *without* hitting its wall and *without* a quota
 signal is requeued up to five times, immediately claimable each time (no back-off
 between cycles beyond the claim-age floor). The credit investigation shows this is
-where stale-PR treadmill cost concentrates. The request narrows retry to
-quota-bump / quota-recovery only, so the generic multi-cycle requeue should be
-**retired in favor of split-or-surface**:
+where stale-PR treadmill cost concentrates. Retire that generic multi-cycle
+requeue in favor of one narrow transient-failure allowance followed by
+split-or-surface:
 
-- A non-productive non-quota exit is treated like an overrun (§1): **split-eligible
-  on the first occurrence**, not requeued five times. If it genuinely decomposes,
-  the children retry the tractable parts; if not, it surfaces to the maintainer
-  with its decision record rather than churning.
-- The **only** retry that survives is the quota class, and it **only** fires after
+- A wall-hit overrun is **split-eligible on the first occurrence** and is never
+  retried (§1).
+- A plain non-productive, non-quota exit receives **exactly one backed-off retry**.
+  The reaper records both the retry count and a future not-before time so the job
+  is not immediately claimable. If that attempt also exits non-productively, the
+  job becomes split-eligible; if it genuinely decomposes, children carry the
+  tractable parts, and if not, it surfaces with its decision record.
+- A quota retry **only** fires after
   a back-off keyed on a *parseable future reset epoch* (the existing discriminator
   in `provider_quota_reset_epoch`: a reset epoch ⇒ quota, retry after back-off; no
   epoch ⇒ funding/other, alert a human, never auto-retry — `quota-throttle.md`).
@@ -149,13 +151,15 @@ quota-bump / quota-recovery only, so the generic multi-cycle requeue should be
   refresh (`budget-refresh.sh`); this design records the bump as a first-class
   recovery event (§4) so the return is attributable, not silent.
 
-Net effect: the retry vocabulary shrinks to exactly *"a quota window reopened, so
-try the held work again."* Every other single failure either splits (if divisible)
-or surfaces (if not) — no blind cycle count. `GARDEN_REAP_DOOM_THRESHOLD` drops
-toward 1 for the non-quota classes; the change is a threshold and a destination,
-not a new loop. This must be staged carefully against the deployed reaper, which
-is the best-engineered loop in the fleet (audit §6) — the never-reap-earlier
-invariant, the productive-cycle reset, and the doom-spool all stay untouched.
+Net effect: retries are either a quota window reopening or the one backed-off
+attempt allowed to distinguish a transient plain exit from a structural failure.
+There is no blind cycle count: an overrun splits immediately, and a repeated plain
+exit splits or surfaces. The generic five-cycle threshold is replaced by explicit
+one-retry state: the first plain failure schedules the sole retry and the second
+chooses split-or-surface. This must be staged carefully against the deployed
+reaper, which is the best-engineered loop in the fleet (audit §6) — the
+never-reap-earlier invariant, productive-cycle reset, and doom-spool all stay
+untouched.
 
 ## 3. Triager pacing from estimated job cost (request 3)
 
@@ -192,15 +196,15 @@ producer-side complement to the consumer-side claim gate: the claim gate stops a
 exhausted host from *claiming*; the pace wake stops a producer from *posting* into
 that state faster than it can drain.
 
-`est_cost` is intentionally the *trailing median by role*, not a live prediction:
-it is cheap, recomputable, and honest about its imprecision (a gauntlet fix round
-and a one-line doc fix have very different costs, and the median smooths that). The
-projection **fails open**: missing pace calibration, a stale reset epoch, or an
-absent ledger reverts to the current fixed cadence with one deduplicated warning,
-matching the meter's existing discipline. It never *blocks* a triager tick that has
-a real event to process past a hard ceiling — a paced sleep is a floor on quiet
-ticks, not a gate on urgent ones (an event-bearing tick still fires; see §6 Q3 on
-whether event arrival should preempt the sleep).
+`est_cost` is the *trailing median by role*, not per repository and not a live
+prediction: it is cheap, recomputable, and honest about its imprecision (a
+gauntlet fix round and a one-line doc fix have very different costs, and the
+median smooths that). The projection **fails open**: missing pace calibration, a
+stale reset epoch, or an absent ledger reverts to the current fixed cadence with
+one deduplicated warning, matching the meter's existing discipline. A paced sleep
+applies only while the queue is quiet. Arrival of a real comment, CI, or other
+watched event preempts the sleep and wakes the triager immediately; pacing never
+delays an event-bearing tick.
 
 ## 4. Durable journal visibility for every cybernetic input and output (request 4)
 
@@ -222,10 +226,11 @@ under §2, a triager wake deferred under §3, a plan promoted or parked. The aud
 whose only record is a log line is indistinguishable, after the fact, from a
 decision never made.
 
-Add one append-only, per-host decision ledger — `budget/decisions/<host>.jsonl`
-(name chosen to sit beside the existing `budget/` cybernetic state; it is not
-budget-specific and may be renamed `cybernetics/decisions/` — §6 Q4). One row per
-actuation, written by whichever loop actuates, with a fixed shape:
+Add one append-only decision ledger per host and week under the existing budget
+prefix: `budget/decisions/<YYYY-MM-DD>-<host>.jsonl`. The ISO date prefix is the
+Pacific-local date of the Sunday that starts the ledger week. At Sunday 00:00 in
+`America/Los_Angeles`, writers rotate to the new prefix. One row per actuation is
+written by whichever loop actuates, with a fixed shape:
 
 ```jsonc
 {
@@ -252,8 +257,10 @@ that *failed open* is recorded as `fail-open-skipped`, so "the loop chose not to
 act" is distinguishable from "the loop never ran." The write reuses the
 append-only-JSONL + CAS discipline `usage-append.sh` already proves out, is
 best-effort (a failed decision-log write must never wedge the actuation it
-describes — it degrades to today's log line), and is bounded by per-host rotation
-(§6 Q5). This is deliberately **not** the full telemetry ladder
+describes — it degrades to today's log line), and is bounded by the weekly
+Sunday-midnight-Pacific rotation above. Rotation is itself an actuation and writes
+the first decision row in the new ledger, including the prior ledger's path and
+the rotation outcome. This is deliberately **not** the full telemetry ladder
 (`garden-telemetry-and-anomaly-response.md`, unimplemented); it is the one
 cheap rung — durable decision provenance — that every other request in this
 document needs to be auditable (§1's split, §2's suppressed retry, §3's deferred
@@ -263,81 +270,33 @@ wake all write here).
 
 The four are one loop seen from four sides: a cost estimate (§3) paces production,
 an overrun splits intractable work into affordable leaves (§1), the retry
-vocabulary shrinks to quota recovery so nothing churns (§2), and every decision is
-attributable (§4). They share the omega-ranked promoter as the point where ranking
-becomes real:
+vocabulary shrinks to quota recovery plus one backed-off plain-exit attempt so
+nothing churns (§2), and every decision is attributable (§4). They share the
+omega-ranked promoter as the point where ranking becomes real:
 
 ```
 promoter tick:                       # garden-promoter, omega Stage 2, leader-only, no-LLM
   if not pool_admits(any pool): stop; record §4 decision "promotion-halted"
   else:
-    next = omega_lowest_ranked(deferred)   # ranking — gated on §6 Q1
+    next = omega_lowest_ranked(deferred)   # leaf R0 first; parent rank rises upward
     promote(next); record §4 decision "promoted"
 ```
 
-Staging, least-gated first, so value lands before the open orientation question is
-answered:
+Staging, with observability first:
 
 1. **§4 decision ledger** — no policy, pure observability; unblocks auditing the rest.
    Land first.
 2. **§2 retry narrowing** — a reaper threshold + destination change; needs no ranking.
 3. **§3 triager pacing** — a wake computation over existing calibration; fails open.
 4. **§1 overrun-split trigger + re-post-as-orchestration** — reuses the existing
-   orchestration substrate and derived rank; deterministic half lands now.
-5. **Ranked promotion ordering** (the omega `garden-promoter` consuming a rank
-   number) — **gated on §6 Q1**; until then the promoter admits in the existing
-   `plan_deferred_ranked` order and §1's split still helps by producing smaller
-   leaves.
+   orchestration substrate and derived rank.
+5. **Ranked promotion ordering** — the omega `garden-promoter` consumes the
+   derived number and admits leaf `R0` work before higher-ranked parents.
 
 Each slice is individually reversible and behavior-preserving when its inputs are
 absent (fail-open), matching the deployed loops' posture.
 
-## 6. Open questions
-
-1. **Omega orientation (blocks §5 ranked promotion and the §1 rank *number*).**
-   The leaf-is-floor-vs-root-is-floor question is still open, awaiting jcorbin
-   (omega §5 Q1; question posted 2026-08-03, unanswered). `cnf-backlog-triple`
-   commits to leaf = R0 = do-first and propagates `1 + max(child rank)` upward;
-   this design assumes that orientation for its *derived* rank but does not
-   actuate a promoter on it until confirmed. Is the cnf orientation the one to
-   build the promoter against?
-2. **Is a single non-productive, non-wall-hit exit really sufficient cause to
-   split (§2)?** An overrun (`rc=124` at the wall) is an unambiguous "did not fit."
-   A plain non-productive exit is weaker evidence — it can be a transient the
-   worker recovered from on the next claim. Should the split trigger require the
-   wall-hit specifically, and leave *one* backed-off retry for a plain exit before
-   splitting? Recommendation: split on wall-hit immediately; allow exactly one
-   backed-off retry for a plain non-productive exit, then split. This preserves the
-   "no blind cycle count" intent while not over-reacting to a single flake.
-3. **Should an arriving event preempt the triager's paced sleep (§3)?** A paced
-   wake optimizes the quiet case; but a real comment/CI event arriving mid-sleep
-   is time-sensitive. Options: (a) the sleep is a floor only on ticks with no
-   pending event (event arrival wakes immediately); (b) strict pacing even for
-   events (an exhausted fleet cannot act on the event anyway). Recommendation: (a).
-4. **Ledger name and scope (§4).** `budget/decisions/<host>.jsonl` or
-   `cybernetics/decisions/<host>.jsonl`? The latter reads truer (leveling, splits,
-   retries, and wakes are not all budget), but `budget/` is where the sibling
-   cybernetic state already lives. Also: one file per host, or per-loop
-   (`.../decisions/<host>/<loop>.jsonl`) to keep CAS contention on each loop's own
-   stream, as the per-base usage files do?
-5. **Decision-ledger retention.** Append-only JSONL grows unbounded. Rotate by age
-   (drop rows older than N weeks) or by size, and where — a keeper tick, or a fold
-   into the existing weekly calibration? The audit warns against a keeper whose
-   own failure is silent (§2.7), so whatever rotates it must record its own action
-   as a decision row.
-6. **`est_cost` basis (§3).** Trailing median billable tokens by `role:` is the
-   proposed estimator. Should it be per-`(role, repo)` (a gauntlet fix on
-   endo-but-for-bots costs more than one on a small repo), or is role alone stable
-   enough? Per-role is cheaper and less overfit; per-(role,repo) is more accurate
-   but sparse for young repos.
-7. **Does the split trigger interact badly with the auto-gauntlet retirement
-   (`manual-gauntlet-trigger.md`)?** If gauntlets become manually triggered, a
-   fix-round overrun inside a gauntlet is supervised by the gauntlet driver, not
-   the reaper's generic path. Confirm the §1 split applies to ordinary jobs and
-   that gauntlet-internal overruns stay owned by the gauntlet's `max_stage_retries`,
-   not double-handled.
-
-## 7. Alternatives considered
+## 6. Alternatives considered
 
 - **A new autonomous promoter for split children.** Rejected: the reaper's
   park-and-human-promote is correct for doomed work (audit §7, "not recommended");
@@ -357,12 +316,13 @@ absent (fail-open), matching the deployed loops' posture.
   the existing triager tick; a second timer duplicates the leader/cadence
   machinery, as `live-budget-admission.md` argued for `budget-level.sh`.
 
-## 8. Definition of done for this design
+## 7. Definition of done for this design
 
 - The four requested behaviors are each verified against deployed code, with the
   already-built half named explicitly and the delta isolated (§0–§4).
 - The proposal changes no dispatch behavior on its own; every slice fails open and
   is individually reversible (§5).
-- Unresolved choices — the omega orientation, the split trigger's evidence bar, the
-  event-preempt policy, the ledger name/retention, the cost-estimator basis — are
-  in Open questions, not guessed (§6).
+- The settled policies are explicit: leaf `R0` ranks first; a plain exit gets one
+  backed-off retry; events preempt pacing; decision ledgers use the `budget/`
+  prefix and rotate weekly at Sunday midnight Pacific; costs are estimated by
+  role; and only ordinary jobs use the split trigger.
