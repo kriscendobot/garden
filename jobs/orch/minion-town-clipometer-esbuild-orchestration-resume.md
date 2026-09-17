@@ -1,4 +1,5 @@
 ---
+child-minion-town-clipometer-esbuild-validate-failure-notified: true
 child-minion-town-clipometer-esbuild-validate-reap-count: 0
 child-minion-town-clipometer-esbuild-validate-host: endolin-garden-ece02cb4
 order: serial
