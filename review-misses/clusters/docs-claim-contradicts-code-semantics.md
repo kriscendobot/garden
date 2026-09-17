@@ -1,7 +1,7 @@
 ---
 slug: docs-claim-contradicts-code-semantics
 category: docs-drift
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - endojs-endo-but-for-bots-pr475-review-41c12eb0
@@ -9,7 +9,9 @@ members:
   - endojs-endo-but-for-bots-pr264-review-1da7ebe7
 prs: [475, 877, 264]
 improvement_job: review-improve-docs-claim-contradicts-code-semantics
+improved_by: d5c13fcfe0 (roles/COMMON.md § Definite technical claims in authored prose; roles/jurors/archivist/AGENT.md cross-verify check; skills/panel-hints/probes/C-archivist-claim-accuracy.sh + panel-hints.sh design-panel cross-fire; scripts/jobs/test/docs-claim-accuracy-probe-test.sh)
 ---
+
 
 
 
