@@ -17,20 +17,6 @@ posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-09-16T23:53:41Z
 ---
 
----
-role: builder
-tier: mentor
-token-budget: 250000
----
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:42:05Z cleared=none -->
-
----
-role: builder
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
----
-
 # Repair Ironhorse engine defect 50834e82d3af453d (target `differential_regexp_surface`) and amend the standing PR
 
 The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS
