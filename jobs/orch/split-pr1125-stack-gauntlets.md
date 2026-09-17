@@ -2,7 +2,7 @@
 order: serial
 children: split-pr1125-1304-gauntlet-shepherd split-pr1125-1306-gauntlet-shepherd split-pr1125-1305-gauntlet-shepherd
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-17T21:55:00Z
 ---
