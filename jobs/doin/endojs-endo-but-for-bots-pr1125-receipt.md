@@ -27,6 +27,7 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1125
 <!-- garden-plain-retry-not-before: 2026-09-17T22:13:42Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
