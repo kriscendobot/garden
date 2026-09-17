@@ -186,34 +186,111 @@ posted_anywhere() {  # posted_anywhere <base> [fresh]
 }
 
 # --- enumerate the repo's open PRs (bounded, reaped source subtree) ----------
-# The source runs `gh --paginate`, which forks git credential helpers; bound it under
-# `timeout` and reap the whole process group on signal/exit so a systemd stop mid-tick
-# cannot orphan a git child into the unit cgroup (mirrors ci-watcher.sh's reap).
+# The source runs `gh --paginate`, which forks git credential helpers and (over ssh
+# remotes) ssh; a systemd stop/restart that SIGTERMs the watcher mid-tick — OR a plain
+# clean tick exit — would otherwise orphan those gh/git/ssh descendants into the unit
+# cgroup, where the next start flags them "Found left-over process (sh|ssh) in control
+# group while starting unit". This is the hardened reap comment-watcher.sh landed after
+# the same leak; dependabot-watcher only carried the un-hardened negated-PGID shape.
+#
+# Two changes make the reap RELIABLE:
+#
+#   1. ISOLATED SESSION+GROUP. Launch the whole subtree under `setsid` so it is a fresh
+#      session and process group whose PGID equals $! from the process's FIRST
+#      instruction. The old shape relied on `timeout` (not --foreground) calling
+#      `setpgid(0,0)` on ITSELF to form the group — but that happens a few instructions
+#      into timeout's startup, so a stop landing in that window left `kill -TERM -<pid>`
+#      targeting a group that did not exist yet, falling back to TERMing timeout alone
+#      and orphaning its gh/git/ssh children. `setsid` closes that race: the group is
+#      real and stably named ($!) before the source ever forks a child.
+#   2. CGROUP-WIDE STRAGGLER SWEEP on EVERY exit path (reap_cgroup_stragglers, below).
+#      The negated-PGID send only reaches children that STAYED in the source's group; a
+#      gh-forked git credential helper — or an ssh master that `setsid`'d ITSELF into a
+#      separate session — escapes it. Those still share this process's service cgroup
+#      (a cgroup cannot be left without privilege), so a leaf-scoped cgroup.procs sweep
+#      fells them. It runs on clean completion too, which the unit's stop-time cgroup
+#      SIGKILL backstop never covers — that stop-only backstop is exactly why leftover
+#      sh/ssh survived a NORMAL tick into the next start.
 SRC="$(mktemp)"; ERRF="$(mktemp)"; DEPS="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
+# Final cgroup-wide straggler sweep — the EXIT-path complement to the stop-time cgroup
+# SIGKILL backstop, felling any descendant (a gh-forked git helper, an ssh master) that
+# escaped the source's process group but not its service cgroup. Safety: a strict no-op
+# unless this process is genuinely inside its OWN systemd service cgroup. It (a) no-ops
+# when /proc/self/cgroup is unreadable or has no unified `0::` line (non-systemd test
+# runs, cgroup v1, a bare-shell invocation), (b) no-ops unless the cgroup leaf is this
+# watcher's own service unit (so a shared session/scope cgroup in a test harness is
+# never swept), and (c) NEVER kills $$ or any of its ancestors (self-heal-run.sh,
+# systemd) — only the lost descendant stragglers.
+reap_cgroup_stragglers() {
+  local line cgpath leaf procs pid
+  line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+  [ -n "$line" ] || return 0
+  cgpath="${line#0::}"
+  leaf="${cgpath##*/}"
+  case "$leaf" in
+    garden-dependabot-watcher*.service) ;;
+    *) return 0 ;;
+  esac
+  procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+  [ -r "$procs" ] || return 0
+  # Collect $$ and its ancestor chain so we never signal ourselves or our parents.
+  local keep=" $$ " p ppid
+  p="$$"
+  while [ -n "$p" ] && [ "$p" != "0" ]; do
+    ppid="$(awk '/^PPid:/{print $2}' "/proc/$p/status" 2>/dev/null)" || break
+    [ -n "$ppid" ] || break
+    keep="$keep$ppid "
+    [ "$ppid" = "1" ] && break
+    p="$ppid"
+  done
+  while read -r pid; do
+    [ -n "$pid" ] || continue
+    case "$keep" in *" $pid "*) continue ;; esac
+    kill -KILL "$pid" 2>/dev/null || true
+  done < "$procs"
+}
 cleanup() {
   rm -f "$SRC" "$ERRF" "$DEPS"
   local pid="$SOURCE_TIMEOUT_PID"
-  SOURCE_TIMEOUT_PID=""
-  [ -n "$pid" ] || return 0
-  kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
-  wait "$pid" 2>/dev/null || true
-  kill -KILL "-$pid" 2>/dev/null || true
+  SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
+  if [ -n "$pid" ]; then
+    # TERM the whole isolated group (negated PGID == the setsid leader's pid); fall back
+    # to the bare pid if the host's kill refuses the group form (no setsid + timeout's
+    # own group not yet formed).
+    kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+    # BLOCK until the leader is gone before exiting, then SIGKILL the whole group as a
+    # hard backstop: `timeout`'s --kill-after only escalates while its monitored child
+    # is alive, so a TERM-ignoring grandchild that outlives it is felled here instead.
+    wait "$pid" 2>/dev/null || true
+    kill -KILL "-$pid" 2>/dev/null || true
+  fi
+  # Then fell any straggler that escaped the group into a different session/group — the
+  # leftover sh/ssh the negated-PGID reap alone kept missing — on every exit path.
+  reap_cgroup_stragglers
 }
 trap 'cleanup' EXIT
 trap 'cleanup; exit 143' TERM
 trap 'cleanup; exit 130' INT
 
-src_rc=0
-if command -v timeout >/dev/null 2>&1; then
-  timeout --signal=TERM --kill-after="$GARDEN_DEP_KILL_AFTER" "${GARDEN_DEP_SOURCE_TIMEOUT_SECS}s" \
+# Launch the bounded source in an isolated session+group; sets SOURCE_TIMEOUT_PID to the
+# group leader ($!) so cleanup can TERM/-KILL the whole group by a stable PGID. `setsid`
+# execs into `timeout` (or the source directly when timeout is absent), so $! IS the
+# session+group leader (PGID == SID == $!) and `wait $!` still yields the source's rc.
+src_launch() {
+  local sid_pfx=() to_pfx=()
+  command -v setsid  >/dev/null 2>&1 && sid_pfx=(setsid)
+  command -v timeout >/dev/null 2>&1 && to_pfx=(timeout --signal=TERM \
+    --kill-after="$GARDEN_DEP_KILL_AFTER" "${GARDEN_DEP_SOURCE_TIMEOUT_SECS}s")
+  "${sid_pfx[@]}" "${to_pfx[@]}" \
     "$GARDEN_DEP_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
   SOURCE_TIMEOUT_PID=$!
-  wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
-  SOURCE_TIMEOUT_PID=""
-else
-  "$GARDEN_DEP_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
-fi
+}
+
+src_rc=0
+src_launch
+wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
+SOURCE_TIMEOUT_PID=""
 if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure (GitHub outage, DNS blip, TLS/read timeout) is
