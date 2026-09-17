@@ -104,3 +104,13 @@ If the work does not fit one handler, SPLIT it and say so rather than overrunnin
 <!-- garden-transient-elapsed: kind=signature through=0 values=2216 -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T03:13:33Z
