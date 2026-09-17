@@ -1,2 +1,2 @@
-base: improve-budget-level-preflight-dedup
+base: improve-budget-level-single-host-cap-freeze
 identity: mentor:scripts/jobs/budget-level.sh
