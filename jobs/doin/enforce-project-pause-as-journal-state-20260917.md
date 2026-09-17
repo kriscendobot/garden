@@ -77,3 +77,13 @@ allowed; acting on them is not.
 
 Include regression tests pinning: a paused project's job cannot be posted, claimed,
 or promoted; an unreadable pause record fails safe toward paused.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T21:18:10Z
