@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/101#issuecomment-57227687
 @kriscendobot then why didn't you respond to the mention in the upstream issue? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T23:50:25Z
