@@ -2,13 +2,15 @@
 slug: incomplete-sibling-transformation
 category: correctness-bug
 status: open
-count: 3
+count: 4
 members:
   - endojs-endo-but-for-bots-pr475-9885f3d8
   - endojs-endo-but-for-bots-pr475-review-69a8dffc
   - endojs-endo-but-for-bots-pr475-review-f66ed689
-prs: [475]
+  - endojs-endo-but-for-bots-pr1099-review-6694e2d7
+prs: [475, 1099]
 ---
+
 
 
 
