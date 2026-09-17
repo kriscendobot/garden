@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:01:41Z_
+_As of 2026-09-17T03:03:10Z_
 
 ## Latest
 
@@ -4162,8 +4162,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (1)
 - [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
 
-### doin (6)
+### doin (7)
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
+- [`kriscendobot-minion.town-pr81-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr81-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #81
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #695
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
