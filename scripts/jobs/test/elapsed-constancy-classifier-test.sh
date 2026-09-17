@@ -27,8 +27,10 @@
 # job on its 3rd requeue cycle (reap-count 2) with two constant-elapsed prior notes
 # seeded, failing again transiently at the same elapsed — the escalation must fire
 # (inbox + kind:error), the distinct elapsed-constancy counter must be stamped,
-# and the job STAYS in doin (requeue ownership unchanged). The reaper must requeue
-# that first confirmation and park only after a second confirming cycle.
+# and the job STAYS in doin (requeue ownership unchanged). Once the reaper runs,
+# this gauntlet-stage fixture must hand off immediately to its driver rather than
+# spending a second generic retry cycle; the classifier's marker remains useful
+# evidence in the held record even though max_stage_retries now has sole ownership.
 # SUBTEST 3 is the disable gate (GARDEN_ELAPSED_CONSTANCY_CYCLES=0 → no escalation).
 # SUBTEST 4 is the dedup guard: a prior escalation entry for the base suppresses a
 # second. SUBTEST 5 is the not-enough-cycles guard: a first-pass job (reap-count 0)
@@ -215,8 +217,8 @@ else
   bad "elapsed-constancy commit reason missing/wrong; log: $(git -C "$V2" log --oneline -5 | tr '\n' '|')"
 fi
 
-# (h) end to end: first confirmation requeues, the next confirming gardener run
-# increments the same reason-specific marker, and only then does the reaper park.
+# (h) end to end: the reaper does not create its own retry loop for this gauntlet
+# stage. It hands the first non-productive failure to the driver immediately.
 env JOURNAL_REMOTE="$BARE2" JOURNAL_BRANCH=journal2 GARDEN=reapconst2 \
     GARDEN_STATE="$TR2/reaper-state" GARDEN_SCRATCH="$TR2/reaper-scratch" \
     GARDEN_CLAIM_TTL=3600 GARDEN_REAP_DOOM_THRESHOLD=99 \
@@ -224,38 +226,14 @@ env JOURNAL_REMOTE="$BARE2" JOURNAL_BRANCH=journal2 GARDEN=reapconst2 \
     GARDEN_PROGRESS_DOOM=off "$JOBS/reaper.sh" > "$TR2/reaper-first.log" 2>&1
 rm -rf "$TR2/after-first"
 git clone -q --single-branch --branch journal2 "$BARE2" "$TR2/after-first" 2>/dev/null
-if [ -f "$TR2/after-first/jobs/todo/overrunjob.md" ] \
-   && [ ! -f "$TR2/after-first/jobs/plan/overrunjob.md" ] \
-   && [ "$(elapsed_constancy_count "$TR2/after-first/jobs/todo/overrunjob.md")" -eq 1 ]; then
-  ok "first elapsed-constancy confirmation requeued with its counter preserved"
+if [ -f "$TR2/after-first/jobs/plan/overrunjob.md" ] \
+   && [ ! -f "$TR2/after-first/jobs/todo/overrunjob.md" ] \
+   && grep -q '^gauntlet: elapsed-test-gauntlet$' "$TR2/after-first/jobs/plan/overrunjob.md" \
+   && grep -q '^failure_classification: transient$' "$TR2/after-first/jobs/plan/overrunjob.md" \
+   && ! grep -q '^split_eligible:' "$TR2/after-first/jobs/plan/overrunjob.md"; then
+  ok "first gauntlet-stage failure handed to its driver without a generic retry or split"
 else
-  bad "first confirmation did not requeue cleanly"
-fi
-
-run_gardener "$BARE2" echost2 "$TR2" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
-  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
-rm -rf "$TR2/before-second-reap"
-git clone -q --single-branch --branch journal2 "$BARE2" "$TR2/before-second-reap" 2>/dev/null
-if [ "$(elapsed_constancy_count "$TR2/before-second-reap/jobs/doin/overrunjob.md")" -eq 2 ]; then
-  ok "second confirming cycle incremented elapsed-constancy to 2"
-else
-  bad "second confirming cycle did not increment the counter"
-fi
-env JOURNAL_REMOTE="$BARE2" JOURNAL_BRANCH=journal2 GARDEN=reapconst2 \
-    GARDEN_STATE="$TR2/reaper-state" GARDEN_SCRATCH="$TR2/reaper-scratch" \
-    GARDEN_CLAIM_TTL=3600 GARDEN_REAP_DOOM_THRESHOLD=99 \
-    GARDEN_REAP_OVERRUN_THRESHOLD=1 GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD=2 \
-    GARDEN_PROGRESS_DOOM=off "$JOBS/reaper.sh" > "$TR2/reaper-second.log" 2>&1
-rm -rf "$TR2/after-second"
-git clone -q --single-branch --branch journal2 "$BARE2" "$TR2/after-second" 2>/dev/null
-if [ -f "$TR2/after-second/jobs/plan/overrunjob.md" ] \
-   && grep -q '^doom_signature: elapsed-constancy$' "$TR2/after-second/jobs/plan/overrunjob.md" \
-   && grep -q '^elapsed_constancy_confirmations: 2$' "$TR2/after-second/jobs/plan/overrunjob.md" \
-   && ! grep -Eq '^<!-- garden-(elapsed-constancy|deadline-overrun):' "$TR2/after-second/jobs/plan/overrunjob.md" \
-   && [ -f "$TR2/after-second/inbox/maintainer/unread/doomed-overrunjob-elapsed-constancy.md" ]; then
-  ok "second confirmation parked and notified with its reason, leaving no stale signal markers"
-else
-  bad "second confirmation was not parked as elapsed-constancy doom"
+  bad "gauntlet-stage constancy failure did not hand off directly to its driver"
 fi
 
 # ============================================================================
@@ -326,9 +304,9 @@ else
   bad "first-pass elapsed classification missing from claim metadata"
 fi
 
-# Requeue and repeat the same failure. The private observation must survive the
-# reaper, the second attempt must now be visible in the shared journal, and the
-# two-cycle constant window must still trigger early wedge detection.
+# Reap the failure. Because this fixture is a gauntlet stage, the private
+# observation is consumed into the immediate driver handoff rather than being
+# requeued by the generic reaper loop.
 env JOURNAL_REMOTE="$BARE5" JOURNAL_BRANCH=journal2 GARDEN=reapconst5 \
     GARDEN_STATE="$TR5/reaper-state" GARDEN_SCRATCH="$TR5/reaper-scratch" \
     GARDEN_CLAIM_TTL=3600 GARDEN_REAP_DOOM_THRESHOLD=99 \
@@ -336,26 +314,13 @@ env JOURNAL_REMOTE="$BARE5" JOURNAL_BRANCH=journal2 GARDEN=reapconst5 \
     GARDEN_PROGRESS_DOOM=off "$JOBS/reaper.sh" > "$TR5/reaper.log" 2>&1
 rm -rf "$TR5/after-reap"
 git clone -q --single-branch --branch journal2 "$BARE5" "$TR5/after-reap" 2>/dev/null
-if grep -Eq '^<!-- garden-transient-elapsed: kind=signature through=0 values=[0-9]+ -->$' "$TR5/after-reap/jobs/todo/overrunjob.md" \
-   && [ "$(reap_count "$TR5/after-reap/jobs/todo/overrunjob.md")" -eq 1 ]; then
-  ok "reaper preserved elapsed metadata while advancing the requeue cycle"
+if [ -f "$TR5/after-reap/jobs/plan/overrunjob.md" ] \
+   && grep -q '^gauntlet: elapsed-test-gauntlet$' "$TR5/after-reap/jobs/plan/overrunjob.md" \
+   && grep -q '^failure_classification: transient$' "$TR5/after-reap/jobs/plan/overrunjob.md" \
+   && [ ! -e "$TR5/after-reap/jobs/todo/overrunjob.md" ]; then
+  ok "reaper handed first-pass gauntlet transient to its driver without generic retry"
 else
-  bad "reaper did not preserve elapsed metadata with the requeue"
-fi
-run_gardener "$BARE5" echost5 "$TR5" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
-  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
-rm -rf "$TR5/after-repeat"
-git clone -q --single-branch --branch journal2 "$BARE5" "$TR5/after-repeat" 2>/dev/null
-if find "$TR5/after-repeat/entries" -type f -name '*-progress-*' -print -quit | grep -q .; then
-  ok "repeated transient emitted shared progress"
-else
-  bad "repeated transient remained silent in shared progress"
-fi
-if grep -Eq '^<!-- garden-transient-elapsed: kind=signature through=1 values=[0-9]+,[0-9]+ -->$' "$TR5/after-repeat/jobs/doin/overrunjob.md" \
-   && grep -q "elapsed-constancy early-escalation for 'overrunjob'" "$TR5/gardener.log"; then
-  ok "second attempt extended metadata and preserved early wedge detection"
-else
-  bad "second attempt did not extend metadata or detect the constant-elapsed wedge"
+  bad "reaper applied a generic retry instead of gauntlet-driver handoff"
 fi
 
 # ============================================================================

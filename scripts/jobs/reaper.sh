@@ -43,9 +43,15 @@
 #   4. Counts plain non-productive cycles per job (a `<!-- garden-reaped: N -->`
 #      marker carried in the body across cycles). An ordinary job gets exactly one
 #      retry, protected by a recorded future not-before time; the second plain exit
-#      is split-eligible and held for deliberate decomposition. Gauntlet stages keep
-#      their driver's legacy GARDEN_REAP_DOOM_THRESHOLD budget: rather
-#      than being dropped from the board, it is PARKED in jobs/plan/ under a held
+#      is split-eligible and held for deliberate decomposition. A first ordinary
+#      deadline overrun is stronger: the same base is re-posted immediately with
+#      `role: orchestrator`, whose only task is to turn the work into parked children
+#      under the existing orchestration substrate (or one explicitly larger-timeout
+#      child when the leaf is genuinely indivisible). Gauntlet stages do not spend
+#      this generic retry/split budget at all: the first non-productive failure is
+#      PARKED in jobs/plan/ for the gauntlet driver's own `max_stage_retries` policy.
+#      In every held case, rather
+#      than being dropped from the board, the job is PARKED under a held
 #      `go-ahead` gate (no auto-promoter selects it) so the work survives and can be
 #      resumed, and a maintainer notice is AMEND-OR-POST deduped by <job-base> +
 #      <failure signature> (doom-notice.sh) so a restart that dooms dozens of
@@ -82,7 +88,7 @@ export GARDEN_TAG="reaper"
 : "${GARDEN_FETCH_REAP_AGE:=120}"      # seconds a `git fetch` may run before it is killed
 : "${GARDEN_FETCH_REAP_KILL_AFTER:=5}" # grace seconds after SIGTERM before the stuck-fetch janitor escalates to SIGKILL
 : "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
-: "${GARDEN_REAP_DOOM_THRESHOLD:=5}" # gauntlet-stage requeue cycles before its driver receives a held failure
+: "${GARDEN_REAP_DOOM_THRESHOLD:=5}" # legacy compatibility knob; gauntlet stages now hand off on their first non-productive failure
 : "${GARDEN_REAP_PLAIN_RETRY_BACKOFF_SECONDS:=600}" # delay before an ordinary job's one plain-exit retry is claimable
 # STAGGER A BURST. A restart cycle can orphan dozens of claims within minutes of
 # each other; they then cross the age floor together and, uncapped, ONE tick would
@@ -100,21 +106,22 @@ export GARDEN_TAG="reaper"
 : "${GARDEN_REAP_MAX_PER_TICK:=8}"     # max age-expired claims one tick requeues (reap-now claims are exempt)
 # A job carrying the gardener's `<!-- garden-deadline-overrun: N -->` marker hit its
 # OWN handler wall-clock budget (rc=124, elapsed≈handler budget) — a DETERMINISTIC
-# overrun that will be killed identically on every requeue, so it is escalated to
-# DOOM at this much LOWER threshold (default 1) rather than the full
-# GARDEN_REAP_DOOM_THRESHOLD: a job that overruns its budget will overrun it again on
-# every requeue, so ONE deadline hit is already conclusive — surfacing after the first
-# (not the fifth) stops it from burning ~5×the budget of gardener wall-clock before the
-# maintainer even hears about it. This case is safe to trip at 1 because a NON-defective
+# overrun that will be killed identically on every requeue. ONE deadline hit is
+# unconditionally conclusive for an ordinary job — it routes to split decomposition
+# instead of consulting either generic threshold. Surfacing after the first (not the
+# fifth) stops it from burning ~5×the budget of gardener wall-clock. This case is safe
+# to trip at 1 because a NON-defective
 # long job on the sanctioned resume treadmill (which hits its wall by design) earns the
 # PRODUCTIVE-cycle exemption below — a productive wall-hit RESETS this counter to 0 — so
 # only a job that hits its wall AND makes NO progress accumulates toward doom here. A
-# doomed job is not dropped: it is PARKED (held, resumable) with a maintainer notice,
-# so a legitimately build-heavy job that simply needs a bigger budget is surfaced fast
-# for a human to re-post with a larger `handler-timeout:` rather than churned silently.
+# ordinary overrun is not dropped or blindly retried: it is re-posted under the same
+# base as an orchestrator-role split decision. That deliberate handler parks real
+# children under an orchestration; an indivisible leaf instead parks one child with a
+# recorded reason and a larger `handler-timeout:`. Gauntlet stages bypass this route.
 # The gardener owns/increments the counter (common.sh § deadline-overrun); the reaper
-# only reads it to decide the threshold.
-: "${GARDEN_REAP_OVERRUN_THRESHOLD:=1}" # deadline-overrun cycles after which a wall-hitting job is surfaced as doom
+# only reads the marker. The old threshold knob remains exported for mixed-version
+# tests/hosts during rollout, but current ordinary and gauntlet routing does not use it.
+: "${GARDEN_REAP_OVERRUN_THRESHOLD:=1}" # legacy compatibility; one non-productive wall hit is conclusive
 # Elapsed constancy is a weaker fast-failure signal. Its distinct counter requires
 # a second confirming observation without delaying the conclusive wall-hit path.
 : "${GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD:=2}" # confirming fast-failure observations before elapsed-constancy doom
@@ -969,7 +976,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # A gardener stamps `<!-- garden-deadline-overrun: N -->` on a claim whose handler
     # hit its OWN wall-clock budget (rc=124 at the wall) — a DETERMINISTIC overrun that
     # recurs identically every requeue. Such a job is doomed at the much lower
-    # GARDEN_REAP_OVERRUN_THRESHOLD rather than the full GARDEN_REAP_DOOM_THRESHOLD.
+    # immediate ordinary split route rather than a generic retry threshold.
     # clean_body preserves this marker across the requeue (it strips only the reap-count
     # and reap-now markers), so the count accumulates cycle over cycle.
     overrun="$(deadline_overrun_count "$f")"
@@ -1033,11 +1040,12 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
            || { [ "$quota_recovery" -ne 1 ] && [ "$count" -ge 2 ]; }; then
           old_doom=1
         fi
-      elif [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] \
-        || [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ] \
-        || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; then
-        # Gauntlet stages remain under the gauntlet driver's existing retry
-        # budget and never acquire the ordinary-job split disposition.
+      else
+        # A gauntlet stage has exactly one retry owner. Hand its first
+        # non-productive failure to gauntlet.sh immediately; that driver decides
+        # whether the classification is retryable and accounts the retry against
+        # max_stage_retries. The reaper neither applies its ordinary split route nor
+        # burns a separate generic GARDEN_REAP_DOOM_THRESHOLD loop first.
         old_doom=1
       fi
     fi
@@ -1052,7 +1060,13 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     if [ "$old_doom" -eq 1 ] && [ "$policy_refusal" -ne 1 ] && [ "$GARDEN_PROGRESS_DOOM" != off ]; then
       claimed_at="$(sed -n 's/^  claimed_at:[[:space:]]*//p' "$f" | tail -1)"
       progress="$(job_progress_verdict "$DIR" "$spine" "$f" "$claimed_at")"
-      if [[ "$token_spend" =~ ^[0-9]+$ ]] && [ "$token_spend" -ge "$token_budget" ]; then
+      if [ -z "$gauntlet_base" ] && [ "$overrun" -ge 1 ]; then
+        # The one-wall split trigger is structural, not a spending fallback. A
+        # non-productive ordinary handler that cannot fit its time window must
+        # decompose even when it also crossed its notional token budget; a budget
+        # hold would merely replay the same too-large shape after refresh.
+        should_park=1
+      elif [[ "$token_spend" =~ ^[0-9]+$ ]] && [ "$token_spend" -ge "$token_budget" ]; then
         should_park=1
         sig=over-token-budget
       elif [ "$progress" = advancing ]; then
@@ -1071,11 +1085,14 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # An unknown verdict retains the historical elapsed-only disposition.
     fi
     if [ "$should_park" -eq 1 ]; then
-      # Doom: do NOT requeue, and do NOT drop the work — PARK it in jobs/plan/
-      # under a HELD gate so the work survives and can be resumed once the
+      # Doom/split disposition: do NOT blindly requeue and do NOT drop the work.
+      # Most failures PARK in jobs/plan/ under a HELD gate so the work survives
+      # and can be resumed once the
       # underlying issue is cleared, rather than being lost until a human
       # reconstructs it (the resume-lint-ceiling-shepherds loss, kriskowal
-      # 2026-07-02). The parked plan is gated `go-ahead`, which NO auto-promoter
+      # 2026-07-02). An ordinary deterministic deadline overrun instead re-posts
+      # the same base in todo/ as a decomposition-only orchestrator job. A parked
+      # plan is gated `go-ahead`, which NO auto-promoter
       # selects: plan_deferred_ranked/the foreman take only `deferred`, the unblock
       # watcher only `blocked`, the orchestrate watcher only `orchestrated`. So a
       # doomed plan stays held until a human (via the liaison / promote-plan.sh)
@@ -1090,7 +1107,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       if [ -z "$sig" ]; then
         if [ -z "$gauntlet_base" ] && [ "$overrun" -ge 1 ]; then
           sig="deadline-overrun"
-        elif [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
+        elif [ "$overrun" -ge 1 ]; then
           sig="deadline-overrun"
         elif [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ]; then
           sig="elapsed-constancy"
@@ -1141,15 +1158,54 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # to gauntlet.sh's bounded stage-retry handoff instead of surfacing it at once.
       doom_gauntlet="$(plan_field "$f" gauntlet)"
       doom_transient=0
-      [ "$sig" = requeue-exhausted ] && [ "$last_cycle_transient" -eq 1 ] && doom_transient=1
-      # The reason counts live in plan frontmatter below. Strip their cycle markers,
-      # along with every other per-cycle hint, so a parked body is inert even before
-      # the promotion-side reset runs.
+      [ "$sig" = requeue-exhausted ] \
+        && { [ "$last_cycle_transient" -eq 1 ] || [ "$quota_recovery" -eq 1 ]; } \
+        && doom_transient=1
+      # The reason counts live in disposition frontmatter below. Strip their cycle
+      # markers, along with every other per-cycle hint, so neither a parked body nor
+      # the split-orchestrator re-post can inherit a stale failure cycle.
       body="$(printf '%s\n' "$body" | strip_cycle_markers)"
-      {
+      if [ -z "$gauntlet_base" ] && [ "$split_reason" = deadline-overrun ]; then
+        split_orchestration="${spine}-split"
+        split_indivisible_child="${spine}-expanded-window"
+        split_budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
+        {
+          printf -- '---\n'
+          printf 'role: orchestrator\n'
+          printf 'split_eligible: true\n'
+          printf 'split_reason: deadline-overrun\n'
+          printf 'split_source_role: %s\n' "${exec_role:-ordinary}"
+          printf 'split_source_handler_timeout: %s\n' "$doomed_budget"
+          printf 'split_orchestration: %s\n' "$split_orchestration"
+          printf 'reposted_by: reaper:%s\n' "$GARDEN"
+          printf 'reposted_at: %s\n' "$(date -u +%FT%TZ)"
+          printf -- '---\n\n'
+          printf '# Deliberate overrun decomposition for `%s`\n\n' "$spine"
+          printf 'This ordinary job hit its applied %ss handler wall once without productive progress. ' "$doomed_budget"
+          printf 'That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.\n\n'
+          printf 'Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:\n\n'
+          printf -- '- **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by %s`, then record `%s` with `post-orchestration.sh`.\n' "$split_orchestration" "$split_orchestration"
+          printf -- '- **Indivisible:** record a concrete `split-indivisible-reason:` in both the child body and orchestration description, choose a `handler-timeout:` strictly greater than %s and no greater than %s, record that value as `split-indivisible-handler-timeout:` in the orchestration description, park exactly one child (normally `%s`) under `%s`, then record the single-child orchestration. A generic "too large" assertion is not a reason.\n' "$doomed_budget" "$split_budget_max" "$split_indivisible_child" "$split_orchestration"
+          printf -- '- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: %s>>>` immediately before the completion signal so completion verifies the successor.\n' "$split_orchestration"
+          printf -- '- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.\n\n'
+          printf '## Original job specification\n\n%s\n' "$body"
+        } > "$DIR/$JOBS_TODO/$base"
+        # A consistent board cannot have the claimed base parked simultaneously,
+        # but remove a legacy/repaired duplicate defensively so the same-base
+        # transition restores the one-location lifecycle invariant.
+        [ -e "$DIR/$JOBS_PLAN/$base" ] && git -C "$DIR" rm -q "$JOBS_PLAN/$base"
+        git -C "$DIR" rm -q "$JOBS_DOIN/$base"
+        [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
+        git -C "$DIR" add "$JOBS_TODO/$base"
+        RETRY_BASE+=("$spine"); RETRY_KIND+=("split-orchestration"); RETRY_COUNT+=("$count")
+        RETRY_NOT_BEFORE+=("$overrun"); RETRY_QUOTA_TYPE+=("$split_orchestration"); RETRY_QUOTA_RESET_AT+=("$doomed_budget")
+        log "SPLIT ROUTE: '$spine' overran once without progress; re-posted same base as orchestrator for '$split_orchestration'"
+      else
+        {
         printf -- '---\n'
         printf 'gate: go-ahead\n'
         printf 'priority: normal\n'
+        [ -n "$doom_gauntlet" ] && printf 'gauntlet: %s\n' "$doom_gauntlet"
         [ -n "$exec_role" ] && printf 'role: %s\n' "$exec_role"
         [ -n "$exec_tier" ] && printf 'tier: %s\n' "$exec_tier"
         [ -n "$exec_model" ] && printf 'model: %s\n' "$exec_model"
@@ -1198,18 +1254,19 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         printf 'posted_at: %s\n'        "$(date -u +%FT%TZ)"
         printf -- '---\n\n'
         printf '%s\n' "$body"
-      } > "$pplan"
-      git -C "$DIR" rm -q "$JOBS_DOIN/$base"
-      [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
-      [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
-      git -C "$DIR" add "$JOBS_PLAN/$base"
-      DOOM_BASE+=("$spine"); DOOM_BODY+=("$body"); DOOM_COUNT+=("$count")
-      DOOM_OVERRUN+=("$overrun"); DOOM_CONSTANCY+=("$constancy"); DOOM_SIG+=("$sig")
-      DOOM_BUDGET+=("$doomed_budget")
-      DOOM_TOKEN_BUDGET+=("$token_budget"); DOOM_TOKEN_SPEND+=("$token_spend")
-      DOOM_PROGRESS+=("$progress")
-      DOOM_GAUNTLET+=("$doom_gauntlet"); DOOM_TRANSIENT+=("$doom_transient")
-      DOOM_SPLIT_ELIGIBLE+=("$split_eligible"); DOOM_SPLIT_REASON+=("$split_reason")
+        } > "$pplan"
+        git -C "$DIR" rm -q "$JOBS_DOIN/$base"
+        [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
+        [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
+        git -C "$DIR" add "$JOBS_PLAN/$base"
+        DOOM_BASE+=("$spine"); DOOM_BODY+=("$body"); DOOM_COUNT+=("$count")
+        DOOM_OVERRUN+=("$overrun"); DOOM_CONSTANCY+=("$constancy"); DOOM_SIG+=("$sig")
+        DOOM_BUDGET+=("$doomed_budget")
+        DOOM_TOKEN_BUDGET+=("$token_budget"); DOOM_TOKEN_SPEND+=("$token_spend")
+        DOOM_PROGRESS+=("$progress")
+        DOOM_GAUNTLET+=("$doom_gauntlet"); DOOM_TRANSIENT+=("$doom_transient")
+        DOOM_SPLIT_ELIGIBLE+=("$split_eligible"); DOOM_SPLIT_REASON+=("$split_reason")
+      fi
     else
       # A stale Moonshot claim is an already-running automatic job, not a new
       # dispatch. Never touch a live doin claim before it reaches this reaper path;
@@ -1328,11 +1385,15 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         --arg overruns "${DOOM_OVERRUN[$i]}" --arg constancy "${DOOM_CONSTANCY[$i]}" \
         --arg progress "${DOOM_PROGRESS[$i]}" --arg token_budget "${DOOM_TOKEN_BUDGET[$i]}" \
         --arg token_spend "${DOOM_TOKEN_SPEND[$i]}" \
+        --arg gauntlet "${DOOM_GAUNTLET[$i]}" \
         --arg split "${DOOM_SPLIT_ELIGIBLE[$i]}" --arg split_reason "${DOOM_SPLIT_REASON[$i]}" \
-        '{base:$base,signature:$signature,requeue_cycles:$cycles,deadline_overruns:$overruns,elapsed_constancy_confirmations:$constancy,progress:$progress,token_budget:$token_budget,token_spend:$token_spend,gate:"go-ahead",split_eligible:($split == "1"),split_reason:$split_reason}')"; then
+        '{base:$base,signature:$signature,requeue_cycles:$cycles,deadline_overruns:$overruns,elapsed_constancy_confirmations:$constancy,progress:$progress,token_budget:$token_budget,token_spend:$token_spend,gate:"go-ahead",gauntlet:$gauntlet,split_eligible:($split == "1"),split_reason:$split_reason}')"; then
         decision_name=park-plan
         decision_reason="reaper selected held plan disposition: ${DOOM_SIG[$i]}"
-        if [ "${DOOM_SPLIT_ELIGIBLE[$i]}" -eq 1 ]; then
+        if [ -n "${DOOM_GAUNTLET[$i]}" ]; then
+          decision_name=handoff-gauntlet-stage
+          decision_reason="generic retry and split suppressed; gauntlet driver exclusively owns max_stage_retries"
+        elif [ "${DOOM_SPLIT_ELIGIBLE[$i]}" -eq 1 ]; then
           decision_name=mark-split-eligible
           decision_reason="retry suppressed; ordinary job requires deliberate split-or-surface disposition: ${DOOM_SPLIT_REASON[$i]}"
         fi
@@ -1374,6 +1435,20 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
               --to-json "$(jq -cn --arg value "$JOBS_TODO/${RETRY_BASE[$i]}.md" '$value')" \
               --reason "provider quota reset reached after recorded back-off" \
               --outcome applied --outcome-detail "reap batch CAS accepted after ${RETRY_QUOTA_RESET_AT[$i]}"
+          fi
+          ;;
+        split-orchestration)
+          if decision_input_json="$(jq -cn --arg base "${RETRY_BASE[$i]}" \
+            --arg orchestration "${RETRY_QUOTA_TYPE[$i]}" \
+            --arg prior_timeout "${RETRY_QUOTA_RESET_AT[$i]}" \
+            --arg overruns "${RETRY_NOT_BEFORE[$i]}" \
+            '{base:$base,split_reason:"deadline-overrun",deadline_overruns:$overruns,prior_handler_timeout:$prior_timeout,orchestration:$orchestration,split_eligible:true,gauntlet:false}')"; then
+            record_decision --loop reaper --input-json "$decision_input_json" \
+              --decision route-split-orchestration \
+              --from-json "$(jq -cn --arg value "$JOBS_DOIN/${RETRY_BASE[$i]}.md" '$value')" \
+              --to-json "$(jq -cn --arg value "$JOBS_TODO/${RETRY_BASE[$i]}.md" '$value')" \
+              --reason "first non-productive ordinary-job wall overrun suppresses retry and requires deliberate orchestration decomposition" \
+              --outcome applied --outcome-detail "same base re-posted with role=orchestrator; successor=${RETRY_QUOTA_TYPE[$i]}"
           fi
           ;;
       esac
@@ -1431,6 +1506,16 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
                  "$pbase" "${DOOM_BODY[$i]}"
         )"
         surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+      elif [ "$psig" = deadline-overrun ] && [ -n "${DOOM_GAUNTLET[$i]:-}" ]; then
+        log "GAUNTLET WALL HANDOFF: '$pbase' hit its handler wall; parked immediately for '${DOOM_GAUNTLET[$i]}' (ordinary split path suppressed)"
+        pbody="$(
+          printf 'GAUNTLET stage PARKED in jobs/plan/ after a deterministic handler wall hit on %s.\n' "$GARDEN"
+          printf 'The handler returned rc=124 at its applied %ss wall-clock budget without productive progress.\n' "$pbudget"
+          printf 'The reaper applied neither its ordinary split route nor a generic retry. Gauntlet %s owns the disposition through max_stage_retries; deterministic wall failures are surfaced to that driver immediately.\n' "${DOOM_GAUNTLET[$i]}"
+          printf 'Original stage base: %s\n\n--- original stage body ---\n%s\n' \
+                 "$pbase" "${DOOM_BODY[$i]}"
+        )"
+        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       elif [ "$psig" = deadline-overrun ]; then
         log "SPLIT-ELIGIBLE (deadline-overrun): '$pbase' hit its handler wall ${povr} time(s), budget=${pbudget}s; no retry, parked in plan/ (held), surfacing to maintainer"
         pbody="$(
@@ -1463,6 +1548,8 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       else
         if [ "${DOOM_SPLIT_ELIGIBLE[$i]:-0}" -eq 1 ]; then
           log "SPLIT-ELIGIBLE: '$pbase' exhausted its sole plain-exit retry; parked in plan/ (held), surfacing to maintainer"
+        elif [ -n "${DOOM_GAUNTLET[$i]:-}" ]; then
+          log "GAUNTLET HANDOFF: '$pbase' failed non-productively; parked immediately for '${DOOM_GAUNTLET[$i]}' to apply max_stage_retries"
         else
           log "DOOM: '$pbase' reaped ${DOOM_COUNT[$i]}× (≥ ${GARDEN_REAP_DOOM_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
         fi
@@ -1470,6 +1557,9 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           if [ "${DOOM_SPLIT_ELIGIBLE[$i]:-0}" -eq 1 ]; then
             printf 'SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on %s.\n' "$GARDEN"
             printf 'The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.\n'
+          elif [ -n "${DOOM_GAUNTLET[$i]:-}" ]; then
+            printf 'GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on %s.\n' "$GARDEN"
+            printf 'The reaper spent no generic retry and applied no ordinary split; gauntlet %s exclusively owns retry through max_stage_retries.\n' "${DOOM_GAUNTLET[$i]}"
           else
             printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s requeue cycles on %s.\n' \
                    "${DOOM_COUNT[$i]}" "$GARDEN"

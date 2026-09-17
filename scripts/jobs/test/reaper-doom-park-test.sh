@@ -14,9 +14,9 @@
 #                   updates the SAME plan entry (no duplicate) and AMENDS the SAME
 #                   maintainer notice (notice_count bumps) — ONE parked plan, ONE
 #                   message, not two of each. (The 37-identical-messages fix.)
-#   3. DIFFERENT  — dooming the same job for a MATERIALLY DIFFERENT reason
-#                   (deadline-overrun vs requeue-exhausted) posts a NEW message
-#                   (distinct key), not an amend.
+#   3. OVERRUN    — a later deadline overrun takes the ordinary-job split route:
+#                   same base in todo/ as an orchestrator, with no second doom
+#                   notice and no stale held-plan duplicate.
 #   4. SPOOL      — when the maintainer inbox is UNREACHABLE (doom-notice.sh
 #                   exhausts its push budget and dies), the reap still lands but the
 #                   alert is DIAGNOSED (a WARNING naming the cause) and SPOOLED to a
@@ -178,30 +178,28 @@ fi
   || bad "dedup: plan=[$(ls "$V/jobs/plan" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
 
 # ============================================================================
-hr; echo "SUBTEST 3 — DIFFERENT: a materially different reason posts a new notice"; hr
+hr; echo "SUBTEST 3 — OVERRUN: same-base split-orchestrator replaces held doom"; hr
 # Same job, but now a DEADLINE-OVERRUN signature (handler hit its own wall-clock
-# budget) — a materially different failure reason ⇒ a NEW keyed notice.
+# budget). The ordinary wall path is active work, not another held doom notice.
 place_stale boom 2
 run_reaper
 resync
 
 diff_ok=1
 nunread="$(count_unread)"
-[ "$nunread" -eq 2 ] || { diff_ok=0; echo "    expected 2 distinct notices, found $nunread"; }
+[ "$nunread" -eq 1 ] || { diff_ok=0; echo "    expected the original notice only, found $nunread"; }
 [ -f "$V/inbox/maintainer/unread/doomed-boom-requeue-exhausted.md" ] \
   || { diff_ok=0; echo "    original requeue-exhausted notice vanished"; }
 overrun_notice="$V/inbox/maintainer/unread/doomed-boom-deadline-overrun.md"
-if [ -f "$overrun_notice" ]; then
-  grep -q '^notice_count: 1$' "$overrun_notice" || { diff_ok=0; echo "    new overrun notice count != 1"; }
-  grep -qi 'DEADLINE-OVERRUN' "$overrun_notice"  || { diff_ok=0; echo "    overrun notice missing signature wording"; }
-else
-  diff_ok=0; echo "    new deadline-overrun notice missing"
-fi
-grep -q '^doom_signature: deadline-overrun$' "$V/jobs/plan/boom.md" \
-  || { diff_ok=0; echo "    plan entry not updated to the overrun signature"; }
+[ ! -f "$overrun_notice" ] || { diff_ok=0; echo "    overrun incorrectly emitted a held-doom notice"; }
+[ ! -f "$V/jobs/plan/boom.md" ] || { diff_ok=0; echo "    stale plan/boom.md survived same-base re-post"; }
+grep -q '^role: orchestrator$' "$V/jobs/todo/boom.md" \
+  || { diff_ok=0; echo "    todo/boom.md is missing orchestrator role"; }
+grep -q '^split_orchestration: boom-split$' "$V/jobs/todo/boom.md" \
+  || { diff_ok=0; echo "    todo/boom.md is missing deterministic successor"; }
 [ "$diff_ok" -eq 1 ] \
-  && ok "same job, different reason: a NEW keyed notice posted (2 total), plan updated in place" \
-  || bad "different-reason: unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
+  && ok "ordinary overrun replaces the held copy with one same-base split-orchestrator and no extra doom notice" \
+  || bad "overrun-route: plan=[$(ls "$V/jobs/plan" 2>/dev/null)] todo=[$(ls "$V/jobs/todo" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
 
 # ============================================================================
 hr; echo "SUBTEST 3b: role-defaulted doom notice names the APPLIED budget"; hr
@@ -209,13 +207,14 @@ place_stale rolebudget 2 conductor
 run_reaper
 resync
 
-role_notice="$V/inbox/maintainer/unread/doomed-rolebudget-deadline-overrun.md"
-if [ -f "$role_notice" ] \
-   && grep -q 'rc=124 at its applied 7200s wall-clock budget' "$role_notice" \
-   && grep -q 'One such observation is conclusive' "$role_notice"; then
-  ok "doom notice prints the resolved 7200s conductor budget (not the 2400s fleet default)"
+role_repost="$V/jobs/todo/rolebudget.md"
+if [ -f "$role_repost" ] \
+   && grep -q '^split_source_role: conductor$' "$role_repost" \
+   && grep -q '^split_source_handler_timeout: 7200$' "$role_repost" \
+   && grep -q 'hit its applied 7200s handler wall' "$role_repost"; then
+  ok "split re-post records the resolved 7200s conductor budget (not the 2400s fleet default)"
 else
-  bad "role-defaulted doom notice missing or reports the wrong budget"
+  bad "role-defaulted split re-post missing or reports the wrong budget"
 fi
 
 # ============================================================================

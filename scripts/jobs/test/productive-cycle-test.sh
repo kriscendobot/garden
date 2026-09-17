@@ -235,21 +235,20 @@ fi
   && ok "a PRODUCTIVE cycle at both signal thresholds → requeued with both counters reset/stripped" \
   || bad "productive overrun-reset failed (todo=$([ -f "$T3/v/jobs/todo/prodovr.md" ] && echo y || echo n) plan=$([ -f "$T3/v/jobs/plan/prodovr.md" ] && echo y || echo n))"
 
-# (b) NON-productive wall-hit at the overrun threshold still DOOMS (deadline-overrun
-#     signature) — a genuinely deadlocked handler is preserved. Doom threshold lifted
-#     so this doom is attributable to the OVERRUN path, not the requeue-cycle path.
+# (b) NON-productive ordinary wall-hit takes the same-base split-orchestration
+#     route. The high legacy thresholds prove the first wall hit is sufficient.
 place_stale failovr 0 2
 env GARDEN_REAP_DOOM_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=2 \
   "$JOBS/reaper.sh" > "$T3/reap-failovr.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-failovr.log"; }
 resync3
 fo_ok=1
-[ -f "$T3/v/jobs/plan/failovr.md" ] || { fo_ok=0; echo "    failovr not doomed/parked in plan/"; }
-[ -f "$T3/v/jobs/todo/failovr.md" ] && { fo_ok=0; echo "    failovr leaked into todo/ (should have doomed)"; }
+[ ! -f "$T3/v/jobs/plan/failovr.md" ] || { fo_ok=0; echo "    failovr incorrectly parked in plan/"; }
+[ -f "$T3/v/jobs/todo/failovr.md" ] || { fo_ok=0; echo "    failovr not re-posted to todo/"; }
 [ -f "$T3/v/jobs/doin/failovr.md" ] && { fo_ok=0; echo "    failovr still in doin/"; }
-[ -f "$T3/v/jobs/plan/failovr.md" ] && { grep -q '^doom_signature: deadline-overrun$' "$T3/v/jobs/plan/failovr.md" || { fo_ok=0; echo "    plan entry missing deadline-overrun signature"; }; }
+[ -f "$T3/v/jobs/todo/failovr.md" ] && { grep -q '^role: orchestrator$' "$T3/v/jobs/todo/failovr.md" || { fo_ok=0; echo "    split re-post missing orchestrator role"; }; }
 [ "$fo_ok" -eq 1 ] \
-  && ok "a NON-productive wall-hit at overrun-threshold 2 still DOOMS (deadline-overrun signature) — genuine deadlock preserved" \
-  || bad "non-productive overrun doom broke (plan=$([ -f "$T3/v/jobs/plan/failovr.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failovr.md" ] && echo y || echo n))"
+  && ok "a NON-productive ordinary wall-hit re-posts the same base for orchestration decomposition" \
+  || bad "non-productive overrun split route broke (plan=$([ -f "$T3/v/jobs/plan/failovr.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failovr.md" ] && echo y || echo n))"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

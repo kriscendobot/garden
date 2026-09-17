@@ -342,38 +342,40 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 4 — reaper parks one nonproductive wall hit at the shipped threshold"; hr
+hr; echo "SUBTEST 4 — reaper routes one nonproductive wall hit to split orchestration"; hr
 # SUBTEST 2's gardener left hangjob in doin carrying `<!-- garden-deadline-overrun: 1 -->`
 # and the reap-now hint. Run the REAL reaper at its shipped wall-hit threshold of 1:
 # one rc=124 observation at the applied wall without productive progress is conclusive,
-# so the job is parked without spending another handler budget.
+# so the same base is re-posted as a decomposition-only orchestrator without
+# spending another implementation handler budget.
 env GARDEN="reaphost" GARDEN_STATE="$TR/reaper-state" GARDEN_CLAIM_TTL=3600 \
     "$JOBS/reaper.sh" > "$TR/reaper.log" 2>&1 || true
 R="$TR/reaper-verify"; rm -rf "$R"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$R" 2>/dev/null
-if [ -f "$R/jobs/plan/hangjob.md" ] && [ ! -f "$R/jobs/doin/hangjob.md" ] && [ ! -f "$R/jobs/todo/hangjob.md" ]; then
-  ok "one nonproductive wall hit doom-parked at GARDEN_REAP_OVERRUN_THRESHOLD=1"
+if [ -f "$R/jobs/todo/hangjob.md" ] && [ ! -f "$R/jobs/doin/hangjob.md" ] && [ ! -f "$R/jobs/plan/hangjob.md" ]; then
+  ok "one nonproductive wall hit re-posted the same base for orchestration decomposition"
 else
-  bad "overrun-1 job not parked (todo=$([ -f "$R/jobs/todo/hangjob.md" ] && echo y || echo n) doin=$([ -f "$R/jobs/doin/hangjob.md" ] && echo y || echo n) plan=$([ -f "$R/jobs/plan/hangjob.md" ] && echo y || echo n)); log: $(grep -iE 'doom|reap|stale' "$TR/reaper.log" | tail -3)"
+  bad "overrun-1 job not split-routed (todo=$([ -f "$R/jobs/todo/hangjob.md" ] && echo y || echo n) doin=$([ -f "$R/jobs/doin/hangjob.md" ] && echo y || echo n) plan=$([ -f "$R/jobs/plan/hangjob.md" ] && echo y || echo n)); log: $(grep -iE 'split|reap|stale' "$TR/reaper.log" | tail -3)"
 fi
-if [ -f "$R/jobs/plan/hangjob.md" ] && grep -Eq '^doom_signature: deadline-overrun$' "$R/jobs/plan/hangjob.md"; then
-  ok "parked wall hit carries the deadline-overrun reason"
+if [ -f "$R/jobs/todo/hangjob.md" ] \
+   && grep -Eq '^role: orchestrator$' "$R/jobs/todo/hangjob.md" \
+   && grep -Eq '^split_reason: deadline-overrun$' "$R/jobs/todo/hangjob.md"; then
+  ok "split-routed wall hit carries the orchestrator role and deadline-overrun reason"
 else
-  bad "parked wall hit lost its reason-specific signature"
+  bad "split-routed wall hit lost its role or reason"
 fi
-if [ -f "$R/jobs/plan/hangjob.md" ] \
-   && ! grep -Eq '^<!-- garden-(reap-now|deadline-overrun|elapsed-constancy)' "$R/jobs/plan/hangjob.md"; then
-  ok "all signal-cycle markers stripped from the parked body"
+if [ -f "$R/jobs/todo/hangjob.md" ] \
+   && ! grep -Eq '^<!-- garden-(reap-now|deadline-overrun|elapsed-constancy)' "$R/jobs/todo/hangjob.md"; then
+  ok "all signal-cycle markers stripped from the split re-post body"
 else
-  bad "a signal-cycle marker persisted into the parked body"
+  bad "a signal-cycle marker persisted into the split re-post body"
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 5 — reaper DOOMS a deadline-overrun job at the LOWER overrun threshold (2), naming the budget signature"; hr
+hr; echo "SUBTEST 5 — one wall hit overrides legacy thresholds and names the split successor"; hr
 # A job that has hit its own wall TWICE (`<!-- garden-deadline-overrun: 2 -->`) is
-# conclusively over budget: the reaper must DOOM it at GARDEN_REAP_OVERRUN_THRESHOLD
-# (2) — dropping it from the board — WITHOUT waiting the full GARDEN_REAP_DOOM_THRESHOLD
-# (5) cycles, and the alert must name the deterministic-overrun signature.
+# conclusively over budget. The current policy routes on the first hit regardless
+# of either legacy threshold and names the deterministic orchestration successor.
 TR5="$(mktemp -d "${TMPDIR:-/tmp}/garden-overrun-doom.XXXXXX")"; trap 'rm -rf "$TR" "$TR3" "$TR5"' EXIT
 BARE5="$TR5/journal.git"
 git init -q --bare "$BARE5"
@@ -403,24 +405,24 @@ env GARDEN="reaphost5" GARDEN_STATE="$TR5/state" JOURNAL_REMOTE="$BARE5" JOURNAL
     "$JOBS/reaper.sh" > "$TR5/reaper.log" 2>&1 || true
 
 R5="$TR5/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE5" "$R5" 2>/dev/null
-# (a) PARKED in plan/ under a held gate (not requeued to todo, not left in doin, not
-# dropped) at the lower overrun threshold — the work survives for a human to resume.
-if [ ! -f "$R5/jobs/todo/overrunjob.md" ] && [ ! -f "$R5/jobs/doin/overrunjob.md" ] \
-   && [ -f "$R5/jobs/plan/overrunjob.md" ]; then
-  ok "overrun-2 job DOOMED at the lower overrun threshold and PARKED in plan/ (held, not requeued)"
+# (a) Re-posted in todo under the same base, with no held duplicate.
+if [ -f "$R5/jobs/todo/overrunjob.md" ] && [ ! -f "$R5/jobs/doin/overrunjob.md" ] \
+   && [ ! -f "$R5/jobs/plan/overrunjob.md" ]; then
+  ok "overrun job re-posted under the same base as an orchestrator"
 else
-  bad "overrun-2 job not parked in plan/ (todo=$([ -f "$R5/jobs/todo/overrunjob.md" ] && echo y || echo n) doin=$([ -f "$R5/jobs/doin/overrunjob.md" ] && echo y || echo n) plan=$([ -f "$R5/jobs/plan/overrunjob.md" ] && echo y || echo n)); log: $(grep -iE 'doom|reap|stale' "$TR5/reaper.log" | tail -3)"
+  bad "overrun job not split-routed (todo=$([ -f "$R5/jobs/todo/overrunjob.md" ] && echo y || echo n) doin=$([ -f "$R5/jobs/doin/overrunjob.md" ] && echo y || echo n) plan=$([ -f "$R5/jobs/plan/overrunjob.md" ] && echo y || echo n)); log: $(grep -iE 'split|reap|stale' "$TR5/reaper.log" | tail -3)"
 fi
-# the parked plan is gated go-ahead (held) and names the deterministic-overrun signature.
-{ [ -f "$R5/jobs/plan/overrunjob.md" ] && grep -qx 'gate: go-ahead' "$R5/jobs/plan/overrunjob.md" \
-  && grep -qx 'doom_signature: deadline-overrun' "$R5/jobs/plan/overrunjob.md"; } \
-  && ok "parked overrun doom plan is held (go-ahead) and carries the deadline-overrun signature" \
-  || bad "parked overrun doom plan missing held gate / overrun signature"
-# (b) the reaper log names the deterministic-overrun doom (not a generic per-cycle doom).
-if grep -Eq 'SPLIT-ELIGIBLE \(deadline-overrun\)' "$TR5/reaper.log"; then
-  ok "reaper logged the deadline-overrun split signature (names the handler wall-clock budget)"
+# the re-post names its deterministic successor and the prior budget.
+{ [ -f "$R5/jobs/todo/overrunjob.md" ] \
+  && grep -qx 'split_orchestration: overrunjob-split' "$R5/jobs/todo/overrunjob.md" \
+  && grep -qx 'split_source_handler_timeout: 2400' "$R5/jobs/todo/overrunjob.md"; } \
+  && ok "split re-post records its successor and prior handler budget" \
+  || bad "split re-post missing successor / prior budget"
+# (b) the reaper log names the deterministic split route.
+if grep -Eq "SPLIT ROUTE: 'overrunjob'" "$TR5/reaper.log"; then
+  ok "reaper logged the same-base deadline-overrun split route"
 else
-  bad "reaper did not log a deadline-overrun split; log: $(grep -iE 'split|doom' "$TR5/reaper.log" | tail -3)"
+  bad "reaper did not log the deadline-overrun split route; log: $(grep -iE 'split|doom' "$TR5/reaper.log" | tail -3)"
 fi
 
 # ============================================================================

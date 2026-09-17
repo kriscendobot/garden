@@ -787,6 +787,22 @@ while :; do
     fi
   fi
 
+  # A reaper-routed ordinary wall overrun is a decomposition claim, not a second
+  # implementation attempt. Require its exact orchestration handoff and validate
+  # the two accepted dispositions (two-or-more real children, or one child with a
+  # recorded indivisibility reason and a strictly larger safe timeout) before the
+  # same-base claim can settle.
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    set +e
+    "$HERE/assert-overrun-split-posted.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
+    split_gate_rc=$?
+    set -e
+    if [ "$split_gate_rc" -ne 0 ]; then
+      hrc=$split_gate_rc
+      log "overrun-split GATE blocked completion of '$base' (rc=$hrc): split orchestration disposition is absent or malformed; leaving in doin for retry"
+    fi
+  fi
+
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     # DETERMINISTIC COMPLETION GATE: the handler both exited 0 AND wrote the
     # completion sentinel (the worker reached its final act and emitted
@@ -840,8 +856,8 @@ while :; do
     # reaper (the single writer of the requeue AND the doom counter) moves it
     # doin→todo on its next tick and increments `<!-- garden-reaped: N -->`. A job
     # that keeps exiting-0-unsatisfying therefore gets one backed-off retry as an
-    # ordinary job, then becomes split-eligible; gauntlet stages retain their
-    # driver's bounded threshold. No $capture
+    # ordinary job, then becomes split-eligible; a gauntlet stage is handed to
+    # its driver immediately, whose max_stage_retries is the sole retry budget. No $capture
     # diagnostic is escalated: a clean exit-0 produced no failure output, so this
     # is a kind:progress note, not a kind:error.
     elapsed=$((SECONDS - handler_start))
@@ -857,10 +873,8 @@ while :; do
     # THEREFORE LOG LOCALLY ONLY: the local `log` above stays UNCONDITIONAL
     # (stderr/systemd/journalctl operator visibility), but the SHARED-journal note
     # fires when the sole ordinary retry also fails (cycle >= 1). Gauntlet stages
-    # retain the old threshold-relative warning because their driver still owns
-    # that retry budget. The reaper remains the authoritative disposition writer.
-    doom_threshold="${GARDEN_REAP_DOOM_THRESHOLD:-5}"
-    case "$doom_threshold" in ''|*[!0-9]*) doom_threshold=5 ;; esac
+    # are handed to their driver on the first non-productive failure. The reaper
+    # remains the authoritative disposition writer.
     # Persist the bounded elapsed window on the claim itself. This is the private,
     # deterministic input to early-wedge detection; a first-cycle self-healing blip
     # no longer has to publish a shared journal entry merely so a later cycle can
@@ -883,12 +897,9 @@ while :; do
       printf 'gardener-%s on %s: ordinary job %s exhausted its sole backed-off retry without a completion signal (exit-0-unsatisfying, elapsed=%ss); left in doin for the reaper to mark split-eligible or surface\n' \
         "$id" "$GARDEN" "$base" "$elapsed" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
-    elif [ -n "$gauntlet_retry_owner" ] \
-      && { [ "$cycle" -ge 2 ] || [ "$cycle" -ge "$(( doom_threshold - 1 ))" ]; }; then
-      near_doom=""
-      [ "$cycle" -ge "$(( doom_threshold - 1 ))" ] && near_doom=" — ABOUT TO ESCALATE as doom"
-      printf 'gardener-%s on %s: gauntlet stage %s handler exited 0 but never emitted the completion signal; requeue cycle %s of driver-owned threshold %s (elapsed=%ss), left in doin for reaper handoff%s\n' \
-        "$id" "$GARDEN" "$base" "$cycle" "$doom_threshold" "$elapsed" "$near_doom" \
+    elif [ -n "$gauntlet_retry_owner" ] && [ "$cycle" -ge 1 ]; then
+      printf 'gardener-%s on %s: gauntlet stage %s handler exited 0 but never emitted the completion signal (elapsed=%ss); left in doin for immediate reaper handoff to driver-owned max_stage_retries\n' \
+        "$id" "$GARDEN" "$base" "$elapsed" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
     fi
     if ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
@@ -1256,11 +1267,9 @@ while :; do
       log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, elapsed=${elapsed}s, signal-kill/timeout/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
       # SILENT-UNTIL-REPEAT (same rationale as the exit-0-unsatisfying branch
       # above): keep the local log on every cycle, but publish only when the one
-      # ordinary retry also fails (cycle>=1). A gauntlet stage instead reports
-      # against its driver-owned threshold. Elapsed-constancy no longer creates an
+      # ordinary retry also fails (cycle>=1). A gauntlet stage instead hands off
+      # to its driver's max_stage_retries. Elapsed-constancy no longer creates an
       # exception: its bounded input window lives on the claim metadata below.
-      doom_threshold="${GARDEN_REAP_DOOM_THRESHOLD:-5}"
-      case "$doom_threshold" in ''|*[!0-9]*) doom_threshold=5 ;; esac
       constancy_n_g="$GARDEN_ELAPSED_CONSTANCY_CYCLES"
       case "$constancy_n_g" in ''|*[!0-9]*) constancy_n_g=0 ;; esac
       constancy_applicable=0
@@ -1293,11 +1302,10 @@ while :; do
         printf 'gardener-%s on %s: ordinary job %s handler exited rc=%s again after its sole backed-off retry (signal-kill/timeout/empty/transient-signature output, elapsed=%ss); left in doin for the reaper to mark split-eligible or surface\n' \
           "$id" "$GARDEN" "$base" "$rc" "$elapsed" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
-      elif [ -n "$gauntlet_retry_owner" ] \
-        && { [ "$cycle" -ge 1 ] || [ "$cycle" -ge "$(( doom_threshold - 1 ))" ]; } \
+      elif [ -n "$gauntlet_retry_owner" ] && [ "$cycle" -ge 1 ] \
         && [ "${deadline_overrun:-0}" -ne 1 ]; then
-        printf 'gardener-%s on %s: gauntlet stage %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage, requeue cycle %s of driver-owned threshold %s (elapsed=%ss); left in doin for reaper handoff\n' \
-          "$id" "$GARDEN" "$base" "$rc" "$cycle" "$doom_threshold" "$elapsed" \
+        printf 'gardener-%s on %s: gauntlet stage %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output; elapsed=%ss); left in doin for immediate reaper handoff to driver-owned max_stage_retries\n' \
+          "$id" "$GARDEN" "$base" "$rc" "$elapsed" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
       fi
       # We KNOW this claim is dead (the handler was killed/blipped, not failing on a
@@ -1324,11 +1332,11 @@ while :; do
         # a DETERMINISTIC overrun that will be killed identically on every requeue, NOT a
         # varying external kill. Stamp the deadline-overrun COUNTER alongside the reap-now
         # hint (stamp_deadline_overrun_hint does both). The reaper makes an ordinary job
-        # split-eligible on this first hit; gauntlet stages retain their driver's bounded
-        # threshold. A productive wall-hit (HEAD advanced — the sanctioned resume
+        # split-eligible on this first hit; gauntlet stages hand the failure directly
+        # to their driver's max_stage_retries. A productive wall-hit (HEAD advanced — the sanctioned resume
         # treadmill) is spared: the reaper RESETS this counter on a productive cycle.
         log "handler for '$base' hit its OWN wall-clock budget (rc=124, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s): deterministic deadline overrun, stamping the overrun counter for early doom"
-        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=124, elapsed=%ss ≈ handler-budget=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper applies the bounded wall-hit disposition (ordinary job: split-eligible immediately; gauntlet stage: driver-owned threshold); left in doin for the reaper\n' \
+        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=124, elapsed=%ss ≈ handler-budget=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper applies the bounded wall-hit disposition (ordinary job: split-orchestrator immediately; gauntlet stage: immediate handoff to driver-owned max_stage_retries); left in doin for the reaper\n' \
           "$id" "$GARDEN" "$base" "$elapsed" "$handler_budget" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
         # EARLY ACTIONABLE DIAGNOSIS to the maintainer. A job that DECLARES an
@@ -1343,9 +1351,9 @@ while :; do
         # Best-effort/subshell-isolated like the surrounding stamps — never fail the
         # gardener (alert_maintainer already swallows its own errors).
         ( alert_maintainer "handler-budget-overrun-$base" \
-            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s). It does not fit in a single claim-scoped handler. An ordinary job becomes split-eligible immediately; a gauntlet stage stays under its driver's bounded retry policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
+            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
         if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
-          log "stamped deadline-overrun hint on '$base'; reaper will act before TTL (ordinary split-eligible immediately; gauntlet threshold retained)"
+          log "stamped deadline-overrun hint on '$base'; reaper will act before TTL (ordinary split-orchestrator immediately; gauntlet driver handoff immediately)"
         else
           log "could not stamp deadline-overrun hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
         fi

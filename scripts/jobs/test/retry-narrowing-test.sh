@@ -38,7 +38,7 @@ export GARDEN_REAPER_CLONE="$TEMPORARY_ROOT/reaper"
 export GARDEN_DECISION_CLONE="$TEMPORARY_ROOT/decisions"
 export GARDEN_REAP_PUSH_ATTEMPTS=8 GARDEN_POST_ATTEMPTS=8
 export GARDEN_REAP_PLAIN_RETRY_BACKOFF_SECONDS=300
-export GARDEN_REAP_DOOM_THRESHOLD=1 GARDEN_REAP_OVERRUN_THRESHOLD=99
+export GARDEN_REAP_DOOM_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=99
 export GARDEN_CLAIM_TTL=3600 GARDEN_HANDLER_TIMEOUT=1
 export GARDEN_HANDLER_KILL_AFTER=1 GARDEN_REAP_SAFETY_SLACK=1
 export GARDEN_PROGRESS_DOOM=off GARDEN_NO_MAINTAINER_ALERT=1
@@ -140,7 +140,9 @@ else
   bad "second plain exit was not terminalized as split-eligible"
 fi
 
-# One non-productive wall hit is conclusive even when the legacy threshold is high.
+# One non-productive wall hit is conclusive even when both legacy thresholds are
+# high. It is re-posted under the SAME base as a decomposition-only orchestrator,
+# not parked for a human and not retried as the original implementation job.
 edit_board 'cat > jobs/doin/wall.md <<EOF
 # wall
 
@@ -157,13 +159,19 @@ claim:
 EOF
 printf "worktree_dir: /nonexistent/wall\n" > work/wall'
 run_reaper "$((NOW + 302))"
-WALL_PLAN="$TEMPORARY_ROOT/verify/jobs/plan/wall.md"
-if [ -f "$WALL_PLAN" ] && grep -qx 'doom_signature: deadline-overrun' "$WALL_PLAN" \
-   && grep -qx 'split_eligible: true' "$WALL_PLAN" \
-   && grep -qx 'split_reason: deadline-overrun' "$WALL_PLAN"; then
-  ok "first non-productive wall hit is never retried and is split-eligible"
+WALL_TODO="$TEMPORARY_ROOT/verify/jobs/todo/wall.md"
+if [ -f "$WALL_TODO" ] && [ ! -e "$TEMPORARY_ROOT/verify/jobs/plan/wall.md" ] \
+   && grep -qx 'role: orchestrator' "$WALL_TODO" \
+   && grep -qx 'split_eligible: true' "$WALL_TODO" \
+   && grep -qx 'split_reason: deadline-overrun' "$WALL_TODO" \
+   && grep -qx 'split_orchestration: wall-split' "$WALL_TODO" \
+   && grep -q 'at least two self-contained child jobs' "$WALL_TODO" \
+   && grep -q 'split-indivisible-reason:' "$WALL_TODO" \
+   && grep -q 'handler-timeout:.*strictly greater than 1' "$WALL_TODO" \
+   && grep -q 'GARDEN-JOB-HANDED-OFF: wall-split' "$WALL_TODO"; then
+  ok "first ordinary wall hit re-posts the same base for deliberate orchestration decomposition"
 else
-  bad "wall hit did not take the immediate split-eligible path"
+  bad "wall hit did not take the same-base orchestration split path"
 fi
 
 # Productive work resets the plain counter and receives no artificial delay.
@@ -226,8 +234,8 @@ else
   bad "quota recovery changed the plain retry budget or retained its hold"
 fi
 
-# Gauntlet stages keep their driver's old retry ownership and never acquire the
-# ordinary-job split flag.
+# A gauntlet wall hit bypasses BOTH high generic thresholds on its first failure,
+# parks for the driver immediately, and never acquires the ordinary split route.
 edit_board 'cat > jobs/doin/stage.md <<EOF
 ---
 gauntlet: example-gauntlet
@@ -236,6 +244,7 @@ gauntlet: example-gauntlet
 
 stage work
 
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 
 ---
@@ -247,11 +256,45 @@ EOF
 printf "worktree_dir: /nonexistent/stage\n" > work/stage'
 run_reaper "$((RESET_EPOCH + 1))"
 STAGE_PLAN="$TEMPORARY_ROOT/verify/jobs/plan/stage.md"
-if [ -f "$STAGE_PLAN" ] && grep -qx 'doom_signature: requeue-exhausted' "$STAGE_PLAN" \
-   && ! grep -q '^split_eligible:' "$STAGE_PLAN"; then
-  ok "gauntlet stage remains owned by its driver and is not split-marked"
+if [ -f "$STAGE_PLAN" ] && grep -qx 'doom_signature: deadline-overrun' "$STAGE_PLAN" \
+   && grep -qx 'gauntlet: example-gauntlet' "$STAGE_PLAN" \
+   && ! grep -q '^split_eligible:' "$STAGE_PLAN" \
+   && [ ! -e "$TEMPORARY_ROOT/verify/jobs/todo/stage.md" ]; then
+  ok "gauntlet stage bypasses generic retry/split and hands its first wall hit to the driver"
 else
-  bad "ordinary split policy leaked into a gauntlet stage"
+  bad "gauntlet stage did not remain exclusively under driver retry ownership"
+fi
+
+# The retryable counterpart also hands off on the FIRST failure even though the
+# generic threshold is 99. The transient classification tells gauntlet.sh (and
+# only gauntlet.sh) to spend one max_stage_retries attempt.
+edit_board 'cat > jobs/doin/stage-transient.md <<EOF
+---
+gauntlet: example-gauntlet
+---
+# transient stage
+
+stage work
+
+<!-- garden-reap-now -->
+
+---
+claim:
+  host: retry-host
+  gardener: 1
+  claimed_at: 2026-09-17T12:59:59Z
+EOF
+printf "worktree_dir: /nonexistent/stage-transient\n" > work/stage-transient'
+run_reaper "$((RESET_EPOCH + 2))"
+TRANSIENT_STAGE_PLAN="$TEMPORARY_ROOT/verify/jobs/plan/stage-transient.md"
+if [ -f "$TRANSIENT_STAGE_PLAN" ] \
+   && grep -qx 'doom_signature: requeue-exhausted' "$TRANSIENT_STAGE_PLAN" \
+   && grep -qx 'failure_classification: transient' "$TRANSIENT_STAGE_PLAN" \
+   && ! grep -q '^split_eligible:' "$TRANSIENT_STAGE_PLAN" \
+   && [ ! -e "$TEMPORARY_ROOT/verify/jobs/todo/stage-transient.md" ]; then
+  ok "transient gauntlet failure bypasses generic retry and is handed to max_stage_retries"
+else
+  bad "transient gauntlet failure spent or escaped the driver's exclusive retry budget"
 fi
 
 snapshot
@@ -262,16 +305,96 @@ if [ -n "$LEDGER" ] && jq -e -s '
     and .input.not_before == "2026-09-17T12:05:00Z")
   and any(.[]; .loop == "reaper" and .decision == "mark-split-eligible"
     and .input.base == "plain" and .input.split_reason == "repeated-plain-exit")
-  and any(.[]; .loop == "reaper" and .decision == "mark-split-eligible"
-    and .input.base == "wall" and .input.split_reason == "deadline-overrun")
+  and any(.[]; .loop == "reaper" and .decision == "route-split-orchestration"
+    and .input.base == "wall" and .input.split_reason == "deadline-overrun"
+    and .input.orchestration == "wall-split" and .to == "jobs/todo/wall.md")
   and any(.[]; .loop == "reaper" and .decision == "release-quota-retry"
     and .input.base == "quota" and .input.reset_at == "2026-09-17T13:00:00Z")
-  and any(.[]; .loop == "reaper" and .decision == "park-plan"
-    and .input.base == "stage" and (.input.split_eligible | not))
+  and any(.[]; .loop == "reaper" and .decision == "handoff-gauntlet-stage"
+    and .input.base == "stage" and .input.gauntlet == "example-gauntlet"
+    and (.input.split_eligible | not))
+  and any(.[]; .loop == "reaper" and .decision == "handoff-gauntlet-stage"
+    and .input.base == "stage-transient" and .input.signature == "requeue-exhausted"
+    and .input.gauntlet == "example-gauntlet" and (.input.split_eligible | not))
 ' "$LEDGER" >/dev/null; then
   ok "retry, suppression, quota recovery, and gauntlet decisions are durable"
 else
   bad "retry policy decision ledger rows are missing or malformed"
+fi
+
+# Completion-time enforcement: a split-routed handler cannot merely say it is
+# done. It must hand off to the exact durable orchestration. Two children prove a
+# divisible disposition; one child additionally needs a concrete reason and a
+# strictly larger timeout recorded on both the orchestration and child.
+edit_board 'mkdir -p jobs/orch jobs/plan
+cat > jobs/orch/wall-split.md <<EOF
+---
+order: serial
+children: wall-a wall-b
+on-child-failure: halt
+state: pending
+---
+divisible wall split
+EOF
+for child in wall-a wall-b; do
+  cat > "jobs/plan/$child.md" <<EOF
+---
+gate: orchestrated
+orchestrated_by: wall-split
+---
+child work
+EOF
+done'
+snapshot
+printf '%s\n' 'split posted' '<<<GARDEN-JOB-HANDED-OFF: wall-split>>>' > "$TEMPORARY_ROOT/wall-report"
+if "$JOBS/assert-overrun-split-posted.sh" wall \
+  "$TEMPORARY_ROOT/verify/jobs/todo/wall.md" "$TEMPORARY_ROOT/wall-report"; then
+  ok "completion gate accepts a durable divisible split orchestration"
+else
+  bad "completion gate rejected a valid divisible split orchestration"
+fi
+
+edit_board 'cat > jobs/orch/leaf-split.md <<EOF
+---
+order: serial
+children: leaf-expanded-window
+on-child-failure: halt
+state: pending
+---
+split-indivisible-reason: one atomic external build cannot be partitioned
+split-indivisible-handler-timeout: 2
+EOF
+cat > jobs/plan/leaf-expanded-window.md <<EOF
+---
+gate: orchestrated
+orchestrated_by: leaf-split
+handler-timeout: 2
+split-indivisible-reason: one atomic external build cannot be partitioned
+---
+run the atomic build
+EOF'
+cat > "$TEMPORARY_ROOT/leaf-job.md" <<EOF
+---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_handler_timeout: 1
+split_orchestration: leaf-split
+---
+EOF
+printf '%s\n' 'leaf split posted' '<<<GARDEN-JOB-HANDED-OFF: leaf-split>>>' > "$TEMPORARY_ROOT/leaf-report"
+if "$JOBS/assert-overrun-split-posted.sh" leaf \
+  "$TEMPORARY_ROOT/leaf-job.md" "$TEMPORARY_ROOT/leaf-report"; then
+  ok "completion gate accepts one indivisible child with a recorded reason and larger timeout"
+else
+  bad "completion gate rejected a valid indivisible larger-timeout child"
+fi
+sed -i 's/split_source_handler_timeout: 1/split_source_handler_timeout: 2/' "$TEMPORARY_ROOT/leaf-job.md"
+if "$JOBS/assert-overrun-split-posted.sh" leaf \
+  "$TEMPORARY_ROOT/leaf-job.md" "$TEMPORARY_ROOT/leaf-report" >/dev/null 2>&1; then
+  bad "completion gate accepted an indivisible child whose timeout was not larger"
+else
+  ok "completion gate rejects an indivisible child without a strictly larger timeout"
 fi
 
 echo "RESULT: $PASS passed, $FAIL failed"

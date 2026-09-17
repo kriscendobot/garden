@@ -327,8 +327,8 @@ else
 fi
 rm -rf "$T3"
 
-# A deliberately small doom threshold overrides cycle-1 silence: cycle=1 is then
-# the last pre-doom attempt and must retain its shared escalation warning.
+# A gauntlet stage with prior failure history retains a shared handoff warning,
+# phrased in terms of the driver's max_stage_retries rather than a reaper threshold.
 T3N="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig3-neardoom.XXXXXX")"
 BARE3N="$(seed_board "$T3N" neardoomjob)"
 U3N="$T3N/update"; git clone -q --single-branch --branch journal2 "$BARE3N" "$U3N"
@@ -343,10 +343,10 @@ env GARDEN="gaphost" GARDEN_STATE="$T3N/state" JOURNAL_REMOTE="$BARE3N" JOURNAL_
     GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T3N/gardener.log" 2>&1 || true
 V3N="$T3N/verify"; git clone -q --single-branch --branch journal2 "$BARE3N" "$V3N" 2>/dev/null
-if grep -rlq 'requeue cycle 1 of driver-owned threshold 2.*ABOUT TO ESCALATE as doom' "$V3N/entries" 2>/dev/null; then
-  ok "near-doom cycle 1 retained its shared escalation warning"
+if grep -rlq 'immediate reaper handoff to driver-owned max_stage_retries' "$V3N/entries" 2>/dev/null; then
+  ok "gauntlet cycle retained its shared driver-handoff warning"
 else
-  bad "near-doom cycle 1 did not publish its escalation warning"
+  bad "gauntlet cycle did not publish its driver-handoff warning"
 fi
 rm -rf "$T3N"
 
