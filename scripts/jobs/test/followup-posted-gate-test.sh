@@ -229,6 +229,50 @@ reset_clone
   || fail 'gate wrongly blocked the deterministic gauntlet driver from owning the next panel stage'
 echo '   gate passed on the driver-owned gauntlet continuation'
 
+echo '== (f2a) PASS: a must-fix panel leaves its fix stage to the driver =='
+cat >"$TR/r6c-panel.md" <<'EOF'
+The panel completed and posted a must-fix verdict.
+
+## Follow-ups
+- The deterministic gauntlet driver will post the next fix stage.
+
+<!-- gauntlet-stage-result: panel=must-fix -->
+EOF
+reset_clone
+"$GATE" example-gauntlet-panel-1 "$JOB" "$TR/r6c-panel.md" \
+  || fail 'gate wrongly blocked the deterministic gauntlet driver from owning the must-fix transition'
+echo '   gate passed on the driver-owned panel-to-fix transition'
+
+cat >"$TR/r6c-panel-redispatch.md" <<'EOF'
+The panel completed and posted a must-fix verdict.
+
+## Follow-ups
+- The gauntlet driver owns re-dispatch of the fixer stage on this must-fix verdict.
+
+<!-- gauntlet-stage-result: panel=must-fix -->
+EOF
+reset_clone
+"$GATE" example-gauntlet-panel-redispatch "$JOB" "$TR/r6c-panel-redispatch.md" \
+  || fail 'gate wrongly blocked the driver-owned fixer re-dispatch wording used by panel reports'
+echo '   gate also passed on driver-owned fixer re-dispatch wording'
+
+echo '== (f2b) BLOCK: panel-to-fix driver prose requires the must-fix marker =='
+sed '/gauntlet-stage-result/d' "$TR/r6c-panel.md" >"$TR/r6c-panel-no-marker.md"
+reset_clone
+if "$GATE" example-gauntlet-panel-1-no-marker "$JOB" "$TR/r6c-panel-no-marker.md"; then
+  fail 'gate accepted a panel-to-fix transition without panel=must-fix'
+fi
+echo '   gate correctly required the panel=must-fix marker (rc 1)'
+
+echo '== (f2c) BLOCK: a driver-owned panel transition does not hide other work =='
+sed '/deterministic gauntlet driver/a\- Post a conductor job after the fix loop converges.' \
+  "$TR/r6c-panel.md" >"$TR/r6c-panel-extra.md"
+reset_clone
+if "$GATE" example-gauntlet-panel-1-extra "$JOB" "$TR/r6c-panel-extra.md"; then
+  fail 'gate accepted unposted successor work beside the driver-owned panel-to-fix transition'
+fi
+echo '   gate correctly blocked additional unposted work after a must-fix panel (rc 1)'
+
 echo '== (f3) BLOCK: driver-owned continuation does not hide other unposted work =='
 cat >"$TR/r6d.md" <<'EOF'
 Fixed the panel findings, pushed, and observed green CI.
@@ -337,4 +381,4 @@ reset_clone
   || fail 'gate unexpectedly reacted to a bold-prose header (it anchors ONLY on the canonical heading)'
 echo '   gate anchors only on the canonical `## Follow-ups` heading (house-style rule closes the bold-prose gap)'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; completed gauntlet clean/fix decisions are pre-forwarded with retry-safe routing and coalescing'
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions pass; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing'

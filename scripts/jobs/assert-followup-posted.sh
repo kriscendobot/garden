@@ -95,10 +95,11 @@ if ! followups_actionable "$section"; then
   exit 0
 fi
 
-# A completed gauntlet clean/fix stage does not post its next panel stage. The
-# durable gauntlet record and deterministic driver own that transition. Treat a
-# section that says only that as informational, while leaving any additional
-# successor work subject to the dispositions below.
+# A completed gauntlet stage does not post its driver-owned successor (the next
+# panel after clean/fix, or the fix stage after a must-fix panel). The durable
+# gauntlet record and deterministic driver own that transition. Treat a section
+# that says only that as informational, while leaving any additional successor
+# work subject to the dispositions below.
 if gauntlet_driver_owns_followups "$report" "$section"; then
   exit 0
 fi

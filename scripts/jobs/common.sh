@@ -4785,19 +4785,20 @@ followups_actionable() {
 }
 
 # gauntlet_driver_owns_followups <report-file> <section-text> — 0 iff a completed
-# clean/fix stage's entire follow-up section only names the deterministic
-# gauntlet driver's already-owned transition to the next panel stage. That
-# transition is not successor work for the stage worker to post: gauntlet.sh
-# derives it from the stage marker and the durable jobs/gauntlet record. Keep
-# this deliberately narrow. Any additional prose in the section, or the same
-# prose without the marker, remains actionable and is caught by the normal
-# posted-follow-up gate.
+# stage's entire follow-up section only names a deterministic transition already
+# owned by the gauntlet driver: clean/fix=done -> next panel, or
+# panel=must-fix -> that round's fix stage. Those transitions are not successor
+# work for the stage worker to post: gauntlet.sh derives them from the stage
+# marker and the durable jobs/gauntlet record. Keep this deliberately narrow.
+# Any additional prose in the section, or the same prose without the matching
+# marker, remains actionable and is caught by the normal posted-follow-up gate.
 gauntlet_driver_owns_followups() {
-  local report="${1:-}" section="${2:-}" normalized marker_count
+  local report="${1:-}" section="${2:-}" normalized marker marker_count
   [ -f "$report" ] || return 1
 
-  marker_count="$(grep -Ec '^[[:space:]]*<!--[[:space:]]*gauntlet-stage-result:[[:space:]]*(clean|fix)=done[[:space:]]*-->[[:space:]]*$' "$report" || true)"
+  marker_count="$(grep -Ec '^[[:space:]]*<!--[[:space:]]*gauntlet-stage-result:[[:space:]]*((clean|fix)=done|panel=must-fix)[[:space:]]*-->[[:space:]]*$' "$report" || true)"
   [ "$marker_count" -eq 1 ] || return 1
+  marker="$(sed -nE 's/^[[:space:]]*<!--[[:space:]]*gauntlet-stage-result:[[:space:]]*((clean|fix)=done|panel=must-fix)[[:space:]]*-->[[:space:]]*$/\1/p' "$report")"
 
   normalized="$(
     printf '%s\n' "$section" \
@@ -4807,7 +4808,15 @@ gauntlet_driver_owns_followups() {
       | tr '[:upper:]' '[:lower:]'
   )"
 
-  [[ "$normalized" =~ ^(the[[:space:]]+)?(gauntlet[[:space:]]+)?driver[[:space:]]+(will[[:space:]]+)?(re-)?posts?[[:space:]]+(the[[:space:]]+)?next[[:space:]]+panel([[:space:]]+stage|[[:space:]]+round|-[0-9]+)?([[:space:]]+next)?[.]?$ ]]
+  case "$marker" in
+    clean=done|fix=done)
+      [[ "$normalized" =~ ^(the[[:space:]]+)?(deterministic[[:space:]]+)?(gauntlet[[:space:]]+)?driver[[:space:]]+(will[[:space:]]+)?(re-)?posts?[[:space:]]+(the[[:space:]]+)?next[[:space:]]+panel([[:space:]]+stage|[[:space:]]+round|-[0-9]+)?([[:space:]]+next)?[.]?$ ]]
+      ;;
+    panel=must-fix)
+      [[ "$normalized" =~ ^(the[[:space:]]+)?(deterministic[[:space:]]+)?((staged[[:space:]]+)?gauntlet[[:space:]]+)?driver[[:space:]]+((will[[:space:]]+)?(re-)?(posts?|dispatches|schedules)[[:space:]]+(the[[:space:]]+)?(next[[:space:]]+)?fix(er)?([[:space:]]+stage|[[:space:]]+round|-[0-9]+)?([[:space:]]+next)?|owns[[:space:]]+((the[[:space:]]+)?(next[[:space:]]+)?fix-loop[[:space:]]+transition|(re-)?dispatch[[:space:]]+of[[:space:]]+(the[[:space:]]+)?(next[[:space:]]+)?fix(er)?[[:space:]]+(stage|round)([[:space:]]+on[[:space:]]+(this[[:space:]]+)?must-fix[[:space:]]+verdict)?))[.]?$ ]]
+      ;;
+    *) return 1 ;;
+  esac
 }
 
 # handoff_successor_posted <clone-dir> <successor-base> — 0 iff <successor-base> is
