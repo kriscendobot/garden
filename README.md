@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T05:29:07Z_
+_As of 2026-09-17T05:41:34Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 2h)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 3h)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 5h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 2h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
@@ -1417,6 +1417,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `build-rbra-cleanbreak-20260916-halted` — from orchestrator:build-rbra-cleanbreak-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-rbra-cleanbreak-20260916-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: build-rbra-cleanbreak-20260916
+> orchestration-status: halted
+> child: build-rbra-clean-break-20260916
+> failure-kind: handler-timeout
+> children-completed: 1
+> children-total: 3
+> halt-parked-remainder: build-rbra-rename-conformance-20260916
+>
+> Orchestration build-rbra-cleanbreak-20260916 HALTED: child build-rbra-clean-break-20260916 stalled in flight for 10921s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: build-rbra-rename-conformance-20260916
+
 - `doomed-ironhorse-fuzz-27824c75429b8581-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-27824c75429b8581-repair-policy-refusal.md)
 
 > Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
@@ -1677,6 +1690,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 7. Document THIS case and its solution in the standing PR body or a PR comment (finding 50834e82d3af453d).
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
+
+- `ironhorse-ocap-optimization-campaign-halted` — from orchestrator:ironhorse-ocap-optimization-campaign-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ocap-optimization-campaign-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: ironhorse-ocap-optimization-campaign
+> orchestration-status: halted
+> child: ironhorse-ocap-frozen-objects
+> failure-kind: handler-timeout
+> children-completed: 2
+> children-total: 4
+> halt-parked-remainder: ironhorse-ocap-campaign-audit
+>
+> Orchestration ironhorse-ocap-optimization-campaign HALTED: child ironhorse-ocap-frozen-objects stalled in flight for 7359s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 2/4 done before halt; parked remainder: ironhorse-ocap-campaign-audit
 
 - `doomed-ironhorse-fuzz-c6c71d428a37088c-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-c6c71d428a37088c-repair-policy-refusal.md)
 
@@ -2186,6 +2212,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > stop the loop, human review → un-draft (green+mergeable). 5 → RE-SCOPE: resume at child 2
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
+
+- `ironhorse-ocap-optimization-campaign-child-ironhorse-ocap-frozen-objects-failed` — from orchestrator:ironhorse-ocap-optimization-campaign-child-ironhorse-ocap-frozen-objects-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ocap-optimization-campaign-child-ironhorse-ocap-frozen-objects-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: ironhorse-ocap-optimization-campaign
+> orchestration-status: running
+> child: ironhorse-ocap-frozen-objects
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 7359s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1)
+>
+> Orchestration ironhorse-ocap-optimization-campaign observed child ironhorse-ocap-frozen-objects: stalled in flight for 7359s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1).
 
 - `doomed-ironhorse-fuzz-ac8a8e3d9d3d7f96-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-ac8a8e3d9d3d7f96-repair-policy-refusal.md)
 
@@ -2923,9 +2962,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
 
-> WATCHDOG notice — occurrence #9 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T04:35:05Z).
-> The SAME condition (`budget-level-monk-preflight`) has now been observed 9 times; this is ONE
-> coalesced notice that updates in place, not 9 messages. Latest detail:
+> WATCHDOG notice — occurrence #13 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T05:35:51Z).
+> The SAME condition (`budget-level-monk-preflight`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
 > budget-level: fleet monk allocation frozen: anthropic:oros-studio-garden-ce242c49 missing/invalid monk physical cap. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
 
@@ -3008,6 +3047,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-design-sysop-attested-exec-op-20260916-27885127eacb` — from gardener:design-sysop-attested-exec-op-20260916, reply_to `design-sysop-attested-exec-op-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-design-sysop-attested-exec-op-20260916-27885127eacb.md)
 
 > Verification found the stated boatman-is-out-of-reach invariant is not presently architectural on this host. Positive evidence: the garden launcher bind-mounts only the checkout and does not forward SSH_AUTH_SOCK; gh auth has only kriscendobot and ssh-add has no identities. But the container is launched --privileged, the garden user has passwordless sudo, and the container sees the host block device, so an arbitrary exec can become container root and plausibly mount/read the host filesystem (including human credentials if present). Also roles/boatman/AGENT.md and CLAUDE.md currently say a gardener in the full garden on the credentialed host claims ferry jobs and uses GARDEN_GH_IDENTITY=kriskowal, contrary to the directive that boatman is outside the garden/bus. I will design exec with an explicit build precondition/acceptance gate that must establish the corrected separation (and name these current contradictions), unless you direct a different interpretation.
+
+- `build-rbra-cleanbreak-20260916-child-build-rbra-clean-break-20260916-failed` — from orchestrator:build-rbra-cleanbreak-20260916-child-build-rbra-clean-break-20260916-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-rbra-cleanbreak-20260916-child-build-rbra-clean-break-20260916-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: build-rbra-cleanbreak-20260916
+> orchestration-status: running
+> child: build-rbra-clean-break-20260916
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 10921s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1)
+>
+> Orchestration build-rbra-cleanbreak-20260916 observed child build-rbra-clean-break-20260916: stalled in flight for 10921s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1).
 
 - `watchdog-triager-fetch-failed-kriscendobot-ocapn` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-ocapn.md)
 
@@ -4223,29 +4275,29 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.7M | $570.94 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 19.5M _(+463.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Claude | 76.9M | $575.11 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 19.6M _(+472.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (7)
-- [`improve-set-budget-pool-require-physical-cap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-set-budget-pool-require-physical-cap.md) — ---
+- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #695
+- [`endojs-endo-but-for-bots-pr1125-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1125
 - [`improve-reputation-reduce-incremental-projections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-reputation-reduce-incremental-projections.md) — ---
-- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #695
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
+- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #84
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #84
 
-### tada (8181)
-- [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5.md) — Completion report
-- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-4.md) — Completion report
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-5.md) — Completion report
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-4.md) — Completion report — gauntlet FIX round 4, kriscendobot/minion.town PR #84
-- [`claude-on-minion-town-press-20260917-045013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260917-045013.md) — Completion report
-- … and 8176 more
+### tada (8186)
+- [`build-rbra-cleanbreak-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-rbra-cleanbreak-20260916.md) — orchestration build-rbra-cleanbreak-20260916 — HALTED
+- [`ironhorse-ocap-optimization-campaign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-ocap-optimization-campaign.md) — orchestration ironhorse-ocap-optimization-campaign — HALTED
+- [`improve-set-budget-pool-require-physical-cap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-set-budget-pool-require-physical-cap.md) — Completion report
+- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-5.md) — Completion report
+- [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5.md) — Gauntlet FIX round 5 — kriscendobot/minion.town PR #84
+- … and 8181 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
