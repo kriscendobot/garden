@@ -1,21 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
 role: builder
 tier: mentor
 token-budget: 250000
-doomed: true
-doom_signature: policy-refusal
-doom_count: 1
-failure_classification: deterministic
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-16T23:53:41Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-16T23:53:41Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-17T01:18:20Z cleared=none -->
 
 # Repair Ironhorse engine defect 50834e82d3af453d (target `differential_regexp_surface`) and amend the standing PR
 
