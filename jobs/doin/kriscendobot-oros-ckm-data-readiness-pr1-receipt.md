@@ -26,3 +26,13 @@ PR: https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-17T15:33:08Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T15:33:14Z
