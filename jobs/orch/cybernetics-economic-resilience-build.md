@@ -2,7 +2,7 @@
 order: serial
 children: kriscendobot-garden-pr87-conduct-20260917 build-cybernetics-decision-ledger build-cybernetics-retry-narrowing build-cybernetics-triager-pacing build-cybernetics-overrun-split build-cybernetics-ranked-promotion
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-17T00:35:05Z
 ---
