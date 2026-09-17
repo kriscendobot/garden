@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T02:46:00Z_
+_As of 2026-09-17T02:50:07Z_
 
 ## Latest
 
@@ -8,8 +8,9 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 10m)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 16m)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 3h)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 4m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -17,9 +18,8 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 15d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 15d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 16d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 18d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `doomed-ironhorse-fuzz-e773681b6d831dc1-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-e773681b6d831dc1-repair-policy-refusal.md)
@@ -4143,28 +4143,28 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.7M | $531.68 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.6M _(+437.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
+| Claude | 71.8M | $531.83 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 18.6M _(+438.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
 
 ### doin (6)
+- [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #695
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
-- [`build-cybernetics-ranked-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-cybernetics-ranked-promotion.md) — Build leaf-first omega promotion
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`build-minion-town-web-invite-accept-slice-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-web-invite-accept-slice-20260916.md) — The intent, in the maintainer's own framing
 
-### tada (8153)
+### tada (8154)
+- [`build-cybernetics-ranked-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-cybernetics-ranked-promotion.md) — Completion report
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1281-review-ca9db945`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1281-review-ca9db945.md) — Cost
 - [`build-rbra-daemon-mount-git-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-rbra-daemon-mount-git-20260916.md) — Completion report
 - [`build-cybernetics-overrun-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-cybernetics-overrun-split.md) — Cost
-- [`ironhorse-ocap-benchmark-corpus`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-ocap-benchmark-corpus.md) — Cost
-- … and 8148 more
+- … and 8149 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
