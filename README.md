@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:09:03Z_
+_As of 2026-09-17T03:10:07Z_
 
 ## Latest
 
@@ -4162,22 +4162,21 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #695
-- [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/calibrate-oros-studio-budget-pool-20260917.md) — The maintainer's reading (kriskowal, 2026-09-17, reported via the liaison)
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`build-minion-town-web-invite-accept-slice-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-web-invite-accept-slice-20260916.md) — The intent, in the maintainer's own framing
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1100
 
-### tada (8159)
+### tada (8160)
+- [`calibrate-oros-studio-budget-pool-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/calibrate-oros-studio-budget-pool-20260917.md) — Completion report
 - [`kriscendobot-minion.town-pr81-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr81-shepherd.md) — Completion report
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-3.md) — Completion report — FIX round 3, endojs/endo-but-for-bots PR #1100
 - [`improve-dependabot-process-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabot-process-reap.md) — Completion report
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-panel-2.md) — Completion report
-- [`cybernetics-economic-resilience-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-economic-resilience-build.md) — orchestration cybernetics-economic-resilience-build — complete
-- … and 8154 more
+- … and 8155 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
