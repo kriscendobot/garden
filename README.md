@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T05:46:38Z_
+_As of 2026-09-17T05:51:03Z_
 
 ## Latest
 
@@ -1703,6 +1703,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > halt-parked-remainder: ironhorse-ocap-campaign-audit
 >
 > Orchestration ironhorse-ocap-optimization-campaign HALTED: child ironhorse-ocap-frozen-objects stalled in flight for 7359s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 2/4 done before halt; parked remainder: ironhorse-ocap-campaign-audit
+
+- `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
+
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared cleric demand active=2 queue=0 fleet-envelope=5 target=0
 
 - `doomed-ironhorse-fuzz-c6c71d428a37088c-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-c6c71d428a37088c-repair-policy-refusal.md)
 
@@ -4407,8 +4411,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.0M | $577.00 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 19.7M _(+475.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
+| Claude | 77.0M | $579.88 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 19.8M _(+477.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
