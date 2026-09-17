@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T00:49:16Z_
+_As of 2026-09-17T00:53:12Z_
 
 ## Latest
 
@@ -1414,6 +1414,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `20260917T005044Z-369283` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260917T005044Z-369283.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: ironhorse-iterator-intrinsic-metadata
+> - question (msgid msg-ironhorse-iterator-intrinsic-metadata-8bd9eab6e4eb.md)
+> - tentative answer: proxy/tentative — this is a progress report, not a gating question, but treating it as if it asked "is this scope reduction OK?": yes, proceed. The fix is real and verified (106 passing cargo tests, zero test:xs divergence introduced), and the scope narrowing is well-justified: SES/lockdown/module/compartment failures are a documented separate engine gap (missing `lockdown`, SES-shim abort, unported modules/compartments), not an iterator-intrinsic-metadata issue. Don't hold the PR open trying to make the full 48-failure count move — that's out of this job's blast radius. Retry `ensure-pr.sh` once the GraphQL rate limit clears and get the draft PR open describing exactly this scope (2 intrinsic-shape bugs fixed, ~8 bare-Ironhorse entries resolved, structural SES/module gap called out as future work). If retries keep failing beyond a transient blip, flag that separately rather than blocking on it.
+
 - `doomed-ironhorse-fuzz-51c6a212946102f6-repair-policy-refusal` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-51c6a212946102f6-repair-policy-refusal.md)
 
 > Job QUARANTINED in jobs/plan/ (held, gate=go-ahead) after a PROVIDER POLICY REFUSAL on endolin-garden-ece02cb4.
@@ -1748,38 +1755,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
-- `msg-ironhorse-iterator-intrinsic-metadata-8bd9eab6e4eb` — from gardener:ironhorse-iterator-intrinsic-metadata, reply_to `ironhorse-iterator-intrinsic-metadata` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-iterator-intrinsic-metadata-8bd9eab6e4eb.md)
-
-> Job ironhorse-iterator-intrinsic-metadata (endojs/endo-but-for-bots): engine fix
-> landed on branch llm-fix-iterator-intrinsic-metadata (commit acb67ae347, pushed).
-> Draft PR open is pending a transient shared-bot GraphQL rate limit — will retry
-> ensure-pr.sh shortly.
->
-> Fixed two real Ironhorse intrinsic-shape bugs:
->  1. Array.prototype had no [Symbol.iterator] ([][Symbol.iterator]() threw
->     TypeError) — aliased to Array.prototype.values.
->  2. No %AsyncIteratorPrototype% — interposed it between %AsyncGeneratorPrototype%
->     and %Object.prototype% with the [Symbol.asyncIterator] identity method.
->
-> Result: the two job probes (IteratorPrototype, AsyncIteratorPrototype) — plus,
-> as a side effect of bug 1, MapIteratorPrototype and SetIteratorPrototype — now
-> agree with XS and move failed->passed in every scenario the Ironhorse agent
-> executes (sloppy, strict). cargo test -p ironhorse-vm: 106 passed.
->
-> Scope reality vs the "Done when": the "48 recorded failures" cannot all be
-> removed. Only the ~8 bare-Ironhorse sloppy/strict entries were removable. The
-> rest are the corpus-wide structural:scenario-not-supported failures under
-> SES/lockdown/module/compartment scenarios — NO Ironhorse test passes there yet
-> (bare agent has no `lockdown`; the sesIronhorse SES-shim agent aborts inside the
-> 548KB shim; modules/compartments are unported). Those are a separate engine
-> effort, not an iterator-metadata divergence. "Pass under Ironhorse+SES" is
-> likewise blocked by that shim gap. The actual metadata divergence this job names
-> is fully fixed wherever the engine can execute the probe.
->
-> test:xs: my baseline changes produce zero divergence; the only local red is a
-> pre-existing xst-version flip on xs/module globalThis/defaults.js (left untouched
-> to match CI).
-
 - `msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97` — from gardener:wire-siwe-onchain-authz-minion-town-followup, reply_to `wire-siwe-onchain-authz-minion-town-followup` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97.md)
 
 > SIWE on-chain authz (minion.town) — the maintainer-gated remainder is BLOCKED on two decisions that only you can make. This followup was auto-promoted from the deferred reservoir on 2026-09-16 with gate `cleared=none`; the predecessor already shipped ALL address-independent work (policy layer keys on iss+sub with intersection semantics, needs no code change for Tier 1; test/policy.test.ts covers the SIWE address-keyed shape, green). Nothing further can be built responsibly without your input — the addresses are production authorization identities and must not be invented.
@@ -1997,17 +1972,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.8M | $501.80 _(notional, rate-card)_ | 48% of 143.0M (ok) |
-| Codex | 14.7M _(+331.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 68.7M | $498.54 _(notional, rate-card)_ | 48% of 143.0M (ok) |
+| Codex | 14.9M _(+334.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
-### todo (50)
+### todo (46)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`build-cybernetics-decision-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-cybernetics-decision-ledger.md) — Build the cybernetic decision ledger
-- [`ironhorse-fuzz-9894aac5ad23c6eb-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-9894aac5ad23c6eb-repair.md) — Repair Ironhorse engine defect 9894aac5ad23c6eb (target differential_regexp) ...
-- [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-378372c8706a48a8-repair.md) — Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
-- [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
-- [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
+- [`improve-triager-sigterm-clean-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-triager-sigterm-clean-exit.md) — ---
 - [`ironhorse-fuzz-daf6694aec7856aa-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-daf6694aec7856aa-repair.md) — Repair Ironhorse engine defect daf6694aec7856aa (target differential_source) ...
 - [`ironhorse-fuzz-a172d6aba922c9ad-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-a172d6aba922c9ad-repair.md) — Repair Ironhorse engine defect a172d6aba922c9ad (target differential_regexp) ...
 - [`ironhorse-fuzz-7637ac162a0b916a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-7637ac162a0b916a-repair.md) — Repair Ironhorse engine defect 7637ac162a0b916a (target differential_regexp) ...
@@ -2053,28 +2024,32 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — Triage 7 Ironhorse fuzz finding(s) for target differential_source
 - [`ironhorse-fuzz-a7755caa51aa9320-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-a7755caa51aa9320-repair.md) — Repair Ironhorse engine defect a7755caa51aa9320 (target differential_source) ...
 
-### doin (13)
+### doin (17)
+- [`build-cybernetics-decision-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-cybernetics-decision-ledger.md) — Build the cybernetic decision ledger
 - [`ironhorse-fuzz-3a6aab9d9d140c2c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-3a6aab9d9d140c2c-repair.md) — Repair Ironhorse engine defect 3a6aab9d9d140c2c (target differential_regexp_s...
 - [`ironhorse-iterator-intrinsic-metadata`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-iterator-intrinsic-metadata.md) — fix Ironhorse %IteratorPrototype% / %AsyncIteratorPrototype% intrinsic metadata
 - [`weave-ebfb-1100-pin-merge-base-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-1100-pin-merge-base-20260916.md) — ---
-- [`ironhorse-fuzz-2cc2ac67ba7e9b9f-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-2cc2ac67ba7e9b9f-repair.md) — Repair Ironhorse engine defect 2cc2ac67ba7e9b9f (target differential_regexp_s...
 - [`ironhorse-fuzz-d87697d49a5f8f67-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d87697d49a5f8f67-repair.md) — Repair Ironhorse engine defect d87697d49a5f8f67 (target differential_source) ...
 - [`ironhorse-fuzz-ab41c5d203ace017-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ab41c5d203ace017-repair.md) — Repair Ironhorse engine defect ab41c5d203ace017 (target differential_regexp) ...
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
 - [`ironhorse-fuzz-c99f800f6a36e8a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c99f800f6a36e8a6-repair.md) — Repair Ironhorse engine defect c99f800f6a36e8a6 (target differential_regexp) ...
+- [`ironhorse-fuzz-9894aac5ad23c6eb-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-9894aac5ad23c6eb-repair.md) — Repair Ironhorse engine defect 9894aac5ad23c6eb (target differential_regexp) ...
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-5eeb0aadb2004075-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5eeb0aadb2004075-repair.md) — Fix Ironhorse fuzz finding 5eeb0aadb2004075 (target differential_regexp) and ...
 - [`ironhorse-fuzz-ac8a8e3d9d3d7f96-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ac8a8e3d9d3d7f96-repair.md) — Repair Ironhorse engine defect ac8a8e3d9d3d7f96 (target differential_regexp) ...
+- [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-378372c8706a48a8-repair.md) — Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
+- [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
+- [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
 - [`ironhorse-fuzz-557805e944888b5a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-557805e944888b5a-repair.md) — Repair Ironhorse engine defect 557805e944888b5a (target differential_regexp_s...
 - [`clipometer-orchestration-reanchor-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clipometer-orchestration-reanchor-20260916.md) — ---
 
-### tada (8108)
+### tada (8109)
+- [`ironhorse-fuzz-2cc2ac67ba7e9b9f-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-fuzz-2cc2ac67ba7e9b9f-repair.md) — Completion report — finding 2cc2ac67ba7e9b9f (differential_regexp_surface)
 - [`kriscendobot-garden-pr87-conduct-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr87-conduct-20260917.md) — Cost
 - [`kriscendobot-garden-pr87-review-9fceaeef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-garden-pr87-review-9fceaeef.md) — Cost
 - [`improve-draft-guardrail-terminalization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-draft-guardrail-terminalization.md) — Cost
 - [`endojs-endo-but-for-bots-pr1125-b73e4e34`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-b73e4e34.md) — Cost
-- [`endojs-endo-but-for-bots-pr1125-22928e6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-22928e6b.md) — Cost
-- … and 8103 more
+- … and 8104 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
