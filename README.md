@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T08:28:58Z_
+_As of 2026-09-17T08:39:47Z_
 
 ## Latest
 
@@ -3133,9 +3133,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T20:50:24Z, latest 2026-09-17T06:35:15Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-09T20:50:24Z, latest 2026-09-17T08:35:33Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared cleric demand active=1 queue=0 fleet-envelope=5 target=1
 
@@ -4415,25 +4415,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 78.3M | $586.37 _(notional, rate-card)_ | 55% of 143.0M (ok) |
-| Codex | 20.9M _(+536.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 97% _(plan; codex-reported)_ |
+| Claude | 78.2M | $584.70 _(notional, rate-card)_ | 55% of 143.0M (ok) |
+| Codex | 20.9M _(+542.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 97% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c-expanded-window.md) — Address review on endojs/endo-but-for-bots PR #1125 (expanded window)
-- [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Deliberate overrun decomposition for endojs-endo-but-for-bots-pr1125-review-b...
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1100
 
-### tada (8206)
+### tada (8207)
+- [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Completion report
 - [`improve-overrun-split-metadata-promotion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-overrun-split-metadata-promotion.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-33254d01db18`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/canary-probe-endolin-garden2-5bcdff64-33254d01db18.md) — rolling-deploy canary probe — round trip OK
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-6.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260917-080545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-completion-press-20260917-080545.md) — Completion report — Claude-on-minion.town completion press, tick 20260917-080545
-- [`claude-on-minion-town-press-20260917-080545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260917-080545.md) — Cost
-- … and 8201 more
+- … and 8202 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
