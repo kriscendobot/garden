@@ -20,3 +20,13 @@ so a re-run never double-posts. Report the archive path and the posted comment
 URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-17T15:18:52Z
