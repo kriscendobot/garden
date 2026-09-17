@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T06:03:59Z_
+_As of 2026-09-17T06:06:11Z_
 
 ## Latest
 
@@ -2711,19 +2711,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden2-5bcdff64.md)
 
-> Rolling deploy HALTED on a failed canary.
-> canary host: endolin-garden2-5bcdff64
-> target sha:  7e3e8018e6267d94bf40269528eba97d46f68ab6
-> failing signal: retries exhausted after re-validation kept failing
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on endolin-garden2-5bcdff64, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-17T05:26:11Z, cleared 2026-09-17T06:05:07Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> retrying canary endolin-garden2-5bcdff64 (attempt 1/3); clearing prior page.
 
 - `msg-garden-gauntlet-reexport-policy-check-c841557cb265` — from gardener:garden-gauntlet-reexport-policy-check, reply_to `garden-gauntlet-reexport-policy-check` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-gauntlet-reexport-policy-check-c841557cb265.md)
 
@@ -4411,18 +4403,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.1M | $582.24 _(notional, rate-card)_ | 54% of 143.0M (ok) |
-| Codex | 19.9M _(+483.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Claude | 77.1M | $583.19 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 19.9M _(+484.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (1)
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
-- [`endojs-endo-but-for-bots-pr1226-review-2fc247cc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1226-review-2fc247cc.md) — Review directive on endojs/endo-but-for-bots PR #1226
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #695
 - [`endojs-endo-but-for-bots-pr1125-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1125
 - [`endojs-endo-but-for-bots-pr1125-review-b786506c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1125-review-b786506c.md) — Review directive on endojs/endo-but-for-bots PR #1125
+- [`endojs-endo-but-for-bots-pr1226-review-2fc247cc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-review-2fc247cc.md) — Review directive on endojs/endo-but-for-bots PR #1226
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #84
 
 ### tada (8188)
