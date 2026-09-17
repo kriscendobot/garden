@@ -38,6 +38,7 @@ Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
 <!-- garden-plain-retry-not-before: 2026-09-17T22:13:42Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=159,124 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
