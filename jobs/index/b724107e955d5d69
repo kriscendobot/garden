@@ -1,2 +1,2 @@
-base: improve-post-job-normalize-template-role
+base: improve-post-job-push-loop-wallclock-deadline
 identity: mentor:scripts/jobs/post-job.sh
