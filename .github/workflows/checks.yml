@@ -97,3 +97,4 @@ jobs:
           bash scripts/jobs/test/assert-pinned-base-test.sh
           bash scripts/jobs/test/gauntlet-resume-test.sh
           bash scripts/jobs/test/reputation-reduce-incremental-test.sh
+          bash scripts/jobs/test/alert-maintainer-edge-test.sh

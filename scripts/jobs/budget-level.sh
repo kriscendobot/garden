@@ -38,6 +38,17 @@ dwell_reset() { local f; f="$(_dwell_file "$1" "$2")"; mkdir -p "$(dirname "$f")
 uncalibrated() { case "$(printf %s "${1:-}" | tr '[:upper:]' '[:lower:]')" in ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0;; *) return 1;; esac; }
 pool_failure() { log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4; failure isolated (fail-open)"; }
 
+# Edge-latched preflight-freeze reporting. A config freeze (a missing/invalid
+# physical cap, an uncalibrated pool) recurs on every leveling tick for as long as
+# the operator leaves the configuration wrong; logging and alerting it each tick
+# floods the journal and the maintainer inbox with one identical notice per
+# cadence. report_freeze delegates the durable fingerprint and inbox dedup to
+# alert_maintainer_edge (common.sh) — which fires only when the freeze BEGINS or
+# its reason CHANGES — and gates the local WARN on the same edge. report_unfreeze
+# emits exactly one recovery notice when valid configuration returns.
+report_freeze()   { if alert_maintainer_edge "$1" "$2" "$3"; then log "WARN: $3"; fi; }
+report_unfreeze() { if alert_maintainer_edge_clear "$1" "$2"; then log "$2"; fi; }
+
 # Input rows: id, weight, floor, cap. Implements bounded Hamilton apportionment.
 apportion() { awk -F '\t' -v total="$1" '
  {id[++n]=$1;w[n]=$2+0;a[n]=$3+0;cap[n]=$4+0;left-=a[n]}
@@ -81,7 +92,7 @@ if [ -n "$schema_bad" ];then mv=0;bad="$schema_bad";fi
 [[ "$mf" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="invalid monk fleet ceiling '$mf'"; }; [ "$n" -gt 0 ]||{ mv=0;bad="no enabled Anthropic weekly pools"; }
 for((i=0;i<n;i++));do h="${phosts[i]}";c="${pcaps[i]}";p="${pprov[i]}"; [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}; uncalibrated "$p"&&{ mv=0;bad="${pools[i]} uncalibrated provenance '${p:-none}'";}; [[ "${mcap[$h]:-}" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} missing/invalid monk physical cap";continue;}; sum=$((sum+mcap[$h]));done
 if [[ "$mf" =~ ^[1-9][0-9]*$ ]];then [ "$mf" -ge $((n*GARDEN_BUDGET_LEVEL_MIN)) ]||{ mv=0;bad="monk fleet ceiling below aggregate floor";};[ "$sum" -ge "$mf" ]||{ mv=0;bad="monk fleet ceiling exceeds physical capacity";};fi
-if [ "$mv" -eq 1 ];then rows="";for((i=0;i<n;i++));do h="${phosts[i]}";rows+="$h"$'\t'"${pcaps[i]}"$'\t'"$GARDEN_BUDGET_LEVEL_MIN"$'\t'"${mcap[$h]}"$'\n';done;while IFS=$'\t' read -r h x;do mceil["$h"]="$x";done < <(printf %s "$rows"|apportion "$mf");else log "WARN: fleet monk allocation frozen: $bad";alert_maintainer budget-level-monk-preflight "budget-level: fleet monk allocation frozen: $bad. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.";fi
+if [ "$mv" -eq 1 ];then rows="";for((i=0;i<n;i++));do h="${phosts[i]}";rows+="$h"$'\t'"${pcaps[i]}"$'\t'"$GARDEN_BUDGET_LEVEL_MIN"$'\t'"${mcap[$h]}"$'\n';done;while IFS=$'\t' read -r h x;do mceil["$h"]="$x";done < <(printf %s "$rows"|apportion "$mf");report_unfreeze budget-level-monk-preflight "budget-level: fleet monk allocation recovered on $GARDEN; a calibrated, physically-backed monk configuration returned and leveling has resumed.";else report_freeze budget-level-monk-preflight "$bad" "fleet monk allocation frozen: $bad. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.";fi
 
 cutoff="$(meter_window_cutoff anchor 2>/dev/null)"&&cutrc=0||{ cutrc=$?;cutoff=""; }
 apply_target(){ # pool host kind current target reason signal-value limit provenance sensor

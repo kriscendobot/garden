@@ -2000,6 +2000,51 @@ alert_maintainer_clear() {
   return 0
 }
 
+# alert_maintainer_edge <dedup-key> <fingerprint> <message> — edge-latched
+# escalation for a fault that RECURS on every controller tick while an operator
+# leaves it in place (a frozen preflight, a missing physical cap). Alerting each
+# tick floods the inbox with one identical notice per cadence even through
+# alert_maintainer's coalescing (the folded count climbs forever and never
+# closes). Persist a <fingerprint> of the fault under the key instead, and deliver
+# via alert_maintainer ONLY when the stored fingerprint is absent (the fault
+# BEGINS) or differs from <fingerprint> (the fault CHANGES) — a steady, unchanged
+# fault stays silent after its first notice, while a genuinely new reason
+# re-alerts at once (the throttle marker is cleared on a change so delivery is
+# immediate, not deferred to the next window). Returns 0 when it fired (the edge),
+# 1 when it suppressed, so a caller may gate its own log line on the same edge.
+# Pair with alert_maintainer_edge_clear on the happy path for one recovery notice.
+# Never fails its caller for I/O reasons.
+alert_maintainer_edge() {
+  local key="$1" fp="$2" msg="$3"
+  local skey="${key//[^A-Za-z0-9._-]/_}"
+  local dir="$GARDEN_STATE/alerts" ffile prev=""
+  ffile="$dir/$skey.fingerprint"
+  mkdir -p "$dir" 2>/dev/null || true
+  [ ! -f "$ffile" ] || prev="$(cat "$ffile" 2>/dev/null || true)"
+  [ "$prev" != "$fp" ] || return 1
+  if printf '%s\n' "$fp" > "$ffile.tmp" 2>/dev/null; then mv "$ffile.tmp" "$ffile" 2>/dev/null || true; fi
+  # A changed fingerprint is a fresh incident: clear the throttle marker so
+  # alert_maintainer delivers now rather than swallowing it inside the open window.
+  rm -f "$dir/$skey.last" 2>/dev/null || true
+  alert_maintainer "$key" "$msg"
+  return 0
+}
+
+# alert_maintainer_edge_clear <dedup-key> [message] — clear an edge-latched fault:
+# drop the fingerprint and emit ONE recovery notice via alert_maintainer_clear,
+# but ONLY if a fault was latched. Returns 1 (no-op) otherwise, so a caller may
+# put it on its happy path and gate a recovery log line on the return. Never fails
+# its caller.
+alert_maintainer_edge_clear() {
+  local key="$1" msg="${2:-}"
+  local skey="${key//[^A-Za-z0-9._-]/_}"
+  local ffile="$GARDEN_STATE/alerts/$skey.fingerprint"
+  [ -f "$ffile" ] || return 1
+  rm -f "$ffile" 2>/dev/null || true
+  alert_maintainer_clear "$key" "$msg"
+  return 0
+}
+
 # note_provider_quota <context> [text] — record ONE observation of the fleet-level
 # provider quota condition, from whichever unit happened to trip it. The canonical
 # phrase leads the message so alert_maintainer's classifier always fires (keying is
