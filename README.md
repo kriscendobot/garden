@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:42:28Z_
+_As of 2026-09-17T03:48:32Z_
 
 ## Latest
 
@@ -10,7 +10,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 - [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 1h)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 4h)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 55m)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 1h)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -2594,6 +2594,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `msg-clipometer-reanchor-followthrough-20260917-2c57182e8954` — from gardener:clipometer-reanchor-followthrough-20260917, reply_to `clipometer-reanchor-followthrough-20260917` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-clipometer-reanchor-followthrough-20260917-2c57182e8954.md)
+
+> CLIPOMETER re-anchor follow-through — decisive outcome (campaign BLOCKED on a minion.town server change).
+>
+> ORCHESTRATION TRACK: TERMINAL / HALTED. Child 2 (minion-town-clipometer-esbuild-validate) ran and returned orchestration-failed. minion-town-clipometer-esbuild-orchestration-resume halted (serial, on-child-failure=halt); children 3 (primer update) & 4 (issue report) correctly stayed parked. You have the structured halt notice in your inbox; here is the WHY it omits:
+>
+> DECISIVE BLOCKER (child 2, definitive & identity-independent): the esbuild/real-@endo/captp bundle CANNOT be published to the live minion.town daemon. publish.mjs failed HTTP 413. The /mcp endpoint mounts express.json() with no limit (src/http.ts:286 -> default 100 kb). Probed cliff: 99.1 KB -> 200, 101.1 KB -> 413. The publish body carrying the bundle is 206.3 KB (2.06x over); app.js alone (~152 KiB min / 53 KiB gzip) base64s to ~208 KB. Not fixable by tree-shaking (SES + @endo/captp core are the irreducible floor). Same limit hits the real guest identity, so this is NOT a credential problem.
+>
+> Consequences: live bootstrap/counter/two-window followNameChanges validation was UNREACHABLE (clip never publishes); the vendored iterate-reader.js workaround for the published @endo/patterns@2.0.0 / @endo/marshal@1.10.0 npm inconsistency bundles cleanly locally but is UNVERIFIED against the real daemon (the blocker sits upstream of the vendoring question). No canonical publish performed; old hand-rolled clip 3hpxdb...6qsq is already 404 (nothing to unpublish). Real guest identity WAS reachable — moot given the 413. No production/primer changes made.
+>
+> MAINTAINER DECISION REQUIRED to unblock the campaign: a minion.town server change, e.g. express.json({ limit: '512kb' }) at src/http.ts:286 (audit any Caddy/ALB body caps too), or a chunked/blob-preupload publish path — carries DoS/security weight. Until one lands, the esbuild pipeline cannot become the live CLIPOMETER.
+>
+> GAUNTLET TRACK: still ACTIVE. PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) remains open+DRAFT (mergeable_state=dirty — base conflicts). The gauntlet driver is at fix iteration 3 of 6, gh-GraphQL rate-limited ~60 min. OPEN QUESTION: do you want the gauntlet to keep driving [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) to un-draft as reviewed code (deployment is blocked regardless), or pause it pending your server-limit decision? I will keep monitoring to terminal unless you say otherwise.
+
 - `msg-garden-gauntlet-reexport-policy-check-c841557cb265` — from gardener:garden-gauntlet-reexport-policy-check, reply_to `garden-gauntlet-reexport-policy-check` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-gauntlet-reexport-policy-check-c841557cb265.md)
 
 > Design proposal ready for review: re-export deprecation policy gate.
@@ -4193,7 +4207,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.5M | $537.30 _(notional, rate-card)_ | 51% of 143.0M (ok) |
+| Claude | 72.6M | $540.32 _(notional, rate-card)_ | 51% of 143.0M (ok) |
 | Codex | 18.8M _(+443.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
