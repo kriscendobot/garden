@@ -20,6 +20,7 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Shepherd. 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=90 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
