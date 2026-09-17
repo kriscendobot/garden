@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T03:21:05Z_
+_As of 2026-09-17T03:26:02Z_
 
 ## Latest
 
@@ -8,9 +8,9 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 46m)
+- [endojs/endo#3073](https://github.com/endojs/endo/pull/3073) — feat(patterns): Add `M.choose` (waiting 51m)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 3h)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 34m)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 39m)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 5d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
@@ -4163,12 +4163,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.8M | $532.98 _(notional, rate-card)_ | 50% of 143.0M (ok) |
-| Codex | 18.8M _(+443.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
+| Claude | 71.9M | $534.39 _(notional, rate-card)_ | 50% of 143.0M (ok) |
+| Codex | 18.8M _(+443.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`clipometer-reanchor-followthrough-20260917`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/clipometer-reanchor-followthrough-20260917.md) — ---
 
 ### doin (7)
 - [`ironhorse-ocap-closure-templates`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-closure-templates.md) — ---
