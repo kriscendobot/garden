@@ -40,7 +40,17 @@ Before posting any GitHub-rendered text, scan it for:
 
 Keep the human-readable identifier as the link text where it aids reading (`` [`owner/repo`](https://github.com/owner/repo) ``); a plain `https://` URL is also fine. Do not double-wrap a reference that is already a link.
 
+## Referring without linking (suppressing an autolink)
+
+The rule above governs a reference you want a reader to *follow*. The dual case is a reference you want to *mention* without a live link — most often when you have **already** fully-qualified the target once in the same text and just want to hark back to that number without re-hyperlinking it (and, for a cross-repo number, without GitHub silently re-linking a bare `#N` to the wrong repo). Two reliable ways to suppress GitHub's autolinking of `#N`:
+
+- **A space after the hash:** `# 96` — GitHub only autolinks a hash immediately followed by digits, so a space breaks the pattern.
+- **Backtick (code-span) quoting:** `` `#96` `` — renders the literal `#96` as inline code, with no autolink.
+
+A backslash (`` \#96 ``) does **not** work. Prefer the backtick form: it also visually marks the token as a reference and matches how the fleet already writes numbers in prose (`` `#1125` ``). Reach for suppression only when you have a genuine reason to un-link (a back-reference already linked once, or a literal number being discussed); a first, followable reference still gets the fully-qualified URL of the rule above.
+
 ## Notes
 
 - Maintainer directive, 2026-07-20 (kriskowal, on garden issue [#57](https://github.com/kriskowal/garden/issues/57#issuecomment-5026079913)): "Please revise all references above to fully qualified URLs. Please take this advice generally when communicating through Github."
 - This applies fleet-wide to every role that authors GitHub-rendered text (`fixer`, `builder`, `weaver`, `shepherd`, `conductor`, `designer`, `triager`, `gardener`, and the like). It is indexed alongside the other standing-style skills in `roles/COMMON.md` § House style.
+- The *Referring without linking* section is collaborator guidance from dckc, 2026-09-17 (garden issue [#89](https://github.com/kriskowal/garden/issues/89#issuecomment-5717076414)): a back-reference to a number already fully-linked earlier in the same comment can be un-linked with a space (`# 96`) or backticks (`` `#96` ``) rather than forced into a second explicit per-number link.
