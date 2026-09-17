@@ -65,3 +65,13 @@ REVOCATION (a range of a revoked mount view revokes with it).
 Verify per skills/local-verify and pre-push gates: at minimum
 `packages/{daemon,git,platform}` lint + lint:types + relevant ava. Push and keep
 the PR draft. Report what changed and whether the clean-break child can proceed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-17T02:02:35Z
