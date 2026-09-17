@@ -1,9 +1,28 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: policy-refusal
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-17T00:43:35Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-17T00:43:35Z
+---
+
+---
 role: builder
 tier: mentor
 token-budget: 250000
 ---
-<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:46:10Z cleared=none -->
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:48:34Z cleared=none -->
 
 ---
 role: builder
@@ -12,7 +31,7 @@ fallback-tier: minion
 dispatch: automatic
 ---
 
-# Repair Ironhorse engine defect c6c71d428a37088c (target `differential_regexp_surface`) and amend the standing PR
+# Repair Ironhorse engine defect fad9672dc7a6e6be (target `differential_source`) and amend the standing PR
 
 The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS
 engine port produce incorrect behaviour or abort. Own BOTH a load-bearing
@@ -20,20 +39,20 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 
 ## Recorded reproducer (bounded metadata — never paste the input bytes into a prompt or a shell command)
 
-- Target: `differential_regexp_surface` (one of the maintained ironhorse-fuzz targets)
+- Target: `differential_source` (one of the maintained ironhorse-fuzz targets)
 - Project SHA under test: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
 - Toolchain: `nightly-2026-08-15`
-- Minimized input sha256: `272379d23e2d29e2be4eb5db911281739f46a446eedbaa78c36b06dee0f66500` (5 bytes)
-- Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/c6c71d428a37088c/input.bin`
-- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/c6c71d428a37088c.md`
-- Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp_surface <input> -- -runs=1`
+- Minimized input sha256: `676e2c8aa6e7d449bd966554684840708b84656330fadc8b69bff829ef18c94b` (6 bytes)
+- Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/fad9672dc7a6e6be/input.bin`
+- Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/fad9672dc7a6e6be.md`
+- Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_source <input> -- -runs=1`
 
 ## Procedure
 
 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
 2. Recover the minimized input to a FILE without inlining it into any prompt:
    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
-   durable artifact path above. Verify `sha256sum` equals `272379d23e2d29e2be4eb5db911281739f46a446eedbaa78c36b06dee0f66500`.
+   durable artifact path above. Verify `sha256sum` equals `676e2c8aa6e7d449bd966554684840708b84656330fadc8b69bff829ef18c94b`.
 3. Set up the pinned `ironhorse-fuzz` environment (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
    see the ironhorse-fuzz-build-setup runbook) and confirm the incorrect behaviour or abort
    from that file before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
@@ -46,20 +65,6 @@ regression case AND the causal fix, then amend the ONE standing pull request.
    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
    and run its required gauntlet.
-7. Document THIS case and its solution in the standing PR body or a PR comment (finding c6c71d428a37088c).
+7. Document THIS case and its solution in the standing PR body or a PR comment (finding fad9672dc7a6e6be).
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
-
-<!-- garden-reaped: 0 -->
-
-<!-- garden-policy-refusal -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T00:39:16Z

@@ -53,13 +53,5 @@ the generator-family metadata fix landed).
 - `yarn workspace @endo/hardened262 test:xs` green locally.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=1453 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-17T00:10:28Z
+
+<!-- garden-reaped: 1 -->
