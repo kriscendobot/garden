@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-17T05:03:26Z_
+_As of 2026-09-17T05:13:55Z_
 
 ## Latest
 
@@ -3471,6 +3471,37 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
+- `msg-ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5-fb3d178c1e1f` — from gardener:ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5, reply_to `ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5-fb3d178c1e1f.md)
+
+> FLEET-WIDE GitHub credential regression — bot PAT lost write access.
+>
+> While running gauntlet panel round 5 on [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100), the panel
+> DECIDED cleanly (panel.sh exit 0, disposition **must-fix**, 30 seats fanned:
+> 15 must-fix / 7 comment / 8 approve; durably recorded in the panel-run record
+> bc4aa7a2ab73.md). But I could NOT post the verdict: every GitHub write as
+> kriscendobot returns HTTP 403 "Resource not accessible by personal access token":
+>   - gh pr review --request-changes  → 403 (addPullRequestReview)
+>   - gh pr review --comment          → 403
+>   - POST /pulls/1100/reviews (REST) → 403
+>   - POST /issues/1100/comments      → 403 (plain PR comment also blocked)
+>
+> Round 4's review was posted fine ~1h ago (2026-09-17T03:39Z) by the same
+> kriscendobot identity, so the fine-grained PAT appears to have been rotated or
+> downgraded (lost Pull requests: write / Issues: write on endojs/endo-but-for-bots).
+> Collaborator level still shows pull/push/triage=true, so git-contents pushes may
+> still work, but no PR/issue/review writes do.
+>
+> Impact: the ENTIRE fleet's ability to post reviews/comments/undraft on GitHub is
+> blocked until the token is restored. This gauntlet (and any other) cannot advance.
+>
+> Action needed: restore the kriscendobot fine-grained PAT's Pull requests + Issues
+> write permission on endojs/endo-but-for-bots (and confirm the wrapper resolves it),
+> then this panel-5 stage can be resumed to post the recorded must-fix verdict.
+>
+> I am NOT emitting the job-complete signal (deliverable unposted); the stage will
+> requeue and resume cheaply (seats are cached in the panel record) once the token
+> is fixed.
+
 - `msg-ironhorse-fuzz-repromote-quarantined-1719457af4c6` — from gardener:ironhorse-fuzz-repromote-quarantined, reply_to `ironhorse-fuzz-repromote-quarantined` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-fuzz-repromote-quarantined-1719457af4c6.md)
 
 > ironhorse-fuzz repromote: STOPPED after the bounded probe — the reword does NOT fix the refusal on Anthropic, and this job is superseded by design.
@@ -4207,27 +4238,27 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.3M | $558.37 _(notional, rate-card)_ | 53% of 143.0M (ok) |
-| Codex | 19.3M _(+460.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Claude | 76.7M | $569.47 _(notional, rate-card)_ | 54% of 143.0M (ok) |
+| Codex | 19.3M _(+461.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (5)
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #84
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1100
 - [`endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr695-gauntlet-23a03130-pinned-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #695
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-rbra-clean-break-20260916.md) — ---
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
+- [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #84
 
-### tada (8178)
+### tada (8179)
+- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-5.md) — Completion report
 - [`minion-town-clipometer-esbuild-pipeline-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-fix-4.md) — Completion report — gauntlet FIX round 4, kriscendobot/minion.town PR #84
 - [`claude-on-minion-town-press-20260917-045013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/claude-on-minion-town-press-20260917-045013.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260917-043521`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260917-043521.md) — Completion report
 - [`ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-4.md) — Completion report
-- [`minion-town-clipometer-esbuild-pipeline-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-clipometer-esbuild-pipeline-gauntlet-panel-4.md) — Completion report
-- … and 8173 more
+- … and 8174 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
