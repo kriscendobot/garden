@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-17T05:43:37Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-17T05:43:37Z
+---
+
+---
 role: builder
 tier: mentor
 handler-timeout: 7200
@@ -44,15 +64,3 @@ end the report with these exact lines in order:
 
 <<<GARDEN-ORCHESTRATION-FAILED>>>
 <<<GARDEN-JOB-COMPLETE>>>
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-17T03:31:23Z

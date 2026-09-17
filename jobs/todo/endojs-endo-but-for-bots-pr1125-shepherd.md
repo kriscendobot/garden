@@ -20,13 +20,5 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Shepherd. 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=90 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-17T05:37:59Z
+
+<!-- garden-reaped: 1 -->
