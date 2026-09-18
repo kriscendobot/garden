@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: conductor
+tier: minion
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-18T22:13:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-18T22:13:09Z
+---
+
+---
 role: conductor
 dispatch: automatic
 tier: minion
@@ -32,19 +53,3 @@ mechanical rebase, not this narrowing — so if the exact-head approval gate sta
 `merge blocked: no maintainer approval`, that is the correct, desired surfacing:
 stall and let the maintainer approve the narrowed head rather than force-merging a
 changed security surface. On `ci red`, stall `ci red: needs shepherd`.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-18T22:03:05Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T22:03:43Z
