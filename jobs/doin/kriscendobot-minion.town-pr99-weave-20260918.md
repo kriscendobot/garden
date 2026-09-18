@@ -10,3 +10,13 @@ The PR is APPROVED by kriskowal (2026-09-18T00:35Z) but a merge attempt stalled 
 Task: rebase the PR head onto current origin/main and resolve that conflict, preserving the PR's intent (pinned Claude harness provisioning). Push the rebased head. Do NOT merge — after the weave the maintainer must re-approve the rewritten head before a merge job can land it. Leave the PR un-drafted.
 
 Scope: kriscendobot/minion.town only; no identity switch, no ferry.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T03:09:52Z
