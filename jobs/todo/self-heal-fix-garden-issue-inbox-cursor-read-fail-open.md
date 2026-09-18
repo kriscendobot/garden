@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 `scripts/jobs/issue-inbox-watcher.sh:386` reads the poll cursor with a bare command substitution under `set -euo pipefail`:
@@ -12,13 +13,6 @@ This exact bug class was found and fixed **twice** today in `triager.sh` (`73c24
 While in there, apply the identical fix to the two sibling watchers with the same unguarded pattern (same bug, not yet triggered but latent): `scripts/jobs/comment-watcher.sh:423` and `scripts/jobs/mention-watcher.sh:83`.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=9 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T23:35:51Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T23:53:14Z -->
