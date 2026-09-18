@@ -1,7 +1,8 @@
 ---
 handler-budget-role: review
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -43,13 +44,6 @@ directive:
 Never state in your report that a peer did work you did not verify.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T04:26:09Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T04:43:05Z -->
