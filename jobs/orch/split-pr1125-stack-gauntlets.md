@@ -1,4 +1,5 @@
 ---
+child-split-pr1125-1304-gauntlet-shepherd-failure-notified: true
 child-split-pr1125-1304-gauntlet-shepherd-host: endolin-garden-ece02cb4
 child-split-pr1125-1304-gauntlet-shepherd-reap-count: 0
 order: serial
