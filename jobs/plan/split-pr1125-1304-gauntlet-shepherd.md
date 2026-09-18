@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-18T00:03:11Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-18T00:03:11Z
+---
+
+---
 role: gardener
 tier: mentor
 ---
@@ -32,27 +53,3 @@ serial, not parallel):
   eslint are the local green signal.
 
 Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
-
-
-
-
-
-
-
-
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-17T23:53:14Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=31,53 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-17T23:53:19Z
