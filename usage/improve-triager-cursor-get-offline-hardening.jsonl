@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":9,"elapsed_s":54,"input_tokens":18,"output_tokens":3544,"cache_creation_tokens":41461,"cache_read_tokens":415861,"total_cost_usd":0.7143184999999999,"ts":"2026-09-18T05:24:26Z","base":"improve-triager-cursor-get-offline-hardening","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
