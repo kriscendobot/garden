@@ -31,6 +31,7 @@ are downstream follow-ups owned by the press/orchestration, not this conduct job
 
 Scope: endojs/endo-but-for-bots only. No identity switch, no ferry (bot-identity merge).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
