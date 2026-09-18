@@ -30,6 +30,7 @@ Merging this PR completes arc item 1 (the Claude harness provisioning + upgrade 
 PR: https://github.com/kriscendobot/minion.town/pull/99
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
