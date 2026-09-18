@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: conductor
+tier: minion
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-18T17:53:13Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-18T17:53:13Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -65,19 +87,3 @@ predicate; report the block rather than overriding the guard by hand.
 
 After #1304 lands, #1306 (2/3) and then #1305 (3/3) need retarget/rebase and their
 own gauntlets. Report that as a follow-up; the conductor does not post it.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-18T17:43:03Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T17:43:06Z
