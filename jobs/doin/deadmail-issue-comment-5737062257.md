@@ -55,3 +55,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-573706225
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T23:03:35Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T23:08:44Z
