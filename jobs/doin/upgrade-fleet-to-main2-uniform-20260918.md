@@ -111,11 +111,11 @@ Per host: starting sha, target sha, how it was deployed, final sha, drain state,
 and the positive evidence that it resumed claiming. Then the fleet's final
 uniformity. Name anything you deliberately did not touch and why.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T05:33:17Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
