@@ -17,6 +17,7 @@ Place it so it fires before cleanup's EXIT trap runs (both fire; ERR first, then
 <!-- garden-plain-retry-not-before: 2026-09-18T21:43:08Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
