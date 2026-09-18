@@ -10,3 +10,13 @@ Repo kriscendobot-minion.town advanced e7b3b5a..45e43bb, landing a new tools/cla
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T07:53:05Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T07:53:24Z
