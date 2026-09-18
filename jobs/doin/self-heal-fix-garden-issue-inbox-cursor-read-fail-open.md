@@ -17,6 +17,7 @@ While in there, apply the identical fix to the two sibling watchers with the sam
 <!-- garden-plain-retry-not-before: 2026-09-18T23:53:14Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=9,36 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
