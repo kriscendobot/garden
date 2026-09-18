@@ -144,7 +144,7 @@ END="$(date +%s.%N)"
 echo "  gardeners finished in $(awk "BEGIN{printf \"%.1f\", $END-$START}")s"
 
 V="$TR/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
-ntada=$(ls -1 "$V/jobs/tada" | grep -vxc '.gitkeep' || true)
+ntada=$(find "$V/jobs/tada" -type f -name '*.md' 2>/dev/null | grep -c . || true)   # date-sharded
 ntodo=$(ls -1 "$V/jobs/todo" | grep -vxc '.gitkeep' || true)
 ndoin=$(ls -1 "$V/jobs/doin" | grep -vxc '.gitkeep' || true)
 nwork=$(ls -1 "$V/work"      | grep -vxc '.gitkeep' || true)
@@ -161,11 +161,11 @@ nclaim_u=$(git -C "$V" log --pretty=%s | grep -oE '^claim\([^)]+\)' | sort -u | 
   || bad "claims=$nclaim distinct=$nclaim_u (want $NJOBS/$NJOBS)"
 
 # concurrency evidence: >1 gardener completed work, and intervals overlap
-ngard=$(grep -h '^gardener:' "$V"/jobs/tada/job-* | awk '{print $2}' | sort -u | grep -c . || true)
+ngard=$(grep -rh '^gardener:' "$V/jobs/tada" | awk '{print $2}' | sort -u | grep -c . || true)
 [ "$ngard" -gt 1 ] && ok "$ngard distinct gardeners contributed" || bad "only $ngard gardener(s) contributed"
 
 overlap=$(
-  for f in "$V"/jobs/tada/job-*; do
+  find "$V/jobs/tada" -type f -name 'job-*' | while IFS= read -r f; do
     g=$(awk '/^gardener:/{print $2}' "$f"); s=$(awk '/^start_epoch:/{print $2}' "$f"); e=$(awk '/^end_epoch:/{print $2}' "$f")
     echo "$g $s $e"
   done | awk '

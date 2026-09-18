@@ -55,7 +55,7 @@ V="$TR/verify"
 board() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; \
   ls -1 "$V/$1" 2>/dev/null | grep -vx '.gitkeep' | sed 's/\.md$//' | sort | tr '\n' ' '; }
 in_dir()   { board "$1" | tr ' ' '\n' | grep -qx "$2"; }
-tada_body(){ rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/tada/$1.md" 2>/dev/null; }
+tada_body(){ rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; local f; f="$(find "$V/jobs/tada" -type f -name "$1.md" -print -quit 2>/dev/null)"; cat "${f:-$V/jobs/tada/$1.md}" 2>/dev/null; }   # date-sharded
 tick() { "$JOBS/gauntlet.sh" >"$TR/tick.log" 2>&1 || { echo "  (gauntlet.sh rc=$? — see below)"; cat "$TR/tick.log"; }; }
 
 hr; echo "HALT — a floating-base PR is refused before any review spend"; hr

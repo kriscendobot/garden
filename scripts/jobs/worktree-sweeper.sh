@@ -114,7 +114,9 @@ done
 # terminality with the live GitHub state; open PR jobs are expected to have been
 # removed by complete-job.sh and are retained here on any ambiguity.
 if under_limit; then
-  for file in "$CLONE/$JOBS_TADA"/*.md; do
+  # Flat AND date-sharded reports (completion writers use tada_write_path now).
+  tada_recs="$(tada_list "$CLONE" | sed "s#^#$CLONE/#")"
+  for file in $tada_recs; do
     [ -e "$file" ] || continue
     sweep_terminal_base "$(basename "$file" .md)" "$file" true
     under_limit || break

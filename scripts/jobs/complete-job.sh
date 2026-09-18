@@ -146,14 +146,18 @@ record_reputation_event() {
 # rather than giving up and stranding the job in doin.
 for attempt in $(seq 1 100); do
   sync_clone "$DIR"
-  mkdir -p "$DIR/$JOBS_TADA"
-  cp "$report" "$DIR/$JOBS_TADA/$base.md"
+  # Date-sharded write path, chosen once per attempt at write time and frozen
+  # into the committed path (designs/date-sharded-tada.md §2). Readers locate it
+  # via the fallback-tolerant tada_find/tada_find_tree helpers.
+  tada_rel="$(tada_write_path "$base")"
+  mkdir -p "$DIR/$(dirname "$tada_rel")"
+  cp "$report" "$DIR/$tada_rel"
   if $orchestration_failed; then
     # The worker emits an exact signal, not a machine-parsed Markdown field.
     # Remove that signal and stamp a leading YAML field ourselves so formatting
     # choices in the human report cannot change the child disposition.
-    sed -i "/^${GARDEN_ORCHESTRATION_FAILURE_MARKER}$/d" "$DIR/$JOBS_TADA/$base.md"
-    sed -i '1i---\norchestration-failed: true\n---' "$DIR/$JOBS_TADA/$base.md"
+    sed -i "/^${GARDEN_ORCHESTRATION_FAILURE_MARKER}$/d" "$DIR/$tada_rel"
+    sed -i '1i---\norchestration-failed: true\n---' "$DIR/$tada_rel"
   fi
   if [ -n "$handed_off" ]; then
     # A declared handoff is completion of the TRANSFER, not of the original
@@ -164,10 +168,10 @@ for attempt in $(seq 1 100); do
       exit "$GARDEN_HANDOFF_UNVERIFIED_RC"
     fi
     handoff_marker="$GARDEN_HANDOFF_MARKER_PREFIX $handed_off>>>"
-    awk -v marker="$handoff_marker" '$0 != marker { print }' "$DIR/$JOBS_TADA/$base.md" \
-      > "$DIR/$JOBS_TADA/$base.md.handoff" \
-      && mv "$DIR/$JOBS_TADA/$base.md.handoff" "$DIR/$JOBS_TADA/$base.md"
-    sed -i "1i---\nhanded-off: $handed_off\ndeliverable-complete: false\n---" "$DIR/$JOBS_TADA/$base.md"
+    awk -v marker="$handoff_marker" '$0 != marker { print }' "$DIR/$tada_rel" \
+      > "$DIR/$tada_rel.handoff" \
+      && mv "$DIR/$tada_rel.handoff" "$DIR/$tada_rel"
+    sed -i "1i---\nhanded-off: $handed_off\ndeliverable-complete: false\n---" "$DIR/$tada_rel"
   fi
   # The final engagement rides this same completion CAS.  Only append while the
   # doin claim exists: a retry after a successful transition must re-stamp the
@@ -177,9 +181,9 @@ for attempt in $(seq 1 100); do
   fi
   # An agent can copy a stale/fake block into its report.  Strip it wholesale and
   # derive the replacement exclusively from the external journal ledger.
-  sed -i '/<!-- garden-usage-begin:/,/<!-- garden-usage-end -->/d' "$DIR/$JOBS_TADA/$base.md"
-  usage_footer "$DIR" "$base" >> "$DIR/$JOBS_TADA/$base.md" 2>/dev/null || true
-  git -C "$DIR" add "$JOBS_TADA/$base.md"
+  sed -i '/<!-- garden-usage-begin:/,/<!-- garden-usage-end -->/d' "$DIR/$tada_rel"
+  usage_footer "$DIR" "$base" >> "$DIR/$tada_rel" 2>/dev/null || true
+  git -C "$DIR" add "$tada_rel"
 
   # --- reputation event (design §4.5) -----------------------------------------
   # Record ONE reputation event for this completed base, keyed to the arm that ran

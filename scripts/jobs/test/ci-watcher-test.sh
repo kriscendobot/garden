@@ -124,7 +124,9 @@ board_has() {  # board_has <bare> <base>  -> 0 if job present in todo/doin/tada
   local v; v="$(mktemp -d "$TR/bv.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
   local rc=1 s
-  for s in todo doin tada; do [ -e "$v/jobs/$s/$2.md" ] && rc=0; done
+  for s in todo doin; do [ -e "$v/jobs/$s/$2.md" ] && rc=0; done
+  # tada is date-sharded (retire writer uses tada_write_path): search recursively.
+  find "$v/jobs/tada" -type f -name "$2.md" -print -quit 2>/dev/null | grep -q . && rc=0
   rm -rf "$v"; return $rc
 }
 todo_count() {  # todo_count <bare>  -> non-gitkeep entries in jobs/todo
@@ -135,7 +137,13 @@ todo_count() {  # todo_count <bare>  -> non-gitkeep entries in jobs/todo
 in_lane() {  # in_lane <bare> <lane> <base>  -> 0 if jobs/<lane>/<base>.md present
   local v rc=1; v="$(mktemp -d "$TR/il.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
-  [ -e "$v/jobs/$2/$3.md" ] && rc=0; rm -rf "$v"; return $rc
+  if [ "$2" = tada ]; then
+    # tada is date-sharded: resolve <base>.md anywhere under jobs/tada.
+    find "$v/jobs/tada" -type f -name "$3.md" -print -quit 2>/dev/null | grep -q . && rc=0
+  else
+    [ -e "$v/jobs/$2/$3.md" ] && rc=0
+  fi
+  rm -rf "$v"; return $rc
 }
 # The deterministic completion marker the retirement report must carry so the board
 # records the stale shepherd as GENUINELY done (mirrors common.sh GARDEN_COMPLETION_MARKER).
@@ -143,8 +151,9 @@ CMARK='<<<GARDEN-JOB-COMPLETE>>>'
 tada_has_marker() {  # tada_has_marker <bare> <base>  -> 0 if tada report's last non-blank line is the marker
   local v rc=1 last; v="$(mktemp -d "$TR/tm.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
-  if [ -e "$v/jobs/tada/$2.md" ]; then
-    last="$(awk 'NF{l=$0} END{print l}' "$v/jobs/tada/$2.md")"
+  local f; f="$(find "$v/jobs/tada" -type f -name "$2.md" -print -quit 2>/dev/null)"
+  if [ -n "$f" ]; then
+    last="$(awk 'NF{l=$0} END{print l}' "$f")"
     [ "$last" = "$CMARK" ] && rc=0
   fi
   rm -rf "$v"; return $rc

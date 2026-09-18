@@ -460,9 +460,11 @@ finish_orch() {  # <base> <summary-file>
     if [ ! -e "$DIR/$JOBS_ORCH/$base.md" ] && tada_exists "$DIR" "$base"; then
       return 0   # already finished on a prior tick
     fi
-    mkdir -p "$DIR/$JOBS_TADA"
-    cp "$summary" "$DIR/$JOBS_TADA/$base.md"
-    git -C "$DIR" add "$JOBS_TADA/$base.md"
+    # Date-sharded write path, frozen at write time (designs/date-sharded-tada.md §2).
+    tada_rel="$(tada_write_path "$base")"
+    mkdir -p "$DIR/$(dirname "$tada_rel")"
+    cp "$summary" "$DIR/$tada_rel"
+    git -C "$DIR" add "$tada_rel"
     [ -e "$DIR/$JOBS_ORCH/$base.md" ] && git -C "$DIR" rm -q "$JOBS_ORCH/$base.md"
     # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
     # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
@@ -924,7 +926,10 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
 # `halted-resumed` is skipped.
 resume_recovered_halts() {
   local rec base status failed_child remainder resume_base view loc snapshot jf ts kid still_parked path attempt rc
-  for rec in "$DIR/$JOBS_TADA"/*.md; do
+  # Enumerate every tada report, flat AND date-sharded (writers switched to
+  # tada_write_path — a bare $JOBS_TADA/*.md glob would miss sharded halts).
+  local _recs; _recs="$(tada_list "$DIR" | sed "s#^#$DIR/#")"
+  for rec in $_recs; do
     [ -f "$rec" ] || continue
     status="$(plan_field "$rec" orchestration-status)"
     case "$status" in halted|halted-superseded) ;; *) continue;; esac
@@ -1007,7 +1012,10 @@ resume_recovered_halts() {
 # steady-state tick does at most one cheap `sed` read per tada file.
 supersede_stale_halts() {
   local rec base attempt path progressed child view loc ts rc
-  for rec in "$DIR/$JOBS_TADA"/*.md; do
+  # Enumerate every tada report, flat AND date-sharded (writers switched to
+  # tada_write_path — a bare $JOBS_TADA/*.md glob would miss sharded halts).
+  local _recs; _recs="$(tada_list "$DIR" | sed "s#^#$DIR/#")"
+  for rec in $_recs; do
     [ -f "$rec" ] || continue
     [ "$(plan_field "$rec" orchestration-status)" = halted ] || continue
     [ -n "$(plan_field "$rec" halt-parked-remainder)" ] || continue

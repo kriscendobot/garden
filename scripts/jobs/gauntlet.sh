@@ -212,9 +212,11 @@ finish_gauntlet() {  # <base> <summary-file>
     if [ ! -e "$DIR/$JOBS_GAUNTLET/$base.md" ] && tada_exists "$DIR" "$base"; then
       return 0   # already finished on a prior tick
     fi
-    mkdir -p "$DIR/$JOBS_TADA"
-    cp "$summary" "$DIR/$JOBS_TADA/$base.md"
-    git -C "$DIR" add "$JOBS_TADA/$base.md"
+    # Date-sharded write path, frozen at write time (designs/date-sharded-tada.md §2).
+    tada_rel="$(tada_write_path "$base")"
+    mkdir -p "$DIR/$(dirname "$tada_rel")"
+    cp "$summary" "$DIR/$tada_rel"
+    git -C "$DIR" add "$tada_rel"
     [ -e "$DIR/$JOBS_GAUNTLET/$base.md" ] && git -C "$DIR" rm -q "$JOBS_GAUNTLET/$base.md"
     rc=0; commit_and_push "$DIR" "gauntlet($base) finished → tada by $GARDEN" || rc=$?
     [ "$rc" -eq 0 ] && return 0

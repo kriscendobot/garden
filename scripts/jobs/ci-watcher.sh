@@ -237,7 +237,9 @@ retire_stale_shepherd() {  # retire_stale_shepherd <base> <verdict-phrase>
       log "stale-shepherd $base no longer unclaimed in todo/ (claimed or completed) — leaving it"
       return 2
     fi
-    mkdir -p "$RETIRE/$JOBS_TADA"
+    # Date-sharded write path, frozen at write time (designs/date-sharded-tada.md §2).
+    tada_rel="$(tada_write_path "$base")"
+    mkdir -p "$RETIRE/$(dirname "$tada_rel")"
     {
       printf '# shepherd (auto) retired: CI recovered/settled before claim\n\n'
       printf 'CI recovered/settled before claim — nothing to shepherd; ci-watcher retired\n'
@@ -248,8 +250,8 @@ retire_stale_shepherd() {  # retire_stale_shepherd <base> <verdict-phrase>
       printf 'no-longer-red CI, and exit-0-unsatisfying.\n\n'
       printf 'Retired by: ci-watcher stale-shepherd re-validation sweep on %s.\n\n' "$GARDEN"
       printf '%s\n' "$GARDEN_COMPLETION_MARKER"
-    } > "$RETIRE/$JOBS_TADA/$base.md"
-    git -C "$RETIRE" add "$JOBS_TADA/$base.md"
+    } > "$RETIRE/$tada_rel"
+    git -C "$RETIRE" add "$tada_rel"
     git -C "$RETIRE" rm -q "$JOBS_TODO/$base.md"
     rc=0; commit_and_push "$RETIRE" "tada($base) retired stale auto-shepherd by $GARDEN (CI $phrase)" || rc=$?
     [ "$rc" -eq 0 ] && return 0

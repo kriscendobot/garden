@@ -97,9 +97,25 @@ source "$JOBS/common.sh"
 V="$TR/verify"
 board() {  # board <subdir> → basenames present (no .gitkeep, no .md)
   rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
-  ls -1 "$V/$1" 2>/dev/null | grep -v -x '.gitkeep' | sed 's/\.md$//' | sort | tr '\n' ' '
+  if [ "$1" = jobs/tada ]; then
+    # tada is date-sharded now (writers use tada_write_path): list every report by
+    # basename regardless of its <yyyy>/<mm>/<dd> shard, plus any legacy flat entry.
+    find "$V/jobs/tada" -type f -name '*.md' -printf '%f\n' 2>/dev/null \
+      | sed 's/\.md$//' | sort | tr '\n' ' '
+  else
+    ls -1 "$V/$1" 2>/dev/null | grep -v -x '.gitkeep' | sed 's/\.md$//' | sort | tr '\n' ' '
+  fi
 }
 in_dir() { board "$1" | tr ' ' '\n' | grep -qx "$2"; }   # in_dir <subdir> <base>
+# Resolve a report's ACTUAL path under a fresh $V clone, flat or date-sharded, so
+# assertions that grep an orchestration/gauntlet completion report follow it into
+# its shard. Re-clones $V (mirrors board); falls back to the flat path when absent
+# so a genuine "no report" negative assertion still greps a nonexistent file.
+tada_report() {  # tada_report <base> → path under $V
+  rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+  local p; p="$(find "$V/jobs/tada" -type f -name "$1.md" -print -quit 2>/dev/null)"
+  printf '%s\n' "${p:-$V/jobs/tada/$1.md}"
+}
 notice_with_fields() {  # <literal-field>... — true when one unread notice has all fields
   local f field found
   for f in "$V/inbox/maintainer/unread"/*.md; do
@@ -268,11 +284,21 @@ tick   # all done → orchestration completes
 { in_dir jobs/tada orch-serial && ! in_dir jobs/orch orch-serial; } \
   && ok "tick 5: all children done → orchestration completed (tada/orch-serial, record removed)" \
   || bad "tick 5: orch not completed (tada=[$(board jobs/tada)] orch=[$(board jobs/orch)])"
-{ grep -q '^Child dispositions:' "$V/jobs/tada/orch-serial.md" \
-  && grep -q '^- s-a: tada report present; no machine-readable failure declaration detected$' "$V/jobs/tada/orch-serial.md" \
-  && ! grep -q '^All children succeeded\.$' "$V/jobs/tada/orch-serial.md"; } \
+{ grep -q '^Child dispositions:' "$(tada_report orch-serial)" \
+  && grep -q '^- s-a: tada report present; no machine-readable failure declaration detected$' "$(tada_report orch-serial)" \
+  && ! grep -q '^All children succeeded\.$' "$(tada_report orch-serial)"; } \
   && ok "completion report restates scoped child dispositions instead of blanket success" \
   || bad "completion report retained a confident blanket-success assertion"
+# Stage-2 proof: the completion WRITER lands the report at a DATE-SHARDED path
+# (jobs/tada/<yyyy>/<mm>/<dd>/<base>.md), never the legacy flat jobs/tada/<base>.md.
+sp="$(tada_report orch-serial)"     # re-clones $V, resolves the actual path
+case "$sp" in
+  */jobs/tada/[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/orch-serial.md)
+    [ ! -e "$V/jobs/tada/orch-serial.md" ] \
+      && ok "the completion writer landed the report at a date shard, not the flat path" \
+      || bad "a flat jobs/tada/orch-serial.md also exists (writer did not switch cleanly)" ;;
+  *) bad "orchestration completion is not date-sharded: $sp" ;;
+esac
 notice_with_fields 'orchestration-event: orchestration-terminal' \
   'orchestration: orch-serial' 'orchestration-status: complete' \
   && ok "successful unbudgeted completion emits a structured terminal notice" \
@@ -367,17 +393,17 @@ notice_with_fields 'orchestration: orch-halt' 'orchestration-status: halted' \
   || bad "halt notice lacks structured terminal/failure fields"
 
 # the halt summary carries the failure marker
-grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
+grep -qi '^orchestration-status: halted' "$(tada_report orch-halt)" 2>/dev/null \
   && ok "halt summary marks orchestration-status: halted" \
   || bad "halt summary missing status marker"
-grep -q 'Left 2 not-yet-run downstream child(ren) parked' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
+grep -q 'Left 2 not-yet-run downstream child(ren) parked' "$(tada_report orch-halt)" 2>/dev/null \
   && ok "halt summary names the recoverable parked remainder" \
   || bad "halt summary does not record the parked remainder"
 
 # the halt summary carries a MACHINE-READABLE remainder for the supersede pass
-grep -qx 'halt-parked-remainder: h-b h-c' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
+grep -qx 'halt-parked-remainder: h-b h-c' "$(tada_report orch-halt)" 2>/dev/null \
   && ok "halt summary emits machine-readable halt-parked-remainder" \
-  || bad "halt summary missing machine-readable halt-parked-remainder (got: $(grep -i parked-remainder "$V/jobs/tada/orch-halt.md" 2>/dev/null))"
+  || bad "halt summary missing machine-readable halt-parked-remainder (got: $(grep -i parked-remainder "$(tada_report orch-halt)" 2>/dev/null))"
 
 # ============================================================================
 hr; echo "SUBTEST 3b — SUPERSEDE: a halt record is corrected when its parked children later run"; hr
@@ -387,7 +413,7 @@ promote_and_complete_externally h-b
 promote_and_complete_externally h-c
 tick                      # supersede pass should correct the stale halt record
 
-sup="$V/jobs/tada/orch-halt.md"; board jobs/tada >/dev/null   # refresh $V
+sup="$(tada_report orch-halt)"; board jobs/tada >/dev/null   # refresh $V
 grep -qx 'orchestration-status: halted-superseded' "$sup" 2>/dev/null \
   && ok "stale halt flipped to orchestration-status: halted-superseded" \
   || bad "halt not superseded (status: $(grep -i '^orchestration-status:' "$sup" 2>/dev/null))"
@@ -429,7 +455,7 @@ tick                      # all terminal → complete-with-failures
 { in_dir jobs/tada orch-cont && ! in_dir jobs/orch orch-cont; } \
   && ok "orchestration completed after continue-past-failure" \
   || bad "continue: orch not completed (tada=[$(board jobs/tada)] orch=[$(board jobs/orch)])"
-grep -qi 'complete-with-failures' "$V/jobs/tada/orch-cont.md" 2>/dev/null \
+grep -qi 'complete-with-failures' "$(tada_report orch-cont)" 2>/dev/null \
   && ok "completion summary records the continued-past failure" \
   || bad "completion summary missing complete-with-failures marker"
 
@@ -473,7 +499,7 @@ in_dir jobs/tada orch-doom || { pois_ok=0; echo "    halt summary not written"; 
 { [ "$pois_ok" -eq 1 ]; } \
   && ok "doomed parked child read as FAILED: not re-promoted, work preserved in plan/, run halted" \
   || bad "doom-park: todo=[$(board jobs/todo)] plan=[$(board jobs/plan)] orch=[$(board jobs/orch)] tada=[$(board jobs/tada)]"
-grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-doom.md" 2>/dev/null \
+grep -qi '^orchestration-status: halted' "$(tada_report orch-doom)" 2>/dev/null \
   && ok "doomed-child halt summary marks orchestration-status: halted" \
   || bad "doom-park halt summary missing status marker"
 
@@ -573,7 +599,7 @@ tick                            # reaps 3 EXCEEDS the limit (2), no progress hin
 stall_ok=1
 in_dir jobs/tada orch-stall || stall_ok=0
 in_dir jobs/todo r-b && stall_ok=0
-grep -q 'stalled after 3 requeues on host stall-host' "$V/jobs/tada/orch-stall.md" 2>/dev/null || stall_ok=0
+grep -q 'stalled after 3 requeues on host stall-host' "$(tada_report orch-stall)" 2>/dev/null || stall_ok=0
 grep -rqi 'stalled after 3 requeues on host stall-host' "$V/inbox/maintainer/unread" 2>/dev/null || stall_ok=0
 [ "$stall_ok" -eq 1 ] && ok "a requeue streak past the limit with no progress hint stalls, halts, and names its host" \
   || bad "requeue stall not surfaced correctly (tada=$(board jobs/tada), todo=$(board jobs/todo))"
@@ -595,7 +621,7 @@ tick
 time_ok=1
 in_dir jobs/tada orch-time || time_ok=0
 in_dir jobs/todo t-b && time_ok=0
-grep -q 'stalled in flight' "$V/jobs/tada/orch-time.md" 2>/dev/null || time_ok=0
+grep -q 'stalled in flight' "$(tada_report orch-time)" 2>/dev/null || time_ok=0
 [ "$time_ok" -eq 1 ] && ok "expired handler-timeout is a deterministic stalled child" \
   || bad "handler-timeout stall not detected (tada=$(board jobs/tada), todo=$(board jobs/todo))"
 notice_with_fields 'orchestration: orch-time' \
@@ -641,8 +667,8 @@ in_dir jobs/tada orch-exact || exact_ok=0
 in_dir jobs/orch orch-exact && exact_ok=0
 in_dir jobs/plan e-a || exact_ok=0
 in_dir jobs/plan e-b || exact_ok=0
-grep -q '^orchestration-status: budget-exhausted' "$V/jobs/tada/orch-exact.md" 2>/dev/null || exact_ok=0
-grep -q '^campaign-parked-children: e-a e-b' "$V/jobs/tada/orch-exact.md" 2>/dev/null || exact_ok=0
+grep -q '^orchestration-status: budget-exhausted' "$(tada_report orch-exact)" 2>/dev/null || exact_ok=0
+grep -q '^campaign-parked-children: e-a e-b' "$(tada_report orch-exact)" 2>/dev/null || exact_ok=0
 [ "$exact_ok" -eq 1 ] && ok "spend == cap closed budget-exhausted without sweeping the visible remainder" \
   || bad "exact-cap state mismatch (plan=$(board jobs/plan), tada=$(board jobs/tada))"
 
@@ -659,8 +685,8 @@ tick
 over_ok=1
 in_dir jobs/tada orch-over || over_ok=0
 in_dir jobs/plan o-b || over_ok=0
-grep -q '^campaign-overshoot-tokens: 20' "$V/jobs/tada/orch-over.md" 2>/dev/null || over_ok=0
-grep -q '^campaign-unspent-tokens: 0' "$V/jobs/tada/orch-over.md" 2>/dev/null || over_ok=0
+grep -q '^campaign-overshoot-tokens: 20' "$(tada_report orch-over)" 2>/dev/null || over_ok=0
+grep -q '^campaign-unspent-tokens: 0' "$(tada_report orch-over)" 2>/dev/null || over_ok=0
 [ "$over_ok" -eq 1 ] && ok "post-child overshoot reported and next child remained parked" \
   || bad "overshoot state/report mismatch"
 
@@ -682,13 +708,13 @@ in_dir jobs/todo m-unmetered || meter_ok=0
 in_dir jobs/tada orch-unmetered && meter_ok=0
 in_dir jobs/tada orch-malformed || meter_ok=0
 in_dir jobs/plan m-malformed || meter_ok=0
-grep -q '^orchestration-status: budget-meter-incomplete' "$V/jobs/tada/orch-malformed.md" 2>/dev/null || meter_ok=0
+grep -q '^orchestration-status: budget-meter-incomplete' "$(tada_report orch-malformed)" 2>/dev/null || meter_ok=0
 complete_child m-unmetered
 tick
 in_dir jobs/tada orch-unmetered || meter_ok=0
-grep -q '^orchestration-status: complete' "$V/jobs/tada/orch-unmetered.md" 2>/dev/null || meter_ok=0
-grep -q '^campaign-unmetered-engagements: 1' "$V/jobs/tada/orch-unmetered.md" 2>/dev/null || meter_ok=0
-grep -q 'Recorded token spend excludes 1 unmetered engagement' "$V/jobs/tada/orch-unmetered.md" 2>/dev/null || meter_ok=0
+grep -q '^orchestration-status: complete' "$(tada_report orch-unmetered)" 2>/dev/null || meter_ok=0
+grep -q '^campaign-unmetered-engagements: 1' "$(tada_report orch-unmetered)" 2>/dev/null || meter_ok=0
+grep -q 'Recorded token spend excludes 1 unmetered engagement' "$(tada_report orch-unmetered)" 2>/dev/null || meter_ok=0
 [ "$meter_ok" -eq 1 ] && ok "unmetered rows permit dispatch and surface in the terminal report; malformed rows still fail closed" \
   || bad "unmetered/malformed campaign behavior mismatch"
 
@@ -703,8 +729,8 @@ append_usage n-a "{\"ts\":\"$now\",\"source\":\"result\",\"outcome\":\"tada\",\"
 tick
 unspent_ok=1
 in_dir jobs/tada orch-unspent || unspent_ok=0
-grep -q '^campaign-spend-tokens: 40' "$V/jobs/tada/orch-unspent.md" 2>/dev/null || unspent_ok=0
-grep -q '^campaign-unspent-tokens: 60' "$V/jobs/tada/orch-unspent.md" 2>/dev/null || unspent_ok=0
+grep -q '^campaign-spend-tokens: 40' "$(tada_report orch-unspent)" 2>/dev/null || unspent_ok=0
+grep -q '^campaign-unspent-tokens: 60' "$(tada_report orch-unspent)" 2>/dev/null || unspent_ok=0
 grep -rqi '60 token(s) remain unused' "$V/inbox/maintainer/unread" 2>/dev/null || unspent_ok=0
 [ "$unspent_ok" -eq 1 ] && ok "under-budget completion surfaced 60 unused tokens in report and maintainer inbox" \
   || bad "under-budget completion did not surface unused budget"
@@ -782,8 +808,8 @@ tick
 decl_ok=1
 in_dir jobs/tada orch-decl || decl_ok=0
 in_dir jobs/plan d-b || decl_ok=0
-grep -q 'completed but declared its gated outcome unsatisfied' "$V/jobs/tada/orch-decl.md" 2>/dev/null || decl_ok=0
-grep -q 'vanished from the board' "$V/jobs/tada/orch-decl.md" 2>/dev/null && decl_ok=0
+grep -q 'completed but declared its gated outcome unsatisfied' "$(tada_report orch-decl)" 2>/dev/null || decl_ok=0
+grep -q 'vanished from the board' "$(tada_report orch-decl)" 2>/dev/null && decl_ok=0
 [ "$decl_ok" -eq 1 ] \
   && ok "completed gated-failure child halted with its true disposition and left the remainder parked" \
   || bad "gated tada was misreported or destructive (plan=$(board jobs/plan))"
@@ -1090,7 +1116,7 @@ fail_child re-a             # re-a vanishes (doom-drop) → HALT next tick
 tick                        # detect failure → HALT, recording halt-failed-child: re-a
 resume_ready=1
 in_dir jobs/tada re-orch || resume_ready=0
-grep -qx 'halt-failed-child: re-a' "$V/jobs/tada/re-orch.md" 2>/dev/null || resume_ready=0
+grep -qx 'halt-failed-child: re-a' "$(tada_report re-orch)" 2>/dev/null || resume_ready=0
 { in_dir jobs/plan re-b && in_dir jobs/plan re-c; } || resume_ready=0
 [ "$resume_ready" -eq 1 ] \
   && ok "halt recorded the machine-readable blamed child and left the remainder parked" \
@@ -1104,11 +1130,11 @@ board jobs/plan >/dev/null
 grep -q '^orchestrated_by: re-orch-resume$' "$V/jobs/plan/re-b.md" 2>/dev/null || { resume_ok=0; echo "    re-b not retagged"; }
 grep -q '^orchestrated_by: re-orch-resume$' "$V/jobs/plan/re-c.md" 2>/dev/null || { resume_ok=0; echo "    re-c not retagged"; }
 board jobs/tada >/dev/null
-grep -qx 'orchestration-status: halted-resumed' "$V/jobs/tada/re-orch.md" 2>/dev/null || { resume_ok=0; echo "    halt record not flipped to halted-resumed"; }
-grep -q '^RESUMED ' "$V/jobs/tada/re-orch.md" 2>/dev/null || { resume_ok=0; echo "    no RESUMED addendum"; }
+grep -qx 'orchestration-status: halted-resumed' "$(tada_report re-orch)" 2>/dev/null || { resume_ok=0; echo "    halt record not flipped to halted-resumed"; }
+grep -q '^RESUMED ' "$(tada_report re-orch)" 2>/dev/null || { resume_ok=0; echo "    no RESUMED addendum"; }
 [ "$resume_ok" -eq 1 ] \
   && ok "the recovered blamed child triggered a resume orchestration over the parked remainder" \
-  || bad "resume did not fire (orch=$(board jobs/orch) plan=$(board jobs/plan) tada-status=$(grep -i '^orchestration-status:' "$V/jobs/tada/re-orch.md" 2>/dev/null))"
+  || bad "resume did not fire (orch=$(board jobs/orch) plan=$(board jobs/plan) tada-status=$(grep -i '^orchestration-status:' "$(tada_report re-orch)" 2>/dev/null))"
 # The resume orchestration now drives the remainder serially to completion.
 tick                        # promote re-b (resume campaign, serial)
 in_dir jobs/todo re-b || bad "resume campaign did not promote re-b (todo=$(board jobs/todo))"
@@ -1123,7 +1149,7 @@ tick                        # all remainder done → resume campaign completes
 # Idempotent: a further tick must not re-post or duplicate the resume.
 tick
 board jobs/tada >/dev/null
-n_res="$(grep -c '^RESUMED ' "$V/jobs/tada/re-orch.md" 2>/dev/null || echo 0)"
+n_res="$(grep -c '^RESUMED ' "$(tada_report re-orch)" 2>/dev/null || echo 0)"
 [ "$n_res" = 1 ] \
   && ok "resume is idempotent (exactly one RESUMED addendum, no duplicate campaign)" \
   || bad "resume not idempotent (RESUMED lines: $n_res)"

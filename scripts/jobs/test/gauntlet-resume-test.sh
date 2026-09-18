@@ -101,7 +101,9 @@ if [ -f "$record" ] && [ -f "$todo" ] \
 else
   bad "resume did not produce the expected record/todo ownership"
 fi
-generated_halt="$VERIFY/jobs/tada/g-generated-halt.md"
+# The driver-generated halt lands at a date-sharded path (tada_write_path).
+generated_halt="$(find "$VERIFY/jobs/tada" -type f -name 'g-generated-halt.md' -print -quit 2>/dev/null)"
+generated_halt="${generated_halt:-$VERIFY/jobs/tada/g-generated-halt.md}"
 if [ -f "$generated_halt" ] \
   && grep -qx 'gauntlet-status: halted' "$generated_halt" \
   && grep -qx 'pr: https://github.com/testowner/testrepo/pull/43' "$generated_halt" \
