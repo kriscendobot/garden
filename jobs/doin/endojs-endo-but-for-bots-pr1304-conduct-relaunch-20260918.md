@@ -70,6 +70,7 @@ not post it.
 <!-- garden-plain-retry-not-before: 2026-09-18T19:43:04Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=4,4 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
