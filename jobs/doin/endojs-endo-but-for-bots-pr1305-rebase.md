@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please rebase or weave, shepherd, retcon, conduct. 
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T22:52:40Z
