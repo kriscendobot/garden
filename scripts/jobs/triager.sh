@@ -466,16 +466,19 @@ CURSOR_KEY="activity/$slug"
 # that non-zero exit trip our `set -e` and hard-fail the whole unit (systemd logs
 # `Failed with result 'exit-code'`), which is exactly what garden-triager@* did
 # during the 2026-09-18 04:50–05:16Z journal-fetch outage while ci-watcher.sh
-# cleanly skipped. Capture the rc and, on an environmental failure, WARN and skip
-# this tick cleanly (retried next tick) rather than dying — the same fail-open
-# standard the repo-fetch path above already meets and approval-reconciler.sh uses.
+# cleanly skipped. Capture the rc and WARN-and-skip this tick cleanly (retried next
+# tick) on ANY nonzero rc, not just is_environmental_rc(rc): sync_clone also `die`s
+# with plain rc=1 whenever a journal fetch fails and the stderr doesn't match its
+# offline-signature list, and that list is necessarily incomplete (transport error
+# text varies across git/curl/OpenSSH versions) — observed hard-dying the unit at
+# 2026-09-18 16:25:40, outside the outage window the environmental-only guard
+# targeted. A cursor read is inherently best-effort (a stale/unreadable cursor just
+# re-triages next tick, never loses data), so no nonzero rc here should hard-crash
+# the unit — the same fail-open standard the repo-fetch path above already meets.
 if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
-  if is_environmental_rc "$rc"; then
-    log "WARN: journal unreachable reading cursor $CURSOR_KEY (rc=$rc) for $slug; skipping this tick"
-    exit 0
-  fi
-  die "cursor-get.sh failed for $CURSOR_KEY (rc=$rc)"
+  log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc) for $slug; skipping this tick"
+  exit 0
 fi
 old_sha="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_sha:[[:space:]]*//p' | head -1)"
 
@@ -491,16 +494,14 @@ fi
 # failure never perturbs last_sha — the main cursor stays at old_sha to re-triage,
 # and a newly-observed new_sha clears the breaker for free (its fail_sha won't match).
 FAIL_KEY="failcount/$slug"
-# Same offline guard as the activity cursor above: cursor-get.sh's sync_clone
-# `exit "$GARDEN_OFFLINE_RC"` on a journal outage would otherwise kill the unit
-# via our `set -e`. Skip the tick cleanly on an environmental failure.
+# Same fail-open guard as the activity cursor above: WARN-and-skip on ANY nonzero
+# rc (sync_clone `exit "$GARDEN_OFFLINE_RC"` on an offline journal, or a plain rc=1
+# `die` when a failed fetch's stderr misses the incomplete offline-signature list).
+# A cursor read is best-effort, so no nonzero rc should hard-crash the unit.
 if fail_state="$("$HERE/cursor-get.sh" "$FAIL_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
-  if is_environmental_rc "$rc"; then
-    log "WARN: journal unreachable reading cursor $FAIL_KEY (rc=$rc) for $slug; skipping this tick"
-    exit 0
-  fi
-  die "cursor-get.sh failed for $FAIL_KEY (rc=$rc)"
+  log "WARN: cursor read failed for $FAIL_KEY (rc=$rc) for $slug; skipping this tick"
+  exit 0
 fi
 fail_sha="$(printf '%s\n' "$fail_state" | sed -n 's/^fail_sha:[[:space:]]*//p' | head -1)"
 fail_count="$(printf '%s\n' "$fail_state" | sed -n 's/^fail_count:[[:space:]]*//p' | head -1)"
