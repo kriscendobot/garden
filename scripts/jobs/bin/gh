@@ -50,6 +50,26 @@ while IFS= read -r cand; do
 done < <(type -aP gh 2>/dev/null)
 [ -n "$real_gh" ] || { printf 'gh-wrapper: no real gh found on PATH after %s\n' "$self" >&2; exit 127; }
 
+# --- default timeout bound on every real-gh invocation -------------------------
+# The real `gh` runs as a FOREGROUND child of this wrapper, so a hung invocation
+# (stalled TCP connect, DNS stall, blocked credential-helper prompt) runs
+# unbounded — no caller's EXIT/TERM trap can reap it until it returns, which is
+# how garden-comment-watcher@ blew its 900s TimeoutStartSec and then needed a hard
+# SIGKILL past its 20s stop window (2026-09-18 04:22). Bounding it HERE — the one
+# PATH chokepoint every fleet gh call crosses — gives every fleet `gh` call
+# (direct, via gh_api_retry, or via a handler script) hang protection without
+# auditing every call site. `$_gh_timeout[@]` is a command PREFIX prepended to
+# each real-gh exec below; it is empty (a no-op) when `timeout` is unavailable or
+# when the bound is disabled with GARDEN_GH_TIMEOUT=0, so behavior is unchanged
+# for anyone who opts out. timeout returns 124 on expiry (137 if the --kill-after
+# SIGKILL was needed), which callers already treat as a gh failure.
+: "${GARDEN_GH_TIMEOUT:=60}"
+: "${GARDEN_GH_KILL_AFTER:=10}"
+_gh_timeout=()
+if [ "$GARDEN_GH_TIMEOUT" != 0 ] && _gh_to="$(command -v timeout 2>/dev/null)" && [ -n "$_gh_to" ]; then
+  _gh_timeout=("$_gh_to" --signal=TERM --kill-after="${GARDEN_GH_KILL_AFTER}s" "${GARDEN_GH_TIMEOUT}s")
+fi
+
 # gh_is_write — true (rc 0) when argv is a STATE-CHANGING gh invocation. Used only
 # in the unresolved-token fallback below to decide fail-closed vs degrade. The set
 # is the mutating surface the fleet actually drives: pr/issue lifecycle verbs, the
@@ -149,7 +169,7 @@ fi
 # resolved identity's live token. `env -u GH_TOKEN` keeps the token lookup itself
 # from being skewed by any inherited GH_TOKEN.
 if [ -z "${GH_TOKEN:-}" ]; then
-  if tok="$(env -u GH_TOKEN "$real_gh" auth token --user "$GARDEN_GH_IDENTITY" 2>/dev/null)" && [ -n "$tok" ]; then
+  if tok="$(env -u GH_TOKEN "${_gh_timeout[@]}" "$real_gh" auth token --user "$GARDEN_GH_IDENTITY" 2>/dev/null)" && [ -n "$tok" ]; then
     export GH_TOKEN="$tok"
   elif gh_is_write "$@"; then
     # Could not resolve the intended identity's token AND this is a mutating call.
@@ -197,7 +217,7 @@ if [ -r "$_prjm_lib" ]; then
      && pr_job_marker_rewrite_argv "$@" 2>/dev/null; then
     # A `pr create` is never a comment, so the provenance step below would no-op on
     # it — run the marked argv directly (not exec, so the temp body file is cleaned).
-    "$real_gh" "${PRJM_NEWARGV[@]}"; _prjm_rc=$?
+    "${_gh_timeout[@]}" "$real_gh" "${PRJM_NEWARGV[@]}"; _prjm_rc=$?
     declare -f pr_job_marker_cleanup >/dev/null 2>&1 && pr_job_marker_cleanup
     exit "$_prjm_rc"
   fi
@@ -238,10 +258,10 @@ if [ -r "$_prov_lib" ]; then
   . "$_prov_lib" 2>/dev/null || true
   if declare -f provenance_rewrite_argv >/dev/null 2>&1 \
      && provenance_rewrite_argv "$@" 2>/dev/null; then
-    "$real_gh" "${PROV_NEWARGV[@]}"; _prov_rc=$?
+    "${_gh_timeout[@]}" "$real_gh" "${PROV_NEWARGV[@]}"; _prov_rc=$?
     declare -f provenance_cleanup >/dev/null 2>&1 && provenance_cleanup
     exit "$_prov_rc"
   fi
 fi
 
-exec "$real_gh" "$@"
+exec "${_gh_timeout[@]}" "$real_gh" "$@"
