@@ -11,6 +11,7 @@ issue-inbox-watcher.sh:386 calls `cursor-get.sh` in a bare pipeline (`"$HERE/cur
 <!-- garden-plain-retry-not-before: 2026-09-18T22:23:04Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
