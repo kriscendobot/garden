@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":99,"elapsed_s":2026,"input_tokens":188,"output_tokens":78933,"cache_creation_tokens":197660,"cache_read_tokens":12982187,"total_cost_usd":10.445095499999997,"ts":"2026-09-18T05:17:12Z","base":"date-sharded-tada-writer-switch","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer","provider":"anthropic"}
