@@ -65,11 +65,11 @@ not post it.
 
 
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T19:43:04Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=4,4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
