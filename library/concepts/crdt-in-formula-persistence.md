@@ -37,3 +37,4 @@ currently holds. The peer's job is to *replay* that set, not to
 
 - [[four-tables-coordinated-retention]] — the data model where CRDT shape lives.
 - [[retention-accumulator]] — the wire-level coalescing primitive that is *not* a CRDT.
+- [[gefs]] — a file system whose copy-on-write snapshots reclaim via ZFS-style deadlists (replay/merge of per-snapshot dead-block lists, no shared truth to converge on) — a different point in the reconcile-vs-replay space than a CRDT.
