@@ -90,3 +90,13 @@ themselves, route it per `skills/self-improvement` and stop that line.
 
 If the evidence fans out past this job's budget, write what is supported, post a
 follow-on scholar job for the remainder, and complete rather than overrunning.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T21:48:19Z
