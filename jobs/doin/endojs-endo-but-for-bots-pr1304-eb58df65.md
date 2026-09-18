@@ -48,6 +48,7 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-plain-retry-not-before: 2026-09-18T04:43:05Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
