@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-572501409
 @kriscendobot Please note that the `#99` reference above got expanded by Github’s user interface as a project relative issue/pull URL rather than a reference to the aforementioned fully qualified reference. As directed recently by dckc, please *always* render issues and pull re
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-18T04:15:26Z
