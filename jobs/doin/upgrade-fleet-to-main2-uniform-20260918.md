@@ -116,6 +116,7 @@ uniformity. Name anything you deliberately did not touch and why.
 <!-- garden-plain-retry-not-before: 2026-09-18T05:33:17Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
