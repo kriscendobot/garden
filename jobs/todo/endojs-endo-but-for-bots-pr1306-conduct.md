@@ -1,8 +1,9 @@
 ---
 role: conductor
 dispatch: automatic
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 ---
 # Conduct endojs/endo-but-for-bots#1306 — un-draft + merge (guest provisioning, 2/3 of #1125)
 
@@ -33,13 +34,6 @@ stall and let the maintainer approve the narrowed head rather than force-merging
 changed security surface. On `ci red`, stall `ci red: needs shepherd`.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T21:47:16Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T22:03:05Z -->
