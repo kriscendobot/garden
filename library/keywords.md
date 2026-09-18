@@ -130,3 +130,7 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - master capability, master web-key, capability bootstrap, last secret, borrowed-computer login -> web-keys
 - YURL, YURLs, public-key fingerprint hostname, self-authenticating URL -> web-keys
 - policy verification, confinement verification, Doerrie confinement proof, verification within a model -> distributed-confinement
+
+- Bεtree, Betree, Be-tree, B-epsilon tree, write-optimized B-tree, write buffer B-tree, pivot write buffer, upsert message, blind upsert, BetrFS tree -> betree
+- GEFS, Good Enough File System, gefs9, Plan 9 file system, 9p file system, CWFS, HJFS, fossil venti, copy-on-write file system -> gefs
+- deadlist, deadlist algorithm, birth generation, epoch-based reclamation, snapshot tree, qid namespace, base snapshot -> gefs
