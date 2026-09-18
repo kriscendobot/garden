@@ -11,6 +11,7 @@ Repo kriscendobot/minion.town. Low-severity supply-chain hardening surfaced by t
 
 Positive confirmations (do not need changes): verification mismatches ABORT (assert-based, CLI sets exitCode=1, output binary renamed only on the all-pass path — well tested in install.test.mjs); minion-mcp.service is well-hardened (loopback-only HOST=127.0.0.1 behind Caddy, non-root minion-mcp user, NoNewPrivileges/ProtectSystem=strict/ProtectHome/PrivateTmp/ReadOnlyPaths, no ANTHROPIC_*/CLAUDE_CODE_OAUTH_TOKEN in env, claude binary off-PATH and not spawned, secrets via 0600-root EnvironmentFiles); deploy-app.sh's new verification (artifact sha256sum -c, on-box `env -i` minimal-env claude --version/--help smoke as minion-mcp, root-owned read-only binary, atomic guarded promote/rollback) is sound.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
