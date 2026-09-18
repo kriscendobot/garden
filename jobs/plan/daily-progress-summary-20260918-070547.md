@@ -1,3 +1,23 @@
+---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 1
+doomed_at: 2026-09-18T07:43:10Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-18T07:43:10Z
+---
+
 Scheduled dispatch context (computed by the scheduler at fire time):
 
 - window_start: 2026-09-17T07:00:00Z (UTC, inclusive)
@@ -62,20 +82,3 @@ DST day is spanned correctly. It was flipped from the earlier fixed-interval
 midnight) once the anchored scheduler landed on the leader host; do not revert it
 to `daily` while any leader host still runs a pre-anchor scheduler, or that
 scheduler would treat the token as its weekly default.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-18T07:33:05Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
-<!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T07:33:31Z
