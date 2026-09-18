@@ -61,6 +61,7 @@ child 1 and will need re-driving. Report that as a follow-up; the conductor does
 not post it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
