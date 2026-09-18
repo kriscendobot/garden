@@ -23,3 +23,4 @@ Dialog-db's abstraction (the `dialog-storage` crate) that presents **one content
 - [[repository-branch-remote]] — the git-like layer whose remotes push to the `S3` backend defined here.
 - [[dialog-db]] — the local-first database this storage layer underpins.
 - [[persistence]] — Endo's formula-graph value persistence; a sibling notion of durable identity keyed on formula rather than content hash.
+- [[gefs]] — a Plan 9 copy-on-write file system that is merkelized but *not* content-addressed: block pointers hash their target for corruption detection, but blocks live at disk locations and there is no deduplication or content-defined chunking.
