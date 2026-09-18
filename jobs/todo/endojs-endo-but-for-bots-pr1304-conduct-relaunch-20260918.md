@@ -62,17 +62,7 @@ child 1 and will need re-driving. Report that as a follow-up; the conductor does
 not post it.
 
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-18T19:13:13Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=250 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-18T19:13:17Z
+
+<!-- garden-reaped: 0 -->
