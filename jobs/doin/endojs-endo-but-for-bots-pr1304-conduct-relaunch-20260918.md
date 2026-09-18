@@ -66,6 +66,7 @@ not post it.
 <!-- garden-plain-retry-not-before: 2026-09-18T19:13:13Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=250 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
