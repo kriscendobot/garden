@@ -73,3 +73,13 @@ CONTENT — headers, grouping, milestone tags, ordering, and per-PR
 paragraphs — ready to be turned into a page without further research.
 
 Report the landed path/commit in your completion.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T21:52:41Z
