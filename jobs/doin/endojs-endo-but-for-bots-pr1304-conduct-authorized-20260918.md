@@ -71,6 +71,7 @@ own gauntlets. Report that as a follow-up; the conductor does not post it.
 <!-- garden-plain-retry-not-before: 2026-09-18T17:43:03Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
