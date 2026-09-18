@@ -69,3 +69,13 @@ and the maintainer had to adjudicate a non-question.
 parallel under an explicit maintainer authorization, so #1304 is not waiting on this
 fix. The other six PRs on `llm-387ea66` will hit this same guard on their own
 conduct runs, which is why it is worth fixing rather than authorizing case by case.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-18T17:28:19Z
