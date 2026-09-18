@@ -22,6 +22,7 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 PR: https://github.com/kriscendobot/minion.town/pull/99
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
