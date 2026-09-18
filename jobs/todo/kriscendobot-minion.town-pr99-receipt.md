@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # receipt (auto) — completion receipt for kriscendobot/minion.town PR #99 (merged)
@@ -22,13 +23,6 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 PR: https://github.com/kriscendobot/minion.town/pull/99
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T07:06:34Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T07:23:10Z -->
