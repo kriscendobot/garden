@@ -74,6 +74,7 @@ arm from the helpers once the backlog is fully sharded) is explicitly OUT OF
 SCOPE for this job — it's cosmetic cleanup the design says can wait "at
 leisure." Flag it as a natural follow-up in your report; do not do it here.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
