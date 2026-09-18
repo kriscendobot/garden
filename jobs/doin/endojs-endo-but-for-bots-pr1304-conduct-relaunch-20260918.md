@@ -61,11 +61,11 @@ gauntlets; the serial orchestration `split-pr1125-stack-gauntlets` is HALTED at
 child 1 and will need re-driving. Report that as a follow-up; the conductor does
 not post it.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T19:13:13Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=250 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
