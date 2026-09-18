@@ -38,6 +38,7 @@ changed security surface. On `ci red`, stall `ci red: needs shepherd`.
 <!-- garden-plain-retry-not-before: 2026-09-18T22:03:05Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
