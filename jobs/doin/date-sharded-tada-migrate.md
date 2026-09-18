@@ -79,6 +79,7 @@ leisure." Flag it as a natural follow-up in your report; do not do it here.
 <!-- garden-plain-retry-not-before: 2026-09-18T05:33:17Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,6 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
