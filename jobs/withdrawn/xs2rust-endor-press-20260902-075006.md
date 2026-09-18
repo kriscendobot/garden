@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: PR endojs/endo-but-for-bots#600 (the xs2rust-endor arc deliverable) already merged; the xs2rust-endor-press schedule itself is already retired (absent from schedules/ and paused-schedules/) -- these are orphaned doomed instances from 2026-09-02 with nothing left to do. Maintainer directive (kriskowal, 2026-09-18).
+withdrawn_by: producer
+withdrawn_at: 2026-09-18T04:37:03Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
