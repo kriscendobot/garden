@@ -45,3 +45,13 @@ Report the landed commit sha and confirm deploy status is being tracked
 (the next job, migration, is blocked on this one actually being DEPLOYED
 fleet-wide, not merely landed on main2 — say so explicitly in your report so
 whoever unblocks the migration job checks deploy state, not just merge state).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T04:42:35Z
