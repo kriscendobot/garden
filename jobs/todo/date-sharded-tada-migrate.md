@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: date-sharded-tada-writer-switch
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-09-18T04:42:39Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-18T05:21:26Z cleared=none -->
 
 ---
 role: fixer
