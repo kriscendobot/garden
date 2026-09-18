@@ -70,6 +70,7 @@ parallel under an explicit maintainer authorization, so #1304 is not waiting on 
 fix. The other six PRs on `llm-387ea66` will hit this same guard on their own
 conduct runs, which is why it is worth fixing rather than authorizing case by case.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
