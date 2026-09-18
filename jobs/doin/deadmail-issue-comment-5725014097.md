@@ -57,3 +57,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-572501409
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T05:23:08Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T05:23:14Z
