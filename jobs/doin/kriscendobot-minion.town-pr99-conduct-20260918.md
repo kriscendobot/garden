@@ -28,3 +28,13 @@ Guards (re-verify before merging):
 Merging this PR completes arc item 1 (the Claude harness provisioning + upgrade obligation).
 
 PR: https://github.com/kriscendobot/minion.town/pull/99
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-18T06:32:49Z
