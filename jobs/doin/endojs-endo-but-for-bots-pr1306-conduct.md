@@ -33,11 +33,11 @@ mechanical rebase, not this narrowing — so if the exact-head approval gate sta
 stall and let the maintainer approve the narrowed head rather than force-merging a
 changed security surface. On `ci red`, stall `ci red: needs shepherd`.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T22:03:05Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
