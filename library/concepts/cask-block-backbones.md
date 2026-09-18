@@ -26,3 +26,4 @@ The two internal 32-way tree implementations every CASK block structure builds o
 - [[parallel-arrays-columnar]] — the columnar structures `arraytree` backs.
 - [[rabin-chunking]] — the chunking approach for sorted arrays, a sibling backbone strategy.
 - [[cask-operational-transform]] — the Keep/Skip/Inject primitive that rebuilds an `arraytree`.
+- [[betree]] — GEFS's write-buffered B+ tree; another block-structured tree, reaching cheap incremental change by write batching rather than content-defined boundaries.
