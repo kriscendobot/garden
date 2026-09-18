@@ -64,6 +64,7 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-plain-retry-not-before: 2026-09-18T14:43:04Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,6 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
