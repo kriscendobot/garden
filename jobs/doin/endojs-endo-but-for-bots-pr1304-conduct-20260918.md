@@ -30,3 +30,13 @@ After the merge lands, #1306 (2/3) and #1305 (3/3) become the remaining CapTP-ha
 are downstream follow-ups owned by the press/orchestration, not this conduct job.
 
 Scope: endojs/endo-but-for-bots only. No identity switch, no ferry (bot-identity merge).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-18T15:39:32Z
