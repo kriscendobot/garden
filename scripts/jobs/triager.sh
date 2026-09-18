@@ -460,7 +460,24 @@ fi
 # The poll cursor lives in the JOURNAL (durable + shared), not host-local state,
 # so a restarted or failed run resumes from the last committed position.
 CURSOR_KEY="activity/$slug"
-old_sha="$("$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_sha:[[:space:]]*//p' | head -1)"
+# cursor-get.sh calls sync_clone, which on a journal-connectivity outage does
+# `exit "$GARDEN_OFFLINE_RC"` (75, EX_TEMPFAIL) — an exit, not a return, that
+# terminates cursor-get.sh's process. A bare command substitution here would let
+# that non-zero exit trip our `set -e` and hard-fail the whole unit (systemd logs
+# `Failed with result 'exit-code'`), which is exactly what garden-triager@* did
+# during the 2026-09-18 04:50–05:16Z journal-fetch outage while ci-watcher.sh
+# cleanly skipped. Capture the rc and, on an environmental failure, WARN and skip
+# this tick cleanly (retried next tick) rather than dying — the same fail-open
+# standard the repo-fetch path above already meets and approval-reconciler.sh uses.
+if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
+if [ "$rc" -ne 0 ]; then
+  if is_environmental_rc "$rc"; then
+    log "WARN: journal unreachable reading cursor $CURSOR_KEY (rc=$rc) for $slug; skipping this tick"
+    exit 0
+  fi
+  die "cursor-get.sh failed for $CURSOR_KEY (rc=$rc)"
+fi
+old_sha="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_sha:[[:space:]]*//p' | head -1)"
 
 if [ "$old_sha" = "$new_sha" ]; then
   log "no change on $slug:$ref ($new_sha)"
@@ -474,7 +491,17 @@ fi
 # failure never perturbs last_sha — the main cursor stays at old_sha to re-triage,
 # and a newly-observed new_sha clears the breaker for free (its fail_sha won't match).
 FAIL_KEY="failcount/$slug"
-fail_state="$("$HERE/cursor-get.sh" "$FAIL_KEY")"
+# Same offline guard as the activity cursor above: cursor-get.sh's sync_clone
+# `exit "$GARDEN_OFFLINE_RC"` on a journal outage would otherwise kill the unit
+# via our `set -e`. Skip the tick cleanly on an environmental failure.
+if fail_state="$("$HERE/cursor-get.sh" "$FAIL_KEY")"; then rc=0; else rc=$?; fi
+if [ "$rc" -ne 0 ]; then
+  if is_environmental_rc "$rc"; then
+    log "WARN: journal unreachable reading cursor $FAIL_KEY (rc=$rc) for $slug; skipping this tick"
+    exit 0
+  fi
+  die "cursor-get.sh failed for $FAIL_KEY (rc=$rc)"
+fi
 fail_sha="$(printf '%s\n' "$fail_state" | sed -n 's/^fail_sha:[[:space:]]*//p' | head -1)"
 fail_count="$(printf '%s\n' "$fail_state" | sed -n 's/^fail_count:[[:space:]]*//p' | head -1)"
 case "$fail_count" in ''|*[!0-9]*) fail_count=0 ;; esac
