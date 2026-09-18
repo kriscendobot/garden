@@ -12,11 +12,11 @@ This exact bug class was found and fixed **twice** today in `triager.sh` (`73c24
 
 While in there, apply the identical fix to the two sibling watchers with the same unguarded pattern (same bug, not yet triggered but latent): `scripts/jobs/comment-watcher.sh:423` and `scripts/jobs/mention-watcher.sh:83`.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=9 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T23:53:14Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=9,36 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
