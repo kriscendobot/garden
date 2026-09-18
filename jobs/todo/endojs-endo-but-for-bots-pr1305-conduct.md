@@ -1,7 +1,8 @@
 ---
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Finalize (curate → merge) endojs/endo-but-for-bots PR #1305
@@ -44,13 +45,6 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/1305#pullrequestreview-5252602961
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T21:10:57Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T21:23:04Z -->
