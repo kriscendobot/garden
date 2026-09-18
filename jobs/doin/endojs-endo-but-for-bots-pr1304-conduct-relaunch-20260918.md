@@ -66,3 +66,13 @@ not post it.
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=250 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-18T19:23:13Z
