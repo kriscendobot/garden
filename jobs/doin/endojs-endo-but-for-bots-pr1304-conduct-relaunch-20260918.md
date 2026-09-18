@@ -63,10 +63,10 @@ not post it.
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=250 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
