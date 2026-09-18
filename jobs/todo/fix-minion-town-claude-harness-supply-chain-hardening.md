@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Repo kriscendobot/minion.town. Low-severity supply-chain hardening surfaced by the security review of the tools/claude-harness feature (range e7b3b5a..45e43bb, landed via PR #99). No High/Critical vulnerabilities were found; these are defense-in-depth improvements. Two items:
@@ -12,13 +13,6 @@ Repo kriscendobot/minion.town. Low-severity supply-chain hardening surfaced by t
 Positive confirmations (do not need changes): verification mismatches ABORT (assert-based, CLI sets exitCode=1, output binary renamed only on the all-pass path — well tested in install.test.mjs); minion-mcp.service is well-hardened (loopback-only HOST=127.0.0.1 behind Caddy, non-root minion-mcp user, NoNewPrivileges/ProtectSystem=strict/ProtectHome/PrivateTmp/ReadOnlyPaths, no ANTHROPIC_*/CLAUDE_CODE_OAUTH_TOKEN in env, claude binary off-PATH and not spawned, secrets via 0600-root EnvironmentFiles); deploy-app.sh's new verification (artifact sha256sum -c, on-box `env -i` minimal-env claude --version/--help smoke as minion-mcp, root-owned read-only binary, atomic guarded promote/rollback) is sound.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T07:57:49Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T08:13:10Z -->
