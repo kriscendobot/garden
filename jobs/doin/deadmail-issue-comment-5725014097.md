@@ -51,10 +51,10 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-572501409
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
