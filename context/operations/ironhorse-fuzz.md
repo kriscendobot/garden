@@ -1,6 +1,6 @@
 ---
 created: 2026-08-31
-updated: 2026-09-09
+updated: 2026-09-18
 author: gardener, designer
 ---
 
@@ -16,12 +16,16 @@ fix). This page is the operator's entry point; the mechanics live in
 [`designs/ironhorse-fuzz-triage-and-batch.md`](../../designs/ironhorse-fuzz-triage-and-batch.md)
 (the triage/batch/backpressure contract), and `scripts/jobs/ironhorse-fuzz.sh`.
 
-> **PAUSED AT ZERO PRIORITY (2026-09-09).** IronHorse is undergoing a large
-> external refactor. The garden does not run or advance any IronHorse work until a
-> trusted maintainer explicitly lifts the pause. `garden-ironhorse-fuzz.{timer,service}`
-> are in `PAUSED_UNITS` (`scripts/jobs/install-units.sh`), so every service reconcile
-> stops and disables them. The narrower 2026-08-31 fuzz-lane pause and the re-arming
-> checklist below remain historical prerequisites, not authority to resume. Source:
+> **General IronHorse pause LIFTED (2026-09-18); this fuzz lane stays disabled.**
+> The 2026-09-09 all-IronHorse pause was lifted by a trusted maintainer (kriskowal,
+> [garden issue #91](https://github.com/kriscendobot/garden/issues/91)) once the
+> external refactor completed, and `pause-project.sh status ironhorse` now reports
+> not paused. The continuous fuzz campaign does **not** auto-resume with that lift:
+> `garden-ironhorse-fuzz.{timer,service}` remain in `PAUSED_UNITS`
+> (`scripts/jobs/install-units.sh`), so every service reconcile stops and disables
+> them, and re-arming the lane is a deliberate operator action still gated by the
+> § Re-arming checklist below (the general lift satisfies its first prerequisite; the
+> narrower 2026-08-31 fuzz-lane prerequisite still applies). Source:
 > [garden issue #91](https://github.com/kriscendobot/garden/issues/91).
 
 Directive: kriskowal on endojs/endo-but-for-bots#1046 — *"move the fuzzer out of
