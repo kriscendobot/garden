@@ -2,8 +2,9 @@
 gate: go-ahead
 priority: high
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 handler-timeout: 7200
 token-budget: 250000
@@ -61,13 +62,6 @@ child 1 and will need re-driving. Report that as a follow-up; the conductor does
 not post it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T19:00:48Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T19:13:13Z -->
