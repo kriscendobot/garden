@@ -65,6 +65,7 @@ predicate; report the block rather than overriding the guard by hand.
 After #1304 lands, #1306 (2/3) and then #1305 (3/3) need retarget/rebase and their
 own gauntlets. Report that as a follow-up; the conductor does not post it.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
