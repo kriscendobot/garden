@@ -30,3 +30,4 @@ Content-defined chunking: splitting a byte stream into blocks at boundaries chos
 - [[parallel-arrays-columnar]] — the table whose sorted indexes can be Rabin-bounded.
 - [[cask-reducer-pattern]] — deterministic Rabin boundaries keep index transforms reducer-pure.
 - [[content-addressed-block-store]] — why localized invalidation matters for a content-addressed store.
+- [[betree]] — GEFS's write-optimized B+ tree; it localizes *writes* by buffering high in the tree, the contrasting strategy to Rabin's localize-the-Merkle-change (and GEFS does no content-defined chunking at all).
