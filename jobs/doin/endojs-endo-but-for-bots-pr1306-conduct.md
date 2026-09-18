@@ -33,6 +33,7 @@ stall and let the maintainer approve the narrowed head rather than force-merging
 changed security surface. On `ci red`, stall `ci red: needs shepherd`.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
