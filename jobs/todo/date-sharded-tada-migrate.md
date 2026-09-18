@@ -75,13 +75,6 @@ SCOPE for this job — it's cosmetic cleanup the design says can wait "at
 leisure." Flag it as a natural follow-up in your report; do not do it here.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T05:21:43Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T05:33:17Z -->
