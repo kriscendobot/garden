@@ -11,6 +11,7 @@ scripts/jobs/issue-inbox-watcher.sh:386 calls cursor-get.sh in a bare, unguarded
 <!-- garden-plain-retry-not-before: 2026-09-18T23:24:08Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=12,36 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
