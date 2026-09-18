@@ -1,7 +1,8 @@
 ---
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Merge endojs/endo-but-for-bots#1304 (slice 1/3 of the #1125 split)
@@ -32,13 +33,6 @@ are downstream follow-ups owned by the press/orchestration, not this conduct job
 Scope: endojs/endo-but-for-bots only. No identity switch, no ferry (bot-identity merge).
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T15:39:32Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T15:53:05Z -->
