@@ -164,3 +164,4 @@
 - [`networking`](networking.md): CASK's transport side (encrypted UDP, priority shedding) — the same 1KB block is the unit of transfer.
 - [`data-structures`](data-structures.md): the columnar parallel-array pattern CASK's tables share.
 - [`persistence`](persistence.md): Endo's formula-graph persistence — a different keying (formula identity vs content hash) for the same durable-identity problem.
+- [`file-systems`](file-systems.md): crash-safe on-disk file systems (GEFS) — merkelized copy-on-write B-trees that are deliberately *not* content-addressed (no dedup, no content-defined chunking); the cross-reference comparison to CASK's Rabin-chunked structures.
