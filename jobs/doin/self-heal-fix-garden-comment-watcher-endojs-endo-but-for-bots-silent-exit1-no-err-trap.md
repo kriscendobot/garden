@@ -12,6 +12,7 @@ Add a diagnostic ERR trap next to the existing `trap 'cleanup' EXIT` / TERM / IN
 Place it so it fires before cleanup's EXIT trap runs (both fire; ERR first, then EXIT), and confirm with bash -n plus a synthetic forced-failure smoke test (temporarily insert a `false` after the mint_retro call, run under bash -x, confirm the FATAL log line appears with the right line/command and rc is preserved through cleanup). Diagnostic-only — must not change happy-path behavior or the retry/CAS semantics of any other function in the script.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
