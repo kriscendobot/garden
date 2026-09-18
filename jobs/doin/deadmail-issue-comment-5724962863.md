@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/91#issuecomment-572496286
 @kriscendobot I am closing this issue and noting that the Iron Horse refactor is completed and the pause has already been lifted. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T04:05:30Z
