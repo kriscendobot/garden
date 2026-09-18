@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7185 (530 parent indexes + 6655 children).
+Total section files: 7191 (530 parent indexes + 6661 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8901,6 +8901,15 @@ Total section files: 7185 (530 parent indexes + 6655 children).
 - [papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns](papers--andersen-modeling-forecasting-realized-volatility-2003--measuring-realized-volatility-from-intraday-returns.md)
 - [papers--andersen-modeling-forecasting-realized-volatility-2003--overview](papers--andersen-modeling-forecasting-realized-volatility-2003--overview.md)
 - [papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility](papers--andersen-modeling-forecasting-realized-volatility-2003--quadratic-variation-and-realized-volatility.md)
+
+### papers--bernstein-gefs-good-enough-file-system-2023
+
+- [papers--bernstein-gefs-good-enough-file-system-2023--betree-write-optimized-data-structure](papers--bernstein-gefs-good-enough-file-system-2023--betree-write-optimized-data-structure.md)
+- [papers--bernstein-gefs-good-enough-file-system-2023--crash-safety-commit-protocol-and-concurrency](papers--bernstein-gefs-good-enough-file-system-2023--crash-safety-commit-protocol-and-concurrency.md)
+- [papers--bernstein-gefs-good-enough-file-system-2023--mapping-the-file-system-onto-betrees](papers--bernstein-gefs-good-enough-file-system-2023--mapping-the-file-system-onto-betrees.md)
+- [papers--bernstein-gefs-good-enough-file-system-2023--on-disk-format](papers--bernstein-gefs-good-enough-file-system-2023--on-disk-format.md)
+- [papers--bernstein-gefs-good-enough-file-system-2023--overview](papers--bernstein-gefs-good-enough-file-system-2023--overview.md)
+- [papers--bernstein-gefs-good-enough-file-system-2023--snapshots-and-deadlist-space-reclamation](papers--bernstein-gefs-good-enough-file-system-2023--snapshots-and-deadlist-space-reclamation.md)
 
 ### papers--bollerslev-generalized-autoregressive-conditional-heteroskedasticity-1986
 
