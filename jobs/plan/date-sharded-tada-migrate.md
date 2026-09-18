@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-18T05:43:44Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-18T05:43:44Z
+---
+
+---
 role: fixer
 tier: mentor
 ---
@@ -73,19 +94,3 @@ Design's stage 4 ("drop the fallback" — remove the now-unneeded flat-read
 arm from the helpers once the backlog is fully sharded) is explicitly OUT OF
 SCOPE for this job — it's cosmetic cleanup the design says can wait "at
 leisure." Flag it as a natural follow-up in your report; do not do it here.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-18T05:33:17Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=3,6 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T05:33:29Z

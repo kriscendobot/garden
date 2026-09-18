@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: orchestrator
+tier: minion
+handler-timeout: 10800
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-18T05:43:44Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-18T05:43:44Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -110,19 +132,3 @@ operator drain forever; if you find one, say so plainly rather than overriding i
 Per host: starting sha, target sha, how it was deployed, final sha, drain state,
 and the positive evidence that it resumed claiming. Then the fleet's final
 uniformity. Name anything you deliberately did not touch and why.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-18T05:33:17Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T05:33:39Z
