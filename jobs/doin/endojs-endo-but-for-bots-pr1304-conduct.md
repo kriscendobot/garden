@@ -33,3 +33,13 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/1304#pullrequestrevie
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T05:33:17Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T05:33:34Z
