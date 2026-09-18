@@ -111,6 +111,7 @@ and the positive evidence that it resumed claiming. Then the fleet's final
 uniformity. Name anything you deliberately did not touch and why.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
