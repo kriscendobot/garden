@@ -49,6 +49,7 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/1305#pullrequestrevie
 <!-- garden-plain-retry-not-before: 2026-09-18T21:23:04Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
