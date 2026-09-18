@@ -17,6 +17,7 @@ Positive confirmations (do not need changes): verification mismatches ABORT (ass
 <!-- garden-plain-retry-not-before: 2026-09-18T08:13:10Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
