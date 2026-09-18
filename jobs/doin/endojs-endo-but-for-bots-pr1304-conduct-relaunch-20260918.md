@@ -59,3 +59,13 @@ After #1304 lands, #1306 (2/3) then #1305 (3/3) need retarget/rebase and their o
 gauntlets; the serial orchestration `split-pr1125-stack-gauntlets` is HALTED at
 child 1 and will need re-driving. Report that as a follow-up; the conductor does
 not post it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-18T19:00:48Z
