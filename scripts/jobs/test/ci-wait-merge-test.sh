@@ -21,8 +21,11 @@
 #      (fleet wrapper) and still merges, never dropping the merge (the #178 fix)
 #   T9 frozen base, no sibling → unfreeze base to live trunk, then merge (exit 0,
 #      base edited, merge called) — conductor step 2 (the #510 stranding fix)
-#   T10 frozen base shared by a sibling stack → alert maintainer, exit 1, NO merge,
-#      NO base edit (neither strand silently nor force-fork the shared base)
+#   T10 frozen base shared by SIBLINGS (no dependent stacks on this PR) → unfreeze
+#      and merge anyway (exit 0, base edited, merge called): sharing a pin is not a
+#      stack, retargeting this PR leaves the siblings untouched (endojs/endo-but-for-bots#1304)
+#   T10b genuine dependent stack (an open PR based on THIS PR's head) → alert
+#      maintainer, exit 1, NO merge, NO base edit (do not orphan the dependent)
 #   T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, NO
 #      merge): a maintainer review landing mid-wait is never merged over even
 #      though GitHub reports the PR mergeable (kriscendobot/minion.town#7)
@@ -191,15 +194,28 @@ chk "$rc" 0 T8; merged T8
 
 echo "T9 frozen base, no sibling → unfreeze to live trunk, then merge"
 reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
-printf '{"state":"OPEN","baseRefName":"llm-65b0abe"}' > "$STUBDIR/basemeta"
+printf '{"state":"OPEN","baseRefName":"llm-65b0abe","headRefName":"feat-510"}' > "$STUBDIR/basemeta"
 echo 1 > "$STUBDIR/prcount"   # only #510 itself sits on the frozen base
 run o/r 510; chk "$rc" 0 T9; edited T9; merged T9
 
-echo "T10 frozen base shared by a sibling stack → alert, exit 1, no merge, no fork"
+echo "T10 frozen base shared by SIBLINGS (none stacks on this PR) → unfreeze + merge"
+# The maintainer's ruling (kriskowal 2026-09-18, endojs/endo-but-for-bots#1304):
+# siblings on a shared pin are NOT a stack. Retargeting THIS PR touches only THIS
+# PR; the 6 siblings keep their base byte-for-byte. Sharing a base must NOT block.
 reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
-printf '{"state":"OPEN","baseRefName":"llm-65b0abe"}' > "$STUBDIR/basemeta"
-echo 2 > "$STUBDIR/prcount"; printf '510, #521' > "$STUBDIR/prnums"   # #510 + sibling #521
-run o/r 510; chk "$rc" 1 T10; nomerge T10; noedit T10
+printf '{"state":"OPEN","baseRefName":"llm-65b0abe","headRefName":"feat-510"}' > "$STUBDIR/basemeta"
+echo 7 > "$STUBDIR/prcount"   # 7 PRs share the pin, but none bases on #510's head
+: > "$STUBDIR/downstream"     # no open PR stacks on feat-510 → siblings, not a stack
+run o/r 510; chk "$rc" 0 T10; edited T10; merged T10
+
+echo "T10b genuine dependent stack (open PR based on this PR's head) → alert, exit 1, no merge, no fork"
+# The case that STILL blocks: an open PR (#521) bases on #510's HEAD ref (feat-510),
+# so forwarding #510 to live and merging it would orphan #521 off the shared base.
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"state":"OPEN","baseRefName":"llm-65b0abe","headRefName":"feat-510"}' > "$STUBDIR/basemeta"
+echo 2 > "$STUBDIR/prcount"
+printf '521' > "$STUBDIR/downstream"   # #521 bases on feat-510 → a real dependent
+run o/r 510; chk "$rc" 1 T10b; nomerge T10b; noedit T10b
 
 echo "T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, no merge)"
 reset_seq; seq_add "$GREEN_CR"; printf 'MERGED|false' > "$STUBDIR/verify"

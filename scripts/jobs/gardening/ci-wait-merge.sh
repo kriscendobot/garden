@@ -239,40 +239,67 @@ past_deadline() { [ $(( $(date +%s) - start )) -ge "$deadline_secs" ]; }
 # A fork-side PR opened under the frozen-base-branch convention targets a snapshot
 # named `<branch>-<sha>`. Merging onto the snapshot strands the content there; the
 # live trunk never absorbs it (the #510 → llm-65b0abe bug). Before merging,
-# re-point the PR at the live trunk so the merge lands on the trunk — UNLESS other
-# open PRs share the same frozen base (a stack), in which case re-pointing this one
-# alone would fork the stack off the shared base; then alert the maintainer with
-# the specific stack and refuse to merge (neither strand nor force-fork).
+# re-point the PR at the live trunk so the merge lands on the trunk.
+#
+# SIBLINGS-vs-STACK: merely sharing the frozen base with other open PRs is NOT a
+# reason to refuse. Retargeting THIS PR is a single `pr edit --base` that touches
+# only this PR — every sibling keeps its base byte-for-byte, exactly as the
+# maintainer expects (kriskowal 2026-09-18, on endojs/endo-but-for-bots#1304: 7
+# approved/green siblings on one pin, "none bases on another's head", stalled here
+# on a false stack-forking premise). The old predicate counted PRs on the base and
+# blocked whenever >1, conflating independent siblings with a dependency stack.
+#
+# The ONLY configuration that still blocks is a genuine dependency STACK: an open
+# PR whose base ref is THIS PR's HEAD ref (a dependent stacked on us). Forwarding
+# this PR to live and merging it would orphan such a dependent off the shared base
+# (the branch it stacks on is merged, eventually deleted, out from under it), so
+# THAT case — and only that case — alerts the maintainer and refuses (neither
+# strand this PR silently nor force-merge out from under a dependent). Sharing a
+# base with siblings that do NOT stack on us proceeds; the sibling count is
+# reported informationally, never as a stop.
 #
 # Returns:
 #   0  base is already live, or it was successfully unfrozen → proceed to merge
-#   10 frozen base shared by a sibling stack → maintainer alerted; do NOT merge
+#   10 a real dependent stacks on this PR's head → maintainer alerted; do NOT merge
 unfreeze_base_if_frozen() {
-  local meta state base live count nums
-  meta="$("$GH" pr view "$pr" -R "$repo" --json state,baseRefName 2>/dev/null)" \
+  local meta state base live head_ref dependents sib_count
+  meta="$("$GH" pr view "$pr" -R "$repo" --json state,baseRefName,headRefName 2>/dev/null)" \
     || { log "gh pr view (baseRefName) $repo#$pr failed — refusing to merge without the live-base check"; return 1; }
   [ -n "$meta" ] || { log "empty baseRefName metadata for $repo#$pr — refusing to merge"; return 1; }
   printf '%s' "$meta" | jq -e . >/dev/null 2>&1 \
     || { log "unparseable baseRefName metadata for $repo#$pr — refusing to merge"; return 1; }
   state="$(printf '%s' "$meta" | jq -r '.state // ""')"
   base="$(printf '%s' "$meta" | jq -r '.baseRefName // ""')"
+  head_ref="$(printf '%s' "$meta" | jq -r '.headRefName // ""')"
   # Only an OPEN PR can be unfrozen; the wait loop handles terminal states.
   [ "$state" = OPEN ] || return 0
   # Frozen-base pattern: <live-branch>-<4..40 hex>. A live trunk (no -<sha>) skips.
   [[ "$base" =~ ^(llm|main|master)-[0-9a-f]{4,40}$ ]] || return 0
   live="${base%-*}"   # llm-65b0abe → llm; master-c49fb04 → master
-  # Shared-stack safety: count OPEN PRs sitting on this frozen base (incl. self).
-  count="$("$GH" pr list -R "$repo" --search "base:$base is:open" --json number --jq 'length' 2>/dev/null || echo 1)"
-  case "$count" in ''|*[!0-9]*) count=1 ;; esac
-  if [ "$count" -gt 1 ]; then
-    nums="$("$GH" pr list -R "$repo" --search "base:$base is:open" --json number --jq '[.[].number]|join(", #")' 2>/dev/null || echo '?')"
-    alert_maintainer "shared-frozen-base-${repo//\//_}-$base" \
-      "conductor unfreeze BLOCKED for $repo#$pr: frozen base '$base' is shared by open PRs (#$nums). Forwarding #$pr to live '$live' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#$pr left on the snapshot: not stranded silently, not force-forked.)"
-    echo "unfreeze-blocked repo=$repo pr=$pr base=$base shared-with=#$nums → alerted maintainer, NOT merging"
+  # Stack safety: a DEPENDENT is an open PR based on THIS PR's HEAD ref — not merely
+  # a sibling on the same frozen base. Block only when a real dependent exists;
+  # retargeting/merging this PR would strand it off the shared base.
+  [ -n "$head_ref" ] \
+    || { log "could not read head branch for $repo#$pr — cannot check for dependents; refusing to unfreeze"; return 1; }
+  dependents="$("$GH" pr list -R "$repo" --base "$head_ref" --state open --json number --jq '[.[].number|tostring]|join(", #")' 2>/dev/null || echo '?')"
+  if [ -n "$dependents" ] && [ "$dependents" != '?' ]; then
+    alert_maintainer "frozen-base-dependent-${repo//\//_}-$base" \
+      "conductor unfreeze BLOCKED for $repo#$pr: open PR(s) #$dependents base on this PR's head '$head_ref' — a real dependency stack. Forwarding #$pr to live '$live' and merging it would orphan the dependent(s) off the shared base (the branch they stack on gets merged, then deleted, out from under them). Advance the stack in dependency order, or repoint the dependent(s) first — do not let me merge out from under them. (#$pr left on the snapshot: not stranded silently, not force-merged under a dependent.)"
+    echo "unfreeze-blocked repo=$repo pr=$pr base=$base dependents=#$dependents → alerted maintainer, NOT merging"
     return 10
   fi
+  [ "$dependents" != '?' ] \
+    || { log "could not enumerate PRs based on $head_ref for $repo#$pr — refusing to unfreeze without the dependent check"; return 1; }
+  # No dependent stacks on us: siblings on the same pin (if any) are left untouched.
+  # Report the sibling count as context for the conductor summary — never a stop.
+  sib_count="$("$GH" pr list -R "$repo" --search "base:$base is:open" --json number --jq 'length' 2>/dev/null || echo 1)"
+  case "$sib_count" in ''|*[!0-9]*) sib_count=1 ;; esac
   if "$GH" pr edit "$pr" -R "$repo" --base "$live" >/dev/null 2>&1; then
-    echo "unfroze repo=$repo pr=$pr base=$base → $live (live trunk) before merge"
+    if [ "$sib_count" -gt 1 ]; then
+      echo "unfroze repo=$repo pr=$pr base=$base → $live (live trunk) before merge; $((sib_count - 1)) sibling PR(s) remain on '$base', left untouched (no dependent stacks on #$pr)"
+    else
+      echo "unfroze repo=$repo pr=$pr base=$base → $live (live trunk) before merge"
+    fi
     return 0
   fi
   log "gh pr edit --base $live failed for $repo#$pr — refusing to merge onto a snapshot"
