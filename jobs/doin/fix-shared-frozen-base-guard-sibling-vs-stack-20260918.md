@@ -75,3 +75,13 @@ conduct runs, which is why it is worth fixing rather than authorizing case by ca
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T17:43:03Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T17:43:23Z
