@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Fix the shared-frozen-base guard in `scripts/jobs/gardening/ci-wait-merge.sh`: it
@@ -71,13 +72,6 @@ fix. The other six PRs on `llm-387ea66` will hit this same guard on their own
 conduct runs, which is why it is worth fixing rather than authorizing case by case.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-18T17:28:19Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-18T17:43:03Z -->
