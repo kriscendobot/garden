@@ -79,3 +79,25 @@ range/textRange) and `packages/exo-git/src/types.ts`.
 Verify: full `packages/{platform,daemon,git,exo-git}` lint + lint:types +
 test:types + ava. Push, keep #1301 draft. Report the consumer-rewrite approach
 taken and whether the rename child can proceed.
+
+<!-- garden-annotation: key=rbra-naming-5252703859 by=endojs-endo-but-for-bots-pr1301-review-34598631 at=2026-09-18T21:37:49Z -->
+
+## Build-review naming directives (PR #1301 review #5252703859, kriskowal, 2026-09-18)
+
+Recorded authoritatively in `designs/readableblob-range-attenuation.md`
+(Resolved decisions 4 & 5; commit 5a42d0bff8 on the PR branch). Implement the
+final ReadableBlob surface with THESE names, not the older spellings this job
+body may still reference:
+
+1. Read methods follow the {byte,text} x {all,range} cross product:
+   `bytes` (all bytes) / `byteRange` (a byte range) / `text` (all text) /
+   `textRange` (a text range). Concretely rename `fetch` -> `bytes` and the
+   byte-range attenuator `range` -> `byteRange` (symmetric with `textRange`).
+   `text`/`textRange` unchanged.
+2. Replace the single `getInfo() => {algorithm,hash,size}` bundle with one
+   accessor method per hashing algorithm (`sha256()`, `sha512()`, ...) plus a
+   separate `size()` method. A blob may provide more than one algorithm and
+   favor one internally; the surface migrates gradually (an added algorithm is
+   a new method, not a reshaped bundle). Update guards, types, generated
+   declarations (agent-tools code-mode-globals), help text, conformance tests,
+   and design/API prose accordingly.
