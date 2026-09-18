@@ -27,6 +27,7 @@ PR: https://github.com/kriscendobot/minion.town/pull/99
 <!-- garden-plain-retry-not-before: 2026-09-18T07:23:10Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,3 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
