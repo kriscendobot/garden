@@ -26,3 +26,13 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1304
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T21:23:04Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T21:23:15Z
