@@ -116,3 +116,13 @@ bash-3.2/BSD portability (how — a `bash --posix`/explicit-version check,
 or actual access to a Mac to verify; say which), and confirmation the
 claim-path guard actually refuses a stray `role: boatman` board post (a
 real test, not just code review).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-18T23:49:01Z
