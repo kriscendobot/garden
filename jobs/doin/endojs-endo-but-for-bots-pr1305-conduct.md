@@ -48,3 +48,13 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/1305#pullrequestrevie
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-18T21:23:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-18T21:23:06Z
