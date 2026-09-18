@@ -53,16 +53,4 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-572501409
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-18T04:43:05Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-18T04:43:17Z
+<!-- garden-reaped: 0 -->
