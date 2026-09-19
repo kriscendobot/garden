@@ -85,6 +85,7 @@ gate; do not duplicate that work here.
 <!-- garden-plain-retry-not-before: 2026-09-19T00:24:15Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=11,34 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
