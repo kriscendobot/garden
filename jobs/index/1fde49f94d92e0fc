@@ -1,0 +1,2 @@
+base: improve-monk-node-reap
+identity: mentor:scripts/jobs/handlers/monk-claude.sh
