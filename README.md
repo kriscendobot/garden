@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T23:27:32Z_
+_As of 2026-09-19T23:37:06Z_
 
 ## Latest
 
@@ -1394,26 +1394,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.8M | $76.85 _(notional, rate-card)_ | 5% of 143.0M (ok) |
+| Claude | 8.2M | $81.18 _(notional, rate-card)_ | 6% of 143.0M (ok) |
 | Codex | 1.8M _(+11.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
-- [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #78
-- [`kriscendobot-minion.town-pr80-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr80-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #80
+### todo (0)
+(none)
 
-### doin (3)
-- [`deadmail-issue-comment-5746045908`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5746045908.md) — Issue follow-up — fold a late comment into the issue work
-- [`build-kebab-case-lint-wildcard-test262-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #762
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1310
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1310
 
-### tada (8452)
-- [`canary-probe-endolin-garden2-5bcdff64-c2f7cac953fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-c2f7cac953fc.md) — rolling-deploy canary probe — round trip OK
-- [`improve-cursor-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-outage-classification.md) — Completion report
-- [`claude-on-minion-town-press-20260919-225007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-225007.md) — Completion report
-- [`improve-monk-node-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-monk-node-reap.md) — Completion report: improve-monk-node-reap
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-panel-1.md) — Completion report
-- … and 8447 more
+### tada (8457)
+- [`kriscendobot-minion.town-pr80-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/kriscendobot-minion.town-pr80-gauntlet-clean.md) — Completion report
+- [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Completion report
+- [`build-kebab-case-lint-wildcard-test262-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/build-kebab-case-lint-wildcard-test262-gauntlet-clean.md) — Completion report
+- [`deadmail-issue-comment-5746045908`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5746045908.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-fix-1.md) — Cost
+- … and 8452 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
