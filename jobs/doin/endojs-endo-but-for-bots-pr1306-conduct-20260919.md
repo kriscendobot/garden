@@ -37,6 +37,7 @@ multi-cell) failure rather than a single-cell flake, do NOT merge — report it.
 <!-- garden-plain-retry-not-before: 2026-09-19T04:43:05Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,4 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
