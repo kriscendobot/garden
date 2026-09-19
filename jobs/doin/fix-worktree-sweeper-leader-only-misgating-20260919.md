@@ -80,6 +80,7 @@ above is why it should not wait for one. A separate design job,
 gate; do not duplicate that work here.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=11 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
