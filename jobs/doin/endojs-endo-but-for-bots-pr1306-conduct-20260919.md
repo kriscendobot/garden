@@ -32,11 +32,11 @@ Task, from an isolated project worktree for THIS job base:
 Definition of done: #1306 merged into `llm`. If CI shows a real (deterministic,
 multi-cell) failure rather than a single-cell flake, do NOT merge — report it.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T04:43:05Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=3,4 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
