@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":180,"input_tokens":30,"output_tokens":8829,"cache_creation_tokens":47384,"cache_read_tokens":738482,"total_cost_usd":1.0669039999999999,"ts":"2026-09-19T08:39:10Z","base":"restore-cleric","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener","provider":"anthropic"}
