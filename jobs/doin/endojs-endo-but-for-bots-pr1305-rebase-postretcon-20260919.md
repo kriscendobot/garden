@@ -44,6 +44,7 @@ Do NOT comment on the PR (bot PAT lacks endojs PR-write on this host); the push 
 the deliverable. Pre-retcon reference SHAs: base 9e16e50b, #1305 head 799b32e13,
 llm dc05c16b8.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
