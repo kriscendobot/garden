@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-01
+updated: 2026-09-19
 author: gardener
 ---
 
@@ -315,6 +315,11 @@ posted_at: <iso8601>
   3. **maintainer answer** — an `awaiting-maintainer` job refuses promotion
      unless the caller passes `--maintainer` after the answer lands at `asked_at:`.
      The foreman and all other automatic callers omit this flag.
+- **Return doomed holds to paced work** (`defer-doomed-plan.sh [--dry-run]`):
+  atomically change every `go-ahead` plan job carrying `doomed: true` (or legacy
+  `poisoned: true`) to `deferred`. This is a queue-wide maintainer disposition,
+  not automatic recovery: it preserves the doom metadata for history while making
+  the jobs eligible for the foreman's priority/FIFO, quota-gated admission.
 
 ## Output
 
