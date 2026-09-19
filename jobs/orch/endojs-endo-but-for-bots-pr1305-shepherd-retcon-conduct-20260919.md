@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1305-shepherd-20260919-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1305-shepherd-20260919 endojs-endo-but-for-bots-pr1305-retcon-20260919 endojs-endo-but-for-bots-pr1305-conduct-20260919
 on-child-failure: halt
