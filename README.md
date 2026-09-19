@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T19:57:38Z_
+_As of 2026-09-19T20:01:02Z_
 
 ## Latest
 
@@ -1393,16 +1393,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 347f8b5ad51a
+### doin (0)
+(none)
 
-### tada (8435)
+### tada (8436)
+- [`canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-347f8b5ad51a.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20260919-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-193507.md) — Press tick 2026-09-19 ~19:40Z — completion report
 - [`improve-journal-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-journal-outage-classification.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-beb9fc3ede40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-beb9fc3ede40.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden2-5bcdff64-beb9fc3ede40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-beb9fc3ede40.md) — rolling-deploy canary probe — round trip OK
-- … and 8430 more
+- … and 8431 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
