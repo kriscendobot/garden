@@ -13,3 +13,13 @@ Affected call sites, all identical bare pipes under `set -euo pipefail`:
 Each does `printf 'last_seen: ...\n' | "$HERE/cursor-set.sh" "$CURSOR_KEY"`. cursor-set.sh's internal retry loop (up to 50 attempts via commit_and_push/backoff) logs nothing per failed attempt — only on final success or the terminal `die` — so sustained push contention or a connectivity blip produces minutes of silence followed by a bare nonzero exit, which under the caller's `set -e`/`pipefail` kills the whole tick with no diagnostic trail (exactly the shape captured here).
 
 Fix: capture the rc via `if printf ... | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi` and on nonzero rc `log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"` then fall through past the `if [ -n "$hw" ] ...` block cleanly (exit 0) — mirroring the cursor-get.sh fix's rationale: a lost cursor advance is best-effort (posts are idempotent by base, so the next tick just re-detects and DEDUPs rather than losing data), never worth a hard crash. Do this in all three watchers for consistency with df83fca235's scope.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T06:11:54Z
