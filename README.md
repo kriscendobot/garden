@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T23:37:06Z_
+_As of 2026-09-19T23:46:12Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 2d)
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 2d)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 3d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 18d)
@@ -1394,15 +1394,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 8.2M | $81.18 _(notional, rate-card)_ | 6% of 143.0M (ok) |
+| Claude | 9.1M | $87.70 _(notional, rate-card)_ | 6% of 143.0M (ok) |
 | Codex | 1.8M _(+11.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1310
+- [`deadmail-issue-comment-5746158732`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5746158732.md) — Issue follow-up — fold a late comment into the issue work
 
 ### tada (8457)
 - [`kriscendobot-minion.town-pr80-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/kriscendobot-minion.town-pr80-gauntlet-clean.md) — Completion report
