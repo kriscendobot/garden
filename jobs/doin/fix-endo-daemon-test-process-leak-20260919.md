@@ -95,3 +95,13 @@ be fixed here.
 Do not touch `agoric/agoric-sdk`. Follow the normal build/PR flow and the pre-push
 gates. If the work does not fit one handler, split it along the two defects and say
 so rather than overrunning.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-19T00:55:10Z
