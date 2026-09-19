@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T17:03:55Z_
+_As of 2026-09-19T17:17:54Z_
 
 ## Latest
 
@@ -1393,8 +1393,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-endolin-garden2-5bcdff64-beb9fc3ede40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-beb9fc3ede40.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ beb9fc3ede40
 
 ### tada (8430)
 - [`improve-journal-cursor-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-journal-cursor-outage-classification.md) — Cost
