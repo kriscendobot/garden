@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T20:47:58Z_
+_As of 2026-09-19T20:54:19Z_
 
 ## Latest
 
@@ -1386,24 +1386,26 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.5M | $27.88 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 1.4M _(+7.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 2.6M | $28.23 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Codex | 1.5M _(+9.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1310
-- [`deadmail-issue-comment-5745084854`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5745084854.md) — Issue follow-up — fold a late comment into the issue work
+### doin (4)
+- [`improve-cursor-read-herd-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-read-herd-suppression.md) — ---
+- [`rebalance-monks-after-quota-reset-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/rebalance-monks-after-quota-reset-20260919.md) — Rebalance the Garden 1 and Garden 2 monk pools after the Claude quota reset
+- [`improve-comment-watcher-child-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-child-reaping.md) — ---
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1310
 
-### tada (8437)
+### tada (8439)
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-viability.md) — Viability report — PR #1310 (endojs/endo-but-for-bots)
+- [`deadmail-issue-comment-5745084854`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5745084854.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-c9dfce07`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-c9dfce07.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-347f8b5ad51a.md) — rolling-deploy canary probe — round trip OK
-- [`claude-on-minion-town-press-20260919-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-193507.md) — Press tick 2026-09-19 ~19:40Z — completion report
-- [`improve-journal-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-journal-outage-classification.md) — Completion report
-- … and 8432 more
+- … and 8434 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
