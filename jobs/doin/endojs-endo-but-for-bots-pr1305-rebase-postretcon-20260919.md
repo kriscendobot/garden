@@ -43,3 +43,13 @@ Procedure (in an isolated project worktree keyed by THIS job's base):
 Do NOT comment on the PR (bot PAT lacks endojs PR-write on this host); the push is
 the deliverable. Pre-retcon reference SHAs: base 9e16e50b, #1305 head 799b32e13,
 llm dc05c16b8.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T03:11:20Z
