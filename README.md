@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T17:20:46Z_
+_As of 2026-09-19T17:26:27Z_
 
 ## Latest
 
@@ -1390,8 +1390,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 1.1M _(+6.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-oros-studio-garden-ce242c49-beb9fc3ede40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-beb9fc3ede40.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ beb9fc3ede40
 
 ### doin (0)
 (none)
