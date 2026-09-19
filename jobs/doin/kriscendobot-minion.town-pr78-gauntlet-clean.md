@@ -56,3 +56,13 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-annotation: key=outage-attribution-20260903 by=producer at=2026-09-03T06:45:56Z -->
 
 outage-attributed: this clean stage halted 2026-09-02 during the fleet-wide Anthropic weekly quota outage (2026-09-01T22:33Z-2026-09-05T03:00Z, watchdog-provider-quota); doom_signature=elapsed-constancy is very likely the same account-limit refusal seen fleet-wide, not a new deterministic bug. Recommend just re-promoting after the Friday reset rather than root-causing further; re-open a fresh investigation only if it still fails post-reset.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-19T23:28:00Z
