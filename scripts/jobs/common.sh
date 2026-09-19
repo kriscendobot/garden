@@ -637,6 +637,93 @@ start_api_cooldown() {  # rc 0 = THIS tick recorded the window (and owns the war
   ) 9>"$GARDEN_API_COOLDOWN_LOCK"
 }
 
+# --- shared JOURNAL-READ outage cooldown (host-shared across ALL cursor consumers) --
+# The sibling of the gh-api cooldown above, for a different herd. EVERY per-repo
+# triager/comment-/mention-/issue-inbox watcher opens each tick with a cursor-get.sh,
+# which sync_clone's the shared journal clone. On a journal-connectivity outage each
+# such read burns up to ~GARDEN_FETCH_TIMEOUT * GARDEN_FETCH_RETRIES seconds and each
+# logs its own "offline" line — one self-inflicted thundering herd of doomed fetches,
+# per repo AND per watcher-kind, for as long as the blip lasts (the 2026-09-18
+# journal-fetch outage that flapped garden-triager@*). These helpers give the whole
+# HOST one bounded, shared cooldown: the first cursor-get to see the journal offline
+# calls start_journal_outage_cooldown to LATCH a finite window under the rendered unit
+# root's .garden-state (and owns the single warning); every later cursor-get calls
+# journal_outage_active FIRST — before any fetch — and reports temporary-unavailable
+# (GARDEN_OFFLINE_RC) immediately, so consumers skip QUIETLY instead of each re-probing
+# and re-warning. Recovery is window-bounded, exactly like the gh-api cooldown: while a
+# window is live every read short-circuits, so the first read AFTER it expires is the one
+# that reaps the marker and reads through. clear_journal_outage_cooldown is the belt-and-
+# suspenders cleanup for the one case the expiry-reap can't cover — a leftover marker
+# while the cooldown is toggled OFF (secs=0), dropped on the next successful read.
+#
+# Same design invariants as the gh-api cooldown: resolve below GARDEN_ROOT (not the
+# invocation-local GARDEN_STATE, which independently-namespaced units may override, so
+# the marker stays host-wide across watcher kinds); an flock makes latch/expiry atomic
+# so concurrent detectors cannot both announce an outage; an observer NEVER extends a
+# live window, so a short blip cannot become an unbounded local blackout. Loud
+# structural/authentication failures never reach here — cursor-get.sh only latches
+# sync_clone's EX_TEMPFAIL offline exit, and re-raises any other nonzero rc unchanged.
+: "${GARDEN_JOURNAL_OUTAGE_COOLDOWN_SECS:=120}"   # window; capped at 900; 0 disables
+: "${GARDEN_JOURNAL_OUTAGE_DIR:=$GARDEN_ROOT/.garden-state/journal-outage-cooldown}"
+GARDEN_JOURNAL_OUTAGE_MARKER="$GARDEN_JOURNAL_OUTAGE_DIR/marker"
+GARDEN_JOURNAL_OUTAGE_LOCK="$GARDEN_JOURNAL_OUTAGE_DIR/marker.lock"
+
+_journal_outage_secs() {  # echo the validated, clamped window in seconds
+  local v="${GARDEN_JOURNAL_OUTAGE_COOLDOWN_SECS:-120}"
+  case "$v" in ''|*[!0-9]*) v=120 ;; esac
+  [ "$v" -le 900 ] || v=900
+  printf '%s' "$v"
+}
+
+journal_outage_active() {  # rc 0 = a non-expired shared window exists → skip the fetch
+  local secs; secs="$(_journal_outage_secs)"
+  [ "$secs" -gt 0 ] || return 1
+  # Keep the healthy path (no outage) cheap: a bare stat, no flock/subshell, when there
+  # is no marker at all — which is every tick outside an outage.
+  [ -e "$GARDEN_JOURNAL_OUTAGE_MARKER" ] || return 1
+  mkdir -p "$GARDEN_JOURNAL_OUTAGE_DIR"
+  (
+    flock 9
+    local now expiry
+    now="$(date +%s 2>/dev/null || echo 0)"
+    expiry="$(sed -n '1p' "$GARDEN_JOURNAL_OUTAGE_MARKER" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    if [ "$expiry" -gt "$now" ]; then exit 0; fi
+    rm -f "$GARDEN_JOURNAL_OUTAGE_MARKER"
+    exit 1
+  ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK"
+}
+
+start_journal_outage_cooldown() {  # rc 0 = THIS tick latched the window (owns the warning)
+  local tag="${1:-}" secs; secs="$(_journal_outage_secs)"
+  # Disabled (escape hatch): no latch, but tell the caller it "owns" the warning so a
+  # disabled cooldown still surfaces the outage per detector (herd suppression OFF).
+  [ "$secs" -gt 0 ] || return 0
+  mkdir -p "$GARDEN_JOURNAL_OUTAGE_DIR"
+  (
+    flock 9
+    local now expiry new_expiry tmp
+    now="$(date +%s 2>/dev/null || echo 0)"
+    expiry="$(sed -n '1p' "$GARDEN_JOURNAL_OUTAGE_MARKER" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    [ "$expiry" -le "$now" ] || exit 1
+    new_expiry=$((now + secs))
+    tmp="$GARDEN_JOURNAL_OUTAGE_MARKER.$$"
+    printf '%s\n%s\n' "$new_expiry" "$tag" > "$tmp"
+    mv -f "$tmp" "$GARDEN_JOURNAL_OUTAGE_MARKER"
+    exit 0
+  ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK"
+}
+
+clear_journal_outage_cooldown() {  # a successful read proves connectivity → drop the latch
+  [ -e "$GARDEN_JOURNAL_OUTAGE_MARKER" ] || return 0
+  mkdir -p "$GARDEN_JOURNAL_OUTAGE_DIR"
+  (
+    flock 9
+    rm -f "$GARDEN_JOURNAL_OUTAGE_MARKER"
+  ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK" 2>/dev/null || true
+}
+
 # True when this host's fleet is draining: the new draining marker OR the
 # deprecated legacy killswitch marker exists. Keys on EXISTENCE only — an empty
 # marker drains just as a prose-filled one does.

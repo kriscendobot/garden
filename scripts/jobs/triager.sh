@@ -475,9 +475,13 @@ CURSOR_KEY="activity/$slug"
 # targeted. A cursor read is inherently best-effort (a stale/unreadable cursor just
 # re-triages next tick, never loses data), so no nonzero rc here should hard-crash
 # the unit — the same fail-open standard the repo-fetch path above already meets.
+# The temporary-unavailable rc (GARDEN_OFFLINE_RC) is cursor-get's shared journal-outage
+# latch: skip QUIETLY (the host already owns one cooldown warning; a per-repo re-warn is
+# the herd the latch suppresses). Any OTHER nonzero rc is a loud structural/auth failure.
 if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
-  log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc) for $slug; skipping this tick"
+  [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+    || log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc) for $slug; skipping this tick"
   exit 0
 fi
 old_sha="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_sha:[[:space:]]*//p' | head -1)"
@@ -500,7 +504,8 @@ FAIL_KEY="failcount/$slug"
 # A cursor read is best-effort, so no nonzero rc should hard-crash the unit.
 if fail_state="$("$HERE/cursor-get.sh" "$FAIL_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
-  log "WARN: cursor read failed for $FAIL_KEY (rc=$rc) for $slug; skipping this tick"
+  [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+    || log "WARN: cursor read failed for $FAIL_KEY (rc=$rc) for $slug; skipping this tick"
   exit 0
 fi
 fail_sha="$(printf '%s\n' "$fail_state" | sed -n 's/^fail_sha:[[:space:]]*//p' | head -1)"

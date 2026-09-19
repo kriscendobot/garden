@@ -99,3 +99,4 @@ jobs:
           bash scripts/jobs/test/reputation-reduce-incremental-test.sh
           bash scripts/jobs/test/alert-maintainer-edge-test.sh
           bash scripts/jobs/test/docs-claim-accuracy-probe-test.sh
+          bash scripts/jobs/test/cursor-outage-cooldown-test.sh

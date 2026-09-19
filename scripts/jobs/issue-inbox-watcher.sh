@@ -391,9 +391,13 @@ CURSOR_KEY="issues/$slug"
 # then silent exit 1). A cursor read is best-effort (a stale/unreadable cursor just
 # re-polls next tick, never loses data), so capture the rc and WARN-and-skip cleanly
 # on ANY nonzero rc — mirroring triager.sh (b320648e47).
+# The temporary-unavailable rc (GARDEN_OFFLINE_RC) is cursor-get's shared journal-outage
+# latch: skip QUIETLY (the host already owns one cooldown warning). Any OTHER nonzero rc
+# is a loud structural/authentication failure and still WARNs.
 if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
-  log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"
+  [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+    || log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"
   exit 0
 fi
 last_seen="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"
