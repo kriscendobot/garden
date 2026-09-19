@@ -78,3 +78,13 @@ This surfaced during a CPU-saturation investigation (load 168 on 32 CPUs) where 
 above is why it should not wait for one. A separate design job,
 `design-cpu-back-pressure-job-dispatch-20260918`, owns the load/memory/IO admission
 gate; do not duplicate that work here.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T00:08:50Z
