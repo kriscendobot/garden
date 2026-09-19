@@ -85,3 +85,13 @@ The invite-half stack changed the invitation contract from what
    `invitingAgent`/`invitingHandle` (read-coerced from the legacy names, no data
    migration), and an invitation's **result name is the connection root** — the
    synthetic locally-pinned guest formerly minted on each side is gone.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T15:56:29Z
