@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T21:30:37Z_
+_As of 2026-09-19T21:47:32Z_
 
 ## Latest
 
@@ -1394,15 +1394,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.7M | $30.59 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 5.5M | $54.70 _(notional, rate-card)_ | 4% of 143.0M (ok) |
 | Codex | 1.6M _(+9.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1310
+- [`canary-probe-endolin-garden2-5bcdff64-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-917115c9b772.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 917115c9b772
 
 ### tada (8445)
 - [`improve-cursor-write-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-write-outage-classification.md) — Cost
