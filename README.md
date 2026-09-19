@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T21:10:46Z_
+_As of 2026-09-19T21:21:44Z_
 
 ## Latest
 
@@ -368,6 +368,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 5 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared cleric demand active=0 queue=1 fleet-envelope=5 target=1
+
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): budget pool anthropic:endolin-garden-ece02cb4 spend=2648177 cap=143000000 ceiling=2 target=2
 
 - `build-rbra-cleanbreak-20260916-halted` — from orchestrator:build-rbra-cleanbreak-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-rbra-cleanbreak-20260916-halted.md)
 
@@ -1391,13 +1395,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 2.6M | $30.34 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 1.5M _(+9.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 1.6M _(+9.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-cursor-write-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-write-outage-classification.md) — ---
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1310
 
 ### tada (8443)
