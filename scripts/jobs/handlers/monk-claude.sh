@@ -302,13 +302,51 @@ rusage="$(mktemp "${TMPDIR:-/tmp}/garden-claude-rusage-$base.XXXXXX")"
 # the handler (outside the agent, which runs with GARDEN_USAGE_FILE unset), and BEFORE
 # the completion teardown removes the top-level transcript.
 usage_before_nested="$(meter_job_session_usage "$base" 2>/dev/null || true)"
+
+# --- run `claude -p` in a MANAGED process group, and reap its whole tree on exit -
+#
+# THE HAZARD (garden-monk@N left-over `node`): `claude -p` spawns a node runtime
+# tree (MCP servers, tool subprocesses) and some of those children detach into
+# their OWN process group/session (setsid). If this handler exits — normally, on a
+# crash, or when the gardener's timeout wall SIGTERMs it — before that tree is fully
+# reaped, the orphaned `node` processes survive headless and only the NEXT worker
+# start's cgroup sweep (reap_stale_worker_cgroup) notices them, which is exactly the
+# "worker repeatedly starts with left-over node" symptom.
+#
+# We close it at the handler boundary. `set -m` launches the `claude -p` subshell as
+# its own process-group leader (its pgid == the captured pid), so the runtime tree
+# is addressable as one unit. A cleanup trap then runs reap_process_tree (common.sh
+# § reap_process_tree): a /proc descendant walk plus a group SIGTERM->grace->SIGKILL
+# that BLOCKS until the tree drains — so this handler cannot return before its Claude
+# runtime tree is fully reaped. The trap is armed on EXIT (belt for the normal and
+# self-exit paths) and on the wall signals (TERM/INT/HUP), where it runs while the
+# runtime is STILL ALIVE so the descendant walk captures a setsid child by pid
+# before it can reparent away. gardener.sh still reaps the handler's own group after
+# we return (unconditional backstop), so this is defence in depth, not a replacement.
+: "${GARDEN_MONK_CLAUDE_REAP_GRACE:=5}"
+: "${GARDEN_MONK_CLAUDE_DRAIN_TIMEOUT:=15}"   # grace+drain (20s) stays well under GARDEN_HANDLER_KILL_AFTER (60s)
+claude_pgid=""
+claude_reap() {
+  [ -n "$claude_pgid" ] || return 0
+  reap_process_tree "$claude_pgid" "$GARDEN_MONK_CLAUDE_REAP_GRACE" "$GARDEN_MONK_CLAUDE_DRAIN_TIMEOUT" || true
+}
 set +e
+set -m
 if [ -x /usr/bin/time ]; then
-  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
 else
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
 fi
-rc=$?
+claude_pgid=$!
+set +m
+# Arm cleanup now that the group id is known. On a wall signal, reap the (still-live)
+# tree, then exit with the conventional 128+signo so the outcome is unambiguous; the
+# EXIT trap re-runs the reap as a fast no-op once the tree is already gone.
+trap 'claude_reap' EXIT
+trap 'claude_reap; exit 143' TERM
+trap 'claude_reap; exit 130' INT
+trap 'claude_reap; exit 129' HUP
+wait "$claude_pgid"; rc=$?
 set -e
 # A malformed/truncated envelope is an accounting miss, never a handler failure.
 # Preserve a useful report on provider errors, and otherwise extract .result

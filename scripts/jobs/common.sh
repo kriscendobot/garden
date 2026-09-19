@@ -4635,6 +4635,129 @@ reap_process_group() {
   return 0
 }
 
+# process_tree_pids <root-pid> — echo <root-pid> and every transitive descendant
+# pid (one per line), discovered from /proc PPid links. A setsid child changes its
+# session/group but NOT its parent pid, so it is still found here while its parent
+# chain is intact — which is exactly the leftover-`node` case a bare process-group
+# signal misses (the child detached into its own group). Order is unspecified. On a
+# host without /proc it degrades to echoing just the root. Never fails its caller.
+process_tree_pids() {
+  local root="${1:-}"
+  case "$root" in ''|*[!0-9]*) return 0 ;; esac
+  if [ ! -d /proc ]; then printf '%s\n' "$root"; return 0; fi
+  local pid ppid procdir
+  local -A kids=()
+  for procdir in /proc/[0-9]*; do
+    pid="${procdir#/proc/}"
+    ppid="$(awk '/^PPid:/{print $2; exit}' "$procdir/status" 2>/dev/null || true)"
+    [ -n "$ppid" ] || continue
+    kids[$ppid]="${kids[$ppid]:-} $pid"
+  done
+  local -a stack=("$root")
+  local -A seen=()
+  local cur c
+  while [ "${#stack[@]}" -gt 0 ]; do
+    cur="${stack[-1]}"; unset 'stack[-1]'
+    [ -n "${seen[$cur]:-}" ] && continue
+    seen[$cur]=1
+    printf '%s\n' "$cur"
+    for c in ${kids[$cur]:-}; do stack+=("$c"); done
+  done
+}
+
+# reap_process_tree <root-pid> [term-grace] [drain-timeout] — terminate <root-pid>,
+# its whole descendant TREE, and its process GROUP, then BLOCK until the tree has
+# drained. This is the stronger cousin of reap_process_group: a worker runtime like
+# `claude -p` spawns a node tree whose members may detach into their own process
+# groups/sessions (an MCP server or tool child that setsid'd), which a single
+# group signal cannot reach — leaving orphaned `node` processes that only the next
+# worker start's cgroup sweep catches (the garden-monk@N left-over-node symptom).
+# We close that at the handler boundary by combining three reaches and WAITING:
+#   * a /proc descendant walk (process_tree_pids) collects every transitive child
+#     BY PID while the parent chain is still linked — so kill-by-pid reaches a
+#     setsid child even after it later reparents to init;
+#   * each collected pid's process GROUP is signalled too (belt for a child spawned
+#     just after a snapshot), and the root's own group is seeded unconditionally so
+#     a group SIGKILL still reaches surviving members after the leader itself dies
+#     (a process group outlives its leader);
+#   * SIGTERM -> term-grace -> SIGKILL, then a bounded drain loop polls for both the
+#     pids and the groups to actually disappear, so the caller can guarantee it does
+#     not return before the runtime tree is fully reaped.
+# The descendant walk is gathered TWICE, before and just after the first SIGTERM, to
+# catch a child racing the snapshot. Best-effort and defensive: refuses unsafe roots
+# (non-numeric, <=1, this process) and never signals its own process tree or group,
+# so a caller defect can never broaden the blast radius; never fails its caller.
+: "${GARDEN_PROC_TREE_REAP_GRACE:=5}"
+: "${GARDEN_PROC_TREE_DRAIN_TIMEOUT:=20}"
+reap_process_tree() {
+  local root="${1:-}" grace="${2:-$GARDEN_PROC_TREE_REAP_GRACE}" drain="${3:-$GARDEN_PROC_TREE_DRAIN_TIMEOUT}"
+  case "$root" in ''|*[!0-9]*) return 0 ;; esac
+  [ "$root" -gt 1 ] 2>/dev/null || return 0
+  [ "$root" = "$$" ] && return 0
+  # Fast path: nothing reachable is alive (the common normal-completion case, where
+  # the runtime already exited). Skip the /proc walk entirely. A member that both
+  # left the root's group AND outlived the root is unreachable here regardless.
+  kill -0 "$root" 2>/dev/null || kill -0 "-$root" 2>/dev/null || return 0
+
+  # Our own process tree (self + ancestors) and process group — never signal them,
+  # so this can never take the caller down with the runtime it is reaping.
+  local self_tree=" $$ " a="$$" self_pgid
+  self_pgid="$(ps -o pgid= -p "$$" 2>/dev/null | tr -dc '0-9')"
+  while :; do
+    a="$(ps -o ppid= -p "$a" 2>/dev/null | tr -dc '0-9')"
+    [ -n "$a" ] && [ "$a" -gt 1 ] 2>/dev/null || break
+    case "$self_tree" in *" $a "*) break ;; esac
+    self_tree="$self_tree$a "
+  done
+
+  local -A pidset=() grpset=()
+  local p g k round waited alive
+  # The root is launched as its own process-group leader (set -m), so its pgid is
+  # the root pid; seed it so a group signal reaches members that outlive the leader.
+  if [ -z "$self_pgid" ] || [ "$root" != "$self_pgid" ]; then grpset[$root]=1; fi
+
+  # Gather the intact descendant tree twice — before and just after the first
+  # SIGTERM — so a child racing the snapshot is still captured by pid.
+  for round in 0 1; do
+    while IFS= read -r p; do
+      [ -n "$p" ] || continue
+      case "$self_tree" in *" $p "*) continue ;; esac
+      pidset[$p]=1
+      g="$(ps -o pgid= -p "$p" 2>/dev/null | tr -dc '0-9')"
+      if [ -n "$g" ] && [ "$g" != "$self_pgid" ]; then grpset[$g]=1; fi
+    done < <(process_tree_pids "$root")
+    [ "$round" -eq 0 ] || break
+    for k in "${!grpset[@]}"; do kill -TERM "-$k" 2>/dev/null || true; done
+    for k in "${!pidset[@]}"; do kill -TERM "$k" 2>/dev/null || true; done
+  done
+
+  waited=0
+  while [ "$waited" -lt "$grace" ]; do
+    alive=0
+    for k in "${!pidset[@]}"; do kill -0 "$k" 2>/dev/null && { alive=1; break; }; done
+    if [ "$alive" -eq 0 ]; then
+      for k in "${!grpset[@]}"; do kill -0 "-$k" 2>/dev/null && { alive=1; break; }; done
+    fi
+    [ "$alive" -eq 0 ] && return 0
+    sleep 1; waited=$((waited + 1))
+  done
+
+  for k in "${!grpset[@]}"; do kill -KILL "-$k" 2>/dev/null || true; done
+  for k in "${!pidset[@]}"; do kill -KILL "$k" 2>/dev/null || true; done
+
+  waited=0
+  while [ "$waited" -lt "$drain" ]; do
+    alive=0
+    for k in "${!pidset[@]}"; do kill -0 "$k" 2>/dev/null && { alive=1; break; }; done
+    if [ "$alive" -eq 0 ]; then
+      for k in "${!grpset[@]}"; do kill -0 "-$k" 2>/dev/null && { alive=1; break; }; done
+    fi
+    [ "$alive" -eq 0 ] && return 0
+    sleep 1; waited=$((waited + 1))
+  done
+  return 0
+}
+
 # reap_stale_worker_cgroup <kind> <id> [grace-secs] — remove processes left in a
 # worker service's cgroup by an earlier incarnation before the new worker can
 # claim. A handler can detach into a new process group, so reap_process_group
