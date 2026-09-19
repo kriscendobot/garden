@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T21:57:53Z_
+_As of 2026-09-19T22:00:00Z_
 
 ## Latest
 
@@ -1401,17 +1401,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1310
-- [`canary-probe-oros-studio-garden-ce242c49-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-917115c9b772.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 917115c9b772
 
-### tada (8446)
+### tada (8447)
+- [`canary-probe-oros-studio-garden-ce242c49-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-917115c9b772.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-917115c9b772.md) — rolling-deploy canary probe — round trip OK
 - [`improve-cursor-write-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-write-outage-classification.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260919-210536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-210536.md) — Completion report
-- [`improve-comment-watcher-child-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-comment-watcher-child-reaping.md) — Completion report
-- … and 8441 more
+- … and 8442 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
