@@ -49,21 +49,8 @@ trap 'rm -f "$sync_err"' EXIT
 if ( sync_clone "$DIR" ) 2>"$sync_err"; then rc=0; else rc=$?; fi
 sync_diagnostic="$(cat "$sync_err")"
 
-# Positive local-state signatures that can be wrapped by journal_fetch's generic
-# rc=1 summary. Keep these separate from transport weather: disk/config/ownership
-# faults need an operator and must remain visible even when several watchers fail.
-cursor_diagnostic_is_local_failure() {
-  printf '%s' "$1" | grep -qiE \
-    'not a git repository|detected dubious ownership|unable to create .*\.lock|cannot lock ref|No space left on device|Read-only file system|Input/output error|Operation not permitted'
-}
-
 ambiguous_fetch_outage=1
-if [ "$rc" -eq 1 ] \
-  && printf '%s\n' "$sync_diagnostic" | grep -qE 'journal fetch in .* failed after [0-9]+ attempt' \
-  && ! _fetch_stderr_is_auth_failure "$sync_diagnostic" \
-  && ! _fetch_stderr_is_upstream_gone "$sync_diagnostic" \
-  && ! _fetch_stderr_is_corrupt "$sync_diagnostic" \
-  && ! cursor_diagnostic_is_local_failure "$sync_diagnostic"; then
+if journal_bounded_fetch_is_ambiguous_outage "$rc" "$sync_diagnostic"; then
   ambiguous_fetch_outage=0
 fi
 

@@ -1,6 +1,6 @@
 #!/bin/bash
-# cursor-outage-cooldown-test.sh — guard the host-shared journal-read outage cooldown
-# that suppresses the cursor-get thundering herd.
+# cursor-outage-cooldown-test.sh — guard the host-shared journal outage cooldown
+# that suppresses the cursor read/write thundering herd.
 #
 # Every per-repo triager/comment/mention/issue-inbox watcher opens each tick with a
 # cursor-get.sh that sync_clone's the shared journal clone. On a journal-connectivity
@@ -11,10 +11,9 @@
 # probe cannot erase a newer episode. Loud structural/authentication failures (a
 # non-offline `die`) must stay loud.
 #
-# Two layers under test: the common.sh cooldown helpers (host-wide resolution, atomic
-# single-latch, observer-never-extends, clear, expiry) and cursor-get.sh's end-to-end
-# behavior (short-circuit on a live latch, latch-on-detection, correlated ambiguous
-# rc=1 classification, re-raise-loud boundaries, clear).
+# Three layers under test: the common.sh cooldown helpers (host-wide resolution, atomic
+# single-latch, observer-never-extends, clear, expiry), cursor-get.sh's end-to-end read
+# behavior, and cursor-set.sh's corresponding sync/push/retry behavior.
 
 set -euo pipefail
 export GARDEN_TEST=1
@@ -365,6 +364,188 @@ grep -qi 'Repository not found' "$TR/gone.err" \
   || bad "the upstream-gone diagnostic was swallowed"
 [ ! -e "$MARKER" ] && ok "a gone upstream does not latch a cooldown" \
   || bad "a gone upstream latched a cooldown (would silence a real upstream fault)"
+
+# ---------------------------------------------------------------------------
+# Layer 3: cursor-set.sh end-to-end.
+# ---------------------------------------------------------------------------
+echo "SUBTEST 3 — cursor-set.sh"
+SET_KEY="activity/write-test"
+run_cursor_set() {  # run_cursor_set <state-ns> [extra env KEY=VAL ...]
+  local ns="$1"; shift
+  env GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state/set-$ns" JOURNAL_REMOTE="$BARE" \
+    GARDEN_CURSOR_CLONE="$CLONE" GARDEN_JOURNAL_OUTAGE_COOLDOWN_SECS=120 \
+    GARDEN_FETCH_RETRIES=1 "$@" bash "$JOBS/cursor-set.sh" "$SET_KEY" \
+    <<< "last_sha: write-$ns"
+}
+
+# (j) A healthy write still lands normally.
+rm -f "$MARKER"
+rc=0; run_cursor_set healthy >"$TR/set-healthy.out" 2>"$TR/set-healthy.err" || rc=$?
+[ "$rc" -eq 0 ] \
+  && git --git-dir="$BARE" show "journal2:cursors/$SET_KEY" | grep -q 'last_sha: write-healthy' \
+  && ok "a healthy cursor-set advances the journal cursor" \
+  || bad "healthy cursor-set did not land (rc=$rc)"
+
+# (k) A live sibling latch prevents both the sync fetch and push from starting.
+now="$(date +%s)"; printf '%s\nsibling\n' "$((now + 120))" > "$MARKER"
+SET_FETCH_SENTINEL="$TR/set-fetch-was-called"
+SET_PUSH_SENTINEL="$TR/set-push-was-called"
+SET_FETCH_TRIP="$TR/set-fetch-trip.sh"
+cat > "$SET_FETCH_TRIP" <<EOF
+#!/bin/bash
+touch "$SET_FETCH_SENTINEL"
+exit 0
+EOF
+SET_PUSH_TRIP="$TR/set-push-trip.sh"
+cat > "$SET_PUSH_TRIP" <<EOF
+#!/bin/bash
+touch "$SET_PUSH_SENTINEL"
+exit 0
+EOF
+chmod +x "$SET_FETCH_TRIP" "$SET_PUSH_TRIP"
+rc=0
+run_cursor_set latched GARDEN_FETCH_CMD="$SET_FETCH_TRIP" GARDEN_PUSH_CMD="$SET_PUSH_TRIP" \
+  >"$TR/set-latched.out" 2>"$TR/set-latched.err" || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] \
+  && [ ! -e "$SET_FETCH_SENTINEL" ] && [ ! -e "$SET_PUSH_SENTINEL" ] \
+  && ok "a live outage latch suppresses a cursor write before fetch/push" \
+  || bad "latched cursor write touched transport or returned rc=$rc"
+
+# (l) Known transport weather during the sync latches and returns EX_TEMPFAIL.
+rm -f "$MARKER"
+rc=0
+run_cursor_set sync-offline GARDEN_FETCH_CMD="$FETCH_OFFLINE" \
+  >"$TR/set-sync-offline.out" 2>"$TR/set-sync-offline.err" || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ] \
+  && ok "cursor-set latches a known sync transport outage" \
+  || bad "known cursor-set sync outage was not classified (rc=$rc)"
+
+# (m) The bounded ambiguous rc=1 fetch fallback applies to writes too.
+rm -f "$MARKER"
+rc=0
+run_cursor_set sync-ambiguous GARDEN_FETCH_CMD="$FETCH_AMBIGUOUS" \
+  GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' \
+  >"$TR/set-sync-ambiguous.out" 2>"$TR/set-sync-ambiguous.err" || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ] \
+  && ok "cursor-set conservatively classifies bounded ambiguous rc=1 fetch failure" \
+  || bad "ambiguous cursor-set sync failure was not classified (rc=$rc)"
+
+# (n) Positive authentication evidence remains loud and never arms the latch.
+rm -f "$MARKER"
+rc=0
+run_cursor_set sync-auth GARDEN_FETCH_CMD="$FETCH_AUTH" \
+  GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' \
+  >"$TR/set-sync-auth.out" 2>"$TR/set-sync-auth.err" || rc=$?
+[ "$rc" -eq 1 ] && grep -qi 'Permission denied' "$TR/set-sync-auth.err" \
+  && [ ! -e "$MARKER" ] \
+  && ok "cursor-set preserves a loud sync authentication failure" \
+  || bad "cursor-set masked/lost sync authentication failure (rc=$rc)"
+
+# (o) Positive local-state and missing-upstream evidence also stay out of the
+#     ambiguous-outage fallback.
+rm -f "$MARKER"
+rc=0
+run_cursor_set sync-local GARDEN_FETCH_CMD="$FETCH_LOCAL" \
+  GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' \
+  >"$TR/set-sync-local.out" 2>"$TR/set-sync-local.err" || rc=$?
+[ "$rc" -eq 1 ] && grep -qi 'not a git repository' "$TR/set-sync-local.err" \
+  && [ ! -e "$MARKER" ] \
+  && ok "cursor-set preserves a loud local-state fetch failure" \
+  || bad "cursor-set masked/lost local-state fetch failure (rc=$rc)"
+
+rm -f "$MARKER"
+rc=0
+run_cursor_set sync-gone GARDEN_FETCH_CMD="$FETCH_GONE" \
+  GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' \
+  >"$TR/set-sync-gone.out" 2>"$TR/set-sync-gone.err" || rc=$?
+[ "$rc" -eq 1 ] && grep -qi 'Repository not found' "$TR/set-sync-gone.err" \
+  && [ ! -e "$MARKER" ] \
+  && ok "cursor-set preserves a loud missing-upstream fetch failure" \
+  || bad "cursor-set masked/lost missing-upstream fetch failure (rc=$rc)"
+
+# (p) A failed push with a known transport signature is itself enough to open the
+#     episode; cursor-set must not spend the remaining 49 retries on the outage.
+rm -f "$MARKER"
+PUSH_OFFLINE="$TR/push-offline.sh"
+cat > "$PUSH_OFFLINE" <<'EOF'
+#!/bin/bash
+echo "fatal: unable to access: Could not resolve host: github.com" >&2
+exit 1
+EOF
+chmod +x "$PUSH_OFFLINE"
+rc=0
+run_cursor_set push-offline GARDEN_PUSH_CMD="$PUSH_OFFLINE" \
+  >"$TR/set-push-offline.out" 2>"$TR/set-push-offline.err" || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ] \
+  && ok "cursor-set latches a push transport outage without exhausting CAS retries" \
+  || bad "cursor-set push outage was not classified (rc=$rc)"
+
+# (q) A successful-looking push is verified with a bounded fetch. If that fetch ends
+#     in the narrow ambiguous rc=1 shape, classify it as weather rather than retrying
+#     the complete write loop until the service deadline.
+rm -f "$MARKER"
+VERIFY_FETCH_COUNT="$TR/verify-fetch-count"
+FETCH_VERIFY_AMBIGUOUS="$TR/fetch-verify-ambiguous.sh"
+cat > "$FETCH_VERIFY_AMBIGUOUS" <<EOF
+#!/bin/bash
+n=0; [ ! -f "$VERIFY_FETCH_COUNT" ] || n=\$(cat "$VERIFY_FETCH_COUNT")
+n=\$((n + 1)); printf '%s\n' "\$n" > "$VERIFY_FETCH_COUNT"
+[ "\$n" -eq 1 ] && exit 0
+echo 'fatal: remote end hung up unexpectedly' >&2
+exit 1
+EOF
+PUSH_NOOP="$TR/push-noop.sh"
+cat > "$PUSH_NOOP" <<'EOF'
+#!/bin/bash
+exit 0
+EOF
+chmod +x "$FETCH_VERIFY_AMBIGUOUS" "$PUSH_NOOP"
+rc=0
+run_cursor_set verify-ambiguous GARDEN_FETCH_CMD="$FETCH_VERIFY_AMBIGUOUS" \
+  GARDEN_PUSH_CMD="$PUSH_NOOP" GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' \
+  >"$TR/set-verify-ambiguous.out" 2>"$TR/set-verify-ambiguous.err" || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ] \
+  && [ "$(cat "$VERIFY_FETCH_COUNT")" -eq 2 ] \
+  && ok "cursor-set classifies an ambiguous bounded verification fetch outage" \
+  || bad "cursor-set retried an ambiguous verification fetch (rc=$rc fetches=$(cat "$VERIFY_FETCH_COUNT" 2>/dev/null || echo 0))"
+
+# (r) A push authentication rejection remains loud on its first attempt.
+rm -f "$MARKER"
+PUSH_AUTH="$TR/push-auth.sh"
+cat > "$PUSH_AUTH" <<'EOF'
+#!/bin/bash
+echo "git@github.com: Permission denied (publickey)." >&2
+exit 1
+EOF
+chmod +x "$PUSH_AUTH"
+rc=0
+run_cursor_set push-auth GARDEN_PUSH_CMD="$PUSH_AUTH" \
+  >"$TR/set-push-auth.out" 2>"$TR/set-push-auth.err" || rc=$?
+[ "$rc" -eq 1 ] && grep -qi 'Permission denied' "$TR/set-push-auth.err" \
+  && [ ! -e "$MARKER" ] \
+  && ok "cursor-set preserves a loud push authentication failure" \
+  || bad "cursor-set masked/lost push authentication failure (rc=$rc)"
+
+# (s) A sibling can open the cooldown after our CAS loss. The retry loop must check
+#     it before another sync/write/push, so only one push attempt occurs.
+rm -f "$MARKER"
+PUSH_COUNT="$TR/push-count"
+PUSH_LATCH="$TR/push-latch.sh"
+cat > "$PUSH_LATCH" <<EOF
+#!/bin/bash
+n=0; [ ! -f "$PUSH_COUNT" ] || n=\$(cat "$PUSH_COUNT")
+printf '%s\n' \$((n + 1)) > "$PUSH_COUNT"
+printf '%s\nsibling-during-cas\n' \$((\$(date +%s) + 120)) > "$MARKER"
+echo 'rejected (non-fast-forward)' >&2
+exit 1
+EOF
+chmod +x "$PUSH_LATCH"
+rc=0
+run_cursor_set retry-latch GARDEN_PUSH_CMD="$PUSH_LATCH" \
+  >"$TR/set-retry-latch.out" 2>"$TR/set-retry-latch.err" || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ "$(cat "$PUSH_COUNT")" -eq 1 ] \
+  && ok "cursor-set honors a newly-opened cooldown before retrying a CAS write" \
+  || bad "cursor-set retried through a sibling cooldown (rc=$rc pushes=$(cat "$PUSH_COUNT" 2>/dev/null || echo 0))"
 
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

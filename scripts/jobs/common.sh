@@ -637,7 +637,7 @@ start_api_cooldown() {  # rc 0 = THIS tick recorded the window (and owns the war
   ) 9>"$GARDEN_API_COOLDOWN_LOCK"
 }
 
-# --- shared JOURNAL-READ outage cooldown (host-shared across ALL cursor consumers) --
+# --- shared JOURNAL outage cooldown (host-shared across ALL cursor consumers) -------
 # The sibling of the gh-api cooldown above, for a different herd. EVERY per-repo
 # triager/comment-/mention-/issue-inbox watcher opens each tick with a cursor-get.sh,
 # which sync_clone's the shared journal clone. On a journal-connectivity outage each
@@ -645,14 +645,15 @@ start_api_cooldown() {  # rc 0 = THIS tick recorded the window (and owns the war
 # logs its own "offline" line — one self-inflicted thundering herd of doomed fetches,
 # per repo AND per watcher-kind, for as long as the blip lasts (the 2026-09-18
 # journal-fetch outage that flapped garden-triager@*). These helpers give the whole
-# HOST one bounded, shared cooldown: the first cursor-get to see the journal offline
-# calls start_journal_outage_cooldown to LATCH a finite window under the rendered unit
-# root's .garden-state (and owns the single warning); every later cursor-get calls
-# journal_outage_active FIRST — before any fetch — and reports temporary-unavailable
-# (GARDEN_OFFLINE_RC) immediately, so consumers skip QUIETLY instead of each re-probing
-# and re-warning. Recovery is window-bounded, exactly like the gh-api cooldown: while a
-# window is live every read short-circuits, so the first read AFTER it expires is the one
-# that reaps the marker and reads through. clear_journal_outage_cooldown is the belt-and-
+# HOST one bounded, shared cooldown: the first cursor-get or cursor-set to see the
+# journal offline calls start_journal_outage_cooldown to LATCH a finite window under
+# the rendered unit root's .garden-state (and owns the single warning); every later
+# cursor read/write calls journal_outage_active FIRST — before any fetch — and reports
+# temporary-unavailable (GARDEN_OFFLINE_RC) immediately, so consumers skip QUIETLY
+# instead of each re-probing and re-warning. Recovery is window-bounded, exactly like
+# the gh-api cooldown: while a window is live every cursor operation short-circuits, so
+# the first operation AFTER it expires is the one that reaps the marker and reads/writes
+# through. clear_journal_outage_cooldown is the belt-and-
 # suspenders cleanup for the one case the expiry-reap can't cover — a leftover marker
 # while the cooldown is toggled OFF (secs=0), dropped on the next successful read. An
 # enabled caller must not clear after success: an older in-flight success can race a
@@ -4127,6 +4128,27 @@ _fetch_stderr_is_upstream_gone() {
   printf '%s' "$1" | grep -qiE "$GARDEN_UPSTREAM_GONE_SIGNATURES"
 }
 
+# A bounded journal fetch can occasionally finish with the otherwise-ambiguous
+# rc=1 and a transport diagnostic that is not in the stable offline-signature
+# set. Cursor reads and writes treat that narrow shape as weather, but only after
+# excluding failures that positively identify a local checkout, authentication,
+# corruption, or a missing upstream. Keep the boundary here so cursor-get and
+# cursor-set cannot drift into different outage classifications.
+journal_diagnostic_is_local_failure() {
+  printf '%s' "$1" | grep -qiE \
+    'not a git repository|detected dubious ownership|unable to create .*\.lock|cannot lock ref|No space left on device|Read-only file system|Input/output error|Operation not permitted'
+}
+
+journal_bounded_fetch_is_ambiguous_outage() {  # <rc> <diagnostic>
+  local rc="$1" diagnostic="$2"
+  [ "$rc" -eq 1 ] \
+    && printf '%s\n' "$diagnostic" | grep -qE 'journal fetch in .* failed after [0-9]+ attempt' \
+    && ! _fetch_stderr_is_auth_failure "$diagnostic" \
+    && ! _fetch_stderr_is_upstream_gone "$diagnostic" \
+    && ! _fetch_stderr_is_corrupt "$diagnostic" \
+    && ! journal_diagnostic_is_local_failure "$diagnostic"
+}
+
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
 #
 # Every read-only gh handler in the watcher fleet used to issue a SINGLE bare
@@ -6005,23 +6027,35 @@ sync_clone() {
 
 # Push the journal branch. Indirected via GARDEN_PUSH_CMD so a test can inject a
 # push that "succeeds" without advancing the remote (the silent-loss case).
+GARDEN_PUSH_STDERR=""
 _push_journal() {
-  local dir="$1"
+  local dir="$1" rc=0
+  GARDEN_PUSH_STDERR=""
   if [ -n "${GARDEN_PUSH_CMD:-}" ]; then
-    GARDEN_PUSH_DIR="$dir" "$GARDEN_PUSH_CMD"
+    if GARDEN_PUSH_STDERR="$(GARDEN_PUSH_DIR="$dir" "$GARDEN_PUSH_CMD" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
   else
-    git -C "$dir" push -q origin "HEAD:$JOURNAL_BRANCH" 2>/dev/null
+    # shellcheck disable=SC2034 # consumed by cursor-set after commit_and_push returns
+    if GARDEN_PUSH_STDERR="$(git -C "$dir" push -q origin "HEAD:$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
   fi
+  return "$rc"
 }
 
 # Confirm the just-pushed HEAD actually landed on origin/$JOURNAL_BRANCH. A push
 # can report success yet not advance the remote (shared-clone races, transient
 # ref-locks). Re-fetch and require our commit to BE the remote tip or an ancestor
 # of it. Returns 0 if reachable, 1 if the post was silently lost.
+GARDEN_VERIFY_FETCH_RC=0
 _verify_pushed() {
   local dir="$1" head remote
+  GARDEN_VERIFY_FETCH_RC=0
   head="$(git -C "$dir" rev-parse HEAD 2>/dev/null)"               || return 1
-  journal_fetch "$dir" >/dev/null 2>&1                             || return 1
+  if journal_fetch "$dir" >/dev/null 2>&1; then
+    GARDEN_VERIFY_FETCH_RC=0
+  else
+    # shellcheck disable=SC2034 # consumed by cursor-set after commit_and_push returns
+    GARDEN_VERIFY_FETCH_RC=$?
+    return 1
+  fi
   remote="$(git -C "$dir" rev-parse "origin/$JOURNAL_BRANCH" 2>/dev/null)" || return 1
   [ "$head" = "$remote" ] && return 0
   git -C "$dir" merge-base --is-ancestor "$head" "$remote" 2>/dev/null
