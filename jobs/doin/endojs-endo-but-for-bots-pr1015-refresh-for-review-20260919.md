@@ -38,6 +38,7 @@ worktree (ensure-project-worktree.sh), never the garden root.
 inviting preliminary review. Do not un-draft and do not attempt to merge.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
