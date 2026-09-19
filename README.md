@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T05:41:47Z_
+_As of 2026-09-19T05:46:27Z_
 
 ## Latest
 
@@ -1252,15 +1252,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.1M | $7.01 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.1M | $7.64 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (1)
-- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
+- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1306-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1306 (me...
+- [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
+- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
 
 ### tada (8406)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260919-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/fu-minion-town-containment-gateway-endo-sock-1-20260919-045006.md) — What I did
@@ -1512,6 +1514,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1306-review-3ed76637-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1306-review-3ed76637-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1306 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1301-review-e2671e4d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1301-review-e2671e4d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1301 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1304-0c373555-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1304-0c373555-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1304 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1305-b982dc09-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1305-b982dc09-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1305 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
