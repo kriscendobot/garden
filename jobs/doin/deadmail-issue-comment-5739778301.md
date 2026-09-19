@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/104#issuecomment-57397783
 @kriscendobot I am noting that there was no reactji posted on https://github.com/endojs/endo-but-for-bots/pull/1305#issuecomment-5739760774, thus the question about garden health 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-19T06:20:36Z
