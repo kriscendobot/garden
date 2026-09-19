@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T16:32:06Z_
+_As of 2026-09-19T16:35:22Z_
 
 ## Latest
 
@@ -1380,8 +1380,9 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 996.4k _(+5.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
 - [`canary-probe-oros-studio-garden-ce242c49-fab63b7af6af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-fab63b7af6af.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ fab63b7af6af
+- [`claude-on-minion-town-press-20260919-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260919-163507.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (0)
 (none)
