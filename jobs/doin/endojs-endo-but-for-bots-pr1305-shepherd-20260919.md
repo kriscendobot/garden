@@ -50,6 +50,7 @@ Your job: **drive CI to green** (mergeable_state=clean / all required checks pas
 Bot repo only (endojs/endo-but-for-bots). NEVER touch agoric-sdk or upstream endojs/endo.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=117 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
