@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T06:29:43Z_
+_As of 2026-09-19T06:32:56Z_
 
 ## Latest
 
@@ -1274,7 +1274,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (2)
+### todo (3)
+- [`canary-probe-endolin-garden2-5bcdff64-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-3f6b7911fa29.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 3f6b7911fa29
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — ---
 - [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Shepherd endojs/endo-but-for-bots PR #1305 to green (1/3 of the belayed direc...
 
