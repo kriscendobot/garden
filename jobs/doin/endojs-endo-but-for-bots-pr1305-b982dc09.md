@@ -47,6 +47,7 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-plain-retry-not-before: 2026-09-19T06:13:05Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=699,346 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
