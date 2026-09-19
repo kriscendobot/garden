@@ -12,6 +12,7 @@ The journal-outage latch (`note_journal_outage`/`note_journal_recovered`, ~line 
 <!-- garden-plain-retry-not-before: 2026-09-19T05:43:10Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
