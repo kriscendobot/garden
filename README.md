@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T07:28:54Z_
+_As of 2026-09-19T07:37:08Z_
 
 ## Latest
 
@@ -353,11 +353,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-09T21:05:16Z, latest 2026-09-18T05:52:29Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-09T21:05:16Z, latest 2026-09-19T07:35:20Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared cleric demand active=0 queue=0 fleet-envelope=5 target=1
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared cleric demand active=0 queue=1 fleet-envelope=5 target=1
 
 - `build-rbra-cleanbreak-20260916-halted` — from orchestrator:build-rbra-cleanbreak-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-rbra-cleanbreak-20260916-halted.md)
 
@@ -1179,6 +1179,80 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > test:types + ava. Push, keep #1301 draft. Report the consumer-rewrite approach
 > taken and whether the rename child can proceed.
 
+- `doomed-daily-progress-summary-20260919-070505-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260919-070505-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/daily-progress-summary-20260919-070505; it stays HELD until a human promotes it
+> (promote-plan.sh daily-progress-summary-20260919-070505) or removes it, so nothing is lost.
+> Original job base: daily-progress-summary-20260919-070505
+>
+> --- original job body ---
+> Scheduled dispatch context (computed by the scheduler at fire time):
+>
+> - window_start: 2026-09-18T07:00:00Z (UTC, inclusive)
+> - window_end: 2026-09-19T07:00:00Z (UTC, exclusive)
+> - pacific_date: 2026-09-18 (the Pacific day this periodical covers)
+> - output: journal/periodicals/2026/09/18.md
+>
+> ---
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Daily midnight Pacific progress summary
+>
+> Act as the [journalist](../../roles/journalist/AGENT.md) with purpose
+> `daily-progress-summary` (see that role's § Daily progress summaries). Write one
+> daily progress-summary periodical covering the prior 24 hours across every project,
+> then commit it to `journal2`.
+>
+> 1. **Window.** If the scheduler prepended a "Scheduled dispatch context" block
+>    above (it does under the anchored `daily-at-00:00-America/Los_Angeles`
+>    cadence), use its `window_start`, `window_end`, `pacific_date`, and `output`
+>    verbatim. Otherwise fall back to the Pacific day that most recently closed:
+>    window `[<pacific_date> 00:00, next-day 00:00)` in America/Los_Angeles, and
+>    `output = journal/periodicals/<YYYY>/<MM>/<DD>.md` keyed by that `pacific_date`.
+> 2. **Read.** Every entry under `journal/entries/<YYYY>/<MM>/<DD>/` whose `ts:` is
+>    in `[window_start, window_end)` (a UTC window can straddle two day-directories;
+>    scan both and filter by `ts:`), plus the board transitions in the window
+>    (`jobs/{todo,doin,tada}` moves from `git -C journal log --since=... --until=...`).
+>    Scope is intentionally everything: dispatches, results, ticks, messages, and
+>    worktree-lifecycle entries alike.
+> 3. **Write.** One abstract-first periodical at `output`, partitioned by project
+>    (the `project:` slug; one section per project with any entry, plus a garden-meta
+>    section for untagged entries) and, within each, by activity kind. Do not skip a
+>    project for having only a couple of entries. Cite sources by relative path;
+>    paraphrase, do not copy. House style applies (no em-dashes in prose, no Latin
+>    shorthand, relative paths). Commit and push the one file with the usual CAS; if
+>    the file already exists for that Pacific date, overwrite it (the periodical is a
+>    function of the window, so a re-run is idempotent).
+>
+> Deliverable: the periodical file committed to `journal2`, or (empty window) a
+> one-line periodical saying nothing moved. No board writes, no upstream actions.
+>
+> ---
+> Translated from v1 `schedule/garden/20260513T070000Z--5a93f9.md`
+> (recurrence `daily-at-00:00-America/Los_Angeles`, dispatch `journalist` /
+> `daily-progress-summary`, window "prior 24 hours", scope all projects).
+> The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
+> specs keyed by cadence, not pre-computed per-fire event files. The v1 periodicals
+> output tree is archived under `legacy/v1/periodicals/`. The v1 original is
+> retained on `journal-v1` and `origin/journal`.
+>
+> The cadence is the anchored, DST-aware `daily-at-00:00-America/Los_Angeles` (which
+> the scheduler learned on main2 commit 85a1cd8e6): due-ness is decided against the
+> most recent Pacific-midnight anchor at-or-before now and `last_dispatched` is
+> stamped to that anchor, so the fire never drifts off local midnight and a 23h/25h
+> DST day is spanned correctly. It was flipped from the earlier fixed-interval
+> `daily` (which drifted, firing at each actual dispatch time rather than at local
+> midnight) once the anchored scheduler landed on the leader host; do not revert it
+> to `daily` while any leader host still runs a pre-anchor scheduler, or that
+> scheduler would treat the token as its weekly default.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -1292,12 +1366,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
 
-### doin (2)
-- [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260919-070505.md) — Daily midnight Pacific progress summary
-- [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
+### doin (0)
+(none)
 
 ### tada (8416)
 - [`claude-on-minion-town-press-20260919-072030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-072030.md) — Press tick — Claude-on-minion.town arc (issue #89)
@@ -1320,6 +1393,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr663-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr663-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #663
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
+- [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260919-070505.md) — _normal_ · Daily midnight Pacific progress summary
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`ironhorse-fuzz-50834e82d3af453d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-50834e82d3af453d-repair.md) — _normal_ · Repair Ironhorse engine defect 50834e82d3af453d (target differential_regexp_s...
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-retro-doom-escalation-noise.md) — _normal_ · ---
