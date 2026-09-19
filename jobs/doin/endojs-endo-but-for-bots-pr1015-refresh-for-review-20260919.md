@@ -42,3 +42,13 @@ inviting preliminary review. Do not un-draft and do not attempt to merge.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T01:33:05Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T01:33:22Z
