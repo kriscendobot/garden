@@ -55,3 +55,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-573735733
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T00:04:24Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T00:07:43Z
