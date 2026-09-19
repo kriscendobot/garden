@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 In scripts/jobs/issue-inbox-watcher.sh, line 386 reads the cursor with a bare command substitution:
@@ -10,13 +11,6 @@ under `set -euo pipefail` (line 85). cursor-get.sh's sync_clone `exit`s nonzero 
 This is the identical bug class fixed twice in scripts/jobs/triager.sh (commits 73c2432e89 and b320648e47): a cursor read is inherently best-effort — a stale/unreadable cursor just re-polls next tick, never loses data — so treat ANY nonzero rc from cursor-get.sh as fail-open. Apply the same pattern here: capture the rc with `if cursor_out=$("$HERE/cursor-get.sh" "$CURSOR_KEY"); then rc=0; else rc=$?; fi`, and on nonzero rc, `log "WARN: journal unreachable reading cursor $CURSOR_KEY (rc=$rc); skipping this tick"` then `exit 0` instead of falling through to `die`/set -e. Then parse `last_seen` from `$cursor_out` instead of the pipeline.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=9 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T00:17:20Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-19T00:34:19Z -->
