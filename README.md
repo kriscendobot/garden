@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T03:00:30Z_
+_As of 2026-09-19T03:01:13Z_
 
 ## Latest
 
@@ -258,6 +258,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration cybernetics-economic-resilience-build complete (serial): all 6 children reached tada without a machine-readable failure declaration.
 
+- `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
+
+> budget pool anthropic:endolin-garden-ece02cb4 changed zone backoff -> ok at spend=0 of cap=143000000 (high-water 0.85; Friday 20:00 Pacific window).
+
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-17T00:05:35Z, latest 2026-09-17T02:35:16Z).
@@ -512,6 +516,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-halted` — from gauntlet:ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-halted.md)
 
 > Gauntlet ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917 HALTED: stage 'ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-6' (fix) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
+
+- `msg-claude-on-minion-town-completion-press-20260919-025019-2682b23ba6f9` — from gardener:claude-on-minion-town-completion-press-20260919-025019, reply_to `claude-on-minion-town-completion-press-20260919-025019` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20260919-025019-2682b23ba6f9.md)
+
+> **Arc ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)) completion press — leader-host fault now bottlenecks the [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/issues/1125) stack (4th consecutive tick).**
+>
+> Good news first: **[endojs/endo-but-for-bots#1304](https://github.com/endojs/endo-but-for-bots/issues/1304) (CapTP slice 1/3) MERGED** this window (21:05Z) — but you merged it BY HAND; the bot's authorized conductors doomed. Receipt landed.
+>
+> The bad news is the same host fault, unremediated: **3 arc conductor/review jobs doomed in-window, all `requeue-exhausted` / `repeated-plain-exit` / `deadline_overruns:0` on the LEADER host `endolin-garden-ece02cb4`:**
+> - `endojs-endo-but-for-bots-pr1305-conduct` @ 21:33Z
+> - `endojs-endo-but-for-bots-pr1306-conduct` @ 22:13Z
+> - `endojs-endo-but-for-bots-pr1306-review-3ed76637` @ 22:43Z
+>
+> **What it blocks:** [endojs/endo-but-for-bots#1306](https://github.com/endojs/endo-but-for-bots/issues/1306) (2/3) is un-drafted, `mergeable=CLEAN`, base=`llm`, head `9e16e50b1` — ready to merge but its conductor dies on ece02cb4 (also awaits your re-approval: the rebase narrowed the approved surface by retiring the forgeable `isReadOnlyDirectoryFormula`). [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) (3/3) is `mergeable=CLEAN`, stacked on the 2/3 branch. Both are one clean conductor run from landing; they can't get one on that host. `pr1306-retcon` has been in `doin` ~4h (your "Shepherd, retcon, conduct" comment) — watching, not yet alarming.
+>
+> **The pattern:** every long conductor/review job routed to `endolin-garden-ece02cb4` exits clean-early before completing (the `deadline_overruns:0` + `repeated-plain-exit` signature is consistent with quota/credit exhaustion on that host — shorter jobs and jobs on other hosts complete fine). This is why you've had to hand-merge [endojs/endo-but-for-bots#1304](https://github.com/endojs/endo-but-for-bots/issues/1304) and hand-drive the stack. NO remediation job exists on the board for that host; its last sysop-log entry is 09-07. It needs a look (quota/throttle/gc) before the doomed conducts are worth re-posting — promoting them onto the same host will re-doom. I observe only; the call is yours.
 
 - `doomed-date-sharded-tada-migrate-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-date-sharded-tada-migrate-requeue-exhausted.md)
 
