@@ -43,3 +43,13 @@ Note: a prior `endojs-endo-but-for-bots-pr1305-conduct` plan is parked DOOMED
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T05:53:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T05:53:53Z
