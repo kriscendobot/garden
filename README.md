@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T15:18:16Z_
+_As of 2026-09-19T15:24:07Z_
 
 ## Latest
 
@@ -1376,23 +1376,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.5M | $26.89 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 574.8k _(+2.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 2.6M | $28.01 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Codex | 744.4k _(+3.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1305-conduct-r5256145878`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-conduct-r5256145878.md) — Conduct (finalize → merge) endojs/endo-but-for-bots PR #1305 (3/3 of #1125)
+- [`endo-guest-native-accept-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-guest-native-accept-primitive.md) — Build guest-native invitation ACCEPTANCE (EndoGuest.accept) for Endo
 
-### tada (8422)
+### tada (8423)
+- [`endojs-endo-but-for-bots-pr1305-conduct-r5256145878`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-conduct-r5256145878.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-review-049d4381`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-review-049d4381.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260919-150506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-150506.md) — Completion report — completion press tick 20260919-150506
 - [`claude-on-minion-town-press-20260919-133506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-133506.md) — Cost
 - [`claude-on-minion-town-press-20260919-103505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-103505.md) — Completion report — claude-on-minion-town-press-20260919-103505
-- [`claude-on-minion-town-completion-press-20260919-090506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-090506.md) — Completion report — completion press tick 20260919-090506
-- … and 8417 more
+- … and 8418 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1652,7 +1652,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
-- [`endo-guest-native-accept-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-guest-native-accept-primitive.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1305` · Build guest-native invitation ACCEPTANCE (EndoGuest.accept) for Endo
 - [`build-minion-town-invitation-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-invitation-onboarding.md) — awaiting `endo-guest-native-accept-primitive` · Build invitation-only guest onboarding for minion.town — STILL BLOCKED (gate ...
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
