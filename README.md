@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T06:14:40Z_
+_As of 2026-09-19T06:17:17Z_
 
 ## Latest
 
@@ -1270,26 +1270,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.7M | $16.19 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.5M | $13.98 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (1)
 - [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Review directive on endojs/endo-but-for-bots PR #1305
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
-- [`self-heal-fix-garden-issue-inbox-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-set-fail-open.md) — ---
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — ---
+- [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Shepherd endojs/endo-but-for-bots PR #1305 to green (1/3 of the belayed direc...
 
-### tada (8408)
+### tada (8410)
+- [`self-heal-fix-garden-issue-inbox-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/self-heal-fix-garden-issue-inbox-cursor-set-fail-open.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — Completion report
 - [`issue-kriscendobot-garden-104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/issue-kriscendobot-garden-104.md) — Cost
 - [`endojs-endo-but-for-bots-pr1306-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1306-receipt.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260919-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/fu-minion-town-containment-gateway-endo-sock-1-20260919-045006.md) — What I did
-- [`claude-on-minion-town-press-20260919-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-042006.md) — Cost
-- [`endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919.md) — Completion report: rebase endojs/endo-but-for-bots PR #1305 onto its retconne...
-- … and 8403 more
+- … and 8405 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
