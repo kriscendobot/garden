@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-574615873
 @kriscendobot For the jobs that are parked waiting for go ahead having met their doom, please return them to being simply parked waiting to be picked up by the foreman so they are paced back onto the board when we have quota to spare. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T23:45:46Z
