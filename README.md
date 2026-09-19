@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T06:21:35Z_
+_As of 2026-09-19T06:24:16Z_
 
 ## Latest
 
@@ -115,6 +115,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
+
+- `manual-gauntlet-handoff-deadmail-issue-comment-5739778301-endojs-endo-but-for-bots-pr1305` — from gardener:deadmail-issue-comment-5739778301, reply_to `deadmail-issue-comment-5739778301` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-deadmail-issue-comment-5739778301-endojs-endo-but-for-bots-pr1305.md)
+
+> Manual gauntlet handoff for completed job `deadmail-issue-comment-5739778301`: [https://github.com/endojs/endo-but-for-bots/pull/1305](https://github.com/endojs/endo-but-for-bots/pull/1305) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
+>
+> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
+>
+> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/endojs/endo-but-for-bots/pull/1305](https://github.com/endojs/endo-but-for-bots/pull/1305). Otherwise no action is required.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1270,26 +1278,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.7M | $15.90 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.7M | $16.20 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Review directive on endojs/endo-but-for-bots PR #1305
+### todo (2)
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — ---
+- [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Shepherd endojs/endo-but-for-bots PR #1305 to green (1/3 of the belayed direc...
 
-### doin (4)
-- [`deadmail-issue-comment-5739778301`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5739778301.md) — Issue follow-up — fold a late comment into the issue work
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — ---
-- [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Shepherd endojs/endo-but-for-bots PR #1305 to green (1/3 of the belayed direc...
+- [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Review directive on endojs/endo-but-for-bots PR #1305
 
-### tada (8410)
+### tada (8411)
+- [`deadmail-issue-comment-5739778301`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5739778301.md) — Completion report
 - [`self-heal-fix-garden-issue-inbox-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/self-heal-fix-garden-issue-inbox-cursor-set-fail-open.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — Completion report
 - [`issue-kriscendobot-garden-104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/issue-kriscendobot-garden-104.md) — Cost
 - [`endojs-endo-but-for-bots-pr1306-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1306-receipt.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260919-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/fu-minion-town-containment-gateway-endo-sock-1-20260919-045006.md) — What I did
-- … and 8405 more
+- … and 8406 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
