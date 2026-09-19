@@ -79,6 +79,7 @@ above is why it should not wait for one. A separate design job,
 `design-cpu-back-pressure-job-dispatch-20260918`, owns the load/memory/IO admission
 gate; do not duplicate that work here.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=11 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
