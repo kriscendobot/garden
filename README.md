@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T20:58:11Z_
+_As of 2026-09-19T21:06:00Z_
 
 ## Latest
 
@@ -882,6 +882,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The script runs under `set -euo pipefail`, so an exit code of 1 with zero corresponding log output means some command *after* that last successful log line (the next loop iteration's `gh api`/`git` call, a journal-push CAS race, etc.) returned nonzero without itself writing
 
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 4 -> 3 (target 2): budget pool anthropic:endolin-garden-ece02cb4 spend=2648177 cap=143000000 ceiling=2 target=2
+
 - `msg-garden-gauntlet-reexport-policy-check-c841557cb265` — from gardener:garden-gauntlet-reexport-policy-check, reply_to `garden-gauntlet-reexport-policy-check` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-gauntlet-reexport-policy-check-c841557cb265.md)
 
 > Design proposal ready for review: re-export deprecation policy gate.
@@ -1041,11 +1045,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
 
-> WATCHDOG notice — occurrence #37 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T11:35:04Z).
-> The SAME condition (`budget-level-monk-preflight`) has now been observed 37 times; this is ONE
-> coalesced notice that updates in place, not 37 messages. Latest detail:
+> RECOVERED — the watchdog condition `budget-level-monk-preflight` has CLEARED (first seen 2026-09-17T02:20:04Z, cleared 2026-09-19T21:05:08Z).
+> It was observed 38 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> fleet monk allocation frozen: anthropic:oros-studio-garden-ce242c49 missing/invalid monk physical cap. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
+> budget-level: fleet monk allocation recovered on endolin-garden-ece02cb4; a calibrated, physically-backed monk configuration returned and leveling has resumed.
 
 - `msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8` — from gardener:minion-town-guest-peer-fetch-verify, reply_to `minion-town-guest-peer-fetch-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md)
 
@@ -1386,14 +1390,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $29.89 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.6M | $30.34 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 1.5M _(+9.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`claude-on-minion-town-completion-press-20260919-210536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260919-210536.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`improve-comment-watcher-child-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-child-reaping.md) — ---
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1310
 
