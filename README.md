@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T04:44:29Z_
+_As of 2026-09-19T04:51:53Z_
 
 ## Latest
 
@@ -1252,14 +1252,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 922.0k | $5.37 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 970.9k | $5.77 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260919-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260919-045006.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
 
 ### tada (8405)
