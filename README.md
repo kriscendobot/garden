@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T07:05:21Z_
+_As of 2026-09-19T07:05:48Z_
 
 ## Latest
 
@@ -1274,14 +1274,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (4)
-- [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260919-070505.md) — Daily midnight Pacific progress summary
+### todo (3)
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-self-heal-run-handler-deadline.md) — ---
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
 
-### doin (0)
-(none)
+### doin (1)
+- [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260919-070505.md) — Daily midnight Pacific progress summary
 
 ### tada (8415)
 - [`canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29.md) — rolling-deploy canary probe — round trip OK
