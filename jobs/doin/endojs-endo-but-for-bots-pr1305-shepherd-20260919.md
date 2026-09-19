@@ -48,3 +48,13 @@ Your job: **drive CI to green** (mergeable_state=clean / all required checks pas
      leg you have documented and re-run). Report the final CI state and any fix SHAs.
 
 Bot repo only (endojs/endo-but-for-bots). NEVER touch agoric-sdk or upstream endojs/endo.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-19T06:16:33Z
