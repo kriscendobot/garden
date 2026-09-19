@@ -432,6 +432,30 @@ while :; do
     rm -f "$report"
     continue
   fi
+  # BOATMAN LOCKOUT — defense in depth (job dedicated-ferry-dispatch). The primary
+  # guard is in claim-job.sh (a role: boatman job is never claimed). If one was
+  # nonetheless claimed — a pre-guard leftover already sitting in doin/ when this
+  # code deployed, or a non-standard claim path — do NOT run the handler: a ferry
+  # must run only via scripts/ferry.sh on the credentialed host, never off the board
+  # under the bot identity. Complete it BLOCKED with a loud report + maintainer alert.
+  if [ "$(plan_role "$jobfile")" = boatman ]; then
+    {
+      printf '# blocked: role boatman is off-board only\n\n'
+      printf 'Job %q carries `role: boatman`, but ferry dispatch was moved OFF the generic\n' "$base"
+      printf 'job board (job dedicated-ferry-dispatch). The boatman is dispatched ONLY by\n'
+      printf 'scripts/ferry.sh off the dedicated jobs/ferry/ board, on the one host holding\n'
+      printf 'the maintainer credentials — never race-claimed by a gardener and run under the\n'
+      printf 'bot identity. No handler was started. Stage this ferry as a jobs/ferry/ directive\n'
+      printf 'instead. See roles/boatman/AGENT.md and CLAUDE.md § The ferry.\n'
+    } > "$report"
+    log "refusing to run claimed 'role: boatman' job '$base' off the board; completing blocked (ferry dispatch is scripts/ferry.sh only)"
+    alert_maintainer "boatman-job-claimed-$base" \
+      "A 'role: boatman' job ('$base') was claimed off the generic board on $GARDEN, but ferry dispatch is scripts/ferry.sh only (job dedicated-ferry-dispatch). It was completed BLOCKED without running. Stage the ferry as a jobs/ferry/ directive. See roles/boatman/AGENT.md."
+    "$HERE/complete-job.sh" "$id" "$base" "$report" || die "could not complete blocked boatman report for '$base'"
+    rm -f "$report"
+    continue
+  fi
+
   # --- rolling-deploy CANARY PROBE (designs/follower-self-deploy.md) ----------
   # A `canary-probe: true` job is the leader's synthetic no-op round-trip probe,
   # pinned to this host via `requires: host=<GARDEN>`. It deliberately runs NO LLM:

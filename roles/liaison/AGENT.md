@@ -20,7 +20,8 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 
 - **Post jobs; do not do the work yourself.** The liaison is a relay and
   orchestrator, not a doer. When the maintainer asks for work on a PR or repo —
-  rebase, fix, build, ferry, shepherd, judge, design, merge, and the like — post
+  rebase, fix, build, shepherd, judge, design, merge, and the like (but NOT
+  **ferry** — see the dedicated norm below) — post
   a job to the board (`skills/job-board/SKILL.md`; `scripts/jobs/post-job.sh
   <base> [body]`) for a gardener to claim, rather than tackling it in-session.
   Derive a short, deterministic basename from the change identity (e.g.
@@ -32,6 +33,24 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   answering or archiving maintainer-inbox messages, and small garden-library
   edits (role/skill/doc changes) the maintainer asks you to make directly —
   though a larger library change may itself be posted as a `gardener` job.
+- **Ferry is staged to `journal/jobs/ferry/`, NEVER the board — you cannot cause
+  a ferry to run.** The verb **ferry #N** (and any reference to the **boatman**
+  role) is the one work request you do NOT post with `post-job.sh` and do NOT
+  dispatch to a subagent. A ferry carries an approved PR upstream under the
+  maintainer's identity, so it runs only via `scripts/ferry.sh` on the credentialed
+  host, outside the container ([designs/dedicated-ferry-dispatch.md](../../designs/dedicated-ferry-dispatch.md),
+  CLAUDE.md § The ferry). Your duty is INDIRECT: write a
+  `journal/jobs/ferry/<name>.md` directive (the shape in
+  [`roles/boatman/AGENT.md`](../boatman/AGENT.md) § Job inputs: `downstream`,
+  `downstream_branch`, `upstream`, `upstream_base`, `human`, and the
+  maintainer-only `identity_switch_authorized: true`), commit and push it to the
+  journal branch — then tell the maintainer it is queued and that **they** run
+  `scripts/ferry.sh` on the credentialed host to execute it. Staging is all you can
+  do; the script, run by the maintainer with their own git/gh session, is what
+  actually ferries. Never originate `identity_switch_authorized`; carry only what
+  the maintainer authorized. A `role: boatman` job posted to the ordinary board is
+  refused mechanically (post/claim/gardener all reject it), so do not attempt that
+  route.
 - **Unusually long work carries a `handler-timeout:` header.** Build, shepherd,
   conductor, review, panel, and botanist jobs already have 7200s role/stage defaults;
   ordinary jobs keep the 2400s fleet default. When work legitimately exceeds its

@@ -263,6 +263,22 @@ for ((k=0; k<n; k++)); do
     fi
   fi
 
+  # BOATMAN LOCKOUT (job dedicated-ferry-dispatch). Ferry work is dispatched ONLY
+  # by scripts/ferry.sh off the dedicated jobs/ferry/ board, NEVER the generic job
+  # board — it crosses into the maintainer's identity on the one credentialed host,
+  # so it must not be race-claimed by an arbitrary gardener and run under the bot pin.
+  # A `role: boatman` job here is a MIS-POST: refuse to claim it (mechanically, not by
+  # convention — the comment-provenance.sh principle: move the responsibility into
+  # code) and alert LOUDLY rather than silently dropping it. The unclaimed job stays
+  # visibly in todo/ and the maintainer is paged (deduped per base). See
+  # roles/boatman/AGENT.md and CLAUDE.md § The ferry.
+  if [ "$(plan_role "$DIR/$JOBS_TODO/$base.md")" = boatman ]; then
+    log "'$base' carries role: boatman — REFUSING to claim; ferry dispatch is scripts/ferry.sh only, never the board"
+    alert_maintainer "boatman-job-on-board-$base" \
+      "A 'role: boatman' job ('$base') is on the generic job board, but the boatman is dispatched ONLY by scripts/ferry.sh off jobs/ferry/ (job dedicated-ferry-dispatch). No gardener will claim it. Remove it from the board and stage the ferry as a jobs/ferry/ directive instead. See roles/boatman/AGENT.md and CLAUDE.md § The ferry."
+    continue
+  fi
+
   # §1.3 backend-fit filter: skip a job pinned to a provider this kind cannot honor.
   if ! job_eligible_for_kind "$DIR/$JOBS_TODO/$base.md"; then
     log "'$base' is pinned to a model this $KIND ($KIND_PROVIDER) cannot honor; skipping (backend-fit)"

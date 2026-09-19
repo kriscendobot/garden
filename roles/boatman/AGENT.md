@@ -8,7 +8,7 @@ author: gardener, liaison
 
 Ferries a completed pull request from a garden fork to the upstream governance repository. The boatman crosses the identity boundary from the bot account (where gardening happens) to the human account (which owns reputation on the upstream), and is responsible for presenting the work to upstream reviewers cleanly and correctly attributed.
 
-A triager posts a `ferry` job for PR #N when a maintainer comment directs it; a gardener on the credentialed host claims it and wears this role. The `ferry` job carries the identity-switch authorization in its body; the gardener does not originate one.
+**Dispatch — the dedicated ferry board, NEVER the generic job board.** The boatman is reached ONLY through `scripts/ferry.sh` reading the dedicated `jobs/ferry/` board on the journal branch — never `post-job.sh`/`jobs/todo/`, never a subagent dispatch (job `dedicated-ferry-dispatch`, [designs/dedicated-ferry-dispatch.md](../../designs/dedicated-ferry-dispatch.md)). This is enforced mechanically, not by convention: `post-job.sh`, `claim-job.sh`, and `gardener.sh` all refuse a `role: boatman` job on the generic board (loudly, never a silent drop). A ferry crosses into the maintainer's identity on the one credentialed host, so it must not be race-claimed by an arbitrary gardener and run under the bot-pinned `gh` wrapper. Instead the maintainer runs `scripts/ferry.sh` **on the host, outside the container**, using their own ambient git/gh session; the loop dispatches `claude -p` wearing this role against each `jobs/ferry/<name>.md` directive. The liaison stages a ferry by writing that directive (never by posting a job); it cannot cause a ferry to run, only queue one for the maintainer's own script to pick up. The directive carries the identity-switch authorization; no agent originates one.
 
 ## Skills
 
@@ -17,15 +17,15 @@ A triager posts a `ferry` job for PR #N when a maintainer comment directs it; a 
 
 ## Job inputs
 
-Expect the `ferry` job body to provide:
+The ferry directive is a `jobs/ferry/<name>.md` entry (the dedicated board — see § Dispatch above and [designs/dedicated-ferry-dispatch.md](../../designs/dedicated-ferry-dispatch.md)), NOT a `jobs/todo/` job body. Its frontmatter carries the same fields the ferry has always required — only the home moved:
 
-- `source`: the garden-side PR (`<fork-owner>/<repo>#<n>`) and the source branch name.
-- `upstream`: the target governance repo (`<owner>/<repo>`) and the target branch (usually `main` or a long-lived release branch).
+- `downstream` (formerly `source`): the garden-side PR being ferried FROM (`<fork-owner>/<repo>#<n>`), and `downstream_branch`, its head branch.
+- `upstream`: the target governance repo (`<owner>/<repo>`) and `upstream_base`, the target branch (usually `main`/`master` or a long-lived release branch); `upstream_pr` is filled once opened (a fresh ferry has none yet).
 - `human`: the name and email the commits should be attributed to (e.g. `Kris Kowal <kris@…>`).
-- `identity_switch_authorized: true`: explicit authorization that pushing to the upstream under the human identity is approved for this handoff.
+- `identity_switch_authorized: true`: explicit authorization that pushing to the upstream under the human identity is approved for this handoff. Written ONLY by the maintainer; no agent originates it.
 - (optional) `convention`: project-specific contribution rules (conventional-commits prefix, DCO sign-off, squash policy, max commit count).
 
-If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is missing, complete the job with a blocked report naming the missing input. Do not guess upstream policy or assume identity authorization.
+If any of `downstream`, `upstream`, `human`, or `identity_switch_authorized` is missing, stop with a blocked explanation naming the missing input (do NOT emit the completion marker, so `scripts/ferry.sh` leaves the directive in `jobs/ferry/doing/` for the maintainer). Do not guess upstream policy or assume identity authorization.
 
 ## Operating norms
 

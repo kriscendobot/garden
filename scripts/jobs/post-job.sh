@@ -237,6 +237,18 @@ if [ -n "$role" ]; then
   fi
 fi
 
+# BOATMAN LOCKOUT (job dedicated-ferry-dispatch). Ferry work never goes on the
+# generic job board: the boatman is dispatched ONLY by scripts/ferry.sh off the
+# dedicated jobs/ferry/ board, on the one host holding the maintainer credentials.
+# Refuse to post a `role: boatman` job here — the friendly early failure so a
+# mis-post never even lands (claim-job.sh is the backstop for any other path that
+# reaches todo/). Check the FINAL body, after --role / template-role normalization
+# above. See roles/boatman/AGENT.md and CLAUDE.md § The ferry.
+if printf '%s\n' "$BODY" | sed -n '2,/^---$/p' | grep -qE '^role:[[:space:]]*boatman[[:space:]]*$' \
+   || [ "$role" = boatman ]; then
+  die "refusing to post '$base': role boatman is dispatched ONLY by scripts/ferry.sh off the jobs/ferry/ board, never the generic job board (job dedicated-ferry-dispatch). Stage the ferry as a jobs/ferry/<name>.md directive instead. See roles/boatman/AGENT.md and CLAUDE.md § The ferry."
+fi
+
 # No explicit identity → best-effort derive one from the body (a hand-named peer
 # job that quotes the triggering comment URL still dedups). A body that cites zero
 # or several distinct comment URLs yields none, leaving behavior unchanged.

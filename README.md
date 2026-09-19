@@ -91,7 +91,7 @@ deterministically. `#N` is a pull-request number.
 | **shepherd #N** ★ | drive CI back to green |
 | **fix #N** | address review feedback with commits and thread replies |
 | **merge #N** ★ | conduct the merge onto the right branch (or just approve the PR) |
-| **ferry #N** | carry approved work upstream under your own identity — authorization required |
+| **ferry #N** | stage a ferry directive (`journal/jobs/ferry/`); you run `scripts/ferry.sh` on the credentialed host to carry it upstream under your own identity — authorization required |
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
 | **await maintainer on X** | park a job with the exact pending question and its issue/PR/comment URL; only an explicit maintainer promotion can release it |
 | **promote X** / go ahead on X | move a parked job onto the board now |
@@ -225,22 +225,31 @@ own without an authorization carried in the job
 
 Everything above runs as the bot. **Ferrying** — carrying an approved PR from
 the fork to the actual upstream repo — lands commits under *your* name, so it
-is deliberately a separate, permissioned surface:
+is deliberately a separate, permissioned surface with its **own dispatch, off
+the job board** ([`designs/dedicated-ferry-dispatch.md`](designs/dedicated-ferry-dispatch.md)):
 
-- It runs only on the host that holds your (`kriskowal`) credentials; a ferry
-  claimed anywhere else blocks on its precondition check (`gh auth status`
+- It is **not** a board job. The liaison stages a ferry by writing a
+  `journal/jobs/ferry/<name>.md` directive; you execute it by running
+  **`scripts/ferry.sh` on the host that holds your (`kriskowal`) credentials,
+  outside the container**, with your own ambient git/gh session. That loop
+  dispatches the boatman role against each directive. The `role: boatman` job is
+  locked out of the ordinary board mechanically (post/claim/gardener all refuse
+  it), so a ferry can never be race-claimed and pushed as the bot.
+- The dispatched boatman re-verifies the precondition check (`gh auth status`
   must show your account, upstream permissions must show `push: true`) and
-  reports the gap rather than pushing as the bot.
-- The job must carry `identity_switch_authorized: true`; no agent may
+  blocks rather than pushing as the bot if it fails.
+- The directive must carry `identity_switch_authorized: true`; no agent may
   originate that flag — only you.
-- The fleet's `gh` wrapper pins every call to the bot identity; your identity
-  is reachable only by explicit per-call override
-  (`GARDEN_GH_IDENTITY=kriskowal gh …`), which makes each human-identity act
-  auditable ([`designs/fleet-gh-identity.md`](designs/fleet-gh-identity.md)).
+- Running host-native, `scripts/ferry.sh` never touches the fleet's `gh` wrapper
+  (which pins calls to the bot); ambient `gh`/`git` already act as you, so no
+  `GARDEN_GH_IDENTITY` override is needed. Inside the container that override
+  remains the only auditable path to your identity
+  ([`designs/fleet-gh-identity.md`](designs/fleet-gh-identity.md)).
 - Transferred commits are re-attributed to you alone: no bot author, no
   co-author trailers ([roles/boatman/AGENT.md](roles/boatman/AGENT.md)).
 
-Usage is one line, from the credentialed host: **"ferry #96."**
+Usage: say **"ferry #96"** to the liaison to stage the directive, then run
+`scripts/ferry.sh` on the credentialed host to carry it upstream.
 
 ### The bulletin: GitHub Pages
 
