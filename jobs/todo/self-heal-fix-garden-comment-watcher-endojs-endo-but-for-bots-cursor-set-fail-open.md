@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Apply the same rc-capture-and-fail-open pattern that df83fca235 just landed for cursor-get.sh reads to the cursor-set.sh WRITE at the tail of each watcher's tick — the symmetric gap that fix left open. Failure signature: garden-comment-watcher@endojs-endo-but-for-bots ran a clean tick (posted two directives on #1305 at 06:02:33/06:03:59), then went silent for ~4 minutes and exited rc=1 with zero WARN/FATAL log output anywhere (verified against journalctl, not just the capture). The preceding tick (05:58:38) already hit `WARN: cursor read failed ... (rc=1)`, proving this host has live journal-clone flakiness right now.
@@ -15,13 +16,6 @@ Each does `printf 'last_seen: ...\n' | "$HERE/cursor-set.sh" "$CURSOR_KEY"`. cur
 Fix: capture the rc via `if printf ... | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi` and on nonzero rc `log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"` then fall through past the `if [ -n "$hw" ] ...` block cleanly (exit 0) — mirroring the cursor-get.sh fix's rationale: a lost cursor advance is best-effort (posts are idempotent by base, so the next tick just re-detects and DEDUPs rather than losing data), never worth a hard crash. Do this in all three watchers for consistency with df83fca235's scope.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T06:11:54Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-19T06:33:05Z -->
