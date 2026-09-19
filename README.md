@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T21:49:52Z_
+_As of 2026-09-19T21:56:27Z_
 
 ## Latest
 
@@ -1394,12 +1394,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.1M | $61.77 _(notional, rate-card)_ | 4% of 143.0M (ok) |
-| Codex | 1.6M _(+9.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 6.5M | $66.93 _(notional, rate-card)_ | 5% of 143.0M (ok) |
+| Codex | 1.7M _(+10.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-oros-studio-garden-ce242c49-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-917115c9b772.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 917115c9b772
 
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1310
