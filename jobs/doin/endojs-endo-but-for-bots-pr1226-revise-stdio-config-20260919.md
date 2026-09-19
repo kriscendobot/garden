@@ -39,11 +39,11 @@ directive, paraphrased, is a simplification to evaluate and adopt if sound:
 
 Directive identity: endojs/endo-but-for-bots#1226:review:5231787250
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=5 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T01:23:05Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=5,6 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
