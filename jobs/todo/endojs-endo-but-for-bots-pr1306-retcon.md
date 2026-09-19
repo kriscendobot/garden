@@ -19,12 +19,5 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Shepherd, retcon, conduct. 
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-18T22:49:58Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-19T03:03:05Z -->
