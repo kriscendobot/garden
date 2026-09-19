@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T22:50:47Z_
+_As of 2026-09-19T22:52:37Z_
 
 ## Latest
 
@@ -1394,14 +1394,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.8M | $76.16 _(notional, rate-card)_ | 5% of 143.0M (ok) |
-| Codex | 1.7M _(+10.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 6.9M | $76.98 _(notional, rate-card)_ | 5% of 143.0M (ok) |
+| Codex | 1.8M _(+10.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`improve-cursor-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-outage-classification.md) — ---
 - [`claude-on-minion-town-press-20260919-225007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-225007.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1310
 
