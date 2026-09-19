@@ -81,3 +81,13 @@ regime.
 design (`kriscendobot/minion.town:designs/invitation-only-guest-onboarding.md`
 § 3.2) states the minion.town build "remains blocked until Endo can accept into
 the calling guest", and forbids an app-mediated or host-authority fallback.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-19T15:21:18Z
