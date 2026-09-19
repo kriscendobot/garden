@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T21:30:00Z_
+_As of 2026-09-19T21:30:37Z_
 
 ## Latest
 
@@ -1394,24 +1394,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $30.34 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.7M | $30.59 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 1.6M _(+9.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1310
-- [`improve-cursor-write-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-write-outage-classification.md) — ---
 
-### tada (8444)
+### tada (8445)
+- [`improve-cursor-write-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-write-outage-classification.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260919-210536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-210536.md) — Completion report
 - [`improve-comment-watcher-child-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-comment-watcher-child-reaping.md) — Completion report
 - [`improve-cursor-read-herd-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-read-herd-suppression.md) — Cost
-- [`rebalance-monks-after-quota-reset-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/rebalance-monks-after-quota-reset-20260919.md) — Cost
-- … and 8439 more
+- … and 8440 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
