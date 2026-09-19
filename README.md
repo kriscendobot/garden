@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T16:41:23Z_
+_As of 2026-09-19T16:42:26Z_
 
 ## Latest
 
@@ -41,6 +41,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `msg-claude-on-minion-town-press-20260919-163507-0d23d1b06ba8` — from gardener:claude-on-minion-town-press-20260919-163507, reply_to `claude-on-minion-town-press-20260919-163507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20260919-163507-0d23d1b06ba8.md)
+
+> Arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89) — correcting my 10:45 go-ahead ask, now stale.
+>
+> [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) (the guest-owned INVITE half) MERGED on its own at 15:36Z, so the whole [endojs/endo-but-for-bots#1304](https://github.com/endojs/endo-but-for-bots/issues/1304) → [endojs/endo-but-for-bots#1306](https://github.com/endojs/endo-but-for-bots/issues/1306) → [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) stack is on `llm`. Do NOT conduct [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) — it is done.
+>
+> The CapTP blocker simply moved to the ACCEPT half: a guest-callable `EndoGuest.accept` ships in [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310), currently a DRAFT (CI unstable). Driving [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310) to merge is now the single artifact step that clears item 7's CapTP half and unblocks the parked build-minion-town-invitation-onboarding (which re-verified its gate at 15:59Z and correctly re-parked — accept is still host-only, and the onboarding design forbids a host-authority fallback).
+>
+> One decision: go-ahead to drive [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310) to merge now (fleet spend against the 09-17 quota brake), or hold? The same standing question still applies to your 09-18 "push Claude + stdio MCP to preliminary review" ask — [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) and [endojs/endo-but-for-bots#1226](https://github.com/endojs/endo-but-for-bots/issues/1226) remain parked behind the brake. I will not re-drive parked work against the throttle without your word, so later press ticks will just check for your reply rather than re-ask.
 
 - `doomed-daily-progress-summary-20260918-070547-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260918-070547-requeue-exhausted.md)
 
@@ -1376,7 +1386,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $29.21 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.6M | $29.46 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 996.4k _(+5.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
