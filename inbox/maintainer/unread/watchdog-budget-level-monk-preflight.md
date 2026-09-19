@@ -1,13 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:budget-level
-sent_at: 2026-09-17T11:35:04Z
+sent_at: 2026-09-19T21:05:08Z
 watchdog_key: budget-level-monk-preflight
-notice_count: 37
+notice_count: 38
 first_seen: 2026-09-17T02:20:04Z
-last_seen: 2026-09-17T11:35:04Z
+last_seen: 2026-09-19T21:05:08Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #37 (first seen 2026-09-17T02:20:04Z, latest 2026-09-17T11:35:04Z).
-The SAME condition (`budget-level-monk-preflight`) has now been observed 37 times; this is ONE
-coalesced notice that updates in place, not 37 messages. Latest detail:
+RECOVERED — the watchdog condition `budget-level-monk-preflight` has CLEARED (first seen 2026-09-17T02:20:04Z, cleared 2026-09-19T21:05:08Z).
+It was observed 38 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-fleet monk allocation frozen: anthropic:oros-studio-garden-ce242c49 missing/invalid monk physical cap. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
+budget-level: fleet monk allocation recovered on endolin-garden-ece02cb4; a calibrated, physically-backed monk configuration returned and leveling has resumed.
