@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T05:51:22Z_
+_As of 2026-09-19T05:54:04Z_
 
 ## Latest
 
@@ -516,6 +516,24 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-halted` — from gauntlet:ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-halted.md)
 
 > Gauntlet ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917 HALTED: stage 'ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917-fix-6' (fix) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
+
+- `doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/improve-ci-watcher-outage-latch-flap-dedup; it stays HELD until a human promotes it
+> (promote-plan.sh improve-ci-watcher-outage-latch-flap-dedup) or removes it, so nothing is lost.
+> Original job base: improve-ci-watcher-outage-latch-flap-dedup
+>
+> --- original job body ---
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> scripts/jobs/ci-watcher.sh
+> The journal-outage latch (`note_journal_outage`/`note_journal_recovered`, ~line 478-520) closes on the first successful fetch after an outage, with no hysteresis. During intermittent (not fully down) journal connectivity, this lets the episode flap open→closed→open repeatedly across the ~15 per-repo watcher instances riding a 90s cadence, each landing on a different side of a brief recovery. Evidence: 2026-09-19 04:53–05:20Z logged 6 separate "host outage episode opened" WARNs across 4 different repo slugs on one host — almost certainly one continuous flaky window, not 6 distinct outages — defeating the latch's stated purpose of collapsing a shared outage into one open+one close. Add debounce: e.g. stamp the close time in the latch dir and require either N consecutive successful `verify_fetch`s or a minimum quiet period (a few minutes) before actually removing the latch/logging "closed"; a failure arriving inside that quiet window should extend the same episode silently rather than opening a fresh loud WARN. Keep the existing sibling-flock serialization; only add the hysteresis state (e.g. `$latch/last_success`) read/written under the same lock.
 
 - `doomed-date-sharded-tada-migrate-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-date-sharded-tada-migrate-requeue-exhausted.md)
 
@@ -1252,16 +1270,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.2M | $9.19 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.3M | $10.59 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
+### todo (0)
+(none)
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
-- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
+- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
 
 ### tada (8407)
 - [`endojs-endo-but-for-bots-pr1306-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1306-receipt.md) — Cost
@@ -1359,6 +1377,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`ironhorse-fuzz-b95320dfb5dd9d3d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-b95320dfb5dd9d3d-repair.md) — _normal_ · Repair Ironhorse engine defect b95320dfb5dd9d3d (target differential_regexp_s...
 - [`ironhorse-fuzz-7072dc2d72d9e2fd-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-7072dc2d72d9e2fd-repair.md) — _normal_ · Repair Ironhorse engine defect 7072dc2d72d9e2fd (target differential_regexp) ...
 - [`kriscendobot-minion.town-pr99-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr99-receipt.md) — _normal_ · receipt (auto) — completion receipt for kriscendobot/minion.town PR #99 (merged)
+- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-ci-watcher-outage-latch-flap-dedup.md) — _normal_ · ---
 - [`ironhorse-fuzz-ecae051e6e8f5a27-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ecae051e6e8f5a27-repair.md) — _normal_ · Repair Ironhorse engine defect ecae051e6e8f5a27 (target differential_source) ...
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
