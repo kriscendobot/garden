@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T06:17:17Z_
+_As of 2026-09-19T06:21:35Z_
 
 ## Latest
 
@@ -1270,14 +1270,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.5M | $13.98 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.7M | $15.90 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (1)
 - [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Review directive on endojs/endo-but-for-bots PR #1305
 
-### doin (3)
+### doin (4)
+- [`deadmail-issue-comment-5739778301`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5739778301.md) — Issue follow-up — fold a late comment into the issue work
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — ---
 - [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Shepherd endojs/endo-but-for-bots PR #1305 to green (1/3 of the belayed direc...
