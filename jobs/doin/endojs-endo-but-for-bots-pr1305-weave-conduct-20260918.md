@@ -44,6 +44,7 @@ Note: a prior `endojs-endo-but-for-bots-pr1305-conduct` plan is parked DOOMED
 <!-- garden-plain-retry-not-before: 2026-09-19T05:53:04Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=2,2 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
