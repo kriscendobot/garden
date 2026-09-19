@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T04:58:43Z_
+_As of 2026-09-19T05:22:53Z_
 
 ## Latest
 
@@ -1252,15 +1252,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.0M | $6.53 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.1M | $7.01 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
 
 ### tada (8406)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260919-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/fu-minion-town-containment-gateway-endo-sock-1-20260919-045006.md) — What I did
