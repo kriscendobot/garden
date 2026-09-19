@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1305-shepherd-20260919-failure-notified: true
 child-endojs-endo-but-for-bots-pr1305-shepherd-20260919-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr1305-shepherd-20260919-reap-count: 0
 order: serial
