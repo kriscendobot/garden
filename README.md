@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T21:56:27Z_
+_As of 2026-09-19T21:57:53Z_
 
 ## Latest
 
@@ -1398,11 +1398,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 1.7M _(+10.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`canary-probe-oros-studio-garden-ce242c49-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-917115c9b772.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 917115c9b772
+### todo (0)
+(none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1310
+- [`canary-probe-oros-studio-garden-ce242c49-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-917115c9b772.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 917115c9b772
 
 ### tada (8446)
 - [`canary-probe-endolin-garden2-5bcdff64-917115c9b772`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-917115c9b772.md) — rolling-deploy canary probe — round trip OK
