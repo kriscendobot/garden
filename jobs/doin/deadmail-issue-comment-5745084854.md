@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-574508485
 @kriscendobot Quotas have reset for Claude on Gardens 1 and 2. Please direct a job to rebalance monks.  On Sat, Sep 19, 2026, at 12:40 PM, Kriscendo Bot wrote: > *kriscendobot* left a comment (kriscendobot/garden#89) <https://github.com/kriscendobot/garden/issues/89#issuecomment-
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T20:45:26Z
