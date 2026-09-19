@@ -1,8 +1,8 @@
-once: 2026-09-19T08:33:19Z
-job_basename_prefix: restore-cleric
----
 ---
 role: gardener
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Restore cleric (codex) worker counts after the 2026-09-17 quota throttle
 
