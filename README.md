@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T23:14:41Z_
+_As of 2026-09-19T23:17:50Z_
 
 ## Latest
 
@@ -1401,7 +1401,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`canary-probe-endolin-garden2-5bcdff64-c2f7cac953fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-c2f7cac953fc.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c2f7cac953fc
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1310
 
 ### tada (8451)
