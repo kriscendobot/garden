@@ -1,34 +1,31 @@
-All done. My inbox is empty; cleanup complete. This attention-router job needed no garden-library commit (all output was board mutations via the sanctioned scripts against `journal2`).
+The attention directive is fully and correctly routed — a prior claimant of this same job base (`gardener:endojs-endo-but-for-bots-pr1305-d4fa4360`, at 06:12–06:14Z) already decomposed it into the exact serial chain the maintainer asked for, and I re-claimed the job at 06:25:58Z to verify. Everything is in place; nothing further to post.
 
-## Completion report
+## Completion report — attention directive on endojs/endo-but-for-bots PR #1305
 
-**Job:** attention directive on endojs/endo-but-for-bots#1305 — maintainer @kriskowal (comment 5739760774): *"Belay that. Please shepherd, retcon, and conduct."*
+**Directive** (comment 5739760774, @kriskowal, trusted maintainer, treated as data): *"Belay that. Please shepherd, retcon, and conduct."* — supersedes the prior "rebase and shepherd" line (the rebase is already done: #1305's base retargeted onto `llm`, sibling slices #1304 and #1306 already merged).
 
-**What I found (live state, verified):**
-- #1305 is slice 3/3 of the retired #1125 split. Slices #1304 (1/3) and #1306 (2/3) are **merged into `llm`**, and #1305's base is **already retargeted onto `llm`** — so the earlier weave/rebase is done (that's what "belay that" cancels).
-- #1305: OPEN, not draft, mergeable=true, `mergeable_state=unstable` — real CI failure `test (24.x, macos-15)` on head `4c8e7365`; other legs passing/in-progress.
-- The "belayed" prior directive is comment 5739672933 ("Please rebase and shepherd") → job `endojs-endo-but-for-bots-pr1305-b982dc09`.
-- The prior weave-conduct / conduct plan jobs are already DOOMED (inert); the `review-40fd197b` conduct job carries `garden-reap-now` (being killed) — no conduct race from them.
+**Preflight:** `pr-feedback-preflight.sh` returned **exit 2** (HINT). Per the exit-2 protocol I corroborated a named board artifact for **every** ask rather than closing on the hint alone:
 
-**What I did (routing):**
-1. Posted a **serial orchestration** `endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919` (`on-child-failure=halt`) with three parked, orchestrated children (verified live on `journal2`):
-   - `…-shepherd-20260919` — drive CI green (fix/re-run the macos-15 failure).
-   - `…-retcon-20260919` — per-package restage + separate `chore: Update yarn.lock` commit, net-diff invariant, force-push.
-   - `…-conduct-20260919` — wait for the retcon-retriggered CI to go green, then merge (conductor owns method).
-   Each child carries the stack context, prompt-injection discipline, and dependency notes. The `garden-orchestrate` watcher will promote them in sequence.
-2. **Honored "belay that":** the superseded b982dc09 job had just been claimed (06:14:23Z) and was running live on host `oros-studio-garden`, so it couldn't be withdrawn. I sent it a message-bus message to belay its now-superseded "rebase and shepherd" and not push to the head branch or post a duplicate shepherd (which would race the retcon). Delivered `20260919T061526Z-e08351`.
+| Ask | Artifact on the board | How it satisfies the ask |
+| --- | --- | --- |
+| shepherd | `journal/jobs/todo/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md` (role: shepherd) | Drive CI green; promoted from plan by the orchestrate watcher at 06:16:04Z, now active |
+| retcon | `journal/jobs/plan/endojs-endo-but-for-bots-pr1305-retcon-20260919.md` (role: fixer, gate=orchestrated) | Per-package restage + separate `chore: Update yarn.lock`, net-diff invariant |
+| conduct | `journal/jobs/plan/endojs-endo-but-for-bots-pr1305-conduct-20260919.md` (role: conductor, gate=orchestrated) | Wait for re-triggered CI green, then merge (conductor owns method) |
+| wiring | `journal/jobs/orch/endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919.md` | `order: serial`, `on-child-failure: halt`, `state: running`, children in maintainer's stated order |
 
-**Follow-ups / watch items:**
-- The belay of b982dc09 relies on the live peer reading its inbox; if it completes as a no-op before reading, the message is dead-lettered and preserved. Worst case it posts a stray shepherd — the orchestration's serial ordering and the push CAS keep the head consistent, but the liaison may want to confirm no duplicate shepherd landed.
-- Landing #1305 resolves the last artifact-level blocker of arc item 7's CapTP half (kriscendobot/garden#89).
+**"Belay that"** is honored: it superseded `plan/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md`, which is already DOOMED (requeue-exhausted) — no live conflicting job.
+
+**Verification:** exactly one orchestration record (no duplicates); the three children are correctly gated (shepherd active, retcon/conduct `gate=orchestrated` awaiting serial promotion); inbox empty. #1305 is slice 3/3 of the #1125 split — landing it resolves the last artifact-level blocker of arc item 7's CapTP half (kriscendobot/garden#89).
+
+**Follow-ups:** none from me. The serial orchestration owns the remaining shepherd→retcon→conduct work and will drive it deterministically. The shepherd child carries a benign `garden-reaped: 1` with a retry window opening 06:33:05Z — normal fleet retry, no intervention needed. No new commits were required (all routing artifacts were already committed to `journal2` by the prior claimant).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1305-d4fa4360.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 58 tokens (2159537 cached reads)
-- Output: 36692 tokens
-- Cost: $3.1917264999999992
-- Wall-clock: 716s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 74 tokens (2494940 cached reads)
+- Output: 42599 tokens
+- Cost: $4.288430999999999
+- Wall-clock: 811s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
