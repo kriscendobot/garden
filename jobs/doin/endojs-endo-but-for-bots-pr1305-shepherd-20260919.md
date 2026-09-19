@@ -54,6 +54,7 @@ Bot repo only (endojs/endo-but-for-bots). NEVER touch agoric-sdk or upstream end
 <!-- garden-plain-retry-not-before: 2026-09-19T06:33:05Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=4 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
