@@ -80,7 +80,19 @@ VERIFY="$GARDEN_MENTION_VERIFY_CLONE"
 
 # Durable poll cursor in the journal: resumes across restarts and hosts.
 CURSOR_KEY="mentions/$GARDEN_BOT_LOGIN"
-last_seen="$("$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"
+# cursor-get.sh calls sync_clone, which on a journal-connectivity outage does
+# `exit "$GARDEN_OFFLINE_RC"` (75, EX_TEMPFAIL) or plain-`die`s with rc=1 when a
+# failed fetch's stderr misses the (necessarily incomplete) offline-signature list.
+# A bare command substitution would let that non-zero exit trip our `set -e` and
+# hard-crash the whole tick with NO log message. A cursor read is best-effort (a
+# stale/unreadable cursor just re-polls next tick, never loses data), so capture the
+# rc and WARN-and-skip cleanly on ANY nonzero rc — mirroring triager.sh (b320648e47).
+if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
+if [ "$rc" -ne 0 ]; then
+  log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"
+  exit 0
+fi
+last_seen="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"
 
 # --- the trusted-sender allowlist (journal data; extensible, no code change) --
 # Lives at trusted-senders/allowlist on origin/journal2: one login per line, '#'
