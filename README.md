@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T07:25:09Z_
+_As of 2026-09-19T07:27:56Z_
 
 ## Latest
 
@@ -1342,25 +1342,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.3M | $26.11 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.2M | $25.12 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260919-070505.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
-- [`claude-on-minion-town-press-20260919-072030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-072030.md) — Press the Claude-on-minion.town arc forward
 
-### tada (8415)
+### tada (8416)
+- [`claude-on-minion-town-press-20260919-072030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-072030.md) — Press tick — Claude-on-minion.town arc (issue #89)
 - [`canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919.md) — orchestration endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-2026091...
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-3f6b7911fa29.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #1305
-- … and 8410 more
+- … and 8411 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
