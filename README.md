@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T16:39:25Z_
+_As of 2026-09-19T16:41:23Z_
 
 ## Latest
 
@@ -1376,24 +1376,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $28.82 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.6M | $29.21 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 996.4k _(+5.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`canary-probe-oros-studio-garden-ce242c49-fab63b7af6af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-fab63b7af6af.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ fab63b7af6af
+### doin (1)
 - [`claude-on-minion-town-press-20260919-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-163507.md) — Press the Claude-on-minion.town arc forward
 
-### tada (8427)
+### tada (8428)
+- [`canary-probe-oros-studio-garden-ce242c49-fab63b7af6af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-fab63b7af6af.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-fab63b7af6af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-fab63b7af6af.md) — rolling-deploy canary probe — round trip OK
 - [`improve-cursor-outage-herd-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-outage-herd-suppression.md) — Completion report
 - [`endo-guest-native-accept-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endo-guest-native-accept-primitive.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1305-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-receipt.md) — Cost
-- [`endojs-endo-but-for-bots-pr1305-conduct-r5256145878`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-conduct-r5256145878.md) — Cost
-- … and 8422 more
+- … and 8423 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
