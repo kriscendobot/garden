@@ -1,5 +1,5 @@
 ---
-gate: go-ahead
+gate: deferred
 priority: normal
 gauntlet: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917
 role: gardener

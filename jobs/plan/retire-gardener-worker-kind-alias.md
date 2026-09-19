@@ -1,5 +1,5 @@
 ---
-gate: go-ahead
+gate: deferred
 priority: normal
 tier: mentor
 token-budget: 100000
