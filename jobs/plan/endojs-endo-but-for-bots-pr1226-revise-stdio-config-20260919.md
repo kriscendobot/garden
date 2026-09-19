@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: designer
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 1
+doomed_at: 2026-09-19T01:33:12Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-19T01:33:12Z
+---
+
+---
 role: designer
 tier: mentor
 dispatch: automatic
@@ -38,20 +59,3 @@ directive, paraphrased, is a simplification to evaluate and adopt if sound:
 - Keep architecture and unrelated sections intact; move only what the review touches.
 
 Directive identity: endojs/endo-but-for-bots#1226:review:5231787250
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-19T01:23:05Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=5,6 -->
-<!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T01:23:11Z
