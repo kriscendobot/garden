@@ -2094,8 +2094,21 @@ done < "$SRC"
 # Advance the cursor over the successfully-handled prefix only. On a lost post we
 # leave it short so the next tick re-polls (and re-posts) the dropped directive.
 if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
-  printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
-    | "$HERE/cursor-set.sh" "$CURSOR_KEY"
+  # cursor-set.sh CAS-races the advance onto journal2 and `die`s (rc=1) if it
+  # exhausts its 50-attempt push-retry loop under contention, or `exit`s
+  # GARDEN_OFFLINE_RC (75) on a journal-connectivity outage. A bare piped
+  # command would let that non-zero exit trip our `set -e`/`pipefail` and
+  # hard-crash the whole tick with NO log message. A cursor advance is
+  # best-effort — a stalled cursor re-derives and re-advances next tick, and
+  # dispatch is idempotent by GitHub comment id, so nothing is lost — so capture
+  # the rc and WARN-and-continue cleanly on ANY nonzero rc, mirroring the read
+  # side (df83fca235).
+  if printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
+    | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+  if [ "$rc" -ne 0 ]; then
+    log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
+    exit 0
+  fi
   log "advanced comment cursor for $slug to $hw (acted on $acted; failed=$failed)"
 else
   log "cursor unchanged for $slug (acted on $acted; failed=$failed)"
