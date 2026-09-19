@@ -30,3 +30,13 @@ Apply the same rc-capture-and-fail-open pattern at:
 
 Mirror triager.sh's final (b320648e47) form exactly — WARN + exit 0 on ANY
 nonzero rc, no is_environmental_rc gate, no die fallback.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-19T00:39:23Z
