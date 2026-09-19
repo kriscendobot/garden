@@ -85,3 +85,13 @@ A design under `designs/`, with an `## Open questions` section if real decisions
 remain for the maintainer (per the repo carve-out, that opens as a review PR rather
 than landing bare). Include the chosen signal, thresholds, and the fail-open
 rationale. Do NOT implement.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T00:01:04Z
