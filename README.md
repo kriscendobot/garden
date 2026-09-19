@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T08:39:27Z_
+_As of 2026-09-19T09:06:21Z_
 
 ## Latest
 
@@ -1362,15 +1362,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.4M | $26.44 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.5M | $26.89 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20260919-090506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260919-090506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (8417)
 - [`restore-cleric`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/restore-cleric.md) — Completion report: restore-cleric
