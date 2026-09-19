@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T03:04:44Z_
+_As of 2026-09-19T03:06:26Z_
 
 ## Latest
 
@@ -1252,23 +1252,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.2k | $0.35 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 0 | $0.00 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1306-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1306
+### doin (0)
+(none)
 
-### tada (8402)
+### tada (8403)
+- [`endojs-endo-but-for-bots-pr1306-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1306-retcon.md) — Completion report: retcon of endojs/endo-but-for-bots PR #1306
 - [`claude-on-minion-town-completion-press-20260919-025019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-025019.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-df83fca2355c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-df83fca2355c.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-df83fca2355c-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-df83fca2355c-r1.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1301-369762b4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1301-369762b4.md) — Completion report
-- [`fix-endo-daemon-test-process-leak-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/fix-endo-daemon-test-process-leak-20260919.md) — Completion report — fix-endo-daemon-test-process-leak-20260919
-- … and 8397 more
+- … and 8398 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
