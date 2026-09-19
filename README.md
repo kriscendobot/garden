@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T16:43:08Z_
+_As of 2026-09-19T16:51:32Z_
 
 ## Latest
 
@@ -1387,14 +1387,14 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 2.5M | $27.88 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 996.4k _(+5.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Codex | 1.0M _(+6.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-journal-cursor-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-cursor-outage-classification.md) — ---
 
 ### tada (8429)
 - [`claude-on-minion-town-press-20260919-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-163507.md) — Completion report
