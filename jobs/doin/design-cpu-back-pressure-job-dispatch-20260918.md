@@ -86,6 +86,7 @@ remain for the maintainer (per the repo carve-out, that opens as a review PR rat
 than landing bare). Include the chosen signal, thresholds, and the fail-open
 rationale. Do NOT implement.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=10 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
