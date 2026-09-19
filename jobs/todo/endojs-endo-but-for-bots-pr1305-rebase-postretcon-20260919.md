@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1306-retcon
-priority: normal
 role: weaver
-posted_by: weaver
-posted_at: 2026-09-19T00:11:24Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-19T03:11:12Z cleared=none -->
 
 ---
 role: weaver
