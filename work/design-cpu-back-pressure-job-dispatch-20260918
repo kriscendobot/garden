@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-19T00:25:05Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-design-cpu-back-pressure-job-dispatch-20260918
+pr_number: 103
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/103
+pr_head: design/cpu-back-pressure-job-dispatch
