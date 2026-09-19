@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T19:47:45Z_
+_As of 2026-09-19T19:53:20Z_
 
 ## Latest
 
@@ -1387,11 +1387,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 2.5M | $27.88 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 1.2M _(+7.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 1.3M _(+7.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 347f8b5ad51a
 
 ### doin (0)
 (none)
