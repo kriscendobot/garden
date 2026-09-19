@@ -1437,20 +1437,64 @@ SOURCE_TIMEOUT_PID=""
 # unit (`garden-comment-watcher*.service`), so a shared session/scope cgroup in a
 # test harness is never swept, and (c) NEVER kills $$ or any of its ancestors (the
 # self-heal-run.sh main process, systemd) — only the lost descendant stragglers.
+#
+# A single snapshot-then-kill pass was NOT enough — a gh child still survived into
+# the next start despite this sweep, for two race reasons a one-shot pass cannot
+# close:
+#   1. FORK-AFTER-SNAPSHOT: `gh --paginate` forks a fresh git credential helper for
+#      each page, so a child spawned AFTER we read cgroup.procs but before/while we
+#      kill escapes a single snapshot entirely.
+#   2. EXIT-BEFORE-TEARDOWN: `kill -KILL` only QUEUES the signal; the target does
+#      not leave the cgroup until the kernel actually tears it down. If the watcher
+#      exits the instant after signalling, the next `systemctl start` reads
+#      cgroup.procs and still sees the not-yet-reaped pid → "Found left-over process
+#      (git) in control group while starting unit".
+# So sweep in a BOUNDED LOOP: each pass RE-READS cgroup.procs (catching a child
+# forked since the last pass), SIGKILLs every straggler, and the loop returns only
+# once the cgroup holds nothing but $$ and its ancestors — i.e. the cgroup is
+# GENUINELY empty of descendants before the watcher exits, so the next start finds
+# it clean. The loop is bounded by a deadline (default 3s, overridable) so a pid
+# that is un-killable (kernel D-state / another cgroup's reaper hasn't collected it)
+# can never wedge the watcher's exit; on deadline we log and return best-effort. The
+# deadline sits well inside the unit's TimeoutStopSec=20s even stacked after the
+# negated-PGID wait's --kill-after (10s) budget.
+#
+# rc 0 iff <pid> is a still-RUNNING, non-zombie process. A SIGKILLed descendant
+# leaves the cgroup (and stops being "left-over" to the next start) the moment it
+# exits, EVEN while it lingers as an unreaped zombie — a zombie holds no cgroup slot
+# and `kill -0` still succeeds on it, so gate on the /proc state, not `kill -0`
+# alone. This is the per-pass "is this straggler still holding the cgroup" predicate.
+_straggler_alive() {  # _straggler_alive <pid>
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1                        # gone entirely
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]                                              # zombie → already gone
+}
 reap_cgroup_stragglers() {
-  local line cgpath leaf procs pid
-  line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
-  [ -n "$line" ] || return 0
-  cgpath="${line#0::}"
-  leaf="${cgpath##*/}"
-  # Only sweep our own service cgroup; refuse a shared session/scope cgroup so a
-  # test run (or any non-service invocation) can never reap unrelated processes.
-  case "$leaf" in
-    garden-comment-watcher*.service) ;;
-    *) return 0 ;;
-  esac
-  procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
-  [ -r "$procs" ] || return 0
+  local procs
+  # Test-only override: sweep a FIXTURE cgroup.procs file so the wait-until-empty
+  # loop can be exercised without a real systemd service cgroup. Honored ONLY in a
+  # test context; the $$+ancestors keep-set below still protects the runner, and it
+  # is never consulted in production. Outside the override, derive the real path and
+  # apply the same-service-cgroup guard exactly as before.
+  if [ -n "${GARDEN_COMMENT_CGROUP_PROCS_FILE:-}" ] && _in_test_context; then
+    procs="$GARDEN_COMMENT_CGROUP_PROCS_FILE"
+    [ -r "$procs" ] || return 0
+  else
+    local line cgpath leaf
+    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+    [ -n "$line" ] || return 0
+    cgpath="${line#0::}"
+    leaf="${cgpath##*/}"
+    # Only sweep our own service cgroup; refuse a shared session/scope cgroup so a
+    # test run (or any non-service invocation) can never reap unrelated processes.
+    case "$leaf" in
+      garden-comment-watcher*.service) ;;
+      *) return 0 ;;
+    esac
+    procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+    [ -r "$procs" ] || return 0
+  fi
   # Collect $$ and its ancestor chain so we never signal ourselves or our parents.
   local keep=" $$ " p ppid
   p="$$"
@@ -1461,11 +1505,32 @@ reap_cgroup_stragglers() {
     [ "$ppid" = "1" ] && break
     p="$ppid"
   done
-  while read -r pid; do
-    [ -n "$pid" ] || continue
-    case "$keep" in *" $pid "*) continue ;; esac
-    kill -KILL "$pid" 2>/dev/null || true
-  done < "$procs"
+  # Bounded wait-until-empty: RE-READ cgroup.procs each pass (catching a child forked
+  # after the last snapshot — `gh --paginate` forks a git helper per page), SIGKILL
+  # every straggler still holding the cgroup, and return only once none remain, so
+  # the cgroup is GENUINELY empty of descendants before the watcher exits. A pid that
+  # cannot be felled (kernel D-state) can never wedge the exit: the deadline caps the
+  # loop and we return best-effort with a warning.
+  local deadline_secs="${GARDEN_COMMENT_CGROUP_REAP_DEADLINE_SECS:-3}"
+  local now start pid remaining
+  start="$(date +%s 2>/dev/null || echo 0)"
+  while :; do
+    remaining=0
+    while read -r pid; do
+      [ -n "$pid" ] || continue
+      case "$keep" in *" $pid "*) continue ;; esac
+      _straggler_alive "$pid" || continue      # already torn down → left the cgroup
+      kill -KILL "$pid" 2>/dev/null || true
+      remaining=$((remaining + 1))
+    done < "$procs"
+    [ "$remaining" -eq 0 ] && return 0         # cgroup empty of live descendants → done
+    now="$(date +%s 2>/dev/null || echo 0)"
+    if [ $(( now - start )) -ge "$deadline_secs" ]; then
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      return 0
+    fi
+    sleep 0.1 2>/dev/null || sleep 1           # let the kernel tear down the SIGKILLed pids
+  done
 }
 cleanup() {
   rm -f "$SRC" "$ERRF"
@@ -1503,6 +1568,12 @@ trap 'cleanup; exit 130' INT
 # also what bounds the cleanup trap's `wait` on a stop, so it doubles as the upper
 # bound on how long a signalled stop blocks reaping a mid-syscall git child.
 : "${GARDEN_COMMENT_KILL_AFTER:=10s}"
+# Upper bound (seconds) on the EXIT-path cgroup-straggler sweep's wait-until-empty
+# loop (reap_cgroup_stragglers): it re-reads cgroup.procs and SIGKILLs any leftover
+# descendant until the cgroup is drained OR this deadline elapses, so a normal or
+# signalled exit leaves a genuinely empty cgroup instead of racing the next start.
+# Kept small so it fits inside TimeoutStopSec=20s even stacked after --kill-after.
+: "${GARDEN_COMMENT_CGROUP_REAP_DEADLINE_SECS:=3}"
 # Bounded backoff before a 401 retry; tests set it to 0 to keep the run fast.
 : "${GARDEN_COMMENT_AUTH_RETRY_SLEEP:=5}"
 

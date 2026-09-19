@@ -1309,6 +1309,56 @@ if [ -n "$CPID2" ]; then
   fi
 fi
 
+# ----------------------------------------------------------------------------
+# FF3 — CGROUP-STRAGGLER SWEEP is a bounded WAIT-UNTIL-EMPTY loop, not a one-shot
+# snapshot. The negated-PGID reap only reaches the source's OWN process group; a
+# `gh --paginate`-forked git credential helper that setpgid'd into a DIFFERENT group
+# escapes it and is caught only by the EXIT-path cgroup sweep. A single snapshot pass
+# still leaked (a gh child survived into the next start) for two races: a child forked
+# AFTER the snapshot, and a `kill -KILL` that had not yet torn the pid out of the
+# cgroup when the watcher exited. The hardened sweep RE-READS cgroup.procs and blocks
+# until every straggler is genuinely gone. Exercised via the test-only fixture
+# override GARDEN_COMMENT_CGROUP_PROCS_FILE (no real service cgroup in CI): two
+# straggler children in a SEPARATE process group are listed there; after a clean
+# (empty-fixture) tick the watcher must have felled BOTH and left NONE alive.
+hr; echo "FF3 — cgroup sweep waits until the service cgroup is EMPTY of stragglers"; hr
+CGPROCS="$TR/cgroup.procs"; : > "$CGPROCS"
+# Two long-lived children, each in its OWN process group (setsid), standing in for
+# gh-forked git helpers that escaped the source's process group. `exec sleep` keeps
+# the pid across the exec, so each child records its own pid deterministically (no
+# reliance on `$!` matching a setsid that may or may not fork).
+S1PID="$TR/s1.pid"; S2PID="$TR/s2.pid"; rm -f "$S1PID" "$S2PID"
+setsid bash -c 'echo $$ > "'"$S1PID"'"; exec sleep 600' &
+setsid bash -c 'echo $$ > "'"$S2PID"'"; exec sleep 600' &
+for _ in $(seq 1 100); do [ -s "$S1PID" ] && [ -s "$S2PID" ] && break || sleep 0.1; done
+SPID1="$(cat "$S1PID" 2>/dev/null || true)"; SPID2="$(cat "$S2PID" 2>/dev/null || true)"
+printf '%s\n%s\n' "$SPID1" "$SPID2" > "$CGPROCS"
+BARE_FF3="$TR/ff3.git"; seed_bare "$BARE_FF3"
+if proc_running "$SPID1" && proc_running "$SPID2"; then
+  ok "cgroup stragglers alive pre-sweep (pids $SPID1 $SPID2, separate pgids)"
+else
+  bad "straggler children never started (SPID1='$SPID1' SPID2='$SPID2')"
+fi
+env GARDEN_STATE="$TR/state-ff3" JOURNAL_REMOTE="$BARE_FF3" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" \
+    CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-ff3.log" \
+    GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+    GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+    GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+    GARDEN_COMMENT_TRUST=/bin/false \
+    GARDEN_TRUSTED_ALLOWLIST=/dev/null \
+    GARDEN_COMMENT_CGROUP_PROCS_FILE="$CGPROCS" \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1 || true
+# The sweep runs on the watcher's EXIT and blocks until the cgroup is empty, so by
+# the time the watcher returned both stragglers must ALREADY be gone (no grace loop —
+# a fire-and-forget one-shot regression leaves them briefly alive here).
+if ! proc_running "$SPID1" && ! proc_running "$SPID2"; then
+  ok "both cgroup stragglers felled and gone once the watcher exited (wait-until-empty)"
+else
+  bad "cgroup straggler still running after the watcher exited (SPID1 $(proc_running "$SPID1" && echo live || echo gone), SPID2 $(proc_running "$SPID2" && echo live || echo gone))"
+  kill -KILL "$SPID1" "$SPID2" 2>/dev/null || true
+fi
+
 # ============================================================================
 # GI1..GI6 — NO OVERLAP WITH THE ISSUE-INBOX (PR-ONLY mode). When an issue-inbox
 # covers this repo, the comment-watcher must SKIP surface=issue-comment (the
