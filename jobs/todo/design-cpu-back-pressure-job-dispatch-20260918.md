@@ -87,13 +87,6 @@ than landing bare). Include the chosen signal, thresholds, and the fail-open
 rationale. Do NOT implement.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=10 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T00:01:04Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-19T00:24:15Z -->

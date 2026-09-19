@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 The terminal-worktree sweeper is MISGATED: it is leader-only, but the garbage it
@@ -80,13 +81,6 @@ above is why it should not wait for one. A separate design job,
 gate; do not duplicate that work here.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=11 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T00:08:50Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-19T00:24:15Z -->
