@@ -37,6 +37,7 @@ worktree (ensure-project-worktree.sh), never the garden root.
 #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 inviting preliminary review. Do not un-draft and do not attempt to merge.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
