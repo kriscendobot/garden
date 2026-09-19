@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T20:54:19Z_
+_As of 2026-09-19T20:54:43Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 18d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 18d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 18d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 17d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 18d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 19d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 21d)
 
@@ -1386,26 +1386,25 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $28.23 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 1.5M _(+9.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 2.6M | $28.37 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Codex | 1.5M _(+9.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`improve-cursor-read-herd-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-read-herd-suppression.md) — ---
-- [`rebalance-monks-after-quota-reset-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/rebalance-monks-after-quota-reset-20260919.md) — Rebalance the Garden 1 and Garden 2 monk pools after the Claude quota reset
 - [`improve-comment-watcher-child-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-child-reaping.md) — ---
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1310
 
-### tada (8439)
+### tada (8440)
+- [`rebalance-monks-after-quota-reset-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/rebalance-monks-after-quota-reset-20260919.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-viability.md) — Viability report — PR #1310 (endojs/endo-but-for-bots)
 - [`deadmail-issue-comment-5745084854`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5745084854.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-c9dfce07`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-c9dfce07.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-347f8b5ad51a.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden2-5bcdff64-347f8b5ad51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-347f8b5ad51a.md) — rolling-deploy canary probe — round trip OK
-- … and 8434 more
+- … and 8435 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
