@@ -11,3 +11,13 @@ Wrap the handler invocation at line 104 (`"$@" > >(tee -a "$capture") 2>&1 &`) i
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T07:13:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T07:13:11Z
