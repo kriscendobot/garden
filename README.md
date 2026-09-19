@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T05:54:04Z_
+_As of 2026-09-19T05:55:54Z_
 
 ## Latest
 
@@ -1270,12 +1270,12 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.3M | $10.59 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.3M | $11.25 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`issue-kriscendobot-garden-104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-104.md) — Issue from kriskowal on kriscendobot/garden #104
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
