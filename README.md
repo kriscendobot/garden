@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T05:35:26Z_
+_As of 2026-09-19T05:41:47Z_
 
 ## Latest
 
@@ -1259,8 +1259,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (1)
 - [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
 
 ### tada (8406)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260919-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/fu-minion-town-containment-gateway-endo-sock-1-20260919-045006.md) — What I did
@@ -1524,7 +1524,6 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1306` · Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 
 ## Watch set
