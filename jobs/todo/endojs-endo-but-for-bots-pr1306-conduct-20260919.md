@@ -1,8 +1,9 @@
 ---
 role: conductor
 dispatch: automatic
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 ---
 # Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
 
@@ -32,13 +33,6 @@ Definition of done: #1306 merged into `llm`. If CI shows a real (deterministic,
 multi-cell) failure rather than a single-cell flake, do NOT merge — report it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T04:25:57Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-19T04:43:05Z -->
