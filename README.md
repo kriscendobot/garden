@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T04:26:23Z_
+_As of 2026-09-19T04:32:14Z_
 
 ## Latest
 
@@ -1259,17 +1259,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-press-20260919-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-042006.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
 
-### tada (8404)
+### tada (8405)
+- [`claude-on-minion-town-press-20260919-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-042006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919.md) — Completion report: rebase endojs/endo-but-for-bots PR #1305 onto its retconne...
 - [`endojs-endo-but-for-bots-pr1306-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1306-retcon.md) — Completion report: retcon of endojs/endo-but-for-bots PR #1306
 - [`claude-on-minion-town-completion-press-20260919-025019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-025019.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-df83fca2355c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-df83fca2355c.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden2-5bcdff64-df83fca2355c-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-df83fca2355c-r1.md) — rolling-deploy canary probe — round trip OK
-- … and 8399 more
+- … and 8400 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
