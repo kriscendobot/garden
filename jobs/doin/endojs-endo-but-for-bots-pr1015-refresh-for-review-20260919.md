@@ -36,3 +36,13 @@ worktree (ensure-project-worktree.sh), never the garden root.
 
 #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 inviting preliminary review. Do not un-draft and do not attempt to merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T01:11:57Z
