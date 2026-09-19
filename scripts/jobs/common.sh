@@ -654,7 +654,9 @@ start_api_cooldown() {  # rc 0 = THIS tick recorded the window (and owns the war
 # window is live every read short-circuits, so the first read AFTER it expires is the one
 # that reaps the marker and reads through. clear_journal_outage_cooldown is the belt-and-
 # suspenders cleanup for the one case the expiry-reap can't cover — a leftover marker
-# while the cooldown is toggled OFF (secs=0), dropped on the next successful read.
+# while the cooldown is toggled OFF (secs=0), dropped on the next successful read. An
+# enabled caller must not clear after success: an older in-flight success can race a
+# sibling's newer failure and must not erase that freshly latched outage episode.
 #
 # Same design invariants as the gh-api cooldown: resolve below GARDEN_ROOT (not the
 # invocation-local GARDEN_STATE, which independently-namespaced units may override, so
@@ -715,7 +717,7 @@ start_journal_outage_cooldown() {  # rc 0 = THIS tick latched the window (owns t
   ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK"
 }
 
-clear_journal_outage_cooldown() {  # a successful read proves connectivity → drop the latch
+clear_journal_outage_cooldown() {  # cooldown disabled + successful read → drop stale latch
   [ -e "$GARDEN_JOURNAL_OUTAGE_MARKER" ] || return 0
   mkdir -p "$GARDEN_JOURNAL_OUTAGE_DIR"
   (

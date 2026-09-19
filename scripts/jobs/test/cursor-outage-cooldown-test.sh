@@ -7,8 +7,9 @@
 # outage a bare read burns a fetch timeout and warns — once per repo per watcher-kind.
 # cursor-get now latches the first observed outage into a HOST-WIDE cooldown so sibling
 # reads report temporary-unavailable (GARDEN_OFFLINE_RC) immediately, WITHOUT re-fetching
-# or re-warning, and drops the latch the moment a real read succeeds. Loud
-# structural/authentication failures (a non-offline `die`) must stay loud.
+# or re-warning. Recovery is bounded by the finite window; a late success from an older
+# probe cannot erase a newer episode. Loud structural/authentication failures (a
+# non-offline `die`) must stay loud.
 #
 # Two layers under test: the common.sh cooldown helpers (host-wide resolution, atomic
 # single-latch, observer-never-extends, clear, expiry) and cursor-get.sh's end-to-end
@@ -194,6 +195,59 @@ printf '%s' "$out" | grep -q 'last_sha: healthy-sha' \
   && ok "a disabled-cooldown read reads through a live marker" || bad "disabled-cooldown read missing content"
 [ ! -e "$MARKER" ] && ok "a successful read clears a stale live marker when cooldown is off" \
   || bad "clear_journal_outage_cooldown did not drop the stale live marker"
+
+# (d3) A fetch that began before an outage was latched may finish after a sibling has
+#      failed. That older success must NOT clear the sibling's newer episode, or the next
+#      wave immediately re-fetches and the host-wide herd suppression collapses. Hold a
+#      healthy fetch in flight, latch the outage from a second reader, then release it.
+rm -f "$MARKER"
+SLOW_ENTERED="$TR/slow-entered"
+SLOW_RELEASE="$TR/slow-release"
+SLOW_CLONE="$TR/slow-clone"
+FAIL_CLONE="$TR/fail-clone"
+cp -a "$CLONE" "$SLOW_CLONE"
+cp -a "$CLONE" "$FAIL_CLONE"
+FETCH_SLOW_SUCCESS="$TR/fetch-slow-success.sh"
+cat > "$FETCH_SLOW_SUCCESS" <<EOF
+#!/bin/bash
+touch "$SLOW_ENTERED"
+while [ ! -e "$SLOW_RELEASE" ]; do sleep 0.02; done
+exit 0
+EOF
+chmod +x "$FETCH_SLOW_SUCCESS"
+FETCH_CONCURRENT_FAILURE="$TR/fetch-concurrent-failure.sh"
+cat > "$FETCH_CONCURRENT_FAILURE" <<'EOF'
+#!/bin/bash
+echo "fatal: remote end hung up unexpectedly" >&2
+exit 1
+EOF
+chmod +x "$FETCH_CONCURRENT_FAILURE"
+(
+  rc=0
+  run_cursor slow-success GARDEN_CURSOR_CLONE="$SLOW_CLONE" \
+    GARDEN_FETCH_CMD="$FETCH_SLOW_SUCCESS" -- \
+    >"$TR/slow-success.out" 2>"$TR/slow-success.err" || rc=$?
+  printf '%s\n' "$rc" > "$TR/slow-success.rc"
+) &
+slow_pid=$!
+for _ in $(seq 1 100); do [ -e "$SLOW_ENTERED" ] && break; sleep 0.02; done
+[ -e "$SLOW_ENTERED" ] || bad "slow successful fetch did not enter"
+
+rc=0
+run_cursor concurrent-failure GARDEN_CURSOR_CLONE="$FAIL_CLONE" \
+  GARDEN_FETCH_CMD="$FETCH_CONCURRENT_FAILURE" \
+  GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' -- \
+  >"$TR/concurrent-failure.out" 2>"$TR/concurrent-failure.err" || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ] \
+  || bad "concurrent failure did not latch its outage before the older success completed"
+touch "$SLOW_RELEASE"
+wait "$slow_pid"
+[ "$(cat "$TR/slow-success.rc")" -eq 0 ] \
+  && ok "an older in-flight successful read still completes normally" \
+  || bad "older in-flight successful read failed"
+[ -e "$MARKER" ] \
+  && ok "an older success cannot clear a concurrently latched outage episode" \
+  || bad "older success erased the newer outage latch (herd suppression race)"
 
 # (e) A git transport can return a bare rc=1 without a stable offline signature. When
 #     several cursor readers hit that shape together, the first one must open ONE

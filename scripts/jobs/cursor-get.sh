@@ -83,11 +83,13 @@ if [ "$rc" -ne 0 ]; then
   exit "$rc"
 fi
 
-# The read succeeded, so connectivity is back. A LIVE window would have short-circuited
-# us above, so recovery is normally window-bounded (like the gh-api cooldown): the first
-# read after the window expires reaps the marker and reads through. This clear is the
-# belt-and-suspenders case that path can't cover — a leftover marker while the cooldown
-# is toggled OFF (secs=0), where journal_outage_active returns "not active" without
-# reaping. Cheap no-op when no marker exists.
-clear_journal_outage_cooldown
+# The read succeeded, so connectivity was available for this probe. Recovery remains
+# window-bounded: do NOT clear an enabled cooldown here. Another cursor reader may have
+# failed and opened a fresh host-wide outage window while this fetch was in flight; a
+# late success from this older probe must not erase that correlated episode and release
+# the herd. The only cleanup needed here is for the escape-hatch case (secs=0), where
+# journal_outage_active deliberately ignores a leftover marker without reaping it.
+if [ "$(_journal_outage_secs)" -eq 0 ]; then
+  clear_journal_outage_cooldown
+fi
 [ -f "$DIR/cursors/$key" ] && cat "$DIR/cursors/$key" || true
