@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T16:00:16Z_
+_As of 2026-09-19T16:04:45Z_
 
 ## Latest
 
@@ -1383,16 +1383,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-cursor-outage-herd-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-outage-herd-suppression.md) — ---
+### doin (0)
+(none)
 
-### tada (8425)
+### tada (8426)
+- [`improve-cursor-outage-herd-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-outage-herd-suppression.md) — Completion report
 - [`endo-guest-native-accept-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endo-guest-native-accept-primitive.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1305-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-receipt.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-conduct-r5256145878`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-conduct-r5256145878.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-review-049d4381`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-review-049d4381.md) — Completion report
-- [`claude-on-minion-town-completion-press-20260919-150506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-150506.md) — Completion report — completion press tick 20260919-150506
-- … and 8420 more
+- … and 8421 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
