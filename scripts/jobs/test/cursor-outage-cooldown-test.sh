@@ -12,7 +12,8 @@
 #
 # Two layers under test: the common.sh cooldown helpers (host-wide resolution, atomic
 # single-latch, observer-never-extends, clear, expiry) and cursor-get.sh's end-to-end
-# behavior (short-circuit on a live latch, latch-on-detection, re-raise-loud, clear).
+# behavior (short-circuit on a live latch, latch-on-detection, correlated ambiguous
+# rc=1 classification, re-raise-loud boundaries, clear).
 
 set -euo pipefail
 export GARDEN_TEST=1
@@ -194,24 +195,98 @@ printf '%s' "$out" | grep -q 'last_sha: healthy-sha' \
 [ ! -e "$MARKER" ] && ok "a successful read clears a stale live marker when cooldown is off" \
   || bad "clear_journal_outage_cooldown did not drop the stale live marker"
 
-# (e) LOUD structural/authentication failure stays loud: a non-offline `die` (rc!=OFFLINE)
-#     is re-raised unchanged and does NOT latch (never masked as temporary-unavailable).
+# (e) A git transport can return a bare rc=1 without a stable offline signature. When
+#     several cursor readers hit that shape together, the first one must open ONE
+#     temporary-outage episode and every sibling must return the quiet skip rc.
 rm -f "$MARKER"
-FETCH_LOUD="$TR/fetch-loud.sh"
-cat > "$FETCH_LOUD" <<'EOF'
+FETCH_AMBIGUOUS="$TR/fetch-ambiguous.sh"
+cat > "$FETCH_AMBIGUOUS" <<'EOF'
 #!/bin/bash
-echo "fatal: structural boom (definitely not a transient outage)" >&2
-exit 128
+echo "fatal: remote end hung up unexpectedly" >&2
+exit 1
 EOF
-chmod +x "$FETCH_LOUD"
+chmod +x "$FETCH_AMBIGUOUS"
+AMB_RESULTS="$TR/ambiguous-results"; mkdir -p "$AMB_RESULTS"
+for n in 1 2 3 4 5 6; do
+  (
+    rc=0
+    run_cursor "amb-$n" GARDEN_FETCH_CMD="$FETCH_AMBIGUOUS" \
+      GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' -- \
+      >"$AMB_RESULTS/$n.out" 2>"$AMB_RESULTS/$n.err" || rc=$?
+    printf '%s\n' "$rc" > "$AMB_RESULTS/$n.rc"
+  ) &
+done
+wait
+bad_rc="$(awk -v expected="$GARDEN_OFFLINE_RC" 'FNR == 1 && $0 != expected { n++ } END { print n+0 }' "$AMB_RESULTS"/*.rc)"
+[ "$bad_rc" -eq 0 ] \
+  && ok "six simultaneous ambiguous rc=1 fetch failures all become temporary-unavailable" \
+  || bad "$bad_rc simultaneous ambiguous failures did not return $GARDEN_OFFLINE_RC"
+warnings="$(awk '/journal-read outage; latched host cooldown/ { n++ } END { print n+0 }' "$AMB_RESULTS"/*.err)"
+[ "$warnings" -eq 1 ] \
+  && ok "simultaneous rc=1 failures open exactly one warned outage episode" \
+  || bad "simultaneous rc=1 failures emitted $warnings outage warnings (expected one)"
+[ -e "$MARKER" ] && ok "an ambiguous rc=1 journal fetch latches the cooldown" \
+  || bad "ambiguous rc=1 failures did not latch the cooldown"
+
+# (f) LOUD authentication failure stays loud: even though journal_fetch wraps it in
+#     the same bounded-retry line, its positive auth diagnostic excludes it from the
+#     ambiguous-outage fallback. It is re-raised unchanged and never latches.
+rm -f "$MARKER"
+FETCH_AUTH="$TR/fetch-auth.sh"
+cat > "$FETCH_AUTH" <<'EOF'
+#!/bin/bash
+echo "git@github.com: Permission denied (publickey)." >&2
+exit 1
+EOF
+chmod +x "$FETCH_AUTH"
 rc=0
-out="$(run_cursor l GARDEN_FETCH_CMD="$FETCH_LOUD" GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' \
-  GARDEN_CORRUPT_SIGNATURES='ZZZ_NEVER_MATCH' -- 2>/dev/null)" || rc=$?
-{ [ "$rc" -ne 0 ] && [ "$rc" -ne "$GARDEN_OFFLINE_RC" ]; } \
-  && ok "a non-offline failure is re-raised loud (rc=$rc, not temporary-unavailable)" \
-  || bad "a structural failure was masked (rc=$rc)"
-[ ! -e "$MARKER" ] && ok "a loud structural failure does not latch a cooldown" \
-  || bad "a structural failure latched a cooldown (would silence real defects)"
+out="$(run_cursor auth GARDEN_FETCH_CMD="$FETCH_AUTH" GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' -- 2>"$TR/auth.err")" || rc=$?
+[ "$rc" -eq 1 ] \
+  && ok "an authentication failure is re-raised loud (rc=1, not temporary-unavailable)" \
+  || bad "an authentication failure was masked (rc=$rc)"
+grep -qi 'Permission denied' "$TR/auth.err" \
+  && ok "the loud authentication diagnostic is preserved" \
+  || bad "the authentication diagnostic was swallowed"
+[ ! -e "$MARKER" ] && ok "an authentication failure does not latch a cooldown" \
+  || bad "an authentication failure latched a cooldown (would silence credential drift)"
+
+# (g) A local repository failure wrapped in the same rc=1 fetch summary also stays
+#     loud: the ambiguous fallback is explicitly bounded away from local state faults.
+rm -f "$MARKER"
+FETCH_LOCAL="$TR/fetch-local.sh"
+cat > "$FETCH_LOCAL" <<'EOF'
+#!/bin/bash
+echo "fatal: not a git repository: .git" >&2
+exit 1
+EOF
+chmod +x "$FETCH_LOCAL"
+rc=0
+out="$(run_cursor local-fetch GARDEN_FETCH_CMD="$FETCH_LOCAL" GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' -- 2>"$TR/local-fetch.err")" || rc=$?
+[ "$rc" -eq 1 ] \
+  && ok "a local repository failure is re-raised loud (rc=1)" \
+  || bad "a local repository failure was masked (rc=$rc)"
+grep -qi 'not a git repository' "$TR/local-fetch.err" \
+  && ok "the local repository diagnostic is preserved" \
+  || bad "the local repository diagnostic was swallowed"
+[ ! -e "$MARKER" ] && ok "a local repository failure does not latch a cooldown" \
+  || bad "a local repository failure latched a cooldown"
+
+# (h) A genuinely local clone/configuration failure occurs before sync classification,
+#     remains rc=1 + loud, and likewise cannot arm the shared outage latch.
+rm -f "$MARKER"
+LOCAL_CLONE="$TR/local-clone"; rm -rf "$LOCAL_CLONE"
+rc=0
+env GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state/local" JOURNAL_REMOTE="$TR/no-such-journal.git" \
+  GARDEN_CURSOR_CLONE="$LOCAL_CLONE" GARDEN_FETCH_RETRIES=1 \
+  bash "$JOBS/cursor-get.sh" "$KEY" >"$TR/local.out" 2>"$TR/local.err" || rc=$?
+[ "$rc" -eq 1 ] \
+  && ok "a local clone/configuration failure stays loud (rc=1)" \
+  || bad "a local clone/configuration failure was masked (rc=$rc)"
+grep -q 'clone of .* failed' "$TR/local.err" \
+  && ok "the local clone failure diagnostic is preserved" \
+  || bad "the local clone diagnostic was swallowed"
+[ ! -e "$MARKER" ] && ok "a local clone failure does not latch a cooldown" \
+  || bad "a local clone failure latched a cooldown"
 
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

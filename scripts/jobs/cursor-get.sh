@@ -18,6 +18,10 @@ key="${1:?usage: cursor-get.sh <key>}"
 case "$key" in /*|*..*|'') die "illegal cursor key '$key'";; esac
 
 DIR="${GARDEN_CURSOR_CLONE:-$GARDEN_STATE/cursors/journal}"
+# Keep clone creation/repair outside the outage classifier. Failures here describe
+# this host's local checkout (or its credentials/configuration), not evidence that
+# the already-established journal fetch path is temporarily unavailable; they must
+# remain loud and must never poison the shared latch.
 ensure_clone "$DIR"
 
 # --- host-shared journal-read outage cooldown (herd suppression) --------------
@@ -33,10 +37,37 @@ fi
 
 # No live latch: probe once. Run sync_clone in a SUBSHELL so its offline `exit
 # "$GARDEN_OFFLINE_RC"` (an exit, not a return) does not terminate us before we can
-# latch — and so a plain `die` (rc=1, a structural/authentication failure whose stderr
-# missed sync_clone's offline signature) is captured too, not swallowed.
-if ( sync_clone "$DIR" ); then rc=0; else rc=$?; fi
-if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
+# latch. Capture the diagnostic as well: git sometimes reports a correlated journal
+# transport failure as the otherwise-ambiguous rc=1 without one of its stable network
+# strings. Those failures still carry journal_fetch's bounded-retry line. Treat that
+# narrow shape as temporary unless the underlying diagnostic positively identifies an
+# authentication/upstream/local-clone problem. Capturing also lets all concurrent
+# detectors race through the atomic latch without each printing its own fetch failure.
+sync_err="$(mktemp "${TMPDIR:-/tmp}/garden-cursor-get.XXXXXX")" \
+  || die "cannot create cursor-read diagnostic file"
+trap 'rm -f "$sync_err"' EXIT
+if ( sync_clone "$DIR" ) 2>"$sync_err"; then rc=0; else rc=$?; fi
+sync_diagnostic="$(cat "$sync_err")"
+
+# Positive local-state signatures that can be wrapped by journal_fetch's generic
+# rc=1 summary. Keep these separate from transport weather: disk/config/ownership
+# faults need an operator and must remain visible even when several watchers fail.
+cursor_diagnostic_is_local_failure() {
+  printf '%s' "$1" | grep -qiE \
+    'not a git repository|detected dubious ownership|unable to create .*\.lock|cannot lock ref|No space left on device|Read-only file system|Input/output error|Operation not permitted'
+}
+
+ambiguous_fetch_outage=1
+if [ "$rc" -eq 1 ] \
+  && printf '%s\n' "$sync_diagnostic" | grep -qE 'journal fetch in .* failed after [0-9]+ attempt' \
+  && ! _fetch_stderr_is_auth_failure "$sync_diagnostic" \
+  && ! _fetch_stderr_is_upstream_gone "$sync_diagnostic" \
+  && ! _fetch_stderr_is_corrupt "$sync_diagnostic" \
+  && ! cursor_diagnostic_is_local_failure "$sync_diagnostic"; then
+  ambiguous_fetch_outage=0
+fi
+
+if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] || [ "$ambiguous_fetch_outage" -eq 0 ]; then
   # A genuine journal-read outage. Latch the shared cooldown so sibling cursor reads
   # skip quietly for the window; the tick that wins the latch owns the single warning.
   if start_journal_outage_cooldown cursor-get; then
@@ -45,8 +76,10 @@ if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
   exit "${GARDEN_OFFLINE_RC:-75}"
 fi
 if [ "$rc" -ne 0 ]; then
-  # Preserve LOUD structural/authentication failures: re-raise the rc unchanged so a
-  # real defect is never masked by the temporary-unavailable path.
+  # Preserve LOUD local-clone, upstream, authentication, and other unclassified
+  # failures. Replay the captured diagnostic exactly once and re-raise the original
+  # rc, so a real defect is never masked by the temporary-unavailable path.
+  [ -z "$sync_diagnostic" ] || printf '%s\n' "$sync_diagnostic" >&2
   exit "$rc"
 fi
 
