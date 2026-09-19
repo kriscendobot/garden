@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T06:51:24Z_
+_As of 2026-09-19T06:52:36Z_
 
 ## Latest
 
@@ -1270,25 +1270,24 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.1M | $21.95 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 2.1M | $22.64 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
-- [`canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 3f6b7911fa29
 
-### tada (8414)
+### tada (8415)
+- [`canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919.md) — orchestration endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-2026091...
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-3f6b7911fa29.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #1305
-- [`deadmail-issue-comment-5739778301`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5739778301.md) — Completion report
-- … and 8409 more
+- … and 8410 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
