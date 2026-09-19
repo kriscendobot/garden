@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T03:44:10Z_
+_As of 2026-09-19T04:21:02Z_
 
 ## Latest
 
@@ -1252,15 +1252,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 798.8k | $4.50 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 912.6k | $5.23 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260919-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-042006.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (8404)
 - [`endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919.md) — Completion report: rebase endojs/endo-but-for-bots PR #1305 onto its retconne...
