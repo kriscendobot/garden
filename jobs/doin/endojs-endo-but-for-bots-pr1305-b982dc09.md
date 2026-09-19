@@ -42,11 +42,11 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=699 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T06:13:05Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=699,346 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
