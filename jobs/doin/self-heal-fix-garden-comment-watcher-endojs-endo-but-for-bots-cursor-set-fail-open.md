@@ -15,6 +15,7 @@ Each does `printf 'last_seen: ...\n' | "$HERE/cursor-set.sh" "$CURSOR_KEY"`. cur
 Fix: capture the rc via `if printf ... | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi` and on nonzero rc `log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"` then fall through past the `if [ -n "$hw" ] ...` block cleanly (exit 0) — mirroring the cursor-get.sh fix's rationale: a lost cursor advance is best-effort (posts are idempotent by base, so the next tick just re-detects and DEDUPs rather than losing data), never worth a hard crash. Do this in all three watchers for consistency with df83fca235's scope.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
