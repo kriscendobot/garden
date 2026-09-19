@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: shepherd
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-19T06:43:12Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-19T06:43:12Z
+---
+
+---
 role: shepherd
 tier: mentor
 ---
@@ -48,19 +69,3 @@ Your job: **drive CI to green** (mergeable_state=clean / all required checks pas
      leg you have documented and re-run). Report the final CI state and any fix SHAs.
 
 Bot repo only (endojs/endo-but-for-bots). NEVER touch agoric-sdk or upstream endojs/endo.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-19T06:33:05Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=4 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T06:33:27Z
