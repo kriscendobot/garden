@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T06:52:36Z_
+_As of 2026-09-19T06:55:16Z_
 
 ## Latest
 
@@ -1270,14 +1270,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.1M | $22.64 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 2.1M | $23.79 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-run-handler-deadline.md) — ---
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
 
