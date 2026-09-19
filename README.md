@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T06:08:39Z_
+_As of 2026-09-19T06:14:40Z_
 
 ## Latest
 
@@ -1270,16 +1270,18 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.5M | $13.72 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 1.7M | $16.19 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (1)
-- [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
+- [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Review directive on endojs/endo-but-for-bots PR #1305
 
-### doin (2)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — attention directive on endojs/endo-but-for-bots PR #1305
-- [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Review directive on endojs/endo-but-for-bots PR #1305
+- [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-b982dc09.md) — attention directive on endojs/endo-but-for-bots PR #1305
+- [`self-heal-fix-garden-issue-inbox-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-set-fail-open.md) — ---
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-cursor-set-fail-open.md) — ---
 
 ### tada (8408)
 - [`issue-kriscendobot-garden-104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/issue-kriscendobot-garden-104.md) — Cost
