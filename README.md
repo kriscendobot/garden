@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T04:32:14Z_
+_As of 2026-09-19T04:33:56Z_
 
 ## Latest
 
@@ -1256,11 +1256,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
+### doin (0)
+(none)
 
 ### tada (8405)
 - [`claude-on-minion-town-press-20260919-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-042006.md) — Cost
