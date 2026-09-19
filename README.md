@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T16:37:08Z_
+_As of 2026-09-19T16:39:25Z_
 
 ## Latest
 
@@ -11,7 +11,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 1d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 2d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 7d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 17d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 17d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 17d)
@@ -1376,14 +1376,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $28.20 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.6M | $28.82 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 996.4k _(+5.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`canary-probe-oros-studio-garden-ce242c49-fab63b7af6af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-fab63b7af6af.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ fab63b7af6af
+### todo (0)
+(none)
 
-### doin (1)
+### doin (2)
+- [`canary-probe-oros-studio-garden-ce242c49-fab63b7af6af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-fab63b7af6af.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ fab63b7af6af
 - [`claude-on-minion-town-press-20260919-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-163507.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (8427)
