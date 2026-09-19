@@ -288,5 +288,29 @@ grep -q 'clone of .* failed' "$TR/local.err" \
 [ ! -e "$MARKER" ] && ok "a local clone failure does not latch a cooldown" \
   || bad "a local clone failure latched a cooldown"
 
+# (i) A positively-identified GONE/FORBIDDEN upstream wrapped in the same rc=1 fetch
+#     summary also stays loud: _fetch_stderr_is_upstream_gone excludes it from the
+#     ambiguous-outage fallback, so it is re-raised unchanged and never latches. A dead
+#     upstream needs an operator, not a quiet host cooldown that hides it behind weather.
+rm -f "$MARKER"
+FETCH_GONE="$TR/fetch-gone.sh"
+cat > "$FETCH_GONE" <<'EOF'
+#!/bin/bash
+echo "remote: Repository not found." >&2
+echo "fatal: repository 'https://github.com/kriscendobot/gone.git/' not found" >&2
+exit 1
+EOF
+chmod +x "$FETCH_GONE"
+rc=0
+out="$(run_cursor upstream-gone GARDEN_FETCH_CMD="$FETCH_GONE" GARDEN_OFFLINE_SIGNATURES='ZZZ_NEVER_MATCH' -- 2>"$TR/gone.err")" || rc=$?
+[ "$rc" -eq 1 ] \
+  && ok "a gone/forbidden upstream is re-raised loud (rc=1, not temporary-unavailable)" \
+  || bad "a gone upstream was masked (rc=$rc)"
+grep -qi 'Repository not found' "$TR/gone.err" \
+  && ok "the loud upstream-gone diagnostic is preserved" \
+  || bad "the upstream-gone diagnostic was swallowed"
+[ ! -e "$MARKER" ] && ok "a gone upstream does not latch a cooldown" \
+  || bad "a gone upstream latched a cooldown (would silence a real upstream fault)"
+
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
