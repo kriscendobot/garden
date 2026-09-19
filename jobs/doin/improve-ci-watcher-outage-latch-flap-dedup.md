@@ -11,3 +11,13 @@ The journal-outage latch (`note_journal_outage`/`note_journal_recovered`, ~line 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T05:43:10Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T05:43:17Z
