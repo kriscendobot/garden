@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T15:14:38Z_
+_As of 2026-09-19T15:18:16Z_
 
 ## Latest
 
@@ -1384,15 +1384,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1305-review-049d4381`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-review-049d4381.md) — Review directive on endojs/endo-but-for-bots PR #1305
+- [`endojs-endo-but-for-bots-pr1305-conduct-r5256145878`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-conduct-r5256145878.md) — Conduct (finalize → merge) endojs/endo-but-for-bots PR #1305 (3/3 of #1125)
 
-### tada (8421)
+### tada (8422)
+- [`endojs-endo-but-for-bots-pr1305-review-049d4381`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-review-049d4381.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260919-150506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-150506.md) — Completion report — completion press tick 20260919-150506
 - [`claude-on-minion-town-press-20260919-133506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-133506.md) — Cost
 - [`claude-on-minion-town-press-20260919-103505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-103505.md) — Completion report — claude-on-minion-town-press-20260919-103505
 - [`claude-on-minion-town-completion-press-20260919-090506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-090506.md) — Completion report — completion press tick 20260919-090506
-- [`restore-cleric`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/restore-cleric.md) — Completion report: restore-cleric
-- … and 8416 more
+- … and 8417 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
