@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T15:24:07Z_
+_As of 2026-09-19T15:32:25Z_
 
 ## Latest
 
@@ -1376,15 +1376,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $28.01 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 744.4k _(+3.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 2.8M | $32.54 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Codex | 770.8k _(+3.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endo-guest-native-accept-primitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-guest-native-accept-primitive.md) — Build guest-native invitation ACCEPTANCE (EndoGuest.accept) for Endo
+- [`endojs-endo-but-for-bots-pr1305-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1305 (me...
 
 ### tada (8423)
 - [`endojs-endo-but-for-bots-pr1305-conduct-r5256145878`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1305-conduct-r5256145878.md) — Cost
