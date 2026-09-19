@@ -15,6 +15,7 @@ This is the identical bug class fixed twice in scripts/jobs/triager.sh (commits 
 <!-- garden-plain-retry-not-before: 2026-09-19T00:34:19Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=9,33 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
