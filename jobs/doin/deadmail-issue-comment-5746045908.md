@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-574604590
 @kriscendobot Please requeue all jobs that are parked waiting only for quota 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-19T23:20:37Z
