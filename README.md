@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T13:36:31Z_
+_As of 2026-09-19T13:39:32Z_
 
 ## Latest
 
@@ -1383,16 +1383,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260919-133506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-133506.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (8419)
+### tada (8420)
+- [`claude-on-minion-town-press-20260919-133506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-133506.md) — Cost
 - [`claude-on-minion-town-press-20260919-103505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-103505.md) — Completion report — claude-on-minion-town-press-20260919-103505
 - [`claude-on-minion-town-completion-press-20260919-090506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-090506.md) — Completion report — completion press tick 20260919-090506
 - [`restore-cleric`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/restore-cleric.md) — Completion report: restore-cleric
 - [`claude-on-minion-town-press-20260919-072030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-072030.md) — Press tick — Claude-on-minion.town arc (issue #89)
-- [`canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-3f6b7911fa29.md) — rolling-deploy canary probe — round trip OK
-- … and 8414 more
+- … and 8415 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
