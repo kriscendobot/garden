@@ -36,3 +36,13 @@ multi-cell) failure rather than a single-cell flake, do NOT merge — report it.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-19T04:43:05Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T04:43:21Z
