@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T19:36:36Z_
+_As of 2026-09-19T19:40:31Z_
 
 ## Latest
 
@@ -1393,16 +1393,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260919-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260919-193507.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (8433)
+### tada (8434)
+- [`claude-on-minion-town-press-20260919-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-193507.md) — Press tick 2026-09-19 ~19:40Z — completion report
 - [`improve-journal-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-journal-outage-classification.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-beb9fc3ede40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-oros-studio-garden-ce242c49-beb9fc3ede40.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-beb9fc3ede40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/canary-probe-endolin-garden2-5bcdff64-beb9fc3ede40.md) — rolling-deploy canary probe — round trip OK
 - [`improve-journal-cursor-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-journal-cursor-outage-classification.md) — Cost
-- [`claude-on-minion-town-press-20260919-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-press-20260919-163507.md) — Completion report
-- … and 8428 more
+- … and 8429 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
