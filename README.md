@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T21:21:44Z_
+_As of 2026-09-19T21:27:31Z_
 
 ## Latest
 
@@ -1401,17 +1401,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-cursor-write-outage-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-write-outage-classification.md) — ---
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1310
 
-### tada (8443)
+### tada (8444)
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-clean.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260919-210536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/claude-on-minion-town-completion-press-20260919-210536.md) — Completion report
 - [`improve-comment-watcher-child-reaping`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-comment-watcher-child-reaping.md) — Completion report
 - [`improve-cursor-read-herd-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/improve-cursor-read-herd-suppression.md) — Cost
 - [`rebalance-monks-after-quota-reset-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/rebalance-monks-after-quota-reset-20260919.md) — Cost
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-viability.md) — Viability report — PR #1310 (endojs/endo-but-for-bots)
-- … and 8438 more
+- … and 8439 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
