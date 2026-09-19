@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T10:36:59Z_
+_As of 2026-09-19T10:46:42Z_
 
 ## Latest
 
@@ -1293,6 +1293,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > triager: fetch for kriscendobot-minion.town at /home/kris/garden/worktrees/kriscendobot-minion.town.git is SUCCEEDING again; kriscendobot-minion.town is being triaged normally.
 
+- `msg-claude-on-minion-town-press-20260919-103505-563702aabb72` — from gardener:claude-on-minion-town-press-20260919-103505, reply_to `claude-on-minion-town-press-20260919-103505` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20260919-103505-563702aabb72.md)
+
+> Arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89) (Claude on minion.town) — one go-ahead decision, high leverage:
+>
+> [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) (guest-owned invitation, slice 3/3 — the LAST artifact-level blocker of arc item 7's CapTP half) is APPROVED (re-approved 09-19 05:50Z), mergeable-clean, CI-green (15 pass/15 skip). [endojs/endo-but-for-bots#1304](https://github.com/endojs/endo-but-for-bots/issues/1304) and [endojs/endo-but-for-bots#1306](https://github.com/endojs/endo-but-for-bots/issues/1306) already merged into llm. It is one conduct away from clearing the CapTP blocker entirely.
+>
+> Your 2026-09-19 "shepherd, retcon, conduct" directive on [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) halted at 06:43Z: the shepherd child was doomed by the same transient requeue-exhausted quota event that doomed ~88 jobs that morning. The retcon+conduct children are now parked behind go-ahead gates — consistent with the foreman brake you set 2026-09-17 for quota conservation, so I did NOT autonomously re-drive against the throttle.
+>
+> Decision needed: land [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) now, or hold until you lift the throttle?
+> - If land now: retcon+conduct as you directed (retcon re-triggers CI, more spend), or conduct-only (CI is already green; minimal spend)?
+> - Same question applies to the two other arc jobs parked by the same 09-19 quota doom: [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) refresh-for-review (item 5 stdio-MCP build) and [endojs/endo-but-for-bots#1226](https://github.com/endojs/endo-but-for-bots/issues/1226) revision (item 5 design, changes-requested). Lower priority than [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305); happy to leave parked.
+>
+> No code review is pending from you this tick — the arc is machine-gated on the above.
+
 - `msg-reconcile-gardener-alias-retirement-gate-20260916-70e30735a192` — from gardener:reconcile-gardener-alias-retirement-gate-20260916, reply_to `reconcile-gardener-alias-retirement-gate-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reconcile-gardener-alias-retirement-gate-20260916-70e30735a192.md)
 
 > Reconcile of the retirement-gate-1 failure for `retire-gardener-worker-kind-alias`.
@@ -1362,7 +1376,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.5M | $26.89 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.6M | $29.18 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 119.9k _(+537.1k cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
