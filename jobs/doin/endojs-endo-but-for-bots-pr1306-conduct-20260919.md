@@ -30,3 +30,13 @@ Task, from an isolated project worktree for THIS job base:
 
 Definition of done: #1306 merged into `llm`. If CI shows a real (deterministic,
 multi-cell) failure rather than a single-cell flake, do NOT merge — report it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-19T04:25:57Z
