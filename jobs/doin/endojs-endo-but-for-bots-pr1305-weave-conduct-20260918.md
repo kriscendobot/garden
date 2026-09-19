@@ -39,6 +39,7 @@ Landing #1305 resolves the last artifact-level blocker of arc item 7's CapTP hal
 Note: a prior `endojs-endo-but-for-bots-pr1305-conduct` plan is parked DOOMED
 (requeue-exhausted) because it raced ahead of the rebase; this job supersedes it.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
