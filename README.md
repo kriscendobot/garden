@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T03:11:39Z_
+_As of 2026-09-19T03:13:47Z_
 
 ## Latest
 
@@ -1256,11 +1256,11 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Codex | 0 _(+0 cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919.md) — rebase endojs/endo-but-for-bots PR #1305 onto its retconned base
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-rebase-postretcon-20260919.md) — rebase endojs/endo-but-for-bots PR #1305 onto its retconned base
+### doin (0)
+(none)
 
 ### tada (8403)
 - [`endojs-endo-but-for-bots-pr1306-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1306-retcon.md) — Completion report: retcon of endojs/endo-but-for-bots PR #1306
