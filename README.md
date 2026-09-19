@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T20:46:59Z_
+_As of 2026-09-19T20:47:58Z_
 
 ## Latest
 
@@ -1393,7 +1393,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1310
 - [`deadmail-issue-comment-5745084854`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5745084854.md) — Issue follow-up — fold a late comment into the issue work
 
 ### tada (8437)
