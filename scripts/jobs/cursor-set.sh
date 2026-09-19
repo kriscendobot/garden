@@ -24,10 +24,18 @@ elif [ ! -t 0 ];                                then BODY="$(cat)"
 else die "no cursor body given"; fi
 
 DIR="${GARDEN_CURSOR_CLONE:-$GARDEN_STATE/cursors/journal}"
-# Clone creation/repair is local setup, not evidence of a transport episode. Keep it
-# outside the outage classifier so configuration, ownership, and clone failures stay
-# loud and cannot poison the host-wide latch.
-ensure_clone "$DIR"
+
+# A live sibling window already classified the episode: skip the clone AND the write.
+journal_outage_active && exit "${GARDEN_OFFLINE_RC:-75}"
+
+# Clone creation/repair runs before any fetch/push. A local checkout, ownership, or
+# configuration fault here stays LOUD and never poisons the host-wide latch — but a
+# correlated network outage striking during a needed (re)clone is the same weather the
+# sync/push paths already latch. ensure_clone_or_latch_outage classifies the two: a
+# transport outage latches the host cooldown and exits GARDEN_OFFLINE_RC; only
+# positively-identified local, auth, corruption, or missing-upstream failures are
+# re-raised loud with their original rc.
+ensure_clone_or_latch_outage "$DIR" cursor-set
 
 diagnostic_file="$(mktemp "${TMPDIR:-/tmp}/garden-cursor-set.XXXXXX")" \
   || die "cannot create cursor-write diagnostic file"
@@ -83,10 +91,7 @@ for attempt in $(seq 1 50); do
   if _fetch_stderr_is_offline "$GARDEN_PUSH_STDERR" \
     || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR" \
     || { [ "${GARDEN_VERIFY_FETCH_RC:-0}" -eq 1 ] \
-      && ! _fetch_stderr_is_auth_failure "$GARDEN_FETCH_STDERR" \
-      && ! _fetch_stderr_is_upstream_gone "$GARDEN_FETCH_STDERR" \
-      && ! _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR" \
-      && ! journal_diagnostic_is_local_failure "$GARDEN_FETCH_STDERR"; }; then
+      && ! journal_diagnostic_is_definite_failure "$GARDEN_FETCH_STDERR"; }; then
     cursor_set_latch_outage "${GARDEN_PUSH_STDERR:-${GARDEN_FETCH_STDERR:-$push_diagnostic}}"
   fi
 
@@ -94,10 +99,7 @@ for attempt in $(seq 1 50); do
   # generic rc=1 retries. Re-raise them on the first observation. An ordinary CAS
   # rejection has neither signature and retains the existing retry behavior.
   combined_diagnostic="${GARDEN_PUSH_STDERR}${GARDEN_FETCH_STDERR}${push_diagnostic}"
-  if _fetch_stderr_is_auth_failure "$combined_diagnostic" \
-    || _fetch_stderr_is_upstream_gone "$combined_diagnostic" \
-    || _fetch_stderr_is_corrupt "$combined_diagnostic" \
-    || journal_diagnostic_is_local_failure "$combined_diagnostic"; then
+  if journal_diagnostic_is_definite_failure "$combined_diagnostic"; then
     [ -z "$combined_diagnostic" ] || printf '%s\n' "$combined_diagnostic" >&2
     exit "$rc"
   fi

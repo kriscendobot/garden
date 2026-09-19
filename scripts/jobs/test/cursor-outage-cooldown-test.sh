@@ -100,6 +100,77 @@ env GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state/off" GARDEN_JOURNAL_OUTAGE_COOLD
   || ok "a disabled cooldown is never active"
 
 # ---------------------------------------------------------------------------
+# Layer 1b: ensure_clone_or_latch_outage — the clone/repair step's classification.
+# The clone runs BEFORE any fetch, so a correlated outage that strikes during a
+# needed (re)clone must latch the same host cooldown, while a positively-identified
+# local/auth/corruption/missing-upstream clone failure stays loud and never latches.
+# We stub ensure_clone to drive the diagnostic + rc deterministically (real git
+# clone stderr is not injectable).
+# ---------------------------------------------------------------------------
+echo "SUBTEST 1b — ensure_clone_or_latch_outage"
+: "${GARDEN_OFFLINE_RC:=75}"
+run_clone_classify() {  # run_clone_classify <state-ns> <stub-body-and-call>
+  # shellcheck disable=SC2016
+  env GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state/$1" GARDEN_JOURNAL_OUTAGE_COOLDOWN_SECS=120 \
+    bash -c 'source "$1"; eval "$2"' _ "$JOBS/common.sh" "$2"
+}
+CLONE_FAIL_MARK='11:11:11 [t] FATAL: clone of git@github.com:x/y (journal2) into /tmp/c failed'
+
+# (a1) an offline signature during the clone latches and exits GARDEN_OFFLINE_RC.
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-offline \
+  'ensure_clone() { echo "fatal: unable to access: Could not resolve host: github.com" >&2; echo "'"$CLONE_FAIL_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c cursor-get' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ]; } \
+  && ok "an offline clone failure latches the cooldown and exits temporary-unavailable" \
+  || bad "offline clone failure exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
+# (a2) an ambiguous rc=1 clone failure (marker line, no stable signature) latches too.
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-ambiguous \
+  'ensure_clone() { echo "'"$CLONE_FAIL_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c cursor-get' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ]; } \
+  && ok "an ambiguous rc=1 clone failure is classified as a temporary outage" \
+  || bad "ambiguous clone failure exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
+# (a3) a positively-identified auth clone failure stays loud (rc=1) and never latches.
+rm -f "$MARKER"; rc=0
+CE="$TR/clone-auth.err"
+run_clone_classify clone-auth \
+  'ensure_clone() { echo "git@github.com: Permission denied (publickey)." >&2; echo "'"$CLONE_FAIL_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c cursor-get' \
+  2>"$CE" || rc=$?
+{ [ "$rc" -eq 1 ] && [ ! -e "$MARKER" ] && grep -qi 'Permission denied' "$CE"; } \
+  && ok "an authentication clone failure stays loud (rc=1) and does not latch" \
+  || bad "auth clone failure exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
+# (a4) a local-state clone failure stays loud and never latches.
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-local \
+  'ensure_clone() { echo "fatal: not a git repository: .git" >&2; echo "'"$CLONE_FAIL_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c cursor-get' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq 1 ] && [ ! -e "$MARKER" ]; } \
+  && ok "a local-state clone failure stays loud (rc=1) and does not latch" \
+  || bad "local clone failure exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
+# (a5) a missing-upstream clone failure stays loud and never latches.
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-gone \
+  'ensure_clone() { echo "fatal: repository '"'"'https://github.com/x/gone.git'"'"' does not exist" >&2; echo "'"$CLONE_FAIL_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c cursor-get' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq 1 ] && [ ! -e "$MARKER" ]; } \
+  && ok "a missing-upstream clone failure stays loud (rc=1) and does not latch" \
+  || bad "gone clone failure exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
+# (a6) a successful clone returns 0 and latches nothing.
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-ok 'ensure_clone() { :; }; ensure_clone_or_latch_outage /tmp/c cursor-get' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq 0 ] && [ ! -e "$MARKER" ]; } \
+  && ok "a healthy clone returns 0 and latches nothing" \
+  || bad "healthy clone exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
+# ---------------------------------------------------------------------------
 # Layer 2: cursor-get.sh end-to-end.
 # ---------------------------------------------------------------------------
 echo "SUBTEST 2 — cursor-get.sh"

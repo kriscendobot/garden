@@ -18,22 +18,27 @@ key="${1:?usage: cursor-get.sh <key>}"
 case "$key" in /*|*..*|'') die "illegal cursor key '$key'";; esac
 
 DIR="${GARDEN_CURSOR_CLONE:-$GARDEN_STATE/cursors/journal}"
-# Keep clone creation/repair outside the outage classifier. Failures here describe
-# this host's local checkout (or its credentials/configuration), not evidence that
-# the already-established journal fetch path is temporarily unavailable; they must
-# remain loud and must never poison the shared latch.
-ensure_clone "$DIR"
 
 # --- host-shared journal-read outage cooldown (herd suppression) --------------
 # Every per-repo triager/comment/mention/issue-inbox watcher opens each tick with a
 # cursor-get. On a journal-connectivity outage a bare sync_clone burns up to
 # ~GARDEN_FETCH_TIMEOUT * GARDEN_FETCH_RETRIES seconds and logs an offline line — once
 # per repo per watcher-kind, a self-inflicted thundering herd of doomed fetches. So:
-# consult the host-wide outage latch FIRST. If a sibling already latched a live window,
-# report temporary-unavailable (GARDEN_OFFLINE_RC) IMMEDIATELY — no fetch, no warning.
+# consult the host-wide outage latch FIRST — before even the clone step below. If a
+# sibling already latched a live window, report temporary-unavailable
+# (GARDEN_OFFLINE_RC) IMMEDIATELY — no clone, no fetch, no warning.
 if journal_outage_active; then
   exit "${GARDEN_OFFLINE_RC:-75}"
 fi
+
+# Clone creation/repair runs before any fetch. A local checkout, ownership, or
+# configuration fault here must stay LOUD and must never poison the shared latch —
+# but a correlated network outage that strikes DURING a needed (re)clone (a fresh
+# host, a reaped/partial clone) is the same weather the fetch path already latches.
+# ensure_clone_or_latch_outage classifies the two: a transport outage latches the
+# host cooldown and exits GARDEN_OFFLINE_RC; only positively-identified local, auth,
+# corruption, or missing-upstream failures are re-raised loud with their original rc.
+ensure_clone_or_latch_outage "$DIR" cursor-get
 
 # No live latch: probe once. Run sync_clone in a SUBSHELL so its offline `exit
 # "$GARDEN_OFFLINE_RC"` (an exit, not a return) does not terminate us before we can

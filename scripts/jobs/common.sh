@@ -4139,14 +4139,67 @@ journal_diagnostic_is_local_failure() {
     'not a git repository|detected dubious ownership|unable to create .*\.lock|cannot lock ref|No space left on device|Read-only file system|Input/output error|Operation not permitted'
 }
 
+# The single positively-identified-NON-transient boundary. A diagnostic that
+# matches ANY of these classes is a defect, not weather: authentication drift, a
+# gone/forbidden upstream, local repository corruption, or a local checkout/config
+# fault. The ambiguous-outage fallback and cursor-set's push/verify classification
+# both consult THIS predicate so the four exclusion classes cannot drift apart
+# between the fetch, clone, and write paths.
+journal_diagnostic_is_definite_failure() {  # <diagnostic>
+  _fetch_stderr_is_auth_failure "$1" \
+    || _fetch_stderr_is_upstream_gone "$1" \
+    || _fetch_stderr_is_corrupt "$1" \
+    || journal_diagnostic_is_local_failure "$1"
+}
+
+# A bounded journal fetch OR clone can finish with the otherwise-ambiguous rc=1 and
+# a transport diagnostic outside the stable offline-signature set — journal_fetch's
+# bounded-retry summary ("journal fetch in … failed after N attempt(s)") or a bounded
+# (re)clone failure ("clone of … failed"). Both are the narrow "a bounded journal
+# read attempt against the established remote failed with no stable signature" shape
+# a correlated outage produces. Treat it as weather, but ONLY after excluding the
+# positively-identified non-transient classes above — so a dead upstream, credential
+# drift, corruption, or a local fault is never swallowed as a temporary outage.
 journal_bounded_fetch_is_ambiguous_outage() {  # <rc> <diagnostic>
   local rc="$1" diagnostic="$2"
   [ "$rc" -eq 1 ] \
-    && printf '%s\n' "$diagnostic" | grep -qE 'journal fetch in .* failed after [0-9]+ attempt' \
-    && ! _fetch_stderr_is_auth_failure "$diagnostic" \
-    && ! _fetch_stderr_is_upstream_gone "$diagnostic" \
-    && ! _fetch_stderr_is_corrupt "$diagnostic" \
-    && ! journal_diagnostic_is_local_failure "$diagnostic"
+    && printf '%s\n' "$diagnostic" | grep -qE 'journal fetch in .* failed after [0-9]+ attempt|clone of .* failed' \
+    && ! journal_diagnostic_is_definite_failure "$diagnostic"
+}
+
+# ensure_clone_or_latch_outage <dir> <tag> — ensure the journal clone at <dir> exists
+# and is healthy, classifying a clone/repair FAILURE the same way the fetch path is
+# classified rather than always dying loud. The clone/repair step runs before any
+# fetch, so a correlated journal outage that coincides with a needed (re)clone — a
+# fresh host, a reaped or partial clone — otherwise escapes the shared cooldown as a
+# loud rc=1 herd (two simultaneous cursor reads dying at once, the incident this
+# closes). Contract:
+#   * success: the clone is ready; return 0.
+#   * a transient transport outage (a known offline signature, or the bounded
+#     ambiguous rc=1 clone-failure shape): latch the shared cooldown (the winner owns
+#     the single warning) and exit GARDEN_OFFLINE_RC so sibling reads/writes skip
+#     quietly for the window.
+#   * a positively-identified local, auth, corruption, or missing-upstream failure:
+#     re-raise LOUD with the original rc and its complete diagnostic, and NEVER latch
+#     (a real fault must not be masked behind weather).
+# <tag> labels the latch owner in the log (cursor-get / cursor-set). Runs ensure_clone
+# in a SUBSHELL so its die (exit 1) cannot terminate the caller before we classify.
+ensure_clone_or_latch_outage() {
+  local dir="$1" tag="${2:-ensure-clone}" err rc diagnostic
+  err="$(mktemp "${TMPDIR:-/tmp}/garden-ensure-clone.XXXXXX")" \
+    || die "cannot create clone diagnostic file"
+  if ( ensure_clone "$dir" ) 2>"$err"; then rc=0; else rc=$?; fi
+  diagnostic="$(cat "$err")"; rm -f "$err"
+  [ "$rc" -eq 0 ] && return 0
+  if _fetch_stderr_is_offline "$diagnostic" \
+    || journal_bounded_fetch_is_ambiguous_outage "$rc" "$diagnostic"; then
+    if start_journal_outage_cooldown "$tag"; then
+      log "journal-read outage during clone; latched host cooldown ($(_journal_outage_secs)s) so sibling cursor reads/writes skip quietly"
+    fi
+    exit "${GARDEN_OFFLINE_RC:-75}"
+  fi
+  [ -z "$diagnostic" ] || printf '%s\n' "$diagnostic" >&2
+  exit "$rc"
 }
 
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
