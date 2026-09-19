@@ -87,6 +87,7 @@ than landing bare). Include the chosen signal, thresholds, and the fail-open
 rationale. Do NOT implement.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=10 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
