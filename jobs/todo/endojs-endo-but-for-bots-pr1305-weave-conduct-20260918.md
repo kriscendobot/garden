@@ -40,13 +40,6 @@ Note: a prior `endojs-endo-but-for-bots-pr1305-conduct` plan is parked DOOMED
 (requeue-exhausted) because it raced ahead of the rebase; this job supersedes it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-19T05:41:20Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-19T05:53:04Z -->
