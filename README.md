@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T20:56:50Z_
+_As of 2026-09-20T20:57:47Z_
 
 ## Latest
 
@@ -2167,22 +2167,22 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
-| Codex | 24.6M _(+586.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 24.6M _(+587.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1316-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1316-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1316
+### doin (0)
+(none)
 
-### tada (8506)
+### tada (8507)
+- [`endojs-endo-but-for-bots-pr1316-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1316-dependabot.md) — Cost
 - [`claude-on-minion-town-press-20260920-202011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-202011.md) — Cost
 - [`endojs-endo-but-for-bots-pr1320-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1320-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1319-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1319-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1318-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1318-dependabot.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1321-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1321-dependabot.md) — Completion report
-- … and 8501 more
+- … and 8502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
