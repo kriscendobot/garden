@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T09:43:40Z_
+_As of 2026-09-20T09:56:10Z_
 
 ## Latest
 
@@ -1840,15 +1840,15 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.5M | $692.79 _(notional, rate-card)_ | no quota set |
-| Codex | 23.1M _(+531.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 116.6M | $692.96 _(notional, rate-card)_ | no quota set |
+| Codex | 23.2M _(+532.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Resolve the complete maintainer review on endojs/endo-but-for-bots PR #1301
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Resolve the complete maintainer review on endojs/endo-but-for-bots PR #1301
 
 ### tada (8487)
 - [`claude-on-minion-town-completion-press-20260920-093505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-completion-press-20260920-093505.md) — Completion report
