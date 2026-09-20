@@ -1,30 +1,43 @@
-## Retcon complete — PR #1301 already in canonical shape, no push needed
+The companion shepherd is a separate job (the triager posts it from the same comment); not my concern here. My retcon deliverable is complete.
 
-**Job:** retcon on `endojs/endo-but-for-bots` PR #1301 (`build/readableblob-range-attenuation`, head on `kriscendobot/endo-but-for-bots`, base `llm-387ea66`, draft).
+---
 
-**What I did:**
-- Set up an isolated project worktree keyed to this job's base and performed the full retcon procedure: `git reset --mixed origin/llm-387ea66`, then restaged one commit per affected package in dependency order (platform → git → daemon → exo-git → agent-tools → floot → design).
-- The restaged history reproduced the existing 7 commits **exactly**. Every commit's tree hash is byte-identical to its current counterpart, and `git diff <restaged>..<current> --stat` is empty — the retcon net-diff invariant holds.
+## Completion report: `endojs-endo-but-for-bots-pr1301-retcon`
 
-**Finding:** The branch was already in perfect canonical retcon shape:
-- Linear history, one conventional-commit per affected package, implementation + tests bundled: `feat(platform)`, `feat(git)`, `feat(daemon)`, `feat(exo-git)`, `chore(agent-tools)` (regenerated declarations), `chore(floot)` (em-dash), `docs(design)`.
-- No `chore: Update yarn.lock` commit is warranted: the two `package.json` edits (moving `@endo/sha256` daemon dep to runtime; floot description em-dash) change no resolved version, so `yarn.lock` is unchanged and absent from the diff.
+**Outcome: the branch was already in canonical retcon shape. No force-push performed** (a reset+restage would reproduce byte-identical trees with fresh SHAs, resetting CI and invalidating review for zero grouping benefit).
 
-**Decision — no force-push:** A restage produces only new SHAs over byte-identical trees. Force-pushing would churn CI and could disrupt the paired shepherd on this draft, for zero content/structure change. I reset the worktree back to the original head and pushed nothing.
+**PR:** endojs/endo-but-for-bots#1301 (`feat(platform): ReadableBlob range attenuation`), head `build/readableblob-range-attenuation` @ `d74ec536a8`, base `llm-387ea66` (`387ea661`). Branch is up to date with its base — no weave needed.
 
-**What changed:** Nothing on the branch. I posted a top-level acknowledgment comment (standing authorization on this repo covers it): https://github.com/endojs/endo-but-for-bots/pull/1301#issuecomment-5747753265, and a journal `result` entry.
+**What I verified (mechanical, against the existing 7-commit history):**
+- **Per-package scoping:** each of the 7 commits touches exactly one package/top-level group (`groups=1` for every commit): `platform`, `git`, `daemon`, `exo-git`, `agent-tools`, `floot`, `designs/`.
+- **No overlap:** no file appears in more than one commit.
+- **Completeness:** union of all commits' files == the `base..HEAD` net diff (linear, complete).
+- **Impl + tests bundled:** each `feat(...)` commit carries its package's src and test files together.
+- **Conventional-commit messages:** all present and package-scoped.
+- **Lockfile:** no `yarn.lock` change in the diff, so no separate `chore: Update yarn.lock` commit applies. (The `daemon/package.json` change only moves `@endo/sha256` between dep sections, both `workspace:^`; `floot/package.json` is a one-char em-dash edit — each already its own commit.)
 
-**Follow-ups:** None from the retcon. CI convergence is owned by the paired shepherd directive from the same maintainer comment ("Shepherd and retcon, please").
+**Commit groups (already present, in dependency order):**
+1. `feat(platform):` shared helpers, LocalBlob, BlobRef
+2. `feat(git):` native git backend
+3. `feat(daemon):` mount + blobs (incl. `package.json`, `tsconfig.composite.json`)
+4. `feat(exo-git):` git help text
+5. `chore(agent-tools):` regenerated code-mode-global declarations
+6. `chore(floot):` literal em-dash in package description
+7. `docs(design):` `designs/readableblob-range-attenuation.md`
 
-Self-improvement: nothing this time.
+**Changed:** none in the project repo (correct — no regroup was needed). Landed one garden-skill improvement on `main2` (`ae2a34bac94`): documented the "already in canonical shape" no-op outcome and its four-check confirmation in `skills/retcon/SKILL.md`, so future retcon claimants confirm-and-report rather than force-pushing identical-tree churn.
+
+**Follow-ups:** The source comment said "Shepherd and retcon" — the shepherd (drive CI green) is a separate job posted by the triager; no `pr1301-shepherd` job was visible in my (possibly stale) local journal clone. Flagging for the liaison in case it needs posting.
+
+Self-improvement: landed a note in `skills/retcon/SKILL.md` that a retcon on an already-canonical branch is a legitimate confirm-and-report no-op, with the mechanical partition check to decide it.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1301-retcon.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 3 on 2 host(s)
-- Input: 102 tokens (3381933 cached reads)
-- Output: 42425 tokens
-- Cost: $5.5253335
-- Wall-clock: 726s
-- Model(s): claude-opus-4-8 ×3
+- Engagements: 4 on 2 host(s)
+- Input: 144 tokens (4822325 cached reads)
+- Output: 56238 tokens
+- Cost: $7.314462499999999
+- Wall-clock: 978s
+- Model(s): claude-opus-4-8 ×4
 
 <!-- garden-usage-end -->
