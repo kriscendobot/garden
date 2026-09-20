@@ -52,3 +52,13 @@ This is the expanded-window successor of `endojs-endo-but-for-bots-pr1301-review
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-20T09:53:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-20T09:53:09Z
