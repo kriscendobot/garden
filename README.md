@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-19T23:53:03Z_
+_As of 2026-09-20T00:10:27Z_
 
 ## Latest
 
@@ -1394,7 +1394,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.1M | $87.32 _(notional, rate-card)_ | 6% of 143.0M (ok) |
+| Claude | 9.2M | $91.90 _(notional, rate-card)_ | 6% of 143.0M (ok) |
 | Codex | 2.0M _(+13.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
@@ -1404,13 +1404,13 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1310
 
-### tada (8459)
+### tada (8460)
+- [`canary-probe-endolin-garden2-5bcdff64-c0d7a577af9d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-c0d7a577af9d.md) — rolling-deploy canary probe — round trip OK
 - [`deadmail-issue-comment-5746158732`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5746158732.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr80-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/kriscendobot-minion.town-pr80-gauntlet-clean.md) — Completion report
 - [`kriscendobot-minion.town-pr78-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/kriscendobot-minion.town-pr78-gauntlet-clean.md) — Completion report
-- [`build-kebab-case-lint-wildcard-test262-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/build-kebab-case-lint-wildcard-test262-gauntlet-clean.md) — Completion report
-- … and 8454 more
+- … and 8455 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
