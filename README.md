@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T09:27:37Z_
+_As of 2026-09-20T09:29:46Z_
 
 ## Latest
 
@@ -1805,8 +1805,8 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Resolve the complete maintainer review on endojs/endo-but-for-bots PR #1301
 
 ### tada (8486)
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-3220af4b.md) — Cost
