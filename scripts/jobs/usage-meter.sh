@@ -775,24 +775,51 @@ subscription_used_percent() {
 # baseline and discards the pre-jump estimate instead of blending across it.
 subscription_rate_json() {
   local subscription="$1" dir="${2:-}" alpha="$GARDEN_RATE_ALPHA"
-  local start next duration checkpoint file live_tokens live_percent
+  local start next duration checkpoint reset_file fact mode live_tokens live_percent
   command -v jq >/dev/null 2>&1 || return 1
   start="$(subscription_window_start_epoch "$subscription" "$dir")" || return 1
-  next="$(subscription_next_reset_epoch "$subscription" "$dir" "$start" 2>/dev/null || true)"
-  if [[ "$next" =~ ^[0-9]+$ ]] && [ "$next" -gt "$start" ]; then duration=$((next-start)); else duration=0; fi
-  [ "$duration" -gt 0 ] || return 1
+  fact="$(subscription_reset_fact "$subscription" "$dir")" || return 1
+  IFS=$'\t' read -r mode _ <<<"$fact"
+  duration=0
+  if [ "$mode" = calendar ]; then
+    next="$(subscription_next_reset_epoch "$subscription" "$dir" "$start" 2>/dev/null || true)"
+    if [[ "$next" =~ ^[0-9]+$ ]] && [ "$next" -gt "$start" ]; then duration=$((next-start)); fi
+    [ "$duration" -gt 0 ] || return 1
+  elif [ "$mode" = manual ]; then
+    # Manual pools have no projected next boundary. Rate samples are usable only
+    # inside intervals closed by two actually recorded reset events; no duration
+    # is borrowed from a calendar or extrapolated into the open current window.
+    reset_file="$(subscription_reset_file "$subscription" "$dir")" || return 1
+  else
+    return 1
+  fi
   checkpoint="$dir/budget/manual-checkpoints/$subscription.jsonl"
   {
     if [ -r "$checkpoint" ]; then
-      jq -r --argjson start "$start" '
-        select(((.checked_at // "") | fromdateiso8601? // -1) >= $start)
-        | [(.checked_at // ""),(.weekly_percent // ""),(.meter_spend_tokens // ""),
-           (.meter_window_start_epoch // ""),(.notes // "")] | @tsv' "$checkpoint" 2>/dev/null
+      if [ "$mode" = manual ]; then
+        jq -r --slurpfile events "$reset_file" '
+          ($events | map(select((.reset_at // "") != "") | (.reset_at | fromdateiso8601?))
+                   | map(select(. != null)) | unique | sort) as $bounds |
+          ((.checked_at // "") | fromdateiso8601? // -1) as $at |
+          ($bounds | map(select(. <= $at)) | last // -1) as $lo |
+          ($bounds | map(select(. > $at)) | first // -1) as $hi |
+          [(.checked_at // ""),(.weekly_percent // ""),(.meter_spend_tokens // ""),
+           (.meter_window_start_epoch // ""),(.notes // ""),
+           (if $lo >= 0 and $hi > $lo then $hi-$lo else 0 end)] | @tsv' "$checkpoint" 2>/dev/null
+      else
+        # Calendar declarations make historical windows comparable. Retain the
+        # whole post-discontinuity sequence instead of forgetting the estimate
+        # merely because a new week began.
+        jq -r '[.checked_at // "",.weekly_percent // "",.meter_spend_tokens // "",
+                .meter_window_start_epoch // "",.notes // "",""] | @tsv' "$checkpoint" 2>/dev/null
+      fi
     fi
-    live_percent="$(subscription_used_percent "$subscription" "$dir" 2>/dev/null || true)"
-    live_tokens="$(meter_remote_snapshot_total "$dir" "$subscription" - "$start" 2>/dev/null || true)"
-    if [[ "$live_percent" =~ ^[0-9]+([.][0-9]+)?$ ]] && [[ "$live_tokens" =~ ^[0-9]+$ ]]; then
-      printf 'live\t%s\t%s\t%s\t\n' "$live_percent" "$live_tokens" "$start"
+    if [ "$mode" = calendar ]; then
+      live_percent="$(subscription_used_percent "$subscription" "$dir" 2>/dev/null || true)"
+      live_tokens="$(meter_remote_snapshot_total "$dir" "$subscription" - "$start" 2>/dev/null || true)"
+      if [[ "$live_percent" =~ ^[0-9]+([.][0-9]+)?$ ]] && [[ "$live_tokens" =~ ^[0-9]+$ ]]; then
+        printf 'live\t%s\t%s\t%s\t\t\n' "$live_percent" "$live_tokens" "$start"
+      fi
     fi
   } | awk -F'\t' -v alpha="$alpha" -v seconds="$duration" -v subscription="$subscription" '
     BEGIN { if (alpha <= 0 || alpha >= 1) alpha=.25 }
@@ -802,7 +829,9 @@ subscription_rate_json() {
       if (discontinuity) { have=0; samples=0; resets++; next }
       percent=$2+0; tokens=$3+0
       if (percent <= 0 || tokens <= 0) next
-      sample=(tokens/(percent/100.0))*86400/seconds
+      sample_seconds=($6+0)>0 ? ($6+0) : seconds
+      if (sample_seconds <= 0) next
+      sample=(tokens/(percent/100.0))*86400/sample_seconds
       if (sample <= 0) next
       if (!have) { rate=sample; have=1 } else rate=exp((1-alpha)*log(rate)+alpha*log(sample))
       samples++

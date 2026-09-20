@@ -28,6 +28,7 @@ printf '%s\n' \
   '{"subscription_id":"claude-oros","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":2,"schedule_time":"","timezone":"America/Los_Angeles","reset_at_precision":"day","reset_at":null}' \
   > "$TEST_ROOT/budget/reset-events/claude-oros.jsonl"
 printf '%s\n' \
+  '{"subscription_id":"codex-endolin","event_type":"manual-reset","cadence":"manual","reset_at":"2026-09-12T05:16:19Z","reset_at_precision":"exact","timezone":"UTC"}' \
   '{"subscription_id":"codex-endolin","event_type":"manual-reset","cadence":"manual","reset_at":"2026-09-20T05:16:19Z","reset_at_precision":"exact","timezone":"UTC"}' \
   > "$TEST_ROOT/budget/reset-events/codex-endolin.jsonl"
 
@@ -55,6 +56,14 @@ printf '%s\n' \
 rate="$(subscription_rate_json claude-endolin1 "$TEST_ROOT")"
 [ "$(jq -r .samples <<<"$rate")" -eq 1 ]
 [ "$(jq -r .discontinuity_resets <<<"$rate")" -eq 1 ]
+
+# A manual subscription never projects a reset, but two observed boundaries can
+# close a real interval and make its paired samples rate-eligible.
+printf '%s\n' \
+  '{"subscription_id":"codex-endolin","checked_at":"2026-09-17T05:16:19Z","weekly_percent":50,"meter_spend_tokens":5000000,"pairing_confidence":"high"}' \
+  > "$TEST_ROOT/budget/manual-checkpoints/codex-endolin.jsonl"
+manual_rate="$(subscription_rate_json codex-endolin "$TEST_ROOT")"
+[ "$(jq -r .samples <<<"$manual_rate")" -eq 1 ]
 
 # Oros has abundant quota and less than half its own week remaining, so the
 # inverse pacing signal is active without a hand-set worker bump.
