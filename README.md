@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T20:16:07Z_
+_As of 2026-09-20T20:25:58Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 2d)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 3d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 3d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 17d)
@@ -2166,23 +2166,24 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.3M | $708.23 _(notional, rate-card)_ | no quota set |
-| Codex | 24.4M _(+585.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Claude | 118.4M | $709.57 _(notional, rate-card)_ | no quota set |
+| Codex | 24.5M _(+584.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1316-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1316-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1316
+### todo (0)
+(none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1317-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1317-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1317
+- [`endojs-endo-but-for-bots-pr1316-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1316-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1316
 
-### tada (8505)
+### tada (8506)
+- [`claude-on-minion-town-press-20260920-202011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-202011.md) — Cost
 - [`endojs-endo-but-for-bots-pr1320-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1320-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1319-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1319-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1318-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1318-dependabot.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1321-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1321-dependabot.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1315-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1315-dependabot.md) — Cost
-- … and 8500 more
+- … and 8501 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
