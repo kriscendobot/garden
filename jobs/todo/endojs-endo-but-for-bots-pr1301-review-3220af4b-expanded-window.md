@@ -1,11 +1,11 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1301-review-3220af4b-split
-priority: high
 role: fixer
-posted_by: orchestrator
-posted_at: 2026-09-20T09:25:35Z
+tier: mentor
+handler-budget-role: review
+handler-timeout: 10800
+split-indivisible-reason: 'The maintainer explicitly defines the entire GitHub review as one unit of work, and its review body plus every inline thread must be resolved coherently against one PR head; splitting those coupled edits and replies across workers would permit partial resolution and competing pushes to the same branch.'
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-09-20T09:28:45Z cleared=none -->
 
 ---
 role: fixer
