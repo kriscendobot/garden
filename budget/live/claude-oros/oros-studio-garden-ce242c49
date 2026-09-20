@@ -1,4 +1,4 @@
-pool: anthropic:oros-studio-garden-ce242c49
+subscription: claude-oros
 host: oros-studio-garden-ce242c49
 window_start_epoch: 1789786800
 spend: 854404

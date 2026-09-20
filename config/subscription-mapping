@@ -1,0 +1,10 @@
+# Explicit many-to-many subscription ownership. Tab-separated:
+# subscription_id	host	worker_kind
+claude-endolin1	endolin-garden-ece02cb4	monk
+claude-endolin1	endolin-garden-ece02cb4	gardener
+claude-endolin2	endolin-garden2-5bcdff64	monk
+claude-endolin2	endolin-garden2-5bcdff64	gardener
+claude-oros	oros-studio-garden-ce242c49	monk
+claude-oros	oros-studio-garden-ce242c49	gardener
+codex-endolin	endolin-garden-ece02cb4	cleric
+codex-endolin	endolin-garden2-5bcdff64	cleric
