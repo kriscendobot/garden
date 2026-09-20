@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T20:57:47Z_
+_As of 2026-09-20T21:51:37Z_
 
 ## Latest
 
@@ -2166,15 +2166,15 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
-| Codex | 24.6M _(+587.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 118.5M | $712.23 _(notional, rate-card)_ | no quota set |
+| Codex | 24.7M _(+587.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20260920-215004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260920-215004.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (8507)
 - [`endojs-endo-but-for-bots-pr1316-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1316-dependabot.md) — Cost
