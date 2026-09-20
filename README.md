@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T15:35:06Z_
+_As of 2026-09-20T15:42:28Z_
 
 ## Latest
 
@@ -651,9 +651,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
-> WATCHDOG notice — occurrence #9 (first seen 2026-09-13T14:20:13Z, latest 2026-09-19T05:50:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-0`) has now been observed 9 times; this is ONE
-> coalesced notice that updates in place, not 9 messages. Latest detail:
+> WATCHDOG notice — occurrence #10 (first seen 2026-09-13T14:20:13Z, latest 2026-09-20T15:35:32Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-0`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared cleric demand active=1 queue=1 fleet-envelope=5 target=0
 
@@ -1990,16 +1990,17 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.4M | $699.13 _(notional, rate-card)_ | no quota set |
-| Codex | 23.9M _(+578.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 117.5M | $702.41 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+580.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`endojs-endo-but-for-bots-pr1301-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1301-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1301
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1310-72fb67e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-72fb67e9.md) — attention directive on endojs/endo-but-for-bots PR #1310
 - [`endojs-endo-but-for-bots-pr1301-review-819fb121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-819fb121.md) — Review directive on endojs/endo-but-for-bots PR #1301
+- [`claude-on-minion-town-completion-press-20260920-153539`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260920-153539.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (8494)
 - [`endojs-endo-but-for-bots-pr1310-72fb67e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-72fb67e9.md) — Completion report
