@@ -1,2 +1,2 @@
-base: improve-deploy-candidate-gate-diagnostics
+base: improve-candidate-gate-flake-retry
 identity: mentor:scripts/jobs/deploy-garden.sh
