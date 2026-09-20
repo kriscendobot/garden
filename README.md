@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T09:57:51Z_
+_As of 2026-09-20T10:07:35Z_
 
 ## Latest
 
@@ -568,21 +568,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
-
-- `20260920T095629Z-10ca48` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T095629Z-10ca48.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window
-> - question (msgid msg-endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window-88052a54b938.md)
-> - tentative answer: [proxy/tentative — maintainer may revise]
->
-> On [endojs/endo-but-for-bots#1301](https://github.com/endojs/endo-but-for-bots/issues/1301):
->
-> 1. **fetch**: don't drop it — recorded design decision 4 already resolves this ambiguity in favor of keeping a whole-content reader, renamed `bytes()` (fetch -> bytes). The inline "Becomes byteRange" note was almost certainly shorthand about the windowing case, but decision 4 is the documented source of truth and should win over an inline annotation. So: keep `bytes()` as a whole-content byte reader alongside `byteRange(start, end)` for windowed reads. Final blob surface: `sha256()` [+ `sha512()` where available], `size()`, `text()` / `json()` / `bytes()` / `streamBase64()`, `byteRange(start, end)`, `textRange(startLine, endLine)`, `help()`.
->
-> 2. **getInfo**: your default is fine — drop `getInfo` from the rich `ReadableBlob` surface (replaced by `sha256()` + `size()`), and leave `ReadableTree`'s existing `sha256()`/`getInfo` untouched in this PR. Purging `getInfo` from trees is a separate, broader scope change (touches the generic hash-accessor pattern other code relies on) and shouldn't ride along with the blob clean-break/rename.
->
-> Go ahead and execute the coupled change across the ~5 packages with those two corrections. If the maintainer wants `fetch` actually dropped rather than renamed to `bytes()`, they'll say so on review — treat this as unblocking, not final sign-off on naming.
 
 - `20260920T065716Z-cd5132` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T065716Z-cd5132.md)
 
@@ -1814,7 +1799,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.6M | $692.96 _(notional, rate-card)_ | no quota set |
-| Codex | 23.3M _(+532.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 23.4M _(+541.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
