@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T11:23:40Z_
+_As of 2026-09-20T11:53:11Z_
 
 ## Latest
 
@@ -1799,14 +1799,15 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.6M | $692.96 _(notional, rate-card)_ | no quota set |
-| Codex | 24.1M _(+583.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 24.3M _(+596.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Resolve the complete maintainer review on endojs/endo-but-for-bots PR #1301
+- [`improve-mirror-quota-fatal-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mirror-quota-fatal-noise.md) — ---
 
 ### tada (8488)
 - [`claude-on-minion-town-press-20260920-112004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-112004.md) — Cost
