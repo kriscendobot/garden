@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T05:03:38Z_
+_As of 2026-09-20T05:07:12Z_
 
 ## Latest
 
@@ -1409,7 +1409,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`claude-on-minion-town-press-20260920-050508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260920-050508.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1301
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1310
 
