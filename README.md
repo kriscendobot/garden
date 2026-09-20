@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T15:29:18Z_
+_As of 2026-09-20T15:35:06Z_
 
 ## Latest
 
@@ -1990,25 +1990,24 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.7M | $694.60 _(notional, rate-card)_ | no quota set |
-| Codex | 23.9M _(+577.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 117.4M | $699.13 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+578.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1301-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1301-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1301
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1310-72fb67e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-72fb67e9.md) — attention directive on endojs/endo-but-for-bots PR #1310
 - [`endojs-endo-but-for-bots-pr1301-review-819fb121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-819fb121.md) — Review directive on endojs/endo-but-for-bots PR #1301
-- [`endojs-endo-but-for-bots-pr1301-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1301
 
-### tada (8493)
+### tada (8494)
+- [`endojs-endo-but-for-bots-pr1310-72fb67e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-72fb67e9.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1301-review-819fb121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-819fb121.md) — Completion report
 - [`claude-on-minion-town-press-20260920-142004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-142004.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-3220af4b-split.md) — orchestration endojs-endo-but-for-bots-pr1301-review-3220af4b-split — complete
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Cost
-- [`improve-mirror-quota-fatal-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-mirror-quota-fatal-noise.md) — Completion report
-- … and 8488 more
+- … and 8489 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
