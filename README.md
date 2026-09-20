@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T17:22:00Z_
+_As of 2026-09-20T17:25:50Z_
 
 ## Latest
 
@@ -2166,23 +2166,23 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.1M | $704.29 _(notional, rate-card)_ | no quota set |
+| Claude | 118.1M | $704.66 _(notional, rate-card)_ | no quota set |
 | Codex | 24.3M _(+588.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260920-172005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260920-172005.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (8499)
+### tada (8500)
+- [`claude-on-minion-town-press-20260920-172005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-172005.md) — Press tick report — 2026-09-20 ~17:20Z
 - [`endojs-endo-but-for-bots-pr1301-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-receipt.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-review-819fb121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-819fb121.md) — Cost
 - [`improve-followup-decision-disposition`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-followup-decision-disposition.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1310-72fb67e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-72fb67e9.md) — Completion report
-- … and 8494 more
+- … and 8495 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
