@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T06:58:28Z_
+_As of 2026-09-20T07:01:44Z_
 
 ## Latest
 
@@ -1427,6 +1427,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `20260920T070016Z-b58e06` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T070016Z-b58e06.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `c66038fb38e5d6bee0b95f5d861eedc36699e0e2`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo` has CLEARED (first seen 2026-09-17T02:30:24Z, cleared 2026-09-17T02:32:28Z).
@@ -1562,23 +1578,23 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.5M | $692.39 _(notional, rate-card)_ | no quota set |
+| Claude | 116.4M | $690.51 _(notional, rate-card)_ | no quota set |
 | Codex | 22.7M _(+529.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-candidate-gate-flake-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-candidate-gate-flake-retry.md) — ---
+### doin (0)
+(none)
 
-### tada (8482)
+### tada (8483)
+- [`improve-candidate-gate-flake-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-candidate-gate-flake-retry.md) — Completion report
 - [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/subscription-based-budget-model.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1310-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1310-gauntlet — review budget reached
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-6.md) — Completion report — gauntlet FIX round 6, endojs/endo-but-for-bots PR #1310
-- … and 8477 more
+- … and 8478 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
