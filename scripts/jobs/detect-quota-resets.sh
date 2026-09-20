@@ -1,6 +1,7 @@
 #!/bin/bash
 # detect-quota-resets.sh — the deterministic, no-LLM detector for quota RESET events
-# over a host's manual quota-checkpoint log (journal budget/manual-checkpoints/<host>.jsonl).
+# over a subscription's manual quota-checkpoint log
+# (journal budget/manual-checkpoints/<subscription>.jsonl).
 # It MEASURES: given the (checked_at, weekly_percent, weekly_resets_at, meter_spend,
 # meter_window_start_epoch) series, it finds brackets where usage necessarily crossed
 # zero, interpolates the crossing time, cross-validates against the meter's own anchor

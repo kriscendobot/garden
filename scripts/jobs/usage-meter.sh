@@ -11,8 +11,9 @@
 # foreman must check, in PLAIN CODE with NO LLM, whether the garden is at risk of
 # hitting its weekly token quota, and back off if so.
 #
-# THE BILLING MODEL: each Anthropic host maps one-to-one to its own Claude Max x20
-# subscription — NOT an API key. The Admin Usage & Cost API
+# THE BILLING MODEL: quota belongs to a subscription, never to a host.  The
+# journal's config/subscription-mapping is the explicit many-to-many relation
+# between subscriptions, hosts, and worker kinds.  The Admin Usage & Cost API
 # (/v1/organizations/usage_report) is API-key / Console-billing only and does NOT
 # apply to a subscription, so it is deliberately NOT wired here.
 #
@@ -44,18 +45,13 @@
 #   or unreadable. It is no longer the primary source. Ledger format (TSV,
 #   append-only, host-local): <epoch-seconds>\t<billable-tokens>.
 #
-# MULTI-HOST: ~/.claude is PER-HOST and each current subscription belongs to one
-# host, so the local sum is exactly the corresponding account's spend. Each host's
-# scaler publishes a cadence-bucketed exact reading under budget/live/<host> for
-# the leader's fleet-wide checks. If one subscription is ever shared by multiple
-# hosts, its pool must aggregate those hosts before this one-host/account topology
-# is changed.
+# MULTI-HOST: ~/.claude and ~/.codex are per-host, while subscriptions may be
+# shared.  Each host publishes its contribution under
+# budget/live/<subscription>/<host>; readers aggregate every mapped host.
 #
-# THE WEEK BOUNDARY: the subscription reset is known: Friday 20:00
-# America/Los_Angeles. The default meter window begins at the most recent such
-# anchor (DST-aware). The admission predicate requests that anchored view;
-# meter_window_total itself retains its historical rolling-window interface for
-# reports and compatibility callers.
+# RESET BOUNDARIES: budget/reset-events/<subscription>.jsonl is authoritative.
+# A declared calendar cadence is interpreted only for that subscription.  A
+# manual cadence (codex-endolin) is never projected from a weekday rule.
 #
 # FAIL-OPEN: a missing or unreadable meter must NEVER wedge the pump. When the
 # quota is unset the meter is simply OFF (gating disabled). When the quota is set
@@ -79,9 +75,6 @@
 # The rolling-window compatibility/reporting default. The quota gate itself uses
 # the anchor explicitly.
 : "${GARDEN_TOKEN_WINDOW_SECS:=604800}"
-: "${GARDEN_TOKEN_RESET_TZ:=America/Los_Angeles}"
-: "${GARDEN_TOKEN_RESET_DOW:=5}"       # ISO weekday: Friday
-: "${GARDEN_TOKEN_RESET_HHMM:=20:00}"
 # PRIMARY SOURCE: Claude Code's session-log directory (per-host). Overridable for
 # tests and for a non-default ~/.claude location.
 : "${GARDEN_CCUSAGE_LOGDIR:=${HOME:-/home/$(id -un 2>/dev/null || echo kris)}/.claude/projects}"
@@ -94,17 +87,15 @@
 : "${GARDEN_BUDGET_SNAPSHOT_SECS:=900}"
 : "${GARDEN_BUDGET_SNAPSHOT_MAX_AGE:=1800}"
 : "${GARDEN_BUDGET_PUBLISH_ATTEMPTS:=3}"
+: "${GARDEN_RATE_ALPHA:=0.25}"
+: "${GARDEN_SUBSCRIPTION_MAPPING_PATH:=config/subscription-mapping}"
 
 # Wall clock in epoch seconds, overridable for deterministic tests.
 meter_now() { printf '%s\n' "${GARDEN_USAGE_NOW:-$(date +%s)}"; }
 
-# meter_week_anchor_epoch [now] — most recent Friday 20:00 Pacific at-or-before
-# now. Local-date arithmetic, rather than subtracting 604800 seconds, preserves
-# the wall-clock reset across DST changes. Parse/tooling failure is unknown
-# upstream and therefore fail-open.
-meter_week_anchor_epoch() {
-  local now="${1:-$(meter_now)}" tz="$GARDEN_TOKEN_RESET_TZ"
-  local dow="$GARDEN_TOKEN_RESET_DOW" hhmm="$GARDEN_TOKEN_RESET_HHMM"
+# _calendar_anchor_epoch <weekday> <hh:mm> <timezone> [now]
+_calendar_anchor_epoch() {
+  local dow="$1" hhmm="$2" tz="$3" now="${4:-$(meter_now)}"
   local cur today back day anchor
   [[ "$now" =~ ^[0-9]+$ ]] || return 1
   cur="$(TZ="$tz" date -d "@$now" +%u 2>/dev/null)" || return 1
@@ -118,12 +109,107 @@ meter_week_anchor_epoch() {
   printf '%s\n' "$anchor"
 }
 
-# shellcheck disable=SC2120 # Public helper deliberately accepts an optional now-epoch; most callers pass none.
+# subscription_reset_file <subscription> [journal-dir]
+subscription_reset_file() {
+  local subscription="$1" dir="${2:-}" file
+  if [ -n "$dir" ] && [ -r "$dir/budget/reset-events/$subscription.jsonl" ]; then
+    printf '%s\n' "$dir/budget/reset-events/$subscription.jsonl"; return 0
+  fi
+  for file in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_GARDENER_CLONE:-}" \
+              "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
+    [ -n "$file" ] && [ -r "$file/budget/reset-events/$subscription.jsonl" ] || continue
+    printf '%s\n' "$file/budget/reset-events/$subscription.jsonl"; return 0
+  done
+  return 1
+}
+
+# subscription_reset_fact <subscription> [journal-dir] — latest declaration or
+# observation.  Fields: mode, weekday, local time, timezone, precision, reset_at.
+subscription_reset_fact() {
+  local subscription="$1" dir="${2:-}" file
+  file="$(subscription_reset_file "$subscription" "$dir")" || return 1
+  command -v jq >/dev/null 2>&1 || return 1
+  # A later observed reset must not erase an earlier cadence declaration. Keep
+  # the latest calendar/manual policy while independently taking the freshest
+  # observed boundary. This is especially important for codex-endolin: its
+  # manual policy survives every new manual reset event without becoming a
+  # periodic calendar rule.
+  jq -sr '
+    map(select((.event_type // "") != "expected-next-scheduled")) as $rows |
+    ($rows | map(select(.cadence == "calendar" or .cadence == "manual")) | last // {}) as $policy |
+    ($rows | last // {}) as $latest |
+    ($rows | map(select((.reset_at // "") != "")) | last // {}) as $observed |
+    [($policy.cadence // $latest.cadence // "observed"),
+     (($policy.schedule_weekday // "-")|tostring),
+     (if ($policy.schedule_time // "")=="" then "-" else $policy.schedule_time end),
+     ($policy.timezone // $latest.timezone // "UTC"),
+     ($observed.reset_at_precision // $latest.reset_at_precision // "-"),
+     (if ($observed.reset_at // "")=="" then "-" else $observed.reset_at end)] | @tsv' "$file" 2>/dev/null
+}
+
+# subscription_window_start_epoch <subscription> [journal-dir] [now]
+subscription_window_start_epoch() {
+  local subscription="$1" dir="${2:-}" now="${3:-$(meter_now)}"
+  local fact mode dow hhmm tz precision observed anchor observed_epoch
+  fact="$(subscription_reset_fact "$subscription" "$dir")" || return 1
+  IFS=$'\t' read -r mode dow hhmm tz precision observed <<<"$fact"
+  case "$mode" in
+    calendar)
+      [[ "$dow" =~ ^[1-7]$ ]] || return 1
+      if [ "$hhmm" = - ]; then [ "$precision" = day ] && hhmm=23:59:59 || hhmm=00:00; fi
+      anchor="$(_calendar_anchor_epoch "$dow" "$hhmm" "$tz" "$now")" || return 1
+      # Prefer a directly observed boundary when it refines this occurrence;
+      # never let an older observation drag the current window backward.
+      observed_epoch=""
+      [ "$observed" = - ] || observed_epoch="$(date -u -d "$observed" +%s 2>/dev/null || true)"
+      if [[ "$observed_epoch" =~ ^[0-9]+$ ]] && [ "$observed_epoch" -le "$now" ] && [ "$observed_epoch" -gt "$anchor" ]; then
+        printf '%s\n' "$observed_epoch"
+      else
+        printf '%s\n' "$anchor"
+      fi
+      ;;
+    manual|observed)
+      [ "$observed" != - ] || return 1
+      date -u -d "$observed" +%s 2>/dev/null
+      ;;
+    *) return 1 ;;
+  esac
+}
+
+# subscription_next_reset_epoch <subscription> [journal-dir] [now].  A day-only
+# calendar fact uses the END of that local day, so pacing never spends tomorrow's
+# quota early.  Manual subscriptions deliberately have no inferred next reset.
+subscription_next_reset_epoch() {
+  local subscription="$1" dir="${2:-}" now="${3:-$(meter_now)}"
+  local fact mode dow hhmm tz precision anchor day
+  fact="$(subscription_reset_fact "$subscription" "$dir")" || return 1
+  IFS=$'\t' read -r mode dow hhmm tz precision _ <<<"$fact"
+  [ "$mode" = calendar ] || return 1
+  [[ "$dow" =~ ^[1-7]$ ]] || return 1
+  [ "$hhmm" != - ] || hhmm=23:59:59
+  anchor="$(_calendar_anchor_epoch "$dow" "$hhmm" "$tz" "$now")" || return 1
+  day="$(TZ="$tz" date -d "@$anchor" +%Y-%m-%d 2>/dev/null)" || return 1
+  TZ="$tz" date -d "$day $hhmm 7 days" +%s 2>/dev/null
+}
+
+# Compatibility wrappers resolve this host's Anthropic subscription rather than
+# consulting a global reset calendar.
+meter_week_anchor_epoch() {
+  local now="${1:-$(meter_now)}" subscription
+  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "" 2>/dev/null || true)"
+  [ -n "$subscription" ] || { _calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now"; return; }
+  subscription_window_start_epoch "$subscription" "" "$now" && return 0
+  case "$subscription" in anthropic:*) _calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now";; *) return 1;; esac
+}
 meter_next_reset_epoch() {
-  local now="${1:-$(meter_now)}" anchor day
-  anchor="$(meter_week_anchor_epoch "$now")" || return 1
-  day="$(TZ="$GARDEN_TOKEN_RESET_TZ" date -d "@$anchor" +%Y-%m-%d 2>/dev/null)" || return 1
-  TZ="$GARDEN_TOKEN_RESET_TZ" date -d "$day $GARDEN_TOKEN_RESET_HHMM 7 days" +%s 2>/dev/null
+  local now="${1:-$(meter_now)}" subscription anchor day
+  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "" 2>/dev/null || true)"
+  if [ -z "$subscription" ]; then anchor="$(_calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now")" || return 1; day="$(TZ=America/Los_Angeles date -d "@$anchor" +%Y-%m-%d)"; TZ=America/Los_Angeles date -d "$day 20:00 7 days" +%s; return; fi
+  subscription_next_reset_epoch "$subscription" "" "$now" && return 0
+  case "$subscription" in
+    anthropic:*) anchor="$(_calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now")" || return 1; day="$(TZ=America/Los_Angeles date -d "@$anchor" +%Y-%m-%d)"; TZ=America/Los_Angeles date -d "$day 20:00 7 days" +%s;;
+    *) return 1;;
+  esac
 }
 
 meter_window_cutoff() {
@@ -308,6 +394,18 @@ meter_window_total() {
   return 1
 }
 
+meter_subscription_window_total() {
+  local subscription="$1" dir="${2:-}" cutoff effective
+  cutoff="$(subscription_window_start_epoch "$subscription" "$dir")" || return 1
+  effective="$(_meter_entitlement_cutoff "$GARDEN_CCUSAGE_LOGDIR" "$cutoff" 2>/dev/null || true)"
+  if [[ "$effective" =~ ^[0-9]+$ ]] && [ "$effective" -gt "$cutoff" ]; then cutoff="$effective"; fi
+  if [ -d "$GARDEN_CCUSAGE_LOGDIR" ] && [ -r "$GARDEN_CCUSAGE_LOGDIR" ]; then
+    _meter_session_total "$GARDEN_CCUSAGE_LOGDIR" "$cutoff" && return 0
+  fi
+  [ -r "$GARDEN_USAGE_LEDGER" ] || return 1
+  awk -F'\t' -v c="$cutoff" '($1+0)>=c {s+=($2+0)} END{printf "%d\n",s+0}' "$GARDEN_USAGE_LEDGER"
+}
+
 # budget_pool_file [journal-dir] — resolve journal config without performing a
 # fetch. Admission callers pass their freshly-synced clone; handler backstops can
 # discover one of the normal service clones. Missing config means meter-off.
@@ -335,15 +433,58 @@ budget_pool_row() {
   file="$(budget_pool_file "${2:-}")" || return 1
   awk -v want="$pool" '
     /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
-    $1 == want { print $1 "\t" $2 "\t" $3 "\t" $4 "\t" $5; found=1; exit }
+    $1 == want {
+      # Subscription schema: id provider ceiling_kind ceiling provenance at.
+      # Accept the former id/provider/host/kind/cap shape during a rolling deploy.
+      if ($3 == "weekly-tokens" || $3 == "weekly-usd" || $3 == "percent" || $3 == "unmetered")
+        print $1 "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6
+      else
+        print $1 "\t" $2 "\t" $4 "\t" $5 "\t" $6 "\t" $7
+      found=1; exit
+    }
     END { if (!found) exit 1 }
   ' "$file" 2>/dev/null
 }
 
-budget_pool_for_provider_host() {
-  local provider="$1" host="${2:-$GARDEN}" dir="${3:-}" candidate
+# budget_subscription_for_host_kind <host> <worker-kind> [journal-dir]
+# Mapping columns are subscription_id, host, worker_kind.  An exact worker-kind
+# row wins; '*' is an explicit catch-all.  With a registry present, no match is a
+# hard unknown — callers must not invent a refill source.
+budget_subscription_for_host_kind() {
+  local host="$1" worker_kind="$2" dir="${3:-}" mapping file
+  file="$(budget_pool_file "$dir")" || return 1
+  mapping="$(dirname "$file")/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+  # dirname(config/budget-pools) is config; the configurable path is root-relative.
+  mapping="$(dirname "$(dirname "$file")")/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+  if [ -r "$mapping" ]; then
+    awk -v host="$host" -v kind="$worker_kind" '
+      /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+      $2 == host && $3 == kind { print $1; found=1; exit }
+      $2 == host && $3 == "*" { fallback=$1 }
+      END { if (!found && fallback != "") print fallback; else if (!found) exit 1 }
+    ' "$mapping"
+    return
+  fi
+  # Rolling-deploy compatibility for a pre-migration journal.
+  local provider candidate
+  provider="$(worker_kind_field "$worker_kind" provider 2>/dev/null || true)"
   candidate="$provider:$host"
-  if budget_pool_row "$candidate" "$dir" >/dev/null 2>&1; then printf '%s\n' "$candidate"; else printf '%s\n' "$provider"; fi
+  budget_pool_row "$candidate" "$dir" >/dev/null 2>&1 && printf '%s\n' "$candidate"
+}
+
+budget_pool_for_provider_host() {
+  local provider="$1" host="${2:-$GARDEN}" dir="${3:-}" file mapping
+  file="$(budget_pool_file "$dir")" || return 1
+  mapping="$(dirname "$(dirname "$file")")/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+  if [ -r "$mapping" ]; then
+    awk -v host="$host" -v provider="$provider" '
+      NR==FNR { if ($0 !~ /^[[:space:]]*#/ && NF) p[$1]=$2; next }
+      $0 !~ /^[[:space:]]*#/ && NF && $2==host && p[$1]==provider { print $1; exit }
+    ' "$file" "$mapping"
+    return
+  fi
+  local candidate="$provider:$host"
+  budget_pool_row "$candidate" "$dir" >/dev/null 2>&1 && printf '%s\n' "$candidate"
 }
 
 meter_verdict() {
@@ -387,20 +528,34 @@ meter_journal_host_tokens() {
 # exact session-log reading published by that pool's owning host. Stale/mismatched
 # snapshots are unknown, never trusted as a lower bound.
 meter_remote_snapshot_total() {
-  local dir="$1" pool="$2" cap="$3" cutoff="$4" host file p c w s at now max_age
+  local dir="$1" pool="$2" cap="$3" cutoff="$4" host file p c w s at now max_age total=0 seen=0 expected mapping
   max_age="$GARDEN_BUDGET_SNAPSHOT_MAX_AGE"; [[ "$max_age" =~ ^[1-9][0-9]*$ ]] || max_age=1800
-  host="${pool#*:}"; file="$dir/budget/live/$host"
-  [ -r "$file" ] || return 1
-  p="$(sed -n 's/^pool:[[:space:]]*//p' "$file" | head -1)"
-  c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
-  w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"
-  s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
-  at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
   now="$(meter_now)"
-  [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] \
-    && [[ "$s" =~ ^[0-9]+$ ]] && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] \
-    && [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] \
-    || return 1
+  if [ -d "$dir/budget/live/$pool" ]; then
+    for file in "$dir/budget/live/$pool"/*; do
+      [ -r "$file" ] || continue
+      p="$(sed -n 's/^subscription:[[:space:]]*//p' "$file" | head -1)"
+      c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
+      w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"
+      s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
+      at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
+      [ "$p" = "$pool" ] && { [ "$cap" = "-" ] || [ "$c" = "$cap" ]; } && [ "$w" = "$cutoff" ] \
+        && [[ "$s" =~ ^[0-9]+$ ]] && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] \
+        && [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] || return 1
+      total=$((total + s)); seen=$((seen + 1))
+    done
+    mapping="$dir/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+    expected="$(awk -v subscription="$pool" '$0 !~ /^[[:space:]]*#/ && $1==subscription {host[$2]=1} END{for(h in host)n++;print n+0}' "$mapping" 2>/dev/null || echo 0)"
+    [ "$seen" -gt 0 ] && { [ "$expected" -eq 0 ] || [ "$seen" -eq "$expected" ]; } || return 1
+    printf '%s\n' "$total"; return 0
+  fi
+  # Rolling-deploy compatibility with host-keyed snapshots.
+  host="${pool#*:}"; file="$dir/budget/live/$host"; [ -r "$file" ] || return 1
+  p="$(sed -n 's/^pool:[[:space:]]*//p' "$file" | head -1)"; c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
+  w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"; s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
+  at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
+  [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] && [[ "$s" =~ ^[0-9]+$ ]] \
+    && [[ "$at" =~ ^[0-9]+$ ]] && [ $((now-at)) -le "$max_age" ] || return 1
   printf '%s\n' "$s"
 }
 
@@ -408,25 +563,62 @@ meter_remote_snapshot_total() {
 # one snapshot attempt from the clone's current journal tip. A retry must call
 # this again after sync_clone: pool configuration, the anchored meter reading,
 # zone, and cadence bucket may all have changed while the first push raced.
-_budget_publish_local_pool_once() {
-  local dir="$1" pool="anthropic:$GARDEN" row _provider _account kind cap
-  local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs
+_budget_publish_legacy_local_pool_once() {
+  local dir="$1" pool="anthropic:$GARDEN" row provider kind cap cutoff spend now bucket file status rc
   row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || return 0
-  IFS=$'\t' read -r _ _provider _account kind cap <<<"$row"
-  [ "$kind" = weekly-tokens ] && [[ "$cap" =~ ^[1-9][0-9]*$ ]] || return 0
+  IFS=$'\t' read -r _ provider kind cap _ <<<"$row"
+  [ "$provider" = anthropic ] && [ "$kind" = weekly-tokens ] || return 0
   cutoff="$(meter_window_cutoff anchor)" || return 0
   spend="$(meter_window_total anchor)" || return 0
+  now="$(meter_now)"; bucket=$((now / GARDEN_BUDGET_SNAPSHOT_SECS)); file="$dir/budget/live/$GARDEN"
+  [ "$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)" != "$bucket" ] || return 0
+  status="$(meter_verdict "$spend" "$cap")"; mkdir -p "$(dirname "$file")"
+  printf 'pool: %s\nhost: %s\nwindow_start_epoch: %s\nspend: %s\ncap: %s\nstatus: %s\nsampled_at_epoch: %s\nsampled_at: %s\nsample_bucket: %s\n' \
+    "$pool" "$GARDEN" "$cutoff" "$spend" "$cap" "$status" "$now" "$(date -u -d "@$now" +%FT%TZ)" "$bucket" > "$file"
+  git -C "$dir" add "budget/live/$GARDEN"
+  rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status spend=$spend/$cap" || rc=$?
+  [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]
+}
+
+_budget_publish_local_pool_once() {
+  local dir="$1" pool row provider kind cap mapping root
+  local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs
+  root="$(dirname "$(budget_pool_file "$dir")")"; root="$(dirname "$root")"
+  mapping="$root/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+  [ -r "$mapping" ] || { _budget_publish_legacy_local_pool_once "$dir"; return; }
+  while IFS=$'\t ' read -r pool mapped_host worker_kind _; do
+    case "$pool" in ''|'#'*) continue;; esac
+    [ "$mapped_host" = "$GARDEN" ] || continue
+    # gardener is the legacy Anthropic worker name and shares monk's gate, but
+    # it must not cause the same host contribution to be published twice.
+    case "$worker_kind" in monk|cleric) ;; *) continue ;; esac
+    row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || continue
+    IFS=$'\t' read -r _ provider kind cap _ <<<"$row"
+    used_percent=""
+    case "$provider:$kind" in
+      anthropic:weekly-tokens)
+        cutoff="$(subscription_window_start_epoch "$pool" "$dir")" || continue
+        spend="$(meter_subscription_window_total "$pool" "$dir")" || continue
+        ;;
+      openai:percent)
+        cutoff="$(subscription_window_start_epoch "$pool" "$dir")" || continue
+        local scan used_percent
+        scan="$(_qp_codex_scan "$GARDEN_CODEX_LOGDIR" "$cutoff" 2>/dev/null)" || continue
+        read -r spend _ used_percent _ <<<"$scan"
+        ;;
+      *) continue;;
+    esac
   now="$(meter_now)"; [[ "$now" =~ ^[0-9]+$ ]] || return 0
   snapshot_secs="$GARDEN_BUDGET_SNAPSHOT_SECS"; [[ "$snapshot_secs" =~ ^[1-9][0-9]*$ ]] || snapshot_secs=900
   bucket=$((now / snapshot_secs))
-  file="$dir/budget/live/$GARDEN"
+  file="$dir/budget/live/$pool/$GARDEN"
   old_bucket="$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
-  [ "$old_bucket" != "$bucket" ] || return 0
+  [ "$old_bucket" != "$bucket" ] || continue
   old_status="$(sed -n 's/^status:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
-  status="$(meter_verdict "$spend" "$cap")"
+  if [ "$kind" = percent ]; then status="$(meter_verdict "$used_percent" "$cap")"; else status="$(meter_verdict "$spend" "$cap")"; fi
   mkdir -p "$(dirname "$file")"
   {
-    printf 'pool: %s\n' "$pool"
+    printf 'subscription: %s\n' "$pool"
     printf 'host: %s\n' "$GARDEN"
     printf 'window_start_epoch: %s\n' "$cutoff"
     printf 'spend: %s\n' "$spend"
@@ -435,17 +627,20 @@ _budget_publish_local_pool_once() {
     printf 'sampled_at_epoch: %s\n' "$now"
     printf 'sampled_at: %s\n' "$(date -u -d "@$now" +%FT%TZ)"
     printf 'sample_bucket: %s\n' "$bucket"
+    [ -z "${used_percent:-}" ] || printf 'used_percent: %s\n' "$used_percent"
   } > "$file"
-  git -C "$dir" add "budget/live/$GARDEN"
+  git -C "$dir" add "budget/live/$pool/$GARDEN"
   rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status spend=$spend/$cap" || rc=$?
   if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then
     if [ "$old_status" != "$status" ] && { [ -n "$old_status" ] || [ "$status" = backoff ]; }; then
       alert_maintainer "budget-zone-$GARDEN-$status" \
-        "budget pool $pool changed zone ${old_status:-unpublished} -> $status at spend=$spend of cap=$cap (high-water $GARDEN_TOKEN_BACKOFF_FRACTION; Friday $GARDEN_TOKEN_RESET_HHMM Pacific window)."
+        "subscription $pool changed zone ${old_status:-unpublished} -> $status at spend=$spend of cap=$cap."
     fi
-    return 0
+    continue
   fi
   return 1
+  done < "$mapping"
+  return 0
 }
 
 # budget_publish_local_pool <synced-journal-clone> — every host's existing scaler
@@ -543,6 +738,129 @@ meter_journal_provider_usd() {
   ' "${files[@]}" 2>/dev/null
 }
 
+# subscription_used_percent <subscription> [journal-dir] — freshest percentage
+# observation in the current reset window. Live host contributions all describe
+# the same shared account; the freshest wins (they are not summed).
+subscription_used_percent() {
+  local subscription="$1" dir="${2:-}" cutoff file best_epoch=-1 best="" epoch value
+  cutoff="$(subscription_window_start_epoch "$subscription" "$dir" 2>/dev/null || echo 0)"
+  if [ -d "$dir/budget/live/$subscription" ]; then
+    for file in "$dir/budget/live/$subscription"/*; do
+      [ -r "$file" ] || continue
+      epoch="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
+      value="$(sed -n 's/^used_percent:[[:space:]]*//p' "$file" | head -1)"
+      [[ "$epoch" =~ ^[0-9]+$ ]] && [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]] || continue
+      [ "$epoch" -ge "$cutoff" ] && [ "$epoch" -gt "$best_epoch" ] || continue
+      best_epoch="$epoch"; best="$value"
+    done
+  fi
+  file="$dir/budget/manual-checkpoints/$subscription.jsonl"
+  if [ -r "$file" ] && command -v jq >/dev/null 2>&1; then
+    read -r epoch value < <(jq -sr --argjson cutoff "$cutoff" '
+      map(select(((.checked_at // "") | fromdateiso8601? // -1) >= $cutoff)
+          | select((.weekly_percent | type) == "number"))
+      | sort_by(.checked_at) | last // {} |
+      [((.checked_at // "") | fromdateiso8601? // -1),(.weekly_percent // "")] | @tsv' "$file" 2>/dev/null)
+    if [[ "$epoch" =~ ^[0-9]+$ ]] && [ "$epoch" -gt "$best_epoch" ]; then best="$value"; fi
+  fi
+  [ -n "$best" ] || return 1
+  printf '%s\n' "$best"
+}
+
+# subscription_rate_json <subscription> [journal-dir]
+# Infer effective token unlock rate from percent/token pairs. Each usable point
+# implies a full-window token allowance (tokens / percent-used); dividing by the
+# subscription's own observed/declared window duration yields tokens/day. Samples
+# are folded geometrically with alpha=0.25. A flagged discontinuity starts a new
+# baseline and discards the pre-jump estimate instead of blending across it.
+subscription_rate_json() {
+  local subscription="$1" dir="${2:-}" alpha="$GARDEN_RATE_ALPHA"
+  local start next duration checkpoint file live_tokens live_percent
+  command -v jq >/dev/null 2>&1 || return 1
+  start="$(subscription_window_start_epoch "$subscription" "$dir")" || return 1
+  next="$(subscription_next_reset_epoch "$subscription" "$dir" "$start" 2>/dev/null || true)"
+  if [[ "$next" =~ ^[0-9]+$ ]] && [ "$next" -gt "$start" ]; then duration=$((next-start)); else duration=0; fi
+  [ "$duration" -gt 0 ] || return 1
+  checkpoint="$dir/budget/manual-checkpoints/$subscription.jsonl"
+  {
+    if [ -r "$checkpoint" ]; then
+      jq -r --argjson start "$start" '
+        select(((.checked_at // "") | fromdateiso8601? // -1) >= $start)
+        | [(.checked_at // ""),(.weekly_percent // ""),(.meter_spend_tokens // ""),
+           (.meter_window_start_epoch // ""),(.notes // "")] | @tsv' "$checkpoint" 2>/dev/null
+    fi
+    live_percent="$(subscription_used_percent "$subscription" "$dir" 2>/dev/null || true)"
+    live_tokens="$(meter_remote_snapshot_total "$dir" "$subscription" - "$start" 2>/dev/null || true)"
+    if [[ "$live_percent" =~ ^[0-9]+([.][0-9]+)?$ ]] && [[ "$live_tokens" =~ ^[0-9]+$ ]]; then
+      printf 'live\t%s\t%s\t%s\t\n' "$live_percent" "$live_tokens" "$start"
+    fi
+  } | awk -F'\t' -v alpha="$alpha" -v seconds="$duration" -v subscription="$subscription" '
+    BEGIN { if (alpha <= 0 || alpha >= 1) alpha=.25 }
+    {
+      note=tolower($5)
+      discontinuity=(note ~ /discontinuity|not smoothed|window anchor changed/)
+      if (discontinuity) { have=0; samples=0; resets++; next }
+      percent=$2+0; tokens=$3+0
+      if (percent <= 0 || tokens <= 0) next
+      sample=(tokens/(percent/100.0))*86400/seconds
+      if (sample <= 0) next
+      if (!have) { rate=sample; have=1 } else rate=exp((1-alpha)*log(rate)+alpha*log(sample))
+      samples++
+    }
+    END {
+      if (!have) exit 1
+      printf "{\"subscription\":\"%s\",\"tokens_per_day\":%.0f,\"samples\":%d,\"alpha\":%.2f,\"discontinuity_resets\":%d}\n", subscription,rate,samples,alpha,resets
+    }'
+}
+
+# budget_fleet_rate_json [journal-dir] — fleet lower bound plus completeness.
+# Unknown subscriptions remain explicit; they are never silently treated as zero.
+budget_fleet_rate_json() {
+  local dir="${1:-}" file subscription rate rows=""
+  file="$(budget_pool_file "$dir")" || return 1
+  while read -r subscription _; do
+    case "$subscription" in ''|'#'*) continue;; esac
+    if rate="$(subscription_rate_json "$subscription" "$dir" 2>/dev/null)"; then
+      rows+="$rate"$'\n'
+    else
+      rows+="$(jq -cn --arg subscription "$subscription" '{subscription:$subscription,tokens_per_day:null,samples:0}')"$'\n'
+    fi
+  done < "$file"
+  printf '%s' "$rows" | jq -sc '{subscriptions:.,tokens_per_day_lower_bound:(map(.tokens_per_day // 0)|add),complete:(all(.[];.tokens_per_day != null))}'
+}
+
+budget_fleet_next_reset_epoch() {
+  local dir="${1:-}" now="${2:-$(meter_now)}" file subscription reset earliest=""
+  file="$(budget_pool_file "$dir")" || return 1
+  while read -r subscription _; do
+    case "$subscription" in ''|'#'*) continue;; esac
+    reset="$(subscription_next_reset_epoch "$subscription" "$dir" "$now" 2>/dev/null || true)"
+    [[ "$reset" =~ ^[0-9]+$ ]] || continue
+    if [ -z "$earliest" ] || [ "$reset" -lt "$earliest" ]; then earliest="$reset"; fi
+  done < "$file"
+  [ -n "$earliest" ] || return 1
+  printf '%s\n' "$earliest"
+}
+
+# subscription_pacing_bias <subscription> <spent-or-percent> <cap> [dir] [now]
+# 0 means no urgency. Positive slack exists only when quota remaining exceeds
+# time remaining in the subscription's own window, and rises smoothly to 1.
+subscription_pacing_bias() {
+  local subscription="$1" spent="$2" cap="$3" dir="${4:-}" now="${5:-$(meter_now)}"
+  local start next
+  start="$(subscription_window_start_epoch "$subscription" "$dir" "$now")" || { printf '0\n'; return; }
+  next="$(subscription_next_reset_epoch "$subscription" "$dir" "$now")" || { printf '0\n'; return; }
+  awk -v spent="$spent" -v cap="$cap" -v now="$now" -v start="$start" -v reset="$next" '
+    BEGIN { duration=reset-start; left=reset-now; if(cap<=0||duration<=0||left<=0){print 0;exit}
+      quota=(cap-spent)/cap; if(quota<0)quota=0; time=left/duration; slack=quota-time
+      if(slack<=0){print 0;exit} bias=slack/(time+.15); if(bias>1)bias=1; printf "%.6f\n",bias }'
+}
+
+subscription_allocation_weight() {
+  local cap="$1" bias="$2"
+  awk -v cap="$cap" -v bias="$bias" 'BEGIN{printf "%.6f\n",cap*(1+19*bias)}'
+}
+
 # meter_quota_status [pool [journal-dir]] — the deterministic admission verdict.
 # With no pool it preserves the historical current-host interface, deriving that
 # host's quota from config/budget-pools when the environment did not set one.
@@ -553,11 +871,14 @@ meter_journal_provider_usd() {
 #   backoff  — at/over the high-water mark (pause the pump).
 meter_quota_status() {
   local pool="${1:-}" dir="${2:-}" quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
-  local row provider account kind total cutoff
+  local row provider kind total cutoff
   if [ -z "$pool" ]; then
-    pool="anthropic:$GARDEN"
+    pool="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
+    # Preserve the standalone/env-only meter interface used by diagnostics and
+    # rolling-deploy callers that do not have a journal clone in scope.
+    [ -n "$pool" ] || pool="anthropic:$GARDEN"
     if row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)"; then
-      IFS=$'\t' read -r _ provider account kind quota <<<"$row"
+      IFS=$'\t' read -r _ provider kind quota _ <<<"$row"
       export GARDEN_TOKEN_WEEKLY_QUOTA="$quota"
     else
       case "$quota" in ''|0|*[!0-9]*) printf 'off\n'; return 0 ;; esac
@@ -568,7 +889,7 @@ meter_quota_status() {
     fi
   else
     row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || { printf 'off\n'; return 0; }
-    IFS=$'\t' read -r _ provider account kind quota <<<"$row"
+    IFS=$'\t' read -r _ provider kind quota _ <<<"$row"
   fi
 
   case "$kind" in
@@ -576,16 +897,25 @@ meter_quota_status() {
     weekly-tokens)
       case "$quota" in ''|0|*[!0-9]*) printf 'off\n'; return 0 ;; esac
       if [ "$provider" != anthropic ]; then printf 'unknown\n'; return 0; fi
-      if [ "$account" = "$GARDEN" ]; then
-        export GARDEN_TOKEN_WEEKLY_QUOTA="$quota"
-        total="$(meter_window_total anchor)" || { printf 'unknown\n'; return 0; }
-      else
-        cutoff="$(meter_window_cutoff anchor)" || { printf 'unknown\n'; return 0; }
-        total="$(meter_remote_snapshot_total "$dir" "$pool" "$quota" "$cutoff" 2>/dev/null || true)"
-        if ! [[ "$total" =~ ^[0-9]+$ ]]; then
-          total="$(meter_journal_host_tokens "$dir" "$account" "$cutoff")" || { printf 'unknown\n'; return 0; }
+      cutoff="$(subscription_window_start_epoch "$pool" "$dir" 2>/dev/null || true)"
+      if ! [[ "$cutoff" =~ ^[0-9]+$ ]]; then
+        case "$pool" in anthropic:*) cutoff="$(meter_window_cutoff anchor)" || { printf 'unknown\n'; return 0; };; *) printf 'unknown\n'; return 0;; esac
+      fi
+      total="$(meter_remote_snapshot_total "$dir" "$pool" "$quota" "$cutoff" 2>/dev/null || true)"
+      if ! [[ "$total" =~ ^[0-9]+$ ]]; then
+        # The owning host can always use its local sensor before its first
+        # subscription-keyed snapshot has landed.
+        if budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null | grep -qxF "$pool"; then
+          if [[ "$pool" == anthropic:* ]]; then total="$(meter_window_total anchor)"; else total="$(meter_subscription_window_total "$pool" "$dir")"; fi || { printf 'unknown\n'; return 0; }
+        else
+          printf 'unknown\n'; return 0
         fi
       fi
+      ;;
+    percent)
+      [[ "$quota" =~ ^[1-9][0-9]*([.][0-9]+)?$ ]] || { printf 'off\n'; return 0; }
+      total="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
+      [[ "$total" =~ ^[0-9]+([.][0-9]+)?$ ]] || { printf 'unknown\n'; return 0; }
       ;;
     weekly-usd)
       [[ "$quota" =~ ^[0-9]+([.][0-9]+)?$ ]] || { printf 'off\n'; return 0; }
@@ -628,10 +958,19 @@ pool_provenance_uncalibrated() {
 # either; it then gates normally on its cap via meter_quota_status.
 pool_admission_refusal() {
   local pool="$1" dir="${2:-}" file row kind prov
+  case "$pool" in
+    unknown:*|'')
+      printf 'unrecognized inference source %s; treat it as depleted and ask the maintainer for a token count and target spend date before enabling it\n' "${pool:-unknown}"
+      return 0
+      ;;
+  esac
   file="$(budget_pool_file "$dir")" || return 1
   row="$(awk -v want="$pool" '
       /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
-      $1 == want { print $4 "\t" $6; found=1; exit }
+      $1 == want {
+        if ($3 == "weekly-tokens" || $3 == "weekly-usd" || $3 == "percent" || $3 == "unmetered") print $3 "\t" $5
+        else print $4 "\t" $6
+        found=1; exit }
       END { if (!found) exit 1 }' "$file" 2>/dev/null)" || return 1
   IFS=$'\t' read -r kind prov <<<"$row"
   if [ "$kind" = unmetered ]; then
@@ -670,10 +1009,11 @@ pool_admits() {
 # budget_fleet_status [journal-dir] — backoff only when every configured bounded
 # pool is confirmed backoff. A missing/unreadable/off pool keeps admission open.
 budget_fleet_status() {
-  local dir="${1:-}" file pool _provider _account kind _cap status seen=0
+  local dir="${1:-}" file pool _provider kind _cap status seen=0
   file="$(budget_pool_file "$dir")" || { printf 'off\n'; return 0; }
-  while IFS=$'\t ' read -r pool _provider _account kind _cap _rest; do
+  while IFS=$'\t ' read -r pool _provider third fourth fifth _rest; do
     case "$pool" in ''|'#'*) continue ;; esac
+    case "$third" in weekly-tokens|weekly-usd|percent|unmetered) kind="$third";; *) kind="$fourth";; esac
     [ "$kind" != unmetered ] || continue
     seen=1
     status="$(meter_quota_status "$pool" "$dir")"
@@ -694,7 +1034,7 @@ budget_hold_wrap() {
   local body="$1" posted_by="${2:-${GARDEN_SENDER:-producer}}"
   local reset_epoch reset_iso now
   now="$(date -u +%FT%TZ)"
-  reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
+  reset_epoch="$(budget_fleet_next_reset_epoch "" 2>/dev/null || true)"
   reset_iso=""
   [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ)"
   printf -- '---\n'

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-17
+updated: 2026-09-20
 author: gardener, liaison
 ---
 
@@ -17,6 +17,14 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 - [restore](../../skills/restore/SKILL.md) — recovering the fleet after an outage.
 
 ## Operating norms
+
+- **Unknown inference quota is depleted until the maintainer says otherwise.**
+  The complete auto-refilling subscription set is `claude-endolin1`,
+  `claude-endolin2`, `claude-oros`, and `codex-endolin`. If a different API key,
+  token pool, or unexpected quota appears, do not throttle it up or describe it
+  as renewable. Ask the maintainer for both the available token count and the
+  target date by which to spend it. This is the liaison-side counterpart of the
+  claim gate in `usage-meter.sh`, which refuses unmapped sources in plain code.
 
 - **Post jobs; do not do the work yourself.** The liaison is a relay and
   orchestrator, not a doer. When the maintainer asks for work on a PR or repo —

@@ -90,10 +90,11 @@ export GARDEN_TAG="foreman"
 # sourced from Claude Code's OWN session logs (~/.claude/projects/**/*.jsonl), one
 # independent account per host. The Admin Usage & Cost API (API-key/Console only)
 # does NOT apply and is deliberately not wired.
-#   config/budget-pools          per-host weekly ceiling (journal source of truth).
+#   config/budget-pools          per-subscription ceiling (journal source of truth).
+#   config/subscription-mapping  explicit host/worker-kind ownership relation.
 #   GARDEN_TOKEN_WEEKLY_QUOTA    fallback when no current-host pool row exists.
 #   GARDEN_TOKEN_BACKOFF_FRACTION high-water mark as a fraction of quota (default 0.85).
-#   GARDEN_TOKEN_RESET_*          Friday 20:00 America/Los_Angeles by default.
+#   budget/reset-events/*         independent reset facts; no global default.
 #   GARDEN_CCUSAGE_LOGDIR         Claude Code session-log dir (primary source).
 #   GARDEN_USAGE_LEDGER           legacy ledger path (fallback only).
 # At/over the high-water mark the foreman pumps NOTHING this tick and emits at most
@@ -259,7 +260,7 @@ if [ "$GARDEN_FOREMAN_HANDLER" = "$HERE/handlers/foreman-claude.sh" ]; then
 fi
 if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" in
   backoff)
-    note_once "token-backoff" "foreman: this host's Anthropic pool is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark of its configured weekly quota (Friday $GARDEN_TOKEN_RESET_HHMM Pacific window). Pausing the autonomous pump until usage falls back under the mark."
+    note_once "token-backoff" "foreman: this host's Anthropic subscription is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark. Pausing the autonomous pump until its independently tracked reset."
     log "token quota high-water reached; backing off (no pump this tick)"
     decide token-backoff
     record_budget_halt current-host-token-quota backoff \
@@ -281,7 +282,7 @@ esac; fi
 # makes the precise host/account decision.
 case "$(budget_fleet_status "$DIR")" in
   backoff)
-    note_once "fleet-budget-backoff" "foreman: every configured budget pool is at its high-water mark; deferred-plan promotion and new pumping are paused until the Friday $GARDEN_TOKEN_RESET_HHMM Pacific quota refresh."
+    note_once "fleet-budget-backoff" "foreman: every configured subscription is at its high-water mark; deferred-plan promotion and new pumping are paused until a recorded subscription reset restores capacity."
     log "all configured budget pools at high water; stopping promotion/pump this tick"
     decide budget-backoff
     record_budget_halt fleet-budget-pools backoff \

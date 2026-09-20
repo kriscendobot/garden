@@ -127,8 +127,8 @@ fi
 
 # The ingestion path remains active for an unmetered pool and records its live
 # pairing. A later anchor change is called out on the appended row.
-HOST=unmetered-host
-"$JOBS/set-budget-pool.sh" "anthropic:$HOST" - temporary-key 2026-09-05 --kind unmetered >/dev/null 2>&1
+HOST=claude-endolin1
+"$JOBS/set-budget-pool.sh" "$HOST" - temporary-key 2026-09-05 --kind unmetered >/dev/null 2>&1
 LIVE_FILE="$TEST_ROOT/live"
 printf 'status: ok\nspend: 280\nwindow_start_epoch: 400\nsampled_at: 2026-09-05T00:00:00Z\nsampled_at_epoch: 1788566400\n' > "$LIVE_FILE"
 "$JOBS/append-quota-checkpoint.sh" "$HOST" 28 --checked-at 2026-09-05T00:05:00Z --host-file "$LIVE_FILE" >/dev/null 2>&1
@@ -142,7 +142,7 @@ if jq -se '
     .[1].meter_window_start_epoch == 500 and
     (.[1].notes | contains("WINDOW ANCHOR CHANGED"))
   ' "$WORK/budget/manual-checkpoints/$HOST.jsonl" >/dev/null \
-   && awk '$1 == "anthropic:unmetered-host" { found=($4 == "unmetered" && $5 == "-") } END { exit !found }' "$WORK/config/budget-pools"; then
+   && awk '$1 == "claude-endolin1" { found=($3 == "unmetered" && $4 == "-") } END { exit !found }' "$WORK/config/budget-pools"; then
   ok "unmetered pool still accepts historical checkpoints without implicit actuation"
 else
   bad "unmetered ingestion or pool configuration was incorrect"
@@ -154,9 +154,9 @@ fi
 {
   printf '%s\n' \
     '# Journal config/budget-pools.' \
-    '#   unmetered-host : 595M/wk, calibrated from a superseded sample' \
+    '#   claude-endolin1 : 595M/wk, calibrated from a superseded sample' \
     '#     stale calculation details must leave with their claim.' \
-    '#   anthropic:unmetered-host : 385M/wk, an even older calibration' \
+    '#   claude-endolin1 : 385M/wk, an even older calibration' \
     '#     this duplicate target block must also leave.' \
     '#   peer-host : 200M/wk, calibrated independently' \
     '#     preserve this unrelated calibration verbatim.' \
@@ -165,10 +165,10 @@ fi
 } > "$WORK/config/budget-pools.next"
 mv "$WORK/config/budget-pools.next" "$WORK/config/budget-pools"
 commit_fixture
-"$JOBS/set-budget-pool.sh" "anthropic:$HOST" 143000000 manual-fit 2026-09-05 >/dev/null 2>&1
+"$JOBS/set-budget-pool.sh" "$HOST" 143000000 manual-fit 2026-09-05 >/dev/null 2>&1
 git -C "$WORK" fetch -q origin journal2
 git -C "$WORK" reset -q --hard origin/journal2
-if awk '$1 == "anthropic:unmetered-host" { found=($4 == "weekly-tokens" && $5 == 143000000 && $6 == "manual-fit" && $7 == "2026-09-05") } END { exit !found }' "$WORK/config/budget-pools" \
+if awk '$1 == "claude-endolin1" { found=($3 == "weekly-tokens" && $4 == 143000000 && $5 == "manual-fit" && $6 == "2026-09-05") } END { exit !found }' "$WORK/config/budget-pools" \
    && ! grep -qE '595M|385M|stale calculation|duplicate target' "$WORK/config/budget-pools" \
    && grep -qF '#   peer-host : 200M/wk, calibrated independently' "$WORK/config/budget-pools" \
    && grep -qF '#     preserve this unrelated calibration verbatim.' "$WORK/config/budget-pools"; then
@@ -185,26 +185,26 @@ fi
 # superseded block for the promoted host while leaving the intro, the interleaved
 # NOTE, and the columns legend verbatim. This exercises the multi-block / same-host
 # / interleaved-unrelated structure the single-block fixture above does not.
-HOST=legacy-host
+HOST=claude-endolin1
 {
   printf '%s\n' \
     '# Journal config/budget-pools. Both Anthropic pools are calibrated from' \
     '# account-specific /usage samples; re-derive whenever a promotion changes the cap.' \
-    '#   legacy-host  : 595M/wk, calibrated from a superseded simultaneous sample.' \
+    '#   claude-endolin1  : 595M/wk, calibrated from a superseded simultaneous sample.' \
     '#     rounded down to 595M. SUPERSEDES the prior 149M/wk stale calibration.' \
     '#   NOTE the bases differ: this meter excludes cache_read while /usage does not;' \
     '#     each calibration is a ratio over one shared window. Preserve this verbatim.' \
-    '#   legacy-host  : was 385M/wk, an even older calibration on the same host that' \
+    '#   claude-endolin1  : was 385M/wk, an even older calibration on the same host that' \
     '#     must also leave with its claim when the authoritative row is refreshed.' \
     '# Columns, tab-separated:'
   cat "$WORK/config/budget-pools"
 } > "$WORK/config/budget-pools.next"
 mv "$WORK/config/budget-pools.next" "$WORK/config/budget-pools"
 commit_fixture
-"$JOBS/set-budget-pool.sh" "anthropic:$HOST" 143000000 manual-fit 2026-09-10 >/dev/null 2>&1
+"$JOBS/set-budget-pool.sh" "$HOST" 143000000 manual-fit 2026-09-10 >/dev/null 2>&1
 git -C "$WORK" fetch -q origin journal2
 git -C "$WORK" reset -q --hard origin/journal2
-if awk '$1 == "anthropic:legacy-host" { found=($4 == "weekly-tokens" && $5 == 143000000 && $6 == "manual-fit" && $7 == "2026-09-10") } END { exit !found }' "$WORK/config/budget-pools" \
+if awk '$1 == "claude-endolin1" { found=($3 == "weekly-tokens" && $4 == 143000000 && $5 == "manual-fit" && $6 == "2026-09-10") } END { exit !found }' "$WORK/config/budget-pools" \
    && ! grep -qE '595M|385M|149M|even older calibration|superseded simultaneous' "$WORK/config/budget-pools" \
    && grep -qF '# Journal config/budget-pools. Both Anthropic pools are calibrated from' "$WORK/config/budget-pools" \
    && grep -qF '#   NOTE the bases differ: this meter excludes cache_read while /usage does not;' "$WORK/config/budget-pools" \
@@ -221,20 +221,20 @@ fi
 peer_caps_before="$(grep -o '200M/wk' "$WORK/config/budget-pools" | wc -l)"
 {
   printf '%s\n' \
-    '# Shared summary: legacy-host is capped at 595M/wk; peer-host stays at 200M/wk.' \
-    '# Historical order: 385M/wk for legacy-host; 200M/wk for peer-host.' \
-    '# Wrapped summary: legacy-host has a deliberate ceiling of' \
+    '# Shared summary: claude-endolin1 is capped at 595M/wk; peer-host stays at 200M/wk.' \
+    '# Historical order: 385M/wk for claude-endolin1; 200M/wk for peer-host.' \
+    '# Wrapped summary: claude-endolin1 has a deliberate ceiling of' \
     '#   149M/wk while peer-host remains at 200M/wk.' \
-    '# Mixed metrics: anthropic:legacy-host has 16G RAM and a 595M/wk cap; peer-host stays at 200M/wk.'
+    '# Mixed metrics: claude-endolin1 has 16G RAM and a 595M/wk cap; peer-host stays at 200M/wk.'
   cat "$WORK/config/budget-pools"
 } > "$WORK/config/budget-pools.next"
 mv "$WORK/config/budget-pools.next" "$WORK/config/budget-pools"
 commit_fixture
-"$JOBS/set-budget-pool.sh" "anthropic:$HOST" 143000000 manual-fit 2026-09-10 >/dev/null 2>&1
+"$JOBS/set-budget-pool.sh" "$HOST" 143000000 manual-fit 2026-09-10 >/dev/null 2>&1
 git -C "$WORK" fetch -q origin journal2
 git -C "$WORK" reset -q --hard origin/journal2
 if ! grep -qE '595M|385M|149M' "$WORK/config/budget-pools" \
-   && grep -qF 'anthropic:legacy-host has 16G RAM and a 143M/wk cap' "$WORK/config/budget-pools" \
+   && grep -qF 'claude-endolin1 has 16G RAM and a 143M/wk cap' "$WORK/config/budget-pools" \
    && [ "$(grep -o '143M/wk' "$WORK/config/budget-pools" | wc -l)" -eq 4 ] \
    && [ "$(grep -o '200M/wk' "$WORK/config/budget-pools" | wc -l)" -eq "$((peer_caps_before + 4))" ]; then
   ok "promotion refreshes target cap figures embedded in shared prose"
@@ -243,7 +243,7 @@ else
 fi
 
 set +e
-"$JOBS/set-budget-pool.sh" "anthropic:$HOST" provisional manual-fit >/dev/null 2>&1
+"$JOBS/set-budget-pool.sh" "$HOST" provisional manual-fit >/dev/null 2>&1
 invalid_rc=$?
 set -e
 [ "$invalid_rc" -eq 2 ] && ok "setter rejects a nonnumeric weekly-token ceiling" \

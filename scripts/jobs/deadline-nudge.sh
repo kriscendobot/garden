@@ -107,13 +107,14 @@ campaign_for_child() {
 }
 
 quota_facts() {
-  local total status quota remaining row _pool _provider _account _kind
+  local total status quota remaining row subscription _pool _provider _kind
   quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
-  if row="$(budget_pool_row "anthropic:$GARDEN" "$DIR" 2>/dev/null)"; then
-    IFS=$'\t' read -r _pool _provider _account _kind quota <<<"$row"
+  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "$DIR" 2>/dev/null || true)"
+  if [ -n "$subscription" ] && row="$(budget_pool_row "$subscription" "$DIR" 2>/dev/null)"; then
+    IFS=$'\t' read -r _pool _provider _kind quota _ <<<"$row"
   fi
-  status="$(meter_quota_status "anthropic:$GARDEN" "$DIR")"
-  total="$(meter_window_total anchor 2>/dev/null || true)"
+  status="$(meter_quota_status "$subscription" "$DIR")"
+  total="$(meter_subscription_window_total "$subscription" "$DIR" 2>/dev/null || true)"
   case "$quota" in ''|*[!0-9]*) quota=0 ;; esac
   case "$total" in ''|*[!0-9]*) total=unknown ;; esac
   remaining=unknown
@@ -151,7 +152,8 @@ stage_due_messages() {
   local job_quota_status job_quota_refresh add_rc
 
   IFS=$'\t' read -r quota_status quota_spend quota_budget quota_remaining < <(quota_facts)
-  quota_reset_epoch="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
+  local_subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "$DIR" 2>/dev/null || true)"
+  quota_reset_epoch="$(subscription_next_reset_epoch "$local_subscription" "$DIR" "$now" 2>/dev/null || true)"
   if [[ "$quota_reset_epoch" =~ ^[0-9]+$ ]]; then
     quota_refresh_at="$(date -u -d "@$quota_reset_epoch" +%FT%TZ)"
   else

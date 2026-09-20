@@ -1,6 +1,6 @@
 #!/bin/bash
 # append-reset-event.sh — the durable ingestion point for a quota RESET event,
-# appended to the reset-events log (journal budget/reset-events/<host>.jsonl; see
+# appended to the reset-events log (journal budget/reset-events/<subscription>.jsonl; see
 # that dir's README for the row schema and designs/reset-time-detection.md for the
 # detector that feeds it). Sibling of append-quota-checkpoint.sh: that one records a
 # usage LEVEL at a point in time, this one records a reset EVENT (the window rolling
@@ -17,10 +17,10 @@
 # notice, clearing a stale hold) is a separate deliberate step — see
 # designs/reset-time-detection.md § how a detected reset feeds config/budget-pools.
 #
-#   append-reset-event.sh <host> --type TYPE --precision PREC [options]
+#   append-reset-event.sh <subscription> --type TYPE --precision PREC [options]
 #
 # Required:
-#   <host>                    the host whose quota reset (a budget/live/<host> key)
+#   <subscription>            canonical subscription id
 #   --type TYPE               scheduled-weekly | anomalous-midweek |
 #                             expected-next-scheduled | unknown
 #   --precision PREC          exact | bracketed | extrapolated | scheduled
@@ -46,13 +46,14 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 export GARDEN_TAG=append-reset-event
 
-usage() { echo "usage: append-reset-event.sh <host> --type T --precision P [--at ISO | --bracket-lower ISO --bracket-upper ISO] [options]" >&2; exit 2; }
+usage() { echo "usage: append-reset-event.sh <subscription> --type T --precision P [--at ISO | --bracket-lower ISO --bracket-upper ISO] [options]" >&2; exit 2; }
 
-host="${1:-}"; [ -n "$host" ] || usage
-case "$host" in -*|*/*|'') usage;; esac
+subscription="${1:-}"; [ -n "$subscription" ] || usage
+case "$subscription" in -*|*/*|'') usage;; esac
 shift
 
 type=""; precision=""; at=""; blo=""; bup=""; evidence=""; note=""; grade=""
+cadence="observed"; schedule_weekday=""; schedule_time=""; timezone="UTC"
 recorded_at=""; dedup_key=""; dry_run=false
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -66,24 +67,28 @@ while [ "$#" -gt 0 ]; do
     --grade) grade="${2:?}"; shift 2;;
     --recorded-at) recorded_at="${2:?}"; shift 2;;
     --dedup-key) dedup_key="${2:?}"; shift 2;;
+    --cadence) cadence="${2:?}"; shift 2;;
+    --schedule-weekday) schedule_weekday="${2:?}"; shift 2;;
+    --schedule-time) schedule_time="${2:?}"; shift 2;;
+    --timezone) timezone="${2:?}"; shift 2;;
     --dry-run) dry_run=true; shift;;
     *) echo "unknown option: $1" >&2; usage;;
   esac
 done
 
-case "$type" in
-  scheduled-weekly|anomalous-midweek|expected-next-scheduled|unknown) ;;
-  *) echo "--type must be scheduled-weekly|anomalous-midweek|expected-next-scheduled|unknown" >&2; exit 2;;
-esac
+case "$type" in scheduled-weekly|anomalous-midweek|expected-next-scheduled|unknown|declared-schedule|manual-reset) ;; *) echo "invalid --type" >&2; exit 2;; esac
+case "$cadence" in calendar|manual|observed) ;; *) echo "--cadence must be calendar|manual|observed" >&2; exit 2;; esac
+[ -z "$schedule_weekday" ] || [[ "$schedule_weekday" =~ ^[1-7]$ ]] || { echo "--schedule-weekday must be 1..7" >&2; exit 2; }
+[ -z "$schedule_time" ] || [[ "$schedule_time" =~ ^[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?$ ]] || { echo "invalid --schedule-time" >&2; exit 2; }
 case "$precision" in
-  exact|bracketed|extrapolated|scheduled) ;;
-  *) echo "--precision must be exact|bracketed|extrapolated|scheduled" >&2; exit 2;;
+  exact|bracketed|extrapolated|scheduled|day) ;;
+  *) echo "--precision must be exact|bracketed|extrapolated|scheduled|day" >&2; exit 2;;
 esac
 if [ -n "$grade" ]; then
   case "$grade" in confirmed|likely|suspected|refuted) ;; *) echo "--grade must be confirmed|likely|suspected|refuted" >&2; exit 2;; esac
 fi
 # Sanity: need either a point estimate or a bracket. A scheduled row is a point.
-if [ -z "$at" ] && { [ -z "$blo" ] || [ -z "$bup" ]; }; then
+if [ "$type" != declared-schedule ] && [ -z "$at" ] && { [ -z "$blo" ] || [ -z "$bup" ]; }; then
   echo "need --at, or both --bracket-lower and --bracket-upper" >&2; exit 2
 fi
 command -v jq >/dev/null 2>&1 || { echo "jq unavailable" >&2; exit 1; }
@@ -95,11 +100,12 @@ ensure_clone "$DIR"
 
 build_row() {
   jq -cn \
-    --arg host "$host" --arg type "$type" --arg at "$at" --arg precision "$precision" \
+    --arg subscription "$subscription" --arg type "$type" --arg at "$at" --arg precision "$precision" \
     --arg blo "$blo" --arg bup "$bup" --arg evidence "$evidence" \
     --arg recorded_at "$recorded_at" --arg note "$note" --arg grade "$grade" \
-    --arg dedup_key "$dedup_key" '
-    {host:$host, event_type:$type,
+    --arg dedup_key "$dedup_key" --arg cadence "$cadence" \
+    --arg weekday "$schedule_weekday" --arg schedule_time "$schedule_time" --arg timezone "$timezone" '
+    {subscription_id:$subscription, event_type:$type, cadence:$cadence,
      reset_at:(if $at != "" then $at else null end),
      reset_at_precision:$precision,
      bracket_lower:(if $blo != "" then $blo else null end),
@@ -107,6 +113,9 @@ build_row() {
      evidence:$evidence,
      recorded_at:$recorded_at,
      notes:$note}
+    + (if $weekday != "" then {schedule_weekday:($weekday|tonumber)} else {} end)
+    + (if $schedule_time != "" then {schedule_time:$schedule_time} else {} end)
+    + (if $timezone != "" then {timezone:$timezone} else {} end)
     + (if $grade != "" then {grade:$grade} else {} end)
     + (if $dedup_key != "" then {detector_key:$dedup_key} else {} end)'
 }
@@ -119,20 +128,20 @@ if [ "$dry_run" = true ]; then printf '%s\n' "$row"; exit 0; fi
 _append_once() {
   local dir="$1"
   local ev_dir="$dir/budget/reset-events" ev_file
-  ev_file="$ev_dir/$host.jsonl"
+  ev_file="$ev_dir/$subscription.jsonl"
   mkdir -p "$ev_dir" || return 1
   # Idempotence: if a detector_key was given and a row already carries it, no-op.
   if [ -n "$dedup_key" ] && [ -f "$ev_file" ]; then
     if jq -e --arg k "$dedup_key" 'select(.detector_key == $k)' "$ev_file" >/dev/null 2>&1; then
-      log "reset-event $host detector_key=$dedup_key already recorded; skipping"
+      log "reset-event $subscription detector_key=$dedup_key already recorded; skipping"
       return 0
     fi
   fi
   printf '%s\n' "$row" >> "$ev_file" || return 1
-  git -C "$dir" add "budget/reset-events/$host.jsonl" || return 1
-  log "reset-event $host type=$type precision=$precision at=${at:-bracket:$blo..$bup} grade=${grade:-none}"
+  git -C "$dir" add "budget/reset-events/$subscription.jsonl" || return 1
+  log "reset-event $subscription type=$type precision=$precision at=${at:-bracket:$blo..$bup} grade=${grade:-none}"
   local rc=0
-  commit_and_push "$dir" "reset-event($host) $type/$precision${grade:+ $grade}" || rc=$?
+  commit_and_push "$dir" "reset-event($subscription) $type/$precision${grade:+ $grade}" || rc=$?
   [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]
 }
 

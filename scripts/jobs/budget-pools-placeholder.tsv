@@ -8,6 +8,8 @@
 # the config itself disclaims (cybernetics-audit.md § 2.3; designs/
 # recurring-budget-calibration.md; designs/live-budget-admission.md open q1).
 # Columns, tab-separated:
-# pool_id	provider	account/host	ceiling_kind	ceiling	calibrated_from	calibrated_at
-anthropic:endolin-garden-ece02cb4	anthropic	endolin-garden-ece02cb4	weekly-tokens	5000000	placeholder	-
-anthropic:endolin-garden2-5bcdff64	anthropic	endolin-garden2-5bcdff64	weekly-tokens	5000000	placeholder	-
+# subscription_id	provider	ceiling_kind	ceiling	calibrated_from	calibrated_at
+claude-endolin1	anthropic	weekly-tokens	5000000	placeholder	-
+claude-endolin2	anthropic	weekly-tokens	5000000	placeholder	-
+claude-oros	anthropic	weekly-tokens	5000000	placeholder	-
+codex-endolin	openai	percent	100	codex-cli-rate-limit	-

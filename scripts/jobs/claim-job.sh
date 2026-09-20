@@ -185,7 +185,24 @@ sync_clone "$DIR"
 # confirmed high-water reading for that pool. Missing config or an unreadable
 # meter is off/unknown and therefore proceeds (fail-open); the handler retains its
 # own final backstop for deploy races and usage accrued after this check.
-CLAIM_POOL="$(budget_pool_for_provider_host "$KIND_PROVIDER" "$GARDEN" "$DIR")"
+if ! CLAIM_POOL="$(budget_subscription_for_host_kind "$GARDEN" "$KIND" "$DIR" 2>/dev/null)"; then
+  if [ "${GARDEN_TEST:-0}" = 1 ] && ! budget_pool_file "$DIR" >/dev/null 2>&1; then
+    # Legacy hermetic board fixtures intentionally omit all budget state. Their
+    # subject is board mechanics, not subscription admission.
+    CLAIM_POOL="$KIND_PROVIDER"
+  else
+  case "$KIND_PROVIDER" in
+    anthropic|openai|openrouter|openrouter-promo|ollama-cloud)
+      CLAIM_POOL="unknown:$KIND_PROVIDER:$GARDEN:$KIND"
+      ;;
+    *)
+      # Local inference has no external refill pool and is outside the closed
+      # subscription registry by construction.
+      CLAIM_POOL="$KIND_PROVIDER"
+      ;;
+  esac
+  fi
+fi
 record_claim_budget_decision() { # status decision outcome reason detail
   local status="$1" decision_name="$2" decision_outcome="$3"
   local decision_reason="$4" decision_detail="$5" decision_input_json
@@ -206,8 +223,8 @@ if claim_budget_status="$(pool_admits "$CLAIM_POOL" "$DIR")"; then
       "budget guard skipped; candidate selection continues"
   fi
 elif [ "$claim_budget_status" = refuse ]; then
-  # FAIL CLOSED: a configured pool with no trustworthy ceiling (unmetered kind or an
-  # uncalibrated cap) halts claims rather than admitting unbounded spend. This CAN
+  # FAIL CLOSED: an unknown source, or a configured subscription with no trustworthy
+  # ceiling, halts claims rather than admitting unbounded spend. This CAN
   # silently wedge a host, so make the halt LOUD and the remedy OBVIOUS: page the
   # maintainer once (alert_maintainer dedups the repeated tick) with the exact
   # set-budget-pool.sh command that clears it.

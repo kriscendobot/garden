@@ -88,12 +88,13 @@ newest_sample_epoch="$(jq -r '.newest_sample_epoch' <<<"$cost_fold")"
 [ "$newest_sample_epoch" -le $((now + 60)) ] || fallback future-role-cost-samples
 [ $((now - newest_sample_epoch)) -le "$cost_max_age" ] || fallback stale-role-cost-samples
 
-pool="anthropic:$GARDEN"
+pool="$(budget_pool_for_provider_host anthropic "$GARDEN" "$directory" 2>/dev/null || true)"
+[ -n "$pool" ] || fallback missing-subscription-mapping
 pool_file="$directory/config/budget-pools"
 [ -r "$pool_file" ] || fallback missing-pace-calibration
 pool_row="$(awk -v wanted="$pool" '
   /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
-  $1 == wanted { print $4 "\t" $5 "\t" $6; found=1; exit }
+  $1 == wanted { if ($3=="weekly-tokens") print $3 "\t" $4 "\t" $5; else print $4 "\t" $5 "\t" $6; found=1; exit }
   END { if (!found) exit 1 }
 ' "$pool_file" 2>/dev/null || true)"
 [ -n "$pool_row" ] || fallback missing-pace-calibration
@@ -102,10 +103,12 @@ IFS=$'\t' read -r ceiling_kind weekly_cap calibrated_from <<<"$pool_row"
 [[ "$weekly_cap" =~ ^[1-9][0-9]*$ ]] || fallback invalid-pace-calibration
 pool_provenance_uncalibrated "$calibrated_from" && fallback uncalibrated-pace
 
-live_file="$directory/budget/live/$GARDEN"
+live_file="$directory/budget/live/$pool/$GARDEN"
+[ -r "$live_file" ] || live_file="$directory/budget/live/$GARDEN"
 [ -r "$live_file" ] || fallback missing-live-pace-input
 live_field() { sed -n "s/^$1:[[:space:]]*//p" "$live_file" | head -1; }
-live_pool="$(live_field pool)"
+live_pool="$(live_field subscription)"
+[ -n "$live_pool" ] || live_pool="$(live_field pool)"
 live_cap="$(live_field cap)"
 weekly_spend="$(live_field spend)"
 window_start_epoch="$(live_field window_start_epoch)"
@@ -117,8 +120,12 @@ sampled_at_epoch="$(live_field sampled_at_epoch)"
 [ "$sampled_at_epoch" -le $((now + 60)) ] || fallback future-live-pace-input
 [ $((now - sampled_at_epoch)) -le "$snapshot_max_age" ] || fallback stale-live-pace-input
 
-expected_window_start="$(meter_week_anchor_epoch "$now" 2>/dev/null || true)"
-reset_epoch="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
+expected_window_start="$(subscription_window_start_epoch "$pool" "$directory" "$now" 2>/dev/null || true)"
+reset_epoch="$(subscription_next_reset_epoch "$pool" "$directory" "$now" 2>/dev/null || true)"
+if [[ "$pool" == anthropic:* ]] && ! [[ "$expected_window_start" =~ ^[0-9]+$ ]]; then
+  expected_window_start="$(meter_week_anchor_epoch "$now" 2>/dev/null || true)"
+  reset_epoch="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
+fi
 [[ "$expected_window_start" =~ ^[0-9]+$ ]] && [ "$window_start_epoch" = "$expected_window_start" ] \
   || fallback stale-reset-epoch
 [[ "$reset_epoch" =~ ^[0-9]+$ ]] && [ "$reset_epoch" -gt "$now" ] \

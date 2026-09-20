@@ -1,12 +1,12 @@
 #!/bin/bash
 # append-quota-checkpoint.sh — the durable ingestion point for a human-read Claude
 # dashboard quota percentage, appended to the manual-checkpoint log
-# (journal budget/manual-checkpoints/<host>.jsonl; see that dir's README for the row
+# (journal budget/manual-checkpoints/<subscription>.jsonl; see that dir's README for the row
 # schema and the calibration this feeds — designs/manual-quota-calibration.md).
 #
 # WHY this exists: before this, a maintainer stated a percentage in chat and the
 # liaison hand-wrote a JSONL row, re-deriving meter_spend_tokens / meter_sampled_at /
-# meter_window_start_epoch / pairing_confidence from budget/live/<host> by hand every
+# meter_window_start_epoch / pairing_confidence from a subscription live contribution
 # time — a bespoke, error-prone edit. This script does exactly that auto-fill
 # deterministically and CAS-races the row onto the journal, so a checkpoint is one
 # command, not a hand-edit.
@@ -17,7 +17,7 @@
 # then set-budget-pool.sh to PROMOTE) — the same measure/actuate boundary
 # weekly-capacity-calibration.sh already draws.
 #
-#   append-quota-checkpoint.sh <host> <weekly_percent> [session_percent] [options]
+#   append-quota-checkpoint.sh <subscription> <weekly_percent> [session_percent] [options]
 #
 # Options (all optional):
 #   --checked-at ISO8601      wall-clock time of the human's dashboard read (default: now)
@@ -30,18 +30,17 @@
 #                             claim gate was refusing every claim). The auto-derivation
 #                             never asserts `high` on its own.
 #   --note TEXT               free-text appended to the row's notes
-#   --host-file PATH          read the live snapshot from this file instead of
-#                             budget/live/<host> (testing / an off-clone read)
+#   --host-file PATH          read one live contribution from this file (testing)
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 export GARDEN_TAG=append-quota-checkpoint
 
-usage() { echo "usage: append-quota-checkpoint.sh <host> <weekly_percent> [session_percent] [options]" >&2; exit 2; }
+usage() { echo "usage: append-quota-checkpoint.sh <subscription> <weekly_percent> [session_percent] [options]" >&2; exit 2; }
 
-host="${1:-}"; [ -n "$host" ] || usage
-case "$host" in -*|*/*|'') usage;; esac
+subscription="${1:-}"; [ -n "$subscription" ] || usage
+case "$subscription" in -*|*/*|'') usage;; esac
 shift
 weekly_percent="${1:-}"; [ -n "$weekly_percent" ] || usage
 [[ "$weekly_percent" =~ ^[0-9]+([.][0-9]+)?$ ]] || { echo "weekly_percent must be a number" >&2; exit 2; }
@@ -78,7 +77,7 @@ DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 
 # read_live <live-file> — echo "spend<TAB>window_start_epoch<TAB>sampled_at<TAB>sampled_at_epoch<TAB>status"
-# from a budget/live/<host> snapshot, or empty if unreadable. Same keys usage-meter.sh writes.
+# from a budget/live/<subscription>/<host> snapshot, or empty if unreadable.
 read_live() {
   local f="$1" spend win at at_ep status
   [ -r "$f" ] || return 1
@@ -106,11 +105,14 @@ derive_confidence() {
 _append_once() {
   local dir="$1"
   local cp_dir="$dir/budget/manual-checkpoints" cp_file
-  cp_file="$cp_dir/$host.jsonl"
+  cp_file="$cp_dir/$subscription.jsonl"
   mkdir -p "$cp_dir" || return 1
 
   local live spend win sampled_at sampled_ep status age confidence implied prev_win osc_note=""
-  local lf="${host_file:-$dir/budget/live/$host}"
+  local lf="${host_file:-$dir/budget/live/$subscription/$GARDEN}"
+  if [ -z "$host_file" ] && [ ! -r "$lf" ]; then
+    lf="$(find "$dir/budget/live/$subscription" -maxdepth 1 -type f -print -quit 2>/dev/null || true)"
+  fi
   if live="$(read_live "$lf" 2>/dev/null)"; then
     IFS=$'\t' read -r spend win sampled_at sampled_ep status <<<"$live"
   fi
@@ -149,12 +151,12 @@ _append_once() {
 
   local row
   row="$(jq -cn \
-    --arg checked_at "$checked_at" --arg host "$host" --arg reported_by "$reported_by" \
+    --arg checked_at "$checked_at" --arg subscription "$subscription" --arg reported_by "$reported_by" \
     --arg weekly_percent "$weekly_percent" --arg weekly_resets_at "$weekly_resets_at" \
     --arg session_percent "$session_percent" --arg session_resets_at "$session_resets_at" \
     --arg spend "$spend" --arg sampled_at "$sampled_at" --arg win "$win" \
     --arg confidence "$confidence" --arg implied "$implied" --arg notes "$full_note" '
-    {checked_at:$checked_at, host:$host, reported_by:$reported_by,
+    {checked_at:$checked_at, subscription_id:$subscription, reported_by:$reported_by,
      weekly_percent:($weekly_percent|tonumber)}
     + (if $weekly_resets_at != "" then {weekly_resets_at:$weekly_resets_at} else {} end)
     + (if $session_percent != "" then {session_percent:($session_percent|tonumber)} else {} end)
@@ -168,10 +170,10 @@ _append_once() {
   [ -n "$row" ] || return 1
 
   printf '%s\n' "$row" >> "$cp_file" || return 1
-  git -C "$dir" add "budget/manual-checkpoints/$host.jsonl" || return 1
-  log "checkpoint $host weekly=$weekly_percent% spend=${spend:-none} confidence=$confidence implied=${implied:-none}"
+  git -C "$dir" add "budget/manual-checkpoints/$subscription.jsonl" || return 1
+  log "checkpoint $subscription weekly=$weekly_percent% spend=${spend:-none} confidence=$confidence implied=${implied:-none}"
   local rc=0
-  commit_and_push "$dir" "manual-checkpoint($host) weekly=$weekly_percent% confidence=$confidence" || rc=$?
+  commit_and_push "$dir" "manual-checkpoint($subscription) weekly=$weekly_percent% confidence=$confidence" || rc=$?
   [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]
 }
 

@@ -15,7 +15,8 @@ sync_clone "$DIR"
 
 now="${GARDEN_BUDGET_REFRESH_NOW:-$(date -u +%s)}"
 [[ "$now" =~ ^[0-9]+$ ]] || { clone_unlock "$DIR"; die "invalid refresh clock '$now'"; }
-quota_status="$(meter_quota_status "anthropic:$GARDEN" "$DIR")"
+subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "$DIR" 2>/dev/null || true)"
+quota_status="$(meter_quota_status "$subscription" "$DIR")"
 due=()
 due_trigger=()
 due_reset_at=()
@@ -38,7 +39,7 @@ for name in $(list_jobs "$DIR" "$JOBS_PLAN"); do
   parked_epoch="$(date -u -d "$parked" +%s 2>/dev/null || true)"
   reset_epoch=""
   [[ "$parked_epoch" =~ ^[0-9]+$ ]] \
-    && reset_epoch="$(meter_next_reset_epoch "$parked_epoch" 2>/dev/null || true)"
+    && reset_epoch="$(subscription_next_reset_epoch "$subscription" "$DIR" "$parked_epoch" 2>/dev/null || true)"
   if [[ "$reset_epoch" =~ ^[0-9]+$ ]] \
      && [ "$now" -ge "$reset_epoch" ] \
      && [ "$quota_status" != backoff ]; then

@@ -1,7 +1,7 @@
 #!/bin/bash
 # fit-quota-calibration.sh — the deterministic fit over the manual quota-checkpoint
-# log (journal budget/manual-checkpoints/<host>.jsonl). It MEASURES a recommended
-# weekly-token cap for a host and emits a confidence verdict; it does NOT actuate.
+# log (journal budget/manual-checkpoints/<subscription>.jsonl). It MEASURES a
+# recommended token cap for a subscription and emits a confidence verdict.
 # Nothing here writes config/budget-pools or a worker count — promotion stays a
 # separate deliberate act (set-budget-pool.sh). Design: designs/manual-quota-calibration.md.
 #
@@ -66,7 +66,9 @@ now_iso="$(date -u -d "@$now_epoch" +%FT%TZ)"
 # The currently-live meter window anchor for this host, if published — used to decide
 # whether the governing segment describes the window the fleet is metering against NOW.
 live_win=""
-lf="$DIR/budget/live/$host"
+lf="$DIR/budget/live/$host/$GARDEN"
+[ -r "$lf" ] || lf="$(find "$DIR/budget/live/$host" -maxdepth 1 -type f -print -quit 2>/dev/null || true)"
+[ -r "$lf" ] || lf="$DIR/budget/live/$host" # rolling-deploy compatibility
 [ -r "$lf" ] && live_win="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$lf" | head -1)"
 [[ "$live_win" =~ ^[0-9]+$ ]] || live_win=""
 
@@ -187,7 +189,7 @@ if [ "$json_only" = false ]; then
   grade="$(printf '%s' "$verdict" | jq -r '.confidence')"
   cap="$(printf '%s' "$verdict" | jq -r '.selected_cap_tokens // "none"')"
   case "$grade" in
-    converged)   echo "RECOMMENDATION [$host]: cap=$cap is CONVERGED — promote with set-budget-pool.sh 'anthropic:$host' $cap manual-fit $(date -u +%F)." >&2 ;;
+    converged)   echo "RECOMMENDATION [$host]: cap=$cap is CONVERGED — promote with set-budget-pool.sh '$host' $cap manual-fit $(date -u +%F)." >&2 ;;
     provisional) echo "RECOMMENDATION [$host]: cap=$cap is PROVISIONAL — do NOT promote to a trusted cap; keep the current conservative cap or unblock by hand, and keep appending checkpoints. See .checks for what failed." >&2 ;;
     insufficient)echo "RECOMMENDATION [$host]: INSUFFICIENT data for a trustworthy fit — keep appending checkpoints; do not actuate on this." >&2 ;;
   esac

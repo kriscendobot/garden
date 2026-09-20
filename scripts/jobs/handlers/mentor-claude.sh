@@ -218,8 +218,19 @@ record_malformed_reply() { # <provider> <raw-file> [reason]
 }
 
 mentor_codex_attempt() { # <openai|local> <prompt>
-  local provider="$1" prompt="$2" kind model effort output json_capture rc
+  local provider="$1" prompt="$2" kind model effort output json_capture rc subscription quota
   case "$provider" in openai) kind=cleric ;; local) kind=hermit ;; *) return 20 ;; esac
+  if [ "$provider" = openai ] && [ "${GARDEN_TEST:-0}" != 1 ]; then
+    subscription="$(budget_pool_for_provider_host openai "$GARDEN" "$dir" 2>/dev/null || true)"
+    if [ -z "$subscription" ]; then
+      alert_maintainer "unknown-inference-source-openai-$GARDEN" \
+        "mentor refused an unmapped OpenAI source on $GARDEN. Before enabling it, clarify the token count and target spend date."
+      log "mentor openai provider refused: no recognized subscription mapping"
+      return 10
+    fi
+    quota="$(meter_quota_status "$subscription" "$dir")"
+    [ "$quota" != backoff ] || { log "mentor openai provider skipped: subscription $subscription is at high water"; return 10; }
+  fi
   model="$(model_routing_default "$provider" 2>/dev/null || true)"
   [ -n "$model" ] || case "$provider" in local) model=qwen3.6 ;; *) model=gpt-5.6-terra ;; esac
   codex_provider_preflight "$provider" "$kind" mentor "mentor-$provider" 0 "$model" || return 10

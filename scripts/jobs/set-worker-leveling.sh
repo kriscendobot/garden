@@ -3,7 +3,8 @@
 # Usage: set-worker-leveling.sh <monk-fleet> <cleric-fleet> <host:monk-cap:cleric-cap>...
 #
 # Every calibrated Anthropic weekly-token pool participates in one fleet-wide monk
-# allocation. Its account/host therefore needs a positive monk physical cap in the
+# allocation. Every host mapped to its monk worker kind therefore needs a positive
+# monk physical cap in the
 # replacement config. Validate that coupling against the freshly synced budget-pool
 # config on every push attempt, before staging the replacement. Otherwise one omitted
 # host freezes all monk allocation on the next budget-level tick.
@@ -21,16 +22,23 @@ for spec in "$@";do IFS=: read -r host mc cc extra <<<"$spec";[[ "$host" =~ ^[A-
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}";ensure_clone "$DIR"
 
 validate_pool_hosts() { # proposed-worker-leveling budget-pools
- local proposed="$1" pools="$2" pool provider host kind _cap provenance _rest monk_cap
+ local proposed="$1" pools="$2" mapping="$(dirname "$2")/subscription-mapping"
+ local pool provider third kind _cap provenance _rest monk_cap host mapped_subscription worker_kind
  [ -f "$pools" ] || return 0
- while IFS=$'\t ' read -r pool provider host kind _cap provenance _rest; do
+ while IFS=$'\t ' read -r pool provider third fourth fifth sixth _rest; do
   case "$pool" in ''|'#'*)continue;;esac
+  if [ "$third" = weekly-tokens ]; then kind="$third";_cap="$fourth";provenance="$fifth"; else host="$third";kind="$fourth";_cap="$fifth";provenance="$sixth"; fi
   [ "$provider" = anthropic ]&&[ "$kind" = weekly-tokens ]||continue
   pool_provenance_uncalibrated "$provenance"&&continue
-  monk_cap="$(awk -v h="$host" '$1=="host"&&$2==h{print $3;exit}' "$proposed")"
-  if ! [[ "$monk_cap" =~ ^[1-9][0-9]*$ ]];then
-   echo "set-worker-leveling: calibrated pool $pool host '$host' needs a positive monk physical cap in the replacement configuration" >&2
-   return 2
+  if [ -r "$mapping" ]; then
+    while IFS=$'\t ' read -r mapped_subscription host worker_kind _; do
+      [ "$mapped_subscription" = "$pool" ]&&[ "$worker_kind" = monk ]||continue
+      monk_cap="$(awk -v h="$host" '$1=="host"&&$2==h{print $3;exit}' "$proposed")"
+      [[ "$monk_cap" =~ ^[1-9][0-9]*$ ]]||{ echo "set-worker-leveling: calibrated subscription $pool mapped host '$host' needs a positive monk physical cap" >&2;return 2; }
+    done < "$mapping"
+  else
+    monk_cap="$(awk -v h="$host" '$1=="host"&&$2==h{print $3;exit}' "$proposed")"
+    [[ "$monk_cap" =~ ^[1-9][0-9]*$ ]]||{ echo "set-worker-leveling: calibrated pool $pool host '$host' needs a positive monk physical cap" >&2;return 2; }
   fi
  done <"$pools"
 }

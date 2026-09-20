@@ -223,26 +223,36 @@ qp_pct() {
 # table plus a basis note). No `claude`/`codex` in the render path. Every cell
 # degrades to "unavailable" / "no quota set" / "n/a" rather than a fake number.
 render_quota_panel() {
-  local win now cutoff window_label pool_row _pool _provider _account _kind pool_cap anchored_cutoff meter_arg
+  local win now cutoff window_label pool_row _pool _provider _account _kind pool_cap anchored_cutoff meter_arg panel_file panel_directory
   win="$GARDEN_QUOTA_PANEL_WINDOW_SECS"
   now="$(qp_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
   cutoff=$(( now - win ))
   local wdays; wdays=$(( win / 86400 )); [ "$wdays" -ge 1 ] || wdays=1
   window_label="Trailing ${wdays}d"
-  pool_row="$(budget_pool_row "anthropic:$GARDEN" 2>/dev/null || true)"
+  local subscription
+  panel_file="$(budget_pool_file 2>/dev/null || true)"; panel_directory="${panel_file%/config/budget-pools}"
+  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "" 2>/dev/null || true)"
+  pool_row="$(budget_pool_row "$subscription" 2>/dev/null || true)"
   if [ -n "$pool_row" ]; then
-    IFS=$'\t' read -r _pool _provider _account _kind pool_cap <<<"$pool_row"
-    anchored_cutoff="$(meter_window_cutoff anchor 2>/dev/null || true)"
+    IFS=$'\t' read -r _pool _provider _kind pool_cap _ <<<"$pool_row"
+    anchored_cutoff="$(subscription_window_start_epoch "$subscription" 2>/dev/null || true)"
     if [[ "$anchored_cutoff" =~ ^[0-9]+$ ]]; then
       cutoff="$anchored_cutoff"
-      window_label="Since Friday ${GARDEN_TOKEN_RESET_HHMM} Pacific reset"
+      window_label="Since ${subscription} reset"
     fi
   fi
 
   # ---- Claude row ----
   local c_tok c_tok_disp c_dollars c_dollars_disp c_pct c_quota c_status
   if [ -n "$pool_row" ]; then meter_arg=anchor; else meter_arg="$win"; fi
-  if c_tok="$(meter_window_total "$meter_arg" 2>/dev/null)"; then
+  if [[ "$subscription" == anthropic:* ]]; then
+    c_tok="$(meter_window_total "$meter_arg" 2>/dev/null || true)"
+  elif [ -n "$subscription" ]; then
+    c_tok="$(meter_subscription_window_total "$subscription" 2>/dev/null || true)"
+  else
+    c_tok="$(meter_window_total "$win" 2>/dev/null || true)"
+  fi
+  if [[ "$c_tok" =~ ^[0-9]+$ ]]; then
     c_tok_disp="$(qp_human_tokens "$c_tok")"
   else
     c_tok=""; c_tok_disp="unavailable"
@@ -267,7 +277,9 @@ render_quota_panel() {
   esac
 
   # ---- Codex row ----
-  local x_out x_bill x_cached x_used x_plan x_tok_disp x_dollars_disp x_pct
+  local x_out x_bill x_cached x_used x_plan x_tok_disp x_dollars_disp x_pct codex_subscription codex_cutoff
+  codex_subscription="$(budget_pool_for_provider_host openai "$GARDEN" "$panel_directory" 2>/dev/null || true)"
+  codex_cutoff="$(subscription_window_start_epoch "$codex_subscription" "$panel_directory" 2>/dev/null || true)"
   if x_out="$(_qp_codex_scan "$GARDEN_CODEX_LOGDIR" "$cutoff" 2>/dev/null)"; then
     x_bill="$(printf '%s' "$x_out" | awk '{print $1}')"
     x_cached="$(printf '%s' "$x_out" | awk '{print $2}')"
@@ -276,6 +288,12 @@ render_quota_panel() {
     x_tok_disp="$(qp_human_tokens "$x_bill") _(+$(qp_human_tokens "$x_cached") cached)_"
   else
     x_bill=""; x_used="-1"; x_plan="-"; x_tok_disp="unavailable"
+  fi
+  if [ -n "$codex_subscription" ] && [[ "$codex_cutoff" =~ ^[0-9]+$ ]]; then
+    fleet_codex_tokens="$(meter_remote_snapshot_total "$panel_directory" "$codex_subscription" - "$codex_cutoff" 2>/dev/null || true)"
+    fleet_codex_percent="$(subscription_used_percent "$codex_subscription" "$panel_directory" 2>/dev/null || true)"
+    if [[ "$fleet_codex_tokens" =~ ^[0-9]+$ ]]; then x_bill="$fleet_codex_tokens"; x_tok_disp="$(qp_human_tokens "$x_bill") _(fleet aggregate)_"; fi
+    [[ "$fleet_codex_percent" =~ ^[0-9]+([.][0-9]+)?$ ]] && x_used="$fleet_codex_percent"
   fi
 
   # Codex dollars: honest basis. API-key mode prices via the rate card; the
@@ -323,4 +341,12 @@ render_quota_panel() {
   printf '| --- | --- | --- | --- |\n'
   printf '| Claude | %s | %s | %s |\n' "$c_tok_disp" "$c_dollars_disp" "$c_pct"
   printf '| Codex | %s | %s | %s |\n' "$x_tok_disp" "$x_dollars_disp" "$x_pct"
+  if [ -n "$panel_directory" ]; then
+    fleet_rate="$(budget_fleet_rate_json "$panel_directory" 2>/dev/null || true)"
+    if [ -n "$fleet_rate" ]; then
+      printf '\n_Fleet token-unlock pace: %s tokens/day lower bound%s._\n' \
+        "$(jq -r '.tokens_per_day_lower_bound|floor' <<<"$fleet_rate")" \
+        "$([ "$(jq -r .complete <<<"$fleet_rate")" = true ] || printf '; incomplete where a subscription has no token-paired sample')"
+    fi
+  fi
 }

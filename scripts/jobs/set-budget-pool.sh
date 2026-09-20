@@ -20,7 +20,7 @@
 #
 #   set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind KIND] [--monk-cap N] [--cleric-cap M]
 #
-#   <pool_id>          for example anthropic:endolin-garden-ece02cb4
+#   <subscription_id>  one of the four canonical ids, for example claude-endolin1
 #   <ceiling>          integer token cap (weekly-tokens), or `-` for an unmetered pool
 #   <calibrated_from>  provenance, for example `manual-fit`, `usage-sample`, `placeholder`
 #   [calibrated_at]    ISO date/time (default: today, UTC)
@@ -56,11 +56,17 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 export GARDEN_TAG=set-budget-pool
 
-usage() { echo "usage: set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind weekly-tokens|unmetered|weekly-usd] [--monk-cap N] [--cleric-cap M]" >&2; exit 2; }
+usage() { echo "usage: set-budget-pool.sh <subscription_id> <ceiling> <calibrated_from> [calibrated_at] [--kind weekly-tokens|percent|unmetered|weekly-usd] [--monk-cap N] [--cleric-cap M]" >&2; exit 2; }
 
 pool="${1:-}"; ceiling="${2:-}"; calibrated_from="${3:-}"
 [ -n "$pool" ] && [ -n "$ceiling" ] && [ -n "$calibrated_from" ] || usage
-case "$pool" in *:*) ;; *) echo "pool_id must be provider:host, for example anthropic:endolin-garden-ece02cb4" >&2; exit 2;; esac
+case "$pool" in
+  claude-endolin1) provider=anthropic; host=endolin-garden-ece02cb4 ;;
+  claude-endolin2) provider=anthropic; host=endolin-garden2-5bcdff64 ;;
+  claude-oros) provider=anthropic; host=oros-studio-garden-ce242c49 ;;
+  codex-endolin) provider=openai; host=endolin-garden-ece02cb4 ;;
+  *) echo "unknown subscription '$pool'; the registry is closed — ask the maintainer before adding a source" >&2; exit 2;;
+esac
 shift 3
 calibrated_at=""; kind="weekly-tokens"; monk_cap=""; cleric_cap=""
 while [ "$#" -gt 0 ]; do
@@ -72,11 +78,10 @@ while [ "$#" -gt 0 ]; do
     *) [ -z "$calibrated_at" ] || usage; calibrated_at="$1"; shift;;
   esac
 done
-case "$kind" in weekly-tokens|unmetered|weekly-usd) ;; *) echo "--kind must be weekly-tokens|unmetered|weekly-usd" >&2; exit 2;; esac
+case "$kind" in weekly-tokens|percent|unmetered|weekly-usd) ;; *) echo "--kind must be weekly-tokens|percent|unmetered|weekly-usd" >&2; exit 2;; esac
 [ -z "$monk_cap" ] || [[ "$monk_cap" =~ ^[1-9][0-9]*$ ]] || { echo "--monk-cap must be a positive integer" >&2; exit 2; }
 [ -z "$cleric_cap" ] || [[ "$cleric_cap" =~ ^[0-9]+$ ]] || { echo "--cleric-cap must be a non-negative integer" >&2; exit 2; }
 [ -n "$calibrated_at" ] || calibrated_at="$(date -u +%F)"
-provider="${pool%%:*}"; host="${pool#*:}"
 
 # When we ENABLE a calibrated Anthropic weekly-tokens pool, budget-level.sh will demand a
 # worker-leveling physical-cap row for this host or freeze the whole monk fleet. Gate the
@@ -91,6 +96,7 @@ fi
 # positive number.
 case "$kind" in
   weekly-tokens) [[ "$ceiling" =~ ^[0-9]+$ ]] && [ "$ceiling" -gt 0 ] || { echo "weekly-tokens ceiling must be a positive integer" >&2; exit 2; } ;;
+  percent)       [[ "$ceiling" =~ ^[0-9]+([.][0-9]+)?$ ]] || { echo "percent ceiling must be numeric" >&2; exit 2; } ;;
   unmetered)     [ "$ceiling" = "-" ] || { echo "unmetered pools take ceiling '-'" >&2; exit 2; } ;;
   weekly-usd)    [[ "$ceiling" =~ ^[0-9]+([.][0-9]+)?$ ]] || { echo "weekly-usd ceiling must be a number" >&2; exit 2; } ;;
 esac
@@ -187,7 +193,7 @@ _set_once() {
   awk -v pool="$pool" -v provider="$provider" -v host="$host" -v kind="$kind" \
       -v ceiling="$ceiling" -v cf="$calibrated_from" -v ca="$calibrated_at" '
     BEGIN {
-      newrow = pool "\t" provider "\t" host "\t" kind "\t" ceiling "\t" cf "\t" ca
+      newrow = pool "\t" provider "\t" kind "\t" ceiling "\t" cf "\t" ca
       cap_re = "([$][0-9]+([.][0-9]+)?|[0-9]+([.][0-9]+)?[[:space:]]*[kKmMgGtT]([[:space:]]*(tokens?|token-cap))?|[0-9]+[[:space:]]+tokens?)[[:space:]]*(/[[:space:]]*(w|wk|week)|per[[:space:]]+week|weekly)"
     }
     function comment_indent(line, tail) {

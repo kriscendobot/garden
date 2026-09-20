@@ -222,8 +222,19 @@ record_malformed_reply() { # <provider> <raw-file>
 }
 
 foreman_codex_attempt() { # <openai|local> <prompt>
-  local provider="$1" prompt="$2" kind model effort output json_capture rc
+  local provider="$1" prompt="$2" kind model effort output json_capture rc subscription quota
   case "$provider" in openai) kind=cleric ;; local) kind=hermit ;; *) return 20 ;; esac
+  if [ "$provider" = openai ] && [ "${GARDEN_TEST:-0}" != 1 ]; then
+    subscription="$(budget_pool_for_provider_host openai "$GARDEN" "" 2>/dev/null || true)"
+    if [ -z "$subscription" ]; then
+      alert_maintainer "unknown-inference-source-openai-$GARDEN" \
+        "foreman refused an unmapped OpenAI source on $GARDEN. Before enabling it, clarify the token count and target spend date."
+      log "foreman openai provider refused: no recognized subscription mapping"
+      return 10
+    fi
+    quota="$(meter_quota_status "$subscription")"
+    [ "$quota" != backoff ] || { log "foreman openai provider skipped: subscription $subscription is at high water"; return 10; }
+  fi
   # Keep OpenAI authentication and local endpoint availability markers separate:
   # a successful Codex login must never make a later Ollama reachability check
   # appear healthy for the rest of the boot.

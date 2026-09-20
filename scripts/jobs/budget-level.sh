@@ -69,7 +69,22 @@ snapshot="$({
  ensure_clone "$DIR"; sync_clone "$DIR"
  pools="$(budget_pool_file "$DIR" 2>/dev/null || true)"; [ -n "$pools" ] || exit 3
  cfg="${GARDEN_WORKER_LEVELING_FILE:-$DIR/$GARDEN_WORKER_LEVELING_PATH}"; [ -f "$cfg" ] || exit 4
- while IFS=$'\t ' read -r pool provider host kind cap prov _at _; do case "$pool" in ''|'#'*)continue;;esac; [ "$provider" = anthropic ]&&[ "$kind" = weekly-tokens ]||continue; printf 'P\t%s\t%s\t%s\t%s\n' "$pool" "$host" "$cap" "${prov:-}"; done <"$pools"
+ mapping="$DIR/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+ while IFS=$'\t ' read -r pool provider third fourth fifth sixth seventh _; do
+   case "$pool" in ''|'#'*)continue;;esac
+   if [ "$third" = weekly-tokens ] || [ "$third" = weekly-usd ] || [ "$third" = percent ] || [ "$third" = unmetered ]; then kind="$third";cap="$fourth";prov="$fifth"; else kind="$fourth";cap="$fifth";prov="$sixth"; fi
+   [ "$provider" = anthropic ]&&[ "$kind" = weekly-tokens ]||continue
+   if [ -r "$mapping" ]; then
+     while IFS=$'\t ' read -r mapped_subscription host worker_kind _; do
+       [ "$mapped_subscription" = "$pool" ] && [ "$worker_kind" = monk ] || continue
+       printf 'P\t%s\t%s\t%s\t%s\n' "$pool" "$host" "$cap" "${prov:-}"
+     done < "$mapping"
+   else
+     # Rolling-deploy compatibility: former rows carried the one owning host in
+     # column three.
+     host="$third"; printf 'P\t%s\t%s\t%s\t%s\n' "$pool" "$host" "$cap" "${prov:-}"
+   fi
+ done <"$pools"
  while IFS=$'\t ' read -r type a b c _; do case "$type" in ''|'#'*)continue;; monk-fleet-ceiling|cleric-fleet-ceiling)printf 'C\t%s\t%s\n' "$type" "$a";; host)printf 'H\t%s\t%s\t%s\n' "$a" "$b" "$c";; *)printf 'X\t%s\n' "$type";;esac; done <"$cfg"
  clone_unlock "$DIR"
 })" || rc=$?
@@ -92,9 +107,28 @@ if [ -n "$schema_bad" ];then mv=0;bad="$schema_bad";fi
 [[ "$mf" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="invalid monk fleet ceiling '$mf'"; }; [ "$n" -gt 0 ]||{ mv=0;bad="no enabled Anthropic weekly pools"; }
 for((i=0;i<n;i++));do h="${phosts[i]}";c="${pcaps[i]}";p="${pprov[i]}"; [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}; uncalibrated "$p"&&{ mv=0;bad="${pools[i]} uncalibrated provenance '${p:-none}'";}; [[ "${mcap[$h]:-}" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} missing/invalid monk physical cap";continue;}; sum=$((sum+mcap[$h]));done
 if [[ "$mf" =~ ^[1-9][0-9]*$ ]];then [ "$mf" -ge $((n*GARDEN_BUDGET_LEVEL_MIN)) ]||{ mv=0;bad="monk fleet ceiling below aggregate floor";};[ "$sum" -ge "$mf" ]||{ mv=0;bad="monk fleet ceiling exceeds physical capacity";};fi
-if [ "$mv" -eq 1 ];then rows="";for((i=0;i<n;i++));do h="${phosts[i]}";rows+="$h"$'\t'"${pcaps[i]}"$'\t'"$GARDEN_BUDGET_LEVEL_MIN"$'\t'"${mcap[$h]}"$'\n';done;while IFS=$'\t' read -r h x;do mceil["$h"]="$x";done < <(printf %s "$rows"|apportion "$mf");report_unfreeze budget-level-monk-preflight "budget-level: fleet monk allocation recovered on $GARDEN; a calibrated, physically-backed monk configuration returned and leveling has resumed.";else report_freeze budget-level-monk-preflight "$bad" "fleet monk allocation frozen: $bad. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.";fi
+if [ "$mv" -eq 1 ];then
+ rows=""
+ for((i=0;i<n;i++));do
+  h="${phosts[i]}";pool="${pools[i]}";cap="${pcaps[i]}";weight="$cap";allocation_spend=""
+  allocation_cutoff="$(subscription_window_start_epoch "$pool" "$DIR" 2>/dev/null || true)"
+  if [[ "$allocation_cutoff" =~ ^[0-9]+$ ]];then
+   allocation_spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$allocation_cutoff" 2>/dev/null || true)"
+   if ! [[ "$allocation_spend" =~ ^[0-9]+$ ]]&&[ "$h" = "$GARDEN" ];then allocation_spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null || true)";fi
+  fi
+  if [[ "$allocation_spend" =~ ^[0-9]+$ ]];then
+   allocation_bias="$(subscription_pacing_bias "$pool" "$allocation_spend" "$cap" "$DIR")"
+   # Up to 20x weight near reset: with three pools and a six-monk envelope this
+   # can move all three discretionary slots to a high-slack subscription (1->4)
+   # without violating the fleet ceiling.
+   weight="$(subscription_allocation_weight "$cap" "$allocation_bias")"
+  fi
+  rows+="$h"$'\t'"$weight"$'\t'"$GARDEN_BUDGET_LEVEL_MIN"$'\t'"${mcap[$h]}"$'\n'
+ done
+ while IFS=$'\t' read -r h x;do mceil["$h"]="$x";done < <(printf %s "$rows"|apportion "$mf")
+ report_unfreeze budget-level-monk-preflight "budget-level: fleet monk allocation recovered on $GARDEN; a calibrated, physically-backed monk configuration returned and leveling has resumed."
+else report_freeze budget-level-monk-preflight "$bad" "fleet monk allocation frozen: $bad. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.";fi
 
-cutoff="$(meter_window_cutoff anchor 2>/dev/null)"&&cutrc=0||{ cutrc=$?;cutoff=""; }
 apply_target(){ # pool host kind current target reason signal-value limit provenance sensor
  local pool="$1" h="$2" kind="$3" cur="$4" target="$5" reason="$6"
  local signal_value="$7" limit="$8" provenance="$9" sensor="${10}"
@@ -134,10 +168,11 @@ apply_target(){ # pool host kind current target reason signal-value limit proven
 
 for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov="${pprov[i]}";[[ "$cap" =~ ^[1-9][0-9]*$ ]]||continue
  [ "$mv" -eq 1 ]||! uncalibrated "$prov"||continue
- if [ "$h" = "$GARDEN" ];then spend="$(meter_window_total anchor 2>/dev/null)"||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$cutoff" =~ ^[0-9]+$ ]];then spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>/dev/null)"||spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-window-cutoff "$cutrc";continue;fi
+ cutoff="$(subscription_window_start_epoch "$pool" "$DIR" 2>/dev/null || true)"; if ! [[ "$cutoff" =~ ^[0-9]+$ ]];then case "$pool" in anthropic:*)cutoff="$(meter_window_cutoff anchor 2>/dev/null)"||{ pool_failure "$pool" "$h" read-window-cutoff "$?";continue;};;*)pool_failure "$pool" "$h" read-window-cutoff 1;continue;;esac;fi
+ spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>/dev/null)"||{ if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$?";continue;fi; }
  [[ "$spend" =~ ^[0-9]+$ ]]||{ pool_failure "$pool" "$h" validate-spend 1;continue;};hf="$DIR/hosts/$h";if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ];then kind="$GARDEN_BUDGET_LEVEL_KIND";else kind="$(anthropic_active_kind "$hf")";fi;key="$(worker_kind_field "$kind" count_key 2>/dev/null||echo gardeners)";cur="$(read_desired_count "$hf" "$key" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-host-workers "$?";continue;}
- if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";fi
- apply_target "$pool" "$h" "$kind" "$cur" "$target" "budget pool $pool spend=$spend cap=$cap ceiling=${mceil[$h]:-frozen} target=$target" "$spend" "$cap" "$prov" weekly-token-spend
+ if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";bias="$(subscription_pacing_bias "$pool" "$spend" "$cap" "$DIR")";pace_target="$(awk -v b="$bias" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{print lo+int(b*(hi-lo)+.5)}')";[ "$pace_target" -le "$target" ]||target="$pace_target";fi
+ apply_target "$pool" "$h" "$kind" "$cur" "$target" "subscription $pool spend=$spend cap=$cap pace-bias=${bias:-0} ceiling=${mceil[$h]:-frozen} target=$target" "$spend" "$cap" "$prov" weekly-token-spend
 done
 
 # A cleric job is counted only on hosts that pass the same static provider/model,
@@ -180,7 +215,8 @@ if [ "$cv" -eq 1 ];then
  for h in "${eligible[@]}";do rows+="$h"$'\t'"${demand[$h]}"$'\t'"${active[$h]}"$'\t'"${ccap[$h]}"$'\n';done
  while IFS=$'\t' read -r h x;do ctarget["$h"]="$x";done < <(printf %s "$rows"|apportion "$dt")
  left=$((alloc-dt));while [ "$left" -gt 0 ];do pick="";for h in "${eligible[@]}";do [ "${ctarget[$h]}" -lt "${ccap[$h]}" ]||continue;if [ -z "$pick" ]||[ "${ctarget[$h]}" -lt "${ctarget[$pick]}" ]||{ [ "${ctarget[$h]}" -eq "${ctarget[$pick]}" ]&&[[ "$h" < "$pick" ]];};then pick="$h";fi;done;[ -n "$pick" ]||break;ctarget["$pick"]=$((ctarget[$pick]+1));left=$((left-1));done
- for h in "${eligible[@]}";do cur="$(read_desired_count "$DIR/hosts/$h" clerics 2>/dev/null)"||{ pool_failure openai-codex-shared "$h" read-host-clerics "$?";continue;};target="${ctarget[$h]}";apply_target openai-codex-shared "$h" cleric "$cur" "$target" "shared cleric demand active=$A queue=$Q fleet-envelope=$cf target=$target" "$Q" "$cf" config/worker-leveling eligible-queue-demand;done
+ codex_status="$(meter_quota_status codex-endolin "$DIR")"
+ for h in "${eligible[@]}";do cur="$(read_desired_count "$DIR/hosts/$h" clerics 2>/dev/null)"||{ pool_failure codex-endolin "$h" read-host-clerics "$?";continue;};target="${ctarget[$h]}";[ "$codex_status" != backoff ]||target="$GARDEN_BUDGET_LEVEL_MIN";apply_target codex-endolin "$h" cleric "$cur" "$target" "shared codex subscription demand active=$A queue=$Q quota=$codex_status fleet-envelope=$cf target=$target" "$Q" "$cf" config/worker-leveling eligible-queue-demand;done
 else log "WARN: cleric allocation frozen: $bad";fi
 
 finish
