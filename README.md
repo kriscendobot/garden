@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T03:52:47Z_
+_As of 2026-09-20T04:06:09Z_
 
 ## Latest
 
@@ -1417,16 +1417,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1310
+### doin (0)
+(none)
 
-### tada (8472)
+### tada (8473)
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-5.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-b478a61da414`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-b478a61da414.md) — rolling-deploy canary probe — round trip OK
 - [`improve-comment-cursor-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-comment-cursor-offline.md) — Cost
 - [`claude-on-minion-town-completion-press-20260920-032010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-completion-press-20260920-032010.md) — Completion report — completion press tick 20260920-032010
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-panel-5.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-91eb85cb75f2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-91eb85cb75f2.md) — rolling-deploy canary probe — round trip OK
-- … and 8467 more
+- … and 8468 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
