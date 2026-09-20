@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T06:36:39Z_
+_As of 2026-09-20T06:39:43Z_
 
 ## Latest
 
@@ -636,6 +636,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
+
+- `20260920T063916Z-7586cd` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T063916Z-7586cd.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `6c7e49cab67cea00c4f603d195c630b5c3a0f001`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted.md)
 
