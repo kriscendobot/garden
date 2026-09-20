@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-07-14
+updated: 2026-09-20
 author: gardener
 ---
 
@@ -105,9 +105,22 @@ The single load-bearing property of a retcon: the PR's net diff (base ... new he
 
 If either check fails, the retcon went wrong; do not push. Roll back with `git reset --hard <pre-retcon-sha>` and start over.
 
+## When the branch is already in canonical shape
+
+A retcon can be a legitimate no-op. A clean build (or an earlier retcon) sometimes leaves the branch already partitioned exactly as this skill prescribes: one commit per affected package, implementation and tests bundled, conventional-commit messages, the lockfile (if any) in its own `chore: Update yarn.lock` commit. When that is already true, do **not** reset and restage: reproducing the identical partition only mints fresh SHAs on byte-identical trees, which resets CI and invalidates any in-progress review for zero grouping benefit. Confirm the shape and report it instead.
+
+The confirmation is mechanical (run it against the existing history before deciding to push):
+
+- Each commit's touched files map to exactly one package (or one top-level group like `designs/`): no commit spans two packages.
+- No file appears in more than one commit.
+- The union of all commits' files equals the base..HEAD net diff (linear, complete history).
+- Implementation and tests for a package live in the same commit; the lockfile, if changed, is its own commit.
+
+If all four hold, the branch is already retconned. Report "already in canonical retcon shape, no push" with the evidence; skip the force-push.
+
 ## Output
 
-A force-pushed, regrouped PR branch with an invariant net diff, plus a completion report (via the job board's `complete-job.sh`) naming the new commit groupings. Any grouping decision that departed from one-commit-per-package is called out in that report.
+A force-pushed, regrouped PR branch with an invariant net diff, plus a completion report (via the job board's `complete-job.sh`) naming the new commit groupings. Any grouping decision that departed from one-commit-per-package is called out in that report. When the branch was already in canonical shape (§ When the branch is already in canonical shape), the output is the confirmation report alone, with no force-push.
 
 ## Notes from the field
 
