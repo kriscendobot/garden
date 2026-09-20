@@ -131,6 +131,12 @@ grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/retry-narrowing-test.sh'
 grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/triager-pacing-test.sh' "$DEPLOY" \
   && ok "default candidate gate includes cost-aware triager pacing regression" \
   || bad "default candidate gate omits cost-aware triager pacing regression"
+grep -q 'retrying ONLY those once in a fresh gate root' "$DEPLOY" \
+  && ok "candidate gate retries a failed suite once in a fresh gate root" \
+  || bad "candidate gate retry-on-flake path missing"
+grep -q 'attempt\$attempt-' "$DEPLOY" \
+  && ok "candidate gate diagnostics are labelled per attempt (both attempts preserved)" \
+  || bad "candidate gate diagnostics not labelled per attempt"
 
 # ============================================================================
 hr; echo "CLEAN DEPLOY — quiesced fleet, scripts change: merge + record + lift + restart"; hr
@@ -163,7 +169,10 @@ run_deploy GARDEN_DEPLOY_TEST_OUTPUT_BYTES=128
 draining && bad "drain engaged despite pre-drain candidate gate failure" || ok "candidate gate failed before engaging the drain"
 grep -q "deploy-gate-probe.sh(rc=1; diagnostic=" <<<"$OUT" && ok "failure names the failing suite and diagnostic" || bad "failing suite diagnostic not named: $OUT"
 grep -q "kind:error" <<<"$OUT" && ok "kind:error reporting path is logged" || bad "kind:error reporting path not logged: $OUT"
-diagnostic="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name '*deploy-gate-probe.sh.log' -print -quit 2>/dev/null || true)"
+# A deterministically failing suite fails BOTH attempts (the retry), so the
+# rejection reports attempt-2's diagnostic; assert against that same file the
+# error log references so the cross-check below stays consistent.
+diagnostic="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name 'attempt2-*deploy-gate-probe.sh.log' -print -quit 2>/dev/null || true)"
 [ -n "$diagnostic" ] && ok "failing suite output is persisted under deploy state" || bad "candidate diagnostic was not persisted: $OUT"
 grep -q 'DIAGNOSTIC_SENTINEL_FROM_STDOUT' "$diagnostic" \
   && grep -q 'DIAGNOSTIC_SENTINEL_FROM_STDERR' "$diagnostic" \
@@ -175,6 +184,48 @@ grep -q 'DIAGNOSTIC_SENTINEL_FROM_STDOUT' "$diagnostic" \
 grep -qF "diagnostic=$diagnostic" <<<"$OUT" \
   && ok "deploy error log carries the exact diagnostic reference" \
   || bad "deploy error log omitted diagnostic reference: $OUT"
+# The retry re-ran the same deterministically-failing suite in a fresh gate root,
+# so a SECOND (attempt-1) diagnostic is preserved alongside the attempt-2 one that
+# drove the rejection: both attempts stay diagnosable for a real regression.
+attempt1diag="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name 'attempt1-*deploy-gate-probe.sh.log' -print -quit 2>/dev/null || true)"
+[ -n "$attempt1diag" ] && ok "attempt-1 diagnostic is preserved alongside attempt-2 (both attempts retained)" || bad "attempt-1 diagnostic not preserved for a twice-failing suite: $OUT"
+grep -q "retry FAILED" <<<"$OUT" && ok "a suite failing both attempts is logged as a real regression" || bad "failed-retry not logged for a deterministic failure: $OUT"
+
+# ============================================================================
+hr; echo "CANDIDATE GATE FLAKE RETRY — a suite failing once then passing does NOT block the deploy"; hr
+# The reported incident: a candidate rejected by the gate then passed every suite
+# on a re-run — a transient host-side flake. The gate now retries only the failed
+# suite once in a fresh gate root and accepts the candidate if the retry is clean.
+setup_fixture
+FLAKE_COUNTER="$TR/flake-counter"; rm -f "$FLAKE_COUNTER"
+origin_commit scripts/jobs/test/deploy-gate-probe.sh '#!/bin/bash
+c="${DEPLOY_GATE_FLAKE_COUNTER:?}"
+n=$(( $(cat "$c" 2>/dev/null || echo 0) + 1 )); printf "%s\n" "$n" > "$c"
+if [ "$n" -le 1 ]; then printf "FLAKE_ATTEMPT_%s\n" "$n" >&2; exit 1; fi
+printf "PASS_ATTEMPT_%s\n" "$n"; exit 0' "test: candidate suite flakes once then passes"
+target="$(origin_head)"
+run_deploy DEPLOY_GATE_FLAKE_COUNTER="$FLAKE_COUNTER"
+[ "$RC" -eq 0 ] && ok "deploy proceeds after a one-off suite flake" || bad "exit $RC despite a suite that passed on retry: $OUT"
+[ "$(root_head)" = "$target" ] && ok "root advanced once the flake cleared on retry" || bad "root not advanced after a flake retry"
+grep -q "retrying ONLY those once in a fresh gate root" <<<"$OUT" && ok "the flake retry is logged" || bad "flake retry not logged: $OUT"
+grep -q "transient host-side flake" <<<"$OUT" && ok "attempt-1 failure is named a transient flake" || bad "transient-flake acceptance not logged: $OUT"
+[ "$(cat "$FLAKE_COUNTER" 2>/dev/null)" = 2 ] && ok "the flaky suite ran exactly twice (one retry)" || bad "suite did not run exactly twice: counter=$(cat "$FLAKE_COUNTER" 2>/dev/null)"
+draining && bad "drain still engaged after a flake-cleared deploy" || ok "drain lifted after a flake-cleared deploy"
+flakediag="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name 'attempt1-*deploy-gate-probe.sh.log' -print -quit 2>/dev/null || true)"
+[ -n "$flakediag" ] && ok "attempt-1 flake diagnostic is preserved even though the deploy proceeded" || bad "attempt-1 diagnostic not preserved after a passing retry"
+
+# ============================================================================
+hr; echo "CANDIDATE GATE FLAKE RETRY — a non-suite failure (bash -n) is deterministic and is NEVER retried"; hr
+# A syntax error is not a host-side flake: it must reject on the first attempt with
+# no fresh-gate-root retry (the retry is reserved for suite executions).
+setup_fixture
+origin_commit scripts/jobs/broken-syntax.sh 'if [ ' "test: introduce a bash -n syntax error"
+before="$(root_head)"
+run_deploy
+[ "$RC" -ne 0 ] && ok "deploy rejects a candidate with a syntax error" || bad "exit 0 despite a bash -n failure"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced on a syntax error" || bad "root advanced despite a syntax error"
+grep -q "bash-n:scripts/jobs/broken-syntax.sh" <<<"$OUT" && ok "the syntax error names the offending script" || bad "bash -n failure not named: $OUT"
+grep -q "retrying ONLY those once in a fresh gate root" <<<"$OUT" && bad "a deterministic bash -n failure was retried" || ok "a bash -n failure is not retried (deterministic, not a flake)"
 
 # ============================================================================
 hr; echo "CANDIDATE TEST GATE ROOT — reject noexec, fall back to executable scratch"; hr

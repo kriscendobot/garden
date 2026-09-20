@@ -20,8 +20,17 @@
 #               window. Per-suite and total bounds keep this gate from becoming a
 #               fleet outage; a failed or timed-out suite aborts by default,
 #               writes a kind:error journal entry, and alerts the maintainer.
-#               Set GARDEN_DEPLOY_TEST_OVERRIDE=1 only for a deliberate emergency
-#               deploy; that exceptional bypass is logged loudly.
+#               FLAKE RETRY: when the ONLY failures are suite executions (a real,
+#               plausibly host-side flake — never a bash -n syntax error, a
+#               missing suite, or a total-wall-clock timeout, all deterministic),
+#               those failed suites are retried ONCE in a FRESH gate root. If they
+#               all pass on the second attempt the candidate is accepted and the
+#               attempt-1 failure is treated as a transient host-side flake; if any
+#               fails again the candidate is rejected. Diagnostics from BOTH
+#               attempts are preserved (per-attempt filenames), so a real
+#               regression stays fully diagnosable and a one-off flake never blocks
+#               a deploy. Set GARDEN_DEPLOY_TEST_OVERRIDE=1 only for a deliberate
+#               emergency deploy; that exceptional bypass is logged loudly.
 #   1. DEFER CHECK. Before engaging the drain, sample the fleet's busy markers. A
 #               single gardener running a job longer than the drain budget (the
 #               ymax0 chain-state repros, the scholar LangChain/LangGraph ingests)
@@ -200,13 +209,15 @@ for a deliberate emergency deploy after assessing this failure."
   fi
 }
 
-persist_candidate_gate_diagnostic() { # <candidate> <ordinal> <suite> <rc> <capture-file>
-  local candidate="$1" ordinal="$2" suite="$3" rc="$4" capture="$5"
+persist_candidate_gate_diagnostic() { # <candidate> <attempt> <ordinal> <suite> <rc> <capture-file>
+  local candidate="$1" attempt="$2" ordinal="$3" suite="$4" rc="$5" capture="$6"
   local dir safe path
   dir="$GARDEN_DEPLOY_GATE_DIAGNOSTICS_DIR/$candidate"
   safe="${suite//\//_}"
   safe="${safe//[^[:alnum:]._-]/_}"
-  path="$dir/$(printf '%02d' "$ordinal")-$safe.log"
+  # The attempt is part of the filename so a retry of a flaky suite NEVER clobbers
+  # the first attempt's capture: diagnostics from both attempts are preserved.
+  path="$dir/attempt$attempt-$(printf '%02d' "$ordinal")-$safe.log"
   if mkdir -p "$dir" 2>/dev/null \
     && chmod 700 "$dir" 2>/dev/null \
     && { printf 'suite: %s\nexit: %s\noutput: last %s bytes\n---\n' \
@@ -335,10 +346,61 @@ prepare_candidate_gate_root() {
   return 1
 }
 
+# Establish a FRESH exec-capable gate root and unpack the candidate archive into
+# it, setting candidate_gate_root on success. Each call yields a brand-new mktemp
+# directory (prepare_candidate_gate_root cleans any prior one first), so the flake
+# retry runs from a genuinely fresh tree — never the attempt-1 root. The archive,
+# rather than the live worktree, is the crucial candidate-tree boundary: a new
+# helper or a changed common.sh is what the suites exercise.
+unpack_candidate_gate_tree() { # <candidate-sha>
+  local candidate="$1"
+  prepare_candidate_gate_root || return 1
+  if ! git -C "$GARDEN_ROOT" archive "$candidate" | tar -x -C "$candidate_gate_root"; then
+    cleanup_candidate_gate_root
+    log "FATAL: could not unpack candidate $candidate for its test gate"
+    return 1
+  fi
+  return 0
+}
+
+# Execute the named suites in the current gate root, appending a failure descriptor
+# to the `failed` array and the bare failing-suite path to `failed_suites` (both
+# passed by name) for every suite that exits non-zero, times out, or is missing.
+# <attempt> labels persisted diagnostics so a retry never clobbers attempt 1's
+# capture. A `total-wall-clock` or `missing:` entry is appended to `failed` only —
+# NOT to `failed_suites` — so those deterministic, non-flaky outcomes make the run
+# retry-INELIGIBLE (see run_candidate_gate).
+execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-arr> <failed-suites-arr> <suite>...
+  local candidate="$1" gate_root="$2" deadline="$3" attempt="$4"
+  local -n _failed="$5" _failed_suites="$6"
+  shift 6
+  local suite now remaining limit capture rc diagnostic suite_number=0
+  for suite in "$@"; do
+    suite_number=$((suite_number + 1))
+    now="$(date +%s)"
+    if [ "$now" -ge "$deadline" ]; then _failed+=("total-wall-clock"); break; fi
+    if [ ! -f "$gate_root/$suite" ]; then _failed+=("missing:$suite"); continue; fi
+    remaining=$(( deadline - now )); limit="$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT"
+    [ "$remaining" -lt "$limit" ] && limit="$remaining"
+    capture="$gate_root/.candidate-gate-output-$attempt-$suite_number"
+    rc=0
+    timeout --kill-after=5 "$limit" env GARDEN_TEST=1 bash "$gate_root/$suite" 2>&1 \
+      | tail -c "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES" >"$capture" || rc=$?
+    if [ "$rc" -ne 0 ]; then
+      if diagnostic="$(persist_candidate_gate_diagnostic "$candidate" "$attempt" "$suite_number" "$suite" "$rc" "$capture")"; then
+        _failed+=("$suite(rc=$rc; diagnostic=$diagnostic)")
+      else
+        _failed+=("$suite(rc=$rc; diagnostic=unavailable-see-deploy-log)")
+        log "WARN: could not persist bounded candidate-suite diagnostic for $suite"
+      fi
+      _failed_suites+=("$suite")
+    fi
+  done
+}
+
 run_candidate_gate() { # <candidate-sha>
-  local candidate="$1" gate_root suite path rc now deadline remaining limit
-  local capture diagnostic suite_number=0
-  local -a failed=()
+  local candidate="$1" gate_root path now deadline limit
+  local -a failed=() failed_suites=()
   [ "$GARDEN_DEPLOY_TEST_OVERRIDE" = "1" ] && {
     log "WARN: GARDEN_DEPLOY_TEST_OVERRIDE=1 — bypassing candidate test gate for $candidate"
     return 0
@@ -348,15 +410,8 @@ run_candidate_gate() { # <candidate-sha>
       ''|*[!0-9]*|0) log "FATAL: candidate gate timeouts and output bound must be positive integers"; return 1 ;;
     esac
   done
-  prepare_candidate_gate_root || return 1
+  unpack_candidate_gate_tree "$candidate" || return 1
   gate_root="$candidate_gate_root"
-  # archive, rather than the live worktree, is the crucial candidate-tree
-  # boundary: a new helper or a changed common.sh is what the suites exercise.
-  if ! git -C "$GARDEN_ROOT" archive "$candidate" | tar -x -C "$gate_root"; then
-    cleanup_candidate_gate_root
-    log "FATAL: could not unpack candidate $candidate for its test gate"
-    return 1
-  fi
   deadline=$(( $(date +%s) + GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT ))
   while IFS= read -r -d '' path; do
     now="$(date +%s)"
@@ -364,34 +419,44 @@ run_candidate_gate() { # <candidate-sha>
     if ! bash -n "$gate_root/$path"; then failed+=("bash-n:$path"); fi
   done < <(git -C "$GARDEN_ROOT" ls-tree -r -z --name-only "$candidate" -- scripts | while IFS= read -r -d '' path; do case "$path" in *.sh) printf '%s\0' "$path";; esac; done)
   if [ "${#failed[@]}" -eq 0 ]; then
-    for suite in $GARDEN_DEPLOY_TEST_SUITES; do
-      suite_number=$((suite_number + 1))
-      now="$(date +%s)"
-      if [ "$now" -ge "$deadline" ]; then failed+=("total-wall-clock"); break; fi
-      if [ ! -f "$gate_root/$suite" ]; then failed+=("missing:$suite"); continue; fi
-      remaining=$(( deadline - now )); limit="$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT"
-      [ "$remaining" -lt "$limit" ] && limit="$remaining"
-      capture="$gate_root/.candidate-gate-output-$suite_number"
-      rc=0
-      timeout --kill-after=5 "$limit" env GARDEN_TEST=1 bash "$gate_root/$suite" 2>&1 \
-        | tail -c "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES" >"$capture" || rc=$?
-      if [ "$rc" -ne 0 ]; then
-        if diagnostic="$(persist_candidate_gate_diagnostic "$candidate" "$suite_number" "$suite" "$rc" "$capture")"; then
-          failed+=("$suite(rc=$rc; diagnostic=$diagnostic)")
-        else
-          failed+=("$suite(rc=$rc; diagnostic=unavailable-see-deploy-log)")
-          log "WARN: could not persist bounded candidate-suite diagnostic for $suite"
-        fi
-      fi
-    done
+    execute_gate_suites "$candidate" "$gate_root" "$deadline" 1 failed failed_suites $GARDEN_DEPLOY_TEST_SUITES
   fi
   cleanup_candidate_gate_root
-  if [ "${#failed[@]}" -gt 0 ]; then
-    log "ERROR: candidate test gate rejected $candidate; failing suites: ${failed[*]}"
-    report_candidate_gate_failure "$candidate" "${failed[@]}"
-    return 1
+
+  if [ "${#failed[@]}" -eq 0 ]; then
+    log "candidate test gate passed for $candidate (bash -n + ${GARDEN_DEPLOY_TEST_SUITES})"
+    return 0
   fi
-  log "candidate test gate passed for $candidate (bash -n + ${GARDEN_DEPLOY_TEST_SUITES})"
+
+  # FLAKE RETRY. Retry ONLY when EVERY attempt-1 failure was a suite execution
+  # (failed_suites accounts for all of failed) — a real, plausibly host-side test
+  # flake. A bash -n syntax error, a missing suite, or a total-wall-clock timeout
+  # is deterministic and is NEVER retried: those make failed longer than
+  # failed_suites, so the equality below is false and we reject straight away.
+  if [ "${#failed_suites[@]}" -gt 0 ] && [ "${#failed[@]}" -eq "${#failed_suites[@]}" ]; then
+    log "candidate test gate: ${#failed_suites[@]} suite(s) failed on attempt 1 for $candidate (${failed[*]}); retrying ONLY those once in a fresh gate root to distinguish a one-off host-side flake from a real regression"
+    local -a retry_failed=() retry_failed_suites=()
+    if unpack_candidate_gate_tree "$candidate"; then
+      gate_root="$candidate_gate_root"
+      deadline=$(( $(date +%s) + GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT ))
+      execute_gate_suites "$candidate" "$gate_root" "$deadline" 2 retry_failed retry_failed_suites "${failed_suites[@]}"
+      cleanup_candidate_gate_root
+      if [ "${#retry_failed[@]}" -eq 0 ]; then
+        log "candidate test gate: all ${#failed_suites[@]} retried suite(s) passed on attempt 2 for $candidate; treating the attempt-1 failure(s) as a transient host-side flake (diagnostics from both attempts retained under $GARDEN_DEPLOY_GATE_DIAGNOSTICS_DIR/$candidate) — NOT blocking the deploy"
+        return 0
+      fi
+      # The retry also failed: a real regression, not a flake. Reject on the
+      # attempt-2 failure(s); the attempt-1 diagnostics remain persisted alongside.
+      log "candidate test gate: retry FAILED for $candidate (${retry_failed[*]}); the attempt-1 failure was a real regression, not a flake"
+      failed=("${retry_failed[@]}")
+    else
+      log "WARN: candidate test gate could not establish a fresh gate root for the retry of $candidate; rejecting on the attempt-1 failure(s)"
+    fi
+  fi
+
+  log "ERROR: candidate test gate rejected $candidate; failing suites: ${failed[*]}"
+  report_candidate_gate_failure "$candidate" "${failed[@]}"
+  return 1
 }
 
 # BELT for the UNANTICIPATED abort: every foreseen failure path below calls
