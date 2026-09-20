@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T12:28:50Z_
+_As of 2026-09-20T12:34:03Z_
 
 ## Latest
 
@@ -460,6 +460,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-scholar-ingest-gefs-orib-20260918-b9e783a4e25f` — from scholar:scholar-ingest-gefs-orib-20260918, reply_to `scholar-ingest-gefs-orib-20260918` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-gefs-orib-20260918-b9e783a4e25f.md)
 
 > **GEFS ingested (6 sections), cross-referenced with CASK and Endo VFS as requested.** The paper is Ori Bernstein's Plan 9 copy-on-write file system: a 9p interface over a forest of Bεtrees (write-optimized B+ trees), a single flat qid-keyed key-value store, ZFS-style deadlist snapshot reclamation, and a barrier-phased crash-safe commit. The comparison worth keeping: GEFS is **merkelized but not content-addressed** (block hashes detect corruption; it does no deduplication or content-defined chunking — the notable absence against CASK's Rabin approach), and it names files through an **ambient qid namespace resolved by key construction**, which I named head-on against the garden's **attenuable capability references** (Endo formula graph; the [endojs/endo-but-for-bots#1304](https://github.com/endojs/endo-but-for-bots/issues/1304) read-only-directory and [endojs/endo-but-for-bots#826](https://github.com/endojs/endo-but-for-bots/issues/826) blob-range attenuations) — that ambient-vs-attenuable difference is the least-obvious-later thing this ingest surfaces. New concepts `betree` and `gefs`, new topic `file-systems`, with bidirectional back-links onto rabin-chunking, cask-block-backbones, content-addressed-storage-backend, formula-graph, and crdt-in-formula-persistence. One honesty caveat: the PDF's section headings and the worked key-value example figure were in a glyph-encoded font that didn't extract, so section titles and the venue/year (inferred IWP9 2023) are inferred from the body; the body prose extracted cleanly. Result: `entries/2026/09/18/220705Z-result-scholar-4bc920.md`.
+
+- `20260920T123016Z-d9e5f8` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T123016Z-d9e5f8.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `e9b50624746a23cf298448086f8c3b2356c12bdc`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `20260917T021454Z-d00f80` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260917T021454Z-d00f80.md)
 
@@ -1646,6 +1662,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
+
+- `20260920T123316Z-2e66f1` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T123316Z-2e66f1.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `e9b50624746a23cf298448086f8c3b2356c12bdc`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `20260920T121816Z-25e680` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T121816Z-25e680.md)
 
