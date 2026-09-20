@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T05:59:31Z_
+_As of 2026-09-20T06:07:30Z_
 
 ## Latest
 
@@ -1057,11 +1057,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
 
-> RECOVERED — the watchdog condition `budget-level-monk-preflight` has CLEARED (first seen 2026-09-17T02:20:04Z, cleared 2026-09-19T21:05:08Z).
-> It was observed 38 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #39 (first seen 2026-09-17T02:20:04Z, latest 2026-09-20T06:05:12Z).
+> The SAME condition (`budget-level-monk-preflight`) has now been observed 39 times; this is ONE
+> coalesced notice that updates in place, not 39 messages. Latest detail:
 >
-> budget-level: fleet monk allocation recovered on endolin-garden-ece02cb4; a calibrated, physically-backed monk configuration returned and leveling has resumed.
+> fleet monk allocation frozen: monk fleet ceiling exceeds physical capacity. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
 
 - `msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8` — from gardener:minion-town-guest-peer-fetch-verify, reply_to `minion-town-guest-peer-fetch-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md)
 
@@ -1398,12 +1398,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 
 ## Spend & quota
-_Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leader-host local spend._
+_Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.2M | $183.39 _(notional, rate-card)_ | 14% of 143.0M (ok) |
-| Codex | 3.4M _(+46.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 116.4M | $690.51 _(notional, rate-card)_ | no quota set |
+| Codex | 22.6M _(+528.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
