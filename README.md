@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T12:53:01Z_
+_As of 2026-09-20T14:25:50Z_
 
 ## Latest
 
@@ -1990,8 +1990,8 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.6M | $692.96 _(notional, rate-card)_ | no quota set |
-| Codex | 24.4M _(+598.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 116.5M | $692.12 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+585.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -2000,13 +2000,13 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 ### doin (0)
 (none)
 
-### tada (8491)
+### tada (8492)
+- [`claude-on-minion-town-press-20260920-142004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-142004.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-3220af4b-split.md) — orchestration endojs-endo-but-for-bots-pr1301-review-3220af4b-split — complete
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Cost
 - [`improve-mirror-quota-fatal-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-mirror-quota-fatal-noise.md) — Completion report
 - [`claude-on-minion-town-press-20260920-112004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-112004.md) — Cost
-- [`claude-on-minion-town-completion-press-20260920-093505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-completion-press-20260920-093505.md) — Completion report
-- … and 8486 more
+- … and 8487 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
