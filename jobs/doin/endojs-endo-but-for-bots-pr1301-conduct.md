@@ -29,11 +29,11 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1301
 Head: kriscendobot/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=911 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-20T15:43:59Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=911,118 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
