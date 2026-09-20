@@ -34,6 +34,7 @@ Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no m
 <!-- garden-plain-retry-not-before: 2026-09-20T15:43:59Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=911,118 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
