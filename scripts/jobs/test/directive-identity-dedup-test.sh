@@ -234,6 +234,31 @@ owner_r="$(git -C "$BARE" cat-file -p "journal2:jobs/index/$idrkey" | sed -n 's/
 [ "$owner_r" = "$NEWBASE" ] && ok "9b the identity index re-pointed to the new base" \
                             || bad "9b index owner is '$owner_r', expected $NEWBASE"
 
+# --- 10: a COMPLETED owner (tada) whose base is re-derived IDENTICALLY is TERMINAL --
+# The dual of test 9. A comment-watcher replays ONE GitHub comment after a cursor
+# failure: it re-derives the SAME deterministic (PR,verb) base and passes the SAME
+# directive identity. The first job already ran to completion and sits in tada/, with
+# the index still pointing at it. Because the requested base EQUALS the completed
+# owner's base, this is a replay of the already-delivered directive, not new work — it
+# must NOT remint a second job. (Test 9 differs only in the requested base: a DIFFERENT
+# name there re-points and mints; the SAME name here is terminal.)
+IDT="endojs/endo-but-for-bots#912:comment:8123456789"
+SAMEBASE=endojs-endo-but-for-bots-pr912-shepherd
+idtkey="$(job_id_hash "$IDT")"
+CC7="$TR/tada-replay-terminal"; git clone -q -b journal2 "$BARE" "$CC7" 2>/dev/null
+printf 'done\n' > "$CC7/jobs/tada/$SAMEBASE.md"
+mkdir -p "$CC7/jobs/index"
+printf 'base: %s\nidentity: %s\n' "$SAMEBASE" "$IDT" > "$CC7/jobs/index/$idtkey"
+git -C "$CC7" add -A
+git -C "$CC7" -c user.name=t -c user.email=t@l commit -q -m 'seed completed same-base owner + live index'
+git -C "$CC7" push -q origin journal2
+post --identity "$IDT" "$SAMEBASE" "$(bodyfile 'watcher re-poll of the SAME comment after a cursor failure')"
+! has "$SAMEBASE" && ok "10a a completed same-base directive replay is terminal (not reminted)" \
+                  || bad "10a a completed directive was reminted on replay (the dedup gap)"
+owner_t="$(git -C "$BARE" cat-file -p "journal2:jobs/index/$idtkey" | sed -n 's/^base:[[:space:]]*//p')"
+[ "$owner_t" = "$SAMEBASE" ] && ok "10b the index still points at the completed owner (unchanged)" \
+                             || bad "10b index owner drifted to '$owner_t', expected $SAMEBASE"
+
 echo "----------------------------------------------------------------"
 echo "directive-identity-dedup-test: PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]

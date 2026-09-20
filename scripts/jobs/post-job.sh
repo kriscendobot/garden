@@ -32,8 +32,11 @@
 # for the comment/review that triggered the work, e.g.
 # `endojs/endo-but-for-bots#58:comment:4850565566` — the post is additionally
 # deduped against the `jobs/index/<hash>` map: if that identity already owns a job
-# that is still live (plan/todo/doin/tada) the post is a NO-OP, so ONE directive maps
-# to at most one open job regardless of what each producer named it. When no
+# that is still ACTIVE (plan/todo/doin) the post is a NO-OP, so ONE directive maps
+# to at most one open job regardless of what each producer named it. A COMPLETED
+# (tada) owner is terminal against a REPLAY of its own base (the same directive re-
+# seen after a cursor failure) but still yields to a genuinely NEW directive on the
+# same identity under a DIFFERENT base (re-pointed) — see the dedup block below. When no
 # explicit identity is given, one is best-effort derived from the body if it cites
 # exactly one canonical GitHub comment URL (derive_job_identity_from_body), so a
 # hand-named peer job that quotes the comment URL dedups too. The index entry is
@@ -310,9 +313,10 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # is the reservation spine, and a live copy means the work is queued/running (this is
   # also how two producers sharing a base convention — the CI-status auto-shepherd and a
   # manual "shepherd" — coordinate). A COMPLETED job (tada) only blocks when the caller
-  # gave NO directive identity: with an identity, the jobs/index map (checked just below,
-  # against the ACTIVE set only — plan|todo|doin via job_is_active, tada excluded) is the
-  # authoritative re-see guard, so a
+  # gave NO directive identity: with an identity, the jobs/index map (checked just below)
+  # is the authoritative re-see guard. That map treats a completed owner two ways, keyed
+  # on the requested base: a DIFFERENT base on the same identity re-points (plan|todo|doin
+  # via job_is_active gates the live-owner dedup, tada excluded), so a
   # FRESH directive that merely derives the same (PR,verb) base as a finished job is NOT
   # swallowed by that stale tada entry — the endo-but-for-bots #671 "Shepherd." drop,
   # where a 2026-07-10 auto-shepherd in tada/ silently deduped a fresh 2026-07-15
@@ -342,6 +346,22 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # any base, from any producer), do not mint a second one. A stale entry — the
   # owning base has drained out of the lifecycle — is re-pointed below, so a
   # genuinely new directive is never blocked by a completed one.
+  #
+  # Two shapes of completed (tada) owner are deliberately distinguished, so the
+  # SAME identity can be BOTH terminal-against-a-replay AND re-pointable to new
+  # work, keyed on whether the requested base equals the completed owner's base:
+  #   - requested base == owner base  → a REPLAY of the very same directive (a
+  #     comment-watcher re-poll of ONE GitHub comment after a cursor failure
+  #     re-derives its own deterministic (PR,verb) base). A delivered directive
+  #     identity is TERMINAL against its own base: do not remint work already
+  #     done. This is the dedup this fix restores.
+  #   - requested base != owner base  → a genuinely NEW directive on the same
+  #     identity under a DIFFERENT name (the pr475 reply-humans-resolve-policy
+  #     job, refused while the index still pointed at a tada-complete e3925eb5).
+  #     Fall through to post + re-point the index.
+  # A distinct comment carries a DISTINCT identity → a distinct index entry →
+  # never reaches this same-identity branch, so a FRESH directive on a new
+  # comment id is never swallowed (the #671 fresh-directive guarantee holds).
   idx="$DIR/$JOBS_INDEX/$idhash"
   if [ -n "$idhash" ] && [ -f "$idx" ]; then
     owner="$(sed -n 's/^base:[[:space:]]*//p' "$idx" | head -1)"
@@ -354,6 +374,9 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       idhash=""
     elif [ -n "$owner" ] && job_is_active "$DIR" "$owner"; then
       log "directive '$identity' already owns live job '$owner'; not minting '$base' (dedup)"
+      exit 0
+    elif [ -n "$owner" ] && [ "$owner" = "$base" ] && tada_exists "$DIR" "$owner"; then
+      log "directive '$identity' already delivered by completed job '$owner' (same base '$base'); terminal, not reminting"
       exit 0
     fi
   fi
