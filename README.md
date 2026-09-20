@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T10:07:35Z_
+_As of 2026-09-20T11:23:40Z_
 
 ## Latest
 
@@ -1799,7 +1799,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.6M | $692.96 _(notional, rate-card)_ | no quota set |
-| Codex | 23.4M _(+541.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 24.1M _(+583.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1808,13 +1808,13 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Resolve the complete maintainer review on endojs/endo-but-for-bots PR #1301
 
-### tada (8487)
+### tada (8488)
+- [`claude-on-minion-town-press-20260920-112004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-112004.md) — Cost
 - [`claude-on-minion-town-completion-press-20260920-093505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-completion-press-20260920-093505.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-3220af4b.md) — Cost
 - [`claude-on-minion-town-press-20260920-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-080513.md) — Completion report — claude-on-minion-town-press-20260920-080513
 - [`daily-progress-summary-20260920-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/daily-progress-summary-20260920-070510.md) — Completion report
-- [`improve-candidate-gate-flake-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-candidate-gate-flake-retry.md) — Completion report
-- … and 8482 more
+- … and 8483 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
