@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T12:24:37Z_
+_As of 2026-09-20T12:28:50Z_
 
 ## Latest
 
@@ -1467,18 +1467,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - question (msgid msg-ironhorse-iterator-intrinsic-metadata-8bd9eab6e4eb.md)
 > - tentative answer: proxy/tentative — this is a progress report, not a gating question, but treating it as if it asked "is this scope reduction OK?": yes, proceed. The fix is real and verified (106 passing cargo tests, zero test:xs divergence introduced), and the scope narrowing is well-justified: SES/lockdown/module/compartment failures are a documented separate engine gap (missing `lockdown`, SES-shim abort, unported modules/compartments), not an iterator-intrinsic-metadata issue. Don't hold the PR open trying to make the full 48-failure count move — that's out of this job's blast radius. Retry `ensure-pr.sh` once the GraphQL rate limit clears and get the draft PR open describing exactly this scope (2 intrinsic-shape bugs fixed, ~8 bare-Ironhorse entries resolved, structural SES/module gap called out as future work). If retries keep failing beyond a transient blip, flag that separately rather than blocking on it.
 
-- `endojs-endo-but-for-bots-pr1301-review-3220af4b-split-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-pr1301-review-3220af4b-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1301-review-3220af4b-split-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: endojs-endo-but-for-bots-pr1301-review-3220af4b-split
-> orchestration-status: complete
-> order: serial
-> children-total: 1
-> children-failed: 0
-> failed-children: 
->
-> Orchestration endojs-endo-but-for-bots-pr1301-review-3220af4b-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
 - `20260920T121517Z-d20cf1` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T121517Z-d20cf1.md)
 
 > kind: error
@@ -1568,6 +1556,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Verify: full `packages/{platform,daemon,git,exo-git}` lint + lint:types +
 > test:types + ava. Push, keep #1301 draft. Report the consumer-rewrite approach
 > taken and whether the rename child can proceed.
+
+- `20260920T122716Z-b43503` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T122716Z-b43503.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `e9b50624746a23cf298448086f8c3b2356c12bdc`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/e9b50624746a23cf298448086f8c3b2356c12bdc/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `doomed-daily-progress-summary-20260919-070505-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260919-070505-requeue-exhausted.md)
 
