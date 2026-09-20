@@ -359,6 +359,18 @@ env GARDEN_STATE="$TR/state-h1d" JOURNAL_REMOTE="$BARE_H1D" JOURNAL_BRANCH="$BRA
 grep -q 'mirror-closer:primary-quota' "$CD_DIR_A/marker" 2>/dev/null \
   && ok "shared cooldown marker is tagged to mirror-closer's primary-quota trip" \
   || bad "shared cooldown marker missing the mirror-closer tag: $(cat "$CD_DIR_A/marker" 2>/dev/null)"
+# The shared latch must be armed for the SAME one-hour window as this service's own
+# primary-quota marker — NOT the short 300s default — so it outlives a doomed retry
+# by a sibling watcher inside the same quota hour (the ci-watcher regression). The
+# shared marker's expiry is on the real wall clock (start_api_cooldown uses date +%s),
+# so compare against `now`, not the frozen GARDEN_MIRROR_QUOTA_NOW.
+cd_expiry_a="$(sed -n '1p' "$CD_DIR_A/marker" 2>/dev/null || echo 0)"
+cd_remaining_a=$(( cd_expiry_a - $(date +%s) ))
+if [ "$cd_remaining_a" -gt 900 ] && [ "$cd_remaining_a" -le 3600 ]; then
+  ok "shared latch armed for the full primary-quota hour (${cd_remaining_a}s), not the 300s default"
+else
+  bad "shared latch window was ${cd_remaining_a}s (expected >900 and <=3600)"
+fi
 
 # Part B: when the SHARED latch is already active (tripped by any sibling watcher),
 # mirror-closer must skip the whole tick — before cloning the journal or making a

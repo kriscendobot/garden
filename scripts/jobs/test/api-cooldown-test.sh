@@ -83,5 +83,42 @@ else
   bad "$misses next-tick namespaces missed the concurrent episode"
 fi
 
+# A primary-quota detector requests the FULL hour (not the 300s default) so the shared
+# latch outlives the whole quota window. The requested window is honored and reflected
+# in the marker's expiry; the default (unrequested) window keeps its short clamp.
+rm -f "$MARKER"
+run_common quota 'start_api_cooldown "mc:primary-quota" "$(api_primary_quota_secs)"'
+now="$(date +%s)"
+expiry="$(sed -n '1p' "$MARKER" 2>/dev/null || echo 0)"
+remaining=$(( expiry - now ))
+if [ "$remaining" -gt 900 ] && [ "$remaining" -le 3600 ]; then
+  ok "a primary-quota request arms the full-hour window (>900s default clamp), ${remaining}s"
+else
+  bad "primary-quota window was ${remaining}s (expected >900 and <=3600)"
+fi
+# api_primary_quota_secs is the one-hour policy, clamped to the requested-window cap.
+got="$(run_common quota 'api_primary_quota_secs')"
+[ "$got" = 3600 ] && ok "api_primary_quota_secs defaults to one hour" \
+  || bad "api_primary_quota_secs was '$got' (expected 3600)"
+got="$(env GARDEN_API_PRIMARY_QUOTA_SECS=99999 GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state/cap" \
+  GARDEN_API_COOLDOWN_SECS=300 bash -c 'source "$1"; api_primary_quota_secs' _ "$JOBS/common.sh")"
+[ "$got" = 7200 ] && ok "a requested window is clamped to GARDEN_API_COOLDOWN_MAX_SECS (7200)" \
+  || bad "requested window not clamped to the max: got '$got'"
+# An out-of-range/garbage request falls back to the short default clamp, not the hour.
+rm -f "$MARKER"
+run_common defclamp 'start_api_cooldown "d" "not-a-number"'
+now="$(date +%s)"; expiry="$(sed -n '1p' "$MARKER" 2>/dev/null || echo 0)"; remaining=$(( expiry - now ))
+if [ "$remaining" -le 300 ] && [ "$remaining" -gt 0 ]; then
+  ok "a non-numeric request falls back to the short default window (${remaining}s)"
+else
+  bad "non-numeric request produced a ${remaining}s window (expected <=300)"
+fi
+# The disable escape hatch (default window 0) wins over a request: still a no-op.
+rm -f "$MARKER"
+env GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state/off" GARDEN_API_COOLDOWN_SECS=0 \
+  bash -c 'source "$1"; start_api_cooldown "d" 3600' _ "$JOBS/common.sh"
+[ ! -e "$MARKER" ] && ok "the disable escape hatch (secs=0) no-ops even with a requested window" \
+  || bad "a requested window bypassed the disable escape hatch"
+
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

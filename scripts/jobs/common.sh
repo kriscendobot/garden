@@ -591,14 +591,47 @@ is_transient_gh_source_error() {
 # Window: GARDEN_API_COOLDOWN_SECS (default 300s, capped at 900s; 0 = a test/operator
 # escape hatch that disables the cooldown without changing classification). A non-numeric
 # value falls back to the default. Extracted from comment-watcher.sh's original copy.
+#
+# The default 300s window is a SHORT transient-blip guard (a 5xx/HTML/secondary blip
+# clears fast). A GitHub PRIMARY hourly-quota refusal is different in kind: the
+# account-wide bucket cannot recover before its hourly reset, so a 300s window expires
+# long before the quota returns and the NEXT watcher tick retries a known-doomed call
+# (observed: mirror-closer armed a 300s shared window on a primary-quota trip, and
+# ci-watcher then retried a doomed API call inside the SAME quota hour). For that case
+# a detector passes an explicit requested-secs — api_primary_quota_secs() (the full
+# hour) — as start_api_cooldown's second argument; the request is clamped to
+# GARDEN_API_COOLDOWN_MAX_SECS (default 7200) rather than the short 900s default clamp,
+# so the shared latch outlives the whole quota window and every sibling gh-api watcher
+# skips its doomed retries. The short default clamp still applies when no window is
+# requested, so an ordinary blip cannot snowball into an hour-long local blackout.
 : "${GARDEN_API_COOLDOWN_DIR:=$GARDEN_ROOT/.garden-state/gh-api-cooldown}"
 GARDEN_API_COOLDOWN_MARKER="$GARDEN_API_COOLDOWN_DIR/marker"
 GARDEN_API_COOLDOWN_LOCK="$GARDEN_API_COOLDOWN_DIR/marker.lock"
 
-_api_cooldown_secs() {  # echo the validated, clamped window in seconds
+_api_cooldown_secs() {  # echo the validated, clamped DEFAULT window in seconds
   local v="${GARDEN_API_COOLDOWN_SECS:-300}"
   case "$v" in ''|*[!0-9]*) v=300 ;; esac
   [ "$v" -le 900 ] || v=900
+  printf '%s' "$v"
+}
+
+_api_cooldown_max_secs() {  # echo the cap for an explicitly REQUESTED window
+  local v="${GARDEN_API_COOLDOWN_MAX_SECS:-7200}"
+  case "$v" in ''|*[!0-9]*) v=7200 ;; esac
+  printf '%s' "$v"
+}
+
+# api_primary_quota_secs — the shared cooldown length a detector requests when it
+# recognizes a GitHub PRIMARY hourly-quota refusal (as opposed to a transient blip).
+# One hour by default, because the primary bucket cannot recover before its hourly
+# reset and the failing response does not reliably expose the reset header; clamped to
+# the requested-window cap. Any watcher that classifies a primary-quota trip passes
+# this to start_api_cooldown so the whole host waits out the quota, not a 300s blip.
+api_primary_quota_secs() {
+  local v="${GARDEN_API_PRIMARY_QUOTA_SECS:-3600}" cap; cap="$(_api_cooldown_max_secs)"
+  case "$v" in ''|*[!0-9]*) v=3600 ;; esac
+  [ "$v" -ge 1 ]     || v=1
+  [ "$v" -le "$cap" ] || v="$cap"
   printf '%s' "$v"
 }
 
@@ -618,9 +651,21 @@ api_cooldown_active() {  # rc 0 = a non-expired shared window exists → skip th
   ) 9>"$GARDEN_API_COOLDOWN_LOCK"
 }
 
-start_api_cooldown() {  # rc 0 = THIS tick recorded the window (and owns the warning)
-  local tag="${1:-}" secs; secs="$(_api_cooldown_secs)"
+# start_api_cooldown [tag] [requested-secs] — rc 0 = THIS tick recorded the window
+# (and owns the single warning a caller emits); rc 1 = a live window already exists (an
+# observer NEVER extends it). The window is <requested-secs> when given and valid — for
+# a KNOWN long outage like a primary-quota refusal a detector passes api_primary_quota_secs
+# so the shared latch outlives the doomed retries — clamped to GARDEN_API_COOLDOWN_MAX_SECS
+# and floored at 1s; without a request the SHORT default window (_api_cooldown_secs) stands.
+# The disable escape hatch (default window 0) wins over a request: it still no-ops.
+start_api_cooldown() {
+  local tag="${1:-}" req="${2:-}" secs cap; secs="$(_api_cooldown_secs)"
   [ "$secs" -gt 0 ] || return 0
+  case "$req" in
+    ''|*[!0-9]*) : ;;                                  # no request → the short default
+    *) secs="$req"; [ "$secs" -ge 1 ] || secs=1
+       cap="$(_api_cooldown_max_secs)"; [ "$secs" -le "$cap" ] || secs="$cap" ;;
+  esac
   mkdir -p "$GARDEN_API_COOLDOWN_DIR"
   (
     flock 9

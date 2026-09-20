@@ -115,10 +115,16 @@ RETIRE="$GARDEN_CI_RETIRE_CLONE"
 # entire tick immediately. start_api_cooldown's shared latch ensures only the first
 # watcher to open the episode owns the warning.
 rollup_hit_primary_quota() {  # rollup_hit_primary_quota <captured-stderr> <context>
-  local stderr="$1" context="$2"
+  local stderr="$1" context="$2" secs
   is_gh_primary_rate_limit_text "$stderr" || return 1
-  if start_api_cooldown "ci:$slug:rollup"; then
-    log "WARN: $context hit GitHub primary API quota exhaustion — cooling all gh-api watchers for $(_api_cooldown_secs)s and stopping this sweep"
+  # Arm the shared latch for the full primary-quota hour, not the short 300s default:
+  # the account-wide bucket cannot recover before its hourly reset, so a 300s window
+  # would expire and the next sweep would retry a known-doomed call inside the same
+  # quota hour. api_primary_quota_secs() is the shared policy every primary-quota
+  # detector requests (see common.sh start_api_cooldown / mirror-closer.sh).
+  secs="$(api_primary_quota_secs)"
+  if start_api_cooldown "ci:$slug:rollup" "$secs"; then
+    log "WARN: $context hit GitHub primary API quota exhaustion — cooling all gh-api watchers for ${secs}s and stopping this sweep"
   fi
   return 0
 }

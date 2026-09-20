@@ -145,10 +145,12 @@ start_mirror_quota_cooldown() {
   # Also arm the shared host-wide gh-api latch (common.sh) so a primary-quota hit
   # HERE immediately protects every other gh-api watcher (ci-, comment-, …) this
   # window instead of each one re-discovering exhaustion through its own doomed
-  # call. The mirror marker keeps its own longer (hourly) window for this service;
-  # the shared latch is the shorter cross-watcher herd guard. An observer never
-  # extends a live shared window, so this only ever records or no-ops.
-  start_api_cooldown "mirror-closer:primary-quota" || true
+  # call. Arm it for the SAME one-hour window as this service's own primary-quota
+  # marker (not the short 300s default): the primary bucket cannot recover before
+  # its hourly reset, and a 300s shared window expired before ci-watcher retried a
+  # known-doomed call in the SAME quota hour. An observer never extends a live
+  # shared window, so this only ever records or no-ops.
+  start_api_cooldown "mirror-closer:primary-quota" "$(mirror_quota_cooldown_secs)" || true
 }
 
 MIRROR_QUOTA_EXPIRY=0
