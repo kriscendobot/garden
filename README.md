@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T07:19:34Z_
+_As of 2026-09-20T07:22:55Z_
 
 ## Latest
 
@@ -409,6 +409,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > candidate: `024f3a012a53f761565e6d81718e7a18291800a8`
 > failing suites: scripts/jobs/test/terminal-handler-failure-reap-test.sh(rc=124; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/024f3a012a53f761565e6d81718e7a18291800a8/03-scripts_jobs_test_terminal-handler-failure-reap-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=124; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/024f3a012a53f761565e6d81718e7a18291800a8/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=124; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/024f3a012a53f761565e6d81718e7a18291800a8/07-scripts_jobs_test_policy-refusal-quarantine-test.sh.log), total-wall-clock
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260920T072116Z-171168` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T072116Z-171168.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `c66038fb38e5d6bee0b95f5d861eedc36699e0e2`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/09-scripts_jobs_test_provider-cooldown-test.sh.log)
 >
 > Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
 > are host-local on `endolin-garden2-5bcdff64` and retain at most
@@ -1611,7 +1627,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.4M | $690.51 _(notional, rate-card)_ | no quota set |
-| Codex | 22.7M _(+529.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 22.7M _(+529.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
