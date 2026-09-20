@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T07:17:04Z_
+_As of 2026-09-20T07:19:34Z_
 
 ## Latest
 
@@ -1587,6 +1587,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260917T012508Z-a9d562` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260917T012508Z-a9d562.md)
 
 > awaiting maintainer — beyond proxy authority: gardener ironhorse-fuzz-fd8517d5f3071227-repair, msgid msg-ironhorse-fuzz-fd8517d5f3071227-repair-6602bc26dcbd.md — Whether to drop/advance work governed by the standing IronHorse pause ([kriscendobot/garden#91](https://github.com/kriscendobot/garden/issues/91)) — and reconciling why this job was promoted via plan gate=go-ahead on 2026-09-16 despite that pause — is a policy question only a trusted maintainer can resolve, not a proxy-able progress call.
+
+- `20260920T071817Z-56c356` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T071817Z-56c356.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `c66038fb38e5d6bee0b95f5d861eedc36699e0e2`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/c66038fb38e5d6bee0b95f5d861eedc36699e0e2/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 
 ## Spend & quota
