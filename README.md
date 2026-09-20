@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T01:55:22Z_
+_As of 2026-09-20T02:05:11Z_
 
 ## Latest
 
@@ -1401,16 +1401,16 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1310
+### doin (0)
+(none)
 
-### tada (8463)
+### tada (8464)
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-3.md) — Completion report — gauntlet fix round 3, PR #1310
 - [`claude-on-minion-town-press-20260920-015009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-015009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-2.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-c0d7a577af9d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-c0d7a577af9d.md) — rolling-deploy canary probe — round trip OK
-- [`deadmail-issue-comment-5746158732`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5746158732.md) — Cost
-- … and 8458 more
+- … and 8459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
