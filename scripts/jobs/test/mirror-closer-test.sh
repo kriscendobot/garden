@@ -494,6 +494,38 @@ out_j="$(run_state BOGUS false 2>/dev/null)"; rc_j=$?
   && ok "unrecognized GraphQL state → loud die (nonzero, empty), never a guessed state" \
   || bad "an unrecognized state was not caught (rc=$rc_j, out=$(printf %q "$out_j"))"
 
+# A GitHub PRIMARY-QUOTA refusal must still exit NONZERO with empty stdout (the
+# closer's circuit-breaker contract) while carrying the rate-limit signature on
+# stderr (so count_handler_failure classifies it as quota) — but must NOT emit a
+# FATAL "no usable PR state" line, since the closer's aggregate degraded WARN is
+# the sole quota report. A quota stub `gh` refuses every call with the primary
+# rate-limit wording; gh_api_retry does not retry it and returns nonzero.
+QGHSTUB="$TR/mirror-state-gh-quota.sh"
+cat > "$QGHSTUB" <<'EOF'
+#!/bin/bash
+[ "$1" = api ] || { echo "stub gh: only 'api' supported (got: $*)" >&2; exit 2; }
+echo "gh: API rate limit exceeded for user ID 279080640." >&2
+exit 1
+EOF
+chmod +x "$QGHSTUB"
+qerr="$TR/mirror-state-quota.err"
+out_q="$(env GARDEN_GH="$QGHSTUB" GH_CALL_LOG=/dev/null \
+    "$STATE_HANDLER" endojs/endo 3137 2>"$qerr")"; rc_q=$?
+[ "$rc_q" -ne 0 ] && [ -z "$out_q" ] \
+  && ok "primary-quota refusal → nonzero + empty stdout (no-state contract preserved)" \
+  || bad "quota refusal broke the no-state contract (rc=$rc_q, out=$(printf %q "$out_q"))"
+grep -q 'no usable PR state' "$qerr" \
+  && bad "quota refusal STILL emitted the FATAL 'no usable PR state' line: $(cat "$qerr")" \
+  || ok "quota refusal did NOT emit the FATAL 'no usable PR state' line (aggregate WARN is the sole quota report)"
+! grep -q 'FATAL' "$qerr" \
+  && ok "quota refusal emitted no FATAL line at all" \
+  || bad "quota refusal emitted a FATAL line: $(cat "$qerr")"
+# The stderr must still carry the primary rate-limit wording so the closer's
+# count_handler_failure (is_gh_primary_rate_limit_text) classifies it as quota.
+grep -qiE 'API rate limit (already )?exceeded for user' "$qerr" \
+  && ok "quota refusal still carries the primary rate-limit signature on stderr (closer can classify it as quota)" \
+  || bad "quota refusal lost the rate-limit signature on stderr: $(cat "$qerr")"
+
 hr; echo "K — HTML-instead-of-JSON gh response is transient: retried then absorbed, not fatal on the first attempt (agoric-sdk#11031)"; hr
 # When GitHub is overloaded it serves an HTML error page instead of JSON; `gh`'s
 # JSON decoder then emits `invalid character '<' looking for beginning of value`
