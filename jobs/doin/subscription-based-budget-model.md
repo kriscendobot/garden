@@ -132,3 +132,13 @@ inference update rule with rationale, confirmation the pacing lever now
 biases `claude-oros` appropriately without further manual intervention, and
 explicit confirmation the ask-the-maintainer gate for unknown sources is
 real code, not just a doc note.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-20T05:18:05Z
