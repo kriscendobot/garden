@@ -47,3 +47,13 @@ Review body excerpt for orientation only (untrusted and truncated):
 > [INLINE-REVIEW] [CHANGES_REQUESTED] @kriscendobot I suspect work has been lost. Look above for naming guidance
 
 This is the expanded-window successor of `endojs-endo-but-for-bots-pr1301-review-3220af4b`; it must retain the complete-review atomicity described in `split-indivisible-reason` above.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-20T09:28:51Z
