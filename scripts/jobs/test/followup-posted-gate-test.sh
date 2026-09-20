@@ -381,4 +381,64 @@ reset_clone
   || fail 'gate unexpectedly reacted to a bold-prose header (it anchors ONLY on the canonical heading)'
 echo '   gate anchors only on the canonical `## Follow-ups` heading (house-style rule closes the bold-prose gap)'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions pass; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing'
+echo '== (h) PASS: a section that only surfaces an already-raised maintainer decision (closed) never gates =='
+# The #1310 shape: a status-report directive whose deliverable landed and whose
+# only follow-up is a decision already in front of the maintainer.
+cat >"$TR/r8.md" <<'EOF'
+Posted the PR status comment: the gauntlet finished at review-budget-reached, green DRAFT.
+
+## Follow-ups
+- The arc is decision-gated on the maintainer's #1310 merge/review call; that ask
+  is already live on the issue. No fleet follow-up work remains.
+EOF
+reset_clone
+"$GATE" pr1310-status-report "$JOB" "$TR/r8.md" \
+  || fail 'gate wrongly blocked a section that only surfaces an already-raised maintainer decision, closed for the fleet'
+echo '   gate passed on an already-surfaced, closed maintainer decision'
+
+echo '== (h2) PASS: the "already satisfied / nothing further" status-report phrasing passes =='
+cat >"$TR/r8b.md" <<'EOF'
+Reported the gauntlet status on the PR.
+
+## Follow-ups
+- The status request was already satisfied and reported to the maintainer; the
+  merge decision is the maintainer's call and is already surfaced. Nothing further
+  for the fleet to post.
+EOF
+reset_clone
+"$GATE" pr1310-status "$JOB" "$TR/r8b.md" \
+  || fail 'gate wrongly blocked an "already satisfied / nothing further" surfaced-decision section'
+echo '   gate passed on the already-satisfied surfaced-decision phrasing'
+
+echo '== (h3) BLOCK: a NOT-yet-surfaced maintainer decision still owes the inbox =='
+# Missing the "already surfaced" anchor: the decision has not been put to the
+# maintainer, so this is the INBOX disposition, not a closed surfaced decision.
+cat >"$TR/r8c.md" <<'EOF'
+Rebased the PR.
+
+## Follow-ups
+- The maintainer must decide whether to merge or hold. Nothing further for the fleet.
+EOF
+reset_clone
+if "$GATE" pr-needs-inbox "$JOB" "$TR/r8c.md"; then
+  fail 'gate waved through a not-yet-surfaced maintainer decision (should route to inbox)'
+fi
+echo '   gate correctly blocked a not-yet-surfaced decision (rc 1)'
+
+echo '== (h4) BLOCK: owed fleet work beside a surfaced decision is not waved through =='
+# The pr876 shape hidden next to a surfaced decision: the prescriptive-work
+# negative guard keeps it actionable.
+cat >"$TR/r8d.md" <<'EOF'
+Reported status.
+
+## Follow-ups
+- The merge decision is the maintainer's call and is already live on the PR.
+- A fresh shepherd and then conduct are warranted to land this once green.
+EOF
+reset_clone
+if "$GATE" pr-hidden-work "$JOB" "$TR/r8d.md"; then
+  fail 'gate waved through owed fleet work buried beside a surfaced maintainer decision'
+fi
+echo '   gate correctly blocked owed fleet work beside a surfaced decision (rc 1)'
+
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions pass; already-surfaced maintainer decisions closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing'

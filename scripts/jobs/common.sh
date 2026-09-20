@@ -5317,6 +5317,73 @@ gauntlet_driver_owns_followups() {
   esac
 }
 
+# followups_only_surface_decision <section-text> — 0 iff the ENTIRE follow-up
+# section only reports that the sole outstanding item is a MAINTAINER decision
+# that has ALREADY been surfaced (asked / raised / reported / made live to the
+# maintainer) and is presented as CLOSED for the fleet — i.e. there is no
+# fleet-actionable successor left to post. This is a fourth accepted disposition
+# for assert-followup-posted.sh, alongside the three CHECKABLE ones (handoff /
+# override / inbox), and it is INFORMATIONAL in the same shape as
+# gauntlet_driver_owns_followups: a status-report or decision-gated job whose only
+# "follow-up" is a decision the maintainer has already been handed does not owe a
+# new handoff (there is no successor work), nor an override (it is a legitimate
+# real disposition, not a false-positive escape valve), nor an inbox message (the
+# decision is ALREADY in front of the maintainer — re-routing it would duplicate).
+#
+# Grounding: an accepted #1310 status-report directive reported the deliverable (a
+# PR status comment) and a `## Follow-ups` section noting the arc was decision-
+# gated on the maintainer's already-live merge/review call. The gate saw a
+# substantive section with no checkable disposition and BLOCKED completion,
+# leaving the job in doin; the reaper's duplicate retry then re-ran the work.
+#
+# Deterministic and deliberately NARROW, mirroring gauntlet_driver_owns_followups:
+# it fires ONLY when three anchors CO-OCCUR in the normalized section AND no
+# prescriptive new-fleet-work phrasing is present. Requiring all three keeps it
+# from swallowing the pr876 "a fresh shepherd and then conduct are warranted now"
+# shape (that is fleet work still owed, caught by the normal gate) and the
+# not-yet-surfaced "the maintainer must decide X" shape (that is the INBOX
+# disposition — it still needs routing). Any section that ALSO prescribes fleet
+# work stays actionable via the negative guard.
+followups_only_surface_decision() {
+  local section="${1:-}" normalized
+  normalized="$(
+    printf '%s\n' "$section" \
+      | sed -E '/^[[:space:]]*<!--/d; /^[[:space:]]*$/d' \
+      | tr '\n' ' ' \
+      | sed -E 's/^[[:space:]]*[-*][[:space:]]*//; s/[[:space:]]+/ /g; s/^[[:space:]]+//; s/[[:space:]]+$//' \
+      | tr '[:upper:]' '[:lower:]'
+  )"
+  [ -n "$normalized" ] || return 1
+
+  # Negative guard FIRST: any prescriptive new-fleet-work phrasing (a role/job to
+  # be posted, run, or "warranted") keeps the section actionable, so a report that
+  # buries owed successor work beside a surfaced decision is never waved through.
+  if printf '%s' "$normalized" | grep -Eq \
+'warrant|(should|must|needs?|need to|ought to|has to|have to)[[:space:]]+(be[[:space:]]+)?(a[[:space:]]+)?(post|dispatch|conduct|shepherd|weav|rebase|retcon|schedul|run|open|file|stage)|(post|dispatch|open|file|stage|schedule|run)[[:space:]]+(a|an|the|another)[[:space:]]+|then[[:space:]]+(conduct|shepherd|weave|rebase|run)|(a[[:space:]]+)?(fresh|new|another)[[:space:]]+(conductor|shepherd|fixer|weaver|builder|gauntlet|panel|job)'; then
+    return 1
+  fi
+
+  # Anchor 1 — the outstanding item is a MAINTAINER decision/call, not fleet work.
+  printf '%s' "$normalized" | grep -Eq \
+'(maintainer|kriskowal|human|the user)[^.]*(decision|call|judg[e]?ment|directive|merge|review|verdict|go-ahead|to decide|to (make|call))|decision-gated|awaiting[[:space:]]+(the[[:space:]]+)?(maintainer|human|kriskowal)|pending[[:space:]]+(the[[:space:]]+)?(maintainer|human|kriskowal)|(maintainer|kriskowal|human)('"'"'s|s)?[[:space:]]+(own[[:space:]]+|final[[:space:]]+)?(to[[:space:]]+)?(decide|call|judge|merge|review)' \
+    || return 1
+
+  # Anchor 2 — that decision is ALREADY SURFACED: asked / raised / reported / live.
+  printf '%s' "$normalized" | grep -Eq \
+'already[[:space:]]+(surfaced|asked|raised|live|reported|posted|flagged|satisfied|answered|decided|directed|made|in[[:space:]]+front)|(ask|question|request|status|decision|matter|call|directive)[[:space:]]+(is|was|are|were)[[:space:]]+already|already[[:space:]]+(on|in)[[:space:]]+the[[:space:]]+(issue|pr|thread|comment)|(ask|question|request|comment)[^.]*(is[[:space:]]+)?(already[[:space:]]+)?live|live[[:space:]]+on[[:space:]]+the[[:space:]]+(issue|pr)' \
+    || return 1
+
+  # Anchor 3 — CLOSED for the fleet: no successor for us to post/do. "no" followed
+  # (within a few words, allowing a compound noun like "fleet follow-up work")
+  # by a work-noun; or an explicit "nothing further / for the fleet"; or a
+  # "not this/the-fleet's job/scope"; or "no changes ... needed".
+  printf '%s' "$normalized" | grep -Eq \
+'(^|[[:space:]])no[[:space:]]+([a-z][a-z-]*[[:space:]]+){0,3}(follow-?ups?|handoffs?|jobs?|actions?|work|successors?|board[[:space:]]+jobs?)([[:space:]]|[.,;]|$)|nothing[[:space:]]+(further|else|more|left|to[[:space:]]+(post|do)|for[[:space:]]+(the[[:space:]]+fleet|us))|not[[:space:]]+(this|the[[:space:]]+fleet)[^.]*(job|scope|call|work)|no[[:space:]]+changes[^.]*needed' \
+    || return 1
+
+  return 0
+}
+
 # handoff_successor_posted <clone-dir> <successor-base> — 0 iff <successor-base> is
 # durably posted on the board in <clone-dir>: alive in the plan|todo|doin|tada
 # lifecycle, an orchestration record, or an active staged-gauntlet record. A

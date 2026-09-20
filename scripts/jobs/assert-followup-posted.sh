@@ -26,10 +26,12 @@
 #
 # Usage: assert-followup-posted.sh <base> <job-file> <completion-report>
 #   rc 0: no declared handoff and nothing owed — no substantive `## Follow-ups`
-#         section; or a declared handoff / substantive section has a valid,
-#         CHECKABLE disposition (a verified handoff, a maintainer-inbox message
-#         actually sent, or an explicit override); or the determination is
-#         inconclusive (journal clone offline).
+#         section; a declared handoff / substantive section has a valid, CHECKABLE
+#         disposition (a verified handoff, a maintainer-inbox message actually
+#         sent, or an explicit override); the section is purely INFORMATIONAL (a
+#         completed gauntlet stage's driver-owned transition, or a section that
+#         only surfaces an already-raised maintainer decision closed for the
+#         fleet); or the determination is inconclusive (journal clone offline).
 #   rc 1: a declared handoff names an absent successor, regardless of whether a
 #         `## Follow-ups` section exists; or a substantive follow-up section has
 #         NO checkable disposition — block completion (leave in doin for retry).
@@ -50,6 +52,17 @@
 #   3. INBOX     — a maintainer-inbox message tagged reply_to=<base> exists
 #      (the worker actually ran message-user.sh), the checkable form of the
 #      non-board-postable disposition.
+#
+# Two INFORMATIONAL carve-outs additionally pass without a checkable disposition,
+# because they name no owed successor work (both deterministic, deliberately
+# narrow, shared with the async sweep via common.sh):
+#   - a completed gauntlet stage's driver-owned transition
+#     (gauntlet_driver_owns_followups); and
+#   - a section that ONLY surfaces an already-raised maintainer decision presented
+#     as closed for the fleet (followups_only_surface_decision) — a status-report
+#     or decision-gated job whose sole "follow-up" is a decision already in front
+#     of the maintainer. Grounding: the accepted #1310 status-report directive was
+#     wrongly blocked here for want of a checkable disposition and duplicate-retried.
 #
 # Fail-toward-not-wedging on an INCONCLUSIVE read (journal clone offline): rc 0
 # rather than block a completion on a transient blip. The async garden-follow-up
@@ -101,6 +114,21 @@ fi
 # that says only that as informational, while leaving any additional successor
 # work subject to the dispositions below.
 if gauntlet_driver_owns_followups "$report" "$section"; then
+  exit 0
+fi
+
+# A status-report / decision-gated job whose entire follow-up section only notes
+# that the sole outstanding item is a MAINTAINER decision ALREADY surfaced to the
+# maintainer and presented as CLOSED for the fleet owes no successor: there is no
+# fleet-actionable job to post (not a handoff), the decision is already in front
+# of the maintainer (not an inbox message), and it is a real disposition (not an
+# override escape). Treat it as informational, exactly as the driver-owned
+# transition above. Deliberately narrow (three co-occurring anchors + a
+# prescriptive-work negative guard); any owed fleet work beside it stays subject
+# to the dispositions below. Grounding: the accepted #1310 status-report directive
+# was wrongly blocked here and duplicate-retried.
+if followups_only_surface_decision "$section"; then
+  log "gate: '$base' follow-up section only surfaces an already-raised maintainer decision, closed for the fleet; informational, not blocking"
   exit 0
 fi
 
