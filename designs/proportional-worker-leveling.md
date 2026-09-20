@@ -165,7 +165,7 @@ sensor posture. It must never be reinterpreted as zero spend.
 
 ### 2.1 Why the monk rule does not apply
 
-The `openai-codex-shared` checkpoints describe one Codex subscription used by
+The `codex-endolin` checkpoints describe one Codex subscription used by
 both hosts. A ratio between host-local Anthropic caps says nothing about how
 many clerics either host should run. Fabricating two Codex sub-budgets would
 double-count one account and make a host label look like a spending boundary.

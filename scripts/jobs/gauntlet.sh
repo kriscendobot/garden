@@ -271,8 +271,9 @@ panel_provider_admits() {
 # stalled across many ticks AMENDS one entry (throttled to ~hourly by inbox-send)
 # instead of spamming — the same coalescing discipline halts use.
 notify_panel_deferred() {  # <base> <what>
-  local base="$1" what="$2" reset_epoch reset_iso=""
-  reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
+  local base="$1" what="$2" reset_epoch reset_iso="" subscription
+  subscription="$(budget_pool_for_provider_host "$GARDEN_GAUNTLET_PANEL_PROVIDER" "$GARDEN" "$DIR" 2>/dev/null || true)"
+  reset_epoch="$(subscription_next_reset_epoch "$subscription" "$DIR" 2>/dev/null || true)"
   [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ 2>/dev/null || true)"
   printf 'INFO: Gauntlet %s is DEFERRING its %s — the panel provider (%s) is at/over its weekly quota, so posting a panel round now would abort at a seat with NO verdict and burn the attempt. It will post automatically once quota is usable again%s.\n' \
     "$base" "$what" "$GARDEN_GAUNTLET_PANEL_PROVIDER" "${reset_iso:+ (next reset ~$reset_iso)}" \
