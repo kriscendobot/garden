@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T05:47:56Z_
+_As of 2026-09-20T05:59:31Z_
 
 ## Latest
 
@@ -1403,22 +1403,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 20.2M | $183.39 _(notional, rate-card)_ | 14% of 143.0M (ok) |
-| Codex | 3.1M _(+41.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 3.4M _(+46.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/subscription-based-budget-model.md) — Track quota per SUBSCRIPTION, not per host; infer rate limits; pace toward reset
+### doin (0)
+(none)
 
-### tada (8481)
+### tada (8482)
+- [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/subscription-based-budget-model.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1310-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1310-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-6.md) — Completion report — gauntlet FIX round 6, endojs/endo-but-for-bots PR #1310
-- [`claude-on-minion-town-press-20260920-050508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-050508.md) — 1. State verified, checklist corrected
-- … and 8476 more
+- … and 8477 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
