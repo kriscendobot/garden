@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T01:52:38Z_
+_As of 2026-09-20T01:55:22Z_
 
 ## Latest
 
@@ -1394,24 +1394,23 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.8M | $112.86 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Claude | 11.7M | $112.20 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 2.3M _(+14.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-press-20260920-015009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260920-015009.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1310
 
-### tada (8462)
+### tada (8463)
+- [`claude-on-minion-town-press-20260920-015009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-015009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-2.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-c0d7a577af9d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-c0d7a577af9d.md) — rolling-deploy canary probe — round trip OK
 - [`deadmail-issue-comment-5746158732`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/deadmail-issue-comment-5746158732.md) — Cost
-- [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/19/endojs-endo-but-for-bots-pr1310-gauntlet-panel-2.md) — Cost
-- … and 8457 more
+- … and 8458 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
