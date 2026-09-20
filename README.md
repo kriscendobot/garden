@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T05:33:25Z_
+_As of 2026-09-20T05:38:55Z_
 
 ## Latest
 
@@ -1403,14 +1403,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 20.2M | $183.39 _(notional, rate-card)_ | 14% of 143.0M (ok) |
-| Codex | 3.0M _(+28.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Codex | 3.0M _(+33.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/subscription-based-budget-model.md) — Track quota per SUBSCRIPTION, not per host; infer rate limits; pace toward reset
+- [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1301
 
 ### tada (8481)
 - [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Completion report
