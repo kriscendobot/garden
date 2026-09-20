@@ -49,13 +49,6 @@ Review body excerpt for orientation only (untrusted and truncated):
 This is the expanded-window successor of `endojs-endo-but-for-bots-pr1301-review-3220af4b`; it must retain the complete-review atomicity described in `split-indivisible-reason` above.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=535 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-20T09:28:51Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-20T09:53:04Z -->
