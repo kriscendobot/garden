@@ -420,6 +420,7 @@ BARE="$(bare_clone_dir "$slug")"   # $GARDEN_ROOT/worktrees/<slug>.git (GARDEN_R
 
 # Durable poll cursor in the journal: resumes across restarts and hosts.
 CURSOR_KEY="comments/$slug"
+CURSOR_SET="${GARDEN_CURSOR_SET:-$HERE/cursor-set.sh}"
 # cursor-get.sh calls sync_clone, which on a journal-connectivity outage does
 # `exit "$GARDEN_OFFLINE_RC"` (75, EX_TEMPFAIL) or plain-`die`s with rc=1 when a
 # failed fetch's stderr misses the (necessarily incomplete) offline-signature list.
@@ -2178,11 +2179,14 @@ if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
   # best-effort — a stalled cursor re-derives and re-advances next tick, and
   # dispatch is idempotent by GitHub comment id, so nothing is lost — so capture
   # the rc and WARN-and-continue cleanly on ANY nonzero rc, mirroring the read
-  # side (df83fca235).
+  # side (df83fca235). As on the read side, the shared temporary-unavailable rc
+  # is quiet: one journal outage should not produce a warning for every watched
+  # repo. Structural/authentication failures still WARN.
   if printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
-    | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+    | "$CURSOR_SET" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
-    log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
+    [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+      || log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
     exit 0
   fi
   log "advanced comment cursor for $slug to $hw (acted on $acted; failed=$failed)"

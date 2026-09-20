@@ -192,6 +192,7 @@ run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
       GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="${5:-$JOBS/post-job.sh}" \
       GARDEN_RETRO_POST="${CW_RETRO_POST:-$JOBS/post-plan.sh}" \
+      GARDEN_CURSOR_SET="${CW_CURSOR_SET:-$JOBS/cursor-set.sh}" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST=/dev/null \
       GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
@@ -225,6 +226,36 @@ njobs=$(git clone -q --single-branch --branch "$BRANCH" "$BARE_B" "$TR/bv-b" && 
 [ "$njobs" -eq 0 ] && ok "no job posted for a non-directive" || bad "posted $njobs job(s)"
 [ ! -s "$RLOG_B" ] && ok "no reactji on a non-directive" || bad "reactji posted: $(cat "$RLOG_B")"
 [ "$(cursor_seen "$TR/state-b" "$BARE_B")" = 2026-06-24T11:00:00Z ] && ok "cursor slid past the non-actionable comment" || bad "cursor did not slide ($(cursor_seen "$TR/state-b" "$BARE_B"))"
+
+# ============================================================================
+hr; echo "CURSOR-SET — journal outage is quiet; structural advance failure still warns"; hr
+CURSOR_FAIL="$TR/cursor-set-fail.sh"
+cat > "$CURSOR_FAIL" <<'EOF'
+#!/bin/bash
+cat >/dev/null
+exit "${CW_CURSOR_SET_RC:?set CW_CURSOR_SET_RC}"
+EOF
+chmod +x "$CURSOR_FAIL"
+
+BARE_CSO="$TR/cso.git"; seed_bare "$BARE_CSO"
+FIX_CSO="$TR/fix-cso.tsv"; RLOG_CSO="$TR/react-cso.log"; LOG_CSO="$TR/cso.log"; : > "$RLOG_CSO"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T11:10:00Z issue-comment 112 57 stranger \
+  https://github.com/endojs/endo-but-for-bots/pull/57#issuecomment-112 \
+  'Nothing actionable.' > "$FIX_CSO"
+CW_CURSOR_SET="$CURSOR_FAIL" CW_CURSOR_SET_RC=75 CW_LOG="$LOG_CSO" \
+  run_watcher "$TR/state-cso" "$BARE_CSO" "$FIX_CSO" "$RLOG_CSO"
+grep -q 'cursor advance failed' "$LOG_CSO" \
+  && bad "offline cursor advance emitted a per-repo warning" \
+  || ok "GARDEN_OFFLINE_RC cursor advance is quiet and retries next tick"
+
+BARE_CSS="$TR/css.git"; seed_bare "$BARE_CSS"
+LOG_CSS="$TR/css.log"; RLOG_CSS="$TR/react-css.log"; : > "$RLOG_CSS"
+CW_CURSOR_SET="$CURSOR_FAIL" CW_CURSOR_SET_RC=1 CW_LOG="$LOG_CSS" \
+  run_watcher "$TR/state-css" "$BARE_CSS" "$FIX_CSO" "$RLOG_CSS"
+grep -q 'WARN: cursor advance failed.*(rc=1)' "$LOG_CSS" \
+  && ok "structural cursor advance failure remains loud" \
+  || bad "structural cursor advance failure warning missing ($(cat "$LOG_CSS"))"
 
 # ============================================================================
 hr; echo "C — re-poll an already-actioned comment → idempotent"; hr
