@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T05:45:00Z_
+_As of 2026-09-20T05:47:56Z_
 
 ## Latest
 
@@ -1403,18 +1403,17 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 20.2M | $183.39 _(notional, rate-card)_ | 14% of 143.0M (ok) |
-| Codex | 3.1M _(+40.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 3.1M _(+41.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/subscription-based-budget-model.md) — Track quota per SUBSCRIPTION, not per host; infer rate limits; pace toward reset
-- [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1301
 
 ### tada (8481)
-- [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Cost
+- [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1310-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1310-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-6.md) — Completion report — gauntlet FIX round 6, endojs/endo-but-for-bots PR #1310
