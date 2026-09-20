@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T03:24:51Z_
+_As of 2026-09-20T03:27:04Z_
 
 ## Latest
 
@@ -1411,22 +1411,22 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 16.7M | $152.03 _(notional, rate-card)_ | 12% of 143.0M (ok) |
-| Codex | 2.5M _(+16.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Codex | 2.5M _(+17.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`improve-comment-cursor-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-cursor-offline.md) — ---
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1310
 
-### tada (8470)
+### tada (8471)
+- [`improve-comment-cursor-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-comment-cursor-offline.md) — Cost
 - [`claude-on-minion-town-completion-press-20260920-032010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-completion-press-20260920-032010.md) — Completion report — completion press tick 20260920-032010
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-panel-5.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-91eb85cb75f2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-91eb85cb75f2.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-4.md) — Cost
-- [`improve-primary-quota-shared-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-primary-quota-shared-cooldown.md) — Completion report
-- … and 8465 more
+- … and 8466 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
