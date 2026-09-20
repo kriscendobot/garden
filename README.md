@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T09:29:46Z_
+_As of 2026-09-20T09:43:40Z_
 
 ## Latest
 
@@ -67,6 +67,48 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The CapTP blocker simply moved to the ACCEPT half: a guest-callable `EndoGuest.accept` ships in [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310), currently a DRAFT (CI unstable). Driving [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310) to merge is now the single artifact step that clears item 7's CapTP half and unblocks the parked build-minion-town-invitation-onboarding (which re-verified its gate at 15:59Z and correctly re-parked — accept is still host-only, and the onboarding design forbids a host-authority fallback).
 >
 > One decision: go-ahead to drive [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310) to merge now (fleet spend against the 09-17 quota brake), or hold? The same standing question still applies to your 09-18 "push Claude + stdio MCP to preliminary review" ask — [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) and [endojs/endo-but-for-bots#1226](https://github.com/endojs/endo-but-for-bots/issues/1226) remain parked behind the brake. I will not re-drive parked work against the throttle without your word, so later press ticks will just check for your reply rather than re-ask.
+
+- `msg-endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window-88052a54b938` — from gardener:endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window, reply_to `endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window-88052a54b938.md)
+
+> Re: [endojs/endo-but-for-bots#1301](https://github.com/endojs/endo-but-for-bots/issues/1301), your review 5259855118 ("I suspect work has
+> been lost. Look above for naming guidance").
+>
+> Diagnosis: you're right — the clean-break (stage 2) and rename (stage 3) work
+> was lost. The stage-2 job (build-rbra-clean-break-20260916) doomed on
+> deadline-overrun and stage-3 never ran, so the branch carries all producers
+> adopting range/textRange ADDITIVELY but still exposes the old getInfo / fetch /
+> range names. I'm now folding the full clean-break + rename into this PR.
+>
+> Before I touch ~5 packages coherently (guards, impls, types, generated
+> declarations, help, tests, prose), please confirm the target rich-blob surface.
+> My planned final method set on every rich ReadableBlob:
+>
+>   sha256()            [+ sha512() only where a backend actually provides it]
+>   size()
+>   text() / json() / streamBase64()
+>   byteRange(start, end)         (was `range`)
+>   textRange(startLine, endLine) (unchanged)
+>   help()
+>
+> Removing: getInfo, fetch, rangeRead, rangeReadText, range.
+>
+> Two points your inline notes leave genuinely ambiguous — my defaults, please
+> correct any:
+>
+> 1. fetch: on the fetch line you wrote "Becomes byteRange", but recorded design
+>    decision 4 says fetch -> `bytes`. Since `byteRange` already covers windowing,
+>    my default is to DROP fetch entirely (whole content via text/json/
+>    streamBase64; a byte window via byteRange(...).streamBase64()). Say the word
+>    if you instead want a raw whole-content `bytes()` reader kept.
+>
+> 2. getInfo is today the uniform hash accessor on BOTH blobs and trees (generic
+>    code reads getInfo().hash without feature-detecting sha256 vs getInfo). My
+>    default: drop getInfo from the rich BLOB surface (replaced by sha256()+size())
+>    and leave ReadableTree's existing sha256()/getInfo untouched this pass. Tell
+>    me if you want getInfo purged from trees too.
+>
+> If both defaults are right, just reply "defaults ok" and I'll execute. This is a
+> large coupled change and I'd rather not burn a review round on a wrong guess.
 
 - `doomed-daily-progress-summary-20260918-070547-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260918-070547-requeue-exhausted.md)
 
@@ -1798,23 +1840,23 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.4M | $690.51 _(notional, rate-card)_ | no quota set |
+| Claude | 116.5M | $692.79 _(notional, rate-card)_ | no quota set |
 | Codex | 23.1M _(+531.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Resolve the complete maintainer review on endojs/endo-but-for-bots PR #1301
+
+### doin (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window.md) — Resolve the complete maintainer review on endojs/endo-but-for-bots PR #1301
-
-### tada (8486)
+### tada (8487)
+- [`claude-on-minion-town-completion-press-20260920-093505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-completion-press-20260920-093505.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-review-3220af4b.md) — Cost
 - [`claude-on-minion-town-press-20260920-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-080513.md) — Completion report — claude-on-minion-town-press-20260920-080513
 - [`daily-progress-summary-20260920-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/daily-progress-summary-20260920-070510.md) — Completion report
 - [`improve-candidate-gate-flake-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-candidate-gate-flake-retry.md) — Completion report
-- [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/subscription-based-budget-model.md) — Cost
-- … and 8481 more
+- … and 8482 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
