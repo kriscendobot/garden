@@ -34,3 +34,13 @@ Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no m
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=911,118 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-20T15:54:33Z
