@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T04:57:32Z_
+_As of 2026-09-20T05:03:38Z_
 
 ## Latest
 
@@ -1402,7 +1402,7 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.4M | $174.37 _(notional, rate-card)_ | 14% of 143.0M (ok) |
+| Claude | 20.1M | $178.38 _(notional, rate-card)_ | 14% of 143.0M (ok) |
 | Codex | 2.7M _(+17.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
@@ -1414,8 +1414,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1310
 
 ### tada (8477)
+- [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Retcon complete — PR #1301 already in canonical shape, no push needed
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260920-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/fu-minion-town-containment-gateway-endo-sock-1-20260920-045008.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1262-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1262-receipt.md) — Cost
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-5.md) — Completion report
