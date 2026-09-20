@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T04:55:48Z_
+_As of 2026-09-20T04:57:32Z_
 
 ## Latest
 
@@ -1402,14 +1402,15 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.4M | $173.98 _(notional, rate-card)_ | 14% of 143.0M (ok) |
+| Claude | 19.4M | $174.37 _(notional, rate-card)_ | 14% of 143.0M (ok) |
 | Codex | 2.7M _(+17.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1301
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1310
 
 ### tada (8477)
