@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T06:39:43Z_
+_As of 2026-09-20T06:58:28Z_
 
 ## Latest
 
@@ -458,6 +458,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > While in there, apply the identical fix to the two sibling watchers with the same unguarded pattern (same bug, not yet triggered but latent): `scripts/jobs/comment-watcher.sh:423` and `scripts/jobs/mention-watcher.sh:83`.
 
 - `20260920T063315Z-ff17f8` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T063315Z-ff17f8.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `6c7e49cab67cea00c4f603d195c630b5c3a0f001`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260920T065716Z-cd5132` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T065716Z-cd5132.md)
 
 > kind: error
 >
@@ -1546,15 +1562,15 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.4M | $690.51 _(notional, rate-card)_ | no quota set |
-| Codex | 22.7M _(+529.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 116.5M | $692.39 _(notional, rate-card)_ | no quota set |
+| Codex | 22.7M _(+529.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-candidate-gate-flake-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-candidate-gate-flake-retry.md) — ---
 
 ### tada (8482)
 - [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/subscription-based-budget-model.md) — Cost
