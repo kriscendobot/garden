@@ -1,39 +1,30 @@
-The retcon is complete. My verification shows the branch was already in canonical retcon shape, so no force-push was warranted.
+## Retcon complete — PR #1301 already in canonical shape, no push needed
 
-## Completion report
+**Job:** retcon on `endojs/endo-but-for-bots` PR #1301 (`build/readableblob-range-attenuation`, head on `kriscendobot/endo-but-for-bots`, base `llm-387ea66`, draft).
 
-**Job:** `endojs-endo-but-for-bots-pr1301-retcon` — retcon directive on endojs/endo-but-for-bots PR #1301 (feat(platform): ReadableBlob range attenuation), base `llm-387ea66`, head `kriscendobot:build/readableblob-range-attenuation`.
+**What I did:**
+- Set up an isolated project worktree keyed to this job's base and performed the full retcon procedure: `git reset --mixed origin/llm-387ea66`, then restaged one commit per affected package in dependency order (platform → git → daemon → exo-git → agent-tools → floot → design).
+- The restaged history reproduced the existing 7 commits **exactly**. Every commit's tree hash is byte-identical to its current counterpart, and `git diff <restaged>..<current> --stat` is empty — the retcon net-diff invariant holds.
 
-**What I did**
-- Verified the branch is current with its base: `origin/llm-387ea66` is an ancestor of the head (no lag → no weave/rebase needed first).
-- Performed a full mechanical retcon in an isolated project worktree: tagged the pre-retcon tip, `git reset --mixed origin/llm-387ea66`, then restaged per-package (platform → git → daemon → exo-git → agent-tools → floot → designs), reusing each original conventional-commit message.
-- Rigorously verified net-diff invariance: the restaged HEAD tree is **byte-identical** to the pre-retcon tree (`git diff pre-retcon..HEAD` empty; `HEAD^{tree}` == `pre-retcon^{tree}`). Net diff base..head: 33 files, +1922/−191.
+**Finding:** The branch was already in perfect canonical retcon shape:
+- Linear history, one conventional-commit per affected package, implementation + tests bundled: `feat(platform)`, `feat(git)`, `feat(daemon)`, `feat(exo-git)`, `chore(agent-tools)` (regenerated declarations), `chore(floot)` (em-dash), `docs(design)`.
+- No `chore: Update yarn.lock` commit is warranted: the two `package.json` edits (moving `@endo/sha256` daemon dep to runtime; floot description em-dash) change no resolved version, so `yarn.lock` is unchanged and absent from the diff.
 
-**What I found (and the resulting decision)**
-- The existing history was **already in canonical retcon shape**: exactly one commit per affected package with implementation + tests bundled, conventional-commit messages, no sprawl, no WIP/lockfile interleaving, linear (no merges):
-  - `feat(platform)` (shared helpers, LocalBlob, BlobRef) — src + tests
-  - `feat(git)` (native git backend) — src + test
-  - `feat(daemon)` (mount/blobs) — src + tests + `package.json`
-  - `feat(exo-git)` (help text)
-  - `chore(agent-tools)` (regenerated code-mode-global declarations)
-  - `chore(floot)` (literal em-dash in description)
-  - `docs(design)` (design doc)
-- **No `chore: Update yarn.lock` commit is warranted:** the only dependency change (daemon moving `@endo/sha256` from devDependencies to dependencies) is a `workspace:^` move that produces no lockfile entry churn — confirmed no `yarn.lock` in the net diff.
-- Because the mechanical retcon reproduced identical trees **and** the identical per-package grouping/order, a force-push would only rewrite commit SHAs and re-trigger CI on this draft PR with zero reviewer-visible grouping change — pointless churn. I therefore **did not force-push**. The branch already satisfies every retcon invariant.
+**Decision — no force-push:** A restage produces only new SHAs over byte-identical trees. Force-pushing would churn CI and could disrupt the paired shepherd on this draft, for zero content/structure change. I reset the worktree back to the original head and pushed nothing.
 
-**Changes pushed:** none (branch already canonical; force-push would be a no-op rewrite). Pre-retcon tag cleaned up; stray untracked `packages/compartment-mapper/test/fixtures-*` (not part of the PR) were correctly excluded by the per-package adds.
+**What changed:** Nothing on the branch. I posted a top-level acknowledgment comment (standing authorization on this repo covers it): https://github.com/endojs/endo-but-for-bots/pull/1301#issuecomment-5747753265, and a journal `result` entry.
 
-**Follow-ups**
-- The originating comment was "Shepherd and retcon." The **shepherd** half (drive CI to green) is a separate directive/job and out of this job's lane — not addressed here.
-- Inbox drained (empty); no maintainer/peer messages.
+**Follow-ups:** None from the retcon. CI convergence is owned by the paired shepherd directive from the same maintainer comment ("Shepherd and retcon, please").
+
+Self-improvement: nothing this time.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1301-retcon.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 1 host(s)
-- Input: 68 tokens (2125887 cached reads)
-- Output: 28811 tokens
-- Cost: $3.7592175
-- Wall-clock: 481s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 3 on 2 host(s)
+- Input: 102 tokens (3381933 cached reads)
+- Output: 42425 tokens
+- Cost: $5.5253335
+- Wall-clock: 726s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
