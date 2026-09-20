@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T06:28:01Z_
+_As of 2026-09-20T06:36:39Z_
 
 ## Latest
 
@@ -284,6 +284,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration cybernetics-economic-resilience-build complete (serial): all 6 children reached tada without a machine-readable failure declaration.
 
+- `20260920T063616Z-4558e2` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T063616Z-4558e2.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `6c7e49cab67cea00c4f603d195c630b5c3a0f001`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
 > budget pool anthropic:endolin-garden-ece02cb4 changed zone backoff -> ok at spend=0 of cap=143000000 (high-water 0.85; Friday 20:00 Pacific window).
@@ -440,6 +456,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > This exact bug class was found and fixed **twice** today in `triager.sh` (`73c2432e89`, then `b320648e47` when the first, narrower fix proved incomplete): capture the rc explicitly (`if out=$(cmd); then rc=0; else rc=$?; fi`) and fail open — WARN + `exit 0` — on ANY nonzero rc, since a cursor read is inherently best-effort (a stale/unreadable cursor just re-polls next tick, never loses data). Apply the same `if …; then rc=0; else rc=$?; fi` / WARN-and-exit-0 pattern to `issue-inbox-watcher.sh:386`.
 >
 > While in there, apply the identical fix to the two sibling watchers with the same unguarded pattern (same bug, not yet triggered but latent): `scripts/jobs/comment-watcher.sh:423` and `scripts/jobs/mention-watcher.sh:83`.
+
+- `20260920T063315Z-ff17f8` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T063315Z-ff17f8.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `6c7e49cab67cea00c4f603d195c630b5c3a0f001`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
@@ -707,6 +739,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > arm from the helpers once the backlog is fully sharded) is explicitly OUT OF
 > SCOPE for this job — it's cosmetic cleanup the design says can wait "at
 > leisure." Flag it as a natural follow-up in your report; do not do it here.
+
+- `20260920T063016Z-ce047c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T063016Z-ce047c.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `6c7e49cab67cea00c4f603d195c630b5c3a0f001`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `msg-triage-halted-gauntlets-20260916-d6b4e6e396b6` — from gardener:triage-halted-gauntlets-20260916, reply_to `triage-halted-gauntlets-20260916` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-triage-halted-gauntlets-20260916-d6b4e6e396b6.md)
 
