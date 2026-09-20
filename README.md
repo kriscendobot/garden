@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T02:05:11Z_
+_As of 2026-09-20T02:06:41Z_
 
 ## Latest
 
@@ -1401,8 +1401,8 @@ _Since Friday 20:00 Pacific reset; billable tokens (cache reads excluded). Leade
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1310-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1310-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1310
 
 ### tada (8464)
 - [`endojs-endo-but-for-bots-pr1310-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1310-gauntlet-fix-3.md) — Completion report — gauntlet fix round 3, PR #1310
