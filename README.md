@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T09:56:10Z_
+_As of 2026-09-20T09:57:51Z_
 
 ## Latest
 
@@ -67,48 +67,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The CapTP blocker simply moved to the ACCEPT half: a guest-callable `EndoGuest.accept` ships in [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310), currently a DRAFT (CI unstable). Driving [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310) to merge is now the single artifact step that clears item 7's CapTP half and unblocks the parked build-minion-town-invitation-onboarding (which re-verified its gate at 15:59Z and correctly re-parked — accept is still host-only, and the onboarding design forbids a host-authority fallback).
 >
 > One decision: go-ahead to drive [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310) to merge now (fleet spend against the 09-17 quota brake), or hold? The same standing question still applies to your 09-18 "push Claude + stdio MCP to preliminary review" ask — [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) and [endojs/endo-but-for-bots#1226](https://github.com/endojs/endo-but-for-bots/issues/1226) remain parked behind the brake. I will not re-drive parked work against the throttle without your word, so later press ticks will just check for your reply rather than re-ask.
-
-- `msg-endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window-88052a54b938` — from gardener:endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window, reply_to `endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window-88052a54b938.md)
-
-> Re: [endojs/endo-but-for-bots#1301](https://github.com/endojs/endo-but-for-bots/issues/1301), your review 5259855118 ("I suspect work has
-> been lost. Look above for naming guidance").
->
-> Diagnosis: you're right — the clean-break (stage 2) and rename (stage 3) work
-> was lost. The stage-2 job (build-rbra-clean-break-20260916) doomed on
-> deadline-overrun and stage-3 never ran, so the branch carries all producers
-> adopting range/textRange ADDITIVELY but still exposes the old getInfo / fetch /
-> range names. I'm now folding the full clean-break + rename into this PR.
->
-> Before I touch ~5 packages coherently (guards, impls, types, generated
-> declarations, help, tests, prose), please confirm the target rich-blob surface.
-> My planned final method set on every rich ReadableBlob:
->
->   sha256()            [+ sha512() only where a backend actually provides it]
->   size()
->   text() / json() / streamBase64()
->   byteRange(start, end)         (was `range`)
->   textRange(startLine, endLine) (unchanged)
->   help()
->
-> Removing: getInfo, fetch, rangeRead, rangeReadText, range.
->
-> Two points your inline notes leave genuinely ambiguous — my defaults, please
-> correct any:
->
-> 1. fetch: on the fetch line you wrote "Becomes byteRange", but recorded design
->    decision 4 says fetch -> `bytes`. Since `byteRange` already covers windowing,
->    my default is to DROP fetch entirely (whole content via text/json/
->    streamBase64; a byte window via byteRange(...).streamBase64()). Say the word
->    if you instead want a raw whole-content `bytes()` reader kept.
->
-> 2. getInfo is today the uniform hash accessor on BOTH blobs and trees (generic
->    code reads getInfo().hash without feature-detecting sha256 vs getInfo). My
->    default: drop getInfo from the rich BLOB surface (replaced by sha256()+size())
->    and leave ReadableTree's existing sha256()/getInfo untouched this pass. Tell
->    me if you want getInfo purged from trees too.
->
-> If both defaults are right, just reply "defaults ok" and I'll execute. This is a
-> large coupled change and I'd rather not burn a review round on a wrong guess.
 
 - `doomed-daily-progress-summary-20260918-070547-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260918-070547-requeue-exhausted.md)
 
@@ -610,6 +568,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `20260920T095629Z-10ca48` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T095629Z-10ca48.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window
+> - question (msgid msg-endojs-endo-but-for-bots-pr1301-review-3220af4b-expanded-window-88052a54b938.md)
+> - tentative answer: [proxy/tentative — maintainer may revise]
+>
+> On [endojs/endo-but-for-bots#1301](https://github.com/endojs/endo-but-for-bots/issues/1301):
+>
+> 1. **fetch**: don't drop it — recorded design decision 4 already resolves this ambiguity in favor of keeping a whole-content reader, renamed `bytes()` (fetch -> bytes). The inline "Becomes byteRange" note was almost certainly shorthand about the windowing case, but decision 4 is the documented source of truth and should win over an inline annotation. So: keep `bytes()` as a whole-content byte reader alongside `byteRange(start, end)` for windowed reads. Final blob surface: `sha256()` [+ `sha512()` where available], `size()`, `text()` / `json()` / `bytes()` / `streamBase64()`, `byteRange(start, end)`, `textRange(startLine, endLine)`, `help()`.
+>
+> 2. **getInfo**: your default is fine — drop `getInfo` from the rich `ReadableBlob` surface (replaced by `sha256()` + `size()`), and leave `ReadableTree`'s existing `sha256()`/`getInfo` untouched in this PR. Purging `getInfo` from trees is a separate, broader scope change (touches the generic hash-accessor pattern other code relies on) and shouldn't ride along with the blob clean-break/rename.
+>
+> Go ahead and execute the coupled change across the ~5 packages with those two corrections. If the maintainer wants `fetch` actually dropped rather than renamed to `bytes()`, they'll say so on review — treat this as unblocking, not final sign-off on naming.
 
 - `20260920T065716Z-cd5132` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T065716Z-cd5132.md)
 
@@ -1841,7 +1814,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.6M | $692.96 _(notional, rate-card)_ | no quota set |
-| Codex | 23.2M _(+532.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 23.3M _(+532.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
