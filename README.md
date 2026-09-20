@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T16:22:02Z_
+_As of 2026-09-20T16:27:39Z_
 
 ## Latest
 
@@ -657,6 +657,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > candidate: `6c7e49cab67cea00c4f603d195c630b5c3a0f001`
 > failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/6c7e49cab67cea00c4f603d195c630b5c3a0f001/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260920T162714Z-c3341d` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T162714Z-c3341d.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6/09-scripts_jobs_test_provider-cooldown-test.sh.log)
 >
 > Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
 > are host-local on `endolin-garden2-5bcdff64` and retain at most
@@ -1526,6 +1542,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 39 messages. Latest detail:
 >
 > fleet monk allocation frozen: monk fleet ceiling exceeds physical capacity. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
+
+- `20260920T162415Z-7372a2` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T162415Z-7372a2.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8` — from gardener:minion-town-guest-peer-fetch-verify, reply_to `minion-town-guest-peer-fetch-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md)
 
