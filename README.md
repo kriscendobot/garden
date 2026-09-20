@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-20T07:54:48Z_
+_As of 2026-09-20T08:24:00Z_
 
 ## Latest
 
@@ -1799,7 +1799,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 116.4M | $690.51 _(notional, rate-card)_ | no quota set |
-| Codex | 22.8M _(+529.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 22.9M _(+529.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -1808,13 +1808,13 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-review-3220af4b.md) — Review directive on endojs/endo-but-for-bots PR #1301
 
-### tada (8484)
+### tada (8485)
+- [`claude-on-minion-town-press-20260920-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-080513.md) — Completion report — claude-on-minion-town-press-20260920-080513
 - [`daily-progress-summary-20260920-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/daily-progress-summary-20260920-070510.md) — Completion report
 - [`improve-candidate-gate-flake-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/improve-candidate-gate-flake-retry.md) — Completion report
 - [`subscription-based-budget-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/subscription-based-budget-model.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1301-retcon.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/canary-probe-endolin-garden2-5bcdff64-ae2a34bac94d.md) — rolling-deploy canary probe — round trip OK
-- … and 8479 more
+- … and 8480 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
