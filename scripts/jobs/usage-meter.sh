@@ -772,7 +772,8 @@ subscription_used_percent() {
 # implies a full-window token allowance (tokens / percent-used); dividing by the
 # subscription's own observed/declared window duration yields tokens/day. Samples
 # are folded geometrically with alpha=0.25. A flagged discontinuity starts a new
-# baseline and discards the pre-jump estimate instead of blending across it.
+# baseline and discards the pre-jump estimate instead of blending across it; a
+# usable discontinuity sample itself becomes the fresh baseline.
 subscription_rate_json() {
   local subscription="$1" dir="${2:-}" alpha="$GARDEN_RATE_ALPHA"
   local start next duration checkpoint reset_file fact mode live_tokens live_percent
@@ -826,7 +827,7 @@ subscription_rate_json() {
     {
       note=tolower($5)
       discontinuity=(note ~ /discontinuity|not smoothed|window anchor changed/)
-      if (discontinuity) { have=0; samples=0; resets++; next }
+      if (discontinuity) { have=0; samples=0; resets++ }
       percent=$2+0; tokens=$3+0
       if (percent <= 0 || tokens <= 0) next
       sample_seconds=($6+0)>0 ? ($6+0) : seconds

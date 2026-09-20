@@ -49,7 +49,8 @@ tokens/day sample. Samples update in log space with `alpha = 0.25`:
 The geometric update treats proportional error symmetrically and prevents one
 large magnitude from dominating the way an arithmetic mean would. A checkpoint
 whose note flags a discontinuity or window-anchor change clears the rolling
-baseline before later samples are incorporated; it is never blended through.
+baseline; when that checkpoint itself has a usable pair it becomes the fresh
+baseline, and is never blended with the pre-jump estimate.
 The quota panel aggregates all four registry rows into a fleet-wide tokens/day
 lower bound and marks it incomplete when a subscription lacks a token-paired
 sample, rather than silently treating an unknown rate as zero.

@@ -46,15 +46,15 @@ oros_next="$(subscription_next_reset_epoch claude-oros "$TEST_ROOT" "$GARDEN_USA
 [ "$(subscription_window_start_epoch claude-endolin1 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$(date -u -d 2026-09-19T03:05:00Z +%s)" ]
 ! subscription_next_reset_epoch codex-endolin "$TEST_ROOT" "$GARDEN_USAGE_NOW" >/dev/null
 
-# Two usable samples plus a flagged jump: the discontinuity resets the geometric
-# baseline, so only the post-jump sample governs instead of being averaged through.
+# Two usable samples plus a flagged jump: the discontinuity sample starts a fresh
+# geometric baseline, so the pre-jump sample is not averaged through it.
 printf '%s\n' \
   '{"subscription_id":"claude-endolin1","checked_at":"2026-09-19T06:00:00Z","weekly_percent":10,"meter_spend_tokens":10000000,"meter_window_start_epoch":1790132400,"pairing_confidence":"high"}' \
   '{"subscription_id":"claude-endolin1","checked_at":"2026-09-19T12:00:00Z","weekly_percent":90,"meter_spend_tokens":50000000,"meter_window_start_epoch":1790132400,"pairing_confidence":"high","notes":"DISCONTINUITY, flagged not smoothed over"}' \
   '{"subscription_id":"claude-endolin1","checked_at":"2026-09-20T06:00:00Z","weekly_percent":20,"meter_spend_tokens":30000000,"meter_window_start_epoch":1790132400,"pairing_confidence":"high"}' \
   > "$TEST_ROOT/budget/manual-checkpoints/claude-endolin1.jsonl"
 rate="$(subscription_rate_json claude-endolin1 "$TEST_ROOT")"
-[ "$(jq -r .samples <<<"$rate")" -eq 1 ]
+[ "$(jq -r .samples <<<"$rate")" -eq 2 ]
 [ "$(jq -r .discontinuity_resets <<<"$rate")" -eq 1 ]
 
 # A manual subscription never projects a reset, but two observed boundaries can
