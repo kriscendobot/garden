@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T15:25:54Z_
+_As of 2026-09-21T15:37:51Z_
 
 ## Latest
 
@@ -2177,8 +2177,8 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`issue-kriscendobot-garden-106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-106.md) — Issue from dckc on kriscendobot/garden #106
 
 ### tada (8520)
 - [`issue-kriscendobot-garden-105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-105.md) — Cost
