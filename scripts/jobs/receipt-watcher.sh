@@ -86,7 +86,7 @@ if [ "$prereq_rc" -ne 0 ]; then
     rm -f "$PREREQ_ERR"
     exit 0
   fi
-  sed 's/^/  prerequisite: /' "$PREREQ_ERR" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  prerequisite: /' "$PREREQ_ERR" >&2 || true
   rm -f "$PREREQ_ERR"
   die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; see prerequisite stderr above)"
 fi
@@ -163,7 +163,7 @@ if [ "$src_rc" -ne 0 ]; then
   if shared_availability_failure "PR source" "$src_rc" "$ERRF"; then
     exit 0
   fi
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   die "receipt PR source failed for $repo (rc=$src_rc; see source stderr above)"
 fi
 

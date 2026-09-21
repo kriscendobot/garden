@@ -324,7 +324,7 @@ repo_is_definitively_gone() {
 }
 
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure (GitHub outage, DNS blip, TLS/read timeout)
   # is not a broken enumeration — it is "we couldn't ask right now". Degrade the
   # SAME way the per-PR rollup does on an unreadable state (line ~241): skip this

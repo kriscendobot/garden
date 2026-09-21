@@ -168,7 +168,7 @@ since="${SINCE_OVERRIDE:-2000-01-01T00:00:00Z}"
 SRC="$(mktemp)"; SRC_ERR="$(mktemp)"
 trap 'rm -f "$SRC" "$SRC_ERR"' EXIT
 if ! "$GARDEN_COMMENT_SOURCE" "$REPO" "$since" "$BOT" > "$SRC" 2>"$SRC_ERR"; then
-  sed 's/^/  source: /' "$SRC_ERR" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$SRC_ERR" >&2 || true
   die "comment source failed enumerating $REPO — cannot backfill from a partial view (re-run when the API is healthy)"
 fi
 

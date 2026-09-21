@@ -326,7 +326,7 @@ SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"' EXIT
 src_rc=0
 "$GARDEN_MENTION_SOURCE" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   if is_transient_net_error "$ERRF"; then
     log "WARN: mention source unreachable (transient network) — skipping tick (never guess)"
     exit 0

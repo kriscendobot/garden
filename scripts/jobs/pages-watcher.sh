@@ -182,7 +182,7 @@ run_source() {
 
 run_source
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure is not a broken enumeration — degrade the same
   # way the ci-watcher does: skip the tick rather than die, so a GitHub outage doesn't
   # detonate a systemd restart storm. A structural failure (404, malformed) still
@@ -200,7 +200,7 @@ if [ "$src_rc" -ne 0 ]; then
     [ "$GARDEN_PAGES_AUTH_RETRY_SLEEP" -gt 0 ] 2>/dev/null && sleep "$GARDEN_PAGES_AUTH_RETRY_SLEEP"
     run_source
     if [ "$src_rc" -ne 0 ]; then
-      sed 's/^/  source(retry): /' "$ERRF" >&2 || true
+      sed -E 's/^(<[0-9]>)?/\1  source(retry): /' "$ERRF" >&2 || true
       if is_transient_net_error "$ERRF"; then
         log "WARN: pages run source unreachable (transient network) on retry — skipping tick (never guess)"
         exit 0

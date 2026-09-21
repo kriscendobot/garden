@@ -1607,7 +1607,7 @@ if [ "$src_rc" -ne 0 ]; then
   # this to a clean service exit. This branch must remain before every success path
   # below; rc 75 must never sort/process SRC or slide last_seen.
   if is_nonattributable_rc "$src_rc"; then
-    sed 's/^/  source: /' "$ERRF" >&2 || true
+    sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
     log "RATE LIMITED: comment source ended this tick non-attributably (rc=$src_rc) — cursor frozen; propagating rc for self-heal normalization"
     exit "$src_rc"
   fi
@@ -1627,7 +1627,7 @@ if [ "$src_rc" -ne 0 ]; then
   # failure (auth, 404, malformed) still dies loud. See ci-watcher.sh for the
   # matching degrade and is_transient_net_error in common.sh.
   if is_transient_net_error "$ERRF"; then
-    sed 's/^/  source: /' "$ERRF" >&2 || true
+    sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
     log "WARN: comment source unreachable (transient network) — skipping tick (never guess)"
     exit 0
   fi
@@ -1646,12 +1646,12 @@ if [ "$src_rc" -ne 0 ]; then
   # token rotates. Retry the identical bounded source path ONCE; every failure exit
   # stays above the SRC sort/cursor-processing path, preserving LOST-FETCH.
   if is_transient_auth_error "$ERRF"; then
-    sed 's/^/  source: /' "$ERRF" >&2 || true
+    sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
     log "WARN: comment source auth failed (HTTP 401) — retrying once after ${GARDEN_COMMENT_AUTH_RETRY_SLEEP}s backoff"
     [ "$GARDEN_COMMENT_AUTH_RETRY_SLEEP" -gt 0 ] 2>/dev/null && sleep "$GARDEN_COMMENT_AUTH_RETRY_SLEEP"
     run_source
     if [ "$src_rc" -ne 0 ]; then
-      sed 's/^/  source(retry): /' "$ERRF" >&2 || true
+      sed -E 's/^(<[0-9]>)?/\1  source(retry): /' "$ERRF" >&2 || true
       if is_transient_net_error "$ERRF"; then
         log "WARN: comment source unreachable (transient network) on retry — skipping tick (never guess)"
         exit 0
@@ -1666,7 +1666,7 @@ if [ "$src_rc" -ne 0 ]; then
     fi
     # Retry succeeded: fall through and process its complete source output normally.
   else
-    sed 's/^/  source: /' "$ERRF" >&2 || true
+    sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
     die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
   fi
 fi

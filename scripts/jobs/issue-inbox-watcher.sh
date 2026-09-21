@@ -549,7 +549,7 @@ else
   "$GARDEN_ISSUE_SOURCE" "$REPO" "${last_seen:-}" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   if is_transient_net_error "$ERRF"; then
     log "WARN: issue source unreachable (transient network) — skipping tick (never guess)"
     exit 0

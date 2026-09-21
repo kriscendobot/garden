@@ -425,7 +425,7 @@ if [ "$src_rc" -ne 0 ]; then
       exit 0
       ;;
   esac
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   if is_transient_net_error "$ERRF"; then
     log "WARN: PR source unreachable (transient network) — skipping tick (never guess)"
     exit 0

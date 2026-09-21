@@ -214,7 +214,7 @@ else
   "$GARDEN_DEPB_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   log "WARN: open-PR source failed for $repo (rc=$src_rc) — failing open (dispatch), never guessing 'no open PRs'"
   exit 0
 fi

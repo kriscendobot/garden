@@ -292,7 +292,7 @@ src_launch
 wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
 SOURCE_TIMEOUT_PID=""
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure (GitHub outage, DNS blip, TLS/read timeout) is
   # not a broken enumeration — it is "we couldn't ask right now". Degrade by skipping
   # the tick rather than dying, so a GitHub outage doesn't detonate a systemd restart
