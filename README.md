@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T17:24:57Z_
+_As of 2026-09-21T18:03:35Z_
 
 ## Latest
 
@@ -2370,15 +2370,15 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
-| Codex | 26.7M _(+587.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 118.6M | $712.90 _(notional, rate-card)_ | no quota set |
+| Codex | 26.8M _(+587.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-5765048255`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5765048255.md) — Issue follow-up — fold a late comment into the issue work
 
 ### tada (8524)
 - [`deadmail-issue-comment-5764274392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/deadmail-issue-comment-5764274392.md) — Completion report
