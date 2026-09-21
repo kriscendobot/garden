@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 [Visual Studio Code 1\\.138](https://code.visualstudio.com/updates/v1_138) release notes include "Agent sessions in Dev Containers" This is the way the (large!) vs-code userbase is being trained to confine their dev agents. The endo AI thesis is that ocaps are the scalable way to
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-21T15:21:53Z
