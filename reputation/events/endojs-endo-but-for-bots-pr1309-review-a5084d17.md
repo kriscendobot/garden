@@ -7,17 +7,17 @@ thoughtfulness: medium
 work_class: other:l
 target: main2
 accepted: true
-agentic_dollars: 6.952190
+agentic_dollars: 8.218830
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.020700
+estimated_dollars: 0.027186
 attempts: 1
-duration_secs: 300
+duration_secs: 394
 awarded_bid: 
 bidders: 0
 source: live
 recorded_by: endolin-garden-ece02cb4/monk-2
-recorded_at: 2026-09-21T23:19:32Z
+recorded_at: 2026-09-21T23:40:13Z
 ---
 reputation event for endojs-endo-but-for-bots-pr1309-review-a5084d17: arm anthropic/claude-opus-5/medium work_class other:l target main2 accepted true
