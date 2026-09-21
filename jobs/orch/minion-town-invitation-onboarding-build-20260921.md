@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-endo-daemon-pin-refresh-20260921 minion-town-guest-web-invite-accept-fallback-fix-20260921
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-21T22:00:06Z
 ---
