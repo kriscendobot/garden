@@ -101,3 +101,13 @@ Land the design with a real `## Open questions` section naming whichever of
 the above (or others you surface) the maintainer should decide — this is
 what triggers the PR-not-bare path, so don't skip it or pad it with
 already-settled items.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T21:31:32Z
