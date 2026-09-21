@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1290-feedback-5271710675 endojs-endo-but-for-bots-pr1290-retcon-5271710675 endojs-endo-but-for-bots-pr1290-conduct-5271710675
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-21T23:46:46Z
 ---
