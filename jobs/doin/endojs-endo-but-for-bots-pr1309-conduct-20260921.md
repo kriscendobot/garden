@@ -34,6 +34,7 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/1309#pullrequestrevie
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=30 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
