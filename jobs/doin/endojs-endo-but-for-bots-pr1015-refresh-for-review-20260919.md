@@ -51,3 +51,13 @@ inviting preliminary review. Do not un-draft and do not attempt to merge.
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=45,275 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T22:53:31Z
