@@ -36,3 +36,13 @@ passed). If it recurs on the fresh run, re-run that leg before routing to a
 shepherd.
 
 Bot repo (endojs/endo-but-for-bots, `llm` trunk) — merge is authorized.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T23:04:47Z
