@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T20:43:42Z_
+_As of 2026-09-21T20:49:55Z_
 
 ## Latest
 
@@ -1570,6 +1570,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/budget-level.sh
 > A pool with a missing/invalid monk physical cap in config/worker-leveling currently zeroes `mv` globally, which freezes monk apportionment for EVERY host on every tick (see report_freeze call and the `mv=0` fallthrough), not just the misconfigured host's pool. This is firing right now for `anthropic:oros-studio-garden-ce242c49` (added to config/budget-pools at 2026-09-17T02:10Z with no matching `host` row in config/worker-leveling) and is blocking the whole fleet's monk count from rising. `set-budget-pool.sh` already gained a write-time guard for *new* pools (commit dd3e002519, same day) so this exact case can't recur going forward, but it doesn't repair a pool that predates the guard or one written by bypassing the setter (direct journal edit). Harden budget-level.sh to isolate a single pool's missing/invalid-cap fault the same way it already isolates uncalibrated provenance later in the file (`uncalibrated "$prov"&&continue`) — exclude just that pool/host from the apportionment sum and target computation, and freeze/report only that host, rather than blocking every other correctly-configured host's leveling. Separately, the standing config gap itself (oros-studio-garden-ce242c49 has no worker-leveling host row) still needs a human/operator decision on its physical monk cap and a `set-worker-leveling.sh` or `set-budget-pool.sh --monk-cap` call to backfill it — that's outside this script change.
 
+- `20260921T204857Z-22884c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260921T204857Z-22884c.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `7070fc7e9c786255915e5f93cdc10455ec785d5b`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `msg-build-thesaurus-botese-jury-seat-11aa8295e147` — from gardener:build-thesaurus-botese-jury-seat, reply_to `build-thesaurus-botese-jury-seat` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-thesaurus-botese-jury-seat-11aa8295e147.md)
 
 > Job build-thesaurus-botese-jury-seat is landed on main2 (commit e21884be41).
@@ -2370,13 +2386,16 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.2M | $719.48 _(notional, rate-card)_ | no quota set |
-| Codex | 26.9M _(+584.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 119.1M | $722.01 _(notional, rate-card)_ | no quota set |
+| Codex | 27.0M _(+588.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1310-review-2d8eec89`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1310-review-2d8eec89.md) — Review directive on endojs/endo-but-for-bots PR #1310
 - [`register-gpt-6-astra-mentat-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/register-gpt-6-astra-mentat-tier.md) — Register GPT-6 Astra as a codex/cleric mentat-tier model
+- [`endojs-endo-but-for-bots-pr1303-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1303-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1303
+- [`endojs-endo-but-for-bots-pr1317-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1317-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1317
+- [`endojs-endo-but-for-bots-pr1309-review-a5084d17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1309-review-a5084d17.md) — Review directive on endojs/endo-but-for-bots PR #1309
 
 ### doin (1)
 - [`build-endo-daemon-systemd-socket-activation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-daemon-systemd-socket-activation.md) — Systemd socket activation for the Endo daemon (LISTEN_FDS)
@@ -2646,6 +2665,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 - [`endojs-endo-but-for-bots-pr1301-review-819fb121-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1301-review-819fb121-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1301 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1310-72fb67e9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1310-72fb67e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1310 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1310-review-2d8eec89-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1310-review-2d8eec89-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1310 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1309-review-a5084d17-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1309-review-a5084d17-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1309 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
