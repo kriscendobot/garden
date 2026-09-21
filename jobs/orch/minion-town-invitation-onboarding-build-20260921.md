@@ -1,4 +1,5 @@
 ---
+child-minion-town-endo-daemon-pin-refresh-20260921-reap-count: 0
 order: serial
 children: minion-town-endo-daemon-pin-refresh-20260921 minion-town-guest-web-invite-accept-fallback-fix-20260921
 on-child-failure: halt
