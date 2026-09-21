@@ -58,3 +58,13 @@ Confirm `post-manual-job.sh`/whatever manual-dispatch path is used can
 actually route a `tier: mentat` job to `gpt-6-astra` on a cleric worker
 end-to-end (a real dispatch, not just a config read), and confirm the
 existing Claude-mentat path is unaffected.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T20:59:52Z
