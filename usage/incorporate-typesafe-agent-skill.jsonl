@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":195,"input_tokens":22,"output_tokens":10860,"cache_creation_tokens":58763,"cache_read_tokens":621766,"total_cost_usd":1.1952439999999998,"ts":"2026-09-21T21:57:18Z","base":"incorporate-typesafe-agent-skill","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder","provider":"anthropic"}
