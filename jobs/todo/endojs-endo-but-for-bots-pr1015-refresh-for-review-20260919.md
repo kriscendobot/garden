@@ -45,15 +45,4 @@ worktree (ensure-project-worktree.sh), never the garden root.
 #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 inviting preliminary review. Do not un-draft and do not attempt to merge.
 
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=460 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-21T21:46:18Z
+<!-- garden-reaped: 0 -->
