@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-21T22:33:18Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-21T22:33:18Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -20,19 +40,3 @@ so a re-run never double-posts. Report the archive path and the posted comment
 URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1293
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-21T22:24:06Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=335,20 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-21T22:28:45Z
