@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T20:49:55Z_
+_As of 2026-09-21T20:52:01Z_
 
 ## Latest
 
@@ -2386,15 +2386,16 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.1M | $722.01 _(notional, rate-card)_ | no quota set |
-| Codex | 27.0M _(+588.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 119.1M | $722.82 _(notional, rate-card)_ | no quota set |
+| Codex | 27.1M _(+589.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
-### todo (5)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1310-review-2d8eec89`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1310-review-2d8eec89.md) — Review directive on endojs/endo-but-for-bots PR #1310
 - [`register-gpt-6-astra-mentat-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/register-gpt-6-astra-mentat-tier.md) — Register GPT-6 Astra as a codex/cleric mentat-tier model
 - [`endojs-endo-but-for-bots-pr1303-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1303-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1303
 - [`endojs-endo-but-for-bots-pr1317-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1317-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1317
+- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 - [`endojs-endo-but-for-bots-pr1309-review-a5084d17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1309-review-a5084d17.md) — Review directive on endojs/endo-but-for-bots PR #1309
 
 ### doin (1)
