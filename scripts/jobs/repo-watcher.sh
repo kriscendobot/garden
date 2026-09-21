@@ -49,9 +49,40 @@ export GARDEN_TAG="repo-watcher"
 # sync_clone after it fetches the just-landed membership). Best-effort: a
 # provisioning failure (offline, CAS storm) must never block reconciling the
 # already-armed set. Inert until config/fork-owners exists on the journal.
+# rc handling is edge-latched for the TRANSIENT offline class (rc=75, EX_TEMPFAIL):
+# fork-watch-provisioner.sh exits GARDEN_OFFLINE_RC when the shared journal/GitHub
+# availability it needs is momentarily unreachable (its sync_clone offline skip).
+# That is expected and self-heals, so reporting it identically every reconcile tick
+# (once a minute) only spams a WARN that drowns real warnings in a
+# `journalctl -p warning` tail — the same failure mode the template-drift self-heal
+# below exists to stop. Report the outage ONCE at its edge, stay quiet while it
+# persists (a host-local marker under $GARDEN_STATE latches the open episode), and
+# log a single recovery line when the provisioner next runs cleanly. A genuine
+# (non-75) provisioner failure keeps the original per-tick WARN — it is actionable
+# and not self-healing. The already-armed watch sets are reconciled below either
+# way; a provisioner hiccup never blocks the reconcile.
 PROVISIONER="${GARDEN_FORK_PROVISIONER:-$HERE/fork-watch-provisioner.sh}"
+OFFLINE_RC="${GARDEN_OFFLINE_RC:-75}"
+PROVISIONER_OFFLINE_MARKER="${GARDEN_FORKWATCH_OFFLINE_MARKER:-$GARDEN_STATE/repo-watcher/fork-provisioner-offline}"
 if [ -x "$PROVISIONER" ]; then
-  "$PROVISIONER" || log "WARN: fork-watch-provisioner failed (rc=$?); continuing to reconcile"
+  if "$PROVISIONER"; then prc=0; else prc=$?; fi
+  if [ "$prc" -eq 0 ]; then
+    # Clean run: close any open offline episode with a single recovery line.
+    if [ -f "$PROVISIONER_OFFLINE_MARKER" ]; then
+      log "fork-watch-provisioner shared availability RECOVERED (was rc=$OFFLINE_RC offline); auto-provisioning resumed"
+      rm -f "$PROVISIONER_OFFLINE_MARKER" 2>/dev/null || true
+    fi
+  elif [ "$prc" -eq "$OFFLINE_RC" ]; then
+    # Transient shared-availability outage: report once at the edge, then suppress.
+    if [ ! -f "$PROVISIONER_OFFLINE_MARKER" ]; then
+      mkdir -p "${PROVISIONER_OFFLINE_MARKER%/*}" 2>/dev/null || true
+      date -u +%FT%TZ > "$PROVISIONER_OFFLINE_MARKER" 2>/dev/null || true
+      log "fork-watch-provisioner shared availability unreachable (rc=$OFFLINE_RC, transient); continuing to reconcile already-armed watches, suppressing repeats until it recovers"
+    fi
+  else
+    # A genuine, non-transient provisioner failure stays a per-tick WARN.
+    log "WARN: fork-watch-provisioner failed (rc=$prc); continuing to reconcile"
+  fi
 fi
 
 DIR="${GARDEN_WATCHER_CLONE:-$GARDEN_STATE/repo-watcher/journal}"
