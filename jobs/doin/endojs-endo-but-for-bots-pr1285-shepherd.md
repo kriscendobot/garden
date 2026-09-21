@@ -25,3 +25,13 @@ shepherd->fixer auto-chain. Re-fetch the live state before acting; this
 job was minted from a status read at post time. Once green, the conductor
 is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T21:15:24Z
