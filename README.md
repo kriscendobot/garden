@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T07:08:45Z_
+_As of 2026-09-21T07:16:11Z_
 
 ## Latest
 
@@ -2171,22 +2171,22 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
-| Codex | 25.5M _(+580.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 25.6M _(+582.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`daily-progress-summary-20260921-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260921-070504.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
-### tada (8514)
+### tada (8515)
+- [`daily-progress-summary-20260921-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/daily-progress-summary-20260921-070504.md) — Cost
 - [`claude-on-minion-town-press-20260921-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-053509.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260921-050504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/fu-minion-town-containment-gateway-endo-sock-1-20260921-050504.md) — What I did
 - [`dependabotany-recheck-endo-but-for-bots-20260921-050504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/dependabotany-recheck-endo-but-for-bots-20260921-050504.md) — Cost
 - [`claude-on-minion-town-completion-press-20260921-035012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-completion-press-20260921-035012.md) — Completion report
-- [`claude-on-minion-town-press-20260921-023505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-023505.md) — Cost
-- … and 8509 more
+- … and 8510 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
