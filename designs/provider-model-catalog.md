@@ -77,7 +77,8 @@ generic pairings remain ❓ and direct but unintegrated pairings remain 🔬.
 ## Dispatch vocabulary (current)
 
 The executable closed inventory is `scripts/jobs/model-tier-inventory.tsv`.
-Its tiers are: mentat = Fable (manual-only), mentor = Anthropic Opus 5, OpenAI
+Its tiers are: mentat = Anthropic Fable (and Mythos) plus OpenAI GPT-6 Astra
+(`gpt-6-astra`), all manual-only and multi-provider like mentor, mentor = Anthropic Opus 5, OpenAI
 Sol, Moonshot Kimi K3, and Fireworks Kimi K3 / GLM 5.2 (the multi-provider automatic
 ceiling), minion = Opus 4.x, the OpenAI/Codex models below Sol, Fireworks Deepseek
 V4 Pro, and OpenRouter DeepSeek V3 free (the automatic fallback), and myrmidon = the
@@ -180,6 +181,23 @@ extra-high depth; `max` = maximum depth for the hardest problems; `ultra` (terra
 A hidden catalog entry, `codex-auto-review` (`visibility: "hide"`, priority 43), is
 Codex's internal auto-approval **code-review** model, not a user-selectable coding
 model; noted for completeness only.
+
+**GPT-6 Astra (`gpt-6-astra`) — the OpenAI mentat row (added 2026-09-21).** OpenAI
+released **GPT-6 Astra** (2026-09-03) as its top agentic-coding model: **1.05M-token
+context window, 128K max output, knowledge cutoff 2026-04-30**; API standard pricing
+**$10/M input, $50/M output** (a Fast mode exists at 2x speed / 2x price). It is
+registered in the closed inventory at **mentat** — the first non-Anthropic mentat row —
+and, like every mentat model, is **manual-only** (`post-manual-job.sh` /
+`dispatch: manual`); no automatic producer reaches it. Ids and pricing are transcribed
+from OpenAI's own developer docs (`developers.openai.com/api/docs/models/gpt-6-astra`,
+"Model ID: `gpt-6-astra`") and the launch announcement (`openai.com/index/gpt-6-astra/`),
+**not** from a `codex debug models` query — the codex-cli selectable set above is
+account-and-version-scoped and was last captured 2026-07-13. **[unverified: whether the
+ChatGPT-plan `codex` catalog exposes `gpt-6-astra` as a selectable `-m` slug on the
+target host]** — re-run `codex debug models` on the cleric host to confirm before
+relying on an automatic (non-canary) mentat dispatch to it. The garden routes it by tier
+regardless: a manual `tier: mentat` job claimed by a cleric resolves to `gpt-6-astra` via
+`tier_model_for_provider` and runs `codex -m gpt-6-astra`.
 
 **Cost.** The CLI is authenticated via **ChatGPT plan metering**, not an API key, so it
 exposes **no per-token dollar price** for these models — spend is drawn against the

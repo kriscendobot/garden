@@ -21,6 +21,7 @@ anthropic	claude-sonnet-4-6	myrmidon
 anthropic	claude-haiku-4-5	myrmidon
 anthropic	claude-haiku-4-5-20251001	myrmidon
 anthropic	claude-mythos-5	mentat
+openai	gpt-6-astra	mentat
 openai	gpt-5.6-sol	mentor
 openai	gpt-5.6-terra	minion
 openai	gpt-5.6-luna	minion

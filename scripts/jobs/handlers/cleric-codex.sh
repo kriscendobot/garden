@@ -151,6 +151,15 @@ fi
 requested_tier="$(job_tier "$jobfile" 2>/dev/null || true)"
 requested_role="$(plan_role "$jobfile")"
 requested_effort="$(plan_field "$jobfile" effort)"
+# MENTAT IS AN AUTHORIZATION BOUNDARY, NOT A PRICE POINT. GPT-6 Astra (the OpenAI
+# mentat model) runs only on an explicitly maintainer-dispatched job; no automatic
+# producer may reach it (skills/model-selection/SKILL.md). The claim predicate
+# (claim-job.sh job_eligible_for_kind) already refuses an automatic mentat claim for
+# every provider; this handler-side gate mirrors monk-claude.sh's so the codex
+# providers carry the same defense-in-depth and claim/serve stay in agreement.
+if [ "$requested_tier" = mentat ] && [ "$(plan_field "$jobfile" dispatch)" != manual ]; then
+  die "codex handler accepts tier: mentat only on an explicit manual dispatch"
+fi
 if job_provider_is_constrained "$jobfile"; then
   constrained_provider="$(job_provider_constraint "$jobfile" 2>/dev/null || true)"
   [ "$constrained_provider" = "$provider" ] \

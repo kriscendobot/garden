@@ -118,9 +118,15 @@ job_eligible_for_kind() {
     constrained_provider="$(job_provider_constraint "$jf")" || return 1
     [ "$constrained_provider" = "$KIND_PROVIDER" ] || return 1
   fi
-  # Mentat is an authorization boundary, not merely a price point.
+  # Mentat is an authorization boundary, not merely a price point: it is
+  # dispatchable ONLY on an explicit manual dispatch, on ANY provider (this gate
+  # is keyed on the tier string, never a provider — mentat is multi-provider like
+  # mentor: Anthropic Fable/Mythos and OpenAI GPT-6 Astra both live at mentat).
+  # Which providers may actually take a mentat job is decided provider-agnostically
+  # by the backend-fit filter below (`tier_model_for_provider`), which admits only a
+  # provider that has a model at this tier — so a provider without a mentat row
+  # (moonshot/fireworks/local/…) still fails closed with no hardcoded allowlist.
   [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || return 1
-  [ "$tier" != mentat ] || [ "$KIND_PROVIDER" = anthropic ] || return 1
   # A concrete `model:` pin binds the job to the provider that owns that model,
   # so a multi-provider tier (mentor spans Opus 5 / Sol / Kimi) never lets a worker
   # claim a job pinned to a foreign provider's model. resolve_model_tier resolves the
