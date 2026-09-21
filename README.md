@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T18:03:35Z_
+_As of 2026-09-21T18:14:42Z_
 
 ## Latest
 
@@ -2370,23 +2370,23 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.6M | $712.90 _(notional, rate-card)_ | no quota set |
+| Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
 | Codex | 26.8M _(+587.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-5765048255`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5765048255.md) — Issue follow-up — fold a late comment into the issue work
+### doin (0)
+(none)
 
-### tada (8524)
+### tada (8526)
+- [`claude-on-minion-town-press-20260921-180505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-180505.md) — Cost
+- [`deadmail-issue-comment-5765048255`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/deadmail-issue-comment-5765048255.md) — Completion report
 - [`deadmail-issue-comment-5764274392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/deadmail-issue-comment-5764274392.md) — Completion report
 - [`claude-on-minion-town-completion-press-20260921-160505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-completion-press-20260921-160505.md) — Completion report
 - [`improve-issue-inbox-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/improve-issue-inbox-tick-bounds.md) — Completion report
-- [`issue-kriscendobot-garden-106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-106.md) — Completion report
-- [`issue-kriscendobot-garden-105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-105.md) — Cost
-- … and 8519 more
+- … and 8521 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
