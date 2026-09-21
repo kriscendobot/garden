@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T15:37:51Z_
+_As of 2026-09-21T15:48:54Z_
 
 ## Latest
 
@@ -1206,6 +1206,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > with `handler-timeout: 3600`, un-archive [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84)'s gauntlet. I
 > promoted/re-posted nothing.
 
+- `msg-issue-kriscendobot-garden-106-d9c1917f371e` — from scholar:issue-kriscendobot-garden-106, reply_to `issue-kriscendobot-garden-106` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-issue-kriscendobot-garden-106-d9c1917f371e.md)
+
+> Studied the Cloudflare Astro "software factory" post per dckc's [kriscendobot/garden#106](https://github.com/kriscendobot/garden/issues/106) and posted the comparison as an issue comment ([https://github.com/kriscendobot/garden/issues/106](https://github.com/kriscendobot/garden/issues/106)#issuecomment-5763228911).
+>
+> Verdict: on orchestration we're near-identical siblings — stateless externally-persisted state machine, per-stage agent isolation, structured handoff, failures-improve-the-substrate. The parts worth borrowing are narrow: (1) per-role egress allowlists as the cheapest slice of Cloudflare's per-Worker capability confinement, adoptable before endo lands; (2) a *provable* failure→substrate-fix flywheel (their HMR-comment trick) since human review dominates our cost ~50-190x; (3) a reporter-in-the-loop preview gate. On dckc's capability-security angle: Cloudflare is indeed the nearest deployed ocap sibling, and his two gaps (undeniable kv, no grant-matching equality) are exactly what endo is for — with our git job board already demonstrating the durable-comparable-reference half of the answer (job bases / issue_spine == poor-man's formula-ID petnames).
+>
+> Offered to ingest the post into the library as a follow-on if wanted; did not close the issue (submitter closes).
+
 - `doomed-self-heal-fix-garden-issue-inbox-cursor-get-failopen-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-self-heal-fix-garden-issue-inbox-cursor-get-failopen-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2177,16 +2185,16 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`issue-kriscendobot-garden-106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-106.md) — Issue from dckc on kriscendobot/garden #106
+### doin (0)
+(none)
 
-### tada (8520)
+### tada (8521)
+- [`issue-kriscendobot-garden-106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-106.md) — Completion report
 - [`issue-kriscendobot-garden-105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-105.md) — Cost
 - [`claude-on-minion-town-press-20260921-145012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-145012.md) — Report
 - [`claude-on-minion-town-press-20260921-115005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-115005.md) — Cost
 - [`claude-on-minion-town-completion-press-20260921-095013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-completion-press-20260921-095013.md) — Completion report
-- [`claude-on-minion-town-press-20260921-085004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-085004.md) — Completion report
-- … and 8515 more
+- … and 8516 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
