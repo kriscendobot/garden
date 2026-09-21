@@ -46,11 +46,11 @@ worktree (ensure-project-worktree.sh), never the garden root.
 inviting preliminary review. Do not un-draft and do not attempt to merge.
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=45 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-21T22:43:16Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=45,275 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
