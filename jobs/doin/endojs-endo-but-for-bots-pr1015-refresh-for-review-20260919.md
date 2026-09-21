@@ -51,6 +51,7 @@ inviting preliminary review. Do not un-draft and do not attempt to merge.
 <!-- garden-plain-retry-not-before: 2026-09-21T22:43:16Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=45,275 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
