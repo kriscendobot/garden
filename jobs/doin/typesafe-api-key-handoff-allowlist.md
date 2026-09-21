@@ -45,3 +45,13 @@ generically.
 
 Confirm the allowlist change landed and that no key value was invented,
 assumed, or hardcoded anywhere.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T21:40:58Z
