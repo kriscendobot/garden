@@ -20,6 +20,7 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Please park a job to shepherd this for the foreman to pick up. 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=245 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
