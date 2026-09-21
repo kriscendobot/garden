@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T20:52:01Z_
+_As of 2026-09-21T21:01:02Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 20d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 20d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 19d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 20d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 21d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 23d)
 
@@ -2386,20 +2386,25 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.1M | $722.82 _(notional, rate-card)_ | no quota set |
-| Codex | 27.1M _(+589.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 118.6M | $721.41 _(notional, rate-card)_ | no quota set |
+| Codex | 27.1M _(+593.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
-### todo (6)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1310-review-2d8eec89`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1310-review-2d8eec89.md) — Review directive on endojs/endo-but-for-bots PR #1310
-- [`register-gpt-6-astra-mentat-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/register-gpt-6-astra-mentat-tier.md) — Register GPT-6 Astra as a codex/cleric mentat-tier model
+- [`endojs-endo-but-for-bots-pr1310-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1310-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1310
+- [`endojs-endo-but-for-bots-pr1290-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1290-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1290
 - [`endojs-endo-but-for-bots-pr1303-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1303-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1303
 - [`endojs-endo-but-for-bots-pr1317-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1317-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1317
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 - [`endojs-endo-but-for-bots-pr1309-review-a5084d17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1309-review-a5084d17.md) — Review directive on endojs/endo-but-for-bots PR #1309
+- [`endojs-endo-but-for-bots-pr1290-review-dec2083a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1290-review-dec2083a.md) — Review directive on endojs/endo-but-for-bots PR #1290
 
-### doin (1)
+### doin (4)
 - [`build-endo-daemon-systemd-socket-activation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-daemon-systemd-socket-activation.md) — Systemd socket activation for the Endo daemon (LISTEN_FDS)
+- [`endojs-endo-but-for-bots-pr1293-review-ac814bf2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1293-review-ac814bf2.md) — Review directive on endojs/endo-but-for-bots PR #1293
+- [`register-gpt-6-astra-mentat-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/register-gpt-6-astra-mentat-tier.md) — Register GPT-6 Astra as a codex/cleric mentat-tier model
+- [`endojs-endo-but-for-bots-pr1309-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1309-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1309
 
 ### tada (8526)
 - [`claude-on-minion-town-press-20260921-180505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-180505.md) — Cost
@@ -2667,6 +2672,8 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 - [`endojs-endo-but-for-bots-pr1310-72fb67e9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1310-72fb67e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1310 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1310-review-2d8eec89-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1310-review-2d8eec89-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1310 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1309-review-a5084d17-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1309-review-a5084d17-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1309 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1293-review-ac814bf2-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1293-review-ac814bf2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1293 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1290-review-dec2083a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1290-review-dec2083a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1290 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
