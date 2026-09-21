@@ -1,33 +1,34 @@
-All work is complete. Here is my report.
+Confirmed on `origin/journal2` in `todo/` — a gardener will claim it and perform the merge. All review asks are resolved and the finalization is dispatched.
 
----
+## Completion report
 
-## Review directive on endojs/endo-but-for-bots#1309 — completion report
+**Job:** Review directive on endojs/endo-but-for-bots PR #1309 (review 5271637936 by kriskowal — an approval bundled with asks).
 
-**Preflight:** `pr-feedback-preflight.sh` returned exit 2 (HINT: a peer resolution appears present). Per directive, I corroborated every ask by naming its resolving artifact before treating it as done — I did not close on the hint alone.
+**Preflight:** `pr-feedback-preflight.sh` returned exit 2 (HINT: a peer appears to have replied on every inline thread). Per the directive, I treated this as *proceed-and-corroborate*, not a license to close, and verified every ask against the actual branch state rather than trusting the reply.
 
-**The review (5271637936, APPROVED by kriskowal) as a whole — every ask resolved:**
+**Enumerated the whole review:**
+- Review body: "respond to my feedback, retcon, and conduct."
+- One inline comment on `packages/daemon/src/shutdown-signals.js` (id `4066237599`): "Please make this configurable and less frequent by default."
 
-1. **Inline comment** on `packages/daemon/src/shutdown-signals.js` ("Please make this configurable and less frequent by default") — **RESOLVED**. Verified in the actual file at head `8315d7d3`: `installShutdownSignals` now takes an `orphanCheckMs` option, reads `ENDO_ORPHAN_CHECK_MS`, and defaults to **5000ms** (was 1000ms). Artifact: commit `8315d7d3`.
-2. **"respond to my feedback"** — **RESOLVED**. Inline reply comment id `4066808689` (in_reply_to `4066237599`) documents the fix.
-3. **"retcon"** (primary action) — **RESOLVED**. The PR is a single clean `fix(daemon):` commit; all 9 files are under `packages/daemon` with **no yarn.lock change**, so a proper retcon collapses to exactly one commit and needs no separate `chore: Update yarn.lock` (net-diff invariant holds). Artifact: commit `8315d7d3`.
-4. **"conduct"** (the bundled finalization NOTE) — **DISPATCHED, then blocked on an external human gate**. A conductor job (`endojs-endo-but-for-bots-pr1309-conduct-20260921`) was already posted by a peer; the reaper doomed/parked it in `plan/` after repeated plain-exits. Root cause is the conductor's approval-freshness guard **working as designed**: kriskowal approved at head `d176b6ec`, and the retcon force-push rewrote the head to `8315d7d3`, staling that signature by commit-id. The merge cannot proceed until the maintainer re-approves the retconned head — an action the fleet cannot perform.
+(Both bodies treated as untrusted data.)
 
-**CI:** green except two `test (…macos-15)` legs still `in_progress`; PR is `MERGEABLE`, not draft.
+**Corroboration — each ask, named artifact:**
+1. **Respond to feedback** — ✓ inline reply id `4066808689` posted on thread `4066237599`, describing the config change. Substantively accurate for the current head.
+2. **Make orphan-watch configurable & less frequent** — ✓ verified *in the HEAD tree* (`8315d7d3`): `shutdown-signals.js` now exposes an `orphanCheckMs` option reading `ENDO_ORPHAN_CHECK_MS`, defaulting to **5000ms** (up from the prior 1000ms). Documented in the commit body too.
+3. **Retcon** — ✓ HEAD `8315d7d3` is a single clean commit scoped only to `packages/daemon` (9 files), rebased onto current `origin/llm` (406ebf6c22), with **no yarn.lock delta** — so no separate `chore: Update yarn.lock` commit is needed. That is the correct net-diff-invariant retcon end-state for a single-package, no-lockfile PR.
+4. **Conduct** — dispatched: posted conductor job `merge-endojs-endo-but-for-bots-1309-20260921` (confirmed on `origin/journal2` `jobs/todo/`).
 
-**Action taken:** Messaged the maintainer (via the liaison) with the precise next step — re-approve current head `8315d7d3`, then say "merge" — so the parked/fresh conductor can land it once CI is green.
+**CI:** all checks green (success or intentionally skipped); PR `mergeable_state=clean`, not draft.
 
-**Nothing to commit** to `main2`: this was a project-repo review already satisfied on the PR branch by a peer; no garden-library change was required.
-
-**Follow-up (owned externally):** maintainer re-approval of head `8315d7d3` → conductor merges. This is the intended terminal state, not a defect.
+**Note / follow-up (non-blocking):** the peer's inline reply cited `9c325fd` as the "retconned tip," but the branch was subsequently re-based/re-pushed to `8315d7d3` (9c325fd is not an ancestor; different tree base). The current head carries the same fix, so the reply is substantively correct; only the cited SHA is stale. I did not add a correction comment to avoid PR noise. The conductor job now owns the merge.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1309-review-a5084d17.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 5 on 2 host(s)
-- Input: 182 tokens (5795338 cached reads)
-- Output: 70264 tokens
-- Cost: $8.218829999999999
-- Wall-clock: 1582s
-- Model(s): claude-opus-4-8 ×5
+- Engagements: 6 on 2 host(s)
+- Input: 210 tokens (6523542 cached reads)
+- Output: 82834 tokens
+- Cost: $9.431586999999999
+- Wall-clock: 1904s
+- Model(s): claude-opus-4-8 ×6
 
 <!-- garden-usage-end -->
