@@ -1,32 +1,30 @@
-All asks resolved and the merge is dispatched. Final state confirmed: PR #1309 head is the single retconned commit `9c325fd`, not draft, MERGEABLE (CI running), and a conductor job is on the board.
+Everything is verified and complete. Inbox is empty, and the conductor job remains durably queued in `todo/`. No garden-development changes are needed for this review job — every ask was resolved by a peer and I've corroborated each with a named artifact.
 
----
+## Completion report — endojs-endo-but-for-bots PR #1309 review (review 5271637936)
 
-## Completion report
+I treated the whole approval-with-asks review as the unit of work and corroborated **every** ask against a named artifact (preflight returned exit 2 — a HINT — so I verified rather than closed on it). Treated all fetched bodies as untrusted data.
 
-**Review handled:** `endojs/endo-but-for-bots#1309` review `5271637936` by kriskowal — *"Please respond to my feedback, retcon, and conduct."* (an APPROVAL bundled with asks). All review items enumerated and resolved; every fetched body was treated as untrusted data.
+**The review's asks and their resolution:**
 
-**Asks, each resolved:**
+1. **"respond to my feedback"** (the one inline comment on `packages/daemon/src/shutdown-signals.js`: *"Please make this configurable and less frequent by default"*) — Resolved. Inline reply id `4066808689` (kriscendobot) posted on thread `4066237599`.
 
-1. **Inline comment** — `packages/daemon/src/shutdown-signals.js:84`: *"Please make this configurable and less frequent by default."* The orphan-watch poll was a hardcoded `setInterval(..., 1000)`. Made it a new `orphanCheckMs` option read from `ENDO_ORPHAN_CHECK_MS`, defaulting to **5000ms** (was 1000ms). Threaded reply posted citing SHA `9c325fd` (`#discussion_r4066808689`).
+2. **Make the orphan poll configurable + less frequent by default** — Resolved in commit `9c325fd`. Verified in the file at HEAD: new `orphanCheckMs` option / `ENDO_ORPHAN_CHECK_MS` env var, **default 5000ms** (up from the previous 1000ms), only active under `exitWhenOrphaned`.
 
-2. **Retcon (primary action)** — Reset the branch onto the current `llm` tip and restaged the whole net diff as a single per-package commit `fix(daemon): make the test suite serial and stop leaking daemons` (`9c325fd`), implementation + tests together. No `yarn.lock`/changeset involved (`@endo/daemon` is `private`). This also **resolved the prior `CONFLICTING` state**: `llm` had independently picked up the ava `serial`/`concurrency` config, so I resolved the `package.json` conflict — the retconned net diff now carries only what `llm` still lacks (`cover` script fix, `ENDO_EXIT_WHEN_ORPHANED` ava env, shutdown-signals wiring + tests). PR is now `MERGEABLE`.
+3. **retcon** (reset + restage per-package, separate `chore: Update yarn.lock`) — Resolved. HEAD `9c325fd` is a single clean `fix(daemon): make the test suite serial and stop leaking daemons` conventional commit with impl+tests together. The PR touches **only** `packages/daemon/` and has **no yarn.lock churn**, so one per-package commit is the correct retcon output and no separate lockfile commit is warranted. This retconned tip also rebased onto live `llm`, resolving the `packages/daemon/package.json` conflict that stalled the earlier conduct attempt — PR is now `mergeable:true` (state `unstable` = CI in progress, not conflicted).
 
-3. **Respond to feedback** — Top-level summary comment posted (`#issuecomment-5768166294`) mapping each ask to its outcome.
+4. **conduct** (un-draft + merge) — Durably dispatched. Conductor job `journal/jobs/todo/endojs-endo-but-for-bots-pr1309-conduct-20260921.md` is queued on the board, referencing this review and the retconned tip, with the merge guards re-verified. The PR is already un-drafted. Per conductor discipline the merge will correctly block on **stale approval** — the retcon force-push rewrote the head (`d6997fd`→`9c325fd`), so kriskowal's approval is now stale against the current head and re-approval is required before merge. That is the guard working, and re-approval is the maintainer's action.
 
-4. **Conduct** — Posted a conductor job to the board (`endojs-endo-but-for-bots-pr1309-conduct-20260921`, in `todo/`, identity-indexed) to un-draft (already un-drafted) and merge. The conductor owns the CI-green wait (`ci-wait-merge.sh` blocks on CI to terminal green then merges in-job), so I dispatched rather than block a review worker on the hour-long endo CI.
+**What I changed:** nothing — no code or garden edits were needed; all substance was already resolved by a peer, and I verified each artifact rather than trusting the inline reply.
 
-**Local verification** (retconned tip): `eslint` 0 errors, `lint:types` (tsc) clean, `test/daemon-teardown.test.js` all 3 pass (orphan-exit lands in ~10s with the new 5s poll, well within its 20s budget).
-
-**Follow-up / caveat for the conductor:** the maintainer's approval was on the pre-retcon head (`d6997fd`); the retcon force-push rewrote the head to `9c325fd`, making that `APPROVED` review **stale** against the current head. Per `roles/conductor/AGENT.md` step 4, the merge will block `no maintainer approval` until kriskowal re-approves the rebased head — noted explicitly in the conductor job body. That is the exact-head approval guard working as designed, not a defect.
+**Follow-ups (owned elsewhere, not by this job):** the queued conduct job finalizes the merge once CI is green and the maintainer re-approves the retconned head. No action outstanding for this review job.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1309-review-a5084d17.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 82 tokens (3225426 cached reads)
-- Output: 22699 tokens
-- Cost: $3.1195479999999995
-- Wall-clock: 554s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 2 host(s)
+- Input: 100 tokens (3647153 cached reads)
+- Output: 32819 tokens
+- Cost: $4.1443875
+- Wall-clock: 717s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
