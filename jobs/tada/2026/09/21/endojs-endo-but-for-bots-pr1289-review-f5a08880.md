@@ -1,28 +1,34 @@
-All asks verified as already resolved. Here's my assessment:
+All asks in this review directive are already resolved by a verified peer, so this is a corroborated no-op. Report follows.
 
-**Directive (kriskowal review 5271785979, CHANGES_REQUESTED):** "@kriscendobot Please respond to @gibson042" — no inline comments are tied to this review; the single ask is to answer gibson042's earlier review (5225048373).
+---
 
-**gibson042's two inline comments — both answered with substantive replies AND a code fix at PR head `858996f8cd`, which I corroborated against the actual file contents:**
+## Completion report — endojs/endo-but-for-bots PR #1289 review directive
 
-1. **Comment `4028017366`** (`passables-equal.js:45`) — "missing identity tracking for error/promise/remotable + throw on unknown pass style."
-   - Resolved by reply `4066557913` and commit `858996f8cd`. Verified in the file: `makeProjector()` holds a per-operand `WeakMap<object,number>` (`seen`/`indexOf`) projecting `remotable`/`promise` to an index marker and `error` to index + `name`/`message`; the `default` arm throws `Fail\`Unexpected pass style ${q(passStyle)}\``.
+**Directive** (review `5271785979`, kriskowal, CHANGES_REQUESTED): body reads only "@kriscendobot Please respond to @gibson042". No inline comments are tied to *this* review. The substantive asks live in gibson042's earlier review `5225048373` (2 inline comments). I treated both those comments plus the "respond" directive as the unit of work.
 
-2. **Comment `4028022312`** (`passables-equal.js:12`) — "Slightly inaccurate."
-   - Resolved by reply `4066559217` and the same commit. Verified: the doc comment no longer claims non-byte-array passables "retain AVA's usual deepEqual behavior"; it now enumerates the per-pass-style projection and correctly limits pass-through to atomic leaves.
+**Preflight:** `pr-feedback-preflight.sh` returned exit 0 (PROCEED). I did not rely on it — I verified every ask against named artifacts on the PR HEAD (`858996f8cd67`, the branch tip on `kriscendobot/endo-but-for-bots:feat/passables-equal-ava-operator`).
 
-**Test coverage claim** also verified in `passables-equal.test.js` at head: tests "compares remotables by sharing topology" (shared vs. distinct via `Far`) and "compares errors by name, message, and topology" exist alongside the byte-array tests.
+**Findings — every ask already satisfied by a peer on another host (`endolin-garden-ece02cb4`), all verified in source:**
 
-**Conclusion:** A prior claimant of this job already posted both replies (21:25Z) and committed the fix (head `858996f8cd`), after kriskowal's 20:58Z review — so the directive is satisfied. Every ask maps to a named, verified artifact; no code change, no board routing, and no redundant comment are warranted. Inbox empty.
+1. **gibson042 c#4028017366** (`passables-equal.js:45`) — "missing identity tracking for error/promise/remotable (WeakMap value→seen index) + throw on unknown pass style."
+   - *Artifact:* commit `858996f8cd67` + reply id `4066557913`. **Verified in HEAD source:** `makeProjector()` holds a per-operand `WeakMap seen` with an `indexOf` that assigns stable indices; `remotable`/`promise` project to `{index}` markers, `error` to `{index,name,message}`; the `switch` `default:` arm throws `Fail\`Unexpected pass style ${q(passStyle)}\``. Test coverage added: "compares remotables by sharing topology" (incl. aliasing-difference case) and "compares errors by name, message, and topology" in `passables-equal.test.js`.
 
-**Follow-ups:** None required. The PR remains a DRAFT; promoting it to review is the maintainer's call (**run the gauntlet #1289**) and outside this directive.
+2. **gibson042 c#4028022312** (`passables-equal.js:12`) — "Slightly inaccurate" (doc claimed non-byte-array passables kept AVA `deepEqual`).
+   - *Artifact:* commit `858996f8cd67` + reply id `4066559217`. **Verified in HEAD source:** the helper doc was rewritten to enumerate the per-pass-style projection (containers rebuilt recursively; remotable/promise/error → identity markers; only atomic leaves pass through unchanged).
+
+3. **kriskowal directive "respond to @gibson042"** — *Artifact:* reply ids `4066557913` and `4066559217`, both posted 2026-09-21T21:25Z (after the 20:58Z directive), each threaded under the corresponding gibson042 comment.
+
+**What I changed:** nothing — the code, tests, and inline replies were all in place and I confirmed them directly rather than inferring from the preflight. No garden-repo or project-repo edits were needed; nothing to commit or push.
+
+**Follow-ups:** kriskowal's review is still formally CHANGES_REQUESTED; the response he asked for is complete, but the state won't clear until he re-reviews. I did not re-request review or add upstream comments — that's outside the narrow directive and would be needless upstream noise. If the maintainer wants a nudge/re-request on #1289, that's a one-line follow-up.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1289-review-f5a08880.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 4 on 1 host(s)
-- Input: 138 tokens (4246313 cached reads)
-- Output: 54603 tokens
-- Cost: $5.932458500000001
-- Wall-clock: 964s
-- Model(s): claude-opus-4-8 ×4
+- Engagements: 5 on 2 host(s)
+- Input: 154 tokens (4588828 cached reads)
+- Output: 61369 tokens
+- Cost: $6.697535000000001
+- Wall-clock: 1079s
+- Model(s): claude-opus-4-8 ×5
 
 <!-- garden-usage-end -->
