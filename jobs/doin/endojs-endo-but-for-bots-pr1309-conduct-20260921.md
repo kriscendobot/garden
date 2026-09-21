@@ -31,12 +31,12 @@ Guards (re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/1309#pullrequestreview-5271637936
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=171 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-21T22:43:16Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=171,49 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
