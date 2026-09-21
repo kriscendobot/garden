@@ -13,6 +13,12 @@ BRANCH=journal2
 PASS=0; FAIL=0
 ok() { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
+proc_running() {  # proc_running <pid>
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
 
 # Scrub ambient fleet configuration before constructing the isolated fixture.
 # shellcheck disable=SC2046 # intentional variable-name expansion for unset
@@ -82,9 +88,9 @@ EOF
 chmod +x "$TR/bin/"*
 chmod +x "$TR/gitbin/git"
 
-run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command] [fail-clone] [watch-clone]
+run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command] [fail-clone] [watch-clone] [cgroup-procs]
   local slug="$1" err="$2" fetch="${3:-}" source="${4:-$TR/bin/empty-source}"
-  local fail_clone="${5:-0}" watch_clone="${6:-$WATCH_CLONE}"
+  local fail_clone="${5:-0}" watch_clone="${6:-$WATCH_CLONE}" cgroup_procs="${7:-}"
   local -a runenv=(env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$STATE"
     PATH="$TR/gitbin:$PATH" FAIL_GIT_CLONE="$fail_clone"
     GARDEN_RECEIPT_WATCH_CLONE="$watch_clone" GARDEN_CURSOR_CLONE="$CURSOR_CLONE"
@@ -92,6 +98,7 @@ run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command]
     GARDEN_FETCH_RETRIES=1 GARDEN_BACKOFF_BASE=0 GARDEN_BACKOFF_CAP=0
     GARDEN_API_COOLDOWN_SECS=120)
   [ -z "$fetch" ] || runenv+=(GARDEN_FETCH_CMD="$fetch")
+  [ -z "$cgroup_procs" ] || runenv+=(GARDEN_RECEIPT_CGROUP_PROCS_FILE="$cgroup_procs")
   "${runenv[@]}" "$JOBS/receipt-watcher.sh" "$slug" >/dev/null 2>"$err"
 }
 
@@ -170,6 +177,35 @@ else
     && grep -q 'FATAL: receipt journal prerequisite failed' "$TR/struct-journal.err" \
     && ok "structural journal failure stays loud with its diagnostic" \
     || bad "structural journal failure lost its diagnostic"
+fi
+
+# The EXIT-path cgroup sweep must wait until the service cgroup is empty, not merely
+# signal one snapshot. A fixture cgroup.procs file lets the test exercise the loop
+# without a real systemd service cgroup. The two children use separate process groups
+# to model helpers that escaped the source's group-level reap.
+CGPROCS="$TR/cgroup.procs"; : > "$CGPROCS"
+S1PID="$TR/s1.pid"; S2PID="$TR/s2.pid"
+setsid bash -c 'echo $$ > "'"$S1PID"'"; exec sleep 600' &
+setsid bash -c 'echo $$ > "'"$S2PID"'"; exec sleep 600' &
+for _ in $(seq 1 100); do
+  [ -s "$S1PID" ] && [ -s "$S2PID" ] && break
+  sleep 0.1
+done
+SPID1="$(cat "$S1PID" 2>/dev/null || true)"
+SPID2="$(cat "$S2PID" 2>/dev/null || true)"
+printf '%s\n%s\n' "$SPID1" "$SPID2" > "$CGPROCS"
+if proc_running "$SPID1" && proc_running "$SPID2"; then
+  ok "cgroup stragglers start alive in separate process groups"
+else
+  bad "cgroup straggler fixture children did not start"
+fi
+rm -f "$STATE/gh-api-cooldown/marker"
+run_watch kriscendobot-source "$TR/cgroup-reap.err" "" "$TR/bin/empty-source" 0 "$WATCH_CLONE" "$CGPROCS" || true
+if ! proc_running "$SPID1" && ! proc_running "$SPID2"; then
+  ok "cgroup sweep waits until both stragglers are gone before watcher exit"
+else
+  bad "cgroup sweep left a straggler alive after watcher exit"
+  kill -KILL "$SPID1" "$SPID2" 2>/dev/null || true
 fi
 
 echo "TOTAL: $PASS passed, $FAIL failed"

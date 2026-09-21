@@ -49,6 +49,8 @@ export GARDEN_TAG="receipt-watcher/$slug"
 : "${GARDEN_RECEIPT_SEED_WINDOW:=2 days}"
 : "${GARDEN_RECEIPT_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_RECEIPT_KILL_AFTER:=10s}"
+# Bound the EXIT-path cgroup sweep so an unkillable process cannot wedge shutdown.
+: "${GARDEN_RECEIPT_CGROUP_REAP_DEADLINE_SECS:=3}"
 
 # A journal/GitHub outage is shared by every per-repo instance of this watcher.
 # Collapse it onto common.sh's host-wide gh-api cooldown: the first observer opens
@@ -137,13 +139,84 @@ fi
 
 # --- enumerate terminally-closed PRs (bounded, reaped source) ----------------
 SRC="$(mktemp)"; ERRF="$(mktemp)"; SRC_PID=""
+# rc 0 iff <pid> is still running. A killed zombie has already left the cgroup even
+# though kill -0 continues to find it, so consult /proc state as well.
+_straggler_alive() {  # _straggler_alive <pid>
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
+
+# Fell descendants that escaped the source process group but remain in this
+# watcher's service cgroup. The leaf guard and keep-set make this a strict no-op
+# outside garden-receipt-watcher services and ensure $$ and its ancestors are never
+# signalled. A test-only cgroup.procs fixture exercises the loop without granting CI
+# control over a real cgroup.
+reap_cgroup_stragglers() {
+  local procs
+  if [ -n "${GARDEN_RECEIPT_CGROUP_PROCS_FILE:-}" ] && _in_test_context; then
+    procs="$GARDEN_RECEIPT_CGROUP_PROCS_FILE"
+    [ -r "$procs" ] || return 0
+  else
+    local line cgpath leaf
+    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+    [ -n "$line" ] || return 0
+    cgpath="${line#0::}"
+    leaf="${cgpath##*/}"
+    case "$leaf" in
+      garden-receipt-watcher*.service) ;;
+      *) return 0 ;;
+    esac
+    procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+    [ -r "$procs" ] || return 0
+  fi
+
+  local keep=" $$ " p ppid
+  p="$$"
+  while [ -n "$p" ] && [ "$p" != "0" ]; do
+    ppid="$(awk '/^PPid:/{print $2}' "/proc/$p/status" 2>/dev/null)" || break
+    [ -n "$ppid" ] || break
+    keep="$keep$ppid "
+    [ "$ppid" = "1" ] && break
+    p="$ppid"
+  done
+
+  # Re-read cgroup.procs each pass to close both races in a one-shot sweep: a child
+  # can fork after the first snapshot, and SIGKILL can be queued while the victim is
+  # still present during watcher teardown. Stop only once no live stragglers remain,
+  # or at the bounded deadline for an unkillable D-state process.
+  local deadline_secs="$GARDEN_RECEIPT_CGROUP_REAP_DEADLINE_SECS"
+  local now start pid remaining
+  start="$(date +%s 2>/dev/null || echo 0)"
+  while :; do
+    remaining=0
+    while read -r pid; do
+      [ -n "$pid" ] || continue
+      case "$keep" in *" $pid "*) continue ;; esac
+      _straggler_alive "$pid" || continue
+      kill -KILL "$pid" 2>/dev/null || true
+      remaining=$((remaining + 1))
+    done < "$procs"
+    [ "$remaining" -eq 0 ] && return 0
+    now="$(date +%s 2>/dev/null || echo 0)"
+    if [ $((now - start)) -ge "$deadline_secs" ]; then
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      return 0
+    fi
+    sleep 0.1 2>/dev/null || sleep 1
+  done
+}
+
 cleanup() {
   rm -f "$SRC" "$ERRF"
   local pid="$SRC_PID"; SRC_PID=""
-  [ -n "$pid" ] || return 0
-  kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
-  wait "$pid" 2>/dev/null || true
-  kill -KILL "-$pid" 2>/dev/null || true
+  if [ -n "$pid" ]; then
+    kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+    wait "$pid" 2>/dev/null || true
+    kill -KILL "-$pid" 2>/dev/null || true
+  fi
+  reap_cgroup_stragglers
 }
 trap 'cleanup' EXIT
 trap 'cleanup; exit 143' TERM
