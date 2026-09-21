@@ -22,6 +22,7 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 PR: https://github.com/endojs/endo-but-for-bots/pull/1293
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=335 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
