@@ -46,3 +46,13 @@ worktree (ensure-project-worktree.sh), never the garden root.
 inviting preliminary review. Do not un-draft and do not attempt to merge.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T22:30:10Z
