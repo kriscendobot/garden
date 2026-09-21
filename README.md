@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T05:08:24Z_
+_As of 2026-09-21T05:11:41Z_
 
 ## Latest
 
@@ -2166,24 +2166,23 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.5M | $712.26 _(notional, rate-card)_ | no quota set |
-| Codex | 25.3M _(+579.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
+| Codex | 25.3M _(+579.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260921-050504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260921-050504.md) — Containment drift check for kriscendobot/minion.town gateway records
-- [`dependabotany-recheck-endo-but-for-bots-20260921-050504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260921-050504.md) — ---
+### doin (0)
+(none)
 
-### tada (8511)
+### tada (8513)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260921-050504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/fu-minion-town-containment-gateway-endo-sock-1-20260921-050504.md) — What I did
+- [`dependabotany-recheck-endo-but-for-bots-20260921-050504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/dependabotany-recheck-endo-but-for-bots-20260921-050504.md) — Cost
 - [`claude-on-minion-town-completion-press-20260921-035012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-completion-press-20260921-035012.md) — Completion report
 - [`claude-on-minion-town-press-20260921-023505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-023505.md) — Cost
 - [`claude-on-minion-town-press-20260920-233504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-press-20260920-233504.md) — Cost
-- [`claude-on-minion-town-completion-press-20260920-215004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/claude-on-minion-town-completion-press-20260920-215004.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1316-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/20/endojs-endo-but-for-bots-pr1316-dependabot.md) — Cost
-- … and 8506 more
+- … and 8508 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
