@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-invitation-onboarding-build-20260921
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-09-21T21:59:16Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-21T22:25:37Z cleared=none -->
 
 ---
 tier: mentor
