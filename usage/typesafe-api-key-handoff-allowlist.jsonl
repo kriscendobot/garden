@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":21,"elapsed_s":157,"input_tokens":42,"output_tokens":8570,"cache_creation_tokens":47085,"cache_read_tokens":1036679,"total_cost_usd":1.2067414999999997,"ts":"2026-09-21T21:46:01Z","base":"typesafe-api-key-handoff-allowlist","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer","provider":"anthropic"}
