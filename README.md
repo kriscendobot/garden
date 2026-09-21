@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T20:34:54Z_
+_As of 2026-09-21T20:39:52Z_
 
 ## Latest
 
@@ -2370,12 +2370,12 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.1M | $716.07 _(notional, rate-card)_ | no quota set |
-| Codex | 26.8M _(+587.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 119.1M | $718.73 _(notional, rate-card)_ | no quota set |
+| Codex | 26.9M _(+586.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`register-gpt-6-astra-mentat-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/register-gpt-6-astra-mentat-tier.md) — Register GPT-6 Astra as a codex/cleric mentat-tier model
 
 ### doin (1)
 - [`build-endo-daemon-systemd-socket-activation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-daemon-systemd-socket-activation.md) — Systemd socket activation for the Endo daemon (LISTEN_FDS)
