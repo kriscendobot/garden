@@ -1,31 +1,30 @@
-CI is already fully green on PR #1317's current head; there is no failure for the shepherd to repair, and my inbox is empty. This is a no-repair shepherd disposition.
+The board already has an active conduct job — `merge-endojs-endo-but-for-bots-pr1317-20260921` in `doin/` — so the maintainer's "Please conduct" is being owned by a conductor. My shepherd definition of done (CI green on head) is already met with no repair needed.
 
-## Completion report
+Nothing to fix, nothing to push, no PR comment authorization in the job body. Reporting the actual state.
 
-**Job:** shepherd endojs/endo-but-for-bots PR #1317 → drive CI to green.
+---
 
-**PR state:** #1317 "chore: bump the all-minor-patch group with 19 updates" — a Dependabot bump targeting the `llm` base. OPEN, not draft, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+## Shepherd report — endojs/endo-but-for-bots PR #1317
 
-**CI state (head SHA `880beb3eda77f396af24b360a49f5ff522194250`, = last commit):**
-- **27 SUCCESS, 8 SKIPPED, 0 FAILURE, 0 pending/in-progress.**
-- The 8 skipped legs are the conditional Ironhorse/wasm jobs (`matrix.check`, `fuzz-ironhorse`, `compare-ironhorse-math`, `build-wasm`, `format-ironhorse`, `ironhorse-oracle-sanitizers`, `test-ironhorse-calibration`, `test-ironhorse-oracle`) plus the `changes / Detect CI changes` gates — expected skips for a dependency-only diff.
-- Full CI (`test` on 22.x/24.x × ubuntu/macos, `cover`, `test-xs`, `build-xsnap`, `test-hermes`, `test-ocapn-guile-interop`, `test-ocapn-python`, `browser-tests`, `zizmor`, `lint`, `viable-release`, etc.) all green.
+**PR:** `chore: bump the all-minor-patch group with 19 updates` (dependabot), base `llm`, head `880beb3eda77f396af24b360a49f5ff522194250`.
 
-**What I did:** Verified the check rollup against the current head SHA (not a stale run), confirmed no non-COMPLETED checks remain, and drained the inbox (empty). No commits were needed — nothing to fix, so nothing was pushed. Per the shepherd role, "watch-only is the wrong shape" and there was no substantive repair to make: CI was already green when the job was claimed.
+**CI state:** Fully green on the current head — **27 pass, 8 skipped, 0 failures**. `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`. Nothing red to drive; no fix, commit, or push was warranted (per the role's "watch-only is the wrong shape" guidance, I report state rather than idle-monitor).
 
-**Definition of done:** met — CI is green on the head SHA.
+**On the comment intent:** The source comment (`@kriscendobot Please conduct.`) asks for a **conduct/merge**, not shepherd repair. That work is already owned on the board by an active job — `merge-endojs-endo-but-for-bots-pr1317-20260921` (in `jobs/doin/`) — so the merge is in flight under a conductor. No new job posted (would duplicate).
 
-**Escalation classification:** `next: none` — no failures; CI is already green (run https://github.com/endojs/endo-but-for-bots/actions/runs/35535674140).
+**Actions taken:** Read-only verification of PR metadata and check rollup; searched the job board to confirm the conduct is already covered. No writes to the PR or the repo.
 
-**Follow-up for the liaison/maintainer:** The source comment (kriskowal, https://github.com/endojs/endo-but-for-bots/pull/1317#issuecomment-5767236624) actually reads **"@kriscendobot Please conduct."** — i.e. the maintainer's intent is to **merge**, which is a `conductor` task, not a shepherd one. This shepherd job's own scope (drive CI to green) is satisfied, but the maintainer's requested action is unfulfilled by shepherd alone. I did not merge — conducting is a separate role with its own maintainer-approval gate and I only hold a shepherd directive. Recommend the liaison post a **`merge #1317`** (conductor) job; with CI green and mergeable state CLEAN, it is ready to conduct.
+**Follow-ups:** None from the shepherd side. The in-flight conduct job carries the merge to completion.
+
+**next: none** — CI is green on the head SHA; the merge is owned by the existing conduct job.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1317-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 4 on 2 host(s)
-- Input: 74 tokens (1932446 cached reads)
-- Output: 35184 tokens
-- Cost: $4.324344
-- Wall-clock: 734s
-- Model(s): claude-opus-4-8 ×4
+- Engagements: 5 on 2 host(s)
+- Input: 84 tokens (2135655 cached reads)
+- Output: 38343 tokens
+- Cost: $4.9262805
+- Wall-clock: 795s
+- Model(s): claude-opus-4-8 ×5
 
 <!-- garden-usage-end -->
