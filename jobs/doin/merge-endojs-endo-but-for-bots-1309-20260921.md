@@ -18,3 +18,13 @@ delta). All CI checks are green; PR is mergeable_state=clean and not draft.
 
 Task: conduct the finalization — un-draft if needed (already un-drafted) and
 merge. You own the merge method. Bot repo only.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T23:56:16Z
