@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T05:11:41Z_
+_As of 2026-09-21T05:31:08Z_
 
 ## Latest
 
@@ -335,6 +335,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Per host: starting sha, target sha, how it was deployed, final sha, drain state,
 > and the positive evidence that it resumed claiming. Then the fleet's final
 > uniformity. Name anything you deliberately did not touch and why.
+
+- `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
+
+> root repo /home/kris/garden2 deploy has been STALLED for ~1d: deployed sha ae2a34bac94ddee077d1bd5767b64eac02b0824c is 8 commit(s) behind origin/main2 (8ed2e2e7f290c51fd3aca1d462dac1c673b40ee6) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
 
 - `20260920T161817Z-a5b62e` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T161817Z-a5b62e.md)
 
@@ -2167,7 +2171,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
-| Codex | 25.3M _(+579.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 25.3M _(+579.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
