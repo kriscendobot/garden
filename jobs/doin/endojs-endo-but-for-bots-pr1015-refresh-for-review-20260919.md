@@ -47,6 +47,7 @@ inviting preliminary review. Do not un-draft and do not attempt to merge.
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=460 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
