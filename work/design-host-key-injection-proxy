@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-21T21:31:32Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-host-key-injection-proxy
-pr_number: 107
-pr_repo: kriscendobot/garden
-pr_url: https://github.com/kriscendobot/garden/pull/107
-pr_head: design/host-key-injection-proxy
