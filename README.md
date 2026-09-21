@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T16:09:27Z_
+_As of 2026-09-21T16:19:41Z_
 
 ## Latest
 
@@ -2178,23 +2178,23 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.6M | $713.22 _(notional, rate-card)_ | no quota set |
+| Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
 | Codex | 26.5M _(+587.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260921-160505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260921-160505.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (8522)
+### tada (8523)
+- [`claude-on-minion-town-completion-press-20260921-160505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-completion-press-20260921-160505.md) — Completion report
 - [`improve-issue-inbox-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/improve-issue-inbox-tick-bounds.md) — Completion report
 - [`issue-kriscendobot-garden-106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-106.md) — Completion report
 - [`issue-kriscendobot-garden-105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-105.md) — Cost
 - [`claude-on-minion-town-press-20260921-145012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-145012.md) — Report
-- [`claude-on-minion-town-press-20260921-115005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-115005.md) — Cost
-- … and 8517 more
+- … and 8518 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
