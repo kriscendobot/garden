@@ -6378,7 +6378,8 @@ sync_clone() {
       log "offline on reset; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi
-    git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"
+    git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" \
+      || die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after retry"
   fi
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }
