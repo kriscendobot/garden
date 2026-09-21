@@ -97,3 +97,13 @@ the rename rather than trusting the glob.
   step. Do not widen scope.
 - **Accept fork-local divergence** from upstream `endojs/endo`; do not attempt an
   upstream-first coordination in this build.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T21:13:06Z
