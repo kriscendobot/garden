@@ -32,11 +32,11 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/1309#pullrequestreview-5271637936
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=30 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-21T23:24:21Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=30,31 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
