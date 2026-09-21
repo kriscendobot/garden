@@ -53,16 +53,18 @@
 #     skills/frozen-base-branch § Unfreeze before merge.
 #   * On RED terminal, including red on a newly rebased head: print the failing
 #     checks and exit 3 (the conductor stalls `ci red: needs shepherd`).
-#   * On TIMEOUT while still pending: exit 4 — CI is NOT a terminal state, so the
-#     caller MUST re-enqueue the merge job (leave it claimable) rather than
-#     complete it unmerged.
+#   * On TIMEOUT while still pending, or when a concurrent push changes the live
+#     head after the rebase: exit 4 — CI is NOT a terminal state for the head this
+#     invocation prepared, so the caller MUST re-enqueue the merge job (leave it
+#     claimable) rather than complete it unmerged.
 #
 # Exit codes ARE the contract (also echoes a single terminal status line):
 #   0  merged (or already MERGED on entry)         → done
 #   2  already CLOSED on entry                      → nothing to finalize
 #   3  CI red (terminal failure), OR a CONFLICTING head whose rollup is empty
 #      (CI can never run until the head is rebased)  → stall: needs shepherd
-#   4  timed out with CI still pending              → re-enqueue, still unmerged
+#   4  timed out with CI still pending, OR live head changed after this job's
+#      rebase                                         → re-enqueue, still unmerged
 #   1  hard error / merge or rebase blocked (`needs weave`) / not mergeable /
 #      frozen base shared by a sibling stack / reviewDecision=CHANGES_REQUESTED (maintainer
 #      alerted)                                      → stall, re-enqueue
@@ -356,13 +358,14 @@ while :; do
   # A force-pushed rebase invalidates every pre-rebase run. GitHub's rollup is
   # normally head-scoped, but bind it explicitly to the OID the helper published
   # so API propagation lag or a bad stub can never turn stale green into evidence.
+  #
+  # A different live OID cannot later become the post-rebase OID: another actor
+  # has advanced or force-pushed the PR after our helper returned. End this
+  # attempt immediately so the caller can re-enqueue and rebase that new head.
+  # Polling for the now-unreachable old OID only burns the entire CI deadline.
   if [ -n "$post_rebase_head" ] && [ "$observed_head" != "$post_rebase_head" ]; then
-    if past_deadline; then
-      echo "ci-wait-timeout repo=$repo pr=$pr waiting-for-head=${post_rebase_head:0:11} observed=${observed_head:0:11} after ${deadline_secs}s — STILL UNMERGED, re-enqueue"
-      exit 4
-    fi
-    log "waiting: $repo#$pr CI rollup belongs to head ${observed_head:0:11}, need post-rebase ${post_rebase_head:0:11}"
-    sleep "$poll_secs"; continue
+    echo "ci-head-changed repo=$repo pr=$pr post-rebase=${post_rebase_head:0:11} live=${observed_head:0:11} → STILL UNMERGED, re-enqueue"
+    exit 4
   fi
 
   # An EMPTY rollup is NOT green: in the window right after a push (before any

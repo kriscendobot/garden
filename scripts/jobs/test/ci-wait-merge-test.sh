@@ -47,6 +47,8 @@
 #   T25 explicit dependabot mode + gh 'app/dependabot' rendering → merge
 #   T26 CONFLICTING head + empty rollup (twice) → exit 3 terminal, no merge
 #   T27 one transient CONFLICTING read then green → still merges
+#   T28 authorized concurrent force-push after rebase → immediate explicit
+#      head-changed exit 4 / re-enqueue, no merge
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -150,6 +152,7 @@ deleted()   { if grep -q -- '--delete-branch' "$STUBDIR/merge.log" 2>/dev/null; 
 retained()  { if grep -q -- '--delete-branch' "$STUBDIR/merge.log" 2>/dev/null; then bad "$1 head branch WAS deleted"; else ok "$1 head branch retained"; fi; }
 # set -e-safe invocation: capture the exit code without aborting the suite.
 run()       { rc=0; bash "$SCRIPT" "$@" >/dev/null 2>&1 || rc=$?; }
+run_capture() { rc=0; bash "$SCRIPT" "$@" >"$STUBDIR/output" 2>&1 || rc=$?; }
 
 echo "T1 pending,pending,green → blocks then merges"
 reset_seq; seq_add "$PEND"; seq_add "$PEND"; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
@@ -335,6 +338,22 @@ echo "T27 one transient CONFLICTING read, then checks attach green → merges"
 # a push; a SINGLE such read must never be terminal.
 reset_seq; seq_add "$CONFLICT_EMPTY"; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
 run o/r 178; chk "$rc" 0 T27; merged T27
+
+echo "T28 authorized concurrent force-push after rebase → immediate head-changed re-enqueue"
+# The rebase helper publishes HEAD, then an authorized concurrent actor replaces
+# the PR head with HEAD2 before the first rollup read. HEAD can no longer become
+# live again, so waiting for it until the deadline is both unreachable and slow.
+reset_seq
+HEAD2='456def456def456def456def456def456def456d'
+PUSHED="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD2\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"IN_PROGRESS\",\"conclusion\":null}]}"
+seq_add "$PUSHED"
+GARDEN_CI_DEADLINE_SECS=999 run_capture o/r 178
+chk "$rc" 4 T28; nomerge T28
+if grep -q "ci-head-changed repo=o/r pr=178 post-rebase=${HEAD:0:11} live=${HEAD2:0:11} .*re-enqueue" "$STUBDIR/output"; then
+  ok "T28 names both heads and the re-enqueue outcome"
+else
+  bad "T28 missing explicit head-changed outcome: $(cat "$STUBDIR/output")"
+fi
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
