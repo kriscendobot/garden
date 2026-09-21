@@ -27,13 +27,6 @@ is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=781 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-21T20:57:52Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-21T21:23:05Z -->
