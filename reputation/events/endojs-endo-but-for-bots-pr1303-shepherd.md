@@ -4,20 +4,20 @@ kind: monk
 provider: anthropic
 model: claude-opus-5
 thoughtfulness: medium
-work_class: other:m
+work_class: other:s
 target: main2
 accepted: true
-agentic_dollars: 2.375207
+agentic_dollars: 3.090702
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.160977
-attempts: 2
-duration_secs: 2333
+estimated_dollars: 0.002346
+attempts: 1
+duration_secs: 34
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/monk-3
-recorded_at: 2026-09-21T22:49:33Z
+recorded_by: endolin-garden2-5bcdff64/monk-3
+recorded_at: 2026-09-21T22:58:16Z
 ---
-reputation event for endojs-endo-but-for-bots-pr1303-shepherd: arm anthropic/claude-opus-5/medium work_class other:m target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr1303-shepherd: arm anthropic/claude-opus-5/medium work_class other:s target main2 accepted true
