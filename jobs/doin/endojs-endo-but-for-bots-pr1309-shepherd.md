@@ -26,6 +26,7 @@ job was minted from a status read at post time. Once green, the conductor
 is posted by the event watcher / a later reconcile tick. Never link to
 upstream agoric/agoric-sdk.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=781 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
