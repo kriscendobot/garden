@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 @kriscendobot please have a scholar study [How we built a software factory to drive Astro’s GitHub issue count to zero \\| Cloudflare Blog](https://blog.cloudflare.com/astro-issue-triage/) and compare / contrast with the garden and recommend promising avenues of improvement. Wh
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T15:37:21Z
