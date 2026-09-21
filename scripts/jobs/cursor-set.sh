@@ -28,6 +28,17 @@ DIR="${GARDEN_CURSOR_CLONE:-$GARDEN_STATE/cursors/journal}"
 # A live sibling window already classified the episode: skip the clone AND the write.
 journal_outage_active && exit "${GARDEN_OFFLINE_RC:-75}"
 
+# Serialize against every other cursor-get/cursor-set on this host: they all share
+# ONE local clone ($DIR), and cursor-set's write runs in the PARENT shell after the
+# subshell'd sync_clone below has already dropped clone_lock (see cursor_io_lock).
+# Hold this host-local lock in the parent shell across the WHOLE critical section —
+# ensure_clone, every sync_clone, the working-tree write, and the CAS push — so no
+# peer can mutate the shared index underneath us ("fatal: unable to write new index
+# file"). The fd stays open until this process exits, releasing the lock on every
+# path. Fail LOUD on a bounded-wait timeout so a wedged holder surfaces.
+cursor_io_lock "$DIR" \
+  || die "cursor-set: could not acquire cursor-IO lock for $DIR within ${GARDEN_CURSOR_LOCK_WAIT}s (a concurrent cursor-get/cursor-set is wedged holding the shared clone; if crashed, rm -f $(_cursor_io_lockfile "$DIR"))"
+
 # Clone creation/repair runs before any fetch/push. A local checkout, ownership, or
 # configuration fault here stays LOUD and never poisons the host-wide latch — but a
 # correlated network outage striking during a needed (re)clone is the same weather the

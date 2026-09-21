@@ -31,6 +31,20 @@ if journal_outage_active; then
   exit "${GARDEN_OFFLINE_RC:-75}"
 fi
 
+# Serialize against every other cursor-get/cursor-set on this host: they all share
+# ONE local clone ($DIR). cursor-get's fetch + `reset --hard` (inside sync_clone
+# below) mutates the shared index, which must not race a concurrent cursor-set write
+# on the same working tree (see cursor_io_lock). Hold the host-local cursor-IO lock
+# in the parent shell across ensure_clone, sync_clone, and the final read; the fd
+# releases on process exit. On a bounded-wait timeout a peer is wedged holding the
+# clone — log it (so a real wedge is never silent) and skip this tick as
+# temporary-unavailable rather than hard-failing the watcher; a concurrent cursor-set
+# still advances the cursor, and the caller retries next cadence.
+if ! cursor_io_lock "$DIR"; then
+  log "cursor-get: cursor-IO lock for $DIR busy >${GARDEN_CURSOR_LOCK_WAIT}s (a concurrent cursor-get/cursor-set is wedged holding the shared clone); skipping tick (rc=${GARDEN_OFFLINE_RC:-75})"
+  exit "${GARDEN_OFFLINE_RC:-75}"
+fi
+
 # Clone creation/repair runs before any fetch. A local checkout, ownership, or
 # configuration fault here must stay LOUD and must never poison the shared latch —
 # but a correlated network outage that strikes DURING a needed (re)clone (a fresh

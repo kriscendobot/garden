@@ -397,6 +397,12 @@ export GARDEN
 # push) so a slow-but-live holder is never stolen from.
 : "${GARDEN_LOCK_TTL:=300}"       # seconds; a still-held lock older than this is reclaimable
 : "${GARDEN_LOCK_STEALS:=2}"      # bounded reclaim attempts before giving up loudly
+# Bounded wait for the cursor-IO lock that serializes cursor-get/cursor-set against
+# each other on the ONE shared per-host journal-cursor clone (see cursor_io_lock).
+# Comfortably above the longest legitimate hold (a fetch + CAS push loop) yet bounded,
+# so a genuinely wedged holder surfaces (a loud die / a logged tick-skip) rather than
+# starving every cursor-writer on the host forever.
+: "${GARDEN_CURSOR_LOCK_WAIT:=300}"  # seconds a cursor-IO waiter blocks before failing
 
 # Belt: teach git itself to abort a stalled transfer rather than rely solely on
 # the `timeout` wrapper. For https remotes, treat a transfer slower than
@@ -1409,6 +1415,12 @@ publish_fleet_health() {
   ( ensure_clone "$DIR" ) >/dev/null 2>&1 || return 1
   for attempt in $(seq 1 15); do
     ( sync_clone "$DIR" ) >/dev/null 2>&1 || return 1
+    # sync_clone took clone_lock but released it when its subshell exited, so the
+    # write + push below would otherwise race concurrent producers on this shared
+    # producer clone's index (the cursor-set index-corruption shape). Re-take the
+    # lock in THIS shell across the mutation; commit_and_push releases it on every
+    # path (and the next retry re-syncs, then re-takes it).
+    clone_lock "$DIR"
     mkdir -p "$DIR/$GARDEN_FLEET_DEPLOYED_PATH" "$DIR/$GARDEN_FLEET_HEALTH_PATH" 2>/dev/null || true
     printf '%s\n' "$sha" > "$DIR/$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN"
     {
@@ -3851,6 +3863,64 @@ clone_unlock() {
   key="$(_clone_lock_envkey "$dir")"; unset "$key"
   # NOTE: never add a `2>...` redirection to this `exec` — exec makes redirections
   # PERMANENT, so it would silence the shell's stderr for the rest of the run.
+  exec {fd}>&- || true
+}
+
+# --- cursor-IO serialization (the ONE shared per-host journal-cursor clone) ---
+#
+# cursor-set (write: `git add` + commit + CAS push) and cursor-get (fetch + `reset
+# --hard` + read) both operate on a SINGLE shared local clone per host
+# ($GARDEN_CURSOR_CLONE, default $GARDEN_STATE/cursors/journal), reused by every
+# repo's comment/CI/dependabot watcher, the mention watcher, and the issue-inbox
+# watcher — every cursor key, one working tree. Both scripts run their
+# index-touching git steps in a SUBSHELL — `( sync_clone "$DIR" )` — to trap
+# sync_clone's offline `exit`. But sync_clone takes clone_lock and holds it for its
+# caller to release (via commit_and_push); wrapped in a subshell, that lock is
+# released the instant the subshell exits, BEFORE cursor-set's `git add`/commit/push
+# in the parent shell ever runs. So two overlapping invocations race the same
+# index — the "fatal: unable to write new index file" that froze the
+# endojs-endo-but-for-bots comment cursor for ~24h (2026-09-20/21), made worse by
+# _sweep_stale_git_locks rm-ing a peer's live index.lock. clone_lock cannot fix this
+# from inside the subshell, and composing an outer clone_lock fights ensure_clone's
+# and commit_and_push's own matched lock/unlock pairs. So serialize the two scripts
+# with a SEPARATE host-local flock, held in the PARENT shell across the entire
+# critical section (a subshell inherits the fd but its exit cannot close the parent's,
+# so the lock survives the subshell'd sync_clone). Both cursor-get and cursor-set take
+# the SAME lock, so a get's reset and a set's write are mutually exclusive.
+#
+# The lock file is a per-clone SIBLING ($DIR.cursor-io.lock) — outside the clone's
+# working tree (never confused with git's own locks or clone_lock's $DIR.lock) and
+# keyed by $DIR, so distinct GARDEN_CURSOR_CLONE overrides (only tests set it)
+# serialize independently rather than falsely blocking one another. Bounded wait:
+# on timeout the caller decides (cursor-set dies loud; cursor-get logs + skips the
+# tick), so a real wedge surfaces instead of hanging forever.
+CURSOR_IO_LOCK_FD=""
+_cursor_io_lockfile() { printf '%s' "${1%/}.cursor-io.lock"; }
+# cursor_io_lock <clone-dir> — acquire the cursor-IO lock, holding it (fd stays open)
+# until this process exits or cursor_io_unlock is called. Returns 0 on acquire, 1 on
+# a GARDEN_CURSOR_LOCK_WAIT timeout (a wedged peer). Dies only on an unopenable lock
+# file (a local fault, not weather).
+cursor_io_lock() {
+  local dir="$1" lf
+  lf="$(_cursor_io_lockfile "$dir")"
+  mkdir -p "$(dirname "$lf")" 2>/dev/null || true
+  # Open NON-truncating (<>) and create on demand; the file is a pure mutex, its
+  # contents are never read.
+  exec {CURSOR_IO_LOCK_FD}<>"$lf" || die "cannot open cursor-IO lock $lf"
+  if flock -w "$GARDEN_CURSOR_LOCK_WAIT" "$CURSOR_IO_LOCK_FD"; then
+    return 0
+  fi
+  # NOTE: no `2>...` on this exec — exec makes a redirection PERMANENT (it would
+  # silence the shell's stderr for the rest of the run, swallowing the caller's die).
+  local fd="$CURSOR_IO_LOCK_FD"; CURSOR_IO_LOCK_FD=""
+  exec {fd}>&- || true
+  return 1
+}
+# cursor_io_unlock — release the lock if held (process exit also releases it).
+cursor_io_unlock() {
+  [ -n "$CURSOR_IO_LOCK_FD" ] || return 0
+  local fd="$CURSOR_IO_LOCK_FD"; CURSOR_IO_LOCK_FD=""
+  # NOTE: no `2>...` on this exec — exec makes a redirection PERMANENT (see clone_unlock).
   exec {fd}>&- || true
 }
 
