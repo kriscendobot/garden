@@ -83,3 +83,13 @@ copies to a fresh, verified `llm` commit that includes `EndoGuest.invite` and
 `EndoGuest.accept`, with `npm test` (incl. the drift guard) and both real-daemon
 suites green in your run, and evidence (commands + output) in your completion
 report per `roles/gardener/AGENT.md` § reporting norm.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T22:03:25Z
