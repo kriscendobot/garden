@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-21T21:13:06Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-build-pass-style-src-kebab-rename
+pr_number: 1324
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1324
+pr_head: pass-style-kebab-rename
