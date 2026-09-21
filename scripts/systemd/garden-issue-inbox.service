@@ -53,4 +53,12 @@ ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-issue-inb
 # returns the failing rc; give it headroom beyond the implicit 90s oneshot start
 # timeout so a diagnosis is not cut off (responder itself is hard-bounded by
 # SELF_HEAL_RESPONDER_TIMEOUT).
+#
+# This is the SERVICE DEADLINE the watcher must finish under: the tick was once
+# SIGKILLed here because a DEGRADED journal let several bounded blocking stages SUM
+# past 900s. The watcher now self-bounds every stage and stops CLEANLY at its own
+# GARDEN_ISSUE_TICK_BUDGET_SECS budget (default 480s, well under this), emitting a
+# diagnostic and retaining the cursor. INVARIANT: keep GARDEN_ISSUE_TICK_BUDGET_SECS
+# (plus one per-stage GARDEN_ISSUE_STAGE_TIMEOUT_SECS of overshoot) below this value,
+# so the watcher always beats systemd to the stop.
 TimeoutStartSec=900

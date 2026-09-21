@@ -103,6 +103,56 @@ export GARDEN_TAG="issue-inbox"
 : "${GARDEN_ISSUE_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
 : "${GARDEN_ISSUE_VERIFY_CLONE:=$GARDEN_STATE/issue-inbox/verify}"
 
+# --- bound EVERY blocking stage of a tick (the 900s-SIGKILL fix) --------------
+# The SOURCE fetch is already bounded (below), yet the watcher was SIGKILLed at the
+# unit's TimeoutStartSec (900s): a DEGRADED — not cleanly-offline — journal makes
+# every OTHER blocking path (the config/maintainer/cursor journal fetches, the
+# post/message pushes, the verify re-fetch, the cursor advance) burn its full bounded
+# retry budget, and several such stages in ONE tick SUM past 900s. systemd then
+# SIGKILLs the tick mid-flight, losing the in-flight maintainer interaction with NO
+# diagnostic. Two complementary bounds close this:
+#   (1) an OVERALL tick BUDGET (< the 900s service deadline, with headroom) checked
+#       at every stage boundary — the LOOP top and just after the source fetch. When
+#       elapsed wall-clock crosses it we emit a diagnostic and exit 0 CLEANLY (never
+#       let systemd SIGKILL us), WITHOUT advancing the cursor past unprocessed items,
+#       so the maintainer interaction re-polls next tick;
+#   (2) a per-stage `timeout` on every blocking EXTERNAL call the watcher itself
+#       makes (cursor get/set, reactji/gh, the post/message pushes, the maintainer
+#       surface) so no single wedged stage can run away BETWEEN budget checkpoints.
+#       Each is generous over a normal call; a bound that fires just makes the
+#       dispatch look "lost" and re-poll next tick (idempotent), never corrupts.
+# All three knobs are overridable (tests keep the defaults; their stubs are instant).
+: "${GARDEN_ISSUE_TICK_BUDGET_SECS:=480}"     # overall tick budget; MUST stay < the unit's TimeoutStartSec (900s)
+: "${GARDEN_ISSUE_STAGE_TIMEOUT_SECS:=90}"    # per blocking external call
+: "${GARDEN_ISSUE_KILL_AFTER:=10s}"           # SIGKILL grace after the SIGTERM (source + per-stage)
+TICK_START="$(date +%s 2>/dev/null || echo 0)"
+TICK_DEADLINE=$(( TICK_START + GARDEN_ISSUE_TICK_BUDGET_SECS ))
+tick_over_budget() { [ "$(date +%s 2>/dev/null || echo 0)" -ge "$TICK_DEADLINE" ]; }
+
+# STAGE_TIMEOUT: the argv prefix that bounds one blocking external stage. Empty when
+# `timeout` is absent (bare exec, mirroring the source-fetch guard). Used as
+# `[env=…] "${STAGE_TIMEOUT[@]}" <cmd> …`: with `timeout` first the leading env
+# assignments export into timeout's environment and are inherited by the child, so
+# the GARDEN_MSG_ID/GARDEN_SENDER seams survive; with the array empty they apply to
+# <cmd> directly. A stage that overruns exits 124 (SIGTERM) or 137 (SIGKILL escalation
+# after --kill-after) — treated by each call site exactly like a lost dispatch.
+declare -a STAGE_TIMEOUT=()
+if command -v timeout >/dev/null 2>&1; then
+  STAGE_TIMEOUT=(timeout --signal=TERM --kill-after="$GARDEN_ISSUE_KILL_AFTER" "${GARDEN_ISSUE_STAGE_TIMEOUT_SECS}s")
+fi
+
+# Emit the deadline diagnostic once the budget is spent: a WARN naming progress, plus
+# a THROTTLED, COALESCING maintainer signal (a recurring hit means the journal is
+# chronically degraded — worth one notice per window, not per tick). Never advances
+# the cursor past unprocessed work — the caller exits/breaks so the in-flight
+# maintainer interaction is retried next tick.
+deadline_diagnostic() {  # deadline_diagnostic <where>  (e.g. "before the batch" | "mid-batch")
+  local where="$1"
+  log "WARN: tick budget (${GARDEN_ISSUE_TICK_BUDGET_SECS}s) exhausted $where on ${REPO:-<unconfigured>}; stopping cleanly before the 900s service deadline so systemd cannot SIGKILL the tick (acted=${acted:-0} dropped=${dropped:-0} failed=${failed:-0}); cursor holds at ${hw:-${last_seen:-<coldstart>}} so unprocessed/unconfirmed items re-poll next tick"
+  alert_maintainer "issue-inbox-tick-deadline-$GARDEN" \
+    "issue-inbox watcher on $GARDEN hit its ${GARDEN_ISSUE_TICK_BUDGET_SECS}s tick budget $where for ${REPO:-<unconfigured>} and stopped early to avoid the 900s systemd start-timeout SIGKILL. This means a journal/verification/dispatch path is running slow (a DEGRADED journal, not a clean outage). No maintainer interaction is lost — the cursor holds so unprocessed items re-poll — but each tick is being cut short; if this persists, the journal remote or the host's network is chronically slow."
+}
+
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 # A sibling watcher already proved GitHub's API transiently unreadable this window.
@@ -268,7 +318,7 @@ surface_would_be_maintainer() {  # surface_would_be_maintainer <author> <number>
     printf 'Interaction: %s\n\n' "$url"
     printf 'You are shown this ONCE per individual. Reply or archive to dismiss it.\n'
   } > "$mb"
-  if GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="issue-inbox-watcher" "$GARDEN_ISSUE_MAINT_SEND" maintainer < "$mb" >/dev/null 2>&1; then
+  if GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="issue-inbox-watcher" "${STAGE_TIMEOUT[@]}" "$GARDEN_ISSUE_MAINT_SEND" maintainer < "$mb" >/dev/null 2>&1; then
     mkdir -p "$dir" 2>/dev/null || true
     : > "$marker" 2>/dev/null || true
     log "surfaced would-be maintainer @$author to the maintainer inbox (once)"
@@ -297,7 +347,7 @@ verify_posted() {  # verify_posted <base> [fresh]
 # failure is logged as a WARN and NEVER blocks the dispatch — acknowledgment is a
 # courtesy, posting the work is the obligation.
 react_ack() {  # react_ack <surface> <id>
-  "$GARDEN_ISSUE_REACTJI" "$REPO" "$1" "$2" eyes \
+  "${STAGE_TIMEOUT[@]}" "$GARDEN_ISSUE_REACTJI" "$REPO" "$1" "$2" eyes \
     || log "WARN: reactji failed on $1/$2 (continuing to dispatch)"
 }
 
@@ -394,7 +444,7 @@ CURSOR_KEY="issues/$slug"
 # The temporary-unavailable rc (GARDEN_OFFLINE_RC) is cursor-get's shared journal-outage
 # latch: skip QUIETLY (the host already owns one cooldown warning). Any OTHER nonzero rc
 # is a loud structural/authentication failure and still WARNs.
-if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
+if cursor_out="$("${STAGE_TIMEOUT[@]}" "$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
   [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
     || log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"
@@ -482,7 +532,7 @@ trap 'cleanup; exit 130' INT
 # cleanup trap's `wait` on a stop, so it doubles as the upper bound on how long a
 # signalled stop blocks reaping a mid-syscall git child.
 : "${GARDEN_ISSUE_SOURCE_TIMEOUT_SECS:=180}"
-: "${GARDEN_ISSUE_KILL_AFTER:=10s}"
+# (GARDEN_ISSUE_KILL_AFTER is defined with the tick-budget knobs above; shared here.)
 # Capture the source's stderr (do NOT 2>/dev/null it) so a loud failure inside the
 # handler — e.g. require_tools' "jq missing" die — surfaces in the watcher's death
 # instead of being swallowed (the silent-empty trap that hid the 2026-06-24 outage).
@@ -522,6 +572,16 @@ if [ "$nlines" -eq 0 ]; then
 fi
 
 hw="$last_seen"; failed=0; acted=0; dropped=0; fail_floor=""
+
+# Pre-batch budget guard: if the pre-loop journal reads (config/maintainer/cursor) and
+# the source fetch already spent the tick budget (a degraded journal), stop before the
+# batch — processing even one item risks the 900s SIGKILL. Nothing was dispatched, so
+# the cursor is untouched and the whole batch re-polls next tick.
+if tick_over_budget; then
+  deadline_diagnostic "before the batch"
+  exit 0
+fi
+
 # --- head-of-line safety: one un-dispatchable item must NOT block later ones ----
 # Ported from comment-watcher.sh (the #594 postmortem). The batch runs in ASCENDING
 # created_at order behind a single scalar high-water cursor. The old shape `break`-ed
@@ -559,6 +619,16 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
   # a re-delivered comment is an accepted at-least-once fold) — never skips.
   if [ -n "$last_seen" ] && ! [ "$created" \> "$last_seen" ]; then
     continue
+  fi
+
+  # Per-item budget checkpoint: before doing real work on THIS item, stop if the tick
+  # budget is spent so the sum of per-item journal/verification/dispatch stages can
+  # never reach the 900s systemd SIGKILL. `break` (not exit) so the cursor still banks
+  # the contiguous successful PREFIX processed so far (head-of-line safety, below);
+  # this item and everything after it stay below the cursor and re-poll next tick.
+  if tick_over_budget; then
+    deadline_diagnostic "mid-batch"
+    break
   fi
 
   # ── MAINTAINER-TRUST GATE — first, deterministic, before ANYTHING reads body ──
@@ -624,7 +694,7 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       # The id for an issue body is the ISSUE NUMBER, not a comment id.
       react_ack issue "$number"
       jb="$(mktemp)"; write_issue_job "$jb" "$REPO" "$number" "$submitter" "$spine" "$url" "$nf" "$bf"
-      "$GARDEN_ISSUE_POST" "$spine" "$jb" >/dev/null 2>&1 || true
+      "${STAGE_TIMEOUT[@]}" "$GARDEN_ISSUE_POST" "$spine" "$jb" >/dev/null 2>&1 || true
       rm -f "$jb"
       if verify_posted "$spine" fresh; then
         log "posted $spine (issue #$number from maintainer $author)"; acted=$((acted+1)); slide "$created"
@@ -654,7 +724,7 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       react_ack issue-comment "$id"
       mb="$(mktemp)"; write_comment_msg "$mb" "$REPO" "$number" "$spine" "$url" "$nf" "$bf"
       if GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="issue-inbox" GARDEN_MSG_ID="issue-comment-$id" \
-           "$GARDEN_ISSUE_MSG" "$spine" "$mb" >/dev/null 2>&1; then
+           "${STAGE_TIMEOUT[@]}" "$GARDEN_ISSUE_MSG" "$spine" "$mb" >/dev/null 2>&1; then
         log "delivered comment on #$number to issue doer ($spine) — or dead-lettered for promotion"
         acted=$((acted+1)); slide "$created"
       else
@@ -687,7 +757,7 @@ if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
   # spine, so nothing is lost — so capture the rc and WARN-and-continue cleanly
   # on ANY nonzero rc, mirroring the read side (df83fca235).
   if printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
-    | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+    | "${STAGE_TIMEOUT[@]}" "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
     log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
     exit 0
