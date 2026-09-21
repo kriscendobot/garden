@@ -31,3 +31,13 @@ ordering); re-anchor this design's entry in the current roadmap ordering rather
 than clobbering peers' entries. Preserve the design file's net content. Push the
 resolved head with `--force-with-lease`. Once mergeable, the shepherd/conductor
 chain resumes via the reconcile tick. Never link to upstream agoric/agoric-sdk.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T21:28:13Z
