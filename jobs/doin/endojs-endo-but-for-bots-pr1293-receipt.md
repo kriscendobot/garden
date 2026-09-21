@@ -21,11 +21,11 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1293
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=335 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-21T22:24:06Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=335,20 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
