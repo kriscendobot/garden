@@ -1,30 +1,26 @@
-CI is fully green on the head SHA, and the merge follow-up job is on the board. My shepherd deliverable is complete.
+CI is fully green on the current head SHA — no shepherd work is required. Reporting.
 
-## Completion report
+---
 
-**Job:** `endojs-endo-but-for-bots-pr1317-shepherd` — shepherd (drive CI to green) on endojs/endo-but-for-bots PR #1317 (dependabot: "bump the all-minor-patch group with 19 updates").
+## Shepherd report — endojs/endo-but-for-bots PR #1317
 
-**Finding:** CI was already fully green. On the current head SHA `880beb3eda77f396af24b360a49f5ff522194250`: **22 checks success, 8 skipped, 0 failing, 0 pending**. `mergeable=true, mergeable_state=clean`; base is the live `llm` trunk (no unfreeze needed, no CONFLICTING dispatch block). Latest run: https://github.com/endojs/endo-but-for-bots/actions/runs/35535674140
+**PR:** #1317 "chore: bump the all-minor-patch group with 19 updates" (dependabot), base `llm`, head `dependabot/npm_and_yarn/all-minor-patch-ad6d00fecf` @ `880beb3eda77f396af24b360a49f5ff522194250`.
 
-**What I did:**
-- Verified CI green against the exact head SHA via `check-runs` (not just the rollup) and confirmed mergeability. No fix commit was required — nothing was red, so there was nothing for the shepherd to repair. No changes pushed to the PR head; no garden-library changes to commit.
-- The triggering comment (kriskowal: *"Please conduct."*) is a **merge** directive, which belongs to the conductor role, not the shepherd. Since CI is now confirmed green + clean, I posted a follow-up conductor job so the maintainer's request materializes and isn't lost: **`merge-endojs-endo-but-for-bots-pr1317-20260921`** (now in `jobs/todo/`).
-  - A first post attempt deduped against my own live shepherd job (comment-uniqueness invariant — the same comment already owned this job). I re-posted with a **distinct directive identity** (`…#1317:conduct-followup:5767236624`) because the merge is genuinely distinct work from the CI-green stage, so it survives dedup and becomes claimable once this job clears.
+**CI state: GREEN.** All 35 checks on the head SHA are terminal — 27 SUCCESS, 8 SKIPPED (ironhorse legs gated off by `changes / Detect CI changes`, no-ops for a dependabot bump), **0 FAILURE, 0 pending/queued**. This includes the full `test`/`cover` matrix on 22.x and 24.x (ubuntu + macos), `lint`, `build-xsnap`/`test-xs`, `test-hermes`, `test-ocapn-guile-interop`, `test-ocapn-python`, `browser-tests`, `zizmor`, and `check-action-pins`. The historically flaky Node-24/better-sqlite3 and ws-relay legs all passed here.
 
-**Follow-ups / notes for the conductor:**
-- The maintainer's "Please conduct" comment is **not** a formal GitHub APPROVED review. The conductor's ordinary approval gate may stall with `merge blocked: no maintainer approval` — that guard should surface to the maintainer, not be bypassed.
-- endojs/endo-but-for-bots is **endojs-owned, not bot-owned** (bot has push but not admin/maintain), so the botanist `--dependabot-auto-merge` signature-skip path does **not** apply here. The merge job body records all of this.
-- A separate doomed/parked botanist job (`jobs/plan/endojs-endo-but-for-bots-pr1317-dependabot.md`, gate `go-ahead`, requeue-exhausted) also exists for this dependabot PR; left as-is since the maintainer's explicit "conduct" supersedes the full end-to-end botanist diligence for this bump.
+**Mergeability:** `mergeable: true`, `mergeable_state: clean`.
 
-**Classification:** `next: none` for the shepherd stage (no CI failures — success, not escalation). Merge stage handed to the conductor via the posted job.
+**Action taken:** none needed. No red to classify, no fix to push, no impasse. No commit or PR-comment made (no push occurred, and no comment authorization was in the job body).
+
+**Next step for the liaison:** the triggering comment (kriskowal: *"Please conduct."*) asks for a **merge**, which is a conductor job, not shepherd scope. CI is green and the PR is `clean`, so it is ready for a **merge #1317** / conductor dispatch. That is the maintainer's stated intent but sits outside this shepherd directive — surfacing it rather than acting on it. `next: none` (no CI failures to hand off).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1317-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 38 tokens (1109204 cached reads)
-- Output: 15522 tokens
-- Cost: $1.5753929999999998
-- Wall-clock: 385s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 2 host(s)
+- Input: 46 tokens (1271070 cached reads)
+- Output: 18047 tokens
+- Cost: $2.1573979999999997
+- Wall-clock: 447s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
