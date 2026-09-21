@@ -54,3 +54,13 @@ inviting preliminary review. Do not un-draft and do not attempt to merge.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-21T23:13:26Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T23:13:49Z
