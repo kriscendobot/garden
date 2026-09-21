@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T15:54:44Z_
+_As of 2026-09-21T16:09:27Z_
 
 ## Latest
 
@@ -2178,7 +2178,7 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.5M | $712.39 _(notional, rate-card)_ | no quota set |
+| Claude | 118.6M | $713.22 _(notional, rate-card)_ | no quota set |
 | Codex | 26.5M _(+587.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
@@ -2186,15 +2186,15 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 (none)
 
 ### doin (1)
-- [`improve-issue-inbox-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-inbox-tick-bounds.md) — ---
+- [`claude-on-minion-town-completion-press-20260921-160505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260921-160505.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### tada (8521)
+### tada (8522)
+- [`improve-issue-inbox-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/improve-issue-inbox-tick-bounds.md) — Completion report
 - [`issue-kriscendobot-garden-106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-106.md) — Completion report
 - [`issue-kriscendobot-garden-105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-105.md) — Cost
 - [`claude-on-minion-town-press-20260921-145012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-145012.md) — Report
 - [`claude-on-minion-town-press-20260921-115005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-press-20260921-115005.md) — Cost
-- [`claude-on-minion-town-completion-press-20260921-095013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-completion-press-20260921-095013.md) — Completion report
-- … and 8516 more
+- … and 8517 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
