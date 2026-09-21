@@ -71,3 +71,13 @@ Confirm the `endojs-endo-but-for-bots` comment-watcher's cursor is
 currently advancing normally again (it may have already recovered on its
 own by the time you pick this up — check `last_polled_at` freshness either
 way and say so).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T21:21:39Z
