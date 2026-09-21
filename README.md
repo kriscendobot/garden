@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T15:48:54Z_
+_As of 2026-09-21T15:54:44Z_
 
 ## Latest
 
@@ -2178,15 +2178,15 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.5M | $711.99 _(notional, rate-card)_ | no quota set |
-| Codex | 26.5M _(+586.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 118.5M | $712.39 _(notional, rate-card)_ | no quota set |
+| Codex | 26.5M _(+587.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-issue-inbox-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-inbox-tick-bounds.md) — ---
 
 ### tada (8521)
 - [`issue-kriscendobot-garden-106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/issue-kriscendobot-garden-106.md) — Completion report
