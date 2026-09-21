@@ -14,17 +14,43 @@ source "$HERE/common.sh"
 export GARDEN_TAG="worktree-sweeper"
 
 : "${GARDEN_WORKTREE_SWEEP_MAX:=100}"
+# Stay well inside the unit's TimeoutStartSec=1800: a completion tick verifies
+# each PR-bound checkout with a `gh pr view` (up to 30s each), so a long queue of
+# terminal bases could otherwise let the GitHub-check sequence overrun the start
+# timeout and get SIGKILLed mid-tick.  We checkpoint against this soft deadline
+# and leave any unswept candidates for the next tick.  The 300s of headroom under
+# 1800 comfortably absorbs a single in-flight base's remaining `gh` calls plus the
+# self-heal responder.  0 disables the deadline.
+: "${GARDEN_WORKTREE_SWEEP_DEADLINE_SECS:=1500}"
 CLONE="${GARDEN_WORKTREE_SWEEPER_CLONE:-$GARDEN_STATE/worktree-sweeper/journal}"
 removed=0
+TICK_START="$(date +%s 2>/dev/null || echo 0)"
 
 case "$GARDEN_WORKTREE_SWEEP_MAX" in
   ''|*[!0-9]*) die "GARDEN_WORKTREE_SWEEP_MAX must be a non-negative integer" ;;
+esac
+case "$GARDEN_WORKTREE_SWEEP_DEADLINE_SECS" in
+  ''|*[!0-9]*) die "GARDEN_WORKTREE_SWEEP_DEADLINE_SECS must be a non-negative integer" ;;
 esac
 
 ensure_clone "$CLONE"
 sync_clone "$CLONE"
 
 under_limit() { [ "$removed" -lt "$GARDEN_WORKTREE_SWEEP_MAX" ]; }
+
+# past_deadline — true once the elapsed tick time has reached the deadline
+# budget.  Checked before starting each terminal base (and before its GitHub
+# verification) so a slow sequence of checks stops gracefully rather than
+# overrunning the unit's start timeout.  A budget of 0 disables it.
+past_deadline() {
+  [ "$GARDEN_WORKTREE_SWEEP_DEADLINE_SECS" -gt 0 ] || return 1
+  local now; now="$(date +%s 2>/dev/null || echo 0)"
+  [ "$((now - TICK_START))" -ge "$GARDEN_WORKTREE_SWEEP_DEADLINE_SECS" ]
+}
+
+# budget_remains — the whole-tick guard: work continues only while both the
+# removal cap and the time budget hold.
+budget_remains() { under_limit && ! past_deadline; }
 
 has_live_process() { # has_live_process <directory>
   local target="$1"
@@ -72,7 +98,7 @@ remove_garden_worktree() { # remove_garden_worktree <path>
 
 sweep_terminal_base() { # sweep_terminal_base <base> <job-file> <github-check:true|false>
   local base="$1" file="$2" verify="$3" key legacy path name suffix before
-  under_limit || return 0
+  budget_remains || return 0
   if [ "$verify" = true ] && ! pr_disposition_allows_sweep "$file"; then return 0; fi
 
   path="$GARDEN_SCRATCH/gardener-wt-$base"
@@ -107,19 +133,19 @@ for file in "$CLONE/$JOBS_PLAN"/*.md; do
   [ -e "$file" ] || continue
   grep -q '^doomed:[[:space:]]*true[[:space:]]*$' "$file" || continue
   sweep_terminal_base "$(basename "$file" .md)" "$file" false
-  under_limit || break
+  budget_remains || break
 done
 
 # Completion residue is a safety-net case.  For a PR-bound report, corroborate
 # terminality with the live GitHub state; open PR jobs are expected to have been
 # removed by complete-job.sh and are retained here on any ambiguity.
-if under_limit; then
+if budget_remains; then
   # Flat AND date-sharded reports (completion writers use tada_write_path now).
   tada_recs="$(tada_list "$CLONE" | sed "s#^#$CLONE/#")"
   for file in $tada_recs; do
     [ -e "$file" ] || continue
     sweep_terminal_base "$(basename "$file" .md)" "$file" true
-    under_limit || break
+    budget_remains || break
   done
 fi
 
@@ -128,7 +154,7 @@ fi
 # orphan by definition (including a dead .git gitdir).  Since no registration
 # exists for `git worktree remove` to consume, remove the directory and prune the
 # bare repo; registered trees are never touched by this pass.
-if under_limit; then
+if budget_remains; then
   all_registered="$(
     for registry_bare in "$GARDEN_ROOT"/worktrees/*.git; do
       [ -d "$registry_bare" ] || continue
@@ -155,7 +181,9 @@ fi
 # Repair relocation-staled live root registrations before pruning dead ones.
 prune_worktrees_preserving_live "$GARDEN_ROOT"
 
-if [ "$removed" -ge "$GARDEN_WORKTREE_SWEEP_MAX" ] && [ "$GARDEN_WORKTREE_SWEEP_MAX" -gt 0 ]; then
+if past_deadline; then
+  log "sweep deadline (${GARDEN_WORKTREE_SWEEP_DEADLINE_SECS}s) reached after $removed removal(s); remaining candidates wait for the next tick"
+elif [ "$removed" -ge "$GARDEN_WORKTREE_SWEEP_MAX" ] && [ "$GARDEN_WORKTREE_SWEEP_MAX" -gt 0 ]; then
   log "sweep cap reached after $removed removal(s); remaining candidates wait for the next tick"
 elif [ "$removed" -gt 0 ]; then
   log "worktree sweep removed $removed checkout(s)"
