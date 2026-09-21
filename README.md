@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T17:01:26Z_
+_As of 2026-09-21T17:11:50Z_
 
 ## Latest
 
@@ -2377,8 +2377,8 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-5764274392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5764274392.md) — Issue follow-up — fold a late comment into the issue work
 
 ### tada (8523)
 - [`claude-on-minion-town-completion-press-20260921-160505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/claude-on-minion-town-completion-press-20260921-160505.md) — Completion report
