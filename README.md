@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-21T23:01:54Z_
+_As of 2026-09-21T23:08:05Z_
 
 ## Latest
 
@@ -1261,6 +1261,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
+
+- `20260921T230632Z-753923` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260921T230632Z-753923.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `9bc8c5682edb060032ff61f9c3a5238ee7470b1a`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `20260920T063916Z-7586cd` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T063916Z-7586cd.md)
 
@@ -2677,6 +2693,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > awaiting maintainer — beyond proxy authority: gardener ironhorse-fuzz-fd8517d5f3071227-repair, msgid msg-ironhorse-fuzz-fd8517d5f3071227-repair-6602bc26dcbd.md — Whether to drop/advance work governed by the standing IronHorse pause ([kriscendobot/garden#91](https://github.com/kriscendobot/garden/issues/91)) — and reconciling why this job was promoted via plan gate=go-ahead on 2026-09-16 despite that pause — is a policy question only a trusted maintainer can resolve, not a proxy-able progress call.
 
+- `20260921T230338Z-f162a4` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260921T230338Z-f162a4.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `9bc8c5682edb060032ff61f9c3a5238ee7470b1a`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `msg-build-minion-town-invitation-onboarding-953445d7c5d3` — from gardener:build-minion-town-invitation-onboarding, reply_to `build-minion-town-invitation-onboarding` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-invitation-onboarding-953445d7c5d3.md)
 
 > build-minion-town-invitation-onboarding: gate is open. [endojs/endo-but-for-bots#1310](https://github.com/endojs/endo-but-for-bots/issues/1310)
@@ -2757,31 +2789,28 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.0M | $738.00 _(notional, rate-card)_ | no quota set |
-| Codex | 28.1M _(+667.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 118.9M | $736.97 _(notional, rate-card)_ | no quota set |
+| Codex | 28.1M _(+669.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919.md) — Refresh the @endo/claude confinement-core build (endojs/endo-but-for-bots#101...
 
-### doin (9)
-- [`endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919.md) — Refresh the @endo/claude confinement-core build (endojs/endo-but-for-bots#101...
+### doin (6)
 - [`merge-endojs-endo-but-for-bots-pr1317-20260921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endojs-endo-but-for-bots-pr1317-20260921.md) — merge (conduct) endojs/endo-but-for-bots PR #1317
-- [`endojs-endo-but-for-bots-pr1289-review-f5a08880`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1289-review-f5a08880.md) — Review directive on endojs/endo-but-for-bots PR #1289
 - [`endojs-endo-but-for-bots-pr1309-conduct-20260921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1309-conduct-20260921.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1309
-- [`endojs-endo-but-for-bots-pr1290-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1290
+- [`endojs-endo-but-for-bots-pr1290-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-conduct.md) — Conduct (merge) endojs/endo-but-for-bots PR #1290
 - [`endojs-endo-but-for-bots-pr1286-review-cc7d78b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1286-review-cc7d78b9.md) — Review directive on endojs/endo-but-for-bots PR #1286
 - [`endojs-endo-but-for-bots-pr1286-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1286-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #1286
 - [`endojs-endo-but-for-bots-pr1286-review-17e29af8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1286-review-17e29af8.md) — Review directive on endojs/endo-but-for-bots PR #1286
-- [`endojs-endo-but-for-bots-pr1290-review-dec2083a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1290-review-dec2083a.md) — Review directive on endojs/endo-but-for-bots PR #1290
 
-### tada (8561)
+### tada (8562)
+- [`endojs-endo-but-for-bots-pr1290-review-dec2083a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1290-review-dec2083a.md) — Completion report — review directive on endojs/endo-but-for-bots PR #1290
+- [`endojs-endo-but-for-bots-pr1290-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1290-conduct.md) — Manual gauntlet handoff
+- [`endojs-endo-but-for-bots-pr1289-review-f5a08880`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1289-review-f5a08880.md) — Completion report — endojs/endo-but-for-bots PR #1289 review directive
 - [`endojs-endo-but-for-bots-pr1309-review-a5084d17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1309-review-a5084d17.md) — Review of endojs/endo-but-for-bots PR #1309 (review 5271637936, kriskowal — A...
 - [`endojs-endo-but-for-bots-pr1317-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1317-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1303-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1303-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1290-review-dec2083a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1290-review-dec2083a.md) — Completion report — review directive on endojs/endo-but-for-bots PR #1290 (re...
-- [`endojs-endo-but-for-bots-pr1289-review-f5a08880`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/21/endojs-endo-but-for-bots-pr1289-review-f5a08880.md) — Cost
-- … and 8556 more
+- … and 8557 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
