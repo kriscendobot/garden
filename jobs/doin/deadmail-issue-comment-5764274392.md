@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/105#issuecomment-57642743
 @kriscendobot to clarify: devs are learning this UX. Can we benefit from this training to let them easily use endo's confinement mechanisms to confine their agents? Can we provide an alternative to such a devcontainer? Could an endo sandbox be an AHP client? Explore possible inte
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T17:10:35Z
