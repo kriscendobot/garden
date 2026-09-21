@@ -88,3 +88,13 @@ an existing pool.
 Confirm what got landed (the new SKILL.md + any reference files), that the
 plugin-marketplace installation commands were NOT executed, and the
 credential prerequisite is clearly flagged for the maintainer.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T21:51:20Z
