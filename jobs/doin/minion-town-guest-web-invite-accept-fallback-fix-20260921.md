@@ -124,3 +124,13 @@ same-daemon pairing path goes through genuine `EndoGuest.invite` /
 `EndoGuest.accept`, verified against a real pinned daemon with evidence in your
 report. The contract-delta greps above are resolved or explicitly confirmed
 not applicable.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T22:26:45Z
