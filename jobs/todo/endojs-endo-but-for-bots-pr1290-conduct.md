@@ -38,13 +38,6 @@ shepherd.
 Bot repo (endojs/endo-but-for-bots, `llm` trunk) — merge is authorized.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=754 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-21T23:04:47Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-21T23:33:08Z -->
