@@ -45,3 +45,13 @@ directive, paraphrased, is a simplification to evaluate and adopt if sound:
 - Keep architecture and unrelated sections intact; move only what the review touches.
 
 Directive identity: endojs/endo-but-for-bots#1226:review:5231787250
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T22:25:09Z
