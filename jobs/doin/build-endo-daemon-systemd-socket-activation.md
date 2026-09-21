@@ -106,3 +106,13 @@ pair:
 
 Base branch `llm`. Follow the standard `pr-formation`/`pre-pr-checklist`
 conventions. Runs through the normal gauntlet automatically once opened.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-21T20:32:18Z
