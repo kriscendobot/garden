@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/105#issuecomment-57650482
 @kriscendobot so to my eye, it looks like [AHP](https://microsoft.github.io/agent-host-protocol/) is specific to Microsoft and OpenAI; while [AG-UI](https://docs.ag-ui.com/introduction) has first-party vendor participation from Anthropic, Google, AWS, and others? I'm not sure how
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-21T18:00:30Z
