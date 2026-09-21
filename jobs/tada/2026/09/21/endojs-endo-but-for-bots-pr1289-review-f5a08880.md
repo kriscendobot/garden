@@ -1,34 +1,28 @@
-All asks are verified as resolved by peer work. This is a verified no-op — no further action needed.
+All asks verified as already resolved. Here's my assessment:
 
-## Completion report
+**Directive (kriskowal review 5271785979, CHANGES_REQUESTED):** "@kriscendobot Please respond to @gibson042" — no inline comments are tied to this review; the single ask is to answer gibson042's earlier review (5225048373).
 
-**Job:** Review directive on endojs/endo-but-for-bots PR #1289 (review `5271785979` by kriskowal: "@kriscendobot Please respond to @gibson042").
+**gibson042's two inline comments — both answered with substantive replies AND a code fix at PR head `858996f8cd`, which I corroborated against the actual file contents:**
 
-**Finding: verified no-op — the directive was already satisfied by peer work, corroborated artifact-by-artifact against the live PR and the code at HEAD (`858996f8cd`), not inferred from the preflight.**
+1. **Comment `4028017366`** (`passables-equal.js:45`) — "missing identity tracking for error/promise/remotable + throw on unknown pass style."
+   - Resolved by reply `4066557913` and commit `858996f8cd`. Verified in the file: `makeProjector()` holds a per-operand `WeakMap<object,number>` (`seen`/`indexOf`) projecting `remotable`/`promise` to an index marker and `error` to index + `name`/`message`; the `default` arm throws `Fail\`Unexpected pass style ${q(passStyle)}\``.
 
-The review under this directive carried **no inline comments of its own** (`select(pull_request_review_id==5271785979)` returns empty); its sole ask is "respond to @gibson042". @gibson042's substantive review was `5225048373` (2026-09-16) with two inline comments on `packages/marshal/test/passables-equal.js`:
+2. **Comment `4028022312`** (`passables-equal.js:12`) — "Slightly inaccurate."
+   - Resolved by reply `4066559217` and the same commit. Verified: the doc comment no longer claims non-byte-array passables "retain AVA's usual deepEqual behavior"; it now enumerates the per-pass-style projection and correctly limits pass-through to atomic leaves.
 
-1. **Missing identity tracking + no unknown-pass-style guard** (comment `4028017366`) — "missing identity tracking for passStyle values 'error', 'promise', and 'remotable' (e.g. a WeakMap value→index), and also a case to throw upon an unknown pass style."
-2. **Inaccurate doc comment** (comment `4028022312`) — "Slightly inaccurate."
+**Test coverage claim** also verified in `passables-equal.test.js` at head: tests "compares remotables by sharing topology" (shared vs. distinct via `Far`) and "compares errors by name, message, and topology" exist alongside the byte-array tests.
 
-Each ask is resolved by a named, verified artifact:
+**Conclusion:** A prior claimant of this job already posted both replies (21:25Z) and committed the fix (head `858996f8cd`), after kriskowal's 20:58Z review — so the directive is satisfied. Every ask maps to a named, verified artifact; no code change, no board routing, and no redundant comment are warranted. Inbox empty.
 
-- **Ask 1 → commit `858996f8cd`** (PR HEAD, mergeable). I fetched the file at that SHA and confirmed the code, not just the reply, implements it: `makeProjector()` builds a **per-operand** `WeakMap` value→index (`indexOf`), projecting `remotable`/`promise` to `{index}` markers and `error` to `{index,name,message}` (sharing-topology compare, aliasing caught, error diagnostics preserved); the `default` switch arm throws `Fail\`Unexpected pass style ${q(passStyle)}\``. Inline reply `4066557913` (to `4028017366`) describes exactly this and matches the code.
-- **Ask 2 → same commit.** The helper doc was rewritten from the inaccurate "non-byte-array passables retain AVA's usual deepEqual" claim into a per-pass-style enumeration (only atomic leaves pass through unchanged). Inline reply `4066559217` (to `4028022312`) matches.
-- **Coverage claim corroborated:** commit `858996f8cd` touches both `passables-equal.js` (+104/−35) and `passables-equal.test.js` (+53/−1).
-- **"Respond to gibson042" itself:** replies `4066557913` and `4066559217` were posted to both of his threads, plus summary issue comment `5767743240` tagging @kriskowal @gibson042.
-
-**Changes made:** none. No garden files changed; no PR mutation; nothing to commit or push. The peer resolution is genuine and complete.
-
-**Follow-ups:** none required from this job. The ball is now in the reviewers' court — kriskowal's CHANGES_REQUESTED can be dismissed / re-reviewed once he and @gibson042 accept the responses on the (still-DRAFT) PR #1289.
+**Follow-ups:** None required. The PR remains a DRAFT; promoting it to review is the maintainer's call (**run the gauntlet #1289**) and outside this directive.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1289-review-f5a08880.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 3 on 1 host(s)
-- Input: 126 tokens (3989744 cached reads)
-- Output: 48061 tokens
-- Cost: $5.2088160000000014
-- Wall-clock: 845s
-- Model(s): claude-opus-4-8 ×3
+- Engagements: 4 on 1 host(s)
+- Input: 138 tokens (4246313 cached reads)
+- Output: 54603 tokens
+- Cost: $5.932458500000001
+- Wall-clock: 964s
+- Model(s): claude-opus-4-8 ×4
 
 <!-- garden-usage-end -->
