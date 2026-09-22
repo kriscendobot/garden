@@ -7,17 +7,17 @@ thoughtfulness: medium
 work_class: other:m
 target: main2
 accepted: true
-agentic_dollars: 6.145904
+agentic_dollars: 6.820052
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.007728
+estimated_dollars: 0.007107
 attempts: 1
-duration_secs: 112
+duration_secs: 103
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/monk-2
-recorded_at: 2026-09-22T04:12:15Z
+recorded_by: endolin-garden-ece02cb4/monk-1
+recorded_at: 2026-09-22T04:18:56Z
 ---
 reputation event for kriscendobot-minion.town-pr96-review-d423db6e: arm anthropic/claude-opus-5/medium work_class other:m target main2 accepted true
