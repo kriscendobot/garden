@@ -25,3 +25,13 @@ Un-draft if needed (already un-draft), confirm CI terminal-green and
 mergeable, then merge with the method the conductor owns. Bot repo — do
 not name a merge method here. Sweep any frozen-base branches per the
 conductor loop.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-22T00:01:21Z
