@@ -55,3 +55,13 @@ A draft PR (opened via `scripts/jobs/gardening/ensure-pr.sh`) with the tentative
 behind the flag, local checks green, and a report section covering: does it work end to end
 for a confined guest; observed confinement; the seam contract shared with Track B; and the
 list of findings to back-fill into the Endo item-4 design later.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T00:54:46Z
