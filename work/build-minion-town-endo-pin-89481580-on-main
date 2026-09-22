@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-22T06:44:00Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-minion-town-endo-pin-89481580-on-main
+pr_number: 110
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/110
+pr_head: build/endo-pin-89481580-on-main
