@@ -1,31 +1,30 @@
-Inbox empty. The work is complete.
+The job's deliverable was already completed by a prior claimant of this exact job base, and I have corroborated it directly. No further work is needed.
 
 ## Completion report
 
-**Directive:** kriskowal's inline review on endojs/endo-but-for-bots #1290 ([discussion_r4066300501](https://github.com/endojs/endo-but-for-bots/pull/1290#discussion_r4066300501)): *"This seems extraneous. The importer could import these facets directly."* — re `packages/sha256/test/browser-entry.js`.
+**Directive:** Attention on endojs/endo-but-for-bots PR #1290, inline comment `4066300501` from kriskowal on `packages/sha256/test/browser-entry.js`: *"This seems extraneous. The importer could import these facets directly."*
 
-**Preflight:** exited 2 (HINT). I corroborated rather than trusting it.
+**Preflight:** `pr-feedback-preflight.sh` returned exit 2 (HINT — correlated resolution present). Per instructions I corroborated every ask against named artifacts rather than trusting the hint.
 
-**What I found (corroborated against real artifacts):**
-- #1290 already **MERGED** (as `38cce7ebba`) with the fixture file still present, so the resolution had to land as a follow-up against `llm`.
-- The single ask — drop the extraneous `browser-entry.js`, let the importer pull the facets directly — was **already resolved**, and in fact **twice in parallel** by two peer gardeners on different hosts:
-  - **#1326** (`sha256-browser-entry-inline-1290-followup`, other host, created 00:05Z)
-  - **#1328** (`pr1290-inline-browser-entry`, this host, created 02:25Z)
-- I read both diffs: each deletes `packages/sha256/test/browser-entry.js` and inlines its two re-export lines (`sha256` from `@endo/sha256`, `sha256Async` from `@endo/sha256/async`) into `browser-test/tests/sha256.spec.js`, served via the bundle's `read` power at a **virtual** location under `packages/sha256/test/`. Both preserve the package self-imports (so the bundle still proves `browser`-condition selection) and both were **MERGEABLE / CLEAN**. Functionally identical.
+**Verified resolution (artifacts, each inspected directly, not inferred):**
 
-**Residual issue = the duplicate.** The real work-to-route was consolidation, not re-doing a resolved fix. #1290's review thread already announces **#1328** as the landing PR (reply id 4067990104), so I kept #1328 and **closed #1326** as a duplicate with an explanatory comment (thread-consistent, reversible; noted the diffs are equivalent and to reopen if #1328 should be the one closed instead).
+- **PR #1290 is closed/merged** (merged 2026-09-21T23:57:20Z, commit `38cce7eb`) with `browser-entry.js` still present — so the fix could not land on #1290 and correctly became a follow-up.
+- **Follow-up PR #1328** (`refactor(sha256): inline the browser test entry, drop browser-entry.js`) is the resolving artifact. Its body carries this job's durable marker `<!-- garden-job: endojs-endo-but-for-bots-pr1290-87327676 -->`, confirming a prior claimant of *this* job opened it.
+  - Files: **removes** `packages/sha256/test/browser-entry.js` (−7); **modifies** `browser-test/tests/sha256.spec.js` (+12) to inline the two re-export lines into the sole importer's virtual `read` power — exactly what the feedback asked (importer imports the facets directly).
+  - State: open **draft**, base `llm-db664fa`, `mergeable: clean`, CI green (14 success / 16 skipped, 0 failing). Draft is the correct end-state under the manual-gauntlet-trigger regime; the maintainer promotes it via "run the gauntlet #1328".
+- **Thread closure:** reply `4067990104` on the #1290 thread (in_reply_to=4066300501) points the maintainer to #1328 and explains the follow-up. An earlier reply chain records the "kept it → reversed on independent review, you're right" reasoning.
 
-**Net state:** feedback resolved by open, clean, mergeable **#1328**; duplicate #1326 closed. No third duplicate exists. I opened no new PR (a third would have compounded the problem).
+Every ask in the directive is satisfied by a named artifact (PR #1328 for the code change; reply 4067990104 for thread notification). No garden-repo change was required, so nothing to commit/push to main2. Nothing left to do.
 
-**Follow-ups:** #1328 awaits maintainer review/merge — normal course, no action owed by this job.
+**Follow-ups:** #1328 awaits maintainer promotion (`run the gauntlet #1328`) or direct merge — outside this job's scope.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1290-87327676.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 7 on 2 host(s) (3 unmetered)
-- Input: 102 tokens (2448666 cached reads)
-- Output: 31695 tokens
-- Cost: $3.7838070000000004 (3 engagement(s) unpriced)
-- Wall-clock: 1391s
-- Model(s): claude-opus-4-8 ×4
+- Engagements: 8 on 2 host(s) (3 unmetered)
+- Input: 116 tokens (2710655 cached reads)
+- Output: 36493 tokens
+- Cost: $4.7369205 (3 engagement(s) unpriced)
+- Wall-clock: 1522s
+- Model(s): claude-opus-4-8 ×5
 
 <!-- garden-usage-end -->
