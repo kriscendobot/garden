@@ -1,21 +1,9 @@
 ---
-gate: deferred
-priority: normal
 role: conductor
 tier: minion
 token-budget: 250000
-doomed: true
-doom_signature: elapsed-constancy
-doom_count: 1
-failure_classification: deterministic
-requeue_cycles: 3
-deadline_overruns: 0
-elapsed_constancy_confirmations: 2
-doomed_at: 2026-09-02T20:45:38Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-09-02T20:45:38Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-22T01:08:50Z cleared=none -->
 
 ---
 role: conductor
