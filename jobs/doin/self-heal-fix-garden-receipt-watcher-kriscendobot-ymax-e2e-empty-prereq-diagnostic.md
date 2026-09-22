@@ -4,3 +4,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 scripts/jobs/receipt-watcher.sh, around lines 84-92: when the `( ensure_clone "$DIR"; sync_clone "$DIR" )` subshell exits nonzero and is NOT classified as a transient availability failure by `shared_availability_failure`, the code does `sed 's/^/  prerequisite: /' "$PREREQ_ERR" >&2` then `die "... rc=$prereq_rc; see prerequisite stderr above"`. When `$PREREQ_ERR` is empty (observed in production twice: 2026-09-22 02:31:38 and 05:19:04 on garden-receipt-watcher@kriscendobot-ymax-e2e, rc=1, zero bytes captured — plausibly a `clone_lock` TTL-based lock-steal race under the ~15-way concurrent contention on the shared `$GARDEN_STATE/receipt-watcher/journal` clone, since sibling ticks in the same window logged `journal fetch ... timed out (>45s)`), the sed prints nothing and the FATAL message falsely claims a diagnostic is "above" when there is none — making the failure undiagnosable after the fact. Fix: guard the sed with `if [ -s "$PREREQ_ERR" ]; ... else log "prerequisite: (no diagnostic captured — ensure_clone/sync_clone exited rc=$prereq_rc with empty stderr)"; fi`, and drop the now-inaccurate "see prerequisite stderr above" wording from the die() message. Also add a regression test case to receipt-watcher-test.sh covering an empty-stderr nonzero prerequisite exit, so this diagnostic gap can't silently regress.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T05:23:46Z
