@@ -43,3 +43,13 @@ When you claim this:
 
 Do NOT merge — the sibling conduct child owns the merge. NEVER merge upstream
 endojs/endo or agoric-sdk.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-22T01:36:36Z
