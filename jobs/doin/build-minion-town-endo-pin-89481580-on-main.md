@@ -64,3 +64,13 @@ Its merge lands the pin on `main` and satisfies the fallback-fix precondition.
 `agoric/agoric-sdk`, no identity switch, no ferry. If re-applying the pin surfaces
 a genuine incompatibility with current `main` (e.g. a daemon-client contract that
 changed), STOP and report it as a blocker rather than forcing the pin.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T06:44:00Z
