@@ -36,3 +36,13 @@ conflicts (see roles/weaver/AGENT.md, skills/conflict-resolution). Push with
 `mergeable_state: clean` and CI is green on the new head, the conductor will be
 posted by the event watcher / a later reconcile tick (the PR is approved).
 Never link to upstream agoric/agoric-sdk.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T01:13:10Z
