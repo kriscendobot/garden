@@ -34,6 +34,18 @@
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Lock patience, THIS watcher only (exported before common.sh so its `: "${VAR:=default}"`
+# defaults defer to these). common.sh's clone_lock budget (GARDEN_LOCK_WAIT=60s ×
+# GARDEN_LOCK_RETRIES=3, ~180s) is sized for "per-service clones with no concurrent
+# users" — but every armed garden-receipt-watcher@<slug> instance (currently 16 repos)
+# shares ONE journal clone ($GARDEN_STATE/receipt-watcher/journal) and serializes on its
+# sibling clone_lock. On ordinary fan-out the herd of instances can all wake and queue on
+# that lock at once; the default budget lets a queued-out loser die loudly (the FATAL
+# "receipt journal prerequisite failed" that fired for kriscendobot-test262). Raise the
+# retry count so a queued instance outlasts its ~15 peers' short journal-sync turns
+# instead of failing on routine contention. Scoped here only — do NOT change common.sh's
+# global defaults, which every other producer shares and whose clones are not fanned out.
+: "${GARDEN_LOCK_RETRIES:=12}"; export GARDEN_LOCK_RETRIES
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 
