@@ -1,11 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: run-the-gauntlet-endo-pr1329-20260922-split
-priority: normal
 role: mentor
-posted_by: producer
-posted_at: 2026-09-22T20:35:30Z
+tier: mentor
+handler-timeout: 14339
+split-indivisible-reason: 'The gauntlet is one supervised panel->fix->re-panel->un-draft loop whose fix iterations are data-dependent on the live panel disposition, so it cannot be divided into independently-claimable children without breaking the stateful fix loop; the split protocol also forbids decomposing gauntlet stages. The 2400s mentor wall was too small for a full ~15-20 min panel plus the heavy endo-but-for-bots checkout (moddable submodule + generated JS bundles) plus fix iterations, so the fix is a larger single-claim window, not a decomposition.'
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-22T20:37:50Z cleared=none -->
 
 ---
 tier: mentor
