@@ -96,3 +96,13 @@ index 7ccb747adc..10b2198858 100755
 Confirm both fixes landed, what you validated and how, and the pushed
 commit sha. If the Moddable asset filename turned out to be wrong, say so
 and what you corrected it to (with your source).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T04:47:54Z
