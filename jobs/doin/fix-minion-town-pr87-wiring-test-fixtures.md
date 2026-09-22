@@ -62,3 +62,13 @@ Rebase on the latest `build/claude-agents-capability` before pushing (the branch
 currently `dirty`/behind `main`); resolve only what your change touches. Reply on the
 review thread when done. Do NOT un-draft or merge — PR #87 is held un-merged per the
 maintainer's "close that gap before we commit."
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T01:24:03Z
