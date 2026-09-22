@@ -1,36 +1,29 @@
-Everything is verified and complete. Writing the report.
+The migration deliverable is complete and verified; I've routed the duplication decision to the maintainer. Nothing to commit in the garden worktree — this was an attention/routing job whose deliverable lives on the project PRs.
 
----
+## Completion report
 
-## Completion report — attention directive on kriscendobot/minion.town PR #87
+**Job:** `kriscendobot-minion.town-pr87-b8a7509c` — attention directive on kriscendobot/minion.town#87: *"Repo-wide migration to vitest. The Endo repository dictates house style."*
 
-**Directive** (kriskowal, comment 5770443815): *"Repo-wide migration to vitest. The Endo repository dictates house style."*
+**Preflight:** `pr-feedback-preflight.sh` returned exit 2 (HINT). I corroborated rather than closing as a no-op.
 
-**Disposition: already resolved by a prior claimant of this same job; verified, and the public status corrected.**
+**What I found / verified:**
+- The directive's deliverable already exists as **kriscendobot/minion.town#107** (branch `fix/repo-wide-vitest`), opened by a prior claimant of *this* job — it carries the marker `<!-- garden-job: kriscendobot-minion.town-pr87-b8a7509c -->`.
+- Scope was small: the root app suite was already vitest; only two self-contained sub-packages still ran `node:test` — `deploy/thunks/siwe` (19 tests) and `tools/claude-harness` (30 tests).
+- On the #107 branch I confirmed the migration is genuinely complete: **no `node:test` imports and no `ava` references remain anywhere** in the repo (excluding node_modules); all three `package.json` test scripts run `vitest run`; all four migrated test files import from `vitest`; CI green (`test`, `Claude harness` amd64/arm64); MERGEABLE/CLEAN.
 
-Preflight returned exit 2 (HINT). I corroborated the single ask against a named artifact rather than trusting the hint:
+**Duplication surfaced:** A second gardener independently produced **kriscendobot/minion.town#108** (branch `vitest-repo-wide-holdouts`, job `fix-minion-town-vitest-repo-wide-holdouts`) doing the same two-package conversion, but adding self-contained per-package `vitest.config.js` files (marginally more Endo-idiomatic). Both PRs are green, mergeable, and draft.
 
-**Artifact resolving the ask — draft PR #107 (`fix/repo-wide-vitest`, head `7a613ac`)**, which carries **this job's own marker** (`<!-- garden-job: kriscendobot-minion.town-pr87-b8a7509c -->`), i.e. an earlier run of this requeued job opened it. Verified against the actual #107 diff (11 files), not the peer's word:
+**Routing action:** Messaged the maintainer (via the liaison) with the full state and a recommendation to promote one PR (`run the gauntlet` — builds stop at draft under the manual-gauntlet regime) and close the other as a duplicate. I deliberately did **not** close either PR, to avoid discarding a peer's work without maintainer authorization.
 
-- Root suite was already Vitest (`vitest.config.ts`, `npm test == vitest run`) — nothing to migrate there.
-- The two remaining self-contained packages are migrated off `node:test`:
-  - `deploy/thunks/siwe` (19 tests) and `tools/claude-harness` (30 tests): `test` script flipped `node --test` → `vitest run`; test files re-import `node:test` → `vitest` (`test`/`afterAll`); `vitest ^2.1.8` added as a devDependency in each `package.json` + lockfile.
-  - `.github/workflows/test.yml` now `npm ci` + runs both package suites.
-- No directive item declined — consistent with the maintainer's "staying on vitest, repo-wide", including adding `vitest` as a devDep to the formerly dependency-free `claude-harness` (the one trade-off a peer had explicitly deferred to the maintainer; the repo-wide directive is that call).
-
-**CI status corrected.** The prior public follow-up (comment 5771033963, 04:03Z) reported CI red due to the unchanged live-daemon integration flake. On the current head `7a613ac` all three checks now pass (`test`, `Claude harness amd64`, `Claude harness arm64`). I posted a concise, accurate status correction on PR #87 (comment 5771404852) pointing the maintainer to #107 as CI-green and ready.
-
-**State left behind:** PR #107 open, draft, mergeable, CI green — correctly parked at draft under the manual-gauntlet regime, awaiting an explicit **run the gauntlet #107** from the maintainer. No garden-repo (`main2`) changes were needed; no commit/push from this worktree.
-
-**Follow-up for the maintainer:** promote #107 with **run the gauntlet #107** when ready. (Note: this job base keeps being re-posted by the comment watcher against the still-standing directive comment, producing duplicate "On it" acks; the underlying work is done.)
+**Follow-ups (owned by the maintainer):** pick #107 vs #108, run the gauntlet on the chosen one, close the other. No further gardener work is needed to satisfy the directive.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr87-b8a7509c.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 5 on 2 host(s) (1 unmetered)
-- Input: 136 tokens (4011101 cached reads)
-- Output: 66289 tokens
-- Cost: $6.5070525 (1 engagement(s) unpriced)
-- Wall-clock: 2470s
-- Model(s): claude-opus-4-8 ×4
+- Engagements: 6 on 2 host(s) (1 unmetered)
+- Input: 162 tokens (4665012 cached reads)
+- Output: 77057 tokens
+- Cost: $7.619878 (1 engagement(s) unpriced)
+- Wall-clock: 2692s
+- Model(s): claude-opus-4-8 ×5
 
 <!-- garden-usage-end -->
