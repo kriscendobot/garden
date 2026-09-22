@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":16,"elapsed_s":107,"input_tokens":22,"output_tokens":5466,"cache_creation_tokens":42939,"cache_read_tokens":525696,"total_cost_usd":0.850525,"ts":"2026-09-22T04:51:37Z","base":"apply-garden-arm64-bash32-patch","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer","provider":"anthropic"}
