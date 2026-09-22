@@ -49,3 +49,13 @@ A draft PR (via `scripts/jobs/gardening/ensure-pr.sh`) with the tentative Agent-
 behind the flag on the shared seam, local checks green, and a report covering: does it work
 end to end for a confined guest; observed confinement vs. the CLI; the production-comparison
 criteria; and the findings to back-fill into the Endo item-4 design.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-22T01:01:18Z
