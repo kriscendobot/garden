@@ -35,3 +35,13 @@ The "schedule the build" half of the maintainer's direction — standing up the 
 end-to-end **eval build** gated on its dependency builds — remains for the press to
 orchestrate once this design has merged and the dependency builds it references are
 closer to landing. This job's deliverable is only the merge of the design PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T00:36:04Z
