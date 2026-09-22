@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T16:51:53Z_
+_As of 2026-09-22T17:10:38Z_
 
 ## Latest
 
@@ -3939,25 +3939,25 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.8M | $370.36 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 17.3M _(+377.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 37.9M | $370.56 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Codex | 17.3M _(+379.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 35676724 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 35681382 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endo-pr1329-registry-migration.md) — ---
+### doin (0)
+(none)
 
-### tada (8692)
+### tada (8693)
+- [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/shepherd-endo-pr1329-registry-migration.md) — Cost
 - [`claude-on-minion-town-completion-press-20260922-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-163506.md) — Completion report — completion-press tick 20260922-163506 (Claude-on-minion.t...
 - [`claude-on-minion-town-press-20260922-162051`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-162051.md) — Cost
 - [`endo-revive-registry-host-formula-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endo-revive-registry-host-formula-migration.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-86272788ce58`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-86272788ce58.md) — rolling-deploy canary probe — round trip OK
-- [`minion-town-endo-daemon-deploy-fail-89481580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/minion-town-endo-daemon-deploy-fail-89481580.md) — Completion report: minion.town endo-daemon deploy failure (89481580)
-- … and 8687 more
+- … and 8688 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
