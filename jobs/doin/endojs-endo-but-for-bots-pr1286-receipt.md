@@ -26,6 +26,7 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1286
 <!-- garden-plain-retry-not-before: 2026-09-22T00:43:35Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=210,178 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
