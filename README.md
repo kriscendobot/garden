@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T23:48:20Z_
+_As of 2026-09-22T23:52:11Z_
 
 ## Latest
 
@@ -622,6 +622,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > GAUNTLET TRACK: still ACTIVE. PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) remains open+DRAFT (mergeable_state=dirty — base conflicts). The gauntlet driver is at fix iteration 3 of 6, gh-GraphQL rate-limited ~60 min. OPEN QUESTION: do you want the gauntlet to keep driving [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) to un-draft as reviewed code (deployment is blocked regardless), or pause it pending your server-limit decision? I will keep monitoring to terminal unless you say otherwise.
 
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=50586617 cap=143000000 pace-bias=0.332823 ceiling=4 target=3
+
 - `msg-garden-gauntlet-reexport-policy-check-c841557cb265` — from gardener:garden-gauntlet-reexport-policy-check, reply_to `garden-gauntlet-reexport-policy-check` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-gauntlet-reexport-policy-check-c841557cb265.md)
 
 > Design proposal ready for review: re-export deprecation policy gate.
@@ -1028,8 +1032,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.6M | $505.02 _(notional, rate-card)_ | 35% of 143.0M (ok) |
-| Codex | 18.2M _(+388.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 51.5M | $511.43 _(notional, rate-card)_ | 36% of 143.0M (ok) |
+| Codex | 18.3M _(+388.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1037,8 +1041,8 @@ _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-comment-watcher-blockquote-address-drop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-comment-watcher-blockquote-address-drop.md) — comment-watcher drops a genuine @kriscendobot address when preceded by a quot...
 
 ### tada (8708)
 - [`endojs-endo-but-for-bots-pr1329-review-65578408`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1329-review-65578408.md) — Cost
