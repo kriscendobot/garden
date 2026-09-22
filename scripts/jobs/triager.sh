@@ -36,8 +36,13 @@
 # full timeout under a degraded network, so a run can approach the 900s wall. systemd
 # then SIGTERM-kills the tick, which marks the unit Failed and burns a self-heal
 # responder on what is really just "too much slow IO this tick" (observed on
-# kriscendobot-minion.town, which reached the unit timeout). We instead check the
-# elapsed wall clock at each phase boundary and, once it crosses
+# kriscendobot-minion.town, which reached the unit timeout). A phase check alone is
+# insufficient: the triage handler includes both the unbounded agent call and every
+# job post, so it can consume all final headroom after passing the check. We therefore
+# check the elapsed wall clock at each phase boundary AND run that whole handler/posting
+# phase under the exact remaining tick budget. Once the budget expires, we terminate
+# the handler, treat the expiration as a clean defer (not a handler failure), and leave
+# both the activity and failure cursors untouched. Once a phase boundary crosses
 # GARDEN_TRIAGE_TICK_DEADLINE (default 780s, ~120s under the wall), DEFER the remaining
 # work to the next timer tick and exit cleanly (0). The cursor stays unadvanced, so the
 # next tick re-triages the identical, idempotent transition — nothing is lost, exactly
@@ -91,6 +96,10 @@ export GARDEN_TAG="triager/$slug"
 # the deadline entirely (the pre-deadline behavior). GARDEN_TRIAGE_TICK_START overrides
 # the tick-start epoch and GARDEN_TRIAGE_TICK_NOW the clock, for deterministic tests.
 : "${GARDEN_TRIAGE_TICK_DEADLINE:=780}"
+# Grace between timeout's TERM and KILL for a handler that does not stop promptly.
+# This is outside the 780s work budget but comfortably inside the unit's default
+# 900s wall. It bounds descendants involved in posting as well as the agent itself.
+: "${GARDEN_TRIAGE_HANDLER_KILL_AFTER:=10}"
 TICK_START="${GARDEN_TRIAGE_TICK_START:-$(date -u +%s)}"
 
 PACE_STATE_DIRECTORY="$GARDEN_STATE/triager/pace"
@@ -113,6 +122,23 @@ triager_pace_now() {
 # Wall clock for the tick deadline, overridable for deterministic tests.
 triager_tick_now() {
   printf '%s\n' "${GARDEN_TRIAGE_TICK_NOW:-$(date -u +%s)}"
+}
+
+# Print the positive number of seconds left in this tick. Return 1 when the deadline
+# is disabled/unusable (the caller should preserve the old unbounded behavior), or 2
+# when it has expired. Keeping this calculation local prevents a second journal or
+# network operation from stealing the handler's final headroom between a phase check
+# and the handler launch.
+triager_tick_remaining() {
+  local now elapsed remaining
+  [ "${GARDEN_TRIAGE_TICK_DEADLINE:-0}" -gt 0 ] 2>/dev/null || return 1
+  [[ "$TICK_START" =~ ^[0-9]+$ ]] || return 1
+  now="$(triager_tick_now)"
+  [[ "$now" =~ ^[0-9]+$ ]] || return 1
+  elapsed=$(( now - TICK_START ))
+  remaining=$(( GARDEN_TRIAGE_TICK_DEADLINE - elapsed ))
+  [ "$remaining" -gt 0 ] || return 2
+  printf '%s\n' "$remaining"
 }
 
 # triager_tick_defer_if_past_deadline <phase-label> — called at each phase boundary.
@@ -651,7 +677,42 @@ triager_tick_defer_if_past_deadline "the triage handler"
 
 log "change on $slug:$ref: ${old_sha:-<none>} → $new_sha; triaging"
 
-if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
+# The handler owns the complete triage transaction, including every post-job.sh call.
+# Bound that WHOLE transaction by the tick's remaining seconds. A timeout may leave
+# idempotently named jobs already posted, but it must not advance the activity cursor
+# or increment the failure cursor: the next tick safely retries the same transition.
+handler_rc=0
+remaining_rc=0
+if handler_remaining="$(triager_tick_remaining)"; then
+  if timeout --kill-after="${GARDEN_TRIAGE_HANDLER_KILL_AFTER}s" "${handler_remaining}s" \
+      "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
+    handler_rc=0
+  else
+    handler_rc=$?
+  fi
+else
+  remaining_rc=$?
+  if [ "$remaining_rc" -eq 2 ]; then
+    triager_tick_defer_if_past_deadline "the triage handler"
+  fi
+  # Disabled or unparseable deadlines preserve the pre-deadline behavior.
+  if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
+    handler_rc=0
+  else
+    handler_rc=$?
+  fi
+fi
+
+if [ "$handler_rc" -eq 124 ] || [ "$handler_rc" -eq 137 ]; then
+  log "tick deadline expired while running the triage handler/posting phase for $slug; deferring to the next tick (activity and failure cursors left untouched)"
+  exit 0
+fi
+
+if [ "$handler_rc" -eq 0 ]; then
+  # The handler can finish at the edge of its allowance. Check again before ANY
+  # trailing decision/failcount/activity-cursor posting; if the budget is gone,
+  # re-triage next tick rather than spending the systemd headroom.
+  triager_tick_defer_if_past_deadline "post-handler cursor work"
   # Record AFTER the handler: decision-ledger CAS/network work must never sit in
   # front of the time-sensitive event whose immediate preemption we guarantee.
   triager_pace_record_preemption

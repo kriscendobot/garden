@@ -916,6 +916,47 @@ set +e; run_triager_deadline 0 "$PAST" "$O3OUT"; rc=$?; set -e
 ! grep -qi "tick deadline reached" "$O3OUT" && ok "deadline=0 never logs a defer (breaker disabled)" || bad "deadline=0 spuriously deferred (out: $(cat "$O3OUT"))"
 [ "$(calls)" -eq 1 ] && ok "deadline=0 runs the handler despite the long-past start" || bad "deadline=0 handler calls = $(calls) (want 1)"
 
+# --- O4: handler + posting phase consumes the remaining budget → clean defer ---------
+# Passing the pre-handler phase check is not enough: an agent or post-job.sh may hang
+# after launch. The whole handler transaction must be killed at the remaining tick
+# budget, without advancing activity or charging the durable failure counter.
+rm -rf "$TR/state-deadline4"; STATE="$TR/state-deadline4"; rm -rf "$BARE"; seed_journal
+seed_watched_bare
+SLOW_HANDLER="$TR/handler-slow-post.sh"
+cat > "$SLOW_HANDLER" <<'EOF'
+#!/bin/bash
+printf 'started\n' >> "${CALL_LOG:?set CALL_LOG}"
+sleep 10
+printf 'posted\n' >> "${POST_LOG:?set POST_LOG}"
+EOF
+chmod +x "$SLOW_HANDLER"
+: > "$CALLS"; POST_LOG="$TR/slow-posts.log"; : > "$POST_LOG"
+O4OUT="$TR/triager-deadline4.out"; : > "$O4OUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$SLOW_HANDLER" CALL_LOG="$CALLS" POST_LOG="$POST_LOG" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 GARDEN_TRIAGE_TICK_DEADLINE=1 \
+    GARDEN_TRIAGE_HANDLER_KILL_AFTER=1 GARDEN_TRIAGE_TICK_START="$(date -u +%s)" \
+    "$JOBS/triager.sh" "$SLUG" >>"$O4OUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "handler-budget expiration exits cleanly (0)" || bad "handler-budget expiration exit = $rc (want 0)"
+grep -qi "deadline expired while running the triage handler/posting phase" "$O4OUT" \
+  && ok "handler timeout is logged as a clean tick defer" || bad "handler-timeout defer log missing (out: $(cat "$O4OUT"))"
+grep -qx started "$CALLS" && ok "handler started while initial headroom remained" || bad "slow handler did not start exactly once"
+[ ! -s "$POST_LOG" ] && ok "posting work after the handler stall never ran past the budget" || bad "post marker was written after timeout"
+[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "handler timeout leaves activity cursor unadvanced" || bad "handler timeout advanced activity cursor"
+[ -z "$(cursor_field "failcount/$SLUG" fail_count)" ] && ok "handler timeout does not penalize the failure cursor" || bad "handler timeout charged failcount=$(cursor_field "failcount/$SLUG" fail_count)"
+
+# The same unadvanced change remains available and succeeds on the next tick.
+: > "$CALLS"; O5OUT="$TR/triager-deadline5.out"; : > "$O5OUT"
+set +e; run_triager_deadline 780 "$(date -u +%s)" "$O5OUT"; rc=$?; set -e
+[ "$rc" -eq 0 ] && [ "$(calls)" -eq 1 ] \
+  && ok "next in-budget tick retries the timed-out transition" \
+  || bad "next tick did not retry cleanly (rc=$rc calls=$(calls))"
+[ -n "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "retry advances activity cursor only after handler success" || bad "retry did not advance activity cursor"
+
 # ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
