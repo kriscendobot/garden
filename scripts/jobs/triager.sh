@@ -27,6 +27,21 @@
 # that sha (one WARN, one maintainer-inbox report, exit 0 so systemd stops flapping).
 # A newly-observed new_sha clears the breaker automatically. Mirrors the cascade
 # circuit-breaker in ci-watcher.sh.
+#
+# Internal tick deadline: a single firing shares the unit's 900s TimeoutStartSec wall
+# with EVERY nested operation it runs — the paced remote-ref probe, the steady-state
+# repo fetch, and several journal round-trips (the activity/failcount cursor reads, the
+# cursor writes, and the cost-aware pace projection). Each is bounded individually
+# (~GARDEN_FETCH_TIMEOUT), but they are additive across one tick and each can burn its
+# full timeout under a degraded network, so a run can approach the 900s wall. systemd
+# then SIGTERM-kills the tick, which marks the unit Failed and burns a self-heal
+# responder on what is really just "too much slow IO this tick" (observed on
+# kriscendobot-minion.town, which reached the unit timeout). We instead check the
+# elapsed wall clock at each phase boundary and, once it crosses
+# GARDEN_TRIAGE_TICK_DEADLINE (default 780s, ~120s under the wall), DEFER the remaining
+# work to the next timer tick and exit cleanly (0). The cursor stays unadvanced, so the
+# next tick re-triages the identical, idempotent transition — nothing is lost, exactly
+# like the crash-then-re-triage guarantee the cursor already provides.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -50,6 +65,15 @@ export GARDEN_TAG="triager/$slug"
 : "${GARDEN_TRIAGE_PACE_ROLE:=triager}"
 : "${GARDEN_TRIAGE_PACE_ENABLED:=1}"
 : "${GARDEN_TRIAGE_PACE_PROJECTOR:=$HERE/triager-pace.sh}"
+# Internal tick deadline (see the header). Once a tick has spent this many wall-clock
+# seconds, it defers the remaining nested journal/fetch/pace work to the next timer tick
+# and exits cleanly (0) rather than run into the unit's 900s TimeoutStartSec and be
+# SIGTERM-killed. Default 780s leaves ~120s of headroom under the wall for whatever
+# in-flight operation is running when the deadline is crossed. 0 (or negative) disables
+# the deadline entirely (the pre-deadline behavior). GARDEN_TRIAGE_TICK_START overrides
+# the tick-start epoch and GARDEN_TRIAGE_TICK_NOW the clock, for deterministic tests.
+: "${GARDEN_TRIAGE_TICK_DEADLINE:=780}"
+TICK_START="${GARDEN_TRIAGE_TICK_START:-$(date -u +%s)}"
 
 PACE_STATE_DIRECTORY="$GARDEN_STATE/triager/pace"
 PACE_MARKER="$PACE_STATE_DIRECTORY/${slug//[^A-Za-z0-9._-]/_}"
@@ -62,6 +86,31 @@ PACE_EXPECTED_WAKE=""
 
 triager_pace_now() {
   printf '%s\n' "${GARDEN_TRIAGE_PACE_NOW:-$(date -u +%s)}"
+}
+
+# Wall clock for the tick deadline, overridable for deterministic tests.
+triager_tick_now() {
+  printf '%s\n' "${GARDEN_TRIAGE_TICK_NOW:-$(date -u +%s)}"
+}
+
+# triager_tick_defer_if_past_deadline <phase-label> — called at each phase boundary.
+# If the tick has already spent GARDEN_TRIAGE_TICK_DEADLINE wall-clock seconds, log the
+# clean fail-open and exit 0 so the REMAINING work defers to the next timer tick instead
+# of running into the unit's 900s wall and being SIGTERM-killed. Purely local + fast (no
+# journal/network IO of its own — recording a decision here would add the very round-trip
+# we are trying to avoid). Fails open toward proceeding: any unparseable clock/start just
+# returns, never wedges a tick. The cursor is never advanced past a deferred change, so
+# the next tick re-triages the identical, idempotent transition.
+triager_tick_defer_if_past_deadline() {
+  local phase="$1" now elapsed
+  [ "${GARDEN_TRIAGE_TICK_DEADLINE:-0}" -gt 0 ] 2>/dev/null || return 0
+  [[ "$TICK_START" =~ ^[0-9]+$ ]] || return 0
+  now="$(triager_tick_now)"
+  [[ "$now" =~ ^[0-9]+$ ]] || return 0
+  elapsed=$(( now - TICK_START ))
+  [ "$elapsed" -ge "$GARDEN_TRIAGE_TICK_DEADLINE" ] || return 0
+  log "tick deadline reached for $slug after ${elapsed}s (≥ ${GARDEN_TRIAGE_TICK_DEADLINE}s) before $phase; deferring the rest to the next tick (cursor left unadvanced, re-triaged idempotently) rather than running into the unit wall"
+  exit 0
 }
 
 triager_pace_note_warning() {
@@ -276,6 +325,10 @@ if [ "$GARDEN_TRIAGE_PACE_ENABLED" = 1 ] && [ -r "$PACE_MARKER" ]; then
   fi
 fi
 
+# Tick-deadline checkpoint: if the paced probe (or an earlier slow op) has already
+# consumed the tick's budget, defer the fetch + handler + cursor work to the next tick.
+triager_tick_defer_if_past_deadline "the steady-state repo fetch"
+
 # Steady-state clone refresh. Bound git's otherwise unbounded network IO, and
 # retain stderr for the same offline classification sync_clone uses. The `if`
 # preserves the failed command's rc under set -e.
@@ -478,6 +531,8 @@ CURSOR_KEY="activity/$slug"
 # The temporary-unavailable rc (GARDEN_OFFLINE_RC) is cursor-get's shared journal-outage
 # latch: skip QUIETLY (the host already owns one cooldown warning; a per-repo re-warn is
 # the herd the latch suppresses). Any OTHER nonzero rc is a loud structural/auth failure.
+# Tick-deadline checkpoint before this journal round-trip (see the header).
+triager_tick_defer_if_past_deadline "the activity-cursor read"
 if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
   [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
@@ -488,6 +543,9 @@ old_sha="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_sha:[[:space:]]*//p' | 
 
 if [ "$old_sha" = "$new_sha" ]; then
   log "no change on $slug:$ref ($new_sha)"
+  # The cost-aware pace projection does its own journal round-trip; skip it past the
+  # deadline (it is a pure optimization, re-derived on the next tick).
+  triager_tick_defer_if_past_deadline "the cost-aware pace projection"
   triager_pace_schedule "$new_sha" "$ref"
   exit 0
 fi
@@ -502,6 +560,8 @@ FAIL_KEY="failcount/$slug"
 # rc (sync_clone `exit "$GARDEN_OFFLINE_RC"` on an offline journal, or a plain rc=1
 # `die` when a failed fetch's stderr misses the incomplete offline-signature list).
 # A cursor read is best-effort, so no nonzero rc should hard-crash the unit.
+# Tick-deadline checkpoint before this journal round-trip (see the header).
+triager_tick_defer_if_past_deadline "the failcount-cursor read"
 if fail_state="$("$HERE/cursor-get.sh" "$FAIL_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
   [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
@@ -520,6 +580,11 @@ if [ "$GARDEN_TRIAGE_FAIL_THRESHOLD" -gt 0 ] \
   log "circuit-breaker OPEN for $slug:$ref $new_sha ($fail_count consecutive triage failures ≥ threshold $GARDEN_TRIAGE_FAIL_THRESHOLD); not re-triaging until a new change appears"
   exit 0
 fi
+
+# Tick-deadline checkpoint: if the nested journal/fetch work already consumed the tick's
+# budget, do NOT start the (potentially long) triage handler this tick — defer the whole
+# change to the next tick, which re-triages the identical, idempotent transition.
+triager_tick_defer_if_past_deadline "the triage handler"
 
 log "change on $slug:$ref: ${old_sha:-<none>} → $new_sha; triaging"
 
@@ -551,6 +616,9 @@ if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
     exit 0
   fi
   log "triaged $slug:$ref up to $new_sha"
+  # The essential work (triage + cursor advance) is done; the pace projection is a
+  # trailing journal round-trip, so skip it past the deadline and exit clean.
+  triager_tick_defer_if_past_deadline "the cost-aware pace projection"
   triager_pace_schedule "$new_sha" "$ref"
   exit 0
 fi

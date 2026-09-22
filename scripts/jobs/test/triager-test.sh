@@ -867,6 +867,56 @@ for _sig in 143 130; do
 done
 
 # ============================================================================
+hr; echo "O — internal tick deadline: a tick past its budget defers cleanly, never SIGTERM"; hr
+# A single firing shares the unit's 900s TimeoutStartSec wall with every nested
+# journal/fetch/pace round-trip; under a degraded network these are additive and a run
+# can approach the wall and be SIGTERM-killed (marking the unit Failed + burning a
+# self-heal responder). GARDEN_TRIAGE_TICK_DEADLINE bounds a tick internally: once the
+# elapsed wall clock crosses it, the tick DEFERS the remaining work and exits cleanly
+# (0), leaving the cursor unadvanced so the next tick re-triages the identical,
+# idempotent transition. We force "already past deadline" deterministically by pinning
+# the tick-start epoch far in the past (GARDEN_TRIAGE_TICK_START) with a tiny deadline.
+run_triager_deadline() {  # run_triager_deadline <deadline> <tick-start-epoch> <out>
+  env GARDEN=testhost GARDEN_STATE="$STATE" \
+      JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+      GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+      GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+      GARDEN_TRIAGE_TICK_DEADLINE="$1" GARDEN_TRIAGE_TICK_START="$2" \
+      "$JOBS/triager.sh" "$SLUG" >>"$3" 2>&1
+}
+
+# --- O1: a fresh change, but the tick is already past its deadline → clean defer -------
+rm -rf "$TR/state-deadline"; STATE="$TR/state-deadline"; rm -rf "$BARE"; seed_journal
+seed_watched_bare
+DSHA="$(git -C "$SRC" rev-parse HEAD)"   # the current watched HEAD (SRC has advanced by now)
+: > "$CALLS"; O1OUT="$TR/triager-deadline1.out"; : > "$O1OUT"
+PAST=$(( $(date -u +%s) - 10000 ))   # tick "started" 10000s ago; deadline 5s → long past
+set +e; run_triager_deadline 5 "$PAST" "$O1OUT"; rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "past-deadline tick exits cleanly (0), not a SIGTERM/failure" || bad "past-deadline tick exit = $rc (want 0)"
+grep -qi "tick deadline reached for $SLUG" "$O1OUT" && ok "logs the tick-deadline defer with the slug" || bad "tick-deadline defer log missing (out: $(cat "$O1OUT"))"
+[ ! -s "$CALLS" ] && ok "the triage handler is NOT started past the deadline" || bad "handler ran past the deadline ($(grep -c . "$CALLS") calls; want 0)"
+[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor left unadvanced (next tick re-triages)" || bad "cursor advanced past a deferred change ($(cursor_field "activity/$SLUG" last_sha))"
+
+# --- O2: the SAME change on a fresh (in-budget) tick then triages normally -------------
+# Proves the defer is idempotent — deferring loses nothing; the very next tick within
+# budget resolves the identical transition.
+: > "$CALLS"; O2OUT="$TR/triager-deadline2.out"; : > "$O2OUT"
+set +e; run_triager_deadline 780 "$(date -u +%s)" "$O2OUT"; rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "the next in-budget tick exits 0" || bad "in-budget tick exit = $rc (want 0)"
+[ "$(calls)" -eq 1 ] && ok "the deferred change is triaged on the next in-budget tick (handler ran once)" || bad "handler calls = $(calls) (want 1)"
+[ "$(cursor_field "activity/$SLUG" last_sha)" = "$DSHA" ] && ok "activity cursor advances once the tick is within budget" || bad "cursor = $(cursor_field "activity/$SLUG" last_sha) (want $DSHA)"
+
+# --- O3: deadline disabled (0) → never defers, even with a long-past start -------------
+rm -rf "$TR/state-deadline3"; STATE="$TR/state-deadline3"; rm -rf "$BARE"; seed_journal
+seed_watched_bare
+: > "$CALLS"; O3OUT="$TR/triager-deadline3.out"; : > "$O3OUT"
+set +e; run_triager_deadline 0 "$PAST" "$O3OUT"; rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "deadline=0 tick exits 0 (normal triage)" || bad "deadline=0 tick exit = $rc (want 0)"
+! grep -qi "tick deadline reached" "$O3OUT" && ok "deadline=0 never logs a defer (breaker disabled)" || bad "deadline=0 spuriously deferred (out: $(cat "$O3OUT"))"
+[ "$(calls)" -eq 1 ] && ok "deadline=0 runs the handler despite the long-past start" || bad "deadline=0 handler calls = $(calls) (want 1)"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
