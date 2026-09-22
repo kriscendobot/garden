@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T19:06:06Z_
+_As of 2026-09-22T19:40:00Z_
 
 ## Latest
 
@@ -3940,7 +3940,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.9M | $370.56 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 17.5M _(+380.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Codex | 17.6M _(+380.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -3948,8 +3948,8 @@ _Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260922-193551.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (8693)
 - [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/shepherd-endo-pr1329-registry-migration.md) — Cost
