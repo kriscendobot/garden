@@ -1,24 +1,32 @@
-Verified. This job was already completed by a prior claimant of the exact same job base, and I have corroborated the deliverable against the PR diff itself (not merely the preflight hint).
+Every ask in the directive is corroborated as already satisfied by a prior claimant of **this** job (a reaper-requeue left #1328 in place). No further work is needed.
 
-**Corroboration of the directive's single ask** — "This seems extraneous. The importer could import these facets directly" (kriskowal, cid 4066300501, on `packages/sha256/test/browser-entry.js`):
+## Completion report
 
-- **Resolving artifact:** PR **endojs/endo-but-for-bots#1328** (`refactor(sha256): inline the browser test entry, drop browser-entry.js`), head `pr1290-inline-browser-entry` @ `d9077c4d`, base `llm-db664fa`, open DRAFT. It carries this job's durable marker `<!-- garden-job: endojs-endo-but-for-bots-pr1290-87327676 -->`.
-- **How it satisfies the ask (verified from the actual diff, not the body):**
-  - `packages/sha256/test/browser-entry.js` is **removed** (−7 lines, the two re-export lines plus header).
-  - The two re-exports (`sha256` from `@endo/sha256`, `sha256Async` from `@endo/sha256/async`) are **inlined** into the sole importer, `browser-test/tests/sha256.spec.js`, as `entrySource` served from a virtual location via the test's `read` power (never written to disk) — so the importer imports the facets directly, exactly as requested, while preserving the package-self-import resolution that gives the browser bundle conditional-export-selection coverage.
-- **Thread already updated:** reply 4067990104 on the inline thread announced the landing to kriskowal.
+**Directive** (PR #1290 inline comment `r4066300501` by kriskowal, on `packages/sha256/test/browser-entry.js`): *"This seems extraneous. The importer could import these facets directly."*
 
-The PR is correctly a draft against `llm` (a follow-up producer PR stops at draft under the manual-gauntlet-trigger regime; #1290 itself had already merged with the file still present). No further edit, push, or duplicate PR is warranted — doing so would violate the anti-duplication contract. Nothing for me to change.
+**Preflight**: exit 2 (HINT). I corroborated rather than closing on the hint.
 
-Follow-up (informational, not owned by this job): #1328 awaits a maintainer **run the gauntlet #1328** to review and merge the resolution.
+**State found** — #1290 itself is already **merged/closed**, so the fix could only land as a follow-up against `llm`. Two follow-ups exist; I verified both against the board/GitHub directly:
+- **#1326** — closed, superseded (earlier attempt on base `llm-38cce7e`).
+- **#1328** — **open**, draft, `mergeable: clean`, base `llm-db664fa`, head `pr1290-inline-browser-entry`, commit `d9077c4d08`. Carries **this job's durable marker** `<!-- garden-job: endojs-endo-but-for-bots-pr1290-87327676 -->`; `ensure-pr.sh --find-only` adopts it (creates nothing).
+
+**Each ask, corroborated by the #1328 diff:**
+- *Delete the extraneous file* → `packages/sha256/test/browser-entry.js` is removed (−7 lines).
+- *Importer imports the facets directly* → the two re-export lines (`sha256` from `@endo/sha256`, `sha256Async` from `@endo/sha256/async`) are inlined into the sole importer's `read` power in `browser-test/tests/sha256.spec.js`, served from a **virtual** location under `packages/sha256/test/` (never written to disk), preserving package-self-import resolution so conditional-export selection stays exercised.
+
+**Reply to maintainer** → already posted on the same inline thread (`in_reply_to=4066300501`, comment id `4067990104`) pointing to #1328.
+
+**Outcome**: no-op — the directive's deliverable (follow-up PR #1328 deleting the file and inlining the imports) already exists, is mergeable, and is tied to this job. It remains a **draft** per the manual-gauntlet regime; promotion to review is a maintainer trigger (`run the gauntlet #1328`), not this job's scope.
+
+**Follow-up for maintainer**: #1328 is ready for review/gauntlet whenever desired.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1290-87327676.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 10 on 2 host(s) (3 unmetered)
-- Input: 138 tokens (3124839 cached reads)
-- Output: 43309 tokens
-- Cost: $6.187815499999999 (3 engagement(s) unpriced)
-- Wall-clock: 1693s
-- Model(s): claude-opus-4-8 ×7
+- Engagements: 11 on 2 host(s) (3 unmetered)
+- Input: 154 tokens (3474874 cached reads)
+- Output: 47712 tokens
+- Cost: $6.884186999999999 (3 engagement(s) unpriced)
+- Wall-clock: 1830s
+- Model(s): claude-opus-4-8 ×8
 
 <!-- garden-usage-end -->
