@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-22T01:01:18Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-claude-agent-sdk-inference-20260922
-pr_number: 106
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/106
-pr_head: claude-agent-sdk-inference
