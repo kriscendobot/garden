@@ -9,10 +9,10 @@ Conduct https://github.com/endojs/endo-but-for-bots/pull/1286 per trusted mainta
 
 
 
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=378,778 -->
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=78 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
