@@ -136,7 +136,24 @@ export GARDEN_TAG="issue-inbox"
 # always returns its OWN verdict (rc=75 on a wedged lock, rc=0 on success) instead of
 # being guillotined mid-wait. Kept < the tick budget so even a maxed-out cursor wait
 # still leaves room to exit cleanly before the 900s systemd SIGKILL.
-: "${GARDEN_ISSUE_CURSOR_TIMEOUT_SECS:=$(( ${GARDEN_CURSOR_LOCK_WAIT:-300} + 60 ))}"
+#
+# This is a FLOOR, not merely a default. Deriving the value with a bare `:=` default
+# only helps when nobody sets GARDEN_ISSUE_CURSOR_TIMEOUT_SECS — but a unit env, a
+# host override, or a stale config that pins it BELOW the lock wait reintroduces the
+# exact rc=124 guillotine this whole mechanism exists to prevent (the helper is killed
+# mid-wait before it can return rc=75). So compute the floor from the ACTUAL lock wait
+# plus grace, take it as the default, and — critically — RAISE any lower override back
+# up to the floor (with a WARN naming both numbers), so no environment value can
+# guillotine the helper. The grace (GARDEN_ISSUE_CURSOR_TIMEOUT_GRACE_SECS) absorbs the
+# helper's own pre-lock work (ensure_clone) and post-lock fetch so the `timeout` ceiling
+# sits strictly above the helper's worst-case internal wait, never at or below it.
+: "${GARDEN_ISSUE_CURSOR_TIMEOUT_GRACE_SECS:=60}"
+_cursor_timeout_floor=$(( ${GARDEN_CURSOR_LOCK_WAIT:-300} + GARDEN_ISSUE_CURSOR_TIMEOUT_GRACE_SECS ))
+: "${GARDEN_ISSUE_CURSOR_TIMEOUT_SECS:=$_cursor_timeout_floor}"
+if [ "$GARDEN_ISSUE_CURSOR_TIMEOUT_SECS" -lt "$_cursor_timeout_floor" ]; then
+  log "WARN: GARDEN_ISSUE_CURSOR_TIMEOUT_SECS=${GARDEN_ISSUE_CURSOR_TIMEOUT_SECS}s is below the cursor lock-wait floor (${_cursor_timeout_floor}s = GARDEN_CURSOR_LOCK_WAIT ${GARDEN_CURSOR_LOCK_WAIT:-300}s + ${GARDEN_ISSUE_CURSOR_TIMEOUT_GRACE_SECS}s grace); raising to the floor so a wedged cursor-IO lock resolves to the helper's own rc=75 skip, not an rc=124 guillotine"
+  GARDEN_ISSUE_CURSOR_TIMEOUT_SECS=$_cursor_timeout_floor
+fi
 : "${GARDEN_ISSUE_KILL_AFTER:=10s}"           # SIGKILL grace after the SIGTERM (source + per-stage)
 TICK_START="$(date +%s 2>/dev/null || echo 0)"
 TICK_DEADLINE=$(( TICK_START + GARDEN_ISSUE_TICK_BUDGET_SECS ))

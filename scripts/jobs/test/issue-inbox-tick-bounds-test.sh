@@ -31,6 +31,11 @@
 #      lock now resolves to the helper's own quiet rc=75 skip. The test FORCES the
 #      wedge (holds the lock) with a short lock wait + a blanket bound below it and a
 #      cursor bound above it, and asserts the quiet-skip path, not the rc=124 WARN.
+#   E. CURSOR TIMEOUT FLOOR ENFORCED: case D's alignment was only a `:=` DEFAULT — a
+#      unit env / host override that pins GARDEN_ISSUE_CURSOR_TIMEOUT_SECS BELOW the lock
+#      wait reintroduced the rc=124 guillotine. The floor now RAISES any too-low override
+#      back to (lock wait + grace). The test pins the override to 1s under a 3s lock wait
+#      (floor 5s) and asserts the raise WARN + the helper's own rc=75 quiet skip.
 #
 # Hermetic: throwaway bare journal2, deterministic stubs, no GitHub/claude/network.
 # Usage: issue-inbox-tick-bounds-test.sh
@@ -255,6 +260,58 @@ grep -qi 'cursor read failed .*rc=124' "$ERR_D" \
   && ok "cursor NOT advanced (the tick skipped cleanly, re-polls next tick)" \
   || bad "cursor advanced despite the wedged lock ($(cursor_seen "$TR/state-d" "$BARE_D"))"
 [ ! -s "$PL_D" ] && ok "nothing dispatched behind the wedged cursor lock" || bad "dispatched despite the skip (post=$(cat "$PL_D"))"
+
+# ============================================================================
+hr; echo "E — a too-low cursor-timeout OVERRIDE is RAISED to the lock-wait floor"; hr
+# The regression this closes: case D proves an ALIGNED cursor bound survives a wedge,
+# but the alignment was only a `:=` DEFAULT — a unit env / host override / stale config
+# that pins GARDEN_ISSUE_CURSOR_TIMEOUT_SECS BELOW the lock wait reintroduced the exact
+# rc=124 guillotine. Here the operator sets the cursor timeout to 1s — BELOW both the
+# lock wait (3s) and the floor (lock wait 3s + grace 2s = 5s). Pre-fix the 1s bound kills
+# the helper at 1s → rc=124 → the loud WARN. Post-fix the floor RAISES it to 5s, so the
+# helper rides its own 3s lock wait to a clean rc=75 quiet skip — and the raise is
+# announced with a WARN naming both numbers. Same forced-wedge harness as case D.
+BARE_E="$TR/e.git"; seed_bare "$BARE_E"
+FIX_E="$TR/fix-e.tsv"; PL_E="$TR/post-e.log"; ML_E="$TR/msg-e.log"; ERR_E="$TR/err-e.log"
+: >"$PL_E"; : >"$ML_E"
+row issue 2026-09-21T14:00:00Z 904 44 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/44 'an issue behind a wedged lock with a too-low override' > "$FIX_E"
+CDIR_E="$TR/state-e/cursors/journal"; LOCKF_E="${CDIR_E}.cursor-io.lock"
+mkdir -p "$(dirname "$LOCKF_E")"; : >"$LOCKF_E"
+flock -x "$LOCKF_E" -c 'sleep 20' &
+HOLDER_E=$!
+for _ in 1 2 3 4 5 6 7 8 9 10; do
+  if flock -n "$LOCKF_E" true 2>/dev/null; then sleep 0.2; else break; fi
+done
+t0=$(date +%s)
+set +e
+env GARDEN_STATE="$TR/state-e" JOURNAL_REMOTE="$BARE_E" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN=floorhost GARDEN_GARDEN_REPO="$REPO" GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_CURSOR_LOCK_WAIT=3 \
+    GARDEN_ISSUE_STAGE_TIMEOUT_SECS=1 GARDEN_ISSUE_CURSOR_TIMEOUT_SECS=1 \
+    GARDEN_ISSUE_CURSOR_TIMEOUT_GRACE_SECS=2 GARDEN_ISSUE_KILL_AFTER=2s \
+    IIW_FIXTURE="$FIX_E" IIW_POSTLOG="$PL_E" IIW_MSGLOG="$ML_E" IIW_REACTLOG="$TR/react-e.log" \
+    GARDEN_ISSUE_SOURCE="$SRCSTUB" GARDEN_ISSUE_REACTJI="$REACTSTUB" \
+    GARDEN_ISSUE_POST="$POSTLAND" GARDEN_ISSUE_MSG="$MSGSTUB" \
+    "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$ERR_E"
+rc_e=$?
+set -e
+elapsed_e=$(( $(date +%s) - t0 ))
+kill "$HOLDER_E" 2>/dev/null || true; wait "$HOLDER_E" 2>/dev/null || true
+[ "$rc_e" -eq 0 ] && ok "tick exited 0 (quiet skip, not a crash)" || bad "tick exited $rc_e (err=$(tail -3 "$ERR_E"))"
+grep -qi 'below the cursor lock-wait floor' "$ERR_E" \
+  && ok "the too-low override was detected and RAISED to the floor (WARN logged)" \
+  || bad "no floor-raise WARN — the override was not enforced (err=$(tail -3 "$ERR_E"))"
+grep -qi 'cursor-IO lock .* busy' "$ERR_E" \
+  && ok "cursor-get reached its OWN bounded-wait skip (logged the busy lock)" \
+  || bad "cursor-get did NOT reach its bounded wait — guillotined early? (err=$(tail -3 "$ERR_E"))"
+grep -qi 'cursor read failed .*rc=124' "$ERR_E" \
+  && bad "the too-low override still guillotined cursor-get (rc=124 WARN) — floor NOT enforced" \
+  || ok "no rc=124 guillotine WARN — the floor kept the helper alive to its rc=75 skip"
+[ -z "$(cursor_seen "$TR/state-e" "$BARE_E")" ] \
+  && ok "cursor NOT advanced (the tick skipped cleanly, re-polls next tick)" \
+  || bad "cursor advanced despite the wedged lock ($(cursor_seen "$TR/state-e" "$BARE_E"))"
 
 # ============================================================================
 report_result
