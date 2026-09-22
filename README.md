@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T19:52:17Z_
+_As of 2026-09-22T19:54:41Z_
 
 ## Latest
 
@@ -3940,16 +3940,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.9M | $370.56 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 17.6M _(+380.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Codex | 17.7M _(+380.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (1)
-- [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260922-193551.md) — Press the Claude-on-minion.town arc forward
+### todo (0)
+(none)
 
-### doin (2)
+### doin (3)
 - [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — ---
+- [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260922-193551.md) — Press the Claude-on-minion.town arc forward
 - [`improve-followup-handoff-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-followup-handoff-detection.md) — ---
 
 ### tada (8693)
