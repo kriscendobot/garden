@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T08:55:48Z_
+_As of 2026-09-22T08:57:57Z_
 
 ## Latest
 
@@ -3918,16 +3918,16 @@ _Fleet token-unlock pace: 40049355 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-issue-inbox-cursor-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-inbox-cursor-timeout-floor.md) — ---
+### doin (0)
+(none)
 
-### tada (8665)
+### tada (8666)
+- [`improve-issue-inbox-cursor-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-floor.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43.md) — rolling-deploy canary probe — round trip OK
 - [`improve-issue-inbox-cursor-timeout-alignment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-alignment.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-7fa754ed367a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-7fa754ed367a.md) — rolling-deploy canary probe — round trip OK
 - [`improve-cursor-io-lock-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-cursor-io-lock-recovery.md) — Completion report
-- [`finish-rollout-leader-postdeploy-probe-e43c28386fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-rollout-leader-postdeploy-probe-e43c28386fae.md) — rolling-deploy canary probe — round trip OK
-- … and 8660 more
+- … and 8661 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
