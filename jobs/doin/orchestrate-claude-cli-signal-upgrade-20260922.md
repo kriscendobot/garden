@@ -154,3 +154,13 @@ LANDING ITEM 1 ALONE IS A GOOD OUTCOME; say so plainly rather than leaving three
 half-finished changes. Split into follow-on jobs if needed rather than overrunning.
 
 Report per item: what landed, what you validated, and the deploy/canary state.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-22T04:54:00Z
