@@ -1,10 +1,10 @@
 subscription: codex-endolin
 host: endolin-garden-ece02cb4
 window_start_epoch: 1789808673
-spend: 17928488
+spend: 17968616
 cap: 100
 status: ok
-sampled_at_epoch: 1790110810
-sampled_at: 2026-09-22T21:00:10Z
-sample_bucket: 1989012
-used_percent: 61.0
+sampled_at_epoch: 1790111717
+sampled_at: 2026-09-22T21:15:17Z
+sample_bucket: 1989013
+used_percent: 62.0
