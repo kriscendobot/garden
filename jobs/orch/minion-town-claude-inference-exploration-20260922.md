@@ -2,7 +2,7 @@
 order: parallel
 children: build-minion-town-claude-cli-inference-20260922 build-minion-town-claude-agent-sdk-inference-20260922
 on-child-failure: continue
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-22T00:34:07Z
 ---
