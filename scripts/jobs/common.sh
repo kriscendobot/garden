@@ -387,6 +387,13 @@ export GARDEN
 : "${GARDEN_HANDOFF_UNVERIFIED_RC:=76}" # soft job-level verdict: declared handoff successor is absent
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
 : "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up
+# SOFT clone-lock acquisition (GARDEN_CLONE_LOCK_SOFT=1): a caller doing OPTIONAL,
+# non-essential work — the triager's pacing-clone refresh, which only computes a next
+# wake — must not pay the default 3×60s wait ladder and then die FATAL under live lock
+# contention. In soft mode clone_lock makes ONE short bounded attempt (this knob) and,
+# on a busy live holder, logs a single WARN and exits GARDEN_OFFLINE_RC (a temporary,
+# retry-next-tick signal) instead of the FATAL give-up. Stale-lock reclaim still runs.
+: "${GARDEN_LOCK_SOFT_WAIT:=5}"   # seconds a SOFT clone-lock waiter blocks before failing open
 # Stale-lock recovery: a clone lock whose recorded holder is dead, or whose stamp
 # is older than the TTL, is presumed crashed/hung and reclaimable. This is the
 # belt to flock's suspenders — flock frees a dead holder on fd close, but if the
@@ -3842,6 +3849,13 @@ _clone_lock_envkey() {
 #   * otherwise: open a sibling lock file (outside the working tree) and flock it.
 clone_lock() {
   local dir="$1" key lf fd n=1 steals=0
+  # SOFT mode (GARDEN_CLONE_LOCK_SOFT=1): one short bounded attempt, no 3×60s ladder,
+  # and a fail-open WARN+exit instead of the FATAL give-up (§ GARDEN_LOCK_SOFT_WAIT).
+  # The give-up EXITS (like die) rather than returning, so ensure_clone/sync_clone —
+  # which never check clone_lock's status — abandon the optional refresh cleanly
+  # instead of proceeding lock-less. Only ever set for the triager pacing subshell.
+  local wait="$GARDEN_LOCK_WAIT" retries="$GARDEN_LOCK_RETRIES"
+  if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then wait="$GARDEN_LOCK_SOFT_WAIT"; retries=1; fi
   [ -n "${_CLONE_LOCK_FD[$dir]:-}" ] && return 0       # this process already holds it
   key="$(_clone_lock_envkey "$dir")"
   if [ -n "${!key:-}" ]; then                          # an ancestor holds it — borrow
@@ -3864,7 +3878,7 @@ clone_lock() {
     # Open NON-truncating (<>) so a waiter peeking at the holder's stamp never
     # wipes it; the file is created on demand.
     exec {fd}<>"$lf" || die "cannot open clone lock $lf"
-    if flock -w "$GARDEN_LOCK_WAIT" "$fd"; then
+    if flock -w "$wait" "$fd"; then
       _clone_lock_stamp "$fd"                          # record our pid + time for the next waiter
       _CLONE_LOCK_FD["$dir"]="$fd"
       export "$key=held"
@@ -3882,10 +3896,14 @@ clone_lock() {
       log "clone lock $lf stale (holder dead or >${GARDEN_LOCK_TTL}s old); reclaiming ($((steals+1))/$GARDEN_LOCK_STEALS)"
       rm -f "$lf"; steals=$((steals+1)); continue       # drop the tombstone, reopen a fresh inode, retry now
     fi
-    if [ "$n" -ge "$GARDEN_LOCK_RETRIES" ]; then
-      die "cannot acquire clone lock $lf after $n waits of ${GARDEN_LOCK_WAIT}s and $steals reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f $lf)"
+    if [ "$n" -ge "$retries" ]; then
+      if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then
+        log "WARN: clone lock $lf busy >${wait}s; abandoning this OPTIONAL refresh (fail-open, no retry ladder)"
+        exit "$GARDEN_OFFLINE_RC"
+      fi
+      die "cannot acquire clone lock $lf after $n waits of ${wait}s and $steals reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f $lf)"
     fi
-    log "clone lock $lf busy >${GARDEN_LOCK_WAIT}s; backoff + retry ($((n+1))/$GARDEN_LOCK_RETRIES)"
+    log "clone lock $lf busy >${wait}s; backoff + retry ($((n+1))/$retries)"
     backoff "$((n+1))"; n=$((n+1))
   done
 }

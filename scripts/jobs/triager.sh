@@ -152,9 +152,17 @@ triager_pace_schedule() { # <observed-sha> <ref>
     return 0
   }
   clone="${GARDEN_TRIAGE_PACE_CLONE:-$GARDEN_STATE/triager-pace/journal}"
+  # The pacing refresh is NONESSENTIAL — it only computes the next ordinary wake — so
+  # it must fail fast under live lock contention rather than burning the default 3×60s
+  # clone-lock wait ladder and dying FATAL merely to schedule a wake (the recurring
+  # FATAL noise + delayed-but-otherwise-complete ticks this fixes). GARDEN_CLONE_LOCK_SOFT
+  # makes ensure_clone/sync_clone's clone_lock take ONE short bounded attempt and fail
+  # open (WARN + EX_TEMPFAIL exit) instead; the nonzero subshell then latches the
+  # existing pacing warning and retains the fixed timer cadence for this tick.
   if ! projection="$(
       GARDEN_USAGE_NOW="$(triager_pace_now)"
       export GARDEN_USAGE_NOW
+      export GARDEN_CLONE_LOCK_SOFT=1
       ensure_clone "$clone"
       sync_clone "$clone"
       "$GARDEN_TRIAGE_PACE_PROJECTOR" "$clone" "$GARDEN_TRIAGE_PACE_ROLE"

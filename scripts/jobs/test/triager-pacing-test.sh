@@ -186,5 +186,39 @@ else
   bad "fallback warning was not deduplicated: $(tr '\n' ' ' < "$FALLBACK_OUTPUT")"
 fi
 
+# A LIVE holder of the pacing clone's lock must make the nonessential refresh fail
+# FAST and OPEN — one short bounded wait, then the existing pacing warning latch —
+# never the default 3×60s wait ladder followed by a FATAL die merely to schedule a
+# next wake. Hold the lock for the whole run and assert the tick takes the soft path.
+CONTEND_STATE="$TEMPORARY_ROOT/contend-state"
+mkdir -p "$CONTEND_STATE/triager-pace"
+PACE_CLONE_LOCK="$CONTEND_STATE/triager-pace/journal.lock"
+: > "$PACE_CLONE_LOCK"   # empty stamp → never reads as stale, so soft mode cannot reclaim it
+( exec 9<>"$PACE_CLONE_LOCK"; flock -x 9; sleep 40 ) &
+HOLDER_PID=$!
+sleep 1   # let the holder acquire the exclusive lock before the tick runs
+CONTEND_OUTPUT="$TEMPORARY_ROOT/contend-output"
+if timeout 45 env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$CONTEND_STATE" \
+    JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
+    GARDEN_REPOS="$REPOSITORIES" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
+    GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$DECISIONS" \
+    GARDEN_TRIAGE_PACE_NOW="$NOW" GARDEN_TRIAGE_PACE_PROJECTOR="$FALLBACK_PROJECTOR" \
+    GARDEN_LOCK_SOFT_WAIT=2 \
+    "$JOBS/triager.sh" "$SLUG" >"$CONTEND_OUTPUT" 2>&1; then
+  if grep -q 'abandoning this OPTIONAL refresh' "$CONTEND_OUTPUT" \
+     && grep -q 'triager pacing unavailable.*using the current timer cadence' "$CONTEND_OUTPUT" \
+     && ! grep -qi 'FATAL' "$CONTEND_OUTPUT" \
+     && ! grep -q 'cannot acquire clone lock' "$CONTEND_OUTPUT"; then
+    ok "a live pacing-clone lock holder makes the refresh fail fast and open (soft wait, no FATAL, no 3×60s ladder)"
+  else
+    bad "pacing refresh did not fail fast/open under lock contention: $(tr '\n' ' ' < "$CONTEND_OUTPUT")"
+  fi
+else
+  bad "pacing refresh under lock contention did not complete within the fail-fast bound: $(tr '\n' ' ' < "$CONTEND_OUTPUT")"
+fi
+kill "$HOLDER_PID" 2>/dev/null || true
+wait "$HOLDER_PID" 2>/dev/null || true
+
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
