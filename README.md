@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T02:31:34Z_
+_As of 2026-09-22T02:35:58Z_
 
 ## Latest
 
@@ -303,9 +303,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-09-09T20:50:15Z, latest 2026-09-21T23:51:52Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-09T20:50:15Z, latest 2026-09-22T02:35:30Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared cleric demand active=2 queue=0 fleet-envelope=5 target=2
 
@@ -659,6 +659,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > candidate: `5fdb7e915855bc679d81e071f43ae3c56b938e9e`
 > failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/5fdb7e915855bc679d81e071f43ae3c56b938e9e/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/5fdb7e915855bc679d81e071f43ae3c56b938e9e/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/5fdb7e915855bc679d81e071f43ae3c56b938e9e/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260922T023321Z-a1352c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T023321Z-a1352c.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `913e1d0d1dd123128084d9ea142770ce909a97a8`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/913e1d0d1dd123128084d9ea142770ce909a97a8/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/913e1d0d1dd123128084d9ea142770ce909a97a8/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/913e1d0d1dd123128084d9ea142770ce909a97a8/09-scripts_jobs_test_provider-cooldown-test.sh.log)
 >
 > Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
 > are host-local on `endolin-garden2-5bcdff64` and retain at most
@@ -1165,12 +1181,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
-
-- `msg-kriscendobot-minion.town-pr87-review-b6c21549-a197aa9919ee` — from gardener:kriscendobot-minion.town-pr87-review-b6c21549, reply_to `kriscendobot-minion.town-pr87-review-b6c21549` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr87-review-b6c21549-a197aa9919ee.md)
-
-> PR [kriscendobot/minion.town#87](https://github.com/kriscendobot/minion.town/issues/87) review (kriskowal CHANGES_REQUESTED) says only: "This house uses `ava` for testing." That premise is factually wrong for minion.town — the repo is vitest-only: `test` CI script is `vitest run`, all 31 test files import from vitest (0 ava), no ava dep/config/history. The 7 new tests already use vitest, matching the house. endojs/endo is the ava house, not this one.
->
-> I did NOT do a repo-wide migration (would break the vitest-run CI gate + touch all 31 files — a design-level call, not a PR-scoped fix). I posted a factual reply on the PR naming the deciding question: (a) the new tests should match the house → already vitest, nothing to change; or (b) migrate minion.town vitest→ava repo-wide → separate design/PR. Awaiting kriskowal's pick. Reply: [https://github.com/kriscendobot/minion.town/pull/87](https://github.com/kriscendobot/minion.town/pull/87)#issuecomment-5770355581
 
 - `20260922T000652Z-9206f0` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T000652Z-9206f0.md)
 
@@ -3453,27 +3463,25 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.9M | $790.74 _(notional, rate-card)_ | no quota set |
-| Codex | 30.9M _(+746.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Claude | 124.2M | $793.50 _(notional, rate-card)_ | no quota set |
+| Codex | 31.0M _(+748.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`kriscendobot-minion.town-pr87-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr87-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #87
-- [`endojs-endo-but-for-bots-pr1228-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1228-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1228 (cl...
 - [`endojs-endo-but-for-bots-pr1097-review-05395c57`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-review-05395c57.md) — Review directive on endojs/endo-but-for-bots PR #1097
-- [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Review directive on endojs/endo-but-for-bots PR #1089
 - [`endojs-endo-but-for-bots-pr256-review-d46e607a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr256-review-d46e607a.md) — Review directive on endojs/endo-but-for-bots PR #256
 
-### tada (8625)
+### tada (8626)
+- [`endojs-endo-but-for-bots-pr1228-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1228-receipt.md) — Cost
+- [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Completion report
 - [`kriscendobot-minion.town-pr87-review-1456cb95`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-review-1456cb95.md) — Completion report
 - [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Cost
 - [`kriscendobot-minion.town-pr87-review-b6c21549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-review-b6c21549.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1290-87327676`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1290-87327676.md) — Completion report: attention directive on endojs/endo-but-for-bots PR #1290
-- [`endojs-endo-but-for-bots-pr1227-review-5194e7b0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1227-review-5194e7b0.md) — Completion report
-- … and 8620 more
+- … and 8621 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
