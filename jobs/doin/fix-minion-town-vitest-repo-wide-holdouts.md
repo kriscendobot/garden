@@ -77,3 +77,13 @@ Per holdout package:
   to honor Endo house style (e.g. a zero-dep lambda bundle Endo keeps on the
   platform runner), do NOT force it — surface that one exception to the
   maintainer via the inbox and convert the rest; state the reasoning in the PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T04:24:19Z
