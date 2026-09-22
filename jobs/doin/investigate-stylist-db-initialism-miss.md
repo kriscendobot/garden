@@ -50,3 +50,13 @@ should own it) rather than a one-off miss, propose or apply the correction
 
 State the specific instance found (PR/review/line), the root cause, and
 what — if anything — was changed to prevent a recurrence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T23:52:32Z
