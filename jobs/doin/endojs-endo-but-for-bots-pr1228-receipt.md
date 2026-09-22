@@ -25,3 +25,13 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1228
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-22T02:23:51Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-22T02:25:19Z
