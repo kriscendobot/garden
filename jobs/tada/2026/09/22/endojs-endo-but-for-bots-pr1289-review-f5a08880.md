@@ -1,41 +1,36 @@
-All verified. The work is genuinely complete — I confirmed it directly against the PR, not by inference.
+All asks in kriskowal's review directive are already resolved by a prior worker, and I've corroborated each against named artifacts. No further action needed — posting anything more would duplicate existing replies.
 
-**Verification summary:**
+## Report
 
-kriskowal's review (`5271785979`, CHANGES_REQUESTED, 2026-09-21 20:58) has **no inline comments** of its own — its sole ask is the top-level body: *"@kriscendobot Please respond to @gibson042"*.
+**Directive:** kriskowal's CHANGES_REQUESTED review (5271785979) on endojs/endo-but-for-bots#1289 — "@kriscendobot Please respond to @gibson042". The review carries **no inline comments of its own**; the substance is gibson042's earlier COMMENTED review (5225048373) with two inline comments.
 
-gibson042's earlier review (`5225048373`, COMMENTED, 2026-09-16) carried two inline comments on `packages/marshal/test/passables-equal.js`. Both received substantive replies from a peer gardener at 21:25 (27 min after kriskowal's request), each citing commit `858996f8cd67`, and I verified the commit genuinely implements what the replies claim:
+**Preflight:** `pr-feedback-preflight.sh` → exit 0 (PROCEED). I did the corroboration work regardless.
 
-| gibson042 comment | Reply | Verified in `858996f8cd67` |
-|---|---|---|
-| `4028017366` — missing identity tracking for `error`/`promise`/`remotable`; add throw on unknown pass style | `4066557913` | `WeakMap seen` (per-operand identity index, L44-45); `switch(passStyle)` with `error`/`promise`/`remotable` cases (L92-104); `default: throw Fail\`Unexpected pass style ${q(passStyle)}\`` (L110-111); `error` carries `name`/`message` (L92) |
-| `4028022312` — "Slightly inaccurate" doc comment | `4066559217` | doc comment rewritten to enumerate per-pass-style projection (L27-39) |
+**Corroboration — every ask resolved, with named artifacts (all verified, not inferred):**
 
-New test coverage was added in `passables-equal.test.js` (+53 lines) for shared-vs-distinct remotable topology and error name/message/topology. The commit is the PR branch HEAD.
+1. **gibson042 comment 4028017366** (`passables-equal.js:45`, "missing identity tracking for error/promise/remotable + no throw on unknown pass style"):
+   - Reply **comment 4066557913** (threaded in-reply-to 4028017366).
+   - Fix in **commit 858996f8cd** (= current PR `head_sha`). I read the file at that SHA and confirmed: a per-operand `WeakMap` value→index (`makeProjector`/`indexOf`) projects `remotable`/`promise`/`error` leaves by sharing topology; `error` additionally carries `name`/`message`; the `default` arm throws `Fail\`Unexpected pass style ${q(passStyle)}\``. The claims match the code.
 
-No further action needed: this directive is a verified no-op. I made no garden or project changes (nothing to commit), posted no redundant comments.
+2. **gibson042 comment 4028022312** (`passables-equal.js:12`, "Slightly inaccurate" doc):
+   - Reply **comment 4066559217** (threaded in-reply-to 4028022312).
+   - The header comment is rewritten to enumerate the per-pass-style projection and correctly notes only atomic leaves pass through to AVA unchanged. Verified against the file.
 
----
+3. **kriskowal's "respond to @gibson042":** satisfied by the two threaded replies above plus a top-level summary **issue comment by kriscendobot @ 2026-09-21T21:26:00Z** addressed to @kriskowal @gibson042.
 
-**Completion report**
+**CI on head 858996f8cd:** green — lint, types, all `test`/`cover` legs success. The sole failure, `test-ocapn-guile-interop`, is the known Codeberg-clone external flake, unrelated to this test-only marshal change.
 
-Directive: respond to @gibson042 on endojs/endo-but-for-bots#1289 (kriskowal review `5271785979`).
+**Outcome:** Verified no-op. The review was fully addressed (code committed, both inline comments answered in-thread, top-level acknowledgment posted) before this job was claimed. I posted nothing new to avoid duplicate comments. The PR remains a DRAFT with a standing CHANGES_REQUESTED awaiting kriskowal/gibson042 re-review — the only remaining step is a human re-review, outside this job's scope.
 
-Finding: already resolved by a peer gardener before I claimed. I corroborated every ask directly against the PR (not via the preflight, which returned exit 0/PROCEED because it correlates against kriskowal's review id, not gibson042's replies):
-- Both of gibson042's inline comments have substantive replies (`4066557913`, `4066559217`).
-- Those replies cite commit `858996f8cd67` ("track identity and reject unknown pass styles"), which I confirmed is on the branch HEAD and genuinely implements the requested WeakMap per-operand identity tracking, error `name`/`message` capture, `Fail`-throw on unknown pass style, the corrected doc comment, and added test coverage.
-
-Changes made: none (work already complete and verified genuine).
-
-Follow-ups: PR #1289 remains an OPEN draft with kriskowal's review still in CHANGES_REQUESTED state. Now that gibson042's feedback is answered, a maintainer re-review / re-request is the natural next step, but that is the maintainer's action, not a gardener task. No successor job needed.
+**Follow-ups:** none. If the maintainer wants the standing CHANGES_REQUESTED cleared, that needs a fresh gibson042/kriskowal re-review, not more bot action.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1289-review-f5a08880.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 10 on 2 host(s) (1 unmetered)
-- Input: 218 tokens (5998808 cached reads)
-- Output: 91235 tokens
-- Cost: $9.880714 (1 engagement(s) unpriced)
-- Wall-clock: 1737s
-- Model(s): claude-opus-4-8 ×9
+- Engagements: 11 on 2 host(s) (1 unmetered)
+- Input: 236 tokens (6402278 cached reads)
+- Output: 99076 tokens
+- Cost: $10.726671999999999 (1 engagement(s) unpriced)
+- Wall-clock: 1884s
+- Model(s): claude-opus-4-8 ×10
 
 <!-- garden-usage-end -->
