@@ -131,8 +131,15 @@ if [ "$prereq_rc" -ne 0 ]; then
     die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; see prerequisite stderr above)"
   fi
   rm -f "$PREREQ_ERR"
-  log "  prerequisite: (no diagnostic captured — subshell exited rc=$prereq_rc with empty stderr; likely an unclassified set -e exit in ensure_clone/sync_clone/journal_fetch)"
-  die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; no diagnostic captured — see prerequisite line above)"
+  # A completely empty stderr here is now the environmental-interruption signature: the
+  # ERR trap above (commit 3002969de5) captures any command that fails under errexit, and
+  # every die()/log() path in ensure_clone/sync_clone/clone_lock/journal_remote logs
+  # unconditionally — so if NOTHING was captured, the subshell was cut down before a
+  # command could fail and report (a fork failure, ENOSPC on $TMPDIR, an OOM kill, or a
+  # signal), bypassing normal error reporting. Point a future self-heal responder at a
+  # resource check rather than leaving them to diagnose a silent rc=$prereq_rc.
+  log "WARN: prerequisite subshell produced NO diagnostic output (rc=$prereq_rc) — neither the ERR trap nor any die()/log() fired, so the subshell was likely cut down by an environmental interruption (fork failure, ENOSPC on \$TMPDIR=${TMPDIR:-/tmp}, OOM, or a signal) that bypassed normal error reporting; check host disk space and fork/process limits"
+  die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; no diagnostic captured — see WARN above; suspect a resource/environmental interruption)"
 fi
 cat "$PREREQ_ERR" >&2
 rm -f "$PREREQ_ERR"
