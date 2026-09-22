@@ -1,30 +1,33 @@
-## Completion report — review directive on endojs/endo-but-for-bots PR #256
+Inbox empty. The review is fully resolved. Here is my completion report.
 
-**Outcome: corroborated no-op.** The review's asks were already fully resolved by a peer *before* this job was claimed (05:36Z). I verified every ask against named artifacts and confirmed the tests actually pass; no further action was warranted, and posting another reply would only duplicate the peer's four existing acknowledgments on the maintainer's PR.
+---
 
-### The review (untrusted input, treated as data)
-`kriskowal` review `5273190039` (CHANGES_REQUESTED, submitted 00:41Z): *"very incomplete. We need unit tests and integration tests in the daemon, demonstrating that the holder of a guest agent can use its surface to read a document with hash line attribution and then edit that document with hash line commands. This may require extensions to existing systems like grep and glorp…"* — one top-level body, **zero inline comments** (verified via the `pull_request_review_id` filter).
+## Review directive resolved — endojs/endo-but-for-bots PR #256
 
-### Corroboration, per ask
-- **Unit tests in the daemon** → `packages/daemon/test/hashline.test.js` (commit `cb85029ff9`, 02:54Z), **29 tests**. Ran locally: **all 29 pass.**
-- **Integration tests demonstrating guest reads-with-hashline-attribution → edits-with-hashline-commands** → `packages/daemon/test/endo.test.js` (`cb85029ff9`), **7 tests**, headlined by `hashline edit - guest reads anchored, edits, reads back` (guest holds mount cap → `E(mount).readTextAnchored` for `LINE#HASH` attribution → authors a hashline patch → `E(guest).edit` → reads back), plus CAS/per-line/atomicity/concurrency/absent/read-only cases. The read-side sugar `EndoGuest.readTextAnchored` landed in `8ca6c8000d` (04:52Z). Ran locally: **all 7 pass** (had to run from a short socket path — the deep worktree pushed `endo.sock` past the ~104-char AF_UNIX limit; proven environmental, not a test defect, because a pre-existing test `make a host` fails identically in the same tree).
-- **"may require grep/glorp extensions"** → conditional ("may"). The reviewer's actual requirement — a read surface that emits *sufficient information for hashline edits* — is met by `readTextAnchored` (line numbers + CRC32 anchors + SHA-256 whole-file CAS). grep/glorp were not extended; not required by the demonstration the review asked for.
-- **Reviewer reply loop** → already closed by peer top-level comments (02:57, 03:13, and the substantive 04:52Z "@kriskowal — addressed…" mapping the round-trip to both test tiers).
+**Preflight:** `pr-feedback-preflight.sh` returned exit 0 (PROCEED). I did the verification work anyway rather than assuming a no-op.
 
-### Follow-ups (outside this review's scope)
-- PR #256 is `mergeable_state: dirty` (conflicts with base `llm`) — needs a **weave/rebase** before it can attach CI or merge. CI has not attached (0 checks on HEAD), so the peer's tests are unverified upstream; local verification above stands in for now.
-- The PR **body is stale** — still says "No test surface lands in this skeleton phase / introduces no runtime behavior yet," contradicting the landed phase-2 splice + tests. A **groom** pass on the description would be tidy.
-- A linked implementation PR **#1327** ("phase 2 … stacks on a pinned frozen snapshot of this PR's head") was also opened by the peer; whether #256 subsumes #1327 or they stack is a maintainer/weaver decision, not this review's concern.
+**Asks enumerated:** The review (`pullrequestreview-5273190039`, CHANGES_REQUESTED by kriskowal, on commit `c36b424`) has **one top-level body ask and zero inline comments**. The ask: unit + integration tests in the daemon demonstrating that a guest-agent holder can use its surface to read a document with hashline attribution and then edit it with hashline commands; "may require extensions to grep and glorp."
 
-No garden-library changes were needed; nothing to commit or push.
+**Key finding:** After the review was submitted (00:41Z), two commits landed on the PR head that directly address it — `cb85029ff9` (phase-2 splice + guest edit surface + tests, 02:54Z) and `8ca6c8000d` (`EndoGuest.readTextAnchored` sugar, 04:52Z). I verified they genuinely satisfy every ask rather than trusting the preflight:
+
+- **Guest surface** — `EndoGuest.readTextAnchored` and `EndoGuest.edit` are declared on `GuestInterface` and delegate to the mount's `readTextAnchored`/`edit` (per-mount lock + splice). The full read-attribution → edit round-trip is expressible through the guest ref alone.
+- **Unit tests** — `packages/daemon/test/hashline.test.js`, **29 tests pass**.
+- **Integration tests** — `packages/daemon/test/endo.test.js`, 7 "hashline edit" tests including the exact acceptance criterion (`guest reads anchored, edits, reads back`) plus CAS/anchor mismatch, atomic multi-op, concurrent serialization, absent-path, and read-only-mount cases. **All 7 pass** (had to run under a shortened socket path — the raw failures were the known daemon long-socket-path ENOENT limit, an environment artifact, not a test defect).
+- **grep/glorp** — the "may require" clause was satisfied differently: a dedicated `readTextAnchored` attribution-read primitive renders `LINE#HASH` per line, so no grep/glorp change was needed to close the loop. Noted in the reply as an optional follow-up if the maintainer prefers grep/glorp to emit anchors.
+
+**Action taken:** Posted a top-level summary comment on PR #256 (https://github.com/endojs/endo-but-for-bots/pull/256#issuecomment-5771939323, id 5771939323) mapping the ask to the resolving commits and named tests, using the safe file-based body form; verified backticks/SHAs rendered intact. No new commits or pushes were needed — the resolving work is already at the PR head `8ca6c8000d`.
+
+**Follow-ups (not part of this review directive):**
+- PR is `mergeable: false` — base `llm` has advanced; it needs a **weave/rebase #256** before it can merge or re-attach CI.
+- One stray `packages/hex-test/package.json` modification appeared in the project worktree from install/warm-cache machinery; left untouched (not mine, unrelated to this work).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr256-review-d46e607a.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 9 on 2 host(s) (1 unmetered)
-- Input: 606 tokens (30351929 cached reads)
-- Output: 261829 tokens
-- Cost: $29.322828500000004 (1 engagement(s) unpriced)
-- Wall-clock: 5590s
-- Model(s): claude-opus-4-8 ×8
+- Engagements: 10 on 2 host(s) (1 unmetered)
+- Input: 656 tokens (31847802 cached reads)
+- Output: 275947 tokens
+- Cost: $31.066296000000005 (1 engagement(s) unpriced)
+- Wall-clock: 5952s
+- Model(s): claude-opus-4-8 ×9
 
 <!-- garden-usage-end -->
