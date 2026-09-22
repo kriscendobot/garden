@@ -58,6 +58,7 @@ Procedure:
    SHA. Do NOT merge to `llm` here — merge/conduct is a separate step; a follow-on
    `conduct` job carries it once approved.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=394 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
