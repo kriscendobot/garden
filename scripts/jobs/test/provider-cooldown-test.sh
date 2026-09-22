@@ -29,6 +29,12 @@ hr()  { echo "----------------------------------------------------------------";
 # Scrub ambient fleet env so a live gardener invoking this test cannot splice its
 # own GARDEN_* state underneath the fixture (mirrors the sibling classifier tests).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+# The scrub matches (and unsets) GARDEN_TEST, but that is the positive test-context
+# sentinel (common.sh § GARDEN_TEST), not fleet state — re-establish it so the real
+# gardener spawned in SUBTEST 9 sees it. Its claim-admission escape hatch keys off
+# GARDEN_TEST=1; without it the fail-closed budget gate refuses envelopehost's
+# unrecognized inference source and the exit-0 envelope path never runs.
+export GARDEN_TEST=1
 
 TR="$(mktemp -d "${TMPDIR:-/tmp}/provider-cooldown.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 export GARDEN_STATE="$TR/state"

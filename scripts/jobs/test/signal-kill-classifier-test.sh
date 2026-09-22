@@ -48,6 +48,13 @@ HERE="$JOBS/test"
 # otherwise splice its own GARDEN_*/JOURNAL_*/SELF_HEAL_* state — clone, remote,
 # offline rc — underneath the fixture; see run-test.sh § hermetic baseline).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+# GARDEN_TEST is the positive test-context sentinel (common.sh § GARDEN_TEST), not
+# fleet state: the scrub above strips it along with the GARDEN_* fleet vars, so
+# re-establish it here BEFORE spawning the real gardener below. The claim path's
+# hermetic-fixture escape hatch (claim-job.sh) keys off GARDEN_TEST=1; without it
+# the fail-closed budget gate refuses this fixture's unrecognized inference source
+# and never claims the job, so the stub handler under test never runs.
+export GARDEN_TEST=1
 
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"

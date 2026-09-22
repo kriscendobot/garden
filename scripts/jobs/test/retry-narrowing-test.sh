@@ -15,6 +15,12 @@ bad() { echo "FAIL: $*"; FAIL=$((FAIL + 1)); }
 
 mapfile -t ambient_variables < <(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true)
 [ "${#ambient_variables[@]}" -eq 0 ] || unset "${ambient_variables[@]}"
+# The scrub above matches (and unsets) GARDEN_TEST too, but that is the positive
+# test-context sentinel (common.sh § GARDEN_TEST), not fleet state — re-establish
+# it so the claim-job.sh subprocess spawned below sees it. Its hermetic-fixture
+# escape hatch keys off GARDEN_TEST=1; without it the fail-closed budget gate
+# refuses this fixture's unrecognized inference source with rc=3 and no claim lands.
+export GARDEN_TEST=1
 
 REMOTE="$TEMPORARY_ROOT/journal.git"
 SEED="$TEMPORARY_ROOT/seed"
