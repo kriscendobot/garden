@@ -20,6 +20,7 @@ Task: conduct the finalization — un-draft if needed (already un-drafted) and
 merge. You own the merge method. Bot repo only.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=423 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
