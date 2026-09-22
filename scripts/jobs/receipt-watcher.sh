@@ -207,7 +207,7 @@ reap_cgroup_stragglers() {
     cgpath="${line#0::}"
     leaf="${cgpath##*/}"
     case "$leaf" in
-      garden-receipt-watcher*.service) ;;
+      garden-receipt-watcher@*.service) ;;
       *) return 0 ;;
     esac
     procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
