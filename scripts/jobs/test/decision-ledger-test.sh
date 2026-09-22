@@ -175,5 +175,42 @@ else
   bad "ledger transport failure escaped into the actuator"
 fi
 
+# A persistent journal outage warns ONCE and then counts drops silently; the next
+# successful write prints a single recovery summary and clears the latch.
+LATCH_STATE="$TEMPORARY_ROOT/latch-state"
+outage_append() { # returns the script's combined output for an offline journal
+  env GARDEN=latch-host GARDEN_STATE="$LATCH_STATE" \
+    JOURNAL_REMOTE="$TEMPORARY_ROOT/absent.git" GARDEN_FETCH_ATTEMPTS=1 \
+    GARDEN_FETCH_BACKOFF_MAX=0 GARDEN_DECISION_ATTEMPTS=1 \
+    GARDEN_DECISION_CLONE="$TEMPORARY_ROOT/latch-clone" \
+    "$JOBS/decision-append.sh" --loop fixture --input-json '{}' \
+      --decision "$1" --reason offline --outcome fail-open-skipped 2>&1
+}
+out1="$(outage_append drop-one)"
+out2="$(outage_append drop-two)"
+w1="$(printf '%s\n' "$out1" | grep -c 'journal outage latched' || true)"
+w2="$(printf '%s\n' "$out2" | grep -c 'journal outage latched' || true)"
+count_after="$(cat "$LATCH_STATE/decisions/outage/latch-host.count" 2>/dev/null || echo missing)"
+if [ "$w1" -eq 1 ] && [ "$w2" -eq 0 ] && [ "$count_after" = 2 ]; then
+  ok "persistent journal outage warns once and counts subsequent drops silently"
+else
+  bad "outage latch mis-warned (open=$w1 repeat=$w2 count=$count_after)"
+fi
+
+# Recovery: a reachable journal clears the latch and emits one summary naming the
+# drop count.
+rec="$(env GARDEN=latch-host GARDEN_STATE="$LATCH_STATE" \
+  JOURNAL_REMOTE="$REMOTE" GARDEN_DECISION_CLONE="$TEMPORARY_ROOT/latch-recover" \
+  "$JOBS/decision-append.sh" --loop fixture --input-json '{}' \
+    --decision recovered --reason back --outcome applied 2>&1)"
+summaries="$(printf '%s\n' "$rec" | grep -c 'decision ledger recovered' || true)"
+if [ "$summaries" -eq 1 ] \
+   && printf '%s\n' "$rec" | grep -q '2 fail-open decision drop(s)' \
+   && [ ! -f "$LATCH_STATE/decisions/outage/latch-host.since" ]; then
+  ok "recovery emits one summary of the dropped decisions and clears the latch"
+else
+  bad "recovery summary missing or latch not cleared (rec=$(printf '%s' "$rec" | tr '\n' ';'))"
+fi
+
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

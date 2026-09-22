@@ -142,9 +142,43 @@ append_decision() {
   return 1
 }
 
+# Host-scoped journal-outage latch.  A persistent journal outage makes every
+# fail-open append emit an identical WARN, once per actuation — noise, since
+# recording is observability-only.  Latch the outage under $GARDEN_STATE (per-host
+# by construction, keyed by $GARDEN for clarity) so we warn ONCE when it opens,
+# count the drops silently while it persists, and print one recovery summary when a
+# later write succeeds.  Every path is best-effort and never fails the caller.
+outage_dir="${GARDEN_DECISION_OUTAGE_DIR:-$GARDEN_STATE/decisions/outage}"
+outage_since="$outage_dir/$GARDEN.since"
+outage_count="$outage_dir/$GARDEN.count"
+
+note_outage_drop() { # one fail-open drop: open+warn on the edge, else count silently
+  local n
+  mkdir -p "$outage_dir" 2>/dev/null || true
+  if [ ! -f "$outage_since" ]; then
+    date -u +%FT%TZ > "$outage_since" 2>/dev/null || true
+    printf '1\n' > "$outage_count" 2>/dev/null || true
+    log "WARN: decision '$loop:$decision' was not recorded after bounded attempts (fail-open); journal outage latched on $GARDEN — further drops are counted silently until a write succeeds"
+    return 0
+  fi
+  n="$(cat "$outage_count" 2>/dev/null || echo 0)"; [[ "$n" =~ ^[0-9]+$ ]] || n=0
+  printf '%s\n' "$(( n + 1 ))" > "$outage_count" 2>/dev/null || true
+}
+
+note_outage_clear() { # a write succeeded: one recovery summary if an outage was latched
+  local n since
+  [ -f "$outage_since" ] || return 0
+  n="$(cat "$outage_count" 2>/dev/null || echo 0)"; [[ "$n" =~ ^[0-9]+$ ]] || n=0
+  since="$(cat "$outage_since" 2>/dev/null || true)"
+  rm -f "$outage_since" "$outage_count" 2>/dev/null || true
+  log "decision ledger recovered on $GARDEN; $n fail-open decision drop(s) during the journal outage${since:+ since $since}"
+}
+
 # sync_clone deliberately exits on an offline journal.  Isolate the whole writer
 # in a subshell so that exit is converted into the promised fail-open result.
 if ! ( append_decision ); then
-  log "WARN: decision '$loop:$decision' was not recorded after bounded attempts (fail-open)"
+  note_outage_drop
+else
+  note_outage_clear
 fi
 exit 0
