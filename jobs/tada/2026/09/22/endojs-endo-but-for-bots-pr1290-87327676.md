@@ -1,28 +1,32 @@
-Inbox is empty. The directive is fully resolved by a peer's already-landed work; no action needed from me.
+The work is complete. Here is my report.
 
-## Completion report
+---
 
-**Job:** attention directive on endojs/endo-but-for-bots PR #1290, from kriskowal's inline review comment (`discussion_r4066300501`, cid `4066300501`) on `packages/sha256/test/browser-entry.js`: *"This seems extraneous. The importer could import these facets directly."*
+## Completion report: attention directive on endojs/endo-but-for-bots PR #1290
 
-**Preflight:** `pr-feedback-preflight.sh` returned exit 2 (HINT — correlated resolution present; corroborate before closing). I corroborated rather than assuming.
+**Directive:** kriskowal's review comment on `packages/sha256/test/browser-entry.js` — *"This seems extraneous. The importer could import these facets directly."*
 
-**Outcome: verified no-op — already resolved by a peer.** The single ask (drop the extraneous fixture; let the importer import the facets directly) is satisfied by:
+**Preflight:** exit 2 (HINT). Corroboration showed the "resolution" text on the thread was **aspirational, not landed**: the peer replied (00:07) that "the committed browser-entry.js is gone," but **#1290 had already merged at 23:57** (merge commit `38cce7ebba`) with the file still present. A later reply (00:26) posted *this* job to actually do it. So exit 2 was correctly treated as PROCEED — no artifact resolved the ask.
 
-- **Artifact: PR #1326** — *"test(sha256): inline the browser bundle entry, drop the fixture module"* (OPEN, draft; base `llm-38cce7e`; branch `sha256-browser-entry-inline-1290-followup`), commit **`5458bf21d934a0caab243d241dfbfe4cc721f358`**.
-- **How it satisfies the ask (verified against the commit's file list):** it **removes** `packages/sha256/test/browser-entry.js` (−7, status `removed`) and **inlines** the two-line entry into the browser test's `read` power in `browser-test/tests/sha256.spec.js` (+21/−2), serving it from a *virtual* location under `packages/sha256/test/` so the package self-imports (`@endo/sha256`, `@endo/sha256/async`) still resolve against the workspace and the bundle still proves the `browser` condition selects both browser arms — no committed fixture. That is exactly "the importer imports the facets directly."
-- **Inline reply already posted:** thread reply `4067459383` on cid `4066300501` names #1326 / `5458bf21d9` and explains the change; the maintainer already has the response on the thread. (#1290 itself is MERGED, so the fix correctly landed as follow-up #1326, not a branch update.)
+**What I did**
+- Confirmed the sole importer of `packages/sha256/test/browser-entry.js` is `browser-test/tests/sha256.spec.js` (`makeBundle` over a filesystem `read` power).
+- **Deleted** `packages/sha256/test/browser-entry.js` (7 lines).
+- **Inlined** its two re-export lines into the test's `read` power, served from a **virtual** location under `packages/sha256/test/` (never written to disk): the `read` returns the inlined bytes for the entry URL and delegates to `fs.promises.readFile` otherwise. Wrapped in `Promise.resolve` to satisfy the file's `@ts-check` `ReadFn` (`Promise<Uint8Array>`) contract.
+- **Verified** by running the same `makeBundle` path in Node against the virtual `read`: it builds a valid 40 KB bundle that (1) resolves `@endo/sha256` and `@endo/sha256/async` as package self-imports and (2) selects the WebCrypto `subtle.digest` browser async arm — both properties the peer worried about are preserved (conditional-export selection coverage and package resolution anchoring).
 
-Because the feedback pass and this job's posting raced, this job was posted (`4067537612`, 00:26Z) *after* the peer had already opened #1326 (reply at 00:07Z). No duplicate PR opened, no branch pushed, no board changes made. Nothing left for this job to do.
+**Artifacts**
+- Follow-up PR **endojs/endo-but-for-bots#1328** (draft), head `pr1290-inline-browser-entry`, base pinned to frozen snapshot `llm-db664fa` (created the snapshot since ensure-pr refuses a floating base). Commit `d9077c4d08`.
+- Threaded reply on the original review comment (`r4067990104`) linking #1328 and stating what landed.
 
-**Follow-ups:** PR #1326 is a draft on `llm-38cce7e` awaiting its own review/merge lifecycle — that is #1326's business, not this attention directive's. No further action required here.
+**Follow-ups:** #1328 is a draft per the manual-gauntlet regime; it awaits **run the gauntlet #1328** and maintainer review/merge. Nothing on #1290 itself remains (already merged).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1290-87327676.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 4 on 2 host(s) (3 unmetered)
-- Input: 16 tokens (324912 cached reads)
-- Output: 4512 tokens
-- Cost: $0.6521410000000002 (3 engagement(s) unpriced)
-- Wall-clock: 735s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 5 on 2 host(s) (3 unmetered)
+- Input: 68 tokens (1692136 cached reads)
+- Output: 18736 tokens
+- Cost: $2.2299130000000003 (3 engagement(s) unpriced)
+- Wall-clock: 1115s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
