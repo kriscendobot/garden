@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T19:54:41Z_
+_As of 2026-09-22T19:56:13Z_
 
 ## Latest
 
@@ -3948,18 +3948,17 @@ _Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — ---
-- [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260922-193551.md) — Press the Claude-on-minion.town arc forward
 - [`improve-followup-handoff-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-followup-handoff-detection.md) — ---
 
-### tada (8693)
+### tada (8694)
+- [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-193551.md) — Cost
 - [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/shepherd-endo-pr1329-registry-migration.md) — Cost
 - [`claude-on-minion-town-completion-press-20260922-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-163506.md) — Completion report — completion-press tick 20260922-163506 (Claude-on-minion.t...
 - [`claude-on-minion-town-press-20260922-162051`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-162051.md) — Cost
 - [`endo-revive-registry-host-formula-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endo-revive-registry-host-formula-migration.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-86272788ce58`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-86272788ce58.md) — rolling-deploy canary probe — round trip OK
-- … and 8688 more
+- … and 8689 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
