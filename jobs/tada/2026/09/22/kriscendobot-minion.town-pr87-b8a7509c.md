@@ -1,33 +1,30 @@
-Message delivered to the maintainer. The directive is fully resolved (three times over) and I've routed the de-duplication decision to the maintainer. No garden-library edit is needed for this triage/routing job, so there's nothing to commit.
+## Completion report: attention directive on kriscendobot/minion.town PR #87
 
-## Completion report
+**Directive (fetched fresh, treated as data):** comment [5770443815](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770443815) by @kriskowal, full body one line — *"Repo-wide migration to vitest. The Endo repository dictates house style."* One ask.
 
-**Job**: attention directive on `kriscendobot/minion.town#87` (comment 5770443815, kriskowal) — "Repo-wide migration to vitest. The Endo repository dictates house style."
+**Map = attention → route to the right work.** The correct work already exists and is in progress; posting anything would duplicate it.
 
-**Disposition**: routed / triaged. The directive is already resolved — over-resolved — so **no fourth PR was posted**.
+**Preflight:** `pr-feedback-preflight.sh` returned **exit 2** (HINT). Per the directive I corroborated on the board itself rather than closing on the hint alone.
 
-**What I found (corroborating the preflight exit-2 HINT, per-ask)**:
-- The single ask (migrate the repo to vitest) was already largely true: minion.town's **root suite already runs vitest** (`"test": "vitest run"`, `vitest.config.ts`, `vitest@^2.1.8`). The only non-vitest holdouts were two self-contained sub-packages on `node --test`: `tools/claude-harness` (`*.test.mjs`) and `deploy/thunks/siwe` (`test/*.test.js`).
-- That conversion was independently built by **three** job bases into three competing **draft** PRs, all CI-green (test + claude-harness amd64/arm64), unreviewed, none gauntleted:
-  - `kriscendobot/minion.town#107` `fix/repo-wide-vitest` — carries **this job's own marker** `<!-- garden-job: kriscendobot-minion.town-pr87-b8a7509c -->` (a prior claimant of this base opened it). +2884/-18.
-  - `kriscendobot/minion.town#108` `vitest-repo-wide-holdouts` (base `fix-minion-town-vitest-repo-wide-holdouts`). +3052/-161; adds a dedicated SIWE CI step.
-  - `kriscendobot/minion.town#109` `build-minion-town-vitest-migration` (base `build-minion-town-vitest-migration`). +565/-555; cleanest, folds claude-harness into the root gate, explicitly reconciles the "Endo dictates house style" ambiguity (Endo runs AVA, not vitest).
+**Corroboration — the single ask is owned by a live job:**
+- **Artifact:** job-board base **`build-minion-town-vitest-migration`**, currently in `journal/jobs/doin/` (claimed 2026-09-22T06:03:50Z by `endolin-garden-ece02cb4` gardener 3; still in `doin/`, not yet `tada/`, ~40 min in — an active claim, not a stale one).
+- **How it satisfies the ask:** it is a `role: builder` job that cites the *exact* same source directive URL (comment 5770443815, verbatim quote) and carries the full repo-wide-vitest deliverable: convert the 4 remaining `node --test` holdouts (`deploy/thunks/siwe/test/{oidc-face,siwe-verify}.test.js`, `tools/claude-harness/{install,release-verifier}.test.mjs`) to vitest, migrate each sub-package's script/devDeps, drop the two root `--exclude` globs so `npm test` is genuinely repo-wide, with typecheck+test green and a draft PR against `main`. It also explicitly resolves the "Endo dictates house style" caveat (Endo's own runner is AVA, so the reading is: target vitest, carry Endo's runner-agnostic conventions, imitate minion.town's existing `test/**` vitest specs).
 
-**Artifact resolving the ask for this base**: `kriscendobot/minion.town#107` (matching marker), CI-green draft.
+**Survey confirming the routing is accurate** (via REST git tree/contents on `main`): root `package.json` is already `vitest run` (~45 specs, `vitest@^2`, `vitest.config.ts`); exactly those 4 files under `deploy/thunks/siwe/` and `tools/claude-harness/` still use `node:test`; the other sub-packages (`infra`, the two lambda dirs) have no test suites. So the build job's scope is exactly right.
 
-**Action taken**: messaged the maintainer (via liaison) summarizing the 3-way duplication with a recommendation — keep **#109** (cleanest, one-gate, house-style caveat handled), close #107 and #108, then run the gauntlet on the keeper; flagged the one real tradeoff (#108 adds first-ever CI coverage for the SIWE thunk that #109 leaves out of the root gate). Offered to close the two losers on the maintainer's word.
+**Related context:** the earlier, opposite directive (review 5273122355 "This house uses ava") was already reversed — job `fix-minion-town-migrate-tests-to-ava-20260922` sits **withdrawn** with the reason that comment 5770443815 supersedes it and house style is vitest. No conflicting live work.
 
-**Verification note**: I did not re-run the three suites myself; the pass counts (428–463 passed / 5 skipped) are the peers' reported evidence, corroborated by the **live green CI checks** I read on each PR (`gh pr checks`). I did not close any PR — picking among three green implementations is a maintainer taste call.
+**Action taken:** none required on the board (no duplicate build job posted — it would collide with the active claim), no PR reply needed (the build job opens the draft PR), no code change. Worktree clean.
 
-**Follow-up owned by maintainer**: choose one of #107/#108/#109, close the others, gauntlet the keeper.
+**Follow-ups:** none owned by me. The vitest migration outcome (draft PR) is delivered by `build-minion-town-vitest-migration`. If the comment-watcher re-fires 5770443815 again, expect another idempotent no-op attention route like this one.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr87-b8a7509c.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 10 on 2 host(s) (2 unmetered)
-- Input: 250 tokens (7031108 cached reads)
-- Output: 114027 tokens
-- Cost: $11.693494 (2 engagement(s) unpriced)
-- Wall-clock: 3609s
-- Model(s): claude-opus-4-8 ×8
+- Engagements: 11 on 2 host(s) (2 unmetered)
+- Input: 276 tokens (7648667 cached reads)
+- Output: 123556 tokens
+- Cost: $12.753078499999999 (2 engagement(s) unpriced)
+- Wall-clock: 3785s
+- Model(s): claude-opus-4-8 ×9
 
 <!-- garden-usage-end -->
