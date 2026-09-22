@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: minion-town-claude-inference-exploration-20260922
-priority: urgent
-roadmap: claude-on-minion-town
 role: fixer
-posted_by: gardener
-posted_at: 2026-09-22T01:53:16Z
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=urgent at=2026-09-22T01:56:45Z cleared=none -->
 
 ---
 role: fixer
