@@ -1,32 +1,32 @@
-Verified on `origin/journal2`: the ava job now lives at `jobs/withdrawn/…` (the local garden-root worktree is merely stale and will sync). All work is complete.
+Inbox empty. This job was already genuinely completed by a prior claimant of the same base; my requeued attempt independently re-verified every artifact and confirms it is a legitimate no-op.
 
 ## Completion report
 
-**Job:** `attention` directive on kriscendobot/minion.town PR #87 (comment [5770443815](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770443815), kriskowal): *"Repo-wide migration to vitest. The Endo repository dictates house style."*
+**Job:** `attention` directive on kriscendobot/minion.town PR #87 — comment [5770443815](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770443815) (kriskowal): *"Repo-wide migration to vitest. The Endo repository dictates house style."*
 
-**What I found (the preflight exit-2 corroboration):** This directive is a **maintainer reversal**, not a request for new migration work. Timeline, all 2026-09-22:
-- **00:26Z** review [5273122355](https://github.com/kriscendobot/minion.town/pull/87#pullrequestreview-5273122355): *"This house uses `ava` for testing"* — which had spawned a parked job `fix-minion-town-migrate-tests-to-ava-20260922` (in `plan/`, gated `awaiting-maintainer`, asking scope for a vitest→ava migration).
-- **02:39Z** this comment: *"Repo-wide migration to vitest…"* — 2h13m later, directly contradicting the ava direction.
+**Preflight:** exit 2 (HINT). I did **not** treat it as a licence to close — I independently corroborated every ask against concrete artifacts before completing as a no-op.
 
-The repo is **already entirely on vitest** (every `test/*.test.ts`, `vitest.config.ts`, `npm test` == `vitest run`, vitest a devDep since the initial commit; no ava). Endo itself migrated ava→vitest, so vitest *is* the house style. The directive therefore **cancels** the pending ava migration and answers its parked scope question as "stay on vitest, repo-wide." No code/runner migration was needed.
+**Finding:** This directive is a **maintainer reversal**, not new migration work. An earlier 00:26Z review on #87 had said "this house uses `ava`", queuing a vitest→ava job; this 02:39Z comment supersedes it. The repo is **already entirely on vitest** — I verified on `main`: root `test` script is `vitest run --exclude …`, `vitest@^2.1.8` is a devDep, `vitest.config.ts` is present, and a repo-wide code search returns **0** ava references. So the directive is satisfied by the existing state plus cancelling the reversed ava work.
 
-**What I did:**
-1. **Withdrew the moot ava job** via `withdraw-plan.sh` with a full reason citing the reversal → moved to `jobs/withdrawn/fix-minion-town-migrate-tests-to-ava-20260922.md` (CAS push confirmed landed on `origin/journal2`). This prevents the reversed (ava) work from ever being promoted.
-2. **Replied on #87** ([issue-comment 5770657287](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770657287)) confirming vitest stays repo-wide, the ava direction is cancelled, and #87's tests remain vitest.
-3. **+1 reactji** on the directive comment (seen-ack).
-4. Drained inbox (empty).
+**Corroboration (each ask → artifact, all independently re-verified this run):**
+- *Stay on vitest repo-wide* → repo already on vitest (verified above).
+- *Cancel the ava direction* → parked job withdrawn to `jobs/withdrawn/fix-minion-town-migrate-tests-to-ava-20260922.md`, confirmed present on `origin/journal2`.
+- *Answer the maintainer* → reply [issue-comment 5770657287](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770657287) confirms "staying on vitest, repo-wide."
+- *Seen-ack* → `+1` and `eyes` reactji by kriscendobot on the directive comment.
 
-**Noted, not done (deliberate):** Two self-contained sub-packages still use `node --test` and are excluded from the root suite by design — `deploy/thunks/siwe/` and the **deliberately dependency-free** `tools/claude-harness/` (its release verifier runs pre-`npm install` importing only `node:` builtins). These predate #87 and are almost certainly outside the directive's intent (a runner choice: vitest not ava). I offered in the reply to convert them under a **separate dedicated PR** if the maintainer wants the whole tree on one runner, flagging that claude-harness carries a real dependency-free trade-off I want the maintainer's call on before touching. No unilateral action taken.
+**What I did this attempt:** No new mutations — the deliverables were already landed by the prior claimant of this same base (report in `tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md`). I re-fetched and re-verified all four artifacts, checked the board, and drained my inbox (empty).
 
-**Follow-ups:** None required. If the maintainer wants the two node:test holdouts converted, that's a new builder job (separate PR against `main`).
+**Board note (informational, not blocking):** this base currently appears in **both** `jobs/doin/` and `jobs/tada/` on `origin/journal2` — a duplicate from the requeue. Emitting the completion signal lets the machinery reconcile `doin/`; no manual board edit made.
+
+**Follow-ups:** None required for this directive. Two self-contained sub-packages (`deploy/thunks/siwe/`, the deliberately dependency-free `tools/claude-harness/`) still use `node --test` and are excluded from the root suite by design; the prior reply already offered to convert them under a separate PR only if the maintainer wants a single runner tree — outside this directive's intent (a runner choice, not ava). Unrelated: the PR #87 production-reality gate remains parked awaiting a maintainer decision (`plan/minion-town-pr87-production-gate-resume-20260922.md`) — separate ask, separate job.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr87-b8a7509c.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 48 tokens (1709590 cached reads)
-- Output: 33761 tokens
-- Cost: $2.6066100000000003
-- Wall-clock: 542s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 2 host(s)
+- Input: 66 tokens (2142859 cached reads)
+- Output: 41349 tokens
+- Cost: $3.5131335000000004
+- Wall-clock: 717s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
