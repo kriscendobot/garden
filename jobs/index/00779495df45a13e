@@ -1,2 +1,2 @@
-base: improve-issue-inbox-tick-bounds
+base: improve-issue-inbox-cursor-timeout-alignment
 identity: mentor:scripts/jobs/issue-inbox-watcher.sh
