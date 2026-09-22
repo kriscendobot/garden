@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by the maintainer-directed minion.town CLI/Agent-SDK production experiment; Endo design work is deferred to backfill-endo-claude-design-from-minion-town-production after evidence exists.
+withdrawn_by: fixer
+withdrawn_at: 2026-09-22T01:27:08Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 posted_by: liaison
