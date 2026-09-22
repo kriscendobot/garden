@@ -1,22 +1,23 @@
 ---
 base: endojs-endo-but-for-bots-pr1290-review-dec2083a
-kind: cleric
-provider: openai
-model: gpt-5.6-sol
+kind: monk
+provider: anthropic
+model: claude-opus-5
 thoughtfulness: medium
 work_class: other:l
 target: main2
 accepted: true
-agentic_dollars: 7.114783
+agentic_dollars: 8.827096
 human_dollars: 0
-aggregate_dollars: 7.114783
-cost_source: ledger
+aggregate_dollars: censored
+cost_source: wallclock
+estimated_dollars: 0.031533
 attempts: 1
-duration_secs: 610
+duration_secs: 457
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-3
-recorded_at: 2026-09-21T23:49:26Z
+recorded_by: endolin-garden2-5bcdff64/monk-3
+recorded_at: 2026-09-22T00:04:07Z
 ---
-reputation event for endojs-endo-but-for-bots-pr1290-review-dec2083a: arm openai/gpt-5.6-sol/medium work_class other:l target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr1290-review-dec2083a: arm anthropic/claude-opus-5/medium work_class other:l target main2 accepted true
