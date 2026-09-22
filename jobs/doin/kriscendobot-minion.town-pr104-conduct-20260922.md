@@ -16,3 +16,13 @@ amd64/arm64, test). Base branch is the pinned `main-45e43bb`; head
 
 Un-draft and merge it (you own the merge method). Bot repo — merging is permitted.
 Verify state is still mergeable + green at conduct time before merging.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T05:13:51Z
