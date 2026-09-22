@@ -6363,6 +6363,17 @@ sync_clone() {
         die "fetch failed in $dir after re-cloning corrupt journal clone"
       fi
       log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-stale gc.log})"
+    # The retry-exhausted, non-offline, non-corrupt shape (rc=1, diagnostic
+    # `journal fetch in .* failed after N attempt(s)`, not auth/corrupt/
+    # upstream-gone/local-fs) is the AMBIGUOUS journal-fetch outage — a fleet-wide
+    # blip that outlived the bounded retries, not a structural fault. The cursor
+    # path (ensure_clone_or_latch_outage) already classifies exactly this shape as
+    # transient; mirror it here so every sync_clone caller — receipt-watcher,
+    # comment-watcher, ci-watcher, triager — takes the same clean-skip path instead
+    # of a loud rc=1 FATAL with empty diagnostic text.
+    elif journal_bounded_fetch_is_ambiguous_outage "$rc" "$GARDEN_FETCH_STDERR"; then
+      log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+      exit "$GARDEN_OFFLINE_RC"
     else
       die "fetch failed in $dir after bounded retries"
     fi

@@ -171,6 +171,36 @@ run_clone_classify clone-ok 'ensure_clone() { :; }; ensure_clone_or_latch_outage
   || bad "healthy clone exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
 
 # ---------------------------------------------------------------------------
+# Layer 1c: sync_clone itself — a BARE ensure_clone/sync_clone caller (the
+# receipt-watcher / comment-watcher / ci-watcher / triager spine) hitting the
+# ambiguous journal-fetch outage. sync_clone's retry-exhaustion branch must take
+# the same clean-skip path the cursor path (ensure_clone_or_latch_outage) already
+# takes, instead of a loud rc=1 FATAL with empty diagnostic text.
+# ---------------------------------------------------------------------------
+echo "SUBTEST 1c — sync_clone bare-caller outage classification"
+
+# (c1) the ambiguous retry-exhausted shape (rc=1, marker line, no definite
+# signature) is weather: sync_clone exits GARDEN_OFFLINE_RC instead of dying.
+SCAMB="$TR/sc-amb"; rc=0
+run_clone_classify sc-amb \
+  'GARDEN_OFFLINE_SIGNATURES=ZZZ_NEVER_MATCH; journal_fetch() { GARDEN_FETCH_STDERR="journal fetch in '"$SCAMB"' failed after 3 attempt(s) (last rc=1)"; return 1; }; sync_clone "'"$SCAMB"'"' \
+  2>/dev/null || rc=$?
+[ "$rc" -eq "$GARDEN_OFFLINE_RC" ] \
+  && ok "sync_clone classifies the ambiguous retry-exhausted fetch as a temporary outage" \
+  || bad "sync_clone bare-caller ambiguous outage exited $rc (expected $GARDEN_OFFLINE_RC)"
+
+# (c2) the SAME marker line but carrying a positive auth signature is a real
+# fault, not weather: the ambiguous fallback is bounded away from it, so
+# sync_clone still dies loud (rc!=GARDEN_OFFLINE_RC) rather than swallowing it.
+SCAUTH="$TR/sc-auth"; rc=0
+run_clone_classify sc-auth \
+  'GARDEN_OFFLINE_SIGNATURES=ZZZ_NEVER_MATCH; journal_fetch() { GARDEN_FETCH_STDERR="journal fetch in '"$SCAUTH"' failed after 3 attempt(s): git@github.com: Permission denied (publickey)."; return 1; }; sync_clone "'"$SCAUTH"'"' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -ne "$GARDEN_OFFLINE_RC" ] && [ "$rc" -ne 0 ]; } \
+  && ok "sync_clone keeps a definite auth failure loud even with the bounded marker present" \
+  || bad "sync_clone swallowed a definite auth failure as an outage (rc=$rc)"
+
+# ---------------------------------------------------------------------------
 # Layer 2: cursor-get.sh end-to-end.
 # ---------------------------------------------------------------------------
 echo "SUBTEST 2 — cursor-get.sh"
