@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T15:25:00Z_
+_As of 2026-09-22T15:25:30Z_
 
 ## Latest
 
@@ -3925,7 +3925,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.8M | $371.72 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 37.8M | $370.09 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 17.1M _(+373.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34227193 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -3934,16 +3934,16 @@ _Fleet token-unlock pace: 34227193 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-revive-registry-host-formula-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-revive-registry-host-formula-migration.md) — ---
+### doin (0)
+(none)
 
-### tada (8689)
+### tada (8690)
+- [`endo-revive-registry-host-formula-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endo-revive-registry-host-formula-migration.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-86272788ce58`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-86272788ce58.md) — rolling-deploy canary probe — round trip OK
 - [`minion-town-endo-daemon-deploy-fail-89481580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/minion-town-endo-daemon-deploy-fail-89481580.md) — Completion report: minion.town endo-daemon deploy failure (89481580)
 - [`improve-triager-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-tick-bounds.md) — Cost
 - [`kriscendobot-minion.town-pr110-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-receipt.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-5118c1cf1da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-5118c1cf1da7.md) — rolling-deploy canary probe — round trip OK
-- … and 8684 more
+- … and 8685 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
