@@ -82,3 +82,13 @@ silently missed for this same reason — grep recent
 `DROP (not-addressed)` log lines (or the self-heal capture equivalent) for
 any starting with `>` and flag any that look like a genuine missed
 directive, not just this one instance.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T23:51:51Z
