@@ -12,6 +12,7 @@ Conduct https://github.com/endojs/endo-but-for-bots/pull/1286 per trusted mainta
 <!-- garden-plain-retry-not-before: 2026-09-21T23:43:12Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=378,778 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
