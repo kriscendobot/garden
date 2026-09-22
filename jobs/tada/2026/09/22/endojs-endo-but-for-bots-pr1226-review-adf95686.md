@@ -1,42 +1,31 @@
-All asks are verified as already resolved. Corroboration complete:
-
-- **PR head** (`c1df1296ee`) is **identical** to the peer's resolving commit — the commit is the current PR tip, not a stale ancestor.
-- The commit touches only `designs/endo-guest-stdio-mcp.md` and its message maps 1:1 to the six asks.
-- Spot-checked the file at head: every claimed change is actually present.
-- A reply was posted on **all six** inline threads (2026-09-22T00:53–00:54Z, after the review), each naming the commit.
-
-No further work is warranted, and I will not resolve threads or re-request review — those are the maintainer's calls on a `CHANGES_REQUESTED`.
-
----
+This is a verified no-op: a peer worker fully resolved this review before I claimed the job. I corroborated every ask against the actual PR HEAD rather than trusting the preflight hint.
 
 ## Completion report
 
-**Job:** Review directive on endojs/endo-but-for-bots PR #1226, review `5273006881` by kriskowal (`CHANGES_REQUESTED`, "@kriscendobot rsvp") on the design doc `designs/endo-guest-stdio-mcp.md`.
+**Job:** review directive on endojs/endo-but-for-bots PR #1226 (design PR `design/endo-guest-stdio-mcp`, doc `designs/endo-guest-stdio-mcp.md`), kriskowal review 5273006881 (`CHANGES_REQUESTED`, body `@kriscendobot rsvp`).
 
-**Outcome: verified no-op — a peer worker already resolved the entire review.** The preflight returned exit 2 (HINT); per directive I corroborated each ask against a named artifact rather than trusting it.
+**Preflight** returned exit 2 (HINT: correlated peer replies exist). Per the directive I did **not** treat that as a licence to close — I corroborated each ask against the real artifact.
 
-The whole review (top-level body + all 6 inline comments) is a single unit, resolved by commit **`c1df1296ee`** (now the PR head, `status: identical`, touches only the design file) and a per-thread reply. Ask-by-ask corroboration:
+**Resolving artifact for every ask:** commit **`c1df1296ee`** ("docs(designs): rsvp PR #1226 review on endo-guest-stdio-mcp"), which is **identical to the PR head** (verified: `compare` = identical, 0 ahead/0 behind) and touches only the design file. Each inline thread also carries a kriscendobot reply. Verified against the commit patch:
 
-| Inline ask (original_line) | Resolving artifact | Verified in file at head |
-|---|---|---|
-| "superfluous meta-narrative" (35) | `c1df1296ee` + reply `4067647565` | `grep "Updated 2026-09-21"` → NONE; narrative dropped from § Status |
-| "don't consolidate these yet" (748) | `c1df1296ee` + reply `4067647652` | both topologies retained (commit msg + § Scoping) |
-| "always dispatch through the one guest facet" (757) | `c1df1296ee` + reply `4067647806` | § Scoping states drill-down + always-dispatch (line 687) |
-| "pin down the carrier now, investigate options" (763) | `c1df1296ee` + reply `4067647918` | `--mcp-config` carrier pinned to pipe/memfd-backed file path (lines 330–331) |
-| "claude not confined; if it can open a socket, design is forfeit" (770) | `c1df1296ee` + reply `4067648039` | "forfeit" premise restored non-negotiably (lines 226/233/746/830/874); endo-posix-sandbox dep row updated |
-| "expose a logging facet; how logs obtained is immaterial" (775) | `c1df1296ee` + reply `4067648141` | MCP `logging` capability advertised, source left as impl detail (lines 465–468, 839–840) |
+1. **#4067434988** "superfluous meta-narrative" → the "Updated 2026-09-21 to check the approach…" § Status paragraph is **deleted** (reply 4067647565).
+2. **#4067449945** "don't consolidate these yet… more than one way to use Claude" → cross-document note + Open Question rewritten so **both** topologies stand; no consolidation owed (reply 4067647652).
+3. **#4067463888** "must drill down to the guest facet… always dispatch through that guest" → § Scoping now states all `tools/list`/`tools/call` traffic serves "that one facet and no other," drilling down to the guest facet (reply 4067647806).
+4. **#4067466288** "pin this down now… investigate options" → `--mcp-config` carrier pinned to a pipe/`memfd`-backed file path (matching endo-claude); Open Question marked resolved (reply 4067647918).
+5. **#4067474722** "claude not confined… if it can open an arbitrary domain socket this design is forfeit" → confinement premise restored as non-negotiable, formula-id-secrecy fallback **struck**, daemon connection held outside the confined tree (reply 4067648039).
+6. **#4067480364** "expose a logging facet, how logs obtained is immaterial" → server exposes a logging facet + advertises `logging` capability, source left as implementation detail (reply 4067648141).
 
-**Changes made by me:** none (no code/design change and no PR/thread mutation was needed; the deliverable was already complete and correct on the branch).
+**Changes by me:** none — the deliverable was already complete and correct on the PR head. Inbox drained (empty). No board artifact was owed (deliverable is design-doc edits on the fork PR, not a board entry).
 
-**Follow-ups:** none owed by this job. The PR remains an open draft with `CHANGES_REQUESTED` standing until kriskowal re-reviews the pushed revision — that re-review is the maintainer's action, not a gardener task.
+**Follow-ups:** none required. The doc's own Open Questions still carry two forward-looking, non-blocking items (schedule of the daemon scoped-bootstrap obligation; per-version re-check of `claude`'s config read pattern), consistent with the maintainer's steers — not open review asks.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1226-review-adf95686.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 2 host(s)
-- Input: 134 tokens (7400471 cached reads)
-- Output: 57975 tokens
-- Cost: $7.0247645
-- Wall-clock: 1059s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 3 on 2 host(s)
+- Input: 148 tokens (7724426 cached reads)
+- Output: 63032 tokens
+- Cost: $7.932997
+- Wall-clock: 1171s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
