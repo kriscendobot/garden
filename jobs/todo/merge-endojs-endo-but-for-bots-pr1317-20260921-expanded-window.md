@@ -1,11 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: merge-endojs-endo-but-for-bots-pr1317-20260921-split
-priority: normal
 role: conductor
-posted_by: producer
-posted_at: 2026-09-22T01:52:45Z
+tier: mentor
+handler-timeout: 10800
+split-indivisible-reason: 'Conducting PR #1317 is one atomic conductor spine (re-sync the PR head, rebase onto freshly-fetched live llm, wait for the full CI matrix to re-run green, then merge) with no independent sub-part to hand a second worker; the 2400s overrun was wall-clock spent waiting on the post-rebase CI matrix, not decomposable work, so a single expanded-window claim is the correct disposition.'
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-22T01:59:33Z cleared=none -->
 
 ---
 tier: mentor
