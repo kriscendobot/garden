@@ -105,19 +105,21 @@ FAKEDIR="$TR/bin"; mkdir -p "$FAKEDIR"
 cat > "$FAKEDIR/claude" <<'FAKE'
 #!/bin/bash
 set -uo pipefail
-sid=""; mode="fresh"; model=""
+sid=""; mode="fresh"; model=""; budget=""
 prev=""
 for a in "$@"; do
   case "$prev" in
     --session-id) sid="$a"; mode="fresh" ;;
     --resume)     sid="$a"; mode="resume" ;;
     --model)      model="$a" ;;
+    --max-budget-usd) budget="$a" ;;
   esac
   prev="$a"
 done
 pwd > "$FAKE_CWD_OUT"
 printf '%s\n' "$mode" > "$FAKE_MODE_OUT"
 printf '%s\n' "$model" > "${FAKE_MODEL_OUT:-/dev/null}"
+printf '%s\n' "$budget" > "${FAKE_BUDGET_OUT:-/dev/null}"
 # The prompt is the last positional argument the handler passes; capture it so the
 # test can assert the resume/fresh/fallback framing the worker actually receives.
 printf '%s' "${@: -1}" > "${FAKE_PROMPT_OUT:-/dev/null}"
@@ -132,10 +134,15 @@ if [ -n "${FAKE_CLAUDE_FAIL:-}" ]; then
   printf 'simulated mid-job death\n' >&2
   exit "$FAKE_CLAUDE_FAIL"
 fi
-printf 'job done\n'
-# A genuine completion emits the completion marker as its final line (the worker's
-# instructed final act); the handler keys the sentinel + teardown on it.
-[ -n "${FAKE_COMPLETION_MARKER:-}" ] && printf '%s\n' "$FAKE_COMPLETION_MARKER"
+printf '%s\n' '{"type":"rate_limit_event","rate_limit_info":{"status":"allowed","unifiedWindows":{"seven_day":{"utilization":0.25,"resetsAt":1790391600}}}}'
+if [ -n "${FAKE_BUDGET_STOP:-}" ]; then
+  printf '%s\n' '{"type":"result","subtype":"error_max_budget_usd","is_error":true,"stop_reason":"end_turn","terminal_reason":"budget_exhausted","result":null,"usage":{"input_tokens":10,"output_tokens":2}}'
+  exit 1
+fi
+result='job done'
+[ -z "${FAKE_COMPLETION_MARKER:-}" ] || result="$result
+$FAKE_COMPLETION_MARKER"
+jq -cn --arg result "$result" '{type:"result",subtype:"success",is_error:false,stop_reason:"end_turn",terminal_reason:"end_turn",result:$result,usage:{input_tokens:10,output_tokens:2}}'
 FAKE
 chmod +x "$FAKEDIR/claude"
 
@@ -166,7 +173,7 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
     GARDEN_WORKER_KIND=gardener \
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" GARDEN_USAGE_FILE="$TR/usage.json" FAKE_COMPLETION_MARKER="$MARKER" \
-    FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" FAKE_USAGE_OUT="$TR/usage.out" \
+    FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" FAKE_BUDGET_OUT="$TR/budget.out" FAKE_USAGE_OUT="$TR/usage.out" \
     FAKE_PROMPT_OUT="$TR/prompt.out" \
     bash "$HANDLER" "$1" "$2" "$3"
   RC=$?
@@ -197,6 +204,8 @@ grep -q 'BOTH LOST' "$TR/prompt.out" 2>/dev/null \
   || ok "fresh prompt makes no lost-state warning"
 [ "$(cat "$TR/usage.out" 2>/dev/null)" = absent ] && ok "Claude cannot see the private usage handoff" \
   || bad "Claude inherited GARDEN_USAGE_FILE and could forge accounting"
+[ "$(cat "$TR/budget.out" 2>/dev/null)" = 10.00 ] && ok "default minion call carries --max-budget-usd 10.00" \
+  || bad "missing/wrong per-call budget: '$(cat "$TR/budget.out" 2>/dev/null)'"
 # The marker-signaled completion wrote the sentinel gardener.sh gates doin→tada on.
 [ -e "$SENTINEL" ] && ok "marker-signaled completion wrote the completion sentinel" \
   || bad "completion sentinel not written on a genuine completion"
@@ -214,11 +223,24 @@ git -C "$GROOT" worktree list --porcelain | grep -q "$WT" \
   && bad "worktree still registered after teardown" \
   || ok "worktree deregistered from the root repo"
 
+# === 3b: a structured per-call budget stop is bounded progress, not doom ======
+SBASE="garden-infra-budget-stop"
+SJOB="$TR/$SBASE.job"
+printf -- '---\ntier: myrmidon\n---\nBound this call.\n' > "$SJOB"
+FAKE_BUDGET_STOP=1 run_handler "$SBASE" "$SJOB" "$REPORT"
+[ "$RC" -eq 75 ] && ok "structured max-budget stop maps to transient requeue rc 75" \
+  || bad "budget stop should map to rc 75, got $RC"
+[ ! -e "$SENTINEL" ] && ok "budget stop does not forge completion" || bad "budget stop wrote completion sentinel"
+[ "$(cat "$TR/budget.out" 2>/dev/null)" = 4.00 ] && ok "myrmidon tier carries USD 4 call ceiling" \
+  || bad "myrmidon ceiling mismatch: '$(cat "$TR/budget.out" 2>/dev/null)'"
+jq -e '.terminal_outcome=="budget-stop" and .terminal.terminal_reason=="budget_exhausted"' "$TR/usage.json" >/dev/null \
+  && ok "budget-stop reason retained in usage handoff" || bad "budget-stop usage reason missing"
+
 # === 4: a failed run LEAVES the worktree with in-flight work, for a requeue ====
 rm -f "$TR/cwd.out" "$TR/mode.out"
 FAKE_CLAUDE_FAIL=42 run_handler "$BASE" "$JOB" "$REPORT"
-[ "$RC" -eq 42 ] && ok "failed run propagates the handler rc (42)" \
-  || bad "failed run should exit 42 (got $RC)"
+[ "$RC" -eq 75 ] && ok "truncated failed stream is authoritatively transient (rc 75)" \
+  || bad "truncated failed stream should exit 75 (got $RC)"
 [ -d "$WT" ] && ok "failed run LEAVES the worktree (requeue can resume into it)" \
   || bad "worktree was torn down on failure; a requeue could not resume"
 [ -f "$WT/in-flight-marker" ] && ok "the in-flight uncommitted work survived in the worktree" \

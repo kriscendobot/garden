@@ -28,6 +28,11 @@
 #   external dashboard. The session logs are the SINGLE SOURCE OF TRUTH for "tokens
 #   spent in the trailing window".
 #
+#   QUOTA UTILIZATION is stronger than this spend proxy: the monk's stream-json
+#   rate_limit_event reports true five-hour/seven-day provider utilization. The
+#   usage ledger retains it and budget snapshots, pool_admits, and budget-level
+#   consume it first. Token/cap arithmetic remains the fallback when it is absent.
+#
 #   DEDUP: a single assistant message id appears on MULTIPLE log lines (one per
 #   streamed content block), each repeating the message's final `usage`. We dedup
 #   by message id (first occurrence wins) so re-reads never double-count.
@@ -599,6 +604,7 @@ _budget_publish_local_pool_once() {
       anthropic:weekly-tokens)
         cutoff="$(subscription_window_start_epoch "$pool" "$dir")" || continue
         spend="$(meter_subscription_window_total "$pool" "$dir")" || continue
+        used_percent="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
         ;;
       openai:percent)
         cutoff="$(subscription_window_start_epoch "$pool" "$dir")" || continue
@@ -615,7 +621,7 @@ _budget_publish_local_pool_once() {
   old_bucket="$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   [ "$old_bucket" != "$bucket" ] || continue
   old_status="$(sed -n 's/^status:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
-  if [ "$kind" = percent ]; then status="$(meter_verdict "$used_percent" "$cap")"; else status="$(meter_verdict "$spend" "$cap")"; fi
+  if [ -n "${used_percent:-}" ]; then status="$(meter_verdict "$used_percent" 100)"; else status="$(meter_verdict "$spend" "$cap")"; fi
   mkdir -p "$(dirname "$file")"
   {
     printf 'subscription: %s\n' "$pool"
@@ -742,8 +748,25 @@ meter_journal_provider_usd() {
 # observation in the current reset window. Live host contributions all describe
 # the same shared account; the freshest wins (they are not summed).
 subscription_used_percent() {
-  local subscription="$1" dir="${2:-}" cutoff file best_epoch=-1 best="" epoch value
+  local subscription="$1" dir="${2:-}" cutoff file best_epoch=-1 best="" epoch value ledger
   cutoff="$(subscription_window_start_epoch "$subscription" "$dir" 2>/dev/null || echo 0)"
+  # PRIMARY: Claude Code's per-call seven-day utilization from rate_limit_event.
+  # The ledger is immutable and shared across hosts; newest valid observation wins.
+  # Utilization is a 0..1 ratio, while this helper's historical contract is 0..100.
+  if [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1; then
+    ledger="$(find "$dir/usage" -maxdepth 1 -type f -name '*.jsonl' -print0 2>/dev/null \
+      | xargs -0 -r jq -sr --argjson cutoff "$cutoff" '
+          map(select(.provider == "anthropic" and (.rate_limit.seven_day.utilization|type)=="number")
+              | . + {sample_epoch:((.rate_limit.sampled_at//.ts//"")|fromdateiso8601? // -1)})
+          | map(select(.sample_epoch >= $cutoff)) | sort_by(.sample_epoch) | last // {}
+          | [(.sample_epoch//-1),((.rate_limit.seven_day.utilization//-1)*100)] | @tsv' 2>/dev/null || true)"
+    if [ -n "$ledger" ]; then
+      IFS=$'\t' read -r epoch value <<<"$ledger"
+      if [[ "$epoch" =~ ^[0-9]+$ ]] && [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+        best_epoch="$epoch"; best="$value"
+      fi
+    fi
+  fi
   if [ -d "$dir/budget/live/$subscription" ]; then
     for file in "$dir/budget/live/$subscription"/*; do
       [ -r "$file" ] || continue
@@ -927,6 +950,13 @@ meter_quota_status() {
     weekly-tokens)
       case "$quota" in ''|0|*[!0-9]*) printf 'off\n'; return 0 ;; esac
       if [ "$provider" != anthropic ]; then printf 'unknown\n'; return 0; fi
+      # Claude's real seven-day utilization is authoritative when present.  The
+      # hand-calibrated token ceiling below is retained only as fallback.
+      total="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
+      if [[ "$total" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+        meter_verdict "$total" 100
+        return 0
+      fi
       cutoff="$(subscription_window_start_epoch "$pool" "$dir" 2>/dev/null || true)"
       if ! [[ "$cutoff" =~ ^[0-9]+$ ]]; then
         case "$pool" in anthropic:*) cutoff="$(meter_window_cutoff anchor)" || { printf 'unknown\n'; return 0; };; *) printf 'unknown\n'; return 0;; esac
@@ -1034,6 +1064,34 @@ pool_admits() {
   status="$(meter_quota_status "$pool" "$dir")"
   printf '%s\n' "$status"
   [ "$status" != backoff ]
+}
+
+# claude_call_budget_usd <tier> <journal-dir> — hard per-invocation ceiling.
+# Capability tier sets the maximum notional/API-list budget.  Fresh provider
+# seven-day headroom scales it down, never up; the claim-time pool gate remains
+# the authority for refusing untrustworthy or depleted pools.
+: "${GARDEN_CLAUDE_BUDGET_MYRMIDON_USD:=4}"
+: "${GARDEN_CLAUDE_BUDGET_MINION_USD:=10}"
+: "${GARDEN_CLAUDE_BUDGET_MENTOR_USD:=20}"
+: "${GARDEN_CLAUDE_BUDGET_MENTAT_USD:=40}"
+: "${GARDEN_CLAUDE_BUDGET_FLOOR_USD:=0.50}"
+claude_call_budget_usd() {
+  local tier="${1:-minion}" dir="${2:-}" base pool used remain
+  case "$tier" in
+    myrmidon) base="$GARDEN_CLAUDE_BUDGET_MYRMIDON_USD" ;;
+    mentor)   base="$GARDEN_CLAUDE_BUDGET_MENTOR_USD" ;;
+    mentat)   base="$GARDEN_CLAUDE_BUDGET_MENTAT_USD" ;;
+    *)        base="$GARDEN_CLAUDE_BUDGET_MINION_USD" ;;
+  esac
+  pool="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
+  used=""; [ -z "$pool" ] || used="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
+  if [[ "$used" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+    remain="$(awk -v u="$used" 'BEGIN{r=(100-u)/100;if(r<0)r=0;printf "%.6f",r}')"
+    awk -v b="$base" -v r="$remain" -v f="$GARDEN_CLAUDE_BUDGET_FLOOR_USD" \
+      'BEGIN{v=b*r;if(v<f)v=f;printf "%.2f\n",v}'
+  else
+    printf '%.2f\n' "$base"
+  fi
 }
 
 # budget_fleet_status [journal-dir] — backoff only when every configured bounded
@@ -1243,8 +1301,30 @@ usage_capture_result() {
     + (if .usage.output_tokens != null then {output_tokens:.usage.output_tokens} else {} end)
     + (if .usage.cache_creation_input_tokens != null then {cache_creation_tokens:.usage.cache_creation_input_tokens} else {} end)
     + (if .usage.cache_read_input_tokens != null then {cache_read_tokens:.usage.cache_read_input_tokens} else {} end)
-    + (if .total_cost_usd != null then {total_cost_usd:.total_cost_usd} else {} end)' <<<"$envelope" 2>/dev/null)" || return 1
+    + (if .total_cost_usd != null then {total_cost_usd:.total_cost_usd} else {} end)
+    + {terminal:{is_error:(.is_error//false),subtype:(.subtype//null),api_error_status:(.api_error_status//null),
+                 stop_reason:(.stop_reason//null),terminal_reason:(.terminal_reason//null),
+                 permission_denials:(.permission_denials//[]),subagent_stats:(.subagent_stats//null),
+                 queued_turn_count:(.queued_turn_count//null),fast_mode_state:(.fast_mode_state//null),
+                 duration_api_ms:(.duration_api_ms//null),ttft_ms:(.ttft_ms//null)}}' <<<"$envelope" 2>/dev/null)" || return 1
   printf '%s\n' "$row" > "$file" 2>/dev/null
+}
+
+# usage_capture_rate_limit <file> <rate-limit-event-json> — merge Claude's true
+# provider-window telemetry into the private handoff.  It reaches the immutable
+# usage ledger with the terminal fields above and becomes the primary budget
+# sensor; token calibration remains the fallback.
+usage_capture_rate_limit() {
+  local file="$1" event="$2"
+  [ -s "$file" ] && command -v jq >/dev/null 2>&1 || return 1
+  jq --argjson event "$event" '. + {rate_limit:{sampled_at:(now|todateiso8601),
+      status:($event.rate_limit_info.status//null),rate_limit_type:($event.rate_limit_info.rateLimitType//null),
+      resets_at:($event.rate_limit_info.resetsAt//null),overage_status:($event.rate_limit_info.overageStatus//null),
+      overage_disabled_reason:($event.rate_limit_info.overageDisabledReason//null),
+      is_using_overage:($event.rate_limit_info.isUsingOverage//false),
+      five_hour:($event.rate_limit_info.unifiedWindows.five_hour//null),
+      seven_day:($event.rate_limit_info.unifiedWindows.seven_day//null)}}' "$file" > "$file.tmp" 2>/dev/null \
+    && mv "$file.tmp" "$file" || { rm -f "$file.tmp"; return 1; }
 }
 
 # usage_capture_rusage <file> <time-output> — merge GNU time's user/sys seconds

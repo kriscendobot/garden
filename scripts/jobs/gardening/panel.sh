@@ -108,6 +108,14 @@ fi
 
 fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 
+# The supervising monk exports its tier/headroom-derived call ceiling.  Apply it
+# to every nested Claude invocation too: a 31-seat panel is many independent CLI
+# calls, and the top-level process's ceiling does not bound its children.
+panel_budget_args=()
+if [[ "${GARDEN_CLAUDE_CALL_BUDGET_USD:-}" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+  panel_budget_args=(--max-budget-usd "$GARDEN_CLAUDE_CALL_BUDGET_USD")
+fi
+
 # --- juror seat list: code panel vs design panel ----------------------------
 # The two panel kinds and their seats are the v1 jury composition (see
 # skills/panel-review). The code panel is the 31-seat source-touching panel; the
@@ -479,7 +487,7 @@ is explicit and coherent. Evidence: $(cat "${GARDEN_PANEL_OWNERSHIP_MAP_EVIDENCE
   # it (closing the panel-seat metering hole, designs/panel-seat-metering-and-tiering.md),
   # and a bare `gh pr view $pr` resolves against the repo under review. --model
   # carries the seat's review tier (empty seat_model_args => inherit the ceiling).
-  ( cd "$wt" && claude -p "${seat_model_args[@]}" --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr\
+  ( cd "$wt" && claude -p "${seat_model_args[@]}" "${panel_budget_args[@]}" --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr\
 ${wt_repo:+ of repository $wt_repo}. The checkout under review is the git worktree at \
 $wt; review ONLY that worktree's diff — run \`git -C $wt diff $base...HEAD\` (its HEAD is \
 the PR head, $base is the base). Do NOT resolve 'PR #$pr' against any other repository \
@@ -590,14 +598,16 @@ decide_disposition() {  # decide_disposition <aggregate-file> -> must-fix | pass
   # The decider (foreperson) applies a mechanical disposition rubric at its own
   # review tier (seat-model-tiers.tsv `decider`); cd "$wt" so its transcript is
   # metered with the rest of the panel.
-  local decide_model decide_args=()
+  local decide_model decide_args=() schema raw
   decide_model="$(seat_model_flag decider)"
   [ -n "$decide_model" ] && decide_args=(--model "$decide_model")
-  ( cd "$wt" && claude -p "${decide_args[@]}" --dangerously-skip-permissions "You are the gardener acting as panel foreperson on PR #$pr. Below \
+  schema='{"type":"object","properties":{"disposition":{"type":"string","enum":["pass","must-fix"]}},"required":["disposition"],"additionalProperties":false}'
+  raw="$(cd "$wt" && claude -p "${decide_args[@]}" "${panel_budget_args[@]}" --output-format json --json-schema "$schema" --dangerously-skip-permissions "You are the gardener acting as panel foreperson on PR #$pr. Below \
 are the jury seats' verdict blocks. Apply the disposition rubric: any concrete \
 request-changes finding is 'must-fix' and blocks the panel; otherwise the panel \
 passes. Answer with exactly one word: 'must-fix' or 'pass'. Verdicts: \
-$(cat "$agg")" )
+$(cat "$agg")" )"
+  jq -er '.structured_output.disposition | select(.=="pass" or .=="must-fix")' <<<"$raw"
 }
 
 # --- PLUGGABLE HOOK: the appellate pass (terminating rounds only) ------------
@@ -614,7 +624,7 @@ appellate_pass() {  # appellate_pass <aggregate-file> -> proposals (to run dir)
   local appellate_model appellate_args=()
   appellate_model="$(seat_model_flag appellate)"
   [ -n "$appellate_model" ] && appellate_args=(--model "$appellate_model")
-  ( cd "$wt" && claude -p "${appellate_args[@]}" --dangerously-skip-permissions "You are the appellate on PR #$pr. Read the panel's passing verdict \
+  ( cd "$wt" && claude -p "${appellate_args[@]}" "${panel_budget_args[@]}" --dangerously-skip-permissions "You are the appellate on PR #$pr. Read the panel's passing verdict \
 and, conservatively, list any small-and-in-context follow-up/acknowledge items \
 that should be promoted to summary-fix before un-draft. Be terse; silence is a \
 valid output. Verdict: $(cat "$agg")" ) 2>/dev/null || true

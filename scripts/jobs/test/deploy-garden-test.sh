@@ -131,6 +131,9 @@ grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/retry-narrowing-test.sh'
 grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/triager-pacing-test.sh' "$DEPLOY" \
   && ok "default candidate gate includes cost-aware triager pacing regression" \
   || bad "default candidate gate omits cost-aware triager pacing regression"
+grep -q 'GARDEN_DEPLOY_TEST_SUITES:=.*scripts/jobs/test/claude-stream-signal-test.sh' "$DEPLOY" \
+  && ok "default candidate gate includes Claude structured stream regression" \
+  || bad "default candidate gate omits Claude structured stream regression"
 grep -q 'retrying ONLY those once in a fresh gate root' "$DEPLOY" \
   && ok "candidate gate retries a failed suite once in a fresh gate root" \
   || bad "candidate gate retry-on-flake path missing"

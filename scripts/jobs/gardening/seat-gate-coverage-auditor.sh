@@ -120,7 +120,8 @@ EOF
 # citations resolve when the juror opens the files. Best-effort: a decline falls
 # back to the digest.
 seat_model_args=(); [ -n "${GARDEN_PANEL_SEAT_MODEL:-}" ] && seat_model_args=(--model "$GARDEN_PANEL_SEAT_MODEL")
-out="$(cd "$wt" && claude -p "${seat_model_args[@]}" --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
+seat_budget_args=(); [[ "${GARDEN_CLAUDE_CALL_BUDGET_USD:-}" =~ ^[0-9]+([.][0-9]+)?$ ]] && seat_budget_args=(--max-budget-usd "$GARDEN_CLAUDE_CALL_BUDGET_USD")
+out="$(cd "$wt" && claude -p "${seat_model_args[@]}" "${seat_budget_args[@]}" --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
 if [ -n "$out" ]; then
   printf '%s\n' "$out"
 else

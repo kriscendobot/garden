@@ -244,6 +244,17 @@ export GARDEN_JOB_ROLE="$requested_role"
 # handler-side default so isolation holds even when it does not.
 export GARDEN_JOB_BASE="$base"
 
+# Hard CALL-level ceiling.  The tier supplies the maximum and the freshest true
+# seven-day provider utilization in the journal scales it to remaining headroom.
+# Claim admission already failed closed on an untrustworthy configured pool; this
+# bound is the independent belt that limits one invocation after admission.
+journal_dir="$(dirname "$(dirname "$(dirname "$jobfile")")")"
+budget_tier="${serve_tier:-${requested_tier:-$(role_default_tier "$requested_role")}}"
+max_budget_usd="$(claude_call_budget_usd "$budget_tier" "$journal_dir")"
+budget_args=(--max-budget-usd "$max_budget_usd")
+export GARDEN_CLAUDE_CALL_BUDGET_USD="$max_budget_usd"
+log "job '$base' call ceiling: tier=$budget_tier max-budget-usd=$max_budget_usd (scaled by fresh seven-day headroom when available)"
+
 # --dangerously-skip-permissions: this is an autonomous, headless gardener with
 # no human approver, so the default permission gate would deny every Bash/tool
 # call (gh, git push, even `command -v gh`) and the gardener could do no real
@@ -333,9 +344,9 @@ claude_reap() {
 set +e
 set -m
 if [ -x /usr/bin/time ]; then
-  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
+  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions "${budget_args[@]}" "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
 else
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
+  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions "${budget_args[@]}" "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
 fi
 claude_pgid=$!
 set +m
@@ -348,12 +359,25 @@ trap 'claude_reap; exit 130' INT
 trap 'claude_reap; exit 129' HUP
 wait "$claude_pgid"; rc=$?
 set -e
-# A malformed/truncated envelope is an accounting miss, never a handler failure.
-# Preserve a useful report on provider errors, and otherwise extract .result
-# byte-for-byte enough for the existing completion-marker contract.
-if command -v jq >/dev/null 2>&1 && jq -er '.result' "$envelope" > "$report" 2>/dev/null; then
+# The stream is newline-delimited events.  Validate every line and require exactly
+# one terminal result event: a truncated stream or a stream with no result is an
+# authoritative transient failure, never a clean completion.
+result_event="$(claude_stream_result "$envelope" 2>/dev/null || true)"
+rate_event=""
+if [ -n "$result_event" ]; then
+  outcome="$(claude_result_outcome "$result_event")"
+  rate_event="$(jq -cs '[.[]|select(.type=="rate_limit_event")]|last//empty' "$envelope" 2>/dev/null || true)"
+  if jq -er '.result | strings' <<<"$result_event" > "$report" 2>/dev/null; then :; else
+    jq -r '"Claude CLI ended with structured outcome: " + (.subtype//.terminal_reason//"unknown")' <<<"$result_event" > "$report"
+  fi
   resolved_for_usage="${resolved_model:-}"
-  usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "$resolved_for_usage" "$(cat "$envelope")" || true
+  usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "$resolved_for_usage" "$result_event" || true
+  [ -z "$rate_event" ] || usage_capture_rate_limit "${GARDEN_USAGE_FILE:-/dev/null}" "$rate_event" || true
+  if [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ]; then
+    jq --arg outcome "$outcome" '. + {terminal_outcome:$outcome}' "${GARDEN_USAGE_FILE:-/dev/null}" \
+      > "${GARDEN_USAGE_FILE:-/dev/null}.tmp" 2>/dev/null \
+      && mv "${GARDEN_USAGE_FILE:-/dev/null}.tmp" "${GARDEN_USAGE_FILE:-/dev/null}" || true
+  fi
   usage_capture_rusage "${GARDEN_USAGE_FILE:-/dev/null}" "$rusage" || true
   # Close the nested-`claude -p` metering hole: when this handler supervised a panel
   # (or any nested `claude -p`), the envelope just captured accounts only for the
@@ -366,8 +390,39 @@ if command -v jq >/dev/null 2>&1 && jq -er '.result' "$envelope" > "$report" 2>/
   augment_usage_with_session_delta "${GARDEN_USAGE_FILE:-/dev/null}" \
     "$usage_before_nested" "$usage_after_nested" "$resolved_for_usage" || true
 else
-  cp "$envelope" "$report" 2>/dev/null || : > "$report"
+  outcome=transient-failure
+  printf 'Claude CLI stream was truncated or ended without exactly one result event.\n' > "$report"
+  printf '{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false}}\n' > "${GARDEN_USAGE_FILE:-/dev/null}" 2>/dev/null || true
 fi
+
+# Feed the structured verdict into the existing requeue/quarantine/doom spine.
+# Budget exhaustion is a normal bounded stop, not a job defect; quota cuts and
+# malformed streams are likewise transient.  Policy refusals carry the existing
+# narrow control-plane wording so the reaper quarantines them.  Other API errors
+# remain real failures and surface rather than looping blindly.
+case "$outcome" in
+  complete-candidate) : ;;
+  budget-stop)
+    printf 'Claude structured budget stop: max budget USD exhausted; requeueing bounded work.\n' >&2
+    rc="${GARDEN_OFFLINE_RC:-75}"
+    ;;
+  quota-cut)
+    printf 'Claude structured quota cut: usage limit reached; requeueing after provider backoff.\n' >&2
+    rc="${GARDEN_OFFLINE_RC:-75}"
+    ;;
+  policy-refusal)
+    printf 'Claude request was blocked by our usage policy (structured provider policy refusal).\n' >&2
+    rc=1
+    ;;
+  api-error)
+    printf 'Claude structured API error (status=%s).\n' "$(jq -r '.api_error_status//"unknown"' <<<"$result_event")" >&2
+    rc=1
+    ;;
+  *)
+    printf 'Claude structured transient failure; requeueing.\n' >&2
+    rc="${GARDEN_OFFLINE_RC:-75}"
+    ;;
+esac
 
 # --- deterministic completion signal -----------------------------------------
 #
@@ -380,7 +435,7 @@ fi
 # never reached the final act — leaves the marker absent, so no sentinel is
 # written and gardener.sh requeues the job instead of recording it done and losing
 # it in tada. Strip the marker before it lands in the human-facing tada report.
-if [ "$rc" -eq 0 ] && [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && report_has_completion_marker "$report"; then
+if [ "$outcome" = complete-candidate ] && [ "$rc" -eq 0 ] && [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && report_has_completion_marker "$report"; then
   strip_completion_marker "$report"
   : > "$GARDEN_COMPLETION_SENTINEL"
 fi

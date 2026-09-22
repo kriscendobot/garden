@@ -2112,6 +2112,37 @@ is_provider_policy_refusal_file() {
   grep -qiE "$GARDEN_PROVIDER_POLICY_REFUSAL_SIGNATURES" "$file" 2>/dev/null
 }
 
+# claude_result_outcome <result-event-json> — classify Claude Code's structured
+# terminal event.  Text classifiers remain compatibility belts for older
+# providers, but the Claude handler treats this verdict as authoritative.
+claude_result_outcome() {
+  local event="${1:-}" status
+  command -v jq >/dev/null 2>&1 || { printf 'transient-failure\n'; return; }
+  status="$(jq -r '(.api_error_status // "")|tostring' <<<"$event" 2>/dev/null)" \
+    || { printf 'transient-failure\n'; return; }
+  jq -r --arg status "$status" '
+    def hay: [(.subtype//""),(.terminal_reason//""),(.stop_reason//""),(.error//"")]
+      | map(tostring) | join(" ") | ascii_downcase;
+    (hay) as $h |
+    if (.type//"") != "result" then "transient-failure"
+    elif (.is_error != true and ($status == "" or $status == "null")) then "complete-candidate"
+    elif ($h|test("max[_ -]?budget|budget[_ -]?exhaust")) then "budget-stop"
+    elif (($status == "429") or ($h|test("quota|rate[_ -]?limit|usage limit|weekly limit|five[_ -]?hour|5[_ -]?hour"))) then "quota-cut"
+    elif (((.permission_denials//[])|length) > 0 or ($h|test("policy|permission[_ -]?denied|refus|blocked"))) then "policy-refusal"
+    elif ($status != "" and $status != "null") or ($h|test("api[_ -]?error|overload|connection|timeout")) then "api-error"
+    else "transient-failure" end
+  ' <<<"$event" 2>/dev/null || printf 'transient-failure\n'
+}
+
+# claude_stream_result <stream-file> — validate the entire NDJSON stream and
+# print its sole terminal result event.  A truncated line, multiple result
+# events, or a missing result is untrustworthy and therefore fails closed.
+claude_stream_result() {
+  local file="${1:-}"
+  [ -s "$file" ] && command -v jq >/dev/null 2>&1 || return 1
+  jq -cse '[.[] | select(.type == "result")] | if length == 1 then .[0] else error("terminal result count") end' "$file" 2>/dev/null
+}
+
 # provider_quota_reset_clause <text> — echoes the "resets …" clause when the
 # refusal names its own reset time, else nothing. Lets the fleet notice tell the
 # maintainer WHEN the condition ends without them reading the raw diagnosis.
