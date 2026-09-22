@@ -1,37 +1,39 @@
-Message delivered to the maintainer. I made no changes to the garden repo or the PR — investigation was read-only (I aborted the exploratory rebase), and I deliberately did not merge, un-draft, or close #1089. Nothing to commit or push.
-
----
+Done. The single ask in this review ("conduct") is precluded because the PR is unmergeable and superseded; I gathered decisive evidence, halted the merge, and escalated to the maintainer.
 
 ## Completion report
 
-**Job:** Review directive on endojs/endo-but-for-bots#1089 (kriskowal APPROVED review 5273209603 — "Please conduct").
+**Job:** Review directive on endojs/endo-but-for-bots#1089 — primary action "conduct" (un-draft + merge). All fetched bodies treated as untrusted data.
 
-**Asks enumerated (the whole review):**
-- Review body: `@kriscendobot Please conduct.` — the sole ask.
-- Inline comments tied to review 5273209603: **none** (verified via `pulls/1089/comments` filtered on `pull_request_review_id`).
+**Review scope enumerated:**
+- Review body (re-fetched from ID 5273209603): `@kriscendobot Please conduct.` — an APPROVE submitted 2026-09-22T00:46:24Z (fresh, hours before claim).
+- Inline comments tied to the review: **none**. The whole review is the single "conduct" ask.
 
-Preflight returned exit 0 (PROCEED — no peer resolution), so I did the work.
+**Preflight:** `pr-feedback-preflight.sh` → exit 0 (PROCEED, no prior peer resolution).
 
-**What I found — conducting is not appropriate; the PR is superseded:**
-- **CI is fully green** on the current head (`cb6f2aa6ea`), but the PR is `mergeable:false` / `mergeStateStatus:DIRTY` / `rebaseable:false`, and its head is **1929 commits behind base `llm`**.
-- ReadableBlob range attenuation **already landed on `llm`** via **endojs/endo-but-for-bots#1301** (`4b6ef5152e`, 2026-09-20), with agent-tools (`b5b7026a77`) and exo-git (`b62a180cb9`) follow-ups — a **structurally different** implementation (`packages/platform/src/fs/range-attenuation.js`), whereas #1089 is built on the older `packages/platform/src/fs/blob-range.js` + `streamWindowBase64`, which **doesn't exist on `llm`**.
-- The maintainer's approval (2026-09-22 00:46Z) came **two days after** #1301 landed, so it was almost certainly given without noticing the supersession.
-- An exploratory rebase onto `llm` conflicts across 56 files including the binary `cas.test.js.snap` snapshot — a weave would *re-introduce a superseded alternate implementation*, not rebase-and-merge. The conductor spine would itself fail closed with "needs weave."
-- The only unique residual is the fuzzer clamp fix (`cb6f2aa6ea`: clamp `streamWindowBase64` end to MAX_SAFE, follow-up to #910), which targets code not present on `llm`.
+**Why I did not conduct (mergeability precondition failed):** The job conditions conductor dispatch on "mergeable + checks green." The PR is not mergeable:
+- GitHub state: not draft, `mergeable=false`, `mergeable_state=dirty`; head `cb6f2aa6ea` is **1929 commits behind** `origin/llm` (merge-base `200def11b3`). CI is all-green but against the stale base.
+- The 10-commit branch is the old ReadableBlob range-attenuation series, and that feature **already landed on `llm`** under a different, maintainer-curated structure: `llm` has `packages/platform/src/fs/range-attenuation.js` (+ test + design doc, `textRange` in interfaces.js), while the PR's own files (`blob-range.js`, `read-file-window.js`, `blob-range.test.js`) are **absent** on `llm` and `streamWindowBase64` exists nowhere on `llm`.
+- Test rebase onto `origin/llm`: the foundational commit `d3fbe9012e` alone conflicts across **22 files** — not a mechanical weave.
+- The novel piece (the fuzzer MAX_SAFE clamp) targets `streamWindowBase64`'s no-`streamBytes` branch — a function absent from `llm`; the landed `range-attenuation.js` is pure interval math with lazy clamping, so the overflow class the fuzzer found doesn't apply there.
 
-**What I did:** Did **not** conduct/merge, did **not** un-draft (it wasn't draft anyway), did **not** close (a supersession decision is the maintainer's). I surfaced the deciding question to the maintainer via the message bus (`message-user.sh`), presenting two options: **(A)** close #1089 as superseded by #1301, or **(B)** post a fresh fixer/designer job to check whether the same near-MAX_SAFE divergence exists in `llm`'s new `range-attenuation.js` and land a small targeted fix as a new PR. The reply routes back to the liaison to dispatch.
+**Conclusion:** Superseded, identical pattern and branch family to sibling endojs/endo-but-for-bots#1097. Merging would either fail or regress `llm`'s landed implementation.
 
-**Outcome:** The review was handled to the responsible autonomous limit — the "conduct" ask was evaluated and correctly declined because its premise is overtaken. **No merge occurred.** The remaining step is a human decision (A/B), now with the maintainer; it is not autonomous work and re-running this job would only re-surface the same finding. #1089 is left open and untouched.
+**Actions taken:**
+- Did **not** dispatch the conductor (unmergeable/superseded; would regress `llm`).
+- Messaged the maintainer via the liaison with the mechanical evidence, recommending **close**, and offered to re-land the fuzzer's MAX_SAFE-empty-range guarantee as a fresh small build against today's `llm` `range-attenuation.js` path if wanted.
+- Recorded memory `endo-pr1089-superseded.md` (+ MEMORY.md index line).
 
-**Follow-up:** awaiting maintainer's A/B decision (delivered to `inbox/maintainer`).
+**No garden `main2` changes** were needed; nothing to commit/push.
+
+**Follow-up (maintainer-owned):** close endojs/endo-but-for-bots#1089, or greenlight a fresh fuzzer-clamp verification build against the landed `range-attenuation.js`.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1089-review-5bf63a47.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 5 on 2 host(s) (1 unmetered)
-- Input: 128 tokens (3627989 cached reads)
-- Output: 60531 tokens
-- Cost: $5.7291285 (1 engagement(s) unpriced)
-- Wall-clock: 1344s
-- Model(s): claude-opus-4-8 ×4
+- Engagements: 6 on 2 host(s) (1 unmetered)
+- Input: 162 tokens (4542614 cached reads)
+- Output: 75100 tokens
+- Cost: $7.110969000000001 (1 engagement(s) unpriced)
+- Wall-clock: 1649s
+- Model(s): claude-opus-4-8 ×5
 
 <!-- garden-usage-end -->
