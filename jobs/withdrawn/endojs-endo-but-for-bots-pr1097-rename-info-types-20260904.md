@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by review 5273199990: PR #1097 rebased onto current llm (base llm-db664fa) and getInfo split into size()/sha256() upstream; this stage's getInfo()->info() rename direction is dead and its orchestrator pr1097-rsvp-20260904 is already in tada/.
+withdrawn_by: gardener
+withdrawn_at: 2026-09-22T05:16:51Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: endojs-endo-but-for-bots-pr1097-rsvp-20260904
 priority: normal
