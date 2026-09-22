@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T12:54:11Z_
+_As of 2026-09-22T12:55:50Z_
 
 ## Latest
 
@@ -3922,16 +3922,16 @@ _Fleet token-unlock pace: 35873265 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-triager-pace-singleflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-triager-pace-singleflight.md) — ---
+### doin (0)
+(none)
 
-### tada (8678)
+### tada (8679)
+- [`improve-triager-pace-singleflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pace-singleflight.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-28ba4fd23acf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-28ba4fd23acf.md) — rolling-deploy canary probe — round trip OK
 - [`improve-triager-pacing-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pacing-contention.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-c0369b58a570`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-c0369b58a570.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1325-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1325-shepherd.md) — Cost
-- [`improve-comment-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-comment-cursor-retry.md) — Completion report
-- … and 8673 more
+- … and 8674 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
