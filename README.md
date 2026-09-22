@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T20:35:08Z_
+_As of 2026-09-22T20:39:41Z_
 
 ## Latest
 
@@ -3940,24 +3940,24 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 38.7M | $374.86 _(notional, rate-card)_ | 27% of 143.0M (ok) |
-| Codex | 17.8M _(+382.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Codex | 17.8M _(+382.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34723358 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 33938691 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — Deliberate overrun decomposition for run-the-gauntlet-endo-pr1329-20260922
+- [`run-the-gauntlet-endo-pr1329-20260922-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922-expanded-window.md) — Expanded-window gauntlet for endojs/endo-but-for-bots PR #1329
 
-### tada (8696)
+### tada (8697)
+- [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/run-the-gauntlet-endo-pr1329-20260922.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-a47b3c2d6ece`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-a47b3c2d6ece.md) — rolling-deploy canary probe — round trip OK
 - [`improve-followup-handoff-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-followup-handoff-detection.md) — Cost
 - [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-193551.md) — Cost
 - [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/shepherd-endo-pr1329-registry-migration.md) — Cost
-- [`claude-on-minion-town-completion-press-20260922-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-163506.md) — Completion report — completion-press tick 20260922-163506 (Claude-on-minion.t...
-- … and 8691 more
+- … and 8692 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
