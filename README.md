@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T19:40:00Z_
+_As of 2026-09-22T19:48:18Z_
 
 ## Latest
 
@@ -12,9 +12,9 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 5d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 10d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 20d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 20d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 21d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 21d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 21d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 20d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 22d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 24d)
@@ -3945,11 +3945,11 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260922-193551.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (1)
-- [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260922-193551.md) — Press the Claude-on-minion.town arc forward
+- [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — ---
 
 ### tada (8693)
 - [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/shepherd-endo-pr1329-registry-migration.md) — Cost
