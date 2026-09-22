@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T06:22:08Z_
+_As of 2026-09-22T06:43:08Z_
 
 ## Latest
 
@@ -284,6 +284,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > midnight) once the anchored scheduler landed on the leader host; do not revert it
 > to `daily` while any leader host still runs a pre-anchor scheduler, or that
 > scheduler would treat the token as its weekly default.
+
+- `watchdog-root-repo-dirty-tree-repaired-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-dirty-tree-repaired-endolin-garden2-5bcdff64.md)
+
+> root repo /home/kris/garden2 had a STRAY TRACKED EDIT (the no-development-in-the-root invariant was violated). It was PRESERVED (branch root-guard-backup/20260922T062250Z + patch /home/kris/garden2/.garden-state/deploy/dirty-tree-backups/20260922T062250Z.patch) and the tracked tree restored to clean so the rolling deploy is never wedged behind a dirty-tree abort. This is an after-the-fact FYI — the fleet keeps moving. Preserved paths:  M scripts/jobs/common.sh; M scripts/jobs/test/cursor-outage-cooldown-test.sh. (host=endolin-garden2-5bcdff64)
 
 - `20260920T071516Z-b24a5a` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T071516Z-b24a5a.md)
 
@@ -1396,11 +1400,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-09-13T14:20:13Z, latest 2026-09-22T03:50:24Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-0`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> WATCHDOG notice — occurrence #15 (first seen 2026-09-13T14:20:13Z, latest 2026-09-22T06:36:35Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-0`) has now been observed 15 times; this is ONE
+> coalesced notice that updates in place, not 15 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared cleric demand active=2 queue=0 fleet-envelope=5 target=0
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared cleric demand active=1 queue=1 fleet-envelope=5 target=0
 
 - `20260920T062717Z-3d6d1d` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T062717Z-3d6d1d.md)
 
@@ -3780,6 +3784,26 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `msg-kriscendobot-minion.town-pr87-b8a7509c-f0e1b470984b` — from gardener:kriscendobot-minion.town-pr87-b8a7509c, reply_to `kriscendobot-minion.town-pr87-b8a7509c` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr87-b8a7509c-f0e1b470984b.md)
+
+> attention directive "repo-wide migration to vitest" (minion.town PR [kriscendobot/minion.town#87](https://github.com/kriscendobot/minion.town/issues/87) comment 5770443815) — ALREADY DONE, and fanned out into THREE competing green draft PRs. Routing/triage only, no fourth PR posted.
+>
+> Reality check: minion.town's root suite was already on vitest; the only holdouts were two self-contained sub-packages still on `node --test` — `tools/claude-harness` (.test.mjs) and `deploy/thunks/siwe` (test/*.test.js). Three separate job bases each built that same conversion:
+>
+>   [kriscendobot/minion.town#107](https://github.com/kriscendobot/minion.town/issues/107)  fix/repo-wide-vitest    base kriscendobot-minion.town-pr87-b8a7509c (THIS job's own base)  +2884/-18 (11 files)
+>   [kriscendobot/minion.town#108](https://github.com/kriscendobot/minion.town/issues/108)  vitest-repo-wide-holdouts    base fix-minion-town-vitest-repo-wide-holdouts  +3052/-161 (14 files)
+>   [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109)  garden/build-minion-town-vitest-migration    base build-minion-town-vitest-migration  +565/-555 (8 files)
+>
+> All three: DRAFT, CI fully green (test + claude-harness amd64/arm64), zero reviews, none gauntleted.
+>
+> Recommendation: keep ONE, close the other two, then run the gauntlet on the keeper.
+>
+> My pick: [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109). Far cleanest (+565/-555 vs ~+3000 — the others carry big regenerated lockfile diffs), folds claude-harness into the ROOT vitest gate (drops both root --exclude flags; one gate, not a bolted-on per-package CI step), and is the only one that squarely addresses the directive's ambiguity: Endo (@llm) runs AVA, not vitest, so "Endo dictates house style" can't mean "copy Endo's runner" — it reads it as vitest (the explicit target) + Endo's runner-agnostic conventions (spec-spelling titles, one-behaviour-per-assertion, expect(...).toThrow), matched to minion.town's own existing vitest specs.
+>
+> One tradeoff to decide: [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109) deliberately leaves the SIWE thunk OUT of the root/CI gate (it has its own dep `viem` the root install lacks; it still runs on vitest via its own `npm --prefix` run). [kriscendobot/minion.town#108](https://github.com/kriscendobot/minion.town/issues/108) instead ADDS a dedicated `Test SIWE OIDC thunk` CI step so SIWE gets first-ever CI coverage under vitest. If you want SIWE gated in CI, promote [kriscendobot/minion.town#108](https://github.com/kriscendobot/minion.town/issues/108), or ask for [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109) plus that one CI step. Otherwise take the [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109) default as-is.
+>
+> Say the word and I'll close the two losers; I did not close anything unilaterally since picking among three green impls is your taste call.
+
 - `20260922T045755Z-71316b` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T045755Z-71316b.md)
 
 > kind: error
@@ -3891,24 +3915,25 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.5M | $844.93 _(notional, rate-card)_ | no quota set |
-| Codex | 32.9M _(+784.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Claude | 129.6M | $843.73 _(notional, rate-card)_ | no quota set |
+| Codex | 33.0M _(+793.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-endolin-garden2-5bcdff64-e43c28386fae-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-e43c28386fae-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ e43c28386fae
 
-### doin (2)
+### doin (3)
 - [`orchestrate-claude-cli-signal-upgrade-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/orchestrate-claude-cli-signal-upgrade-20260922.md) — Work item 1 — READ THE ENVELOPE FIELDS WE ALREADY RECEIVE (do this first)
-- [`build-minion-town-vitest-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-vitest-migration.md) — build: repo-wide vitest migration on kriscendobot/minion.town
+- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr87-b8a7509c.md) — attention directive on kriscendobot/minion.town PR #87
+- [`claude-on-minion-town-press-20260922-063659`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260922-063659.md) — Press the Claude-on-minion.town arc forward
 
-### tada (8651)
-- [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Cost
-- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — Cost
+### tada (8653)
+- [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Completion report
+- [`self-heal-fix-garden-triager-kriscendobot-minion-town-cursor-key-unguarded`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/self-heal-fix-garden-triager-kriscendobot-minion-town-cursor-key-unguarded.md) — Report
+- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — Completion report
+- [`build-minion-town-vitest-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/build-minion-town-vitest-migration.md) — What I did
 - [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1226-review-adf95686`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1226-review-adf95686.md) — Completion report
-- [`endojs-endo-but-for-bots-pr256-review-d46e607a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr256-review-d46e607a.md) — Review directive resolved — endojs/endo-but-for-bots PR #256
-- … and 8646 more
+- … and 8648 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
