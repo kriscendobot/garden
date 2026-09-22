@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T13:55:54Z_
+_As of 2026-09-22T14:12:42Z_
 
 ## Latest
 
@@ -3922,16 +3922,16 @@ _Fleet token-unlock pace: 35759779 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-cursor-set-push-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-set-push-cas.md) — ---
+### doin (0)
+(none)
 
-### tada (8680)
+### tada (8684)
+- [`kriscendobot-minion.town-pr110-conduct-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-conduct-20260922.md) — Completion report
+- [`kriscendobot-minion.town-pr110-review-24e9aba3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-review-24e9aba3.md) — Completion report
+- [`kriscendobot-minion.town-pr110-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-conduct.md) — Cost
+- [`improve-cursor-set-push-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-cursor-set-push-cas.md) — Cost
 - [`claude-on-minion-town-press-20260922-130552`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-130552.md) — Cost
-- [`improve-triager-pace-singleflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pace-singleflight.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-28ba4fd23acf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-28ba4fd23acf.md) — rolling-deploy canary probe — round trip OK
-- [`improve-triager-pacing-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pacing-contention.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-c0369b58a570`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-c0369b58a570.md) — rolling-deploy canary probe — round trip OK
-- … and 8675 more
+- … and 8679 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4211,6 +4211,7 @@ _Fleet token-unlock pace: 35759779 tokens/day lower bound; incomplete where a su
 - [`endojs-endo-but-for-bots-pr1097-review-05395c57-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1097-review-05395c57-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1097 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1227-review-5194e7b0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1227-review-5194e7b0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1227 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr104-review-d1b5207f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr104-review-d1b5207f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #104 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr110-review-24e9aba3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr110-review-24e9aba3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #110 (primary: kriscendobot-mini...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
