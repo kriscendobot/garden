@@ -1,0 +1,25 @@
+<6>19:38:05 [monk/1] job 'claude-on-minion-town-press-20260922-193551' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>19:38:05 [monk/1] job 'claude-on-minion-town-press-20260922-193551' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>19:38:05 [monk/1] job 'claude-on-minion-town-press-20260922-193551' call ceiling: tier=minion max-budget-usd=5.80 (scaled by fresh seven-day headroom when available)
+<6>19:43:21 [assert-followup-posted] gate: BLOCK — 'claude-on-minion-town-press-20260922-193551' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Done. Summary of this press tick for the Claude-on-minion.town arc (issue #89):
+
+## What I did
+
+**1. Verified state** across the arc's PRs and the board. The one material change since the last press (16:27Z): **[endojs/endo-but-for-bots#1329](https://github.com/endojs/endo-but-for-bots/pull/1329)** (the registry-migration fix — the exact defect that forced the #110→#111 pin revert) has gone from CI-red (a `test (24.x, macos-15)` flake) to **fully CI-green (17/17)**, still draft, no review. All other named PRs unchanged: minion.town#87 merged; endo#1015 quiet green draft; endo#1125 closed; the three design PRs still CHANGES_REQUESTED; minion.town#97 draft off critical path; minion.town#81 still CONFLICTING draft. Inbox empty; no maintainer reply pending.
+
+**2. Updated the issue body** — corrected the checklist-intro timestamp (→19:3xZ) and #1329's status in three places (checklist intro, item 7, and the blockers section) from "draft/CI-red" to "CI now fully green, still draft, no review."
+
+**3. Pointed the maintainer at the one review that unblocks the most** — posted a press comment (state genuinely changed) naming **review+merge #1329 to `llm`** as the single gate that re-opens the CapTP chain: pin re-land → fallback fix → #81 → CapTP eval (item 7).
+
+**4. Posted one unblocked job** — `run-the-gauntlet-endo-pr1329-20260922` to run the panel-fixer loop against #1329 and un-draft it into a review-ready state (CI is now green, so this stage is unblocked and was not in flight). It explicitly does not merge to `llm` — that stays a separate conduct step after maintainer review.
+
+## What changed
+- Issue #89 body edited; press comment posted ([comment](https://github.com/kriscendobot/garden/issues/89#issuecomment-5782848892)).
+- One job posted to the board.
+
+## Follow-ups
+- Next tick: check whether the #1329 gauntlet un-drafted it and whether the maintainer reviewed/merged. On merge to `llm`, the pin re-land onto minion.town `main` becomes the next machine step (re-pin to new `llm` HEAD), which promotes the parked `minion-town-guest-web-invite-accept-fallback-fix-20260922`.
+- No maintainer question needed — the next step is a review of a ready fix, not a decision/design fork, so the stop condition doesn't apply.
