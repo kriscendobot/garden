@@ -65,3 +65,13 @@ conservative default you'll take absent an answer.
 - Open a DRAFT PR against `main` via `ensure-pr.sh` and stop at draft (manual
   gauntlet regime); the PR body notes the house-style caveat and how it was
   resolved. Do not un-draft or self-merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T06:03:50Z
