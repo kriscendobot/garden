@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T14:49:52Z_
+_As of 2026-09-22T14:54:13Z_
 
 ## Latest
 
@@ -3913,10 +3913,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.7M | $369.98 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.9M _(+373.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 37.7M | $371.12 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Codex | 17.0M _(+373.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 35759779 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 35765797 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
@@ -3924,15 +3924,15 @@ _Fleet token-unlock pace: 35759779 tokens/day lower bound; incomplete where a su
 
 ### doin (2)
 - [`minion-town-endo-daemon-deploy-fail-89481580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-daemon-deploy-fail-89481580.md) — ---
-- [`kriscendobot-minion.town-pr110-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr110-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #110 (mer...
+- [`improve-triager-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-triager-tick-bounds.md) — ---
 
-### tada (8685)
+### tada (8686)
+- [`kriscendobot-minion.town-pr110-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-receipt.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-5118c1cf1da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-5118c1cf1da7.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr110-conduct-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-conduct-20260922.md) — Completion report
 - [`kriscendobot-minion.town-pr110-review-24e9aba3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-review-24e9aba3.md) — Completion report
 - [`kriscendobot-minion.town-pr110-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-conduct.md) — Cost
-- [`improve-cursor-set-push-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-cursor-set-push-cas.md) — Cost
-- … and 8680 more
+- … and 8681 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
