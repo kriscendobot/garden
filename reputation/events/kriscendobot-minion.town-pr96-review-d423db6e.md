@@ -1,22 +1,23 @@
 ---
 base: kriscendobot-minion.town-pr96-review-d423db6e
-kind: cleric
-provider: openai
-model: gpt-5.6-sol
+kind: monk
+provider: anthropic
+model: claude-opus-5
 thoughtfulness: medium
 work_class: other:m
 target: main2
 accepted: true
-agentic_dollars: 2.078472
+agentic_dollars: 2.757632
 human_dollars: 0
-aggregate_dollars: 2.078472
-cost_source: ledger
+aggregate_dollars: censored
+cost_source: wallclock
+estimated_dollars: 0.006900
 attempts: 1
-duration_secs: 160
+duration_secs: 100
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden2-5bcdff64/cleric-1
-recorded_at: 2026-09-22T02:27:43Z
+recorded_by: endolin-garden-ece02cb4/monk-2
+recorded_at: 2026-09-22T02:45:11Z
 ---
-reputation event for kriscendobot-minion.town-pr96-review-d423db6e: arm openai/gpt-5.6-sol/medium work_class other:m target main2 accepted true
+reputation event for kriscendobot-minion.town-pr96-review-d423db6e: arm anthropic/claude-opus-5/medium work_class other:m target main2 accepted true
