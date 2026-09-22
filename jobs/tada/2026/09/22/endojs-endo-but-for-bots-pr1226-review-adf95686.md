@@ -1,26 +1,33 @@
-Corroborated the complete resolution of review 5273006881 at PR head `e5c632911b4ab4db02743b4b0a4e80bccac6e077`:
+All six asks are corroborated as genuinely resolved in the doc at head `e5c632911b`, with a reply on every inline thread. This is a verified no-op — no further edits are warranted (an additional reply would just add the superfluous meta-narrative the maintainer flagged). Completion report follows.
 
-- Review-body RSVP: top-level summary comment `5770647894` maps every ask to its outcome.
-- Superfluous meta-narrative: commits `c1df1296ee`, `dd3ad7040f`, and `e5c632911b` remove it; thread reply `4068150585`.
-- Keep multiple Claude topologies: commit `c1df1296ee` explicitly retains both; reply `4067647652`.
-- Always dispatch through one guest facet: commit `c1df1296ee` states the one-facet ceiling; reply `4067647806`.
-- Pin down `--mcp-config`: commit `c1df1296ee` selects an anonymous-pipe/`memfd`-backed path; reply `4067647918`.
-- Deny confined Claude direct daemon-socket access: commit `c1df1296ee` makes this non-negotiable and moves the connection outside the confined tree; reply `4067648039`.
-- Expose logging: commit `c1df1296ee` specifies the logging facet and MCP capability; reply `4067648141`.
+---
 
-Evidence: inspected `git diff 57dccee4..e5c632911b`; GitHub REST reported six parent threads and six replies. Current checks show 7 successful and 23 intentionally skipped checks, with no failures. Re-requested review from `kriskowal`; GitHub now lists that pending review request.
+## Completion report: PR #1226 review directive (kriskowal, review 5273006881)
 
-No additional source commit or push was needed. Remaining sandbox/scoped-bootstrap items are already recorded as implementation-stage verification and scheduling questions, not unresolved review directives.
+**Outcome: verified no-op.** Every ask in this `CHANGES_REQUESTED` review was already resolved on the PR head branch (`design/endo-guest-stdio-mcp`, HEAD `e5c632911b`) by prior claimants (the rsvp commit `c1df1296ee`, plus follow-up strikes `dd3ad7040f` — provenance-tagged to *this* job base — and `e5c632911b`). Preflight returned exit 2 (hint); I corroborated each ask against the actual doc content rather than trusting the reply text.
 
-Self-improvement: nothing this time.
+**Review body:** `@kriscendobot rsvp` → satisfied; every inline thread carries a substantive reply and the requested changes landed.
+
+**The six inline asks, each with the artifact that resolves it:**
+
+1. **`4067434988` "superfluous meta-narrative"** — resolved. Revision/changelog narrative fully struck across `c1df1296ee` → `dd3ad7040f` → `e5c632911b`. Grep at head for `updated 2026 | revised 2026 | revision note | earlier draft | the 2026-09-17 | and, honestly | simplification collapsed` returns **zero hits**. § Status now reads as a present-tense spec.
+2. **`4067449945` "don't consolidate endo-claude yet"** — resolved. Open Questions entry "Do NOT consolidate…" + § Scoping now carries **both** topologies (harness-owned broker *and* server-held connection) as legitimate; no reconciliation owed.
+3. **`4067463888` "drill down to the guest facet, dispatch through that one guest and no other"** — resolved. § Scoping lines 15/127-128/161-162: "against that one facet and no other… drills down to the guest facet and always dispatches through that guest (maintainer, PR #1226)."
+4. **`4067466288` "pin this down now… investigate options"** — resolved. § *Threading the formula id from configuration* investigates env-var vs stdin-handshake carriers (recommends `ENDO_GUEST_FORMULA_ID` env var) and file-path-via-pipe/`memfd` vs inline-JSON vs shell `<(…)` (rejects the latter two). Open Questions marked resolved.
+5. **`4067474722` "claude must not reach the socket / design forfeit"** — resolved. Open Questions "The daemon socket must NOT be reachable by `claude` from inside the slice"; the "rely on formula-id secrecy" branch struck; connection held **outside** the confined tree; endo-posix-sandbox bwrap isolation named as load-bearing.
+6. **`4067480364` "expose a logging facet"** — resolved. Doc lines 459-462 + 833-834: server exposes a logging facet and advertises the MCP `logging` capability; log source left as an implementation choice per the maintainer's steer.
+
+**Changed:** nothing by me — no commits, no new replies (the rsvp is complete; adding another would be the very meta-narrative flagged). Inbox drained, empty.
+
+**Follow-ups:** none required for this review. The doc remains a design-stage draft PR; two Open Questions carry a *remaining-verification* note (bwrap socket-denial to be confirmed with endo-posix-sandbox; scoped-bootstrap-vs-broker scheduling) but these are forward design work, not asks of this review, and are recorded in the doc.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1226-review-adf95686.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 8 on 2 host(s) (1 unmetered)
-- Input: 282 tokens (12037089 cached reads)
-- Output: 111690 tokens
-- Cost: $14.2629205 (1 engagement(s) unpriced)
-- Wall-clock: 2478s
-- Model(s): claude-opus-4-8 ×7
+- Engagements: 9 on 2 host(s) (1 unmetered)
+- Input: 302 tokens (12552542 cached reads)
+- Output: 118422 tokens
+- Cost: $15.237542 (1 engagement(s) unpriced)
+- Wall-clock: 2667s
+- Model(s): claude-opus-4-8 ×8
 
 <!-- garden-usage-end -->
