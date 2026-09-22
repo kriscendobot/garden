@@ -75,13 +75,5 @@ look productive while blocked.
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden`
 issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no ferry.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-22T19:36:01Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-22T19:54:07Z -->
