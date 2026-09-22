@@ -1,27 +1,30 @@
-Both asks in review 5273072032 on endojs/endo-but-for-bots#1227 were already resolved on the PR branch; I corroborated each against its concrete artifact before completing as a no-op.
+Both asks in review 5273072032 were already resolved on the PR head by a peer; I verified each against the actual artifacts and closed the top-level CHANGES_REQUESTED loop with an acknowledgment comment.
 
-## What the review asked (2 items)
+## Completion report
 
-1. **Review body (CHANGES_REQUESTED, @kriscendobot):** "Please revise this to reflect the features landed in Endo for provisioning wake-on-message pins for guests."
-2. **Inline comment** on `designs/daemon-guest-bot-incarnation.md` (id 4067487699): "It would be more precise to say append-only rather than immutable. A formula, once written, cannot be modified. The graph can grow and collect unreachable nodes, and is mutable to that extent."
+**Job:** Review directive on endojs/endo-but-for-bots PR #1227 (review 5273072032 by kriskowal, CHANGES_REQUESTED).
 
-## Corroboration (each ask → artifact)
+**Asks enumerated (whole review as unit of work):**
+1. **Review body:** "revise this to reflect the features landed in Endo for provisioning wake-on-message pins for guests."
+2. **Inline comment** (id 4067487699, `designs/daemon-guest-bot-incarnation.md` §Background): prefer "append-only" over "immutable" — a formula can't be modified once written, but the graph grows and collects unreachable nodes.
 
-- **Ask 1 → commit `ae0929f48d`** ("docs(daemon): align guest bot design with landed pins (#1227)"), the current PR HEAD (`head_sha` = ae0929f48d…). It is a 1078-line rewrite that replaces the speculative `bot`-binding design with the landed pin mechanism: `provideGuest(..., { pins })`, the `guestPins`/`hostPins` formula fields, `reincarnateMailboxPins`, and a "Wake on every mailbox delivery" section (file lines 17–217). `designs/README.md` status for this design flipped `Not Started` → **Implemented**. This directly reflects the wake-on-message pin features the review asked to be documented.
-- **Ask 2 → commit `ae0929f48d` (Background, lines 46–49) + reply comment 4067898149.** The Background now reads: "Endo's persistent state is an append-only **formula graph**. A formula, once written, cannot be modified. The graph itself can grow as formulas are added, and unreachable formulas can be collected, so describing the graph as immutable would be too strong." This matches the reviewer's requested precision verbatim in intent, and the peer posted an inline reply (id 4067898149) pointing to the same commit.
+**Preflight:** exit 2 (HINT). Corroborated each ask against real artifacts rather than trusting the hint.
 
-Both artifacts are committed to and pushed on the PR head branch `design/endo-daemon-guest-bot-incarnation` (`garden-fork/…` ref == PR head_sha). No inline comment other than the one above is tied to this review. Nothing left to change, so no new commit or push was warranted.
+**Resolution artifacts (verified on PR head `ae0929f48d36`):**
+- **Ask 1** — commit `ae0929f48d36` ("docs(daemon): align guest bot design with landed pins (#1227)") rewrote the design: Status → **Implemented**; a new `## Status` section documents PR #1306's landed `provideGuest(..., { pins })` / guest `@pins` directory / per-delivery `reincarnateMailboxPins` best-effort revival, and explicitly retires the originally-proposed `GuestFormula.bot` edge and `EndoBot` start/result protocol. Formula-shape, mailbox-hook, retention, compatibility, test-plan, and affected-packages sections all now describe the landed pin mechanism; `designs/README.md` marks the row Implemented and links #1306. Confirmed by reading the file at head (lines 8–259).
+- **Ask 2** — same commit, §Background line 46: "append-only **formula graph**. A formula, once written, cannot be modified. The graph itself can grow… unreachable formulas can be collected, so describing the graph as immutable would be too strong." Directly incorporates the reviewer's wording; also reflected at line 212–213. Inline thread already carries peer reply id 4067898149 pointing at `ae0929f48`.
 
-## Follow-ups
-None. The PR remains an open design PR carrying the `<!-- garden-job: design-endo-daemon-guest-bot-incarnation -->` marker; it is up to the maintainer to re-review / merge.
+**What I changed:** No design/code changes were needed (peer work was complete and correct). I posted one top-level acknowledgment comment (issuecomment-5770644525) closing the CHANGES_REQUESTED loop, since the review body itself had no explicit reply — it names the resolving commit and summarizes how both asks were satisfied. No garden-repo (main2) changes; nothing to push. Inbox empty.
+
+**Follow-ups:** None. The PR remains a draft design PR; re-review / un-draft is the maintainer's call.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1227-review-5194e7b0.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 3 on 1 host(s) (1 unmetered)
-- Input: 38 tokens (850888 cached reads)
-- Output: 11932 tokens
-- Cost: $1.934373 (1 engagement(s) unpriced)
-- Wall-clock: 6443s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 4 on 1 host(s) (1 unmetered)
+- Input: 60 tokens (1427293 cached reads)
+- Output: 20106 tokens
+- Cost: $2.9723525 (1 engagement(s) unpriced)
+- Wall-clock: 6585s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
