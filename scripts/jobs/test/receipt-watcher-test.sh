@@ -83,6 +83,26 @@ if [ "${FAIL_GIT_CLONE:-0}" = 1 ] && [ "${1:-}" = clone ]; then
   echo 'fatal: unable to access remote: Could not resolve host: github.com' >&2
   exit 128
 fi
+# Fail sync_clone's `git reset -q --hard origin/<branch>` (both the first attempt
+# and the post-re-fetch retry) while leaving every other git op — clone, fetch,
+# config, clean — working, so the test can drive sync_clone's SECOND (post-re-fetch)
+# hard-reset failure path deterministically. The signature is non-offline on purpose:
+# the re-fetch succeeds (GARDEN_FETCH_CMD exits 0), so the reset failure must surface
+# as a die() diagnostic, not be reclassified as a transient outage.
+if [ "${FAIL_GIT_RESET:-0}" = 1 ]; then
+  is_reset=0; is_hard=0; has_target=0
+  for a in "$@"; do
+    case "$a" in
+      reset)     is_reset=1 ;;
+      --hard)    is_hard=1 ;;
+      origin/*)  has_target=1 ;;
+    esac
+  done
+  if [ "$is_reset" = 1 ] && [ "$is_hard" = 1 ] && [ "$has_target" = 1 ]; then
+    echo 'fatal: unable to update ref refs/heads/journal2: reset simulated failure' >&2
+    exit 128
+  fi
+fi
 exec /usr/bin/git "$@"
 EOF
 chmod +x "$TR/bin/"*
@@ -189,6 +209,28 @@ elif grep -q '^<3>  prerequisite: .*FATAL: fetch failed in .* after bounded retr
 else
   bad "structural journal failure lost its diagnostic or priority tag"
 fi
+
+# sync_clone's SECOND hard reset (the post-re-fetch retry at common.sh) must die() with
+# a diagnostic, not fall through as a bare `set -e` exit with an EMPTY prerequisite
+# stderr. The fetch succeeds (GARDEN_FETCH_CMD exits 0), so the offline/corrupt
+# branches are skipped; the first reset fails, the re-fetch succeeds (rc=0, so the
+# offline guard is FALSE and the tick is NOT reclassified as transient), and the
+# second reset fails too. The regression this guards: a bare second reset killed the
+# subshell on git's raw rc, producing the observed "receipt journal prerequisite
+# failed ... (rc=1)" with a completely empty captured stderr. The fix's die() must now
+# leave a priority-tagged, attributable diagnostic instead.
+rm -f "$STATE/gh-api-cooldown/marker"
+export FAIL_GIT_RESET=1
+if run_watch kriscendobot-source "$TR/second-reset.err" "$TR/bin/empty-source"; then
+  bad "second-reset failure was swallowed"
+elif grep -q '^<3>  prerequisite: .*FATAL: hard reset of .* to origin/journal2 failed after retry' "$TR/second-reset.err" \
+     && grep -q 'FATAL: receipt journal prerequisite failed' "$TR/second-reset.err" \
+     && ! grep -q 'produced NO diagnostic output' "$TR/second-reset.err"; then
+  ok "sync_clone second-reset failure dies with a priority-tagged diagnostic (not empty)"
+else
+  bad "second-reset failure lost its diagnostic, priority tag, or hit the empty-stderr path"
+fi
+unset FAIL_GIT_RESET
 
 # The EXIT-path cgroup sweep must wait until the service cgroup is empty, not merely
 # signal one snapshot. A fixture cgroup.procs file lets the test exercise the loop
