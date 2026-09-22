@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T22:43:05Z_
+_As of 2026-09-22T22:44:31Z_
 
 ## Latest
 
@@ -1015,7 +1015,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.7M | $506.41 _(notional, rate-card)_ | 35% of 143.0M (ok) |
+| Claude | 50.6M | $505.02 _(notional, rate-card)_ | 35% of 143.0M (ok) |
 | Codex | 18.1M _(+387.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1024,16 +1024,16 @@ _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260922-223629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260922-223629.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (8706)
+### tada (8707)
+- [`claude-on-minion-town-completion-press-20260922-223629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-223629.md) — Completion report — completion-press tick 20260922-223629 (Claude-on-minion.t...
 - [`claude-on-minion-town-press-20260922-223629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-223629.md) — Cost
 - [`run-the-gauntlet-endo-pr1329-20260922-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/run-the-gauntlet-endo-pr1329-20260922-split.md) — orchestration run-the-gauntlet-endo-pr1329-20260922-split — complete
 - [`run-the-gauntlet-endo-pr1329-20260922-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/run-the-gauntlet-endo-pr1329-20260922-expanded-window.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-2d6a96b95925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-2d6a96b95925.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden2-5bcdff64-58c9c6c2d8a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-58c9c6c2d8a5.md) — rolling-deploy canary probe — round trip OK
-- … and 8701 more
+- … and 8702 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
