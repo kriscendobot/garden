@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T09:41:15Z_
+_As of 2026-09-22T10:52:37Z_
 
 ## Latest
 
@@ -3913,25 +3913,26 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.9M | $364.39 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.4M _(+370.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 37.7M | $370.37 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Codex | 16.5M _(+371.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40168372 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 35873265 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1325-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1325-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1325
+- [`endojs-endo-but-for-bots-pr1327-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1327-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1327
 
-### tada (8668)
+### tada (8672)
+- [`claude-on-minion-town-completion-press-20260922-103505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-103505.md) — Completion report — completion-press tick 20260922-103505
+- [`improve-triager-pace-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pace-lock-contention.md) — Completion report
+- [`claude-on-minion-town-press-20260922-095053`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-095053.md) — Completion report
+- [`canary-probe-endolin-garden2-5bcdff64-762390ec8e44`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-762390ec8e44.md) — rolling-deploy canary probe — round trip OK
 - [`improve-triager-tick-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-tick-deadline.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-46660318274b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-46660318274b.md) — rolling-deploy canary probe — round trip OK
-- [`improve-issue-inbox-cursor-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-floor.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43.md) — rolling-deploy canary probe — round trip OK
-- [`improve-issue-inbox-cursor-timeout-alignment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-alignment.md) — Completion report
-- … and 8663 more
+- … and 8667 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
