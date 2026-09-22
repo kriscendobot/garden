@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T22:44:31Z_
+_As of 2026-09-22T22:57:30Z_
 
 ## Latest
 
@@ -525,6 +525,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Offered to ingest the post into the library as a follow-on if wanted; did not close the issue (submitter closes).
 
+- `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
+
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-22T22:38:06Z, cleared 2026-09-22T22:56:49Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> heartbeat resumed for endolin-garden2-5bcdff64; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/endolin-garden2-5bcdff64 record remains active. Archived records are not unarchived automatically.
+
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -1016,7 +1024,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 50.6M | $505.02 _(notional, rate-card)_ | 35% of 143.0M (ok) |
-| Codex | 18.1M _(+387.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Codex | 18.1M _(+387.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
