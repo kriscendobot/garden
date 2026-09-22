@@ -2,35 +2,46 @@
 handed-off: ebfb-pr256-hashline-phase2-build
 deliverable-complete: false
 ---
-Inbox empty. The routing is already owned by a live peer job.
+I have everything I need. Let me verify my findings before completing.
 
-## Completion report: `endojs-endo-but-for-bots-pr256-review-d46e607a`
+**What I found:**
 
-**Directive:** Address kriskowal's CHANGES_REQUESTED review on endojs/endo-but-for-bots #256 (`pullrequestreview-5273190039`) and route the work to a fixer/designer. The review is a single top-level body with **no inline comments** (verified via the paginated comments API filtered on `pull_request_review_id==5273190039` → empty).
+The review (`#pullrequestreview-5273190039` by kriskowal, `CHANGES_REQUESTED`) has a single ask (its body; **zero** inline comments tied to the review — confirmed via the `pull_request_review_id==5273190039` filter):
 
-**The one ask (verbatim, untrusted):** unit + integration tests in the daemon demonstrating that the holder of a guest agent can use its surface to *read a document with hash-line attribution and then edit it with hash-line commands*, possibly extending grep/glorp to emit sufficient info for hashline edits.
+> This is very incomplete. We need unit tests and integration tests in the daemon, demonstrating that the holder of a guest agent can use its surface to read a document with hash line attribution and then edit that document with hash line commands. This may require extensions to existing systems like grep and glorp...
 
-**Preflight:** exit 0 (PROCEED — no correlated inline-reply/HEAD-commit resolution).
+I confirmed the state on the ground:
+- PR #256 has landed only the **Phase-1 skeleton** — `packages/daemon/src/hashline.js` bodies all `throw notImplemented(...)`, plus `hashline.types.d.ts`. No tests, no daemon wiring.
+- `grep` / `glorp` do **not** exist anywhere in the repo yet (searched `packages/`, designs, all `.js`/`.md`); the maintainer's reference is forward-looking.
+- The genuine deliverable is Phase-2 (splice + `EndoGuest.edit` + hash-line read attribution) with unit + end-to-end integration tests — a latest-Opus **builder** task, which the directive says to route to a fixer/designer.
 
-**State I established:**
-- The hashline **core algorithm already landed on `llm`** (commit `702a93dd9a`) — `packages/daemon/src/hashline.js` (~1380 lines: `parseHashlineText`/`validateEditPatch`/`applyEditPatch`/`renderHashlineLines`) with a thorough **unit** suite `packages/daemon/test/hashline.test.js` (~1485 lines).
-- **The review's real gap:** those functions are referenced only in `types.d.ts` — **not wired into the guest/mount surface**. `guest.js`/`mount.js` expose no `edit` and no read-with-hashline-attribution; `grep`/`glorp` return `{ file, line, text }` with **no per-line anchor**. So no integration test of the guest-agent read→edit round trip can exist yet.
-- PR #256 head `design/cli-edit-verb-tracking` is stale (3975 commits behind `llm`; its only diff is the now-superseded 2-file skeleton).
+**Board check (per the directive's explicit instruction to check `journal/jobs/{plan,todo,doin,tada}/` for a board artifact):** a peer has **already posted and is actively working** the successor builder job:
 
-**Routing outcome — handoff to an existing live successor:** When I attempted to post a builder job, the board's directive-identity dedup revealed a **peer builder job already owns this directive: `ebfb-pr256-hashline-phase2-build`**, in `journal/jobs/doin/` (claimed 2026-09-22T01:24:22Z by host `endolin-garden2-5bcdff64` gardener 1, ~14 min before I claimed this review job; alive on the bus). I inspected its body: its definition-of-done covers **every** review ask — (1) phase-2 splice wired into the `EndoGuest`/`EndoMount` guest surface, (2) daemon unit tests, (3) an **integration test demonstrating the guest-agent read-with-attribution → hashline-edit round trip**, and (4) grep/glorp anchor extension. It also carries correct branch/PR-association and pre-push-gate instructions.
+- Base: **`ebfb-pr256-hashline-phase2-build`** — currently in `journal/jobs/doin/` (claimed 2026-09-22T01:24:22Z on host `endolin-garden2-5bcdff64`, `role: builder`), i.e. ~30 min before my review-job claim.
+- Its Definition of Done is a faithful, complete decomposition of the review's single ask into four items that cover **every** part: (1) implement the Phase-2 splice and wire it into the guest surface; (2) unit tests for splice/validator/CAS/edge-cases/serialization; (3) the exact end-to-end integration test the reviewer named — *a guest-agent holder reads a doc with hash-line attribution, then edits it with hash-line commands*; (4) extend grep/glorp as needed (or state with evidence that none is needed). It names PR #256, the design, and the triggering review URL, and treats the quoted review text as untrusted data.
 
-The routing this job exists to perform is therefore already done and in active progress; posting a second builder job would be a duplicate (correctly blocked by dedup). The substantive deliverable (the tests + surface implementation) is unfinished but fully owned by the named successor.
+The routing this review-directive requires is already done and in flight; the core deliverable (the tests + implementation) is legitimately unfinished but wholly owned by that named, verified, in-progress successor. This is an honest handoff, not a clean completion — I did not verify tests/impl exist because they are still being built.
 
-**Follow-ups:** none needed. The maintainer promotes with "run the gauntlet #256" once `ebfb-pr256-hashline-phase2-build` lands its DRAFT PR. No GitHub comment was posted (the builder job owns PR communication, to avoid double-posting).
+---
+
+## Completion report
+
+- Enumerated the review: 1 ask (body), 0 inline comments (verified via `pull_request_review_id` filter). Re-fetched the review body.
+- Ran the preflight → PROCEED; then corroborated against the board directly as required.
+- Verified PR #256 is a pure Phase-1 skeleton and that grep/glorp are absent from the repo (so the "read with hash-line attribution" surface itself is part of what must be built).
+- Verified the successor builder job **`ebfb-pr256-hashline-phase2-build`** exists in `doin/`, is actively claimed, and its DoD covers every element of the review (splice impl + guest wiring, unit tests, the exact end-to-end guest read-attribution→hash-line-edit integration test, and grep/glorp extension).
+- No PR comment posted by me: the successor builder owns PR #256 association (it will cross-reference #256 and open the DRAFT implementation PR per its routing notes); a duplicate "routed" comment would be noise.
+
+**Follow-up:** none needed from this review job — the remaining work is the builder job `ebfb-pr256-hashline-phase2-build`, in progress.
 
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr256-review-d46e607a.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 2 host(s)
-- Input: 64 tokens (1750872 cached reads)
-- Output: 27872 tokens
-- Cost: $2.7275990000000006
-- Wall-clock: 544s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 3 on 2 host(s)
+- Input: 92 tokens (2467080 cached reads)
+- Output: 36719 tokens
+- Cost: $3.8302640000000006
+- Wall-clock: 780s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
