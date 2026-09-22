@@ -58,15 +58,5 @@ Procedure:
    SHA. Do NOT merge to `llm` here — merge/conduct is a separate step; a follow-on
    `conduct` job carries it once approved.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-22T22:03:21Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-22T22:23:06Z -->
