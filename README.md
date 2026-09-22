@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T04:33:00Z_
+_As of 2026-09-22T04:56:21Z_
 
 ## Latest
 
@@ -319,9 +319,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #9 (first seen 2026-09-09T20:50:15Z, latest 2026-09-22T02:35:30Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 9 times; this is ONE
-> coalesced notice that updates in place, not 9 messages. Latest detail:
+> WATCHDOG notice — occurrence #11 (first seen 2026-09-09T20:50:15Z, latest 2026-09-22T04:51:28Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared cleric demand active=2 queue=0 fleet-envelope=5 target=2
 
@@ -786,6 +786,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared cleric demand active=1 queue=8 fleet-envelope=5 target=2
+
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo.md)
+
+> self-heal: garden-receipt-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 458a01829296c171b6cb76fb9ec7d68d9e844fae (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 458a01829296c171b6cb76fb9ec7d68d9e844fae). Diagnosis: ## Diagnosis
+>
+> The failure line (`FATAL: receipt journal prerequisite failed for kriscendobot/endo (rc=1; see prerequisite stderr above)`) is genuinely all the output the run produced — the referenced "prerequisite stderr above" was empty, because this host's deployed root checkout is running the **pre-hardening** `receipt-watcher.sh` (`git -C /home/kris/garden rev-parse HEAD` → `917115c9b7`, dated 2026-09-19). That version still has the old blind `sed .../die "see prerequisite stderr above"` path with no `[ -s "$PREREQ_ERR" ]` split and no ERR trap.
+>
+> This is not a new bug. `journal/jobs/tada/2026/09/22/` already shows **11 receipt-watcher self-heal-fix jobs landed on `main2` today**, all in this exact failure family (shared-clone lock contention, silent/empty `$PREREQ_ERR`, sync_clone 
 
 - `minion-town-invitation-onboarding-build-20260921-terminal-complete` — from orchestrator:minion-town-invitation-onboarding-build-20260921-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-invitation-onboarding-build-20260921-terminal-complete.md)
 
@@ -1513,6 +1521,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `20260922T045419Z-b4de91` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T045419Z-b4de91.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `ebfff9b84e2203c753e1d9edcbe8b0dc395421ea`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/ebfff9b84e2203c753e1d9edcbe8b0dc395421ea/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/ebfff9b84e2203c753e1d9edcbe8b0dc395421ea/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/ebfff9b84e2203c753e1d9edcbe8b0dc395421ea/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1714,6 +1738,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > candidate: `9bc8c5682edb060032ff61f9c3a5238ee7470b1a`
 > failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/9bc8c5682edb060032ff61f9c3a5238ee7470b1a/09-scripts_jobs_test_provider-cooldown-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260922T045149Z-4b9488` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T045149Z-4b9488.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `da07ac7ee694d7597aa1576f35ec79e4c6e73e02`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/da07ac7ee694d7597aa1576f35ec79e4c6e73e02/02-scripts_jobs_test_signal-kill-classifier-test.sh.log), scripts/jobs/test/retry-narrowing-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/da07ac7ee694d7597aa1576f35ec79e4c6e73e02/04-scripts_jobs_test_retry-narrowing-test.sh.log), scripts/jobs/test/provider-cooldown-test.sh(rc=1; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/da07ac7ee694d7597aa1576f35ec79e4c6e73e02/09-scripts_jobs_test_provider-cooldown-test.sh.log)
 >
 > Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
 > are host-local on `endolin-garden2-5bcdff64` and retain at most
@@ -3783,25 +3823,24 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 126.2M | $814.25 _(notional, rate-card)_ | no quota set |
-| Codex | 32.3M _(+773.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
+| Claude | 127.2M | $819.47 _(notional, rate-card)_ | no quota set |
+| Codex | 32.5M _(+774.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`fix-minion-town-vitest-repo-wide-holdouts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-vitest-repo-wide-holdouts.md) — Finish the repo-wide vitest migration in minion.town (node:test holdouts)
-- [`endojs-endo-but-for-bots-pr1289-review-f5a08880`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1289-review-f5a08880.md) — Review directive on endojs/endo-but-for-bots PR #1289
-- [`self-heal-fix-garden-receipt-watcher-endojs-endo-but-for-bots-empty-prereq-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-receipt-watcher-endojs-endo-but-for-bots-empty-prereq-stderr.md) — ---
+### doin (2)
+- [`orchestrate-claude-cli-signal-upgrade-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/orchestrate-claude-cli-signal-upgrade-20260922.md) — Work item 1 — READ THE ENVELOPE FIELDS WE ALREADY RECEIVE (do this first)
+- [`fix-deploy-candidate-gate-red-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-deploy-candidate-gate-red-20260922.md) — Evidence
 
-### tada (8635)
-- [`claude-on-minion-town-completion-press-20260922-042252`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-042252.md) — Completion report — completion-press tick 20260922-042252
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-receipt-watcher-cgroup-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/self-heal-fix-garden-triager-kriscendobot-minion-town-receipt-watcher-cgroup-reap.md) — Cost
-- [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Cost
-- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — Cost
-- [`endojs-endo-but-for-bots-pr1097-review-05395c57`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1097-review-05395c57.md) — Completion report
-- … and 8630 more
+### tada (8639)
+- [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Cost
+- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — Completion report — attention directive on kriscendobot/minion.town PR #87
+- [`endojs-endo-but-for-bots-pr256-review-d46e607a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr256-review-d46e607a.md) — Completion report — review directive on endojs/endo-but-for-bots #256
+- [`endojs-endo-but-for-bots-pr1289-review-f5a08880`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1289-review-f5a08880.md) — Cost
+- [`kriscendobot-minion.town-pr108-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr108-shepherd.md) — Completion report
+- … and 8634 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
