@@ -1,4 +1,5 @@
 ---
+child-merge-endojs-endo-but-for-bots-pr1317-20260921-expanded-window-reap-count: 0
 order: serial
 children: merge-endojs-endo-but-for-bots-pr1317-20260921-expanded-window
 on-child-failure: halt
