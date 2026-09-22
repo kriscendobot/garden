@@ -1,33 +1,26 @@
-All work for this review directive is already complete and I have corroborated each ask against the actual design doc at PR head `e5c632911b` — this job attempt is a re-claim of finished work. No new changes were needed.
+Corroborated the complete resolution of review 5273006881 at PR head `e5c632911b4ab4db02743b4b0a4e80bccac6e077`:
 
-## Completion report
+- Review-body RSVP: top-level summary comment `5770647894` maps every ask to its outcome.
+- Superfluous meta-narrative: commits `c1df1296ee`, `dd3ad7040f`, and `e5c632911b` remove it; thread reply `4068150585`.
+- Keep multiple Claude topologies: commit `c1df1296ee` explicitly retains both; reply `4067647652`.
+- Always dispatch through one guest facet: commit `c1df1296ee` states the one-facet ceiling; reply `4067647806`.
+- Pin down `--mcp-config`: commit `c1df1296ee` selects an anonymous-pipe/`memfd`-backed path; reply `4067647918`.
+- Deny confined Claude direct daemon-socket access: commit `c1df1296ee` makes this non-negotiable and moves the connection outside the confined tree; reply `4067648039`.
+- Expose logging: commit `c1df1296ee` specifies the logging facet and MCP capability; reply `4067648141`.
 
-**Job:** Review directive on endojs/endo-but-for-bots PR #1226 (kriskowal review `5273006881`, `@kriscendobot rsvp`, CHANGES_REQUESTED) against `designs/endo-guest-stdio-mcp.md`.
+Evidence: inspected `git diff 57dccee4..e5c632911b`; GitHub REST reported six parent threads and six replies. Current checks show 7 successful and 23 intentionally skipped checks, with no failures. Re-requested review from `kriskowal`; GitHub now lists that pending review request.
 
-**Preflight:** exit 2 (HINT). I did not treat it as a licence to close — I corroborated every ask against the current doc content, not against the replies.
+No additional source commit or push was needed. Remaining sandbox/scoped-bootstrap items are already recorded as implementation-stage verification and scheduling questions, not unresolved review directives.
 
-**Enumerated asks (review body + 6 inline comments) and the artifact resolving each**, verified in the doc at head `e5c632911b`:
-
-1. *"Superfluous meta-narrative"* (id 4067434988) → **commits `dd3ad7040f` + `e5c632911b`** (after `c1df1296ee`). § Status is now a present-tense design summary; grep for dated changelog/revision narrative ("Revised…", "Updated 2026…", "earlier draft", "Revision note") returns none.
-2. *"Let's not try to consolidate these yet… more than one way to use Claude"* (id 4067449945) → **commit `c1df1296ee`**. Doc lines 65–72, 722, 785–786: both topologies stand, "No consolidation owed"; the reconciliation open question is struck.
-3. *"MCP should always dispatch through that guest and use no other"* (id 4067463888) → **`c1df1296ee`**. Lines 15, 128, 132: "always-dispatch-through-that-guest contract," all traffic served "against that facet and no other."
-4. *"Pin this down now… investigate options"* (config carrier, id 4067466288) → **`c1df1296ee`**. § *Threading the formula id* (lines 275–284) decides the carrier (env map in `--mcp-config`, file-path-backed pipe/`memfd`; process substitution ruled out) — no longer an open question.
-5. *"claude is not confined… if it can open an arbitrary domain socket the design is forfeit"* (id 4067474722) → **`c1df1296ee`**. Lines 221, 228, 678–681, 727: the formula-id-secrecy fallback branch is struck; sandbox denial of the socket to the confined tree is stated as non-negotiable, connection held outside the slice.
-6. *"Expose a logging facet; how logs are obtained is immaterial"* (id 4067480364) → **`c1df1296ee`**. Lines 833–834: server exposes a logging facet + advertises MCP `logging` capability; source left as implementation detail.
-
-**Replies/board:** every inline thread has a reply (6 threads, with 2 extra follow-ups on the meta-narrative thread); a summary rsvp issue comment was posted 2026-09-22T03:08:15Z. No newer kriskowal review/comment exists after the replies. My inbox is empty.
-
-**Changes made this attempt:** none — the deliverable was already fully in place and verified. PR remains DRAFT (base `llm`), which is correct under the manual-gauntlet regime.
-
-**Follow-ups:** none. The maintainer may re-review/dismiss the CHANGES_REQUESTED at their discretion.
+Self-improvement: nothing this time.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1226-review-adf95686.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 7 on 2 host(s)
+- Engagements: 8 on 2 host(s) (1 unmetered)
 - Input: 282 tokens (12037089 cached reads)
 - Output: 111690 tokens
-- Cost: $14.2629205
-- Wall-clock: 2193s
+- Cost: $14.2629205 (1 engagement(s) unpriced)
+- Wall-clock: 2478s
 - Model(s): claude-opus-4-8 ×7
 
 <!-- garden-usage-end -->
