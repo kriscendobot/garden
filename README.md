@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T14:54:13Z_
+_As of 2026-09-22T14:57:53Z_
 
 ## Latest
 
@@ -3802,6 +3802,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `msg-minion-town-endo-daemon-deploy-fail-89481580-a077f312c815` — from gardener:minion-town-endo-daemon-deploy-fail-89481580, reply_to `minion-town-endo-daemon-deploy-fail-89481580` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-endo-daemon-deploy-fail-89481580-a077f312c815.md)
+
+> minion.town live incident (deploy CD run 35738152776) — RESOLVED + durable fix landed.
+>
+> Root cause: `kriscendobot/minion.town#110`'s endo pin bump to 89481580 (EndoGuest.invite/accept) crash-loops the endo-daemon on the production DB. 89481580 makes `registry` a REQUIRED HostFormula field but never implements the one-shot on-start registry-upgrade pass its own design (registry-capability.md § Migration for already-formulated hosts) promises. Every pre-existing prod host formula lacks `registry`, so formula-graph seeding throws `Invalid formula identifier "[undefined]"` and host incarnation throws `Host formula missing registry`. The daemon cannot start on any pre-registry DB. This is an upstream endo (`endojs/endo-but-for-bots`) defect.
+>
+> Remediation applied:
+> 1. Box restored immediately — swapped the intact previous build /opt/endo.old (f665050) back to /opt/endo, restarted; daemon is `active`, socket present, matching the still-deployed prior app client. Outage over.
+> 2. Durable revert `kriscendobot/minion.town#111` (reverts the pin back to f665050) is MERGED → CD re-runs and rebuilds f665050 so the full deploy stack goes green.
+>
+> Follow-up (your call): re-attempt the 89481580 bump ONLY after `endojs/endo-but-for-bots`@llm lands the promised host-formula registry migration. Or fix-forward by implementing that migration upstream instead of reverting.
+
 - `20260922T045755Z-71316b` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T045755Z-71316b.md)
 
 > kind: error
@@ -3913,7 +3925,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.7M | $371.12 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 37.8M | $372.15 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 17.0M _(+373.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35765797 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
