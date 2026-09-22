@@ -410,6 +410,13 @@ export GARDEN
 # so a genuinely wedged holder surfaces (a loud die / a logged tick-skip) rather than
 # starving every cursor-writer on the host forever.
 : "${GARDEN_CURSOR_LOCK_WAIT:=300}"  # seconds a cursor-IO waiter blocks before failing
+# Bounded in-tick re-attempts a cursor advance makes when cursor-set.sh gives up
+# ambiguously (its own 50-attempt CAS loop exhausted under momentary contention).
+# Each retry is a FRESH cursor-set invocation — a new sync + CAS window — so a
+# contention burst that clears within a tick is absorbed here rather than leaving
+# the cursor unchanged and replaying the same range every tick (see
+# advance_cursor_with_retry).
+: "${GARDEN_CURSOR_ADVANCE_RETRIES:=3}"
 
 # Belt: teach git itself to abort a stalled transfer rather than rely solely on
 # the `timeout` wrapper. For https remotes, treat a transfer slower than
@@ -4410,6 +4417,87 @@ ensure_clone_or_latch_outage() {
   fi
   [ -z "$diagnostic" ] || printf '%s\n' "$diagnostic" >&2
   exit "$rc"
+}
+
+# advance_cursor_with_retry <cursor-key> [<retries>]
+#
+# CAS-advance a journal poll cursor, reading the cursor body from stdin, with the
+# write DIAGNOSTIC captured and CLASSIFIED and a bounded in-tick retry that absorbs
+# a transient journal-write failure — the missing piece behind the watcher fleet's
+# `cursor-set … | …; else rc=$?` one-liner, whose bare rc could neither identify
+# WHY the write failed nor re-attempt it, so a persistent contention burst on a
+# busy host (kriscendobot-minion.town) left the cursor unchanged and replayed the
+# same range every tick. cursor-set.sh already runs its own 50-attempt CAS loop, so
+# an ambiguous rc=1 out of it means that whole loop lost to contention this tick;
+# a FRESH cursor-set invocation gets a new sync + CAS window that a momentary burst
+# may no longer block. Classify first, then retry only the ambiguous class:
+#
+#   * rc 0 (advanced, or an idempotent no-op cursor-set reports as success):
+#     return 0. The caller logs its own success line.
+#   * GARDEN_OFFLINE_RC (shared journal-outage latch, or a busy cursor-IO lock this
+#     tick): temporary-unavailable. Do NOT retry — the outage is latched host-wide,
+#     so an in-tick retry is guaranteed to short-circuit to the same rc. Return the
+#     rc; the caller skips QUIETLY and re-advances next cadence.
+#   * a positively-identified DEFINITE failure (auth drift, gone/forbidden upstream,
+#     local corruption, or a local checkout/config fault — cursor-set prints the
+#     signature to stderr before re-raising): retrying is futile. WARN ONCE with the
+#     captured diagnostic so the failure is identifiable, and return 1 WITHOUT
+#     retrying.
+#   * any other nonzero rc (the ambiguous CAS-contention shape): retry up to
+#     <retries> (default GARDEN_CURSOR_ADVANCE_RETRIES) fresh invocations under
+#     backoff. A retry that succeeds returns 0; a retry that latches an outage
+#     returns GARDEN_OFFLINE_RC quietly; a retry that turns up a definite signature
+#     WARNs and returns 1. If every attempt still loses to contention, emit ONE WARN
+#     carrying the last rc and diagnostic tail — identifying it as a transient
+#     journal-write failure — and return 1 so the caller re-advances next cadence.
+#
+# Never `exit`s; returns an rc so the caller keeps ownership of the tick.
+advance_cursor_with_retry() {  # <cursor-key> [<retries>]; body on stdin
+  local key="${1:?usage: advance_cursor_with_retry <cursor-key> [retries]}"
+  local retries="${2:-$GARDEN_CURSOR_ADVANCE_RETRIES}"
+  local cursor_set="${GARDEN_CURSOR_SET:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/cursor-set.sh}"
+  local offline_rc="${GARDEN_OFFLINE_RC:-75}"
+  local body diag_file diag rc attempt
+  body="$(cat)"   # buffer once so every retry replays the SAME body
+  diag_file="$(mktemp "${TMPDIR:-/tmp}/garden-cursor-advance.XXXXXX")" \
+    || { log "WARN: cursor advance for $key could not create a diagnostic file; leaving cursor unchanged"; return 1; }
+
+  # attempt 0 is the primary write; 1..retries are the transient re-attempts.
+  for attempt in $(seq 0 "$retries"); do
+    [ "$attempt" -gt 0 ] && backoff "$attempt"
+    : > "$diag_file"
+    # Capture rc in the else branch: after a bare `if pipeline; then …; fi` the
+    # `if`'s own status (0) shadows the pipeline's, so `rc=$?` outside would always
+    # read 0. This is the codebase's `then rc=0; else rc=$?` idiom.
+    if printf '%s' "$body" | "$cursor_set" "$key" 2>"$diag_file"; then
+      rm -f "$diag_file"; return 0
+    else
+      rc=$?
+    fi
+    diag="$(cat "$diag_file")"
+    if [ "$rc" -eq "$offline_rc" ]; then
+      # Latched host-wide (or a busy cursor-IO lock): a retry short-circuits to the
+      # same verdict, so stop and skip quietly.
+      rm -f "$diag_file"; return "$rc"
+    fi
+    if journal_diagnostic_is_definite_failure "$diag"; then
+      log "WARN: cursor advance failed for $key (rc=$rc, DEFINITE: $(_cursor_advance_diag_tail "$diag")); NOT retrying — needs repair, not a re-poll"
+      rm -f "$diag_file"; return 1
+    fi
+    # Ambiguous contention: fall through to the next fresh attempt.
+  done
+
+  log "WARN: cursor advance failed for $key after $((retries + 1)) attempts (rc=${rc:-?}, transient journal-write contention: $(_cursor_advance_diag_tail "$diag")); leaving cursor unchanged to re-advance next cadence"
+  rm -f "$diag_file"
+  return 1
+}
+
+# One compact line of a captured cursor-write diagnostic for the WARN — the last
+# non-empty line (git prints the actionable failure last), whitespace-collapsed and
+# length-capped so a multi-line transport dump stays a single readable log field.
+_cursor_advance_diag_tail() {  # <diagnostic>
+  printf '%s\n' "$1" | grep -v '^[[:space:]]*$' | tail -1 \
+    | tr '\n\t' '  ' | cut -c1-200
 }
 
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------

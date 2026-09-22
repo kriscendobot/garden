@@ -418,9 +418,9 @@ is_bot_repo() {  # is_bot_repo <owner/name>
 BARE="$(bare_clone_dir "$slug")"   # $GARDEN_ROOT/worktrees/<slug>.git (GARDEN_REPOS override honored)
 [ -d "$BARE" ] || log "note: no bare clone at $BARE (polling uses gh; gardeners clone on demand)"
 
-# Durable poll cursor in the journal: resumes across restarts and hosts.
+# Durable poll cursor in the journal: resumes across restarts and hosts. The write
+# path (advance_cursor_with_retry, at the bottom) honors GARDEN_CURSOR_SET itself.
 CURSOR_KEY="comments/$slug"
-CURSOR_SET="${GARDEN_CURSOR_SET:-$HERE/cursor-set.sh}"
 # cursor-get.sh calls sync_clone, which on a journal-connectivity outage does
 # `exit "$GARDEN_OFFLINE_RC"` (75, EX_TEMPFAIL) or plain-`die`s with rc=1 when a
 # failed fetch's stderr misses the (necessarily incomplete) offline-signature list.
@@ -2173,22 +2173,21 @@ done < "$SRC"
 if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
   # cursor-set.sh CAS-races the advance onto journal2 and `die`s (rc=1) if it
   # exhausts its 50-attempt push-retry loop under contention, or `exit`s
-  # GARDEN_OFFLINE_RC (75) on a journal-connectivity outage. A bare piped
-  # command would let that non-zero exit trip our `set -e`/`pipefail` and
-  # hard-crash the whole tick with NO log message. A cursor advance is
-  # best-effort — a stalled cursor re-derives and re-advances next tick, and
-  # dispatch is idempotent by GitHub comment id, so nothing is lost — so capture
-  # the rc and WARN-and-continue cleanly on ANY nonzero rc, mirroring the read
-  # side (df83fca235). As on the read side, the shared temporary-unavailable rc
-  # is quiet: one journal outage should not produce a warning for every watched
-  # repo. Structural/authentication failures still WARN.
+  # GARDEN_OFFLINE_RC (75) on a journal-connectivity outage / busy cursor-IO lock.
+  # A bare piped command would let that non-zero exit trip our `set -e`/`pipefail`
+  # and hard-crash the whole tick with NO log message, AND the bare rc could not
+  # tell a transient contention burst (worth an in-tick retry) from a structural
+  # fault (worth an alert) — so a persistent rc=1 on a busy host left the cursor
+  # unchanged and REPLAYED the same range every tick. advance_cursor_with_retry
+  # captures cursor-set's diagnostic, classifies it, and gives the ambiguous
+  # CAS-contention shape a bounded retry (fresh sync+CAS windows) before giving up;
+  # GARDEN_OFFLINE_RC still skips QUIETLY, a definite structural/auth failure WARNs
+  # with its signature, and an exhausted-retry contention burst WARNs once as
+  # transient. A stalled cursor re-derives and re-advances next tick, and dispatch
+  # is idempotent by GitHub comment id, so nothing is lost across a give-up.
   if printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
-    | "$CURSOR_SET" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
-  if [ "$rc" -ne 0 ]; then
-    [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
-      || log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
-    exit 0
-  fi
+    | advance_cursor_with_retry "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+  if [ "$rc" -ne 0 ]; then exit 0; fi   # helper already logged any WARN
   log "advanced comment cursor for $slug to $hw (acted on $acted; failed=$failed)"
 else
   log "cursor unchanged for $slug (acted on $acted; failed=$failed)"

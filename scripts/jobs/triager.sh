@@ -611,18 +611,16 @@ if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
   # push contention or a temporary outage (GARDEN_OFFLINE_RC=75). Under
   # `set -euo pipefail` a bare piped call would hard-crash the whole tick with
   # NO follow-up log line — even though triage already succeeded and posted its
-  # job — leaving the unit Failed. Capture the rc and WARN-and-continue cleanly,
-  # mirroring the cursor-read side above (and comment-watcher.sh): a stalled
-  # cursor re-triages the same old→new range next tick, and post-job.sh's
-  # deterministic basename makes the re-post idempotent, so nothing is lost. The
-  # shared temporary-unavailable rc is quiet — one journal outage should not warn.
+  # job — leaving the unit Failed. advance_cursor_with_retry captures cursor-set's
+  # diagnostic, classifies it, and gives an ambiguous CAS-contention burst a bounded
+  # in-tick retry (fresh sync+CAS windows) before leaving the cursor unchanged;
+  # GARDEN_OFFLINE_RC still skips QUIETLY, a definite structural/auth failure WARNs
+  # with its signature, and an exhausted contention burst WARNs once as transient.
+  # A stalled cursor re-triages the same old→new range next tick, and post-job.sh's
+  # deterministic basename makes the re-post idempotent, so nothing is lost.
   if printf 'last_sha: %s\nref: %s\nlast_polled_at: %s\n' "$new_sha" "$ref" "$(date -u +%FT%TZ)" \
-    | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
-  if [ "$rc" -ne 0 ]; then
-    [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
-      || log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
-    exit 0
-  fi
+    | advance_cursor_with_retry "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+  if [ "$rc" -ne 0 ]; then exit 0; fi   # helper already logged any WARN
   log "triaged $slug:$ref up to $new_sha"
   # The essential work (triage + cursor advance) is done; the pace projection is a
   # trailing journal round-trip, so skip it past the deadline and exit clean.

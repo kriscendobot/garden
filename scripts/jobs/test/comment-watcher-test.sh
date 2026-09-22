@@ -228,34 +228,70 @@ njobs=$(git clone -q --single-branch --branch "$BRANCH" "$BARE_B" "$TR/bv-b" && 
 [ "$(cursor_seen "$TR/state-b" "$BARE_B")" = 2026-06-24T11:00:00Z ] && ok "cursor slid past the non-actionable comment" || bad "cursor did not slide ($(cursor_seen "$TR/state-b" "$BARE_B"))"
 
 # ============================================================================
-hr; echo "CURSOR-SET — journal outage is quiet; structural advance failure still warns"; hr
+hr; echo "CURSOR-SET — outage quiet; definite failure loud & un-retried; ambiguous contention retried then warned"; hr
+# The stub returns CW_CURSOR_SET_RC and, if set, echoes CW_CURSOR_SET_DIAG to stderr
+# (the write diagnostic the real cursor-set.sh prints before re-raising a structural
+# failure). CW_CURSOR_SET_CALLS counts invocations so the retry policy is observable.
 CURSOR_FAIL="$TR/cursor-set-fail.sh"
 cat > "$CURSOR_FAIL" <<'EOF'
 #!/bin/bash
 cat >/dev/null
+[ -n "${CW_CURSOR_SET_CALLS:-}" ] && echo x >> "$CW_CURSOR_SET_CALLS"
+[ -n "${CW_CURSOR_SET_DIAG:-}" ] && printf '%s\n' "$CW_CURSOR_SET_DIAG" >&2
 exit "${CW_CURSOR_SET_RC:?set CW_CURSOR_SET_RC}"
 EOF
 chmod +x "$CURSOR_FAIL"
 
+# (1) GARDEN_OFFLINE_RC (75): temporary-unavailable — quiet, and NOT retried (the
+# outage is latched host-wide, so an in-tick retry would only short-circuit again).
 BARE_CSO="$TR/cso.git"; seed_bare "$BARE_CSO"
 FIX_CSO="$TR/fix-cso.tsv"; RLOG_CSO="$TR/react-cso.log"; LOG_CSO="$TR/cso.log"; : > "$RLOG_CSO"
+CALLS_CSO="$TR/calls-cso"; : > "$CALLS_CSO"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-24T11:10:00Z issue-comment 112 57 stranger \
   https://github.com/endojs/endo-but-for-bots/pull/57#issuecomment-112 \
   'Nothing actionable.' > "$FIX_CSO"
-CW_CURSOR_SET="$CURSOR_FAIL" CW_CURSOR_SET_RC=75 CW_LOG="$LOG_CSO" \
+CW_CURSOR_SET="$CURSOR_FAIL" CW_CURSOR_SET_RC=75 CW_CURSOR_SET_CALLS="$CALLS_CSO" CW_LOG="$LOG_CSO" \
   run_watcher "$TR/state-cso" "$BARE_CSO" "$FIX_CSO" "$RLOG_CSO"
 grep -q 'cursor advance failed' "$LOG_CSO" \
   && bad "offline cursor advance emitted a per-repo warning" \
   || ok "GARDEN_OFFLINE_RC cursor advance is quiet and retries next tick"
+[ "$(grep -c . "$CALLS_CSO")" -eq 1 ] \
+  && ok "offline advance is not retried in-tick (single cursor-set call)" \
+  || bad "offline advance was retried ($(grep -c . "$CALLS_CSO") calls)"
 
+# (2) rc=1 with a DEFINITE-failure diagnostic (auth): loud WARN naming it DEFINITE,
+# and NOT retried — a re-poll cannot fix credential drift.
+BARE_CSD="$TR/csd.git"; seed_bare "$BARE_CSD"
+LOG_CSD="$TR/csd.log"; RLOG_CSD="$TR/react-csd.log"; : > "$RLOG_CSD"
+CALLS_CSD="$TR/calls-csd"; : > "$CALLS_CSD"
+CW_CURSOR_SET="$CURSOR_FAIL" CW_CURSOR_SET_RC=1 CW_CURSOR_SET_CALLS="$CALLS_CSD" \
+  CW_CURSOR_SET_DIAG="fatal: Authentication failed for 'https://github.com/x/y'" \
+  CW_LOG="$LOG_CSD" \
+  run_watcher "$TR/state-csd" "$BARE_CSD" "$FIX_CSO" "$RLOG_CSD"
+grep -qE 'WARN: cursor advance failed.*rc=1.*DEFINITE' "$LOG_CSD" \
+  && ok "definite (auth) cursor advance failure stays loud with its signature" \
+  || bad "definite cursor advance failure warning missing ($(cat "$LOG_CSD"))"
+[ "$(grep -c . "$CALLS_CSD")" -eq 1 ] \
+  && ok "definite advance failure is not retried (single cursor-set call)" \
+  || bad "definite advance failure was retried ($(grep -c . "$CALLS_CSD") calls)"
+
+# (3) rc=1 with NO/ambiguous diagnostic (cursor-set's own CAS loop lost to a
+# contention burst): retried a bounded number of fresh invocations, then ONE WARN
+# identifying it as transient so the caller re-advances next cadence.
 BARE_CSS="$TR/css.git"; seed_bare "$BARE_CSS"
 LOG_CSS="$TR/css.log"; RLOG_CSS="$TR/react-css.log"; : > "$RLOG_CSS"
-CW_CURSOR_SET="$CURSOR_FAIL" CW_CURSOR_SET_RC=1 CW_LOG="$LOG_CSS" \
+CALLS_CSS="$TR/calls-css"; : > "$CALLS_CSS"
+CW_CURSOR_SET="$CURSOR_FAIL" CW_CURSOR_SET_RC=1 CW_CURSOR_SET_CALLS="$CALLS_CSS" \
+  GARDEN_CURSOR_ADVANCE_RETRIES=2 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+  CW_LOG="$LOG_CSS" \
   run_watcher "$TR/state-css" "$BARE_CSS" "$FIX_CSO" "$RLOG_CSS"
-grep -q 'WARN: cursor advance failed.*(rc=1)' "$LOG_CSS" \
-  && ok "structural cursor advance failure remains loud" \
-  || bad "structural cursor advance failure warning missing ($(cat "$LOG_CSS"))"
+grep -qE 'WARN: cursor advance failed.*rc=1.*transient' "$LOG_CSS" \
+  && ok "ambiguous contention advance failure warns as transient" \
+  || bad "transient cursor advance warning missing ($(cat "$LOG_CSS"))"
+[ "$(grep -c . "$CALLS_CSS")" -eq 3 ] \
+  && ok "ambiguous advance retried to the bound (1 primary + 2 retries)" \
+  || bad "ambiguous advance retry count wrong ($(grep -c . "$CALLS_CSS"), want 3)"
 
 # ============================================================================
 hr; echo "C — re-poll an already-actioned comment → idempotent"; hr
