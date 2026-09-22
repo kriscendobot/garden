@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":69,"elapsed_s":1216,"input_tokens":138,"output_tokens":68564,"cache_creation_tokens":144248,"cache_read_tokens":7131810,"total_cost_usd":6.726831,"ts":"2026-09-22T06:27:01Z","base":"build-minion-town-vitest-migration","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder","provider":"anthropic"}
