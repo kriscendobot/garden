@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by the maintainer-directed minion.town CLI/Agent-SDK production experiment; an Endo backend is premature until production evidence is reviewed.
+withdrawn_by: fixer
+withdrawn_at: 2026-09-22T01:27:59Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 posted_by: liaison
