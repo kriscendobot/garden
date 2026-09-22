@@ -1,30 +1,31 @@
-CI is fully green on the current head SHA — nothing to fix. Reporting the state.
+CI on PR #1303 is fully green — nothing to drive. This shepherd run is a report, not a repair.
 
 ## Completion report
 
 **Job:** shepherd endojs/endo-but-for-bots PR #1303 — drive CI to green.
 
-**Finding: CI is already fully green; no shepherd repair was needed.**
+**Finding:** CI is already green on the current head SHA. No repair was needed.
 
-PR #1303 (`test(ironhorse): add object-capability benchmark corpus`, head `107ec8db75fdb0d9e1682298654bc633c4524821`, base `llm-387ea66`, DRAFT) checked out clean:
+- **PR #1303** — "test(ironhorse): add object-capability benchmark corpus" (author kriscendobot, DRAFT, OPEN).
+- **Head SHA:** `107ec8db75fdb0d9e1682298654bc633c4524821`
+- **Base:** `llm-387ea66` (pinned frozen base); `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN` — no conflict blocking dispatch.
+- **Checks:** 27 pass, 7 skipping, **0 failing, 0 pending/in-flight**. Verified against the head SHA's check-runs directly: 23 `success`, 7 `skipped`, none non-completed. The full ironhorse matrix (test-ironhorse, -oracle, -release, -calibration, -macos, -thixotrope, oracle-sanitizers, compare-ironhorse-math) plus the node 22.x/24.x test+cover legs, lint, build-xsnap, test-xs, and zizmor are all green.
 
-- **27 checks SUCCESS, 7 SKIPPED, 0 failing, 0 pending/in-progress.** Every substantive leg is green: `test (22.x/24.x × ubuntu/macos)`, `test-xs`, `test-ironhorse`, `test-ironhorse-{macos,oracle,release,calibration}`, `test-thixotrope-ironhorse`, `ironhorse-oracle-sanitizers`, `cover`, `lint`, `format-ironhorse`, `build-xsnap`, `sandbox-drivers`, `compare-ironhorse-math`, `zizmor`, `viable-release`, etc. The SKIPPED entries are the normal path-filtered legs (`build`, `build-wasm`, `test-hermes`, `test-async-hooks`, `test-ocapn-{python,guile-interop}`, `check-action-pins`).
-- `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN` — not conflicting, so no weaver hand-off is implicated.
-- Green run: https://github.com/endojs/endo-but-for-bots/actions/runs/35658949064
+**Action taken:** none required — no red to classify, no push, no fix commit. Per the shepherd role, a run whose CI is already converged is reported as-is (the "watch-only is the wrong shape" note: I did not fabricate monitoring; I verified the settled state).
 
-**Actions taken:** none required. No commits pushed (there was nothing red to repair), no PR comment posted (the job body carried no comment authorization, and there was no shepherd fix to summarize). Per the role's "watch-only is the wrong shape" norm, I did not sit and poll — CI had already converged before I claimed.
+**Commenting:** the job body carried no per-action authorization to comment on the PR, so no green-run summary comment was posted (external-repo etiquette).
 
-**State:** The PR sits green as an open DRAFT. Under the manual-gauntlet regime it stays draft until the maintainer promotes it with an explicit **run the gauntlet #1303**. No follow-up job posted.
+**Classification:** `next: none` — CI is green on head `107ec8db7`; no follow-up shepherd work. If a later push lands on this draft, re-post a shepherd job then.
 
-`next: none` — CI is green on the head SHA; definition of done satisfied.
+**Follow-ups:** none.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1303-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 17 on 2 host(s) (1 unmetered)
-- Input: 210 tokens (4608688 cached reads)
-- Output: 44298 tokens
-- Cost: $12.182193000000002 (1 engagement(s) unpriced)
-- Wall-clock: 3385s
-- Model(s): claude-opus-4-8 ×16
+- Engagements: 18 on 2 host(s) (1 unmetered)
+- Input: 222 tokens (4863765 cached reads)
+- Output: 46820 tokens
+- Cost: $12.781725500000002 (1 engagement(s) unpriced)
+- Wall-clock: 3444s
+- Model(s): claude-opus-4-8 ×17
 
 <!-- garden-usage-end -->
