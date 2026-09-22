@@ -1,36 +1,32 @@
-The work is complete. Both asks of review 5273199990 are corroborated as resolved, and I cleaned up the stale board entries the supersession left behind.
+The withdraw script — which syncs its own clone from `origin/journal2` before acting — reports all three are **already absent from canonical `plan/`**. That confirms my prior-iteration withdrawal did land on `journal2`; the `/home/kris/garden2/journal` local worktree I `ls`'d is simply stale (unpulled). The canonical board is clean.
+
+Everything required by review 5273199990 is resolved and corroborated against live state; no PR mutation, no rebase, and no new board entries are warranted (the peer already replied on every inline thread; re-rebasing to chase the now-advanced `llm` tip would be the frozen-base anti-pattern). Nothing to commit or push.
 
 ## Completion report
 
-**Job:** Review directive on endojs/endo-but-for-bots PR #1097 (review `5273199990` by kriskowal, CHANGES_REQUESTED).
+**Job:** Review directive on endojs/endo-but-for-bots PR #1097 (review `5273199990` by kriskowal, `CHANGES_REQUESTED`).
 
-**Preflight:** `pr-feedback-preflight.sh` exited 2 (HINT — correlated peer resolution present). Per discipline I corroborated each ask independently rather than closing on the hint alone.
+**Preflight:** `pr-feedback-preflight.sh` → exit 2 (HINT: peer resolution present). Corroborated every ask before completing as a no-op, per directive.
 
-**The review's two asks — both verified resolved at PR head `4003abd2a1`:**
+**Whole-review enumeration (2 asks, both resolved):**
+1. **Review body — "Please rebase and refresh. Some names have changed beneath this change and should also be brought into alignment."**
+   Resolved by a peer forward-pin rebase. Review submitted `2026-09-22T00:45:45Z`; PR base is now frozen branch **`llm-db664fa`** (commit `db664fa119`, committed `2026-09-22T01:04:58Z` — *after* the review), head rebased to **`4003abd2a1113c63b82f14403e634d64a4bb7590`**, PR **OPEN / MERGEABLE / draft**. (The `llm` tip has since advanced to `2d0f7fb7f0`; a frozen-base pin is deliberately a snapshot, so this is expected drift, not a re-rebase trigger.)
+2. **Inline on `.changeset/readable-blob-declarations.md` — "We recently revised getInfo to separate size and sha256 methods."**
+   Resolved: the changeset at head `4003abd2a1` now describes `sha256`, `size`, `bytes`, `byteRange`, `textRange` (no `getInfo`, no bare `range`) — the getInfo→{size,sha256} split. Peer replied on every inline thread of the review.
 
-1. **Body — "rebase and refresh; names changed beneath, bring into alignment."** The PR base is `llm-db664fa`, whose tip (`db664fa119…`) equals the current `llm` tip *exactly* — a full forward-pin. Head `4003abd2a1` is rebased onto it; PR is OPEN/draft, MERGEABLE, mergeStateStatus CLEAN. ✓
-2. **Inline on `.changeset/readable-blob-declarations.md` — "revised getInfo to separate size and sha256 methods."** The changeset at head now names `sha256`, `size`, `bytes`, `byteRange`, `textRange` — no `getInfo`, no bare `range`. Peer inline reply `4068093030` (→ `4067609375`) documents the fix. ✓
+**Board cleanup (verified against canonical `journal2`):** the three stale entries traceable to the *older* review 5069647283 — `pr1097-drop-base64-20260904` and `pr1097-rename-info-types-20260904` (orphaned `gate: orchestrated` children of `pr1097-rsvp-20260904`, which is already in `jobs/tada/` and can never promote them; the `getInfo()→info()` rename direction is dead, superseded by the sha256/size split) and the `doomed: true` `pr1097-fix-review` — are all confirmed already **withdrawn** from canonical `plan/` (the deployed local journal worktree merely showed them stale). Legit `pr1097-review-05395c57-retro` remains parked.
 
-The rebase was performed earlier today by a peer (host `endolin-garden-ece02cb4`, model gpt-5.6-sol/codex); I verified the artifacts directly rather than trusting the hint.
+**Changes:** none pushed (upstream or garden) — this review was a corroborated no-op; all work was done by a peer and confirmed. No PR comment added (peer replies already present; a bot ack would be noise).
 
-**Board cleanup (caused by this supersession):** The older review 5069647283's 3-stage orchestration was stale — its `getInfo()→info()` rename direction is dead now that upstream split `getInfo` into `size()/sha256()`. Its orchestrator `pr1097-rsvp-20260904` was already in `jobs/tada/`, so its two `gate:orchestrated` children would never promote (dead weight; a manual promote would have damaged the now-mergeable PR). I withdrew all three via `withdraw-plan.sh` with auditable reasons:
-- `endojs-endo-but-for-bots-pr1097-drop-base64-20260904`
-- `endojs-endo-but-for-bots-pr1097-rename-info-types-20260904`
-- `endojs-endo-but-for-bots-pr1097-fix-review` (doomed)
-
-Verified on origin `journal2`: all three now in `jobs/withdrawn/`; `jobs/plan/` retains only `pr1097-review-05395c57-retro` (this job's own retrospective, legit).
-
-**Pushed upstream:** nothing (rebase already landed by peer). **No new PR comment posted** — the peer's inline reply already acknowledges resolution; a duplicate would be noise.
-
-**Follow-ups:** none. Memory `ebfb-pr1097-base-pin-and-node24-infra` updated with the cleanup record.
+**Follow-ups:** none. PR #1097 now awaits maintainer re-review at head `4003abd2a1`.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1097-review-05395c57.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 9 on 2 host(s) (3 unmetered)
-- Input: 206 tokens (6312130 cached reads)
-- Output: 103371 tokens
-- Cost: $9.427989 (3 engagement(s) unpriced)
-- Wall-clock: 4434s
-- Model(s): claude-opus-4-8 ×6
+- Engagements: 10 on 2 host(s) (3 unmetered)
+- Input: 222 tokens (6668955 cached reads)
+- Output: 112722 tokens
+- Cost: $10.2752735 (3 engagement(s) unpriced)
+- Wall-clock: 4610s
+- Model(s): claude-opus-4-8 ×7
 
 <!-- garden-usage-end -->
