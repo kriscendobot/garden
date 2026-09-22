@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T16:34:10Z_
+_As of 2026-09-22T16:48:02Z_
 
 ## Latest
 
@@ -746,6 +746,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `msg-claude-on-minion-town-completion-press-20260922-163506-4321fc08f8bb` — from gardener:claude-on-minion-town-completion-press-20260922-163506, reply_to `claude-on-minion-town-completion-press-20260922-163506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20260922-163506-4321fc08f8bb.md)
+
+> **Claude-on-minion.town arc ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)) — completion-press tick 20260922-163506.** First tick since 09-18 (press schedule was paused ~4.5 days, so this spans the 09-17→09-19 fleet outage).
+>
+> **Good news first:** the arc's endo [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/issues/1125) build phase LANDED — split stack all merged ([endojs/endo-but-for-bots#1304](https://github.com/endojs/endo-but-for-bots/issues/1304) 09-18, [endojs/endo-but-for-bots#1306](https://github.com/endojs/endo-but-for-bots/issues/1306) 09-19, [endojs/endo-but-for-bots#1305](https://github.com/endojs/endo-but-for-bots/issues/1305) 09-19). [kriscendobot/minion.town#98](https://github.com/kriscendobot/minion.town/issues/98) and [kriscendobot/minion.town#99](https://github.com/kriscendobot/minion.town/issues/99) merged; [kriscendobot/minion.town#96](https://github.com/kriscendobot/minion.town/issues/96) and [kriscendobot/minion.town#97](https://github.com/kriscendobot/minion.town/issues/97) gauntlets done, awaiting merge; [endojs/endo-but-for-bots#1226](https://github.com/endojs/endo-but-for-bots/issues/1226) and [endojs/endo-but-for-bots#1227](https://github.com/endojs/endo-but-for-bots/issues/1227) open awaiting merge, [endojs/endo-but-for-bots#1228](https://github.com/endojs/endo-but-for-bots/issues/1228) closed.
+>
+> **Doom wave (in-window, all `requeue-exhausted` / `repeated-plain-exit`, host endolin-garden-ece02cb4):** ~15 arc endo-stack jobs (conduct/weave/shepherd/review for the three slices) doomed 09-18→09-19, caught in the fleet-wide outage (83 board dooms 09-17, 21+14 on 09-18/19 — the session-limit/weekly-quota signature). **All are MOOT** — every one targets a PR you've since merged (you hand-merged [endojs/endo-but-for-bots#1304](https://github.com/endojs/endo-but-for-bots/issues/1304) and [endojs/endo-but-for-bots#1306](https://github.com/endojs/endo-but-for-bots/issues/1306)). They're sweepable, they block nothing.
+>
+> **Two non-moot dooms worth a look:**
+> 1. `fix-minion-town-claude-harness-supply-chain-hardening` — doomed 09-18 (requeue-exhausted, classified transient), NOT tied to a merged PR. Parked; needs your promotion via the liaison if still wanted.
+> 2. `build-minion-town-claude-agents-capability` — doomed 09-03 (deadline-overrun, requeue_cycles 3), the production-validation slice. Likely superseded by the claude-agents wiring that landed via [kriscendobot/minion.town#98](https://github.com/kriscendobot/minion.town/issues/98) (09-22); confirm before re-posting.
+>
+> No policy-refusals, no absent-without-report, no 3rd+ requeue in-window. Schedule left STANDING.
 
 - `20260922T023321Z-a1352c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T023321Z-a1352c.md)
 
@@ -3926,7 +3940,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.8M | $370.36 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Codex | 17.3M _(+376.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35786965 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -3937,13 +3951,13 @@ _Fleet token-unlock pace: 35786965 tokens/day lower bound; incomplete where a su
 ### doin (1)
 - [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endo-pr1329-registry-migration.md) — ---
 
-### tada (8691)
+### tada (8692)
+- [`claude-on-minion-town-completion-press-20260922-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-163506.md) — Completion report — completion-press tick 20260922-163506 (Claude-on-minion.t...
 - [`claude-on-minion-town-press-20260922-162051`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-162051.md) — Cost
 - [`endo-revive-registry-host-formula-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endo-revive-registry-host-formula-migration.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-86272788ce58`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-86272788ce58.md) — rolling-deploy canary probe — round trip OK
 - [`minion-town-endo-daemon-deploy-fail-89481580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/minion-town-endo-daemon-deploy-fail-89481580.md) — Completion report: minion.town endo-daemon deploy failure (89481580)
-- [`improve-triager-tick-bounds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-tick-bounds.md) — Cost
-- … and 8686 more
+- … and 8687 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
