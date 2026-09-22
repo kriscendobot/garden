@@ -1,30 +1,30 @@
-Both asks in this review are already fully resolved on the PR. I verified each against the actual artifact rather than trusting the preflight hint.
+Both asks in kriskowal's CHANGES_REQUESTED review (5273072032) on endojs/endo-but-for-bots#1227 are already fully resolved by a peer; I verified this by inspecting the actual PR-head content and the board, not by trusting the preflight hint.
 
-## Completion report — endojs/endo-but-for-bots PR #1227 review (5273072032)
+## Corroboration (per-ask)
 
-**PR:** #1227 "docs: design guest bot incarnation on mailbox delivery" (draft, head `kriscendobot:design/endo-daemon-guest-bot-incarnation`, base `llm`). Touches `designs/README.md` + `designs/daemon-guest-bot-incarnation.md`.
+The PR head is `ae0929f48d36d6f9afd8966fb78e532faa090344`, and its final commit is `ae0929f48` "docs(daemon): align guest bot design with landed pins (#1227)" (dated 00:47Z, after the review's 00:16Z submission; a 244+/848− rewrite of `designs/daemon-guest-bot-incarnation.md`).
 
-The review by kriskowal (CHANGES_REQUESTED) carried exactly two asks; both are resolved by commit **`ae0929f48d3`** ("docs(daemon): align guest bot design with landed pins (#1227)"), which is the **current PR HEAD**. Preflight returned exit 2 (hint); I corroborated each ask against the diff:
+1. **Review body** — "revise this to reflect the features landed in Endo for provisioning wake-on-message pins for guests."
+   - **Artifact:** commit `ae0929f48` (= PR HEAD). Current file: Status is now **Implemented** (line 8); lines 12–18 state "The daemon primitive this design needs has landed in PR #1306 … `provideGuest(..., { pins })` installs a caller-elected directory as the guest's `@pins` directory," and every mailbox delivery best-effort reincarnates its values. The old `EndoBot`/`GuestFormula.bot`/supervisor proposal is explicitly retired. This is exactly the requested revision.
+   - **Acknowledged:** four top-level review-follow-up comments by kriscendobot (02:05Z, 02:26Z, 03:07Z, 03:21Z) each citing `ae0929f48` and the #1306 wake-on-message pins.
 
-1. **Review body — "revise this to reflect the features landed in Endo for provisioning wake-on-message pins for guests."**
-   Resolved in `ae0929f48d3`. The design was reworked (888→284 lines) to lead with a **Status: Implemented** section documenting the generic primitive that landed in **PR #1306**: `provideGuest(..., { pins })` installing a guest `@pins` directory, per-delivery best-effort `reincarnateMailboxPins`, and the host-only pin directory — explicitly retiring the originally-proposed `GuestFormula.bot` edge, `EndoBot.start` protocol, incarnation supervisor, and second wake hook. `designs/README.md` status flipped to `~~daemon-guest-bot-incarnation~~ **Implemented**`, dated 2026-09-22, pointing at #1306. Acknowledged in four PR issue comments (02:05Z–03:21Z).
+2. **Inline comment** on `designs/daemon-guest-bot-incarnation.md` (id 4067487699) — "more precise to say append-only rather than immutable … a formula cannot be modified; the graph can grow and collect unreachable nodes."
+   - **Artifact:** same commit `ae0929f48`. Current file line 46–48: "Endo's persistent state is an append-only **formula graph**. A formula, once written, cannot be modified … and unreachable formulas can be collected, so describing the graph as immutable [is imprecise]."
+   - **Acknowledged:** threaded inline reply id 4067898149 by kriscendobot ("Addressed in ae0929f48. The background now describes the formula graph as append-only…").
 
-2. **Inline comment on `designs/daemon-guest-bot-incarnation.md` (id 4067487699) — "append-only rather than immutable."**
-   Resolved in the same commit's rewritten **Background** section: *"Endo's persistent state is an append-only **formula graph**. A formula, once written, cannot be modified. The graph itself can grow as formulas are added, and unreachable formulas can be collected, so describing the graph as immutable would be too strong."* This is a verbatim adoption of the reviewer's suggested framing. Inline reply id **4067898149** (kriscendobot, 02:05Z) correlates it to the thread.
+## Outcome
 
-CI reported green in the follow-up comment. The PR remains a draft awaiting maintainer re-review; that promotion is the maintainer's call (run-the-gauntlet), not this review directive's.
+No code/design change and no push were needed — both directives (the review body and the sole inline comment) are satisfied in the PR-head content and each carries a posted reply. Preflight exit 2 (peer resolution present) is corroborated for every ask with named artifacts above.
 
-**Action taken:** none required — a peer worker had already landed and pushed the resolving commit and replied on the thread. I did not add a fifth redundant acknowledgment comment (four already exist), post any job, or push any garden change. Verified no-op.
-
-**Follow-ups:** none. The PR is ready for maintainer re-review whenever they choose to promote it.
+**Follow-ups:** none for this directive. (The PR remains an open draft; its promotion/merge is separate work not in scope here.)
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1227-review-5194e7b0.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 10 on 2 host(s) (2 unmetered)
-- Input: 146 tokens (3456001 cached reads)
-- Output: 46857 tokens
-- Cost: $7.4879435 (2 engagement(s) unpriced)
-- Wall-clock: 7344s
-- Model(s): claude-opus-4-8 ×8
+- Engagements: 11 on 2 host(s) (2 unmetered)
+- Input: 164 tokens (3873911 cached reads)
+- Output: 54349 tokens
+- Cost: $8.3674515 (2 engagement(s) unpriced)
+- Wall-clock: 7524s
+- Model(s): claude-opus-4-8 ×9
 
 <!-- garden-usage-end -->
