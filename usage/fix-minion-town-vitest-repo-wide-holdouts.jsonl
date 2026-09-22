@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":61,"elapsed_s":788,"input_tokens":122,"output_tokens":51349,"cache_creation_tokens":148000,"cache_read_tokens":5582288,"total_cost_usd":5.559438999999998,"ts":"2026-09-22T04:40:00Z","base":"fix-minion-town-vitest-repo-wide-holdouts","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
