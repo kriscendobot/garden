@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T08:13:12Z_
+_As of 2026-09-22T08:30:53Z_
 
 ## Latest
 
@@ -3901,10 +3901,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.7M | $363.15 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.3M _(+370.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 36.8M | $363.61 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Codex | 16.3M _(+370.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40505222 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40481446 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
@@ -3913,13 +3913,13 @@ _Fleet token-unlock pace: 40505222 tokens/day lower bound; incomplete where a su
 ### doin (0)
 (none)
 
-### tada (8664)
+### tada (8665)
+- [`canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43.md) — rolling-deploy canary probe — round trip OK
 - [`improve-issue-inbox-cursor-timeout-alignment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-alignment.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-7fa754ed367a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-7fa754ed367a.md) — rolling-deploy canary probe — round trip OK
 - [`improve-cursor-io-lock-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-cursor-io-lock-recovery.md) — Completion report
 - [`finish-rollout-leader-postdeploy-probe-e43c28386fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-rollout-leader-postdeploy-probe-e43c28386fae.md) — rolling-deploy canary probe — round trip OK
-- [`finish-claude-cli-signal-rollout-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-claude-cli-signal-rollout-20260922.md) — Completion report: finish-claude-cli-signal-rollout-20260922
-- … and 8659 more
+- … and 8660 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
