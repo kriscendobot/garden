@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-22T01:24:22Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-pr256-hashline-phase2-build
+pr_number: 1327
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1327
+pr_head: kriscendobot:ebfb-pr256-hashline-phase2
