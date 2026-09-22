@@ -67,3 +67,13 @@ Procedure:
    SHA. Do NOT merge to `llm` here — merge/conduct is a separate step (maintainer
    review of a daemon persistence change is expected); a follow-on `conduct` job
    carries it once approved.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T20:33:18Z
