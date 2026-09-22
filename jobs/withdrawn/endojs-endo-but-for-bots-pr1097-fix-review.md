@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Doomed (elapsed-constancy) fixer for the older review 5069647283; that review's asks are moot after PR #1097's rebase onto current llm and the getInfo->{size,sha256} split (review 5273199990 resolved).
+withdrawn_by: gardener
+withdrawn_at: 2026-09-22T05:16:59Z
+withdrawn_from_gate: deferred
+---
+
+---
 gate: deferred
 priority: normal
 role: fixer
