@@ -1,34 +1,41 @@
-Both asks in review 5273199990 are triaged and the correct resolution — a maintainer close-vs-rebase decision — is durably routed. Report follows.
-
----
+Both review asks are resolved with corroborated evidence and surfaced to the maintainer. No code changes were needed or made (nothing pushed; rebase aborted). Let me write the completion report.
 
 ## Completion report — `endojs-endo-but-for-bots-pr1097-review-05395c57`
 
-**Review triaged (kriskowal review `5273199990`, CHANGES_REQUESTED, submitted 2026-09-22).** Enumerated the whole review as the unit of work:
+**Disposition: PR #1097 is fully superseded by landed `llm` work. Mechanical rebase is infeasible (empty net diff); recommended close to the maintainer.**
 
-1. **Body ask "rebase and refresh":** the literal rebase onto the PR's frozen base `llm-6beb4e5` is a **no-op** — the head `66d1c1fe08` already sits on that base tip (base is an ancestor of head). The real intent is a *forward* base-pin to a snapshot carrying the renamed surface.
-2. **Inline ask** on `.changeset/readable-blob-declarations.md` ("getInfo revised to separate size and sha256 methods").
+### Review items (whole review treated as the unit of work)
+1. **Review body (primary "rebase" ask):** "Please rebase and refresh; some names have changed beneath this change and should be brought into alignment." — Resolved as a supersession finding, not a refresh.
+2. **Inline comment** on `.changeset/readable-blob-declarations.md:11`: "We recently revised getInfo to separate size and sha256 methods." — Confirmed already reflected on `llm`; folds into the same finding.
 
-**Decisive finding — the PR is superseded.** The entire substantive delta of #1097 has already landed on `origin/llm` (now ~1025 commits ahead of `llm-6beb4e5`), *with exactly the renamed surface this review requests*:
-- generated code-mode declarations already use `sha256()`/`size()`/`byteRange()` — the PR still carries `getInfo()`/`range()`;
-- the range-attenuation feature commit `0668baf85f` is on `origin/llm`;
-- all four touched design docs and `.changeset/readable-blob-declarations.md` are already upstream, using `sha256()/size()/bytes()/byteRange()/textRange()`.
+### What I did
+- Ran the preflight (exit 0, PROCEED — no peer resolution).
+- Enumerated the review body + its one inline comment via the GitHub API.
+- Took an isolated project worktree and attempted the rebase of the 6-commit head (`fix/readableblob-byte-array-cleanup`, base pin `llm-6beb4e5`=`6beb4e5bf7`) onto current `llm` (`db664fa119`).
 
-A forward-pin rebase would therefore resolve to a near-empty diff. Grinding a 1025-commit forward rebase to prove that would be wasted effort, so I did **not** push anything upstream and posted **no** rebase jobs.
+### Evidence (all verified by inspection/execution)
+- The rebase **conflicts across 34 files on the very first commit** (#910 range attenuation, `7c0568df09`) — that feature already exists on `llm`.
+- The PR implements range attenuation in **new files** `packages/platform/src/fs/blob-range.js` + `fs-node/read-file-window.js`; `llm` landed the same design instead as `packages/platform/src/fs/range-attenuation.js`. `blob-range.js` **does not exist on `llm`**.
+- Names diverged exactly as the maintainer noted: PR uses `getInfo` + `range`; `llm`'s `rangeReadMethodGuards` are separate `sha256`/`size`/`bytes` and attenuation is `byteRange`/`textRange` (`interfaces.js:84–110`). The inline `getInfo → sha256/size` split is already on `llm`.
+- The PR's only stated novel delta — raw `Uint8Array` chunks + delegated wire encoding, dropping the redundant base64 chunk iterator — **also already landed**: `llm`'s `local-blob.js` yields raw `Uint8Array` via `bytesReaderFromIterator` (`@endo/exo-stream`) and delegates encoding.
 
-**Routed the deciding call to the maintainer** (via `message-user.sh` → maintainer inbox): *close #1097 as superseded, or forward-pin + rebase its residual delta (and to which llm snapshot)?* Also flagged that the earlier parked 3-stage orchestration (`pr1097-rsvp-20260904` → drop-base64, rename-info-types) is now **stale** — its `getInfo()->info()` direction is superseded by the `getInfo->{size,sha256}` split that already landed.
+Net: every distinct thing #1097 set out to do is present on `llm` under canonical names/files; a rebase would delete the PR's parallel files and leave an empty diff. Same class as #1075 / #814.
 
-**What changed:** nothing in any repo; the finding was delivered to the maintainer and recorded in project memory (`ebfb-pr1097-base-pin-and-node24-infra` + MEMORY.md index).
+### Outputs
+- Sent the full evidence + close recommendation to the maintainer inbox (`msg-…-f78ff5763fe1`).
+- Recorded memory `endo-pr1097-superseded.md` + MEMORY.md index line.
 
-**Follow-up (owned by the maintainer's reply):** the close-vs-rebase decision. A maintainer reply re-opens the work as a fresh job (this attempt is complete, so the reply dead-letters into a new job). The code deliverable (rebase/refresh) is intentionally **not** landed — that is the correct, honest outcome pending the maintainer's decision.
+### Follow-ups
+- Maintainer decision to **close #1097 as superseded** (gardeners don't close superseded PRs). No garden job owns further work — the remaining action is the maintainer's call.
+- No commits/pushes to any branch; no garden `main2` change required; project worktree torn down at job end.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1097-review-05395c57.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 66 tokens (2159208 cached reads)
-- Output: 36060 tokens
-- Cost: $2.848676
-- Wall-clock: 744s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 2 host(s)
+- Input: 126 tokens (4388493 cached reads)
+- Output: 62413 tokens
+- Cost: $5.5296345
+- Wall-clock: 1443s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
