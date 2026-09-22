@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T07:59:36Z_
+_As of 2026-09-22T08:13:12Z_
 
 ## Latest
 
@@ -3901,25 +3901,25 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.8M | $365.62 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 36.7M | $363.15 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 16.3M _(+370.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40481446 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40505222 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-issue-inbox-cursor-timeout-alignment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-inbox-cursor-timeout-alignment.md) — ---
+### doin (0)
+(none)
 
-### tada (8663)
+### tada (8664)
+- [`improve-issue-inbox-cursor-timeout-alignment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-alignment.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-7fa754ed367a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-7fa754ed367a.md) — rolling-deploy canary probe — round trip OK
 - [`improve-cursor-io-lock-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-cursor-io-lock-recovery.md) — Completion report
 - [`finish-rollout-leader-postdeploy-probe-e43c28386fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-rollout-leader-postdeploy-probe-e43c28386fae.md) — rolling-deploy canary probe — round trip OK
 - [`finish-claude-cli-signal-rollout-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-claude-cli-signal-rollout-20260922.md) — Completion report: finish-claude-cli-signal-rollout-20260922
-- [`daily-progress-summary-20260922-070554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/daily-progress-summary-20260922-070554.md) — Completion report
-- … and 8658 more
+- … and 8659 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
