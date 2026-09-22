@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":5,"elapsed_s":43,"input_tokens":10,"output_tokens":2840,"cache_creation_tokens":36418,"cache_read_tokens":197382,"total_cost_usd":0.5369140000000001,"ts":"2026-09-22T00:46:57Z","base":"self-heal-fix-garden-receipt-watcher-silent-prereq-rc1","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
