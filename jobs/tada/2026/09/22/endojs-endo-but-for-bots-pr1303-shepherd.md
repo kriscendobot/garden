@@ -1,27 +1,24 @@
-Nothing in the inbox. The shepherd deliverable — CI green — is already satisfied, so there is no CI work to perform.
+Inbox is empty. The shepherd deliverable — CI green — is already satisfied, so there was nothing to fix.
 
 ## Completion report
 
-**Job:** shepherd endojs/endo-but-for-bots PR #1303 (`test(ironhorse): add object-capability benchmark corpus`) → drive CI to green.
+**Job:** shepherd endojs/endo-but-for-bots PR #1303 → drive CI to green.
 
-**Findings:**
-- PR #1303 is OPEN, DRAFT, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, head `107ec8db75fdb0d9e1682298654bc633c4524821`, base `llm-387ea66`.
-- CI on the current head SHA is **fully green**: 23 check-runs succeeded, 7 skipped, **zero failing / queued / in-progress**. Passing checks include `test (22.x/24.x, ubuntu/macos)`, `test-xs`, `test-ironhorse`, `test-ironhorse-macos`, `test-ironhorse-oracle`, `ironhorse-oracle-sanitizers`, `lint`, `cover`, `build-xsnap`, and the rest.
-- The GitHub combined-status `state: pending` (total 0) is a red herring — the repo tracks CI via check-runs, not legacy commit statuses, so there are zero statuses and the default "pending" appears. It does not block merge (`mergeStateStatus: CLEAN` confirms).
+**PR state:** #1303 *"test(ironhorse): add object-capability benchmark corpus"* — OPEN, DRAFT, head `feat/ironhorse-ocap-benchmark-corpus` (in-repo) onto pinned base `llm-387ea66`. `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
 
-**Actions taken:** Verified CI state via `gh pr checks` and the check-runs API on the exact head SHA. No commits, pushes, or reruns were needed — there was nothing red to fix.
+**CI:** Already fully green against the current head `107ec8db75fdb0d9e1682298654bc633c4524821` — status-check rollup is **27 SUCCESS, 7 SKIPPED, 0 failing/pending**. All the ironhorse legs (test-ironhorse, test-ironhorse-oracle, ironhorse-oracle-sanitizers, compare-ironhorse-math, format-ironhorse, test-ironhorse-macos, test-thixotrope-ironhorse, calibration, release) pass, along with the full cross-platform node test matrix, lint, cover, and xsnap.
 
-**What changed:** Nothing. CI was already at the shepherd's target state.
+**Work done:** Inspected the PR and its check rollup. No red or stuck checks existed, so no commits, pushes, or re-runs were required. Nothing to fix. Inbox drained (empty).
 
-**Follow-ups:** None from a shepherd standpoint. The PR remains a DRAFT; promoting it to review is a separate maintainer-triggered **run the gauntlet #1303**, outside this job's scope. No inbox messages awaited a reply.
+**Follow-ups:** None from a CI standpoint. The PR remains a DRAFT by design (manual-gauntlet-trigger regime) — it is CI-green and awaits an explicit **run the gauntlet #1303** / promotion decision from the maintainer, which is outside a shepherd's scope.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1303-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 14 on 2 host(s) (1 unmetered)
-- Input: 176 tokens (3981038 cached reads)
-- Output: 36654 tokens
-- Cost: $9.537254 (1 engagement(s) unpriced)
-- Wall-clock: 3215s
-- Model(s): claude-opus-4-8 ×13
+- Engagements: 15 on 2 host(s) (1 unmetered)
+- Input: 190 tokens (4242552 cached reads)
+- Output: 39632 tokens
+- Cost: $10.423924000000001 (1 engagement(s) unpriced)
+- Wall-clock: 3280s
+- Model(s): claude-opus-4-8 ×14
 
 <!-- garden-usage-end -->
