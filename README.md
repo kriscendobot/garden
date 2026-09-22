@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T17:21:43Z_
+_As of 2026-09-22T18:09:09Z_
 
 ## Latest
 
@@ -1250,11 +1250,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-12T03:20:10Z, latest 2026-09-22T15:20:43Z).
-> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-12T03:20:10Z, latest 2026-09-22T18:05:22Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=37718861 cap=143000000 pace-bias=0.367660 ceiling=3 target=2
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=37851956 cap=143000000 pace-bias=0.401602 ceiling=3 target=2
 
 - `build-rbra-cleanbreak-20260916-halted` — from orchestrator:build-rbra-cleanbreak-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-rbra-cleanbreak-20260916-halted.md)
 
@@ -3940,9 +3940,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.9M | $370.56 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 17.4M _(+379.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Codex | 17.4M _(+379.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34108146 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
