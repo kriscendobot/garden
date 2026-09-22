@@ -60,6 +60,18 @@
 # refresh cleanly (no lock, no warning, no journal round-trip) and keeps the fixed timer
 # cadence, and a later tick refreshes once the gate expires. Normal event triage and the
 # steady fetch are untouched — only the optional wake computation is gated.
+#
+# Contention backoff (a LONGER host-shared cooldown for a PERSISTENTLY busy clone): the 30s
+# refresh gate collapses a concurrent herd but does NOT suppress a clone that stays locked
+# across many windows — it lets exactly one tick per 30s window through, and each such tick
+# re-hits the busy lock, burns the soft attempt, and latches a per-repo WARN, so a host with
+# many watched repos leaks a fresh lock warning every window (the 13 repeated warnings this
+# fixes). When the optional refresh fails with the soft-lock (or journal-input) EX_TEMPFAIL
+# rc, we arm a SECOND, longer host-shared stamp (GARDEN_TRIAGE_PACE_CONTENTION_COOLDOWN,
+# default 300s): while it is live EVERY tick skips the optional refresh QUIETLY — checked
+# before the refresh gate, so it touches neither the lock nor the journal and emits no
+# warning — and a single tick past its expiry retries and, on success, recovers. One
+# failure/warning, then clean silence, then recovery.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -88,6 +100,12 @@ export GARDEN_TAG="triager/$slug"
 # refresh and keep the fixed timer cadence (see the header). 0 (or unparseable) disables
 # the gate entirely — every tick refreshes, the pre-gate behavior.
 : "${GARDEN_TRIAGE_PACE_COOLDOWN:=30}"
+# Longer host-shared CONTENTION backoff (seconds), armed after a soft pacing-clone lock (or
+# journal-input) failure so a persistently busy clone is not re-probed — and re-warned —
+# once per 30s refresh-gate window. While it is live every tick skips the optional refresh
+# quietly (no lock, no warning); a tick past its expiry retries and recovers (see the
+# header). 0 (or unparseable) disables it — the pre-backoff behavior.
+: "${GARDEN_TRIAGE_PACE_CONTENTION_COOLDOWN:=300}"
 # Internal tick deadline (see the header). Once a tick has spent this many wall-clock
 # seconds, it defers the remaining nested journal/fetch/pace work to the next timer tick
 # and exits cleanly (0) rather than run into the unit's 900s TimeoutStartSec and be
@@ -110,6 +128,10 @@ PACE_PROBE_WARNING_LATCH="$PACE_STATE_DIRECTORY/probe-warning-${slug//[^A-Za-z0-
 # shared pace clone through this single expiry stamp + flock (see the header).
 PACE_REFRESH_GATE="$PACE_STATE_DIRECTORY/refresh-gate"
 PACE_REFRESH_GATE_LOCK="$PACE_STATE_DIRECTORY/refresh-gate.lock"
+# Host-shared (NOT per-slug) longer contention backoff stamp + flock: armed on a soft-lock
+# refresh failure, read by every tick to skip the optional refresh quietly until it expires.
+PACE_CONTENTION_GATE="$PACE_STATE_DIRECTORY/contention-gate"
+PACE_CONTENTION_GATE_LOCK="$PACE_STATE_DIRECTORY/contention-gate.lock"
 PACE_PREEMPTED=0
 PACE_EXPECTED_SHA=""
 PACE_OBSERVED_SHA=""
@@ -216,14 +238,58 @@ triager_pace_gate_open() {
   ) 9>"$PACE_REFRESH_GATE_LOCK"
 }
 
+# Host-shared contention backoff (see the header). rc 0 = a backoff window is CURRENTLY
+# active, so this tick must skip the optional refresh quietly; rc 1 = none active, proceed.
+# Read-only. Fails toward proceeding (rc 1) on a disabled/unparseable cooldown, an
+# unparseable clock, or an absent/garbage stamp — a stray file never wedges pacing off.
+triager_pace_contention_active() {
+  local cooldown; cooldown="${GARDEN_TRIAGE_PACE_CONTENTION_COOLDOWN:-300}"
+  { [[ "$cooldown" =~ ^[0-9]+$ ]] && [ "$cooldown" -gt 0 ]; } || return 1
+  local now expiry
+  now="$(triager_pace_now)"
+  [[ "$now" =~ ^[0-9]+$ ]] || return 1
+  expiry="$(sed -n '1p' "$PACE_CONTENTION_GATE" 2>/dev/null || true)"
+  case "$expiry" in ''|*[!0-9]*) return 1;; esac
+  [ "$expiry" -gt "$now" ]
+}
+
+# Arm (or extend) the host-shared contention backoff after a soft-lock/journal-input refresh
+# failure. flock'd so a herd of concurrent failing ticks writes it once; it always writes the
+# freshest expiry because a still-busy clone should keep the whole host backed off. No-op on
+# a disabled cooldown, an unparseable clock, or an unwritable state dir — never wedges pacing.
+triager_pace_arm_contention() {
+  local cooldown; cooldown="${GARDEN_TRIAGE_PACE_CONTENTION_COOLDOWN:-300}"
+  { [[ "$cooldown" =~ ^[0-9]+$ ]] && [ "$cooldown" -gt 0 ]; } || return 0
+  mkdir -p "$PACE_STATE_DIRECTORY" 2>/dev/null || return 0
+  (
+    flock 9
+    local now new_expiry tmp
+    now="$(triager_pace_now)"
+    [[ "$now" =~ ^[0-9]+$ ]] || exit 0
+    new_expiry=$((now + cooldown))
+    tmp="$PACE_CONTENTION_GATE.$$"
+    printf '%s\n' "$new_expiry" > "$tmp" && mv -f "$tmp" "$PACE_CONTENTION_GATE" || rm -f "$tmp"
+    exit 0
+  ) 9>"$PACE_CONTENTION_GATE_LOCK"
+}
+
 triager_pace_schedule() { # <observed-sha> <ref>
   local observed_sha="$1" observed_ref="$2" clone projection status reason wake now next_wake
-  local input_json temporary_marker decision_name
+  local input_json temporary_marker decision_name subshell_rc
   [ "$GARDEN_TRIAGE_PACE_ENABLED" = 1 ] || return 0
   [ -x "$GARDEN_TRIAGE_PACE_PROJECTOR" ] || {
     triager_pace_note_warning projector-unavailable
     return 0
   }
+  # Contention backoff BEFORE the refresh gate: after a recent soft pacing-clone lock failure
+  # the whole host stays backed off a persistently busy clone for a longer window than the 30s
+  # gate. Skip QUIETLY — no lock, no journal round-trip, no warning — until it expires; a tick
+  # past expiry retries and recovers (see the header). This is what suppresses the repeated
+  # per-repo lock warnings the short refresh gate cannot.
+  if triager_pace_contention_active; then
+    log "pace refresh in contention backoff for $slug (pacing clone recently busy); skipping the optional refresh quietly until it expires"
+    return 0
+  fi
   # Shared cooldown gate BEFORE touching the one shared pace clone: if a peer tick already
   # refreshed within the cooldown window, skip this refresh cleanly — no clone lock, no
   # warning, no journal round-trip — and keep the fixed timer cadence. A later tick
@@ -240,14 +306,23 @@ triager_pace_schedule() { # <observed-sha> <ref>
   # makes ensure_clone/sync_clone's clone_lock take ONE short bounded attempt and fail
   # open (WARN + EX_TEMPFAIL exit) instead; the nonzero subshell then latches the
   # existing pacing warning and retains the fixed timer cadence for this tick.
-  if ! projection="$(
+  subshell_rc=0
+  projection="$(
       GARDEN_USAGE_NOW="$(triager_pace_now)"
       export GARDEN_USAGE_NOW
       export GARDEN_CLONE_LOCK_SOFT=1
       ensure_clone "$clone"
       sync_clone "$clone"
       "$GARDEN_TRIAGE_PACE_PROJECTOR" "$clone" "$GARDEN_TRIAGE_PACE_ROLE"
-    )"; then
+    )" || subshell_rc=$?
+  if [ "$subshell_rc" -ne 0 ]; then
+    # A soft clone-lock give-up (busy clone) and a journal-input outage both exit EX_TEMPFAIL
+    # (GARDEN_OFFLINE_RC). Arm the longer host-shared contention backoff so the whole host
+    # stops re-probing — and re-warning on — this persistently unavailable clone until the
+    # window expires. Any OTHER nonzero rc is a one-off; it warns (latched) without backoff.
+    if [ "$subshell_rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
+      triager_pace_arm_contention
+    fi
     triager_pace_note_warning journal-input-unavailable
     return 0
   fi

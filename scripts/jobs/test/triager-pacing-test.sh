@@ -285,5 +285,80 @@ else
   bad "disabled gate did not refresh every tick: calls=$(awk 'END {print NR}' "$NOGATE_CALLS_FILE" 2>/dev/null || echo 0)"
 fi
 
+# Contention backoff: a PERSISTENTLY busy pacing clone must warn ONCE, then be skipped
+# QUIETLY by every subsequent tick until the longer host-shared backoff expires, then
+# RECOVER. The 30s refresh gate alone lets one tick per window re-hit the busy lock and
+# re-warn; the contention backoff is what collapses that to a single warning + clean silence.
+# A live lock holder makes tick 1's optional refresh fail soft (EX_TEMPFAIL), arming the
+# backoff; ticks 2-3 at the same frozen clock are inside the window and skip before touching
+# the lock; tick 4 past the window (clock advanced, lock released) retries and recovers.
+CB_STATE="$TEMPORARY_ROOT/contention-backoff-state"
+CB_PROJECTOR_CALLS="$TEMPORARY_ROOT/cb-projector-calls"
+CB_PROJECTOR="$TEMPORARY_ROOT/cb-projector"
+cat > "$CB_PROJECTOR" <<EOF
+#!/bin/bash
+echo call >> "$CB_PROJECTOR_CALLS"
+printf '%s\n' '{"status":"paced","role":"triager","wake_after_seconds":600,"floor_seconds":120,"ceiling_seconds":3600,"reason":"contention-backoff-stub"}'
+EOF
+chmod +x "$CB_PROJECTOR"
+mkdir -p "$CB_STATE/triager-pace"
+CB_PACE_LOCK="$CB_STATE/triager-pace/journal.lock"
+: > "$CB_PACE_LOCK"   # empty stamp → never reads as stale, so soft mode cannot reclaim it
+( exec 9<>"$CB_PACE_LOCK"; flock -x 9; sleep 30 ) &
+CB_HOLDER_PID=$!
+sleep 1   # let the holder acquire the exclusive lock before tick 1 runs
+
+cb_tick() { # <output-file> <now>
+  timeout 45 env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$CB_STATE" \
+      JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
+      GARDEN_REPOS="$REPOSITORIES" GARDEN_WATCH_REF="$REF" \
+      GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
+      GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$DECISIONS" \
+      GARDEN_TRIAGE_PACE_NOW="$2" GARDEN_TRIAGE_PACE_PROJECTOR="$CB_PROJECTOR" \
+      GARDEN_TRIAGE_PACE_COOLDOWN=30 GARDEN_TRIAGE_PACE_CONTENTION_COOLDOWN=300 \
+      GARDEN_LOCK_SOFT_WAIT=2 \
+      "$JOBS/triager.sh" "$SLUG" >"$1" 2>&1 || true
+}
+
+CB_TICK1="$TEMPORARY_ROOT/cb-tick1"
+cb_tick "$CB_TICK1" "$NOW"
+kill "$CB_HOLDER_PID" 2>/dev/null || true
+wait "$CB_HOLDER_PID" 2>/dev/null || true
+
+CB_SKIPS="$TEMPORARY_ROOT/cb-skips"
+: > "$CB_SKIPS"
+for iteration in 2 3; do
+  CB_SKIP_OUT="$TEMPORARY_ROOT/cb-tick$iteration"
+  cb_tick "$CB_SKIP_OUT" "$NOW"
+  cat "$CB_SKIP_OUT" >> "$CB_SKIPS"
+done
+
+# Sample the projector-call count BEFORE the recovery tick: ticks 1-3 must never reach the
+# projector (tick 1 fails at the lock, ticks 2-3 skip under backoff before touching it).
+CB_CALLS_BEFORE_RECOVERY="$(awk 'END {print NR}' "$CB_PROJECTOR_CALLS" 2>/dev/null || echo 0)"
+
+CB_TICK4="$TEMPORARY_ROOT/cb-tick4"
+cb_tick "$CB_TICK4" "$((NOW + 301))"
+
+CB_WARN1="$(grep -c 'triager pacing unavailable' "$CB_TICK1" || true)"
+CB_SKIP_WARNS="$(grep -c 'triager pacing unavailable' "$CB_SKIPS" || true)"
+CB_SKIP_MSGS="$(grep -c 'contention backoff' "$CB_SKIPS" || true)"
+CB_SKIP_LOCK="$(grep -c 'abandoning this OPTIONAL refresh' "$CB_SKIPS" || true)"
+if [ "$CB_WARN1" -ge 1 ] && [ "$CB_CALLS_BEFORE_RECOVERY" -eq 0 ] \
+   && [ "$CB_SKIP_WARNS" -eq 0 ] && [ "$CB_SKIP_MSGS" -ge 2 ] && [ "$CB_SKIP_LOCK" -eq 0 ]; then
+  ok "a soft pacing-clone lock failure warns once, then ticks skip the refresh quietly under contention backoff"
+else
+  bad "contention backoff did not suppress the repeated warnings (tick1 warns=$CB_WARN1, projector-calls=$CB_CALLS_BEFORE_RECOVERY, skip-warns=$CB_SKIP_WARNS, skip-msgs=$CB_SKIP_MSGS, skip-lock=$CB_SKIP_LOCK): $(tr '\n' ' ' < "$CB_SKIPS")"
+fi
+
+CB_CALLS_AFTER_RECOVERY="$(awk 'END {print NR}' "$CB_PROJECTOR_CALLS" 2>/dev/null || echo 0)"
+if [ "$CB_CALLS_AFTER_RECOVERY" -eq 1 ] \
+   && grep -q 'triager pacing inputs recovered' "$CB_TICK4" \
+   && [ -r "$CB_STATE/triager/pace/$SLUG" ]; then
+  ok "a tick past the contention window retries the refresh and recovers"
+else
+  bad "contention backoff did not recover after expiry (projector-calls=$CB_CALLS_AFTER_RECOVERY): $(tr '\n' ' ' < "$CB_TICK4")"
+fi
+
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
