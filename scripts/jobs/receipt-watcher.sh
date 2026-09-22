@@ -96,7 +96,30 @@ prereq_rc=0
 # Contain both helpers in a subshell: ensure_clone and sync_clone intentionally use
 # die/exit for structural and EX_TEMPFAIL outcomes, which a same-shell `||` cannot
 # catch. The subshell turns either exit into data we can classify here.
-( ensure_clone "$DIR"; sync_clone "$DIR" ) 2>"$PREREQ_ERR" || prereq_rc=$?
+#
+# The ERR trap records the failing command/line into PREREQ_ERR for the case that
+# actually bit us (self-heal capture 24818db04 — endojs/endo-but-for-bots: prereq_rc=1
+# with a COMPLETELY EMPTY PREREQ_ERR): a command inside the subshell fails without ever
+# reaching die()/log() (which always write to stderr), so nothing at all was captured.
+# Diagnostics only — on success no command fails, so the trap never fires and behavior
+# is identical.
+#
+# Getting the trap to fire is subtle: the old `( … ) 2>ERR || prereq_rc=$?` put the
+# subshell in a `||` (tested) context, where bash IGNORES errexit — and the ERR trap
+# fires only under errexit conditions, so a bare `trap … ERR` there never fires. So we
+# instead (1) `set +e` in the parent so the subshell is a standalone statement (not a
+# `||`-tested one) and its rc can be read separately without killing the script, (2)
+# `set -eE` INSIDE the subshell — errexit re-armed for a subshell that is now in an
+# un-ignored context, plus errtrace so the ERR trap is inherited into ensure_clone /
+# sync_clone and the sourced common.sh helpers they call, and (3) capture prereq_rc as a
+# separate statement, then restore the parent's errexit. die()/exit inside still
+# propagate as the subshell rc with their own stderr, exactly as before.
+set +e
+( set -eE
+  trap 'echo "  [prereq] failed at ${BASH_SOURCE[0]##*/}:$LINENO in ${FUNCNAME[0]:-main}(): $BASH_COMMAND (rc=$?)" >&2' ERR
+  ensure_clone "$DIR"; sync_clone "$DIR" ) 2>"$PREREQ_ERR"
+prereq_rc=$?
+set -e
 if [ "$prereq_rc" -ne 0 ]; then
   if shared_availability_failure "journal prerequisite" "$prereq_rc" "$PREREQ_ERR"; then
     rm -f "$PREREQ_ERR"
