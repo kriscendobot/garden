@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by the maintainer-directed minion.town Agent-SDK experiment in minion-town-claude-inference-exploration-20260922.
+withdrawn_by: fixer
+withdrawn_at: 2026-09-22T01:27:39Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 posted_by: liaison
