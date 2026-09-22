@@ -102,6 +102,17 @@ run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command]
   "${runenv[@]}" "$JOBS/receipt-watcher.sh" "$slug" >/dev/null 2>"$err"
 }
 
+# Like run_watch but WITHOUT pinning GARDEN_RECEIPT_WATCH_CLONE, so the watcher's own
+# per-slug default ($GARDEN_STATE/receipt-watcher/journal-<slug>) takes effect.
+run_watch_default() {  # run_watch_default <slug> <stderr-file>
+  local slug="$1" err="$2"
+  env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$STATE" PATH="$TR/gitbin:$PATH" \
+    GARDEN_CURSOR_CLONE="$CURSOR_CLONE" GARDEN_RECEIPT_PR_SOURCE="$TR/bin/empty-source" \
+    GARDEN_RECEIPT_POST="$TR/bin/empty-source" GARDEN_FETCH_RETRIES=1 \
+    GARDEN_BACKOFF_BASE=0 GARDEN_BACKOFF_CAP=0 GARDEN_API_COOLDOWN_SECS=120 \
+    "$JOBS/receipt-watcher.sh" "$slug" >/dev/null 2>"$err"
+}
+
 # A fleet-wide journal outage races six independently-instantiated watchers. Every
 # tick must be clean, one detector owns the warning, and one bounded marker backs the
 # skip. This also proves sync_clone's internal exit(75) is contained by the watcher.
@@ -206,6 +217,22 @@ if ! proc_running "$SPID1" && ! proc_running "$SPID2"; then
 else
   bad "cgroup sweep left a straggler alive after watcher exit"
   kill -KILL "$SPID1" "$SPID2" 2>/dev/null || true
+fi
+
+# The DEFAULT receipt clone is PER-SLUG: with GARDEN_RECEIPT_WATCH_CLONE unset, each
+# templated instance syncs its OWN $GARDEN_STATE/receipt-watcher/journal-<slug> with its
+# OWN sibling clone_lock, so the 16 concurrent instances never contend on one shared lock
+# (the shared-clone contention this fix removes). Two distinct slugs must land in two
+# distinct clone dirs, neither of them the old shared $STATE/receipt-watcher/journal.
+rm -f "$STATE/gh-api-cooldown/marker"
+run_watch_default kriscendobot-race1 "$TR/default-a.err" || true
+run_watch_default kriscendobot-race2 "$TR/default-b.err" || true
+A="$STATE/receipt-watcher/journal-kriscendobot-race1"
+B="$STATE/receipt-watcher/journal-kriscendobot-race2"
+if [ -d "$A/.git" ] && [ -d "$B/.git" ] && [ "$A" != "$B" ]; then
+  ok "default receipt clone is per-slug (distinct journal-<slug> dirs per instance)"
+else
+  bad "default receipt clone was not per-slug (A=$A exists=$([ -d "$A/.git" ] && echo y) B=$B exists=$([ -d "$B/.git" ] && echo y))"
 fi
 
 echo "TOTAL: $PASS passed, $FAIL failed"

@@ -34,18 +34,6 @@
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Lock patience, THIS watcher only (exported before common.sh so its `: "${VAR:=default}"`
-# defaults defer to these). common.sh's clone_lock budget (GARDEN_LOCK_WAIT=60s ×
-# GARDEN_LOCK_RETRIES=3, ~180s) is sized for "per-service clones with no concurrent
-# users" — but every armed garden-receipt-watcher@<slug> instance (currently 16 repos)
-# shares ONE journal clone ($GARDEN_STATE/receipt-watcher/journal) and serializes on its
-# sibling clone_lock. On ordinary fan-out the herd of instances can all wake and queue on
-# that lock at once; the default budget lets a queued-out loser die loudly (the FATAL
-# "receipt journal prerequisite failed" that fired for kriscendobot-test262). Raise the
-# retry count so a queued instance outlasts its ~15 peers' short journal-sync turns
-# instead of failing on routine contention. Scoped here only — do NOT change common.sh's
-# global defaults, which every other producer shares and whose clones are not fanned out.
-: "${GARDEN_LOCK_RETRIES:=12}"; export GARDEN_LOCK_RETRIES
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 
@@ -54,7 +42,21 @@ export GARDEN_TAG="receipt-watcher/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_RECEIPT_PR_SOURCE:=$HERE/handlers/receipt-pr-source-gh.sh}"
 : "${GARDEN_RECEIPT_POST:=$HERE/post-job.sh}"
-: "${GARDEN_RECEIPT_WATCH_CLONE:=$GARDEN_STATE/receipt-watcher/journal}"
+# PER-SLUG journal clone (default keyed on $slug). Every armed
+# garden-receipt-watcher@<slug> instance (currently 16 repos) runs concurrently on the
+# same cadence (OnUnitActiveSec=300s, RandomizedDelaySec=60s) with per-run wall times of
+# 30–100s+. A single shared clone ($GARDEN_STATE/receipt-watcher/journal) serialized all
+# 16 on ONE sibling clone_lock in ensure_clone/sync_clone (fetch + `git reset --hard`),
+# so a queued-out loser died loudly on routine contention — the FATAL "receipt journal
+# prerequisite failed" (empty prerequisite stderr) that recurred across differing slugs
+# clustered in the same few-minute window. Giving each slug its OWN clone gives it its
+# OWN $DIR.lock sibling (_clone_lockfile), so the instances never contend: no shared
+# lock, no cross-instance fetch/reset race. A watcher instance is a systemd singleton
+# per instance name, so its own per-slug clone has no concurrent users and common.sh's
+# default clone_lock budget suffices. The set of clones is bounded (one per armed slug)
+# and reused across ticks, not an unbounded per-id leak. Override to a shared path only
+# in a test that deliberately exercises the concurrent-clone path.
+: "${GARDEN_RECEIPT_WATCH_CLONE:=$GARDEN_STATE/receipt-watcher/journal-$slug}"
 # On the very first tick (no cursor yet), seed the cursor this far back rather than to
 # "now", so a just-completed PR from the last day or two is still picked up — but the
 # whole historical backlog is NOT flooded as live comments. Empty ⇒ seed to now.
