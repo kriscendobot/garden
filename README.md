@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T00:43:51Z_
+_As of 2026-09-22T00:46:16Z_
 
 ## Latest
 
@@ -3165,32 +3165,31 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.2M | $752.34 _(notional, rate-card)_ | no quota set |
-| Codex | 29.0M _(+686.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 120.3M | $753.88 _(notional, rate-card)_ | no quota set |
+| Codex | 29.1M _(+687.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
-### todo (6)
+### todo (5)
 - [`self-heal-fix-garden-receipt-watcher-kriscendobot-test262-shared-clone-lock-retries`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-receipt-watcher-kriscendobot-test262-shared-clone-lock-retries.md) — ---
 - [`build-minion-town-claude-cli-inference-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-claude-cli-inference-20260922.md) — Explore (tentatively) a Claude **CLI** inference backend inside minion.town
-- [`self-heal-fix-garden-receipt-watcher-silent-prereq-rc1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-receipt-watcher-silent-prereq-rc1.md) — ---
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1286-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
 - [`build-minion-town-claude-agent-sdk-inference-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-claude-agent-sdk-inference-20260922.md) — Explore (tentatively) a Claude **Agent SDK** inference backend inside minion....
 - [`kriscendobot-minion.town-pr87-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr87-shepherd.md) — shepherd (auto: approved but CI needs work) on kriscendobot/minion.town PR #87
 
 ### doin (6)
 - [`merge-endojs-endo-but-for-bots-pr1317-20260921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endojs-endo-but-for-bots-pr1317-20260921.md) — merge (conduct) endojs/endo-but-for-bots PR #1317
-- [`endojs-endo-but-for-bots-pr1289-review-f5a08880`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1289-review-f5a08880.md) — Review directive on endojs/endo-but-for-bots PR #1289
+- [`self-heal-fix-garden-receipt-watcher-silent-prereq-rc1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-receipt-watcher-silent-prereq-rc1.md) — ---
 - [`merge-endojs-endo-but-for-bots-1309-20260921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endojs-endo-but-for-bots-1309-20260921.md) — Conductor: finalize and merge endojs/endo-but-for-bots PR #1309
 - [`endojs-endo-but-for-bots-pr1226-review-adf95686`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-review-adf95686.md) — Review directive on endojs/endo-but-for-bots PR #1226
 - [`endojs-endo-but-for-bots-pr1227-review-5194e7b0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-review-5194e7b0.md) — Review directive on endojs/endo-but-for-bots PR #1227
 - [`endojs-endo-but-for-bots-pr1309-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1309-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #1309
 
 ### tada (8581)
+- [`endojs-endo-but-for-bots-pr1289-review-f5a08880`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1289-review-f5a08880.md) — Completion report
 - [`kriscendobot-minion.town-pr98-conduct-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr98-conduct-20260922.md) — Completion report
 - [`self-heal-fix-garden-receipt-watcher-kriscendobot-minion-town-empty-prereq-diagnostic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/self-heal-fix-garden-receipt-watcher-kriscendobot-minion-town-empty-prereq-diagnostic.md) — Completion report
 - [`claude-on-minion-town-press-20260922-002015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-002015.md) — Cost
 - [`endojs-endo-but-for-bots-pr1309-review-a5084d17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1309-review-a5084d17.md) — Completion report — review directive on endojs/endo-but-for-bots PR #1309
-- [`endojs-endo-but-for-bots-pr1303-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1303-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #1303
 - … and 8576 more
 
 ## Plan queue (parked — not claimable until promoted)
