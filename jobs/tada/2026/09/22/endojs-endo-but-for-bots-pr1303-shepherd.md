@@ -1,26 +1,30 @@
-CI on PR #1303 is already fully green — nothing to fix. No garden or project changes were needed.
+CI is fully green on the current head SHA — nothing to fix. Reporting the state.
 
 ## Completion report
 
 **Job:** shepherd endojs/endo-but-for-bots PR #1303 — drive CI to green.
 
-**PR state:** `test(ironhorse): add object-capability benchmark corpus`, DRAFT, `MERGEABLE` / `mergeStateStatus: CLEAN`, base `llm-387ea66`, head `feat/ironhorse-ocap-benchmark-corpus` @ `107ec8db75fdb0d9e1682298654bc633c4524821`.
+**Finding: CI is already fully green; no shepherd repair was needed.**
 
-**CI status (head SHA `107ec8d`):** all checks converged green — **27 pass, 7 skipping, 0 failing, 0 pending**. Verified the driving workflow run `35658949064` reports `status: completed`, `conclusion: success` on head_sha `107ec8db…`, exactly matching the PR head. Substantive legs all green: `test (22.x/24.x × ubuntu/macos)`, `test-xs`, `test-ironhorse` (+ `-macos`/`-oracle`/`-release`/`-calibration`), `test-thixotrope-ironhorse`, `ironhorse-oracle-sanitizers`, `cover (22.x/24.x)`, `lint`, `build-xsnap`, `format-ironhorse`, `zizmor`, `viable-release`. The 7 skipping (`build`, `build-wasm`, `check-action-pins`, `test-async-hooks`, `test-hermes`, `test-ocapn-guile-interop`, `test-ocapn-python`) are path/condition-gated no-ops, not failures.
+PR #1303 (`test(ironhorse): add object-capability benchmark corpus`, head `107ec8db75fdb0d9e1682298654bc633c4524821`, base `llm-387ea66`, DRAFT) checked out clean:
 
-**Action taken:** none required. CI was already green on the current head SHA, the PR is mergeable/clean, and there is no red to diagnose or fix. No commits pushed, so no green-run-URL summary comment is warranted (and none is authorized in the job body). No garden-repo changes.
+- **27 checks SUCCESS, 7 SKIPPED, 0 failing, 0 pending/in-progress.** Every substantive leg is green: `test (22.x/24.x × ubuntu/macos)`, `test-xs`, `test-ironhorse`, `test-ironhorse-{macos,oracle,release,calibration}`, `test-thixotrope-ironhorse`, `ironhorse-oracle-sanitizers`, `cover`, `lint`, `format-ironhorse`, `build-xsnap`, `sandbox-drivers`, `compare-ironhorse-math`, `zizmor`, `viable-release`, etc. The SKIPPED entries are the normal path-filtered legs (`build`, `build-wasm`, `test-hermes`, `test-async-hooks`, `test-ocapn-{python,guile-interop}`, `check-action-pins`).
+- `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN` — not conflicting, so no weaver hand-off is implicated.
+- Green run: https://github.com/endojs/endo-but-for-bots/actions/runs/35658949064
 
-**Escalation classification:** `next: none` — CI is green; no flake, no impasse, no safety concern. The PR remains DRAFT by author intent; promoting it to review (a gauntlet / un-draft) is a maintainer decision, not part of this shepherd directive.
+**Actions taken:** none required. No commits pushed (there was nothing red to repair), no PR comment posted (the job body carried no comment authorization, and there was no shepherd fix to summarize). Per the role's "watch-only is the wrong shape" norm, I did not sit and poll — CI had already converged before I claimed.
 
-**Follow-ups:** none. If the maintainer wants this draft advanced toward merge, that is a separate "run the gauntlet #1303" trigger.
+**State:** The PR sits green as an open DRAFT. Under the manual-gauntlet regime it stays draft until the maintainer promotes it with an explicit **run the gauntlet #1303**. No follow-up job posted.
+
+`next: none` — CI is green on the head SHA; definition of done satisfied.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1303-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 16 on 2 host(s) (1 unmetered)
-- Input: 200 tokens (4425449 cached reads)
-- Output: 41841 tokens
-- Cost: $11.298360500000001 (1 engagement(s) unpriced)
-- Wall-clock: 3325s
-- Model(s): claude-opus-4-8 ×15
+- Engagements: 17 on 2 host(s) (1 unmetered)
+- Input: 210 tokens (4608688 cached reads)
+- Output: 44298 tokens
+- Cost: $12.182193000000002 (1 engagement(s) unpriced)
+- Wall-clock: 3385s
+- Model(s): claude-opus-4-8 ×16
 
 <!-- garden-usage-end -->
