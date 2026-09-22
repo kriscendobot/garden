@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Reversed by the maintainer. The ava directive (review 5273122355, 'This house uses ava', 2026-09-22T00:26Z) is superseded by kriskowal's later comment 5770443815 (2026-09-22T02:39Z, PR #87): 'Repo-wide migration to vitest. The Endo repository dictates house style.' minion.town is ALREADY entirely on vitest (51 test files since initial commit; vitest.config.ts; npm test == vitest run); Endo itself migrated ava->vitest, so house style is vitest, not ava. The vitest->ava migration must NOT happen; this parked entry's scope question is answered as 'stay on vitest, repo-wide.'
+withdrawn_by: gardener
+withdrawn_at: 2026-09-22T03:09:05Z
+withdrawn_from_gate: awaiting-maintainer
+---
+
+---
 gate: awaiting-maintainer
 maintainer_question: 'Migrate minion.town vitest->ava: repo-wide dedicated PR (rec) vs PR #87-local vs other?'
 asked_at: https://github.com/kriscendobot/minion.town/pull/87#pullrequestreview-5273122355
