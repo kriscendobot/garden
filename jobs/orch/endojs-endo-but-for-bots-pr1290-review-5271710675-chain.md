@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1290-feedback-5271710675-failure-notified: true
 child-endojs-endo-but-for-bots-pr1290-feedback-5271710675-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr1290-feedback-5271710675-reap-count: 0
 order: serial
