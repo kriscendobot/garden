@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T20:31:35Z_
+_As of 2026-09-22T20:35:08Z_
 
 ## Latest
 
@@ -3939,7 +3939,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.9M | $370.56 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 38.7M | $374.86 _(notional, rate-card)_ | 27% of 143.0M (ok) |
 | Codex | 17.8M _(+382.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34723358 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -3949,7 +3949,7 @@ _Fleet token-unlock pace: 34723358 tokens/day lower bound; incomplete where a su
 (none)
 
 ### doin (1)
-- [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — ---
+- [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — Deliberate overrun decomposition for run-the-gauntlet-endo-pr1329-20260922
 
 ### tada (8696)
 - [`canary-probe-endolin-garden2-5bcdff64-a47b3c2d6ece`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-a47b3c2d6ece.md) — rolling-deploy canary probe — round trip OK
