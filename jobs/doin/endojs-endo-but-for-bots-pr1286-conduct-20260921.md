@@ -12,3 +12,13 @@ Conduct https://github.com/endojs/endo-but-for-bots/pull/1286 per trusted mainta
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=378,778 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T00:04:22Z
