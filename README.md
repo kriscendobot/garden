@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T20:25:30Z_
+_As of 2026-09-22T20:31:35Z_
 
 ## Latest
 
@@ -2233,10 +2233,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > scripts/jobs/issue-inbox-watcher.sh:386 calls cursor-get.sh in a bare, unguarded command-substitution pipeline under `set -euo pipefail`. cursor-get.sh's sync_clone can `die` (or exit GARDEN_OFFLINE_RC) on a journal-fetch failure, and since the call isn't wrapped in an `if cmd; then rc=0; else rc=$?; fi` guard, `set -e` propagates that nonzero rc straight into a fatal exit of the whole watcher — the exact hazard just fixed twice today in scripts/jobs/triager.sh (commits 73c2432e89 and b320648e47) for its own cursor-get.sh call sites, but never ported to issue-inbox-watcher.sh. A cursor read is inherently best-effort (a stale/unreadable cursor just re-polls next tick, never loses data), so this should fail open exactly like triager.sh now does: replace the bare assignment at line 386 with the guarded form used in triager.sh — `if cursor_out="$("$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi; if [ "$rc" -ne 0 ]; then log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"; exit 0; fi; last_seen="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"`. Add/update the unit test covering this watcher's cursor-read path to exercise a failing cursor-get.sh and assert a clean exit 0 rather than a fatal.
 
-- `watchdog-handler-budget-overrun-run-the-gauntlet-endo-pr1329-20260922` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-run-the-gauntlet-endo-pr1329-20260922.md)
-
-> gardener job 'run-the-gauntlet-endo-pr1329-20260922' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `20260920T073923Z-21e5ce` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T073923Z-21e5ce.md)
 
 > kind: error
@@ -3955,13 +3951,13 @@ _Fleet token-unlock pace: 34723358 tokens/day lower bound; incomplete where a su
 ### doin (1)
 - [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — ---
 
-### tada (8695)
+### tada (8696)
+- [`canary-probe-endolin-garden2-5bcdff64-a47b3c2d6ece`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-a47b3c2d6ece.md) — rolling-deploy canary probe — round trip OK
 - [`improve-followup-handoff-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-followup-handoff-detection.md) — Cost
 - [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-193551.md) — Cost
 - [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/shepherd-endo-pr1329-registry-migration.md) — Cost
 - [`claude-on-minion-town-completion-press-20260922-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-163506.md) — Completion report — completion-press tick 20260922-163506 (Claude-on-minion.t...
-- [`claude-on-minion-town-press-20260922-162051`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-162051.md) — Cost
-- … and 8690 more
+- … and 8691 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
