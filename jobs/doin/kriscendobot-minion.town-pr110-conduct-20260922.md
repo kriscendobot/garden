@@ -14,3 +14,13 @@ kriskowal APPROVED PR #110 with the directive "@kriscendobot conduct" (review
 open, non-draft, mergeable (mergeable_state=clean), and all CI check-runs are
 green (Claude harness amd64/arm64 + test). Finalize and merge it. You own the
 merge method. Bot repo (kriscendobot fork) — merging is authorized.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T14:08:00Z
