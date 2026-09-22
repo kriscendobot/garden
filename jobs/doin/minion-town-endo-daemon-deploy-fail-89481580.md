@@ -6,3 +6,13 @@ dispatch: automatic
 Repo: kriscendobot/minion.town. PR #110 (chore(endo): land daemon pin 89481580 on main) merged at commit e3f38e64b457c61acececdc3bd361cec9959a8de, bumping the pinned endo-but-for-bots@llm daemon commit to 89481580a86c (carries EndoGuest.invite/accept, endojs/endo-but-for-bots#1310). PR-time CI (typecheck+vitest, Claude harness amd64/arm64) was green.
 The post-merge "deploy (continuous deployment)" workflow then failed: GH Actions run 35738152776, job "deploy", step "Deploy Endo daemon (daemon-guest substrate)". Log shows the SSM deploy script (deploy/aws/scripts/deploy-endo-daemon.sh) successfully cloned/compiled/uploaded the new endo build and issued `systemctl restart endo-daemon` on the target host, but the follow-up `systemctl is-active endo-daemon` check reported "activating" (exit status 3) instead of "active", so the SSM command failed ("failed to run commands: exit status 3"). Because this step failed, all downstream deploy steps in the same job (Deploy app minion-mcp, Deploy endo-gateway, Deploy login gate, Ensure Caddy DNS module, Deploy Caddy config, Deploy landing page) were skipped — the whole stack is stuck mid-deploy.
 Investigate why endo-daemon did not reach "active" after being restarted onto 89481580a86c (check `systemctl --no-pager -l status endo-daemon` / journal on the host via SSM — is it crash-looping, slow to start, or blocked on a state/schema migration given the additively-grown exo method surface EndoGuest.invite/accept?), fix the root cause, and re-run the deploy (workflow dispatch or push a follow-up commit as needed) until the daemon is active and the full deploy job goes green again. This is a live production incident on minion.town, not a code-review item.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T14:46:12Z
