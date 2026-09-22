@@ -44,6 +44,8 @@ Procedure:
    review of a daemon persistence change is expected); a follow-on `conduct` job
    carries it once approved.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
