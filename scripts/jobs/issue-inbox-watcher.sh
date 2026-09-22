@@ -124,6 +124,19 @@ export GARDEN_TAG="issue-inbox"
 # All three knobs are overridable (tests keep the defaults; their stubs are instant).
 : "${GARDEN_ISSUE_TICK_BUDGET_SECS:=480}"     # overall tick budget; MUST stay < the unit's TimeoutStartSec (900s)
 : "${GARDEN_ISSUE_STAGE_TIMEOUT_SECS:=90}"    # per blocking external call
+# CURSOR stages (cursor-get.sh / cursor-set.sh) need their OWN, LARGER bound. Both hold
+# the host-shared cursor-IO lock with an INTERNAL bounded wait (GARDEN_CURSOR_LOCK_WAIT,
+# default 300s in common.sh) before giving up and returning their SAFE temporary-
+# unavailable result (GARDEN_OFFLINE_RC=75, which the call sites treat as a QUIET skip).
+# The blanket 90s stage timeout is SHORTER than that lock wait, so a wedged peer holding
+# the lock got the cursor helper SIGTERM/SIGKILLed at 90s with rc=124 BEFORE its own
+# flock wait could expire — an unclassified failure the read side logs as a NOISY WARN
+# ("cursor read failed … (rc=124)") every tick, and that never lets the helper reach its
+# clean rc=75 skip. Bound the cursor stages at the lock wait PLUS grace so the helper
+# always returns its OWN verdict (rc=75 on a wedged lock, rc=0 on success) instead of
+# being guillotined mid-wait. Kept < the tick budget so even a maxed-out cursor wait
+# still leaves room to exit cleanly before the 900s systemd SIGKILL.
+: "${GARDEN_ISSUE_CURSOR_TIMEOUT_SECS:=$(( ${GARDEN_CURSOR_LOCK_WAIT:-300} + 60 ))}"
 : "${GARDEN_ISSUE_KILL_AFTER:=10s}"           # SIGKILL grace after the SIGTERM (source + per-stage)
 TICK_START="$(date +%s 2>/dev/null || echo 0)"
 TICK_DEADLINE=$(( TICK_START + GARDEN_ISSUE_TICK_BUDGET_SECS ))
@@ -137,8 +150,13 @@ tick_over_budget() { [ "$(date +%s 2>/dev/null || echo 0)" -ge "$TICK_DEADLINE" 
 # <cmd> directly. A stage that overruns exits 124 (SIGTERM) or 137 (SIGKILL escalation
 # after --kill-after) — treated by each call site exactly like a lost dispatch.
 declare -a STAGE_TIMEOUT=()
+# CURSOR_STAGE_TIMEOUT: the same prefix, but sized for the cursor helpers' internal
+# bounded lock wait (see GARDEN_ISSUE_CURSOR_TIMEOUT_SECS above) so a wedged cursor-IO
+# lock resolves to the helper's own rc=75 skip, not a rc=124 guillotine.
+declare -a CURSOR_STAGE_TIMEOUT=()
 if command -v timeout >/dev/null 2>&1; then
   STAGE_TIMEOUT=(timeout --signal=TERM --kill-after="$GARDEN_ISSUE_KILL_AFTER" "${GARDEN_ISSUE_STAGE_TIMEOUT_SECS}s")
+  CURSOR_STAGE_TIMEOUT=(timeout --signal=TERM --kill-after="$GARDEN_ISSUE_KILL_AFTER" "${GARDEN_ISSUE_CURSOR_TIMEOUT_SECS}s")
 fi
 
 # Emit the deadline diagnostic once the budget is spent: a WARN naming progress, plus
@@ -442,9 +460,15 @@ CURSOR_KEY="issues/$slug"
 # re-polls next tick, never loses data), so capture the rc and WARN-and-skip cleanly
 # on ANY nonzero rc — mirroring triager.sh (b320648e47).
 # The temporary-unavailable rc (GARDEN_OFFLINE_RC) is cursor-get's shared journal-outage
-# latch: skip QUIETLY (the host already owns one cooldown warning). Any OTHER nonzero rc
-# is a loud structural/authentication failure and still WARNs.
-if cursor_out="$("${STAGE_TIMEOUT[@]}" "$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
+# latch AND its wedged-cursor-IO-lock skip: skip QUIETLY (the host already owns one
+# cooldown warning, or the helper already logged the busy lock). Any OTHER nonzero rc is
+# a loud structural/authentication failure and still WARNs. Wrap in CURSOR_STAGE_TIMEOUT
+# (not the blanket STAGE_TIMEOUT): cursor-get's own bounded cursor-IO-lock wait
+# (GARDEN_CURSOR_LOCK_WAIT) can exceed the 90s blanket bound, and a blanket kill at 90s
+# returns rc=124 — the LOUD path — every tick a peer holds the lock, instead of letting
+# the helper reach its clean rc=75. The larger cursor bound lets the helper return its
+# OWN verdict; see GARDEN_ISSUE_CURSOR_TIMEOUT_SECS above.
+if cursor_out="$("${CURSOR_STAGE_TIMEOUT[@]}" "$HERE/cursor-get.sh" "$CURSOR_KEY")"; then rc=0; else rc=$?; fi
 if [ "$rc" -ne 0 ]; then
   [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
     || log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"
@@ -757,7 +781,7 @@ if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
   # spine, so nothing is lost — so capture the rc and WARN-and-continue cleanly
   # on ANY nonzero rc, mirroring the read side (df83fca235).
   if printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
-    | "${STAGE_TIMEOUT[@]}" "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+    | "${CURSOR_STAGE_TIMEOUT[@]}" "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
     log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
     exit 0

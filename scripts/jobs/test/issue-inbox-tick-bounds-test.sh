@@ -22,6 +22,15 @@
 #   C. HEALTHY PATH UNAFFECTED: normal budget + instant stubs → the issue is posted
 #      and the cursor advances (the bounding wrapper is transparent when nothing is
 #      slow).
+#   D. CURSOR TIMEOUT ALIGNMENT: cursor-get.sh holds the host-shared cursor-IO lock
+#      with its OWN bounded wait (GARDEN_CURSOR_LOCK_WAIT). The blanket per-stage
+#      timeout used to be SHORTER, so a wedged peer got the helper SIGKILLed at the
+#      stage limit with rc=124 (a NOISY "cursor read failed … rc=124" WARN each tick)
+#      before it could return its clean rc=75 temporary-unavailable skip. With the
+#      cursor stages bounded by the LARGER GARDEN_ISSUE_CURSOR_TIMEOUT_SECS, a wedged
+#      lock now resolves to the helper's own quiet rc=75 skip. The test FORCES the
+#      wedge (holds the lock) with a short lock wait + a blanket bound below it and a
+#      cursor bound above it, and asserts the quiet-skip path, not the rc=124 WARN.
 #
 # Hermetic: throwaway bare journal2, deterministic stubs, no GitHub/claude/network.
 # Usage: issue-inbox-tick-bounds-test.sh
@@ -189,6 +198,63 @@ set -e
 [ "$rc_c" -eq 0 ] && ok "healthy tick exited 0" || bad "tick exited $rc_c"
 grep -q "POST issue-$SLUG-42" "$PL_C" && ok "the issue was posted (wrapper is transparent)" || bad "issue not posted (post=$(cat "$PL_C"); err=$(tail -3 "$ERR_C"))"
 [ "$(cursor_seen "$TR/state-c" "$BARE_C")" = 2026-09-21T12:00:00Z ] && ok "cursor advanced past the dispatched issue" || bad "cursor not advanced ($(cursor_seen "$TR/state-c" "$BARE_C"))"
+
+# ============================================================================
+hr; echo "D — cursor stage timeout ALIGNS with the helper's own bounded lock wait"; hr
+# Live failure: cursor-get.sh (and cursor-set.sh) hold the host-shared cursor-IO lock
+# with an INTERNAL bounded wait (GARDEN_CURSOR_LOCK_WAIT). A wedged peer holding the
+# lock made the helper block for that wait — but the BLANKET per-stage timeout, being
+# SHORTER, SIGKILLed the helper first with rc=124, which the read side logs as a NOISY
+# "cursor read failed … (rc=124)" WARN every tick, and the helper never reached its
+# clean rc=75 temporary-unavailable skip. The fix wraps the cursor stages in a LARGER
+# CURSOR_STAGE_TIMEOUT (GARDEN_ISSUE_CURSOR_TIMEOUT_SECS ≥ lock wait + grace).
+#
+# Here we FORCE the wedge: the test itself holds the cursor-IO lock, sets a SHORT lock
+# wait (3s) and — critically — a blanket stage timeout (1s) SHORTER than that wait (the
+# old guillotine) alongside a cursor timeout (10s) LONGER than it. Post-fix the helper
+# rides its OWN 3s lock wait to a clean rc=75 quiet skip; pre-fix the blanket 1s bound
+# would kill it at 1s → rc=124 → the loud WARN. Assertions key off exactly that split.
+BARE_D="$TR/d.git"; seed_bare "$BARE_D"
+FIX_D="$TR/fix-d.tsv"; PL_D="$TR/post-d.log"; ML_D="$TR/msg-d.log"; ERR_D="$TR/err-d.log"
+: >"$PL_D"; : >"$ML_D"
+row issue 2026-09-21T13:00:00Z 903 43 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/43 'an issue behind a wedged cursor lock' > "$FIX_D"
+# Hold the host-shared cursor-IO lock the way a wedged peer would: flock the same file
+# cursor_io_lock opens ($GARDEN_STATE/cursors/journal.cursor-io.lock).
+CDIR_D="$TR/state-d/cursors/journal"; LOCKF_D="${CDIR_D}.cursor-io.lock"
+mkdir -p "$(dirname "$LOCKF_D")"; : >"$LOCKF_D"
+flock -x "$LOCKF_D" -c 'sleep 20' &
+HOLDER_D=$!
+# Wait until the holder actually owns the lock (a non-blocking probe fails while held).
+for _ in 1 2 3 4 5 6 7 8 9 10; do
+  if flock -n "$LOCKF_D" true 2>/dev/null; then sleep 0.2; else break; fi
+done
+t0=$(date +%s)
+set +e
+env GARDEN_STATE="$TR/state-d" JOURNAL_REMOTE="$BARE_D" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN=cursorhost GARDEN_GARDEN_REPO="$REPO" GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_CURSOR_LOCK_WAIT=3 \
+    GARDEN_ISSUE_STAGE_TIMEOUT_SECS=1 GARDEN_ISSUE_CURSOR_TIMEOUT_SECS=10 GARDEN_ISSUE_KILL_AFTER=2s \
+    IIW_FIXTURE="$FIX_D" IIW_POSTLOG="$PL_D" IIW_MSGLOG="$ML_D" IIW_REACTLOG="$TR/react-d.log" \
+    GARDEN_ISSUE_SOURCE="$SRCSTUB" GARDEN_ISSUE_REACTJI="$REACTSTUB" \
+    GARDEN_ISSUE_POST="$POSTLAND" GARDEN_ISSUE_MSG="$MSGSTUB" \
+    "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$ERR_D"
+rc_d=$?
+set -e
+elapsed_d=$(( $(date +%s) - t0 ))
+kill "$HOLDER_D" 2>/dev/null || true; wait "$HOLDER_D" 2>/dev/null || true
+[ "$rc_d" -eq 0 ] && ok "tick exited 0 (quiet skip, not a crash)" || bad "tick exited $rc_d (err=$(tail -3 "$ERR_D"))"
+grep -qi 'cursor-IO lock .* busy' "$ERR_D" \
+  && ok "cursor-get reached its OWN bounded-wait skip (logged the busy lock)" \
+  || bad "cursor-get did NOT reach its bounded wait — guillotined early? (err=$(tail -3 "$ERR_D"))"
+grep -qi 'cursor read failed .*rc=124' "$ERR_D" \
+  && bad "the blanket bound guillotined cursor-get (rc=124 WARN) — timeout NOT aligned" \
+  || ok "no rc=124 guillotine WARN — the cursor stage outlives the helper's lock wait"
+[ -z "$(cursor_seen "$TR/state-d" "$BARE_D")" ] \
+  && ok "cursor NOT advanced (the tick skipped cleanly, re-polls next tick)" \
+  || bad "cursor advanced despite the wedged lock ($(cursor_seen "$TR/state-d" "$BARE_D"))"
+[ ! -s "$PL_D" ] && ok "nothing dispatched behind the wedged cursor lock" || bad "dispatched despite the skip (post=$(cat "$PL_D"))"
 
 # ============================================================================
 report_result
