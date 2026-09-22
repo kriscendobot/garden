@@ -18,3 +18,13 @@ routed/abstracted per the library's conventions, topic page updates, the
 integrity gates before landing, and the maintainer digest at the end of
 the cycle per the standing "every scholar ingest should surface a
 high-level report" norm.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T23:57:56Z
